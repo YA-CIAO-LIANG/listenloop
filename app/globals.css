@@ -1,26 +1,172 @@
 @import "tailwindcss";
 
+/*
+ * ListenLoop design tokens. Source of truth: docs/design-system.md.
+ * Components must use these tokens only; never hard-code colors.
+ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --ll-ground: #fafaf8;
+  --ll-surface: #ffffff;
+  --ll-band: #f2f1ed;
+  --ll-ink: #141414;
+  --ll-ink-muted: #5c5c5c;
+  --ll-accent: #e8590c;
+  --ll-accent-ink: #b8440a;
+  --ll-line: #e5e3de;
+  --ll-success: #2f7d4f;
+  --ll-error: #c2362b;
+  --ll-focus: #e8590c;
+
+  /* Font stacks: Latin first for English UI and practice content. */
+  --ll-font-display:
+    var(--font-eb-garamond), var(--font-noto-serif-tc), Georgia, serif;
+  --ll-font-reading:
+    var(--font-instrument-sans), var(--font-noto-sans-tc), system-ui, sans-serif;
+
+  /* Motion */
+  --ll-duration-press: 120ms;
+  --ll-duration-transition: 160ms;
+  --ll-duration-progress: 300ms;
+  --ll-duration-ripple: 400ms;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Chinese UI leads with Noto so CJK punctuation and digits stay consistent. */
+:lang(zh-Hant) {
+  --ll-font-display:
+    var(--font-noto-serif-tc), var(--font-eb-garamond), Georgia, serif;
+  --ll-font-reading:
+    var(--font-noto-sans-tc), var(--font-instrument-sans), system-ui, sans-serif;
 }
 
+/* English content inside a Chinese page (lang="en") switches back to Latin first. */
+:lang(en) {
+  --ll-font-display:
+    var(--font-eb-garamond), var(--font-noto-serif-tc), Georgia, serif;
+  --ll-font-reading:
+    var(--font-instrument-sans), var(--font-noto-sans-tc), system-ui, sans-serif;
+}
+
+/* Dark tokens: follow the system unless the user explicitly chose light. */
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --ll-ground: #121212;
+    --ll-surface: #1c1c1c;
+    --ll-band: #181818;
+    --ll-ink: #f2f2f0;
+    --ll-ink-muted: #a3a3a0;
+    --ll-accent: #ff7a33;
+    --ll-accent-ink: #ff8f52;
+    --ll-line: #2e2e2e;
+    --ll-success: #5cc28a;
+    --ll-error: #ff6b5e;
+    --ll-focus: #ff7a33;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Explicit dark choice (set by the theme script in app/layout.tsx). */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ll-ground: #121212;
+  --ll-surface: #1c1c1c;
+  --ll-band: #181818;
+  --ll-ink: #f2f2f0;
+  --ll-ink-muted: #a3a3a0;
+  --ll-accent: #ff7a33;
+  --ll-accent-ink: #ff8f52;
+  --ll-line: #2e2e2e;
+  --ll-success: #5cc28a;
+  --ll-error: #ff6b5e;
+  --ll-focus: #ff7a33;
+}
+
+/*
+ * Tailwind theme. Default palettes, font families, and type sizes are reset
+ * so only design-system utilities exist (e.g. `bg-red-500` will not compile).
+ * Spacing keeps Tailwind's 4px base; use only the design scale:
+ * 1, 2, 3, 4, 6, 8, 12, 16, 24 (= 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96 px).
+ */
+@theme inline {
+  --color-*: initial;
+  --color-ground: var(--ll-ground);
+  --color-surface: var(--ll-surface);
+  --color-band: var(--ll-band);
+  --color-ink: var(--ll-ink);
+  --color-ink-muted: var(--ll-ink-muted);
+  --color-accent: var(--ll-accent);
+  --color-accent-ink: var(--ll-accent-ink);
+  --color-line: var(--ll-line);
+  --color-success: var(--ll-success);
+  --color-error: var(--ll-error);
+  --color-focus: var(--ll-focus);
+
+  --font-*: initial;
+  --font-display: var(--ll-font-display);
+  --font-reading: var(--ll-font-reading);
+
+  --text-*: initial;
+  --text-hero: clamp(2.75rem, 8vw, 6rem);
+  --text-hero--line-height: 1.05;
+  --text-hero--letter-spacing: -0.02em;
+  --text-h1: 2.5rem;
+  --text-h1--line-height: 1.15;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 1.25;
+  --text-h3: 1.25rem;
+  --text-h3--line-height: 1.35;
+  --text-sentence: clamp(1.125rem, 2.5vw, 1.25rem);
+  --text-sentence--line-height: 1.6;
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+  --text-supporting: 0.9375rem;
+  --text-supporting--line-height: 1.6;
+  --text-metadata: 0.75rem;
+  --text-metadata--line-height: 1.4;
+
+  --radius-*: initial;
+  --radius-base: 4px;
+
+  --container-reading: 65ch;
+  --container-content: 1080px;
+
+  /* Two-column sections stack below 760px. */
+  --breakpoint-split: 47.5rem;
+}
+
+@layer base {
+  body {
+    background-color: var(--ll-ground);
+    color: var(--ll-ink);
+    font-family: var(--ll-font-reading);
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  /*
+   * Re-resolve the font stack on elements that change language. Inside
+   * display text, put `font-display` on the lang element itself.
+   */
+  [lang] {
+    font-family: var(--ll-font-reading);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ll-focus);
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
