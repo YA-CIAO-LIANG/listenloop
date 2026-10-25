@@ -4,6 +4,8 @@ A 7-day loop English listening practice app: dictation on Day 1, shadowing on Da
 
 Built with Next.js (App Router), TypeScript, and Tailwind CSS.
 
+**Live:** https://listenloop-three.vercel.app
+
 ## Getting started
 
 Requires Node.js 24 or later.
