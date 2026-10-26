@@ -23,5 +23,67 @@
       "zhHant": "中文",
       "en": "EN"
     }
+  },
+  "practice": {
+    "progress": {
+      "today": "Today",
+      "count": "{value} / {max}"
+    },
+    "score": {
+      "accuracy": "Accuracy",
+      "passed": "Passed"
+    },
+    "sentence": {
+      "number": "Sentence {n}",
+      "hidden": "Not answered yet",
+      "status": {
+        "pending": "Not started",
+        "current": "In progress",
+        "done": "Done"
+      }
+    },
+    "day": {
+      "tracker": "7-day progress",
+      "task": {
+        "dictation": "Dictation",
+        "shadowing": "Shadowing",
+        "redictation": "Re-dictation"
+      },
+      "status": {
+        "locked": "Locked",
+        "available": "Available",
+        "today": "Today",
+        "done": "Done"
+      },
+      "cellLabel": "Day {day}, {task}, {status}"
+    }
+  },
+  "styleguide": {
+    "title": "Design system",
+    "intro": "Colors, type, and core components for ListenLoop. This page is not linked from navigation.",
+    "sections": {
+      "colors": "Colors",
+      "typography": "Type",
+      "buttons": "Buttons",
+      "components": "Core components",
+      "toggles": "Toggles"
+    },
+    "specimen": {
+      "display": "Hear every word",
+      "body": "A seven-day loop: dictation on Day 1, shadowing on Days 2–6, and a re-dictation on Day 7 to see your progress."
+    },
+    "buttons": {
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "ghost": "Ghost",
+      "disabled": "Disabled",
+      "sample": "Start practice"
+    },
+    "states": {
+      "segmented": "Segmented (30 or fewer)",
+      "continuous": "Continuous (over 30)",
+      "belowPass": "Below pass",
+      "pass": "Pass"
+    }
   }
 }
