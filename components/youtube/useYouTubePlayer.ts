@@ -8,8 +8,6 @@ export type PlayerStatus = "loading" | "ready" | "error";
 /** Maps to a friendly message in messages/<locale>.json → player. */
 export type PlayerError = "unavailable" | "embedBlocked" | "loadFailed";
 
-export type PlaybackRate = 1 | 0.75 | 0.5;
-
 export type YouTubePlayerApi = {
   /** Attach to an empty element; the player iframe is created inside it. */
   containerRef: React.RefObject<HTMLDivElement | null>;
@@ -17,7 +15,7 @@ export type YouTubePlayerApi = {
   error: PlayerError | null;
   isPlaying: boolean;
   /** Plays start→end (seconds), then pauses automatically. */
-  playSegment: (start: number, end: number, rate?: PlaybackRate) => void;
+  playSegment: (start: number, end: number) => void;
   stop: () => void;
 };
 
@@ -95,30 +93,26 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
     playerRef.current?.pauseVideo();
   }, []);
 
-  const playSegment = useCallback(
-    (start: number, end: number, rate: PlaybackRate = 1) => {
-      const player = playerRef.current;
-      if (!player) return;
-      window.clearInterval(pollRef.current);
+  const playSegment = useCallback((start: number, end: number) => {
+    const player = playerRef.current;
+    if (!player) return;
+    window.clearInterval(pollRef.current);
 
-      player.setPlaybackRate(rate);
-      player.seekTo(start, true);
-      player.playVideo();
+    player.seekTo(start, true);
+    player.playVideo();
 
-      let reachedStart = false;
-      pollRef.current = window.setInterval(() => {
-        const time = player.getCurrentTime();
-        // Right after seeking, YouTube can still report the old position;
-        // only stop once playback is actually inside this segment.
-        if (time >= start - 0.25 && time < end) reachedStart = true;
-        if (reachedStart && time >= end) {
-          player.pauseVideo();
-          window.clearInterval(pollRef.current);
-        }
-      }, POLL_MS);
-    },
-    [],
-  );
+    let reachedStart = false;
+    pollRef.current = window.setInterval(() => {
+      const time = player.getCurrentTime();
+      // Right after seeking, YouTube can still report the old position;
+      // only stop once playback is actually inside this segment.
+      if (time >= start - 0.25 && time < end) reachedStart = true;
+      if (reachedStart && time >= end) {
+        player.pauseVideo();
+        window.clearInterval(pollRef.current);
+      }
+    }, POLL_MS);
+  }, []);
 
   return { containerRef, status, error, isPlaying, playSegment, stop };
 }

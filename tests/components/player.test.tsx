@@ -32,9 +32,6 @@ class FakePlayer {
   pauseVideo() {
     this.calls.push("pause");
   }
-  setPlaybackRate(rate: number) {
-    this.calls.push(`rate:${rate}`);
-  }
   getCurrentTime() {
     return this.time;
   }
@@ -87,12 +84,12 @@ describe("useYouTubePlayer", () => {
     });
   });
 
-  it("plays a segment at the chosen speed and pauses at its end", async () => {
+  it("plays a segment and pauses at its end", async () => {
     const player = await renderReadyPlayer();
     vi.useFakeTimers();
 
-    act(() => api.playSegment(107.25, 110.5, 0.75));
-    expect(player.calls).toEqual(["rate:0.75", "seekTo:107.25", "play"]);
+    act(() => api.playSegment(107.25, 110.5));
+    expect(player.calls).toEqual(["seekTo:107.25", "play"]);
 
     player.time = 109;
     vi.advanceTimersByTime(100);
@@ -174,20 +171,21 @@ describe("SentencePlayer", () => {
     ...overrides,
   });
 
-  it("plays the padded sentence at the selected speed", async () => {
+  it("plays the padded sentence and offers a replay", async () => {
     const player = fakePlayer();
     // Sentence 3 is 118–121.45; neighbors end at 115.8 and start at 121.75.
     renderWithIntl(
       <SentencePlayer player={player} sentences={sentences} index={2} />,
     );
     expect(screen.getByText("第 3 句，共 12 句")).toBeDefined();
+    // Speed switching was removed from the product.
+    expect(screen.queryByRole("radio")).toBeNull();
 
     await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(117.85, 121.7, 1);
+    expect(player.playSegment).toHaveBeenLastCalledWith(117.85, 121.7);
 
-    await userEvent.click(screen.getByRole("radio", { name: "0.5×" }));
     await userEvent.click(screen.getByRole("button", { name: "再聽一次" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(117.85, 121.7, 0.5);
+    expect(player.playSegment).toHaveBeenCalledTimes(2);
   });
 
   it("keeps the padding inside the neighboring sentences", async () => {
@@ -197,7 +195,7 @@ describe("SentencePlayer", () => {
       <SentencePlayer player={player} sentences={sentences} index={3} />,
     );
     await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(121.6, 125.05, 1);
+    expect(player.playSegment).toHaveBeenLastCalledWith(121.6, 125.05);
   });
 
   it("accepts custom padding", async () => {
@@ -211,7 +209,7 @@ describe("SentencePlayer", () => {
       />,
     );
     await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(118, 121.45, 1);
+    expect(player.playSegment).toHaveBeenLastCalledWith(118, 121.45);
   });
 
   it("is disabled until the player is ready", () => {

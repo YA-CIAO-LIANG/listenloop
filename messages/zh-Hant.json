@@ -124,12 +124,6 @@
     "play": "播放這句",
     "replay": "再聽一次",
     "playing": "播放中…",
-    "speed": "播放速度",
-    "speeds": {
-      "normal": "1×",
-      "slow": "0.75×",
-      "slower": "0.5×"
-    },
     "position": "第 {n} 句，共 {total} 句"
   },
   "timing": {
