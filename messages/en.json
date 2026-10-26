@@ -8,8 +8,7 @@
     "description": "A 7-day English listening loop. Hear every word."
   },
   "home": {
-    "tagline": "Seven days. One video. Hear every word.",
-    "comingSoon": "Coming soon"
+    "tagline": "Seven days. One video. Hear every word."
   },
   "settings": {
     "theme": {
@@ -85,5 +84,67 @@
       "belowPass": "Below pass",
       "pass": "Pass"
     }
+  },
+  "library": {
+    "title": "Library",
+    "intro": "Pick a video and start a seven-day loop.",
+    "sentences": "{count, plural, one {# sentence} other {# sentences}}"
+  },
+  "video": {
+    "back": "Library",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "categories": {
+      "daily": "Daily life",
+      "campus": "Campus",
+      "business": "Work",
+      "interview": "Interview",
+      "story": "Story"
+    },
+    "excerpt": "Practice excerpt: {count, plural, one {# sentence} other {# sentences}}",
+    "practiceSoon": "Seven-day practice is coming soon.",
+    "attribution": {
+      "heading": "Video credit",
+      "license": "License",
+      "licenseTerms": "License terms",
+      "transcript": "English subtitles",
+      "changes": "Changes"
+    }
+  },
+  "player": {
+    "loading": "Loading video…",
+    "errors": {
+      "unavailable": "This video can’t be played right now. Please try again later.",
+      "embedBlocked": "The video owner doesn’t allow playback on other sites.",
+      "loadFailed": "Couldn’t load the YouTube player. Check your connection or pause your ad blocker, then reload."
+    },
+    "play": "Play sentence",
+    "replay": "Play again",
+    "playing": "Playing…",
+    "speed": "Speed",
+    "speeds": {
+      "normal": "1×",
+      "slow": "0.75×",
+      "slower": "0.5×"
+    },
+    "position": "Sentence {n} of {total}"
+  },
+  "timing": {
+    "title": "Timing check",
+    "intro": "Play each sentence and nudge its start and end by 0.1 s. When it sounds right, copy the JSON and send it to the developer.",
+    "start": "Start",
+    "end": "End",
+    "earlier": "0.1 s earlier",
+    "later": "0.1 s later",
+    "play": "Play",
+    "copy": "Copy JSON",
+    "copied": "Copied!",
+    "copyFailed": "Couldn’t copy automatically. Select the text below instead.",
+    "reset": "Reset",
+    "problems": "Timing problems:",
+    "ok": "Timing looks valid."
   }
 }
