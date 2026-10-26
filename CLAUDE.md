@@ -48,7 +48,9 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 - Next.js（App Router）+ TypeScript（strict）+ Tailwind CSS
 - 多語系：next-intl
-- YouTube IFrame Player API，依 start/end 時間戳逐句播放。不下載音檔。
+- YouTube IFrame Player API，依 start/end 時間戳逐句播放。不下載音檔。不提供速度切換。
+  - 必須遵守 YouTube 條款：播放器至少 200×200 px、不可在播放器上加遮罩或任何覆蓋元素、不可隱藏畫面只播聲音、不可使用 API 文件沒有寫的功能（例如 `unloadModule`）。
+  - 字幕：官方沒有可強制關閉的參數，字幕依使用者自己的偏好顯示。聽寫與跟讀頁面要提示使用者點播放器的 CC 按鈕關閉字幕（2026-10-26 決定，方案 A）。
 - 跟讀：Web Speech API（en-US），建議 Chrome。
 - 進度：MVP 用 localStorage，透過 `lib/storage` 抽象層存取，未來可換成 Supabase。
 - PDF：列印專用 CSS ＋瀏覽器列印。

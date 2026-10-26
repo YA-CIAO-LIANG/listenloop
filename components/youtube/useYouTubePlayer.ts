@@ -56,7 +56,9 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
           playerVars: {
             playsinline: 1,
             rel: 0,
-            // Captions off by default: they would reveal dictation answers.
+            // Never force captions on. YouTube offers no documented way to
+            // force them off: they follow the viewer's own preference, so
+            // practice pages ask the user to turn CC off themselves.
             cc_load_policy: 0,
             iv_load_policy: 3,
           },
