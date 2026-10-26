@@ -16,26 +16,62 @@ describe("scoreDictation", () => {
     expect(scoreDictation("I do not know.", "I don't know").accuracy).toBe(1);
   });
 
-  it("scores matched words / reference words", () => {
-    // 6 of 7 reference words right ("move" ≠ "moved").
+  it("scores correct / max(reference words, answer words)", () => {
+    // 6 of 7 right ("move" ≠ "moved"); same length, so 6/7.
     const result = scoreDictation(
       "We moved to the city last year.",
       "We move to the city last year",
     );
-    expect(result.correct).toBe(6);
-    expect(result.total).toBe(7);
+    expect(result).toMatchObject({
+      correct: 6,
+      referenceWords: 7,
+      answerWords: 7,
+      total: 7,
+    });
     expect(result.accuracy).toBeCloseTo(6 / 7);
   });
 
-  it("doesn't reward extra words", () => {
-    const result = scoreDictation("Go home.", "go to home now");
-    expect(result).toMatchObject({ correct: 2, total: 2, accuracy: 1 });
-    expect(result.ops.filter((op) => op.type === "insert")).toHaveLength(2);
+  it("still gives 3/4 for 'i really like tea' vs 'i like green tea'", () => {
+    const result = scoreDictation("I like green tea.", "i really like tea");
+    expect(result).toMatchObject({ correct: 3, total: 4, accuracy: 3 / 4 });
   });
 
-  it("gives 0 for an empty answer", () => {
-    expect(scoreDictation("Go home.", "   ").accuracy).toBe(0);
+  it("divides by the reference length when the answer is shorter", () => {
+    const result = scoreDictation(
+      "We moved to the city last year.",
+      "we moved",
+    );
+    expect(result).toMatchObject({ correct: 2, total: 7 });
   });
+
+  it("penalizes extra words", () => {
+    // 2 correct, but 4 words typed → 2/4.
+    const result = scoreDictation("Go home.", "go to home now");
+    expect(result).toMatchObject({ correct: 2, total: 4, accuracy: 0.5 });
+  });
+
+  it("drops sharply when the answer is padded with common words", () => {
+    const reference = "We moved to the city last year.";
+    // Every reference word appears in order, buried in filler.
+    const padded =
+      "we the a moved to of the and city is last it year in on you that";
+    const result = scoreDictation(reference, padded);
+    expect(result.correct).toBe(7); // would have been 100% before
+    expect(result.accuracy).toBeCloseTo(7 / 17);
+    expect(result.accuracy).toBeLessThan(0.5);
+
+    // A long spray of common words can't reach the 80% pass mark either.
+    const spray = Array.from({ length: 5 }, () => padded).join(" ");
+    expect(scoreDictation(reference, spray).accuracy).toBeLessThan(0.1);
+  });
+
+  it.each(["", "   ", "...!?"])(
+    "gives 0 for an empty answer (%j)",
+    (answer) => {
+      const result = scoreDictation("Go home.", answer);
+      expect(result).toMatchObject({ correct: 0, answerWords: 0, accuracy: 0 });
+    },
+  );
 });
 
 describe("totalAccuracy", () => {
@@ -47,6 +83,14 @@ describe("totalAccuracy", () => {
         { correct: 15, total: 15 },
       ]),
     ).toBeCloseTo(16 / 18);
+  });
+
+  it("counts padded answers against the day", () => {
+    const day = [
+      scoreDictation("Go home.", "go home"), // 2/2
+      scoreDictation("Go home.", "go to my home now please"), // 2/6
+    ];
+    expect(totalAccuracy(day)).toBeCloseTo(4 / 8);
   });
 
   it("is 1 with nothing to score", () => {
