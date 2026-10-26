@@ -89,22 +89,51 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 翻譯、單字、文法由本機預處理腳本 `/scripts/process-video.ts` 產生一次後存成 JSON，App 執行時不呼叫 AI。
 
-進度：
+進度（localStorage key：`ll-progress:v1:<videoId>`；型別與驗證見 `lib/progress.ts`）：
 
 ```json
 {
   "videoId": "voa-001",
-  "week": 1,
+  "week": 2,
   "startedAt": "2026-10-24",
-  "days": { "1": { "done": true, "score": 0.72, "date": "..." } },
-  "status": "in-progress | passed | repeat"
+  "days": {
+    "1": {
+      "done": true,
+      "score": 0.72,
+      "date": "2026-10-24",
+      "answers": ["we moved to the city", null]
+    },
+    "2": {
+      "done": false,
+      "sentences": [
+        { "done": true, "coverage": 0.9 },
+        { "done": true, "coverage": null }
+      ]
+    }
+  },
+  "status": "in-progress | passed | repeat",
+  "history": [
+    {
+      "week": 1,
+      "startedAt": "2026-10-01",
+      "day1Score": 0.6,
+      "day7Score": 0.75,
+      "passed": false
+    }
+  ]
 }
 ```
 
+- `date`：該天完成的當地日期（使用者裝置時區）。
+- `answers`：聽寫（Day 1、7）每句第一次送出的答案，`null` 表示尚未作答；用於中途續做與 Day 1 / 7 逐句比較。
+- `sentences`：跟讀（Day 2～6）每句狀態；`coverage: null` 表示瀏覽器不支援語音辨識、使用者自行標記完成。
+- `history`：已結束的每一週成績；重來一週時保留。
+
 ## 評分邏輯
 
-- 正規化：小寫、去標點、展開常見縮寫（don't → do not）。
-- 聽寫：逐字對齊（Levenshtein），正確率 = 對到字數 / 原句字數，對錯字以顏色＋底線/刪除線標示。
+- 正規化：小寫、去標點、展開常見縮寫（don't → do not）、0～99 的數字轉成英文單字（5 → five）。所有格與 'd 因有歧義不展開。
+- 對齊：逐字對齊，優先讓對到的字最多（依序寫對的每個字都得分），平手時才選編輯次數最少。
+- 聽寫：正確率 = 對到字數 / 原句字數，對錯字以顏色＋底線/刪除線標示。每句第一次送出即算分，不能重答。一天的正確率以總字數加權（所有句子對到的字數 / 所有句子的字數）。
 - 跟讀：辨識結果涵蓋率 ≥ 70% 視為念完，標示漏念的字。
 
 ## 里程碑
