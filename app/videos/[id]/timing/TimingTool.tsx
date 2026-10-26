@@ -6,6 +6,7 @@ import { Button } from "@/components/Button";
 import { SentenceRow } from "@/components/SentenceRow";
 import { YouTubeFrame } from "@/components/youtube/YouTubeFrame";
 import { useYouTubePlayer } from "@/components/youtube/useYouTubePlayer";
+import { paddedSegment } from "@/lib/player/padding";
 import { validateVideo, type Sentence, type Video } from "@/lib/videos";
 
 const STEP = 0.1;
@@ -42,9 +43,11 @@ export function TimingTool({ video }: { video: Video }) {
     setCopyState("idle");
   }
 
+  // Same padding as practice pages, so what you hear here is what learners hear.
   function play(index: number) {
     setCurrent(index);
-    player.playSegment(sentences[index].start, sentences[index].end);
+    const { start, end } = paddedSegment(sentences, index);
+    player.playSegment(start, end);
   }
 
   async function copy() {
@@ -107,6 +110,12 @@ export function TimingTool({ video }: { video: Video }) {
                   </Button>
                 </span>
               ))}
+              <span className="text-ink-muted tabular-nums">
+                {t("plays", {
+                  start: paddedSegment(sentences, index).start.toFixed(2),
+                  end: paddedSegment(sentences, index).end.toFixed(2),
+                })}
+              </span>
             </div>
           </li>
         ))}

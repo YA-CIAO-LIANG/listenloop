@@ -22,13 +22,14 @@ const exported = () =>
   JSON.parse((screen.getByRole("textbox") as HTMLTextAreaElement).value);
 
 describe("TimingTool", () => {
-  it("plays a sentence with its current times", async () => {
+  it("plays a sentence with padding and shows the played range", async () => {
     renderWithIntl(<TimingTool video={sintel} />);
     const rows = screen.getAllByRole("listitem");
     await userEvent.click(
       within(rows[0]).getByRole("button", { name: "播放" }),
     );
-    expect(playSegment).toHaveBeenLastCalledWith(107.25, 110.5);
+    expect(playSegment).toHaveBeenLastCalledWith(107.1, 110.75);
+    expect(within(rows[0]).getByText("實際播放 107.10–110.75")).toBeDefined();
   });
 
   it("nudges times by 0.1 s without float drift and exports the JSON", async () => {
@@ -39,6 +40,12 @@ describe("TimingTool", () => {
     );
     for (let n = 0; n < 3; n++) await userEvent.click(later);
     expect(exported()[0].end).toBe(110.8);
+    // 110.8 + 0.25 padding, still before sentence 2 starts at 111.8.
+    expect(
+      within(screen.getAllByRole("listitem")[0]).getByText(
+        "實際播放 107.10–111.05",
+      ),
+    ).toBeDefined();
     expect(exported()[0].en).toBe("This blade has a dark past.");
     expect(screen.getByText("時間點格式正確。")).toBeDefined();
   });

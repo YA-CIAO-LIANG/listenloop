@@ -134,7 +134,7 @@
   },
   "timing": {
     "title": "Timing check",
-    "intro": "Play each sentence and nudge its start and end by 0.1 s. When it sounds right, copy the JSON and send it to the developer.",
+    "intro": "Play each sentence and nudge its start and end by 0.1 s. Playback adds the same padding learners hear (0.15 s before, 0.25 s after, never into a neighboring sentence). When it sounds right, copy the JSON and send it to the developer.",
     "start": "Start",
     "end": "End",
     "earlier": "0.1 s earlier",
@@ -145,6 +145,7 @@
     "copyFailed": "Couldn’t copy automatically. Select the text below instead.",
     "reset": "Reset",
     "problems": "Timing problems:",
-    "ok": "Timing looks valid."
+    "ok": "Timing looks valid.",
+    "plays": "Plays {start}–{end}"
   }
 }

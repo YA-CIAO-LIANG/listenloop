@@ -163,7 +163,7 @@ describe("useYouTubePlayer", () => {
 });
 
 describe("SentencePlayer", () => {
-  const sentence = { i: 2, start: 118, end: 121.45, en: "x", zh: "x" };
+  const { sentences } = videos.find((v) => v.id === "sintel")!;
   const fakePlayer = (overrides: Partial<YouTubePlayerApi> = {}) => ({
     containerRef: { current: null },
     status: "ready" as const,
@@ -174,27 +174,52 @@ describe("SentencePlayer", () => {
     ...overrides,
   });
 
-  it("plays the sentence at the selected speed", async () => {
+  it("plays the padded sentence at the selected speed", async () => {
     const player = fakePlayer();
+    // Sentence 3 is 118–121.45; neighbors end at 115.8 and start at 121.75.
     renderWithIntl(
-      <SentencePlayer player={player} sentence={sentence} total={12} />,
+      <SentencePlayer player={player} sentences={sentences} index={2} />,
     );
     expect(screen.getByText("第 3 句，共 12 句")).toBeDefined();
 
     await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(118, 121.45, 1);
+    expect(player.playSegment).toHaveBeenLastCalledWith(117.85, 121.7, 1);
 
     await userEvent.click(screen.getByRole("radio", { name: "0.5×" }));
     await userEvent.click(screen.getByRole("button", { name: "再聽一次" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(118, 121.45, 0.5);
+    expect(player.playSegment).toHaveBeenLastCalledWith(117.85, 121.7, 0.5);
+  });
+
+  it("keeps the padding inside the neighboring sentences", async () => {
+    const player = fakePlayer();
+    // Sentence 4 is 121.75–124.8; the previous one ends at 121.45.
+    renderWithIntl(
+      <SentencePlayer player={player} sentences={sentences} index={3} />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
+    expect(player.playSegment).toHaveBeenLastCalledWith(121.6, 125.05, 1);
+  });
+
+  it("accepts custom padding", async () => {
+    const player = fakePlayer();
+    renderWithIntl(
+      <SentencePlayer
+        player={player}
+        sentences={sentences}
+        index={2}
+        padding={{ before: 0, after: 0 }}
+      />,
+    );
+    await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
+    expect(player.playSegment).toHaveBeenLastCalledWith(118, 121.45, 1);
   });
 
   it("is disabled until the player is ready", () => {
     renderWithIntl(
       <SentencePlayer
         player={fakePlayer({ status: "loading" })}
-        sentence={sentence}
-        total={12}
+        sentences={sentences}
+        index={2}
       />,
     );
     expect(

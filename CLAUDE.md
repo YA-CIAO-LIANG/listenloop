@@ -97,6 +97,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - `attribution` 必填，播放頁一律顯示出處。`license` 只能是 `Public Domain`、`CC BY x.x` 或 `CC BY-SA x.x`（NC、ND 會被驗證擋下）。授權規則與候選影片見 `docs/video-candidates.md`。
 - 英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。
 - 時間點用 `/videos/<id>/timing`（不列入導覽、不被搜尋）逐句播放微調，再複製 JSON 回填。
+- 播放時自動加前後緩衝：開始提早 0.15 秒、結束延後 0.25 秒，但不越過前一句的結束或下一句的開始（`lib/player/padding.ts`）。JSON 裡存的是原始時間點，不含緩衝。
 
 進度（localStorage key：`ll-progress:v1:<videoId>`；型別與驗證見 `lib/progress.ts`）：
 
