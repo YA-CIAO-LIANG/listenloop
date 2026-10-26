@@ -105,14 +105,14 @@
       "story": "Story"
     },
     "excerpt": "Practice excerpt: {count, plural, one {# sentence} other {# sentences}}",
-    "practiceSoon": "Seven-day practice is coming soon.",
     "attribution": {
       "heading": "Video credit",
       "license": "License",
       "licenseTerms": "License terms",
       "transcript": "English subtitles",
       "changes": "Changes"
-    }
+    },
+    "startDay1": "Start Day 1: Dictation"
   },
   "player": {
     "loading": "Loading video…",
@@ -124,7 +124,8 @@
     "play": "Play sentence",
     "replay": "Play again",
     "playing": "Playing…",
-    "position": "Sentence {n} of {total}"
+    "position": "Sentence {n} of {total}",
+    "captionHint": "If captions appear, turn them off with the CC button at the bottom right of the player so they don’t give away the answer."
   },
   "timing": {
     "title": "Timing check",
@@ -141,5 +142,25 @@
     "problems": "Timing problems:",
     "ok": "Timing looks valid.",
     "plays": "Plays {start}–{end}"
+  },
+  "dictation": {
+    "title": "Day 1: Dictation",
+    "intro": "Listen to one sentence at a time and type what you hear. Your first submission is scored; after that you can replay and see the answer.",
+    "loading": "Loading your progress…",
+    "inputLabel": "What you heard",
+    "placeholder": "Type the sentence you hear…",
+    "submit": "Submit",
+    "enterHint": "Press Enter to submit",
+    "yourAnswer": "Your answer",
+    "correctAnswer": "Correct",
+    "noAnswer": "(no answer)",
+    "missed": "(missed)",
+    "sentenceScore": "Sentence accuracy {score}",
+    "next": "Next sentence",
+    "seeResult": "See results",
+    "saveFailed": "Couldn’t save your progress. Allow this site to store data (for example, leave private browsing), then reload.",
+    "complete": "Day 1 done! Shadowing starts tomorrow.",
+    "review": "Sentence review",
+    "backToVideo": "Back to video"
   }
 }

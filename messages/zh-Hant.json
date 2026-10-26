@@ -105,14 +105,14 @@
       "story": "故事"
     },
     "excerpt": "練習片段：{count} 句",
-    "practiceSoon": "七天練習即將推出。",
     "attribution": {
       "heading": "影片出處",
       "license": "授權",
       "licenseTerms": "授權條款",
       "transcript": "英文字幕來源",
       "changes": "修改說明"
-    }
+    },
+    "startDay1": "開始第 1 天：聽寫"
   },
   "player": {
     "loading": "影片載入中…",
@@ -124,7 +124,8 @@
     "play": "播放這句",
     "replay": "再聽一次",
     "playing": "播放中…",
-    "position": "第 {n} 句，共 {total} 句"
+    "position": "第 {n} 句，共 {total} 句",
+    "captionHint": "如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉，避免看到答案。"
   },
   "timing": {
     "title": "時間點微調",
@@ -141,5 +142,25 @@
     "problems": "時間點有問題：",
     "ok": "時間點格式正確。",
     "plays": "實際播放 {start}–{end}"
+  },
+  "dictation": {
+    "title": "第 1 天：精聽聽寫",
+    "intro": "一次聽一句，把聽到的英文打出來。每句第一次送出就算分，之後可以重播、看答案。",
+    "loading": "載入進度中…",
+    "inputLabel": "你聽到的句子",
+    "placeholder": "在這裡輸入你聽到的句子…",
+    "submit": "送出",
+    "enterHint": "按 Enter 送出",
+    "yourAnswer": "你的答案",
+    "correctAnswer": "正確答案",
+    "noAnswer": "（未作答）",
+    "missed": "（沒寫對）",
+    "sentenceScore": "這句正確率 {score}",
+    "next": "下一句",
+    "seeResult": "查看結果",
+    "saveFailed": "無法儲存進度。請確認瀏覽器允許網站儲存資料（例如不要使用無痕模式），然後重新整理。",
+    "complete": "第 1 天完成！明天開始跟讀。",
+    "review": "逐句回顧",
+    "backToVideo": "回影片頁"
   }
 }
