@@ -6,7 +6,14 @@ export const videoCategories = [
   "campus",
   "business",
   "interview",
+  "story",
 ] as const;
+
+/**
+ * Only licenses that allow commercial use and derivatives (our Chinese
+ * translation is a derivative). NC and ND licenses must never pass.
+ */
+export const ALLOWED_LICENSE = /^(Public Domain|CC BY(-SA)? \d\.\d)$/;
 
 export type VideoLevel = (typeof videoLevels)[number];
 export type VideoCategory = (typeof videoCategories)[number];
@@ -34,14 +41,31 @@ export type GrammarPoint = {
   example: string;
 };
 
+/** Credit shown wherever the video plays (required by CC BY). */
+export type Attribution = {
+  /** Exact credit line the rights holder asks for. */
+  credit: string;
+  /** e.g. "CC BY 3.0" or "Public Domain"; must match ALLOWED_LICENSE. */
+  license: string;
+  /** The license text, e.g. https://creativecommons.org/licenses/by/3.0/ */
+  licenseUrl: string;
+  /** Official page where the license was verified. */
+  sourceUrl: string;
+  /** Official transcript or subtitle file the sentences come from. */
+  transcriptUrl: string;
+  /** What we changed (CC BY requires indicating changes). */
+  changes: string;
+};
+
 export type Video = {
   id: string;
   youtubeId: string;
   title: string;
   level: VideoLevel;
   category: VideoCategory;
+  /** Rights holder's display name, e.g. "Blender Foundation". */
   source: string;
-  license: string;
+  attribution: Attribution;
   sentences: Sentence[];
   vocab: VocabItem[];
   grammar: GrammarPoint[];
@@ -91,8 +115,39 @@ export function validateVideo(data: unknown): string[] {
   ) {
     problems.push("youtubeId must be an 11-character YouTube id");
   }
-  for (const field of ["title", "source", "license"]) {
+  for (const field of ["title", "source"]) {
     if (!isText(data[field])) problems.push(`${field} must be text`);
+  }
+
+  const attribution = data.attribution;
+  checkTextFields(
+    attribution,
+    [
+      "credit",
+      "license",
+      "licenseUrl",
+      "sourceUrl",
+      "transcriptUrl",
+      "changes",
+    ],
+    "attribution",
+    problems,
+  );
+  if (isObject(attribution)) {
+    if (
+      typeof attribution.license === "string" &&
+      !ALLOWED_LICENSE.test(attribution.license)
+    ) {
+      problems.push(
+        "attribution.license must be Public Domain, CC BY x.x, or CC BY-SA x.x",
+      );
+    }
+    for (const field of ["licenseUrl", "sourceUrl", "transcriptUrl"]) {
+      const url = attribution[field];
+      if (typeof url === "string" && !/^https:\/\/\S+$/.test(url)) {
+        problems.push(`attribution.${field} must be an https URL`);
+      }
+    }
   }
   if (!videoLevels.includes(data.level as VideoLevel)) {
     problems.push(`level must be one of ${videoLevels.join(", ")}`);
