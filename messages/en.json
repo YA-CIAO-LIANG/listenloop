@@ -1,0 +1,27 @@
+{
+  "common": {
+    "appName": "ListenLoop",
+    "dayN": "Day {day}"
+  },
+  "metadata": {
+    "title": "ListenLoop",
+    "description": "A 7-day English listening loop. Hear every word."
+  },
+  "home": {
+    "tagline": "Seven days. One video. Every word.",
+    "comingSoon": "Coming soon"
+  },
+  "settings": {
+    "theme": {
+      "label": "Appearance",
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "language": {
+      "label": "Language",
+      "zhHant": "中文",
+      "en": "EN"
+    }
+  }
+}

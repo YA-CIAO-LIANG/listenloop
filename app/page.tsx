@@ -1,11 +1,14 @@
-// TODO(M1): move copy to messages/ (PR 2) and use core components (PR 3).
+import { useTranslations } from "next-intl";
+
+// TODO(M1): use core components once they land (PR 3).
 export default function Home() {
+  const t = useTranslations();
+
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-4 p-8 text-center">
-      <h1 className="font-display text-h1">ListenLoop</h1>
-      <p className="text-ink-muted">
-        7-day English listening practice. Coming soon.
-      </p>
+      <h1 className="font-display text-h1">{t("common.appName")}</h1>
+      <p className="font-display text-h3">{t("home.tagline")}</p>
+      <p className="text-supporting text-ink-muted">{t("home.comingSoon")}</p>
     </main>
   );
 }

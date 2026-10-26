@@ -1,0 +1,27 @@
+{
+  "common": {
+    "appName": "ListenLoop",
+    "dayN": "第 {day} 天"
+  },
+  "metadata": {
+    "title": "ListenLoop",
+    "description": "七天一循環的英語聽力練習，聽清楚每一個字。"
+  },
+  "home": {
+    "tagline": "七天一循環，聽清楚每一個字。",
+    "comingSoon": "即將推出"
+  },
+  "settings": {
+    "theme": {
+      "label": "外觀",
+      "system": "跟隨系統",
+      "light": "淺色",
+      "dark": "深色"
+    },
+    "language": {
+      "label": "介面語言",
+      "zhHant": "中文",
+      "en": "EN"
+    }
+  }
+}
