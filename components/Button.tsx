@@ -4,11 +4,23 @@ import type { ComponentProps } from "react";
 import { usePress } from "./usePress";
 
 const variantClassNames = {
-  primary:
-    "border-accent bg-accent/14 text-accent-ink enabled:hover:bg-accent/22",
-  secondary: "border-line bg-ink/4 text-ink enabled:hover:bg-ink/8",
-  ghost:
-    "border-transparent text-ink-muted enabled:hover:bg-ink/4 enabled:hover:text-ink",
+  primary: "border-accent bg-accent/14 text-accent-ink",
+  secondary: "border-line bg-ink/4 text-ink",
+  ghost: "border-transparent text-ink-muted",
+} as const;
+
+// Buttons skip hover while disabled; `enabled:` doesn't apply to links.
+const hoverClassNames = {
+  button: {
+    primary: "enabled:hover:bg-accent/22",
+    secondary: "enabled:hover:bg-ink/8",
+    ghost: "enabled:hover:bg-ink/4 enabled:hover:text-ink",
+  },
+  link: {
+    primary: "hover:bg-accent/22",
+    secondary: "hover:bg-ink/8",
+    ghost: "hover:bg-ink/4 hover:text-ink",
+  },
 } as const;
 
 // Touch screens get at least 44px so buttons are easy to tap.
@@ -20,6 +32,29 @@ const sizeClassNames = {
 
 export type ButtonVariant = keyof typeof variantClassNames;
 export type ButtonSize = keyof typeof sizeClassNames;
+
+/** Shared by Button and ButtonLink so both look identical. */
+export function buttonClassName({
+  variant,
+  size,
+  className,
+  as = "button",
+}: {
+  variant: ButtonVariant;
+  size: ButtonSize;
+  className?: string;
+  as?: "button" | "link";
+}): string {
+  return [
+    "pressable inline-flex items-center justify-center gap-2 rounded-base border whitespace-nowrap backdrop-blur-sm select-none disabled:cursor-not-allowed disabled:opacity-40",
+    variantClassNames[variant],
+    hoverClassNames[as][variant],
+    sizeClassNames[size],
+    className,
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
 
 type ButtonProps = ComponentProps<"button"> & {
   variant?: ButtonVariant;
@@ -48,14 +83,7 @@ export function Button({
       data-size={size}
       {...props}
       {...pressProps}
-      className={[
-        "pressable inline-flex items-center justify-center gap-2 rounded-base border whitespace-nowrap backdrop-blur-sm select-none disabled:cursor-not-allowed disabled:opacity-40",
-        variantClassNames[variant],
-        sizeClassNames[size],
-        className,
-      ]
-        .filter(Boolean)
-        .join(" ")}
+      className={buttonClassName({ variant, size, className })}
     >
       {rippleLayer}
       {children}
