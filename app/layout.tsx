@@ -1,25 +1,35 @@
 import type { Metadata } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale, getTranslations } from "next-intl/server";
 import { fontVariables } from "./fonts";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "ListenLoop",
-  description: "7-day loop English listening practice",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("metadata");
+  return {
+    title: t("title"),
+    description: t("description"),
+  };
+}
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const locale = await getLocale();
+
   return (
     // suppressHydrationWarning: the theme script sets data-theme before hydration.
     <html
-      lang="zh-Hant"
+      lang={locale}
       className={`${fontVariables} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        {/* Inherits locale and messages from i18n/request.ts. */}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+      </body>
     </html>
   );
 }
