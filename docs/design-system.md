@@ -132,7 +132,18 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 | ThemeToggle    | 「跟隨系統 / 淺色 / 深色」三選一，樣式同 LanguageToggle。                                                                                                                                                                              |
 | LanguageToggle | 「中文 / EN」，以原生 radio 實作（方向鍵可切換）。選中項目為 accent-ink＋底線。每個選項有固定最小寬度，切換語言時版面不跳動。                                                                                                          |
 | Divider        | 1px line 細線，水平或垂直。                                                                                                                                                                                                            |
+| ButtonLink     | 外觀與 Button 完全相同的連結（例如「開始第 1 天 →」）。按壓效果只回應 Enter。                                                                                                                                                          |
+| WordDiffView   | 聽寫回饋，兩行對照：「你的答案」中寫錯或多寫的字用 error 色＋刪除線（`<del>`）；「正確答案」中沒寫對的字用 error 色＋2px 底線，並附螢幕閱讀器文字「（沒寫對）」。兩行都顯示原文寫法（不是正規化後的字）。                              |
+| CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                           |
 
 ## 設計系統展示頁
 
 `/styleguide` 頁面列出所有色票（兩種模式）、字級、按鈕變體與狀態、核心元件，並可切換語言檢查中英文版面，作為活的設計文件。正式上線前從導覽中隱藏。
+
+## 聽寫畫面
+
+- 一次一句：播放器（下方固定 CaptionHint）→ 進度條 → 「第 N 句，共 M 句」與播放按鈕 → 輸入框 → 送出。
+- 按 Enter 送出；輸入框空白時不能送出。送出後立刻顯示 WordDiffView 與這句的正確率，焦點移到「下一句」，再按 Enter 進入下一句並自動播放一次。
+- 每句第一次送出即算分，之後只能重播、看答案。
+- 下方句子清單：已作答的句子顯示原文與分數，未作答的句子隱藏原文。
+- 完成畫面：ScoreBadge（當天正確率）＋完成訊息 → 逐句回顧（每句一組 WordDiffView 與分數）→ 「回影片頁」。講義完成後再加「看雙語講義」。
