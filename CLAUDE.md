@@ -28,7 +28,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 ## 週循環規則
 
-- **Day 1 精聽聽寫**：逐句播放影片原音，使用者打字，逐字比對算正確率。可查看雙語講義（英中對照＋單字＋文法），可輸出 PDF。支援單句重播、0.75x / 0.5x 速度。
+- **Day 1 精聽聽寫**：逐句播放影片原音，使用者打字，逐字比對算正確率。可查看雙語講義（英中對照＋單字＋文法），可輸出 PDF。支援單句重播。
 - **Day 2～6 跟讀**：逐句播放後使用者跟念，語音辨識判斷是否念完、念對哪些字。每天需完成全部句子。
 - **Day 7 重新聽寫**：同一支影片完整聽寫一次，並與 Day 1 對比顯示進步。
 - **週結算**：Day 7 正確率 ≥ 80% → 通過；< 80% → 同一支影片重新一週。
@@ -48,7 +48,9 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 - Next.js（App Router）+ TypeScript（strict）+ Tailwind CSS
 - 多語系：next-intl
-- YouTube IFrame Player API，依 start/end 時間戳逐句播放。不下載音檔。
+- YouTube IFrame Player API，依 start/end 時間戳逐句播放。不下載音檔。不提供速度切換。
+  - 必須遵守 YouTube 條款：播放器至少 200×200 px、不可在播放器上加遮罩或任何覆蓋元素、不可隱藏畫面只播聲音、不可使用 API 文件沒有寫的功能（例如 `unloadModule`）。
+  - 字幕：官方沒有可強制關閉的參數，字幕依使用者自己的偏好顯示。聽寫與跟讀頁面要提示使用者點播放器的 CC 按鈕關閉字幕（2026-10-26 決定，方案 A）。
 - 跟讀：Web Speech API（en-US），建議 Chrome。
 - 進度：MVP 用 localStorage，透過 `lib/storage` 抽象層存取，未來可換成 Supabase。
 - PDF：列印專用 CSS ＋瀏覽器列印。
@@ -70,24 +72,34 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 ## 資料格式
 
-影片：`/data/videos/<id>.json`
+影片：`/data/videos/<id>.json`，並在 `data/videos/index.ts` 登記（測試會檢查每個 JSON 都有登記；build 時驗證格式）。
 
 ```json
 {
-  "id": "voa-001",
+  "id": "sintel",
   "youtubeId": "xxxxxxxxxxx",
   "title": "...",
   "level": "beginner | intermediate | advanced",
-  "category": "daily | campus | business | interview",
-  "source": "VOA Learning English",
-  "license": "public domain",
+  "category": "daily | campus | business | interview | story",
+  "source": "Blender Foundation",
+  "attribution": {
+    "credit": "© copyright Blender Foundation | durian.blender.org",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "sourceUrl": "https://durian.blender.org/sharing/",
+    "transcriptUrl": "https://.../sintel_en.srt",
+    "changes": "Excerpt (1:47–2:36); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
   "sentences": [{ "i": 0, "start": 1.2, "end": 4.8, "en": "...", "zh": "..." }],
   "vocab": [{ "word": "...", "pos": "n.", "zh": "...", "example": "..." }],
   "grammar": [{ "point": "...", "explanation": "...", "example": "..." }]
 }
 ```
 
-翻譯、單字、文法由本機預處理腳本 `/scripts/process-video.ts` 產生一次後存成 JSON，App 執行時不呼叫 AI。
+- `attribution` 必填，播放頁一律顯示出處。`license` 只能是 `Public Domain`、`CC BY x.x` 或 `CC BY-SA x.x`（NC、ND 會被驗證擋下）。授權規則與候選影片見 `docs/video-candidates.md`。
+- 英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。
+- 時間點用 `/videos/<id>/timing`（不列入導覽、不被搜尋）逐句播放微調，再複製 JSON 回填。
+- 播放時自動加前後緩衝：開始提早 0.15 秒、結束延後 0.25 秒，但不越過前一句的結束或下一句的開始（`lib/player/padding.ts`）。JSON 裡存的是原始時間點，不含緩衝。
 
 進度（localStorage key：`ll-progress:v1:<videoId>`；型別與驗證見 `lib/progress.ts`）：
 
