@@ -17,7 +17,7 @@
 | `--ll-accent`     | #E8590C | #FF7A33 | 橘：細線、進度條、按鈕底色、小點綴 |
 | `--ll-accent-ink` | #B8440A | #FF8F52 | 橘色文字（符合 AA 對比）           |
 | `--ll-line`       | #E5E3DE | #2E2E2E | 細分隔線、邊框                     |
-| `--ll-success`    | #2F7D4F | #5CC28A | 聽寫答對的字                       |
+| `--ll-success`    | #2D784C | #5CC28A | 聽寫答對的字                       |
 | `--ll-error`      | #C2362B | #FF6B5E | 聽寫答錯、漏字                     |
 | `--ll-focus`      | #E8590C | #FF7A33 | 鍵盤焦點外框                       |
 
