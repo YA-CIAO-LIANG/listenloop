@@ -70,24 +70,33 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 ## 資料格式
 
-影片：`/data/videos/<id>.json`
+影片：`/data/videos/<id>.json`，並在 `data/videos/index.ts` 登記（測試會檢查每個 JSON 都有登記；build 時驗證格式）。
 
 ```json
 {
-  "id": "voa-001",
+  "id": "sintel",
   "youtubeId": "xxxxxxxxxxx",
   "title": "...",
   "level": "beginner | intermediate | advanced",
-  "category": "daily | campus | business | interview",
-  "source": "VOA Learning English",
-  "license": "public domain",
+  "category": "daily | campus | business | interview | story",
+  "source": "Blender Foundation",
+  "attribution": {
+    "credit": "© copyright Blender Foundation | durian.blender.org",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "sourceUrl": "https://durian.blender.org/sharing/",
+    "transcriptUrl": "https://.../sintel_en.srt",
+    "changes": "Excerpt (1:47–2:36); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
   "sentences": [{ "i": 0, "start": 1.2, "end": 4.8, "en": "...", "zh": "..." }],
   "vocab": [{ "word": "...", "pos": "n.", "zh": "...", "example": "..." }],
   "grammar": [{ "point": "...", "explanation": "...", "example": "..." }]
 }
 ```
 
-翻譯、單字、文法由本機預處理腳本 `/scripts/process-video.ts` 產生一次後存成 JSON，App 執行時不呼叫 AI。
+- `attribution` 必填，播放頁一律顯示出處。`license` 只能是 `Public Domain`、`CC BY x.x` 或 `CC BY-SA x.x`（NC、ND 會被驗證擋下）。授權規則與候選影片見 `docs/video-candidates.md`。
+- 英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。
+- 時間點用 `/videos/<id>/timing`（不列入導覽、不被搜尋）逐句播放微調，再複製 JSON 回填。
 
 進度（localStorage key：`ll-progress:v1:<videoId>`；型別與驗證見 `lib/progress.ts`）：
 
