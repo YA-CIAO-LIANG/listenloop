@@ -23,5 +23,67 @@
       "zhHant": "中文",
       "en": "EN"
     }
+  },
+  "practice": {
+    "progress": {
+      "today": "今日進度",
+      "count": "{value} / {max}"
+    },
+    "score": {
+      "accuracy": "正確率",
+      "passed": "通過"
+    },
+    "sentence": {
+      "number": "第 {n} 句",
+      "hidden": "尚未作答",
+      "status": {
+        "pending": "未開始",
+        "current": "進行中",
+        "done": "已完成"
+      }
+    },
+    "day": {
+      "tracker": "七天進度",
+      "task": {
+        "dictation": "聽寫",
+        "shadowing": "跟讀",
+        "redictation": "重新聽寫"
+      },
+      "status": {
+        "locked": "未解鎖",
+        "available": "可以開始",
+        "today": "今天",
+        "done": "已完成"
+      },
+      "cellLabel": "第 {day} 天，{task}，{status}"
+    }
+  },
+  "styleguide": {
+    "title": "設計系統",
+    "intro": "ListenLoop 的色彩、字級與核心元件。這一頁不會出現在導覽中。",
+    "sections": {
+      "colors": "色彩",
+      "typography": "字級",
+      "buttons": "按鈕",
+      "components": "核心元件",
+      "toggles": "切換"
+    },
+    "specimen": {
+      "display": "聽清楚每一個字",
+      "body": "七天一循環：第一天精聽聽寫，第二到六天跟讀，第七天重新聽寫，看見自己的進步。"
+    },
+    "buttons": {
+      "primary": "主要",
+      "secondary": "次要",
+      "ghost": "文字",
+      "disabled": "停用",
+      "sample": "開始練習"
+    },
+    "states": {
+      "segmented": "分段（30 句以內）",
+      "continuous": "連續（超過 30 句）",
+      "belowPass": "未達標",
+      "pass": "通過"
+    }
   }
 }

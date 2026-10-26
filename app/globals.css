@@ -5,7 +5,12 @@
  * Components must use these tokens only; never hard-code colors.
  */
 
-:root {
+/*
+ * Light colors. `[data-theme]` works on any element (not only <html>) so
+ * /styleguide can show both themes side by side.
+ */
+:root,
+[data-theme="light"] {
   color-scheme: light;
 
   --ll-ground: #fafaf8;
@@ -19,7 +24,9 @@
   --ll-success: #2d784c;
   --ll-error: #c2362b;
   --ll-focus: #e8590c;
+}
 
+:root {
   /* Font stacks: Latin first for English UI and practice content. */
   --ll-font-display:
     var(--font-eb-garamond), var(--font-noto-serif-tc), Georgia, serif;
@@ -68,8 +75,8 @@
   }
 }
 
-/* Explicit dark choice (set by the theme script in app/layout.tsx). */
-:root[data-theme="dark"] {
+/* Explicit dark choice (set on <html> by the theme script in app/layout.tsx). */
+[data-theme="dark"] {
   color-scheme: dark;
 
   --ll-ground: #121212;
@@ -136,6 +143,48 @@
 
   /* Two-column sections stack below 760px. */
   --breakpoint-split: 47.5rem;
+}
+
+@theme {
+  /* Click ripple: grows from the pointer and fades out (design-system.md). */
+  --animate-ripple: ll-ripple var(--ll-duration-ripple) ease-out forwards;
+
+  @keyframes ll-ripple {
+    from {
+      transform: scale(0);
+      opacity: 1;
+    }
+    to {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+}
+
+/*
+ * Shared press feedback for every clickable element (Button, interactive
+ * Card, SentenceRow, DayTracker). Pair with the usePress hook, which sets
+ * data-pressed and renders ripples.
+ */
+@utility pressable {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--ll-duration-press) ease-out,
+    background-color var(--ll-duration-transition) ease-out,
+    border-color var(--ll-duration-transition) ease-out,
+    color var(--ll-duration-transition) ease-out;
+
+  &[data-pressed] {
+    transform: scale(0.97);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &[data-pressed] {
+      transform: none;
+    }
+  }
 }
 
 @layer base {

@@ -1,11 +1,31 @@
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
+  plugins: [react()],
+  // Resolve the "@/..." alias from tsconfig.json.
+  resolve: { tsconfigPaths: true },
   test: {
-    // lib/ holds pure logic; switch per-file to jsdom when component tests arrive (M1).
-    environment: "node",
-    include: ["tests/**/*.test.ts", "lib/**/*.test.ts"],
+    projects: [
+      {
+        // Pure logic: fast, no DOM.
+        extends: true,
+        test: {
+          name: "unit",
+          environment: "node",
+          include: ["tests/**/*.test.ts", "lib/**/*.test.ts"],
+        },
+      },
+      {
+        // Components: rendered in a simulated browser DOM.
+        extends: true,
+        test: {
+          name: "dom",
+          environment: "jsdom",
+          include: ["tests/**/*.test.tsx"],
+          setupFiles: ["tests/setup-dom.ts"],
+        },
+      },
+    ],
   },
 });

@@ -8,8 +8,10 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - 我是 vibe coding 初學者，但要求商業專案等級的品質。每次改動前先用繁體中文說明要做什麼、為什麼這是業界做法。
 - 先用 plan mode 列計畫，計畫被認可不等於可以執行：我說「開始」才動手。
 - 一次只做一個功能或一個 issue。完成後說明怎麼測試，等我確認再繼續。
-- 一律在分支上開發（main 受保護，必須透過 PR 且 CI 通過）。完成後開 PR，**由我自己在 GitHub 審查並合併**。
-- 合併後協助我：切回 main、pull、刪除本機分支。
+- 一律在分支上開發（main 受保護，必須透過 PR 且 CI 通過）。完成後開 PR，合併規則：
+  - `docs/`、`fix/`、`chore/` 這類小改動：CI 全部通過後，Claude 直接用 squash 合併並刪除分支。
+  - `feat/` 功能或 UI 改動：CI 通過後，Claude 給我摘要和 Vercel 預覽網址，我說「合併」才合併。
+- 合併後一律同步 main（切回 main、pull）並刪除本機分支。
 - 不要自行新增付費服務、需要信用卡的服務，或未經我同意的新套件。
 - UI 一律遵守 `docs/design-system.md`，只使用其中定義的 tokens 與元件。規格未定義的部分先問我。
 - 介面文字一律從翻譯檔讀取，元件內不可寫死任何中文或英文介面文字。
