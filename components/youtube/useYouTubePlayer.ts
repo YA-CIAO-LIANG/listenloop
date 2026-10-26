@@ -6,7 +6,12 @@ import { loadYouTubeApi } from "./loadYouTubeApi";
 export type PlayerStatus = "loading" | "ready" | "error";
 
 /** Maps to a friendly message in messages/<locale>.json → player. */
-export type PlayerError = "unavailable" | "embedBlocked" | "loadFailed";
+export type PlayerError =
+  | "unavailable"
+  | "embedBlocked"
+  | "loadFailed"
+  /** The API loaded but the player never became ready (e.g. Brave Shields). */
+  | "blocked";
 
 export type YouTubePlayerApi = {
   /** Attach to an empty element; the player iframe is created inside it. */
@@ -22,6 +27,18 @@ export type YouTubePlayerApi = {
 // How often to check whether the segment end has been reached.
 const POLL_MS = 50;
 
+/** No onReady within this time means the player iframe was blocked. */
+export const READY_TIMEOUT_MS = 15_000;
+
+/** YouTube onError codes, for readable console messages. */
+const ERROR_NAMES: Record<number, string> = {
+  2: "invalid parameter",
+  5: "HTML5 player error",
+  100: "video not found or private",
+  101: "embedding not allowed",
+  150: "embedding not allowed",
+};
+
 export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const playerRef = useRef<YT.Player | null>(null);
@@ -32,9 +49,13 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
 
   useEffect(() => {
     let cancelled = false;
+    let readyTimer: number | undefined;
 
-    function fail(reason: PlayerError) {
+    // Errors are also logged with a [YouTube] prefix so users can report them.
+    function fail(reason: PlayerError, detail: string) {
       if (cancelled) return;
+      window.clearTimeout(readyTimer);
+      console.error(`[YouTube] ${detail} (video ${videoId})`);
       setError(reason);
       setStatus("error");
     }
@@ -42,6 +63,14 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
     loadYouTubeApi()
       .then((api) => {
         if (cancelled || !containerRef.current) return;
+        readyTimer = window.setTimeout(
+          () =>
+            fail(
+              "blocked",
+              `player not ready after ${READY_TIMEOUT_MS / 1000} s; likely blocked by the browser or an extension`,
+            ),
+          READY_TIMEOUT_MS,
+        );
         // YouTube replaces this element with its iframe, so give it a child
         // React doesn't manage.
         const mount = document.createElement("div");
@@ -64,13 +93,17 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
           },
           events: {
             onReady: () => {
+              window.clearTimeout(readyTimer);
               if (!cancelled) setStatus("ready");
             },
             onError: (event) => {
               const embedBlocked =
                 event.data === api.PlayerError.EmbeddingNotAllowed ||
                 event.data === api.PlayerError.EmbeddingNotAllowed2;
-              fail(embedBlocked ? "embedBlocked" : "unavailable");
+              fail(
+                embedBlocked ? "embedBlocked" : "unavailable",
+                `player error ${event.data} (${ERROR_NAMES[event.data] ?? "unknown"})`,
+              );
             },
             onStateChange: (event) => {
               if (!cancelled) {
@@ -80,10 +113,16 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
           },
         });
       })
-      .catch(() => fail("loadFailed"));
+      .catch((error: unknown) =>
+        fail(
+          "loadFailed",
+          `IFrame API failed to load: ${error instanceof Error ? error.message : String(error)}`,
+        ),
+      );
 
     return () => {
       cancelled = true;
+      window.clearTimeout(readyTimer);
       window.clearInterval(pollRef.current);
       playerRef.current?.destroy();
       playerRef.current = null;

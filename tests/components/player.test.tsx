@@ -1,10 +1,10 @@
-import { act, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, render, renderHook, screen } from "@testing-library/react";
 import { useEffect } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { SentencePlayer } from "@/components/SentencePlayer";
+import { useSentencePlayback } from "@/components/useSentencePlayback";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import {
+  READY_TIMEOUT_MS,
   useYouTubePlayer,
   type YouTubePlayerApi,
 } from "@/components/youtube/useYouTubePlayer";
@@ -14,6 +14,8 @@ import { renderWithIntl } from "../render";
 /** Stand-in for YT.Player: records calls and lets tests set the time. */
 class FakePlayer {
   static last: FakePlayer;
+  /** Set to false to simulate a blocked iframe that never becomes ready. */
+  static autoReady = true;
   time = 0;
   calls: string[] = [];
   constructor(
@@ -21,7 +23,9 @@ class FakePlayer {
     public options: YT.PlayerOptions,
   ) {
     FakePlayer.last = this;
-    queueMicrotask(() => options.events?.onReady?.({} as YT.PlayerEvent));
+    if (FakePlayer.autoReady) {
+      queueMicrotask(() => options.events?.onReady?.({} as YT.PlayerEvent));
+    }
   }
   seekTo(seconds: number) {
     this.calls.push(`seekTo:${seconds}`);
@@ -70,6 +74,8 @@ async function renderReadyPlayer() {
 describe("useYouTubePlayer", () => {
   beforeEach(() => {
     loadYouTubeApi.mockResolvedValue(fakeApi);
+    FakePlayer.autoReady = true;
+    vi.spyOn(console, "error").mockImplementation(() => {});
   });
   afterEach(() => {
     vi.useRealTimers();
@@ -142,12 +148,51 @@ describe("useYouTubePlayer", () => {
     expect(api.error).toBe(expected);
   });
 
+  it("reports a blocked player that never becomes ready", async () => {
+    vi.useFakeTimers();
+    FakePlayer.autoReady = false;
+    render(<Harness />);
+    await act(async () => {});
+    expect(api.status).toBe("loading");
+
+    act(() => vi.advanceTimersByTime(READY_TIMEOUT_MS - 1));
+    expect(api.status).toBe("loading");
+    act(() => vi.advanceTimersByTime(1));
+    expect(api.status).toBe("error");
+    expect(api.error).toBe("blocked");
+    expect(console.error).toHaveBeenCalledWith(
+      expect.stringMatching(/^\[YouTube\] player not ready after 15 s/),
+    );
+  });
+
+  it("doesn't time out once the player is ready", async () => {
+    vi.useFakeTimers();
+    render(<Harness />);
+    await act(async () => {});
+    act(() => vi.advanceTimersByTime(READY_TIMEOUT_MS * 2));
+    expect(api.status).toBe("ready");
+    expect(console.error).not.toHaveBeenCalled();
+  });
+
+  it("logs YouTube error codes to the console", async () => {
+    const player = await renderReadyPlayer();
+    act(() =>
+      player.options.events?.onError?.({ data: 150 } as YT.OnErrorEvent),
+    );
+    expect(console.error).toHaveBeenCalledWith(
+      "[YouTube] player error 150 (embedding not allowed) (video abcdefghijk)",
+    );
+  });
+
   it("reports when the YouTube script can't load", async () => {
     loadYouTubeApi.mockRejectedValue(new Error("blocked"));
     render(<Harness />);
     await act(async () => {});
     expect(api.status).toBe("error");
     expect(api.error).toBe("loadFailed");
+    expect(console.error).toHaveBeenCalledWith(
+      "[YouTube] IFrame API failed to load: blocked (video abcdefghijk)",
+    );
   });
 
   it("destroys the player on unmount", async () => {
@@ -159,70 +204,47 @@ describe("useYouTubePlayer", () => {
   });
 });
 
-describe("SentencePlayer", () => {
+describe("useSentencePlayback", () => {
   const { sentences } = videos.find((v) => v.id === "sintel")!;
-  const fakePlayer = (overrides: Partial<YouTubePlayerApi> = {}) => ({
-    containerRef: { current: null },
-    status: "ready" as const,
-    error: null,
-    isPlaying: false,
-    playSegment: vi.fn(),
-    stop: vi.fn(),
-    ...overrides,
-  });
 
-  it("plays the padded sentence and offers a replay", async () => {
-    const player = fakePlayer();
+  it("plays the padded sentence and tracks whether it was played", () => {
+    const playSegment = vi.fn();
     // Sentence 3 is 118–121.45; neighbors end at 115.8 and start at 121.75.
-    renderWithIntl(
-      <SentencePlayer player={player} sentences={sentences} index={2} />,
+    const { result, rerender } = renderHook(
+      ({ index }) => useSentencePlayback({ playSegment }, sentences, index),
+      { initialProps: { index: 2 } },
     );
-    expect(screen.getByText("第 3 句，共 12 句")).toBeDefined();
-    // Speed switching was removed from the product.
-    expect(screen.queryByRole("radio")).toBeNull();
+    expect(result.current.played).toBe(false);
 
-    await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(117.85, 121.7);
+    act(() => result.current.play());
+    expect(playSegment).toHaveBeenLastCalledWith(117.85, 121.7);
+    expect(result.current.played).toBe(true);
 
-    await userEvent.click(screen.getByRole("button", { name: "再聽一次" }));
-    expect(player.playSegment).toHaveBeenCalledTimes(2);
+    // Moving on resets "played" for the new sentence.
+    rerender({ index: 3 });
+    expect(result.current.played).toBe(false);
   });
 
-  it("keeps the padding inside the neighboring sentences", async () => {
-    const player = fakePlayer();
+  it("plays another sentence with playAt (auto-play next)", () => {
+    const playSegment = vi.fn();
+    const { result } = renderHook(() =>
+      useSentencePlayback({ playSegment }, sentences, 2),
+    );
     // Sentence 4 is 121.75–124.8; the previous one ends at 121.45.
-    renderWithIntl(
-      <SentencePlayer player={player} sentences={sentences} index={3} />,
-    );
-    await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(121.6, 125.05);
+    act(() => result.current.playAt(3));
+    expect(playSegment).toHaveBeenLastCalledWith(121.6, 125.05);
   });
 
-  it("accepts custom padding", async () => {
-    const player = fakePlayer();
-    renderWithIntl(
-      <SentencePlayer
-        player={player}
-        sentences={sentences}
-        index={2}
-        padding={{ before: 0, after: 0 }}
-      />,
+  it("accepts custom padding", () => {
+    const playSegment = vi.fn();
+    const { result } = renderHook(() =>
+      useSentencePlayback({ playSegment }, sentences, 2, {
+        before: 0,
+        after: 0,
+      }),
     );
-    await userEvent.click(screen.getByRole("button", { name: "播放這句" }));
-    expect(player.playSegment).toHaveBeenLastCalledWith(118, 121.45);
-  });
-
-  it("is disabled until the player is ready", () => {
-    renderWithIntl(
-      <SentencePlayer
-        player={fakePlayer({ status: "loading" })}
-        sentences={sentences}
-        index={2}
-      />,
-    );
-    expect(
-      screen.getByRole("button", { name: "播放這句" }).hasAttribute("disabled"),
-    ).toBe(true);
+    act(() => result.current.play());
+    expect(playSegment).toHaveBeenLastCalledWith(118, 121.45);
   });
 });
 

@@ -119,12 +119,9 @@
     "errors": {
       "unavailable": "This video can’t be played right now. Please try again later.",
       "embedBlocked": "The video owner doesn’t allow playback on other sites.",
-      "loadFailed": "Couldn’t load the YouTube player. Check your connection or pause your ad blocker, then reload."
+      "loadFailed": "The video was blocked by your browser. Turn off ad blocking (for example, Brave Shields) or try another browser, then reload.",
+      "blocked": "The video was blocked by your browser. Turn off ad blocking (for example, Brave Shields) or try another browser, then reload."
     },
-    "play": "Play sentence",
-    "replay": "Play again",
-    "playing": "Playing…",
-    "position": "Sentence {n} of {total}",
     "captionHint": "If captions appear, turn them off with the CC button at the bottom right of the player so they don’t give away the answer."
   },
   "timing": {
@@ -161,6 +158,12 @@
     "saveFailed": "Couldn’t save your progress. Allow this site to store data (for example, leave private browsing), then reload.",
     "complete": "Day 1 done! Shadowing starts tomorrow.",
     "review": "Sentence review",
-    "backToVideo": "Back to video"
+    "backToVideo": "Back to video",
+    "play": "Play",
+    "replay": "Replay",
+    "skip": "Skip",
+    "confirmSkip": "Skip this one?",
+    "shortcuts": "Enter to submit · Ctrl+Space or Ctrl+Enter to replay",
+    "position": "Sentence {n} of {total}"
   }
 }

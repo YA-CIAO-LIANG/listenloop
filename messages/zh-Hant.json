@@ -119,12 +119,9 @@
     "errors": {
       "unavailable": "這支影片目前無法播放，請稍後再試。",
       "embedBlocked": "影片擁有者不允許在其他網站播放這支影片。",
-      "loadFailed": "無法載入 YouTube 播放器。請檢查網路連線，或暫時關閉擋廣告的擴充功能後重新整理。"
+      "loadFailed": "影片被瀏覽器擋住了。請關閉廣告阻擋（例如 Brave 的 Shields），或換一個瀏覽器，然後重新整理。",
+      "blocked": "影片被瀏覽器擋住了。請關閉廣告阻擋（例如 Brave 的 Shields），或換一個瀏覽器，然後重新整理。"
     },
-    "play": "播放這句",
-    "replay": "再聽一次",
-    "playing": "播放中…",
-    "position": "第 {n} 句，共 {total} 句",
     "captionHint": "如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉，避免看到答案。"
   },
   "timing": {
@@ -161,6 +158,12 @@
     "saveFailed": "無法儲存進度。請確認瀏覽器允許網站儲存資料（例如不要使用無痕模式），然後重新整理。",
     "complete": "第 1 天完成！明天開始跟讀。",
     "review": "逐句回顧",
-    "backToVideo": "回影片頁"
+    "backToVideo": "回影片頁",
+    "play": "播放",
+    "replay": "重播",
+    "skip": "跳過",
+    "confirmSkip": "確定跳過？",
+    "shortcuts": "Enter 送出 · Ctrl＋空白 或 Ctrl＋Enter 重播",
+    "position": "第 {n} 句，共 {total} 句"
   }
 }
