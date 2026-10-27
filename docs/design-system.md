@@ -159,6 +159,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 快捷鍵：Ctrl＋空白鍵或 Ctrl＋Enter 重播（Mac 預設用 Ctrl＋空白鍵切換輸入法，所以需要 Ctrl＋Enter 當備用）。快捷鍵不會打字，也不會觸發按鈕。
 - 跳過：第一次點擊變成「確定跳過？」，3 秒內再點一次才跳過，否則恢復。跳過等於送出空白答案，這句 0 分，並顯示對照（「你的答案」顯示「（未作答）」）。
 - 每句第一次送出（或跳過）即算分，之後只能重播、看答案。
+- 每句講解（`SentenceNotes`）：送出或跳過後，在快捷鍵說明下方（不推動「下一句」按鈕）顯示 1px line 分隔線 → 這句的中文（內文字級）→「單字」（每行：單字 `lang="en"` font-medium、詞性 supporting ink-muted、中文）→「文法重點」（重點 `lang="en"` font-medium，下一行說明 supporting ink-muted）。小標題用 metadata、ink-muted、字距加寬。這句沒有單字或文法時省略該段；例句只放在講義。正式與重練都顯示。
 - 手機：點輸入框時，把影片捲到畫面頂端，讓影片、輸入框、按鈕盡量一起出現在鍵盤上方。
 - 下方句子清單：已作答的句子顯示原文與分數，未作答的句子隱藏原文。
 - 完成畫面（正式）：「✓ 今日任務完成 · 正式成績 72%」（success 色＋✓）→ ScoreBadge → 完成訊息 →「再練一次 →」（primary）「回影片頁」→ 逐句回顧（每句一組 WordDiffView 與分數）。講義完成後再加「看雙語講義」。

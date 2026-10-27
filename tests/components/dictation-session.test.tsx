@@ -49,8 +49,17 @@ const video: Video = {
       zh: "我們搬到城市。",
     },
   ],
-  vocab: [],
-  grammar: [],
+  vocab: [
+    { sentence: 1, word: "move", pos: "v.", zh: "搬家", example: "We moved." },
+  ],
+  grammar: [
+    {
+      sentence: 1,
+      point: "move to + place",
+      explanation: "搬到某個地方。",
+      example: "They moved to Tainan.",
+    },
+  ],
 };
 
 function memoryStore(initial: Progress | null = null) {
@@ -125,6 +134,37 @@ describe("DictationSession", () => {
     expect(playSegment).toHaveBeenLastCalledWith(2.85, 5.25, undefined);
     expect(screen.getByText("第 2 / 2 句")).toBeDefined();
     expect(document.activeElement).toBe(input());
+  });
+
+  it("explains each sentence once it is answered", async () => {
+    await renderSession();
+    expect(screen.queryByText("回家。")).toBeNull();
+
+    // Sentence 1 has no vocabulary or grammar: translation only.
+    await userEvent.type(input(), "go home{Enter}");
+    expect(screen.getByText("回家。")).toBeDefined();
+    expect(screen.queryByRole("heading", { name: "單字" })).toBeNull();
+    expect(screen.queryByRole("heading", { name: "文法重點" })).toBeNull();
+
+    await userEvent.keyboard("{Enter}");
+    expect(screen.queryByText("回家。")).toBeNull();
+    await userEvent.type(input(), "we moved to the city{Enter}");
+    expect(screen.getByText("我們搬到城市。")).toBeDefined();
+    expect(screen.getByRole("heading", { name: "單字" })).toBeDefined();
+    expect(screen.getByText("move").getAttribute("lang")).toBe("en");
+    expect(screen.getByText(/搬家/)).toBeDefined();
+    expect(screen.getByRole("heading", { name: "文法重點" })).toBeDefined();
+    expect(screen.getByText("move to + place")).toBeDefined();
+    expect(screen.getByText("搬到某個地方。")).toBeDefined();
+    // Examples stay in the handout.
+    expect(screen.queryByText("We moved.")).toBeNull();
+  });
+
+  it("explains a skipped sentence too", async () => {
+    await renderSession();
+    await userEvent.click(screen.getByRole("button", { name: "跳過" }));
+    await userEvent.click(screen.getByRole("button", { name: "確定跳過？" }));
+    expect(screen.getByText("回家。")).toBeDefined();
   });
 
   it("finishes the day and shows the score and review", async () => {

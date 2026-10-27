@@ -32,6 +32,7 @@ import { ButtonLink } from "./ButtonLink";
 import { CaptionHint } from "./CaptionHint";
 import { ProgressBar } from "./ProgressBar";
 import { ScoreBadge } from "./ScoreBadge";
+import { SentenceNotes } from "./SentenceNotes";
 import { SentenceRow } from "./SentenceRow";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { WordDiffView } from "./WordDiffView";
@@ -418,6 +419,10 @@ export function DictationSession({
         </div>
         <p className="text-metadata text-ink-muted">{t("shortcuts")}</p>
         {saveError}
+        {/* Below the buttons, so "next" stays put and Enter still continues. */}
+        {feedbackIndex !== null && (
+          <SentenceNotes video={video} index={feedbackIndex} />
+        )}
       </section>
 
       {children}
