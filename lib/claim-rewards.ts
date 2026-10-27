@@ -3,7 +3,14 @@ import type { LocalDate } from "./dates";
 import { feedRewards, pointRewards } from "./rewards";
 import type { ProgressStore } from "./storage/progress-store";
 import type { RewardStore } from "./storage/reward-store";
-import { claim, feedBalance, pointBalance, type Gained } from "./wallet";
+import {
+  claim,
+  ensureStarterFish,
+  feedBalance,
+  pointBalance,
+  type Gained,
+  type Wallet,
+} from "./wallet";
 
 export type RewardStores = { progress: ProgressStore; rewards: RewardStore };
 
@@ -42,11 +49,13 @@ export function claimRewards(
     }
     const progresses = await stores.progress.list();
     const before = await stores.rewards.getWallet();
-    const { wallet, gained } = claim(
+    const claimed = claim(
       before,
       pointRewards(progresses, activity),
       feedRewards(progresses, activity, today),
     );
+    const { gained } = claimed;
+    const wallet = ensureStarterFish(claimed.wallet, today);
     if (wallet !== before) await stores.rewards.saveWallet(wallet);
     return {
       gained,
@@ -63,3 +72,19 @@ export const logOfficial = (today: LocalDate) => (activity: Activity) =>
 export const logRetry =
   (today: LocalDate, videoId: string) => (activity: Activity) =>
     recordRetry(activity, today, videoId);
+
+/**
+ * Applies `change` to the saved wallet (e.g. buying a fish), in the same
+ * queue as claims so neither overwrites the other. Saves only real changes.
+ */
+export function updateWallet(
+  rewards: RewardStore,
+  change: (wallet: Wallet) => Wallet,
+): Promise<Wallet> {
+  return serialize(async () => {
+    const before = await rewards.getWallet();
+    const after = change(before);
+    if (after !== before) await rewards.saveWallet(after);
+    return after;
+  });
+}
