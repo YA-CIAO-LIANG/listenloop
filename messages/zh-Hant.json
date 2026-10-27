@@ -106,10 +106,56 @@
   "rewards": {
     "points": "點數",
     "feed": "飼料",
-    "badgeLabel": "點數 {points}、飼料 {feed} 份",
     "pointsPart": "{n} 點數",
     "feedPart": "{n} 份飼料",
-    "gained": "獲得 {items}"
+    "gained": "獲得 {items}",
+    "badgeLink": "點數 {points}、飼料 {feed} 份，前往魚店"
+  },
+  "shop": {
+    "title": "魚店",
+    "intro": "用練習得到的點數買魚，買到的魚會游進首頁的魚缸。點數只能用來買魚，購買後不能退回。",
+    "loading": "載入中…",
+    "balance": "你有 {points} 點數",
+    "price": "{price} 點數",
+    "buy": "購買",
+    "confirm": "用 {price} 點數購買{name}？",
+    "confirmYes": "確定購買",
+    "cancel": "取消",
+    "notEnough": "還差 {n} 點數",
+    "bought": "已購買{name}，牠游進魚缸了。",
+    "boughtTankFull": "已購買{name}。魚缸已經有 {max} 隻魚，可以在「我的魚」換一換。",
+    "saveFailed": "無法儲存。請確認瀏覽器允許網站儲存資料，然後重新整理。",
+    "myFish": "我的魚",
+    "tank": "魚缸 {count} / {max}",
+    "tankHint": "魚缸最多 {max} 隻，可以選擇哪幾隻游在首頁。",
+    "fishLabel": "{name} #{n}",
+    "starter": "見面禮",
+    "inTank": "放進魚缸",
+    "tankFull": "魚缸已滿",
+    "credits": "素材出處"
+  },
+  "fish": {
+    "snail": {
+      "name": "水蝸牛",
+      "blurb": "沿著缸壁和缸底慢慢滑行，幫忙清理魚缸。"
+    },
+    "clownfish": {
+      "name": "小丑魚",
+      "blurb": "橘白相間的小魚，喜歡在水草間穿梭。"
+    },
+    "great-white": {
+      "name": "大白鯊",
+      "blurb": "沉穩有力地巡游，是魚缸裡的大個子。"
+    },
+    "whale-shark": {
+      "name": "鯨鯊",
+      "blurb": "世界上最大的魚，性情溫和，緩慢優雅地游過。"
+    }
+  },
+  "credits": {
+    "title": "素材出處",
+    "intro": "ListenLoop 使用的影片都採用允許商業使用與改作的授權，以下列出出處。魚和魚缸都是 ListenLoop 自己用程式繪製的像素畫。",
+    "videos": "影片"
   },
   "styleguide": {
     "title": "設計系統",
