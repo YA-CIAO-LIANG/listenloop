@@ -392,7 +392,7 @@ export function DictationSession({
           <Button
             variant="secondary"
             disabled={player.status !== "ready"}
-            onClick={playback.play}
+            onClick={() => playback.play()}
           >
             {playback.played ? t("replay") : t("play")}
           </Button>
