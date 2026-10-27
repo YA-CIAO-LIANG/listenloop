@@ -57,6 +57,27 @@
       "cellLabel": "第 {day} 天，{task}，{status}"
     }
   },
+  "cycle": {
+    "loading": "載入進度中…",
+    "week": "第 {week} 週",
+    "start": "開始第 {day} 天：{task}",
+    "dayTask": "第 {day} 天：{task}",
+    "todayDone": "今日任務完成",
+    "tomorrow": "第 {day} 天（{task}）明天開放",
+    "retry": "再練一次",
+    "viewResult": "查看結果",
+    "day7Soon": "第 7 天：重新聽寫即將開放",
+    "devMode": "測試模式：已略過日期限制",
+    "passed": "已通過",
+    "lockedTitle": "第 {day} 天尚未開放",
+    "lockedPrevious": "請先完成第 {previous} 天。",
+    "lockedTomorrow": "第 {previous} 天今天才完成，第 {day} 天明天開放。明天再來！",
+    "lockedWeekClosed": "這一週已經結束。",
+    "goDay": "前往第 {day} 天",
+    "backToVideo": "回影片頁",
+    "nextTomorrow": "第 {day} 天（{task}）明天開放。",
+    "nextOpen": "第 {day} 天已開放"
+  },
   "styleguide": {
     "title": "設計系統",
     "intro": "ListenLoop 的色彩、字級與核心元件。這一頁不會出現在導覽中。",
@@ -116,9 +137,7 @@
       "licenseTerms": "授權條款",
       "transcript": "英文字幕來源",
       "changes": "修改說明"
-    },
-    "startDay1": "開始第 1 天：聽寫",
-    "viewResult": "查看結果"
+    }
   },
   "player": {
     "loading": "影片載入中…",

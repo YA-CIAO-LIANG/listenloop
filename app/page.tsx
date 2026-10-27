@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { CardLink } from "@/components/CardLink";
+import { VideoProgressLabel } from "@/components/VideoProgressLabel";
 import { getAllVideos } from "@/lib/video-library";
 
 export default function Home() {
@@ -25,6 +26,7 @@ export default function Home() {
                 <p lang="en" className="mt-4 font-display text-h3">
                   {video.title}
                 </p>
+                <VideoProgressLabel videoId={video.id} />
                 <p className="mt-4 flex justify-between gap-4 text-supporting text-ink-muted">
                   <span>
                     {video.source} ·{" "}

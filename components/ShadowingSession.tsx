@@ -24,6 +24,7 @@ import type { Video } from "@/lib/videos";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { CaptionHint } from "./CaptionHint";
+import { NextDayNote } from "./NextDayNote";
 import { ProgressBar } from "./ProgressBar";
 import {
   BLOCKING_ERRORS,
@@ -296,6 +297,9 @@ export function ShadowingSession({
                 <> · {t("average", { score: percent(average) })}</>
               )}
             </p>
+            {mode === "official" && (
+              <NextDayNote videoId={video.id} day={day} progress={progress} />
+            )}
             {mode === "retry" && (
               <p className="text-supporting text-ink-muted">
                 {t("recordUnchanged")}

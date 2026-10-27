@@ -32,6 +32,32 @@ type StatusOptions = {
 };
 
 /**
+ * Why a day can't be opened yet, or null when it can:
+ * - previous: the day before isn't done;
+ * - tomorrow: the day before was done today (days open on a later calendar
+ *   day, unless ignoreDates);
+ * - weekClosed: the week has been settled.
+ * Done days are never locked, so results and retries stay reachable.
+ */
+export type LockReason = "previous" | "tomorrow" | "weekClosed";
+
+export function lockReason(
+  progress: Progress | null,
+  day: CycleDay,
+  today: LocalDate,
+  { ignoreDates = false }: StatusOptions = {},
+): LockReason | null {
+  if (progress?.days[day]?.done) return null;
+  if (progress && progress.status !== "in-progress") return "weekClosed";
+  if (day === 1) return null;
+
+  const previous = progress?.days[(day - 1) as CycleDay];
+  if (!previous?.done || !previous.date) return "previous";
+  if (!ignoreDates && !isLaterDay(today, previous.date)) return "tomorrow";
+  return null;
+}
+
+/**
  * Status of each day for DayTracker and page guards. A day opens ("today")
  * once the previous day is done on an earlier calendar day; Day 1 is always
  * open. Without progress, only Day 1 is open.
@@ -39,18 +65,34 @@ type StatusOptions = {
 export function dayStatuses(
   progress: Progress | null,
   today: LocalDate,
-  { ignoreDates = false }: StatusOptions = {},
+  options: StatusOptions = {},
 ): DayStatus[] {
   return CYCLE_DAYS.map((day) => {
     if (progress?.days[day]?.done) return "done";
-    if (progress && progress.status !== "in-progress") return "locked";
-    if (day === 1) return "today";
-
-    const previous = progress?.days[(day - 1) as CycleDay];
-    if (!previous?.done || !previous.date) return "locked";
-    if (!ignoreDates && !isLaterDay(today, previous.date)) return "locked";
-    return "today";
+    return lockReason(progress, day, today, options) ? "locked" : "today";
   });
+}
+
+/** The day to practice now, or null when today's task is done (or the week is over). */
+export function currentDay(statuses: readonly DayStatus[]): CycleDay | null {
+  const index = statuses.indexOf("today");
+  return index === -1 ? null : ((index + 1) as CycleDay);
+}
+
+/**
+ * The handout reveals the transcript, so it opens once Day 1 is done — in
+ * any week, so repeating a week doesn't lock it again.
+ */
+export function isHandoutUnlocked(progress: Progress | null): boolean {
+  return (
+    Boolean(progress?.days[1]?.done) || (progress?.history.length ?? 0) > 0
+  );
+}
+
+/** The latest finished day, or null before Day 1 is done. */
+export function lastDoneDay(progress: Progress | null): CycleDay | null {
+  const done = CYCLE_DAYS.filter((day) => progress?.days[day]?.done);
+  return done.at(-1) ?? null;
 }
 
 /** Whether the user may open a day's practice page (done days stay viewable). */

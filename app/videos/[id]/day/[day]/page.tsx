@@ -1,16 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { DayGate } from "@/components/DayGate";
 import { DictationSession } from "@/components/DictationSession";
 import { ShadowingSession } from "@/components/ShadowingSession";
 import { VideoAttribution } from "@/components/VideoAttribution";
+import type { CycleDay } from "@/lib/cycle";
 import { isShadowingDay } from "@/lib/shadowing";
 import { getVideo } from "@/lib/video-library";
 
-// Day 1 is dictation and Days 2–6 are shadowing. Day 7 and the unlock rules
-// come in a later PR, so every available day can be opened directly for now.
-function parseDay(day: string): number | null {
-  return /^[1-6]$/.test(day) ? Number(day) : null;
+// Day 1 is dictation and Days 2–6 are shadowing (Day 7 comes in a later PR).
+// DayGate keeps days closed until they unlock.
+function parseDay(day: string): CycleDay | null {
+  return /^[1-6]$/.test(day) ? (Number(day) as CycleDay) : null;
 }
 
 async function dayTitle(day: number) {
@@ -54,25 +56,27 @@ export default async function DayPage({
 
   return (
     <main className="w-full flex-1 px-4 py-6 split:px-6">
-      {isShadowingDay(n) ? (
-        <ShadowingSession
-          video={video}
-          day={n}
-          title={title}
-          startInRetry={startInRetry}
-        >
-          {below}
-        </ShadowingSession>
-      ) : (
-        <DictationSession
-          video={video}
-          day={1}
-          title={title}
-          startInRetry={startInRetry}
-        >
-          {below}
-        </DictationSession>
-      )}
+      <DayGate videoId={video.id} videoTitle={video.title} day={n}>
+        {isShadowingDay(n) ? (
+          <ShadowingSession
+            video={video}
+            day={n}
+            title={title}
+            startInRetry={startInRetry}
+          >
+            {below}
+          </ShadowingSession>
+        ) : (
+          <DictationSession
+            video={video}
+            day={1}
+            title={title}
+            startInRetry={startInRetry}
+          >
+            {below}
+          </DictationSession>
+        )}
+      </DayGate>
     </main>
   );
 }
