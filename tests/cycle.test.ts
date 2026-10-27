@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   PASS_THRESHOLD,
   canOpenDay,
+  canStartNextWeek,
   currentDay,
   dayStatuses,
   lastDoneDay,
@@ -10,6 +11,7 @@ import {
   settleWeek,
   startNextWeek,
   taskForDay,
+  weekComparison,
   type CycleDay,
 } from "@/lib/cycle";
 import { createProgress, withDay, type Progress } from "@/lib/progress";
@@ -229,5 +231,60 @@ describe("currentDay and lastDoneDay", () => {
   it("finds the latest finished day", () => {
     expect(lastDoneDay(null)).toBeNull();
     expect(lastDoneDay(doneThrough(3))).toBe(3);
+  });
+});
+
+describe("canStartNextWeek", () => {
+  // doneThrough(7) finishes Day 7 on 2026-10-30 with 0.7 → repeat.
+  const repeat = settleWeek(doneThrough(7));
+
+  it("waits until the day after Day 7", () => {
+    expect(repeat.status).toBe("repeat");
+    expect(canStartNextWeek(repeat, "2026-10-30")).toBe(false);
+    expect(canStartNextWeek(repeat, "2026-10-31")).toBe(true);
+  });
+
+  it("starts right away in test mode", () => {
+    expect(canStartNextWeek(repeat, "2026-10-30", { ignoreDates: true })).toBe(
+      true,
+    );
+  });
+
+  it("is only for weeks that need repeating", () => {
+    expect(canStartNextWeek(doneThrough(7), "2026-11-30")).toBe(false);
+    expect(canStartNextWeek(null, "2026-11-30")).toBe(false);
+  });
+});
+
+describe("weekComparison", () => {
+  const sentences = [
+    { i: 0, start: 0, end: 1, en: "Go home.", zh: "回家。" },
+    { i: 1, start: 1, end: 2, en: "We moved.", zh: "我們搬家了。" },
+  ];
+
+  it("compares Day 1 and Day 7 overall and per sentence", () => {
+    let progress = createProgress("voa-001", START);
+    progress = withDay(progress, 1, {
+      done: true,
+      score: 0.5,
+      answers: ["go home", "we"],
+    });
+    progress = withDay(progress, 7, {
+      done: true,
+      score: 1,
+      answers: ["go home", "we moved"],
+    });
+    expect(weekComparison(sentences, progress)).toEqual({
+      day1: 0.5,
+      day7: 1,
+      sentences: [
+        { day1: 1, day7: 1 },
+        { day1: 0.5, day7: 1 },
+      ],
+    });
+  });
+
+  it("is null until both days are scored", () => {
+    expect(weekComparison(sentences, doneThrough(6))).toBeNull();
   });
 });

@@ -9,15 +9,24 @@ import type { CycleDay } from "@/lib/cycle";
 import { isShadowingDay } from "@/lib/shadowing";
 import { getVideo } from "@/lib/video-library";
 
-// Day 1 is dictation and Days 2–6 are shadowing (Day 7 comes in a later PR).
+// Day 1 is dictation, Days 2–6 are shadowing, Day 7 is re-dictation.
 // DayGate keeps days closed until they unlock.
 function parseDay(day: string): CycleDay | null {
-  return /^[1-6]$/.test(day) ? (Number(day) as CycleDay) : null;
+  return /^[1-7]$/.test(day) ? (Number(day) as CycleDay) : null;
 }
 
-async function dayTitle(day: number) {
-  if (day === 1) return (await getTranslations("dictation"))("title");
-  return (await getTranslations("shadowing"))("title", { day });
+/** Message group for a day's intro and title. */
+function dayMessages(day: CycleDay) {
+  if (day === 1) return "dictation" as const;
+  if (day === 7) return "redictation" as const;
+  return "shadowing" as const;
+}
+
+async function dayTitle(day: CycleDay) {
+  if (isShadowingDay(day)) {
+    return (await getTranslations("shadowing"))("title", { day });
+  }
+  return (await getTranslations(dayMessages(day)))("title");
 }
 
 export async function generateMetadata({
@@ -39,7 +48,7 @@ export default async function DayPage({
   const video = getVideo(id);
   const n = parseDay(day);
   if (!video || !n) notFound();
-  const t = await getTranslations(n === 1 ? "dictation" : "shadowing");
+  const t = await getTranslations(dayMessages(n));
   const title = await dayTitle(n);
 
   // The practice area comes first so a whole sentence fits on one screen;
@@ -69,7 +78,7 @@ export default async function DayPage({
         ) : (
           <DictationSession
             video={video}
-            day={1}
+            day={n === 7 ? 7 : 1}
             title={title}
             startInRetry={startInRetry}
           >

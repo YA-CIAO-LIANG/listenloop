@@ -144,3 +144,65 @@ describe("attempt helpers (shared by official runs and retries)", () => {
     expect(official.days[1]?.score).toBe(0);
   });
 });
+
+describe("finishing Day 7 settles the week", () => {
+  /** Day 1 scored 0.5, Day 7 started; both with these two sentences. */
+  function readyForDay7() {
+    const base = createProgress("sintel", "2026-10-20");
+    base.days[1] = {
+      done: true,
+      date: "2026-10-20",
+      score: 0.5,
+      answers: ["go home", ""],
+    };
+    return startDictation(base, "sintel", 7, 2, today);
+  }
+
+  function finishDay7(answer2: string) {
+    let progress = readyForDay7();
+    progress = submitAnswer(progress, 7, 0, "go home", sentences, today);
+    return submitAnswer(progress, 7, 1, answer2, sentences, today);
+  }
+
+  it("passes at 80% or more and records the week", () => {
+    // 2/2 + 4/5 = 6/7 ≈ 86%
+    const progress = finishDay7("we move to the city");
+    expect(progress.status).toBe("passed");
+    expect(progress.history).toEqual([
+      {
+        week: 1,
+        startedAt: "2026-10-20",
+        day1Score: 0.5,
+        day7Score: 6 / 7,
+        passed: true,
+      },
+    ]);
+  });
+
+  it("needs another week below 80%", () => {
+    // 2/2 + 0/5 = 2/7
+    const progress = finishDay7("");
+    expect(progress.status).toBe("repeat");
+    expect(progress.history[0].passed).toBe(false);
+  });
+
+  it("leaves the week open while Day 7 is unfinished", () => {
+    const progress = submitAnswer(
+      readyForDay7(),
+      7,
+      0,
+      "go home",
+      sentences,
+      today,
+    );
+    expect(progress.status).toBe("in-progress");
+    expect(progress.history).toEqual([]);
+  });
+
+  it("doesn't settle Day 1", () => {
+    let progress = startDictation(null, "sintel", 1, 2, today);
+    progress = submitAnswer(progress, 1, 0, "go home", sentences, today);
+    progress = submitAnswer(progress, 1, 1, "x", sentences, today);
+    expect(progress.status).toBe("in-progress");
+  });
+});

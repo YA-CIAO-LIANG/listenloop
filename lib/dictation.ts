@@ -1,3 +1,4 @@
+import { settleWeek } from "./cycle";
 import type { LocalDate } from "./dates";
 import { createProgress, withDay, type Progress } from "./progress";
 import { scoreDictation, totalAccuracy } from "./scoring/dictation";
@@ -72,8 +73,9 @@ export function startDictation(
 /**
  * Records the first submission for a sentence of the official run. When the
  * last sentence is answered, the day is marked done with its word-weighted
- * score. Once done, the official record never changes (retries don't use
- * this function).
+ * score. Finishing Day 7 also settles the week in the same update, so a
+ * finished Day 7 is never left unsettled. Once done, the official record
+ * never changes (retries don't use this function).
  */
 export function submitAnswer(
   progress: Progress,
@@ -93,10 +95,13 @@ export function submitAnswer(
     return withDay(progress, day, { ...record, answers: [...next] });
   }
 
-  return withDay(progress, day, {
+  const finished = withDay(progress, day, {
     done: true,
     date: today,
     score: attemptScore(sentences, next),
     answers: [...next],
   });
+  return day === 7 && finished.days[1]?.score !== undefined
+    ? settleWeek(finished)
+    : finished;
 }

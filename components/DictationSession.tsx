@@ -35,6 +35,7 @@ import { ScoreBadge } from "./ScoreBadge";
 import { SentenceNotes } from "./SentenceNotes";
 import { SentenceRow } from "./SentenceRow";
 import { useSentencePlayback } from "./useSentencePlayback";
+import { WeekResult } from "./WeekResult";
 import { WordDiffView } from "./WordDiffView";
 import { YouTubeFrame } from "./youtube/YouTubeFrame";
 import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
@@ -327,6 +328,22 @@ export function DictationSession({
             {t("loading")}
           </p>
         </div>
+        {children}
+      </>
+    );
+  }
+
+  // Day 7's official completion is the week result (settled on finishing).
+  if (
+    !practicing &&
+    day === 7 &&
+    mode === "official" &&
+    progress.status !== "in-progress"
+  ) {
+    return (
+      <>
+        <div className="practice-column space-y-4">{header}</div>
+        <WeekResult video={video} progress={progress} store={progressStore} />
         {children}
       </>
     );

@@ -8,7 +8,8 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
 /**
  * A video's saved progress, read in the browser. `loaded` is false on the
  * server and until storage answers, so the first render matches the server
- * HTML; unreadable storage counts as no progress.
+ * HTML; unreadable storage counts as no progress. Also returns the store, for
+ * pages that save (e.g. starting the next week).
  */
 export function useVideoProgress(videoId: string, store?: ProgressStore) {
   const [progressStore] = useState(() => store ?? createLocalProgressStore());
@@ -30,5 +31,5 @@ export function useVideoProgress(videoId: string, store?: ProgressStore) {
     };
   }, [progressStore, videoId]);
 
-  return state;
+  return { ...state, store: progressStore };
 }
