@@ -111,7 +111,6 @@ export function ShopView({ catalog, rewards }: ShopViewProps) {
         <ul className="grid gap-6 split:grid-cols-2">
           {catalog.map((fish) => {
             const short = fish.price - points;
-            const [model] = fish.credits;
             return (
               <li key={fish.id}>
                 <Card className="flex h-full flex-col gap-4">
@@ -167,17 +166,6 @@ export function ShopView({ catalog, rewards }: ShopViewProps) {
                       </>
                     )}
                   </div>
-                  <p className="text-metadata text-ink-muted">
-                    <a
-                      href={`/credits#${fish.id}`}
-                      className="underline decoration-1 underline-offset-4 hover:text-ink"
-                    >
-                      {t("modelBy", {
-                        authors: fish.credits.map((c) => c.author).join(", "),
-                        license: model.license,
-                      })}
-                    </a>
-                  </p>
                 </Card>
               </li>
             );

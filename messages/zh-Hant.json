@@ -125,7 +125,6 @@
     "bought": "已購買{name}，牠游進魚缸了。",
     "boughtTankFull": "已購買{name}。魚缸已經有 {max} 隻魚，可以在「我的魚」換一換。",
     "saveFailed": "無法儲存。請確認瀏覽器允許網站儲存資料，然後重新整理。",
-    "modelBy": "3D 模型：{authors}（{license}）",
     "myFish": "我的魚",
     "tank": "魚缸 {count} / {max}",
     "tankHint": "魚缸最多 {max} 隻，可以選擇哪幾隻游在首頁。",
@@ -133,7 +132,6 @@
     "starter": "見面禮",
     "inTank": "放進魚缸",
     "tankFull": "魚缸已滿",
-    "placeholder": "{name}的縮圖（之後換成 3D 算繪圖）",
     "credits": "素材出處"
   },
   "fish": {
@@ -156,14 +154,8 @@
   },
   "credits": {
     "title": "素材出處",
-    "intro": "ListenLoop 使用的影片與 3D 模型都採用允許商業使用與改作的授權。感謝以下創作者。",
-    "videos": "影片",
-    "fish": "魚的 3D 模型",
-    "madeFrom": "改作自",
-    "license": "授權",
-    "source": "原始頁面",
-    "changes": "修改說明",
-    "verified": "授權確認日期：{date}"
+    "intro": "ListenLoop 使用的影片都採用允許商業使用與改作的授權，以下列出出處。魚和魚缸都是 ListenLoop 自己用程式繪製的像素畫。",
+    "videos": "影片"
   },
   "styleguide": {
     "title": "設計系統",

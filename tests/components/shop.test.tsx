@@ -43,16 +43,14 @@ const card = (name: string) =>
   screen.getByRole("heading", { name }).closest("li")!;
 
 describe("ShopView", () => {
-  it("lists every fish with its price and model credit", async () => {
+  it("lists every fish with its price", async () => {
     await renderShop(storeWith(withPoints(0)));
     expect(screen.getByText("你有 0 點數")).toBeDefined();
     const clownfish = within(card("小丑魚"));
     expect(clownfish.getByText("40 點數")).toBeDefined();
-    expect(
-      clownfish
-        .getByRole("link", { name: /kenchoo, zixisun02（CC BY 4.0）/ })
-        .getAttribute("href"),
-    ).toBe("/credits#clownfish");
+    expect(screen.getAllByRole("heading", { level: 2 }).length).toBeGreaterThan(
+      fishCatalog.length,
+    );
   });
 
   it("gives the starter snail on the first visit", async () => {

@@ -1,22 +1,4 @@
 {
   "id": "clownfish",
-  "price": 40,
-  "credits": [
-    {
-      "title": "Clownfish",
-      "author": "kenchoo",
-      "url": "https://sketchfab.com/3d-models/e6db2c191bf346398087ba27de9b8a0a",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
-    },
-    {
-      "title": "Clownfish",
-      "author": "zixisun02",
-      "url": "https://sketchfab.com/3d-models/47ba2679d91a4f14b3fc0bf8e3805af5",
-      "license": "CC BY 4.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
-    }
-  ],
-  "changes": "Optimized for the web by ListenLoop (meshopt compression, WebP textures); placed in an animated aquarium.",
-  "verifiedAt": "2026-10-27"
+  "price": 40
 }

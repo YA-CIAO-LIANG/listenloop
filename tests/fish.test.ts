@@ -19,23 +19,7 @@ import en from "@/messages/en.json";
 import zh from "@/messages/zh-Hant.json";
 
 const TODAY = "2026-10-27";
-const by4 = "https://creativecommons.org/licenses/by/4.0/";
-
-const validFish = {
-  id: "clownfish",
-  price: 40,
-  credits: [
-    {
-      title: "Clownfish",
-      author: "kenchoo",
-      url: "https://sketchfab.com/3d-models/x",
-      license: "CC BY 4.0",
-      licenseUrl: by4,
-    },
-  ],
-  changes: "Compressed for the web",
-  verifiedAt: TODAY,
-};
+const validFish = { id: "clownfish", price: 40 };
 
 describe("validateFish", () => {
   it("accepts a well-formed fish", () => {
@@ -43,33 +27,17 @@ describe("validateFish", () => {
     expect(parseFish(validFish).id).toBe("clownfish");
   });
 
-  it.each(["CC0 1.0", "CC BY 3.0", "CC BY 4.0"])("allows %s", (license) => {
-    const credits = [{ ...validFish.credits[0], license }];
-    expect(validateFish({ ...validFish, credits })).toEqual([]);
-  });
-
-  it.each(["CC BY-NC 4.0", "CC BY-ND 4.0", "CC BY-SA 4.0", "Standard"])(
-    "rejects %s (no commercial use, no changes, or share-alike)",
-    (license) => {
-      const credits = [{ ...validFish.credits[0], license }];
-      expect(validateFish({ ...validFish, credits })).toContain(
-        "credits[0].license must be CC0 1.0 or CC BY x.x",
-      );
-    },
-  );
-
   it.each([
-    ["no credits", { credits: [] }, "credits must be a non-empty list"],
+    [
+      "an uppercase id",
+      { id: "Clownfish" },
+      "id must be lowercase letters and dashes",
+    ],
     ["a free fish", { price: 0 }, "price must be a positive whole number"],
     [
-      "an http link",
-      { credits: [{ ...validFish.credits[0], url: "http://x.y" }] },
-      "credits[0].url must be an https URL",
-    ],
-    [
-      "a PNG thumbnail",
-      { thumbnail: "/fish/a.png" },
-      "thumbnail must be a /path/to/file.webp",
+      "a fractional price",
+      { price: 1.5 },
+      "price must be a positive whole number",
     ],
   ])("rejects %s", (_, changes, problem) => {
     expect(validateFish({ ...validFish, ...changes })).toContain(problem);

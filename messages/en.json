@@ -125,7 +125,6 @@
     "bought": "You bought a {name}. It’s swimming in the aquarium.",
     "boughtTankFull": "You bought a {name}. The aquarium already has {max} fish; swap some in My fish.",
     "saveFailed": "Couldn’t save. Allow this site to store data, then reload.",
-    "modelBy": "3D model: {authors} ({license})",
     "myFish": "My fish",
     "tank": "Aquarium {count} / {max}",
     "tankHint": "Up to {max} fish can swim on the home page; choose which ones.",
@@ -133,7 +132,6 @@
     "starter": "Welcome gift",
     "inTank": "In the aquarium",
     "tankFull": "Aquarium full",
-    "placeholder": "{name} thumbnail (a 3D render comes later)",
     "credits": "Credits"
   },
   "fish": {
@@ -156,14 +154,8 @@
   },
   "credits": {
     "title": "Credits",
-    "intro": "Every video and 3D model in ListenLoop is used under a license that allows commercial use and changes. Thank you to these creators.",
-    "videos": "Videos",
-    "fish": "Fish 3D models",
-    "madeFrom": "Made from",
-    "license": "License",
-    "source": "Original page",
-    "changes": "Changes",
-    "verified": "License checked on {date}"
+    "intro": "Every video in ListenLoop is used under a license that allows commercial use and changes; their sources are listed below. The fish and the aquarium are pixel art drawn by ListenLoop.",
+    "videos": "Videos"
   },
   "styleguide": {
     "title": "Design system",
