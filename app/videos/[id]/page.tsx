@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { ButtonLink } from "@/components/ButtonLink";
+import { DayOneStatus } from "@/components/DayOneStatus";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import { getVideo } from "@/lib/video-library";
 import { VideoPlayerPanel } from "./VideoPlayerPanel";
@@ -38,14 +38,7 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
       </div>
 
       <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <ButtonLink
-          href={`/videos/${video.id}/day/1`}
-          variant="primary"
-          size="lg"
-          arrow
-        >
-          {t("startDay1")}
-        </ButtonLink>
+        <DayOneStatus videoId={video.id} />
         <p className="text-ink-muted">
           {t("excerpt", { count: video.sentences.length })}
         </p>

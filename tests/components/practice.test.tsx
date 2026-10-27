@@ -34,6 +34,19 @@ describe("ProgressBar", () => {
     expect(screen.getByRole("progressbar").dataset.mode).toBe("continuous");
   });
 
+  it("can hide the count when the label already says where you are", () => {
+    renderWithIntl(
+      <ProgressBar value={2} max={12} label="第 3 / 12 句" showCount={false} />,
+    );
+    expect(screen.getByText("第 3 / 12 句")).toBeDefined();
+    expect(screen.queryByText("2 / 12")).toBeNull();
+    expect(
+      screen
+        .getByRole("progressbar", { name: "第 3 / 12 句" })
+        .getAttribute("aria-valuenow"),
+    ).toBe("2");
+  });
+
   it("clamps values outside 0…max", () => {
     renderWithIntl(<ProgressBar value={99} max={10} label="今日進度" />);
     expect(screen.getByRole("progressbar").getAttribute("aria-valuenow")).toBe(

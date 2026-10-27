@@ -20,8 +20,11 @@ export async function generateMetadata({
 
 export default async function DayPage({
   params,
+  searchParams,
 }: PageProps<"/videos/[id]/day/[day]">) {
   const { id, day } = await params;
+  // ?retry=1 (from the video page) jumps straight into extra practice.
+  const startInRetry = (await searchParams).retry === "1";
   const video = getVideo(id);
   if (!video || !AVAILABLE_DAYS.includes(day)) notFound();
   const t = await getTranslations("dictation");
@@ -30,7 +33,12 @@ export default async function DayPage({
   // the intro and credits sit below it.
   return (
     <main className="w-full flex-1 px-4 py-6 split:px-6">
-      <DictationSession video={video} day={1} title={t("title")}>
+      <DictationSession
+        video={video}
+        day={1}
+        title={t("title")}
+        startInRetry={startInRetry}
+      >
         <div className="practice-column mt-12 space-y-12">
           <p className="text-ink-muted">{t("intro")}</p>
           <VideoAttribution

@@ -12,9 +12,13 @@ import {
 } from "react";
 import { toLocalDate } from "@/lib/dates";
 import {
+  attemptScore,
+  emptyAnswers,
   nextUnanswered,
+  recordAnswer,
   startDictation,
   submitAnswer,
+  type Answers,
   type DictationDay,
 } from "@/lib/dictation";
 import type { Progress } from "@/lib/progress";
@@ -37,11 +41,20 @@ import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
 /** How long "Skip" waits for the confirming second click. */
 export const SKIP_CONFIRM_MS = 3000;
 
+/**
+ * official: the first full run, saved and scored for the cycle.
+ * retry: extra practice after the official run is done. Kept in memory only,
+ * never saved, so it can't change the official score.
+ */
+type Mode = "official" | "retry";
+
 type DictationSessionProps = {
   video: Video;
   day: DictationDay;
   /** Page heading, e.g. "Day 1: Dictation". */
   title: string;
+  /** Start a retry right away if the official run is already done (?retry=1). */
+  startInRetry?: boolean;
   /** Extra content shown below the practice area (intro text, credits). */
   children?: ReactNode;
   /** Injected in tests; defaults to localStorage. */
@@ -55,24 +68,27 @@ const isReplayShortcut = (event: globalThis.KeyboardEvent) =>
 
 /**
  * One-sentence-at-a-time dictation laid out so a whole sentence fits on one
- * screen: title row, progress, video (≤ 40% of the viewport), input, and a
- * row of Replay / Skip / Submit. Enter submits, shows the diff, and Enter
- * again moves on (the next sentence plays automatically). Every answer is
- * saved, so leaving and coming back resumes at the next sentence.
+ * screen: title, a sticky "Sentence N / M" bar, video (≤ 40% of the
+ * viewport), input, and Replay / Skip / Submit. Enter submits, shows the
+ * diff, and Enter again moves on (the next sentence plays automatically).
+ * The official run is saved after every answer; once it's done, learners can
+ * practice again without touching the official score.
  */
 export function DictationSession({
   video,
   day,
   title,
+  startInRetry = false,
   children,
   store,
 }: DictationSessionProps) {
   const t = useTranslations("dictation");
-  const tProgress = useTranslations("practice.progress");
   const format = useFormatter();
   const player = useYouTubePlayer(video.youtubeId);
   const [progressStore] = useState(() => store ?? createLocalProgressStore());
   const [progress, setProgress] = useState<Progress | null>(null);
+  const [mode, setMode] = useState<Mode>("official");
+  const [retryAnswers, setRetryAnswers] = useState<Answers>([]);
   const [current, setCurrent] = useState(0);
   // Index whose feedback is showing (after submit or skip, before "next").
   const [feedbackIndex, setFeedbackIndex] = useState<number | null>(null);
@@ -85,12 +101,18 @@ export function DictationSession({
   const skipTimer = useRef<number | undefined>(undefined);
 
   const { sentences } = video;
-  const answers = progress?.days[day]?.answers ?? [];
+  const official = progress?.days[day];
+  const officialScore = official?.score ?? 0;
+  const answers: Answers =
+    mode === "retry" ? retryAnswers : (official?.answers ?? []);
   const answeredCount = answers.filter((a) => a !== null).length;
-  const done = progress?.days[day]?.done ?? false;
+  const attemptDone = answers.length > 0 && nextUnanswered(answers) === -1;
   const showing = feedbackIndex ?? current;
   const playback = useSentencePlayback(player, sentences, showing);
-  const practicing = progress !== null && !(done && feedbackIndex === null);
+  const practicing =
+    progress !== null && (feedbackIndex !== null || !attemptDone);
+  const percent = (value: number) =>
+    format.number(value, { style: "percent", maximumFractionDigits: 0 });
 
   async function save(next: Progress) {
     try {
@@ -99,6 +121,16 @@ export function DictationSession({
     } catch {
       setSaveFailed(true);
     }
+  }
+
+  function beginRetry() {
+    window.clearTimeout(skipTimer.current);
+    setSkipArmed(false);
+    setMode("retry");
+    setRetryAnswers(emptyAnswers(sentences.length));
+    setCurrent(0);
+    setFeedbackIndex(null);
+    setInput("");
   }
 
   // Load saved progress (or start fresh) once, in the browser.
@@ -114,7 +146,13 @@ export function DictationSession({
         toLocalDate(new Date()),
       );
       setProgress(started);
-      setCurrent(Math.max(0, nextUnanswered(started.days[day]?.answers ?? [])));
+      if (startInRetry && started.days[day]?.done) {
+        beginRetry();
+      } else {
+        setCurrent(
+          Math.max(0, nextUnanswered(started.days[day]?.answers ?? [])),
+        );
+      }
       if (started !== saved) void save(started);
     });
     return () => {
@@ -124,12 +162,13 @@ export function DictationSession({
   }, [progressStore, video.id, day, sentences.length]);
 
   // Keyboard flow: focus "next" after submitting, the input otherwise.
-  // `loaded` matters: the input only appears once progress has loaded.
+  // `loaded` and `mode` matter: the input appears once progress has loaded,
+  // and again when a retry starts from the results screen.
   const loaded = progress !== null;
   useEffect(() => {
     if (feedbackIndex !== null) nextRef.current?.focus();
     else inputRef.current?.focus();
-  }, [loaded, feedbackIndex, current]);
+  }, [loaded, mode, feedbackIndex, current]);
 
   // Grow the textarea with its content (one line by default).
   useLayoutEffect(() => {
@@ -137,7 +176,7 @@ export function DictationSession({
     if (!element) return;
     element.style.height = "auto";
     element.style.height = `${element.scrollHeight}px`;
-  }, [input, feedbackIndex, loaded]);
+  }, [input, feedbackIndex, loaded, mode]);
 
   // Replay shortcut works anywhere on the page while practicing. Capture
   // phase + preventDefault so it never types a space or clicks a button.
@@ -153,27 +192,31 @@ export function DictationSession({
     return () => window.removeEventListener("keydown", onKeyDown, true);
   }, [practicing, play]);
 
-  // A pending skip confirmation never carries over to another sentence.
+  // A pending skip confirmation never outlives the page.
   useEffect(() => {
     return () => window.clearTimeout(skipTimer.current);
   }, []);
 
   function record(answer: string) {
     if (!progress) return;
-    const next = submitAnswer(
-      progress,
-      day,
-      current,
-      answer,
-      sentences,
-      toLocalDate(new Date()),
-    );
     window.clearTimeout(skipTimer.current);
     setSkipArmed(false);
-    setProgress(next);
+    if (mode === "retry") {
+      setRetryAnswers((list) => recordAnswer(list, current, answer));
+    } else {
+      const next = submitAnswer(
+        progress,
+        day,
+        current,
+        answer,
+        sentences,
+        toLocalDate(new Date()),
+      );
+      setProgress(next);
+      void save(next);
+    }
     setFeedbackIndex(current);
     setInput("");
-    void save(next);
   }
 
   function submitTyped() {
@@ -224,22 +267,15 @@ export function DictationSession({
   }
 
   const header = (
-    <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-1">
-      <div>
-        <Link
-          href={`/videos/${video.id}`}
-          className="text-supporting text-ink-muted hover:text-ink"
-        >
-          <span aria-hidden="true">← </span>
-          <span lang="en">{video.title}</span>
-        </Link>
-        <h1 className="font-display text-h3">{title}</h1>
-      </div>
-      {practicing && (
-        <p className="text-metadata tracking-widest text-ink-muted uppercase">
-          {t("position", { n: showing + 1, total: sentences.length })}
-        </p>
-      )}
+    <div>
+      <Link
+        href={`/videos/${video.id}`}
+        className="text-supporting text-ink-muted hover:text-ink"
+      >
+        <span aria-hidden="true">← </span>
+        <span lang="en">{video.title}</span>
+      </Link>
+      <h1 className="font-display text-h3">{title}</h1>
     </div>
   );
 
@@ -271,8 +307,13 @@ export function DictationSession({
         <div className="practice-column space-y-4">{header}</div>
         <DictationResult
           video={video}
+          mode={mode}
           answers={answers}
-          score={progress.days[day]?.score ?? 0}
+          score={
+            mode === "retry" ? attemptScore(sentences, answers) : officialScore
+          }
+          officialScore={officialScore}
+          onRetry={beginRetry}
           saveError={saveError}
         />
         {children}
@@ -288,13 +329,23 @@ export function DictationSession({
     <>
       <section className="practice-column space-y-4">
         {header}
-        <ProgressBar
-          value={answeredCount}
-          max={sentences.length}
-          label={tProgress("today")}
-        />
+        {mode === "retry" && (
+          <p className="text-supporting text-accent-ink">
+            {t("practiceMode", { score: percent(officialScore) })}
+          </p>
+        )}
 
-        <div ref={videoRef} className="scroll-mt-2">
+        {/* Stays at the top while scrolling, so learners always see where they are. */}
+        <div className="sticky top-0 z-10 bg-ground py-2">
+          <ProgressBar
+            value={answeredCount}
+            max={sentences.length}
+            label={t("position", { n: showing + 1, total: sentences.length })}
+            showCount={false}
+          />
+        </div>
+
+        <div ref={videoRef} className="scroll-mt-16">
           <YouTubeFrame {...player} />
           <CaptionHint />
         </div>
@@ -328,10 +379,9 @@ export function DictationSession({
             />
             <p className="text-supporting text-ink-muted">
               {t("sentenceScore", {
-                score: format.number(
+                score: percent(
                   scoreDictation(sentences[feedbackIndex].en, shownAnswer)
                     .accuracy,
-                  { style: "percent", maximumFractionDigits: 0 },
                 ),
               })}
             </p>
@@ -407,23 +457,57 @@ export function DictationSession({
 
 function DictationResult({
   video,
+  mode,
   answers,
   score,
+  officialScore,
+  onRetry,
   saveError,
 }: {
   video: Video;
-  answers: readonly (string | null)[];
+  mode: Mode;
+  answers: Answers;
+  /** The score to show: official for the first run, this attempt's for a retry. */
   score: number;
+  officialScore: number;
+  onRetry: () => void;
   saveError: ReactNode;
 }) {
   const t = useTranslations("dictation");
   const format = useFormatter();
+  const percent = (value: number) =>
+    format.number(value, { style: "percent", maximumFractionDigits: 0 });
 
   return (
     <div className="practice-column mt-8 space-y-12">
       <div className="space-y-4">
+        {mode === "official" ? (
+          <p className="text-supporting text-success">
+            <span aria-hidden="true">✓ </span>
+            {t("todayDone")} · {t("officialScore", { score: percent(score) })}
+          </p>
+        ) : (
+          <p className="text-metadata tracking-widest text-ink-muted uppercase">
+            {t("thisAttempt")}
+          </p>
+        )}
         <ScoreBadge score={score} />
-        <p className="font-display text-h3">{t("complete")}</p>
+        <p className="font-display text-h3">
+          {mode === "official" ? t("complete") : t("retryComplete")}
+        </p>
+        {mode === "retry" && (
+          <p className="text-supporting text-ink-muted">
+            {t("officialUnchanged", { score: percent(officialScore) })}
+          </p>
+        )}
+        <div className="flex flex-wrap items-center gap-3">
+          <Button variant="primary" arrow onClick={onRetry}>
+            {t("retry")}
+          </Button>
+          <ButtonLink href={`/videos/${video.id}`} variant="secondary">
+            {t("backToVideo")}
+          </ButtonLink>
+        </div>
         {saveError}
       </div>
 
@@ -443,20 +527,13 @@ function DictationResult({
                 </span>
                 <WordDiffView diff={wordDiff(sentence.en, answer)} />
                 <span className="text-supporting text-ink-muted tabular-nums">
-                  {format.number(accuracy, {
-                    style: "percent",
-                    maximumFractionDigits: 0,
-                  })}
+                  {percent(accuracy)}
                 </span>
               </li>
             );
           })}
         </ol>
       </section>
-
-      <ButtonLink href={`/videos/${video.id}`} variant="secondary">
-        {t("backToVideo")}
-      </ButtonLink>
     </div>
   );
 }

@@ -112,7 +112,8 @@
       "transcript": "英文字幕來源",
       "changes": "修改說明"
     },
-    "startDay1": "開始第 1 天：聽寫"
+    "startDay1": "開始第 1 天：聽寫",
+    "viewResult": "查看結果"
   },
   "player": {
     "loading": "影片載入中…",
@@ -164,6 +165,13 @@
     "skip": "跳過",
     "confirmSkip": "確定跳過？",
     "shortcuts": "Enter 送出 · Ctrl＋空白 或 Ctrl＋Enter 重播",
-    "position": "第 {n} 句，共 {total} 句"
+    "position": "第 {n} / {total} 句",
+    "retry": "再練一次",
+    "practiceMode": "練習模式：這次的分數不會改變正式成績（{score}）。",
+    "officialScore": "正式成績 {score}",
+    "officialUnchanged": "正式成績 {score}（不變）",
+    "thisAttempt": "這次的成績",
+    "todayDone": "今日任務完成",
+    "retryComplete": "練習完成！"
   }
 }
