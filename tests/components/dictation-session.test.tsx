@@ -122,7 +122,7 @@ describe("DictationSession", () => {
     const next = screen.getByRole("button", { name: "下一句" });
     expect(document.activeElement).toBe(next);
     await userEvent.keyboard("{Enter}");
-    expect(playSegment).toHaveBeenLastCalledWith(2.85, 5.25);
+    expect(playSegment).toHaveBeenLastCalledWith(2.85, 5.25, undefined);
     expect(screen.getByText("第 2 / 2 句")).toBeDefined();
     expect(document.activeElement).toBe(input());
   });
@@ -207,7 +207,7 @@ describe("DictationSession controls", () => {
   it("plays and then replays the current sentence from the button", async () => {
     await renderSession();
     await userEvent.click(screen.getByRole("button", { name: "播放" }));
-    expect(playSegment).toHaveBeenLastCalledWith(0.85, 2.25);
+    expect(playSegment).toHaveBeenLastCalledWith(0.85, 2.25, undefined);
     expect(screen.getByRole("button", { name: "重播" })).toBeDefined();
   });
 

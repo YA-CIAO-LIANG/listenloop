@@ -106,6 +106,32 @@ describe("useYouTubePlayer", () => {
     expect(player.calls.filter((c) => c === "pause")).toHaveLength(1);
   });
 
+  it("calls onEnd once after pausing at the segment end", async () => {
+    const player = await renderReadyPlayer();
+    vi.useFakeTimers();
+    const onEnd = vi.fn();
+    act(() => api.playSegment(10, 12, onEnd));
+    player.time = 11;
+    vi.advanceTimersByTime(100);
+    expect(onEnd).not.toHaveBeenCalled();
+    player.time = 12.1;
+    vi.advanceTimersByTime(300);
+    expect(onEnd).toHaveBeenCalledTimes(1);
+  });
+
+  it("doesn't call onEnd when another segment starts first", async () => {
+    const player = await renderReadyPlayer();
+    vi.useFakeTimers();
+    const first = vi.fn();
+    act(() => api.playSegment(10, 12, first));
+    player.time = 11;
+    vi.advanceTimersByTime(100);
+    act(() => api.playSegment(20, 22));
+    player.time = 22.5;
+    vi.advanceTimersByTime(300);
+    expect(first).not.toHaveBeenCalled();
+  });
+
   it("ignores a stale time reported right after seeking", async () => {
     const player = await renderReadyPlayer();
     vi.useFakeTimers();
@@ -217,7 +243,7 @@ describe("useSentencePlayback", () => {
     expect(result.current.played).toBe(false);
 
     act(() => result.current.play());
-    expect(playSegment).toHaveBeenLastCalledWith(117.85, 121.7);
+    expect(playSegment).toHaveBeenLastCalledWith(117.85, 121.7, undefined);
     expect(result.current.played).toBe(true);
 
     // Moving on resets "played" for the new sentence.
@@ -232,7 +258,7 @@ describe("useSentencePlayback", () => {
     );
     // Sentence 4 is 121.75–124.8; the previous one ends at 121.45.
     act(() => result.current.playAt(3));
-    expect(playSegment).toHaveBeenLastCalledWith(121.6, 125.05);
+    expect(playSegment).toHaveBeenLastCalledWith(121.6, 125.05, undefined);
   });
 
   it("accepts custom padding", () => {
@@ -244,7 +270,7 @@ describe("useSentencePlayback", () => {
       }),
     );
     act(() => result.current.play());
-    expect(playSegment).toHaveBeenLastCalledWith(118, 121.45);
+    expect(playSegment).toHaveBeenLastCalledWith(118, 121.45, undefined);
   });
 });
 

@@ -24,15 +24,18 @@ export function useSentencePlayback(
   const { playSegment } = player;
 
   const playAt = useCallback(
-    (target: number) => {
+    (target: number, onEnd?: () => void) => {
       const { start, end } = paddedSegment(sentences, target, padding);
-      playSegment(start, end);
+      playSegment(start, end, onEnd);
       setPlayedIndex(target);
     },
     [playSegment, sentences, padding],
   );
 
-  const play = useCallback(() => playAt(index), [playAt, index]);
+  const play = useCallback(
+    (onEnd?: () => void) => playAt(index, onEnd),
+    [playAt, index],
+  );
 
   return { play, playAt, played: playedIndex === index };
 }
