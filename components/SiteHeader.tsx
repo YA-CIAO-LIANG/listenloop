@@ -2,9 +2,10 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { Divider } from "./Divider";
 import { LanguageToggle } from "./LanguageToggle";
+import { RewardBadge } from "./RewardBadge";
 import { ThemeToggle } from "./ThemeToggle";
 
-/** Wordmark on the left, language and theme toggles on the right. */
+/** Wordmark on the left; rewards, language, and theme toggles on the right. */
 export function SiteHeader() {
   const t = useTranslations("common");
 
@@ -15,6 +16,8 @@ export function SiteHeader() {
           {t("appName")}
         </Link>
         <div className="flex items-center gap-3">
+          <RewardBadge />
+          <Divider orientation="vertical" className="my-2" />
           <LanguageToggle />
           <Divider orientation="vertical" className="my-2" />
           <ThemeToggle />

@@ -9,6 +9,7 @@ import { wordDiff } from "@/lib/scoring/word-diff";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
 import { ButtonLink } from "./ButtonLink";
+import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
 import { StartNextWeekButton } from "./StartNextWeekButton";
 import { WordDiffView } from "./WordDiffView";
@@ -52,6 +53,7 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
           <span aria-hidden="true">✓ </span>
           {tCycle("todayDone")}
         </p>
+        <RewardGainedNote />
         <h2 className="font-display text-h2">
           {t("resultTitle", { week: progress.week })}
         </h2>

@@ -169,6 +169,23 @@
    * hops each time progress moves; a check mark draws itself when done.
    */
   --animate-dot-hop: ll-dot-hop 300ms ease-out;
+  /* "+N" next to a header balance: rises in, holds, fades (2s, see RewardBadge). */
+  --animate-gain: ll-gain 2s ease-out forwards;
+
+  @keyframes ll-gain {
+    0% {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+    15%,
+    70% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
   --animate-check-draw: ll-check-draw 400ms ease-out forwards;
 
   @keyframes ll-dot-hop {

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { toLocalDate } from "@/lib/dates";
+import { logOfficial, logRetry } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
 import { scoreShadowing } from "@/lib/scoring/shadowing";
 import { wordDiff } from "@/lib/scoring/word-diff";
@@ -26,11 +27,13 @@ import { ButtonLink } from "./ButtonLink";
 import { CaptionHint } from "./CaptionHint";
 import { NextDayNote } from "./NextDayNote";
 import { ProgressBar } from "./ProgressBar";
+import { RewardGainedNote } from "./RewardBadge";
 import {
   BLOCKING_ERRORS,
   useSpeechRecognition,
   type SpeechError,
 } from "./speech/useSpeechRecognition";
+import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { YouTubeFrame } from "./youtube/YouTubeFrame";
 import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
@@ -124,7 +127,23 @@ export function ShadowingSession({
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
+      return;
     }
+    // A finished official day earns points and today's feed.
+    if (next.days[day]?.done) {
+      void claimAndAnnounce(
+        { progress: progressStore },
+        logOfficial(toLocalDate(new Date())),
+      );
+    }
+  }
+
+  /** A finished retry earns its (once a day) bonus. */
+  function claimRetry() {
+    void claimAndAnnounce(
+      { progress: progressStore },
+      logRetry(toLocalDate(new Date()), video.id),
+    );
   }
 
   function beginRetry() {
@@ -184,7 +203,9 @@ export function ShadowingSession({
   function record(index: number, attempt: ShadowingAttempt) {
     if (!progress) return;
     if (mode === "retry") {
-      setRetryRecords((list) => recordAttempt(list, index, attempt));
+      const next = recordAttempt(retryRecords, index, attempt);
+      setRetryRecords(next);
+      if (next !== retryRecords && nextUnfinished(next) === -1) claimRetry();
       return;
     }
     const next = submitShadowing(
@@ -285,6 +306,7 @@ export function ShadowingSession({
                 {t("todayDone")}
               </p>
             ) : null}
+            <RewardGainedNote />
             <p className="font-display text-h3">
               {mode === "official" ? t("complete") : t("retryComplete")}
             </p>

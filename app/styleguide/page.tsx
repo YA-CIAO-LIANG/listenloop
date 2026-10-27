@@ -6,6 +6,7 @@ import { Button, type ButtonVariant } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { CardLink } from "@/components/CardLink";
 import { Divider } from "@/components/Divider";
+import { FeedIcon, LockIcon, PointsIcon } from "@/components/icons";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
 import { ScoreBadge } from "@/components/ScoreBadge";
@@ -193,6 +194,23 @@ export default function StyleguidePage() {
 
           <Demo name="DayTracker">
             <DayTrackerDemo />
+          </Demo>
+
+          <Demo name="Icons">
+            <ul className="flex flex-wrap gap-6 text-ink">
+              {(
+                [
+                  ["LockIcon", LockIcon],
+                  ["PointsIcon", PointsIcon],
+                  ["FeedIcon", FeedIcon],
+                ] as const
+              ).map(([name, Icon]) => (
+                <li key={name} className="flex items-center gap-2">
+                  <Icon className="size-4" />
+                  <code className="text-metadata text-ink-muted">{name}</code>
+                </li>
+              ))}
+            </ul>
           </Demo>
 
           <Demo name="Divider">
