@@ -245,6 +245,17 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - 路徑 `/credits`。列出所有使用的影片（VideoAttribution，標示作者、標題、授權與修改說明）。魚、魚缸、飼料是 ListenLoop 自己繪製的像素畫，不需要標示。
 
+## 首頁魚缸
+
+- 整頁背景是像素魚缸（`components/aquarium/AquariumBackground.tsx`，只在首頁的瀏覽器端載入，`fixed`、`aria-hidden`）。頁首加 ground 底色。
+- 版面：最上方約 45svh 的「魚缸窗」不放卡片 → 標題卡 → 餵魚卡與日曆卡（760px 以上兩欄）→ 影片庫卡。卡片都是不透明 surface（`data-solid`），卡片之間的空隙露出魚缸。
+- 放大倍率：寬度 1024px 以上 3×，其他 2×。手機（pointer: coarse）30fps、電腦 60fps；分頁隱藏時暫停。
+- 點水面餵魚：只有點擊且移動小於約 10px 才算，滑動、拖動、點到卡片或控制項都不算。飼料從點的位置下沉，最近兩隻魚游過去吃，吃完 ^ ^；沉到沙底停留約 6 秒，水蝸牛可以吃，之後消失。
+- 餵魚卡：「飼料 N 份」、「餵魚」（primary，效果同點水面）、一行狀態（✓ 今天餵過了／魚有點餓了，餵一份飼料吧／完成今天的任務就能得到飼料／點魚缸的水面也可以餵）、連結「魚店與我的魚 →」。
+- 日曆卡：月份標題＋「← 上個月 / 下個月 →」（ghost sm），週日開頭，餵過魚的日子顯示 FeedIcon，今天 accent 底線；每格有螢幕閱讀器文字。
+- 飢餓：魚游得較慢、較低、眼皮半閉；餵食後立刻恢復。
+- 減少動態效果：一張靜止畫面；餵魚直接記錄並顯示 ^ ^。不支援 canvas 時改用水色漸層（`--ll-water-top` → `--ll-water-deep`），按鈕照常可以餵。
+
 ## 講義頁
 
 - 路徑 `/videos/<id>/handout`。內容寬度上限 1080px（`max-w-content`）。

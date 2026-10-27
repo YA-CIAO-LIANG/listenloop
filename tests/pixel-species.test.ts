@@ -20,6 +20,8 @@ import {
   type SpeciesId,
 } from "@/lib/pixel-fish/style";
 import {
+  PELLET_REST,
+  chasers,
   createSwimmer,
   expressionOf,
   poseOf,
@@ -302,7 +304,7 @@ describe("swim simulation", () => {
     const mouth = poseOf(swimmer, creature).mouth;
     const pellets = stepPellets(
       [{ x: mouth.x - 2.5, y: mouth.y - 2 - STYLE.sinkSpeed * 0.1 }],
-      [{ swimmer, mouth }],
+      [{ swimmer, mouth, crawls: false }],
       tank,
       0.1,
       5,
@@ -314,9 +316,63 @@ describe("swim simulation", () => {
     );
   });
 
-  it("dissolves pellets that reach the sand", () => {
-    const left = stepPellets([{ x: 10, y: tank.floor - 4 }], [], tank, 0.5, 0);
+  it("lets pellets rest on the sand a while, then dissolve", () => {
+    const pellets = [{ x: 10, y: tank.floor - 6 }];
+    let left = stepPellets(pellets, [], tank, 0.5, 0);
+    expect(left).toHaveLength(1);
+    expect(left[0].restUntil).toBe(PELLET_REST);
+    left = stepPellets(left, [], tank, 0.5, PELLET_REST + 0.1);
     expect(left).toEqual([]);
+  });
+
+  it("sends the two nearest fish after sinking food", () => {
+    const ids = ["clownfish", "great-white", "whale-shark"] as const;
+    const swimmers = ids.map((id) =>
+      createSwimmer(getCreature(id), tank, fixed),
+    );
+    const mouths = swimmers.map((swimmer, i) => ({
+      swimmer,
+      mouth: { x: 100 + i * 150, y: 100 },
+      crawls: false,
+    }));
+    const targets = chasers([{ x: 98, y: 50 }], mouths);
+    expect([...targets.keys()]).toEqual([swimmers[0], swimmers[1]]);
+  });
+
+  it("turns a fish toward food behind it and brings its mouth to the food", () => {
+    const creature = getCreature("clownfish");
+    const swimmer = createSwimmer(creature, tank, fixed);
+    swimmer.facing = "right";
+    swimmer.x = 200;
+    swimmer.cruiseY = 40;
+    const food = { x: 20, y: 150 };
+    stepSwimmer(swimmer, creature, tank, 0.1, 0, {
+      target: food,
+      random: fixed,
+    });
+    expect(swimmer.turn).toBe(0);
+    for (let i = 1; i < 30; i++) {
+      stepSwimmer(swimmer, creature, tank, 0.1, i * 0.1, {
+        target: food,
+        random: fixed,
+      });
+    }
+    expect(swimmer.facing).toBe("left");
+    expect(swimmer.cruiseY).toBeGreaterThan(40);
+  });
+
+  it("lets the snail eat only food lying on the sand", () => {
+    const creature = getCreature("snail");
+    const snail = createSwimmer(creature, tank, fixed);
+    const mouth = poseOf(snail, creature).mouth;
+    const sinking = [{ x: mouth.x - 2.5, y: mouth.y - 2 }];
+    const mouths = [{ swimmer: snail, mouth, crawls: true }];
+    expect(chasers(sinking, mouths).size).toBe(0);
+    expect(stepPellets(sinking, mouths, tank, 0, 0)).toHaveLength(1);
+    const resting = [{ x: mouth.x - 2.5, y: tank.floor - 4, restUntil: 5 }];
+    expect(chasers(resting, mouths).get(snail)).toBeDefined();
+    expect(stepPellets(resting, mouths, tank, 0.1, 1)).toEqual([]);
+    expect(expressionOf(snail, 1.5, "normal")).toBe("happy");
   });
 
   it("shows hungry and happy moods", () => {

@@ -1,6 +1,6 @@
 import { officialDates, type Activity } from "./activity";
 import { CYCLE_DAYS } from "./cycle";
-import type { LocalDate } from "./dates";
+import { daysBetween, type LocalDate } from "./dates";
 import type { Progress } from "./progress";
 import { averageCoverage, isShadowingDay } from "./shadowing";
 
@@ -27,7 +27,7 @@ export const REWARDS = {
   feedPerDay: 1,
   starterFeed: 1,
   /** Feed stops accumulating here. */
-  feedCap: 7,
+  feedCap: 2,
 } as const;
 
 /** A reward someone has earned; `id` makes claiming it idempotent. */
@@ -66,15 +66,6 @@ function weekPoints(progress: Progress): Reward[] {
         ? progress.days[7].date
         : week.startedAt,
   }));
-}
-
-/** Days apart between two local dates (b after a). */
-function daysBetween(a: LocalDate, b: LocalDate): number {
-  const [ya, ma, da] = a.split("-").map(Number);
-  const [yb, mb, db] = b.split("-").map(Number);
-  return Math.round(
-    (Date.UTC(yb, mb - 1, db) - Date.UTC(ya, ma - 1, da)) / 86_400_000,
-  );
 }
 
 /** Streak rewards for consecutive calendar days with an official task. */

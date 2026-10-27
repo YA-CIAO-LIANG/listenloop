@@ -26,6 +26,15 @@
   --ll-focus: #e8590c;
 }
 
+/*
+ * Aquarium water (docs/aquarium.md): the same in light and dark themes. Used
+ * for the plain-gradient fallback when canvas isn't available.
+ */
+:root {
+  --ll-water-top: #4aa8bd;
+  --ll-water-deep: #0c3649;
+}
+
 :root {
   /* Font stacks: Latin first for English UI and practice content. */
   --ll-font-display:

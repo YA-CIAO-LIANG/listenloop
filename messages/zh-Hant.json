@@ -111,6 +111,21 @@
     "gained": "獲得 {items}",
     "badgeLink": "點數 {points}、飼料 {feed} 份，前往魚店"
   },
+  "aquarium": {
+    "feedTitle": "餵魚",
+    "portions": "飼料 {count} 份",
+    "feed": "餵魚",
+    "tapHint": "點魚缸的水面也可以餵。",
+    "hungry": "魚有點餓了，餵一份飼料吧。",
+    "noFeed": "完成今天的任務就能得到飼料。",
+    "fedToday": "今天餵過了",
+    "fed": "已餵食，剩 {count} 份飼料。",
+    "shopLink": "魚店與我的魚",
+    "previousMonth": "上個月",
+    "nextMonth": "下個月",
+    "calendarCaption": "餵魚日曆：有餵魚的日子標有飼料圖示",
+    "dayLabel": "{date}{fed, select, yes {，有餵魚} other {}}{today, select, yes {（今天）} other {}}"
+  },
   "shop": {
     "title": "魚店",
     "intro": "用練習得到的點數買魚，買到的魚會游進首頁的魚缸。點數只能用來買魚，購買後不能退回。",

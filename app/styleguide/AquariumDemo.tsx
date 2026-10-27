@@ -15,6 +15,7 @@ import {
 } from "@/lib/pixel-fish/eyes";
 import type { SpeciesId } from "@/lib/pixel-fish/style";
 import {
+  chasers,
   createSwimmer,
   expressionOf,
   poseOf,
@@ -172,19 +173,20 @@ export function AquariumDemo({
       if (playing) {
         const turn = turnRequested.current;
         turnRequested.current = false;
+        const mouths = list.map((swimmer, i) => ({
+          swimmer,
+          mouth: poseOf(swimmer, creatures[i]).mouth,
+          crawls: creatures[i].crawls,
+        }));
+        const targets = chasers(pellets.current, mouths);
         list.forEach((swimmer, i) =>
-          stepSwimmer(swimmer, creatures[i], tank, dt, now, { mood, turn }),
+          stepSwimmer(swimmer, creatures[i], tank, dt, now, {
+            mood,
+            turn,
+            target: targets.get(swimmer) ?? null,
+          }),
         );
-        pellets.current = stepPellets(
-          pellets.current,
-          list.map((swimmer, i) => ({
-            swimmer,
-            mouth: poseOf(swimmer, creatures[i]).mouth,
-          })),
-          tank,
-          dt,
-          now,
-        );
+        pellets.current = stepPellets(pellets.current, mouths, tank, dt, now);
       }
       if (blinkRequested.current) {
         blinkRequested.current = false;

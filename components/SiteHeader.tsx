@@ -10,7 +10,7 @@ export function SiteHeader() {
   const t = useTranslations("common");
 
   return (
-    <header className="border-b border-line print:hidden">
+    <header className="border-b border-line bg-ground print:hidden">
       <div className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 split:px-6">
         <Link href="/" className="font-display text-h3">
           {t("appName")}

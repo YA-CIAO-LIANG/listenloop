@@ -27,3 +27,12 @@ export function isLaterDay(later: LocalDate, earlier: LocalDate): boolean {
   // Zero-padded YYYY-MM-DD strings sort chronologically.
   return later > earlier;
 }
+
+/** Whole calendar days from `earlier` to `later` (negative if before). */
+export function daysBetween(earlier: LocalDate, later: LocalDate): number {
+  const [ya, ma, da] = earlier.split("-").map(Number);
+  const [yb, mb, db] = later.split("-").map(Number);
+  return Math.round(
+    (Date.UTC(yb, mb - 1, db) - Date.UTC(ya, ma - 1, da)) / 86_400_000,
+  );
+}

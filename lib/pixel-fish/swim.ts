@@ -34,6 +34,9 @@ export type Swimmer = {
 };
 
 const MARGIN = 4;
+/** Fish going after food swim this much faster and rise or sink this fast (px/s). */
+const CHASE_SPEED = 1.5;
+const CHASE_RISE = 18;
 
 const randomBlink = (now: number, random: () => number) =>
   now +
@@ -92,10 +95,21 @@ export function stepSwimmer(
     mood = "normal",
     turn = false,
     random = Math.random,
-  }: { mood?: Mood; turn?: boolean; random?: () => number } = {},
+    target = null,
+  }: {
+    mood?: Mood;
+    turn?: boolean;
+    random?: () => number;
+    /** Food to go after (its center, tank pixels), from chasers(). */
+    target?: Point | null;
+  } = {},
 ) {
   const hungry = mood === "hungry";
-  const speed = creature.speed * (hungry ? STYLE.hungrySpeed : 1);
+  const chasing = target !== null;
+  const speed =
+    creature.speed *
+    (hungry ? STYLE.hungrySpeed : 1) *
+    (chasing ? CHASE_SPEED : 1);
   s.clock += dt;
 
   if (now >= s.nextBlink) {
@@ -104,15 +118,34 @@ export function stepSwimmer(
   }
 
   if (creature.crawls) {
+    // A snail on the sand heads for food resting there.
+    if (target && s.wall === "floor" && s.turn === null) {
+      const ahead = target.x > s.x + creature.width / 2 ? "right" : "left";
+      if (ahead !== s.facing) s.facing = ahead;
+    }
     stepSnail(s, creature, tank, speed * dt, random);
     return;
   }
 
   const lowest = tank.floor - creature.height;
-  const target = hungry
+  if (target) {
+    // Turn toward the food, and rise or sink so the mouth meets it.
+    const ahead = target.x > s.x + creature.width / 2 ? "right" : "left";
+    if (ahead !== s.facing && s.turn === null) {
+      s.turn = 0;
+      s.clock = 0;
+    }
+    const want = Math.max(
+      0,
+      Math.min(lowest, target.y - creature.mouth(0, s.facing).y),
+    );
+    const step = CHASE_RISE * dt;
+    s.cruiseY += Math.max(-step, Math.min(step, want - s.cruiseY));
+  }
+  const depthY = hungry
     ? Math.min(lowest, s.cruiseY + STYLE.hungryDrop * tank.height)
     : s.cruiseY;
-  s.y = Math.min(lowest, target + Math.sin(s.clock * 1.3 + s.bob) * 3);
+  s.y = Math.min(lowest, depthY + Math.sin(s.clock * 1.3 + s.bob) * 3);
 
   if (s.turn !== null) {
     const step = Math.floor(s.clock * STYLE.frameRate);
@@ -226,35 +259,83 @@ export function poseOf(
   };
 }
 
-export type Pellet = { x: number; y: number };
+/** A food pellet; once on the sand it rests until `restUntil`, then dissolves. */
+export type Pellet = { x: number; y: number; restUntil?: number };
 
 /** Pellet size (renderPellet) for hit tests. */
 const PELLET = { width: 5, height: 4 };
 
+/** Seconds a pellet stays on the sand (time for the snail to get there). */
+export const PELLET_REST = 6;
+
+/** How many fish go after each pellet. */
+const CHASERS = 2;
+
+export const pelletCenter = (pellet: Pellet): Point => ({
+  x: pellet.x + PELLET.width / 2,
+  y: pellet.y + PELLET.height / 2,
+});
+
+type Mouth = { swimmer: Swimmer; mouth: Point; crawls: boolean };
+
 /**
- * Sinks pellets; one that reaches a swimmer's mouth is eaten and makes it
- * happy for STYLE.happyFor seconds. Pellets that reach the sand dissolve.
+ * Who goes after which pellet: the CHASERS nearest swimming fish for each
+ * pellet still sinking, and a snail for pellets resting on the sand. Returns
+ * a target per swimmer (null = carry on).
+ */
+export function chasers(
+  pellets: Pellet[],
+  mouths: Mouth[],
+): Map<Swimmer, Point> {
+  const targets = new Map<Swimmer, Point>();
+  for (const pellet of pellets) {
+    const center = pelletCenter(pellet);
+    const resting = pellet.restUntil !== undefined;
+    const near = mouths
+      .filter(({ swimmer, crawls }) =>
+        crawls ? resting && swimmer.wall === "floor" : !resting,
+      )
+      .filter(({ swimmer }) => !targets.has(swimmer))
+      .sort(
+        (a, b) =>
+          Math.hypot(a.mouth.x - center.x, a.mouth.y - center.y) -
+          Math.hypot(b.mouth.x - center.x, b.mouth.y - center.y),
+      )
+      .slice(0, CHASERS);
+    for (const { swimmer } of near) targets.set(swimmer, center);
+  }
+  return targets;
+}
+
+/**
+ * Sinks pellets; one that reaches a mouth is eaten and makes the eater happy
+ * for STYLE.happyFor seconds. Snails only eat food lying on the sand, where
+ * pellets rest for PELLET_REST seconds before they dissolve.
  */
 export function stepPellets(
   pellets: Pellet[],
-  mouths: { swimmer: Swimmer; mouth: Point }[],
+  mouths: Mouth[],
   tank: Tank,
   dt: number,
   now: number,
 ): Pellet[] {
   return pellets.filter((pellet) => {
-    pellet.y += STYLE.sinkSpeed * dt;
-    const center = {
-      x: pellet.x + PELLET.width / 2,
-      y: pellet.y + PELLET.height / 2,
-    };
+    const floorY = tank.floor - PELLET.height;
+    if (pellet.restUntil === undefined) {
+      pellet.y = Math.min(floorY, pellet.y + STYLE.sinkSpeed * dt);
+      if (pellet.y >= floorY) pellet.restUntil = now + PELLET_REST;
+    }
+    const center = pelletCenter(pellet);
+    const resting = pellet.restUntil !== undefined;
     const eater = mouths.find(
-      ({ mouth }) => Math.hypot(center.x - mouth.x, center.y - mouth.y) < 7,
+      ({ mouth, crawls }) =>
+        (!crawls || resting) &&
+        Math.hypot(center.x - mouth.x, center.y - mouth.y) < (crawls ? 9 : 7),
     );
     if (eater) {
       eater.swimmer.happyUntil = now + STYLE.happyFor;
       return false;
     }
-    return pellet.y + PELLET.height < tank.floor;
+    return pellet.restUntil === undefined || now < pellet.restUntil;
   });
 }

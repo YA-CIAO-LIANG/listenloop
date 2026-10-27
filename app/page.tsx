@@ -1,4 +1,8 @@
 import { useTranslations } from "next-intl";
+import { HomeAquarium } from "@/components/aquarium/HomeAquarium";
+import { FeedCalendar } from "@/components/aquarium/FeedCalendar";
+import { FeedCard } from "@/components/aquarium/FeedCard";
+import { Card } from "@/components/Card";
 import { CardLink } from "@/components/CardLink";
 import { VideoProgressLabel } from "@/components/VideoProgressLabel";
 import { getAllVideos } from "@/lib/video-library";
@@ -8,11 +12,23 @@ export default function Home() {
   const videos = getAllVideos();
 
   return (
-    <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
-      <h1 className="font-display text-hero">{t("common.appName")}</h1>
-      <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
+    <main className="mx-auto w-full max-w-content flex-1 px-4 pb-16 split:px-6">
+      <HomeAquarium />
+      {/* The aquarium window: open water at the top, so the fish are the
+          first thing on screen. Taps here feed them. */}
+      <div className="h-[45svh]" />
 
-      <section className="mt-16">
+      <Card data-solid>
+        <h1 className="font-display text-hero">{t("common.appName")}</h1>
+        <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
+      </Card>
+
+      <div className="mt-6 grid gap-6 split:grid-cols-2">
+        <FeedCard />
+        <FeedCalendar />
+      </div>
+
+      <Card data-solid className="mt-6">
         <h2 className="font-display text-h2">{t("library.title")}</h2>
         <p className="mt-2 text-ink-muted">{t("library.intro")}</p>
         <ul className="mt-8 grid gap-6 split:grid-cols-2">
@@ -38,7 +54,7 @@ export default function Home() {
             </li>
           ))}
         </ul>
-      </section>
+      </Card>
     </main>
   );
 }

@@ -111,6 +111,21 @@
     "gained": "Earned {items}",
     "badgeLink": "{points, plural, one {# point} other {# points}}, {feed, plural, one {# portion} other {# portions}} of feed. Go to the fish shop"
   },
+  "aquarium": {
+    "feedTitle": "Feed the fish",
+    "portions": "{count, plural, one {# portion} other {# portions}} of feed",
+    "feed": "Feed the fish",
+    "tapHint": "You can also tap the water.",
+    "hungry": "The fish are a little hungry. Give them a portion.",
+    "noFeed": "Finish today’s task to get feed.",
+    "fedToday": "Fed today",
+    "fed": "Fed! {count, plural, one {# portion} other {# portions}} left.",
+    "shopLink": "Fish shop and My fish",
+    "previousMonth": "Previous",
+    "nextMonth": "Next",
+    "calendarCaption": "Feeding calendar: days the fish were fed show the feed icon",
+    "dayLabel": "{date}{fed, select, yes {, fed} other {}}{today, select, yes { (today)} other {}}"
+  },
   "shop": {
     "title": "Fish shop",
     "intro": "Buy fish with the points you earn by practicing; they swim in the aquarium on the home page. Points are only for fish and can’t be refunded.",

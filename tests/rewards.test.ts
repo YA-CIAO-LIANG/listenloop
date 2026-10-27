@@ -225,9 +225,11 @@ describe("wallet", () => {
   });
 
   it("stops feed at the cap and never pays the skipped portions later", () => {
+    // Only two portions keep: feeding stays tied to practicing every day.
+    expect(REWARDS.feedCap).toBe(2);
     const { wallet, gained } = claim(emptyWallet(), [], feed(9));
-    expect(gained.feed).toBe(REWARDS.feedCap);
-    expect(feedBalance(wallet)).toBe(7);
+    expect(gained.feed).toBe(2);
+    expect(feedBalance(wallet)).toBe(2);
     expect(wallet.feed.earned).toHaveLength(9);
     expect(wallet.feed.earned.at(-1)?.amount).toBe(0);
 
