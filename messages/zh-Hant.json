@@ -103,6 +103,14 @@
     "viewResult": "查看週結果",
     "saveFailed": "無法儲存進度。請確認瀏覽器允許網站儲存資料（例如不要使用無痕模式），然後重新整理。"
   },
+  "rewards": {
+    "points": "點數",
+    "feed": "飼料",
+    "badgeLabel": "點數 {points}、飼料 {feed} 份",
+    "pointsPart": "{n} 點數",
+    "feedPart": "{n} 份飼料",
+    "gained": "獲得 {items}"
+  },
   "styleguide": {
     "title": "設計系統",
     "intro": "ListenLoop 的色彩、字級與核心元件。這一頁不會出現在導覽中。",

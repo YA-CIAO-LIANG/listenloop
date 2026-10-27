@@ -205,6 +205,15 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 逐句比較（h2）：每句一列：兩位數句號、第 7 天的 WordDiffView、「第 1 天 40% → 第 7 天 90%」（supporting、ink-muted、不換行）；進步的句子加 success 色「↑」與螢幕閱讀器文字「（進步）」。
 - 往週紀錄（只在有更早的週時顯示）：「第 1 週 · 第 1 天 60% → 第 7 天 72% · 未通過」（supporting、ink-muted）。
 
+## 獎勵（點數與飼料）
+
+規則見 `docs/aquarium.md`。點數只用來買魚；飼料每天完成任務得 1 份，用來餵魚。
+
+- 頁首（`RewardBadge`，語言切換左邊，中間以 vertical Divider 分隔）：`PointsIcon`＋（760px 以上才顯示的 ink-muted「點數」）＋數字、`FeedIcon`＋「飼料」＋數字；supporting 字級、tabular-nums，圖示 16px accent-ink。螢幕閱讀器讀完整文字「點數 120、飼料 2 份」。讀到資料前不顯示（伺服器 HTML 一致）。
+- 剛得到時：數字右邊出現 accent-ink「+12」，`animate-gain`（2 秒：上升淡入 → 停留 → 淡出），2 秒後移除；reduced motion 時不動畫、直接顯示 2 秒。同時以 `aria-live="polite"` 讀出「獲得 12 點數 · 1 份飼料」。
+- 完成畫面（聽寫、跟讀、週結果；正式與重練）：「✓ 今日任務完成」下方一行 accent-ink supporting「獲得 12 點數 · 1 份飼料」，只在這次真的有得到時顯示，數量為 0 的項目省略。
+- 圖示：`PointsIcon`（貝殼）、`FeedIcon`（三顆飼料），16×16 viewBox、線寬 1.25，與 `LockIcon` 同一套；一律搭配可見文字或螢幕閱讀器文字。
+
 ## 講義頁
 
 - 路徑 `/videos/<id>/handout`。內容寬度上限 1080px（`max-w-content`）。

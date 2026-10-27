@@ -21,6 +21,7 @@ import {
   type Answers,
   type DictationDay,
 } from "@/lib/dictation";
+import { logOfficial, logRetry } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
 import { scoreDictation } from "@/lib/scoring/dictation";
 import { wordDiff } from "@/lib/scoring/word-diff";
@@ -31,9 +32,11 @@ import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { CaptionHint } from "./CaptionHint";
 import { ProgressBar } from "./ProgressBar";
+import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
 import { SentenceNotes } from "./SentenceNotes";
 import { SentenceRow } from "./SentenceRow";
+import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { WeekResult } from "./WeekResult";
 import { WordDiffView } from "./WordDiffView";
@@ -139,7 +142,23 @@ export function DictationSession({
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
+      return;
     }
+    // A finished official day earns points and today's feed.
+    if (next.days[day]?.done) {
+      void claimAndAnnounce(
+        { progress: progressStore },
+        logOfficial(toLocalDate(new Date())),
+      );
+    }
+  }
+
+  /** A finished retry earns its (once a day) bonus. */
+  function claimRetry() {
+    void claimAndAnnounce(
+      { progress: progressStore },
+      logRetry(toLocalDate(new Date()), video.id),
+    );
   }
 
   function beginRetry() {
@@ -227,7 +246,9 @@ export function DictationSession({
     window.clearTimeout(skipTimer.current);
     setSkipArmed(false);
     if (mode === "retry") {
-      setRetryAnswers((list) => recordAnswer(list, current, answer));
+      const next = recordAnswer(retryAnswers, current, answer);
+      setRetryAnswers(next);
+      if (next !== retryAnswers && nextUnanswered(next) === -1) claimRetry();
     } else {
       const next = submitAnswer(
         progress,
@@ -563,6 +584,7 @@ function DictationResult({
             {t("thisAttempt")}
           </p>
         )}
+        <RewardGainedNote />
         <ScoreBadge score={score} />
         <p className="font-display text-h3">
           {mode === "official" ? t("complete") : t("retryComplete")}

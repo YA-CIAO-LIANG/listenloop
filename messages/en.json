@@ -103,6 +103,14 @@
     "viewResult": "View week result",
     "saveFailed": "Couldn’t save your progress. Allow this site to store data (for example, leave private browsing), then reload."
   },
+  "rewards": {
+    "points": "Points",
+    "feed": "Feed",
+    "badgeLabel": "{points, plural, one {# point} other {# points}}, {feed, plural, one {# portion} other {# portions}} of feed",
+    "pointsPart": "{n, plural, one {# point} other {# points}}",
+    "feedPart": "{n, plural, one {# portion of feed} other {# portions of feed}}",
+    "gained": "Earned {items}"
+  },
   "styleguide": {
     "title": "Design system",
     "intro": "Colors, type, and core components for ListenLoop. This page is not linked from navigation.",

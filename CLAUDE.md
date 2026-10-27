@@ -147,6 +147,11 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - `sentences`：跟讀（Day 2～6）每句狀態；`coverage: null` 表示無法使用語音辨識（瀏覽器不支援、麥克風被拒或找不到），使用者按「我念完了」自行標記完成。
 - `history`：已結束的每一週成績；重來一週時保留。
 
+獎勵（M2.5；規則見 `docs/aquarium.md`，數字集中在 `lib/rewards.ts`）：
+
+- `ll-activity:v1`：`{ "days": { "2026-10-27": { "official": true, "retries": ["sintel"] } } }`。重練不寫進正式進度，所以在這裡記錄，用於重練點數與連續天數。
+- `ll-wallet:v1`：`{ "points": { "earned": [], "spent": [] }, "feed": { "earned": [], "used": [] } }`，每筆 `{ "id", "amount", "date" }`，只新增不修改。獎勵一律由紀錄推算、以唯一 ID 領取（例如 `day:sintel:w1:d3`、`feed:2026-10-27`），重複領取不會重複發；飼料最多存 7 份，存滿時那份記為 0、之後不補。
+
 ## 評分邏輯
 
 - 正規化：小寫、去標點、展開常見縮寫（don't → do not）、0～99 的數字轉成英文單字（5 → five）。所有格與 'd 因有歧義不展開。
