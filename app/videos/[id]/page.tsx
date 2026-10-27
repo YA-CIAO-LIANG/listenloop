@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { DayOneStatus } from "@/components/DayOneStatus";
+import { CycleStatus } from "@/components/CycleStatus";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import { getVideo } from "@/lib/video-library";
 import { VideoPlayerPanel } from "./VideoPlayerPanel";
@@ -37,11 +37,12 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
         <VideoPlayerPanel youtubeId={video.youtubeId} />
       </div>
 
-      <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <DayOneStatus videoId={video.id} />
-        <p className="text-ink-muted">
-          {t("excerpt", { count: video.sentences.length })}
-        </p>
+      <p className="mt-4 text-ink-muted">
+        {t("excerpt", { count: video.sentences.length })}
+      </p>
+
+      <div className="mt-8">
+        <CycleStatus videoId={video.id} />
       </div>
 
       <VideoAttribution

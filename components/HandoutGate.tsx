@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useEffect, useState, type ReactNode } from "react";
+import { isHandoutUnlocked } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
 import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
@@ -17,8 +18,9 @@ type HandoutGateProps = {
 };
 
 /**
- * Shows the handout only after the official Day 1 dictation is done, so
- * learners listen before reading the transcript. Progress lives in the
+ * Shows the handout only after the official Day 1 dictation is done (in any
+ * week, so repeating a week keeps it open), so learners listen before
+ * reading the transcript. Progress lives in the
  * browser, so this is a soft gate checked on the client.
  */
 export function HandoutGate({ videoId, children, store }: HandoutGateProps) {
@@ -31,7 +33,8 @@ export function HandoutGate({ videoId, children, store }: HandoutGateProps) {
     progressStore
       .get(videoId)
       .then((progress) => {
-        if (!cancelled) setState(progress?.days[1]?.done ? "open" : "locked");
+        if (!cancelled)
+          setState(isHandoutUnlocked(progress) ? "open" : "locked");
       })
       .catch(() => {
         if (!cancelled) setState("locked");

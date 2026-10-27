@@ -305,6 +305,7 @@ describe("ShadowingSession", () => {
     expect(store.saved()?.days[2]).toMatchObject({ done: true, date: today });
     expect(screen.getByText("今日任務完成")).toBeDefined();
     expect(screen.getByText(/完成 2 \/ 2 句 · 平均涵蓋率 90%/)).toBeDefined();
+    expect(screen.getByText("第 3 天（跟讀）明天開放。")).toBeDefined();
     expect(screen.getByRole("link", { name: "看雙語講義" })).toBeDefined();
   });
 

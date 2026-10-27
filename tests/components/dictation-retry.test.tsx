@@ -1,7 +1,6 @@
-import { act, screen, waitFor } from "@testing-library/react";
+import { act, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import { DayOneStatus } from "@/components/DayOneStatus";
 import { DictationSession } from "@/components/DictationSession";
 import { startDictation, submitAnswer } from "@/lib/dictation";
 import type { Progress } from "@/lib/progress";
@@ -157,34 +156,5 @@ describe("retry", () => {
     await renderSession(memoryStore(null), true);
     expect(screen.queryByText(/練習模式/)).toBeNull();
     expect(screen.getByText("第 1 / 2 句")).toBeDefined();
-  });
-});
-
-describe("DayOneStatus (video page)", () => {
-  it("offers to start Day 1 before it's done", async () => {
-    renderWithIntl(
-      <DayOneStatus videoId={video.id} store={memoryStore(null)} />,
-    );
-    await act(async () => {});
-    expect(
-      screen
-        .getByRole("link", { name: "開始第 1 天：聽寫" })
-        .getAttribute("href"),
-    ).toBe("/videos/test-video/day/1");
-  });
-
-  it("shows today's task done and links to a retry", async () => {
-    renderWithIntl(
-      <DayOneStatus videoId={video.id} store={memoryStore(officiallyDone())} />,
-    );
-    await waitFor(() =>
-      expect(screen.getByText(/今日任務完成 · 29%/)).toBeDefined(),
-    );
-    expect(
-      screen.getByRole("link", { name: "再練一次" }).getAttribute("href"),
-    ).toBe("/videos/test-video/day/1?retry=1");
-    expect(
-      screen.getByRole("link", { name: "查看結果" }).getAttribute("href"),
-    ).toBe("/videos/test-video/day/1");
   });
 });

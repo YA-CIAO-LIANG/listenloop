@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest";
 import {
   PASS_THRESHOLD,
   canOpenDay,
+  currentDay,
   dayStatuses,
+  lastDoneDay,
+  lockReason,
   isPassingScore,
   settleWeek,
   startNextWeek,
@@ -179,5 +182,52 @@ describe("startNextWeek", () => {
 
   it("only applies to a week that needs repeating", () => {
     expect(() => startNextWeek(doneThrough(3), "2026-11-01")).toThrow();
+  });
+});
+
+describe("lockReason", () => {
+  const today = "2026-10-26"; // doneThrough(2) finished Day 2 on 10-25
+
+  it("opens Day 1 without progress and locks the rest", () => {
+    expect(lockReason(null, 1, today)).toBeNull();
+    expect(lockReason(null, 2, today)).toBe("previous");
+  });
+
+  it("explains a missing previous day", () => {
+    expect(lockReason(doneThrough(1), 3, today)).toBe("previous");
+  });
+
+  it("opens the next day on a later calendar day only", () => {
+    const progress = doneThrough(2);
+    expect(lockReason(progress, 3, today)).toBeNull();
+    expect(lockReason(progress, 3, "2026-10-25")).toBe("tomorrow");
+    expect(
+      lockReason(progress, 3, "2026-10-25", { ignoreDates: true }),
+    ).toBeNull();
+  });
+
+  it("never locks a done day", () => {
+    expect(lockReason(doneThrough(2), 2, "2026-10-01")).toBeNull();
+  });
+
+  it("locks unfinished days once the week is settled", () => {
+    const settled = settleWeek(doneThrough(7));
+    expect(lockReason({ ...settled, days: {} }, 1, today)).toBe("weekClosed");
+  });
+});
+
+describe("currentDay and lastDoneDay", () => {
+  it("finds the day to practice now", () => {
+    expect(currentDay(dayStatuses(null, START))).toBe(1);
+    expect(currentDay(dayStatuses(doneThrough(2), "2026-10-26"))).toBe(3);
+  });
+
+  it("is null once today's task is done", () => {
+    expect(currentDay(dayStatuses(doneThrough(2), "2026-10-25"))).toBeNull();
+  });
+
+  it("finds the latest finished day", () => {
+    expect(lastDoneDay(null)).toBeNull();
+    expect(lastDoneDay(doneThrough(3))).toBe(3);
   });
 });

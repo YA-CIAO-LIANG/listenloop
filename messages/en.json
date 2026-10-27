@@ -57,6 +57,27 @@
       "cellLabel": "Day {day}, {task}, {status}"
     }
   },
+  "cycle": {
+    "loading": "Loading your progress…",
+    "week": "Week {week}",
+    "start": "Start Day {day}: {task}",
+    "dayTask": "Day {day}: {task}",
+    "todayDone": "Today’s task done",
+    "tomorrow": "Day {day} ({task}) opens tomorrow",
+    "retry": "Practice again",
+    "viewResult": "View result",
+    "day7Soon": "Day 7: Re-dictation is coming soon",
+    "devMode": "Test mode: date rules skipped",
+    "passed": "Passed",
+    "lockedTitle": "Day {day} isn’t open yet",
+    "lockedPrevious": "Finish Day {previous} first.",
+    "lockedTomorrow": "You finished Day {previous} today, so Day {day} opens tomorrow. See you then!",
+    "lockedWeekClosed": "This week is over.",
+    "goDay": "Go to Day {day}",
+    "backToVideo": "Back to video",
+    "nextTomorrow": "Day {day} ({task}) opens tomorrow.",
+    "nextOpen": "Day {day} is open"
+  },
   "styleguide": {
     "title": "Design system",
     "intro": "Colors, type, and core components for ListenLoop. This page is not linked from navigation.",
@@ -116,9 +137,7 @@
       "licenseTerms": "License terms",
       "transcript": "English subtitles",
       "changes": "Changes"
-    },
-    "startDay1": "Start Day 1: Dictation",
-    "viewResult": "View results"
+    }
   },
   "player": {
     "loading": "Loading video…",
