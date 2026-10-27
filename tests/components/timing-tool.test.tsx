@@ -8,7 +8,7 @@ import { renderWithIntl } from "../render";
 const playSegment = vi.hoisted(() => vi.fn());
 vi.mock("@/components/youtube/useYouTubePlayer", () => ({
   useYouTubePlayer: () => ({
-    containerRef: { current: null },
+    containerRef: () => {},
     status: "ready",
     error: null,
     isPlaying: false,

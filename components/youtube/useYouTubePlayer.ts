@@ -14,8 +14,12 @@ export type PlayerError =
   | "blocked";
 
 export type YouTubePlayerApi = {
-  /** Attach to an empty element; the player iframe is created inside it. */
-  containerRef: React.RefObject<HTMLDivElement | null>;
+  /**
+   * Attach to an empty element; the player iframe is created inside it. A
+   * callback ref, so the player is created whenever the element appears,
+   * even if that's after the first render (e.g. once saved progress loads).
+   */
+  containerRef: (element: HTMLDivElement | null) => void;
   status: PlayerStatus;
   error: PlayerError | null;
   isPlaying: boolean;
@@ -40,7 +44,8 @@ const ERROR_NAMES: Record<number, string> = {
 };
 
 export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  // State, not a ref: attaching the element must re-run the effect below.
+  const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const playerRef = useRef<YT.Player | null>(null);
   const pollRef = useRef<number | undefined>(undefined);
   const [status, setStatus] = useState<PlayerStatus>("loading");
@@ -48,6 +53,8 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
   const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
+    // No element yet (or it was removed): nothing to create.
+    if (!container) return;
     let cancelled = false;
     let readyTimer: number | undefined;
 
@@ -62,7 +69,7 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
 
     loadYouTubeApi()
       .then((api) => {
-        if (cancelled || !containerRef.current) return;
+        if (cancelled) return;
         readyTimer = window.setTimeout(
           () =>
             fail(
@@ -74,7 +81,7 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
         // YouTube replaces this element with its iframe, so give it a child
         // React doesn't manage.
         const mount = document.createElement("div");
-        containerRef.current.replaceChildren(mount);
+        container.replaceChildren(mount);
 
         playerRef.current = new api.Player(mount, {
           // youtube-nocookie.com: no tracking cookies until the user plays.
@@ -127,7 +134,7 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
       playerRef.current?.destroy();
       playerRef.current = null;
     };
-  }, [videoId]);
+  }, [videoId, container]);
 
   const stop = useCallback(() => {
     window.clearInterval(pollRef.current);
@@ -155,5 +162,12 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
     }, POLL_MS);
   }, []);
 
-  return { containerRef, status, error, isPlaying, playSegment, stop };
+  return {
+    containerRef: setContainer,
+    status,
+    error,
+    isPlaying,
+    playSegment,
+    stop,
+  };
 }
