@@ -6,6 +6,8 @@ import { MAX_SEGMENTS, ProgressBar } from "@/components/ProgressBar";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { SentenceRow } from "@/components/SentenceRow";
 import type { DayStatus } from "@/lib/cycle";
+import { NextIntlClientProvider } from "next-intl";
+import zhHant from "@/messages/zh-Hant.json";
 import { renderWithIntl } from "../render";
 
 describe("ProgressBar", () => {
@@ -23,7 +25,11 @@ describe("ProgressBar", () => {
     );
     const bar = screen.getByRole("progressbar");
     expect(bar.dataset.mode).toBe("segmented");
-    expect(bar.children).toHaveLength(MAX_SEGMENTS);
+    // The leading dot is also a child of the bar; count segments only.
+    const segments = [...bar.children].filter(
+      (child) => !child.hasAttribute("data-dot"),
+    );
+    expect(segments).toHaveLength(MAX_SEGMENTS);
     expect(bar.querySelectorAll("[data-filled]")).toHaveLength(8);
   });
 
@@ -148,5 +154,55 @@ describe("DayTracker", () => {
       screen.getByRole("button", { name: "Day 4, Shadowing, Available" }),
     );
     expect(onSelect).toHaveBeenCalledWith(4);
+  });
+});
+
+describe("ProgressBar motion", () => {
+  const dot = () =>
+    screen.getByRole("progressbar").querySelector<HTMLElement>("[data-dot]")!;
+  const check = () => document.querySelector<SVGElement>("[data-check]");
+
+  it("doesn't animate on first render (e.g. resuming at 5 / 12)", () => {
+    renderWithIntl(<ProgressBar value={5} max={12} label="今日進度" />);
+    expect(dot().dataset.hop).toBeUndefined();
+    expect(dot().className).not.toContain("animate-dot-hop");
+    expect(dot().style.left).toBe(`${(5 / 12) * 100}%`);
+    expect(check()).toBeNull();
+  });
+
+  it("hops the leading dot each time progress moves forward", () => {
+    const { rerender } = renderWithIntl(
+      <ProgressBar value={5} max={12} label="今日進度" />,
+    );
+    rerender(
+      <NextIntlClientProvider locale="zh-Hant" messages={zhHant}>
+        <ProgressBar value={6} max={12} label="今日進度" />
+      </NextIntlClientProvider>,
+    );
+    expect(dot().dataset.hop).toBe("true");
+    expect(dot().className).toContain("animate-dot-hop");
+    expect(dot().className).toContain("motion-reduce:animate-none");
+    expect(dot().style.left).toBe("50%");
+  });
+
+  it("draws a check mark when every step is done", () => {
+    const { rerender } = renderWithIntl(
+      <ProgressBar value={11} max={12} label="今日進度" />,
+    );
+    rerender(
+      <NextIntlClientProvider locale="zh-Hant" messages={zhHant}>
+        <ProgressBar value={12} max={12} label="今日進度" />
+      </NextIntlClientProvider>,
+    );
+    expect(screen.getByRole("progressbar").dataset.done).toBe("true");
+    const path = check()!.querySelector("path")!;
+    expect(path.getAttribute("class")).toContain("animate-check-draw");
+    expect(path.getAttribute("class")).toContain("motion-reduce:animate-none");
+  });
+
+  it("shows the check without animating when already done on arrival", () => {
+    renderWithIntl(<ProgressBar value={12} max={12} label="今日進度" />);
+    const path = check()!.querySelector("path")!;
+    expect(path.getAttribute("class") ?? "").not.toContain("animate");
   });
 });

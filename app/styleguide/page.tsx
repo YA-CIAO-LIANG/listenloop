@@ -10,7 +10,11 @@ import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { DayTrackerDemo, SentenceRowDemo } from "./InteractiveDemos";
+import {
+  DayTrackerDemo,
+  ProgressBarDemo,
+  SentenceRowDemo,
+} from "./InteractiveDemos";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("styleguide");
@@ -165,7 +169,7 @@ export default function StyleguidePage() {
                 <p className="mb-3 text-supporting text-ink-muted">
                   {t("states.segmented")}
                 </p>
-                <ProgressBar value={8} max={24} label={tProgress("today")} />
+                <ProgressBarDemo />
               </div>
               <div>
                 <p className="mb-3 text-supporting text-ink-muted">

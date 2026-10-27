@@ -161,6 +161,32 @@
       opacity: 0;
     }
   }
+
+  /*
+   * Progress bar motion (docs/design-system.md → 動態原則): the leading dot
+   * hops each time progress moves; a check mark draws itself when done.
+   */
+  --animate-dot-hop: ll-dot-hop 300ms ease-out;
+  --animate-check-draw: ll-check-draw 400ms ease-out forwards;
+
+  @keyframes ll-dot-hop {
+    0%,
+    100% {
+      transform: translate(-50%, -50%);
+    }
+    40% {
+      transform: translate(-50%, calc(-50% - 3px));
+    }
+  }
+  /* Draws the check stroke (dasharray 24 on a 14px icon); cheap to animate. */
+  @keyframes ll-check-draw {
+    from {
+      stroke-dashoffset: 24;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
 }
 
 /*

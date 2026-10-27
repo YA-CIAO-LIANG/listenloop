@@ -83,6 +83,11 @@
       "continuous": "連續（超過 30 句）",
       "belowPass": "未達標",
       "pass": "通過"
+    },
+    "progressDemo": {
+      "add": "＋1 句",
+      "complete": "全部完成",
+      "reset": "重設"
     }
   },
   "library": {

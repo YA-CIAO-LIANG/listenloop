@@ -83,6 +83,11 @@
       "continuous": "Continuous (over 30)",
       "belowPass": "Below pass",
       "pass": "Pass"
+    },
+    "progressDemo": {
+      "add": "+1 sentence",
+      "complete": "Finish all",
+      "reset": "Reset"
     }
   },
   "library": {
