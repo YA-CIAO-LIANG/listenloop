@@ -16,6 +16,7 @@ import {
   ProgressBarDemo,
   SentenceRowDemo,
 } from "./InteractiveDemos";
+import { PixelFishDemo } from "./PixelFishDemo";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("styleguide");
@@ -211,6 +212,10 @@ export default function StyleguidePage() {
                 </li>
               ))}
             </ul>
+          </Demo>
+
+          <Demo name="PixelFish · clownfish">
+            <PixelFishDemo />
           </Demo>
 
           <Demo name="Divider">
