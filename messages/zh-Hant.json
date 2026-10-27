@@ -226,6 +226,10 @@
     "errors": {
       "unsupportedTitle": "這個瀏覽器不支援語音辨識",
       "unsupported": "建議改用電腦版 Chrome。你也可以聽完自己念，再按「我念完了」。",
+      "braveTitle": "Brave 瀏覽器不支援語音辨識",
+      "brave": "請改用 Chrome 或 Edge，或使用「我念完了」完成練習。",
+      "unavailableTitle": "這個瀏覽器目前無法使用語音辨識",
+      "unavailable": "請改用 Chrome 或 Edge，或使用「我念完了」完成練習。",
       "permissionDeniedTitle": "無法使用麥克風",
       "permissionDenied": "請點網址列左側的圖示，允許這個網站使用麥克風，然後重新整理。你也可以聽完自己念，再按「我念完了」。",
       "noMicrophoneTitle": "找不到麥克風",

@@ -14,15 +14,25 @@ export const SILENCE_MS = 1500;
 /** Nothing heard at all for this long ends the attempt as "no speech". */
 export const NO_SPEECH_MS = 8000;
 
+/**
+ * Network errors in a row before giving up on recognition here. Some
+ * browsers expose the API but can't reach a recognition service, so every
+ * attempt fails with "network" even though the connection is fine.
+ */
+export const NETWORK_RETRY_LIMIT = 2;
+
 export type SpeechStatus = "idle" | "listening" | "done" | "error";
 
 /**
  * Maps to messages in messages/<locale>.json → shadowing.errors.
- * unsupported / permissionDenied / noMicrophone can't be fixed by retrying,
- * so the page switches to "I said it" instead.
+ * BLOCKING_ERRORS can't be fixed by retrying, so the page switches to
+ * "I said it" instead. unavailable = NETWORK_RETRY_LIMIT network errors in
+ * a row.
  */
 export type SpeechError =
   | "unsupported"
+  | "brave"
+  | "unavailable"
   | "permissionDenied"
   | "noMicrophone"
   | "noSpeech"
@@ -31,9 +41,14 @@ export type SpeechError =
 
 export const BLOCKING_ERRORS: readonly SpeechError[] = [
   "unsupported",
+  "brave",
+  "unavailable",
   "permissionDenied",
   "noMicrophone",
 ];
+
+/** Whether recognition can run here; "brave" has the API but no service. */
+export type SpeechAvailability = "available" | "unsupported" | "brave";
 
 type RecognitionCtor = new () => SpeechRecognition;
 
@@ -45,6 +60,19 @@ export function getSpeechRecognition(): RecognitionCtor | null {
     webkitSpeechRecognition?: RecognitionCtor;
   };
   return w.SpeechRecognition ?? w.webkitSpeechRecognition ?? null;
+}
+
+/**
+ * Brave exposes SpeechRecognition but every attempt fails with "network".
+ * Its user agent claims to be Chrome; navigator.brave is the documented check.
+ */
+export function isBrave(): boolean {
+  return typeof navigator !== "undefined" && "brave" in navigator;
+}
+
+function getAvailability(): SpeechAvailability {
+  if (isBrave()) return "brave";
+  return getSpeechRecognition() ? "available" : "unsupported";
 }
 
 const ERROR_CODES: Record<string, SpeechError> = {
@@ -63,11 +91,11 @@ const noop = () => () => {};
  * silence (or stop()), then calls onFinish with what was heard.
  */
 export function useSpeechRecognition() {
-  // Support is only known in the browser; the server renders "unknown" (null)
-  // so the first client render matches the server HTML.
-  const supported = useSyncExternalStore(
+  // Availability is only known in the browser; the server renders "unknown"
+  // (null) so the first client render matches the server HTML.
+  const availability = useSyncExternalStore<SpeechAvailability | null>(
     noop,
-    () => getSpeechRecognition() !== null,
+    getAvailability,
     () => null,
   );
   const [status, setStatus] = useState<SpeechStatus>("idle");
@@ -75,6 +103,9 @@ export function useSpeechRecognition() {
   const [error, setError] = useState<SpeechError | null>(null);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
   const finishRef = useRef<() => void>(() => {});
+  // Network errors in a row; kept across reset() since the cause is the
+  // browser or connection, not the attempt.
+  const networkErrorsRef = useRef(0);
 
   const cleanup = useCallback(() => {
     finishRef.current = () => {};
@@ -98,8 +129,9 @@ export function useSpeechRecognition() {
     (onFinish: (heard: string) => void) => {
       cleanup();
       const Recognition = getSpeechRecognition();
-      if (!Recognition) {
-        setError("unsupported");
+      const unavailable = getAvailability();
+      if (!Recognition || unavailable !== "available") {
+        setError(unavailable === "brave" ? "brave" : "unsupported");
         setStatus("error");
         return;
       }
@@ -132,6 +164,7 @@ export function useSpeechRecognition() {
         } catch {
           // Already stopped.
         }
+        networkErrorsRef.current = 0;
         setStatus("done");
         onFinish(heard);
       }
@@ -144,6 +177,14 @@ export function useSpeechRecognition() {
           recognition.abort();
         } catch {
           // Already stopped.
+        }
+        if (reason === "network") {
+          networkErrorsRef.current += 1;
+          if (networkErrorsRef.current >= NETWORK_RETRY_LIMIT) {
+            reason = "unavailable";
+          }
+        } else {
+          networkErrorsRef.current = 0;
         }
         setError(reason);
         setStatus("error");
@@ -193,5 +234,5 @@ export function useSpeechRecognition() {
     setError(null);
   }, [cleanup]);
 
-  return { supported, status, transcript, error, start, stop, reset };
+  return { availability, status, transcript, error, start, stop, reset };
 }

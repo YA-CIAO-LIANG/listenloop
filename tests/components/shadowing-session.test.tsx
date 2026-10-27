@@ -123,6 +123,13 @@ function shadow(words: string) {
   say(words);
 }
 
+/** Plays the sentence, then recognition fails with `code`. */
+function shadowFails(code: string) {
+  fireEvent.click(button("播放並跟讀"));
+  finishPlaying();
+  act(() => FakeRecognition.last?.onerror?.({ error: code }));
+}
+
 beforeEach(() => {
   vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
   playSegment.mockClear();
@@ -249,6 +256,42 @@ describe("ShadowingSession", () => {
     expect(store.saved()?.days[2]?.done).toBe(true);
     expect(screen.getByText("今天的跟讀完成了！")).toBeDefined();
     expect(screen.getAllByText("自行完成")).toHaveLength(2);
+  });
+
+  it("offers “I said it” right away in Brave", async () => {
+    Object.defineProperty(navigator, "brave", {
+      value: {},
+      configurable: true,
+    });
+    try {
+      const store = await renderSession();
+      const alert = screen.getByRole("alert");
+      expect(alert.textContent).toContain("Brave 瀏覽器不支援語音辨識");
+      expect(alert.textContent).toContain("請改用 Chrome 或 Edge");
+      expect(screen.queryByRole("button", { name: "播放並跟讀" })).toBeNull();
+      fireEvent.click(button("我念完了"));
+      expect(store.saved()?.days[2]?.sentences?.[0]).toEqual({
+        done: true,
+        coverage: null,
+      });
+    } finally {
+      delete (navigator as { brave?: unknown }).brave;
+    }
+  });
+
+  it("switches to “I said it” after two network errors in a row", async () => {
+    await renderSession();
+    shadowFails("network");
+    // The first one only asks to try again.
+    expect(screen.getByText(/語音辨識需要網路連線/)).toBeDefined();
+    expect(screen.queryByRole("alert")).toBeNull();
+
+    shadowFails("network");
+    expect(screen.getByRole("alert").textContent).toContain(
+      "這個瀏覽器目前無法使用語音辨識",
+    );
+    expect(screen.queryByText(/語音辨識需要網路連線/)).toBeNull();
+    expect(button("我念完了")).toBeDefined();
   });
 
   it("finishes the day with the average coverage", async () => {

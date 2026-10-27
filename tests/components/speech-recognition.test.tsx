@@ -1,6 +1,7 @@
 import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
+  NETWORK_RETRY_LIMIT,
   NO_SPEECH_MS,
   SILENCE_MS,
   useSpeechRecognition,
@@ -48,6 +49,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.useRealTimers();
+  delete (navigator as { brave?: unknown }).brave;
   delete (window as unknown as { webkitSpeechRecognition?: unknown })
     .webkitSpeechRecognition;
 });
@@ -55,7 +57,7 @@ afterEach(() => {
 describe("useSpeechRecognition", () => {
   it("detects support in the browser", () => {
     const { result } = renderHook(() => useSpeechRecognition());
-    expect(result.current.supported).toBe(true);
+    expect(result.current.availability).toBe("available");
   });
 
   it("listens in English with interim results", () => {
@@ -136,9 +138,65 @@ describe("useSpeechRecognition", () => {
     delete (window as unknown as { webkitSpeechRecognition?: unknown })
       .webkitSpeechRecognition;
     const { result } = renderHook(() => useSpeechRecognition());
-    expect(result.current.supported).toBe(false);
+    expect(result.current.availability).toBe("unsupported");
     act(() => result.current.start(() => {}));
     expect(result.current.error).toBe("unsupported");
+  });
+
+  it("treats Brave as unavailable without trying to listen", () => {
+    Object.defineProperty(navigator, "brave", {
+      value: {},
+      configurable: true,
+    });
+    const { result } = renderHook(() => useSpeechRecognition());
+    expect(result.current.availability).toBe("brave");
+
+    const before = FakeRecognition.last;
+    act(() => result.current.start(() => {}));
+    expect(FakeRecognition.last).toBe(before);
+    expect(result.current.error).toBe("brave");
+  });
+
+  it("gives up after network errors in a row", () => {
+    expect(NETWORK_RETRY_LIMIT).toBe(2);
+    const { result } = renderHook(() => useSpeechRecognition());
+    act(() => result.current.start(() => {}));
+    act(() => FakeRecognition.last.onerror?.({ error: "network" }));
+    expect(result.current.error).toBe("network");
+
+    // Starting over (e.g. a retry run) doesn't clear the count.
+    act(() => result.current.reset());
+    act(() => result.current.start(() => {}));
+    act(() => FakeRecognition.last.onerror?.({ error: "network" }));
+    expect(result.current.error).toBe("unavailable");
+  });
+
+  it("starts counting network errors again after a successful attempt", () => {
+    const { result } = renderHook(() => useSpeechRecognition());
+    act(() => result.current.start(() => {}));
+    act(() => FakeRecognition.last.onerror?.({ error: "network" }));
+
+    act(() => result.current.start(() => {}));
+    act(() => FakeRecognition.last.hear("go home"));
+    act(() => vi.advanceTimersByTime(SILENCE_MS));
+
+    act(() => result.current.start(() => {}));
+    act(() => FakeRecognition.last.onerror?.({ error: "network" }));
+    expect(result.current.error).toBe("network");
+  });
+
+  it("starts counting network errors again after a different error", () => {
+    const { result } = renderHook(() => useSpeechRecognition());
+    act(() => result.current.start(() => {}));
+    act(() => FakeRecognition.last.onerror?.({ error: "network" }));
+
+    act(() => result.current.start(() => {}));
+    act(() => vi.advanceTimersByTime(NO_SPEECH_MS));
+    expect(result.current.error).toBe("noSpeech");
+
+    act(() => result.current.start(() => {}));
+    act(() => FakeRecognition.last.onerror?.({ error: "network" }));
+    expect(result.current.error).toBe("network");
   });
 
   it("aborts listening on unmount", () => {

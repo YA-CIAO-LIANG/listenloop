@@ -63,7 +63,8 @@ const isReplayShortcut = (event: globalThis.KeyboardEvent) =>
  * Shadowing (Days 2–6): "Play and shadow" plays the sentence, then listens
  * automatically and ends after a short pause. 70% coverage or more completes
  * the sentence (missed words are underlined); otherwise try again, as often
- * as needed. Without speech recognition (unsupported, mic blocked), learners
+ * as needed. Without speech recognition (unsupported, Brave, mic blocked,
+ * repeated network errors), learners
  * listen, say it, and press "I said it".
  */
 export function ShadowingSession({
@@ -104,8 +105,8 @@ export function ShadowingSession({
   const notice: SpeechError | null =
     speech.error && BLOCKING_ERRORS.includes(speech.error)
       ? speech.error
-      : speech.supported === false
-        ? "unsupported"
+      : speech.availability === "unsupported" || speech.availability === "brave"
+        ? speech.availability
         : null;
   const manual = notice !== null;
   const transientError =

@@ -226,6 +226,10 @@
     "errors": {
       "unsupportedTitle": "This browser doesn’t support speech recognition",
       "unsupported": "Try Chrome on a computer. You can also listen, say it yourself, and press “I said it”.",
+      "braveTitle": "Brave doesn’t support speech recognition",
+      "brave": "Please switch to Chrome or Edge, or use “I said it” to finish practicing.",
+      "unavailableTitle": "Speech recognition isn’t available in this browser right now",
+      "unavailable": "Please switch to Chrome or Edge, or use “I said it” to finish practicing.",
       "permissionDeniedTitle": "Microphone access is blocked",
       "permissionDenied": "Click the icon at the left of the address bar, allow the microphone for this site, then reload. You can also listen, say it yourself, and press “I said it”.",
       "noMicrophoneTitle": "No microphone found",
