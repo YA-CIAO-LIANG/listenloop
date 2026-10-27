@@ -1,5 +1,7 @@
 import { isLaterDay, type LocalDate } from "./dates";
 import type { Progress } from "./progress";
+import { scoreDictation } from "./scoring/dictation";
+import type { Sentence } from "./videos";
 
 /** Day 7 accuracy at or above this passes the week (see CLAUDE.md 週結算). */
 export const PASS_THRESHOLD = 0.8;
@@ -146,5 +148,46 @@ export function startNextWeek(progress: Progress, today: LocalDate): Progress {
     startedAt: today,
     days: {},
     status: "in-progress",
+  };
+}
+
+/**
+ * Whether a week that needs repeating may start again: the day after Day 7
+ * was finished (days open one at a time), or right away in test mode.
+ */
+export function canStartNextWeek(
+  progress: Progress | null,
+  today: LocalDate,
+  { ignoreDates = false }: StatusOptions = {},
+): boolean {
+  if (progress?.status !== "repeat") return false;
+  const day7Date = progress.days[7]?.date;
+  return ignoreDates || (day7Date !== undefined && isLaterDay(today, day7Date));
+}
+
+export type WeekComparison = {
+  day1: number;
+  day7: number;
+  /** Per sentence, in order. */
+  sentences: { day1: number; day7: number }[];
+};
+
+/** Day 1 vs Day 7 accuracy, overall and per sentence; null until both are scored. */
+export function weekComparison(
+  sentences: readonly Sentence[],
+  progress: Progress,
+): WeekComparison | null {
+  const day1 = progress.days[1];
+  const day7 = progress.days[7];
+  if (day1?.score === undefined || day7?.score === undefined) return null;
+  const accuracy = (answers: (string | null)[] | undefined, i: number) =>
+    scoreDictation(sentences[i].en, answers?.[i] ?? "").accuracy;
+  return {
+    day1: day1.score,
+    day7: day7.score,
+    sentences: sentences.map((_, i) => ({
+      day1: accuracy(day1.answers, i),
+      day7: accuracy(day7.answers, i),
+    })),
   };
 }

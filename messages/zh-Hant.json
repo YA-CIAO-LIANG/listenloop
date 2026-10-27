@@ -66,7 +66,6 @@
     "tomorrow": "第 {day} 天（{task}）明天開放",
     "retry": "再練一次",
     "viewResult": "查看結果",
-    "day7Soon": "第 7 天：重新聽寫即將開放",
     "devMode": "測試模式：已略過日期限制",
     "passed": "已通過",
     "lockedTitle": "第 {day} 天尚未開放",
@@ -77,6 +76,32 @@
     "backToVideo": "回影片頁",
     "nextTomorrow": "第 {day} 天（{task}）明天開放。",
     "nextOpen": "第 {day} 天已開放"
+  },
+  "week": {
+    "resultTitle": "第 {week} 週結果",
+    "day1": "第 1 天",
+    "day7": "第 7 天",
+    "improved": "進步 {points} 個百分點",
+    "declined": "比第 1 天低 {points} 個百分點",
+    "same": "和第 1 天一樣",
+    "passedMessage": "通過！這支影片的七天循環完成了。",
+    "repeatMessage": "還差一點：第 7 天要達到 80% 才通過。同一支影片再練一週。",
+    "startNext": "開始第 {week} 週",
+    "nextTomorrow": "第 {week} 週明天開始",
+    "canStartNext": "可以開始第 {week} 週",
+    "chooseNext": "選下一支影片",
+    "compareTitle": "逐句比較",
+    "sentenceCompare": "第 1 天 {day1} → 第 7 天 {day7}",
+    "improvedSr": "（進步）",
+    "history": "往週紀錄",
+    "historyRow": "第 {week} 週 · 第 1 天 {day1} → 第 7 天 {day7} · {result}",
+    "passed": "通過",
+    "notPassed": "未通過",
+    "summary": "第 1 天 {day1} → 第 7 天 {day7}",
+    "notPassedWeek": "這週沒通過（第 7 天 {score}）",
+    "weekNotPassed": "第 {week} 週未通過",
+    "viewResult": "查看週結果",
+    "saveFailed": "無法儲存進度。請確認瀏覽器允許網站儲存資料（例如不要使用無痕模式），然後重新整理。"
   },
   "styleguide": {
     "title": "設計系統",
@@ -198,6 +223,10 @@
     "thisAttempt": "這次的成績",
     "todayDone": "今日任務完成",
     "retryComplete": "練習完成！"
+  },
+  "redictation": {
+    "title": "第 7 天：重新聽寫",
+    "intro": "再聽寫一次整支影片。完成後會和第 1 天比較；正確率達 80% 就通過這一週。"
   },
   "handout": {
     "title": "雙語講義",

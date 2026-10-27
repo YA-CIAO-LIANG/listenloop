@@ -66,7 +66,6 @@
     "tomorrow": "Day {day} ({task}) opens tomorrow",
     "retry": "Practice again",
     "viewResult": "View result",
-    "day7Soon": "Day 7: Re-dictation is coming soon",
     "devMode": "Test mode: date rules skipped",
     "passed": "Passed",
     "lockedTitle": "Day {day} isn’t open yet",
@@ -77,6 +76,32 @@
     "backToVideo": "Back to video",
     "nextTomorrow": "Day {day} ({task}) opens tomorrow.",
     "nextOpen": "Day {day} is open"
+  },
+  "week": {
+    "resultTitle": "Week {week} result",
+    "day1": "Day 1",
+    "day7": "Day 7",
+    "improved": "Up {points} percentage points",
+    "declined": "{points} percentage points below Day 1",
+    "same": "Same as Day 1",
+    "passedMessage": "Passed! You’ve finished the 7-day cycle for this video.",
+    "repeatMessage": "Almost there: Day 7 needs 80% to pass. Practice the same video for another week.",
+    "startNext": "Start week {week}",
+    "nextTomorrow": "Week {week} starts tomorrow",
+    "canStartNext": "Week {week} can start",
+    "chooseNext": "Choose the next video",
+    "compareTitle": "Sentence by sentence",
+    "sentenceCompare": "Day 1 {day1} → Day 7 {day7}",
+    "improvedSr": " (improved)",
+    "history": "Past weeks",
+    "historyRow": "Week {week} · Day 1 {day1} → Day 7 {day7} · {result}",
+    "passed": "Passed",
+    "notPassed": "Not passed",
+    "summary": "Day 1 {day1} → Day 7 {day7}",
+    "notPassedWeek": "Not passed this week (Day 7 {score})",
+    "weekNotPassed": "Week {week} not passed",
+    "viewResult": "View week result",
+    "saveFailed": "Couldn’t save your progress. Allow this site to store data (for example, leave private browsing), then reload."
   },
   "styleguide": {
     "title": "Design system",
@@ -198,6 +223,10 @@
     "thisAttempt": "This attempt",
     "todayDone": "Today’s task done",
     "retryComplete": "Practice done!"
+  },
+  "redictation": {
+    "title": "Day 7: Re-dictation",
+    "intro": "Dictate the whole video once more. You’ll compare with Day 1; 80% accuracy or more passes the week."
   },
   "handout": {
     "title": "Bilingual handout",

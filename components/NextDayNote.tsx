@@ -39,10 +39,6 @@ export function NextDayNote({ videoId, day, progress }: NextDayNoteProps) {
     );
   }
   if (reason !== null) return null;
-  // Day 7 has no page until re-dictation ships.
-  if (next === 7) {
-    return <p className="text-supporting text-ink-muted">{t("day7Soon")}</p>;
-  }
   return (
     <p className="text-supporting">
       <Link

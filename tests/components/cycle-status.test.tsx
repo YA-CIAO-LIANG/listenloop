@@ -4,7 +4,7 @@ import { CycleStatus } from "@/components/CycleStatus";
 import { DayGate } from "@/components/DayGate";
 import { NextDayNote } from "@/components/NextDayNote";
 import { VideoProgressLabel } from "@/components/VideoProgressLabel";
-import type { CycleDay } from "@/lib/cycle";
+import { settleWeek, type CycleDay } from "@/lib/cycle";
 import { createProgress, withDay, type Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { renderWithIntl } from "../render";
@@ -26,6 +26,16 @@ function doneThrough(n: number, lastDate: string): Progress {
     });
   }
   return progress;
+}
+
+/** Days 1–7 done (Day 1 60%), Day 7 scored and the week settled. */
+function settled(day7Score: number, day7Date: string): Progress {
+  const progress = withDay(doneThrough(6, "2026-10-20"), 7, {
+    done: true,
+    date: day7Date,
+    score: day7Score,
+  });
+  return settleWeek(progress);
 }
 
 function storeWith(progress: Progress | null) {
@@ -97,11 +107,46 @@ describe("CycleStatus (video page)", () => {
     expect(screen.queryByRole("button", { name: /第 4 天/ })).toBeNull();
   });
 
-  it("holds Day 7 until re-dictation is available", async () => {
+  it("opens Day 7 after Day 6", async () => {
     await renderStatus(doneThrough(6, YESTERDAY));
-    expect(screen.getByText("第 7 天：重新聽寫即將開放")).toBeDefined();
+    expect(link("開始第 7 天：重新聽寫")).toBe("/videos/sintel/day/7");
     fireEvent.click(screen.getByRole("button", { name: /第 7 天/ }));
-    expect(push).not.toHaveBeenCalled();
+    expect(push).toHaveBeenLastCalledWith("/videos/sintel/day/7");
+  });
+
+  it("shows a passed week with both scores", async () => {
+    await renderStatus(settled(0.85, YESTERDAY));
+    expect(screen.getByText("已通過")).toBeDefined();
+    expect(screen.getByText("第 1 天 60% → 第 7 天 85%")).toBeDefined();
+    expect(link("查看週結果")).toBe("/videos/sintel/day/7");
+  });
+
+  it("starts the next week from the day after a week that didn't pass", async () => {
+    await renderStatus(settled(0.7, TODAY));
+    expect(screen.getByText("這週沒通過（第 7 天 70%）")).toBeDefined();
+    expect(screen.getByText("第 2 週明天開始")).toBeDefined();
+    expect(screen.queryByRole("button", { name: /開始第 2 週/ })).toBeNull();
+  });
+
+  it("starts week 2: saves a fresh week and opens Day 1", async () => {
+    const progress = settled(0.7, YESTERDAY);
+    const store = storeWith(progress);
+    renderWithIntl(<CycleStatus videoId="sintel" store={store} />);
+    await act(async () => {});
+
+    await act(async () =>
+      fireEvent.click(screen.getByRole("button", { name: /開始第 2 週/ })),
+    );
+    expect(store.save).toHaveBeenCalledWith(
+      expect.objectContaining({
+        week: 2,
+        days: {},
+        status: "in-progress",
+        startedAt: TODAY,
+        history: progress.history,
+      }),
+    );
+    expect(push).toHaveBeenLastCalledWith("/videos/sintel/day/1");
   });
 
   it("shows the week from week 2", async () => {
@@ -182,6 +227,12 @@ describe("VideoProgressLabel (library cards)", () => {
     );
   });
 
+  it("shows a week to repeat", async () => {
+    expect(await renderLabel(settled(0.7, TODAY))).toBe(
+      "第 1 週未通過 · 第 2 週明天開始",
+    );
+  });
+
   it("shows a passed video", async () => {
     expect(
       await renderLabel({ ...doneThrough(7, YESTERDAY), status: "passed" }),
@@ -208,9 +259,9 @@ describe("NextDayNote (completion screens)", () => {
     expect(link(/第 3 天已開放/)).toBe("/videos/sintel/day/3");
   });
 
-  it("holds Day 7 and says nothing once the next day is done", () => {
-    renderNote(6, doneThrough(6, YESTERDAY));
-    expect(screen.getByText("第 7 天：重新聽寫即將開放")).toBeDefined();
+  it("points to Day 7 and says nothing once the next day is done", () => {
+    renderNote(6, doneThrough(6, TODAY));
+    expect(screen.getByText("第 7 天（重新聽寫）明天開放。")).toBeDefined();
     expect(renderNote(1, doneThrough(3, YESTERDAY)).textContent).toBe("");
   });
 });
