@@ -106,10 +106,64 @@
   "rewards": {
     "points": "Points",
     "feed": "Feed",
-    "badgeLabel": "{points, plural, one {# point} other {# points}}, {feed, plural, one {# portion} other {# portions}} of feed",
     "pointsPart": "{n, plural, one {# point} other {# points}}",
     "feedPart": "{n, plural, one {# portion of feed} other {# portions of feed}}",
-    "gained": "Earned {items}"
+    "gained": "Earned {items}",
+    "badgeLink": "{points, plural, one {# point} other {# points}}, {feed, plural, one {# portion} other {# portions}} of feed. Go to the fish shop"
+  },
+  "shop": {
+    "title": "Fish shop",
+    "intro": "Buy fish with the points you earn by practicing; they swim in the aquarium on the home page. Points are only for fish and can’t be refunded.",
+    "loading": "Loading…",
+    "balance": "You have {points, plural, one {# point} other {# points}}",
+    "price": "{price, plural, one {# point} other {# points}}",
+    "buy": "Buy",
+    "confirm": "Buy a {name} for {price, plural, one {# point} other {# points}}?",
+    "confirmYes": "Buy",
+    "cancel": "Cancel",
+    "notEnough": "{n, plural, one {# more point} other {# more points}} needed",
+    "bought": "You bought a {name}. It’s swimming in the aquarium.",
+    "boughtTankFull": "You bought a {name}. The aquarium already has {max} fish; swap some in My fish.",
+    "saveFailed": "Couldn’t save. Allow this site to store data, then reload.",
+    "modelBy": "3D model: {authors} ({license})",
+    "myFish": "My fish",
+    "tank": "Aquarium {count} / {max}",
+    "tankHint": "Up to {max} fish can swim on the home page; choose which ones.",
+    "fishLabel": "{name} #{n}",
+    "starter": "Welcome gift",
+    "inTank": "In the aquarium",
+    "tankFull": "Aquarium full",
+    "placeholder": "{name} thumbnail (a 3D render comes later)",
+    "credits": "Credits"
+  },
+  "fish": {
+    "snail": {
+      "name": "Snail",
+      "blurb": "Glides slowly along the glass and the floor, keeping the tank clean."
+    },
+    "clownfish": {
+      "name": "Clownfish",
+      "blurb": "A small orange-and-white fish that loves weaving through plants."
+    },
+    "great-white": {
+      "name": "Great white shark",
+      "blurb": "Cruises calmly and powerfully: the big one in the tank."
+    },
+    "whale-shark": {
+      "name": "Whale shark",
+      "blurb": "The largest fish in the world, gentle and slow."
+    }
+  },
+  "credits": {
+    "title": "Credits",
+    "intro": "Every video and 3D model in ListenLoop is used under a license that allows commercial use and changes. Thank you to these creators.",
+    "videos": "Videos",
+    "fish": "Fish 3D models",
+    "madeFrom": "Made from",
+    "license": "License",
+    "source": "Original page",
+    "changes": "Changes",
+    "verified": "License checked on {date}"
   },
   "styleguide": {
     "title": "Design system",

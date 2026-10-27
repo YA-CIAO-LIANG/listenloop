@@ -69,7 +69,7 @@ describe("RewardBadge (header)", () => {
     await act(async () => {});
 
     // 10 + round(1 × 10) points; the starter portion + one day of feed.
-    expect(screen.getByText("點數 20、飼料 2 份")).toBeDefined();
+    expect(screen.getByText("點數 20、飼料 2 份，前往魚店")).toBeDefined();
     expect(savedWallet().points.earned).toHaveLength(1);
   });
 
@@ -93,7 +93,7 @@ describe("RewardBadge (header)", () => {
 
     act(() => vi.advanceTimersByTime(GAIN_VISIBLE_MS));
     expect(screen.queryByText("+12")).toBeNull();
-    expect(screen.getByText("點數 12、飼料 2 份")).toBeDefined();
+    expect(screen.getByText("點數 12、飼料 2 份，前往魚店")).toBeDefined();
   });
 
   it("stays hidden until rewards are loaded", () => {

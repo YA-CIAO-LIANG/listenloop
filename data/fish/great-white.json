@@ -1,0 +1,15 @@
+{
+  "id": "great-white",
+  "price": 200,
+  "credits": [
+    {
+      "title": "Great White Shark",
+      "author": "Mateus Schwaab",
+      "url": "https://sketchfab.com/3d-models/e4f107a6d87b424fb165aba9a53d0665",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "changes": "Optimized for the web by ListenLoop (meshopt compression, WebP textures); placed in an animated aquarium.",
+  "verifiedAt": "2026-10-27"
+}

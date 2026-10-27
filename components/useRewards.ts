@@ -47,6 +47,15 @@ export async function claimAndAnnounce(
   }
 }
 
+/** Tells the page about new balances without new rewards (e.g. after buying). */
+export function announceBalance(balance: ClaimResult["balance"]) {
+  window.dispatchEvent(
+    new CustomEvent(REWARDS_EVENT, {
+      detail: { gained: { points: 0, feed: 0 }, balance },
+    }),
+  );
+}
+
 /** Calls `listener` with every claim result while mounted. */
 export function useRewardEvents(listener: (result: ClaimResult) => void) {
   useEffect(() => {

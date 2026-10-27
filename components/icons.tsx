@@ -54,3 +54,22 @@ export function FeedIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+/** A fish outline, used as the shop's placeholder thumbnail. */
+export function FishIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.25}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M1.5 8c2-3 5.5-4 8.5-2.2L14.5 3v10L10 10.2C7 12 3.5 11 1.5 8z" />
+      <circle cx="5" cy="7.5" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}

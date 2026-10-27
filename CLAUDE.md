@@ -150,7 +150,9 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 獎勵（M2.5；規則見 `docs/aquarium.md`，數字集中在 `lib/rewards.ts`）：
 
 - `ll-activity:v1`：`{ "days": { "2026-10-27": { "official": true, "retries": ["sintel"] } } }`。重練不寫進正式進度，所以在這裡記錄，用於重練點數與連續天數。
-- `ll-wallet:v1`：`{ "points": { "earned": [], "spent": [] }, "feed": { "earned": [], "used": [] } }`，每筆 `{ "id", "amount", "date" }`，只新增不修改。獎勵一律由紀錄推算、以唯一 ID 領取（例如 `day:sintel:w1:d3`、`feed:2026-10-27`），重複領取不會重複發；飼料最多存 7 份，存滿時那份記為 0、之後不補。
+- `ll-wallet:v1`：`{ "points": { "earned": [], "spent": [] }, "feed": { "earned": [], "used": [] } }`，每筆 `{ "id", "amount", "date" }`，只新增不修改。獎勵一律由紀錄推算、以唯一 ID 領取（例如 `day:sintel:w1:d3`、`feed:2026-10-27`），重複領取不會重複發；飼料最多存 7 份，存滿時那份記為 0、之後不補。`fish`（商店加入，舊帳本沒有）：`{ "owned": [{ "id": "clownfish:1", "species": "clownfish", "date" }], "inTank": ["clownfish:1"] }`；第一次使用送一隻水蝸牛（`snail:starter`），魚缸最多 12 隻；購買記在 `points.spent`（`buy:clownfish:1`），點數不退。
+
+魚：`/data/fish/<id>.json`，並在 `data/fish/index.ts` 登記（測試檢查登記、格式、兩種語言都有魚名與介紹）。欄位：`id`、`price`（點數）、`credits`（使用的模型在前，改作來源在後；每筆 `title`、`author`、`url`、`license`、`licenseUrl`）、`changes`、`verifiedAt`、`thumbnail`（選填，透明 WebP）。授權只能是 `CC0 1.0` 或 `CC BY x.x`（NC、ND、SA 會被驗證擋下）。魚名與介紹放在翻譯檔 `fish.<id>`。
 
 ## 評分邏輯
 

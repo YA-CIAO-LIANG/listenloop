@@ -1,0 +1,22 @@
+{
+  "id": "whale-shark",
+  "price": 400,
+  "credits": [
+    {
+      "title": "Whale Shark Game Ready",
+      "author": "kenchoo",
+      "url": "https://sketchfab.com/3d-models/e32a1b2715384935a7f23d1498463339",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    {
+      "title": "Whale Shark | Game Ready",
+      "author": "Michael Janes-Villiard",
+      "url": "https://sketchfab.com/3d-models/9cdd9a151ff04a3b9228f66a2e00b1f4",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/"
+    }
+  ],
+  "changes": "Optimized for the web by ListenLoop (meshopt compression, WebP textures); placed in an animated aquarium.",
+  "verifiedAt": "2026-10-27"
+}

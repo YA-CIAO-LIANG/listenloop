@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import type { ClaimResult, RewardStores } from "@/lib/claim-rewards";
@@ -30,8 +31,8 @@ type RewardBadgeProps = {
 /**
  * Header balances: points (for fish) and feed (for feeding). Claims any
  * rewards not yet given on mount (including past practice), and shows a
- * short "+N" whenever new rewards arrive. Hidden until loaded, so the server
- * HTML always matches.
+ * short "+N" whenever new rewards arrive. Links to the fish shop. Hidden
+ * until loaded, so the server HTML always matches.
  */
 export function RewardBadge({ stores }: RewardBadgeProps) {
   const t = useTranslations("rewards");
@@ -69,22 +70,29 @@ export function RewardBadge({ stores }: RewardBadgeProps) {
     ) : null;
 
   return (
-    <div className="flex items-center gap-3 text-supporting tabular-nums">
-      <span className="sr-only">{t("badgeLabel", balance)}</span>
-      <span aria-hidden="true" className="flex items-center gap-1">
-        <PointsIcon className="size-4 text-accent-ink" />
-        <span className="hidden text-ink-muted split:inline">
-          {t("points")}
+    <div className="flex items-center text-supporting tabular-nums">
+      <Link
+        href="/shop"
+        className="flex items-center gap-3 rounded-base px-1 hover:text-accent-ink"
+      >
+        <span className="sr-only">{t("badgeLink", balance)}</span>
+        <span aria-hidden="true" className="flex items-center gap-1">
+          <PointsIcon className="size-4 text-accent-ink" />
+          <span className="hidden text-ink-muted split:inline">
+            {t("points")}
+          </span>
+          {balance.points}
+          {plus(gain?.points)}
         </span>
-        {balance.points}
-        {plus(gain?.points)}
-      </span>
-      <span aria-hidden="true" className="flex items-center gap-1">
-        <FeedIcon className="size-4 text-accent-ink" />
-        <span className="hidden text-ink-muted split:inline">{t("feed")}</span>
-        {balance.feed}
-        {plus(gain?.feed)}
-      </span>
+        <span aria-hidden="true" className="flex items-center gap-1">
+          <FeedIcon className="size-4 text-accent-ink" />
+          <span className="hidden text-ink-muted split:inline">
+            {t("feed")}
+          </span>
+          {balance.feed}
+          {plus(gain?.feed)}
+        </span>
+      </Link>
       <span className="sr-only" aria-live="polite">
         {gain ? t("gained", { items: gainText(gain) }) : ""}
       </span>
