@@ -35,6 +35,26 @@ function hexToRgb(hex: string): [number, number, number] {
 }
 
 /**
+ * Vertical swimming offset (px) at body position u for a tail phase: small
+ * at the head, growing toward the tail.
+ */
+export function waveAt<M extends string>(
+  species: FishSpecies<M>,
+  u: number,
+  phase: number,
+): number {
+  const amp =
+    u <= 1
+      ? species.wave.head + (species.wave.tail - species.wave.head) * u * u
+      : species.wave.tail + (u - 1) * 4;
+  return amp * Math.sin(phase + 1.1 * (1 - Math.min(u, 1.4)));
+}
+
+/** The tail phase (radians) of a swim frame: middle, up, middle, down. */
+export const phaseOf = (frame: number) =>
+  -(frame % TAIL_FRAMES) * (Math.PI / 2);
+
+/**
  * Brightness (about 0.4–1.2) to a ramp step. Rounded surfaces get a little
  * ordered dither for smooth transitions; flat fins don't (it reads as noise).
  */
@@ -59,7 +79,8 @@ type Pixel = {
  * Draws one frame of a fish: per pixel, find what part of the fish it hits
  * (after the swimming wave), ask the species for its material, light it from
  * the upper left, and quantize to the material's 5-tone ramp. A last pass
- * outlines the silhouette in darker tones of the same colors.
+ * outlines the silhouette in darker tones of the same colors. The eye isn't
+ * part of the frame: eyes.ts draws it so expressions don't need new frames.
  */
 export function renderFish<M extends string>(
   species: FishSpecies<M>,
@@ -68,7 +89,7 @@ export function renderFish<M extends string>(
   const { width, height } = species;
   const pixels: (Pixel | null)[] = new Array(width * height).fill(null);
   const sx = facing === "right" ? 1 : -1;
-  const phase = -(frame % TAIL_FRAMES) * (Math.PI / 2);
+  const phase = phaseOf(frame);
   const bodyLength = species.snoutX - species.peduncleX;
   const uAt = (gx: number) => (species.snoutX - gx) / bodyLength;
   const tailMid = species.centerY + (species.bottom(1) - species.top(1)) / 2;
@@ -78,21 +99,12 @@ export function renderFish<M extends string>(
     // Geometry faces right; a left-facing fish mirrors it, the light stays put.
     const gx = (facing === "right" ? x : width - 1 - x) + 0.5;
     const u = uAt(gx);
-    const amp =
-      u <= 1
-        ? species.wave.head + (species.wave.tail - species.wave.head) * u * u
-        : species.wave.tail + (u - 1) * 4;
-    const wave = amp * Math.sin(phase + 1.1 * (1 - Math.min(u, 1.4)));
+    const wave = waveAt(species, u, phase);
 
     for (let y = 0; y < height; y++) {
       const gy = y + 0.5 - wave;
       const hit = locate(species, gx, gy, u, tailMid, flutter);
       if (!hit) continue;
-
-      if (hit.region === "eye") {
-        pixels[y * width + x] = eyePixel(species, gx, gy, sx);
-        continue;
-      }
 
       const paint = species.paint(hit.input);
       const brightness = light(hit.input, sx) + (paint.shade ?? 0);
@@ -113,7 +125,7 @@ export function renderFish<M extends string>(
   );
 }
 
-type Hit = { region: "eye" } | { region: Region; input: PaintInput };
+type Hit = { region: Region; input: PaintInput };
 
 /** Which part of the fish (if any) the geometry point (gx, gy) falls on. */
 function locate<M extends string>(
@@ -127,14 +139,9 @@ function locate<M extends string>(
   const bodyLength = species.snoutX - species.peduncleX;
   const { centerY } = species;
 
-  // Eye (on top of everything).
-  const eyeX = species.snoutX - species.eye.u * bodyLength;
+  // The eye is drawn separately (eyes.ts) and laid over the body.
   const mid0 = (uu: number) =>
     centerY + (species.bottom(uu) - species.top(uu)) / 2;
-  const eyeY = mid0(species.eye.u) + species.eye.dy;
-  if (Math.hypot(gx - eyeX, gy - eyeY) <= species.eye.radius) {
-    return { region: "eye" };
-  }
 
   const inBody = u >= 0 && u <= 1;
   const top = inBody ? centerY - species.top(u) : 0;
@@ -247,31 +254,6 @@ function light(input: PaintInput, sx: number): number {
   const bounce = input.v > 0 ? 0.16 * input.v : 0;
   const specular = Math.pow(Math.max(0, dot(normal, HALF)), 28) * 0.3;
   return 0.5 + 0.58 * diffuse + bounce + specular;
-}
-
-function eyePixel<M extends string>(
-  species: FishSpecies<M>,
-  gx: number,
-  gy: number,
-  sx: number,
-): Pixel {
-  const bodyLength = species.snoutX - species.peduncleX;
-  const mid =
-    species.centerY +
-    (species.bottom(species.eye.u) - species.top(species.eye.u)) / 2;
-  const ex = species.snoutX - species.eye.u * bodyLength;
-  const ey = mid + species.eye.dy;
-  const r = Math.hypot(gx - ex, gy - ey);
-  // A glint up and toward the light (world left), so it mirrors with the fish.
-  const glintX = ex - 0.9 * sx;
-  const glintY = ey - 0.9;
-  if (Math.hypot(gx - glintX, gy - glintY) < 0.75) {
-    return { material: "glint", tone: 4, alpha: 255 };
-  }
-  if (r <= species.eye.radius * 0.6) {
-    return { material: "pupil", tone: 1, alpha: 255 };
-  }
-  return { material: "iris", tone: gy < ey ? 3 : 2, alpha: 255 };
 }
 
 /**

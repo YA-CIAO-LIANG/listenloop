@@ -10,6 +10,14 @@ export type Ramp = readonly [string, string, string, string, string];
 
 export type Facing = "right" | "left";
 
+export type EyeMaterial = "iris" | "pupil" | "glint" | "eyelid";
+
+/**
+ * open: looking around; blink: closed for a moment; happy: ^ ^ after
+ * eating; hungry: lids half closed.
+ */
+export type Expression = "open" | "blink" | "happy" | "hungry";
+
 /** Where a pixel sits on the fish. */
 export type Region = "body" | "fin" | "caudal" | "pectoral";
 
@@ -47,7 +55,8 @@ export type Paint<M extends string> = {
 /**
  * A side-view fish species for the renderer. Geometry is in pixels on a
  * width × height canvas, facing right (snout at snoutX). The palette must
- * include pupil, iris, and glint for the eye.
+ * include the eye's materials: iris, pupil, glint, and eyelid (the skin
+ * around the eye, for blinks and expressions).
  */
 export type FishSpecies<M extends string> = {
   width: number;
@@ -64,9 +73,10 @@ export type FishSpecies<M extends string> = {
   caudal: { length: number; spread: number; round: number };
   /** Pectoral fin on the side: body position, offset below center, radii. */
   pectoral: { u: number; dy: number; rx: number; ry: number; back: number };
+  /** Big round eye (about 1/3 of the head's height across). */
   eye: { u: number; dy: number; radius: number };
   /** Swimming wave amplitude (px) at the head and at the tail base. */
   wave: { head: number; tail: number };
-  palette: Record<M | "pupil" | "iris" | "glint", Ramp>;
+  palette: Record<M | EyeMaterial, Ramp>;
   paint: (input: PaintInput) => Paint<M>;
 };

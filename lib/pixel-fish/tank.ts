@@ -118,3 +118,24 @@ export function renderTank(width: number, height: number): PixelImage {
 
   return { width, height, data };
 }
+
+const PELLET = ["#3d2310", "#6b3f1d", "#9a6232", "#c48a4f", "#e8b77c"];
+
+/**
+ * One fish-food pellet (5 × 4 px): a rounded brown crumb lit from the
+ * upper left, in the tank's pixel-art style.
+ */
+export function renderPellet(): PixelImage {
+  const shape = [".122.", "13321", "12210", ".110."];
+  const width = 5;
+  const height = shape.length;
+  const data = new Uint8ClampedArray(width * height * 4);
+  shape.forEach((row, y) =>
+    [...row].forEach((cell, x) => {
+      if (cell === ".") return;
+      const tone = y === 0 && x === 2 ? 4 : Number(cell);
+      data.set([...rgb(PELLET[tone]), 255], (y * width + x) * 4);
+    }),
+  );
+  return { width, height, data };
+}

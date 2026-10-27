@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from "@testing-library/react";
+import { act, fireEvent, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { PixelFishDemo } from "@/app/styleguide/PixelFishDemo";
 import { renderWithIntl } from "../render";
@@ -71,11 +71,49 @@ describe("PixelFishDemo (styleguide)", () => {
     expect(window.requestAnimationFrame).not.toHaveBeenCalled();
   });
 
-  it("lays out every frame for checking", () => {
+  it("previews expressions as still pictures with reduced motion", () => {
     screenPrefersReducedMotion(true);
     renderWithIntl(<PixelFishDemo />);
-    for (const label of ["尾巴 1", "尾巴 4", "轉身 1", "轉身 4", "朝左"]) {
-      expect(screen.getByText(label)).toBeDefined();
+    for (const name of ["眨眼", "撒飼料"]) {
+      const before = drawImage.mock.calls.length;
+      act(() => fireEvent.click(screen.getByRole("button", { name })));
+      expect(drawImage.mock.calls.length, name).toBeGreaterThan(before);
+    }
+    const before = drawImage.mock.calls.length;
+    act(() => fireEvent.click(screen.getByRole("radio", { name: "飢餓" })));
+    expect(drawImage.mock.calls.length).toBeGreaterThan(before);
+    expect(window.requestAnimationFrame).not.toHaveBeenCalled();
+  });
+
+  it("follows the pointer and offers blink, food, and moods while swimming", () => {
+    screenPrefersReducedMotion(false);
+    renderWithIntl(<PixelFishDemo />);
+    expect(screen.getByText(/魚的眼睛會跟著看/)).toBeDefined();
+    for (const name of ["眨眼", "撒飼料", "轉身"]) {
+      expect(screen.getByRole("button", { name })).toBeDefined();
+    }
+    for (const name of ["一般", "吃飽", "飢餓"]) {
+      expect(screen.getByRole("radio", { name })).toBeDefined();
+    }
+  });
+
+  it("lays out every frame and expression for checking", () => {
+    screenPrefersReducedMotion(true);
+    renderWithIntl(<PixelFishDemo />);
+    const gallery = screen.getByRole("heading", {
+      name: "畫格一覽",
+    }).parentElement!;
+    for (const label of [
+      "尾巴 1",
+      "尾巴 4",
+      "轉身 1",
+      "轉身 4",
+      "朝左",
+      "眨眼",
+      "吃飽",
+      "飢餓",
+    ]) {
+      expect(within(gallery).getByText(label)).toBeDefined();
     }
   });
 });

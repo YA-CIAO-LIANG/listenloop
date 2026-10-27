@@ -190,7 +190,7 @@
       "reset": "Reset"
     },
     "pixelFish": {
-      "intro": "Ocellaris clownfish sample: realistic pixel art drawn by code (96 × 60 pixels), lit from the upper left, white bands with thin black edges, black fin margins. Four tail frames, a body wave, and a turn at the walls.",
+      "intro": "Ocellaris clownfish sample in the \"realistic colors, big cute eyes\" style: true-to-life pattern, colors, and light; a short round body; a big eye about 1/3 of the head’s height with one big and one small glint. It blinks now and then and looks at the pointer or food; happy ^ ^ after eating; hungry with half-closed lids, swimming slower and lower.",
       "tankLabel": "A clownfish swimming back and forth in a pixel-art aquarium",
       "play": "Play",
       "pause": "Pause",
@@ -200,7 +200,14 @@
       "tail": "Tail {n}",
       "turning": "Turn {n}",
       "left": "Facing left",
-      "reduced": "Reduced motion is on: the fish stays still. Use Turn to flip it."
+      "reduced": "Reduced motion is on: the fish stays still, doesn’t blink, and its eyes don’t move. The buttons switch still expressions.",
+      "lookHint": "Move the pointer or a finger over the tank and the fish looks at it; it watches food as it sinks.",
+      "blink": "Blink",
+      "feed": "Drop food",
+      "mood": "Expression",
+      "normal": "Normal",
+      "happy": "Fed",
+      "hungry": "Hungry"
     }
   },
   "library": {

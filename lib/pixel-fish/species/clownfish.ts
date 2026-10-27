@@ -20,23 +20,28 @@ function profile(points: readonly [number, number][]) {
 
 type Material = "orange" | "white" | "black" | "fin";
 
-/** Geometry scale: shapes are designed at 64 × 40 and drawn at 96 × 60. */
+/**
+ * Geometry scale: shapes are designed at 64 × 40 and drawn at 96 × 60, a
+ * little rounder than life (cute style: a short, round body to go with the
+ * big eye).
+ */
 const K = 1.5;
+const ROUND = 1.12;
 const scaled = (points: readonly [number, number][]) =>
-  points.map(([u, h]) => [u, h * K] as [number, number]);
+  points.map(([u, h]) => [u, h * K * ROUND] as [number, number]);
 
-/** One pixel along the body, in u (body length 63 px). */
-const PX = 1 / (42 * K);
+/** One pixel along the body, in u (body length 55 px). */
+const PX = 1 / 55;
 
 /**
  * The three white bands of the ocellaris clownfish (Amphiprion ocellaris):
- * just behind the eye, a middle band bulging toward the head, and the tail
- * base. Each has a thin black border. `c` is the band's center for a v.
+ * just behind the (big) eye, a middle band bulging toward the head, and the
+ * tail base. Each has a thin black border. `c` is the band's center for a v.
  */
 const BANDS = [
-  { c: (v: number) => 0.215 + 0.015 * v, half: 2.2 * PX },
-  { c: (v: number) => 0.5 - 0.06 * (1 - v * v), half: 2.8 * PX },
-  { c: () => 0.905, half: 1.8 * PX },
+  { c: (v: number) => 0.315 + 0.02 * v, half: 2.4 * PX },
+  { c: (v: number) => 0.57 - 0.06 * (1 - v * v), half: 3 * PX },
+  { c: () => 0.9, half: 2 * PX },
 ] as const;
 
 const BORDER = 1.2 * PX;
@@ -74,48 +79,51 @@ function paint({ region, u, v, edge, ray }: PaintInput): Paint<Material> {
 }
 
 /**
- * Ocellaris clownfish, 96 × 60 px facing right: a deep oval body (height
- * about 0.43 of its length), rounded fins with black margins, three white
- * bands edged in black, bright orange lit from the upper left.
+ * Ocellaris clownfish, 96 × 60 px facing right, in the "realistic colors,
+ * big cute eyes" style: a short round body (height about 0.55 of its
+ * length), a big eye about 1/3 of the head's height, rounded fins with
+ * black margins, three white bands edged in black, bright orange lit from
+ * the upper left.
  */
 export const clownfish: FishSpecies<Material> = {
   width: 96,
   height: 60,
-  snoutX: 88,
-  peduncleX: 25,
-  centerY: 30,
+  snoutX: 86,
+  peduncleX: 31,
+  centerY: 31,
+  // A blunt, round head: the outline rises fast from the snout.
   top: profile(
     scaled([
-      [0, 1.5],
-      [0.05, 4],
-      [0.12, 6.4],
-      [0.25, 8.7],
-      [0.4, 9.5],
-      [0.55, 9.1],
-      [0.7, 7.7],
-      [0.85, 5.5],
-      [1, 3.4],
+      [0, 2.6],
+      [0.05, 5.4],
+      [0.12, 7.6],
+      [0.25, 9.2],
+      [0.4, 9.7],
+      [0.55, 9.3],
+      [0.7, 7.9],
+      [0.85, 5.6],
+      [1, 3.3],
     ]),
   ),
   bottom: profile(
     scaled([
-      [0, 1],
-      [0.05, 3.2],
-      [0.12, 5.4],
-      [0.25, 7.5],
-      [0.4, 8.3],
-      [0.55, 7.9],
-      [0.7, 6.5],
+      [0, 1.8],
+      [0.05, 4.4],
+      [0.12, 6.4],
+      [0.25, 7.9],
+      [0.4, 8.4],
+      [0.55, 8],
+      [0.7, 6.6],
       [0.85, 4.7],
-      [1, 3.4],
+      [1, 3.3],
     ]),
   ),
   fins: [
     // Spiny dorsal: low, with spine tips every fourth pixel.
     {
       edge: "top",
-      from: 0.28,
-      to: 0.53,
+      from: 0.32,
+      to: 0.57,
       height: (t, x) =>
         3.4 *
         K *
@@ -125,8 +133,8 @@ export const clownfish: FishSpecies<Material> = {
     // Soft dorsal: taller and rounded, peaking toward the back.
     {
       edge: "top",
-      from: 0.53,
-      to: 0.88,
+      from: 0.57,
+      to: 0.89,
       height: (t) => 6 * K * Math.sin(Math.PI * Math.pow(t, 0.75)),
     },
     // Anal fin.
@@ -139,23 +147,27 @@ export const clownfish: FishSpecies<Material> = {
     // Pelvic fin, pointing back.
     {
       edge: "bottom",
-      from: 0.28,
-      to: 0.44,
+      from: 0.33,
+      to: 0.48,
       height: (t) => 4 * K * (t < 0.7 ? t / 0.7 : (1 - t) / 0.3),
     },
   ],
   caudal: { length: 11 * K, spread: 0.5, round: 6 * K },
-  pectoral: { u: 0.3, dy: 1.6 * K, rx: 5 * K, ry: 2.6 * K, back: 3.5 * K },
-  eye: { u: 0.12, dy: -2.4 * K, radius: 2.4 * K },
+  pectoral: { u: 0.36, dy: 1.8 * K, rx: 4.6 * K, ry: 2.6 * K, back: 3 * K },
+  // Big eye: about 1/3 of the head's height (≈ 25 px there) across.
+  eye: { u: 0.15, dy: -2.2 * K, radius: 4.6 },
   wave: { head: 0.3, tail: 3.4 },
   palette: {
     orange: ["#8a2f05", "#c4470a", "#ec6614", "#ff8a33", "#ffb070"],
     white: ["#8b98a0", "#bcc6cb", "#dfe5e7", "#f4f7f7", "#ffffff"],
     black: ["#07070a", "#121318", "#1d1f26", "#2b2d36", "#3d404c"],
     fin: ["#7a2a06", "#b5440d", "#e2661c", "#f9883a", "#ffad6e"],
-    pupil: ["#000000", "#06070a", "#0d0f14", "#14171d", "#1b1f27"],
-    iris: ["#2a1004", "#5a2709", "#8f4512", "#c4661f", "#e89048"],
+    pupil: ["#050407", "#0b0a10", "#141219", "#1d1a23", "#27232e"],
+    // Dark brown iris that glows warm at the bottom (light through the lens).
+    iris: ["#120a08", "#2a1710", "#4a2716", "#74401f", "#a5652f"],
     glint: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"],
+    // Skin around the eye for blinks and expressions: the body's orange.
+    eyelid: ["#8a2f05", "#c4470a", "#ec6614", "#ff8a33", "#ffb070"],
   },
   paint,
 };
