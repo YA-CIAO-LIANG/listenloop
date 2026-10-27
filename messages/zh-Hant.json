@@ -170,6 +170,7 @@
     "skip": "跳過",
     "confirmSkip": "確定跳過？",
     "shortcuts": "Enter 送出 · Ctrl＋空白 或 Ctrl＋Enter 重播",
+    "notesHint": "送出後，這裡會顯示這句的翻譯、單字和文法。",
     "position": "第 {n} / {total} 句",
     "retry": "再練一次",
     "practiceMode": "練習模式：這次的分數不會改變正式成績（{score}）。",

@@ -145,6 +145,8 @@
 
   /* Two-column sections stack below 760px. */
   --breakpoint-split: 47.5rem;
+  /* Dictation shows sentence notes beside the practice column from here. */
+  --breakpoint-wide: 64rem;
 }
 
 @theme {
@@ -207,6 +209,19 @@
     max(calc(40svh * 16 / 9), 22.25rem)
   );
   margin-inline: auto;
+}
+
+/*
+ * Practice column with the 20rem notes column (and 2rem gap) beside it, used
+ * as wide:practice-column-notes. Same video limits as practice-column.
+ */
+@utility practice-column-notes {
+  width: min(
+    100% - 22rem,
+    --theme(--container-practice),
+    max(calc(40svh * 16 / 9), 22.25rem)
+  );
+  margin-inline: 0;
 }
 
 @utility pressable {

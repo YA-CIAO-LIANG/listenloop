@@ -170,6 +170,7 @@
     "skip": "Skip",
     "confirmSkip": "Skip this one?",
     "shortcuts": "Enter to submit · Ctrl+Space or Ctrl+Enter to replay",
+    "notesHint": "After you submit, this sentence’s translation, vocabulary, and grammar appear here.",
     "position": "Sentence {n} / {total}",
     "retry": "Practice again",
     "practiceMode": "Practice mode: this score won’t change your official score ({score}).",

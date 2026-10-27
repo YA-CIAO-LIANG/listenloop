@@ -1,6 +1,6 @@
 import { act, fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   DictationSession,
   SKIP_CONFIRM_MS,
@@ -349,5 +349,86 @@ describe("DictationSession loading state", () => {
     );
     expect(screen.getByText("載入進度中…")).toBeDefined();
     expect(screen.getByText("Credits")).toBeDefined();
+  });
+});
+
+describe("DictationSession layout by screen width", () => {
+  const scrolled: { element: Element; options: unknown }[] = [];
+
+  /** Pretends the screen is wide (≥ 64rem) or not, with optional reduced motion. */
+  function screenIs(wide: boolean, reduceMotion = false) {
+    window.matchMedia = vi.fn((query: string) => ({
+      matches: query.includes("min-width: 64rem")
+        ? wide
+        : query.includes("reduce")
+          ? reduceMotion
+          : false,
+    })) as unknown as typeof window.matchMedia;
+  }
+
+  beforeEach(() => {
+    scrolled.length = 0;
+    playSegment.mockClear();
+    Element.prototype.scrollIntoView = function (options) {
+      scrolled.push({ element: this, options });
+    };
+  });
+
+  afterEach(() => {
+    delete (window as { matchMedia?: unknown }).matchMedia;
+    delete (Element.prototype as { scrollIntoView?: unknown }).scrollIntoView;
+  });
+
+  it("reserves the notes column with a hint on wide screens", async () => {
+    screenIs(true);
+    await renderSession();
+    expect(screen.getByText(/送出後，這裡會顯示/)).toBeDefined();
+
+    await userEvent.type(input(), "go home{Enter}");
+    expect(screen.queryByText(/送出後，這裡會顯示/)).toBeNull();
+    expect(screen.getByText("回家。")).toBeDefined();
+    // Everything fits beside the video: no scrolling.
+    expect(scrolled).toEqual([]);
+  });
+
+  it("scrolls the feedback to the top on narrow screens after answering", async () => {
+    screenIs(false);
+    await renderSession();
+    scrolled.length = 0; // ignore the input focus on load
+    await userEvent.type(input(), "go home{Enter}");
+
+    const feedback = screen.getByRole("status");
+    expect(scrolled.at(-1)).toEqual({
+      element: feedback,
+      options: { block: "start", behavior: "smooth" },
+    });
+  });
+
+  it("brings the video back before replaying on narrow screens", async () => {
+    screenIs(false);
+    await renderSession();
+    await userEvent.type(input(), "go home{Enter}");
+    scrolled.length = 0;
+
+    await userEvent.click(screen.getByRole("button", { name: /播放|重播/ }));
+    expect(scrolled).toHaveLength(1);
+    expect(scrolled[0].element.contains(screen.getByText(/CC 按鈕關閉/))).toBe(
+      true,
+    );
+    expect(playSegment).toHaveBeenCalled();
+
+    scrolled.length = 0;
+    fireEvent.keyDown(window, { key: "Enter", ctrlKey: true });
+    expect(scrolled).toHaveLength(1);
+  });
+
+  it("jumps instead of smooth-scrolling with reduced motion", async () => {
+    screenIs(false, true);
+    await renderSession();
+    await userEvent.type(input(), "go home{Enter}");
+    expect(scrolled.at(-1)?.options).toEqual({
+      block: "start",
+      behavior: "auto",
+    });
   });
 });
