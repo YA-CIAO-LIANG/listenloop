@@ -29,6 +29,8 @@ export type Sentence = {
 };
 
 export type VocabItem = {
+  /** Index of the sentence this word comes from (sentences[].i). */
+  sentence: number;
   word: string;
   pos: string;
   zh: string;
@@ -36,6 +38,8 @@ export type VocabItem = {
 };
 
 export type GrammarPoint = {
+  /** Index of the sentence this point comes from (sentences[].i). */
+  sentence: number;
   point: string;
   explanation: string;
   example: string;
@@ -187,12 +191,37 @@ export function validateVideo(data: unknown): string[] {
       problems.push(`${list} must be a list`);
       continue;
     }
-    items.forEach((item: unknown, index) =>
-      checkTextFields(item, fields, `${list}[${index}]`, problems),
-    );
+    const sentenceCount = Array.isArray(data.sentences)
+      ? data.sentences.length
+      : 0;
+    items.forEach((item: unknown, index) => {
+      const where = `${list}[${index}]`;
+      checkTextFields(item, fields, where, problems);
+      if (!isObject(item)) return;
+      const { sentence } = item;
+      if (
+        typeof sentence !== "number" ||
+        !Number.isInteger(sentence) ||
+        sentence < 0 ||
+        sentence >= sentenceCount
+      ) {
+        problems.push(`${where}.sentence must be a sentence index`);
+      }
+    });
   }
 
   return problems;
+}
+
+/** The vocabulary and grammar that belong to one sentence, in file order. */
+export function notesForSentence(
+  video: Pick<Video, "vocab" | "grammar">,
+  index: number,
+): { vocab: VocabItem[]; grammar: GrammarPoint[] } {
+  return {
+    vocab: video.vocab.filter((item) => item.sentence === index),
+    grammar: video.grammar.filter((point) => point.sentence === index),
+  };
 }
 
 /** Returns the data as a Video, or throws listing every problem. */

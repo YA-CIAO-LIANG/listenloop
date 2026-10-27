@@ -32,6 +32,7 @@ import { ButtonLink } from "./ButtonLink";
 import { CaptionHint } from "./CaptionHint";
 import { ProgressBar } from "./ProgressBar";
 import { ScoreBadge } from "./ScoreBadge";
+import { SentenceNotes } from "./SentenceNotes";
 import { SentenceRow } from "./SentenceRow";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { WordDiffView } from "./WordDiffView";
@@ -60,6 +61,22 @@ type DictationSessionProps = {
   /** Injected in tests; defaults to localStorage. */
   store?: ProgressStore;
 };
+
+/** From this width the sentence notes sit beside the practice column. */
+const WIDE_QUERY = "(min-width: 64rem)";
+
+/** Narrow screens show the notes below the buttons, so we scroll for them. */
+const isNarrow = () => window.matchMedia?.(WIDE_QUERY).matches === false;
+
+function scrollToTop(element: HTMLElement | null) {
+  const reduceMotion = window.matchMedia?.(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  element?.scrollIntoView?.({
+    block: "start",
+    behavior: reduceMotion ? "auto" : "smooth",
+  });
+}
 
 /** Ctrl+Space or Ctrl+Enter: replay (Ctrl+Enter is the Mac-friendly backup). */
 const isReplayShortcut = (event: globalThis.KeyboardEvent) =>
@@ -98,6 +115,7 @@ export function DictationSession({
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   const videoRef = useRef<HTMLDivElement>(null);
+  const feedbackRef = useRef<HTMLDivElement>(null);
   const skipTimer = useRef<number | undefined>(undefined);
 
   const { sentences } = video;
@@ -170,6 +188,12 @@ export function DictationSession({
     else inputRef.current?.focus();
   }, [loaded, mode, feedbackIndex, current]);
 
+  // Narrow screens: after answering, bring feedback, buttons, and notes into
+  // one screen (the video scrolls up; replay brings it back).
+  useEffect(() => {
+    if (feedbackIndex !== null && isNarrow()) scrollToTop(feedbackRef.current);
+  }, [feedbackIndex]);
+
   // Grow the textarea with its content (one line by default).
   useLayoutEffect(() => {
     const element = inputRef.current;
@@ -186,7 +210,7 @@ export function DictationSession({
     function onKeyDown(event: globalThis.KeyboardEvent) {
       if (!isReplayShortcut(event)) return;
       event.preventDefault();
-      play();
+      replay(play);
     }
     window.addEventListener("keydown", onKeyDown, true);
     return () => window.removeEventListener("keydown", onKeyDown, true);
@@ -259,11 +283,18 @@ export function DictationSession({
     playback.playAt(nextIndex);
   }
 
-  // Phones: keep video, input, and buttons together above the keyboard.
+  // Phones and narrow windows: keep video, input, and buttons together
+  // (above the keyboard on phones).
   function onInputFocus() {
-    if (window.matchMedia?.("(pointer: coarse)").matches) {
-      videoRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+    if (window.matchMedia?.("(pointer: coarse)").matches || isNarrow()) {
+      scrollToTop(videoRef.current);
     }
+  }
+
+  // The video must be on screen while it plays (YouTube terms).
+  function replay(playNow: () => void) {
+    if (isNarrow()) scrollToTop(videoRef.current);
+    playNow();
   }
 
   const header = (
@@ -327,98 +358,121 @@ export function DictationSession({
 
   return (
     <>
-      <section className="practice-column space-y-4">
-        {header}
-        {mode === "retry" && (
-          <p className="text-supporting text-accent-ink">
-            {t("practiceMode", { score: percent(officialScore) })}
-          </p>
-        )}
-
-        {/* Stays at the top while scrolling, so learners always see where they are. */}
-        <div className="sticky top-0 z-10 bg-ground py-2">
-          <ProgressBar
-            value={answeredCount}
-            max={sentences.length}
-            label={t("position", { n: showing + 1, total: sentences.length })}
-            showCount={false}
-          />
-        </div>
-
-        <div ref={videoRef} className="scroll-mt-16">
-          <YouTubeFrame {...player} />
-          <CaptionHint />
-        </div>
-
-        {feedbackIndex === null ? (
-          <div>
-            <label htmlFor="dictation-input" className="sr-only">
-              {t("inputLabel")}
-            </label>
-            <textarea
-              id="dictation-input"
-              ref={inputRef}
-              lang="en"
-              rows={1}
-              autoComplete="off"
-              autoCorrect="off"
-              autoCapitalize="off"
-              spellCheck={false}
-              value={input}
-              onChange={(event) => setInput(event.target.value)}
-              onKeyDown={onInputKeyDown}
-              onFocus={onInputFocus}
-              placeholder={t("placeholder")}
-              className="block w-full resize-none overflow-hidden rounded-base border border-line bg-surface px-4 py-3 text-sentence focus-visible:border-accent"
-            />
-          </div>
-        ) : (
-          <div role="status" className="space-y-2">
-            <WordDiffView
-              diff={wordDiff(sentences[feedbackIndex].en, shownAnswer)}
-            />
-            <p className="text-supporting text-ink-muted">
-              {t("sentenceScore", {
-                score: percent(
-                  scoreDictation(sentences[feedbackIndex].en, shownAnswer)
-                    .accuracy,
-                ),
-              })}
+      {/* Wide screens: notes beside the practice column, no scrolling. */}
+      <div className="wide:mx-auto wide:flex wide:max-w-content wide:items-start wide:justify-center wide:gap-8">
+        <section className="practice-column space-y-4 wide:practice-column-notes">
+          {header}
+          {mode === "retry" && (
+            <p className="text-supporting text-accent-ink">
+              {t("practiceMode", { score: percent(officialScore) })}
             </p>
-          </div>
-        )}
+          )}
 
-        <div className="flex flex-wrap items-center gap-3">
-          <Button
-            variant="secondary"
-            disabled={player.status !== "ready"}
-            onClick={() => playback.play()}
-          >
-            {playback.played ? t("replay") : t("play")}
-          </Button>
+          {/* Stays at the top while scrolling, so learners always see where they are. */}
+          <div className="sticky top-0 z-10 bg-ground py-2">
+            <ProgressBar
+              value={answeredCount}
+              max={sentences.length}
+              label={t("position", { n: showing + 1, total: sentences.length })}
+              showCount={false}
+            />
+          </div>
+
+          <div ref={videoRef} className="scroll-mt-16">
+            <YouTubeFrame {...player} />
+            <CaptionHint />
+          </div>
+
           {feedbackIndex === null ? (
-            <>
-              <Button variant="ghost" onClick={skip} aria-live="polite">
-                {skipArmed ? t("confirmSkip") : t("skip")}
-              </Button>
-              <Button
-                variant="primary"
-                arrow
-                disabled={input.trim() === ""}
-                onClick={submitTyped}
-              >
-                {t("submit")}
-              </Button>
-            </>
+            <div>
+              <label htmlFor="dictation-input" className="sr-only">
+                {t("inputLabel")}
+              </label>
+              <textarea
+                id="dictation-input"
+                ref={inputRef}
+                lang="en"
+                rows={1}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
+                spellCheck={false}
+                value={input}
+                onChange={(event) => setInput(event.target.value)}
+                onKeyDown={onInputKeyDown}
+                onFocus={onInputFocus}
+                placeholder={t("placeholder")}
+                className="block w-full resize-none overflow-hidden rounded-base border border-line bg-surface px-4 py-3 text-sentence focus-visible:border-accent"
+              />
+            </div>
           ) : (
-            <Button ref={nextRef} variant="primary" arrow onClick={goNext}>
-              {isLast ? t("seeResult") : t("next")}
+            <div
+              ref={feedbackRef}
+              role="status"
+              className="scroll-mt-16 space-y-2"
+            >
+              <WordDiffView
+                diff={wordDiff(sentences[feedbackIndex].en, shownAnswer)}
+              />
+              <p className="text-supporting text-ink-muted">
+                {t("sentenceScore", {
+                  score: percent(
+                    scoreDictation(sentences[feedbackIndex].en, shownAnswer)
+                      .accuracy,
+                  ),
+                })}
+              </p>
+            </div>
+          )}
+
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              variant="secondary"
+              disabled={player.status !== "ready"}
+              onClick={() => replay(() => playback.play())}
+            >
+              {playback.played ? t("replay") : t("play")}
             </Button>
+            {feedbackIndex === null ? (
+              <>
+                <Button variant="ghost" onClick={skip} aria-live="polite">
+                  {skipArmed ? t("confirmSkip") : t("skip")}
+                </Button>
+                <Button
+                  variant="primary"
+                  arrow
+                  disabled={input.trim() === ""}
+                  onClick={submitTyped}
+                >
+                  {t("submit")}
+                </Button>
+              </>
+            ) : (
+              <Button ref={nextRef} variant="primary" arrow onClick={goNext}>
+                {isLast ? t("seeResult") : t("next")}
+              </Button>
+            )}
+          </div>
+          <p className="text-metadata text-ink-muted">{t("shortcuts")}</p>
+          {saveError}
+        </section>
+
+        {/* Below the buttons on narrow screens, so "next" stays put; a sticky
+          column on wide screens, reserved before answering so nothing jumps. */}
+        <div
+          className={`practice-column wide:sticky wide:top-0 wide:mx-0 wide:mt-0 wide:w-80 wide:shrink-0 wide:pt-2 ${
+            feedbackIndex !== null ? "mt-4" : ""
+          }`}
+        >
+          {feedbackIndex !== null ? (
+            <SentenceNotes video={video} index={feedbackIndex} />
+          ) : (
+            <p className="hidden text-supporting text-ink-muted wide:block">
+              {t("notesHint")}
+            </p>
           )}
         </div>
-        <p className="text-metadata text-ink-muted">{t("shortcuts")}</p>
-        {saveError}
-      </section>
+      </div>
 
       {children}
 

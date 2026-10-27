@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { videos } from "@/data/videos";
 import { getAllVideos, getVideo } from "@/lib/video-library";
-import { parseVideo, validateVideo } from "@/lib/videos";
+import { notesForSentence, parseVideo, validateVideo } from "@/lib/videos";
 
 // Test fixture only (format checks); real content lives in data/videos.
 const validVideo = {
@@ -25,7 +25,15 @@ const validVideo = {
     { i: 0, start: 1.2, end: 4.8, en: "Hello.", zh: "哈囉。" },
     { i: 1, start: 4.8, end: 7, en: "Goodbye.", zh: "再見。" },
   ],
-  vocab: [{ word: "hello", pos: "int.", zh: "哈囉", example: "Hello there." }],
+  vocab: [
+    {
+      sentence: 0,
+      word: "hello",
+      pos: "int.",
+      zh: "哈囉",
+      example: "Hello there.",
+    },
+  ],
   grammar: [],
 };
 
@@ -136,12 +144,31 @@ describe("validateVideo", () => {
   it("checks every vocab and grammar field", () => {
     const problems = validateVideo(
       withChanges({
-        vocab: [{ word: "hi", pos: "", zh: "嗨", example: "Hi." }],
-        grammar: [{ point: "x" }],
+        vocab: [{ sentence: 0, word: "hi", pos: "", zh: "嗨", example: "Hi." }],
+        grammar: [{ sentence: 0, point: "x" }],
       }),
     );
     expect(problems).toContain("vocab[0].pos must be text");
     expect(problems).toContain("grammar[0].explanation must be text");
+  });
+
+  it.each([
+    ["missing", undefined],
+    ["negative", -1],
+    ["past the last sentence", 2],
+    ["not a whole number", 0.5],
+    ["text", "0"],
+  ])("rejects a vocab or grammar sentence that is %s", (_, sentence) => {
+    const problems = validateVideo(
+      withChanges({
+        vocab: [{ ...validVideo.vocab[0], sentence }],
+        grammar: [
+          { sentence, point: "Hello!", explanation: "打招呼", example: "Hi." },
+        ],
+      }),
+    );
+    expect(problems).toContain("vocab[0].sentence must be a sentence index");
+    expect(problems).toContain("grammar[0].sentence must be a sentence index");
   });
 
   it("parseVideo lists every problem", () => {
@@ -171,6 +198,28 @@ describe("data/videos", () => {
     const listed = videos.map((video) => `${video.id}.json`);
     expect([...listed].sort()).toEqual([...videoFiles].sort());
     expect(new Set(listed).size).toBe(listed.length);
+  });
+});
+
+describe("notesForSentence", () => {
+  const vocab = (sentence: number, word: string) => ({
+    sentence,
+    word,
+    pos: "n.",
+    zh: "字",
+    example: "Example.",
+  });
+  const video = {
+    vocab: [vocab(1, "b"), vocab(0, "a"), vocab(1, "c")],
+    grammar: [{ sentence: 1, point: "p", explanation: "e", example: "x" }],
+  };
+
+  it("returns one sentence's vocabulary and grammar in file order", () => {
+    expect(notesForSentence(video, 1)).toEqual({
+      vocab: [video.vocab[0], video.vocab[2]],
+      grammar: video.grammar,
+    });
+    expect(notesForSentence(video, 2)).toEqual({ vocab: [], grammar: [] });
   });
 });
 

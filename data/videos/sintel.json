@@ -101,66 +101,77 @@
   ],
   "vocab": [
     {
+      "sentence": 0,
       "word": "blade",
       "pos": "n.",
       "zh": "刀刃；刀",
       "example": "Be careful. The blade of this knife is very sharp."
     },
     {
+      "sentence": 1,
       "word": "shed",
       "pos": "v.",
       "zh": "流（血、淚）；脫落",
       "example": "She shed tears when she said goodbye to her family."
     },
     {
+      "sentence": 1,
       "word": "innocent",
       "pos": "adj.",
       "zh": "無辜的；天真的",
       "example": "The police finally agreed that he was innocent."
     },
     {
+      "sentence": 2,
       "word": "unprepared",
       "pos": "adj.",
       "zh": "沒有準備的",
       "example": "I was unprepared for the test, so I failed it."
     },
     {
+      "sentence": 3,
       "word": "flow",
       "pos": "v.",
       "zh": "流動",
       "example": "The river flows past our school."
     },
     {
+      "sentence": 6,
       "word": "gatekeeper",
       "pos": "n.",
       "zh": "守門人；把關的人",
       "example": "The gatekeeper asked us to show our tickets."
     },
     {
+      "sentence": 7,
       "word": "search for",
       "pos": "phr. v.",
       "zh": "尋找",
       "example": "We searched for my keys for an hour."
     },
     {
+      "sentence": 8,
       "word": "dear",
       "pos": "adj.",
       "zh": "珍貴的；親愛的",
       "example": "This old photo is very dear to me."
     },
     {
+      "sentence": 8,
       "word": "kindred spirit",
       "pos": "n.",
       "zh": "志趣相投的人",
       "example": "We both love old movies. She is a real kindred spirit."
     },
     {
+      "sentence": 10,
       "word": "quest",
       "pos": "n.",
       "zh": "（長期艱難的）追尋；探索",
       "example": "His quest to find a cure took many years."
     },
     {
+      "sentence": 10,
       "word": "lone",
       "pos": "adj.",
       "zh": "單獨的；獨自的",
@@ -169,21 +180,25 @@
   ],
   "grammar": [
     {
+      "sentence": 2,
       "point": "be a fool for + V-ing",
       "explanation": "表示「做某件事真傻」，用來批評或責備對方的行為。for 後面接動名詞（V-ing）。",
       "example": "You were a fool for leaving your bag in the car."
     },
     {
+      "sentence": 6,
       "point": "What brings you to + 地點?",
       "explanation": "禮貌地詢問對方為什麼來到某個地方，字面意思是「是什麼把你帶來這裡？」，比直接問 Why are you here? 更委婉。",
       "example": "What brings you to Taipei? Work or vacation?"
     },
     {
+      "sentence": 3,
       "point": "You're lucky (that) + 子句",
       "explanation": "表示「你很幸運……」，後面接一個完整的子句說明幸運的事，that 常省略。",
       "example": "You're lucky the store is still open."
     },
     {
+      "sentence": 11,
       "point": "have been + 形容詞 + for as long as I can remember",
       "explanation": "現在完成式（have been）表示從過去一直持續到現在的狀態；for as long as I can remember 意思是「從我有記憶以來」。",
       "example": "I have been afraid of dogs for as long as I can remember."
