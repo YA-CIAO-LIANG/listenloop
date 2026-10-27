@@ -161,6 +161,90 @@
       opacity: 0;
     }
   }
+
+  /*
+   * Progress animation candidates (A/B/C) for /styleguide. Only transform and
+   * opacity move. After Joe picks one, the others are deleted.
+   */
+
+  /* A. Leading dot: a small hop per sentence, a halo when all are done. */
+  --animate-dot-hop: ll-dot-hop 300ms ease-out;
+  --animate-dot-pop: ll-dot-pop 600ms ease-out;
+  --animate-dot-halo: ll-dot-halo 600ms ease-out forwards;
+
+  @keyframes ll-dot-hop {
+    0%,
+    100% {
+      transform: translate(-50%, -50%);
+    }
+    40% {
+      transform: translate(-50%, calc(-50% - 3px));
+    }
+  }
+  @keyframes ll-dot-pop {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+    }
+    35% {
+      transform: translate(-50%, -50%) scale(1.5);
+    }
+  }
+  @keyframes ll-dot-halo {
+    from {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.5;
+    }
+    to {
+      transform: translate(-50%, -50%) scale(3.5);
+      opacity: 0;
+    }
+  }
+
+  /* B. Segments: the new segment grows up; all glint left to right at the end. */
+  --animate-segment-grow: ll-segment-grow 200ms ease-out;
+  --animate-segment-glint: ll-segment-glint 600ms ease-in-out both;
+
+  @keyframes ll-segment-grow {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @keyframes ll-segment-glint {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+
+  /* C. Counter: the number flips up; a check mark draws itself at the end. */
+  --animate-count-flip: ll-count-flip 200ms ease-out;
+  --animate-check-draw: ll-check-draw 400ms ease-out forwards;
+
+  @keyframes ll-count-flip {
+    from {
+      transform: translateY(60%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes ll-check-draw {
+    from {
+      stroke-dashoffset: 24;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
 }
 
 /*
