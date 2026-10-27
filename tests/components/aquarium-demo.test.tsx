@@ -1,6 +1,8 @@
 import { act, fireEvent, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { PixelFishDemo } from "@/app/styleguide/PixelFishDemo";
+import { AquariumDemo } from "@/app/styleguide/AquariumDemo";
+import { FramesGallery } from "@/app/styleguide/FramesGallery";
+import { FishThumbnail } from "@/components/FishThumbnail";
 import { renderWithIntl } from "../render";
 
 const drawImage = vi.fn();
@@ -45,68 +47,60 @@ afterEach(() => {
   delete (window as { matchMedia?: unknown }).matchMedia;
 });
 
-describe("PixelFishDemo (styleguide)", () => {
-  it("swims: starts an animation loop and offers pause and turn", () => {
+const everyone = ["whale-shark", "great-white", "clownfish", "snail"] as const;
+
+function renderTank(label = "四隻魚") {
+  renderWithIntl(
+    <AquariumDemo
+      species={everyone}
+      width={520}
+      height={260}
+      scale="2"
+      label={label}
+    />,
+  );
+}
+
+describe("AquariumDemo (styleguide)", () => {
+  it("animates all four together and offers every control", () => {
     screenPrefersReducedMotion(false);
-    renderWithIntl(<PixelFishDemo />);
+    renderTank();
     expect(window.requestAnimationFrame).toHaveBeenCalled();
-    expect(
-      screen.getByRole("img", { name: "小丑魚在像素風魚缸裡來回游動" }),
-    ).toBeDefined();
-    fireEvent.click(screen.getByRole("button", { name: "暫停" }));
-    expect(screen.getByRole("button", { name: "播放" })).toBeDefined();
+    expect(screen.getByRole("img", { name: "四隻魚" })).toBeDefined();
+    for (const name of ["暫停", "轉身", "眨眼", "撒飼料"]) {
+      expect(screen.getByRole("button", { name })).toBeDefined();
+    }
+    for (const name of ["一般", "吃飽", "飢餓", "1×", "4×"]) {
+      expect(screen.getByRole("radio", { name })).toBeDefined();
+    }
+    expect(screen.getByText(/魚的眼睛會跟著看/)).toBeDefined();
   });
 
-  it("stays still with reduced motion, and Turn flips the fish", () => {
+  it("stays still with reduced motion; buttons switch still pictures", () => {
     screenPrefersReducedMotion(true);
-    renderWithIntl(<PixelFishDemo />);
+    renderTank();
     expect(window.requestAnimationFrame).not.toHaveBeenCalled();
     expect(screen.queryByRole("button", { name: "暫停" })).toBeNull();
-    expect(screen.getByText(/減少動態效果/)).toBeDefined();
-
-    const drawsBefore = drawImage.mock.calls.length;
-    act(() => fireEvent.click(screen.getByRole("button", { name: "轉身" })));
-    // Redrawn (tank + fish) facing the other way, still without a loop.
-    expect(drawImage.mock.calls.length).toBeGreaterThan(drawsBefore);
-    expect(window.requestAnimationFrame).not.toHaveBeenCalled();
-  });
-
-  it("previews expressions as still pictures with reduced motion", () => {
-    screenPrefersReducedMotion(true);
-    renderWithIntl(<PixelFishDemo />);
-    for (const name of ["眨眼", "撒飼料"]) {
+    // Water + four bodies + five eyes (two on the snail) per still frame.
+    expect(drawImage.mock.calls.length).toBeGreaterThanOrEqual(10);
+    for (const name of ["轉身", "眨眼", "撒飼料"]) {
       const before = drawImage.mock.calls.length;
       act(() => fireEvent.click(screen.getByRole("button", { name })));
       expect(drawImage.mock.calls.length, name).toBeGreaterThan(before);
     }
-    const before = drawImage.mock.calls.length;
-    act(() => fireEvent.click(screen.getByRole("radio", { name: "飢餓" })));
-    expect(drawImage.mock.calls.length).toBeGreaterThan(before);
     expect(window.requestAnimationFrame).not.toHaveBeenCalled();
   });
+});
 
-  it("follows the pointer and offers blink, food, and moods while swimming", () => {
-    screenPrefersReducedMotion(false);
-    renderWithIntl(<PixelFishDemo />);
-    expect(screen.getByText(/魚的眼睛會跟著看/)).toBeDefined();
-    for (const name of ["眨眼", "撒飼料", "轉身"]) {
-      expect(screen.getByRole("button", { name })).toBeDefined();
-    }
-    for (const name of ["一般", "吃飽", "飢餓"]) {
-      expect(screen.getByRole("radio", { name })).toBeDefined();
-    }
-  });
-
-  it("lays out every frame and expression for checking", () => {
-    screenPrefersReducedMotion(true);
-    renderWithIntl(<PixelFishDemo />);
+describe("FramesGallery (styleguide)", () => {
+  it("lists swim, turn, and expression frames", () => {
+    renderWithIntl(<FramesGallery species="great-white" />);
     const gallery = screen.getByRole("heading", {
       name: "畫格一覽",
     }).parentElement!;
     for (const label of [
       "尾巴 1",
       "尾巴 4",
-      "轉身 1",
       "轉身 4",
       "朝左",
       "眨眼",
@@ -115,5 +109,22 @@ describe("PixelFishDemo (styleguide)", () => {
     ]) {
       expect(within(gallery).getByText(label)).toBeDefined();
     }
+    expect(within(gallery).queryByText("爬上缸壁")).toBeNull();
+  });
+
+  it("adds the wall frames for the snail", () => {
+    renderWithIntl(<FramesGallery species="snail" />);
+    expect(screen.getByText("爬上缸壁")).toBeDefined();
+    expect(screen.getByText("爬下缸壁")).toBeDefined();
+  });
+});
+
+describe("FishThumbnail (shop)", () => {
+  it("draws the fish's pixel-art portrait", () => {
+    const { container } = renderWithIntl(
+      <FishThumbnail fish={{ id: "whale-shark", price: 400 }} />,
+    );
+    expect(container.querySelector("canvas")).not.toBeNull();
+    expect(drawImage).toHaveBeenCalled();
   });
 });

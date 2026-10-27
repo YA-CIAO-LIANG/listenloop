@@ -1,4 +1,5 @@
 import { phaseOf, waveAt } from "./render";
+import { STYLE } from "./style";
 import type {
   EyeMaterial,
   Expression,
@@ -12,6 +13,17 @@ import type {
 export type Look = { x: number; y: number };
 
 export const LOOK_AHEAD: Look = { x: 0, y: 0 };
+
+/** What renderEye needs: a size and the eye colors (with the eyelid skin). */
+export type EyeSpec = {
+  radius: number;
+  palette: Readonly<Record<EyeMaterial, Ramp>>;
+};
+
+/** A fish species' eye, ready for renderEye. */
+export function eyeOf<M extends string>(species: FishSpecies<M>): EyeSpec {
+  return { radius: species.eye.radius, palette: species.palette };
+}
 
 function hexToRgb(hex: string): [number, number, number] {
   const n = parseInt(hex.slice(1), 16);
@@ -57,8 +69,8 @@ export function lookToward(
  * states cover it with eyelid skin: blink (a lash line), happy (^), hungry
  * (lids half down).
  */
-export function renderEye<M extends string>(
-  species: FishSpecies<M>,
+export function renderEye(
+  eye: EyeSpec,
   {
     expression = "open",
     look = LOOK_AHEAD,
@@ -67,13 +79,13 @@ export function renderEye<M extends string>(
     look?: Look;
   } = {},
 ): PixelImage {
-  const r = species.eye.radius;
+  const r = eye.radius;
   const size = Math.ceil(r * 2) + 2;
   const c = size / 2;
-  const palette = species.palette as Record<EyeMaterial, Ramp>;
+  const palette = eye.palette;
   const data = new Uint8ClampedArray(size * size * 4);
   const lookDown = expression === "hungry" ? 0.5 : 0;
-  const shift = r * 0.28;
+  const shift = r * STYLE.pupilShift;
   const px = c + Math.max(-1, Math.min(1, look.x)) * shift;
   const py = c + Math.max(-1, Math.min(1, look.y + lookDown)) * shift;
   const lidLine = c - r * 0.05; // hungry: upper lid comes down to here
@@ -106,13 +118,15 @@ export function renderEye<M extends string>(
       x + 0.5 - (px - r * 0.32),
       y + 0.5 - (py - r * 0.36),
     );
-    if (big < r * 0.3) return ["glint", 4];
+    if (big < r * STYLE.glintBig) return ["glint", 4];
     const small = Math.hypot(
       x + 0.5 - (px + r * 0.32),
       y + 0.5 - (py + r * 0.3),
     );
-    if (small < r * 0.14 + 0.35) return ["glint", 4];
-    if (Math.hypot(x + 0.5 - px, y + 0.5 - py) < r * 0.55) return ["pupil", 0];
+    if (small < r * STYLE.glintSmall + 0.35) return ["glint", 4];
+    if (Math.hypot(x + 0.5 - px, y + 0.5 - py) < r * STYLE.pupil) {
+      return ["pupil", 0];
+    }
     return ["iris", dy > r * 0.35 ? 3 : dy > 0 ? 2 : 1];
   };
 

@@ -165,7 +165,8 @@
       "typography": "Type",
       "buttons": "Buttons",
       "components": "Core components",
-      "toggles": "Toggles"
+      "toggles": "Toggles",
+      "pixelFish": "Pixel fish"
     },
     "specimen": {
       "display": "Hear every word",
@@ -190,8 +191,8 @@
       "reset": "Reset"
     },
     "pixelFish": {
-      "intro": "Ocellaris clownfish sample in the \"realistic colors, big cute eyes\" style: true-to-life pattern, colors, and light; a short round body; a big eye about 1/3 of the head’s height with one big and one small glint. It blinks now and then and looks at the pointer or food; happy ^ ^ after eating; hungry with half-closed lids, swimming slower and lower.",
-      "tankLabel": "A clownfish swimming back and forth in a pixel-art aquarium",
+      "intro": "Style: realistic colors, big cute eyes. True-to-life patterns, colors, and light; eyes about 1/3 of the head’s height with one big and one small glint; a slightly rounder, shorter body. They blink now and then and look at the pointer or food; happy ^ ^ after eating; hungry with half-closed lids, slower and lower. Colors, eye size, and other knobs live in lib/pixel-fish/style.ts.",
+      "tankLabel": "A {name} swimming in a pixel-art aquarium",
       "play": "Play",
       "pause": "Pause",
       "turn": "Turn",
@@ -207,7 +208,16 @@
       "mood": "Expression",
       "normal": "Normal",
       "happy": "Fed",
-      "hungry": "Hungry"
+      "hungry": "Hungry",
+      "together": "All four in one tank",
+      "togetherHint": "From small to big: snail < clownfish < great white < whale shark. The whale shark is the slowest; the snail creeps along the glass and the floor.",
+      "togetherLabel": "A snail, a clownfish, a great white, and a whale shark in one pixel-art aquarium",
+      "climbUp": "Climbing up",
+      "climbDown": "Coming down",
+      "snailNote": "Eyes on the tentacle tips; a shell with a logarithmic spiral; creeps along the glass and the floor.",
+      "clownfishNote": "Three white bands edged in black, black fin margins.",
+      "greatWhiteNote": "Still a shark: pointed snout, grey back and white belly, gill slits, tall dorsal fin, crescent tail; short and chubby with a little toothy smile.",
+      "whaleSharkNote": "The biggest and slowest: a broad flat head with a wide front mouth, white spots and faint stripes, white belly."
     }
   },
   "library": {

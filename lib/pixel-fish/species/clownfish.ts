@@ -1,3 +1,4 @@
+import { SPECIES_STYLE, eyeRadiusFor } from "../style";
 import type { FishSpecies, Paint, PaintInput } from "../types";
 
 /** Smooth interpolation through [u, value] points (u ascending). */
@@ -26,7 +27,7 @@ type Material = "orange" | "white" | "black" | "fin";
  * big eye).
  */
 const K = 1.5;
-const ROUND = 1.12;
+const { roundness: ROUND, palette } = SPECIES_STYLE.clownfish;
 const scaled = (points: readonly [number, number][]) =>
   points.map(([u, h]) => [u, h * K * ROUND] as [number, number]);
 
@@ -78,6 +79,37 @@ function paint({ region, u, v, edge, ray }: PaintInput): Paint<Material> {
   return { material: bandAt(u, v) ?? "orange" };
 }
 
+// A blunt, round head: the outline rises fast from the snout.
+const TOP = profile(
+  scaled([
+    [0, 2.6],
+    [0.05, 5.4],
+    [0.12, 7.6],
+    [0.25, 9.2],
+    [0.4, 9.7],
+    [0.55, 9.3],
+    [0.7, 7.9],
+    [0.85, 5.6],
+    [1, 3.3],
+  ]),
+);
+const BOTTOM = profile(
+  scaled([
+    [0, 1.8],
+    [0.05, 4.4],
+    [0.12, 6.4],
+    [0.25, 7.9],
+    [0.4, 8.4],
+    [0.55, 8],
+    [0.7, 6.6],
+    [0.85, 4.7],
+    [1, 3.3],
+  ]),
+);
+
+/** Head height (top + bottom) at body position u. */
+const headAt = (u: number) => TOP(u) + BOTTOM(u);
+
 /**
  * Ocellaris clownfish, 96 × 60 px facing right, in the "realistic colors,
  * big cute eyes" style: a short round body (height about 0.55 of its
@@ -91,33 +123,8 @@ export const clownfish: FishSpecies<Material> = {
   snoutX: 86,
   peduncleX: 31,
   centerY: 31,
-  // A blunt, round head: the outline rises fast from the snout.
-  top: profile(
-    scaled([
-      [0, 2.6],
-      [0.05, 5.4],
-      [0.12, 7.6],
-      [0.25, 9.2],
-      [0.4, 9.7],
-      [0.55, 9.3],
-      [0.7, 7.9],
-      [0.85, 5.6],
-      [1, 3.3],
-    ]),
-  ),
-  bottom: profile(
-    scaled([
-      [0, 1.8],
-      [0.05, 4.4],
-      [0.12, 6.4],
-      [0.25, 7.9],
-      [0.4, 8.4],
-      [0.55, 8],
-      [0.7, 6.6],
-      [0.85, 4.7],
-      [1, 3.3],
-    ]),
-  ),
+  top: TOP,
+  bottom: BOTTOM,
   fins: [
     // Spiny dorsal: low, with spine tips every fourth pixel.
     {
@@ -152,22 +159,11 @@ export const clownfish: FishSpecies<Material> = {
       height: (t) => 4 * K * (t < 0.7 ? t / 0.7 : (1 - t) / 0.3),
     },
   ],
-  caudal: { length: 11 * K, spread: 0.5, round: 6 * K },
+  caudal: { length: 11 * K, spreadUp: 0.5, spreadDown: 0.5, round: 6 * K },
   pectoral: { u: 0.36, dy: 1.8 * K, rx: 4.6 * K, ry: 2.6 * K, back: 3 * K },
-  // Big eye: about 1/3 of the head's height (≈ 25 px there) across.
-  eye: { u: 0.15, dy: -2.2 * K, radius: 4.6 },
+  // Big eye: STYLE.eyeToHead of the head's height across.
+  eye: { u: 0.15, dy: -2.2 * K, radius: eyeRadiusFor(headAt(0.15)) },
   wave: { head: 0.3, tail: 3.4 },
-  palette: {
-    orange: ["#8a2f05", "#c4470a", "#ec6614", "#ff8a33", "#ffb070"],
-    white: ["#8b98a0", "#bcc6cb", "#dfe5e7", "#f4f7f7", "#ffffff"],
-    black: ["#07070a", "#121318", "#1d1f26", "#2b2d36", "#3d404c"],
-    fin: ["#7a2a06", "#b5440d", "#e2661c", "#f9883a", "#ffad6e"],
-    pupil: ["#050407", "#0b0a10", "#141219", "#1d1a23", "#27232e"],
-    // Dark brown iris that glows warm at the bottom (light through the lens).
-    iris: ["#120a08", "#2a1710", "#4a2716", "#74401f", "#a5652f"],
-    glint: ["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"],
-    // Skin around the eye for blinks and expressions: the body's orange.
-    eyelid: ["#8a2f05", "#c4470a", "#ec6614", "#ff8a33", "#ffb070"],
-  },
+  palette,
   paint,
 };

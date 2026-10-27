@@ -69,10 +69,19 @@ export type FishSpecies<M extends string> = {
   top: (u: number) => number;
   bottom: (u: number) => number;
   fins: readonly EdgeFin[];
-  /** Fan-shaped tail fin: length (px), how fast it widens, rounded end (px). */
-  caudal: { length: number; spread: number; round: number };
-  /** Pectoral fin on the side: body position, offset below center, radii. */
-  pectoral: { u: number; dy: number; rx: number; ry: number; back: number };
+  /**
+   * Tail fin: length (px), how fast each lobe widens, a rounded end (px, 0 =
+   * none), and fork (px): how far the trailing edge curves in (crescent).
+   */
+  caudal: {
+    length: number;
+    spreadUp: number;
+    spreadDown: number;
+    round: number;
+    fork?: number;
+  };
+  /** Small pectoral fin on the side (fish whose pectorals are edge fins omit it). */
+  pectoral?: { u: number; dy: number; rx: number; ry: number; back: number };
   /** Big round eye (about 1/3 of the head's height across). */
   eye: { u: number; dy: number; radius: number };
   /** Swimming wave amplitude (px) at the head and at the tail base. */
