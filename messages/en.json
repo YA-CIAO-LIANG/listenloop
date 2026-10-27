@@ -84,26 +84,10 @@
       "belowPass": "Below pass",
       "pass": "Pass"
     },
-    "progressMotion": {
-      "title": "Progress animation options",
-      "intro": "Try the three options with the buttons and tell the developer which one you prefer. With the system’s Reduce Motion setting, all three only keep the fill change.",
+    "progressDemo": {
       "add": "+1 sentence",
       "complete": "Finish all",
-      "reset": "Reset",
-      "options": {
-        "a": {
-          "name": "A. Leading dot",
-          "description": "A small dot at the front hops a little per sentence, then pops with a halo when everything is done."
-        },
-        "b": {
-          "name": "B. Segment fill",
-          "description": "Each new segment grows up from the bottom; when everything is done, all segments glint left to right."
-        },
-        "c": {
-          "name": "C. Counter flip and check",
-          "description": "The sentence number flips up per sentence; when everything is done, a ✓ draws itself on the right."
-        }
-      }
+      "reset": "Reset"
     }
   },
   "library": {

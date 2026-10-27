@@ -10,8 +10,11 @@ import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import { DayTrackerDemo, SentenceRowDemo } from "./InteractiveDemos";
-import { ProgressMotionDemo } from "./ProgressMotionDemo";
+import {
+  DayTrackerDemo,
+  ProgressBarDemo,
+  SentenceRowDemo,
+} from "./InteractiveDemos";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("styleguide");
@@ -62,11 +65,6 @@ export default function StyleguidePage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
       <h1 className="font-display text-hero">{t("title")}</h1>
       <p className="mt-6 max-w-reading text-ink-muted">{t("intro")}</p>
-
-      {/* Temporary: pick a progress animation, then this section goes away. */}
-      <Section title={t("progressMotion.title")} id="progress-motion">
-        <ProgressMotionDemo />
-      </Section>
 
       <Section title={t("sections.colors")}>
         <div className="grid gap-6 split:grid-cols-2">
@@ -171,7 +169,7 @@ export default function StyleguidePage() {
                 <p className="mb-3 text-supporting text-ink-muted">
                   {t("states.segmented")}
                 </p>
-                <ProgressBar value={8} max={24} label={tProgress("today")} />
+                <ProgressBarDemo />
               </div>
               <div>
                 <p className="mb-3 text-supporting text-ink-muted">
@@ -206,17 +204,9 @@ export default function StyleguidePage() {
   );
 }
 
-function Section({
-  title,
-  id,
-  children,
-}: {
-  title: string;
-  id?: string;
-  children: ReactNode;
-}) {
+function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section id={id} className="mt-16 scroll-mt-8">
+    <section className="mt-16">
       <Divider className="mb-8" />
       <h2 className="mb-8 font-display text-h2">{title}</h2>
       {children}
