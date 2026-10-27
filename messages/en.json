@@ -142,6 +142,19 @@
       "add": "+1 sentence",
       "complete": "Finish all",
       "reset": "Reset"
+    },
+    "pixelFish": {
+      "intro": "Ocellaris clownfish sample: realistic pixel art drawn by code (96 × 60 pixels), lit from the upper left, white bands with thin black edges, black fin margins. Four tail frames, a body wave, and a turn at the walls.",
+      "tankLabel": "A clownfish swimming back and forth in a pixel-art aquarium",
+      "play": "Play",
+      "pause": "Pause",
+      "turn": "Turn",
+      "scale": "Zoom",
+      "frames": "All frames",
+      "tail": "Tail {n}",
+      "turning": "Turn {n}",
+      "left": "Facing left",
+      "reduced": "Reduced motion is on: the fish stays still. Use Turn to flip it."
     }
   },
   "library": {
