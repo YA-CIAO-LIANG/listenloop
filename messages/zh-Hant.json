@@ -178,5 +178,26 @@
     "thisAttempt": "這次的成績",
     "todayDone": "今日任務完成",
     "retryComplete": "練習完成！"
+  },
+  "handout": {
+    "title": "雙語講義",
+    "sentences": "英中對照",
+    "vocab": "單字",
+    "grammar": "文法重點",
+    "columns": {
+      "word": "單字",
+      "pos": "詞性",
+      "meaning": "中文",
+      "example": "例句"
+    },
+    "example": "例句",
+    "print": "輸出 PDF",
+    "printHint": "在列印視窗的「目的地」選擇「儲存為 PDF」。",
+    "generated": "ListenLoop · {date}",
+    "locked": "完成第 1 天的聽寫後，就能看雙語講義。先自己聽，再對照講義，進步最明顯。",
+    "goDay1": "前往第 1 天",
+    "lockedShort": "雙語講義：完成第 1 天後開放",
+    "open": "看雙語講義",
+    "loading": "載入中…"
   }
 }

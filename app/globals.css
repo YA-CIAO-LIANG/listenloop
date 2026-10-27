@@ -262,3 +262,32 @@
     scroll-behavior: auto !important;
   }
 }
+
+/*
+ * Print (handout PDF via the browser's print dialog): A4, always black on
+ * white regardless of the site theme. !important beats the dark-theme rules
+ * whatever their specificity. Hide interactive chrome with `print:hidden`.
+ */
+@page {
+  size: A4;
+  margin: 16mm;
+}
+
+@media print {
+  :root,
+  [data-theme] {
+    color-scheme: light !important;
+    --ll-ground: #ffffff !important;
+    --ll-surface: #ffffff !important;
+    --ll-band: #ffffff !important;
+    --ll-ink: #000000 !important;
+    --ll-ink-muted: #444444 !important;
+    --ll-line: #cccccc !important;
+    --ll-accent: #b8440a !important;
+    --ll-accent-ink: #b8440a !important;
+  }
+
+  body {
+    font-size: 11pt;
+  }
+}

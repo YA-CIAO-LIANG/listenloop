@@ -474,6 +474,7 @@ function DictationResult({
   saveError: ReactNode;
 }) {
   const t = useTranslations("dictation");
+  const tHandout = useTranslations("handout");
   const format = useFormatter();
   const percent = (value: number) =>
     format.number(value, { style: "percent", maximumFractionDigits: 0 });
@@ -504,7 +505,10 @@ function DictationResult({
           <Button variant="primary" arrow onClick={onRetry}>
             {t("retry")}
           </Button>
-          <ButtonLink href={`/videos/${video.id}`} variant="secondary">
+          <ButtonLink href={`/videos/${video.id}/handout`} variant="secondary">
+            {tHandout("open")}
+          </ButtonLink>
+          <ButtonLink href={`/videos/${video.id}`} variant="ghost">
             {t("backToVideo")}
           </ButtonLink>
         </div>
