@@ -96,6 +96,9 @@ describe("official result screen", () => {
     expect(screen.getByText(/今日任務完成 · 正式成績 29%/)).toBeDefined();
     expect(screen.getByText("29%")).toBeDefined();
     expect(screen.getByRole("button", { name: "再練一次" })).toBeDefined();
+    expect(
+      screen.getByRole("link", { name: "看雙語講義" }).getAttribute("href"),
+    ).toBe("/videos/test-video/handout");
   });
 });
 

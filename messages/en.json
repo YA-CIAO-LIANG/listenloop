@@ -178,5 +178,26 @@
     "thisAttempt": "This attempt",
     "todayDone": "Today’s task done",
     "retryComplete": "Practice done!"
+  },
+  "handout": {
+    "title": "Bilingual handout",
+    "sentences": "Sentences",
+    "vocab": "Vocabulary",
+    "grammar": "Grammar points",
+    "columns": {
+      "word": "Word",
+      "pos": "Part of speech",
+      "meaning": "Chinese",
+      "example": "Example"
+    },
+    "example": "Example",
+    "print": "Save as PDF",
+    "printHint": "In the print dialog, set the destination to “Save as PDF”.",
+    "generated": "ListenLoop · {date}",
+    "locked": "Finish Day 1 dictation to unlock the handout. Listening first, then checking the handout, shows the most progress.",
+    "goDay1": "Go to Day 1",
+    "lockedShort": "Handout: unlocks after Day 1",
+    "open": "Bilingual handout",
+    "loading": "Loading…"
   }
 }

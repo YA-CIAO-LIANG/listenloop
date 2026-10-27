@@ -42,9 +42,15 @@ export function DayOneStatus({ videoId, store }: DayOneStatusProps) {
 
   if (officialScore === null) {
     return (
-      <ButtonLink href={dayHref} variant="primary" size="lg" arrow>
-        {t("video.startDay1")}
-      </ButtonLink>
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
+        <ButtonLink href={dayHref} variant="primary" size="lg" arrow>
+          {t("video.startDay1")}
+        </ButtonLink>
+        {/* The handout reveals the transcript, so it opens after Day 1. */}
+        <p className="text-supporting text-ink-muted">
+          {t("handout.lockedShort")}
+        </p>
+      </div>
     );
   }
 
@@ -63,6 +69,9 @@ export function DayOneStatus({ videoId, store }: DayOneStatusProps) {
       </ButtonLink>
       <ButtonLink href={dayHref} variant="secondary">
         {t("video.viewResult")}
+      </ButtonLink>
+      <ButtonLink href={`/videos/${videoId}/handout`} variant="secondary">
+        {t("handout.open")}
       </ButtonLink>
     </div>
   );
