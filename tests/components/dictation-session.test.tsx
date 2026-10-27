@@ -1,7 +1,10 @@
-import { act, screen, within } from "@testing-library/react";
+import { act, fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { DictationSession } from "@/components/DictationSession";
+import {
+  DictationSession,
+  SKIP_CONFIRM_MS,
+} from "@/components/DictationSession";
 import { startDictation, submitAnswer } from "@/lib/dictation";
 import type { Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
@@ -67,7 +70,14 @@ function memoryStore(initial: Progress | null = null) {
 }
 
 async function renderSession(store = memoryStore()) {
-  renderWithIntl(<DictationSession video={video} day={1} store={store} />);
+  renderWithIntl(
+    <DictationSession
+      video={video}
+      day={1}
+      title="第 1 天：精聽聽寫"
+      store={store}
+    />,
+  );
   await act(async () => {}); // load progress
   return store;
 }
@@ -167,5 +177,132 @@ describe("DictationSession", () => {
     });
     await renderSession(store);
     expect(screen.getByRole("alert").textContent).toContain("無法儲存進度");
+  });
+});
+
+describe("DictationSession controls", () => {
+  beforeEach(() => playSegment.mockClear());
+
+  it("uses a textarea where Enter submits instead of adding a new line", async () => {
+    await renderSession();
+    expect(input().tagName).toBe("TEXTAREA");
+    await userEvent.type(input(), "go home{Enter}");
+    expect(screen.getByText("你的答案")).toBeDefined();
+  });
+
+  it("doesn't submit on Enter while an input method is composing", async () => {
+    await renderSession();
+    await userEvent.type(input(), "go home");
+    fireEvent.keyDown(input(), { key: "Enter", isComposing: true });
+    fireEvent.keyDown(input(), { key: "Enter", keyCode: 229 });
+    expect(screen.queryByText("你的答案")).toBeNull();
+    expect((input() as HTMLTextAreaElement).value).toBe("go home");
+  });
+
+  it("plays and then replays the current sentence from the button", async () => {
+    await renderSession();
+    await userEvent.click(screen.getByRole("button", { name: "播放" }));
+    expect(playSegment).toHaveBeenLastCalledWith(0.85, 2.25);
+    expect(screen.getByRole("button", { name: "重播" })).toBeDefined();
+  });
+
+  it.each([
+    ["Ctrl+Space", "{Control>} {/Control}"],
+    ["Ctrl+Enter", "{Control>}{Enter}{/Control}"],
+  ])("replays with %s without typing or submitting", async (_, keys) => {
+    await renderSession();
+    await userEvent.type(input(), "go");
+    await userEvent.keyboard(keys);
+    expect(playSegment).toHaveBeenCalledTimes(1);
+    expect((input() as HTMLTextAreaElement).value).toBe("go");
+    expect(screen.queryByText("你的答案")).toBeNull();
+  });
+
+  it("replays with the shortcut while the feedback is showing", async () => {
+    await renderSession();
+    await userEvent.type(input(), "go home{Enter}");
+    await userEvent.keyboard("{Control>}{Enter}{/Control}");
+    expect(playSegment).toHaveBeenCalledTimes(1);
+    // Ctrl+Enter must not trigger the focused "next" button.
+    expect(screen.getByText("你的答案")).toBeDefined();
+  });
+
+  it("asks for a second click before skipping", async () => {
+    const store = await renderSession();
+    await userEvent.click(screen.getByRole("button", { name: "跳過" }));
+    expect(screen.queryByText("你的答案")).toBeNull();
+
+    await userEvent.click(screen.getByRole("button", { name: "確定跳過？" }));
+    const feedback = screen.getByRole("status");
+    expect(within(feedback).getByText("（未作答）")).toBeDefined();
+    expect(within(feedback).getByText("這句正確率 0%")).toBeDefined();
+    expect(store.saved()?.days[1]?.answers).toEqual(["", null]);
+  });
+
+  it("cancels a pending skip after a few seconds", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    try {
+      await renderSession();
+      const user = userEvent.setup({ advanceTimers: vi.advanceTimersByTime });
+      await user.click(screen.getByRole("button", { name: "跳過" }));
+      expect(screen.getByRole("button", { name: "確定跳過？" })).toBeDefined();
+      act(() => vi.advanceTimersByTime(SKIP_CONFIRM_MS));
+      expect(screen.getByRole("button", { name: "跳過" })).toBeDefined();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("shows the keyboard shortcuts", async () => {
+    await renderSession();
+    expect(
+      screen.getByText("Enter 送出 · Ctrl＋空白 或 Ctrl＋Enter 重播"),
+    ).toBeDefined();
+  });
+});
+
+describe("DictationSession replay shortcut default handling", () => {
+  beforeEach(() => playSegment.mockClear());
+
+  // user-event never types or clicks while Ctrl is held, so check the browser
+  // default is cancelled directly: that's what stops a typed space, a new
+  // line, or the focused "next" button from firing in real browsers.
+  it.each([
+    ["Ctrl+Space", { key: " ", code: "Space", ctrlKey: true }],
+    ["Ctrl+Enter", { key: "Enter", code: "Enter", ctrlKey: true }],
+  ])("cancels the browser default for %s", async (_, init) => {
+    await renderSession();
+    const notCancelled = fireEvent.keyDown(input(), init);
+    expect(notCancelled).toBe(false);
+    expect(playSegment).toHaveBeenCalledTimes(1);
+  });
+
+  it("leaves other Ctrl shortcuts alone", async () => {
+    await renderSession();
+    const notCancelled = fireEvent.keyDown(input(), {
+      key: "a",
+      ctrlKey: true,
+    });
+    expect(notCancelled).toBe(true);
+    expect(playSegment).not.toHaveBeenCalled();
+  });
+});
+
+describe("DictationSession loading state", () => {
+  it("shows the page content below the practice area while loading", () => {
+    // A store that never resolves keeps the session in its loading state.
+    const pending: ProgressStore = {
+      get: () => new Promise(() => {}),
+      save: async () => {},
+      list: async () => [],
+      remove: async () => {},
+    };
+    renderWithIntl(
+      <DictationSession video={video} day={1} title="第 1 天" store={pending}>
+        <p>Credits</p>
+      </DictationSession>,
+    );
+    expect(screen.getByText("載入進度中…")).toBeDefined();
+    expect(screen.getByText("Credits")).toBeDefined();
   });
 });

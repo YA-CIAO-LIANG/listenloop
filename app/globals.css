@@ -140,6 +140,8 @@
 
   --container-reading: 65ch;
   --container-content: 1080px;
+  /* Practice pages (dictation, shadowing): video + input in one column. */
+  --container-practice: 720px;
 
   /* Two-column sections stack below 760px. */
   --breakpoint-split: 47.5rem;
@@ -166,6 +168,21 @@
  * Card, SentenceRow, DayTracker). Pair with the usePress hook, which sets
  * data-pressed and renders ripples.
  */
+/*
+ * Column for practice pages. The 16:9 video fills the column, so the width
+ * caps its height at 40% of the small viewport (svh excludes mobile browser
+ * bars). 22.25rem (356px) keeps the video at least 200px tall, YouTube's
+ * minimum player size. Everything in the column shares this width.
+ */
+@utility practice-column {
+  width: min(
+    100%,
+    --theme(--container-practice),
+    max(calc(40svh * 16 / 9), 22.25rem)
+  );
+  margin-inline: auto;
+}
+
 @utility pressable {
   position: relative;
   overflow: hidden;

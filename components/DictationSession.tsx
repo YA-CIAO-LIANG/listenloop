@@ -1,7 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type KeyboardEvent,
+  type ReactNode,
+} from "react";
 import { toLocalDate } from "@/lib/dates";
 import {
   nextUnanswered,
@@ -9,7 +17,6 @@ import {
   submitAnswer,
   type DictationDay,
 } from "@/lib/dictation";
-import { paddedSegment } from "@/lib/player/padding";
 import type { Progress } from "@/lib/progress";
 import { scoreDictation } from "@/lib/scoring/dictation";
 import { wordDiff } from "@/lib/scoring/word-diff";
@@ -21,25 +28,45 @@ import { ButtonLink } from "./ButtonLink";
 import { CaptionHint } from "./CaptionHint";
 import { ProgressBar } from "./ProgressBar";
 import { ScoreBadge } from "./ScoreBadge";
-import { SentencePlayer } from "./SentencePlayer";
 import { SentenceRow } from "./SentenceRow";
+import { useSentencePlayback } from "./useSentencePlayback";
 import { WordDiffView } from "./WordDiffView";
 import { YouTubeFrame } from "./youtube/YouTubeFrame";
 import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
 
+/** How long "Skip" waits for the confirming second click. */
+export const SKIP_CONFIRM_MS = 3000;
+
 type DictationSessionProps = {
   video: Video;
   day: DictationDay;
+  /** Page heading, e.g. "Day 1: Dictation". */
+  title: string;
+  /** Extra content shown below the practice area (intro text, credits). */
+  children?: ReactNode;
   /** Injected in tests; defaults to localStorage. */
   store?: ProgressStore;
 };
 
+/** Ctrl+Space or Ctrl+Enter: replay (Ctrl+Enter is the Mac-friendly backup). */
+const isReplayShortcut = (event: globalThis.KeyboardEvent) =>
+  event.ctrlKey &&
+  (event.key === "Enter" || event.key === " " || event.code === "Space");
+
 /**
- * One-sentence-at-a-time dictation: play → type → Enter → see the diff →
- * Enter for the next sentence (which plays automatically). Every submission
- * is saved, so leaving and coming back resumes at the next sentence.
+ * One-sentence-at-a-time dictation laid out so a whole sentence fits on one
+ * screen: title row, progress, video (≤ 40% of the viewport), input, and a
+ * row of Replay / Skip / Submit. Enter submits, shows the diff, and Enter
+ * again moves on (the next sentence plays automatically). Every answer is
+ * saved, so leaving and coming back resumes at the next sentence.
  */
-export function DictationSession({ video, day, store }: DictationSessionProps) {
+export function DictationSession({
+  video,
+  day,
+  title,
+  children,
+  store,
+}: DictationSessionProps) {
   const t = useTranslations("dictation");
   const tProgress = useTranslations("practice.progress");
   const format = useFormatter();
@@ -47,17 +74,23 @@ export function DictationSession({ video, day, store }: DictationSessionProps) {
   const [progressStore] = useState(() => store ?? createLocalProgressStore());
   const [progress, setProgress] = useState<Progress | null>(null);
   const [current, setCurrent] = useState(0);
-  // Index whose feedback is showing (after submit, before "next").
+  // Index whose feedback is showing (after submit or skip, before "next").
   const [feedbackIndex, setFeedbackIndex] = useState<number | null>(null);
   const [input, setInput] = useState("");
+  const [skipArmed, setSkipArmed] = useState(false);
   const [saveFailed, setSaveFailed] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const videoRef = useRef<HTMLDivElement>(null);
+  const skipTimer = useRef<number | undefined>(undefined);
 
   const { sentences } = video;
   const answers = progress?.days[day]?.answers ?? [];
   const answeredCount = answers.filter((a) => a !== null).length;
   const done = progress?.days[day]?.done ?? false;
+  const showing = feedbackIndex ?? current;
+  const playback = useSentencePlayback(player, sentences, showing);
+  const practicing = progress !== null && !(done && feedbackIndex === null);
 
   async function save(next: Progress) {
     try {
@@ -98,21 +131,81 @@ export function DictationSession({ video, day, store }: DictationSessionProps) {
     else inputRef.current?.focus();
   }, [loaded, feedbackIndex, current]);
 
-  function submit(event: FormEvent) {
-    event.preventDefault();
-    if (!progress || input.trim() === "") return;
+  // Grow the textarea with its content (one line by default).
+  useLayoutEffect(() => {
+    const element = inputRef.current;
+    if (!element) return;
+    element.style.height = "auto";
+    element.style.height = `${element.scrollHeight}px`;
+  }, [input, feedbackIndex, loaded]);
+
+  // Replay shortcut works anywhere on the page while practicing. Capture
+  // phase + preventDefault so it never types a space or clicks a button.
+  const { play } = playback;
+  useEffect(() => {
+    if (!practicing) return;
+    function onKeyDown(event: globalThis.KeyboardEvent) {
+      if (!isReplayShortcut(event)) return;
+      event.preventDefault();
+      play();
+    }
+    window.addEventListener("keydown", onKeyDown, true);
+    return () => window.removeEventListener("keydown", onKeyDown, true);
+  }, [practicing, play]);
+
+  // A pending skip confirmation never carries over to another sentence.
+  useEffect(() => {
+    return () => window.clearTimeout(skipTimer.current);
+  }, []);
+
+  function record(answer: string) {
+    if (!progress) return;
     const next = submitAnswer(
       progress,
       day,
       current,
-      input.trim(),
+      answer,
       sentences,
       toLocalDate(new Date()),
     );
+    window.clearTimeout(skipTimer.current);
+    setSkipArmed(false);
     setProgress(next);
     setFeedbackIndex(current);
     setInput("");
     void save(next);
+  }
+
+  function submitTyped() {
+    if (input.trim() !== "") record(input.trim());
+  }
+
+  function onInputKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (
+      event.key !== "Enter" ||
+      event.ctrlKey ||
+      event.metaKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+    // Enter while an IME (e.g. Zhuyin) is composing confirms the candidate.
+    if (event.nativeEvent.isComposing || event.keyCode === 229) return;
+    event.preventDefault();
+    submitTyped();
+  }
+
+  function skip() {
+    if (!skipArmed) {
+      setSkipArmed(true);
+      skipTimer.current = window.setTimeout(
+        () => setSkipArmed(false),
+        SKIP_CONFIRM_MS,
+      );
+      return;
+    }
+    record(""); // a skipped sentence scores 0
   }
 
   function goNext() {
@@ -120,91 +213,116 @@ export function DictationSession({ video, day, store }: DictationSessionProps) {
     setFeedbackIndex(null);
     if (nextIndex === -1) return; // all answered → results view
     setCurrent(nextIndex);
-    const { start, end } = paddedSegment(sentences, nextIndex);
-    player.playSegment(start, end);
+    playback.playAt(nextIndex);
   }
 
-  if (!progress) {
-    return (
-      <p role="status" className="mt-8 text-ink-muted">
-        {t("loading")}
-      </p>
-    );
+  // Phones: keep video, input, and buttons together above the keyboard.
+  function onInputFocus() {
+    if (window.matchMedia?.("(pointer: coarse)").matches) {
+      videoRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+    }
   }
+
+  const header = (
+    <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-1">
+      <div>
+        <Link
+          href={`/videos/${video.id}`}
+          className="text-supporting text-ink-muted hover:text-ink"
+        >
+          <span aria-hidden="true">← </span>
+          <span lang="en">{video.title}</span>
+        </Link>
+        <h1 className="font-display text-h3">{title}</h1>
+      </div>
+      {practicing && (
+        <p className="text-metadata tracking-widest text-ink-muted uppercase">
+          {t("position", { n: showing + 1, total: sentences.length })}
+        </p>
+      )}
+    </div>
+  );
 
   const saveError = saveFailed && (
-    <p role="alert" className="mt-4 text-supporting text-error">
+    <p role="alert" className="text-supporting text-error">
       {t("saveFailed")}
     </p>
   );
 
-  if (done && feedbackIndex === null) {
+  if (!progress) {
+    // Keep `children` (intro and video credit) visible while loading: the
+    // credit must always show wherever the video is used.
     return (
-      <DictationResult
-        video={video}
-        answers={answers}
-        score={progress.days[day]?.score ?? 0}
-        saveError={saveError}
-      />
+      <>
+        <div className="practice-column space-y-4">
+          {header}
+          <p role="status" className="text-ink-muted">
+            {t("loading")}
+          </p>
+        </div>
+        {children}
+      </>
     );
   }
 
-  const showing = feedbackIndex ?? current;
+  if (!practicing) {
+    return (
+      <>
+        <div className="practice-column space-y-4">{header}</div>
+        <DictationResult
+          video={video}
+          answers={answers}
+          score={progress.days[day]?.score ?? 0}
+          saveError={saveError}
+        />
+        {children}
+      </>
+    );
+  }
+
   const shownAnswer =
     feedbackIndex !== null ? (answers[feedbackIndex] ?? "") : "";
   const isLast = feedbackIndex !== null && nextUnanswered(answers) === -1;
 
   return (
-    <div className="mt-8 space-y-8">
-      <div>
-        <YouTubeFrame {...player} />
-        <CaptionHint />
-      </div>
+    <>
+      <section className="practice-column space-y-4">
+        {header}
+        <ProgressBar
+          value={answeredCount}
+          max={sentences.length}
+          label={tProgress("today")}
+        />
 
-      <ProgressBar
-        value={answeredCount}
-        max={sentences.length}
-        label={tProgress("today")}
-      />
-
-      <section className="space-y-6">
-        <SentencePlayer player={player} sentences={sentences} index={showing} />
+        <div ref={videoRef} className="scroll-mt-2">
+          <YouTubeFrame {...player} />
+          <CaptionHint />
+        </div>
 
         {feedbackIndex === null ? (
-          <form onSubmit={submit} className="space-y-3">
+          <div>
             <label htmlFor="dictation-input" className="sr-only">
               {t("inputLabel")}
             </label>
-            <input
+            <textarea
               id="dictation-input"
               ref={inputRef}
               lang="en"
-              type="text"
+              rows={1}
               autoComplete="off"
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck={false}
               value={input}
               onChange={(event) => setInput(event.target.value)}
+              onKeyDown={onInputKeyDown}
+              onFocus={onInputFocus}
               placeholder={t("placeholder")}
-              className="w-full rounded-base border border-line bg-surface px-4 py-3 text-sentence focus-visible:border-accent"
+              className="block w-full resize-none overflow-hidden rounded-base border border-line bg-surface px-4 py-3 text-sentence focus-visible:border-accent"
             />
-            <div className="flex flex-wrap items-center gap-4">
-              <Button
-                type="submit"
-                variant="primary"
-                arrow
-                disabled={input.trim() === ""}
-              >
-                {t("submit")}
-              </Button>
-              <span className="text-supporting text-ink-muted">
-                {t("enterHint")}
-              </span>
-            </div>
-          </form>
+          </div>
         ) : (
-          <div role="status" className="space-y-4">
+          <div role="status" className="space-y-2">
             <WordDiffView
               diff={wordDiff(sentences[feedbackIndex].en, shownAnswer)}
             />
@@ -217,42 +335,73 @@ export function DictationSession({ video, day, store }: DictationSessionProps) {
                 ),
               })}
             </p>
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-center gap-3">
+          <Button
+            variant="secondary"
+            disabled={player.status !== "ready"}
+            onClick={playback.play}
+          >
+            {playback.played ? t("replay") : t("play")}
+          </Button>
+          {feedbackIndex === null ? (
+            <>
+              <Button variant="ghost" onClick={skip} aria-live="polite">
+                {skipArmed ? t("confirmSkip") : t("skip")}
+              </Button>
+              <Button
+                variant="primary"
+                arrow
+                disabled={input.trim() === ""}
+                onClick={submitTyped}
+              >
+                {t("submit")}
+              </Button>
+            </>
+          ) : (
             <Button ref={nextRef} variant="primary" arrow onClick={goNext}>
               {isLast ? t("seeResult") : t("next")}
             </Button>
-          </div>
-        )}
+          )}
+        </div>
+        <p className="text-metadata text-ink-muted">{t("shortcuts")}</p>
         {saveError}
       </section>
 
-      <ol className="border-t border-line">
-        {sentences.map((sentence, index) => {
-          const answer = answers[index];
-          const status =
-            answer !== null && answer !== undefined
-              ? "done"
-              : index === current
-                ? "current"
-                : "pending";
-          return (
-            <li key={sentence.i}>
-              <SentenceRow
-                index={index}
-                status={status}
-                hidden={status !== "done"}
-                score={
-                  status === "done"
-                    ? scoreDictation(sentence.en, answer ?? "").accuracy
-                    : undefined
-                }
-              >
-                {sentence.en}
-              </SentenceRow>
-            </li>
-          );
-        })}
-      </ol>
-    </div>
+      {children}
+
+      <section className="practice-column mt-12">
+        <ol className="border-t border-line">
+          {sentences.map((sentence, index) => {
+            const answer = answers[index];
+            const status =
+              answer !== null && answer !== undefined
+                ? "done"
+                : index === current
+                  ? "current"
+                  : "pending";
+            return (
+              <li key={sentence.i}>
+                <SentenceRow
+                  index={index}
+                  status={status}
+                  hidden={status !== "done"}
+                  score={
+                    status === "done"
+                      ? scoreDictation(sentence.en, answer ?? "").accuracy
+                      : undefined
+                  }
+                >
+                  {sentence.en}
+                </SentenceRow>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+    </>
   );
 }
 
@@ -265,13 +414,13 @@ function DictationResult({
   video: Video;
   answers: readonly (string | null)[];
   score: number;
-  saveError: React.ReactNode;
+  saveError: ReactNode;
 }) {
   const t = useTranslations("dictation");
   const format = useFormatter();
 
   return (
-    <div className="mt-8 space-y-12">
+    <div className="practice-column mt-8 space-y-12">
       <div className="space-y-4">
         <ScoreBadge score={score} />
         <p className="font-display text-h3">{t("complete")}</p>
@@ -287,7 +436,7 @@ function DictationResult({
             return (
               <li
                 key={sentence.i}
-                className="grid gap-3 border-b border-line py-6 split:grid-cols-[3rem_1fr_auto]"
+                className="grid gap-3 border-b border-line py-6 split:grid-cols-[2rem_1fr_auto]"
               >
                 <span className="text-metadata text-ink-muted tabular-nums">
                   {String(index + 1).padStart(2, "0")}

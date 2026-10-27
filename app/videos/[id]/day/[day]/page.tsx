@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { DictationSession } from "@/components/DictationSession";
@@ -27,24 +26,19 @@ export default async function DayPage({
   if (!video || !AVAILABLE_DAYS.includes(day)) notFound();
   const t = await getTranslations("dictation");
 
+  // The practice area comes first so a whole sentence fits on one screen;
+  // the intro and credits sit below it.
   return (
-    <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
-      <Link
-        href={`/videos/${video.id}`}
-        className="text-supporting text-ink-muted hover:text-ink"
-      >
-        <span aria-hidden="true">← </span>
-        <span lang="en">{video.title}</span>
-      </Link>
-      <h1 className="mt-6 font-display text-h1">{t("title")}</h1>
-      <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
-
-      <DictationSession video={video} day={1} />
-
-      <VideoAttribution
-        attribution={video.attribution}
-        className="mt-12 border-t border-line pt-6"
-      />
+    <main className="w-full flex-1 px-4 py-6 split:px-6">
+      <DictationSession video={video} day={1} title={t("title")}>
+        <div className="practice-column mt-12 space-y-12">
+          <p className="text-ink-muted">{t("intro")}</p>
+          <VideoAttribution
+            attribution={video.attribution}
+            className="border-t border-line pt-6"
+          />
+        </div>
+      </DictationSession>
     </main>
   );
 }
