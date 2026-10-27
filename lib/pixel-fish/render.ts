@@ -11,7 +11,7 @@ import type {
 export const TAIL_FRAMES = 4;
 
 /** Light comes from the upper left of the world (normalized). */
-const LIGHT = normalize([-0.5, -0.85, 0.55]);
+export const LIGHT = normalize([-0.5, -0.85, 0.55]);
 const HALF = normalize([LIGHT[0], LIGHT[1], LIGHT[2] + 1]);
 
 const BAYER4 = [
@@ -21,12 +21,12 @@ const BAYER4 = [
   [15, 7, 13, 5],
 ];
 
-function normalize([x, y, z]: number[]): [number, number, number] {
+export function normalize([x, y, z]: number[]): [number, number, number] {
   const length = Math.hypot(x, y, z) || 1;
   return [x / length, y / length, z / length];
 }
 
-const dot = (a: number[], b: number[]) =>
+export const dot = (a: number[], b: number[]) =>
   a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 
 function hexToRgb(hex: string): [number, number, number] {
@@ -58,7 +58,7 @@ export const phaseOf = (frame: number) =>
  * Brightness (about 0.4–1.2) to a ramp step. Rounded surfaces get a little
  * ordered dither for smooth transitions; flat fins don't (it reads as noise).
  */
-function toneOf(
+export function toneOf(
   brightness: number,
   x: number,
   y: number,
@@ -69,7 +69,7 @@ function toneOf(
   return Math.max(0, Math.min(4, step));
 }
 
-type Pixel = {
+export type Pixel = {
   material: string;
   tone: number;
   alpha: number;
@@ -148,7 +148,7 @@ function locate<M extends string>(
   const bottom = inBody ? centerY + species.bottom(u) : 0;
 
   // Pectoral fin lies over the body side.
-  const p = species.pectoral;
+  const p = species.pectoral ?? { u: 0, dy: 0, rx: 0, ry: 0, back: 0 };
   const pcx = species.snoutX - p.u * bodyLength - p.back;
   const pcy = mid0(p.u) + p.dy;
   const pr = Math.hypot((gx - pcx) / p.rx, (gy - pcy) / (p.ry * flutter));
@@ -205,18 +205,23 @@ function locate<M extends string>(
     }
   }
 
-  // Tail fin: a fan behind the tail base, with a rounded trailing edge.
+  // Tail fin behind the tail base: a rounded fan, or (with fork) a crescent
+  // whose trailing edge curves in; the upper lobe can be longer (sharks).
   const d = species.peduncleX - gx;
-  const { length, spread, round } = species.caudal;
+  const { length, spreadUp, spreadDown, round, fork = 0 } = species.caudal;
+  const off = gy - tailMid;
   if (d > 0 && d <= length) {
     const base = ((species.top(1) + species.bottom(1)) / 2) * 0.9;
+    const spread = off < 0 ? spreadUp : spreadDown;
     let half = base + d * spread;
-    if (d > length - round) {
+    if (round > 0 && d > length - round) {
       const k = (d - (length - round)) / round;
       half *= Math.sqrt(Math.max(0, 1 - k * k));
     }
-    const off = gy - tailMid;
-    if (Math.abs(off) <= half) {
+    const reach = base + length * spread;
+    const trailing =
+      length - fork * (1 - Math.min(1, Math.abs(off) / reach) ** 2);
+    if (Math.abs(off) <= half && d <= trailing) {
       const angle = Math.atan2(off, d);
       return {
         region: "caudal",
@@ -224,7 +229,7 @@ function locate<M extends string>(
           region: "caudal",
           u,
           v: 0,
-          edge: Math.min(half - Math.abs(off), length - d),
+          edge: Math.min(half - Math.abs(off), trailing - d),
           ray: rayLine(angle * 8),
         },
       };
@@ -260,7 +265,7 @@ function light(input: PaintInput, sx: number): number {
  * Selective outline: silhouette pixels take a darker tone of their own
  * color, darkest on the shadow side (below, away from the light).
  */
-function outline(
+export function outline(
   pixels: (Pixel | null)[],
   width: number,
   height: number,
@@ -290,7 +295,7 @@ function outline(
   }
 }
 
-function toImage(
+export function toImage(
   pixels: (Pixel | null)[],
   width: number,
   height: number,

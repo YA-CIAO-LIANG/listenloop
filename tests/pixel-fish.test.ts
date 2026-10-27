@@ -11,6 +11,7 @@ import {
   eyeCenter,
   lookToward,
   renderEye,
+  eyeOf,
 } from "@/lib/pixel-fish/eyes";
 import { clownfish } from "@/lib/pixel-fish/species/clownfish";
 import { renderPellet, renderTank } from "@/lib/pixel-fish/tank";
@@ -200,7 +201,7 @@ describe("big cute eyes", () => {
   });
 
   it("has a dark pupil and two separate white glints (one big, one small)", () => {
-    const eye = renderEye(clownfish);
+    const eye = renderEye(eyeOf(clownfish));
     const white = cells(eye).filter((c) => isWhite(c.color));
     expect(cells(eye).filter((c) => isDark(c.color)).length).toBeGreaterThan(
       10,
@@ -217,7 +218,7 @@ describe("big cute eyes", () => {
 
   it("moves the pupil toward where it looks", () => {
     const darkX = (look: { x: number; y: number }) => {
-      const dark = cells(renderEye(clownfish, { look })).filter((c) =>
+      const dark = cells(renderEye(eyeOf(clownfish), { look })).filter((c) =>
         isDark(c.color),
       );
       return dark.reduce((sum, c) => sum + c.x, 0) / dark.length;
@@ -231,7 +232,7 @@ describe("big cute eyes", () => {
   });
 
   it("closes for a blink: eyelid skin and a lash line, no glints", () => {
-    const eye = renderEye(clownfish, { expression: "blink" });
+    const eye = renderEye(eyeOf(clownfish), { expression: "blink" });
     expect(cells(eye).some((c) => isWhite(c.color))).toBe(false);
     expect(cells(eye).filter((c) => isDark(c.color)).length).toBeGreaterThan(3);
     const [red, g, b] = pixel(eye, Math.floor(eye.width / 2), 2);
@@ -240,17 +241,17 @@ describe("big cute eyes", () => {
   });
 
   it("smiles ^ ^ when happy: the line is higher in the middle", () => {
-    const dark = cells(renderEye(clownfish, { expression: "happy" })).filter(
-      (c) => isDark(c.color),
-    );
-    const middle = Math.round(renderEye(clownfish).width / 2);
+    const dark = cells(
+      renderEye(eyeOf(clownfish), { expression: "happy" }),
+    ).filter((c) => isDark(c.color));
+    const middle = Math.round(renderEye(eyeOf(clownfish)).width / 2);
     const rowAt = (x: number) =>
       Math.min(...dark.filter((c) => c.x === x).map((c) => c.y));
     expect(rowAt(middle)).toBeLessThan(rowAt(middle - Math.floor(r * 0.7)));
   });
 
   it("half-closes when hungry: lid on top, eye below", () => {
-    const eye = renderEye(clownfish, { expression: "hungry" });
+    const eye = renderEye(eyeOf(clownfish), { expression: "hungry" });
     const mid = Math.floor(eye.width / 2);
     const [red, , b] = pixel(eye, mid, 2);
     expect(red).toBeGreaterThan(b + 80); // lid skin
@@ -273,7 +274,12 @@ describe("big cute eyes", () => {
 
   it("composes the eye over the body", () => {
     const center = eyeCenter(clownfish, 0, "right");
-    const withEye = compose(still, renderEye(clownfish), center.x, center.y);
+    const withEye = compose(
+      still,
+      renderEye(eyeOf(clownfish)),
+      center.x,
+      center.y,
+    );
     expect(withEye.data).not.toEqual(still.data);
     expect(
       isDark(pixel(withEye, Math.round(center.x), Math.round(center.y))),
