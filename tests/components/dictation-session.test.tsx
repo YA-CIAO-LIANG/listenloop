@@ -89,7 +89,7 @@ describe("DictationSession", () => {
 
   it("starts at sentence 1 with the caption reminder and saves a fresh progress", async () => {
     const store = await renderSession();
-    expect(screen.getByText("第 1 句，共 2 句")).toBeDefined();
+    expect(screen.getByText("第 1 / 2 句")).toBeDefined();
     expect(screen.getByText(/CC 按鈕關閉/)).toBeDefined();
     expect(store.saved()?.days[1]).toEqual({
       done: false,
@@ -123,7 +123,7 @@ describe("DictationSession", () => {
     expect(document.activeElement).toBe(next);
     await userEvent.keyboard("{Enter}");
     expect(playSegment).toHaveBeenLastCalledWith(2.85, 5.25);
-    expect(screen.getByText("第 2 句，共 2 句")).toBeDefined();
+    expect(screen.getByText("第 2 / 2 句")).toBeDefined();
     expect(document.activeElement).toBe(input());
   });
 
@@ -156,9 +156,14 @@ describe("DictationSession", () => {
       "2026-10-27",
     );
     await renderSession(memoryStore(partly));
-    expect(screen.getByText("第 2 句，共 2 句")).toBeDefined();
+    expect(screen.getByText("第 2 / 2 句")).toBeDefined();
     expect(screen.getByText("Go home.")).toBeDefined(); // done row revealed
-    expect(screen.getByText("1 / 2")).toBeDefined();
+    // Progress bar shows 1 of 2 answered; the label says where you are.
+    expect(
+      screen
+        .getByRole("progressbar", { name: "第 2 / 2 句" })
+        .getAttribute("aria-valuenow"),
+    ).toBe("1");
   });
 
   it("shows the results directly when the day is already done", async () => {

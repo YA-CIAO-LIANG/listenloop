@@ -112,7 +112,8 @@
       "transcript": "English subtitles",
       "changes": "Changes"
     },
-    "startDay1": "Start Day 1: Dictation"
+    "startDay1": "Start Day 1: Dictation",
+    "viewResult": "View results"
   },
   "player": {
     "loading": "Loading video…",
@@ -164,6 +165,13 @@
     "skip": "Skip",
     "confirmSkip": "Skip this one?",
     "shortcuts": "Enter to submit · Ctrl+Space or Ctrl+Enter to replay",
-    "position": "Sentence {n} of {total}"
+    "position": "Sentence {n} / {total}",
+    "retry": "Practice again",
+    "practiceMode": "Practice mode: this score won’t change your official score ({score}).",
+    "officialScore": "Official score {score}",
+    "officialUnchanged": "Official score {score} (unchanged)",
+    "thisAttempt": "This attempt",
+    "todayDone": "Today’s task done",
+    "retryComplete": "Practice done!"
   }
 }
