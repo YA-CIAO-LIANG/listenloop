@@ -155,10 +155,11 @@ describe("streakPoints", () => {
       (_, i) => `2026-10-${String(from + i).padStart(2, "0")}`,
     );
 
-  it("starts on day 3 and grows by 5 up to 20", () => {
-    expect(streakPoints(days(10)).map((r) => r.amount)).toEqual([
-      5, 10, 15, 20, 20, 20, 20, 20,
-    ]);
+  it("gives a flat 5 a day from the 3rd consecutive day", () => {
+    expect(streakPoints(days(2))).toEqual([]);
+    expect(streakPoints(days(10)).map((r) => r.amount)).toEqual(
+      Array(8).fill(5),
+    );
     expect(streakPoints(days(10))[0].id).toBe("streak:2026-10-03");
   });
 

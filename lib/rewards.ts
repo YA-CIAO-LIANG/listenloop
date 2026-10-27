@@ -18,10 +18,9 @@ export const REWARDS = {
   shadowingBonusCoverage: 0.9,
   weekPassed: 50,
   weekRepeat: 20,
-  /** Consecutive official days: day 3 gives 5, then +5 a day up to 20. */
+  /** Consecutive official days: from the 3rd day on, a flat bonus each day. */
   streakFrom: 3,
-  streakStep: 5,
-  streakMax: 20,
+  streakBonus: 5,
   /** First finished retry of a video on a day. */
   retry: 2,
   /** Feed: one portion per day with an official task, plus one to start. */
@@ -85,11 +84,11 @@ export function streakPoints(dates: readonly LocalDate[]): Reward[] {
   dates.forEach((date, i) => {
     run = i > 0 && daysBetween(dates[i - 1], date) === 1 ? run + 1 : 1;
     if (run >= REWARDS.streakFrom) {
-      const amount = Math.min(
-        REWARDS.streakStep * (run - REWARDS.streakFrom + 1),
-        REWARDS.streakMax,
-      );
-      rewards.push({ id: `streak:${date}`, amount, date });
+      rewards.push({
+        id: `streak:${date}`,
+        amount: REWARDS.streakBonus,
+        date,
+      });
     }
   });
   return rewards;
