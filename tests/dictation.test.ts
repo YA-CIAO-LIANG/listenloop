@@ -1,5 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { nextUnanswered, startDictation, submitAnswer } from "@/lib/dictation";
+import {
+  attemptScore,
+  emptyAnswers,
+  nextUnanswered,
+  recordAnswer,
+  startDictation,
+  submitAnswer,
+  type Answers,
+} from "@/lib/dictation";
 import { createProgress } from "@/lib/progress";
 import type { Sentence } from "@/lib/videos";
 
@@ -95,5 +103,44 @@ describe("submitAnswer", () => {
     expect(submitAnswer(notStarted, 1, 0, "x", sentences, today)).toBe(
       notStarted,
     );
+  });
+});
+
+describe("attempt helpers (shared by official runs and retries)", () => {
+  it("creates an empty attempt", () => {
+    expect(emptyAnswers(3)).toEqual([null, null, null]);
+  });
+
+  it("records only the first answer per sentence", () => {
+    const first = recordAnswer(emptyAnswers(2), 0, "go hom");
+    expect(first).toEqual(["go hom", null]);
+    expect(recordAnswer(first, 0, "go home")).toBe(first);
+  });
+
+  it("scores a finished attempt by word count", () => {
+    expect(attemptScore(sentences, ["go home", "we move to the city"])).toBe(
+      6 / 7,
+    );
+    expect(attemptScore(sentences, ["", ""])).toBe(0);
+  });
+
+  it("can never change an official result", () => {
+    let official = startDictation(null, "sintel", 1, 2, today);
+    official = submitAnswer(official, 1, 0, "x", sentences, today);
+    official = submitAnswer(official, 1, 1, "y", sentences, today);
+    const snapshot = structuredClone(official);
+
+    // A full retry works on its own answers list…
+    let retry: Answers = emptyAnswers(2);
+    retry = recordAnswer(retry, 0, "go home");
+    retry = recordAnswer(retry, 1, "we moved to the city");
+    expect(attemptScore(sentences, retry)).toBe(1);
+
+    // …and the official run refuses any further submissions.
+    expect(submitAnswer(official, 1, 0, "go home", sentences, today)).toBe(
+      official,
+    );
+    expect(official).toEqual(snapshot);
+    expect(official.days[1]?.score).toBe(0);
   });
 });

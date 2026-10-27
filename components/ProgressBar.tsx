@@ -8,6 +8,8 @@ type ProgressBarProps = {
   max: number;
   /** Visible label, also used as the accessible name. */
   label: string;
+  /** Show "value / max" next to the label (hide it when the label already says where you are). */
+  showCount?: boolean;
   className?: string;
 };
 
@@ -19,6 +21,7 @@ export function ProgressBar({
   value,
   max,
   label,
+  showCount = true,
   className = "",
 }: ProgressBarProps) {
   const t = useTranslations("practice.progress");
@@ -30,12 +33,14 @@ export function ProgressBar({
     <div className={className}>
       <div className="mb-2 flex items-baseline justify-between gap-4 text-metadata tracking-widest text-ink-muted uppercase">
         <span>{label}</span>
-        <span className="tabular-nums">
-          {t("count", {
-            value: format.number(current),
-            max: format.number(max),
-          })}
-        </span>
+        {showCount && (
+          <span className="tabular-nums">
+            {t("count", {
+              value: format.number(current),
+              max: format.number(max),
+            })}
+          </span>
+        )}
       </div>
       <div
         role="progressbar"
