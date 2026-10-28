@@ -62,7 +62,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - **專案結構**：`app/`（頁面）、`components/`（UI 元件）、`lib/`（純邏輯：評分、循環、儲存、語言偵測）、`i18n/`（next-intl 請求設定與切換語言的 Server Action；會讀寫 cookie，所以不放 `lib/`）、`messages/`（翻譯檔）、`data/videos/`（影片 JSON）、`scripts/`（預處理）、`docs/`（規格文件）、`tests/`。
 - **品質工具**：ESLint ＋ Prettier；husky ＋ lint-staged 提交前自動檢查。
 - **測試**：Vitest 單元測試，`lib/` 的評分與循環邏輯必須有測試；M4 以 Playwright 做主要流程的 E2E 測試。
-- **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`；commit 用 Conventional Commits。
+- **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。`content/` 的 PR 和 `feat/` 一樣，CI 通過後要等我說「合併」（內容需要審稿）。
 - **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改），執行 lint、format:check、typecheck、test、build。
 - **秘密資訊**：API key 只放 `.env.local`，必須在 `.gitignore`；`.env.example` 提供範本。
 - **無障礙與錯誤處理**：見 `docs/design-system.md`；麥克風權限被拒、瀏覽器不支援語音辨識、影片無法載入，都要有友善提示。
@@ -104,7 +104,9 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - `attribution` 必填，播放頁一律顯示出處。`license` 只能是 `Public Domain`、`CC BY x.x` 或 `CC BY-SA x.x`（NC、ND 會被驗證擋下）。授權規則與候選影片見 `docs/video-candidates.md`。
 - 英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。
 - `vocab`、`grammar` 每一筆的 `sentence` 是出處句子的索引（對應 `sentences[].i`，必填）。聽寫每句答完後，顯示這句的中文與對應的單字、文法。
-- 時間點用 `/videos/<id>/timing`（不列入導覽、不被搜尋）逐句播放微調，再複製 JSON 回填。
+- 製作流程（查證 → 句子 → 草稿 → 翻譯講解 → 校正時間點 → 上架）見 `docs/content-workflow.md`。草稿用 `npm run video:new -- meta.json sentences.txt` 產生。
+- `draft: true`（選填）：製作中的影片，不出現在影片庫，影片頁與練習頁回 404，只有 `/videos/<id>/timing` 打得開；草稿的中文可以是「（待翻譯）」、單字與文法可以是空的，正式影片不行（驗證會擋）。
+- 時間點用 `/videos/<id>/timing`（不列入導覽、不被搜尋）：先用「點按模式」邊播邊按空白鍵標出每句開頭，再逐句播放微調，最後複製 JSON 回填。
 - 播放時自動加前後緩衝：開始提早 0.15 秒、結束延後 0.25 秒，但不越過前一句的結束或下一句的開始（`lib/player/padding.ts`）。JSON 裡存的是原始時間點，不含緩衝。
 
 進度（localStorage key：`ll-progress:v1:<videoId>`；型別與驗證見 `lib/progress.ts`）：
@@ -173,7 +175,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - **互動**：點魚會轉身、吐泡泡並顯示名字；點玻璃附近的魚會散開；游標或手指移動時魚會好奇靠近。reduced motion 時只顯示名字、不播動畫。
   - **PR 拆法**：a 點數與飼料的獲得、帳本；b 商店、我的魚、素材出處頁（影片）；b2 像素小丑魚樣板（`/styleguide`，確認風格後才做其他魚種）；b3 其他魚種與商店像素縮圖；c 像素風魚缸、餵魚、飢餓、日曆、互動。
   - 魚、魚缸、飼料都由程式繪製，不使用第三方素材；若日後使用外部素材，只能用 CC0、CC BY，授權在官方頁面確認並在 `/credits` 標示出處。
-- [ ] **M3 內容庫**：預處理腳本、20～30 支影片
+- [ ] **M3 內容庫**：預處理腳本、20～30 支影片（第一個里程碑 20 支：Sintel、3 支 Blender、16 課 VOA Let's Learn English；分 M3-1 工具、M3-2～4 內容批次、M3-5 影片庫篩選）
 - [ ] **M4 品質打磨**：E2E 測試、無障礙、效能、錯誤處理、隱私權政策
 - [ ] **M5 Beta**：真實使用者試用一週並修正
 - [ ] **M6 上架**：PWA → PWABuilder → Google Play 封閉測試 → 正式上線

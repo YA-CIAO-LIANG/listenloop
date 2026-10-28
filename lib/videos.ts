@@ -73,7 +73,16 @@ export type Video = {
   sentences: Sentence[];
   vocab: VocabItem[];
   grammar: GrammarPoint[];
+  /**
+   * A video still being made: hidden from the library and every page except
+   * /videos/<id>/timing, where its timestamps get tuned. Drafts may keep the
+   * TODO_ZH placeholder and empty vocab and grammar.
+   */
+  draft?: boolean;
 };
+
+/** Placeholder Chinese in drafts (scripts/new-video.ts); never in a published video. */
+export const TODO_ZH = "（待翻譯）";
 
 type Data = Record<string, unknown>;
 
@@ -160,6 +169,9 @@ export function validateVideo(data: unknown): string[] {
     problems.push(`category must be one of ${videoCategories.join(", ")}`);
   }
 
+  if (data.draft !== undefined && typeof data.draft !== "boolean") {
+    problems.push("draft must be true or false");
+  }
   if (!Array.isArray(data.sentences) || data.sentences.length === 0) {
     problems.push("sentences must be a non-empty list");
   } else {
@@ -168,6 +180,11 @@ export function validateVideo(data: unknown): string[] {
       const where = `sentences[${index}]`;
       checkTextFields(sentence, ["en", "zh"], where, problems);
       if (!isObject(sentence)) return;
+      if (data.draft !== true && sentence.zh === TODO_ZH) {
+        problems.push(
+          `${where}.zh must be translated (only drafts may say ${TODO_ZH})`,
+        );
+      }
       if (sentence.i !== index) problems.push(`${where}.i must be ${index}`);
       const { start, end } = sentence;
       if (typeof start !== "number" || typeof end !== "number") {
