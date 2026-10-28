@@ -17,9 +17,13 @@ function flatten(messages: Messages, prefix = ""): Record<string, string> {
   );
 }
 
-/** ICU argument names, e.g. "第 {day} 天" → ["day"]. */
+/**
+ * ICU argument names, e.g. "第 {day} 天" → ["day"]. A name must be followed
+ * by "}" or ",", so words inside plural/select branches ("{no tasks}") don't
+ * count.
+ */
 function argumentNames(message: string): string[] {
-  return [...message.matchAll(/\{\s*(\w+)/g)].map((m) => m[1]).sort();
+  return [...message.matchAll(/\{\s*(\w+)\s*[,}]/g)].map((m) => m[1]).sort();
 }
 
 const catalogs = { "zh-Hant": flatten(zhHant), en: flatten(en) };

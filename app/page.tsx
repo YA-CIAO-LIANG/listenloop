@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { CardLink } from "@/components/CardLink";
+import { PracticeCalendar } from "@/components/PracticeCalendar";
 import { VideoProgressLabel } from "@/components/VideoProgressLabel";
 import { getAllVideos } from "@/lib/video-library";
 
@@ -11,6 +12,10 @@ export default function Home() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
       <h1 className="font-display text-hero">{t("common.appName")}</h1>
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
+
+      <div className="mt-12">
+        <PracticeCalendar />
+      </div>
 
       <section className="mt-16">
         <h2 className="font-display text-h2">{t("library.title")}</h2>

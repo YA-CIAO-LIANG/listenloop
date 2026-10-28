@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { toLocalDate } from "@/lib/dates";
-import { logOfficial, logRetry } from "@/lib/claim-rewards";
+import { recordTask } from "@/lib/activity";
+import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
 import { scoreShadowing } from "@/lib/scoring/shadowing";
 import { wordDiff } from "@/lib/scoring/word-diff";
@@ -20,6 +21,7 @@ import {
   type ShadowingDay,
 } from "@/lib/shadowing";
 import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
+import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
 import { Button } from "./Button";
@@ -129,12 +131,18 @@ export function ShadowingSession({
       setSaveFailed(true);
       return;
     }
-    // A finished official day earns points and today's feed.
     if (next.days[day]?.done) {
-      void claimAndAnnounce(
-        { progress: progressStore },
-        logOfficial(toLocalDate(new Date())),
-      );
+      const today = toLocalDate(new Date());
+      // Practice history for the home calendar (kept even with rewards off).
+      void updateActivity(createLocalRewardStore(), (activity) =>
+        recordTask(activity, today, {
+          videoId: video.id,
+          week: next.week,
+          day,
+        }),
+      ).catch(() => {});
+      // A finished official day earns points and today's feed.
+      void claimAndAnnounce({ progress: progressStore }, logOfficial(today));
     }
   }
 

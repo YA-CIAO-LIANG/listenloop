@@ -21,11 +21,13 @@ import {
   type Answers,
   type DictationDay,
 } from "@/lib/dictation";
-import { logOfficial, logRetry } from "@/lib/claim-rewards";
+import { recordTask } from "@/lib/activity";
+import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
 import { scoreDictation } from "@/lib/scoring/dictation";
 import { wordDiff } from "@/lib/scoring/word-diff";
 import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
+import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
 import { Button } from "./Button";
@@ -144,12 +146,18 @@ export function DictationSession({
       setSaveFailed(true);
       return;
     }
-    // A finished official day earns points and today's feed.
     if (next.days[day]?.done) {
-      void claimAndAnnounce(
-        { progress: progressStore },
-        logOfficial(toLocalDate(new Date())),
-      );
+      const today = toLocalDate(new Date());
+      // Practice history for the home calendar (kept even with rewards off).
+      void updateActivity(createLocalRewardStore(), (activity) =>
+        recordTask(activity, today, {
+          videoId: video.id,
+          week: next.week,
+          day,
+        }),
+      ).catch(() => {});
+      // A finished official day earns points and today's feed.
+      void claimAndAnnounce({ progress: progressStore }, logOfficial(today));
     }
   }
 

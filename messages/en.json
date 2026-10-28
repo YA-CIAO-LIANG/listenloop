@@ -77,6 +77,16 @@
     "nextTomorrow": "Day {day} ({task}) opens tomorrow.",
     "nextOpen": "Day {day} is open"
   },
+  "calendar": {
+    "title": "Practice calendar",
+    "previousMonth": "Previous",
+    "nextMonth": "Next",
+    "caption": "Practice calendar: days with finished tasks have a dot; pick a day to see its tasks",
+    "taskLine": "<video>{title}</video> · Day {day} {task}",
+    "none": "No tasks finished this day",
+    "dayLabel": "{date}, {count, plural, =0 {no tasks finished} one {# task finished} other {# tasks finished}}{today, select, yes { (today)} other {}}",
+    "today": "Today"
+  },
   "week": {
     "resultTitle": "Week {week} result",
     "day1": "Day 1",
