@@ -28,6 +28,10 @@ export type YouTubePlayerApi = {
    * `onEnd` doesn't fire if playback is stopped or another segment starts.
    */
   playSegment: (start: number, end: number, onEnd?: () => void) => void;
+  /** Plays from `start` until stopped (the timing tool's tap mode). */
+  playFrom: (start: number) => void;
+  /** Where playback is now, in seconds (0 before the player is ready). */
+  currentTime: () => number;
   stop: () => void;
 };
 
@@ -169,12 +173,27 @@ export function useYouTubePlayer(videoId: string): YouTubePlayerApi {
     [],
   );
 
+  const playFrom = useCallback((start: number) => {
+    const player = playerRef.current;
+    if (!player) return;
+    window.clearInterval(pollRef.current);
+    player.seekTo(start, true);
+    player.playVideo();
+  }, []);
+
+  const currentTime = useCallback(
+    () => playerRef.current?.getCurrentTime() ?? 0,
+    [],
+  );
+
   return {
     containerRef: setContainer,
     status,
     error,
     isPlaying,
     playSegment,
+    playFrom,
+    currentTime,
     stop,
   };
 }

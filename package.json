@@ -12,7 +12,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "prepare": "husky",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "video:new": "node scripts/new-video.mts"
   },
   "dependencies": {
     "next": "16.4.3",

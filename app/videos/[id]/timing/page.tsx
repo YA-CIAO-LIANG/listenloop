@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { VideoAttribution } from "@/components/VideoAttribution";
-import { getVideo } from "@/lib/video-library";
+import { getVideoIncludingDrafts } from "@/lib/video-library";
 import { TimingTool } from "./TimingTool";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -14,7 +14,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function TimingPage({
   params,
 }: PageProps<"/videos/[id]/timing">) {
-  const video = getVideo((await params).id);
+  // Drafts open here (and nowhere else) so their timestamps can be tuned.
+  const video = getVideoIncludingDrafts((await params).id);
   if (!video) notFound();
   const t = await getTranslations("timing");
 

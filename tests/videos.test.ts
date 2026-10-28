@@ -227,6 +227,27 @@ describe("video library", () => {
   it("finds a video by id", () => {
     expect(getVideo("sintel")?.title).toBe("Sintel");
     expect(getVideo("missing")).toBeUndefined();
-    expect(getAllVideos()).toBe(videos);
+    expect(getAllVideos()).toEqual(videos.filter((v) => !v.draft));
+  });
+});
+
+describe("drafts", () => {
+  it("are hidden from the library and pages, but open in the timing tool", async () => {
+    const { vi } = await import("vitest");
+    vi.resetModules();
+    vi.doMock("@/data/videos", () => ({
+      videos: [
+        { ...validVideo, id: "published" },
+        { ...validVideo, id: "in-progress", draft: true },
+      ],
+    }));
+    const library = await import("@/lib/video-library");
+    expect(library.getAllVideos().map((v) => v.id)).toEqual(["published"]);
+    expect(library.getVideo("in-progress")).toBeUndefined();
+    expect(library.getVideoIncludingDrafts("in-progress")?.id).toBe(
+      "in-progress",
+    );
+    vi.doUnmock("@/data/videos");
+    vi.resetModules();
   });
 });

@@ -282,7 +282,18 @@
     "reset": "Reset",
     "problems": "Timing problems:",
     "ok": "Timing looks valid.",
-    "plays": "Plays {start}–{end}"
+    "plays": "Plays {start}–{end}",
+    "tapTitle": "Tap mode",
+    "tapIntro": "Play from a starting point and press Space as each sentence begins (on a phone, press “Sentence starts”); press Enter when the last one ends (or “Last sentence ended”). The taps are applied right away; then play each sentence below to fine-tune.",
+    "tapFrom": "Start at (seconds)",
+    "tapStart": "Start tapping",
+    "tapButton": "Sentence starts",
+    "tapEndButton": "Last sentence ended",
+    "tapUndo": "Undo last tap",
+    "tapCancel": "Cancel",
+    "tapNext": "Next ({n} / {total}):",
+    "tapEnd": "All tapped. Press Enter when the last sentence ends.",
+    "tapDone": "{count, plural, one {# sentence} other {# sentences}} marked. Play each one to check, then copy the JSON."
   },
   "dictation": {
     "title": "Day 1: Dictation",

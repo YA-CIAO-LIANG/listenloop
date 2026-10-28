@@ -1,4 +1,4 @@
-import { screen, within } from "@testing-library/react";
+import { act, fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { TimingTool } from "@/app/videos/[id]/timing/TimingTool";
@@ -6,6 +6,10 @@ import { videos } from "@/data/videos";
 import { renderWithIntl } from "../render";
 
 const playSegment = vi.hoisted(() => vi.fn());
+const playFrom = vi.hoisted(() => vi.fn());
+const stop = vi.hoisted(() => vi.fn());
+/** The video's current time, as the tap-mode tests move it along. */
+const clock = vi.hoisted(() => ({ now: 0 }));
 vi.mock("@/components/youtube/useYouTubePlayer", () => ({
   useYouTubePlayer: () => ({
     containerRef: () => {},
@@ -13,7 +17,9 @@ vi.mock("@/components/youtube/useYouTubePlayer", () => ({
     error: null,
     isPlaying: false,
     playSegment,
-    stop: vi.fn(),
+    playFrom,
+    currentTime: () => clock.now,
+    stop,
   }),
 }));
 
@@ -74,5 +80,62 @@ describe("TimingTool", () => {
       sintel.sentences,
     );
     expect(screen.getByText("已複製！")).toBeDefined();
+  });
+});
+
+describe("TimingTool tap mode", () => {
+  const press = (key: string) =>
+    act(() => {
+      fireEvent.keyDown(window, { key, code: key === " " ? "Space" : key });
+    });
+
+  it("marks each sentence start with Space and the last end with Enter", async () => {
+    renderWithIntl(<TimingTool video={sintel} />);
+    fireEvent.change(screen.getByRole("spinbutton", { name: "從第幾秒開始" }), {
+      target: { value: "105" },
+    });
+    await userEvent.click(screen.getByRole("button", { name: "開始點按" }));
+    expect(playFrom).toHaveBeenLastCalledWith(105);
+    expect(screen.getByText(/下一句（1 \/ 12）/)).toBeDefined();
+
+    sintel.sentences.forEach((_, i) => {
+      clock.now = 107 + i * 3.5;
+      press(" ");
+    });
+    expect(screen.getByText(/全部標完了/)).toBeDefined();
+    clock.now = 150.2;
+    press("Enter");
+
+    expect(stop).toHaveBeenCalled();
+    expect(screen.getByText(/已標記 12 句/)).toBeDefined();
+    const times = exported();
+    expect(times[0]).toMatchObject({ start: 107, end: 110.4 });
+    expect(times[1]).toMatchObject({ start: 110.5, end: 113.9 });
+    expect(times[11]).toMatchObject({ start: 145.5, end: 150.2 });
+    expect(screen.getByText("時間點格式正確。")).toBeDefined();
+  });
+
+  it("takes back the last tap and replays from just before it", async () => {
+    renderWithIntl(<TimingTool video={sintel} />);
+    await userEvent.click(screen.getByRole("button", { name: "開始點按" }));
+    clock.now = 107;
+    press(" ");
+    clock.now = 111;
+    press(" ");
+    expect(screen.getByText(/下一句（3 \/ 12）/)).toBeDefined();
+    await userEvent.click(screen.getByRole("button", { name: "上一句重來" }));
+    expect(screen.getByText(/下一句（2 \/ 12）/)).toBeDefined();
+    expect(playFrom).toHaveBeenLastCalledWith(106);
+  });
+
+  it("cancels without changing any time", async () => {
+    renderWithIntl(<TimingTool video={sintel} />);
+    const before = exported();
+    await userEvent.click(screen.getByRole("button", { name: "開始點按" }));
+    clock.now = 50;
+    press(" ");
+    await userEvent.click(screen.getByRole("button", { name: "取消" }));
+    expect(exported()).toEqual(before);
+    expect(screen.getByRole("button", { name: "開始點按" })).toBeDefined();
   });
 });

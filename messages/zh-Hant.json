@@ -282,7 +282,18 @@
     "reset": "還原",
     "problems": "時間點有問題：",
     "ok": "時間點格式正確。",
-    "plays": "實際播放 {start}–{end}"
+    "plays": "實際播放 {start}–{end}",
+    "tapTitle": "點按模式",
+    "tapIntro": "從起點開始播放，聽到每一句開頭時按空白鍵（手機按「這句開始了」）；最後一句說完按 Enter（或「最後一句結束」）。標完會自動套用，再用下方的逐句播放微調。",
+    "tapFrom": "從第幾秒開始",
+    "tapStart": "開始點按",
+    "tapButton": "這句開始了",
+    "tapEndButton": "最後一句結束",
+    "tapUndo": "上一句重來",
+    "tapCancel": "取消",
+    "tapNext": "下一句（{n} / {total}）：",
+    "tapEnd": "全部標完了，最後一句說完時按 Enter。",
+    "tapDone": "已標記 {count} 句，請逐句試播檢查，再複製 JSON。"
   },
   "dictation": {
     "title": "第 1 天：精聽聽寫",
