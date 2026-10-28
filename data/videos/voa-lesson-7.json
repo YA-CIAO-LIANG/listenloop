@@ -1,0 +1,194 @@
+{
+  "id": "voa-lesson-7",
+  "youtubeId": "THMKsKMTyqg",
+  "title": "Let's Learn English Lesson 7: What Are You Doing?",
+  "level": "beginner",
+  "category": "business",
+  "source": "VOA Learning English",
+  "attribution": {
+    "credit": "learningenglish.voanews.com",
+    "license": "Public Domain",
+    "licenseUrl": "https://learningenglish.voanews.com/p/6861.html",
+    "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-7-what-are-you-doing/3240468.html",
+    "transcriptUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-7-what-are-you-doing/3240468.html",
+    "changes": "Excerpt (0:05–0:42); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 5,
+      "end": 6.19,
+      "en": "Come in.",
+      "zh": "請進。"
+    },
+    {
+      "i": 1,
+      "start": 6.49,
+      "end": 8.28,
+      "en": "Well, Anna, welcome.",
+      "zh": "嗯，安娜，歡迎妳。"
+    },
+    {
+      "i": 2,
+      "start": 8.58,
+      "end": 9.78,
+      "en": "Thank you.",
+      "zh": "謝謝。"
+    },
+    {
+      "i": 3,
+      "start": 10.08,
+      "end": 16.64,
+      "en": "I am your boss, Caty Weaver. But, please call me Caty.",
+      "zh": "我是妳的老闆，凱蒂．韋佛。不過，請叫我凱蒂就好。"
+    },
+    {
+      "i": 4,
+      "start": 16.94,
+      "end": 19.32,
+      "en": "Thank you, Ms. Weaver.",
+      "zh": "謝謝您，韋佛女士。"
+    },
+    {
+      "i": 5,
+      "start": 19.62,
+      "end": 20.82,
+      "en": "Just Caty.",
+      "zh": "叫凱蒂就好。"
+    },
+    {
+      "i": 6,
+      "start": 21.12,
+      "end": 23.5,
+      "en": "Sure thing, Ms. Weaver.",
+      "zh": "沒問題，韋佛女士。"
+    },
+    {
+      "i": 7,
+      "start": 23.8,
+      "end": 26.78,
+      "en": "Okay then. Are you excited?",
+      "zh": "那好吧。妳興奮嗎？"
+    },
+    {
+      "i": 8,
+      "start": 27.08,
+      "end": 29.47,
+      "en": "Yes, I am excited!",
+      "zh": "是的，我很興奮！"
+    },
+    {
+      "i": 9,
+      "start": 29.77,
+      "end": 39.31,
+      "en": "So sorry, but I am busy. Please meet your co-workers. But remember, they are busy working.",
+      "zh": "真抱歉，我現在很忙。去認識一下妳的同事吧。不過記得，他們都在忙著工作。"
+    },
+    {
+      "i": 10,
+      "start": 39.61,
+      "end": 42,
+      "en": "Sure. Thanks, Ms. Weaver.",
+      "zh": "好的。謝謝您，韋佛女士。"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 0,
+      "word": "come in",
+      "pos": "phr. v.",
+      "zh": "進來",
+      "example": "Please come in and sit down."
+    },
+    {
+      "sentence": 1,
+      "word": "welcome",
+      "pos": "interj.",
+      "zh": "歡迎",
+      "example": "Welcome to our school!"
+    },
+    {
+      "sentence": 3,
+      "word": "boss",
+      "pos": "n.",
+      "zh": "老闆；上司",
+      "example": "My boss lets me leave early on Fridays."
+    },
+    {
+      "sentence": 3,
+      "word": "call",
+      "pos": "v.",
+      "zh": "稱呼；叫",
+      "example": "My name is Robert, but you can call me Bob."
+    },
+    {
+      "sentence": 4,
+      "word": "Ms.",
+      "pos": "abbr.",
+      "zh": "女士（放在女性的姓氏前）",
+      "example": "This is our new teacher, Ms. Lin."
+    },
+    {
+      "sentence": 6,
+      "word": "sure thing",
+      "pos": "phr.",
+      "zh": "沒問題；當然好",
+      "example": "Can you help me carry this box? Sure thing!"
+    },
+    {
+      "sentence": 7,
+      "word": "excited",
+      "pos": "adj.",
+      "zh": "興奮的；期待的",
+      "example": "The kids are excited about the trip."
+    },
+    {
+      "sentence": 9,
+      "word": "busy",
+      "pos": "adj.",
+      "zh": "忙碌的",
+      "example": "I'm busy this weekend."
+    },
+    {
+      "sentence": 9,
+      "word": "co-worker",
+      "pos": "n.",
+      "zh": "同事",
+      "example": "I have lunch with my co-workers every day."
+    },
+    {
+      "sentence": 9,
+      "word": "remember",
+      "pos": "v.",
+      "zh": "記得",
+      "example": "Remember to bring your umbrella."
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 3,
+      "point": "call + 人 + 名字",
+      "explanation": "表示「稱呼某人為……」。受詞後面直接接名字，不需要加 as。",
+      "example": "Everyone calls him Teddy."
+    },
+    {
+      "sentence": 7,
+      "point": "Are you + 形容詞?",
+      "explanation": "be 動詞問句，問對方的感受或狀態。回答用 Yes, I am. 或 No, I'm not.",
+      "example": "Are you tired? Yes, I am."
+    },
+    {
+      "sentence": 9,
+      "point": "So sorry, but + 子句",
+      "explanation": "先道歉，再用 but 說明原因，是委婉拒絕或打斷別人的常用說法。So sorry 是 I'm so sorry 的口語省略。",
+      "example": "So sorry, but I can't come to your party."
+    },
+    {
+      "sentence": 9,
+      "point": "be busy + V-ing",
+      "explanation": "表示「忙著做某事」，busy 後面直接接動名詞（V-ing），不需要加介系詞。",
+      "example": "She is busy doing her homework."
+    }
+  ]
+}

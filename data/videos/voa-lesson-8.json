@@ -1,0 +1,201 @@
+{
+  "id": "voa-lesson-8",
+  "youtubeId": "uHuChnbaw6k",
+  "title": "Let's Learn English Lesson 8: Are You Busy?",
+  "level": "beginner",
+  "category": "business",
+  "source": "VOA Learning English",
+  "attribution": {
+    "credit": "learningenglish.voanews.com",
+    "license": "Public Domain",
+    "licenseUrl": "https://learningenglish.voanews.com/p/6861.html",
+    "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-8-are-you-busy/3253185.html",
+    "transcriptUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-8-are-you-busy/3253185.html",
+    "changes": "Excerpt (0:22–1:09); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 22,
+      "end": 24.88,
+      "en": "Hi, Anne. Are you busy?",
+      "zh": "嗨，安。妳在忙嗎？"
+    },
+    {
+      "i": 1,
+      "start": 25.18,
+      "end": 34.95,
+      "en": "Hi, Anna. Yes. At 10 a.m. I am writing. Every day I do my morning show. Sorry!",
+      "zh": "嗨，安娜。對。早上十點我都在寫稿。我每天都要做晨間節目。抱歉！"
+    },
+    {
+      "i": 2,
+      "start": 35.25,
+      "end": 38.13,
+      "en": "Okay. See you later, maybe.",
+      "zh": "好吧。也許晚點見。"
+    },
+    {
+      "i": 3,
+      "start": 38.42,
+      "end": 41.3,
+      "en": "Maybe I’ll see you later.",
+      "zh": "也許晚點見吧。"
+    },
+    {
+      "i": 4,
+      "start": 41.6,
+      "end": 44.47,
+      "en": "Hi, Jonathan. Are you busy?",
+      "zh": "嗨，強納森。你在忙嗎？"
+    },
+    {
+      "i": 5,
+      "start": 44.77,
+      "end": 53.4,
+      "en": "Yes, I’m busy. When the studio light is on, I am recording my evening show.",
+      "zh": "對，我在忙。錄音室的燈亮著的時候，就是我在錄晚間節目。"
+    },
+    {
+      "i": 6,
+      "start": 53.7,
+      "end": 56,
+      "en": "Right. Sorry about yesterday.",
+      "zh": "對喔。昨天的事很抱歉。"
+    },
+    {
+      "i": 7,
+      "start": 56.3,
+      "end": 57.45,
+      "en": "No worries.",
+      "zh": "沒關係。"
+    },
+    {
+      "i": 8,
+      "start": 57.75,
+      "end": 60.62,
+      "en": "May I see the studio?",
+      "zh": "我可以看看錄音室嗎？"
+    },
+    {
+      "i": 9,
+      "start": 60.92,
+      "end": 66.1,
+      "en": "Um, maybe another time? Right now I am busy.",
+      "zh": "呃，改天好嗎？我現在很忙。"
+    },
+    {
+      "i": 10,
+      "start": 66.4,
+      "end": 68.12,
+      "en": "Sure. Okay, ’bye.",
+      "zh": "當然。好，掰。"
+    },
+    {
+      "i": 11,
+      "start": 68.42,
+      "end": 69,
+      "en": "‘Bye.",
+      "zh": "掰。"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 1,
+      "word": "a.m.",
+      "pos": "abbr.",
+      "zh": "上午",
+      "example": "School starts at 8 a.m."
+    },
+    {
+      "sentence": 1,
+      "word": "show",
+      "pos": "n.",
+      "zh": "節目",
+      "example": "My favorite TV show is on tonight."
+    },
+    {
+      "sentence": 2,
+      "word": "later",
+      "pos": "adv.",
+      "zh": "晚點；稍後",
+      "example": "I'll call you later."
+    },
+    {
+      "sentence": 2,
+      "word": "maybe",
+      "pos": "adv.",
+      "zh": "也許",
+      "example": "Maybe it will rain tomorrow."
+    },
+    {
+      "sentence": 5,
+      "word": "studio",
+      "pos": "n.",
+      "zh": "錄音室；攝影棚",
+      "example": "The singer is recording a new song in the studio."
+    },
+    {
+      "sentence": 5,
+      "word": "on",
+      "pos": "adj.",
+      "zh": "（燈、機器）開著的",
+      "example": "Is the TV still on?"
+    },
+    {
+      "sentence": 5,
+      "word": "record",
+      "pos": "v.",
+      "zh": "錄音；錄影",
+      "example": "We recorded a video for our class project."
+    },
+    {
+      "sentence": 7,
+      "word": "no worries",
+      "pos": "phr.",
+      "zh": "沒關係；別在意",
+      "example": "Sorry I'm late. No worries!"
+    },
+    {
+      "sentence": 9,
+      "word": "another time",
+      "pos": "phr.",
+      "zh": "改天",
+      "example": "I can't go today. Maybe another time."
+    },
+    {
+      "sentence": 9,
+      "word": "right now",
+      "pos": "phr.",
+      "zh": "現在；此刻",
+      "example": "I'm eating right now. Can I call you back?"
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 5,
+      "point": "現在進行式：am / is / are + V-ing",
+      "explanation": "表示說話的這一刻正在做的事。I am recording 就是「我正在錄音」。",
+      "example": "I am talking on the phone right now."
+    },
+    {
+      "sentence": 5,
+      "point": "When + 子句, 主要子句",
+      "explanation": "when 帶出「當……的時候」。when 子句放在句首時，後面要加逗號。",
+      "example": "When it rains, I stay home."
+    },
+    {
+      "sentence": 6,
+      "point": "Sorry about + 名詞",
+      "explanation": "為某件事道歉。about 後面接名詞（yesterday、the noise）；接動作時常用 Sorry for + V-ing。",
+      "example": "Sorry about the noise last night."
+    },
+    {
+      "sentence": 8,
+      "point": "May I + 原形動詞?",
+      "explanation": "禮貌地請求許可，比 Can I…? 更正式客氣。",
+      "example": "May I use your pen?"
+    }
+  ]
+}

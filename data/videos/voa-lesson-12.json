@@ -1,0 +1,194 @@
+{
+  "id": "voa-lesson-12",
+  "youtubeId": "ncA2an5c1_g",
+  "title": "Let's Learn English Lesson 12: Meet My Family",
+  "level": "beginner",
+  "category": "daily",
+  "source": "VOA Learning English",
+  "attribution": {
+    "credit": "learningenglish.voanews.com",
+    "license": "Public Domain",
+    "licenseUrl": "https://learningenglish.voanews.com/p/6861.html",
+    "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-12-meet-my-family/3301733.html",
+    "transcriptUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-12-meet-my-family/3301733.html",
+    "changes": "Excerpt (0:15–0:54); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 15,
+      "end": 17.29,
+      "en": "Anna, here's your coffee.",
+      "zh": "安娜，妳的咖啡來了。"
+    },
+    {
+      "i": 1,
+      "start": 17.59,
+      "end": 18.73,
+      "en": "Thanks, Marsha.",
+      "zh": "謝謝，瑪莎。"
+    },
+    {
+      "i": 2,
+      "start": 19.03,
+      "end": 20.17,
+      "en": "What's wrong?",
+      "zh": "怎麼了？"
+    },
+    {
+      "i": 3,
+      "start": 20.47,
+      "end": 25.04,
+      "en": "I'm thinking about my family. I'm feeling homesick.",
+      "zh": "我在想我的家人。我好想家。"
+    },
+    {
+      "i": 4,
+      "start": 25.34,
+      "end": 29.34,
+      "en": "Do you want to talk about it?",
+      "zh": "妳想聊聊嗎？"
+    },
+    {
+      "i": 5,
+      "start": 29.64,
+      "end": 32.5,
+      "en": "Sure! I have some photos.",
+      "zh": "好啊！我有一些照片。"
+    },
+    {
+      "i": 6,
+      "start": 32.8,
+      "end": 35.09,
+      "en": "Yes. Yes, you do!",
+      "zh": "對……妳還真的有呢！"
+    },
+    {
+      "i": 7,
+      "start": 35.39,
+      "end": 37.1,
+      "en": "Photos really help.",
+      "zh": "看照片真的有幫助。"
+    },
+    {
+      "i": 8,
+      "start": 37.4,
+      "end": 44.83,
+      "en": "This is my mother and this is my father. They are rodeo clowns.",
+      "zh": "這是我媽媽，這是我爸爸。他們是牛仔競技表演的小丑。"
+    },
+    {
+      "i": 9,
+      "start": 45.13,
+      "end": 47.99,
+      "en": "What do rodeo clowns do?",
+      "zh": "牛仔競技小丑是做什麼的？"
+    },
+    {
+      "i": 10,
+      "start": 48.29,
+      "end": 54,
+      "en": "They make jokes at a rodeo. They make people laugh.",
+      "zh": "他們在牛仔競技表演上講笑話，逗大家笑。"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 0,
+      "word": "here's",
+      "pos": "phr.",
+      "zh": "這是……（把東西遞給別人時說）",
+      "example": "Here's your change."
+    },
+    {
+      "sentence": 2,
+      "word": "wrong",
+      "pos": "adj.",
+      "zh": "不對勁的；有問題的",
+      "example": "You look sad. What's wrong?"
+    },
+    {
+      "sentence": 3,
+      "word": "think about",
+      "pos": "phr. v.",
+      "zh": "想著；考慮",
+      "example": "I'm thinking about my weekend plans."
+    },
+    {
+      "sentence": 3,
+      "word": "homesick",
+      "pos": "adj.",
+      "zh": "想家的",
+      "example": "She felt homesick during her first month abroad."
+    },
+    {
+      "sentence": 4,
+      "word": "talk about",
+      "pos": "phr. v.",
+      "zh": "談論；聊",
+      "example": "Let's talk about the test tomorrow."
+    },
+    {
+      "sentence": 5,
+      "word": "photo",
+      "pos": "n.",
+      "zh": "照片",
+      "example": "Can you take a photo of us?"
+    },
+    {
+      "sentence": 7,
+      "word": "help",
+      "pos": "v.",
+      "zh": "有幫助；幫忙",
+      "example": "A cup of hot tea always helps."
+    },
+    {
+      "sentence": 8,
+      "word": "rodeo",
+      "pos": "n.",
+      "zh": "牛仔競技表演",
+      "example": "We watched cowboys ride horses at the rodeo."
+    },
+    {
+      "sentence": 8,
+      "word": "clown",
+      "pos": "n.",
+      "zh": "小丑",
+      "example": "The clown made the children laugh."
+    },
+    {
+      "sentence": 10,
+      "word": "joke",
+      "pos": "n.",
+      "zh": "笑話（make jokes：開玩笑）",
+      "example": "He always makes jokes in class."
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 3,
+      "point": "I'm feeling + 形容詞",
+      "explanation": "用進行式說「此刻」的感受。也可以用簡單式 I feel homesick，意思差不多。",
+      "example": "I'm feeling tired today."
+    },
+    {
+      "sentence": 4,
+      "point": "Do you want to + 原形動詞?",
+      "explanation": "詢問對方想不想做某事，也常用來提出邀請或建議。",
+      "example": "Do you want to get lunch together?"
+    },
+    {
+      "sentence": 6,
+      "point": "簡答：Yes, you do.",
+      "explanation": "用助動詞 do 代替前面說過的動詞片語（have some photos），避免重複。",
+      "example": "Do you like coffee? Yes, I do."
+    },
+    {
+      "sentence": 10,
+      "point": "make + 人 + 原形動詞",
+      "explanation": "使役用法，表示「讓某人做某事」。make 後面的動詞用原形，不加 to。",
+      "example": "Sad movies always make me cry."
+    }
+  ]
+}

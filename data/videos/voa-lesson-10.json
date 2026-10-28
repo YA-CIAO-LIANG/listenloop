@@ -1,0 +1,201 @@
+{
+  "id": "voa-lesson-10",
+  "youtubeId": "34LhID6vT1k",
+  "title": "Let's Learn English Lesson 10: Come Over to My Place",
+  "level": "beginner",
+  "category": "daily",
+  "source": "VOA Learning English",
+  "attribution": {
+    "credit": "learningenglish.voanews.com",
+    "license": "Public Domain",
+    "licenseUrl": "https://learningenglish.voanews.com/p/6861.html",
+    "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-10/3285228.html",
+    "transcriptUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-10/3285228.html",
+    "changes": "Excerpt (0:15–1:11); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 15,
+      "end": 16.08,
+      "en": "Hi Ashley!",
+      "zh": "嗨，艾希莉！"
+    },
+    {
+      "i": 1,
+      "start": 16.38,
+      "end": 22.29,
+      "en": "Hi Anna! I’m coming to your apartment. Where is your apartment?",
+      "zh": "嗨，安娜！我正要去妳的公寓。妳的公寓在哪裡？"
+    },
+    {
+      "i": 2,
+      "start": 22.59,
+      "end": 26.89,
+      "en": "My apartment is near the Columbia Heights Metro.",
+      "zh": "我的公寓在哥倫比亞高地地鐵站附近。"
+    },
+    {
+      "i": 3,
+      "start": 27.19,
+      "end": 30.96,
+      "en": "It is near the Columbia Heights Metro?",
+      "zh": "在哥倫比亞高地地鐵站附近？"
+    },
+    {
+      "i": 4,
+      "start": 31.26,
+      "end": 40.94,
+      "en": "Yes. Exit the Metro and turn right. Then at the bus station turn left. Then walk straight ahead.",
+      "zh": "對。出地鐵站後右轉。然後在公車站左轉。接著直直往前走。"
+    },
+    {
+      "i": 5,
+      "start": 41.24,
+      "end": 47.15,
+      "en": "Okay. Exit Metro, turn right, turn left, then go straight ahead?",
+      "zh": "好。出地鐵站、右轉、左轉，然後直走？"
+    },
+    {
+      "i": 6,
+      "start": 47.45,
+      "end": 51.75,
+      "en": "Yes. My apartment is near a coffee shop.",
+      "zh": "對。我的公寓在一家咖啡店附近。"
+    },
+    {
+      "i": 7,
+      "start": 52.05,
+      "end": 54.21,
+      "en": "Okay. See you soon!",
+      "zh": "好。待會見！"
+    },
+    {
+      "i": 8,
+      "start": 54.51,
+      "end": 55.58,
+      "en": "Hi, Ashley.",
+      "zh": "嗨，艾希莉。"
+    },
+    {
+      "i": 9,
+      "start": 55.88,
+      "end": 60.72,
+      "en": "Anna, which coffee shop? There are three coffee shops.",
+      "zh": "安娜，是哪一家咖啡店？這裡有三家咖啡店。"
+    },
+    {
+      "i": 10,
+      "start": 61.02,
+      "end": 66.4,
+      "en": "Okay, my apartment is across from a big department store.",
+      "zh": "好，我的公寓在一家大型百貨公司對面。"
+    },
+    {
+      "i": 11,
+      "start": 66.7,
+      "end": 71,
+      "en": "A big department store? Ah, I see it!",
+      "zh": "大型百貨公司？啊，我看到了！"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 1,
+      "word": "apartment",
+      "pos": "n.",
+      "zh": "公寓",
+      "example": "My apartment is on the fifth floor."
+    },
+    {
+      "sentence": 2,
+      "word": "near",
+      "pos": "prep.",
+      "zh": "在……附近",
+      "example": "Is there a bank near here?"
+    },
+    {
+      "sentence": 2,
+      "word": "Metro",
+      "pos": "n.",
+      "zh": "地鐵（華盛頓特區的地鐵系統）",
+      "example": "I take the Metro to work every day."
+    },
+    {
+      "sentence": 4,
+      "word": "exit",
+      "pos": "v.",
+      "zh": "離開；從……出去",
+      "example": "Exit the building through the back door."
+    },
+    {
+      "sentence": 4,
+      "word": "turn right / turn left",
+      "pos": "phr.",
+      "zh": "右轉／左轉",
+      "example": "Turn left at the next corner."
+    },
+    {
+      "sentence": 4,
+      "word": "bus station",
+      "pos": "n.",
+      "zh": "公車站",
+      "example": "The bus station is across the street."
+    },
+    {
+      "sentence": 4,
+      "word": "straight ahead",
+      "pos": "phr.",
+      "zh": "直直往前",
+      "example": "Walk straight ahead and you will see the park."
+    },
+    {
+      "sentence": 6,
+      "word": "coffee shop",
+      "pos": "n.",
+      "zh": "咖啡店",
+      "example": "Let's meet at the coffee shop after class."
+    },
+    {
+      "sentence": 7,
+      "word": "soon",
+      "pos": "adv.",
+      "zh": "很快；不久",
+      "example": "Dinner will be ready soon."
+    },
+    {
+      "sentence": 10,
+      "word": "department store",
+      "pos": "n.",
+      "zh": "百貨公司",
+      "example": "I bought these shoes at a department store."
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 1,
+      "point": "現在進行式表示馬上要做的事",
+      "explanation": "be + V-ing 除了「正在做」，也可以表示已經決定、馬上就要做的事。I'm coming 是「我正要過去」。",
+      "example": "I'm meeting my friends tonight."
+    },
+    {
+      "sentence": 3,
+      "point": "直述句加問號：確認聽到的資訊",
+      "explanation": "不改成問句語序，直接把肯定句說成上揚語調，表示驚訝或想確認剛聽到的內容。",
+      "example": "You live in Taichung?"
+    },
+    {
+      "sentence": 4,
+      "point": "祈使句指路：動詞 + then + 動詞",
+      "explanation": "用原形動詞開頭說明每一步路線，用 then 連接下一步。",
+      "example": "Go out the door, turn left, then walk straight ahead."
+    },
+    {
+      "sentence": 9,
+      "point": "There are + 複數名詞",
+      "explanation": "表示某處「有……」。後面是複數名詞用 There are，單數用 There is。",
+      "example": "There are two parks near my school."
+    }
+  ]
+}

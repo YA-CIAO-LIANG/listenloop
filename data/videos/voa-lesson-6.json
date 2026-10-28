@@ -1,0 +1,201 @@
+{
+  "id": "voa-lesson-6",
+  "youtubeId": "zkEnsSVBfPM",
+  "title": "Let's Learn English Lesson 6: Where Is the Gym?",
+  "level": "beginner",
+  "category": "daily",
+  "source": "VOA Learning English",
+  "attribution": {
+    "credit": "learningenglish.voanews.com",
+    "license": "Public Domain",
+    "licenseUrl": "https://learningenglish.voanews.com/p/6861.html",
+    "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-6-where-is-the-gym/3225958.html",
+    "transcriptUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-6-where-is-the-gym/3225958.html",
+    "changes": "Excerpt (0:21–1:16); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 21,
+      "end": 26.17,
+      "en": "Hi, Anna. It’s going great. How’s it going with you?",
+      "zh": "嗨，安娜。我很好。妳最近好嗎？"
+    },
+    {
+      "i": 1,
+      "start": 26.47,
+      "end": 33.19,
+      "en": "Things are awesome! Pete, I want to work out. Where is the gym?",
+      "zh": "一切都超棒的！彼特，我想去運動。健身房在哪裡？"
+    },
+    {
+      "i": 2,
+      "start": 33.49,
+      "end": 41.25,
+      "en": "The gym is across from the lounge. It’s next to the mailroom. Go that way.",
+      "zh": "健身房在交誼廳對面，就在收發室旁邊。往那邊走。"
+    },
+    {
+      "i": 3,
+      "start": 41.55,
+      "end": 42.58,
+      "en": "Thanks, Pete!",
+      "zh": "謝啦，彼特！"
+    },
+    {
+      "i": 4,
+      "start": 42.88,
+      "end": 47.02,
+      "en": "No, Anna! Not that way! Go that way!",
+      "zh": "不對，安娜！不是那邊！是往那邊走！"
+    },
+    {
+      "i": 5,
+      "start": 47.32,
+      "end": 50.93,
+      "en": "Oh, Pete. This is not the gym.",
+      "zh": "噢，彼特。這裡不是健身房。"
+    },
+    {
+      "i": 6,
+      "start": 51.23,
+      "end": 54.85,
+      "en": "That’s right, Anna. This is the mailroom.",
+      "zh": "沒錯，安娜。這裡是收發室。"
+    },
+    {
+      "i": 7,
+      "start": 55.15,
+      "end": 58.77,
+      "en": "The gym is across from … what?",
+      "zh": "健身房在……什麼的對面？"
+    },
+    {
+      "i": 8,
+      "start": 59.07,
+      "end": 62.69,
+      "en": "The gym is across from the lounge.",
+      "zh": "健身房在交誼廳對面。"
+    },
+    {
+      "i": 9,
+      "start": 62.99,
+      "end": 66.09,
+      "en": "Across from the lounge. Right. Thanks!",
+      "zh": "交誼廳對面。對喔。謝啦！"
+    },
+    {
+      "i": 10,
+      "start": 66.39,
+      "end": 69.5,
+      "en": "Pete! This is not the gym!",
+      "zh": "彼特！這裡不是健身房！"
+    },
+    {
+      "i": 11,
+      "start": 69.8,
+      "end": 76,
+      "en": "The gym is across from the lounge. It is behind the lobby.",
+      "zh": "健身房在交誼廳對面，在大廳後面。"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 0,
+      "word": "How's it going?",
+      "pos": "phr.",
+      "zh": "最近好嗎？；近來如何？",
+      "example": "Hi, Tom! How's it going at your new school?"
+    },
+    {
+      "sentence": 1,
+      "word": "awesome",
+      "pos": "adj.",
+      "zh": "很棒的；超讚的",
+      "example": "The concert last night was awesome."
+    },
+    {
+      "sentence": 1,
+      "word": "work out",
+      "pos": "phr. v.",
+      "zh": "運動；健身",
+      "example": "I work out three times a week."
+    },
+    {
+      "sentence": 1,
+      "word": "gym",
+      "pos": "n.",
+      "zh": "健身房；體育館",
+      "example": "Our school has a new gym."
+    },
+    {
+      "sentence": 2,
+      "word": "across from",
+      "pos": "prep.",
+      "zh": "在……對面",
+      "example": "The bank is across from the post office."
+    },
+    {
+      "sentence": 2,
+      "word": "lounge",
+      "pos": "n.",
+      "zh": "交誼廳；休息室",
+      "example": "Students like to study in the lounge."
+    },
+    {
+      "sentence": 2,
+      "word": "next to",
+      "pos": "prep.",
+      "zh": "在……旁邊",
+      "example": "Please sit next to me."
+    },
+    {
+      "sentence": 2,
+      "word": "mailroom",
+      "pos": "n.",
+      "zh": "收發室",
+      "example": "Your package is in the mailroom."
+    },
+    {
+      "sentence": 11,
+      "word": "behind",
+      "pos": "prep.",
+      "zh": "在……後面",
+      "example": "The cat is hiding behind the sofa."
+    },
+    {
+      "sentence": 11,
+      "word": "lobby",
+      "pos": "n.",
+      "zh": "大廳",
+      "example": "Let's meet in the hotel lobby."
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 1,
+      "point": "Where is + 名詞?",
+      "explanation": "問某個地方或東西在哪裡。回答時用 It is (It's) + 表示位置的片語。",
+      "example": "Where is the restroom? It's behind the stairs."
+    },
+    {
+      "sentence": 2,
+      "point": "be + across from / next to / behind + 地點",
+      "explanation": "用 be 動詞加上表示位置的介系詞，說明東西在哪裡：across from（在對面）、next to（在旁邊）、behind（在後面）。across from 和 next to 都是兩個字一組。",
+      "example": "The library is next to the cafeteria."
+    },
+    {
+      "sentence": 4,
+      "point": "祈使句：Go that way. / Not that way!",
+      "explanation": "用原形動詞開頭（Go…）直接給指示，省略主詞 you。口語常用「Not + 地方」簡短否定，意思等於 Don't go that way.",
+      "example": "Turn left here. No, not that way!"
+    },
+    {
+      "sentence": 5,
+      "point": "This is (not) + 名詞",
+      "explanation": "指著眼前的東西或地方說「這（不）是……」。否定時把 not 放在 is 後面。",
+      "example": "This is not my bag. This is Amy's bag."
+    }
+  ]
+}
