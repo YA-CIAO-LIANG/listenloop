@@ -11,6 +11,10 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
 import { renderWithIntl } from "../render";
 
+// These cover the aquarium rewards themselves, so run them with the
+// feature on (it's off in the app: see lib/features.ts).
+vi.mock("@/lib/features", () => ({ AQUARIUM_ENABLED: true }));
+
 vi.mock("@/components/youtube/useYouTubePlayer", () => ({
   useYouTubePlayer: () => ({
     containerRef: () => {},

@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { ShopView } from "@/components/ShopView";
 import { fishCatalog } from "@/data/fish";
+import { AQUARIUM_ENABLED } from "@/lib/features";
 
 export async function generateMetadata(): Promise<Metadata> {
+  if (!AQUARIUM_ENABLED) return {};
   const t = await getTranslations("shop");
   return { title: t("title") };
 }
 
+/** The fish shop and My fish; 404 while the aquarium feature is off. */
 export default async function ShopPage() {
+  if (!AQUARIUM_ENABLED) notFound();
   const t = await getTranslations("shop");
 
   return (

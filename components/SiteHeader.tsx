@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { AQUARIUM_ENABLED } from "@/lib/features";
 import { Divider } from "./Divider";
 import { LanguageToggle } from "./LanguageToggle";
 import { RewardBadge } from "./RewardBadge";
@@ -16,8 +17,12 @@ export function SiteHeader() {
           {t("appName")}
         </Link>
         <div className="flex items-center gap-3">
-          <RewardBadge />
-          <Divider orientation="vertical" className="my-2" />
+          {AQUARIUM_ENABLED && (
+            <>
+              <RewardBadge />
+              <Divider orientation="vertical" className="my-2" />
+            </>
+          )}
           <LanguageToggle />
           <Divider orientation="vertical" className="my-2" />
           <ThemeToggle />
