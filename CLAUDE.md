@@ -20,11 +20,24 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 ## 產品目標
 
-使用者選一支英文影片，進行 7 天的循環練習，訓練「聽清楚每個字」的確定感。
-先用內建影片庫（20～30 支），流程穩定後才開放使用者貼自己的 YouTube 連結。
-網頁版先上線（Vercel），再以 PWA 打包上架 Google Play。
+使用者選一份英文聽力素材，進行 7 天的循環練習，訓練「聽清楚每個字」的確定感。
+
+- **內建內容庫**：公有領域或 CC BY 素材（Blender 開放電影、VOA Learning English、美國國務院 Everyday Conversations 等），一律標示出處；排除 AP、Reuters、AFP 等通訊社素材。
+- **帳號與雲端進度**：Google 登入，進度存在雲端，可以刪除帳號。
+- **同時練習多部影片**：每支影片各自有 7 天循環與起始日。
+- **自建練習**：上傳中文或英文文字檔，用聲音 API 產生音檔；可以整理成 Collection 與筆記本，設為公開或私人。
+- **公開分享**：瀏覽他人公開的練習，可以檢舉，管理員可以下架。
+- **先專心做功能**：付費方案、金流、上架 Google Play 之後再做。網頁版先上線（Vercel），之後以 PWA 打包上架。
+
 產品定位：不是工具，而是有節奏的課程；重點是「看得見的進步」。
 目標使用者：台灣學生（含留學生）。
+
+### 架構要求：方案限制與付費 API
+
+- **方案限制**（同時練習數、每月建立數、每篇字數）寫成集中的權限設定，程式只透過它判斷能不能做；目前全部不限制，未來收費時只改設定，不改功能程式碼。
+- **聲音 API 與 AI 翻譯**：付費功能上線前只開放給管理員帳號（我）。在伺服器端呼叫，API key 只放環境變數；設每日用量上限與費用警示。
+- **相同文字＋相同聲音只產生一次**：用內容雜湊快取，重複建立時直接沿用。
+- 要導入的外部服務（Supabase、聲音 API、翻譯 API）在各里程碑的計畫中提出，經我同意才導入；仍遵守「不自行新增付費或需要信用卡的服務」。
 
 ## 週循環規則
 
@@ -53,7 +66,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - 必須遵守 YouTube 條款：播放器至少 200×200 px、不可在播放器上加遮罩或任何覆蓋元素、不可隱藏畫面只播聲音、不可使用 API 文件沒有寫的功能（例如 `unloadModule`）。
   - 字幕：官方沒有可強制關閉的參數，字幕依使用者自己的偏好顯示。聽寫與跟讀頁面要提示使用者點播放器的 CC 按鈕關閉字幕（2026-10-26 決定，方案 A）。
 - 跟讀：Web Speech API（en-US），建議 Chrome。
-- 進度：MVP 用 localStorage，透過 `lib/storage` 抽象層存取，未來可換成 Supabase。
+- 進度：MVP 用 localStorage，透過 `lib/storage` 抽象層存取；M4 搬到 Supabase（登入後把 localStorage 的進度搬到雲端）。
 - PDF：列印專用 CSS ＋瀏覽器列印。
 - 部署：Vercel（Hobby）；PWA：manifest ＋ service worker；Android：PWABuilder。
 
@@ -61,7 +74,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 - **專案結構**：`app/`（頁面）、`components/`（UI 元件）、`lib/`（純邏輯：評分、循環、儲存、語言偵測）、`i18n/`（next-intl 請求設定與切換語言的 Server Action；會讀寫 cookie，所以不放 `lib/`）、`messages/`（翻譯檔）、`data/videos/`（影片 JSON）、`scripts/`（預處理）、`docs/`（規格文件）、`tests/`。
 - **品質工具**：ESLint ＋ Prettier；husky ＋ lint-staged 提交前自動檢查。
-- **測試**：Vitest 單元測試，`lib/` 的評分與循環邏輯必須有測試；M4 以 Playwright 做主要流程的 E2E 測試。
+- **測試**：Vitest 單元測試，`lib/` 的評分與循環邏輯必須有測試；品質打磨階段以 Playwright 做主要流程的 E2E 測試。
 - **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。`content/` 的 PR 和 `feat/` 一樣，CI 通過後要等我說「合併」（內容需要審稿）。
 - **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改），執行 lint、format:check、typecheck、test、build。
 - **秘密資訊**：API key 只放 `.env.local`，必須在 `.gitignore`；`.env.example` 提供範本。
@@ -102,7 +115,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 ```
 
 - `attribution` 必填，播放頁一律顯示出處。`license` 只能是 `Public Domain`、`CC BY x.x` 或 `CC BY-SA x.x`（NC、ND 會被驗證擋下）。授權規則與候選影片見 `docs/video-candidates.md`。
-- 英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。
+- 內建內容庫：英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。使用者自建練習（M6）只在建立時呼叫翻譯與聲音 API，練習時不呼叫。
 - `vocab`、`grammar` 每一筆的 `sentence` 是出處句子的索引（對應 `sentences[].i`，必填）。聽寫每句答完後，顯示這句的中文與對應的單字、文法。
 - 製作流程（查證 → 句子 → 草稿 → 翻譯講解 → 校正時間點 → 上架）見 `docs/content-workflow.md`。草稿用 `npm run video:new -- meta.json sentences.txt` 產生。
 - `draft: true`（選填）：製作中的影片，不出現在影片庫，影片頁與練習頁回 404，只有 `/videos/<id>/timing` 打得開；草稿的中文可以是「（待翻譯）」、單字與文法可以是空的，正式影片不行（驗證會擋）。
@@ -175,7 +188,9 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - **互動**：點魚會轉身、吐泡泡並顯示名字；點玻璃附近的魚會散開；游標或手指移動時魚會好奇靠近。reduced motion 時只顯示名字、不播動畫。
   - **PR 拆法**：a 點數與飼料的獲得、帳本；b 商店、我的魚、素材出處頁（影片）；b2 像素小丑魚樣板（`/styleguide`，確認風格後才做其他魚種）；b3 其他魚種與商店像素縮圖；c 像素風魚缸、餵魚、飢餓、日曆、互動。
   - 魚、魚缸、飼料都由程式繪製，不使用第三方素材；若日後使用外部素材，只能用 CC0、CC BY，授權在官方頁面確認並在 `/credits` 標示出處。
-- [ ] **M3 內容庫**：預處理腳本、20～30 支影片（第一個里程碑 20 支：Sintel、3 支 Blender、16 課 VOA Let's Learn English；分 M3-1 工具、M3-2～4 內容批次、M3-5 影片庫篩選）
-- [ ] **M4 品質打磨**：E2E 測試、無障礙、效能、錯誤處理、隱私權政策
-- [ ] **M5 Beta**：真實使用者試用一週並修正
-- [ ] **M6 上架**：PWA → PWABuilder → Google Play 封閉測試 → 正式上線
+- [ ] **M3 內容庫**：VOA Learning English、美國國務院 Everyday Conversations 等公有領域或 CC BY 素材，標示出處，排除 AP、Reuters、AFP 素材。已完成 M3-1 內容工具（草稿、點按校正、`npm run video:new`）。注意：VOA 2016 年舊版課程頁的逐字稿曾與 YouTube 影片對不上（2026-10-28，PR #28 關閉），新素材要先確認逐字稿與聲音一致。
+- [ ] **M4 帳號**：Supabase、Google 登入、localStorage 進度搬到雲端、刪除帳號功能、隱私權政策（Google 登入需要）。
+- [ ] **M5 同時練習多部影片**：每支影片各自的 7 天循環與起始日。
+- [ ] **M6 建立練習**：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。
+- [ ] **M7 公開分享**：瀏覽他人公開的練習、檢舉與下架。
+- [ ] **之後**：品質打磨（E2E 測試、無障礙、效能、錯誤處理）與 Beta 試用；付費方案、金流；PWA → PWABuilder → Google Play 上架。
