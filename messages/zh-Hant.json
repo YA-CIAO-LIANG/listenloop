@@ -77,6 +77,16 @@
     "nextTomorrow": "第 {day} 天（{task}）明天開放。",
     "nextOpen": "第 {day} 天已開放"
   },
+  "calendar": {
+    "title": "練習日曆",
+    "previousMonth": "上個月",
+    "nextMonth": "下個月",
+    "caption": "練習日曆：有完成任務的日子標有圓點，選一天可以看當天完成的任務",
+    "taskLine": "<video>{title}</video>｜第 {day} 天 {task}",
+    "none": "這天沒有完成任務",
+    "dayLabel": "{date}，{count, plural, =0 {沒有完成任務} other {完成 # 個任務}}{today, select, yes {（今天）} other {}}",
+    "today": "今天"
+  },
   "week": {
     "resultTitle": "第 {week} 週結果",
     "day1": "第 1 天",

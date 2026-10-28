@@ -88,3 +88,19 @@ export function updateWallet(
     return after;
   });
 }
+
+/**
+ * Applies `change` to the saved activity log (e.g. noting a finished task),
+ * in the same queue as claims so neither overwrites the other.
+ */
+export function updateActivity(
+  rewards: RewardStore,
+  change: (activity: Activity) => Activity,
+): Promise<Activity> {
+  return serialize(async () => {
+    const before = await rewards.getActivity();
+    const after = change(before);
+    if (after !== before) await rewards.saveActivity(after);
+    return after;
+  });
+}

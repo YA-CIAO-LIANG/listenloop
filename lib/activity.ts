@@ -1,15 +1,23 @@
 import { isLocalDate, type LocalDate } from "./dates";
 import type { Progress } from "./progress";
 
+/** One finished official task: which video, which week, which day. */
+export type PracticeTask = { videoId: string; week: number; day: number };
+
 /**
  * What happened on one calendar day. Retries aren't saved in progress (they
  * never change official results), so they are logged here for rewards.
+ * `tasks` keeps each finished official task for the practice calendar, so
+ * repeating a week (which clears its days) doesn't erase the history. It's
+ * practice data, kept whether or not the reward features are on.
  */
 export type DayActivity = {
   /** An official task was finished that day. */
   official: boolean;
   /** Videos with a finished retry that day, each listed once. */
   retries: string[];
+  /** Official tasks finished that day (added later; older logs lack it). */
+  tasks?: PracticeTask[];
 };
 
 /** Saved as ll-activity:v1 (see CLAUDE.md 資料格式). */
@@ -33,6 +41,26 @@ export function recordOfficial(activity: Activity, date: LocalDate): Activity {
   const day = dayOf(activity, date);
   if (day.official) return activity;
   return withDayActivity(activity, date, { ...day, official: true });
+}
+
+/** Notes a finished official task on `date` (same object if already noted). */
+export function recordTask(
+  activity: Activity,
+  date: LocalDate,
+  task: PracticeTask,
+): Activity {
+  const day = dayOf(activity, date);
+  const tasks = day.tasks ?? [];
+  const known = tasks.some(
+    (t) =>
+      t.videoId === task.videoId && t.week === task.week && t.day === task.day,
+  );
+  if (known && day.official) return activity;
+  return withDayActivity(activity, date, {
+    ...day,
+    official: true,
+    tasks: known ? tasks : [...tasks, task],
+  });
 }
 
 /** Notes a finished retry of a video on `date` (same object if already noted). */
@@ -69,6 +97,19 @@ export function officialDates(
   return [...dates].sort();
 }
 
+function isTask(value: unknown): value is PracticeTask {
+  if (typeof value !== "object" || value === null) return false;
+  const { videoId, week, day } = value as Record<string, unknown>;
+  return (
+    typeof videoId === "string" &&
+    Number.isInteger(week) &&
+    (week as number) >= 1 &&
+    Number.isInteger(day) &&
+    (day as number) >= 1 &&
+    (day as number) <= 7
+  );
+}
+
 /** Validates stored data; anything malformed returns null (treated as empty). */
 export function parseActivity(data: unknown): Activity | null {
   if (typeof data !== "object" || data === null) return null;
@@ -80,12 +121,15 @@ export function parseActivity(data: unknown): Activity | null {
     if (!isLocalDate(date) || typeof day !== "object" || day === null) {
       return null;
     }
-    const { official, retries } = day as Record<string, unknown>;
+    const { official, retries, tasks } = day as Record<string, unknown>;
     if (
       typeof official !== "boolean" ||
       !Array.isArray(retries) ||
       !retries.every((id) => typeof id === "string")
     ) {
+      return null;
+    }
+    if (tasks !== undefined && !(Array.isArray(tasks) && tasks.every(isTask))) {
       return null;
     }
   }
