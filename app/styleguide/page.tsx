@@ -7,6 +7,7 @@ import { Card } from "@/components/Card";
 import { CardLink } from "@/components/CardLink";
 import { Divider } from "@/components/Divider";
 import { FeedIcon, LockIcon, PointsIcon } from "@/components/icons";
+import { AQUARIUM_ENABLED } from "@/lib/features";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
 import { ScoreBadge } from "@/components/ScoreBadge";
@@ -152,9 +153,11 @@ export default function StyleguidePage() {
         </div>
       </Section>
 
-      <Section title={t("sections.pixelFish")}>
-        <PixelFishSection />
-      </Section>
+      {AQUARIUM_ENABLED && (
+        <Section title={t("sections.pixelFish")}>
+          <PixelFishSection />
+        </Section>
+      )}
 
       <Section title={t("sections.components")}>
         <div className="space-y-12">
@@ -206,8 +209,12 @@ export default function StyleguidePage() {
               {(
                 [
                   ["LockIcon", LockIcon],
-                  ["PointsIcon", PointsIcon],
-                  ["FeedIcon", FeedIcon],
+                  ...(AQUARIUM_ENABLED
+                    ? ([
+                        ["PointsIcon", PointsIcon],
+                        ["FeedIcon", FeedIcon],
+                      ] as const)
+                    : []),
                 ] as const
               ).map(([name, Icon]) => (
                 <li key={name} className="flex items-center gap-2">

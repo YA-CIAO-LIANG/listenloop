@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useState } from "react";
 import type { ClaimResult, RewardStores } from "@/lib/claim-rewards";
+import { AQUARIUM_ENABLED } from "@/lib/features";
 import type { Gained } from "@/lib/wallet";
 import { FeedIcon, PointsIcon } from "./icons";
 import { claimAndAnnounce, useLatestGain, useRewardEvents } from "./useRewards";
@@ -105,6 +106,10 @@ export function RewardBadge({ stores }: RewardBadgeProps) {
  * when this visit actually earned something.
  */
 export function RewardGainedNote() {
+  return AQUARIUM_ENABLED ? <GainedNote /> : null;
+}
+
+function GainedNote() {
   const t = useTranslations("rewards");
   const gainText = useGainText();
   const gain = useLatestGain();

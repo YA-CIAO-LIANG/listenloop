@@ -207,6 +207,8 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 ## 獎勵（點數與飼料）
 
+> M2.5 暫停：本節的畫面目前以功能開關關閉（`lib/features.ts`），規格保留供日後恢復。
+
 規則見 `docs/aquarium.md`。點數只用來買魚；飼料每天完成任務得 1 份，用來餵魚。
 
 - 頁首（`RewardBadge`，語言切換左邊，中間以 vertical Divider 分隔）：`PointsIcon`＋（760px 以上才顯示的 ink-muted「點數」）＋數字、`FeedIcon`＋「飼料」＋數字；supporting 字級、tabular-nums，圖示 16px accent-ink。螢幕閱讀器讀完整文字「點數 120、飼料 2 份」。讀到資料前不顯示（伺服器 HTML 一致）。
@@ -215,6 +217,8 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 圖示：`PointsIcon`（貝殼）、`FeedIcon`（三顆飼料），16×16 viewBox、線寬 1.25，與 `LockIcon` 同一套；一律搭配可見文字或螢幕閱讀器文字。
 
 ## 像素魚（M2.5 魚缸）
+
+> M2.5 暫停：本節的畫面目前以功能開關關閉（`lib/features.ts`），規格保留供日後恢復。
 
 魚、魚缸、飼料都是程式繪製的「高細節寫實像素風」（`lib/pixel-fish/`，規劃見 `docs/aquarium.md`）。風格是「寫實配色＋大眼萌系」：花紋、配色、光影寫實，眼睛超大、身體稍圓稍短（完整規則見 `docs/aquarium.md` 第 1a 節，所有魚種都照這套規則）。樣板在 `/styleguide` 的「PixelFish · clownfish」。
 
@@ -233,6 +237,8 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 無障礙：單張畫格的 canvas 是裝飾（`aria-hidden`），旁邊一定有文字；會動的魚缸 canvas 用 `role="img"` 與說明文字。
 
 ## 魚店與我的魚
+
+> M2.5 暫停：本節的畫面目前以功能開關關閉（`lib/features.ts`），規格保留供日後恢復。
 
 - 路徑 `/shop`，內容寬度上限 1080px。入口：頁首的點數徽章整個是連到魚店的連結（螢幕閱讀器讀「點數 120、飼料 2 份，前往魚店」）。
 - 由上到下：h1「魚店」→ 說明（ink-muted，點數只能買魚、不能退回）→ Display h3「你有 120 點數」→ 購買結果（aria-live，success）→ 魚的卡片（Card，760px 以上兩欄）→「我的魚」→ 頁尾「素材出處」連結。

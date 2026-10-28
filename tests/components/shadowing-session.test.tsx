@@ -1,6 +1,7 @@
 import { act, fireEvent, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ShadowingSession } from "@/components/ShadowingSession";
+import { toLocalDate } from "@/lib/dates";
 import { SILENCE_MS } from "@/components/speech/useSpeechRecognition";
 import type { Progress } from "@/lib/progress";
 import { startShadowing, submitShadowing } from "@/lib/shadowing";
@@ -67,7 +68,8 @@ const video: Video = {
   grammar: [],
 };
 
-const today = "2026-10-27";
+// The session stamps the real date, so compare with it.
+const today = toLocalDate(new Date());
 
 function memoryStore(initial: Progress | null = null) {
   let saved = initial;

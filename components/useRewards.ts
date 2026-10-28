@@ -8,6 +8,7 @@ import {
   type RewardStores,
 } from "@/lib/claim-rewards";
 import { toLocalDate } from "@/lib/dates";
+import { AQUARIUM_ENABLED } from "@/lib/features";
 import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
 import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 
@@ -23,11 +24,13 @@ let lastGain: { result: ClaimResult; at: number } | null = null;
  * Claims new rewards (optionally logging today's activity first) and tells
  * the page. Failures (e.g. blocked storage) are ignored: rewards are a bonus
  * and must never break practice. Missing stores default to localStorage.
+ * Does nothing while the aquarium feature is off.
  */
 export async function claimAndAnnounce(
   stores: Partial<RewardStores> = {},
   log?: (activity: Activity) => Activity,
 ): Promise<ClaimResult | null> {
+  if (!AQUARIUM_ENABLED) return null;
   try {
     const result = await claimRewards(
       {
