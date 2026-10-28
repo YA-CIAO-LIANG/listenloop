@@ -4,15 +4,15 @@ M3 擴充影片庫時從這裡接著做。每支都已確認：授權在官方�
 
 ## M3 進度
 
-製作流程見 `docs/content-workflow.md`。第一個里程碑：20 支。
+製作流程見 `docs/content-workflow.md`。只用 Blender 開放電影，一部切成多段（每段約 10～12 句，各算一支影片），目標是 Blender 片能做到的最多支數，預估 12～13 支（2026-10-28 決定；VOA 已排除，見下方）。
 
-| PR   | 內容                                                                      | 狀態  |
-| ---- | ------------------------------------------------------------------------- | ----- |
-| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件     | 本 PR |
-| M3-2 | VOA Lesson 6、7、8、10、12                                                | 待做  |
-| M3-3 | 再 8 課 VOA Let's Learn English（待查證）                                 | 待做  |
-| M3-4 | Elephants Dream、Cosmos Laundromat、Sprite Fright＋3 課 VOA（合計 20 支） | 待做  |
-| M3-5 | 影片庫依程度、類別篩選                                                    | 待做  |
+| PR   | 內容                                                                  | 狀態  |
+| ---- | --------------------------------------------------------------------- | ----- |
+| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成  |
+| M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕（文字與時間照字幕）        | 本 PR |
+| M3-3 | Tears of Steel 3 段                                                   | 待做  |
+| M3-4 | Elephants Dream、Cosmos Laundromat、Sprite Fright 共約 8 段           | 待做  |
+| M3-5 | 影片庫依程度、類別篩選（視影片數量，也可能縮小成簡單分組）            | 待做  |
 
 ## 授權規則
 
@@ -31,39 +31,22 @@ M3 擴充影片庫時從這裡接著做。每支都已確認：授權在官方�
 
 官方 YouTube 頻道：`UCSMOQeBJ2RAnuFungnQOxLg`「Blender」（blender.org 連到 youtube.com/BlenderFoundation）、`UCz75RVbH8q2jdBJ4SnwuZZQ`「Blender Studio」（studio.blender.org 連到 @BlenderStudio）。
 
-| 影片              | YouTube（頻道）                                                               | 授權（官方頁面）                                                                                                             | 出處註明（官方原文）                                                            | 逐字稿                                               |
-| ----------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| Elephants Dream   | [TLkA0RELQ1g](https://www.youtube.com/watch?v=TLkA0RELQ1g)（Blender）         | CC BY 2.5（[orange.blender.org](https://orange.blender.org/)）                                                               | 官方頁未指定格式，M3 時再確認；暫定「Blender Foundation \| orange.blender.org」 | YouTube 官方上傳的英文字幕（非自動產生，Joe 已確認） |
-| Cosmos Laundromat | [Y-rmzh0PI3c](https://www.youtube.com/watch?v=Y-rmzh0PI3c)（Blender）         | CC BY 3.0（[gooseberry.blender.org/license](https://gooseberry.blender.org/license/)）                                       | (CC) Blender Foundation \| gooseberry.blender.org                               | YouTube 官方上傳的英文字幕（非自動產生，Joe 已確認） |
-| Sprite Fright     | [\_cMxraX_5RE](https://www.youtube.com/watch?v=_cMxraX_5RE)（Blender Studio） | 官方頁寫「Creative Commons Attribution 1.0」（[官方](https://studio.blender.org/films/sprite-fright/pages/about)），屬 CC BY | (CC) Blender Foundation \| studio.blender.org                                   | YouTube 官方上傳的英文字幕（非自動產生，Joe 已確認） |
+| 影片              | YouTube（頻道）                                                               | 授權（官方頁面）                                                                                                             | 出處註明（官方原文）                                                            | 逐字稿                                                                                                                                     |
+| ----------------- | ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| Elephants Dream   | [TLkA0RELQ1g](https://www.youtube.com/watch?v=TLkA0RELQ1g)（Blender）         | CC BY 2.5（[orange.blender.org](https://orange.blender.org/)）                                                               | 官方頁未指定格式，M3 時再確認；暫定「Blender Foundation \| orange.blender.org」 | YouTube 官方上傳的英文字幕（非自動產生，Joe 已確認）                                                                                       |
+| Cosmos Laundromat | [Y-rmzh0PI3c](https://www.youtube.com/watch?v=Y-rmzh0PI3c)（Blender）         | CC BY 3.0（[gooseberry.blender.org/license](https://gooseberry.blender.org/license/)）                                       | (CC) Blender Foundation \| gooseberry.blender.org                               | YouTube 官方上傳的英文字幕（非自動產生，Joe 已確認）                                                                                       |
+| Sprite Fright     | [\_cMxraX_5RE](https://www.youtube.com/watch?v=_cMxraX_5RE)（Blender Studio） | 官方頁寫「Creative Commons Attribution 1.0」（[官方](https://studio.blender.org/films/sprite-fright/pages/about)），屬 CC BY | (CC) Blender Foundation \| studio.blender.org                                   | YouTube 官方上傳的英文字幕（非自動產生，Joe 已確認）                                                                                       |
+| Tears of Steel    | [R6MlUcmOul8](https://www.youtube.com/watch?v=R6MlUcmOul8)（Blender）         | CC BY 3.0（[mango.blender.org/sharing](https://mango.blender.org/sharing/)、[/about](https://mango.blender.org/about/)）     | 官方頁未指定格式，暫定「(CC) Blender Foundation \| mango.blender.org」          | 官方 [TOS-en.srt](https://download.blender.org/demo/movies/ToS/subtitles/TOS-en.srt)（76 句，含時間點；YouTube 片長 12:14 與官方版本相同） |
 
 M3 待辦：
 
-- 從 YouTube 官方字幕取得對白文字與時間，挑連續約 10 句並記下段落（目前尚未截取，字幕內容無法用程式讀取，需在瀏覽器取得）。
+- Elephants Dream、Cosmos Laundromat、Sprite Fright 沒有官方字幕檔：從 YouTube 官方字幕（「顯示字幕記錄」，含時間）取得對白，字幕內容無法用程式讀取，需 Joe 在瀏覽器複製。
+- Tears of Steel 有官方 `.srt`，直接用 `npm run video:new` 讀取。真人演出＋CG（非純動畫），Joe 同意使用。含粗話的句子（第 21 句「Move your asses」、第 46 句「and a dick」）與只有尖叫聲的句子切段時略過，並寫進 `changes`。
 - Sprite Fright 官方頁的「1.0」可能是筆誤（其他片都是 3.0），不論版本都屬 CC BY；JSON 依官方原文填寫。
-
-## 候選：VOA Let's Learn English（Public Domain）
-
-授權：VOA 官方頁面 [learningenglish.voanews.com/p/6861.html](https://learningenglish.voanews.com/p/6861.html)：「Learning English texts, MP3s, photos and videos are in the public domain. You are allowed to reprint them for educational and commercial purposes, with credit to learningenglish.voanews.com.」（通訊社素材如 AP、Reuters、AFP 除外；以下皆為 VOA 自製課程。）
-
-- 出處註明：`learningenglish.voanews.com`
-- 官方頻道：`UCKyTokYo0nK2OA-az-sDijA`「VOA Learning English」（VOA 官網連到 youtube.com/voalearningenglish）
-- 同一集的證據：YouTube 描述「Originally published at」連到的 VOA 影片編號，與逐字稿頁上嵌入的對話影片編號相同。
-- 逐字稿：2016 年舊版課程頁上的對話。2019 年改版後的課程頁沒有逐字稿，不要用。
-- 句：一句台詞（同一人連續說的話）。時間為依字數估算（±10～20 秒），M3 時以時間點工具（`/videos/<id>/timing`）微調。
-
-| 課                               | YouTube（影片編號）                                                   | 逐字稿頁                                                                                                     | 截取                            | 估計時間   | 主題                     |
-| -------------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------- | ---------- | ------------------------ |
-| Lesson 7: What Are You Doing?    | [THMKsKMTyqg](https://www.youtube.com/watch?v=THMKsKMTyqg)（3345754） | [3240468](https://learningenglish.voanews.com/a/lets-learn-english-lesson-7-what-are-you-doing/3240468.html) | 對話第 1～11 句                 | 0:05～0:42 | 職場：第一天上班見老闆   |
-| Lesson 8: Are You Busy?          | [uHuChnbaw6k](https://www.youtube.com/watch?v=uHuChnbaw6k)（3345760） | [3253185](https://learningenglish.voanews.com/a/lets-learn-english-lesson-8-are-you-busy/3253185.html)       | 對話第 2～13 句                 | 0:22～1:09 | 職場：向忙碌的同事道歉   |
-| Lesson 10: Come Over to My Place | [34LhID6vT1k](https://www.youtube.com/watch?v=34LhID6vT1k)（3369337)  | [3285228](https://learningenglish.voanews.com/a/lets-learn-english-lesson-10/3285228.html)                   | 對話第 2～13 句                 | 0:15～1:11 | 生活：電話中指路到家     |
-| Lesson 6: Where Is the Gym?      | [zkEnsSVBfPM](https://www.youtube.com/watch?v=zkEnsSVBfPM)（3345741） | [3225958](https://learningenglish.voanews.com/a/lets-learn-english-lesson-6-where-is-the-gym/3225958.html)   | 對話第 2～13 句（略過舞台指示） | 0:21～1:16 | 生活：在公寓大樓找健身房 |
-| Lesson 12: Meet My Family        | [ncA2an5c1_g](https://www.youtube.com/watch?v=ncA2an5c1_g)（3345848） | [3301733](https://learningenglish.voanews.com/a/lets-learn-english-lesson-12-meet-my-family/3301733.html)    | 對話第 2～12 句                 | 0:15～0:54 | 生活：想家時看家人照片   |
-
-備註：Lesson 12 官網逐字稿第 13 句有錯字「That-That';s」，不在截取段落內。
 
 ## 已排除（記錄原因，避免重複查）
 
+- VOA Let's Learn English（Public Domain，2026-10-28 排除）：Lesson 6、7、8、10、12 做成草稿試用（PR #28，已關閉），Joe 確認字和聲音對不上，改用 Blender 開放電影。官方逐字稿是 2016 年舊版課程頁，可能和 YouTube 上的影片版本不同。
 - VOA「English in a Minute」（Sugarcoat 等）：官網沒有逐字稿；Actions Speak Louder Than Words 不在官方頻道。
 - Blender「Wing It!」「Charge」：專案頁查不到授權文字，對白也很少。
 - 2016 年 3～4 月早期上傳與 2022 年兒童版的 Let's Learn English：影片編號與逐字稿頁不符。

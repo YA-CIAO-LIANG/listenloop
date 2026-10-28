@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   addToIndex,
+  cuesToLines,
   draftVideo,
+  draftVideoFromCues,
   estimateTimes,
   importName,
+  parseSrt,
   type DraftMeta,
 } from "@/lib/draft-video";
 import { applyTaps, TAP_GAP } from "@/lib/player/tap-timing";
@@ -59,6 +62,68 @@ describe("draftVideo", () => {
     expect(validateVideo({ ...draft, draft: "yes" })).toContain(
       "draft must be true or false",
     );
+  });
+});
+
+describe("subtitles (.srt)", () => {
+  const srt =
+    "﻿1\r\n00:00:23,000 --> 00:00:24,500\r\nYou're a jerk, Thom.\r\n\r\n" +
+    "2\r\n00:00:25,000 --> 00:00:27,000\r\nLook Celia, we have to follow our passions;\r\n\r\n" +
+    "3\r\n00:00:27,000 --> 00:00:30,500\r\n...you have your robotics, and I\r\njust want to be awesome in space.\r\n\r\n" +
+    "4\r\n01:02:03,456 --> 01:02:04,000\r\nWhoaaa!\r\n";
+  const cues = parseSrt(srt);
+
+  it("reads numbers, times in seconds, and joins a cue's lines", () => {
+    expect(cues).toHaveLength(4);
+    expect(cues[0]).toEqual({
+      index: 1,
+      start: 23,
+      end: 24.5,
+      text: "You're a jerk, Thom.",
+    });
+    expect(cues[2].text).toBe(
+      "...you have your robotics, and I just want to be awesome in space.",
+    );
+    expect(cues[3].start).toBe(3723.46);
+  });
+
+  it("picks a range of cues, minus the ones to skip", () => {
+    expect(
+      cuesToLines(cues, { from: 2, to: 4, skip: [4] }).map((l) => l.en),
+    ).toEqual([
+      "Look Celia, we have to follow our passions;",
+      "...you have your robotics, and I just want to be awesome in space.",
+    ]);
+  });
+
+  it("refuses a range or skip that doesn't match the file", () => {
+    expect(() => cuesToLines(cues, { from: 3, to: 5 })).toThrow(
+      "No subtitle number 5",
+    );
+    expect(() => cuesToLines(cues, { from: 1, to: 2, skip: [4] })).toThrow(
+      "outside",
+    );
+    expect(() => cuesToLines(cues, { from: 4, to: 4, skip: [4] })).toThrow(
+      "No subtitles left",
+    );
+  });
+
+  it("makes a valid draft with the subtitles' own times", () => {
+    // Extra keys from the .txt meta are ignored.
+    const draft = draftVideoFromCues(
+      { ...meta, cues: { from: 1, to: 3 } },
+      cues,
+    );
+    expect(draft.draft).toBe(true);
+    expect(draft.sentences.map(({ i, start, end }) => [i, start, end])).toEqual(
+      [
+        [0, 23, 24.5],
+        [1, 25, 27],
+        [2, 27, 30.5],
+      ],
+    );
+    expect(draft.sentences.every((s) => s.zh === TODO_ZH)).toBe(true);
+    expect(validateVideo(draft)).toEqual([]);
   });
 });
 
