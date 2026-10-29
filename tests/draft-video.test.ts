@@ -6,7 +6,10 @@ import {
   draftVideoFromCues,
   estimateTimes,
   importName,
+  isYouTubeTranscript,
   parseSrt,
+  parseYouTubeTranscript,
+  TRANSCRIPT_GAP,
   type DraftMeta,
 } from "@/lib/draft-video";
 import { applyTaps, TAP_GAP } from "@/lib/player/tap-timing";
@@ -123,6 +126,89 @@ describe("subtitles (.srt)", () => {
       ],
     );
     expect(draft.sentences.every((s) => s.zh === TODO_ZH)).toBe(true);
+    expect(validateVideo(draft)).toEqual([]);
+  });
+});
+
+describe("merging subtitles into one sentence", () => {
+  const cues = parseSrt(
+    "1\n00:00:01,000 --> 00:00:02,000\nWell, Anna,\n\n" +
+      "2\n00:00:02,000 --> 00:00:03,500\nwelcome.\n\n" +
+      "3\n00:00:04,000 --> 00:00:05,000\nThank you.\n",
+  );
+
+  it("joins a run: first start, last end, text in order", () => {
+    expect(cuesToLines(cues, { from: 1, to: 3, merge: [[1, 2]] })).toEqual([
+      { start: 1, end: 3.5, en: "Well, Anna, welcome." },
+      { start: 4, end: 5, en: "Thank you." },
+    ]);
+  });
+
+  it("refuses a merge outside the range, backwards, or with a skip", () => {
+    expect(() =>
+      cuesToLines(cues, { from: 1, to: 2, merge: [[2, 3]] }),
+    ).toThrow("not a run");
+    expect(() =>
+      cuesToLines(cues, { from: 1, to: 3, merge: [[2, 1]] }),
+    ).toThrow("not a run");
+    expect(() =>
+      cuesToLines(cues, { from: 1, to: 3, skip: [2], merge: [[1, 2]] }),
+    ).toThrow("both merged and skipped");
+  });
+});
+
+describe("YouTube transcripts", () => {
+  it("matches tap mode's gap between lines", () => {
+    expect(TRANSCRIPT_GAP).toBe(TAP_GAP);
+  });
+
+  it("reads a time on its own line, then the text", () => {
+    const cues = parseYouTubeTranscript(
+      "﻿0:05\r\nCome in.\r\n0:07\r\nWell, Anna,\r\nwelcome.\r\n0:10\r\nThank you.\r\n",
+    );
+    expect(cues).toEqual([
+      { index: 1, start: 5, end: 6.9, text: "Come in." },
+      { index: 2, start: 7, end: 9.9, text: "Well, Anna, welcome." },
+      // The last line's end is estimated (2 words × 0.4 s, at least 1 s).
+      { index: 3, start: 10, end: 11, text: "Thank you." },
+    ]);
+  });
+
+  it("reads a time before the text, hours, and skips duration labels", () => {
+    const cues = parseYouTubeTranscript(
+      "1:02:03 First line here.\n1 hour, 2 minutes, 7 seconds\n1:02:07\n5 秒\nSecond line.\n",
+    );
+    expect(cues.map(({ start, text }) => [start, text])).toEqual([
+      [3723, "First line here."],
+      [3727, "Second line."],
+    ]);
+    expect(cues[0].end).toBe(3726.9);
+  });
+
+  it("drops a time with no text, and refuses text before any time", () => {
+    expect(
+      parseYouTubeTranscript("0:01\n0:02\nHello.\n").map((c) => c.start),
+    ).toEqual([2]);
+    expect(() => parseYouTubeTranscript("Hello.\n0:02\nHi.\n")).toThrow(
+      "before the first time",
+    );
+  });
+
+  it("tells a transcript from a plain list of sentences", () => {
+    expect(isYouTubeTranscript("\n0:05\nCome in.")).toBe(true);
+    expect(isYouTubeTranscript("1:02:03 Hello.")).toBe(true);
+    expect(isYouTubeTranscript("Come in.\nWell, Anna, welcome.")).toBe(false);
+  });
+
+  it("makes a valid draft through the same cue range", () => {
+    const draft = draftVideoFromCues(
+      { ...meta, cues: { from: 2, to: 3 } },
+      parseYouTubeTranscript("0:05\nCome in.\n0:07\nWelcome.\n0:10\nThanks.\n"),
+    );
+    expect(draft.sentences.map((s) => [s.start, s.end, s.en])).toEqual([
+      [7, 9.9, "Welcome."],
+      [10, 11, "Thanks."],
+    ]);
     expect(validateVideo(draft)).toEqual([]);
   });
 });
