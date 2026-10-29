@@ -12,7 +12,7 @@
     "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
     "sourceUrl": "https://durian.blender.org/sharing/",
     "transcriptUrl": "https://durian.blender.org/wp-content/content/subtitles/sintel_en.srt",
-    "changes": "Excerpt (1:47–2:36); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+    "changes": "Excerpt (1:47–3:52); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
   },
   "sentences": [
     {
@@ -98,6 +98,27 @@
       "end": 155.87,
       "en": "I've been alone for as long as I can remember.",
       "zh": "從我有記憶以來，就一直是一個人。"
+    },
+    {
+      "i": 12,
+      "start": 207.25,
+      "end": 210.5,
+      "en": "We're almost done. Shhh...",
+      "zh": "快好了。噓……"
+    },
+    {
+      "i": 13,
+      "start": 210.75,
+      "end": 213.5,
+      "en": "Hey, sit still.",
+      "zh": "嘿，別亂動。"
+    },
+    {
+      "i": 14,
+      "start": 228.25,
+      "end": 232.25,
+      "en": "Good night, Scales.",
+      "zh": "晚安，Scales。"
     }
   ],
   "vocab": [
@@ -177,6 +198,20 @@
       "pos": "adj.",
       "zh": "單獨的；獨自的",
       "example": "A lone bird was sitting on the fence."
+    },
+    {
+      "sentence": 12,
+      "word": "almost",
+      "pos": "adv.",
+      "zh": "幾乎；快要",
+      "example": "Dinner is almost ready."
+    },
+    {
+      "sentence": 13,
+      "word": "sit still",
+      "pos": "phr.",
+      "zh": "坐著別動",
+      "example": "Please sit still while I cut your hair."
     }
   ],
   "grammar": [
@@ -203,6 +238,12 @@
       "point": "have been + 形容詞 + for as long as I can remember",
       "explanation": "現在完成式（have been）表示從過去一直持續到現在的狀態；for as long as I can remember 意思是「從我有記憶以來」。",
       "example": "I have been afraid of dogs for as long as I can remember."
+    },
+    {
+      "sentence": 12,
+      "point": "be almost done",
+      "explanation": "表示「快完成了」。done 在這裡是形容詞（完成的），almost 放在前面表示「差一點就」。",
+      "example": "I'm almost done with my homework."
     }
   ]
 }

@@ -31,7 +31,8 @@ const validVideo = {
   },
   sentences: [
     { i: 0, start: 1.2, end: 4.8, en: "Hello.", zh: "哈囉。" },
-    { i: 1, start: 4.8, end: 7, en: "Goodbye.", zh: "再見。" },
+    // Excerpts must run at least a minute (first start to last end).
+    { i: 1, start: 66, end: 70, en: "Goodbye.", zh: "再見。" },
   ],
   vocab: [
     {
@@ -179,6 +180,19 @@ describe("validateVideo", () => {
     );
     expect(problems).toContain("vocab[0].sentence must be a sentence index");
     expect(problems).toContain("grammar[0].sentence must be a sentence index");
+  });
+
+  it("requires published excerpts to run at least a minute; drafts may be shorter", () => {
+    const short = withChanges({
+      sentences: [
+        { i: 0, start: 10, end: 12, en: "Hello.", zh: "哈囉。" },
+        { i: 1, start: 60, end: 68.4, en: "Goodbye.", zh: "再見。" },
+      ],
+    });
+    expect(validateVideo(short)).toContain(
+      "excerpt must run at least 60 s (first start to last end), not 58 s",
+    );
+    expect(validateVideo({ ...short, draft: true })).toEqual([]);
   });
 
   it("parseVideo lists every problem", () => {

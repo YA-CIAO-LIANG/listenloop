@@ -252,7 +252,26 @@
     "title": "練習題庫",
     "intro": "選一支影片，開始七天的循環練習。",
     "sentences": "{count} 句",
-    "videoCount": "{count} 支影片"
+    "videoCount": "{count} 支影片",
+    "excerptLength": "{seconds, plural, =0 {片段長度 {minutes} 分鐘} other {片段長度 {minutes} 分 {seconds} 秒}}",
+    "length": {
+      "label": "片段長度",
+      "buckets": {
+        "1-2": "1～2 分鐘",
+        "2-3": "2～3 分鐘",
+        "3-4": "3～4 分鐘",
+        "4-5": "4～5 分鐘",
+        "5-6": "5～6 分鐘",
+        "6-7": "6～7 分鐘",
+        "7-8": "7～8 分鐘",
+        "8-plus": "8 分鐘以上"
+      },
+      "option": "{bucket}（{count}）",
+      "clear": "清除",
+      "clearAll": "清除篩選",
+      "results": "顯示 {count} 支影片",
+      "empty": "沒有符合的影片。"
+    }
   },
   "collections": {
     "blender-open-movies": {

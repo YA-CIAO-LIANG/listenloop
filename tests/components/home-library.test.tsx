@@ -4,7 +4,11 @@ import Home from "@/app/page";
 import { getAllVideos } from "@/lib/video-library";
 import { renderWithIntl } from "../render";
 
-vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn() }) }));
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({ push: vi.fn(), replace: vi.fn() }),
+  usePathname: () => "/",
+  useSearchParams: () => new URLSearchParams(),
+}));
 
 describe("home practice library", () => {
   it("groups videos under their collection's heading", async () => {
@@ -20,5 +24,7 @@ describe("home practice library", () => {
     expect(within(group).getByText(/CC BY 授權釋出/)).toBeDefined();
     expect(within(group).getAllByRole("link")).toHaveLength(count);
     expect(within(group).getByText("Sintel").getAttribute("lang")).toBe("en");
+    // Sintel: 1:47.25–3:52.25 → 2 min 5 s.
+    expect(within(group).getByText(/片段長度 2 分 5 秒/)).toBeDefined();
   });
 });
