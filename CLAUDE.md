@@ -188,7 +188,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - **互動**：點魚會轉身、吐泡泡並顯示名字；點玻璃附近的魚會散開；游標或手指移動時魚會好奇靠近。reduced motion 時只顯示名字、不播動畫。
   - **PR 拆法**：a 點數與飼料的獲得、帳本；b 商店、我的魚、素材出處頁（影片）；b2 像素小丑魚樣板（`/styleguide`，確認風格後才做其他魚種）；b3 其他魚種與商店像素縮圖；c 像素風魚缸、餵魚、飢餓、日曆、互動。
   - 魚、魚缸、飼料都由程式繪製，不使用第三方素材；若日後使用外部素材，只能用 CC0、CC BY，授權在官方頁面確認並在 `/credits` 標示出處。
-- [ ] **M3 內容庫**：VOA Learning English、美國國務院 Everyday Conversations 等公有領域或 CC BY 素材，標示出處，排除 AP、Reuters、AFP 素材。已完成 M3-1 內容工具（草稿、點按校正、`npm run video:new`）。注意：VOA 2016 年舊版課程頁的逐字稿曾與 YouTube 影片對不上（2026-10-28，PR #28 關閉），新素材要先確認逐字稿與聲音一致。
+- [ ] **M3 內容庫**：先只做「Blender 開放電影」合集（只收 CC BY；Sintel、Tears of Steel、Elephants Dream、Cosmos Laundromat、Sprite Fright，一部切成多段，預估 13 支），標示出處。VOA Learning English、美國國務院 Everyday Conversations **暫停**（資料保留在 `docs/video-candidates.md`）。句子一律取自和影片同一來源的字幕（VOA 2016 年舊版逐字稿曾與 YouTube 影片對不上，2026-10-28，PR #28 關閉）。已完成：內容工具、讀取 `.srt`。全片清單、段落與難度見 `docs/video-candidates.md`。
 - [ ] **M4 帳號**：Supabase、Google 登入、localStorage 進度搬到雲端、刪除帳號功能、隱私權政策（Google 登入需要）。
 - [ ] **M5 同時練習多部影片**：每支影片各自的 7 天循環與起始日。
 - [ ] **M6 建立練習**：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。
