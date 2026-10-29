@@ -3,7 +3,14 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 import { videos } from "@/data/videos";
 import { getAllVideos, getVideo } from "@/lib/video-library";
-import { notesForSentence, parseVideo, validateVideo } from "@/lib/videos";
+import {
+  notesForSentence,
+  parseVideo,
+  validateVideo,
+  videoCollections,
+} from "@/lib/videos";
+import en from "@/messages/en.json";
+import zhHant from "@/messages/zh-Hant.json";
 
 // Test fixture only (format checks); real content lives in data/videos.
 const validVideo = {
@@ -12,6 +19,7 @@ const validVideo = {
   title: "Sample",
   level: "beginner",
   category: "daily",
+  collection: "blender-open-movies",
   source: "VOA Learning English",
   attribution: {
     credit: "learningenglish.voanews.com",
@@ -54,6 +62,8 @@ describe("validateVideo", () => {
     ["empty title", { title: "  " }, "title"],
     ["unknown level", { level: "expert" }, "level"],
     ["unknown category", { category: "news" }, "category"],
+    ["unknown collection", { collection: "voa" }, "collection"],
+    ["no collection", { collection: undefined }, "collection"],
     ["no sentences", { sentences: [] }, "sentences"],
     ["vocab not a list", { vocab: null }, "vocab"],
   ])("rejects %s", (_, changes, field) => {
@@ -228,6 +238,60 @@ describe("video library", () => {
     expect(getVideo("sintel")?.title).toBe("Sintel");
     expect(getVideo("missing")).toBeUndefined();
     expect(getAllVideos()).toEqual(videos.filter((v) => !v.draft));
+  });
+});
+
+describe("collections", () => {
+  it("each has a title and intro in both languages", () => {
+    for (const messages of [zhHant, en]) {
+      for (const id of videoCollections) {
+        const names = (
+          messages.collections as Record<
+            string,
+            { title: string; intro: string }
+          >
+        )[id];
+        expect(names?.title, id).toBeTruthy();
+        expect(names?.intro, id).toBeTruthy();
+      }
+    }
+  });
+
+  it("group the library in collection order, drafts and empty ones left out", async () => {
+    const { vi } = await import("vitest");
+    vi.resetModules();
+    vi.doMock("@/lib/videos", async (original) => ({
+      ...(await original<typeof import("@/lib/videos")>()),
+      videoCollections: ["blender-open-movies", "empty-one", "second"],
+    }));
+    vi.doMock("@/data/videos", () => ({
+      videos: [
+        { ...validVideo, id: "b1", collection: "second" },
+        { ...validVideo, id: "a1" },
+        { ...validVideo, id: "a2", draft: true },
+        { ...validVideo, id: "a3" },
+      ],
+    }));
+    const library = await import("@/lib/video-library");
+    expect(
+      library
+        .getVideosByCollection()
+        .map(({ collection, videos }) => [collection, videos.map((v) => v.id)]),
+    ).toEqual([
+      ["blender-open-movies", ["a1", "a3"]],
+      ["second", ["b1"]],
+    ]);
+    vi.doUnmock("@/lib/videos");
+    vi.doUnmock("@/data/videos");
+    vi.resetModules();
+  });
+
+  it("every published video belongs to a known collection", async () => {
+    const library = await import("@/lib/video-library");
+    const grouped = library
+      .getVideosByCollection()
+      .flatMap((group) => group.videos);
+    expect(grouped).toHaveLength(getAllVideos().length);
   });
 });
 

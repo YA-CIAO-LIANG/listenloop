@@ -222,7 +222,9 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 ### 練習題庫
 
-- Display h2「練習題庫」＋說明，影片卡片（CardLink）維持原樣；section `id="library"`（`scroll-mt-8`）。
+- Display h2「練習題庫」＋說明；section `id="library"`（`scroll-mt-8`）。
+- 依合集分組（`getVideosByCollection`，順序依 `videoCollections`，沒有影片的合集不顯示）：每組上方 48px，Display h3 合集名稱＋同一行 supporting、ink-muted 的「13 支影片」→ supporting、ink-muted 的合集說明 → 24px 後是卡片 grid（split 以上兩欄）。每組是 `aria-labelledby` 合集標題的 section。
+- 影片卡片（CardLink）維持原樣。
 
 ## 七天循環
 

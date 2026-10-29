@@ -13,7 +13,7 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 | M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成   |
 | M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕                            | 完成   |
 | M3-3 | `npm run video:new` 讀貼上的 YouTube 字幕記錄（PR #32）               | 審查中 |
-| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 待做   |
+| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 本 PR  |
 | M3-5 | Tears of Steel 4 段                                                   | 待做   |
 | M3-6 | Elephants Dream、Cosmos Laundromat、Sprite Fright 約 8 段             | 待做   |
 | —    | VOA、美國國務院 Everyday Conversations                                | 暫停   |

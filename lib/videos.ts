@@ -1,6 +1,11 @@
 /** Shape of data/videos/<id>.json (see CLAUDE.md 資料格式). */
 
 export const videoLevels = ["beginner", "intermediate", "advanced"] as const;
+/**
+ * Collections group the library, in display order. Names and intros live in
+ * the translation files (collections.<id>.title / .intro).
+ */
+export const videoCollections = ["blender-open-movies"] as const;
 export const videoCategories = [
   "daily",
   "campus",
@@ -17,6 +22,7 @@ export const ALLOWED_LICENSE = /^(Public Domain|CC BY(-SA)? \d\.\d)$/;
 
 export type VideoLevel = (typeof videoLevels)[number];
 export type VideoCategory = (typeof videoCategories)[number];
+export type VideoCollection = (typeof videoCollections)[number];
 
 export type Sentence = {
   /** Zero-based, sequential. */
@@ -67,6 +73,8 @@ export type Video = {
   title: string;
   level: VideoLevel;
   category: VideoCategory;
+  /** The library group it belongs to, e.g. "blender-open-movies". */
+  collection: VideoCollection;
   /** Rights holder's display name, e.g. "Blender Foundation". */
   source: string;
   attribution: Attribution;
@@ -167,6 +175,9 @@ export function validateVideo(data: unknown): string[] {
   }
   if (!videoCategories.includes(data.category as VideoCategory)) {
     problems.push(`category must be one of ${videoCategories.join(", ")}`);
+  }
+  if (!videoCollections.includes(data.collection as VideoCollection)) {
+    problems.push(`collection must be one of ${videoCollections.join(", ")}`);
   }
 
   if (data.draft !== undefined && typeof data.draft !== "boolean") {

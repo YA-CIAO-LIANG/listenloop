@@ -29,6 +29,7 @@ const video: Video = {
   title: "Test",
   level: "beginner",
   category: "story",
+  collection: "blender-open-movies",
   source: "Test",
   attribution: {
     credit: "Test",

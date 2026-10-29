@@ -17,7 +17,7 @@
 
 ## 3. 產生草稿（腳本）
 
-準備 `meta.json`（id、youtubeId、title、level、category、source、attribution），再依句子來源加上：
+準備 `meta.json`（id、youtubeId、title、level、category、collection、source、attribution；collection 目前是 `blender-open-movies`），再依句子來源加上：
 
 - **`.srt` 字幕檔**：`"cues": { "from": 1, "to": 11, "skip": [9] }`，用字幕編號表示要用的範圍（含頭尾），`skip`（選填）是要略過的字幕，例如粗話或只有尖叫聲的句子。文字和時間照字幕檔；編號打錯時腳本會報錯，不會默默多抓或少抓。
 - **文字檔**：`"from"`、`"to"`，段落的大約起訖秒數，依字數估算每句時間。
