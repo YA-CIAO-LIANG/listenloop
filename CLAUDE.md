@@ -95,6 +95,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   "title": "...",
   "level": "beginner | intermediate | advanced",
   "category": "daily | campus | business | interview | story",
+  "collection": "blender-open-movies",
   "source": "Blender Foundation",
   "attribution": {
     "credit": "© copyright Blender Foundation | durian.blender.org",
@@ -114,6 +115,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 }
 ```
 
+- `collection` 必填：題庫依合集分組顯示。合集 id 與顯示順序在 `lib/videos.ts` 的 `videoCollections`，名稱與說明放在翻譯檔 `collections.<id>.title`、`.intro`（測試檢查兩種語言都有）。目前只有 `blender-open-movies`（「Blender 開放電影」／「Blender Open Movies」）。
 - `attribution` 必填，播放頁一律顯示出處。`license` 只能是 `Public Domain`、`CC BY x.x` 或 `CC BY-SA x.x`（NC、ND 會被驗證擋下）。授權規則與候選影片見 `docs/video-candidates.md`。
 - 內建內容庫：英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。使用者自建練習（M6）只在建立時呼叫翻譯與聲音 API，練習時不呼叫。
 - `vocab`、`grammar` 每一筆的 `sentence` 是出處句子的索引（對應 `sentences[].i`，必填）。聽寫每句答完後，顯示這句的中文與對應的單字、文法。

@@ -251,7 +251,14 @@
   "library": {
     "title": "Practice library",
     "intro": "Pick a video and start a seven-day loop.",
-    "sentences": "{count, plural, one {# sentence} other {# sentences}}"
+    "sentences": "{count, plural, one {# sentence} other {# sentences}}",
+    "videoCount": "{count, plural, one {# video} other {# videos}}"
+  },
+  "collections": {
+    "blender-open-movies": {
+      "title": "Blender Open Movies",
+      "intro": "Animated and live-action shorts released by the Blender Foundation under CC BY."
+    }
   },
   "video": {
     "back": "Library",

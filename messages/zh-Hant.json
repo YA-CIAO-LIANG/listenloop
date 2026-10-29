@@ -251,7 +251,14 @@
   "library": {
     "title": "練習題庫",
     "intro": "選一支影片，開始七天的循環練習。",
-    "sentences": "{count} 句"
+    "sentences": "{count} 句",
+    "videoCount": "{count} 支影片"
+  },
+  "collections": {
+    "blender-open-movies": {
+      "title": "Blender 開放電影",
+      "intro": "Blender 基金會以 CC BY 授權釋出的動畫與短片。"
+    }
   },
   "video": {
     "back": "影片庫",

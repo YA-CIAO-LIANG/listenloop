@@ -18,7 +18,7 @@
 
 ## 3. 產生草稿（腳本）
 
-準備 `meta.json`（id、youtubeId、title、level、category、source、attribution），再依句子來源加上：
+準備 `meta.json`（id、youtubeId、title、level、category、collection、source、attribution；collection 目前是 `blender-open-movies`），再依句子來源加上：
 
 - **字幕（`.srt` 或 YouTube 字幕記錄）**：`"cues": { "from": 1, "to": 11, "skip": [9], "merge": [[3, 4]] }`。
   - `from`／`to`：用字幕編號表示要用的範圍（含頭尾）。YouTube 字幕記錄從 1 開始依序編號，和 `.srt` 一樣。

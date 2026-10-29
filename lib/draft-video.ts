@@ -3,7 +3,7 @@ import { TODO_ZH, type Attribution, type Video } from "./videos.ts";
 
 type VideoMeta = Pick<
   Video,
-  "id" | "youtubeId" | "title" | "level" | "category" | "source"
+  "id" | "youtubeId" | "title" | "level" | "category" | "collection" | "source"
 > & {
   attribution: Attribution;
 };
@@ -101,6 +101,7 @@ function buildDraft(meta: VideoMeta, lines: readonly TimedLine[]): Video {
     title: meta.title,
     level: meta.level,
     category: meta.category,
+    collection: meta.collection,
     source: meta.source,
     attribution: meta.attribution,
     draft: true,

@@ -179,6 +179,7 @@ describe("practice log", () => {
     title: "Test",
     level: "beginner",
     category: "story",
+    collection: "blender-open-movies",
     source: "Test",
     attribution: {
       credit: "Test",

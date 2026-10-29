@@ -21,6 +21,7 @@ const meta: DraftMeta = {
   title: "Let's Learn English Lesson 7",
   level: "beginner",
   category: "business",
+  collection: "blender-open-movies",
   source: "VOA Learning English",
   attribution: {
     credit: "learningenglish.voanews.com",
