@@ -81,11 +81,28 @@
     "title": "練習日曆",
     "previousMonth": "上個月",
     "nextMonth": "下個月",
-    "caption": "練習日曆：有完成任務的日子標有圓點，選一天可以看當天完成的任務",
+    "caption": "練習日曆：顏色越深，那天完成的任務越多；選一天可以看當天完成的任務",
     "taskLine": "<video>{title}</video>｜第 {day} 天 {task}",
     "none": "這天沒有完成任務",
     "dayLabel": "{date}，{count, plural, =0 {沒有完成任務} other {完成 # 個任務}}{today, select, yes {（今天）} other {}}",
-    "today": "今天"
+    "today": "今天",
+    "legendLess": "少",
+    "legendMore": "多",
+    "expand": "展開整月",
+    "collapse": "收合",
+    "tipCount": "{count, plural, =0 {沒有完成任務} other {完成 # 個任務}}"
+  },
+  "today": {
+    "title": "今日任務",
+    "empty": "還沒有開始的練習。從下方的練習題庫選一支影片，開始第 1 天。",
+    "emptyLink": "前往練習題庫",
+    "newWeekLine": "<video>{title}</video>｜第 {week} 週重新開始",
+    "available": "可以做",
+    "done": "已完成",
+    "tomorrowDay": "第 {day} 天明天開放",
+    "tomorrowWeek": "第 {week} 週明天開始",
+    "start": "開始",
+    "retry": "再練一次"
   },
   "week": {
     "resultTitle": "第 {week} 週結果",
@@ -228,10 +245,11 @@
       "clownfishNote": "三條白帶與黑邊、鰭的黑色邊緣。",
       "greatWhiteNote": "保留鯊魚特徵：尖鼻子、灰背白腹、鰓裂、高背鰭、月牙尾；短胖、帶一點露齒微笑。",
       "whaleSharkNote": "最大、游得最慢：扁寬的頭與前端寬嘴、白色斑點與淡條紋、白腹。"
-    }
+    },
+    "heatScale": "練習日曆色階：當天完成 0、1、2、3、4 個以上的正式任務"
   },
   "library": {
-    "title": "影片庫",
+    "title": "練習題庫",
     "intro": "選一支影片，開始七天的循環練習。",
     "sentences": "{count} 句"
   },
@@ -327,7 +345,8 @@
     "officialUnchanged": "正式成績 {score}（不變）",
     "thisAttempt": "這次的成績",
     "todayDone": "今日任務完成",
-    "retryComplete": "練習完成！"
+    "retryComplete": "練習完成！",
+    "perfect": "完美！"
   },
   "redictation": {
     "title": "第 7 天：重新聽寫",

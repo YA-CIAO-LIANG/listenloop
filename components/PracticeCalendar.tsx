@@ -5,7 +5,7 @@ import { useEffect, useState, type FocusEvent, type PointerEvent } from "react";
 import type { PracticeTask } from "@/lib/activity";
 import { taskForDay, type CycleDay } from "@/lib/cycle";
 import { toLocalDate, type LocalDate } from "@/lib/dates";
-import { tasksByDate } from "@/lib/practice-calendar";
+import { heatLevel, tasksByDate } from "@/lib/practice-calendar";
 import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
 import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
@@ -13,6 +13,7 @@ import type { RewardStore } from "@/lib/storage/reward-store";
 import { getVideo } from "@/lib/video-library";
 import { Button } from "./Button";
 import { Card } from "./Card";
+import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
 
 type PracticeCalendarProps = {
   /** Injected in tests; default to localStorage. */
@@ -68,11 +69,14 @@ const utcNoon = (year: number, month: number, day: number) =>
   new Date(Date.UTC(year, month, day, 12));
 
 /**
- * The home page's practice calendar (this month first, Sunday first). Days
- * with finished official tasks get a dot; today is underlined. Hovering a
- * day (or reaching it with the keyboard) shows that day's tasks beside it;
- * clicking or tapping a day lists them under the calendar (today by default),
- * which is how phones see them.
+ * The home page's practice calendar (this month first, Sunday first): a heat
+ * map where each day's color steps up with the official tasks finished
+ * (heatLevel), with a less → more legend; today is underlined. Hovering a
+ * day (or reaching it with the keyboard) shows its count and tasks beside
+ * it; clicking or tapping a day lists them under the calendar (today by
+ * default), which is how phones see them. Phones (below `split`) show only
+ * this week until "show the month" is pressed; the rows are hidden with CSS
+ * so the server and the browser render the same markup.
  */
 export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   const t = useTranslations("calendar");
@@ -92,6 +96,7 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   });
   const [selected, setSelected] = useState<LocalDate>(today);
   const [hovered, setHovered] = useState<LocalDate | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -113,6 +118,10 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   const weeks = Array.from({ length: Math.ceil(cells.length / 7) }, (_, i) =>
     cells.slice(i * 7, i * 7 + 7),
   );
+  // Collapsed (phones): only the week with today, in today's month.
+  const thisWeek = weeks.findIndex((week) => week.includes(today));
+  const collapsed = !expanded && thisWeek !== -1;
+  const tableId = "practice-calendar-days";
   // 2026-10-25 was a Sunday: weekday names from the locale, Sunday first.
   const weekdays = Array.from({ length: 7 }, (_, i) =>
     format.dateTime(utcNoon(2026, 9, 25 + i), { ...UTC, weekday: "narrow" }),
@@ -153,7 +162,7 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
             })}
           </span>
         </h2>
-        <div className="flex gap-1">
+        <div className={`gap-1 ${collapsed ? "hidden split:flex" : "flex"}`}>
           <Button variant="ghost" size="sm" onClick={() => move(-1)}>
             <span aria-hidden="true">← </span>
             {t("previousMonth")}
@@ -165,7 +174,10 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
         </div>
       </div>
 
-      <table className="w-full table-fixed text-center text-supporting tabular-nums">
+      <table
+        id={tableId}
+        className="w-full table-fixed text-center text-supporting tabular-nums"
+      >
         <caption className="sr-only">{t("caption")}</caption>
         <thead>
           <tr>
@@ -182,16 +194,25 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
         </thead>
         <tbody>
           {weeks.map((week, w) => (
-            <tr key={w}>
+            <tr
+              key={w}
+              className={
+                collapsed && w !== thisWeek
+                  ? "hidden split:table-row"
+                  : undefined
+              }
+            >
               {week.map((date, d) => {
                 if (!date) return <td key={d} />;
                 const count = tasksOn(date).length;
+                const level = heatLevel(count);
                 const isToday = date === today;
                 const tipId = `practice-tip-${date}`;
                 return (
-                  <td key={d} className="relative py-1">
+                  <td key={d} className="relative p-0.5">
                     <button
                       type="button"
+                      data-level={level}
                       aria-pressed={selected === date}
                       aria-label={t("dayLabel", {
                         date: dayName(date),
@@ -204,24 +225,23 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
                       onPointerLeave={() => setHovered(null)}
                       onFocus={onFocus(date)}
                       onBlur={() => setHovered(null)}
-                      className={`mx-auto flex size-9 flex-col items-center justify-center gap-0.5 rounded-base pointer-coarse:size-11 ${
-                        selected === date ? "bg-band" : "hover:bg-ink/4"
+                      className={`mx-auto flex size-9 items-center justify-center rounded-base pointer-coarse:size-11 ${
+                        HEAT_BACKGROUND[level]
+                      } ${HEAT_TEXT[level]} ${
+                        selected === date
+                          ? "ring-1 ring-ink"
+                          : "hover:ring-1 hover:ring-ink-muted"
                       } ${
                         isToday
-                          ? "text-ink underline decoration-accent decoration-2 underline-offset-4"
-                          : count > 0
-                            ? "text-ink"
-                            : "text-ink-muted"
+                          ? `font-medium underline decoration-2 underline-offset-4 ${
+                              level >= 3
+                                ? "decoration-current"
+                                : "decoration-accent"
+                            }`
+                          : ""
                       }`}
                     >
                       <span aria-hidden="true">{Number(date.slice(8))}</span>
-                      <span
-                        aria-hidden="true"
-                        data-practiced={count > 0 || undefined}
-                        className={`size-1.5 rounded-full ${
-                          count > 0 ? "bg-accent" : "bg-transparent"
-                        }`}
-                      />
                     </button>
                     {hovered === date && (
                       <div
@@ -230,7 +250,7 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
                         className="absolute bottom-full left-1/2 z-10 mb-1 w-max max-w-64 -translate-x-1/2 rounded-base border border-line bg-surface p-3 text-left text-supporting"
                       >
                         <p className="mb-1 text-metadata text-ink-muted">
-                          {dayName(date)}
+                          {dayName(date)} · {t("tipCount", { count })}
                         </p>
                         <TaskList tasks={tasksOn(date)} />
                       </div>
@@ -242,6 +262,38 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
           ))}
         </tbody>
       </table>
+
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        {thisWeek !== -1 ? (
+          <Button
+            variant="ghost"
+            size="sm"
+            className="split:invisible"
+            aria-expanded={expanded}
+            aria-controls={tableId}
+            onClick={() => setExpanded((open) => !open)}
+          >
+            {expanded ? t("collapse") : t("expand")}
+            <span aria-hidden="true"> {expanded ? "▴" : "▾"}</span>
+          </Button>
+        ) : (
+          <span />
+        )}
+        <p
+          aria-hidden="true"
+          className="ml-auto flex items-center gap-1 text-metadata text-ink-muted"
+        >
+          {t("legendLess")}
+          {HEAT_LEVELS.map((level) => (
+            <span
+              key={level}
+              data-legend-level={level}
+              className={`size-3 rounded-base ${HEAT_BACKGROUND[level]}`}
+            />
+          ))}
+          {t("legendMore")}
+        </p>
+      </div>
 
       <section
         aria-live="polite"

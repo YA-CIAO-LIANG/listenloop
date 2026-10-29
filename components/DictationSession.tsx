@@ -33,12 +33,14 @@ import type { Video } from "@/lib/videos";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { CaptionHint } from "./CaptionHint";
+import { PerfectBurst } from "./PerfectBurst";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
 import { SentenceNotes } from "./SentenceNotes";
 import { SentenceRow } from "./SentenceRow";
 import { claimAndAnnounce } from "./useRewards";
+import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { WeekResult } from "./WeekResult";
 import { WordDiffView } from "./WordDiffView";
@@ -123,6 +125,7 @@ export function DictationSession({
   const videoRef = useRef<HTMLDivElement>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
   const skipTimer = useRef<number | undefined>(undefined);
+  const reduceMotion = usePrefersReducedMotion();
 
   const { sentences } = video;
   const official = progress?.days[day];
@@ -400,6 +403,10 @@ export function DictationSession({
 
   const shownAnswer =
     feedbackIndex !== null ? (answers[feedbackIndex] ?? "") : "";
+  const feedbackAccuracy =
+    feedbackIndex !== null
+      ? scoreDictation(sentences[feedbackIndex].en, shownAnswer).accuracy
+      : 0;
   const isLast = feedbackIndex !== null && nextUnanswered(answers) === -1;
 
   return (
@@ -455,19 +462,23 @@ export function DictationSession({
             <div
               ref={feedbackRef}
               role="status"
-              className="scroll-mt-16 space-y-2"
+              className="relative scroll-mt-16 space-y-2"
             >
               <WordDiffView
                 diff={wordDiff(sentences[feedbackIndex].en, shownAnswer)}
               />
               <p className="text-supporting text-ink-muted">
-                {t("sentenceScore", {
-                  score: percent(
-                    scoreDictation(sentences[feedbackIndex].en, shownAnswer)
-                      .accuracy,
-                  ),
-                })}
+                {t("sentenceScore", { score: percent(feedbackAccuracy) })}
+                {feedbackAccuracy === 1 && reduceMotion && (
+                  <span className="ml-2 font-medium text-accent-ink">
+                    {t("perfect")}
+                  </span>
+                )}
               </p>
+              {/* Feedback only shows right after a submit, so this plays once per answer. */}
+              {feedbackAccuracy === 1 && !reduceMotion && (
+                <PerfectBurst key={`${mode}:${feedbackIndex}`} />
+              )}
             </div>
           )}
 

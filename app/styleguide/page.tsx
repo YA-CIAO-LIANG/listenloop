@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { useTranslations } from "next-intl";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
+import {
+  HEAT_BACKGROUND,
+  HEAT_LEVELS,
+  HEAT_TEXT,
+} from "@/components/heat-colors";
 import { Button, type ButtonVariant } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { CardLink } from "@/components/CardLink";
@@ -89,6 +94,19 @@ export default function StyleguidePage() {
                       style={{ background: `var(--ll-${token})` }}
                     />
                     <code className="text-metadata">--ll-{token}</code>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-6 mb-2 text-metadata text-ink-muted">
+                {t("heatScale")}
+              </p>
+              <ul className="flex gap-2">
+                {HEAT_LEVELS.map((level) => (
+                  <li
+                    key={level}
+                    className={`flex size-9 items-center justify-center rounded-base text-supporting tabular-nums ${HEAT_BACKGROUND[level]} ${HEAT_TEXT[level]}`}
+                  >
+                    {level === 4 ? "4+" : level}
                   </li>
                 ))}
               </ul>

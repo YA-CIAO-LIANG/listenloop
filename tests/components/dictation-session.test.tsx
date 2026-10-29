@@ -432,3 +432,56 @@ describe("DictationSession layout by screen width", () => {
     });
   });
 });
+
+describe("DictationSession perfect sentence", () => {
+  function reduceMotion(reduce: boolean) {
+    window.matchMedia = vi.fn((query: string) => ({
+      matches: query.includes("reduce") ? reduce : false,
+    })) as unknown as typeof window.matchMedia;
+  }
+
+  afterEach(() => {
+    delete (window as { matchMedia?: unknown }).matchMedia;
+  });
+
+  const burst = () => document.querySelector("[data-perfect-burst]");
+
+  it("bursts confetti for 100% without blocking Enter, not for less", async () => {
+    reduceMotion(false);
+    await renderSession();
+    await userEvent.type(input(), "Go home{Enter}");
+    expect(burst()).not.toBeNull();
+    expect(burst()!.getAttribute("aria-hidden")).toBe("true");
+    expect(burst()!.classList.contains("pointer-events-none")).toBe(true);
+    expect(screen.queryByText("完美！")).toBeNull();
+
+    // Enter still goes on to the next sentence.
+    await userEvent.keyboard("{Enter}");
+    expect(screen.getByText("第 2 / 2 句")).toBeDefined();
+    await userEvent.type(input(), "we moved to a city{Enter}");
+    expect(burst()).toBeNull();
+  });
+
+  it("shows a still “Perfect!” with reduced motion", async () => {
+    reduceMotion(true);
+    await renderSession();
+    await userEvent.type(input(), "go home{Enter}");
+    expect(burst()).toBeNull();
+    expect(
+      within(screen.getByRole("status")).getByText("完美！"),
+    ).toBeDefined();
+  });
+
+  it("bursts in a retry too", async () => {
+    reduceMotion(false);
+    await renderSession();
+    await userEvent.type(input(), "go home{Enter}");
+    await userEvent.keyboard("{Enter}");
+    await userEvent.type(input(), "we moved to the city{Enter}");
+    await userEvent.keyboard("{Enter}");
+    fireEvent.click(screen.getByRole("button", { name: /再練一次/ }));
+    await userEvent.type(input(), "go home{Enter}");
+    expect(screen.getByText(/練習模式/)).toBeDefined();
+    expect(burst()).not.toBeNull();
+  });
+});

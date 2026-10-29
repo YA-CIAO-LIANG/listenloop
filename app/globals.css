@@ -24,6 +24,15 @@
   --ll-success: #2d784c;
   --ll-error: #c2362b;
   --ll-focus: #e8590c;
+
+  /* Practice calendar heat map: 0 tasks, then 1, 2, 3, 4+ (accent mixed into ground). */
+  --ll-heat-0: #ebe9e4;
+  --ll-heat-1: #f6d2bd;
+  --ll-heat-2: #f1aa82;
+  --ll-heat-3: #ec8147;
+  --ll-heat-4: #e8590c;
+  /* Date numbers on the darkest steps (AA on every step). */
+  --ll-heat-ink-strong: #141414;
 }
 
 :root {
@@ -72,6 +81,13 @@
     --ll-success: #5cc28a;
     --ll-error: #ff6b5e;
     --ll-focus: #ff7a33;
+
+    --ll-heat-0: #262626;
+    --ll-heat-1: #4d2c1a;
+    --ll-heat-2: #884622;
+    --ll-heat-3: #c4602b;
+    --ll-heat-4: #ff7a33;
+    --ll-heat-ink-strong: #121212;
   }
 }
 
@@ -90,6 +106,13 @@
   --ll-success: #5cc28a;
   --ll-error: #ff6b5e;
   --ll-focus: #ff7a33;
+
+  --ll-heat-0: #262626;
+  --ll-heat-1: #4d2c1a;
+  --ll-heat-2: #884622;
+  --ll-heat-3: #c4602b;
+  --ll-heat-4: #ff7a33;
+  --ll-heat-ink-strong: #121212;
 }
 
 /*
@@ -111,6 +134,12 @@
   --color-success: var(--ll-success);
   --color-error: var(--ll-error);
   --color-focus: var(--ll-focus);
+  --color-heat-0: var(--ll-heat-0);
+  --color-heat-1: var(--ll-heat-1);
+  --color-heat-2: var(--ll-heat-2);
+  --color-heat-3: var(--ll-heat-3);
+  --color-heat-4: var(--ll-heat-4);
+  --color-heat-ink-strong: var(--ll-heat-ink-strong);
 
   --font-*: initial;
   --font-display: var(--ll-font-display);
@@ -195,6 +224,26 @@
     }
     40% {
       transform: translate(-50%, calc(-50% - 3px));
+    }
+  }
+  /*
+   * "Perfect!" confetti after a 100% dictation sentence (PerfectBurst): each
+   * piece flies to its --dx/--dy, turns, and fades. Transform and opacity only.
+   */
+  --animate-confetti: ll-confetti 1s ease-out forwards;
+
+  @keyframes ll-confetti {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, 0) rotate(0deg);
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(-50% + var(--dx)), var(--dy))
+        rotate(var(--turn));
     }
   }
   /* Draws the check stroke (dasharray 24 on a 14px icon); cheap to animate. */
