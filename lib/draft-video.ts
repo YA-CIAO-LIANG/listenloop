@@ -1,16 +1,37 @@
 // Imports carry .ts so scripts/new-video.mts can run this with plain Node.
 import { TODO_ZH, type Attribution, type Video } from "./videos.ts";
 
-/** What scripts/new-video.mts needs besides the sentences. */
-export type DraftMeta = Pick<
+type VideoMeta = Pick<
   Video,
   "id" | "youtubeId" | "title" | "level" | "category" | "source"
 > & {
   attribution: Attribution;
+};
+
+/** What scripts/new-video.mts needs besides a text file of sentences. */
+export type DraftMeta = VideoMeta & {
   /** The excerpt, in seconds: first sentence starts, last one ends. */
   from: number;
   to: number;
 };
+
+/** What scripts/new-video.mts needs besides an .srt subtitle file. */
+export type SrtDraftMeta = VideoMeta & {
+  /** The excerpt, by subtitle number (inclusive), minus any to skip. */
+  cues: CueRange;
+};
+
+export type CueRange = { from: number; to: number; skip?: number[] };
+
+/** One subtitle from an .srt file; times in seconds. */
+export type SrtCue = {
+  index: number;
+  start: number;
+  end: number;
+  text: string;
+};
+
+type TimedLine = { start: number; end: number; en: string };
 
 const round = (seconds: number) => Math.round(seconds * 100) / 100;
 
@@ -46,6 +67,24 @@ export function estimateTimes(
 export function draftVideo(meta: DraftMeta, lines: readonly string[]): Video {
   const sentences = lines.map((line) => line.trim()).filter(Boolean);
   const times = estimateTimes(sentences, meta.from, meta.to);
+  return buildDraft(
+    meta,
+    sentences.map((en, i) => ({ ...times[i], en })),
+  );
+}
+
+/**
+ * A draft video from official subtitles: the chosen cues' text and times
+ * as they are, TODO_ZH Chinese, no vocab or grammar yet.
+ */
+export function draftVideoFromCues(
+  meta: SrtDraftMeta,
+  cues: readonly SrtCue[],
+): Video {
+  return buildDraft(meta, cuesToLines(cues, meta.cues));
+}
+
+function buildDraft(meta: VideoMeta, lines: readonly TimedLine[]): Video {
   return {
     id: meta.id,
     youtubeId: meta.youtubeId,
@@ -55,15 +94,71 @@ export function draftVideo(meta: DraftMeta, lines: readonly string[]): Video {
     source: meta.source,
     attribution: meta.attribution,
     draft: true,
-    sentences: sentences.map((en, i) => ({
+    sentences: lines.map(({ start, end, en }, i) => ({
       i,
-      ...times[i],
+      start,
+      end,
       en,
       zh: TODO_ZH,
     })),
     vocab: [],
     grammar: [],
   };
+}
+
+/**
+ * Subtitles from an .srt file. A cue's lines join into one sentence; a
+ * byte-order mark and Windows line endings are fine.
+ */
+export function parseSrt(text: string): SrtCue[] {
+  const TIME = /(\d+):(\d{2}):(\d{2})[,.](\d{3})/;
+  const seconds = (stamp: string) => {
+    const match = TIME.exec(stamp);
+    if (!match) throw new Error(`Bad .srt time: ${stamp}`);
+    const [, h, m, s, ms] = match.map(Number);
+    return round(h * 3600 + m * 60 + s + ms / 1000);
+  };
+  return text
+    .replace(/^\uFEFF/, "")
+    .replace(/\r\n?/g, "\n")
+    .split(/\n\s*\n/)
+    .map((block) => block.trim().split("\n"))
+    .filter((lines) => lines.length >= 3)
+    .map(([index, times, ...lines]) => {
+      const [from, to] = times.split("-->");
+      if (to === undefined) throw new Error(`Bad .srt times: ${times}`);
+      return {
+        index: Number(index),
+        start: seconds(from),
+        end: seconds(to),
+        text: lines.map((line) => line.trim()).join(" "),
+      };
+    });
+}
+
+/**
+ * The cues numbered `from` to `to`, minus `skip`, as timed sentences.
+ * Throws on a range or skip that doesn't match the file, so a typo in
+ * meta.json can't quietly drop or add a line.
+ */
+export function cuesToLines(
+  cues: readonly SrtCue[],
+  { from, to, skip = [] }: CueRange,
+): TimedLine[] {
+  const byIndex = new Map(cues.map((cue) => [cue.index, cue]));
+  for (const n of skip) {
+    if (n < from || n > to)
+      throw new Error(`skip ${n} is outside ${from}–${to}`);
+  }
+  const lines: TimedLine[] = [];
+  for (let n = from; n <= to; n++) {
+    const cue = byIndex.get(n);
+    if (!cue) throw new Error(`No subtitle number ${n}`);
+    if (skip.includes(n)) continue;
+    lines.push({ start: cue.start, end: cue.end, en: cue.text });
+  }
+  if (lines.length === 0) throw new Error("No subtitles left to use");
+  return lines;
 }
 
 /** "voa-lesson-7" → "voaLesson7", a name for the JSON import. */

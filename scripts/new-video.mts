@@ -1,29 +1,43 @@
 /**
  * Creates a draft video from metadata and its English sentences:
  *
- *   npm run video:new -- <meta.json> <sentences.txt>
+ *   npm run video:new -- <meta.json> <sentences.txt | subtitles.srt>
  *
  * meta.json: id, youtubeId, title, level, category, source, attribution,
- * from, to (see lib/draft-video.ts → DraftMeta). sentences.txt: one English
- * sentence per line. Writes data/videos/<id>.json (draft: true, estimated
- * times, Chinese to do), lists it in data/videos/index.ts, and validates
- * it. Next: write the Chinese, vocab, and grammar; tune times with tap mode
+ * and then either
+ * - for sentences.txt (one English sentence per line): from, to — the
+ *   excerpt in seconds; times are estimated by word count (DraftMeta);
+ * - for an official .srt: cues { from, to, skip? } — subtitle numbers;
+ *   text and times come from the file (SrtDraftMeta).
+ * See lib/draft-video.ts. Writes data/videos/<id>.json (draft: true,
+ * Chinese to do), lists it in data/videos/index.ts, and validates it. Next: write the Chinese, vocab, and grammar; tune times with tap mode
  * at /videos/<id>/timing (docs/content-workflow.md).
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { addToIndex, draftVideo, type DraftMeta } from "../lib/draft-video.ts";
+import {
+  addToIndex,
+  draftVideo,
+  draftVideoFromCues,
+  parseSrt,
+  type DraftMeta,
+  type SrtDraftMeta,
+} from "../lib/draft-video.ts";
 import { validateVideo } from "../lib/videos.ts";
 
 const [metaPath, linesPath] = process.argv.slice(2);
 if (!metaPath || !linesPath) {
-  console.error("Usage: npm run video:new -- <meta.json> <sentences.txt>");
+  console.error(
+    "Usage: npm run video:new -- <meta.json> <sentences.txt | subtitles.srt>",
+  );
   process.exit(1);
 }
 
-const meta = JSON.parse(readFileSync(metaPath, "utf8")) as DraftMeta;
-const lines = readFileSync(linesPath, "utf8").split("\n");
-const video = draftVideo(meta, lines);
+const meta: unknown = JSON.parse(readFileSync(metaPath, "utf8"));
+const text = readFileSync(linesPath, "utf8");
+const video = linesPath.toLowerCase().endsWith(".srt")
+  ? draftVideoFromCues(meta as SrtDraftMeta, parseSrt(text))
+  : draftVideo(meta as DraftMeta, text.split("\n"));
 
 const problems = validateVideo(video);
 if (problems.length > 0) {
