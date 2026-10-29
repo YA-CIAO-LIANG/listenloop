@@ -12,18 +12,26 @@
 ## 2. 取得英文句子
 
 - **有官方字幕檔（`.srt`）的影片**（例如 Sintel、Tears of Steel）：直接用字幕檔，文字和時間都照官方，不需要另外整理句子。
-- **只有 YouTube 字幕的影片**（VOA、Elephants Dream 等）：字幕無法用程式讀取。請 Joe 在瀏覽器打開影片的「⋯ → 顯示字幕記錄」，把要用的段落文字複製給 Claude（要官方上傳的字幕，不要自動產生的）。
-- 沒有字幕檔時存成文字檔，**一行一句**。挑連續約 10～12 句、不超過約 1 分鐘的段落。
+- **只有 YouTube 字幕的影片**（VOA、Elephants Dream 等）：字幕無法用程式讀取。請 Joe 在瀏覽器打開影片的「⋯ → 顯示字幕記錄」，確認語言是「English」（不是「English (auto-generated)」），把**含時間**的文字整段複製給 Claude（「0:05」換行「Come in.」這種格式即可；畫面上若有「5 秒」這類讀秒文字一起複製也沒關係，腳本會略過）。Claude 存成 `transcript.txt`。
+- 都沒有時才存成文字檔，**一行一句**，時間依字數估算（不建議，可能對不上）。
+- 挑連續約 10～12 句、不超過約 1 分鐘的段落。
 
 ## 3. 產生草稿（腳本）
 
 準備 `meta.json`（id、youtubeId、title、level、category、source、attribution），再依句子來源加上：
 
-- **`.srt` 字幕檔**：`"cues": { "from": 1, "to": 11, "skip": [9] }`，用字幕編號表示要用的範圍（含頭尾），`skip`（選填）是要略過的字幕，例如粗話或只有尖叫聲的句子。文字和時間照字幕檔；編號打錯時腳本會報錯，不會默默多抓或少抓。
+- **字幕（`.srt` 或 YouTube 字幕記錄）**：`"cues": { "from": 1, "to": 11, "skip": [9], "merge": [[3, 4]] }`。
+  - `from`／`to`：用字幕編號表示要用的範圍（含頭尾）。YouTube 字幕記錄從 1 開始依序編號，和 `.srt` 一樣。
+  - `skip`（選填）：要略過的字幕，例如粗話或只有尖叫聲的句子。
+  - `merge`（選填）：同一句話被字幕切成好幾行時，把 `[第一行, 最後一行]` 合成一句（開始時間取第一行，結束時間取最後一行）。
+  - 文字和時間照字幕；編號打錯時腳本會報錯，不會默默多抓或少抓。
+  - YouTube 字幕記錄只有開始時間：每句的結束時間 = 下一句開始前 0.1 秒（和點按模式相同），最後一句依字數估算，再用點按模式校正。
 - **文字檔**：`"from"`、`"to"`，段落的大約起訖秒數，依字數估算每句時間。
 
 ```sh
-npm run video:new -- meta.json subtitles.srt   # 或 sentences.txt
+npm run video:new -- meta.json subtitles.srt     # 官方字幕檔
+npm run video:new -- meta.json transcript.txt    # YouTube 字幕記錄（開頭是時間就自動辨識；也可加 --transcript）
+npm run video:new -- meta.json sentences.txt     # 一行一句
 ```
 
 - 產生 `data/videos/<id>.json`（`"draft": true`），中文先填「（待翻譯）」，並登記進 `data/videos/index.ts`。

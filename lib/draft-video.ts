@@ -15,13 +15,23 @@ export type DraftMeta = VideoMeta & {
   to: number;
 };
 
-/** What scripts/new-video.mts needs besides an .srt subtitle file. */
+/**
+ * What scripts/new-video.mts needs besides subtitles: an .srt file or a
+ * transcript copied from YouTube ("Show transcript").
+ */
 export type SrtDraftMeta = VideoMeta & {
   /** The excerpt, by subtitle number (inclusive), minus any to skip. */
   cues: CueRange;
 };
 
-export type CueRange = { from: number; to: number; skip?: number[] };
+export type CueRange = {
+  from: number;
+  to: number;
+  /** Subtitles to leave out (e.g. rude words, screams). */
+  skip?: number[];
+  /** Runs of subtitles [first, last] that make one sentence. */
+  merge?: [number, number][];
+};
 
 /** One subtitle from an .srt file; times in seconds. */
 export type SrtCue = {
@@ -137,28 +147,111 @@ export function parseSrt(text: string): SrtCue[] {
 }
 
 /**
- * The cues numbered `from` to `to`, minus `skip`, as timed sentences.
- * Throws on a range or skip that doesn't match the file, so a typo in
- * meta.json can't quietly drop or add a line.
+ * The cues numbered `from` to `to`, minus `skip`, as timed sentences; each
+ * `merge` run becomes one sentence (first start, last end, text joined).
+ * Throws on a range, skip, or merge that doesn't match the file, so a typo
+ * in meta.json can't quietly drop or add a line.
  */
 export function cuesToLines(
   cues: readonly SrtCue[],
-  { from, to, skip = [] }: CueRange,
+  { from, to, skip = [], merge = [] }: CueRange,
 ): TimedLine[] {
   const byIndex = new Map(cues.map((cue) => [cue.index, cue]));
+  const inRange = (n: number) => n >= from && n <= to;
   for (const n of skip) {
-    if (n < from || n > to)
-      throw new Error(`skip ${n} is outside ${from}–${to}`);
+    if (!inRange(n)) throw new Error(`skip ${n} is outside ${from}–${to}`);
+  }
+  for (const [first, last] of merge) {
+    if (!inRange(first) || !inRange(last) || last <= first) {
+      throw new Error(
+        `merge ${first}–${last} is not a run inside ${from}–${to}`,
+      );
+    }
+    for (let n = first; n <= last; n++) {
+      if (skip.includes(n)) throw new Error(`${n} is both merged and skipped`);
+    }
   }
   const lines: TimedLine[] = [];
   for (let n = from; n <= to; n++) {
     const cue = byIndex.get(n);
     if (!cue) throw new Error(`No subtitle number ${n}`);
     if (skip.includes(n)) continue;
+    const run = merge.find(([first, last]) => n >= first && n <= last);
+    if (run && n !== run[0]) {
+      const line = lines[lines.length - 1];
+      line.end = cue.end;
+      line.en = `${line.en} ${cue.text}`;
+      continue;
+    }
     lines.push({ start: cue.start, end: cue.end, en: cue.text });
   }
   if (lines.length === 0) throw new Error("No subtitles left to use");
   return lines;
+}
+
+/** Same as TAP_GAP (lib/player/tap-timing.ts): a line ends this long before the next. */
+export const TRANSCRIPT_GAP = 0.1;
+
+/** Seconds per word for the last line, whose end a transcript doesn't give. */
+const LAST_LINE_WORD_SECONDS = 0.4;
+
+const TIMESTAMP = /^(?:(\d+):)?(\d{1,2}):(\d{2})(?:\s+(.*))?$/;
+// Screen-reader labels some copies include under a time ("5 seconds",
+// "1 minute, 5 seconds", "5 秒", "1 分鐘 5 秒").
+const DURATION_LABEL =
+  /^(?:\d+\s*(?:hours?|minutes?|seconds?|小時|分鐘|分|秒鐘|秒)[,、，\s]*)+$/i;
+
+/** Whether text looks like a YouTube transcript (it starts with a time). */
+export function isYouTubeTranscript(text: string): boolean {
+  const first = text
+    .replace(/^\uFEFF/, "")
+    .split(/\r?\n/)
+    .find((line) => line.trim() !== "");
+  return first !== undefined && TIMESTAMP.test(first.trim());
+}
+
+/**
+ * Lines from a transcript copied out of YouTube's "Show transcript" panel:
+ * a time ("0:05" or "1:02:03") on its own line or before the text, then the
+ * text (several lines join). Numbered from 1 like .srt cues. A transcript
+ * only has start times, so each line ends TRANSCRIPT_GAP before the next;
+ * the last one gets an estimate by word count (tap mode makes it exact).
+ */
+export function parseYouTubeTranscript(text: string): SrtCue[] {
+  const lines: { start: number; text: string[] }[] = [];
+  for (const raw of text.replace(/^\uFEFF/, "").split(/\r?\n/)) {
+    const line = raw.trim();
+    if (line === "") continue;
+    const time = TIMESTAMP.exec(line);
+    if (time) {
+      const [, h = "0", m, sec, rest] = time;
+      lines.push({
+        start: Number(h) * 3600 + Number(m) * 60 + Number(sec),
+        text: rest ? [rest.trim()] : [],
+      });
+      continue;
+    }
+    if (DURATION_LABEL.test(line)) continue;
+    if (lines.length === 0)
+      throw new Error(`Text before the first time: ${line}`);
+    lines[lines.length - 1].text.push(line);
+  }
+  return lines
+    .filter((line) => line.text.length > 0)
+    .map((line, i, all) => {
+      const en = line.text.join(" ");
+      const next = all[i + 1];
+      const end = next
+        ? next.start - TRANSCRIPT_GAP
+        : line.start +
+          Math.max(1, en.split(/\s+/).length * LAST_LINE_WORD_SECONDS);
+      return {
+        index: i + 1,
+        start: round(line.start),
+        end: round(Math.max(line.start, end)),
+        text: en,
+      };
+    });
 }
 
 /** "voa-lesson-7" → "voaLesson7", a name for the JSON import. */
