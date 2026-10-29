@@ -47,3 +47,12 @@ export function tasksByDate(
   }
   return byDate;
 }
+
+/** Heat-map steps: 0 tasks, then 1, 2, 3, and 4 or more. */
+export type HeatLevel = 0 | 1 | 2 | 3 | 4;
+
+/** The calendar's heat-map step for a day with `count` finished tasks. */
+export function heatLevel(count: number): HeatLevel {
+  if (count <= 0) return 0;
+  return Math.min(4, Math.floor(count)) as HeatLevel;
+}

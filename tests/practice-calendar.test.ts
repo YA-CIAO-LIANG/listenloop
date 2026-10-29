@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { emptyActivity, parseActivity, recordTask } from "@/lib/activity";
 import type { CycleDay } from "@/lib/cycle";
-import { tasksByDate } from "@/lib/practice-calendar";
+import { heatLevel, tasksByDate } from "@/lib/practice-calendar";
 import { createProgress, withDay, type Progress } from "@/lib/progress";
 
 const task = (videoId: string, day: number, week = 1) => ({
@@ -97,6 +97,14 @@ describe("tasksByDate", () => {
       task("sintel", 4, 1),
       task("sintel", 1, 2),
       task("voa-001", 2),
+    ]);
+  });
+});
+
+describe("heatLevel", () => {
+  it("steps 0, 1, 2, 3, then 4 for four or more tasks", () => {
+    expect([0, 1, 2, 3, 4, 5, 12].map(heatLevel)).toEqual([
+      0, 1, 2, 3, 4, 4, 4,
     ]);
   });
 });

@@ -81,11 +81,28 @@
     "title": "Practice calendar",
     "previousMonth": "Previous",
     "nextMonth": "Next",
-    "caption": "Practice calendar: days with finished tasks have a dot; pick a day to see its tasks",
+    "caption": "Practice calendar: the darker the day, the more tasks finished; pick a day to see its tasks",
     "taskLine": "<video>{title}</video> · Day {day} {task}",
     "none": "No tasks finished this day",
     "dayLabel": "{date}, {count, plural, =0 {no tasks finished} one {# task finished} other {# tasks finished}}{today, select, yes { (today)} other {}}",
-    "today": "Today"
+    "today": "Today",
+    "legendLess": "Less",
+    "legendMore": "More",
+    "expand": "Show the month",
+    "collapse": "Show this week",
+    "tipCount": "{count, plural, =0 {No tasks finished} one {# task finished} other {# tasks finished}}"
+  },
+  "today": {
+    "title": "Today’s tasks",
+    "empty": "No practice started yet. Pick a video from the practice library below to start Day 1.",
+    "emptyLink": "Go to the practice library",
+    "newWeekLine": "<video>{title}</video> · Week {week} starts again",
+    "available": "Ready",
+    "done": "Done",
+    "tomorrowDay": "Day {day} opens tomorrow",
+    "tomorrowWeek": "Week {week} starts tomorrow",
+    "start": "Start",
+    "retry": "Practice again"
   },
   "week": {
     "resultTitle": "Week {week} result",
@@ -228,10 +245,11 @@
       "clownfishNote": "Three white bands edged in black, black fin margins.",
       "greatWhiteNote": "Still a shark: pointed snout, grey back and white belly, gill slits, tall dorsal fin, crescent tail; short and chubby with a little toothy smile.",
       "whaleSharkNote": "The biggest and slowest: a broad flat head with a wide front mouth, white spots and faint stripes, white belly."
-    }
+    },
+    "heatScale": "Practice calendar steps: 0, 1, 2, 3, and 4+ official tasks finished that day"
   },
   "library": {
-    "title": "Library",
+    "title": "Practice library",
     "intro": "Pick a video and start a seven-day loop.",
     "sentences": "{count, plural, one {# sentence} other {# sentences}}"
   },
@@ -327,7 +345,8 @@
     "officialUnchanged": "Official score {score} (unchanged)",
     "thisAttempt": "This attempt",
     "todayDone": "Today’s task done",
-    "retryComplete": "Practice done!"
+    "retryComplete": "Practice done!",
+    "perfect": "Perfect!"
   },
   "redictation": {
     "title": "Day 7: Re-dictation",

@@ -73,7 +73,7 @@ describe("PracticeCalendar", () => {
     { videoId: "sintel", week: 1, day: 2 },
   );
 
-  it("marks practiced days and today, Sunday first", async () => {
+  it("colors days by tasks finished and marks today, Sunday first", async () => {
     await renderCalendar(practiced);
     const headers = screen
       .getAllByRole("columnheader")
@@ -83,12 +83,46 @@ describe("PracticeCalendar", () => {
     const todayButton = screen.getByRole("button", {
       name: `${dayName(today)}，完成 2 個任務（今天）`,
     });
-    expect(todayButton.querySelector("[data-practiced]")).not.toBeNull();
+    expect(todayButton.dataset.level).toBe("2");
+    expect(
+      screen.getByRole("button", { name: `${dayName(otherDay)}，沒有完成任務` })
+        .dataset.level,
+    ).toBe("0");
+  });
+
+  it("explains the colors with a less → more legend", async () => {
+    const { container } = renderWithIntl(
+      <PracticeCalendar
+        progress={memoryProgress()}
+        rewards={rewardStore(practiced)}
+      />,
+    );
+    await act(async () => {});
+    const legend = container.querySelectorAll("[data-legend-level]");
+    expect(
+      [...legend].map((el) => el.getAttribute("data-legend-level")),
+    ).toEqual(["0", "1", "2", "3", "4"]);
+    expect(legend[0].parentElement!.textContent).toBe("少多");
+    expect(
+      screen.getByRole("table").querySelector("caption")!.textContent,
+    ).toMatch(/顏色越深/);
+  });
+
+  it("on phones, shows this week until the month is expanded", async () => {
+    await renderCalendar(practiced);
+    const rows = screen.getByRole("table").querySelectorAll("tbody tr");
+    const hidden = () =>
+      [...rows].filter((row) => row.classList.contains("hidden")).length;
+    expect(hidden()).toBe(rows.length - 1);
+    const toggle = screen.getByRole("button", { name: /展開整月/ });
+    expect(toggle.getAttribute("aria-expanded")).toBe("false");
+    fireEvent.click(toggle);
+    expect(hidden()).toBe(0);
     expect(
       screen
-        .getByRole("button", { name: `${dayName(otherDay)}，沒有完成任務` })
-        .querySelector("[data-practiced]"),
-    ).toBeNull();
+        .getByRole("button", { name: /收合/ })
+        .getAttribute("aria-expanded"),
+    ).toBe("true");
   });
 
   it("lists today's tasks under the calendar by default", async () => {
@@ -106,6 +140,7 @@ describe("PracticeCalendar", () => {
     const button = screen.getByRole("button", { name: /（今天）/ });
     fireEvent.pointerEnter(button, { pointerType: "mouse" });
     const tip = screen.getByRole("tooltip");
+    expect(tip.textContent).toContain("完成 2 個任務");
     expect(tip.textContent).toContain("Sintel｜第 2 天 跟讀");
     expect(button.getAttribute("aria-describedby")).toBe(tip.id);
     fireEvent.pointerLeave(button);

@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { CardLink } from "@/components/CardLink";
 import { PracticeCalendar } from "@/components/PracticeCalendar";
+import { TodayTasks } from "@/components/TodayTasks";
 import { VideoProgressLabel } from "@/components/VideoProgressLabel";
 import { getAllVideos } from "@/lib/video-library";
 
@@ -13,11 +14,12 @@ export default function Home() {
       <h1 className="font-display text-hero">{t("common.appName")}</h1>
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
 
-      <div className="mt-12">
+      <div className="mt-12 space-y-6">
         <PracticeCalendar />
+        <TodayTasks />
       </div>
 
-      <section className="mt-16">
+      <section id="library" className="mt-16 scroll-mt-8">
         <h2 className="font-display text-h2">{t("library.title")}</h2>
         <p className="mt-2 text-ink-muted">{t("library.intro")}</p>
         <ul className="mt-8 grid gap-6 split:grid-cols-2">
