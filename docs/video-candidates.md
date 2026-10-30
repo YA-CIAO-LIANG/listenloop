@@ -4,19 +4,22 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 
 ## M3 進度
 
-製作流程見 `docs/content-workflow.md`。**目前只做「Blender 開放電影」合集**（2026-10-28 決定；VOA 與美國國務院 Everyday Conversations **暫停**，資料保留在下方）。一部電影切成多段，每段約 10～12 句，各算一支影片；預估 13 支。一律標示出處。
+製作流程見 `docs/content-workflow.md`。兩個合集：「Blender 開放電影」與「NASA 科學」（2026-10-29 決定擴大來源：在 YouTube 找長度合適的 CC BY／公有領域影片，不拘泥於現有素材）。VOA 與美國國務院 Everyday Conversations **暫停**（資料保留在下方）。同一部片的片段可以重疊；每個片段至少 1 分鐘；題庫依片段長度篩選，段落規劃讓 8 個長度區間都有影片。一律標示出處。
 
 **句子一律取自和播放的影片同一來源的字幕**：官方 `.srt` 字幕檔（確認與 YouTube 片長相同），或那支 YouTube 影片由上傳者提供的字幕（「顯示字幕記錄」，不可用自動產生的）。不用網站上的逐字稿頁：它可能和 YouTube 影片是不同版本（2026-10-28 VOA 的教訓，見「已排除」）。
 
-| PR   | 內容                                                                  | 狀態   |
-| ---- | --------------------------------------------------------------------- | ------ |
-| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成   |
-| M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕                            | 完成   |
-| M3-3 | `npm run video:new` 讀貼上的 YouTube 字幕記錄（PR #32）               | 審查中 |
-| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 本 PR  |
-| M3-5 | Tears of Steel 4 段                                                   | 待做   |
-| M3-6 | Elephants Dream、Cosmos Laundromat、Sprite Fright 約 8 段             | 待做   |
-| —    | VOA、美國國務院 Everyday Conversations                                | 暫停   |
+| PR   | 內容                                                                  | 狀態  |
+| ---- | --------------------------------------------------------------------- | ----- |
+| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成  |
+| M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕                            | 完成  |
+| M3-3 | `npm run video:new` 讀貼上的 YouTube 字幕記錄                         | 完成  |
+| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 完成  |
+| M3-5 | 片段長度：自動計算、至少 1 分鐘、題庫長度篩選；Sintel 延長到 15 句    | 本 PR |
+| M3-6 | Tears of Steel 重切：Part 1～3＋完整對白版（PR #35）                  | 待做  |
+| M3-7 | NASA 科學第一批：新合集、新類別「科學」、1～6 分鐘 7 支               | 待做  |
+| M3-8 | NASA 科學第二批：6 分鐘以上 3 個長段                                  | 待做  |
+| —    | Elephants Dream、Cosmos Laundromat、Sprite Fright                     | 之後  |
+| —    | VOA、美國國務院 Everyday Conversations                                | 暫停  |
 
 ## Blender 開放電影全片清單（2026-10-29 依 [studio.blender.org/films](https://studio.blender.org/films/) 官方列表查證）
 
@@ -50,19 +53,27 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 - **口音與音效**：口音重、配樂或音效蓋過人聲、多人搶話時往上調一級。
 - 草稿產生後在 PR 附上每段語速與依據，由 Joe 決定最後分級。
 
-| 段落                          | 字幕範圍                                | 時間       | 內容                               | 建議難度                                 |
-| ----------------------------- | --------------------------------------- | ---------- | ---------------------------------- | ---------------------------------------- |
-| Sintel（已上線）              | 1～12                                   | 1:47～2:36 | 少女與老人談尋龍                   | intermediate                             |
-| Tears of Steel · Part 1       | 1～11                                   | 0:23～1:03 | 分手爭吵：機器手、夢魘             | intermediate（口語 freaked out、連音多） |
-| Tears of Steel · Part 2       | 12～24，略過 21（粗話）                 | 1:57～3:45 | 指揮中心準備行動                   | intermediate                             |
-| Tears of Steel · Part 3       | 25～40                                  | 3:46～5:27 | 「Be tender to her」、重演分手台詞 | beginner（短句、重複多）                 |
-| Tears of Steel · Part 4       | 41～66，略過 46（粗話）、52～54（尖叫） | 5:39～7:12 | 倒數、道歉、高潮                   | intermediate                             |
-| Elephants Dream · Part 1～3   | 待字幕記錄                              | —          | 兩人在機械世界的對話               | advanced（口音、抽象用語）               |
-| Cosmos Laundromat · Part 1～3 | 待字幕記錄                              | —          | 綿羊 Franck 與神祕推銷員 Victor    | advanced／intermediate                   |
-| Sprite Fright · Part 1～2     | 待字幕記錄                              | —          | 青少年在森林露營                   | intermediate（語速快、俚語）             |
+### 段落規劃（依長度區間）
 
-- Tears of Steel 第 67～76 句（8:13～9:26）多為極短句、間隔長，暫不收。
-- Tears of Steel 第 9 句字幕含畫面文字「"Fourty years later"」，寫內容時拿掉並在 `changes` 註明。
+片段長度 = 第一句開始到最後一句結束（`lib/excerpt-length.ts`）。實際長度要扣掉片頭片尾音樂；拿到字幕記錄後先算長度，不合區間就換片或調整切點，PR 附上算出來的長度。
+
+| 區間       | Blender 開放電影（官方 .srt）                                                               | NASA 科學（YouTube 字幕記錄）                                                                                 |
+| ---------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| 1～2 分鐘  | Tears of Steel · Part 1（字幕 1～14，約 1:55）                                              | Astronauts Describe Seeing Earth From Space（1:32，`iufG3-wrFHA`）；Parabolic Flights（1:55，`7YYP35EiiDE`）  |
+| 2～3 分鐘  | **Sintel**（已上線，字幕 1～15，2:05）；Tears of Steel · Part 2（15～40，略過 21，約 2:17） | Dark Energy（2:43，`wLZo3mVAQSU`）                                                                            |
+| 3～4 分鐘  | Tears of Steel · Part 3（41～76，略過 43、46、52～54、68，約 3:50）                         | Earth's Magnetosphere（3:38，`o4FSg-90XlA`）；What Would It Take To Say We Found Life?（3:27，`6SDVw1PYYcw`） |
+| 4～5 分鐘  | —                                                                                           | Vision Changes in Space（4:11，`vDqLQGWh6v0`）                                                                |
+| 5～6 分鐘  | —                                                                                           | What is the big bang?（5:50，`qsoLni0I5_U`）                                                                  |
+| 6～7 分鐘  | —                                                                                           | Sitting Down with Astronaut Victor Glover · Part 1（19:52 的訪談截約 6.5 分鐘，`0qlVg1o_FJY`）                |
+| 7～8 分鐘  | —                                                                                           | Victor Glover 訪談 · Part 2（再截約 7.5 分鐘，不重疊）                                                        |
+| 8 分鐘以上 | Tears of Steel · 完整對白（1～76，略過同上，約 9:06）                                       | Our Alien Earth: The Lava Tubes of Mauna Loa（19:46 截約 9 分鐘，`cEyM2M1vAcw`）                              |
+
+- Tears of Steel：粗話（第 21 句「Move your asses」、第 46 句「and a dick」）、只有尖叫聲的句子、義大利音樂術語「Vivacissimo!」（第 43 句）略過；第 9 句字幕含畫面文字「"Fourty years later"」，寫內容時拿掉；都寫進 `changes`。
+- 長片段（6 分鐘以上）是「挑戰版」，難度標 intermediate 以上。
+
+### 待決問題
+
+- **長片段的跟讀份量**（2026-10-29 記錄）：8 分鐘以上的片段約 50 句以上，Day 2～6 跟讀每天要念完全部句子，份量可能過重。等 Joe 實際試做後再決定是否調整（例如長片段的跟讀只念部分句子、或拆成每天一段）。目前規則不變。
 
 ## 授權規則
 
@@ -75,7 +86,7 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 
 | 影片   | YouTube                                                    | 授權                                                     | 出處註明                                             | 逐字稿                                                                                         | 截取                   |
 | ------ | ---------------------------------------------------------- | -------------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------- |
-| Sintel | [eRsGyueVLvQ](https://www.youtube.com/watch?v=eRsGyueVLvQ) | CC BY 3.0（[官方](https://durian.blender.org/sharing/)） | © copyright Blender Foundation \| durian.blender.org | [sintel_en.srt](https://durian.blender.org/wp-content/content/subtitles/sintel_en.srt)（官方） | 字幕 1～12，1:47～2:36 |
+| Sintel | [eRsGyueVLvQ](https://www.youtube.com/watch?v=eRsGyueVLvQ) | CC BY 3.0（[官方](https://durian.blender.org/sharing/)） | © copyright Blender Foundation \| durian.blender.org | [sintel_en.srt](https://durian.blender.org/wp-content/content/subtitles/sintel_en.srt)（官方） | 字幕 1～15，1:47～3:52 |
 
 ## Blender 開放電影：YouTube 與出處（CC BY）
 
@@ -93,6 +104,15 @@ M3 待辦：
 - Elephants Dream、Cosmos Laundromat、Sprite Fright 沒有官方字幕檔：從 YouTube 官方字幕（「顯示字幕記錄」，含時間）取得對白，字幕內容無法用程式讀取，需 Joe 在瀏覽器複製。
 - Tears of Steel 有官方 `.srt`，直接用 `npm run video:new` 讀取。真人演出＋CG（非純動畫），Joe 同意使用。含粗話的句子（第 21 句「Move your asses」、第 46 句「and a dick」）與只有尖叫聲的句子切段時略過，並寫進 `changes`。
 - Sprite Fright 官方頁的「1.0」可能是筆誤（其他片都是 3.0），不論版本都屬 CC BY；JSON 依官方原文填寫。
+
+## NASA 科學（CC BY／公有領域，2026-10-29 查證）
+
+- **官方頻道**：`UCKt6dYzHqHfpcp1lgj4bl1A`「NASA Science」（@NASAScience）。NASA 官方的 [nasa.gov/social-media](https://www.nasa.gov/social-media/) 列出 `youtube.com/user/ScienceAtNASA`，解析後就是這個頻道。
+- **授權**：每支影片的 YouTube 頁標「Creative Commons Attribution license (reuse allowed)」（CC BY 3.0）。NASA 的 [媒體使用規定](https://www.nasa.gov/nasa-brand-center/images-and-media/)：NASA 的影音「generally are not subject to copyright」、要註明 NASA 是出處、不可暗示 NASA 替商品或服務背書；現任與前任太空人的姓名、肖像不可用於商業宣傳。JSON 填 `CC BY 3.0`，出處「NASA」。
+- **行銷限制**：ListenLoop 的宣傳素材（商店截圖、廣告）不使用 NASA 標誌、太空人肖像或「NASA 合作」之類的字眼。
+- **字幕**：候選影片都檢查過有 NASA 上傳的「English」字幕（不是自動產生的）；字幕內容仍需 Joe 從「顯示字幕記錄」複製。
+- **類別**：新增 `science`（科學）。
+- 只收 NASA Science 頻道上傳、由 NASA 製作的影片；畫面或聲音含第三方素材（例如新聞片段、商業音樂）的影片不收。NASAJPL Edu（JPL 由加州理工學院管理，部分素材有版權）暫不收。
 
 ## 暫停：VOA Let's Learn English（Public Domain）
 
@@ -130,4 +150,5 @@ M3 待辦：
 - Blender「Agent 327: Operation Barbershop」：官方授權為 CC BY-ND（禁止改作）。
 - Blender「Charge」：專案頁查不到授權文字，對白也很少。
 - Blender「Wing It!」：授權已查到（CC BY 4.0），但幾乎沒有對白。
+- VOA Let's Learn English Lesson 7（`THMKsKMTyqg`）：2026-10-29 檢查 YouTube 完全沒有字幕軌，字幕記錄的做法也行不通。
 - 2016 年 3～4 月早期上傳與 2022 年兒童版的 Let's Learn English：影片編號與逐字稿頁不符（改用 YouTube 字幕記錄後可重新評估）。

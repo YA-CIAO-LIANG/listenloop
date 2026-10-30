@@ -115,6 +115,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 }
 ```
 
+- 片段長度：第一句 `start` 到最後一句 `end`（四捨五入到秒，不含播放緩衝），由 `lib/excerpt-length.ts` 的 `excerptSeconds` 自動計算，不手動填寫。正式影片至少 1 分鐘（驗證會擋；草稿不檢查）。題庫的長度篩選區間集中在同一個檔案的 `LENGTH_BUCKETS`（1～2、2～3…7～8 分鐘、8 分鐘以上；含下限、不含上限）。
 - `collection` 必填：題庫依合集分組顯示。合集 id 與顯示順序在 `lib/videos.ts` 的 `videoCollections`，名稱與說明放在翻譯檔 `collections.<id>.title`、`.intro`（測試檢查兩種語言都有）。目前只有 `blender-open-movies`（「Blender 開放電影」／「Blender Open Movies」）。
 - `attribution` 必填，播放頁一律顯示出處。`license` 只能是 `Public Domain`、`CC BY x.x` 或 `CC BY-SA x.x`（NC、ND 會被驗證擋下）。授權規則與候選影片見 `docs/video-candidates.md`。
 - 內建內容庫：英文句子與時間點取自官方逐字稿或字幕；中文翻譯、單字、文法手寫（不接付費 API），App 執行時不呼叫 AI。使用者自建練習（M6）只在建立時呼叫翻譯與聲音 API，練習時不呼叫。

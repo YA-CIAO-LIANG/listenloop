@@ -24,6 +24,7 @@ vi.mock("@/components/youtube/useYouTubePlayer", () => ({
 }));
 
 const sintel = videos.find((v) => v.id === "sintel")!;
+const count = sintel.sentences.length;
 const exported = () =>
   JSON.parse((screen.getByRole("textbox") as HTMLTextAreaElement).value);
 
@@ -96,22 +97,29 @@ describe("TimingTool tap mode", () => {
     });
     await userEvent.click(screen.getByRole("button", { name: "開始點按" }));
     expect(playFrom).toHaveBeenLastCalledWith(105);
-    expect(screen.getByText(/下一句（1 \/ 12）/)).toBeDefined();
+    expect(
+      screen.getByText(new RegExp(`下一句（1 / ${count}）`)),
+    ).toBeDefined();
 
+    // One tap every 5 s, so the tapped excerpt runs over the 1-minute minimum.
+    const last = count - 1;
     sintel.sentences.forEach((_, i) => {
-      clock.now = 107 + i * 3.5;
+      clock.now = 107 + i * 5;
       press(" ");
     });
     expect(screen.getByText(/全部標完了/)).toBeDefined();
-    clock.now = 150.2;
+    clock.now = 107 + last * 5 + 4.7;
     press("Enter");
 
     expect(stop).toHaveBeenCalled();
-    expect(screen.getByText(/已標記 12 句/)).toBeDefined();
+    expect(screen.getByText(new RegExp(`已標記 ${count} 句`))).toBeDefined();
     const times = exported();
-    expect(times[0]).toMatchObject({ start: 107, end: 110.4 });
-    expect(times[1]).toMatchObject({ start: 110.5, end: 113.9 });
-    expect(times[11]).toMatchObject({ start: 145.5, end: 150.2 });
+    expect(times[0]).toMatchObject({ start: 107, end: 111.9 });
+    expect(times[1]).toMatchObject({ start: 112, end: 116.9 });
+    expect(times[last]).toMatchObject({
+      start: 107 + last * 5,
+      end: 107 + last * 5 + 4.7,
+    });
     expect(screen.getByText("時間點格式正確。")).toBeDefined();
   });
 
@@ -122,9 +130,13 @@ describe("TimingTool tap mode", () => {
     press(" ");
     clock.now = 111;
     press(" ");
-    expect(screen.getByText(/下一句（3 \/ 12）/)).toBeDefined();
+    expect(
+      screen.getByText(new RegExp(`下一句（3 / ${count}）`)),
+    ).toBeDefined();
     await userEvent.click(screen.getByRole("button", { name: "上一句重來" }));
-    expect(screen.getByText(/下一句（2 \/ 12）/)).toBeDefined();
+    expect(
+      screen.getByText(new RegExp(`下一句（2 / ${count}）`)),
+    ).toBeDefined();
     expect(playFrom).toHaveBeenLastCalledWith(106);
   });
 

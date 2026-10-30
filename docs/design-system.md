@@ -134,19 +134,20 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 ## 元件規格
 
-| 元件           | 規格                                                                                                                                                                                                                                                                           |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Card           | surface 背景、1px line 邊框、4px 圓角、無陰影。可點擊版本（CardLink）hover 時邊框變為 ink-muted，並有按壓與漣漪效果。                                                                                                                                                          |
-| ProgressBar    | 每一步（例如每一句）一格，accent 填滿、line 底軌，格間距 2px，高 4px；超過 30 步改為 4px 連續條。上方左側為標籤（可在旁邊顯示完成 ✓）、右側為「目前 / 總數」（可用 `showCount` 關閉），使用 12px 全大寫小標籤。數值變化 300ms 過渡。前端有領頭小橘點；動畫規則見「動態原則」。 |
-| ScoreBadge     | Display 襯線大數字（H1 字級）＋下方小標籤「正確率」。≥ 80% 時數字為 success，並加上「通過」文字（不只靠顏色）；低於 80% 為 ink。                                                                                                                                               |
-| SentenceRow    | 左：兩位數句號（metadata、muted）；中：英文句子（sentence 字級、`lang="en"`），作答前可隱藏；右：狀態。進行中的句子左側 2px accent 直線＋▶；完成的句子顯示 ✓（success）＋分數。句子之間 1px 細線分隔。可點擊時整列為按鈕。                                                     |
-| DayTracker     | 7 個等寬格子橫排，格線 1px。每格：襯線大數字（H3）、狀態標記（完成＝實心 accent 圓點、鎖定＝鎖頭圖示且文字 muted）、任務名稱（聽寫 / 跟讀 / 重新聽寫，760px 以上才顯示）。今天的格子底部 2px accent 底線。每格有完整的螢幕閱讀器標籤。                                         |
-| ThemeToggle    | 「跟隨系統 / 淺色 / 深色」三選一，樣式同 LanguageToggle。                                                                                                                                                                                                                      |
-| LanguageToggle | 「中文 / EN」，以原生 radio 實作（方向鍵可切換）。選中項目為 accent-ink＋底線。每個選項有固定最小寬度，切換語言時版面不跳動。                                                                                                                                                  |
-| Divider        | 1px line 細線，水平或垂直。                                                                                                                                                                                                                                                    |
-| ButtonLink     | 外觀與 Button 完全相同的連結（例如「開始第 1 天 →」）。按壓效果只回應 Enter。                                                                                                                                                                                                  |
-| WordDiffView   | 聽寫回饋，兩行對照：「你的答案」中寫錯或多寫的字用 error 色＋刪除線（`<del>`）；「正確答案」中沒寫對的字用 error 色＋2px 底線，並附螢幕閱讀器文字「（沒寫對）」。兩行都顯示原文寫法（不是正規化後的字）。                                                                      |
-| CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                                                                   |
+| 元件           | 規格                                                                                                                                                                                                                                                                                                                                                            |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Card           | surface 背景、1px line 邊框、4px 圓角、無陰影。可點擊版本（CardLink）hover 時邊框變為 ink-muted，並有按壓與漣漪效果。                                                                                                                                                                                                                                           |
+| ProgressBar    | 每一步（例如每一句）一格，accent 填滿、line 底軌，格間距 2px，高 4px；超過 30 步改為 4px 連續條。上方左側為標籤（可在旁邊顯示完成 ✓）、右側為「目前 / 總數」（可用 `showCount` 關閉），使用 12px 全大寫小標籤。數值變化 300ms 過渡。前端有領頭小橘點；動畫規則見「動態原則」。                                                                                  |
+| ScoreBadge     | Display 襯線大數字（H1 字級）＋下方小標籤「正確率」。≥ 80% 時數字為 success，並加上「通過」文字（不只靠顏色）；低於 80% 為 ink。                                                                                                                                                                                                                                |
+| SentenceRow    | 左：兩位數句號（metadata、muted）；中：英文句子（sentence 字級、`lang="en"`），作答前可隱藏；右：狀態。進行中的句子左側 2px accent 直線＋▶；完成的句子顯示 ✓（success）＋分數。句子之間 1px 細線分隔。可點擊時整列為按鈕。                                                                                                                                      |
+| DayTracker     | 7 個等寬格子橫排，格線 1px。每格：襯線大數字（H3）、狀態標記（完成＝實心 accent 圓點、鎖定＝鎖頭圖示且文字 muted）、任務名稱（聽寫 / 跟讀 / 重新聽寫，760px 以上才顯示）。今天的格子底部 2px accent 底線。每格有完整的螢幕閱讀器標籤。                                                                                                                          |
+| ThemeToggle    | 「跟隨系統 / 淺色 / 深色」三選一，樣式同 LanguageToggle。                                                                                                                                                                                                                                                                                                       |
+| LanguageToggle | 「中文 / EN」，以原生 radio 實作（方向鍵可切換）。選中項目為 accent-ink＋底線。每個選項有固定最小寬度，切換語言時版面不跳動。                                                                                                                                                                                                                                   |
+| Divider        | 1px line 細線，水平或垂直。                                                                                                                                                                                                                                                                                                                                     |
+| ButtonLink     | 外觀與 Button 完全相同的連結（例如「開始第 1 天 →」）。按壓效果只回應 Enter。                                                                                                                                                                                                                                                                                   |
+| WordDiffView   | 聽寫回饋，兩行對照：「你的答案」中寫錯或多寫的字用 error 色＋刪除線（`<del>`）；「正確答案」中沒寫對的字用 error 色＋2px 底線，並附螢幕閱讀器文字「（沒寫對）」。兩行都顯示原文寫法（不是正規化後的字）。                                                                                                                                                       |
+| FilterChip     | 可複選的切換按鈕（`aria-pressed`），用於題庫長度篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：1px line 邊框、ink-muted 文字，hover 邊框 ink-muted、文字 ink。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。 |
+| CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                                                                                                                                                    |
 
 ## 設計系統展示頁
 
@@ -222,9 +223,12 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 ### 練習題庫
 
-- Display h2「練習題庫」＋說明；section `id="library"`（`scroll-mt-8`）。
-- 依合集分組（`getVideosByCollection`，順序依 `videoCollections`，沒有影片的合集不顯示）：每組上方 48px，Display h3 合集名稱＋同一行 supporting、ink-muted 的「13 支影片」→ supporting、ink-muted 的合集說明 → 24px 後是卡片 grid（split 以上兩欄）。每組是 `aria-labelledby` 合集標題的 section。
-- 影片卡片（CardLink）維持原樣。
+- Display h2「練習題庫」＋說明；section `id="library"`（`scroll-mt-8`）。元件：`PracticeLibrary`（讀寫網址）包著 `LibraryView`（畫面）。
+- 長度篩選列（說明下方 32px，`role="group"`、名稱「片段長度」）：metadata、ink-muted、字距加寬的「片段長度」→ 8 個 FilterChip「1～2 分鐘（3）」（括號是該區間的影片數，依 `LENGTH_BUCKETS`）→ 有選取時 ghost、sm「清除」。可複選；影片落在任一選取區間就顯示（沒有選取＝全部）。下方一行 supporting、ink-muted、`aria-live="polite"`：有選取時「顯示 5 支影片」。
+- 篩選狀態存在網址 `?length=1-2,8-plus`（不認得的 id 忽略），切換時 `router.replace`（不捲動、不加瀏覽紀錄），重新整理或分享連結都保留。伺服器先輸出沒有篩選的完整列表（`Suspense` fallback），畫面一致。
+- 依合集分組（`getVideosByCollection`，順序依 `videoCollections`）：只列出符合篩選的影片，沒有符合影片的合集整組隱藏。每組上方 48px（第一組 32px），Display h3 合集名稱＋同一行 supporting、ink-muted 的「13 支影片」（篩選後的數量）→ supporting、ink-muted 的合集說明 → 24px 後是卡片 grid（split 以上兩欄）。每組是 `aria-labelledby` 合集標題的 section。
+- 全部不符合：ink-muted「沒有符合的影片。」＋ secondary「清除篩選」。
+- 影片卡片（CardLink）：程度 · 類別 → 影片名 → 進度 → 最下行「Blender Foundation · 15 句 · 片段長度 2 分 5 秒」（整分時「片段長度 2 分鐘」；英文「Excerpt 2 min 5 s」）。
 
 ## 七天循環
 

@@ -1,5 +1,8 @@
 /** Shape of data/videos/<id>.json (see CLAUDE.md 資料格式). */
 
+// Imports carry .ts so scripts/new-video.mts can run this with plain Node.
+import { excerptSeconds, MIN_EXCERPT_SECONDS } from "./excerpt-length.ts";
+
 export const videoLevels = ["beginner", "intermediate", "advanced"] as const;
 /**
  * Collections group the library, in display order. Names and intros live in
@@ -208,6 +211,13 @@ export function validateVideo(data: unknown): string[] {
       if (end <= start) problems.push(`${where}.end must be after start`);
       previousEnd = end;
     });
+    // Drafts may run short while their excerpt is still being chosen.
+    const seconds = excerptSeconds(data.sentences as Sentence[]);
+    if (data.draft !== true && seconds < MIN_EXCERPT_SECONDS) {
+      problems.push(
+        `excerpt must run at least ${MIN_EXCERPT_SECONDS} s (first start to last end), not ${seconds} s`,
+      );
+    }
   }
 
   for (const [list, fields] of [
