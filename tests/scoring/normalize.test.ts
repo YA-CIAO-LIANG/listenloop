@@ -62,6 +62,14 @@ describe("normalizeWords", () => {
     expect(normalizeWords(input)).toEqual(expected);
   });
 
+  it("reads % as percent, so digits and words match either way", () => {
+    const words = ["memory", "overwrite", "ninety", "percent"];
+    expect(normalizeWords("Memory overwrite, 90%.")).toEqual(words);
+    expect(normalizeWords("memory overwrite 90 percent")).toEqual(words);
+    expect(normalizeWords("Memory overwrite, ninety percent")).toEqual(words);
+    expect(normalizeWords("ninety %")).toEqual(["ninety", "percent"]);
+  });
+
   it("leaves larger numbers as digits", () => {
     expect(normalizeWords("in 2026")).toEqual(["in", "2026"]);
   });

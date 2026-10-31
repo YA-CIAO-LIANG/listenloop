@@ -14,6 +14,10 @@
     "transcriptUrl": "https://download.blender.org/demo/movies/ToS/subtitles/TOS-en.srt",
     "changes": "Excerpt (0:23–2:18) of the official English subtitles, cues 1–14 (cues 2–3, 5–6, and 7–8 joined into one sentence each; on-screen text in cue 9 removed; punctuation tidied); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
   },
+  "excerptOf": {
+    "video": "tears-of-steel-full",
+    "from": 0
+  },
   "draft": true,
   "sentences": [
     {

@@ -337,7 +337,9 @@
     "tapCancel": "Cancel",
     "tapNext": "Next ({n} / {total}):",
     "tapEnd": "All tapped. Press Enter when the last sentence ends.",
-    "tapDone": "{count, plural, one {# sentence} other {# sentences}} marked. Play each one to check, then copy the JSON."
+    "tapDone": "{count, plural, one {# sentence} other {# sentences}} marked. Play each one to check, then copy the JSON.",
+    "excerpt": "This part's sentences and times come from the full version, so they aren't tuned here. Tune the full version, then ask the developer to run npm run video:sync to copy the times into each part.",
+    "excerptLink": "Go to the timing page:"
   },
   "dictation": {
     "title": "Day 1: Dictation",

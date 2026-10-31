@@ -15,6 +15,18 @@ describe("wordDiff", () => {
     expect(show(diff.answer)).toBe("we moved to the city last year");
   });
 
+  it("matches 90% to ninety percent but shows each as written", () => {
+    const diff = wordDiff(
+      "Memory overwrite, 90%.",
+      "memory overwrite ninety percent",
+    );
+    expect(show(diff.reference)).toBe("Memory overwrite, 90%.");
+    expect(show(diff.answer)).toBe("memory overwrite ninety percent");
+    expect(
+      show(wordDiff("Memory overwrite, 90%.", "memory overwrite 90").reference),
+    ).toBe("Memory overwrite, [90%.]");
+  });
+
   it("marks a wrong word on both lines", () => {
     const diff = wordDiff("We moved to the city.", "We move to the city.");
     expect(show(diff.answer)).toBe("We [move] to the city.");

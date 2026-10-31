@@ -16,6 +16,21 @@ describe("scoreDictation", () => {
     expect(scoreDictation("I do not know.", "I don't know").accuracy).toBe(1);
   });
 
+  it("treats digits, number words, % and percent as the same", () => {
+    const reference = "Memory overwrite, 90%.";
+    for (const answer of [
+      "memory overwrite 90%",
+      "memory overwrite 90 percent",
+      "memory overwrite ninety percent",
+    ]) {
+      expect(scoreDictation(reference, answer).accuracy).toBe(1);
+    }
+    // "90" alone misses "percent": 3 of 4 words.
+    expect(scoreDictation(reference, "memory overwrite 90").accuracy).toBe(
+      3 / 4,
+    );
+  });
+
   it("scores correct / max(reference words, answer words)", () => {
     // 6 of 7 right ("move" ≠ "moved"); same length, so 6/7.
     const result = scoreDictation(

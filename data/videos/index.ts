@@ -1,4 +1,4 @@
-import { parseVideo, type Video } from "@/lib/videos";
+import { excerptProblems, parseVideo, type Video } from "@/lib/videos";
 import sintel from "./sintel.json";
 import tearsOfSteel1 from "./tears-of-steel-1.json";
 import tearsOfSteel2 from "./tears-of-steel-2.json";
@@ -9,7 +9,8 @@ import tearsOfSteelFull from "./tears-of-steel-full.json";
  * Every published video, in library order. Imported statically so the JSON
  * ships with the build, and validated at import so a bad file fails the
  * build instead of a page. tests/videos.test.ts checks that every JSON file
- * in this folder is listed here.
+ * in this folder is listed here. Excerpts must match their source's
+ * sentences (excerptOf), so a stale copy of the times fails the build too.
  */
 export const videos: readonly Video[] = [
   sintel,
@@ -18,3 +19,8 @@ export const videos: readonly Video[] = [
   tearsOfSteel3,
   tearsOfSteelFull,
 ].map(parseVideo);
+
+const problems = excerptProblems(videos);
+if (problems.length > 0) {
+  throw new Error(`Excerpts out of sync:\n- ${problems.join("\n- ")}`);
+}

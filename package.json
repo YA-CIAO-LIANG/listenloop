@@ -13,7 +13,8 @@
     "prepare": "husky",
     "test": "vitest run",
     "test:watch": "vitest",
-    "video:new": "node scripts/new-video.mts"
+    "video:new": "node scripts/new-video.mts",
+    "video:sync": "node scripts/sync-excerpts.mts"
   },
   "dependencies": {
     "next": "16.4.3",

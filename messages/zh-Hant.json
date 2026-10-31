@@ -337,7 +337,9 @@
     "tapCancel": "取消",
     "tapNext": "下一句（{n} / {total}）：",
     "tapEnd": "全部標完了，最後一句說完時按 Enter。",
-    "tapDone": "已標記 {count} 句，請逐句試播檢查，再複製 JSON。"
+    "tapDone": "已標記 {count} 句，請逐句試播檢查，再複製 JSON。",
+    "excerpt": "這一段的句子和時間點來自完整版，不在這裡校正。請到完整版的時間點頁校正，再請開發者執行 npm run video:sync，把時間點帶入各段。",
+    "excerptLink": "前往時間點頁："
   },
   "dictation": {
     "title": "第 1 天：精聽聽寫",

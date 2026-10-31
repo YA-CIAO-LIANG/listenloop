@@ -68,8 +68,8 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 | 7～8 分鐘  | —                                                                                        | Victor Glover 訪談 · Part 2（再截約 7.5 分鐘，不重疊）                                                        |
 | 8 分鐘以上 | Tears of Steel · 完整對白（1～76，略過同上，9:04）                                       | Our Alien Earth: The Lava Tubes of Mauna Loa（19:46 截約 9 分鐘，`cEyM2M1vAcw`）                              |
 
-- Tears of Steel：粗話（第 21 句「Move your asses」、第 46 句「and a dick」）、只有尖叫聲的句子、義大利音樂術語「Vivacissimo!」（第 43 句）略過；第 9 句字幕含畫面文字「"Fourty years later"」，寫內容時拿掉；「90%」寫成「90 percent」（聽寫時輸入 90% 會少一個字）、「Could'a」寫成「Could've」；都寫進 `changes`。斷成兩行的句子合併成一句，中間有停頓的也合併（例如第 71～72 句之間停 14 秒），播放時整段一起播。
-- 長片段（6 分鐘以上）是「挑戰版」，難度標 intermediate 以上；Tears of Steel 完整對白版（56 句）暫定 advanced，Part 1～3 暫定 intermediate。
+- Tears of Steel：粗話（第 21 句「Move your asses」、第 46 句「and a dick」）、只有尖叫聲的句子、義大利音樂術語「Vivacissimo!」（第 43 句）略過；第 9 句字幕含畫面文字「"Fourty years later"」，寫內容時拿掉；「Could'a」寫成「Could've」；都寫進 `changes`。斷成兩行的句子合併成一句，但中間停頓超過 2 秒就拆開（第 25｜26～27、60｜61、71｜72 句）。三個 Part 的句子與時間點都取自完整對白版（`excerptOf`），只校正完整版。
+- 長片段（6 分鐘以上）是「挑戰版」，難度標 intermediate 以上；Tears of Steel 完整對白版（59 句）暫定 advanced，Part 1～3 暫定 intermediate。
 
 ### 待決問題
 
