@@ -8,18 +8,18 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 
 **句子一律取自和播放的影片同一來源的字幕**：官方 `.srt` 字幕檔（確認與 YouTube 片長相同），或那支 YouTube 影片由上傳者提供的字幕（「顯示字幕記錄」，不可用自動產生的）。不用網站上的逐字稿頁：它可能和 YouTube 影片是不同版本（2026-10-28 VOA 的教訓，見「已排除」）。
 
-| PR   | 內容                                                                  | 狀態  |
-| ---- | --------------------------------------------------------------------- | ----- |
-| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成  |
-| M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕                            | 完成  |
-| M3-3 | `npm run video:new` 讀貼上的 YouTube 字幕記錄                         | 完成  |
-| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 完成  |
-| M3-5 | 片段長度：自動計算、至少 1 分鐘、題庫長度篩選；Sintel 延長到 15 句    | 完成  |
-| M3-6 | Tears of Steel 重切：Part 1～3＋完整對白版（PR #35）                  | 本 PR |
-| M3-7 | NASA 科學第一批：新合集、新類別「科學」、1～6 分鐘 7 支               | 待做  |
-| M3-8 | NASA 科學第二批：6 分鐘以上 3 個長段                                  | 待做  |
-| —    | Elephants Dream、Cosmos Laundromat、Sprite Fright                     | 之後  |
-| —    | VOA、美國國務院 Everyday Conversations                                | 暫停  |
+| PR   | 內容                                                                  | 狀態                                   |
+| ---- | --------------------------------------------------------------------- | -------------------------------------- |
+| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成                                   |
+| M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕                            | 完成                                   |
+| M3-3 | `npm run video:new` 讀貼上的 YouTube 字幕記錄                         | 完成                                   |
+| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 完成                                   |
+| M3-5 | 片段長度：自動計算、至少 1 分鐘、題庫長度篩選；Sintel 延長到 15 句    | 完成                                   |
+| M3-6 | Tears of Steel 重切：Part 1～3＋完整對白版（PR #35）                  | 草稿已合併，等內容工作恢復後校正、上架 |
+| M3-7 | NASA 科學第一批：新合集、新類別「科學」、1～6 分鐘 7 支               | 待做                                   |
+| M3-8 | NASA 科學第二批：6 分鐘以上 3 個長段                                  | 待做                                   |
+| —    | Elephants Dream、Cosmos Laundromat、Sprite Fright                     | 之後                                   |
+| —    | VOA、美國國務院 Everyday Conversations                                | 暫停                                   |
 
 ## Blender 開放電影全片清單（2026-10-29 依 [studio.blender.org/films](https://studio.blender.org/films/) 官方列表查證）
 
