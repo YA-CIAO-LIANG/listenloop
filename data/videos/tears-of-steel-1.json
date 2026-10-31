@@ -1,0 +1,235 @@
+{
+  "id": "tears-of-steel-1",
+  "youtubeId": "R6MlUcmOul8",
+  "title": "Tears of Steel · Part 1",
+  "level": "intermediate",
+  "category": "story",
+  "collection": "blender-open-movies",
+  "source": "Blender Foundation",
+  "attribution": {
+    "credit": "(CC) Blender Foundation | mango.blender.org",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "sourceUrl": "https://mango.blender.org/sharing/",
+    "transcriptUrl": "https://download.blender.org/demo/movies/ToS/subtitles/TOS-en.srt",
+    "changes": "Excerpt (0:23–2:18) of the official English subtitles, cues 1–14 (cues 2–3, 5–6, and 7–8 joined into one sentence each; on-screen text in cue 9 removed; punctuation tidied); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 23,
+      "end": 24.5,
+      "en": "You're a jerk, Thom.",
+      "zh": "湯姆，你真是個混蛋。"
+    },
+    {
+      "i": 1,
+      "start": 25,
+      "end": 30.5,
+      "en": "Look, Celia, we have to follow our passions; you have your robotics, and I just want to be awesome in space.",
+      "zh": "聽著，西莉亞，我們都得追求自己的熱情；妳有妳的機器人研究，而我只想在太空中大展身手。"
+    },
+    {
+      "i": 2,
+      "start": 30.8,
+      "end": 34,
+      "en": "Why don't you just admit that you're freaked out by my robot hand?",
+      "zh": "你何不乾脆承認，你就是被我的機器手嚇到了？"
+    },
+    {
+      "i": 3,
+      "start": 34.5,
+      "end": 38,
+      "en": "I'm not freaked out by... it's... alright! Fine!",
+      "zh": "我才沒有被……那是……好啦！好吧！"
+    },
+    {
+      "i": 4,
+      "start": 38,
+      "end": 42,
+      "en": "I'm freaked out! I have nightmares that I'm being chased by these giant robotic claws of death...",
+      "zh": "我是被嚇到了！我一直做噩夢，夢到被巨大的死亡機械爪追著跑……"
+    },
+    {
+      "i": 5,
+      "start": 42.2,
+      "end": 45,
+      "en": "Whatever, Thom. We're done.",
+      "zh": "隨便你，湯姆。我們結束了。"
+    },
+    {
+      "i": 6,
+      "start": 50,
+      "end": 53.5,
+      "en": "Robot's memory synced and locked!",
+      "zh": "機器人的記憶已同步並鎖定！"
+    },
+    {
+      "i": 7,
+      "start": 61,
+      "end": 63,
+      "en": "This is pretty freaky.",
+      "zh": "這真的有點詭異。"
+    },
+    {
+      "i": 8,
+      "start": 117,
+      "end": 119,
+      "en": "Shouldn't you be down there?",
+      "zh": "你不是應該在下面嗎？"
+    },
+    {
+      "i": 9,
+      "start": 131,
+      "end": 133,
+      "en": "I heard you guys talking last night.",
+      "zh": "我昨晚聽到你們在講話了。"
+    },
+    {
+      "i": 10,
+      "start": 136,
+      "end": 138,
+      "en": "It's not my fault, you know.",
+      "zh": "這不是我的錯，你知道的。"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 0,
+      "word": "jerk",
+      "pos": "n.",
+      "zh": "混蛋；討人厭的人",
+      "example": "Don't be a jerk. Say sorry to her."
+    },
+    {
+      "sentence": 1,
+      "word": "follow your passion",
+      "pos": "phr.",
+      "zh": "追求自己熱愛的事",
+      "example": "She quit her job to follow her passion for cooking."
+    },
+    {
+      "sentence": 1,
+      "word": "robotics",
+      "pos": "n.",
+      "zh": "機器人學",
+      "example": "He wants to study robotics in college."
+    },
+    {
+      "sentence": 1,
+      "word": "awesome",
+      "pos": "adj.",
+      "zh": "很棒的；了不起的",
+      "example": "The view from the top was awesome."
+    },
+    {
+      "sentence": 2,
+      "word": "admit",
+      "pos": "v.",
+      "zh": "承認",
+      "example": "He finally admitted that he was wrong."
+    },
+    {
+      "sentence": 2,
+      "word": "freaked out",
+      "pos": "adj.",
+      "zh": "嚇壞的；很不安的",
+      "example": "I was freaked out by the strange noise."
+    },
+    {
+      "sentence": 4,
+      "word": "nightmare",
+      "pos": "n.",
+      "zh": "噩夢",
+      "example": "I had a nightmare about failing the exam."
+    },
+    {
+      "sentence": 4,
+      "word": "chase",
+      "pos": "v.",
+      "zh": "追趕",
+      "example": "The dog chased the cat up a tree."
+    },
+    {
+      "sentence": 4,
+      "word": "claw",
+      "pos": "n.",
+      "zh": "爪子",
+      "example": "The cat's claws are very sharp."
+    },
+    {
+      "sentence": 6,
+      "word": "sync",
+      "pos": "v.",
+      "zh": "同步",
+      "example": "My phone syncs my photos to the cloud."
+    },
+    {
+      "sentence": 7,
+      "word": "freaky",
+      "pos": "adj.",
+      "zh": "詭異的；怪怪的",
+      "example": "That movie was a little freaky."
+    },
+    {
+      "sentence": 8,
+      "word": "down there",
+      "pos": "phr.",
+      "zh": "在下面那裡",
+      "example": "The keys are down there, under the table."
+    },
+    {
+      "sentence": 9,
+      "word": "you guys",
+      "pos": "phr.",
+      "zh": "你們（口語）",
+      "example": "Are you guys hungry?"
+    },
+    {
+      "sentence": 10,
+      "word": "fault",
+      "pos": "n.",
+      "zh": "過錯；責任",
+      "example": "It's not your fault. Don't feel bad."
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 2,
+      "point": "Why don't you just + 原形動詞?",
+      "explanation": "字面是「你為什麼不……？」，實際是「你何不乾脆……」。加上 just 常帶有不耐煩的語氣；不加 just 時也可以是一般的建議。",
+      "example": "Why don't you just ask him?"
+    },
+    {
+      "sentence": 4,
+      "point": "被動進行式：be + being + 過去分詞",
+      "explanation": "I'm being chased 表示「正在被追」。現在進行式（am being）加上被動（chased），描述此刻正在被做的事。",
+      "example": "The house is being painted this week."
+    },
+    {
+      "sentence": 5,
+      "point": "be done",
+      "explanation": "表示「（關係、事情）結束了」。We're done. 在吵架時就是「我們完了」；be done with + 名詞 是「受夠了、不想再碰」。",
+      "example": "I'm done with this game."
+    },
+    {
+      "sentence": 7,
+      "point": "freaked out 和 freaky",
+      "explanation": "freaked out 描述人「感到」害怕不安；freaky 描述事物「令人」覺得詭異。就像 bored（覺得無聊）和 boring（令人無聊）。",
+      "example": "I was bored because the class was boring."
+    },
+    {
+      "sentence": 8,
+      "point": "Shouldn't you + 原形動詞?",
+      "explanation": "否定疑問句，表示「你不是應該……嗎？」，帶有驚訝或提醒的語氣。",
+      "example": "Shouldn't you be at school right now?"
+    },
+    {
+      "sentence": 9,
+      "point": "hear + 人 + V-ing",
+      "explanation": "感官動詞（hear、see、watch）後面接人，再接 V-ing，表示聽到或看到某人「正在」做某事。",
+      "example": "I heard my neighbors singing last night."
+    }
+  ]
+}
