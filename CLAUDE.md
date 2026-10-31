@@ -5,18 +5,22 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 ## 給 Claude 的工作規則
 
-- 我是 vibe coding 初學者，但要求商業專案等級的品質。每次改動前先用繁體中文說明要做什麼、為什麼這是業界做法。
-- 先用 plan mode 列計畫，計畫被認可不等於可以執行：我說「開始」才動手。
-- 一次只做一個功能或一個 issue。完成後說明怎麼測試，等我確認再繼續。
-- 一律在分支上開發（main 受保護，必須透過 PR 且 CI 通過）。完成後開 PR，合併規則：
-  - `docs/`、`fix/`、`chore/` 這類小改動：CI 全部通過後，Claude 直接用 squash 合併並刪除分支。
-  - `feat/` 功能或 UI 改動：CI 通過後，Claude 給我摘要和 Vercel 預覽網址，我說「合併」才合併。
-- 合併後一律同步 main（切回 main、pull）並刪除本機分支。
-- 不要自行新增付費服務、需要信用卡的服務，或未經我同意的新套件。
-- UI 一律遵守 `docs/design-system.md`，只使用其中定義的 tokens 與元件。規格未定義的部分先問我。
+- 我是 vibe coding 初學者，但要求商業專案等級的品質。每個 PR 的說明用繁體中文寫清楚：做了什麼、為什麼這是業界做法、怎麼測試。
+- **自主進行**（2026-10-30 起）：依 `docs/roadmap.md` 的順序（a → f）一項一項做，不需要等我說「開始」或「合併」。
+  1. 在分支上開發。main 受保護，必須透過 PR 且 CI 通過。
+  2. 每項開 PR；大的項目拆成幾個 PR，依序做。
+  3. 本機五項檢查（lint、format:check、typecheck、test、build）都通過，並用 production 模式檢查後再推送。
+  4. CI 全部通過後，用 squash 合併並刪除分支，合併時用 `--match-head-commit`。
+  5. 同步 main（切回 main、pull），刪除本機分支，更新 `docs/roadmap.md` 的進度，接著做下一項。
+- 規格沒有定義的細節：自行選擇合理的業界預設，記在 `docs/decisions.md`，不要停下來問我。內容包括日期、決定、理由，以及要改時看哪裡。
+- 只有需要我本人操作時才停下來，例如建立帳號或專案、申請憑證、提供 API 金鑰、同意需要信用卡的服務。需要我做的事要一次整理成清單、附上詳細步驟，並同步更新 `docs/roadmap.md` 的「需要 Joe 操作的事」。
+- 每完成一個里程碑（roadmap 的一個字母），給我簡短摘要和正式網站的測試重點。
+- 內容工作（字幕記錄、時間點校正、NASA 影片）暫停，等 roadmap 的功能都完成後一次處理。
+- 對話很長時，在里程碑之間開新對話。進度以 CLAUDE.md 和 `docs/roadmap.md` 為準。
+- 不要自行新增付費服務或需要信用卡的服務，這類服務要經過我在清單中明確同意。新套件只在必要時加入，挑選官方或維護良好的套件，並把理由記在 `docs/decisions.md`。
+- UI 一律遵守 `docs/design-system.md`，只使用其中定義的 tokens 與元件。規格未定義的部分自行決定，並補進 `docs/design-system.md`、記在 `docs/decisions.md`。
 - 介面文字一律從翻譯檔讀取，元件內不可寫死任何中文或英文介面文字。
 - 程式碼與註解用英文；跟我溝通用繁體中文。
-- 不確定需求時先問，不要猜。
 
 ## 產品目標
 
@@ -37,7 +41,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - **方案限制**（同時練習數、每月建立數、每篇字數）寫成集中的權限設定，程式只透過它判斷能不能做；目前全部不限制，未來收費時只改設定，不改功能程式碼。
 - **聲音 API 與 AI 翻譯**：付費功能上線前只開放給管理員帳號（我）。在伺服器端呼叫，API key 只放環境變數；設每日用量上限與費用警示。
 - **相同文字＋相同聲音只產生一次**：用內容雜湊快取，重複建立時直接沿用。
-- 要導入的外部服務（Supabase、聲音 API、翻譯 API）在各里程碑的計畫中提出，經我同意才導入；仍遵守「不自行新增付費或需要信用卡的服務」。
+- 外部服務：Supabase、Google 登入、聲音 API 和翻譯 API 已列入 `docs/roadmap.md`（2026-10-30）。需要信用卡的服務（例如 Google Cloud 帳單），要我在清單中明確同意才導入。
 
 ## 週循環規則
 
@@ -75,7 +79,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - **專案結構**：`app/`（頁面）、`components/`（UI 元件）、`lib/`（純邏輯：評分、循環、儲存、語言偵測）、`i18n/`（next-intl 請求設定與切換語言的 Server Action；會讀寫 cookie，所以不放 `lib/`）、`messages/`（翻譯檔）、`data/videos/`（影片 JSON）、`scripts/`（預處理）、`docs/`（規格文件）、`tests/`。
 - **品質工具**：ESLint ＋ Prettier；husky ＋ lint-staged 提交前自動檢查。
 - **測試**：Vitest 單元測試，`lib/` 的評分與循環邏輯必須有測試；品質打磨階段以 Playwright 做主要流程的 E2E 測試。
-- **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。`content/` 的 PR 和 `feat/` 一樣，CI 通過後要等我說「合併」（內容需要審稿）。
+- **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。所有 PR 在 CI 通過後直接合併（2026-10-30 起，見工作規則）。
 - **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改），執行 lint、format:check、typecheck、test、build。
 - **秘密資訊**：API key 只放 `.env.local`，必須在 `.gitignore`；`.env.example` 提供範本。
 - **無障礙與錯誤處理**：見 `docs/design-system.md`；麥克風權限被拒、瀏覽器不支援語音辨識、影片無法載入，都要有友善提示。
@@ -192,8 +196,10 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - **PR 拆法**：a 點數與飼料的獲得、帳本；b 商店、我的魚、素材出處頁（影片）；b2 像素小丑魚樣板（`/styleguide`，確認風格後才做其他魚種）；b3 其他魚種與商店像素縮圖；c 像素風魚缸、餵魚、飢餓、日曆、互動。
   - 魚、魚缸、飼料都由程式繪製，不使用第三方素材；若日後使用外部素材，只能用 CC0、CC BY，授權在官方頁面確認並在 `/credits` 標示出處。
 - [ ] **M3 內容庫**：先只做「Blender 開放電影」合集（只收 CC BY；Sintel、Tears of Steel、Elephants Dream、Cosmos Laundromat、Sprite Fright，一部切成多段，預估 13 支），標示出處。VOA Learning English、美國國務院 Everyday Conversations **暫停**（資料保留在 `docs/video-candidates.md`）。句子一律取自和影片同一來源的字幕（VOA 2016 年舊版逐字稿曾與 YouTube 影片對不上，2026-10-28，PR #28 關閉）。已完成：內容工具、讀取 `.srt`。全片清單、段落與難度見 `docs/video-candidates.md`。
-- [ ] **M4 帳號**：Supabase、Google 登入、localStorage 進度搬到雲端、刪除帳號功能、隱私權政策（Google 登入需要）。
-- [ ] **M5 同時練習多部影片**：每支影片各自的 7 天循環與起始日。
-- [ ] **M6 建立練習**：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。
-- [ ] **M7 公開分享**：瀏覽他人公開的練習、檢舉與下架。
+      剩下的里程碑（roadmap a～f）的順序、PR 拆法和進度見 `docs/roadmap.md`；內容工作（M3 剩下的部分）暫停，等功能完成後再做。
+
+- [ ] **M4 帳號**（roadmap b）：Supabase、Google 登入、localStorage 進度搬到雲端、刪除帳號功能、隱私權政策（Google 登入需要）。
+- [ ] **M5 同時練習多部影片**（roadmap c）：每支影片各自的 7 天循環與起始日。
+- [ ] **M6 建立練習**（roadmap d）：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。
+- [ ] **M7 公開分享**（roadmap e）：瀏覽他人公開的練習、檢舉與下架。
 - [ ] **之後**：品質打磨（E2E 測試、無障礙、效能、錯誤處理）與 Beta 試用；付費方案、金流；PWA → PWABuilder → Google Play 上架。
