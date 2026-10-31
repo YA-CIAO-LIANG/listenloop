@@ -145,6 +145,20 @@ describe("merging subtitles into one sentence", () => {
     ]);
   });
 
+  it("merges across a pause of up to 2 s, not longer", () => {
+    const paused = parseSrt(
+      "1\n00:00:01,000 --> 00:00:02,000\nI'm-\n\n" +
+        "2\n00:00:04,000 --> 00:00:05,000\nI'm sorry.\n\n" +
+        "3\n00:00:07,010 --> 00:00:08,000\nGood.\n",
+    );
+    expect(cuesToLines(paused, { from: 1, to: 2, merge: [[1, 2]] })).toEqual([
+      { start: 1, end: 5, en: "I'm- I'm sorry." },
+    ]);
+    expect(() =>
+      cuesToLines(paused, { from: 1, to: 3, merge: [[1, 3]] }),
+    ).toThrow("merge 1–3 pauses 2.01 s before 3 (over 2 s)");
+  });
+
   it("refuses a merge outside the range, backwards, or with a skip", () => {
     expect(() =>
       cuesToLines(cues, { from: 1, to: 2, merge: [[2, 3]] }),

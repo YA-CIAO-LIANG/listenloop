@@ -4,10 +4,13 @@ import { describe, expect, it } from "vitest";
 import { videos } from "@/data/videos";
 import { getAllVideos, getVideo } from "@/lib/video-library";
 import {
+  excerptProblems,
+  excerptSentences,
   notesForSentence,
   parseVideo,
   validateVideo,
   videoCollections,
+  type Video,
 } from "@/lib/videos";
 import en from "@/messages/en.json";
 import zhHant from "@/messages/zh-Hant.json";
@@ -222,6 +225,124 @@ describe("data/videos", () => {
     const listed = videos.map((video) => `${video.id}.json`);
     expect([...listed].sort()).toEqual([...videoFiles].sort());
     expect(new Set(listed).size).toBe(listed.length);
+  });
+});
+
+describe("excerpts", () => {
+  const sentence = (i: number, start: number) => ({
+    i,
+    start,
+    end: start + 2,
+    en: `Line ${i}.`,
+    zh: `第 ${i} 句。`,
+  });
+  const full = parseVideo({
+    ...validVideo,
+    id: "full",
+    // 60 s apart, so any two in a row run past the 1-minute minimum.
+    sentences: [0, 1, 2, 3].map((i) => sentence(i, i * 60)),
+  });
+  const part = (
+    from: number,
+    sentences = full.sentences.slice(from, from + 2),
+  ) =>
+    parseVideo({
+      ...validVideo,
+      id: "part",
+      excerptOf: { video: "full", from },
+      sentences: sentences.map((s, i) => ({ ...s, i })),
+      vocab: [],
+    });
+
+  it("validate the excerptOf shape", () => {
+    expect(validateVideo(part(1))).toEqual([]);
+    for (const excerptOf of [
+      "full",
+      { video: "full" },
+      { video: "", from: 0 },
+      { video: "full", from: -1 },
+      { video: "full", from: 1.5 },
+    ]) {
+      expect(validateVideo(withChanges({ excerptOf }))).toEqual([
+        "excerptOf must be { video: an id, from: a sentence index }",
+      ]);
+    }
+    expect(
+      validateVideo(withChanges({ excerptOf: { video: "voa-001", from: 0 } })),
+    ).toEqual(["excerptOf.video must be another video"]);
+  });
+
+  it("copy the source's sentences from `from`, renumbered", () => {
+    expect(excerptSentences(part(2), { video: "full", from: 2 }, full)).toEqual(
+      [
+        { ...full.sentences[2], i: 0 },
+        { ...full.sentences[3], i: 1 },
+      ],
+    );
+    expect(
+      excerptSentences(part(2), { video: "full", from: 3 }, full),
+    ).toBeUndefined();
+  });
+
+  it("must match the source's English, Chinese, and times", () => {
+    expect(excerptProblems([full, part(1)])).toEqual([]);
+    const shifted = part(
+      1,
+      full.sentences
+        .slice(1, 3)
+        .map((s, i) => (i === 1 ? { ...s, start: s.start + 0.1 } : s)),
+    );
+    expect(excerptProblems([full, shifted])).toEqual([
+      "part: sentences[1] start differ from full sentences[2] (run npm run video:sync)",
+    ]);
+    const retranslated = part(
+      1,
+      full.sentences.slice(1, 3).map((s) => ({ ...s, zh: "改過的翻譯。" })),
+    );
+    expect(excerptProblems([full, retranslated])).toHaveLength(2);
+  });
+
+  it("must name a known, non-excerpt source and stay inside it", () => {
+    const orphan: Video = { ...part(0), excerptOf: { video: "gone", from: 0 } };
+    expect(excerptProblems([orphan])).toEqual([
+      'part: excerptOf names an unknown video "gone"',
+    ]);
+    const nested: Video = {
+      ...part(0),
+      id: "nested",
+      excerptOf: { video: "part", from: 0 },
+    };
+    expect(excerptProblems([full, part(0), nested])).toEqual([
+      'nested: excerptOf names another excerpt, "part"',
+    ]);
+    const tooLong: Video = {
+      ...part(1),
+      excerptOf: { video: "full", from: 3 },
+    };
+    expect(excerptProblems([full, tooLong])).toEqual([
+      'part: excerptOf runs past the end of "full"',
+    ]);
+  });
+
+  it("in data/videos all match their source", () => {
+    expect(excerptProblems(videos)).toEqual([]);
+  });
+
+  it("Tears of Steel parts 1–3 take their times from the full dialogue, end to end", () => {
+    const parts = ["tears-of-steel-1", "tears-of-steel-2", "tears-of-steel-3"]
+      .map((id) => videos.find((video) => video.id === id))
+      .filter((video) => video !== undefined);
+    expect(parts).toHaveLength(3);
+    for (const p of parts) {
+      expect(p.excerptOf?.video).toBe("tears-of-steel-full");
+    }
+    // Together the parts cover the full dialogue once, in order.
+    const fullDialogue = videos.find((v) => v.id === "tears-of-steel-full");
+    const timed = (s: { en: string; start: number; end: number }) =>
+      `${s.start}–${s.end} ${s.en}`;
+    expect(parts.flatMap((p) => p.sentences.map(timed))).toEqual(
+      fullDialogue?.sentences.map(timed),
+    );
   });
 });
 

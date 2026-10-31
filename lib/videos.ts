@@ -85,11 +85,25 @@ export type Video = {
   vocab: VocabItem[];
   grammar: GrammarPoint[];
   /**
+   * This video is a stretch of another one's sentences, which hold the only
+   * timing to tune: sentences here must equal source.sentences[from…]
+   * (same English, Chinese, and times; checked by excerptProblems and
+   * copied over by `npm run video:sync`). Vocab and grammar stay its own.
+   */
+  excerptOf?: ExcerptOf;
+  /**
    * A video still being made: hidden from the library and every page except
    * /videos/<id>/timing, where its timestamps get tuned. Drafts may keep the
    * TODO_ZH placeholder and empty vocab and grammar.
    */
   draft?: boolean;
+};
+
+export type ExcerptOf = {
+  /** id of the source video, e.g. "tears-of-steel-full". */
+  video: string;
+  /** Index of the source sentence this video's first sentence copies. */
+  from: number;
 };
 
 /** Placeholder Chinese in drafts (scripts/new-video.ts); never in a published video. */
@@ -183,6 +197,22 @@ export function validateVideo(data: unknown): string[] {
     problems.push(`collection must be one of ${videoCollections.join(", ")}`);
   }
 
+  if (data.excerptOf !== undefined) {
+    const { excerptOf } = data;
+    if (
+      !isObject(excerptOf) ||
+      !isText(excerptOf.video) ||
+      typeof excerptOf.from !== "number" ||
+      !Number.isInteger(excerptOf.from) ||
+      excerptOf.from < 0
+    ) {
+      problems.push(
+        "excerptOf must be { video: an id, from: a sentence index }",
+      );
+    } else if (excerptOf.video === data.id) {
+      problems.push("excerptOf.video must be another video");
+    }
+  }
   if (data.draft !== undefined && typeof data.draft !== "boolean") {
     problems.push("draft must be true or false");
   }
@@ -248,6 +278,63 @@ export function validateVideo(data: unknown): string[] {
     });
   }
 
+  return problems;
+}
+
+/**
+ * The source sentences an excerpt copies, renumbered from 0, or undefined
+ * when they run past the end of the source.
+ */
+export function excerptSentences(
+  excerpt: Pick<Video, "sentences">,
+  { from }: ExcerptOf,
+  source: Pick<Video, "sentences">,
+): Sentence[] | undefined {
+  const slice = source.sentences.slice(from, from + excerpt.sentences.length);
+  if (slice.length < excerpt.sentences.length) return undefined;
+  return slice.map((sentence, i) => ({ ...sentence, i }));
+}
+
+/**
+ * Problems across videos: each excerptOf must name a video that is not
+ * itself an excerpt, and the excerpt's sentences must equal that stretch
+ * of the source's (English, Chinese, start, end). Run `npm run video:sync`
+ * after tuning the source to copy its times over.
+ */
+export function excerptProblems(videos: readonly Video[]): string[] {
+  const byId = new Map(videos.map((video) => [video.id, video]));
+  const problems: string[] = [];
+  for (const video of videos) {
+    const { excerptOf } = video;
+    if (!excerptOf) continue;
+    const where = `${video.id}: excerptOf`;
+    const source = byId.get(excerptOf.video);
+    if (!source) {
+      problems.push(`${where} names an unknown video "${excerptOf.video}"`);
+      continue;
+    }
+    if (source.excerptOf) {
+      problems.push(`${where} names another excerpt, "${source.id}"`);
+      continue;
+    }
+    const expected = excerptSentences(video, excerptOf, source);
+    if (!expected) {
+      problems.push(`${where} runs past the end of "${source.id}"`);
+      continue;
+    }
+    video.sentences.forEach((sentence, i) => {
+      const want = expected[i];
+      const differs = (["en", "zh", "start", "end"] as const).filter(
+        (field) => sentence[field] !== want[field],
+      );
+      if (differs.length > 0) {
+        problems.push(
+          `${video.id}: sentences[${i}] ${differs.join(", ")} differ from ` +
+            `${source.id} sentences[${excerptOf.from + i}] (run npm run video:sync)`,
+        );
+      }
+    });
+  }
   return problems;
 }
 

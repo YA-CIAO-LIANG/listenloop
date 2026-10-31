@@ -1,13 +1,15 @@
 /**
  * Turns a sentence into comparable words: lowercase, no punctuation, common
- * contractions expanded, and small numbers spelled out. Applied to both the
- * reference sentence and the user's answer, so "Don't!" matches "do not" and
- * "5" (speech recognition) matches "five".
+ * contractions expanded, small numbers spelled out, and "%" read as
+ * "percent". Applied to both the reference sentence and the user's answer,
+ * so "Don't!" matches "do not", "5" (speech recognition) matches "five", and
+ * "90%" matches "ninety percent".
  */
 export function normalizeWords(text: string): string[] {
   return text
     .toLowerCase()
     .replace(/[‘’`]/g, "'")
+    .replace(/%/g, " percent ") // 90% → 90 percent → ninety percent
     .replace(/[^\p{L}\p{N}'\s]/gu, " ") // hyphens become spaces: well-known → well known
     .split(/\s+/)
     .map((token) => token.replace(/^'+|'+$/g, ""))

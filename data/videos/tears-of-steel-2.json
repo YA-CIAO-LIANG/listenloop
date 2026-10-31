@@ -1,0 +1,337 @@
+{
+  "id": "tears-of-steel-2",
+  "youtubeId": "R6MlUcmOul8",
+  "title": "Tears of Steel · Part 2",
+  "level": "intermediate",
+  "category": "story",
+  "collection": "blender-open-movies",
+  "source": "Blender Foundation",
+  "attribution": {
+    "credit": "(CC) Blender Foundation | mango.blender.org",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "sourceUrl": "https://mango.blender.org/sharing/",
+    "transcriptUrl": "https://download.blender.org/demo/movies/ToS/subtitles/TOS-en.srt",
+    "changes": "Excerpt (3:11–5:28) of the official English subtitles, cues 15–40 (cue 21 left out for rude language; cues 26–27 and 39–40 joined into one sentence each; \"rockstar\" spelled \"rock star\"; punctuation tidied); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "excerptOf": {
+    "video": "tears-of-steel-full",
+    "from": 11
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 191,
+      "end": 192,
+      "en": "Are you ready?",
+      "zh": "準備好了嗎？"
+    },
+    {
+      "i": 1,
+      "start": 193,
+      "end": 195,
+      "en": "Of course you're ready, you're a rock star.",
+      "zh": "你當然準備好了，你可是搖滾巨星。"
+    },
+    {
+      "i": 2,
+      "start": 197,
+      "end": 198,
+      "en": "How's it looking, Barley?",
+      "zh": "情況怎麼樣，巴利？"
+    },
+    {
+      "i": 3,
+      "start": 199,
+      "end": 201,
+      "en": "We should have about ten minutes...",
+      "zh": "我們應該大概有十分鐘……"
+    },
+    {
+      "i": 4,
+      "start": 201.5,
+      "end": 203,
+      "en": "Well, that's perfect.",
+      "zh": "嗯，那剛剛好。"
+    },
+    {
+      "i": 5,
+      "start": 203.5,
+      "end": 206.5,
+      "en": "We're on in one! All systems go! Yeah you, go!",
+      "zh": "一分鐘後開始！所有系統就緒！對，就是你，上！"
+    },
+    {
+      "i": 6,
+      "start": 213,
+      "end": 217,
+      "en": "I love it! Come on, go!",
+      "zh": "我喜歡！快點，上吧！"
+    },
+    {
+      "i": 7,
+      "start": 223,
+      "end": 224,
+      "en": "That's nice.",
+      "zh": "很好。"
+    },
+    {
+      "i": 8,
+      "start": 224.5,
+      "end": 225.7,
+      "en": "Nothing to worry about.",
+      "zh": "沒什麼好擔心的。"
+    },
+    {
+      "i": 9,
+      "start": 226,
+      "end": 227,
+      "en": "Thom.",
+      "zh": "湯姆。"
+    },
+    {
+      "i": 10,
+      "start": 231,
+      "end": 234.5,
+      "en": "There she is. Now.",
+      "zh": "她在那裡。就是現在。"
+    },
+    {
+      "i": 11,
+      "start": 235,
+      "end": 236,
+      "en": "You love her.",
+      "zh": "你愛她。"
+    },
+    {
+      "i": 12,
+      "start": 237,
+      "end": 238.5,
+      "en": "She is your passion!",
+      "zh": "她就是你的熱情所在！"
+    },
+    {
+      "i": 13,
+      "start": 240,
+      "end": 241,
+      "en": "Be tender to her.",
+      "zh": "對她溫柔一點。"
+    },
+    {
+      "i": 14,
+      "start": 241.5,
+      "end": 244.5,
+      "en": "Be honest! Eh... be tender.",
+      "zh": "要誠實！呃……要溫柔。"
+    },
+    {
+      "i": 15,
+      "start": 245,
+      "end": 248,
+      "en": "Remind her what love is.",
+      "zh": "讓她想起什麼是愛。"
+    },
+    {
+      "i": 16,
+      "start": 292,
+      "end": 295,
+      "en": "And... action!",
+      "zh": "好……開拍！"
+    },
+    {
+      "i": 17,
+      "start": 296.5,
+      "end": 298,
+      "en": "Memory overwrite in progress!",
+      "zh": "正在覆寫記憶！"
+    },
+    {
+      "i": 18,
+      "start": 299,
+      "end": 301,
+      "en": "You're a jerk, Thom!",
+      "zh": "湯姆，你真是個混蛋！"
+    },
+    {
+      "i": 19,
+      "start": 302.5,
+      "end": 305,
+      "en": "Ohp! Sorry! Sorry.",
+      "zh": "噢！抱歉！抱歉。"
+    },
+    {
+      "i": 20,
+      "start": 316,
+      "end": 317,
+      "en": "Look, Celia.",
+      "zh": "聽著，西莉亞。"
+    },
+    {
+      "i": 21,
+      "start": 318,
+      "end": 320,
+      "en": "We have to follow our passions.",
+      "zh": "我們都得追求自己的熱情。"
+    },
+    {
+      "i": 22,
+      "start": 321,
+      "end": 328,
+      "en": "You have your robotics... and I just want to be awesome in space.",
+      "zh": "妳有妳的機器人研究……而我只想在太空中大展身手。"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 1,
+      "word": "rock star",
+      "pos": "n.",
+      "zh": "搖滾巨星；（比喻）很厲害的人",
+      "example": "You finished it in one day? You're a rock star!"
+    },
+    {
+      "sentence": 2,
+      "word": "How's it looking?",
+      "pos": "phr.",
+      "zh": "情況怎麼樣？",
+      "example": "How's it looking outside? Is it still raining?"
+    },
+    {
+      "sentence": 3,
+      "word": "about",
+      "pos": "adv.",
+      "zh": "大約",
+      "example": "It takes about ten minutes to walk there."
+    },
+    {
+      "sentence": 4,
+      "word": "perfect",
+      "pos": "adj.",
+      "zh": "完美的；剛剛好的",
+      "example": "Saturday is perfect for me."
+    },
+    {
+      "sentence": 5,
+      "word": "be on",
+      "pos": "phr.",
+      "zh": "（節目、行動）開始；上場",
+      "example": "You're on in five minutes, so get ready."
+    },
+    {
+      "sentence": 5,
+      "word": "all systems go",
+      "pos": "phr.",
+      "zh": "一切就緒",
+      "example": "The bags are packed. All systems go!"
+    },
+    {
+      "sentence": 8,
+      "word": "worry about",
+      "pos": "phr. v.",
+      "zh": "擔心",
+      "example": "Don't worry about the test."
+    },
+    {
+      "sentence": 10,
+      "word": "There she is.",
+      "pos": "phr.",
+      "zh": "她在那裡（找到人時說）",
+      "example": "Where's Mom? Oh, there she is!"
+    },
+    {
+      "sentence": 12,
+      "word": "passion",
+      "pos": "n.",
+      "zh": "熱情；熱愛的事物",
+      "example": "Music is my passion."
+    },
+    {
+      "sentence": 13,
+      "word": "tender",
+      "pos": "adj.",
+      "zh": "溫柔的",
+      "example": "He gave the baby a tender kiss."
+    },
+    {
+      "sentence": 14,
+      "word": "honest",
+      "pos": "adj.",
+      "zh": "誠實的",
+      "example": "Please be honest with me."
+    },
+    {
+      "sentence": 15,
+      "word": "remind",
+      "pos": "v.",
+      "zh": "提醒；使想起",
+      "example": "This song reminds me of my childhood."
+    },
+    {
+      "sentence": 16,
+      "word": "action",
+      "pos": "interj.",
+      "zh": "（拍片）開拍",
+      "example": "Lights, camera, action!"
+    },
+    {
+      "sentence": 17,
+      "word": "overwrite",
+      "pos": "v.",
+      "zh": "覆寫",
+      "example": "Don't overwrite the old file."
+    },
+    {
+      "sentence": 17,
+      "word": "in progress",
+      "pos": "phr.",
+      "zh": "進行中",
+      "example": "The meeting is in progress. Please wait outside."
+    },
+    {
+      "sentence": 22,
+      "word": "space",
+      "pos": "n.",
+      "zh": "太空",
+      "example": "She wants to travel to space one day."
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 6,
+      "point": "Come on, + 祈使句",
+      "explanation": "Come on 放在命令句前面，催促對方「快點」；也可以用來鼓勵對方。",
+      "example": "Come on, hurry up! We're late."
+    },
+    {
+      "sentence": 8,
+      "point": "（There's）nothing to + 原形動詞",
+      "explanation": "口語常省略 There's。nothing to worry about 意思是「沒有需要擔心的事」，to 加原形動詞用來修飾 nothing。",
+      "example": "There's nothing to eat in the fridge."
+    },
+    {
+      "sentence": 13,
+      "point": "Be + 形容詞（祈使句）",
+      "explanation": "要求對方「保持某種態度」時，用 Be 開頭再加形容詞，例如 Be tender、Be honest。否定是 Don't be + 形容詞。",
+      "example": "Be careful! Don't be late."
+    },
+    {
+      "sentence": 15,
+      "point": "remind + 人 + 疑問詞子句",
+      "explanation": "remind 後面先接人，再接 what、where 等疑問詞帶出的子句。子句用直述句的語序：what love is，不是 what is love。",
+      "example": "Can you remind me where the station is?"
+    },
+    {
+      "sentence": 21,
+      "point": "have to + 原形動詞",
+      "explanation": "表示「必須、不得不」，多半是因為外在的情況或規定。",
+      "example": "I have to finish my homework tonight."
+    },
+    {
+      "sentence": 22,
+      "point": "just want to + 原形動詞",
+      "explanation": "just 放在動詞前面，表示「只是、只想」，語氣比較輕。",
+      "example": "I just want to sleep."
+    }
+  ]
+}

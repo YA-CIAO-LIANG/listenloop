@@ -8,18 +8,18 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 
 **句子一律取自和播放的影片同一來源的字幕**：官方 `.srt` 字幕檔（確認與 YouTube 片長相同），或那支 YouTube 影片由上傳者提供的字幕（「顯示字幕記錄」，不可用自動產生的）。不用網站上的逐字稿頁：它可能和 YouTube 影片是不同版本（2026-10-28 VOA 的教訓，見「已排除」）。
 
-| PR   | 內容                                                                  | 狀態  |
-| ---- | --------------------------------------------------------------------- | ----- |
-| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成  |
-| M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕                            | 完成  |
-| M3-3 | `npm run video:new` 讀貼上的 YouTube 字幕記錄                         | 完成  |
-| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 完成  |
-| M3-5 | 片段長度：自動計算、至少 1 分鐘、題庫長度篩選；Sintel 延長到 15 句    | 本 PR |
-| M3-6 | Tears of Steel 重切：Part 1～3＋完整對白版（PR #35）                  | 待做  |
-| M3-7 | NASA 科學第一批：新合集、新類別「科學」、1～6 分鐘 7 支               | 待做  |
-| M3-8 | NASA 科學第二批：6 分鐘以上 3 個長段                                  | 待做  |
-| —    | Elephants Dream、Cosmos Laundromat、Sprite Fright                     | 之後  |
-| —    | VOA、美國國務院 Everyday Conversations                                | 暫停  |
+| PR   | 內容                                                                  | 狀態                                   |
+| ---- | --------------------------------------------------------------------- | -------------------------------------- |
+| M3-1 | 工具：草稿機制、時間點工具點按模式、`npm run video:new`、製作流程文件 | 完成                                   |
+| M3-2 | `npm run video:new` 直接讀官方 `.srt` 字幕                            | 完成                                   |
+| M3-3 | `npm run video:new` 讀貼上的 YouTube 字幕記錄                         | 完成                                   |
+| M3-4 | 合集：資料加 `collection` 欄位，題庫依合集分組                        | 完成                                   |
+| M3-5 | 片段長度：自動計算、至少 1 分鐘、題庫長度篩選；Sintel 延長到 15 句    | 完成                                   |
+| M3-6 | Tears of Steel 重切：Part 1～3＋完整對白版（PR #35）                  | 草稿已合併，等內容工作恢復後校正、上架 |
+| M3-7 | NASA 科學第一批：新合集、新類別「科學」、1～6 分鐘 7 支               | 待做                                   |
+| M3-8 | NASA 科學第二批：6 分鐘以上 3 個長段                                  | 待做                                   |
+| —    | Elephants Dream、Cosmos Laundromat、Sprite Fright                     | 之後                                   |
+| —    | VOA、美國國務院 Everyday Conversations                                | 暫停                                   |
 
 ## Blender 開放電影全片清單（2026-10-29 依 [studio.blender.org/films](https://studio.blender.org/films/) 官方列表查證）
 
@@ -57,19 +57,19 @@ M3 擴充影片庫時從這裡接著做。每支都要確認：授權在官方�
 
 片段長度 = 第一句開始到最後一句結束（`lib/excerpt-length.ts`）。實際長度要扣掉片頭片尾音樂；拿到字幕記錄後先算長度，不合區間就換片或調整切點，PR 附上算出來的長度。
 
-| 區間       | Blender 開放電影（官方 .srt）                                                               | NASA 科學（YouTube 字幕記錄）                                                                                 |
-| ---------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| 1～2 分鐘  | Tears of Steel · Part 1（字幕 1～14，約 1:55）                                              | Astronauts Describe Seeing Earth From Space（1:32，`iufG3-wrFHA`）；Parabolic Flights（1:55，`7YYP35EiiDE`）  |
-| 2～3 分鐘  | **Sintel**（已上線，字幕 1～15，2:05）；Tears of Steel · Part 2（15～40，略過 21，約 2:17） | Dark Energy（2:43，`wLZo3mVAQSU`）                                                                            |
-| 3～4 分鐘  | Tears of Steel · Part 3（41～76，略過 43、46、52～54、68，約 3:50）                         | Earth's Magnetosphere（3:38，`o4FSg-90XlA`）；What Would It Take To Say We Found Life?（3:27，`6SDVw1PYYcw`） |
-| 4～5 分鐘  | —                                                                                           | Vision Changes in Space（4:11，`vDqLQGWh6v0`）                                                                |
-| 5～6 分鐘  | —                                                                                           | What is the big bang?（5:50，`qsoLni0I5_U`）                                                                  |
-| 6～7 分鐘  | —                                                                                           | Sitting Down with Astronaut Victor Glover · Part 1（19:52 的訪談截約 6.5 分鐘，`0qlVg1o_FJY`）                |
-| 7～8 分鐘  | —                                                                                           | Victor Glover 訪談 · Part 2（再截約 7.5 分鐘，不重疊）                                                        |
-| 8 分鐘以上 | Tears of Steel · 完整對白（1～76，略過同上，約 9:06）                                       | Our Alien Earth: The Lava Tubes of Mauna Loa（19:46 截約 9 分鐘，`cEyM2M1vAcw`）                              |
+| 區間       | Blender 開放電影（官方 .srt）                                                            | NASA 科學（YouTube 字幕記錄）                                                                                 |
+| ---------- | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| 1～2 分鐘  | Tears of Steel · Part 1（字幕 1～14，1:55）                                              | Astronauts Describe Seeing Earth From Space（1:32，`iufG3-wrFHA`）；Parabolic Flights（1:55，`7YYP35EiiDE`）  |
+| 2～3 分鐘  | **Sintel**（已上線，字幕 1～15，2:05）；Tears of Steel · Part 2（15～40，略過 21，2:17） | Dark Energy（2:43，`wLZo3mVAQSU`）                                                                            |
+| 3～4 分鐘  | Tears of Steel · Part 3（41～76，略過 43、46、52～54、68，3:48）                         | Earth's Magnetosphere（3:38，`o4FSg-90XlA`）；What Would It Take To Say We Found Life?（3:27，`6SDVw1PYYcw`） |
+| 4～5 分鐘  | —                                                                                        | Vision Changes in Space（4:11，`vDqLQGWh6v0`）                                                                |
+| 5～6 分鐘  | —                                                                                        | What is the big bang?（5:50，`qsoLni0I5_U`）                                                                  |
+| 6～7 分鐘  | —                                                                                        | Sitting Down with Astronaut Victor Glover · Part 1（19:52 的訪談截約 6.5 分鐘，`0qlVg1o_FJY`）                |
+| 7～8 分鐘  | —                                                                                        | Victor Glover 訪談 · Part 2（再截約 7.5 分鐘，不重疊）                                                        |
+| 8 分鐘以上 | Tears of Steel · 完整對白（1～76，略過同上，9:04）                                       | Our Alien Earth: The Lava Tubes of Mauna Loa（19:46 截約 9 分鐘，`cEyM2M1vAcw`）                              |
 
-- Tears of Steel：粗話（第 21 句「Move your asses」、第 46 句「and a dick」）、只有尖叫聲的句子、義大利音樂術語「Vivacissimo!」（第 43 句）略過；第 9 句字幕含畫面文字「"Fourty years later"」，寫內容時拿掉；都寫進 `changes`。
-- 長片段（6 分鐘以上）是「挑戰版」，難度標 intermediate 以上。
+- Tears of Steel：粗話（第 21 句「Move your asses」、第 46 句「and a dick」）、只有尖叫聲的句子、義大利音樂術語「Vivacissimo!」（第 43 句）略過；第 9 句字幕含畫面文字「"Fourty years later"」，寫內容時拿掉；「Could'a」寫成「Could've」；都寫進 `changes`。斷成兩行的句子合併成一句，但中間停頓超過 2 秒就拆開（第 25｜26～27、60｜61、71｜72 句）。三個 Part 的句子與時間點都取自完整對白版（`excerptOf`），只校正完整版。
+- 長片段（6 分鐘以上）是「挑戰版」，難度標 intermediate 以上；Tears of Steel 完整對白版（59 句）暫定 advanced，Part 1～3 暫定 intermediate。
 
 ### 待決問題
 

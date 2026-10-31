@@ -1,0 +1,350 @@
+{
+  "id": "tears-of-steel-3",
+  "youtubeId": "R6MlUcmOul8",
+  "title": "Tears of Steel · Part 3",
+  "level": "intermediate",
+  "category": "story",
+  "collection": "blender-open-movies",
+  "source": "Blender Foundation",
+  "attribution": {
+    "credit": "(CC) Blender Foundation | mango.blender.org",
+    "license": "CC BY 3.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+    "sourceUrl": "https://mango.blender.org/sharing/",
+    "transcriptUrl": "https://download.blender.org/demo/movies/ToS/subtitles/TOS-en.srt",
+    "changes": "Excerpt (5:39–9:27) of the official English subtitles, cues 41–76 (left out: cue 43, an Italian music term; cue 46, rude language; cues 52–54 and 68, screams only; cues 50–51, 55–56, 57–58, 63–64, and 74–75 joined into one sentence each; \"Could'a\" written as \"Could've\"; punctuation tidied); Chinese translation, vocabulary, and grammar notes added by ListenLoop"
+  },
+  "excerptOf": {
+    "video": "tears-of-steel-full",
+    "from": 34
+  },
+  "draft": true,
+  "sentences": [
+    {
+      "i": 0,
+      "start": 339,
+      "end": 341,
+      "en": "Okay, they're coming. Two minutes left!",
+      "zh": "好，他們要來了。剩下兩分鐘！"
+    },
+    {
+      "i": 1,
+      "start": 343,
+      "end": 344,
+      "en": "Speed it up, Thom!",
+      "zh": "加快速度，湯姆！"
+    },
+    {
+      "i": 2,
+      "start": 347,
+      "end": 350,
+      "en": "Why don't you just admit that you're freaked out by my robot hand?",
+      "zh": "你何不乾脆承認，你就是被我的機器手嚇到了？"
+    },
+    {
+      "i": 3,
+      "start": 356,
+      "end": 359,
+      "en": "Listen, Celia, I was young...",
+      "zh": "聽我說，西莉亞，我那時候還年輕……"
+    },
+    {
+      "i": 4,
+      "start": 361,
+      "end": 363,
+      "en": "But that's no reason to destroy the world.",
+      "zh": "但那不是毀滅世界的理由。"
+    },
+    {
+      "i": 5,
+      "start": 365,
+      "end": 366,
+      "en": "Why does he do this?",
+      "zh": "他為什麼要這樣做？"
+    },
+    {
+      "i": 6,
+      "start": 366.5,
+      "end": 368.5,
+      "en": "We already tried that one!",
+      "zh": "那個我們已經試過了！"
+    },
+    {
+      "i": 7,
+      "start": 371.5,
+      "end": 374,
+      "en": "Abort! Cut!",
+      "zh": "中止！卡！"
+    },
+    {
+      "i": 8,
+      "start": 383,
+      "end": 387,
+      "en": "You broke my heart. I know.",
+      "zh": "你傷透了我的心。我知道。"
+    },
+    {
+      "i": 9,
+      "start": 387,
+      "end": 390,
+      "en": "You forgot me on earth. I know.",
+      "zh": "你把我遺忘在地球上。我知道。"
+    },
+    {
+      "i": 10,
+      "start": 390.5,
+      "end": 393,
+      "en": "I should just crush you.",
+      "zh": "我真該直接把你捏碎。"
+    },
+    {
+      "i": 11,
+      "start": 396,
+      "end": 397,
+      "en": "I'm...",
+      "zh": "我……"
+    },
+    {
+      "i": 12,
+      "start": 407,
+      "end": 408,
+      "en": "I'm sorry.",
+      "zh": "我很抱歉。"
+    },
+    {
+      "i": 13,
+      "start": 410,
+      "end": 411,
+      "en": "Good ad-lib.",
+      "zh": "即興發揮得不錯。"
+    },
+    {
+      "i": 14,
+      "start": 419,
+      "end": 423,
+      "en": "Not my fault! This time.",
+      "zh": "不是我的錯！這次不是。"
+    },
+    {
+      "i": 15,
+      "start": 428,
+      "end": 429.5,
+      "en": "Quiet on set!",
+      "zh": "現場安靜！"
+    },
+    {
+      "i": 16,
+      "start": 430,
+      "end": 431,
+      "en": "We're out of time!",
+      "zh": "我們沒時間了！"
+    },
+    {
+      "i": 17,
+      "start": 493,
+      "end": 494,
+      "en": "Come on!",
+      "zh": "快點！"
+    },
+    {
+      "i": 18,
+      "start": 504,
+      "end": 505,
+      "en": "Memory overwrite, 90%.",
+      "zh": "記憶覆寫，百分之九十。"
+    },
+    {
+      "i": 19,
+      "start": 506,
+      "end": 508,
+      "en": "Captain! We have to abort!",
+      "zh": "隊長！我們必須中止！"
+    },
+    {
+      "i": 20,
+      "start": 518,
+      "end": 520,
+      "en": "The world's changed, Celia...",
+      "zh": "世界已經變了，西莉亞……"
+    },
+    {
+      "i": 21,
+      "start": 534,
+      "end": 536,
+      "en": "Maybe we can too.",
+      "zh": "也許我們也可以改變。"
+    },
+    {
+      "i": 22,
+      "start": 538,
+      "end": 539,
+      "en": "Memory overwrite complete!",
+      "zh": "記憶覆寫完成！"
+    },
+    {
+      "i": 23,
+      "start": 559,
+      "end": 564,
+      "en": "You know, there's a lesson to be learned from this.",
+      "zh": "你知道嗎，這件事讓我們學到一課。"
+    },
+    {
+      "i": 24,
+      "start": 566,
+      "end": 567,
+      "en": "Could've gone worse.",
+      "zh": "本來可能更糟的。"
+    }
+  ],
+  "vocab": [
+    {
+      "sentence": 0,
+      "word": "left",
+      "pos": "adj.",
+      "zh": "剩下的",
+      "example": "There are only two cookies left."
+    },
+    {
+      "sentence": 1,
+      "word": "speed up",
+      "pos": "phr. v.",
+      "zh": "加快",
+      "example": "The bus sped up after the bridge."
+    },
+    {
+      "sentence": 4,
+      "word": "destroy",
+      "pos": "v.",
+      "zh": "毀滅；破壞",
+      "example": "The storm destroyed many houses."
+    },
+    {
+      "sentence": 4,
+      "word": "no reason to",
+      "pos": "phr.",
+      "zh": "沒有理由……",
+      "example": "There's no reason to be afraid."
+    },
+    {
+      "sentence": 7,
+      "word": "abort",
+      "pos": "v.",
+      "zh": "中止（計畫、任務）",
+      "example": "The pilot had to abort the landing."
+    },
+    {
+      "sentence": 8,
+      "word": "break someone's heart",
+      "pos": "phr.",
+      "zh": "讓某人傷心",
+      "example": "It broke my heart to say goodbye."
+    },
+    {
+      "sentence": 10,
+      "word": "crush",
+      "pos": "v.",
+      "zh": "壓碎；捏碎",
+      "example": "Don't crush the eggs in the bag."
+    },
+    {
+      "sentence": 13,
+      "word": "ad-lib",
+      "pos": "n.",
+      "zh": "即興發揮的台詞",
+      "example": "His funniest line was an ad-lib."
+    },
+    {
+      "sentence": 15,
+      "word": "on set",
+      "pos": "phr.",
+      "zh": "在拍攝現場",
+      "example": "Phones are not allowed on set."
+    },
+    {
+      "sentence": 16,
+      "word": "be out of time",
+      "pos": "phr.",
+      "zh": "沒時間了",
+      "example": "We're out of time, so let's stop here."
+    },
+    {
+      "sentence": 18,
+      "word": "percent",
+      "pos": "n.",
+      "zh": "百分之……",
+      "example": "About 60 percent of the students take the bus."
+    },
+    {
+      "sentence": 19,
+      "word": "captain",
+      "pos": "n.",
+      "zh": "隊長；艦長；機長",
+      "example": "The captain told everyone to stay calm."
+    },
+    {
+      "sentence": 21,
+      "word": "maybe",
+      "pos": "adv.",
+      "zh": "也許；或許",
+      "example": "Maybe we can meet next week."
+    },
+    {
+      "sentence": 23,
+      "word": "lesson",
+      "pos": "n.",
+      "zh": "教訓；一課",
+      "example": "Losing the game taught us an important lesson."
+    },
+    {
+      "sentence": 24,
+      "word": "worse",
+      "pos": "adj.",
+      "zh": "更糟的（bad 的比較級）",
+      "example": "The traffic is worse than yesterday."
+    }
+  ],
+  "grammar": [
+    {
+      "sentence": 0,
+      "point": "名詞 + left",
+      "explanation": "left 是 leave 的過去分詞，放在名詞後面表示「剩下的」。Two minutes left 等於 There are two minutes left。",
+      "example": "We have ten dollars left."
+    },
+    {
+      "sentence": 4,
+      "point": "That's no reason to + 原形動詞",
+      "explanation": "用 no + 名詞（no reason）比 not a reason 語氣更強，表示「那根本不是……的理由」。",
+      "example": "Being tired is no reason to be rude."
+    },
+    {
+      "sentence": 6,
+      "point": "already + 過去式",
+      "explanation": "美式口語常用過去式搭配 already（We already tried）；英式比較常用現在完成式（We have already tried）。",
+      "example": "I already ate lunch."
+    },
+    {
+      "sentence": 10,
+      "point": "should just + 原形動詞",
+      "explanation": "表示「乾脆……算了」，帶有衝動或無奈的語氣。",
+      "example": "Maybe I should just stay home."
+    },
+    {
+      "sentence": 20,
+      "point": "the world's changed：'s = has（現在完成式）",
+      "explanation": "'s 可以是 is 也可以是 has。後面接過去分詞（changed）時是 has，表示「已經變了」，強調到現在的結果。",
+      "example": "She's finished her homework."
+    },
+    {
+      "sentence": 23,
+      "point": "名詞 + to be + 過去分詞",
+      "explanation": "a lesson to be learned 是「一個要被學到的教訓」。不定詞的被動式（to be + 過去分詞）放在名詞後面修飾它。",
+      "example": "There's a lot of work to be done."
+    },
+    {
+      "sentence": 24,
+      "point": "could have + 過去分詞",
+      "explanation": "表示「過去本來可能……（但實際上沒有）」。口語常縮寫成 could've，聽起來像 could'a。句首省略了主詞 It。",
+      "example": "It could have been worse. Nobody got hurt."
+    }
+  ]
+}

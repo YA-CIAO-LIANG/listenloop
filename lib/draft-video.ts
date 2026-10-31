@@ -148,10 +148,18 @@ export function parseSrt(text: string): SrtCue[] {
 }
 
 /**
+ * Subtitles merged into one sentence may pause at most this long (seconds)
+ * between them; a longer pause would play as silence inside one sentence,
+ * so it becomes two sentences instead (docs/content-workflow.md).
+ */
+export const MAX_MERGE_GAP = 2;
+
+/**
  * The cues numbered `from` to `to`, minus `skip`, as timed sentences; each
  * `merge` run becomes one sentence (first start, last end, text joined).
  * Throws on a range, skip, or merge that doesn't match the file, so a typo
- * in meta.json can't quietly drop or add a line.
+ * in meta.json can't quietly drop or add a line, and on a merge that
+ * pauses longer than MAX_MERGE_GAP.
  */
 export function cuesToLines(
   cues: readonly SrtCue[],
@@ -180,6 +188,13 @@ export function cuesToLines(
     const run = merge.find(([first, last]) => n >= first && n <= last);
     if (run && n !== run[0]) {
       const line = lines[lines.length - 1];
+      const gap = round(cue.start - line.end);
+      if (gap > MAX_MERGE_GAP) {
+        throw new Error(
+          `merge ${run[0]}–${run[1]} pauses ${gap} s before ${n} ` +
+            `(over ${MAX_MERGE_GAP} s); split it into two sentences`,
+        );
+      }
       line.end = cue.end;
       line.en = `${line.en} ${cue.text}`;
       continue;
