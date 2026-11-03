@@ -70,7 +70,11 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - 必須遵守 YouTube 條款：播放器至少 200×200 px、不可在播放器上加遮罩或任何覆蓋元素、不可隱藏畫面只播聲音、不可使用 API 文件沒有寫的功能（例如 `unloadModule`）。
   - 字幕：官方沒有可強制關閉的參數，字幕依使用者自己的偏好顯示。聽寫與跟讀頁面要提示使用者點播放器的 CC 按鈕關閉字幕（2026-10-26 決定，方案 A）。
 - 跟讀：Web Speech API（en-US），建議 Chrome。
-- 進度：MVP 用 localStorage，透過 `lib/storage` 抽象層存取；M4 搬到 Supabase（登入後把 localStorage 的進度搬到雲端）。
+- 進度：一律透過 `lib/storage` 抽象層存取，元件用 `useStores()`（`components/StoresProvider.tsx`）取得，不直接建立儲存。
+  - 未登入時只存在 localStorage。
+  - 登入後，讀取仍從本機；每次存檔同時送到 Supabase 的 `progress`、`user_documents`（activity）。
+  - 每次載入頁面都和雲端同步一次（`lib/sync/`），規則見 `docs/decisions.md` 的 D3、D14。
+  - 本機的 `ll-account:v1`（`{ "userId" }`）記錄這台裝置的資料屬於哪個帳號。
 - PDF：列印專用 CSS ＋瀏覽器列印。
 - 部署：Vercel（Hobby）；PWA：manifest ＋ service worker；Android：PWABuilder。
 

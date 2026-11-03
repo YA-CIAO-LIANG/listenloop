@@ -4,10 +4,10 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState, type ReactNode } from "react";
 import { isHandoutUnlocked } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
-import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
+import { useStores } from "./StoresProvider";
 
 type HandoutGateProps = {
   videoId: string;
@@ -25,7 +25,8 @@ type HandoutGateProps = {
  */
 export function HandoutGate({ videoId, children, store }: HandoutGateProps) {
   const t = useTranslations("handout");
-  const [progressStore] = useState(() => store ?? createLocalProgressStore());
+  const stores = useStores();
+  const progressStore = store ?? stores.progress;
   const [state, setState] = useState<"loading" | "locked" | "open">("loading");
 
   useEffect(() => {

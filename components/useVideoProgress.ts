@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import type { Progress } from "@/lib/progress";
-import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
+import { useStores } from "./StoresProvider";
 
 /**
  * A video's saved progress, read in the browser. `loaded` is false on the
@@ -12,7 +12,8 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
  * pages that save (e.g. starting the next week).
  */
 export function useVideoProgress(videoId: string, store?: ProgressStore) {
-  const [progressStore] = useState(() => store ?? createLocalProgressStore());
+  const stores = useStores();
+  const progressStore = store ?? stores.progress;
   const [state, setState] = useState<{
     progress: Progress | null;
     loaded: boolean;

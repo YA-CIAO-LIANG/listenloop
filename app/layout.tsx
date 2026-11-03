@@ -6,6 +6,7 @@ import { getSignedInUser } from "@/auth/session";
 import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
 import { SiteHeader } from "@/components/SiteHeader";
+import { StoresProvider } from "@/components/StoresProvider";
 import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "./fonts";
 import { themeInitScript } from "@/lib/theme";
@@ -38,22 +39,25 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         {/* Inherits locale and messages from i18n/request.ts. */}
         <NextIntlClientProvider>
-          <SiteHeader
-            account={
-              accountsEnabled && (
-                // useSearchParams inside: Suspense keeps the page renderable.
-                <Suspense fallback={null}>
-                  <AccountMenu user={user && { email: user.email }} />
-                </Suspense>
-              )
-            }
-          />
-          {accountsEnabled && (
-            <Suspense fallback={null}>
-              <SignInNotice />
-            </Suspense>
-          )}
-          {children}
+          {/* Signed in: progress syncs with the account (b3). */}
+          <StoresProvider key={user?.id ?? "guest"} userId={user?.id ?? null}>
+            <SiteHeader
+              account={
+                accountsEnabled && (
+                  // useSearchParams inside: Suspense keeps the page renderable.
+                  <Suspense fallback={null}>
+                    <AccountMenu user={user && { email: user.email }} />
+                  </Suspense>
+                )
+              }
+            />
+            {accountsEnabled && (
+              <Suspense fallback={null}>
+                <SignInNotice />
+              </Suspense>
+            )}
+            {children}
+          </StoresProvider>
         </NextIntlClientProvider>
       </body>
     </html>

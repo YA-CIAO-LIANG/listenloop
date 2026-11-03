@@ -6,13 +6,13 @@ import { isDevTestMode } from "@/lib/config";
 import { taskForDay } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
 import type { Progress } from "@/lib/progress";
-import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { todayTasks, type TodayTask } from "@/lib/today-tasks";
 import { getVideo } from "@/lib/video-library";
 import { ButtonLink } from "./ButtonLink";
 import { Card } from "./Card";
 import { StartNextWeekButton } from "./StartNextWeekButton";
+import { useStores } from "./StoresProvider";
 
 type TodayTasksProps = {
   /** Injected in tests; defaults to localStorage. */
@@ -32,7 +32,8 @@ export function TodayTasks({ store }: TodayTasksProps) {
   const tCalendar = useTranslations("calendar");
   const tCycle = useTranslations("cycle");
   const tDay = useTranslations("practice.day");
-  const [progressStore] = useState(() => store ?? createLocalProgressStore());
+  const stores = useStores();
+  const progressStore = store ?? stores.progress;
   const [progresses, setProgresses] = useState<Progress[] | null>(null);
 
   useEffect(() => {

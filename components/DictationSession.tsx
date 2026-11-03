@@ -26,8 +26,6 @@ import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
 import { scoreDictation } from "@/lib/scoring/dictation";
 import { wordDiff } from "@/lib/scoring/word-diff";
-import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
-import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
 import { Button } from "./Button";
@@ -46,6 +44,7 @@ import { WeekResult } from "./WeekResult";
 import { WordDiffView } from "./WordDiffView";
 import { YouTubeFrame } from "./youtube/YouTubeFrame";
 import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
+import { useStores } from "./StoresProvider";
 
 /** How long "Skip" waits for the confirming second click. */
 export const SKIP_CONFIRM_MS = 3000;
@@ -110,7 +109,8 @@ export function DictationSession({
   const t = useTranslations("dictation");
   const format = useFormatter();
   const player = useYouTubePlayer(video.youtubeId);
-  const [progressStore] = useState(() => store ?? createLocalProgressStore());
+  const stores = useStores();
+  const progressStore = store ?? stores.progress;
   const [progress, setProgress] = useState<Progress | null>(null);
   const [mode, setMode] = useState<Mode>("official");
   const [retryAnswers, setRetryAnswers] = useState<Answers>([]);
@@ -152,7 +152,7 @@ export function DictationSession({
     if (next.days[day]?.done) {
       const today = toLocalDate(new Date());
       // Practice history for the home calendar (kept even with rewards off).
-      void updateActivity(createLocalRewardStore(), (activity) =>
+      void updateActivity(stores.rewards, (activity) =>
         recordTask(activity, today, {
           videoId: video.id,
           week: next.week,
