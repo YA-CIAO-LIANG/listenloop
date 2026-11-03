@@ -3,10 +3,12 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { titleLang } from "@/lib/practice-material";
 import type { Progress, ProgressStatus } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { Button } from "./Button";
 import { useStores } from "./StoresProvider";
+import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { ProgressLabel } from "./VideoProgressLabel";
 
 /** Group order on the page. */
@@ -54,7 +56,13 @@ export function MyPractices({ titles, store }: MyPracticesProps) {
     };
   }, [progressStore]);
 
-  const titleOf = (videoId: string) => titles[videoId] ?? t("unknownVideo");
+  const customTitles = useCustomPracticeTitles(
+    practices?.map((p) => p.videoId),
+  );
+  const known = (videoId: string) =>
+    videoId in titles || videoId in customTitles;
+  const titleOf = (videoId: string) =>
+    titles[videoId] ?? customTitles[videoId] ?? t("unknownVideo");
 
   async function remove(videoId: string) {
     setPending(true);
@@ -117,15 +125,14 @@ export function MyPractices({ titles, store }: MyPracticesProps) {
               <ul className="mt-4 divide-y divide-line border-y border-line">
                 {group.map((progress) => {
                   const { videoId } = progress;
-                  const known = videoId in titles;
                   return (
                     <li key={videoId} className="py-4">
                       <div className="flex flex-wrap items-start justify-between gap-x-6 gap-y-3">
                         <div>
-                          {known ? (
+                          {known(videoId) ? (
                             <Link
                               href={`/videos/${videoId}`}
-                              lang="en"
+                              lang={titleLang(videoId)}
                               className="font-medium hover:text-accent-ink"
                             >
                               {titleOf(videoId)}

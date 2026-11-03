@@ -27,11 +27,11 @@ import type { Progress } from "@/lib/progress";
 import { scoreDictation } from "@/lib/scoring/dictation";
 import { wordDiff } from "@/lib/scoring/word-diff";
 import type { ProgressStore } from "@/lib/storage/progress-store";
-import type { Video } from "@/lib/videos";
+import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
-import { CaptionHint } from "./CaptionHint";
 import { PerfectBurst } from "./PerfectBurst";
+import { PracticeFrame } from "./PracticeFrame";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
@@ -40,10 +40,9 @@ import { SentenceRow } from "./SentenceRow";
 import { claimAndAnnounce } from "./useRewards";
 import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import { useSentencePlayback } from "./useSentencePlayback";
+import { useSentencePlayer } from "./useSentencePlayer";
 import { WeekResult } from "./WeekResult";
 import { WordDiffView } from "./WordDiffView";
-import { YouTubeFrame } from "./youtube/YouTubeFrame";
-import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
 import { useStores } from "./StoresProvider";
 
 /** How long "Skip" waits for the confirming second click. */
@@ -57,7 +56,7 @@ export const SKIP_CONFIRM_MS = 3000;
 type Mode = "official" | "retry";
 
 type DictationSessionProps = {
-  video: Video;
+  video: PracticeMaterial;
   day: DictationDay;
   /** Page heading, e.g. "Day 1: Dictation". */
   title: string;
@@ -108,7 +107,7 @@ export function DictationSession({
 }: DictationSessionProps) {
   const t = useTranslations("dictation");
   const format = useFormatter();
-  const player = useYouTubePlayer(video.youtubeId);
+  const player = useSentencePlayer(video);
   const stores = useStores();
   const progressStore = store ?? stores.progress;
   const [progress, setProgress] = useState<Progress | null>(null);
@@ -135,7 +134,7 @@ export function DictationSession({
   const answeredCount = answers.filter((a) => a !== null).length;
   const attemptDone = answers.length > 0 && nextUnanswered(answers) === -1;
   const showing = feedbackIndex ?? current;
-  const playback = useSentencePlayback(player, sentences, showing);
+  const playback = useSentencePlayback(player, showing);
   const practicing =
     progress !== null && (feedbackIndex !== null || !attemptDone);
   const percent = (value: number) =>
@@ -337,7 +336,7 @@ export function DictationSession({
         className="text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
-        <span lang="en">{video.title}</span>
+        <span lang={titleLang(video.id)}>{video.title}</span>
       </Link>
       <h1 className="font-display text-h3">{title}</h1>
     </div>
@@ -432,8 +431,7 @@ export function DictationSession({
           </div>
 
           <div ref={videoRef} className="scroll-mt-16">
-            <YouTubeFrame {...player} />
-            <CaptionHint />
+            <PracticeFrame player={player} />
           </div>
 
           {feedbackIndex === null ? (
@@ -575,7 +573,7 @@ function DictationResult({
   onRetry,
   saveError,
 }: {
-  video: Video;
+  video: PracticeMaterial;
   mode: Mode;
   answers: Answers;
   /** The score to show: official for the first run, this attempt's for a retry. */

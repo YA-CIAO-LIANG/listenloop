@@ -7,7 +7,7 @@ import { ShadowingSession } from "@/components/ShadowingSession";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import type { CycleDay } from "@/lib/cycle";
 import { isShadowingDay } from "@/lib/shadowing";
-import { getVideo } from "@/lib/video-library";
+import { getPracticeMaterial } from "@/auth/practice-material";
 
 // Day 1 is dictation, Days 2–6 are shadowing, Day 7 is re-dictation.
 // DayGate keeps days closed until they unlock.
@@ -33,8 +33,8 @@ export async function generateMetadata({
   params,
 }: PageProps<"/videos/[id]/day/[day]">): Promise<Metadata> {
   const { id, day } = await params;
-  const video = getVideo(id);
   const n = parseDay(day);
+  const video = n ? await getPracticeMaterial(id) : null;
   return video && n ? { title: `${await dayTitle(n)} · ${video.title}` } : {};
 }
 
@@ -45,8 +45,8 @@ export default async function DayPage({
   const { id, day } = await params;
   // ?retry=1 (from the video page) jumps straight into extra practice.
   const startInRetry = (await searchParams).retry === "1";
-  const video = getVideo(id);
   const n = parseDay(day);
+  const video = n ? await getPracticeMaterial(id) : null;
   if (!video || !n) notFound();
   const t = await getTranslations(dayMessages(n));
   const title = await dayTitle(n);
@@ -56,10 +56,12 @@ export default async function DayPage({
   const below = (
     <div className="practice-column mt-12 space-y-12">
       <p className="text-ink-muted">{t("intro")}</p>
-      <VideoAttribution
-        attribution={video.attribution}
-        className="border-t border-line pt-6"
-      />
+      {video.attribution && (
+        <VideoAttribution
+          attribution={video.attribution}
+          className="border-t border-line pt-6"
+        />
+      )}
     </div>
   );
 

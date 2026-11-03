@@ -9,9 +9,12 @@ import {
 } from "@/app/create/actions";
 import { generateAllAudio, type GenerateAudio } from "./audio-generation";
 import { Button } from "./Button";
+import { ButtonLink } from "./ButtonLink";
 
 type PracticeAudioStatusProps = {
   practiceId: string;
+  /** Where to practice once the audio is ready. */
+  practiceHref: string;
   voiced: number;
   total: number;
   /** Injected in tests; the Server Action otherwise. */
@@ -24,6 +27,7 @@ type PracticeAudioStatusProps = {
  */
 export function PracticeAudioStatus({
   practiceId,
+  practiceHref,
   voiced: initialVoiced,
   total: initialTotal,
   generate = generatePracticeAudio,
@@ -54,10 +58,15 @@ export function PracticeAudioStatus({
 
   if (progress.voiced >= progress.total) {
     return (
-      <p className="text-supporting text-success">
-        <span aria-hidden="true">✓ </span>
-        {t("audioDone")}
-      </p>
+      <div className="flex flex-wrap items-center gap-3">
+        <p className="text-supporting text-success">
+          <span aria-hidden="true">✓ </span>
+          {t("audioDone")}
+        </p>
+        <ButtonLink href={practiceHref} variant="primary" size="sm" arrow>
+          {t("startPractice")}
+        </ButtonLink>
+      </div>
     );
   }
 

@@ -4,12 +4,13 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Handout } from "@/components/Handout";
 import { HandoutGate } from "@/components/HandoutGate";
-import { getVideo } from "@/lib/video-library";
+import { getPracticeMaterial } from "@/auth/practice-material";
+import { titleLang } from "@/lib/practice-material";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/videos/[id]/handout">): Promise<Metadata> {
-  const video = getVideo((await params).id);
+  const video = await getPracticeMaterial((await params).id);
   const t = await getTranslations("handout");
   return video ? { title: `${video.title} · ${t("title")}` } : {};
 }
@@ -17,7 +18,7 @@ export async function generateMetadata({
 export default async function HandoutPage({
   params,
 }: PageProps<"/videos/[id]/handout">) {
-  const video = getVideo((await params).id);
+  const video = await getPracticeMaterial((await params).id);
   if (!video) notFound();
   const t = await getTranslations("handout");
 
@@ -28,10 +29,10 @@ export default async function HandoutPage({
         className="text-supporting text-ink-muted hover:text-ink print:hidden"
       >
         <span aria-hidden="true">← </span>
-        <span lang="en">{video.title}</span>
+        <span lang={titleLang(video.id)}>{video.title}</span>
       </Link>
       <h1 className="mt-6 font-display text-h1 print:mt-0">
-        <span lang="en">{video.title}</span> · {t("title")}
+        <span lang={titleLang(video.id)}>{video.title}</span> · {t("title")}
       </h1>
       <div className="mt-6">
         <HandoutGate videoId={video.id}>

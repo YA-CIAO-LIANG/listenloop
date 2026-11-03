@@ -21,10 +21,9 @@ import {
   type ShadowingDay,
 } from "@/lib/shadowing";
 import type { ProgressStore } from "@/lib/storage/progress-store";
-import type { Video } from "@/lib/videos";
+import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
-import { CaptionHint } from "./CaptionHint";
 import { NextDayNote } from "./NextDayNote";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
@@ -35,8 +34,8 @@ import {
 } from "./speech/useSpeechRecognition";
 import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
-import { YouTubeFrame } from "./youtube/YouTubeFrame";
-import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
+import { useSentencePlayer } from "./useSentencePlayer";
+import { PracticeFrame } from "./PracticeFrame";
 import { useStores } from "./StoresProvider";
 
 /** official: saved for the cycle. retry: extra practice, kept in memory only. */
@@ -48,7 +47,7 @@ type Phase = "ready" | "playing" | "listening" | "result";
 type LastResult = { heard: string; coverage: number; complete: boolean };
 
 type ShadowingSessionProps = {
-  video: Video;
+  video: PracticeMaterial;
   day: ShadowingDay;
   title: string;
   /** Start a retry right away if today's run is already done (?retry=1). */
@@ -83,7 +82,7 @@ export function ShadowingSession({
   const t = useTranslations("shadowing");
   const tHandout = useTranslations("handout");
   const format = useFormatter();
-  const player = useYouTubePlayer(video.youtubeId);
+  const player = useSentencePlayer(video);
   const speech = useSpeechRecognition();
   const stores = useStores();
   const progressStore = store ?? stores.progress;
@@ -119,7 +118,7 @@ export function ShadowingSession({
     phase === "ready" && speech.status === "error" && !manual
       ? speech.error
       : null;
-  const playback = useSentencePlayback(player, sentences, current);
+  const playback = useSentencePlayback(player, current);
   const percent = (value: number) =>
     format.number(value, { style: "percent", maximumFractionDigits: 0 });
 
@@ -275,7 +274,7 @@ export function ShadowingSession({
         className="text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
-        <span lang="en">{video.title}</span>
+        <span lang={titleLang(video.id)}>{video.title}</span>
       </Link>
       <h1 className="font-display text-h3">{title}</h1>
     </div>
@@ -398,8 +397,7 @@ export function ShadowingSession({
         )}
 
         <div className="scroll-mt-16">
-          <YouTubeFrame {...player} />
-          <CaptionHint />
+          <PracticeFrame player={player} />
         </div>
 
         <div className="space-y-2">
@@ -513,7 +511,7 @@ function RecordList({
   records,
   current,
 }: {
-  video: Video;
+  video: PracticeMaterial;
   records: SentenceRecords;
   current?: number;
 }) {

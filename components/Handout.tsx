@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";
-import type { Video } from "@/lib/videos";
+import type { PracticeMaterial } from "@/lib/practice-material";
 import { VideoAttribution } from "./VideoAttribution";
 
 /**
@@ -9,7 +9,7 @@ import { VideoAttribution } from "./VideoAttribution";
  * items never split across pages; the vocabulary rows keep four columns on
  * paper and stack on narrow screens.
  */
-export function Handout({ video }: { video: Video }) {
+export function Handout({ video }: { video: PracticeMaterial }) {
   const t = useTranslations("handout");
 
   return (
@@ -98,10 +98,12 @@ export function Handout({ video }: { video: Video }) {
         </HandoutSection>
       )}
 
-      <VideoAttribution
-        attribution={video.attribution}
-        className="break-inside-avoid border-t border-line pt-6"
-      />
+      {video.attribution && (
+        <VideoAttribution
+          attribution={video.attribution}
+          className="break-inside-avoid border-t border-line pt-6"
+        />
+      )}
     </div>
   );
 }

@@ -189,6 +189,15 @@
   - 沒有練習時顯示 ink-muted 的「還沒有建立練習。」
 - 寬度上限和練習區相同（720px）。
 
+## 聲音練習面板（自建練習）
+
+- 練習頁上原本放 YouTube 播放器的位置：band 底、1px line 邊框、4px 圓角、最小高度 96px、內距 24px／16px。
+- 左側 24px 喇叭圖示（`SpeakerIcon`），平常 ink-muted，播放中變成 accent-ink；右側 font-medium 的「聲音練習」，下一行 supporting、ink-muted 的說明，播放中改成「播放中…」。
+- 載入中與錯誤訊息放在面板下方，規則和 YouTube 播放器相同（supporting；載入中 ink-muted `role="status"`，錯誤 error 色 `role="alert"`）。
+- 不顯示關閉字幕的提示（沒有影片）。
+- **練習總覽頁**：上方小標籤是「自建練習」（取代程度與分類），返回連結回到「建立練習」，標題下方是「共 N 句，每一句都有音檔。」，沒有播放器和影片出處。
+- 建立頁的練習清單：音檔完成時，「✓ 音檔已完成」右側有 primary、sm 的「開始練習 →」。
+
 ## 頁尾與隱私權政策
 
 - **頁尾**（`SiteFooter`）：

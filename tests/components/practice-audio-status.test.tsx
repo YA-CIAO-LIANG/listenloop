@@ -18,12 +18,16 @@ describe("PracticeAudioStatus", () => {
     renderWithIntl(
       <PracticeAudioStatus
         practiceId="p1"
+        practiceHref="/videos/p-1"
         voiced={4}
         total={4}
         generate={generate}
       />,
     );
     expect(screen.getByText("音檔已完成")).toBeTruthy();
+    expect(
+      screen.getByRole("link", { name: "開始練習" }).getAttribute("href"),
+    ).toBe("/videos/p-1");
     expect(screen.queryByRole("button")).toBeNull();
   });
 
@@ -32,6 +36,7 @@ describe("PracticeAudioStatus", () => {
     renderWithIntl(
       <PracticeAudioStatus
         practiceId="p1"
+        practiceHref="/videos/p-1"
         voiced={3}
         total={10}
         generate={generate}
@@ -56,6 +61,7 @@ describe("PracticeAudioStatus", () => {
     renderWithIntl(
       <PracticeAudioStatus
         practiceId="p1"
+        practiceHref="/videos/p-1"
         voiced={3}
         total={10}
         generate={generate}

@@ -5,6 +5,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { isDevTestMode } from "@/lib/config";
 import { taskForDay } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
+import { titleLang } from "@/lib/practice-material";
 import type { Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { todayTasks, type TodayTask } from "@/lib/today-tasks";
@@ -13,13 +14,12 @@ import { ButtonLink } from "./ButtonLink";
 import { Card } from "./Card";
 import { StartNextWeekButton } from "./StartNextWeekButton";
 import { useStores } from "./StoresProvider";
+import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 
 type TodayTasksProps = {
   /** Injected in tests; defaults to localStorage. */
   store?: ProgressStore;
 };
-
-const titleOf = (videoId: string) => getVideo(videoId)?.title;
 
 /**
  * The home page's "today's tasks": one row per started practice with
@@ -49,16 +49,21 @@ export function TodayTasks({ store }: TodayTasksProps) {
     };
   }, [progressStore]);
 
+  const customTitles = useCustomPracticeTitles(
+    progresses?.map((p) => p.videoId),
+  );
   const tasks = progresses
     ? todayTasks(progresses, toLocalDate(new Date()), {
         ignoreDates: isDevTestMode(),
-        titleOf,
+        titleOf: (videoId) => getVideo(videoId)?.title ?? customTitles[videoId],
       })
     : null;
 
-  const video = (chunks: ReactNode) => <span lang="en">{chunks}</span>;
-  const line = (task: TodayTask) =>
-    task.newWeek
+  const line = (task: TodayTask) => {
+    const video = (chunks: ReactNode) => (
+      <span lang={titleLang(task.videoId)}>{chunks}</span>
+    );
+    return task.newWeek
       ? t.rich("newWeekLine", { title: task.title, week: task.week, video })
       : tCalendar.rich("taskLine", {
           title: task.title,
@@ -66,6 +71,7 @@ export function TodayTasks({ store }: TodayTasksProps) {
           task: tDay(`task.${taskForDay(task.day)}`),
           video,
         });
+  };
   const tomorrow = (task: TodayTask) =>
     task.tomorrow &&
     ("day" in task.tomorrow

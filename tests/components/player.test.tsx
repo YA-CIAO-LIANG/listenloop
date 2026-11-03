@@ -231,19 +231,16 @@ describe("useYouTubePlayer", () => {
 });
 
 describe("useSentencePlayback", () => {
-  const { sentences } = videos.find((v) => v.id === "sintel")!;
-
-  it("plays the padded sentence and tracks whether it was played", () => {
-    const playSegment = vi.fn();
-    // Sentence 3 is 118–121.45; neighbors end at 115.8 and start at 121.75.
+  it("plays the current sentence and tracks whether it was played", () => {
+    const playSentence = vi.fn();
     const { result, rerender } = renderHook(
-      ({ index }) => useSentencePlayback({ playSegment }, sentences, index),
+      ({ index }) => useSentencePlayback({ playSentence }, index),
       { initialProps: { index: 2 } },
     );
     expect(result.current.played).toBe(false);
 
     act(() => result.current.play());
-    expect(playSegment).toHaveBeenLastCalledWith(117.85, 121.7, undefined);
+    expect(playSentence).toHaveBeenLastCalledWith(2, undefined);
     expect(result.current.played).toBe(true);
 
     // Moving on resets "played" for the new sentence.
@@ -252,25 +249,13 @@ describe("useSentencePlayback", () => {
   });
 
   it("plays another sentence with playAt (auto-play next)", () => {
-    const playSegment = vi.fn();
+    const playSentence = vi.fn();
+    const onEnd = vi.fn();
     const { result } = renderHook(() =>
-      useSentencePlayback({ playSegment }, sentences, 2),
+      useSentencePlayback({ playSentence }, 2),
     );
-    // Sentence 4 is 121.75–124.8; the previous one ends at 121.45.
-    act(() => result.current.playAt(3));
-    expect(playSegment).toHaveBeenLastCalledWith(121.6, 125.05, undefined);
-  });
-
-  it("accepts custom padding", () => {
-    const playSegment = vi.fn();
-    const { result } = renderHook(() =>
-      useSentencePlayback({ playSegment }, sentences, 2, {
-        before: 0,
-        after: 0,
-      }),
-    );
-    act(() => result.current.play());
-    expect(playSegment).toHaveBeenLastCalledWith(118, 121.45, undefined);
+    act(() => result.current.playAt(3, onEnd));
+    expect(playSentence).toHaveBeenLastCalledWith(3, onEnd);
   });
 });
 
