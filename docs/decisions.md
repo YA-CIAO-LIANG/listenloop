@@ -286,3 +286,15 @@
   - 所有寫入都用使用者自己的 session，RLS 會檢查；寫入時沒有對到任何一列，就回報「找不到」（不是自己的，或已經刪除）。
 - **理由**：整理功能放在建立的同一頁，管理員不用在不同頁面之間切換；刪除用確認區塊，和「我的練習」的移除一致。
 - **要改時**：`app/create/organize-actions.ts`、`components/CollectionManager.tsx`、`components/PracticeControls.tsx`、`components/VisibilityToggle.tsx`。
+
+## D25 筆記本（2026-11-03，d5b）
+
+- **決定**：
+  - `/notebooks` 列出筆記本，可以新增；`/notebooks/<id>` 可以新增筆記（單字或句子＋選填的筆記）、刪除筆記、重新命名或刪除筆記本。刪除筆記本要先確認，刪除單一筆記不需要確認（內容很短，重新加入也很容易）。
+  - 筆記本一律私人，只有自己看得到（RLS）。別人的筆記本網址回 404。
+  - 目前只開放給管理員，頁首「我的練習」右邊會出現「筆記本」。筆記本不呼叫付費 API，所以不需要設定供應者：Joe 用管理員帳號登入正式站就能使用。
+  - 筆記的內容標成 `lang="en"`（收藏的是英文單字和句子）；筆記保留換行。
+  - 整理用的伺服器動作共用 `auth/admin-writes.ts`（管理員判斷、使用者自己的 session、沒有對到任何一列就回報「找不到」）。
+- **之後再做**：從講義或聽寫回饋直接「加入筆記本」，並記錄來源（`notebook_entries.source`、`sentence` 欄位已經預留）。
+- **理由**：先做最基本的建立和整理，讓資料結構和權限先經過實際使用；開放給所有登入的使用者時，只要拿掉管理員判斷。
+- **要改時**：`app/notebooks/`、`components/NotebookControls.tsx`、`auth/admin-writes.ts`。

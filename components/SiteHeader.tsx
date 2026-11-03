@@ -15,8 +15,11 @@ import { ThemeToggle } from "./ThemeToggle";
 export function SiteHeader({
   account,
   showCreate = false,
+  showNotebooks = false,
 }: {
   account?: ReactNode;
+  /** "Notebooks", for admins while it's admin-only (D25). */
+  showNotebooks?: boolean;
   /** "Create practice", for admins while it's admin-only (roadmap d). */
   showCreate?: boolean;
 }) {
@@ -41,6 +44,14 @@ export function SiteHeader({
               className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >
               {t("createPractice")}
+            </Link>
+          )}
+          {showNotebooks && (
+            <Link
+              href="/notebooks"
+              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            >
+              {t("notebooks")}
             </Link>
           )}
         </nav>

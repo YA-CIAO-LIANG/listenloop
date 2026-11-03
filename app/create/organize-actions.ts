@@ -1,8 +1,10 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
-import { getAdminUser } from "@/auth/creator";
-import { getServerSupabase } from "@/auth/server";
+import {
+  writeAsAdmin,
+  writeOutcome,
+  type WriteResult,
+} from "@/auth/admin-writes";
 import {
   cleanName,
   COLLECTION_TITLE_MAX,
@@ -12,43 +14,13 @@ import {
 
 /**
  * Organizing created practices (roadmap d5): collections, public or
- * private, and deleting. Admin-only like creating (D24). Every write uses
- * the user's own session, so row level security limits it to their rows;
- * a write that matches no row means it isn't theirs (or is gone).
+ * private, and deleting. Admin-only like creating (D24).
  */
-export type OrganizeResult =
-  | { ok: true }
-  | { ok: false; reason: "unavailable" | "invalid" | "not-found" | "failed" };
+export type OrganizeResult = WriteResult;
 
-type Supabase = NonNullable<Awaited<ReturnType<typeof getServerSupabase>>>;
-
-async function asAdmin(
-  run: (supabase: Supabase, userId: string) => Promise<OrganizeResult>,
-): Promise<OrganizeResult> {
-  const user = await getAdminUser();
-  const supabase = user && (await getServerSupabase());
-  if (!user || !supabase) return { ok: false, reason: "unavailable" };
-  const result = await run(supabase, user.id).catch((): OrganizeResult => ({
-    ok: false,
-    reason: "failed",
-  }));
-  if (result.ok) revalidatePath("/create");
-  return result;
-}
-
-/** Turns a write's { data, error } into a result; no rows → not found. */
-function outcome({
-  data,
-  error,
-}: {
-  data: unknown[] | null;
-  error: unknown;
-}): OrganizeResult {
-  if (error) return { ok: false, reason: "failed" };
-  return data && data.length > 0
-    ? { ok: true }
-    : { ok: false, reason: "not-found" };
-}
+const asAdmin = (write: Parameters<typeof writeAsAdmin>[1]) =>
+  writeAsAdmin("/create", write);
+const outcome = writeOutcome;
 
 export async function createCollection(
   title: unknown,

@@ -23,3 +23,18 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 export function isUuid(value: unknown): value is string {
   return typeof value === "string" && UUID.test(value);
 }
+
+/** Notebooks (D25); the database checks the same limits. */
+export const NOTEBOOK_LIMITS = {
+  title: 100,
+  text: 1000,
+  note: 2000,
+} as const;
+
+/** The tidied note: may be empty, keeps line breaks; null if too long. */
+export function cleanNote(value: unknown, max: number): string | null {
+  if (value === undefined || value === null) return "";
+  if (typeof value !== "string") return null;
+  const note = value.replace(/[ \t]+/g, " ").trim();
+  return [...note].length <= max ? note : null;
+}

@@ -4,7 +4,8 @@
     "dayN": "第 {day} 天",
     "myPractices": "我的練習",
     "mainNav": "主要導覽",
-    "createPractice": "建立練習"
+    "createPractice": "建立練習",
+    "notebooks": "筆記本"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -705,6 +706,37 @@
     "errors": {
       "unavailable": "目前無法整理練習。請確認已用管理員帳號登入。",
       "invalid": "請填寫名稱（最多 100 字）。",
+      "not-found": "找不到這個項目，可能已經刪除。請重新整理頁面。",
+      "failed": "儲存失敗，請稍後再試一次。"
+    }
+  },
+  "notebooks": {
+    "title": "筆記本",
+    "intro": "收藏想記住的單字和句子，加上自己的筆記。筆記本只有你看得到。目前只開放給管理員。",
+    "newNotebook": "新的筆記本名稱",
+    "add": "新增",
+    "empty": "還沒有筆記本。",
+    "entryCount": "{count} 則",
+    "rename": "重新命名",
+    "renameLabel": "「{title}」的新名稱",
+    "save": "儲存",
+    "cancel": "取消",
+    "deleteNotebook": "刪除筆記本…",
+    "deleteNotebookConfirm": "要刪除「{title}」嗎？裡面的所有筆記都會刪除，無法復原。",
+    "deleteNotebookButton": "永久刪除筆記本",
+    "deleting": "刪除中…",
+    "addTitle": "新增筆記",
+    "entryText": "單字或句子",
+    "entryNote": "筆記（選填）",
+    "addEntry": "加入筆記本",
+    "saving": "儲存中…",
+    "entriesTitle": "筆記（{count}）",
+    "noEntries": "還沒有筆記。",
+    "deleteEntry": "刪除",
+    "deleteEntryLabel": "刪除「{text}」",
+    "errors": {
+      "unavailable": "目前無法使用筆記本。請確認已用管理員帳號登入。",
+      "invalid": "請填寫內容（名稱最多 100 字、單字或句子最多 1,000 字、筆記最多 2,000 字）。",
       "not-found": "找不到這個項目，可能已經刪除。請重新整理頁面。",
       "failed": "儲存失敗，請稍後再試一次。"
     }

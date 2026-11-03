@@ -4,7 +4,8 @@
     "dayN": "Day {day}",
     "myPractices": "My practices",
     "mainNav": "Main",
-    "createPractice": "Create"
+    "createPractice": "Create",
+    "notebooks": "Notebooks"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -707,6 +708,37 @@
     "errors": {
       "unavailable": "Practices can't be organized right now. Make sure you're signed in with an admin account.",
       "invalid": "Please enter a name (100 characters at most).",
+      "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
+      "failed": "Couldn't save. Please try again."
+    }
+  },
+  "notebooks": {
+    "title": "Notebooks",
+    "intro": "Keep the words and sentences you want to remember, with your own notes. Only you can see your notebooks. Admins only for now.",
+    "newNotebook": "New notebook name",
+    "add": "Add",
+    "empty": "You don't have a notebook yet.",
+    "entryCount": "{count, plural, one {# entry} other {# entries}}",
+    "rename": "Rename",
+    "renameLabel": "New name for “{title}”",
+    "save": "Save",
+    "cancel": "Cancel",
+    "deleteNotebook": "Delete notebook…",
+    "deleteNotebookConfirm": "Delete “{title}”? Every entry in it is deleted, and this can't be undone.",
+    "deleteNotebookButton": "Delete notebook for good",
+    "deleting": "Deleting…",
+    "addTitle": "Add an entry",
+    "entryText": "Word or sentence",
+    "entryNote": "Note (optional)",
+    "addEntry": "Add to notebook",
+    "saving": "Saving…",
+    "entriesTitle": "Entries ({count})",
+    "noEntries": "No entries yet.",
+    "deleteEntry": "Delete",
+    "deleteEntryLabel": "Delete “{text}”",
+    "errors": {
+      "unavailable": "Notebooks aren't available right now. Make sure you're signed in with an admin account.",
+      "invalid": "Please fill it in (names up to 100 characters, words or sentences up to 1,000, notes up to 2,000).",
       "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
       "failed": "Couldn't save. Please try again."
     }
