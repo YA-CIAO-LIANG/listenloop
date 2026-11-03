@@ -6,6 +6,8 @@ import { Button } from "@/components/Button";
 import { DayTracker } from "@/components/DayTracker";
 import { ProgressBar } from "@/components/ProgressBar";
 import { SentenceRow } from "@/components/SentenceRow";
+import { VoicePicker } from "@/components/VoicePicker";
+import { silentWav } from "@/lib/ai/fake";
 import type { CycleDay, DayStatus } from "@/lib/cycle";
 
 // Sample practice content (not UI copy), like a video's sentences.
@@ -80,5 +82,24 @@ export function ProgressBarDemo() {
         </Button>
       </div>
     </div>
+  );
+}
+
+/** A silent 1.5-second WAV as a data URL: the same on server and client. */
+function silentSampleUrl(): string {
+  let binary = "";
+  for (const byte of silentWav(1.5)) binary += String.fromCharCode(byte);
+  return `data:audio/wav;base64,${btoa(binary)}`;
+}
+
+/**
+ * The voice cards with a silent clip standing in for each sample, so the
+ * playing state can be tried before real samples exist.
+ */
+export function VoicePickerDemo() {
+  const [voice, setVoice] = useState("us-female");
+  const [sample] = useState(silentSampleUrl);
+  return (
+    <VoicePicker value={voice} onChange={setVoice} sampleUrl={() => sample} />
   );
 }

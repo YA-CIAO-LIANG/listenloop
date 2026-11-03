@@ -298,3 +298,16 @@
 - **之後再做**：從講義或聽寫回饋直接「加入筆記本」，並記錄來源（`notebook_entries.source`、`sentence` 欄位已經預留）。
 - **理由**：先做最基本的建立和整理，讓資料結構和權限先經過實際使用；開放給所有登入的使用者時，只要拿掉管理員判斷。
 - **要改時**：`app/notebooks/`、`components/NotebookControls.tsx`、`auth/admin-writes.ts`。
+
+## D26 聲音卡片；「學習進度」「我的教材」（2026-11-03，d6）
+
+- **聲音卡片**：8 個聲音用卡片呈現，依口音分組，每張卡片可以試聽（規格見 `docs/design-system.md` 的「聲音卡片」）。
+  - 試聽的範例句是預先產生的 MP3，放在 `public/voices/`，等接上 Text-to-Speech 後產生（d6e）。這樣試聽不用等待，也不會用到每日額度。
+  - 在那之前，`/styleguide` 先播放無聲的示範檔，只用來展示播放狀態。
+- **頁首命名**（Joe 2026-11-03 選定）：
+  - 「學習進度」：原本的「我的練習」，`/practices`；
+  - 「我的教材」：自建練習和 Collection（d6b）；
+  - 「筆記本」：不變。
+  - 「建立練習」改成「我的教材」頁內的按鈕。
+- **理由**：「進度」和「教材」的用途一眼就分得開，不會因為兩個都叫「練習」而混淆。
+- **要改時**：`components/VoicePicker.tsx`、`components/SiteHeader.tsx`、翻譯檔的 `common`。
