@@ -1,7 +1,9 @@
 {
   "common": {
     "appName": "ListenLoop",
-    "dayN": "第 {day} 天"
+    "dayN": "第 {day} 天",
+    "myPractices": "我的練習",
+    "mainNav": "主要導覽"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -554,5 +556,26 @@
     ],
     "contact": "有隱私相關的問題，請到 GitHub 專案頁留言（留言是公開的，請不要寫下個人資料，我們會再和你聯絡）：",
     "contactLink": "ListenLoop Issues"
+  },
+  "practices": {
+    "title": "我的練習",
+    "intro": "所有開始過的影片和目前的進度。不想再練的影片可以移除；移除只會刪除那支影片的 7 天進度和成績，練習日曆的紀錄會保留。",
+    "loading": "載入中…",
+    "groups": {
+      "in-progress": "進行中",
+      "repeat": "等待重新開始",
+      "passed": "已通過"
+    },
+    "count": "{count} 支",
+    "empty": "還沒有開始的練習。",
+    "toLibrary": "前往練習題庫 →",
+    "unknownVideo": "（已下架的影片）",
+    "remove": "移除…",
+    "removeConfirm": "確定移除「{title}」的練習進度嗎？各天的進度和成績會刪除，無法復原；練習日曆的紀錄會保留。",
+    "removeButton": "移除進度",
+    "removing": "移除中…",
+    "cancel": "取消",
+    "removed": "已移除「{title}」的練習進度。",
+    "removeFailed": "沒有成功移除「{title}」，請再試一次。"
   }
 }

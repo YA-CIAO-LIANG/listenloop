@@ -37,26 +37,48 @@ const same = (a: unknown, b: unknown) =>
   JSON.stringify(a) === JSON.stringify(b);
 
 /**
- * What to copy where so this device and the account agree: for each
- * video, the copy with more progress wins; a tie goes to the cloud so
- * every device settles on the same copy.
+ * What to copy or remove where so this device and the account agree.
+ * `base` lists the videos both sides had after the last sync on this
+ * device; it tells a removal from something new:
+ * - on one side only and in `base`: removed on the other side (here, or
+ *   on another device), so remove it here too instead of copying it back;
+ * - on one side only and not in `base`: new, so copy it over;
+ * - on both: the copy with more progress wins; a tie goes to the cloud so
+ *   every device settles on the same copy.
  */
 export function planProgressSync(
   local: readonly Progress[],
   cloud: readonly Progress[],
-): { toLocal: Progress[]; toCloud: Progress[] } {
+  base: ReadonlySet<string> = new Set(),
+): {
+  toLocal: Progress[];
+  toCloud: Progress[];
+  removeLocal: string[];
+  removeCloud: string[];
+} {
   const cloudById = new Map(cloud.map((p) => [p.videoId, p]));
   const localIds = new Set(local.map((p) => p.videoId));
-  const toLocal: Progress[] = cloud.filter((p) => !localIds.has(p.videoId));
-  const toCloud: Progress[] = [];
+  const plan = {
+    toLocal: [] as Progress[],
+    toCloud: [] as Progress[],
+    removeLocal: [] as string[],
+    removeCloud: [] as string[],
+  };
+  for (const theirs of cloud) {
+    if (localIds.has(theirs.videoId)) continue;
+    if (base.has(theirs.videoId)) plan.removeCloud.push(theirs.videoId);
+    else plan.toLocal.push(theirs);
+  }
   for (const mine of local) {
     const theirs = cloudById.get(mine.videoId);
-    if (!theirs) toCloud.push(mine);
-    else if (same(mine, theirs)) continue;
-    else if (compareRank(mine, theirs) > 0) toCloud.push(mine);
-    else toLocal.push(theirs);
+    if (!theirs) {
+      if (base.has(mine.videoId)) plan.removeLocal.push(mine.videoId);
+      else plan.toCloud.push(mine);
+    } else if (same(mine, theirs)) continue;
+    else if (compareRank(mine, theirs) > 0) plan.toCloud.push(mine);
+    else plan.toLocal.push(theirs);
   }
-  return { toLocal, toCloud };
+  return plan;
 }
 
 const taskKey = (task: PracticeTask) =>

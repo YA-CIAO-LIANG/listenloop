@@ -9,30 +9,33 @@ import {
   taskForDay,
 } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
+import type { Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { useVideoProgress } from "./useVideoProgress";
 
 type VideoProgressLabelProps = {
   videoId: string;
-  /** Injected in tests; defaults to localStorage. */
+  /** Injected in tests; defaults to the page's stores. */
   store?: ProgressStore;
 };
 
-/**
- * One line of progress for a library card: today's day and task, "today's
- * task done", "passed", or a week to repeat, prefixed with the week from
- * week 2. Nothing before
- * the video is started (or on the server).
- */
+/** ProgressLabel for a library card, read from the stores. */
 export function VideoProgressLabel({
   videoId,
   store,
 }: VideoProgressLabelProps) {
+  const { progress } = useVideoProgress(videoId, store);
+  return progress ? <ProgressLabel progress={progress} /> : null;
+}
+
+/**
+ * One line of progress: today's day and task, "today's task done",
+ * "passed", or a week to repeat, prefixed with the week from week 2.
+ */
+export function ProgressLabel({ progress }: { progress: Progress }) {
   const t = useTranslations("cycle");
   const tDay = useTranslations("practice.day");
   const tWeek = useTranslations("week");
-  const { progress } = useVideoProgress(videoId, store);
-  if (!progress) return null;
 
   const week =
     progress.week > 1 ? `${t("week", { week: progress.week })} · ` : "";

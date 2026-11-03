@@ -74,7 +74,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - 未登入時只存在 localStorage。
   - 登入後，讀取仍從本機；每次存檔同時送到 Supabase 的 `progress`、`user_documents`（activity）。
   - 每次載入頁面都和雲端同步一次（`lib/sync/`），規則見 `docs/decisions.md` 的 D3、D14。
-  - 本機的 `ll-account:v1`（`{ "userId" }`）記錄這台裝置的資料屬於哪個帳號。
+  - 本機的 `ll-account:v1` 格式是 `{ "userId", "synced": ["sintel"] }`：`userId` 記錄這台裝置的資料屬於哪個帳號；`synced` 是上次同步完成時兩邊都有的影片，用來分辨「別台裝置移除的練習」和「這台裝置新開始的練習」（D15）。
 - PDF：列印專用 CSS ＋瀏覽器列印。
 - 部署：Vercel（Hobby）；PWA：manifest ＋ service worker；Android：PWABuilder。
 
