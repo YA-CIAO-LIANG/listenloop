@@ -45,7 +45,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           {/* Signed in: progress syncs with the account (b3). */}
           <StoresProvider key={user?.id ?? "guest"} userId={user?.id ?? null}>
             <SiteHeader
-              showCreate={canCreatePractices(user)}
+              showMaterials={canCreatePractices(user)}
               showNotebooks={!!user && isAdminEmail(user.email)}
               account={
                 accountsEnabled && (

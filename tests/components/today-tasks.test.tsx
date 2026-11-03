@@ -63,7 +63,7 @@ describe("TodayTasks", () => {
     expect(screen.getByRole("heading", { name: "今日任務" })).toBeDefined();
     expect(screen.getByText(/還沒有開始的練習/)).toBeDefined();
     expect(
-      screen.getByRole("link", { name: /前往練習題庫/ }).getAttribute("href"),
+      screen.getByRole("link", { name: /前往推薦練習/ }).getAttribute("href"),
     ).toBe("#library");
   });
 

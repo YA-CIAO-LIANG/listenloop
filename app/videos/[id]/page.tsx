@@ -28,7 +28,7 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <Link
-        href={video ? "/" : "/create"}
+        href={video ? "/" : "/materials"}
         className="text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>

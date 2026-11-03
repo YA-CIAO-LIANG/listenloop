@@ -2,10 +2,10 @@
   "common": {
     "appName": "ListenLoop",
     "dayN": "Day {day}",
-    "myPractices": "My practices",
+    "myPractices": "Progress",
     "mainNav": "Main",
-    "createPractice": "Create",
-    "notebooks": "Notebooks"
+    "notebooks": "Notebooks",
+    "materials": "My materials"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -99,8 +99,8 @@
   },
   "today": {
     "title": "Today’s tasks",
-    "empty": "No practice started yet. Pick a video from the practice library below to start Day 1.",
-    "emptyLink": "Go to the practice library",
+    "empty": "No practice started yet. Pick a video from the recommended practices below to start Day 1.",
+    "emptyLink": "Go to the recommended practices",
     "newWeekLine": "<video>{title}</video> · Week {week} starts again",
     "available": "Ready",
     "done": "Done",
@@ -256,7 +256,7 @@
     "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a 1.5-second silent clip for now to show the playing state; real samples come once Text-to-Speech is connected."
   },
   "library": {
-    "title": "Practice library",
+    "title": "Recommended practices",
     "intro": "Pick a video and start a seven-day loop.",
     "sentences": "{count, plural, one {# sentence} other {# sentences}}",
     "videoCount": "{count, plural, one {# video} other {# videos}}",
@@ -309,7 +309,7 @@
       "changes": "Changes"
     },
     "custom": "Your practice",
-    "backToCreate": "Create a practice",
+    "backToCreate": "My materials",
     "customSentences": "{count, plural, one {# sentence} other {# sentences}}, each with its own audio."
   },
   "player": {
@@ -576,7 +576,7 @@
     "contactLink": "ListenLoop Issues"
   },
   "practices": {
-    "title": "My practices",
+    "title": "Progress",
     "intro": "Every video you've started and where you are. Remove one you don't want to practice anymore: only its 7-day progress and scores are deleted; the practice calendar keeps its history.",
     "loading": "Loading…",
     "groups": {
@@ -586,7 +586,7 @@
     },
     "count": "{count}",
     "empty": "You haven't started any practice yet.",
-    "toLibrary": "Go to the library →",
+    "toLibrary": "Go to the recommended practices →",
     "unknownVideo": "(A video no longer in the library)",
     "remove": "Remove…",
     "removeConfirm": "Remove your progress on “{title}”? Each day's progress and scores are deleted and can't be restored; the practice calendar keeps its history.",
@@ -627,7 +627,7 @@
     "create": "Create practice",
     "creating": "Creating…",
     "back": "Back",
-    "created": "Created “{title}” and generated all its audio. You can start practicing in the next update.",
+    "created": "Created “{title}” and generated all its audio. It's ready to practice.",
     "errors": {
       "unavailable": "Creating practices isn't available. Make sure you're signed in with an admin account.",
       "empty": "No sentences to practice were found. Please check the text.",
@@ -677,9 +677,10 @@
       "limit": "Today's speech allowance is used up. The audio made so far is kept; continue tomorrow (after midnight, Taiwan time).",
       "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again."
     },
-    "createdAudioFailed": "Created “{title}”, but not all of its audio is ready yet. You can continue in the list below.",
+    "createdAudioFailed": "Created “{title}”, but not all of its audio is ready yet. You can continue in My materials.",
     "startPractice": "Start practicing",
-    "ungrouped": "Ungrouped"
+    "ungrouped": "Ungrouped",
+    "backToMaterials": "See it in My materials →"
   },
   "organize": {
     "collectionsTitle": "Collections",
@@ -704,7 +705,7 @@
     },
     "visibilityNote": "Practices are private by default. Public ones will be findable and practicable by others once public browsing launches.",
     "deletePractice": "Delete practice…",
-    "deletePracticeConfirm": "Delete “{title}”? Its sentences go too, and this can't be undone; progress already on your devices can be removed in My practices.",
+    "deletePracticeConfirm": "Delete “{title}”? Its sentences go too, and this can't be undone; progress already on your devices can be removed in Progress.",
     "deletePracticeButton": "Delete practice for good",
     "errors": {
       "unavailable": "Practices can't be organized right now. Make sure you're signed in with an admin account.",
@@ -761,5 +762,11 @@
     "playing": "Playing…",
     "listenLabel": "Listen to {voice}",
     "stopLabel": "Stop {voice}"
+  },
+  "materials": {
+    "title": "My materials",
+    "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the recommended practices. Admins only for now.",
+    "create": "Create a practice",
+    "createUnavailable": "The speech and translation services aren't connected yet, so new practices can't be created for now."
   }
 }

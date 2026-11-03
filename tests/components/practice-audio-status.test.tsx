@@ -5,7 +5,7 @@ import { renderWithIntl } from "../render";
 
 const router = vi.hoisted(() => ({ refresh: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => router }));
-vi.mock("@/app/create/actions", () => ({ generatePracticeAudio: vi.fn() }));
+vi.mock("@/app/materials/actions", () => ({ generatePracticeAudio: vi.fn() }));
 
 const generate = vi.fn();
 beforeEach(() => {

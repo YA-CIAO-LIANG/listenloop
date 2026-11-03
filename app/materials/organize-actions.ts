@@ -19,7 +19,7 @@ import {
 export type OrganizeResult = WriteResult;
 
 const asAdmin = (write: Parameters<typeof writeAsAdmin>[1]) =>
-  writeAsAdmin("/create", write);
+  writeAsAdmin("/materials", write);
 const outcome = writeOutcome;
 
 export async function createCollection(

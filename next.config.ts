@@ -8,6 +8,12 @@ const withNextIntl = createNextIntlPlugin();
 // renders per request anyway. Revisit when upgrading to Next 17, where it
 // becomes the default (see docs: migrating-to-cache-components).
 const nextConfig: NextConfig = {
+  // /create moved under My materials (D26); keep old links working.
+  async redirects() {
+    return [
+      { source: "/create", destination: "/materials/new", permanent: true },
+    ];
+  },
   turbopack: {
     rules: {
       "*.css": {

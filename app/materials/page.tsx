@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
-import { getCreator } from "@/auth/creator";
+import { getAdminUser, getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
-import { CreatePracticeForm } from "@/components/CreatePracticeForm";
+import { ButtonLink } from "@/components/ButtonLink";
 import { CollectionManager } from "@/components/CollectionManager";
 import { PracticeAudioStatus } from "@/components/PracticeAudioStatus";
 import { PracticeControls } from "@/components/PracticeControls";
@@ -13,19 +13,21 @@ import { isVisibility } from "@/lib/custom-practice/organize";
 import { customPracticeId } from "@/lib/practice-material";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("create");
+  const t = await getTranslations("materials");
   return { title: t("title"), robots: { index: false, follow: false } };
 }
 
 /**
- * Creating practices from uploaded text (roadmap d). Admins only until
- * paid plans launch; everyone else gets a 404, as if it didn't exist.
+ * "My materials" (D26): the practices the user created and their
+ * collections. Admins only until paid plans launch; everyone else gets a
+ * 404, as if it didn't exist. Creating needs a provider too.
  */
-export default async function CreatePage() {
-  const creator = await getCreator();
-  if (!creator) notFound();
-  const [t, tOrganize, format, supabase] = await Promise.all([
+export default async function MaterialsPage() {
+  const [user, creator] = await Promise.all([getAdminUser(), getCreator()]);
+  if (!user) notFound();
+  const [t, tMaterials, tOrganize, format, supabase] = await Promise.all([
     getTranslations("create"),
+    getTranslations("materials"),
     getTranslations("organize"),
     getFormatter(),
     getServerSupabase(),
@@ -119,12 +121,20 @@ export default async function CreatePage() {
 
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
-      <h1 className="font-display text-h1">{t("title")}</h1>
-      <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
-      <div className="mt-12 max-w-practice">
-        <CreatePracticeForm />
+      <h1 className="font-display text-h1">{tMaterials("title")}</h1>
+      <p className="mt-4 max-w-reading text-ink-muted">{tMaterials("intro")}</p>
+      <div className="mt-8">
+        {creator ? (
+          <ButtonLink href="/materials/new" variant="primary" arrow>
+            {tMaterials("create")}
+          </ButtonLink>
+        ) : (
+          <p className="text-supporting text-ink-muted">
+            {tMaterials("createUnavailable")}
+          </p>
+        )}
       </div>
-      <section className="mt-16 max-w-practice border-t border-line pt-8">
+      <section className="mt-12 max-w-practice border-t border-line pt-8">
         <h2 className="font-display text-h2">{t("listTitle")}</h2>
         {groups.length > 0 ? (
           <>

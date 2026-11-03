@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useId, useRef, useState, type ChangeEvent } from "react";
@@ -9,7 +10,7 @@ import {
   prepareSentences,
   type CreatePracticeResult,
   type PrepareResult,
-} from "@/app/create/actions";
+} from "@/app/materials/actions";
 import {
   VOICE_ACCENTS,
   VOICE_GENDERS,
@@ -91,6 +92,8 @@ export function CreatePracticeForm({
   const [notice, setNotice] = useState<{
     message: string;
     success: boolean;
+    /** A practice was saved: offer the way to My materials. */
+    created?: boolean;
   } | null>(null);
 
   const chars = countChars([text]);
@@ -168,8 +171,8 @@ export function CreatePracticeForm({
       );
       return;
     }
-    // Saved: now voice it. Whatever happens, the practice is kept and the
-    // list below can continue the audio.
+    // Saved: now voice it. Whatever happens, the practice is kept and My
+    // materials can continue the audio.
     setProgress({ voiced: 0, total: rows.length });
     const audio = await generateAllAudio(generate, result.id, (voiced, total) =>
       setProgress({ voiced, total }),
@@ -179,10 +182,15 @@ export function CreatePracticeForm({
     const createdTitle = title.trim();
     setNotice(
       audio.ok
-        ? { message: t("created", { title: createdTitle }), success: true }
+        ? {
+            message: t("created", { title: createdTitle }),
+            success: true,
+            created: true,
+          }
         : {
             message: `${t("createdAudioFailed", { title: createdTitle })} ${t(`audioErrors.${audio.reason}`)}`,
             success: false,
+            created: true,
           },
     );
     setTitle("");
@@ -466,6 +474,14 @@ export function CreatePracticeForm({
         >
           {notice.message}
         </p>
+      )}
+      {notice?.created && (
+        <Link
+          href="/materials"
+          className="inline-block text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+        >
+          {t("backToMaterials")}
+        </Link>
       )}
     </div>
   );

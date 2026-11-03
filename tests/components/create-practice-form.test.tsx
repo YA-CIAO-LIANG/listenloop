@@ -6,7 +6,7 @@ import { renderWithIntl } from "../render";
 const router = vi.hoisted(() => ({ refresh: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => router }));
 // The real Server Actions can't run in a test DOM; the form takes them as props.
-vi.mock("@/app/create/actions", () => ({
+vi.mock("@/app/materials/actions", () => ({
   prepareSentences: vi.fn(),
   createPractice: vi.fn(),
   generatePracticeAudio: vi.fn(),

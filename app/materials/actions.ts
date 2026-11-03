@@ -89,7 +89,7 @@ export async function createPractice(
 
   const id = await savePractice(supabase, creator.user.id, cleaned.draft);
   if (!id) return { ok: false, reason: "failed" };
-  revalidatePath("/create");
+  revalidatePath("/materials");
   return { ok: true, id };
 }
 
@@ -180,7 +180,7 @@ export async function generatePracticeAudio(
     if (updateError) return { ok: false, reason: "failed" };
   }
   const voiced = total - missing.length + batch.done.length;
-  if (voiced === total) revalidatePath("/create");
+  if (voiced === total) revalidatePath("/materials");
   if (batch.stopped) {
     return { ok: false, reason: batch.stopped, voiced, total };
   }

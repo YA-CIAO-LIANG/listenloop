@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { setVisibility as setVisibilityAction } from "@/app/create/organize-actions";
+import { setVisibility as setVisibilityAction } from "@/app/materials/organize-actions";
 import type { Visibility } from "@/lib/custom-practice/organize";
 import { SegmentedControl } from "./SegmentedControl";
 import { useOrganizeAction } from "./useOrganizeAction";

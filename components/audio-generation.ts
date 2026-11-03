@@ -1,4 +1,4 @@
-import type { GenerateAudioResult } from "@/app/create/actions";
+import type { GenerateAudioResult } from "@/app/materials/actions";
 
 export type GenerateAudio = (
   practiceId: string,

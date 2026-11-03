@@ -2,10 +2,10 @@
   "common": {
     "appName": "ListenLoop",
     "dayN": "第 {day} 天",
-    "myPractices": "我的練習",
+    "myPractices": "學習進度",
     "mainNav": "主要導覽",
-    "createPractice": "建立練習",
-    "notebooks": "筆記本"
+    "notebooks": "筆記本",
+    "materials": "我的教材"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -99,8 +99,8 @@
   },
   "today": {
     "title": "今日任務",
-    "empty": "還沒有開始的練習。從下方的練習題庫選一支影片，開始第 1 天。",
-    "emptyLink": "前往練習題庫",
+    "empty": "還沒有開始的練習。從下方的推薦練習選一支影片，開始第 1 天。",
+    "emptyLink": "前往推薦練習",
     "newWeekLine": "<video>{title}</video>｜第 {week} 週重新開始",
     "available": "可以做",
     "done": "已完成",
@@ -256,7 +256,7 @@
     "voicePickerNote": "建立練習時選擇聲音用。試聽目前播放 1.5 秒的無聲檔，示範播放中的狀態；接上 Text-to-Speech 後換成真正的範例句。"
   },
   "library": {
-    "title": "練習題庫",
+    "title": "推薦練習",
     "intro": "選一支影片，開始七天的循環練習。",
     "sentences": "{count} 句",
     "videoCount": "{count} 支影片",
@@ -309,7 +309,7 @@
       "changes": "修改說明"
     },
     "custom": "自建練習",
-    "backToCreate": "建立練習",
+    "backToCreate": "我的教材",
     "customSentences": "共 {count} 句，每一句都有音檔。"
   },
   "player": {
@@ -574,7 +574,7 @@
     "contactLink": "ListenLoop Issues"
   },
   "practices": {
-    "title": "我的練習",
+    "title": "學習進度",
     "intro": "所有開始過的影片和目前的進度。不想再練的影片可以移除；移除只會刪除那支影片的 7 天進度和成績，練習日曆的紀錄會保留。",
     "loading": "載入中…",
     "groups": {
@@ -584,7 +584,7 @@
     },
     "count": "{count} 支",
     "empty": "還沒有開始的練習。",
-    "toLibrary": "前往練習題庫 →",
+    "toLibrary": "前往推薦練習 →",
     "unknownVideo": "（已下架的影片）",
     "remove": "移除…",
     "removeConfirm": "確定移除「{title}」的練習進度嗎？各天的進度和成績會刪除，無法復原；練習日曆的紀錄會保留。",
@@ -625,7 +625,7 @@
     "create": "建立練習",
     "creating": "建立中…",
     "back": "回上一步",
-    "created": "已建立「{title}」，音檔全部產生完成。下一版就能開始練習。",
+    "created": "已建立「{title}」，音檔全部產生完成，可以開始練習了。",
     "errors": {
       "unavailable": "目前無法建立練習。請確認已用管理員帳號登入。",
       "empty": "找不到可以練習的句子，請確認文字內容。",
@@ -675,9 +675,10 @@
       "limit": "今天的聲音用量已經用完。已產生的音檔會保留，明天（台灣時間 0 點後）可以繼續。",
       "failed": "產生音檔時發生錯誤。已產生的音檔會保留，請再試一次。"
     },
-    "createdAudioFailed": "已建立「{title}」，但音檔還沒有全部產生。可以在下方的清單繼續。",
+    "createdAudioFailed": "已建立「{title}」，但音檔還沒有全部產生。可以在我的教材繼續。",
     "startPractice": "開始練習",
-    "ungrouped": "未分組"
+    "ungrouped": "未分組",
+    "backToMaterials": "到我的教材查看 →"
   },
   "organize": {
     "collectionsTitle": "Collection",
@@ -702,7 +703,7 @@
     },
     "visibilityNote": "練習預設是私人的。設為公開後，之後推出的公開瀏覽功能會讓其他人找到並練習。",
     "deletePractice": "刪除練習…",
-    "deletePracticeConfirm": "要刪除「{title}」嗎？句子會一起刪除，無法復原；各裝置上已有的練習進度可以在「我的練習」移除。",
+    "deletePracticeConfirm": "要刪除「{title}」嗎？句子會一起刪除，無法復原；各裝置上已有的練習進度可以在「學習進度」移除。",
     "deletePracticeButton": "永久刪除練習",
     "errors": {
       "unavailable": "目前無法整理練習。請確認已用管理員帳號登入。",
@@ -759,5 +760,11 @@
     "playing": "播放中…",
     "listenLabel": "試聽{voice}",
     "stopLabel": "停止試聽{voice}"
+  },
+  "materials": {
+    "title": "我的教材",
+    "intro": "你建立的練習和 Collection。每份練習都和推薦練習一樣，走七天的循環。目前只開放給管理員。",
+    "create": "建立練習",
+    "createUnavailable": "還沒有接上聲音和翻譯服務，暫時無法建立新的練習。"
   }
 }

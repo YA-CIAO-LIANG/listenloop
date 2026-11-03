@@ -5,7 +5,7 @@ import { useId, useState } from "react";
 import {
   deletePractice as deletePracticeAction,
   movePractice as movePracticeAction,
-} from "@/app/create/organize-actions";
+} from "@/app/materials/organize-actions";
 import type { Visibility } from "@/lib/custom-practice/organize";
 import { Button } from "./Button";
 import { useOrganizeAction } from "./useOrganizeAction";
