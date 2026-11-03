@@ -175,3 +175,20 @@
 - **決定**：隱私權政策的聯絡方式，暫時用 GitHub 專案的 Issues 頁，並提醒「留言是公開的，請不要寫下個人資料」。
 - **理由**：沒有得到 Joe 同意前，不公開 Joe 的 email。
 - **要改時**：發布 Google OAuth 前，建議改成一個專用的聯絡 email，例如另外申請一個 Gmail（見 roadmap「上線前待辦」）。要改的地方是 `app/privacy/page.tsx` 的 `PRIVACY_CONTACT_URL`，以及翻譯檔裡的 `privacy.contact`。
+
+## D18 c2 沿用現有功能；c3 的 E2E 範圍（2026-11-03）
+
+- **c2 的決定**：不需要新增程式。
+  - 題庫卡片已經顯示目前的天數和任務，由 `ProgressLabel` 和 c1 的「我的練習」共用；
+  - 影片頁已經有 `CycleStatus`；
+  - 今日任務已經是「可以做」排在「今天已完成」前面。開始過的影片今天只有這兩種狀態，roadmap 寫的「還沒開放」並不存在。
+- **c3 的決定**：
+  - 用 Playwright（`e2e/`）對 production build 測試；
+  - 擋掉 YouTube，測試不依賴外部網路；
+  - 用 `page.clock` 設定日期，測試換日之後是否解鎖。
+- **c3 涵蓋的情境**：
+  1. 用畫面完成 Sintel 第 1 天聽寫，隔天第 2 天開放；
+  2. 同時有兩支練習時，各自顯示自己的天數；移除其中一支後，另一支的進度不受影響。
+- **限制**：目前只有 Sintel 一支正式影片，所以第二支練習是用 localStorage 放入一筆「已下架影片」的進度。等 Tears of Steel 上架（內容工作恢復後），再改成兩支正式影片。
+- **CI**：E2E 加在 `check` job 的 build 之後，job 名稱不變。失敗時會上傳 trace，保留 7 天。
+- **要改時**：`e2e/`、`playwright.config.ts`、`.github/workflows/ci.yml`。

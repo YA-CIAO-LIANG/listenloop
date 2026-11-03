@@ -82,7 +82,11 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 - **專案結構**：`app/`（頁面）、`components/`（UI 元件）、`lib/`（純邏輯：評分、循環、儲存、語言偵測）、`i18n/`（next-intl 請求設定與切換語言的 Server Action；會讀寫 cookie，所以不放 `lib/`）、`auth/`（伺服器端的 Supabase 用戶端與登入相關程式；同樣會讀寫 cookie）、`lib/supabase/`（設定、瀏覽器端用戶端、資料庫型別，型別用 `npm run db:types` 產生）、`supabase/migrations/`（資料表與 RLS，用 `npm run db:push` 套用到雲端）、`messages/`（翻譯檔）、`data/videos/`（影片 JSON）、`scripts/`（預處理）、`docs/`（規格文件）、`tests/`。
 - **品質工具**：ESLint ＋ Prettier；husky ＋ lint-staged 提交前自動檢查。
-- **測試**：Vitest 單元測試，`lib/` 的評分與循環邏輯必須有測試；品質打磨階段以 Playwright 做主要流程的 E2E 測試。
+- **測試**：
+  - Vitest 單元測試：`lib/` 的評分與循環邏輯必須有測試。
+  - Playwright E2E 測試：放在 `e2e/`，對 production build 執行。先跑 `npm run build`，再跑 `npm run test:e2e`；CI 的 `check` job 也會執行。
+  - E2E 測試時會擋掉 YouTube，日期用 `page.clock` 設定（D18）。
+  - 主要流程有改動時，要補上或更新 E2E 測試。
 - **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。所有 PR 在 CI 通過後直接合併（2026-10-30 起，見工作規則）。
 - **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改），執行 lint、format:check、typecheck、test、build。
 - **秘密資訊**：API key 只放 `.env.local`，必須在 `.gitignore`；`.env.example` 提供範本。
@@ -204,7 +208,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
       剩下的里程碑（roadmap a～f）的順序、PR 拆法和進度見 `docs/roadmap.md`；內容工作（M3 剩下的部分）暫停，等功能完成後再做。
 
 - [x] **M4 帳號**（roadmap b，2026-11-03 完成）：Supabase、Google 登入、localStorage 進度同步到雲端、刪除帳號功能（`/account`）、隱私權政策（`/privacy`）。Google OAuth 目前是「測試」狀態，發布前的待辦見 `docs/roadmap.md`。
-- [ ] **M5 同時練習多部影片**（roadmap c）：每支影片各自的 7 天循環與起始日。
+- [x] **M5 同時練習多部影片**（roadmap c，2026-11-03 完成）：每支影片各自的 7 天循環與起始日；「我的練習」頁 `/practices` 可以分組查看和移除練習，移除會同步到其他裝置；E2E 測試。
 - [ ] **M6 建立練習**（roadmap d）：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。
 - [ ] **M7 公開分享**（roadmap e）：瀏覽他人公開的練習、檢舉與下架。
 - [ ] **之後**：品質打磨（E2E 測試、無障礙、效能、錯誤處理）與 Beta 試用；付費方案、金流；PWA → PWABuilder → Google Play 上架。
