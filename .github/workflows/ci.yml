@@ -39,3 +39,12 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      # End-to-end tests against the build above (YouTube blocked in tests).
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v6
+        if: failure()
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7
