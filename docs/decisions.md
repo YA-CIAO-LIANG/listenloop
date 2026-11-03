@@ -91,3 +91,29 @@
   - `@playwright/test`（c3，開發用）；
   - Supabase CLI 用 `npx supabase` 執行，不加入依賴。
 - **要改時**：這一節。
+
+## D10 環境變數名稱沿用 ANON_KEY（2026-11-03）
+
+- **決定**：Supabase 新版的 Publishable key 和 Secret key，沿用 `NEXT_PUBLIC_SUPABASE_ANON_KEY` 和 `SUPABASE_SERVICE_ROLE_KEY` 這兩個名稱，不改名。
+- **理由**：
+  - 新版金鑰和舊版的 anon、service_role 金鑰用途相同，SDK 兩種都能用；
+  - 不改名，Joe 就不用到 Vercel 重新填一次。
+- **要改時**：`lib/supabase/config.ts`、`.env.example`，以及 Vercel 的環境變數。
+
+## D11 Supabase 地區是 us-east-1（2026-11-03）
+
+- **決定**：保留目前專案所在的 us-east-1（美東）。
+- **理由**：
+  - 從台灣連線每次大約多 150～200 毫秒，但進度只在載入和完成任務時讀寫，練習時不受影響；
+  - 換地區必須刪掉專案重建，而且要重新設定 Google 登入。
+- **要改時**：等上線前評估。如果要換到 Tokyo，就重建專案、更新環境變數，再執行 `npm run db:push`。
+
+## D12 RLS 驗證方式（2026-11-03）
+
+- **決定**：每次修改 migration，都用兩個暫時的測試帳號實際檢查一次，測完刪除帳號。檢查項目：
+  - 只能讀寫自己的資料；
+  - 不能冒用別人的帳號寫入；
+  - 未登入時無法讀寫；
+  - 刪除帳號時，資料會一起刪除。
+- **理由**：RLS 寫錯會讓資料外洩，單元測試又測不到資料庫，所以要實際打一次 API 確認。
+- **要改時**：之後如果導入本機 Supabase（需要 Docker），改成自動化測試。

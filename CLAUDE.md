@@ -76,7 +76,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 ## 工程標準
 
-- **專案結構**：`app/`（頁面）、`components/`（UI 元件）、`lib/`（純邏輯：評分、循環、儲存、語言偵測）、`i18n/`（next-intl 請求設定與切換語言的 Server Action；會讀寫 cookie，所以不放 `lib/`）、`messages/`（翻譯檔）、`data/videos/`（影片 JSON）、`scripts/`（預處理）、`docs/`（規格文件）、`tests/`。
+- **專案結構**：`app/`（頁面）、`components/`（UI 元件）、`lib/`（純邏輯：評分、循環、儲存、語言偵測）、`i18n/`（next-intl 請求設定與切換語言的 Server Action；會讀寫 cookie，所以不放 `lib/`）、`auth/`（伺服器端的 Supabase 用戶端與登入相關程式；同樣會讀寫 cookie）、`lib/supabase/`（設定、瀏覽器端用戶端、資料庫型別，型別用 `npm run db:types` 產生）、`supabase/migrations/`（資料表與 RLS，用 `npm run db:push` 套用到雲端）、`messages/`（翻譯檔）、`data/videos/`（影片 JSON）、`scripts/`（預處理）、`docs/`（規格文件）、`tests/`。
 - **品質工具**：ESLint ＋ Prettier；husky ＋ lint-staged 提交前自動檢查。
 - **測試**：Vitest 單元測試，`lib/` 的評分與循環邏輯必須有測試；品質打磨階段以 Playwright 做主要流程的 E2E 測試。
 - **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。所有 PR 在 CI 通過後直接合併（2026-10-30 起，見工作規則）。
