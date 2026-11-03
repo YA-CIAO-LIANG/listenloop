@@ -20,8 +20,6 @@ import {
   type ShadowingAttempt,
   type ShadowingDay,
 } from "@/lib/shadowing";
-import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
-import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
 import { Button } from "./Button";
@@ -39,6 +37,7 @@ import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { YouTubeFrame } from "./youtube/YouTubeFrame";
 import { useYouTubePlayer } from "./youtube/useYouTubePlayer";
+import { useStores } from "./StoresProvider";
 
 /** official: saved for the cycle. retry: extra practice, kept in memory only. */
 type Mode = "official" | "retry";
@@ -86,7 +85,8 @@ export function ShadowingSession({
   const format = useFormatter();
   const player = useYouTubePlayer(video.youtubeId);
   const speech = useSpeechRecognition();
-  const [progressStore] = useState(() => store ?? createLocalProgressStore());
+  const stores = useStores();
+  const progressStore = store ?? stores.progress;
   const [progress, setProgress] = useState<Progress | null>(null);
   const [mode, setMode] = useState<Mode>("official");
   const [retryRecords, setRetryRecords] = useState<SentenceRecords>([]);
@@ -134,7 +134,7 @@ export function ShadowingSession({
     if (next.days[day]?.done) {
       const today = toLocalDate(new Date());
       // Practice history for the home calendar (kept even with rewards off).
-      void updateActivity(createLocalRewardStore(), (activity) =>
+      void updateActivity(stores.rewards, (activity) =>
         recordTask(activity, today, {
           videoId: video.id,
           week: next.week,

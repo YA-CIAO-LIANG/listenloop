@@ -1,19 +1,24 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
-import { useEffect, useState, type FocusEvent, type PointerEvent } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type FocusEvent,
+  type PointerEvent,
+} from "react";
 import type { PracticeTask } from "@/lib/activity";
 import { taskForDay, type CycleDay } from "@/lib/cycle";
 import { toLocalDate, type LocalDate } from "@/lib/dates";
 import { heatLevel, tasksByDate } from "@/lib/practice-calendar";
-import { createLocalProgressStore } from "@/lib/storage/local-progress-store";
-import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { RewardStore } from "@/lib/storage/reward-store";
 import { getVideo } from "@/lib/video-library";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
+import { useStores } from "./StoresProvider";
 
 type PracticeCalendarProps = {
   /** Injected in tests; default to localStorage. */
@@ -81,10 +86,14 @@ const utcNoon = (year: number, month: number, day: number) =>
 export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   const t = useTranslations("calendar");
   const format = useFormatter();
-  const [stores] = useState(() => ({
-    progress: progress ?? createLocalProgressStore(),
-    rewards: rewards ?? createLocalRewardStore(),
-  }));
+  const contextStores = useStores();
+  const stores = useMemo(
+    () => ({
+      progress: progress ?? contextStores.progress,
+      rewards: rewards ?? contextStores.rewards,
+    }),
+    [progress, rewards, contextStores],
+  );
   const [tasks, setTasks] = useState<Map<LocalDate, PracticeTask[]> | null>(
     null,
   );
