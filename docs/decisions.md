@@ -66,7 +66,7 @@
   - 和 Google 登入在同一個 Cloud 專案；
   - 有每月免費額度。
 - **注意**：需要綁定信用卡，所以必須由 Joe 明確同意（見 roadmap「需要 Joe 操作的事」第 5 項）。
-- **要改時**：d1 的供應者介面。
+- **要改時**：`lib/ai/`（供應者介面在 `lib/ai/types.ts`，選擇供應者在 `lib/ai/providers.ts`，見 D20）。
 
 ## D7 每日用量上限（2026-10-30）
 
@@ -77,7 +77,7 @@
 - **理由**：
   - 遠低於免費額度，就算程式出錯也不會產生大額費用；
   - 另外由 Joe 在 Google Cloud 設定 US$5 的預算快訊，作為第二道防線。
-- **要改時**：d1 的用量設定。
+- **要改時**：`lib/usage.ts` 的 `DAILY_CHAR_LIMITS`；資料庫的計數在 `api_usage` 表和 `reserve_api_usage` 函式（`supabase/migrations/20261103120000_custom_practices.sql`）。
 
 ## D8 方案限制的範圍（2026-10-30）
 
@@ -192,3 +192,33 @@
 - **限制**：目前只有 Sintel 一支正式影片，所以第二支練習是用 localStorage 放入一筆「已下架影片」的進度。等 Tears of Steel 上架（內容工作恢復後），再改成兩支正式影片。
 - **CI**：E2E 加在 `check` job 的 build 之後，job 名稱不變。失敗時會上傳 trace，保留 7 天。
 - **要改時**：`e2e/`、`playwright.config.ts`、`.github/workflows/ci.yml`。
+
+## D19 自建練習的資料表；Collection 和筆記本的定義（2026-11-03，d1）
+
+- **決定**：
+  - **練習**（`practices`）：一份上傳的文字檔做成的練習。記錄標題、原文語言（`en` 或 `zh`）、聲音（d3 產生音檔後填入）、公開或私人（預設私人）。
+  - **句子**（`practice_sentences`）：依順序存放，`en` 是要聽寫和跟讀的英文，`zh` 是講義的中文。
+  - **Collection**（`collections`）：把自己的練習分組，就像內建題庫的合集。一個練習最多放在一個 Collection；刪除 Collection 時，裡面的練習保留，只是不再分組。Collection 也可以設為公開或私人。
+  - **筆記本**（`notebooks`、`notebook_entries`）：使用者自己收藏單字和句子的地方，可以加上筆記，並記錄來自哪支影片或哪個練習的哪一句。筆記本一律私人。
+  - **用量**（`api_usage`）：每個人、每天、聲音或翻譯各一列，記錄字元數。
+  - 每張表都開啟 RLS，只能讀寫自己的資料；練習只能放進自己的 Collection，筆記只能寫進自己的筆記本。公開練習給別人看的規則在 e1 再加。
+  - 用量只能看、不能改：只有伺服器用 secret key 呼叫 `reserve_api_usage` 寫入，使用者自己改不了。
+  - 刪除帳號時，這些資料都透過 `on delete cascade` 一起刪除。
+- **理由**：
+  - 規格只寫「Collection 與筆記本」，沒有定義兩者的差別。業界常見的做法是：Collection 是內容的分組（可以分享），筆記本是個人的生詞本（不分享），這樣兩者用途不重疊；
+  - 用量放在使用者改不了的地方，才能真正擋住超額使用。
+- **要改時**：`supabase/migrations/20261103120000_custom_practices.sql`。如果想要「一個練習放進多個 Collection」，要改成中介表。
+
+## D20 聲音與翻譯的供應者介面；先用假的供應者（2026-11-03，d1）
+
+- **決定**：
+  - 功能程式只呼叫 `lib/ai/types.ts` 的介面（`TranslationProvider`、`SpeechProvider`），不直接呼叫廠商的 SDK；
+  - 伺服器用環境變數 `AI_PROVIDERS` 決定供應者：沒有設定時整個功能關閉；`fake` 是假的供應者（翻譯在句子前加 `[en]`，聲音是每個字 0.4 秒的無聲 WAV 檔，可以實際播放）；
+  - 正式站（`VERCEL_ENV=production`）一律不使用假的供應者，就算不小心設定了也一樣；
+  - 每次呼叫前，先用資料庫函式在同一個指令裡「檢查上限並加上字數」，成功才呼叫 API，避免同時送出的請求一起超過上限。呼叫失敗時，字數仍然算進用量，避免一直重試而超過上限；
+  - 能不能建立練習，一律由 `auth/creator.ts` 的 `getCreator()` 判斷：已登入、是管理員（D5）、有供應者、有 secret key，四個條件都要符合。
+  - 聲音的 id 格式是「口音-性別」，例如 `us-female`，口音有 `us`、`gb`、`au`、`in`。
+- **理由**：
+  - 測試不需要網路，也不會產生費用；
+  - Joe 同意綁定帳單（清單 5）後，只需要新增一個實作，功能程式不用改。
+- **要改時**：`lib/ai/`、`auth/creator.ts`。
