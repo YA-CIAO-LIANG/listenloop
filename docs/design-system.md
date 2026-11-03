@@ -64,16 +64,18 @@
 
 ## 按鈕（半透明）
 
-所有按鈕共用一個 `Button` 元件，三種變體：
+所有按鈕共用一個 `Button` 元件，四種變體：
 
 | 變體      | 背景              | 邊框            | 文字       |
 | --------- | ----------------- | --------------- | ---------- |
 | primary   | accent 透明度 14% | accent 實線 1px | accent-ink |
 | secondary | ink 透明度 4%     | line 1px        | ink        |
 | ghost     | 透明              | 無              | ink-muted  |
+| danger    | error 透明度 10%  | error 實線 1px  | error      |
 
 - 背景加 `backdrop-filter: blur(8px)`，蓋在內容上時有毛玻璃感。
-- Hover：背景透明度提高（primary 14% → 22%），只變色不位移。
+- Hover：背景透明度提高（primary 14% → 22%、danger 10% → 18%），只變色不位移。
+- danger 只用於無法復原的操作（例如刪除帳號），而且一定要先確認。
 - Disabled：整體透明度 40%，游標 not-allowed。
 - 尺寸：sm 32px / md 40px / lg 48px 高。手機上主要按鈕至少 44px，好點擊。
 - 標籤可帶一個小方向箭頭（→）。
@@ -141,6 +143,30 @@
   - 失敗（`?signin=failed`）：error 色文字，`role="alert"`。
   - 取消（`?signin=cancelled`）：supporting、ink-muted，`role="status"`。
   - 兩種都要說明「進度仍然存在這台裝置上」，右側有 ghost、sm 的「關閉」。關閉時移除網址參數，不捲動頁面。
+
+## 帳號頁 `/account`
+
+- 只有設定了 Supabase 時才有這一頁（否則回 404），不被搜尋引擎收錄。入口在頁首帳號面板「登出」右側，是 supporting、accent-ink 的底線連結「帳號設定」。
+- **已登入**：h1「帳號」→ supporting、ink-muted 的「已登入的 Google 帳號」→ email → 同步說明（supporting、ink-muted）→ 1px line 分隔線 → h2「刪除帳號」→ 說明 → danger 的「刪除帳號…」。
+- **刪除確認**：
+  - 按下「刪除帳號…」後，就地展開一個確認區塊：error 色 1px 邊框、4px 圓角、內距 24px；
+  - 區塊內依序是：font-medium 的「確定要永久刪除帳號嗎？會刪除：」→ 三點清單（supporting、ink-muted），列出帳號、雲端進度、這台裝置的練習資料 → 勾選框「我了解刪除後無法復原。」→ 按鈕列：danger「永久刪除帳號」（勾選後才能按）和 ghost「取消」；
+  - 刪除中，按鈕文字改成「刪除中…」，兩個按鈕都不能按；
+  - 失敗時，用 error 色 `role="alert"` 說明原因，帳號和本機資料都保留。
+- **刪除成功**：清除這台裝置上的練習資料（主題等偏好設定保留），然後回到 `/account?deleted=1`，以 success 色 `role="status"` 顯示「你的帳號……已經刪除」，下方是「回首頁 →」。
+- **未登入**：ink-muted 的說明，提示用頁首的「登入」，下方是「回首頁 →」。
+- 頁面最下方：supporting 字級的「隱私權政策」連結。
+
+## 頁尾與隱私權政策
+
+- **頁尾**（`SiteFooter`）：
+  - 每一頁都有，列印時隱藏；
+  - 上方 1px line 線，和頁面內容之間距離 64px；
+  - 內容寬度和頁首一樣，`nav` 的標籤是「網站資訊」；
+  - 連結是 supporting、ink-muted 的「隱私權政策」「素材出處」，hover 時改成 ink 色並加底線。
+- **隱私權政策** `/privacy`：
+  - 由上到下：h1 → supporting、ink-muted 的「最後更新」日期 → 前言 → 各節（h3 標題，段落和清單用 ink-muted，寬度上限是閱讀寬度）→ 聯絡方式（accent-ink 底線連結）；
+  - 內容放在翻譯檔的 `privacy.sections`，依閱讀順序排列。
 
 ## 核心元件清單
 

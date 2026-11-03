@@ -203,7 +203,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - [ ] **M3 內容庫**：先只做「Blender 開放電影」合集（只收 CC BY；Sintel、Tears of Steel、Elephants Dream、Cosmos Laundromat、Sprite Fright，一部切成多段，預估 13 支），標示出處。VOA Learning English、美國國務院 Everyday Conversations **暫停**（資料保留在 `docs/video-candidates.md`）。句子一律取自和影片同一來源的字幕（VOA 2016 年舊版逐字稿曾與 YouTube 影片對不上，2026-10-28，PR #28 關閉）。已完成：內容工具、讀取 `.srt`。全片清單、段落與難度見 `docs/video-candidates.md`。
       剩下的里程碑（roadmap a～f）的順序、PR 拆法和進度見 `docs/roadmap.md`；內容工作（M3 剩下的部分）暫停，等功能完成後再做。
 
-- [ ] **M4 帳號**（roadmap b）：Supabase、Google 登入、localStorage 進度搬到雲端、刪除帳號功能、隱私權政策（Google 登入需要）。
+- [x] **M4 帳號**（roadmap b，2026-11-03 完成）：Supabase、Google 登入、localStorage 進度同步到雲端、刪除帳號功能（`/account`）、隱私權政策（`/privacy`）。Google OAuth 目前是「測試」狀態，發布前的待辦見 `docs/roadmap.md`。
 - [ ] **M5 同時練習多部影片**（roadmap c）：每支影片各自的 7 天循環與起始日。
 - [ ] **M6 建立練習**（roadmap d）：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。
 - [ ] **M7 公開分享**（roadmap e）：瀏覽他人公開的練習、檢舉與下架。

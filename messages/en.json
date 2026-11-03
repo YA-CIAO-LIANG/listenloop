@@ -204,7 +204,8 @@
       "secondary": "Secondary",
       "ghost": "Ghost",
       "disabled": "Disabled",
-      "sample": "Start practice"
+      "sample": "Start practice",
+      "danger": "Danger"
     },
     "states": {
       "segmented": "Segmented (30 or fewer)",
@@ -460,6 +461,100 @@
     "signOutFailed": "Couldn't sign out. Check your connection and try again.",
     "signInFailed": "Sign-in didn't work. Please try again later. Your progress is still saved on this device.",
     "signInCancelled": "Sign-in cancelled. You can practice without an account; progress is saved on this device.",
-    "dismiss": "Close"
+    "dismiss": "Close",
+    "accountSettings": "Account settings"
+  },
+  "accountPage": {
+    "title": "Account",
+    "signedInAs": "Signed in with Google as",
+    "syncNote": "While you're signed in, your progress is saved to the cloud, so you can pick up on any device where you sign in with this account.",
+    "signedOut": "You're not signed in. Use “Sign in” at the top right with a Google account to manage your account here.",
+    "deleted": "Your account and your progress in the cloud have been deleted, and the practice data on this device has been cleared.",
+    "home": "Back to home",
+    "privacy": "Privacy policy",
+    "delete": {
+      "title": "Delete account",
+      "intro": "This can't be undone. You can still practice without signing in, or sign up again with the same Google account (starting from scratch).",
+      "start": "Delete account…",
+      "warningTitle": "Delete your account for good? This deletes:",
+      "lossAccount": "Your ListenLoop account (your Google account isn't affected)",
+      "lossProgress": "All your progress and practice history in the cloud",
+      "lossDevice": "The practice data on this device (other devices stop syncing)",
+      "confirm": "I understand this can't be undone.",
+      "submit": "Delete account for good",
+      "deleting": "Deleting…",
+      "cancel": "Cancel",
+      "failed": "Deleting didn't work, and your account still exists. Check your connection and try again.",
+      "signedOut": "Your sign-in has expired. Please sign in again, then delete."
+    }
+  },
+  "footer": {
+    "privacy": "Privacy policy",
+    "credits": "Credits",
+    "label": "Site information"
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "updated": "Last updated: November 3, 2026",
+    "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
+    "sections": [
+      {
+        "title": "What we collect",
+        "paragraphs": [
+          "Only when you sign in with a Google account do we collect:"
+        ],
+        "items": [
+          "Account details from Google: email, name, profile picture URL, and Google account ID. Only the email is shown.",
+          "Practice data: your progress on each video (which days are done, dictation answers and accuracy, shadowing status) and a daily practice log.",
+          "Sign-in state: a sign-in token in a browser cookie."
+        ]
+      },
+      {
+        "title": "When you're not signed in",
+        "paragraphs": [
+          "Your progress stays in your browser (localStorage) and is never sent to our servers. The interface language is kept in a cookie and the theme in localStorage. Clearing your browser data removes them."
+        ]
+      },
+      {
+        "title": "How we use it",
+        "paragraphs": [
+          "Only to sign you in and keep your progress in sync across devices. We don't sell data, share it with advertisers, or use advertising or analytics trackers."
+        ]
+      },
+      {
+        "title": "Where it's kept and who processes it",
+        "paragraphs": [],
+        "items": [
+          "Supabase: the database for accounts and cloud practice data, in the United States (us-east-1).",
+          "Vercel: the web host, which handles the technical data a connection needs (such as IP addresses) to serve and protect the site.",
+          "Google: Google sign-in.",
+          "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
+          "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard."
+        ]
+      },
+      {
+        "title": "How long we keep it",
+        "paragraphs": [
+          "As long as your account exists. When you delete your account, it and your cloud practice data are deleted from the database right away; any system backups kept by our providers are cleared when they expire."
+        ]
+      },
+      {
+        "title": "Your choices and rights",
+        "paragraphs": [],
+        "items": [
+          "Sign out at any time; your practice data stays on this device.",
+          "On the Account page you can delete your account and cloud data for good, which also clears the practice data on this device.",
+          "To ask about or correct your data, contact us as below."
+        ]
+      },
+      {
+        "title": "Changes to this policy",
+        "paragraphs": [
+          "When this policy changes, we update this page and the date above. Major changes are also announced on the site."
+        ]
+      }
+    ],
+    "contact": "For privacy questions, post on the project's GitHub page (posts are public, so please leave out personal details; we'll get in touch):",
+    "contactLink": "ListenLoop Issues"
   }
 }

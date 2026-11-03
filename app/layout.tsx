@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { getSignedInUser } from "@/auth/session";
 import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { StoresProvider } from "@/components/StoresProvider";
 import { accountsEnabled } from "@/lib/supabase/config";
@@ -57,6 +58,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               </Suspense>
             )}
             {children}
+            <SiteFooter />
           </StoresProvider>
         </NextIntlClientProvider>
       </body>
