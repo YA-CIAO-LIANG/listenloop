@@ -1,3 +1,4 @@
+import { isUuid } from "./custom-practice/organize";
 import type { Attribution, Video } from "./videos";
 
 /**
@@ -27,8 +28,6 @@ export type PracticeMaterial = Pick<
  */
 export const CUSTOM_PRACTICE_PREFIX = "p-";
 
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
 export function customPracticeId(uuid: string): string {
   return `${CUSTOM_PRACTICE_PREFIX}${uuid}`;
 }
@@ -37,7 +36,7 @@ export function customPracticeId(uuid: string): string {
 export function parseCustomPracticeId(id: string): string | null {
   if (!id.startsWith(CUSTOM_PRACTICE_PREFIX)) return null;
   const uuid = id.slice(CUSTOM_PRACTICE_PREFIX.length);
-  return UUID.test(uuid) ? uuid : null;
+  return isUuid(uuid) ? uuid : null;
 }
 
 export const isCustomPracticeId = (id: string) =>

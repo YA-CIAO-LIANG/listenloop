@@ -189,6 +189,16 @@
   - 沒有練習時顯示 ink-muted 的「還沒有建立練習。」
 - 寬度上限和練習區相同（720px）。
 
+### 整理自建練習（`/create`）
+
+- **練習清單**：h2「你建立的練習」→ supporting、ink-muted 的公開說明 → 依 Collection 分組（Display h3 組名；還沒有 Collection 時不顯示組名），最後是「未分組」。
+- **每個練習的操作列**（在音檔狀態下方）：
+  - 「Collection」標籤（supporting、ink-muted）＋原生 `<select>`：高 32px（觸控至少 44px）、surface 底、1px line 邊框、4px 圓角、supporting 字級，第一個選項是「未分組」；
+  - 「私人 / 公開」SegmentedControl（螢幕閱讀器讀「「標題」公開或私人」）；
+  - ghost、sm 的「刪除練習…」→ 展開確認區塊（error 色 1px 邊框、4px 圓角、內距 16px），裡面是 danger、sm 的「永久刪除練習」和 ghost、sm 的「取消」。
+- **Collection 一節**：h2 → 說明 → 「新的 Collection 名稱」欄位＋secondary 的「新增」→ 清單（上下和項目之間 1px line）。每列：名稱（font-medium）＋ supporting、ink-muted 的「N 個練習」，右側「私人 / 公開」、ghost、sm 的「重新命名」和「刪除…」。重新命名時名稱變成欄位，旁邊是 primary、sm 的「儲存」和 ghost、sm 的「取消」。刪除確認和刪除練習相同，說明「裡面的練習會保留」。
+- 錯誤一律在該列下方，以 supporting、error 色、`role="alert"` 顯示。
+
 ## 聲音練習面板（自建練習）
 
 - 練習頁上原本放 YouTube 播放器的位置：band 底、1px line 邊框、4px 圓角、最小高度 96px、內距 24px／16px。

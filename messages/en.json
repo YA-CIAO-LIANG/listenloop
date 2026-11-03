@@ -676,6 +676,39 @@
       "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again."
     },
     "createdAudioFailed": "Created “{title}”, but not all of its audio is ready yet. You can continue in the list below.",
-    "startPractice": "Start practicing"
+    "startPractice": "Start practicing",
+    "ungrouped": "Ungrouped"
+  },
+  "organize": {
+    "collectionsTitle": "Collections",
+    "collectionsIntro": "Group your practices, like the library's collections. Deleting a collection keeps its practices; they just become ungrouped.",
+    "newCollection": "New collection name",
+    "addCollection": "Add",
+    "practiceCount": "{count, plural, one {# practice} other {# practices}}",
+    "rename": "Rename",
+    "renameLabel": "New name for “{title}”",
+    "save": "Save",
+    "cancel": "Cancel",
+    "deleteCollection": "Delete…",
+    "deleteCollectionConfirm": "Delete “{title}”? Its practices are kept and become ungrouped.",
+    "deleteCollectionButton": "Delete collection",
+    "deleting": "Deleting…",
+    "collectionLabel": "Collection",
+    "ungrouped": "Ungrouped",
+    "visibilityLegend": "“{name}”: public or private",
+    "visibility": {
+      "private": "Private",
+      "public": "Public"
+    },
+    "visibilityNote": "Practices are private by default. Public ones will be findable and practicable by others once public browsing launches.",
+    "deletePractice": "Delete practice…",
+    "deletePracticeConfirm": "Delete “{title}”? Its sentences go too, and this can't be undone; progress already on your devices can be removed in My practices.",
+    "deletePracticeButton": "Delete practice for good",
+    "errors": {
+      "unavailable": "Practices can't be organized right now. Make sure you're signed in with an admin account.",
+      "invalid": "Please enter a name (100 characters at most).",
+      "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
+      "failed": "Couldn't save. Please try again."
+    }
   }
 }

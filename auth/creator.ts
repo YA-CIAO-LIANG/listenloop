@@ -47,6 +47,15 @@ export function canCreatePractices(
 }
 
 /**
+ * The signed-in admin, for actions that don't call a paid API (organizing
+ * practices, notebooks). Null for everyone else.
+ */
+export async function getAdminUser(): Promise<SignedInUser | null> {
+  const user = await getSignedInUser();
+  return user && isAdminEmail(user.email) ? user : null;
+}
+
+/**
  * Who may create practices: until paid plans launch, only signed-in admins
  * (D5), and only when a provider and the secret key are configured. Every
  * server action of roadmap d starts here; null means "not available".

@@ -274,3 +274,15 @@
   - 播放器抽象後，日後要支援其他來源（例如使用者上傳的音檔）也只要加一個實作。
 - **已知限制**：完成畫面的「回影片頁」等按鈕文字仍然寫「影片」，之後在品質打磨時統一改成「練習」。
 - **要改時**：`lib/practice-material.ts`、`auth/practice-material.ts`、`components/useSentencePlayer.ts`、`components/audio/`。
+
+## D24 整理自建練習：Collection、公開／私人、刪除（2026-11-03，d5a）
+
+- **決定**：
+  - 都在 `/create` 頁的「你建立的練習」和「Collection」兩節完成，只開放給管理員（`auth/creator.ts` 的 `getAdminUser()`；這些操作不呼叫付費 API，所以不需要設定供應者）。
+  - **Collection**：可以新增、重新命名、刪除、設為公開或私人。刪除 Collection 時，裡面的練習保留，改成「未分組」。練習清單依 Collection 分組（依建立順序），最後是「未分組」；還沒有 Collection 時不顯示分組標題。
+  - **移動練習**：每個練習用下拉選單選擇 Collection，選了就儲存。
+  - **公開／私人**：練習和 Collection 都可以切換，預設私人。切換後畫面先更新，儲存失敗時改回原本的設定並顯示原因。目前公開不會讓別人看到，e1 的公開瀏覽推出後才會生效，頁面上有說明。
+  - **刪除練習**：要先確認。句子一起刪除；共用快取的音檔保留（其他練習可能用到）；裝置上的練習進度照舊留著，可以在「我的練習」移除，和下架的影片一樣。
+  - 所有寫入都用使用者自己的 session，RLS 會檢查；寫入時沒有對到任何一列，就回報「找不到」（不是自己的，或已經刪除）。
+- **理由**：整理功能放在建立的同一頁，管理員不用在不同頁面之間切換；刪除用確認區塊，和「我的練習」的移除一致。
+- **要改時**：`app/create/organize-actions.ts`、`components/CollectionManager.tsx`、`components/PracticeControls.tsx`、`components/VisibilityToggle.tsx`。
