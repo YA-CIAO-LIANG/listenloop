@@ -5,3 +5,7 @@ coverage/
 node_modules/
 package-lock.json
 next-env.d.ts
+
+# Supabase CLI state (git-ignored by supabase/.gitignore)
+supabase/.temp
+supabase/.branches
