@@ -6,7 +6,12 @@ import {
 } from "@/lib/custom-practice/draft";
 
 const sentence = { en: "Hello there.", zh: "你好。" };
-const draft = { title: "My text", sourceLanguage: "en", sentences: [sentence] };
+const draft = {
+  title: "My text",
+  sourceLanguage: "en",
+  voice: "us-female",
+  sentences: [sentence],
+};
 
 describe("cleanDraft", () => {
   it("accepts a draft and tidies whitespace", () => {
@@ -14,11 +19,17 @@ describe("cleanDraft", () => {
       cleanDraft({
         title: "  My   text ",
         sourceLanguage: "zh",
+        voice: "au-male",
         sentences: [{ en: " Hello\n there. ", zh: " 你好。 " }],
       }),
     ).toEqual({
       ok: true,
-      draft: { title: "My text", sourceLanguage: "zh", sentences: [sentence] },
+      draft: {
+        title: "My text",
+        sourceLanguage: "zh",
+        voice: "au-male",
+        sentences: [sentence],
+      },
     });
   });
 
@@ -27,6 +38,7 @@ describe("cleanDraft", () => {
     ["a long title", { ...draft, title: "x".repeat(101) }, "title"],
     ["no sentences", { ...draft, sentences: [] }, "no-sentences"],
     ["a bad language", { ...draft, sourceLanguage: "fr" }, "no-sentences"],
+    ["an unknown voice", { ...draft, voice: "fr-female" }, "voice"],
     [
       "too many sentences",
       {

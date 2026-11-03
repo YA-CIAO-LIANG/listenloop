@@ -4,6 +4,8 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
+import { PracticeAudioStatus } from "@/components/PracticeAudioStatus";
+import { parseVoiceId } from "@/lib/ai/types";
 import { isTextSourceLanguage } from "@/lib/custom-practice/draft";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -25,7 +27,9 @@ export default async function CreatePage() {
   ]);
   const { data: practices } = (await supabase
     ?.from("practices")
-    .select("id, title, source_language, created_at, practice_sentences(count)")
+    .select(
+      "id, title, source_language, voice, created_at, practice_sentences(audio_path)",
+    )
     .order("created_at", { ascending: false })) ?? { data: null };
 
   return (
@@ -39,22 +43,41 @@ export default async function CreatePage() {
         <h2 className="font-display text-h2">{t("listTitle")}</h2>
         {practices && practices.length > 0 ? (
           <ul className="mt-6 divide-y divide-line border-y border-line">
-            {practices.map((practice) => (
-              <li key={practice.id} className="py-4">
-                <p className="font-medium">{practice.title}</p>
-                <p className="mt-1 text-supporting text-ink-muted">
-                  {t("listMeta", {
-                    count: practice.practice_sentences[0]?.count ?? 0,
-                    language: t(
-                      `listLanguages.${isTextSourceLanguage(practice.source_language) ? practice.source_language : "en"}`,
-                    ),
-                    date: format.dateTime(new Date(practice.created_at), {
-                      dateStyle: "medium",
-                    }),
-                  })}
-                </p>
-              </li>
-            ))}
+            {practices.map((practice) => {
+              const sentences = practice.practice_sentences;
+              const voice = practice.voice
+                ? parseVoiceId(practice.voice)
+                : null;
+              return (
+                <li key={practice.id} className="space-y-2 py-4">
+                  <p className="font-medium">{practice.title}</p>
+                  <p className="mt-1 text-supporting text-ink-muted">
+                    {t("listMeta", {
+                      count: sentences.length,
+                      language: t(
+                        `listLanguages.${isTextSourceLanguage(practice.source_language) ? practice.source_language : "en"}`,
+                      ),
+                      date: format.dateTime(new Date(practice.created_at), {
+                        dateStyle: "medium",
+                      }),
+                      voice: voice
+                        ? t("voiceName", {
+                            accent: t(`accents.${voice.accent}`),
+                            gender: t(`genders.${voice.gender}`),
+                          })
+                        : "none",
+                    })}
+                  </p>
+                  {voice && (
+                    <PracticeAudioStatus
+                      practiceId={practice.id}
+                      voiced={sentences.filter((s) => s.audio_path).length}
+                      total={sentences.length}
+                    />
+                  )}
+                </li>
+              );
+            })}
           </ul>
         ) : (
           <p className="mt-4 text-ink-muted">{t("listEmpty")}</p>

@@ -9,10 +9,12 @@ vi.mock("next/navigation", () => ({ useRouter: () => router }));
 vi.mock("@/app/create/actions", () => ({
   prepareSentences: vi.fn(),
   createPractice: vi.fn(),
+  generatePracticeAudio: vi.fn(),
 }));
 
 const prepare = vi.fn();
 const create = vi.fn();
+const generate = vi.fn();
 
 beforeEach(() => {
   router.refresh.mockReset();
@@ -24,11 +26,18 @@ beforeEach(() => {
     ],
   });
   create.mockReset().mockResolvedValue({ ok: true, id: "p1" });
+  generate.mockReset().mockResolvedValue({ ok: true, voiced: 1, total: 1 });
 });
 
 async function renderForm() {
   await act(async () => {
-    renderWithIntl(<CreatePracticeForm prepare={prepare} create={create} />);
+    renderWithIntl(
+      <CreatePracticeForm
+        prepare={prepare}
+        create={create}
+        generate={generate}
+      />,
+    );
   });
 }
 
@@ -59,10 +68,13 @@ describe("CreatePracticeForm", () => {
       target: { value: "We moved here last year." },
     });
     await click("刪除第 2 句");
+    fireEvent.click(screen.getByLabelText("男聲"));
+    fireEvent.click(screen.getByLabelText("澳洲"));
     await click("建立練習");
     expect(create).toHaveBeenCalledWith({
       title: "Moving",
       sourceLanguage: "en",
+      voice: "au-male",
       sentences: [{ en: "We moved here last year.", zh: "我們搬來這裡。" }],
     });
     expect(screen.getByRole("status").textContent).toContain(
@@ -70,6 +82,24 @@ describe("CreatePracticeForm", () => {
     );
     expect(router.refresh).toHaveBeenCalled();
     expect((textBox() as HTMLTextAreaElement).value).toBe("");
+  });
+
+  it("keeps the practice and says so when its audio stops halfway", async () => {
+    generate.mockResolvedValue({
+      ok: false,
+      reason: "limit",
+      voiced: 1,
+      total: 2,
+    });
+    await renderForm();
+    fireEvent.change(screen.getByLabelText("標題"), { target: { value: "T" } });
+    fireEvent.change(textBox(), { target: { value: "A. B." } });
+    await click("斷句並翻譯");
+    await click("建立練習");
+    const status = screen.getByRole("status").textContent;
+    expect(status).toContain("音檔還沒有全部產生");
+    expect(status).toContain("今天的聲音用量已經用完");
+    expect(router.refresh).toHaveBeenCalled();
   });
 
   it("guesses Chinese from the text until the learner picks a language", async () => {

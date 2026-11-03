@@ -1,3 +1,4 @@
+import { parseVoiceId } from "@/lib/ai/types";
 import type { TextSourceLanguage } from "./split";
 
 /**
@@ -20,11 +21,16 @@ export type DraftSentence = { en: string; zh: string };
 export type PracticeDraft = {
   title: string;
   sourceLanguage: TextSourceLanguage;
+  /** The voice to generate the audio with, e.g. "us-female". */
+  voice: string;
   sentences: DraftSentence[];
 };
 
+export const DEFAULT_VOICE = "us-female";
+
 export type DraftProblem =
   | "title"
+  | "voice"
   | "no-sentences"
   | "too-many"
   | "sentence-empty"
@@ -57,6 +63,8 @@ export function cleanDraft(input: unknown): CleanDraftResult {
   if (!isTextSourceLanguage(draft?.sourceLanguage)) {
     return { ok: false, problem: "no-sentences" };
   }
+  const voice = typeof draft.voice === "string" ? draft.voice : "";
+  if (!parseVoiceId(voice)) return { ok: false, problem: "voice" };
   const list = Array.isArray(draft.sentences) ? draft.sentences : [];
   if (list.length === 0) return { ok: false, problem: "no-sentences" };
   if (list.length > PRACTICE_LIMITS.sentences) {
@@ -82,7 +90,7 @@ export function cleanDraft(input: unknown): CleanDraftResult {
   }
   return {
     ok: true,
-    draft: { title, sourceLanguage: draft.sourceLanguage, sentences },
+    draft: { title, sourceLanguage: draft.sourceLanguage, voice, sentences },
   };
 }
 

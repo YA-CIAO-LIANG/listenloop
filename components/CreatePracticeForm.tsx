@@ -5,10 +5,17 @@ import { useTranslations } from "next-intl";
 import { useId, useRef, useState, type ChangeEvent } from "react";
 import {
   createPractice,
+  generatePracticeAudio,
   prepareSentences,
   type CreatePracticeResult,
   type PrepareResult,
 } from "@/app/create/actions";
+import {
+  VOICE_ACCENTS,
+  VOICE_GENDERS,
+  voiceId,
+  type Voice,
+} from "@/lib/ai/types";
 import {
   PRACTICE_LIMITS,
   titleFromFileName,
@@ -19,6 +26,7 @@ import {
   type TextSourceLanguage,
 } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
+import { generateAllAudio, type GenerateAudio } from "./audio-generation";
 import { Button, buttonClassName } from "./Button";
 import { SegmentedControl } from "./SegmentedControl";
 
@@ -31,8 +39,10 @@ type CreatePracticeFormProps = {
   create?: (draft: {
     title: string;
     sourceLanguage: TextSourceLanguage;
+    voice: string;
     sentences: DraftSentence[];
   }) => Promise<CreatePracticeResult>;
+  generate?: GenerateAudio;
 };
 
 type FormError =
@@ -58,6 +68,7 @@ export const fieldClassName =
 export function CreatePracticeForm({
   prepare = prepareSentences,
   create = createPractice,
+  generate = generatePracticeAudio,
 }: CreatePracticeFormProps) {
   const t = useTranslations("create");
   const router = useRouter();
@@ -69,6 +80,11 @@ export function CreatePracticeForm({
   // Once the learner picks a language, stop guessing it from the text.
   const [languageChosen, setLanguageChosen] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
+  const [voice, setVoice] = useState<Voice>({ accent: "us", gender: "female" });
+  const [progress, setProgress] = useState<{
+    voiced: number;
+    total: number;
+  } | null>(null);
   const nextKey = useRef(0);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<FormError | null>(null);
@@ -99,9 +115,9 @@ export function CreatePracticeForm({
       return;
     }
     try {
-      const content = (await file.text()).replace(/^﻿/, "");
+      const content = (await file.text()).replace(/^\uFEFF/, "");
       // Big5 or other non-UTF-8 files decode with replacement characters.
-      if (content.includes("�")) {
+      if (content.includes("\uFFFD")) {
         setError({ key: "file-encoding" });
         return;
       }
@@ -140,10 +156,11 @@ export function CreatePracticeForm({
     const result = await create({
       title,
       sourceLanguage: language,
+      voice: voiceId(voice),
       sentences: rows.map(({ en, zh }) => ({ en, zh })),
     }).catch((): CreatePracticeResult => ({ ok: false, reason: "failed" }));
-    setPending(false);
     if (!result.ok) {
+      setPending(false);
       setError(
         result.reason === "invalid"
           ? { key: result.problem, sentence: result.sentence }
@@ -151,10 +168,23 @@ export function CreatePracticeForm({
       );
       return;
     }
-    setNotice({
-      message: t("created", { title: title.trim() }),
-      success: true,
-    });
+    // Saved: now voice it. Whatever happens, the practice is kept and the
+    // list below can continue the audio.
+    setProgress({ voiced: 0, total: rows.length });
+    const audio = await generateAllAudio(generate, result.id, (voiced, total) =>
+      setProgress({ voiced, total }),
+    );
+    setPending(false);
+    setProgress(null);
+    const createdTitle = title.trim();
+    setNotice(
+      audio.ok
+        ? { message: t("created", { title: createdTitle }), success: true }
+        : {
+            message: `${t("createdAudioFailed", { title: createdTitle })} ${t(`audioErrors.${audio.reason}`)}`,
+            success: false,
+          },
+    );
     setTitle("");
     setText("");
     setLanguageChosen(false);
@@ -283,6 +313,53 @@ export function CreatePracticeForm({
         >
           {t("addSentence")}
         </Button>
+        <section
+          aria-labelledby={`${ids.title}-voice`}
+          className="space-y-3 pt-6"
+        >
+          <h3 id={`${ids.title}-voice`} className="font-display text-h3">
+            {t("voiceTitle")}
+          </h3>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <div className="flex items-center gap-2">
+              <span
+                aria-hidden="true"
+                className="text-supporting text-ink-muted"
+              >
+                {t("genderLegend")}
+              </span>
+              <SegmentedControl
+                legend={t("genderLegend")}
+                value={voice.gender}
+                options={VOICE_GENDERS.map((gender) => ({
+                  value: gender,
+                  label: t(`genders.${gender}`),
+                }))}
+                onChange={(gender) => setVoice({ ...voice, gender })}
+                optionWidthClassName="min-w-16"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <span
+                aria-hidden="true"
+                className="text-supporting text-ink-muted"
+              >
+                {t("accentLegend")}
+              </span>
+              <SegmentedControl
+                legend={t("accentLegend")}
+                value={voice.accent}
+                options={VOICE_ACCENTS.map((accent) => ({
+                  value: accent,
+                  label: t(`accents.${accent}`),
+                }))}
+                onChange={(accent) => setVoice({ ...voice, accent })}
+                optionWidthClassName="min-w-22"
+              />
+            </div>
+          </div>
+          <p className="text-supporting text-ink-muted">{t("voiceNote")}</p>
+        </section>
         <div className="flex flex-wrap gap-3">
           <Button variant="primary" onClick={submit} disabled={pending}>
             {pending ? t("creating") : t("create")}
@@ -298,6 +375,14 @@ export function CreatePracticeForm({
             {t("back")}
           </Button>
         </div>
+        {progress && (
+          <p
+            role="status"
+            className="text-supporting text-ink-muted tabular-nums"
+          >
+            {t("generating", progress)}
+          </p>
+        )}
         {errorMessage}
       </section>
     );

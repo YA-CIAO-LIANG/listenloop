@@ -44,6 +44,7 @@ export function silentWav(seconds: number): Uint8Array {
 }
 
 export const fakeSpeech: SpeechProvider = {
+  id: "fake",
   async synthesize(text: string): Promise<SpeechAudio> {
     const words = text.split(/\s+/).filter(Boolean).length;
     return {

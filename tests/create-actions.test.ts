@@ -114,6 +114,7 @@ describe("createPractice", () => {
   const draft = {
     title: " Moving ",
     sourceLanguage: "en",
+    voice: "gb-male",
     sentences: [
       { en: "We moved.", zh: "我們搬家了。" },
       { en: "Nice.", zh: "" },
@@ -125,7 +126,12 @@ describe("createPractice", () => {
     expect(state.inserts).toEqual([
       {
         table: "practices",
-        rows: { user_id: "user-1", title: "Moving", source_language: "en" },
+        rows: {
+          user_id: "user-1",
+          title: "Moving",
+          source_language: "en",
+          voice: "gb-male",
+        },
       },
       {
         table: "practice_sentences",
