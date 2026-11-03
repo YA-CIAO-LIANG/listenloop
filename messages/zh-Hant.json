@@ -449,5 +449,17 @@
     "recordUnchanged": "今天的紀錄不變。",
     "review": "逐句紀錄",
     "backToVideo": "回影片頁"
+  },
+  "account": {
+    "signIn": "登入",
+    "signingIn": "前往 Google…",
+    "account": "帳號",
+    "signedInAs": "已登入",
+    "signOut": "登出",
+    "signingOut": "登出中…",
+    "signOutFailed": "登出失敗，請檢查網路後再試一次。",
+    "signInFailed": "登入沒有成功，請稍後再試一次。練習進度仍然存在這台裝置上。",
+    "signInCancelled": "已取消登入。不登入也可以練習，進度會存在這台裝置上。",
+    "dismiss": "關閉"
   }
 }

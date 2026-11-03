@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import { getSignedInUser } from "@/auth/session";
+import { AccountMenu } from "@/components/AccountMenu";
+import { SignInNotice } from "@/components/SignInNotice";
 import { SiteHeader } from "@/components/SiteHeader";
+import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "./fonts";
 import { themeInitScript } from "@/lib/theme";
 import "./globals.css";
@@ -15,7 +20,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const locale = await getLocale();
+  const [locale, user] = await Promise.all([
+    getLocale(),
+    accountsEnabled ? getSignedInUser() : null,
+  ]);
 
   return (
     // suppressHydrationWarning: the theme script sets data-theme before hydration.
@@ -30,7 +38,21 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         {/* Inherits locale and messages from i18n/request.ts. */}
         <NextIntlClientProvider>
-          <SiteHeader />
+          <SiteHeader
+            account={
+              accountsEnabled && (
+                // useSearchParams inside: Suspense keeps the page renderable.
+                <Suspense fallback={null}>
+                  <AccountMenu user={user && { email: user.email }} />
+                </Suspense>
+              )
+            }
+          />
+          {accountsEnabled && (
+            <Suspense fallback={null}>
+              <SignInNotice />
+            </Suspense>
+          )}
           {children}
         </NextIntlClientProvider>
       </body>

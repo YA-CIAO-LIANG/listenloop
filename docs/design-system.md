@@ -128,6 +128,20 @@
 - 數字、日期、百分比依介面語言格式化（例如「第 3 天」/「Day 3」）。
 - 文案語氣：中文簡潔溫和；英文簡短直接。避免直譯。
 
+## 帳號（頁首）
+
+- 只有設定了 Supabase 時才顯示（D2：不登入也能練習）。放在頁首右側，ThemeToggle 右邊，中間用 vertical Divider 隔開。
+- **未登入**：ghost、sm 的「登入」按鈕，按下後直接前往 Google 登入。等待時改成「前往 Google…」，按鈕不能再按。登入後回到原本的頁面，網址參數也會保留。
+- **已登入**：ghost、sm 的「帳號 ▾」按鈕，採用 disclosure 模式（`aria-expanded`、`aria-controls`），不是 ARIA menu。
+  - 按下後，按鈕下方右側對齊彈出一個面板：surface 底、1px line 邊框、4px 圓角、寬 256px、內距 16px。
+  - 面板由上到下是：supporting、ink-muted 的「已登入」→ 內文字級、ink 色的 email，太長時可以換行 → secondary、sm 的「登出」。
+  - 按 Escape 會關閉面板，焦點回到按鈕；點面板外面也會關閉。
+  - 登出失敗時，在面板裡顯示 error 色的提示（`role="alert"`）。
+- **登入結果提示**（`SignInNotice`）：放在頁首正下方的整條區塊，band 底、下方 1px line 線，內容寬度和頁首一樣。
+  - 失敗（`?signin=failed`）：error 色文字，`role="alert"`。
+  - 取消（`?signin=cancelled`）：supporting、ink-muted，`role="status"`。
+  - 兩種都要說明「進度仍然存在這台裝置上」，右側有 ghost、sm 的「關閉」。關閉時移除網址參數，不捲動頁面。
+
 ## 核心元件清單
 
 Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreBadge、ThemeToggle、LanguageToggle、Divider。
