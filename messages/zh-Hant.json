@@ -674,6 +674,39 @@
       "failed": "產生音檔時發生錯誤。已產生的音檔會保留，請再試一次。"
     },
     "createdAudioFailed": "已建立「{title}」，但音檔還沒有全部產生。可以在下方的清單繼續。",
-    "startPractice": "開始練習"
+    "startPractice": "開始練習",
+    "ungrouped": "未分組"
+  },
+  "organize": {
+    "collectionsTitle": "Collection",
+    "collectionsIntro": "把練習分組整理，就像題庫的合集。刪除 Collection 時，裡面的練習會保留，改成未分組。",
+    "newCollection": "新的 Collection 名稱",
+    "addCollection": "新增",
+    "practiceCount": "{count} 個練習",
+    "rename": "重新命名",
+    "renameLabel": "「{title}」的新名稱",
+    "save": "儲存",
+    "cancel": "取消",
+    "deleteCollection": "刪除…",
+    "deleteCollectionConfirm": "要刪除「{title}」嗎？裡面的練習會保留，改成未分組。",
+    "deleteCollectionButton": "刪除 Collection",
+    "deleting": "刪除中…",
+    "collectionLabel": "Collection",
+    "ungrouped": "未分組",
+    "visibilityLegend": "「{name}」公開或私人",
+    "visibility": {
+      "private": "私人",
+      "public": "公開"
+    },
+    "visibilityNote": "練習預設是私人的。設為公開後，之後推出的公開瀏覽功能會讓其他人找到並練習。",
+    "deletePractice": "刪除練習…",
+    "deletePracticeConfirm": "要刪除「{title}」嗎？句子會一起刪除，無法復原；各裝置上已有的練習進度可以在「我的練習」移除。",
+    "deletePracticeButton": "永久刪除練習",
+    "errors": {
+      "unavailable": "目前無法整理練習。請確認已用管理員帳號登入。",
+      "invalid": "請填寫名稱（最多 100 字）。",
+      "not-found": "找不到這個項目，可能已經刪除。請重新整理頁面。",
+      "failed": "儲存失敗，請稍後再試一次。"
+    }
   }
 }

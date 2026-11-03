@@ -28,8 +28,6 @@ export type PracticeMaterial = Pick<
  */
 export const CUSTOM_PRACTICE_PREFIX = "p-";
 
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
 export function customPracticeId(uuid: string): string {
   return `${CUSTOM_PRACTICE_PREFIX}${uuid}`;
 }
