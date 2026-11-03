@@ -2,16 +2,19 @@ import { describe, expect, it } from "vitest";
 import en from "@/messages/en.json";
 import zhHant from "@/messages/zh-Hant.json";
 
-type Messages = { [key: string]: string | Messages };
-
-/** Flattens nested messages into { "settings.theme.label": "..." }. */
-function flatten(messages: Messages, prefix = ""): Record<string, string> {
+/**
+ * Flattens nested messages into { "settings.theme.label": "..." }. Lists
+ * (e.g. privacy.sections, read with t.raw) flatten by index.
+ */
+function flatten(messages: object, prefix = ""): Record<string, string> {
   return Object.entries(messages).reduce<Record<string, string>>(
-    (flat, [key, value]) => {
+    (flat, [key, value]: [string, unknown]) => {
       const path = prefix ? `${prefix}.${key}` : key;
-      return typeof value === "string"
-        ? { ...flat, [path]: value }
-        : { ...flat, ...flatten(value, path) };
+      if (typeof value === "string") return { ...flat, [path]: value };
+      if (typeof value === "object" && value !== null) {
+        return { ...flat, ...flatten(value, path) };
+      }
+      return flat;
     },
     {},
   );

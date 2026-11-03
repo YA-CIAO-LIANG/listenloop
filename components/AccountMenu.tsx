@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
@@ -14,8 +15,8 @@ type AccountMenuProps = {
 
 /**
  * The header's account control: "Sign in" (Google) when signed out; when
- * signed in, an "Account" button that opens a small panel with the email
- * and "Sign out" (disclosure pattern: Escape or a click outside closes it).
+ * signed in, an "Account" button that opens a small panel with the email,
+ * "Sign out", and a link to the account page (disclosure pattern: Escape or a click outside closes it).
  */
 export function AccountMenu({ user }: AccountMenuProps) {
   return user ? <AccountPanel email={user.email} /> : <SignInButton />;
@@ -122,14 +123,23 @@ function AccountPanel({ email }: { email: string }) {
             {t("signedInAs")}
             <span className="block text-body break-all text-ink">{email}</span>
           </p>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={signOut}
-            disabled={pending}
-          >
-            {pending ? t("signingOut") : t("signOut")}
-          </Button>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={signOut}
+              disabled={pending}
+            >
+              {pending ? t("signingOut") : t("signOut")}
+            </Button>
+            <Link
+              href="/account"
+              onClick={() => setOpen(false)}
+              className="text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+            >
+              {t("accountSettings")}
+            </Link>
+          </div>
           {failed && (
             <p role="alert" className="text-supporting text-error">
               {t("signOutFailed")}

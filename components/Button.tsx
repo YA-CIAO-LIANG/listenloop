@@ -7,6 +7,8 @@ const variantClassNames = {
   primary: "border-accent bg-accent/14 text-accent-ink",
   secondary: "border-line bg-ink/4 text-ink",
   ghost: "border-transparent text-ink-muted",
+  // Destructive, cannot be undone (e.g. deleting the account).
+  danger: "border-error bg-error/10 text-error",
 } as const;
 
 // Buttons skip hover while disabled; `enabled:` doesn't apply to links.
@@ -15,11 +17,13 @@ const hoverClassNames = {
     primary: "enabled:hover:bg-accent/22",
     secondary: "enabled:hover:bg-ink/8",
     ghost: "enabled:hover:bg-ink/4 enabled:hover:text-ink",
+    danger: "enabled:hover:bg-error/18",
   },
   link: {
     primary: "hover:bg-accent/22",
     secondary: "hover:bg-ink/8",
     ghost: "hover:bg-ink/4 hover:text-ink",
+    danger: "hover:bg-error/18",
   },
 } as const;
 
