@@ -7,6 +7,7 @@ import { CreatePracticeForm } from "@/components/CreatePracticeForm";
 import { PracticeAudioStatus } from "@/components/PracticeAudioStatus";
 import { parseVoiceId } from "@/lib/ai/types";
 import { isTextSourceLanguage } from "@/lib/custom-practice/draft";
+import { customPracticeId } from "@/lib/practice-material";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("create");
@@ -71,6 +72,7 @@ export default async function CreatePage() {
                   {voice && (
                     <PracticeAudioStatus
                       practiceId={practice.id}
+                      practiceHref={`/videos/${customPracticeId(practice.id)}`}
                       voiced={sentences.filter((s) => s.audio_path).length}
                       total={sentences.length}
                     />

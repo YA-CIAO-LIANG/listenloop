@@ -7,7 +7,7 @@ import { toLocalDate } from "@/lib/dates";
 import type { Progress } from "@/lib/progress";
 import { wordDiff } from "@/lib/scoring/word-diff";
 import type { ProgressStore } from "@/lib/storage/progress-store";
-import type { Video } from "@/lib/videos";
+import type { PracticeMaterial } from "@/lib/practice-material";
 import { ButtonLink } from "./ButtonLink";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
@@ -15,7 +15,7 @@ import { StartNextWeekButton } from "./StartNextWeekButton";
 import { WordDiffView } from "./WordDiffView";
 
 type WeekResultProps = {
-  video: Video;
+  video: PracticeMaterial;
   /** Progress with Day 7 done and the week settled. */
   progress: Progress;
   store: ProgressStore;

@@ -93,7 +93,8 @@
     "legendMore": "多",
     "expand": "展開整月",
     "collapse": "收合",
-    "tipCount": "{count, plural, =0 {沒有完成任務} other {完成 # 個任務}}"
+    "tipCount": "{count, plural, =0 {沒有完成任務} other {完成 # 個任務}}",
+    "customPractice": "自建練習"
   },
   "today": {
     "title": "今日任務",
@@ -304,7 +305,10 @@
       "licenseTerms": "授權條款",
       "transcript": "英文字幕來源",
       "changes": "修改說明"
-    }
+    },
+    "custom": "自建練習",
+    "backToCreate": "建立練習",
+    "customSentences": "共 {count} 句，每一句都有音檔。"
   },
   "player": {
     "loading": "影片載入中…",
@@ -314,7 +318,16 @@
       "loadFailed": "影片被瀏覽器擋住了。請關閉廣告阻擋（例如 Brave 的 Shields），或換一個瀏覽器，然後重新整理。",
       "blocked": "影片被瀏覽器擋住了。請關閉廣告阻擋（例如 Brave 的 Shields），或換一個瀏覽器，然後重新整理。"
     },
-    "captionHint": "如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉，避免看到答案。"
+    "captionHint": "如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉，避免看到答案。",
+    "audio": {
+      "title": "聲音練習",
+      "hint": "這份練習只有聲音，按「播放」逐句聆聽。",
+      "playing": "播放中…",
+      "loading": "音檔載入中…",
+      "errors": {
+        "loadFailed": "音檔無法載入，請檢查網路後重新整理頁面。"
+      }
+    }
   },
   "timing": {
     "title": "時間點微調",
@@ -660,6 +673,7 @@
       "limit": "今天的聲音用量已經用完。已產生的音檔會保留，明天（台灣時間 0 點後）可以繼續。",
       "failed": "產生音檔時發生錯誤。已產生的音檔會保留，請再試一次。"
     },
-    "createdAudioFailed": "已建立「{title}」，但音檔還沒有全部產生。可以在下方的清單繼續。"
+    "createdAudioFailed": "已建立「{title}」，但音檔還沒有全部產生。可以在下方的清單繼續。",
+    "startPractice": "開始練習"
   }
 }

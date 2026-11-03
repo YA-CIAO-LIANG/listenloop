@@ -146,6 +146,11 @@ export function validateVideo(data: unknown): string[] {
     !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(data.id)
   ) {
     problems.push("id must be lowercase letters, digits, and dashes");
+  } else if (data.id.startsWith("p-")) {
+    // lib/practice-material.ts: "p-<uuid>" names created practices.
+    problems.push(
+      'id may not start with "p-" (reserved for created practices)',
+    );
   }
   if (
     typeof data.youtubeId !== "string" ||

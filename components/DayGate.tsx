@@ -6,6 +6,7 @@ import type { ReactNode } from "react";
 import { isDevTestMode } from "@/lib/config";
 import { lockReason, type CycleDay } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
+import { titleLang } from "@/lib/practice-material";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { ButtonLink } from "./ButtonLink";
 import { useVideoProgress } from "./useVideoProgress";
@@ -57,7 +58,7 @@ export function DayGate({
         className="text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
-        <span lang="en">{videoTitle}</span>
+        <span lang={titleLang(videoId)}>{videoTitle}</span>
       </Link>
       <h1 className="font-display text-h3">{t("lockedTitle", { day })}</h1>
       <p>

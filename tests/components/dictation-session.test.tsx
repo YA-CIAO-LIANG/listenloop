@@ -23,6 +23,17 @@ vi.mock("@/components/youtube/useYouTubePlayer", () => ({
   }),
 }));
 
+const playSentence = vi.hoisted(() => vi.fn());
+vi.mock("@/components/audio/useAudioPlayer", () => ({
+  useAudioPlayer: () => ({
+    status: "ready",
+    error: null,
+    isPlaying: false,
+    playSentence,
+    stop: vi.fn(),
+  }),
+}));
+
 // A short fixture keeps the flow readable; real videos are tested elsewhere.
 const video: Video = {
   id: "test-video",
@@ -484,5 +495,43 @@ describe("DictationSession perfect sentence", () => {
     await userEvent.type(input(), "go home{Enter}");
     expect(screen.getByText(/練習模式/)).toBeDefined();
     expect(burst()).not.toBeNull();
+  });
+});
+
+describe("DictationSession with a created practice", () => {
+  beforeEach(() => {
+    playSegment.mockClear();
+    playSentence.mockClear();
+  });
+
+  it("plays each sentence's own audio, with no YouTube or caption hint", async () => {
+    const store = memoryStore();
+    renderWithIntl(
+      <DictationSession
+        video={{
+          id: "p-00000000-0000-4000-8000-000000000001",
+          title: "我的練習",
+          sentences: video.sentences.map((s) => ({ ...s, start: 0, end: 0 })),
+          vocab: [],
+          grammar: [],
+          audioUrls: ["https://cdn.test/a.wav", "https://cdn.test/b.wav"],
+        }}
+        day={1}
+        title="第 1 天：精聽聽寫"
+        store={store}
+      />,
+    );
+    await act(async () => {});
+    expect(screen.getByText("聲音練習")).toBeDefined();
+    expect(screen.queryByText(/CC 按鈕關閉/)).toBeNull();
+    // The title isn't marked English: learners name their own practices.
+    expect(screen.getByText("我的練習").getAttribute("lang")).toBeNull();
+
+    fireEvent.click(screen.getByRole("button", { name: "播放" }));
+    expect(playSentence).toHaveBeenLastCalledWith(0, undefined);
+    expect(playSegment).not.toHaveBeenCalled();
+
+    await userEvent.type(input(), "go home{Enter}");
+    expect(store.saved()?.days[1]?.answers).toEqual(["go home", null]);
   });
 });

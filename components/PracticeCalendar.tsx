@@ -12,9 +12,11 @@ import type { PracticeTask } from "@/lib/activity";
 import { taskForDay, type CycleDay } from "@/lib/cycle";
 import { toLocalDate, type LocalDate } from "@/lib/dates";
 import { heatLevel, tasksByDate } from "@/lib/practice-calendar";
+import { isCustomPracticeId, titleLang } from "@/lib/practice-material";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { RewardStore } from "@/lib/storage/reward-store";
 import { getVideo } from "@/lib/video-library";
+import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
@@ -39,7 +41,13 @@ function monthCells(year: number, month: number): (LocalDate | null)[] {
 }
 
 /** A day's finished tasks, or a note that there were none. */
-function TaskList({ tasks }: { tasks: PracticeTask[] }) {
+function TaskList({
+  tasks,
+  customTitles,
+}: {
+  tasks: PracticeTask[];
+  customTitles: Record<string, string>;
+}) {
   const t = useTranslations("calendar");
   const tDay = useTranslations("practice.day");
   if (tasks.length === 0) {
@@ -53,10 +61,17 @@ function TaskList({ tasks }: { tasks: PracticeTask[] }) {
             ✓{" "}
           </span>
           {t.rich("taskLine", {
-            title: getVideo(task.videoId)?.title ?? task.videoId,
+            title:
+              getVideo(task.videoId)?.title ??
+              customTitles[task.videoId] ??
+              (isCustomPracticeId(task.videoId)
+                ? t("customPractice")
+                : task.videoId),
             day: task.day,
             task: tDay(`task.${taskForDay(task.day as CycleDay)}`),
-            video: (chunks) => <span lang="en">{chunks}</span>,
+            video: (chunks) => (
+              <span lang={titleLang(task.videoId)}>{chunks}</span>
+            ),
           })}
         </li>
       ))}
@@ -121,6 +136,9 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   }, [stores]);
 
   const tasksOn = (date: LocalDate) => tasks?.get(date) ?? [];
+  const customTitles = useCustomPracticeTitles(
+    tasks && [...tasks.values()].flat().map((task) => task.videoId),
+  );
   const dayName = (date: LocalDate) =>
     format.dateTime(noonOf(date), { ...UTC, month: "long", day: "numeric" });
   const cells = monthCells(shown.year, shown.month);
@@ -261,7 +279,10 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
                         <p className="mb-1 text-metadata text-ink-muted">
                           {dayName(date)} · {t("tipCount", { count })}
                         </p>
-                        <TaskList tasks={tasksOn(date)} />
+                        <TaskList
+                          tasks={tasksOn(date)}
+                          customTitles={customTitles}
+                        />
                       </div>
                     )}
                   </td>
@@ -312,7 +333,7 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
           {dayName(selected)}
           {selected === today ? ` · ${t("today")}` : ""}
         </h3>
-        <TaskList tasks={tasksOn(selected)} />
+        <TaskList tasks={tasksOn(selected)} customTitles={customTitles} />
       </section>
     </Card>
   );

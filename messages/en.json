@@ -93,7 +93,8 @@
     "legendMore": "More",
     "expand": "Show the month",
     "collapse": "Show this week",
-    "tipCount": "{count, plural, =0 {No tasks finished} one {# task finished} other {# tasks finished}}"
+    "tipCount": "{count, plural, =0 {No tasks finished} one {# task finished} other {# tasks finished}}",
+    "customPractice": "Your practice"
   },
   "today": {
     "title": "Today’s tasks",
@@ -304,7 +305,10 @@
       "licenseTerms": "License terms",
       "transcript": "English subtitles",
       "changes": "Changes"
-    }
+    },
+    "custom": "Your practice",
+    "backToCreate": "Create a practice",
+    "customSentences": "{count, plural, one {# sentence} other {# sentences}}, each with its own audio."
   },
   "player": {
     "loading": "Loading video…",
@@ -314,7 +318,16 @@
       "loadFailed": "The video was blocked by your browser. Turn off ad blocking (for example, Brave Shields) or try another browser, then reload.",
       "blocked": "The video was blocked by your browser. Turn off ad blocking (for example, Brave Shields) or try another browser, then reload."
     },
-    "captionHint": "If captions appear, turn them off with the CC button at the bottom right of the player so they don’t give away the answer."
+    "captionHint": "If captions appear, turn them off with the CC button at the bottom right of the player so they don’t give away the answer.",
+    "audio": {
+      "title": "Audio practice",
+      "hint": "This practice is audio only. Press Play to hear each sentence.",
+      "playing": "Playing…",
+      "loading": "Loading audio…",
+      "errors": {
+        "loadFailed": "The audio couldn't load. Check your connection and reload the page."
+      }
+    }
   },
   "timing": {
     "title": "Timing check",
@@ -662,6 +675,7 @@
       "limit": "Today's speech allowance is used up. The audio made so far is kept; continue tomorrow (after midnight, Taiwan time).",
       "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again."
     },
-    "createdAudioFailed": "Created “{title}”, but not all of its audio is ready yet. You can continue in the list below."
+    "createdAudioFailed": "Created “{title}”, but not all of its audio is ready yet. You can continue in the list below.",
+    "startPractice": "Start practicing"
   }
 }

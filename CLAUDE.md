@@ -177,6 +177,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - `answers`：聽寫（Day 1、7）每句第一次送出的答案，`null` 表示尚未作答；用於中途續做與 Day 1 / 7 逐句比較。
 - `sentences`：跟讀（Day 2～6）每句狀態；`coverage: null` 表示無法使用語音辨識（瀏覽器不支援、麥克風被拒或找不到），使用者按「我念完了」自行標記完成。
 - `history`：已結束的每一週成績；重來一週時保留。
+- 自建練習（M6）的 `videoId` 是 `p-<uuid>`，和內建影片共用網址、進度格式與同步（D23）；內建影片的 id 不可以用 `p-` 開頭。
 
 獎勵（M2.5；規則見 `docs/aquarium.md`，數字集中在 `lib/rewards.ts`）：
 
