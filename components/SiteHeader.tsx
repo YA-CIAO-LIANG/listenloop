@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { AQUARIUM_ENABLED } from "@/lib/features";
 import { Divider } from "./Divider";
@@ -6,8 +7,12 @@ import { LanguageToggle } from "./LanguageToggle";
 import { RewardBadge } from "./RewardBadge";
 import { ThemeToggle } from "./ThemeToggle";
 
-/** Wordmark on the left; rewards, language, and theme toggles on the right. */
-export function SiteHeader() {
+/**
+ * Wordmark on the left; rewards, language, and theme toggles on the right,
+ * then the account control when accounts are on (passed in by the layout,
+ * which reads the session on the server).
+ */
+export function SiteHeader({ account }: { account?: ReactNode }) {
   const t = useTranslations("common");
 
   return (
@@ -26,6 +31,12 @@ export function SiteHeader() {
           <LanguageToggle />
           <Divider orientation="vertical" className="my-2" />
           <ThemeToggle />
+          {account && (
+            <>
+              <Divider orientation="vertical" className="my-2" />
+              {account}
+            </>
+          )}
         </div>
       </div>
     </header>

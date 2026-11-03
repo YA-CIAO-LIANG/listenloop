@@ -117,3 +117,16 @@
   - 刪除帳號時，資料會一起刪除。
 - **理由**：RLS 寫錯會讓資料外洩，單元測試又測不到資料庫，所以要實際打一次 API 確認。
 - **要改時**：之後如果導入本機 Supabase（需要 Docker），改成自動化測試。
+
+## D13 登入流程（2026-11-03）
+
+- **決定**：
+  - 使用 Supabase 的 Google OAuth（PKCE）。登入後回到 `/auth/callback`，再導回原本的頁面；
+  - 要導回的網址只接受站內路徑，避免被利用來導向外部網站（open redirect）；
+  - 失敗或取消時，在網址加上 `?signin=failed` 或 `?signin=cancelled`，並在頁首下方顯示提示；
+  - 每次請求都由 `proxy.ts` 更新 session；伺服器端用 `getClaims()` 驗證 token 的簽章，不用 `getSession()`；
+  - 帳號選單用 disclosure 模式，畫面上不顯示 Google 頭像，也就不需要載入外部圖片。
+- **理由**：
+  - 這是 Supabase 官方建議的 Next.js 做法；
+  - 不顯示頭像可以少一個外部請求，也比較不會洩漏隱私。
+- **要改時**：`app/auth/callback/route.ts`、`auth/`、`components/AccountMenu.tsx`。
