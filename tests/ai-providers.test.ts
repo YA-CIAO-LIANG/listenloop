@@ -92,7 +92,7 @@ describe("metered calls", () => {
   it("stops at the limit without calling the provider", async () => {
     const meter = memoryMeter(5);
     const synthesize = vi.fn(fakeSpeech.synthesize);
-    const providers = { ...fakes, speech: { synthesize } };
+    const providers = { ...fakes, speech: { id: "test", synthesize } };
     expect(
       await meteredSpeech({ providers, meter }, "too long text", voice),
     ).toEqual({ ok: false, reason: "limit" });
@@ -103,7 +103,10 @@ describe("metered calls", () => {
     const meter = memoryMeter(100);
     const providers = {
       ...fakes,
-      speech: { synthesize: vi.fn().mockRejectedValue(new Error("down")) },
+      speech: {
+        id: "test",
+        synthesize: vi.fn().mockRejectedValue(new Error("down")),
+      },
     };
     expect(await meteredSpeech({ providers, meter }, "hello", voice)).toEqual({
       ok: false,

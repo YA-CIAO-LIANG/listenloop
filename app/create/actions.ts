@@ -4,6 +4,8 @@ import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
 import { meteredTranslate } from "@/lib/ai/metered";
+import { parseVoiceId } from "@/lib/ai/types";
+import { AUDIO_BATCH_SIZE, voiceSentences } from "@/lib/custom-practice/audio";
 import {
   cleanDraft,
   isTextSourceLanguage,
@@ -102,6 +104,7 @@ async function savePractice(
       user_id: userId,
       title: draft.title,
       source_language: draft.sourceLanguage,
+      voice: draft.voice,
     })
     .select("id")
     .single();
@@ -123,4 +126,63 @@ async function savePractice(
     return null;
   }
   return data.id;
+}
+
+export type GenerateAudioResult =
+  | { ok: true; voiced: number; total: number }
+  | {
+      ok: false;
+      reason: "unavailable" | "not-found" | "limit" | "failed";
+      voiced?: number;
+      total?: number;
+    };
+
+/**
+ * Generates audio for the next few sentences of one of the user's
+ * practices that don't have it yet (AUDIO_BATCH_SIZE per call, so each
+ * call stays short). The browser calls it again until voiced === total;
+ * a run cut off halfway simply continues next time.
+ */
+export async function generatePracticeAudio(
+  practiceId: unknown,
+): Promise<GenerateAudioResult> {
+  const creator = await getCreator();
+  if (!creator) return { ok: false, reason: "unavailable" };
+  const supabase = await getServerSupabase();
+  if (!supabase) return { ok: false, reason: "unavailable" };
+  if (typeof practiceId !== "string") return { ok: false, reason: "not-found" };
+
+  // Read with the user's session: row level security limits it to their own.
+  const { data: practice, error } = await supabase
+    .from("practices")
+    .select("voice, practice_sentences(i, en, audio_path)")
+    .eq("id", practiceId)
+    .maybeSingle();
+  if (error) return { ok: false, reason: "failed" };
+  const voice = practice?.voice ? parseVoiceId(practice.voice) : null;
+  if (!practice || !voice) return { ok: false, reason: "not-found" };
+
+  const sentences = [...practice.practice_sentences].sort((a, b) => a.i - b.i);
+  const total = sentences.length;
+  const missing = sentences.filter((s) => !s.audio_path);
+  const batch = await voiceSentences(
+    creator,
+    voice,
+    missing.slice(0, AUDIO_BATCH_SIZE),
+  );
+
+  for (const { i, path } of batch.done) {
+    const { error: updateError } = await supabase
+      .from("practice_sentences")
+      .update({ audio_path: path })
+      .eq("practice_id", practiceId)
+      .eq("i", i);
+    if (updateError) return { ok: false, reason: "failed" };
+  }
+  const voiced = total - missing.length + batch.done.length;
+  if (voiced === total) revalidatePath("/create");
+  if (batch.stopped) {
+    return { ok: false, reason: batch.stopped, voiced, total };
+  }
+  return { ok: true, voiced, total };
 }

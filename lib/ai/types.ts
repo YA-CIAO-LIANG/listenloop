@@ -42,9 +42,18 @@ export interface TranslationProvider {
   ): Promise<string[]>;
 }
 
-export type SpeechAudio = { data: Uint8Array; mimeType: string };
+export type SpeechAudio = {
+  data: Uint8Array;
+  mimeType: "audio/mpeg" | "audio/wav";
+};
 
 export interface SpeechProvider {
+  /**
+   * Names the provider and its settings in the audio cache key, so files
+   * from another provider (e.g. the fake's silence) are never reused.
+   * Change it when the output would change.
+   */
+  readonly id: string;
   /** Reads `text` aloud in English with `voice`. */
   synthesize(text: string, voice: Voice): Promise<SpeechAudio>;
 }

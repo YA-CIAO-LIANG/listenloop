@@ -612,7 +612,7 @@
     "create": "Create practice",
     "creating": "Creating…",
     "back": "Back",
-    "created": "Created “{title}”. Audio comes in the next update; then you can start practicing.",
+    "created": "Created “{title}” and generated all its audio. You can start practicing in the next update.",
     "errors": {
       "unavailable": "Creating practices isn't available. Make sure you're signed in with an admin account.",
       "empty": "No sentences to practice were found. Please check the text.",
@@ -627,14 +627,41 @@
       "title": "Please enter a title ({max, number} characters at most).",
       "no-sentences": "Add at least one sentence.",
       "sentence-empty": "Sentence {n} has no English.",
-      "sentence-too-long": "Sentence {n} is too long: {max, number} characters at most."
+      "sentence-too-long": "Sentence {n} is too long: {max, number} characters at most.",
+      "voice": "Please choose a voice."
     },
     "listTitle": "Your practices",
     "listEmpty": "You haven't created a practice yet.",
-    "listMeta": "{count, plural, one {# sentence} other {# sentences}} · {language} original · {date}",
+    "listMeta": "{count, plural, one {# sentence} other {# sentences}} · {language} original · {date}{voice, select, none {} other { · {voice}}}",
     "listLanguages": {
       "en": "English",
       "zh": "Chinese"
-    }
+    },
+    "voiceTitle": "Voice",
+    "genderLegend": "Gender",
+    "genders": {
+      "female": "Female",
+      "male": "Male"
+    },
+    "accentLegend": "Accent",
+    "accents": {
+      "us": "American",
+      "gb": "British",
+      "au": "Australian",
+      "in": "Indian"
+    },
+    "voiceNote": "Audio is generated for every sentence after you create the practice; the same sentence in the same voice is generated only once.",
+    "voiceName": "{accent} · {gender}",
+    "generating": "Generating audio… {voiced} / {total}",
+    "audioDone": "Audio ready",
+    "audioPartial": "Audio {voiced} / {total}",
+    "resumeAudio": "Continue generating audio",
+    "audioErrors": {
+      "unavailable": "Audio can't be generated right now. Make sure you're signed in with an admin account.",
+      "not-found": "This practice couldn't be found.",
+      "limit": "Today's speech allowance is used up. The audio made so far is kept; continue tomorrow (after midnight, Taiwan time).",
+      "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again."
+    },
+    "createdAudioFailed": "Created “{title}”, but not all of its audio is ready yet. You can continue in the list below."
   }
 }

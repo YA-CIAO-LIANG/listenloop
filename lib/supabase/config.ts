@@ -36,3 +36,15 @@ export const supabaseConfig = readSupabaseConfig(
 
 /** Whether sign-in and cloud progress are available. */
 export const accountsEnabled = supabaseConfig !== null;
+
+/** The Storage bucket with generated speech (docs/decisions.md D22). */
+export const SPEECH_BUCKET = "speech";
+
+/** The public URL of a generated audio file, or null without Supabase. */
+export function speechAudioUrl(
+  path: string,
+  config: SupabaseConfig | null = supabaseConfig,
+): string | null {
+  if (!config) return null;
+  return `${config.url}/storage/v1/object/public/${SPEECH_BUCKET}/${encodeURIComponent(path)}`;
+}

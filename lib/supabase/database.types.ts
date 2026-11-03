@@ -157,18 +157,21 @@ export type Database = {
       };
       practice_sentences: {
         Row: {
+          audio_path: string | null;
           en: string;
           i: number;
           practice_id: string;
           zh: string;
         };
         Insert: {
+          audio_path?: string | null;
           en: string;
           i: number;
           practice_id: string;
           zh?: string;
         };
         Update: {
+          audio_path?: string | null;
           en?: string;
           i?: number;
           practice_id?: string;
@@ -246,6 +249,30 @@ export type Database = {
           updated_at?: string;
           user_id?: string;
           video_id?: string;
+        };
+        Relationships: [];
+      };
+      speech_audio: {
+        Row: {
+          bytes: number;
+          created_at: string;
+          hash: string;
+          mime_type: string;
+          path: string;
+        };
+        Insert: {
+          bytes: number;
+          created_at?: string;
+          hash: string;
+          mime_type: string;
+          path: string;
+        };
+        Update: {
+          bytes?: number;
+          created_at?: string;
+          hash?: string;
+          mime_type?: string;
+          path?: string;
         };
         Relationships: [];
       };

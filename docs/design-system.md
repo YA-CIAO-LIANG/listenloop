@@ -182,7 +182,11 @@
   - **選擇檔案**：原生 file input 隱藏（`sr-only`），用外觀和 secondary、sm 按鈕相同的 label 觸發；鍵盤焦點落在 input 上時，label 顯示焦點外框。
 - **第一步**：標題 → 文字內容（說明、選擇 .txt 檔、10 行高的文字框、metadata 字級的「字元數 / 上限」，超過時變成 error 色）→ 原文語言（SegmentedControl「英文 / 中文」，下方 supporting、ink-muted 說明翻譯方向）→ primary 的「斷句並翻譯 →」。處理中按鈕文字改成「斷句、翻譯中…」，欄位都不能操作。
 - **第二步：預覽與修改**：標題欄位 → h2「預覽與修改」與說明、句數 → 句子清單（上下和句子之間 1px line 線）。每列：左側 metadata、ink-muted 的兩位數句號；中間英文文字框（sentence 字級、`lang="en"`）和中文文字框（supporting 字級）；右側 ghost、sm 的「刪除」。清單下方 secondary、sm 的「新增一句」，再下方 primary「建立練習」和 ghost「回上一步」（保留原本的文字）。
-- **你建立的練習**：1px line 分隔線 → h2 → 清單（標題 font-medium；下一行 supporting、ink-muted 的「N 句・中文原文・日期」）。沒有時顯示 ink-muted 的「還沒有建立練習。」
+- **聲音**（預覽步驟，句子清單下方）：h3「聲音」→ 同一行兩組 SegmentedControl：「性別 女聲 / 男聲」「口音 美式 / 英式 / 澳洲 / 印度」，組名是 supporting、ink-muted 的可見文字（螢幕閱讀器讀 legend）→ supporting、ink-muted 的說明。
+- **產生音檔**：按「建立練習」後先建立，再逐批產生音檔；按鈕下方顯示 supporting、ink-muted、數字等寬的「正在產生音檔… 3 / 12」（`role="status"`）。全部完成時顯示 success 的「已建立……音檔全部產生完成」；沒有完成時用 ink-muted 說明原因，並提示到下方清單繼續。
+- **你建立的練習**：1px line 分隔線 → h2 → 清單（標題 font-medium；下一行 supporting、ink-muted 的「N 句・中文原文・日期・英式女聲」；再下一行音檔狀態）。
+  - 音檔狀態：完成時 supporting、success 的「✓ 音檔已完成」；沒完成時 ink-muted 的「音檔 3 / 12」，旁邊 secondary、sm 的「繼續產生音檔」，產生中文字改成進度，錯誤用 error 色 `role="alert"`。
+  - 沒有練習時顯示 ink-muted 的「還沒有建立練習。」
 - 寬度上限和練習區相同（720px）。
 
 ## 頁尾與隱私權政策

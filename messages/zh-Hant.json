@@ -610,7 +610,7 @@
     "create": "建立練習",
     "creating": "建立中…",
     "back": "回上一步",
-    "created": "已建立「{title}」。下一版會加入產生音檔，之後就能開始練習。",
+    "created": "已建立「{title}」，音檔全部產生完成。下一版就能開始練習。",
     "errors": {
       "unavailable": "目前無法建立練習。請確認已用管理員帳號登入。",
       "empty": "找不到可以練習的句子，請確認文字內容。",
@@ -625,14 +625,41 @@
       "title": "請填寫標題（最多 {max, number} 字）。",
       "no-sentences": "至少要有一句。",
       "sentence-empty": "第 {n} 句的英文是空的。",
-      "sentence-too-long": "第 {n} 句太長了，每句最多 {max, number} 字元。"
+      "sentence-too-long": "第 {n} 句太長了，每句最多 {max, number} 字元。",
+      "voice": "請選擇聲音。"
     },
     "listTitle": "你建立的練習",
     "listEmpty": "還沒有建立練習。",
-    "listMeta": "{count} 句・{language}原文・{date}",
+    "listMeta": "{count} 句・{language}原文・{date}{voice, select, none {} other {・{voice}}}",
     "listLanguages": {
       "en": "英文",
       "zh": "中文"
-    }
+    },
+    "voiceTitle": "聲音",
+    "genderLegend": "性別",
+    "genders": {
+      "female": "女聲",
+      "male": "男聲"
+    },
+    "accentLegend": "口音",
+    "accents": {
+      "us": "美式",
+      "gb": "英式",
+      "au": "澳洲",
+      "in": "印度"
+    },
+    "voiceNote": "建立後會為每一句產生音檔；相同的句子和聲音只會產生一次。",
+    "voiceName": "{accent}{gender}",
+    "generating": "正在產生音檔… {voiced} / {total}",
+    "audioDone": "音檔已完成",
+    "audioPartial": "音檔 {voiced} / {total}",
+    "resumeAudio": "繼續產生音檔",
+    "audioErrors": {
+      "unavailable": "目前無法產生音檔。請確認已用管理員帳號登入。",
+      "not-found": "找不到這個練習。",
+      "limit": "今天的聲音用量已經用完。已產生的音檔會保留，明天（台灣時間 0 點後）可以繼續。",
+      "failed": "產生音檔時發生錯誤。已產生的音檔會保留，請再試一次。"
+    },
+    "createdAudioFailed": "已建立「{title}」，但音檔還沒有全部產生。可以在下方的清單繼續。"
   }
 }
