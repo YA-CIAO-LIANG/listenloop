@@ -34,6 +34,17 @@ export function supabaseUsageMeter(
 export type Creator = MeteredDeps & { user: SignedInUser };
 
 /**
+ * Whether to show "Create practice" to this user: an admin, with a
+ * provider configured. A quick check for the header; getCreator is the
+ * real gate.
+ */
+export function canCreatePractices(
+  user: SignedInUser | null,
+): user is SignedInUser {
+  return !!user && isAdminEmail(user.email) && getAiProviders() !== null;
+}
+
+/**
  * Who may create practices: until paid plans launch, only signed-in admins
  * (D5), and only when a provider and the secret key are configured. Every
  * server action of roadmap d starts here; null means "not available".
@@ -42,7 +53,7 @@ export async function getCreator(): Promise<Creator | null> {
   const providers = getAiProviders();
   if (!providers) return null;
   const user = await getSignedInUser();
-  if (!user || !isAdminEmail(user.email)) return null;
+  if (!canCreatePractices(user)) return null;
   const admin = getAdminSupabase();
   if (!admin) return null;
   return { user, providers, meter: supabaseUsageMeter(admin, user.id) };

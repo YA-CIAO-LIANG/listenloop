@@ -172,6 +172,19 @@
 - **未登入**：ink-muted 的說明，提示用頁首的「登入」，下方是「回首頁 →」。
 - 頁面最下方：supporting 字級的「隱私權政策」連結。
 
+## 建立練習 `/create`
+
+- 只有管理員看得到（D21）。入口是頁首「我的練習」右邊的「建立練習」，樣式和「我的練習」相同。
+- **表單欄位**（這一頁首次使用，之後的表單沿用）：
+  - 標籤在欄位上方，font-medium；說明文字在標籤下方，supporting、ink-muted，用 `aria-describedby` 連到欄位；
+  - 欄位：surface 底、1px line 邊框、4px 圓角、內距 16px／12px，focus 時邊框變成 accent，並有既有的焦點外框；
+  - 錯誤訊息放在按鈕列下方，supporting、error 色、`role="alert"`；成功訊息 success 色、`role="status"`。
+  - **選擇檔案**：原生 file input 隱藏（`sr-only`），用外觀和 secondary、sm 按鈕相同的 label 觸發；鍵盤焦點落在 input 上時，label 顯示焦點外框。
+- **第一步**：標題 → 文字內容（說明、選擇 .txt 檔、10 行高的文字框、metadata 字級的「字元數 / 上限」，超過時變成 error 色）→ 原文語言（SegmentedControl「英文 / 中文」，下方 supporting、ink-muted 說明翻譯方向）→ primary 的「斷句並翻譯 →」。處理中按鈕文字改成「斷句、翻譯中…」，欄位都不能操作。
+- **第二步：預覽與修改**：標題欄位 → h2「預覽與修改」與說明、句數 → 句子清單（上下和句子之間 1px line 線）。每列：左側 metadata、ink-muted 的兩位數句號；中間英文文字框（sentence 字級、`lang="en"`）和中文文字框（supporting 字級）；右側 ghost、sm 的「刪除」。清單下方 secondary、sm 的「新增一句」，再下方 primary「建立練習」和 ghost「回上一步」（保留原本的文字）。
+- **你建立的練習**：1px line 分隔線 → h2 → 清單（標題 font-medium；下一行 supporting、ink-muted 的「N 句・中文原文・日期」）。沒有時顯示 ink-muted 的「還沒有建立練習。」
+- 寬度上限和練習區相同（720px）。
+
 ## 頁尾與隱私權政策
 
 - **頁尾**（`SiteFooter`）：
