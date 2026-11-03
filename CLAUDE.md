@@ -210,6 +210,6 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 - [x] **M4 帳號**（roadmap b，2026-11-03 完成）：Supabase、Google 登入、localStorage 進度同步到雲端、刪除帳號功能（`/account`）、隱私權政策（`/privacy`）。Google OAuth 目前是「測試」狀態，發布前的待辦見 `docs/roadmap.md`。
 - [x] **M5 同時練習多部影片**（roadmap c，2026-11-03 完成）：每支影片各自的 7 天循環與起始日；「我的練習」頁 `/practices` 可以分組查看和移除練習，移除會同步到其他裝置；E2E 測試。
-- [ ] **M6 建立練習**（roadmap d）：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。
+- [x] **M6 建立練習**（roadmap d，2026-11-03 程式完成；正式站要等 Joe 完成 roadmap 清單 5、接上真正的聲音和翻譯供應者才會開放；目前只有管理員看得到）：上傳中文或英文文字檔建立練習（中文先翻成英文）；聲音 API 可選男聲、女聲與美、英、澳、印口音；Collection 與筆記本；可設公開或私人；相同文字加相同聲音只產生一次。頁面：`/create`、`/notebooks`；規則見 D19～D25。
 - [ ] **M7 公開分享**（roadmap e）：瀏覽他人公開的練習、檢舉與下架。
 - [ ] **之後**：品質打磨（E2E 測試、無障礙、效能、錯誤處理）與 Beta 試用；付費方案、金流；PWA → PWABuilder → Google Play 上架。

@@ -199,6 +199,12 @@
 - **Collection 一節**：h2 → 說明 → 「新的 Collection 名稱」欄位＋secondary 的「新增」→ 清單（上下和項目之間 1px line）。每列：名稱（font-medium）＋ supporting、ink-muted 的「N 個練習」，右側「私人 / 公開」、ghost、sm 的「重新命名」和「刪除…」。重新命名時名稱變成欄位，旁邊是 primary、sm 的「儲存」和 ghost、sm 的「取消」。刪除確認和刪除練習相同，說明「裡面的練習會保留」。
 - 錯誤一律在該列下方，以 supporting、error 色、`role="alert"` 顯示。
 
+## 筆記本 `/notebooks`
+
+- 只有管理員看得到（D25），入口是頁首的「筆記本」，樣式和「我的練習」相同。
+- **列表頁**：h1「筆記本」→ 說明（ink-muted）→「新的筆記本名稱」欄位＋secondary 的「新增」→ 清單（上下和項目之間 1px line）：名稱連結（font-medium，hover 時 accent-ink）＋ supporting、ink-muted 的「N 則」。沒有筆記本時 ink-muted 的「還沒有筆記本。」
+- **筆記本頁**：返回連結「← 筆記本」→ h1 名稱 → ghost、sm 的「重新命名」「刪除筆記本…」（重新命名和刪除確認的樣式同 Collection）→ h2「新增筆記」：「單字或句子」欄位（sentence 字級、`lang="en"`）、「筆記（選填）」文字框、primary「加入筆記本」→ 1px line 分隔線 → h2「筆記（N）」→ 清單：左側 sentence 字級的內容（`lang="en"`），下方 supporting、ink-muted 的筆記（保留換行）；右側 ghost、sm 的「刪除」。
+
 ## 聲音練習面板（自建練習）
 
 - 練習頁上原本放 YouTube 播放器的位置：band 底、1px line 邊框、4px 圓角、最小高度 96px、內距 24px／16px。
