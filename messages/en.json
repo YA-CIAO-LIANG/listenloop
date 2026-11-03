@@ -252,7 +252,8 @@
       "greatWhiteNote": "Still a shark: pointed snout, grey back and white belly, gill slits, tall dorsal fin, crescent tail; short and chubby with a little toothy smile.",
       "whaleSharkNote": "The biggest and slowest: a broad flat head with a wide front mouth, white spots and faint stripes, white belly."
     },
-    "heatScale": "Practice calendar steps: 0, 1, 2, 3, and 4+ official tasks finished that day"
+    "heatScale": "Practice calendar steps: 0, 1, 2, 3, and 4+ official tasks finished that day",
+    "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a 1.5-second silent clip for now to show the playing state; real samples come once Text-to-Speech is connected."
   },
   "library": {
     "title": "Practice library",
@@ -742,5 +743,23 @@
       "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
       "failed": "Couldn't save. Please try again."
     }
+  },
+  "voicePicker": {
+    "legend": "Choose a voice",
+    "accents": {
+      "us": "American English",
+      "gb": "British English",
+      "au": "Australian English",
+      "in": "Indian English"
+    },
+    "genders": {
+      "female": "Female",
+      "male": "Male"
+    },
+    "voiceName": "{accent}, {gender}",
+    "listen": "Listen",
+    "playing": "Playing…",
+    "listenLabel": "Listen to {voice}",
+    "stopLabel": "Stop {voice}"
   }
 }

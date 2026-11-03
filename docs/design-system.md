@@ -246,6 +246,17 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 | FilterChip     | 可複選的切換按鈕（`aria-pressed`），用於題庫長度篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：1px line 邊框、ink-muted 文字，hover 邊框 ink-muted、文字 ink。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。 |
 | CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                                                                                                                                                    |
 
+## 聲音卡片 `VoicePicker`
+
+- 建立練習時選擇聲音（D26）。8 張卡片，依口音分成四組：美式、英式、澳洲、印度英語，每組一張女聲、一張男聲。
+- **版面**：每組上方是 font-medium 的組名，下方兩張卡片並排。760px（split）以上，四組排成 2×2；以下改成上下堆疊，每行仍然兩張。
+- **卡片**：surface 底、1px line 邊框、4px 圓角、內距 16px。
+  - 上方：Display h3 的性別（「女聲」）、metadata 字級、ink-muted 的語言代碼（`en-US`）；右上角是選中時才出現的 ✓（accent-ink）；
+  - 下方：secondary、sm 的「試聽」。播放中改成 primary 的「播放中…」（`aria-pressed="true"`），再按一次停止。同一時間只播放一個範例。
+- **選取**：整張卡片（試聽按鈕以外）是原生 radio 的 label，8 張卡片同一組，方向鍵可以切換。選中時邊框 accent、底色 accent 8%，加上 ✓，不只靠顏色區分。hover 時邊框變成 ink-muted。radio 有鍵盤焦點時，整張卡片顯示焦點外框；焦點在試聽按鈕上時，只有按鈕有外框。
+- **螢幕閱讀器**：每個 radio 讀作「美式英語・女聲」，試聽按鈕讀作「試聽美式英語・女聲」或「停止試聽……」。
+- 沒有範例音檔時，試聽按鈕停用。
+
 ## 設計系統展示頁
 
 `/styleguide` 頁面列出所有色票（兩種模式）、字級、按鈕變體與狀態、核心元件，並可切換語言檢查中英文版面，作為活的設計文件。正式上線前從導覽中隱藏。

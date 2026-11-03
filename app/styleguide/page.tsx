@@ -21,6 +21,7 @@ import {
   DayTrackerDemo,
   ProgressBarDemo,
   SentenceRowDemo,
+  VoicePickerDemo,
 } from "./InteractiveDemos";
 import { PixelFishSection } from "./PixelFishSection";
 
@@ -220,6 +221,13 @@ export default function StyleguidePage() {
 
           <Demo name="DayTracker">
             <DayTrackerDemo />
+          </Demo>
+
+          <Demo name="VoicePicker">
+            <p className="mb-4 max-w-reading text-supporting text-ink-muted">
+              {t("voicePickerNote")}
+            </p>
+            <VoicePickerDemo />
           </Demo>
 
           <Demo name="Icons">
