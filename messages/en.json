@@ -1,7 +1,9 @@
 {
   "common": {
     "appName": "ListenLoop",
-    "dayN": "Day {day}"
+    "dayN": "Day {day}",
+    "myPractices": "My practices",
+    "mainNav": "Main"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -556,5 +558,26 @@
     ],
     "contact": "For privacy questions, post on the project's GitHub page (posts are public, so please leave out personal details; we'll get in touch):",
     "contactLink": "ListenLoop Issues"
+  },
+  "practices": {
+    "title": "My practices",
+    "intro": "Every video you've started and where you are. Remove one you don't want to practice anymore: only its 7-day progress and scores are deleted; the practice calendar keeps its history.",
+    "loading": "Loading…",
+    "groups": {
+      "in-progress": "In progress",
+      "repeat": "Waiting to repeat",
+      "passed": "Passed"
+    },
+    "count": "{count}",
+    "empty": "You haven't started any practice yet.",
+    "toLibrary": "Go to the library →",
+    "unknownVideo": "(A video no longer in the library)",
+    "remove": "Remove…",
+    "removeConfirm": "Remove your progress on “{title}”? Each day's progress and scores are deleted and can't be restored; the practice calendar keeps its history.",
+    "removeButton": "Remove progress",
+    "removing": "Removing…",
+    "cancel": "Cancel",
+    "removed": "Removed your progress on “{title}”.",
+    "removeFailed": "Couldn't remove “{title}”. Please try again."
   }
 }

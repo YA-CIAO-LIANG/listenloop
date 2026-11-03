@@ -61,15 +61,33 @@ describe("planProgressSync", () => {
     expect(planProgressSync([started], [further]).toLocal).toEqual([further]);
   });
 
+  it("tells a removal from a new video by what was synced last time", () => {
+    const base = new Set(["gone-here", "gone-there"]);
+    expect(
+      planProgressSync(
+        [progressWith("gone-there", 1), progressWith("new-here", 1)],
+        [progressWith("gone-here", 1), progressWith("new-there", 1)],
+        base,
+      ),
+    ).toEqual({
+      toLocal: [progressWith("new-there", 1)],
+      toCloud: [progressWith("new-here", 1)],
+      removeLocal: ["gone-there"],
+      removeCloud: ["gone-here"],
+    });
+  });
+
   it("does nothing for identical copies; a tie otherwise goes to the cloud", () => {
     expect(
       planProgressSync([progressWith("a", 2)], [progressWith("a", 2)]),
-    ).toEqual({ toLocal: [], toCloud: [] });
+    ).toEqual({ toLocal: [], toCloud: [], removeLocal: [], removeCloud: [] });
     const localCopy = { ...progressWith("a", 2), startedAt: d("02") };
     const cloudCopy = progressWith("a", 2);
     expect(planProgressSync([localCopy], [cloudCopy])).toEqual({
       toLocal: [cloudCopy],
       toCloud: [],
+      removeLocal: [],
+      removeCloud: [],
     });
   });
 });
@@ -153,6 +171,7 @@ describe("syncWithCloud", () => {
     expect(state.activity?.days[d("01")]?.official).toBe(true);
     expect(JSON.parse(storage.getItem(ACCOUNT_KEY) ?? "")).toEqual({
       userId: "u1",
+      synced: ["sintel"],
     });
     // This device keeps its copy as an offline backup.
     expect(await local.progress.get("sintel")).toEqual(
@@ -204,6 +223,50 @@ describe("syncWithCloud", () => {
     expect(await local.progress.list()).toEqual([progressWith("tos", 1)]);
     expect(await local.rewards.getActivity()).toEqual(emptyActivity());
     expect(state.progress.has("sintel")).toBe(false);
+  });
+
+  it("removes here what another device removed, instead of uploading it again", async () => {
+    await local.progress.save(progressWith("sintel", 2));
+    await local.progress.save(progressWith("tos", 1));
+    storage.setItem(
+      ACCOUNT_KEY,
+      JSON.stringify({ userId: "u1", synced: ["sintel", "tos"] }),
+    );
+    // The phone removed Sintel: the account no longer has it.
+    const { cloud, state } = fakeCloud([progressWith("tos", 1)]);
+
+    const result = await syncWithCloud({ userId: "u1", local, cloud, storage });
+    expect(result.changedLocal).toBe(true);
+    expect(await local.progress.get("sintel")).toBeNull();
+    expect(state.progress.has("sintel")).toBe(false);
+    expect(JSON.parse(storage.getItem(ACCOUNT_KEY) ?? "").synced).toEqual([
+      "tos",
+    ]);
+  });
+
+  it("finishes a removal whose upload failed: the account copy goes too", async () => {
+    storage.setItem(
+      ACCOUNT_KEY,
+      JSON.stringify({ userId: "u1", synced: ["sintel"] }),
+    );
+    const { cloud, state } = fakeCloud([progressWith("sintel", 2)]);
+
+    await syncWithCloud({ userId: "u1", local, cloud, storage });
+    expect(state.progress.has("sintel")).toBe(false);
+    expect(await local.progress.get("sintel")).toBeNull();
+  });
+
+  it("still uploads a video started here since the last sync", async () => {
+    storage.setItem(
+      ACCOUNT_KEY,
+      JSON.stringify({ userId: "u1", synced: ["sintel"] }),
+    );
+    await local.progress.save(progressWith("sintel", 1));
+    await local.progress.save(progressWith("new", 1));
+    const { cloud, state } = fakeCloud([progressWith("sintel", 1)]);
+
+    await syncWithCloud({ userId: "u1", local, cloud, storage });
+    expect(state.progress.get("new")).toEqual(progressWith("new", 1));
   });
 
   it("fails without marking the device as synced when the cloud can't be read", async () => {

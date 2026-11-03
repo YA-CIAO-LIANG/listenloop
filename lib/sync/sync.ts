@@ -5,21 +5,32 @@ import type { RewardStore } from "../storage/reward-store";
 import { mergeActivity, planProgressSync, sameData } from "./merge";
 
 /**
- * Which account this device's practice data belongs to: { userId }.
- * Missing means guest data, which joins the first account that signs in.
+ * Which account this device's practice data belongs to, and which videos
+ * both sides had after the last sync: { userId, synced }. Missing means
+ * guest data, which joins the first account that signs in. `synced` tells
+ * a progress removed on another device from one started here (D15).
  */
 export const ACCOUNT_KEY = "ll-account:v1";
 
-function readOwner(storage: Storage): string | null {
+type AccountRecord = { userId: string; synced: string[] };
+
+function readAccount(storage: Storage): AccountRecord | null {
   try {
     const raw = storage.getItem(ACCOUNT_KEY);
-    const owner: unknown = raw === null ? null : JSON.parse(raw);
-    return typeof owner === "object" &&
-      owner !== null &&
-      "userId" in owner &&
-      typeof owner.userId === "string"
-      ? owner.userId
-      : null;
+    const data: unknown = raw === null ? null : JSON.parse(raw);
+    if (
+      typeof data !== "object" ||
+      data === null ||
+      !("userId" in data) ||
+      typeof data.userId !== "string"
+    ) {
+      return null;
+    }
+    const synced =
+      "synced" in data && Array.isArray(data.synced)
+        ? data.synced.filter((id): id is string => typeof id === "string")
+        : [];
+    return { userId: data.userId, synced };
   } catch {
     return null;
   }
@@ -58,8 +69,9 @@ export async function syncWithCloud({
     local.rewards.getActivity(),
   ]);
 
-  const owner = readOwner(storage);
-  if (owner !== null && owner !== userId) {
+  const account = readAccount(storage);
+  const sameAccount = account?.userId === userId;
+  if (account !== null && !sameAccount) {
     await Promise.all(
       localProgress.map((p) => local.progress.remove(p.videoId)),
     );
@@ -68,9 +80,14 @@ export async function syncWithCloud({
     localActivity = emptyActivity();
   }
 
-  const { toLocal, toCloud } = planProgressSync(localProgress, cloudProgress);
+  const { toLocal, toCloud, removeLocal, removeCloud } = planProgressSync(
+    localProgress,
+    cloudProgress,
+    new Set(sameAccount ? account.synced : []),
+  );
   for (const progress of toLocal) await local.progress.save(progress);
-  changedLocal ||= toLocal.length > 0;
+  for (const videoId of removeLocal) await local.progress.remove(videoId);
+  changedLocal ||= toLocal.length > 0 || removeLocal.length > 0;
 
   const activity = mergeActivity(
     localActivity,
@@ -83,8 +100,10 @@ export async function syncWithCloud({
 
   await Promise.all([
     cloud.saveProgress(toCloud),
+    ...removeCloud.map((videoId) => cloud.removeProgress(videoId)),
     sameData(activity, cloudActivity) ? null : cloud.saveActivity(activity),
   ]);
-  storage.setItem(ACCOUNT_KEY, JSON.stringify({ userId }));
+  const synced = (await local.progress.list()).map((p) => p.videoId).sort();
+  storage.setItem(ACCOUNT_KEY, JSON.stringify({ userId, synced }));
   return { changedLocal };
 }

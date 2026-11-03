@@ -144,6 +144,21 @@
   - 取消（`?signin=cancelled`）：supporting、ink-muted，`role="status"`。
   - 兩種都要說明「進度仍然存在這台裝置上」，右側有 ghost、sm 的「關閉」。關閉時移除網址參數，不捲動頁面。
 
+## 我的練習 `/practices`
+
+- **入口**：頁首左側，品牌名右邊的 supporting、ink-muted 連結「我的練習」，hover 時變成 ink 並加底線。品牌名和這個連結一起包在 `nav`（「主要導覽」）裡。
+- **頁面**：h1「我的練習」→ 說明（ink-muted）→ 結果提示列（supporting、`aria-live`，移除成功時 ink-muted，失敗時 error）→ 依狀態分組：「進行中」「等待重新開始」「已通過」。沒有影片的組別不顯示。
+- **每組**：
+  - Display h3 組名，同一行放 supporting、ink-muted 的「N 支」；
+  - 下方是清單，上下各有 1px line 線，項目之間也用 1px line 分隔；
+  - 每列：影片名（font-medium、`lang="en"`，連到影片頁；已下架的影片不加連結，顯示 ink-muted 的「（已下架的影片）」）→ 進度行（和題庫卡片共用 `ProgressLabel`）→ 右側 ghost、sm 的「移除…」。
+- **移除確認**：
+  - 按「移除…」後，在那一列下方展開確認區塊：error 色 1px 邊框、4px 圓角、內距 16px；
+  - 內容是說明「各天的進度和成績會刪除，無法復原；練習日曆的紀錄會保留」，下方是 danger、sm 的「移除進度」和 ghost、sm 的「取消」；
+  - 一次只會展開一列的確認區塊。
+- **空狀態**：ink-muted 的「還沒有開始的練習。」，下方是連到 `/#library` 的「前往練習題庫 →」。
+- **組內排序**：依影片名稱。
+
 ## 帳號頁 `/account`
 
 - 只有設定了 Supabase 時才有這一頁（否則回 404），不被搜尋引擎收錄。入口在頁首帳號面板「登出」右側，是 supporting、accent-ink 的底線連結「帳號設定」。
