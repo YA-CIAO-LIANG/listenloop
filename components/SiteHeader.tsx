@@ -8,11 +8,18 @@ import { RewardBadge } from "./RewardBadge";
 import { ThemeToggle } from "./ThemeToggle";
 
 /**
- * Wordmark and "My practices" on the left; rewards, language, and theme toggles on the right,
+ * Wordmark, "My practices", and (admins) "Create practice" on the left; rewards, language, and theme toggles on the right,
  * then the account control when accounts are on (passed in by the layout,
  * which reads the session on the server).
  */
-export function SiteHeader({ account }: { account?: ReactNode }) {
+export function SiteHeader({
+  account,
+  showCreate = false,
+}: {
+  account?: ReactNode;
+  /** "Create practice", for admins while it's admin-only (roadmap d). */
+  showCreate?: boolean;
+}) {
   const t = useTranslations("common");
 
   return (
@@ -28,6 +35,14 @@ export function SiteHeader({ account }: { account?: ReactNode }) {
           >
             {t("myPractices")}
           </Link>
+          {showCreate && (
+            <Link
+              href="/create"
+              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            >
+              {t("createPractice")}
+            </Link>
+          )}
         </nav>
         <div className="flex items-center gap-3">
           {AQUARIUM_ENABLED && (

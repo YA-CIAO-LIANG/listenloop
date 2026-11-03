@@ -3,7 +3,8 @@
     "appName": "ListenLoop",
     "dayN": "Day {day}",
     "myPractices": "My practices",
-    "mainNav": "Main"
+    "mainNav": "Main",
+    "createPractice": "Create"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -579,5 +580,61 @@
     "cancel": "Cancel",
     "removed": "Removed your progress on “{title}”.",
     "removeFailed": "Couldn't remove “{title}”. Please try again."
+  },
+  "create": {
+    "title": "Create a practice",
+    "intro": "Upload a Chinese or English text file. It's split into sentences and translated; review it, then create your own practice. Admins only for now.",
+    "titleLabel": "Title",
+    "textLabel": "Text",
+    "textHint": "Paste it here or choose a .txt file. Each line is split separately.",
+    "chooseFile": "Choose a .txt file",
+    "fileLoaded": "Loaded “{name}”.",
+    "languageLegend": "Language of the text",
+    "languages": {
+      "en": "English",
+      "zh": "Chinese"
+    },
+    "languageNote": {
+      "en": "The English text is what you practice; it's translated into Chinese for the handout.",
+      "zh": "The Chinese text is translated into English for practice; the Chinese goes in the handout."
+    },
+    "charCount": "{count, number} / {max, number} characters",
+    "prepare": "Split and translate",
+    "preparing": "Splitting and translating…",
+    "reviewTitle": "Review and edit",
+    "reviewIntro": "Each sentence becomes one dictation and shadowing item. Edit the English and Chinese or delete sentences you don't need, then create the practice.",
+    "sentenceCount": "{count, plural, one {# sentence} other {# sentences}}",
+    "sentenceEn": "Sentence {n}, English",
+    "sentenceZh": "Sentence {n}, Chinese",
+    "removeSentence": "Delete",
+    "removeSentenceLabel": "Delete sentence {n}",
+    "addSentence": "Add a sentence",
+    "create": "Create practice",
+    "creating": "Creating…",
+    "back": "Back",
+    "created": "Created “{title}”. Audio comes in the next update; then you can start practicing.",
+    "errors": {
+      "unavailable": "Creating practices isn't available. Make sure you're signed in with an admin account.",
+      "empty": "No sentences to practice were found. Please check the text.",
+      "too-long": "The text is too long: {max, number} characters at most.",
+      "too-many": "Too many sentences: {max, number} at most.",
+      "limit": "Today's translation allowance is used up. Try again tomorrow (after midnight, Taiwan time).",
+      "failed": "Something went wrong. Please try again; your text is still here.",
+      "file-too-large": "The file is too large. Please choose a .txt file under 100 KB.",
+      "file-type": "Please choose a .txt text file.",
+      "file-encoding": "This file couldn't be read correctly. Save it as UTF-8 and try again.",
+      "file-read": "Couldn't read this file. Please try again.",
+      "title": "Please enter a title ({max, number} characters at most).",
+      "no-sentences": "Add at least one sentence.",
+      "sentence-empty": "Sentence {n} has no English.",
+      "sentence-too-long": "Sentence {n} is too long: {max, number} characters at most."
+    },
+    "listTitle": "Your practices",
+    "listEmpty": "You haven't created a practice yet.",
+    "listMeta": "{count, plural, one {# sentence} other {# sentences}} · {language} original · {date}",
+    "listLanguages": {
+      "en": "English",
+      "zh": "Chinese"
+    }
   }
 }

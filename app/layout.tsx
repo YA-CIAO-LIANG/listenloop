@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
+import { canCreatePractices } from "@/auth/creator";
 import { getSignedInUser } from "@/auth/session";
 import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
@@ -43,6 +44,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           {/* Signed in: progress syncs with the account (b3). */}
           <StoresProvider key={user?.id ?? "guest"} userId={user?.id ?? null}>
             <SiteHeader
+              showCreate={canCreatePractices(user)}
               account={
                 accountsEnabled && (
                   // useSearchParams inside: Suspense keeps the page renderable.

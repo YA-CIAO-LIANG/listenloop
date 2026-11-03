@@ -3,7 +3,8 @@
     "appName": "ListenLoop",
     "dayN": "第 {day} 天",
     "myPractices": "我的練習",
-    "mainNav": "主要導覽"
+    "mainNav": "主要導覽",
+    "createPractice": "建立練習"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -577,5 +578,61 @@
     "cancel": "取消",
     "removed": "已移除「{title}」的練習進度。",
     "removeFailed": "沒有成功移除「{title}」，請再試一次。"
+  },
+  "create": {
+    "title": "建立練習",
+    "intro": "上傳一份中文或英文的文字檔，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。目前只開放給管理員。",
+    "titleLabel": "標題",
+    "textLabel": "文字內容",
+    "textHint": "可以直接貼上，或選擇 .txt 檔。每一行會分開斷句。",
+    "chooseFile": "選擇 .txt 檔",
+    "fileLoaded": "已讀取「{name}」。",
+    "languageLegend": "原文語言",
+    "languages": {
+      "en": "英文",
+      "zh": "中文"
+    },
+    "languageNote": {
+      "en": "英文原文會直接用來練習，並翻成中文放進講義。",
+      "zh": "中文原文會先翻成英文，英文用來練習，中文放進講義。"
+    },
+    "charCount": "{count, number} / {max, number} 字元",
+    "prepare": "斷句並翻譯",
+    "preparing": "斷句、翻譯中…",
+    "reviewTitle": "預覽與修改",
+    "reviewIntro": "每一句會成為一題聽寫和跟讀。可以修改英文和中文，或刪除不需要的句子；確認後再建立。",
+    "sentenceCount": "共 {count} 句",
+    "sentenceEn": "第 {n} 句英文",
+    "sentenceZh": "第 {n} 句中文",
+    "removeSentence": "刪除",
+    "removeSentenceLabel": "刪除第 {n} 句",
+    "addSentence": "新增一句",
+    "create": "建立練習",
+    "creating": "建立中…",
+    "back": "回上一步",
+    "created": "已建立「{title}」。下一版會加入產生音檔，之後就能開始練習。",
+    "errors": {
+      "unavailable": "目前無法建立練習。請確認已用管理員帳號登入。",
+      "empty": "找不到可以練習的句子，請確認文字內容。",
+      "too-long": "文字太長了，最多 {max, number} 字元。",
+      "too-many": "句子太多了，最多 {max, number} 句。",
+      "limit": "今天的翻譯用量已經用完，明天（台灣時間 0 點後）再試。",
+      "failed": "發生錯誤，請稍後再試一次。輸入的內容都還在。",
+      "file-too-large": "檔案太大了，請選擇 100 KB 以下的 .txt 檔。",
+      "file-type": "請選擇 .txt 文字檔。",
+      "file-encoding": "這個檔案無法正確讀取，請用 UTF-8 編碼另存後再試。",
+      "file-read": "無法讀取這個檔案，請再試一次。",
+      "title": "請填寫標題（最多 {max, number} 字）。",
+      "no-sentences": "至少要有一句。",
+      "sentence-empty": "第 {n} 句的英文是空的。",
+      "sentence-too-long": "第 {n} 句太長了，每句最多 {max, number} 字元。"
+    },
+    "listTitle": "你建立的練習",
+    "listEmpty": "還沒有建立練習。",
+    "listMeta": "{count} 句・{language}原文・{date}",
+    "listLanguages": {
+      "en": "英文",
+      "zh": "中文"
+    }
   }
 }
