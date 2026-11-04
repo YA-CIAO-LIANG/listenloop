@@ -72,8 +72,7 @@ describe("CreatePracticeForm", () => {
       target: { value: "We moved here last year." },
     });
     await click("刪除第 2 句");
-    fireEvent.click(screen.getByLabelText("男聲"));
-    fireEvent.click(screen.getByLabelText("澳洲"));
+    fireEvent.click(screen.getByLabelText("澳洲英語・男聲"));
     await click("建立練習");
     expect(create).toHaveBeenCalledWith({
       title: "Moving",

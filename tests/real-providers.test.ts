@@ -1,3 +1,5 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { GEMINI_MODEL, geminiLanguage } from "@/lib/ai/gemini";
 import { googleSpeech } from "@/lib/ai/google-tts";
@@ -113,7 +115,7 @@ describe("Gemini", () => {
 });
 
 describe("Cloud Text-to-Speech", () => {
-  it("asks for MP3 in the mapped Standard voice and decodes it", async () => {
+  it("asks for MP3 in the mapped Chirp 3 HD voice and decodes it", async () => {
     const fetchImpl = vi.fn(async () =>
       json(200, {
         audioContent: Buffer.from("ID3 fake mp3").toString("base64"),
@@ -131,7 +133,7 @@ describe("Cloud Text-to-Speech", () => {
     );
     expect(body).toEqual({
       input: { text: "Hello." },
-      voice: { languageCode: "en-IN", name: "en-IN-Standard-B" },
+      voice: { languageCode: "en-IN", name: "en-IN-Chirp3-HD-Charon" },
       audioConfig: { audioEncoding: "MP3" },
     });
   });
@@ -146,7 +148,7 @@ describe("Cloud Text-to-Speech", () => {
     ).rejects.toThrow();
   });
 
-  it("uses a Standard voice of the right accent for every choice", () => {
+  it("uses a Chirp 3 HD voice of the right accent for every choice", () => {
     for (const accent of VOICE_ACCENTS) {
       for (const gender of VOICE_GENDERS) {
         const voice =
@@ -157,12 +159,23 @@ describe("Cloud Text-to-Speech", () => {
           accent
         ];
         expect(voice.languageCode).toBe(locale);
-        expect(voice.name).toMatch(new RegExp(`^${locale}-Standard-[A-Z]$`));
+        expect(voice.name).toBe(
+          `${locale}-Chirp3-HD-${gender === "female" ? "Kore" : "Charon"}`,
+        );
       }
     }
-    expect(new Set(Object.values(GOOGLE_VOICES).map((v) => v.name)).size).toBe(
-      8,
-    );
+  });
+});
+
+describe("voice samples", () => {
+  it("has an MP3 sample for every voice card", () => {
+    for (const id of Object.keys(GOOGLE_VOICES)) {
+      const file = readFileSync(join("public", "voices", `${id}.mp3`));
+      // An MP3 starts with an ID3 tag or an MPEG frame sync.
+      const id3 = file.subarray(0, 3).toString("latin1") === "ID3";
+      const frame = file[0] === 0xff && (file[1] & 0xe0) === 0xe0;
+      expect(id3 || frame).toBe(true);
+    }
   });
 });
 
@@ -173,7 +186,7 @@ describe("getAiProviders with real keys", () => {
       GOOGLE_CLOUD_API_KEY: "c",
     });
     expect(providers?.language.id).toBe(`gemini/${GEMINI_MODEL}/p1`);
-    expect(providers?.speech.id).toBe("google-tts/standard/v1");
+    expect(providers?.speech.id).toBe("google-tts/chirp3-hd/v1");
   });
 
   it("is off with either key missing", () => {

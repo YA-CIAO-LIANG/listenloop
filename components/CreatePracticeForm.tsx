@@ -13,12 +13,7 @@ import {
   type PrepareResult,
 } from "@/app/materials/actions";
 import {
-  VOICE_ACCENTS,
-  VOICE_GENDERS,
-  voiceId,
-  type Voice,
-} from "@/lib/ai/types";
-import {
+  DEFAULT_VOICE,
   PRACTICE_LIMITS,
   titleFromFileName,
   type DraftSentence,
@@ -36,6 +31,7 @@ import {
 } from "./practice-generation";
 import { Button, buttonClassName } from "./Button";
 import { SegmentedControl } from "./SegmentedControl";
+import { VoicePicker, voiceSampleUrl } from "./VoicePicker";
 
 type CreatePracticeFormProps = {
   /** Injected in tests; the Server Actions otherwise. */
@@ -89,7 +85,7 @@ export function CreatePracticeForm({
   // Once the learner picks a language, stop guessing it from the text.
   const [languageChosen, setLanguageChosen] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
-  const [voice, setVoice] = useState<Voice>({ accent: "us", gender: "female" });
+  const [voice, setVoice] = useState(DEFAULT_VOICE);
   const [progress, setProgress] = useState<GenerationStage | null>(null);
   const nextKey = useRef(0);
   const [pending, setPending] = useState(false);
@@ -164,7 +160,7 @@ export function CreatePracticeForm({
     const result = await create({
       title,
       sourceLanguage: language,
-      voice: voiceId(voice),
+      voice,
       sentences: rows.map(({ en, zh }) => ({ en, zh })),
     }).catch((): CreatePracticeResult => ({ ok: false, reason: "failed" }));
     if (!result.ok) {
@@ -335,44 +331,12 @@ export function CreatePracticeForm({
           <h3 id={`${ids.title}-voice`} className="font-display text-h3">
             {t("voiceTitle")}
           </h3>
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            <div className="flex items-center gap-2">
-              <span
-                aria-hidden="true"
-                className="text-supporting text-ink-muted"
-              >
-                {t("genderLegend")}
-              </span>
-              <SegmentedControl
-                legend={t("genderLegend")}
-                value={voice.gender}
-                options={VOICE_GENDERS.map((gender) => ({
-                  value: gender,
-                  label: t(`genders.${gender}`),
-                }))}
-                onChange={(gender) => setVoice({ ...voice, gender })}
-                optionWidthClassName="min-w-16"
-              />
-            </div>
-            <div className="flex items-center gap-2">
-              <span
-                aria-hidden="true"
-                className="text-supporting text-ink-muted"
-              >
-                {t("accentLegend")}
-              </span>
-              <SegmentedControl
-                legend={t("accentLegend")}
-                value={voice.accent}
-                options={VOICE_ACCENTS.map((accent) => ({
-                  value: accent,
-                  label: t(`accents.${accent}`),
-                }))}
-                onChange={(accent) => setVoice({ ...voice, accent })}
-                optionWidthClassName="min-w-22"
-              />
-            </div>
-          </div>
+          <VoicePicker
+            value={voice}
+            onChange={setVoice}
+            sampleUrl={voiceSampleUrl}
+            disabled={pending}
+          />
           <p className="text-supporting text-ink-muted">{t("voiceNote")}</p>
         </section>
         <div className="flex flex-wrap gap-3">

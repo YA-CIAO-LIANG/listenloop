@@ -17,7 +17,8 @@
     "video:new": "node scripts/new-video.mts",
     "video:sync": "node scripts/sync-excerpts.mts",
     "db:push": "npx supabase@3.0.0 db push --remote",
-    "db:types": "npx supabase@3.0.0 gen types typescript --linked > lib/supabase/database.types.ts && prettier --write lib/supabase/database.types.ts"
+    "db:types": "npx supabase@3.0.0 gen types typescript --linked > lib/supabase/database.types.ts && prettier --write lib/supabase/database.types.ts",
+    "voices:samples": "node --env-file=.env.local scripts/voice-samples.mts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",

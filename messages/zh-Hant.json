@@ -253,7 +253,7 @@
       "whaleSharkNote": "最大、游得最慢：扁寬的頭與前端寬嘴、白色斑點與淡條紋、白腹。"
     },
     "heatScale": "練習日曆色階：當天完成 0、1、2、3、4 個以上的正式任務",
-    "voicePickerNote": "建立練習時選擇聲音用。試聽目前播放 1.5 秒的無聲檔，示範播放中的狀態；接上 Text-to-Speech 後換成真正的範例句。"
+    "voicePickerNote": "建立練習時選擇聲音用。試聽播放的是 Cloud Text-to-Speech（Chirp 3 HD）預先產生的範例句，放在 public/voices/，不花用量。"
   },
   "library": {
     "title": "推薦練習",
@@ -545,7 +545,7 @@
           "Supabase：帳號與雲端練習資料的資料庫，位於美國（us-east-1）。",
           "Vercel：網站主機，為了提供服務與維護安全，會處理連線需要的技術資料（例如 IP 位址）。",
           "Google：負責 Google 帳號登入。",
-          "Google AI 服務：建立練習時，輸入的文字會送到 Google 的 Gemini API 產生翻譯、單字與文法講解，英文句子會送到 Google Cloud Text-to-Speech 產生語音。目前使用 Gemini 的免費方案，依 Google 的條款，送出的內容可能被 Google 用來改善產品，也可能經過人工審閱（審閱前會和帳號分開）。請不要在練習文字中輸入個人或敏感資料。",
+          "Google AI 服務：建立練習時，輸入的文字會送到 Google 的 Gemini API 產生翻譯、單字與文法講解，英文句子會送到 Google Cloud Text-to-Speech 產生語音。Gemini 使用付費方案：依 Google 的條款，送出的內容和產生的結果不會被用來改善或訓練 Google 的產品，只會保留一段有限的時間，用來偵測違反使用政策的行為。Text-to-Speech 依 Google Cloud 的條款處理，同樣不會用於訓練。即使如此，仍請不要在練習文字中輸入個人或敏感資料。",
           "YouTube：練習影片由 YouTube 播放（使用 youtube-nocookie.com），播放時 YouTube 可能依 Google 的隱私權政策設定 cookie。",
           "語音辨識：跟讀使用瀏覽器內建的語音辨識；在 Chrome 中，聲音會傳到 Google 的伺服器辨識。ListenLoop 不錄音、不儲存聲音，只保存每句的完成狀態與涵蓋率。"
         ]
@@ -645,7 +645,7 @@
       "sentence-too-long": "第 {n} 句太長了，每句最多 {max, number} 字元。",
       "voice": "請選擇聲音。",
       "busy": "AI 服務目前忙碌中，請過一分鐘再試。輸入的內容都還在。",
-      "config": "AI 服務的設定有問題（例如金鑰錯誤，或 API 還沒有啟用）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
+      "config": "AI 服務的設定或帳單有問題（例如金鑰錯誤、API 還沒有啟用，或 Gemini 的預付額度用完）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
     },
     "listTitle": "你建立的練習",
     "listEmpty": "還沒有建立練習。",
@@ -655,12 +655,10 @@
       "zh": "中文"
     },
     "voiceTitle": "聲音",
-    "genderLegend": "性別",
     "genders": {
       "female": "女聲",
       "male": "男聲"
     },
-    "accentLegend": "口音",
     "accents": {
       "us": "美式",
       "gb": "英式",
@@ -677,7 +675,7 @@
       "limit": "今天的聲音用量已經用完。已產生的音檔會保留，明天（台灣時間 0 點後）可以繼續。",
       "failed": "產生音檔時發生錯誤。已產生的音檔會保留，請再試一次。",
       "busy": "聲音服務目前忙碌中，請過一分鐘再試。已產生的音檔會保留。",
-      "config": "AI 服務的設定有問題（例如金鑰錯誤，或 API 還沒有啟用）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
+      "config": "AI 服務的設定或帳單有問題（例如金鑰錯誤、API 還沒有啟用，或 Gemini 的預付額度用完）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
     },
     "startPractice": "開始練習",
     "ungrouped": "未分組",
@@ -695,9 +693,9 @@
       "limit": "今天的翻譯與講解用量已經用完，明天（台灣時間 0 點後）可以繼續。",
       "busy": "AI 服務目前忙碌中，請過一分鐘再按「繼續產生」。",
       "failed": "產生講解時發生錯誤，請再試一次。",
-      "config": "AI 服務的設定有問題（例如金鑰錯誤，或 API 還沒有啟用）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
+      "config": "AI 服務的設定或帳單有問題（例如金鑰錯誤、API 還沒有啟用，或 Gemini 的預付額度用完）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
     },
-    "privacyNote": "建立練習時，文字會送到 Google 的 AI 服務（Gemini、Text-to-Speech）處理；免費方案的內容可能被 Google 用來改善產品。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。"
+    "privacyNote": "建立練習時，文字會送到 Google 的 AI 服務（Gemini、Text-to-Speech）處理，不會被用來訓練模型，但會短暫保留以偵測濫用。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。"
   },
   "organize": {
     "collectionsTitle": "Collection",

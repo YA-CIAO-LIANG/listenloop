@@ -1,22 +1,48 @@
 import type { VoiceAccent, VoiceGender } from "./types";
 
 /**
- * Google Cloud Text-to-Speech voices for each of our 8 voices (D28): all
- * "Standard", the type with the largest monthly free allowance. Names are
- * from Google's voice list (docs.cloud.google.com/text-to-speech/docs/
- * list-voices-and-types); change a name here to switch voices, and bump
- * GOOGLE_TTS_ID so cached audio isn't reused for the new voice.
+ * Google Cloud Text-to-Speech voices for each of our 8 voices (D29): all
+ * "Chirp 3: HD", the most natural type, with the same two speakers (Kore,
+ * Charon) in every accent. Names are from Google's voice list
+ * (docs.cloud.google.com/text-to-speech/docs/list-voices-and-types);
+ * change a name here to switch voices, bump GOOGLE_TTS_ID so cached audio
+ * isn't reused for the new voice, and remake the samples
+ * (npm run voices:samples).
  */
 export const GOOGLE_VOICES: Record<
   `${VoiceAccent}-${VoiceGender}`,
   { languageCode: string; name: string }
 > = {
-  "us-female": { languageCode: "en-US", name: "en-US-Standard-F" },
-  "us-male": { languageCode: "en-US", name: "en-US-Standard-D" },
-  "gb-female": { languageCode: "en-GB", name: "en-GB-Standard-A" },
-  "gb-male": { languageCode: "en-GB", name: "en-GB-Standard-B" },
-  "au-female": { languageCode: "en-AU", name: "en-AU-Standard-A" },
-  "au-male": { languageCode: "en-AU", name: "en-AU-Standard-B" },
-  "in-female": { languageCode: "en-IN", name: "en-IN-Standard-A" },
-  "in-male": { languageCode: "en-IN", name: "en-IN-Standard-B" },
+  "us-female": {
+    languageCode: "en-US",
+    name: "en-US-Chirp3-HD-Kore",
+  },
+  "us-male": {
+    languageCode: "en-US",
+    name: "en-US-Chirp3-HD-Charon",
+  },
+  "gb-female": {
+    languageCode: "en-GB",
+    name: "en-GB-Chirp3-HD-Kore",
+  },
+  "gb-male": {
+    languageCode: "en-GB",
+    name: "en-GB-Chirp3-HD-Charon",
+  },
+  "au-female": {
+    languageCode: "en-AU",
+    name: "en-AU-Chirp3-HD-Kore",
+  },
+  "au-male": {
+    languageCode: "en-AU",
+    name: "en-AU-Chirp3-HD-Charon",
+  },
+  "in-female": {
+    languageCode: "en-IN",
+    name: "en-IN-Chirp3-HD-Kore",
+  },
+  "in-male": {
+    languageCode: "en-IN",
+    name: "en-IN-Chirp3-HD-Charon",
+  },
 };
