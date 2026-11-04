@@ -26,6 +26,8 @@ export async function listPublicPractices(): Promise<PublicPracticeSummary[]> {
         "id, title, source_language, voice, created_at, practice_sentences(audio_path)",
       )
       .eq("visibility", "public")
+      // Authors can still read their own taken-down practices (D31).
+      .is("removed_at", null)
       .not("notes_generated_at", "is", null)
       .order("created_at", { ascending: false })
       .limit(PUBLIC_PRACTICES_LIMIT),
@@ -34,6 +36,7 @@ export async function listPublicPractices(): Promise<PublicPracticeSummary[]> {
           .from("practices")
           .select("id")
           .eq("visibility", "public")
+          .is("removed_at", null)
           .eq("user_id", user.id)
       : null,
   ]);

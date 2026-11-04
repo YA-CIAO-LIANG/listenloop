@@ -354,6 +354,19 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 只列出講解和音檔都完成的練習。沒有任何公開練習時，只顯示 ink-muted 的「目前還沒有公開的練習。」（沒有篩選區）；篩選後沒有符合時，ink-muted「沒有符合的練習。」＋ secondary「清除篩選」。
 - 篩選狀態不存在網址（和題庫不同），重新整理會清空。
 
+### 檢舉與審查（e2）
+
+- **檢舉**（`ReportPractice`）：別人公開的練習總覽頁最下方，1px line 分隔線下方是 ghost、sm 的「檢舉這份練習」。展開後是一個 1px line 邊框、4px 圓角、內距 16px 的區塊：
+  - Display h3「檢舉這份練習」→ supporting、ink-muted 說明（作者不會知道是誰檢舉的）；
+  - 「原因」：5 個原生 radio（accent 色），每個選項下方有一行 supporting、ink-muted 的說明；
+  - 「補充說明（選填）」文字框＋metadata 字級的「12 / 1000 字」，超過時變成 error 色；
+  - primary、sm「送出檢舉」（還沒選原因時停用）＋ghost、sm「取消」；
+  - 送出後整塊換成 success 的「已收到你的檢舉……」（`role="status"`）。錯誤用 error 色 `role="alert"`。未登入時展開後只顯示「登入後才能檢舉」。
+- **審查頁** `/admin/reports`（只有管理員，其他人 404；入口在「我的教材」上方的 accent-ink 底線連結「檢舉審查（N 份練習待處理）→」）：
+  - h1 → 說明 → h2「待處理（N）」→ 依練習分組的清單（上下和項目之間 1px line）：練習標題連結（font-medium）→ supporting、ink-muted 的「3 則檢舉 · 侵權 2・其他 1」→ 每則檢舉的日期、原因與補充說明 → 操作列：「下架原因」原生 select（預設是最多人選的原因）、danger、sm「下架」、secondary、sm「駁回」。
+  - h2「已下架」→ 每列標題、「原因：侵權 · 日期」，右側 ghost、sm「恢復」。
+- **作者看到的下架**（「我的教材」的練習列）：清單資訊下方一行 supporting、error 色的「已被管理員下架（原因：侵權）……」，不再顯示「私人 / 公開」切換。
+
 ## 七天循環
 
 - 解鎖：Day 1 永遠開放；第 N 天在第 N−1 天完成後的**之後日曆日**開放（裝置當地日期）。已完成的天數一直可以回看與重練。`NEXT_PUBLIC_DEV_TEST_MODE=true` 時略過日期限制（仍需完成前一天），影片頁顯示 metadata 字級提示「測試模式：已略過日期限制」。

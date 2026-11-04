@@ -15,6 +15,8 @@ type PracticeControlsProps = {
   practice: {
     id: string;
     title: string;
+    /** Taken down by an admin (D31): it can't be made public again. */
+    removed?: boolean;
     collectionId: string | null;
     visibility: Visibility;
   };
@@ -63,12 +65,14 @@ export function PracticeControls({
             ))}
           </select>
         </div>
-        <VisibilityToggle
-          kind="practice"
-          id={practice.id}
-          name={practice.title}
-          visibility={practice.visibility}
-        />
+        {!practice.removed && (
+          <VisibilityToggle
+            kind="practice"
+            id={practice.id}
+            name={practice.title}
+            visibility={practice.visibility}
+          />
+        )}
         {!confirming && (
           <Button variant="ghost" size="sm" onClick={() => setConfirming(true)}>
             {t("deletePractice")}

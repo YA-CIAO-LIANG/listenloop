@@ -5,6 +5,8 @@ import { getTranslations } from "next-intl/server";
 import { CycleStatus } from "@/components/CycleStatus";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import { getPracticeMaterial } from "@/auth/practice-material";
+import { getSignedInUser } from "@/auth/session";
+import { ReportPractice } from "@/components/ReportPractice";
 import { practiceRobots, titleLang } from "@/lib/practice-material";
 import { getVideo } from "@/lib/video-library";
 import { VideoPlayerPanel } from "./VideoPlayerPanel";
@@ -65,6 +67,14 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
           attribution={video.attribution}
           className="mt-12 border-t border-line pt-6"
         />
+      )}
+      {!video && !material.mine && (
+        <div className="mt-12 border-t border-line pt-6">
+          <ReportPractice
+            practiceId={material.id}
+            signedIn={(await getSignedInUser()) !== null}
+          />
+        </div>
       )}
     </main>
   );

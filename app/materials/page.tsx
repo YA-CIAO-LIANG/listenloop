@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
+import Link from "next/link";
+import { getAdminSupabase } from "@/auth/admin";
 import { getAdminUser, getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
 import { ButtonLink } from "@/components/ButtonLink";
@@ -10,6 +12,7 @@ import { PracticeControls } from "@/components/PracticeControls";
 import { parseVoiceId } from "@/lib/ai/types";
 import { isTextSourceLanguage } from "@/lib/custom-practice/draft";
 import { isVisibility } from "@/lib/custom-practice/organize";
+import { isReportReason } from "@/lib/moderation";
 import { customPracticeId } from "@/lib/practice-material";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -25,19 +28,29 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MaterialsPage() {
   const [user, creator] = await Promise.all([getAdminUser(), getCreator()]);
   if (!user) notFound();
-  const [t, tMaterials, tOrganize, format, supabase] = await Promise.all([
-    getTranslations("create"),
-    getTranslations("materials"),
-    getTranslations("organize"),
-    getFormatter(),
-    getServerSupabase(),
-  ]);
+  const [t, tMaterials, tOrganize, tReasons, format, supabase] =
+    await Promise.all([
+      getTranslations("create"),
+      getTranslations("materials"),
+      getTranslations("organize"),
+      getTranslations("report.reasons"),
+      getFormatter(),
+      getServerSupabase(),
+    ]);
+  // Open reports to review (D31), counted with the secret key.
+  const openReports =
+    (
+      await getAdminSupabase()
+        ?.from("practice_reports")
+        .select("id", { count: "exact", head: true })
+        .eq("status", "open")
+    )?.count ?? 0;
   const [{ data: practices }, { data: collections }] = supabase
     ? await Promise.all([
         supabase
           .from("practices")
           .select(
-            "id, title, source_language, voice, visibility, collection_id, created_at, notes_generated_at, practice_sentences(audio_path)",
+            "id, title, source_language, voice, visibility, collection_id, created_at, notes_generated_at, removed_at, removed_reason, practice_sentences(audio_path)",
           )
           // Others' public practices are readable too (D30); list only theirs.
           .eq("user_id", user.id)
@@ -107,10 +120,20 @@ export default async function MaterialsPage() {
             />
           )}
         </div>
+        {practice.removed_at && (
+          <p className="text-supporting text-error">
+            {tMaterials("removed", {
+              reason: isReportReason(practice.removed_reason)
+                ? tReasons(practice.removed_reason)
+                : tReasons("other"),
+            })}
+          </p>
+        )}
         <PracticeControls
           practice={{
             id: practice.id,
             title: practice.title,
+            removed: practice.removed_at !== null,
             collectionId: practice.collection_id,
             visibility: isVisibility(practice.visibility)
               ? practice.visibility
@@ -126,6 +149,14 @@ export default async function MaterialsPage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{tMaterials("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{tMaterials("intro")}</p>
+      <p className="mt-4">
+        <Link
+          href="/admin/reports"
+          className="text-supporting text-accent-ink underline underline-offset-4"
+        >
+          {tMaterials("reviewReports", { count: openReports })}
+        </Link>
+      </p>
       <div className="mt-8">
         {creator ? (
           <ButtonLink href="/materials/new" variant="primary" arrow>
