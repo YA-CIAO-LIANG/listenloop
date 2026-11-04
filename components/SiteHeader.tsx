@@ -65,19 +65,26 @@ export function SiteHeader({
             </Link>
           )}
         </nav>
-        <div className="flex items-center gap-3">
+        {/* Narrow screens: the controls wrap, without the dividers between. */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 split:gap-x-3">
           {AQUARIUM_ENABLED && (
             <>
               <RewardBadge />
-              <Divider orientation="vertical" className="my-2" />
+              <Divider
+                orientation="vertical"
+                className="my-2 hidden split:block"
+              />
             </>
           )}
           <LanguageToggle />
-          <Divider orientation="vertical" className="my-2" />
+          <Divider orientation="vertical" className="my-2 hidden split:block" />
           <ThemeToggle />
           {account && (
             <>
-              <Divider orientation="vertical" className="my-2" />
+              <Divider
+                orientation="vertical"
+                className="my-2 hidden split:block"
+              />
               {account}
             </>
           )}
