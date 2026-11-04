@@ -10,7 +10,11 @@ export type SupabaseConfig = {
   publishableKey: string;
 };
 
-/** The config if both values look usable, else null. */
+/**
+ * The config if both values look usable, else null. The URL must be
+ * https, except on this machine (127.0.0.1, localhost), where a local
+ * Supabase or the end-to-end tests' stand-in runs over http (D32).
+ */
 export function readSupabaseConfig(
   url: string | undefined,
   publishableKey: string | undefined,
@@ -19,7 +23,11 @@ export function readSupabaseConfig(
   const trimmedKey = publishableKey?.trim();
   if (!trimmedUrl || !trimmedKey) return null;
   try {
-    if (new URL(trimmedUrl).protocol !== "https:") return null;
+    const { protocol, hostname } = new URL(trimmedUrl);
+    const local = hostname === "localhost" || hostname === "127.0.0.1";
+    if (protocol !== "https:" && !(protocol === "http:" && local)) {
+      return null;
+    }
   } catch {
     return null;
   }

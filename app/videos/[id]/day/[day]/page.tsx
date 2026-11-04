@@ -7,8 +7,9 @@ import { ShadowingSession } from "@/components/ShadowingSession";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import type { CycleDay } from "@/lib/cycle";
 import { isShadowingDay } from "@/lib/shadowing";
-import { getPracticeMaterial } from "@/auth/practice-material";
-import { practiceRobots } from "@/lib/practice-material";
+import { getPracticeState } from "@/auth/practice-material";
+import { PracticePreparing } from "@/components/PracticePreparing";
+import { practiceRobots, preparingMetadata } from "@/lib/practice-material";
 
 // Day 1 is dictation, Days 2–6 are shadowing, Day 7 is re-dictation.
 // DayGate keeps days closed until they unlock.
@@ -35,11 +36,12 @@ export async function generateMetadata({
 }: PageProps<"/videos/[id]/day/[day]">): Promise<Metadata> {
   const { id, day } = await params;
   const n = parseDay(day);
-  const video = n ? await getPracticeMaterial(id) : null;
-  return video && n
+  const state = n ? await getPracticeState(id) : null;
+  if (state?.status === "preparing") return preparingMetadata(state);
+  return state && n
     ? {
-        title: `${await dayTitle(n)} · ${video.title}`,
-        ...practiceRobots(video),
+        title: `${await dayTitle(n)} · ${state.material.title}`,
+        ...practiceRobots(state.material),
       }
     : {};
 }
@@ -52,8 +54,17 @@ export default async function DayPage({
   // ?retry=1 (from the video page) jumps straight into extra practice.
   const startInRetry = (await searchParams).retry === "1";
   const n = parseDay(day);
-  const video = n ? await getPracticeMaterial(id) : null;
-  if (!video || !n) notFound();
+  const state = n ? await getPracticeState(id) : null;
+  if (state?.status === "preparing") {
+    return (
+      <PracticePreparing
+        practice={state}
+        practiceHref={`/videos/${id}/day/${n}`}
+      />
+    );
+  }
+  if (!state || !n) notFound();
+  const video = state.material;
   const t = await getTranslations(dayMessages(n));
   const title = await dayTitle(n);
 

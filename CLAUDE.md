@@ -84,8 +84,8 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - **品質工具**：ESLint ＋ Prettier；husky ＋ lint-staged 提交前自動檢查。
 - **測試**：
   - Vitest 單元測試：`lib/` 的評分與循環邏輯必須有測試。
-  - Playwright E2E 測試：放在 `e2e/`，對 production build 執行。先跑 `npm run build`，再跑 `npm run test:e2e`；CI 的 `check` job 也會執行。
-  - E2E 測試時會擋掉 YouTube，日期用 `page.clock` 設定（D18）。
+  - Playwright E2E 測試：放在 `e2e/`，對 production build 執行。先跑 `npm run build:e2e`，再跑 `npm run test:e2e`；CI 的 `check` job 也會執行。
+  - E2E 測試時會擋掉 YouTube，日期用 `page.clock` 設定（D18）；Supabase 換成 `e2e/mock-supabase/` 的假伺服器（D32）。
   - 主要流程有改動時，要補上或更新 E2E 測試。
 - **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。所有 PR 在 CI 通過後直接合併（2026-10-30 起，見工作規則）。
 - **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改），執行 lint、format:check、typecheck、test、build。

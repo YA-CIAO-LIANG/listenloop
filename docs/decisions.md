@@ -390,3 +390,13 @@
   - **不自動下架**：檢舉數達到某個數字也不會自動下架，一律由管理員判斷（避免被惡意檢舉）。目前也不寄通知信。
   - **隱私**：作者看不到是誰檢舉的。審查頁也不顯示檢舉人，只顯示日期、原因和說明。隱私權政策已補上公開與檢舉的資料說明。
 - **要改時**：`supabase/migrations/20261104120000_practice_reports.sql`、`lib/moderation.ts`、`app/reports/actions.ts`、`app/admin/reports/`、`components/ReportPractice.tsx`、`components/ModerationControls.tsx`。
+
+## D32 未完成的自建練習不再顯示 404；E2E 用假的 Supabase（2026-11-04，e 驗收修正 1）
+
+- **問題**：首頁「今日任務」的 test001「第 2 天 跟讀」打開是 404。test001 建立於講解功能（d6c）上線前，`notes_generated_at` 是空的；d6c 之後，「講解或音檔還沒完成」的練習在伺服器端被當成「不存在」。今日任務只看進度和標題，連結照樣出現。建立時中斷（關掉分頁、當天用量用完）的練習也會遇到同樣的問題。
+- **決定**：
+  - `auth/practice-material.ts` 的 `getPracticeState` 分成三種：可以練習、準備中（只有作者本人看得到）、不存在（404）。別人未完成的練習仍是 404。
+  - 練習總覽、第 1～7 天、講義頁遇到「準備中」時，顯示「這個練習還在準備中」和 `PracticeReadiness`，可以在原地按「繼續產生」，完成後頁面重新整理就進入練習（`components/PracticePreparing.tsx`）。
+  - **E2E 用假的 Supabase**（`e2e/mock-supabase/`）：自建練習的頁面在伺服器端讀 Supabase，Playwright 攔不到伺服器發出的請求，所以 E2E 啟動一個只回應必要查詢的假伺服器（練習資料在 `practices.json`，音檔一律是 1 秒無聲 WAV，接受任何登入憑證並視為練習的作者）。這是業界常見的做法（例如 WireMock、MSW）：不碰正式資料、不花錢、結果固定。E2E 用 `npm run build:e2e`（把 `NEXT_PUBLIC_SUPABASE_URL` 指向 `http://localhost:54329`）；CI 的 build 也改用它，正式站由 Vercel 自己 build，不受影響。
+  - 為了讓假伺服器可以用 http，`readSupabaseConfig` 允許本機（`localhost`、`127.0.0.1`）的 http 網址，其他一律要 https。
+- **要改時**：`auth/practice-material.ts`、`components/PracticePreparing.tsx`、`e2e/mock-supabase/`、`e2e/custom-practice.spec.ts`、`playwright.config.ts`、`package.json` 的 `build:e2e`。

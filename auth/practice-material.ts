@@ -1,7 +1,9 @@
 import { cache } from "react";
 import {
+  customPracticeReadiness,
   materialFromCustomPractice,
   parseCustomPracticeId,
+  type CustomPracticeReadiness,
   type PracticeMaterial,
 } from "@/lib/practice-material";
 import { speechAudioUrl } from "@/lib/supabase/config";
@@ -10,16 +12,30 @@ import { getServerSupabase } from "./server";
 import { getSignedInUser } from "./session";
 
 /**
- * The material behind /videos/<id>: a published video, or a created
- * practice the viewer may read (their own, or anyone's public one; row
- * level security keeps the rest out, D30), once its notes and audio are
- * ready. Null answers 404. Cached per request, so the page and its
- * metadata share one database read.
+ * What /videos/<id> can show:
+ * - ready: a published video, or a created practice the viewer may read
+ *   (their own, or anyone's public one; row level security keeps the rest
+ *   out, D30) whose notes and audio are made;
+ * - preparing: the viewer's own practice whose notes or audio aren't done
+ *   yet (made before notes existed, or cut off while generating), so the
+ *   page can offer to finish it instead of answering 404 (D32);
+ * - null: nothing to show (404), including others' unfinished practices.
+ * Cached per request, so a page and its metadata share one database read.
  */
-export const getPracticeMaterial = cache(
-  async (id: string): Promise<PracticeMaterial | null> => {
+export type PracticeState =
+  | { status: "ready"; material: PracticeMaterial }
+  | {
+      status: "preparing";
+      /** The practice's database id (not the "p-" id). */
+      practiceId: string;
+      title: string;
+      readiness: CustomPracticeReadiness;
+    };
+
+export const getPracticeState = cache(
+  async (id: string): Promise<PracticeState | null> => {
     const video = getVideo(id);
-    if (video) return video;
+    if (video) return { status: "ready", material: video };
     const uuid = parseCustomPracticeId(id);
     if (!uuid) return null;
     const [supabase, user] = await Promise.all([
@@ -45,9 +61,27 @@ export const getPracticeMaterial = cache(
             .maybeSingle()
         : null,
     ]);
-    const material = data
-      ? materialFromCustomPractice(data, (path) => speechAudioUrl(path))
+    if (!data) return null;
+    const mine = !!own?.data;
+    const material = materialFromCustomPractice(data, (path) =>
+      speechAudioUrl(path),
+    );
+    if (material) return { status: "ready", material: { ...material, mine } };
+    return mine
+      ? {
+          status: "preparing",
+          practiceId: data.id,
+          title: data.title,
+          readiness: customPracticeReadiness(data),
+        }
       : null;
-    return material && { ...material, mine: !!own?.data };
+  },
+);
+
+/** The practicable material behind /videos/<id>, or null. */
+export const getPracticeMaterial = cache(
+  async (id: string): Promise<PracticeMaterial | null> => {
+    const state = await getPracticeState(id);
+    return state?.status === "ready" ? state.material : null;
   },
 );

@@ -1,0 +1,56 @@
+{
+  "ready": {
+    "id": "4d8e0a52-6c1b-4f3e-9a7d-2b5c8e1f0a93",
+    "user_id": "e2e-author",
+    "title": "E2E practice",
+    "visibility": "public",
+    "vocab": [
+      {
+        "sentence": 0,
+        "word": "station",
+        "pos": "n.",
+        "zh": "車站",
+        "example": "The station is near my school."
+      }
+    ],
+    "grammar": [],
+    "notes_generated_at": "2026-11-01T00:00:00Z",
+    "practice_sentences": [
+      {
+        "i": 0,
+        "en": "The station is on the left.",
+        "zh": "車站在左邊。",
+        "audio_path": "0000000000000000000000000000000000000000000000000000000000000000.wav"
+      },
+      {
+        "i": 1,
+        "en": "Turn right at the bank.",
+        "zh": "在銀行右轉。",
+        "audio_path": "1111111111111111111111111111111111111111111111111111111111111111.wav"
+      }
+    ]
+  },
+  "unfinished": {
+    "id": "9a1f3c7e-2b4d-4e6f-8a0b-c1d2e3f4a5b6",
+    "user_id": "e2e-author",
+    "title": "E2E unfinished practice",
+    "visibility": "private",
+    "vocab": [],
+    "grammar": [],
+    "notes_generated_at": null,
+    "practice_sentences": [
+      {
+        "i": 0,
+        "en": "Dr. Smith arrived at 9:30 a.m.",
+        "zh": "史密斯醫師上午九點半抵達。",
+        "audio_path": "2222222222222222222222222222222222222222222222222222222222222222.wav"
+      },
+      {
+        "i": 1,
+        "en": "Then he left.",
+        "zh": "然後他就離開了。",
+        "audio_path": null
+      }
+    ]
+  }
+}

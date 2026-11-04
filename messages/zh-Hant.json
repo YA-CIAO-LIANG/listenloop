@@ -699,7 +699,10 @@
       "failed": "產生講解時發生錯誤，請再試一次。",
       "config": "AI 服務的設定或帳單有問題（例如金鑰錯誤、API 還沒有啟用，或 Gemini 的預付額度用完）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
     },
-    "privacyNote": "建立練習時，文字會送到 Google 的 AI 服務（Gemini、Text-to-Speech）處理，不會被用來訓練模型，但會短暫保留以偵測濫用。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。"
+    "privacyNote": "建立練習時，文字會送到 Google 的 AI 服務（Gemini、Text-to-Speech）處理，不會被用來訓練模型，但會短暫保留以偵測濫用。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。",
+    "notReadyBack": "我的教材",
+    "notReadyTitle": "這個練習還在準備中",
+    "notReadyIntro": "講解或音檔還沒有全部產生（可能是建立時中斷了，或當天用量用完）。按「繼續產生」完成後，就會直接開始練習。"
   },
   "organize": {
     "collectionsTitle": "Collection",

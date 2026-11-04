@@ -4,24 +4,43 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Handout } from "@/components/Handout";
 import { HandoutGate } from "@/components/HandoutGate";
-import { getPracticeMaterial } from "@/auth/practice-material";
-import { practiceRobots, titleLang } from "@/lib/practice-material";
+import { getPracticeState } from "@/auth/practice-material";
+import { PracticePreparing } from "@/components/PracticePreparing";
+import {
+  practiceRobots,
+  preparingMetadata,
+  titleLang,
+} from "@/lib/practice-material";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/videos/[id]/handout">): Promise<Metadata> {
-  const video = await getPracticeMaterial((await params).id);
+  const state = await getPracticeState((await params).id);
+  if (state?.status === "preparing") return preparingMetadata(state);
   const t = await getTranslations("handout");
-  return video
-    ? { title: `${video.title} · ${t("title")}`, ...practiceRobots(video) }
+  return state
+    ? {
+        title: `${state.material.title} · ${t("title")}`,
+        ...practiceRobots(state.material),
+      }
     : {};
 }
 
 export default async function HandoutPage({
   params,
 }: PageProps<"/videos/[id]/handout">) {
-  const video = await getPracticeMaterial((await params).id);
-  if (!video) notFound();
+  const { id } = await params;
+  const state = await getPracticeState(id);
+  if (state?.status === "preparing") {
+    return (
+      <PracticePreparing
+        practice={state}
+        practiceHref={`/videos/${id}/handout`}
+      />
+    );
+  }
+  if (!state) notFound();
+  const video = state.material;
   const t = await getTranslations("handout");
 
   return (

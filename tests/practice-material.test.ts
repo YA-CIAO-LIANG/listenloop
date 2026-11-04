@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   customPracticeId,
+  customPracticeReadiness,
   materialFromCustomPractice,
   parseCustomPracticeId,
   titleLang,
@@ -46,7 +47,8 @@ vi.mock("@/lib/supabase/config", async (original) => ({
   ...(await original<typeof import("@/lib/supabase/config")>()),
   speechAudioUrl: (path: string) => `https://cdn.test/${path}`,
 }));
-const { getPracticeMaterial } = await import("@/auth/practice-material");
+const { getPracticeMaterial, getPracticeState } =
+  await import("@/auth/practice-material");
 
 const row = {
   id: uuid,
@@ -170,5 +172,54 @@ describe("getPracticeMaterial", () => {
     expect(await getPracticeMaterial("nope")).toBeNull();
     state.row = null;
     expect(await getPracticeMaterial(`p-${uuid}`)).toBeNull();
+  });
+});
+
+describe("customPracticeReadiness", () => {
+  it("counts the notes and the sentences with audio", () => {
+    expect(customPracticeReadiness(row)).toEqual({
+      notesReady: true,
+      voiced: 2,
+      total: 2,
+    });
+    expect(
+      customPracticeReadiness({
+        notes_generated_at: null,
+        practice_sentences: [
+          { ...row.practice_sentences[0], audio_path: null },
+          row.practice_sentences[1],
+        ],
+      }),
+    ).toEqual({ notesReady: false, voiced: 1, total: 2 });
+  });
+});
+
+describe("getPracticeState", () => {
+  // Made before notes existed (test001, D32): the author's link from
+  // today's tasks must not answer 404.
+  const unfinished = { ...row, notes_generated_at: null };
+
+  it("is ready once notes and audio are made", async () => {
+    expect((await getPracticeState(`p-${uuid}`))?.status).toBe("ready");
+  });
+
+  it("tells the author an unfinished practice is still preparing", async () => {
+    state.row = unfinished;
+    state.user = { id: "owner", email: "a@example.com" };
+    expect(await getPracticeState(`p-${uuid}`)).toEqual({
+      status: "preparing",
+      practiceId: uuid,
+      title: "第一課",
+      readiness: { notesReady: false, voiced: 2, total: 2 },
+    });
+    // Practice pages still get no material until it's ready.
+    expect(await getPracticeMaterial(`p-${uuid}`)).toBeNull();
+  });
+
+  it("hides others' unfinished practices", async () => {
+    state.row = unfinished;
+    expect(await getPracticeState(`p-${uuid}`)).toBeNull();
+    state.user = { id: "someone-else", email: "b@example.com" };
+    expect(await getPracticeState(`p-${uuid}`)).toBeNull();
   });
 });
