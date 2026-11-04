@@ -124,6 +124,7 @@
 
 - 支援繁體中文（預設）與英文介面，使用者可隨時切換。
 - 切換入口：LanguageToggle 與 ThemeToggle 並排，放在頁首右側與設定頁。
+- 窄螢幕（760px 以下）：頁首右側的語言、主題、帳號可以換行，中間不顯示直線分隔，改用 16px 間距；任何寬度都不能出現橫向捲動（320px 也一樣）。
 - LanguageToggle 顯示「中文 / EN」兩個選項，目前語言以 accent-ink 文字＋底線標示，不只靠顏色。
 - 切換語言時版面不可跳動：按鈕、標籤要預留足夠寬度，英文通常比中文長 30～50%。
 - 字體依語言套用：中文介面以 Noto Sans TC / Noto Serif TC 為主；英文介面以 Instrument Sans / EB Garamond 為主。
