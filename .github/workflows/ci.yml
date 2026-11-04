@@ -38,7 +38,9 @@ jobs:
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm test
-      - run: npm run build
+      # The production build, pointed at the end-to-end tests' stand-in
+      # Supabase (e2e/mock-supabase/, D32); Vercel builds the site itself.
+      - run: npm run build:e2e
       # End-to-end tests against the build above (YouTube blocked in tests).
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e

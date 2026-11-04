@@ -11,7 +11,17 @@ describe("readSupabaseConfig", () => {
     });
   });
 
+  it("allows http only on this machine", () => {
+    expect(readSupabaseConfig("http://127.0.0.1:54321", "key")?.url).toBe(
+      "http://127.0.0.1:54321",
+    );
+    expect(readSupabaseConfig("http://localhost:54329/", "key")?.url).toBe(
+      "http://localhost:54329",
+    );
+  });
+
   it.each([
+    ["http://localhost.example.com", "key"],
     [undefined, "key"],
     ["https://abc.supabase.co", undefined],
     ["", "key"],

@@ -4,24 +4,38 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CycleStatus } from "@/components/CycleStatus";
 import { VideoAttribution } from "@/components/VideoAttribution";
-import { getPracticeMaterial } from "@/auth/practice-material";
+import { getPracticeState } from "@/auth/practice-material";
 import { getSignedInUser } from "@/auth/session";
+import { PracticePreparing } from "@/components/PracticePreparing";
 import { ReportPractice } from "@/components/ReportPractice";
-import { practiceRobots, titleLang } from "@/lib/practice-material";
+import {
+  practiceRobots,
+  preparingMetadata,
+  titleLang,
+} from "@/lib/practice-material";
 import { getVideo } from "@/lib/video-library";
 import { VideoPlayerPanel } from "./VideoPlayerPanel";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/videos/[id]">): Promise<Metadata> {
-  const material = await getPracticeMaterial((await params).id);
-  return material ? { title: material.title, ...practiceRobots(material) } : {};
+  const state = await getPracticeState((await params).id);
+  if (state?.status === "preparing") return preparingMetadata(state);
+  return state
+    ? { title: state.material.title, ...practiceRobots(state.material) }
+    : {};
 }
 
 export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
   const { id } = await params;
-  const material = await getPracticeMaterial(id);
-  if (!material) notFound();
+  const state = await getPracticeState(id);
+  if (state?.status === "preparing") {
+    return (
+      <PracticePreparing practice={state} practiceHref={`/videos/${id}`} />
+    );
+  }
+  if (!state) notFound();
+  const material = state.material;
   // Built-in videos have a level, category, player, and credit; created
   // practices are audio only.
   const video = getVideo(id);

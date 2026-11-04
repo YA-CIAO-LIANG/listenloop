@@ -4,8 +4,10 @@ const PORT = 3200;
 
 /**
  * End-to-end tests (e2e/) against the production build: run `npm run
- * build` first, then `npm run test:e2e`. YouTube is blocked in the tests
- * (e2e/fixtures.ts) so they don't depend on the network.
+ * build:e2e` first, then `npm run test:e2e`. YouTube is blocked in the
+ * tests (e2e/fixtures.ts) so they don't depend on the network, and the
+ * build talks to a stand-in Supabase (e2e/mock-supabase/, D32) instead of
+ * the real project.
  */
 export default defineConfig({
   testDir: "e2e",
@@ -20,10 +22,17 @@ export default defineConfig({
     trace: "retain-on-failure",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
-  webServer: {
-    command: `npx next start --port ${PORT}`,
-    port: PORT,
-    reuseExistingServer: !process.env.CI,
-    timeout: 60_000,
-  },
+  webServer: [
+    {
+      command: "node e2e/mock-supabase/server.mts",
+      url: "http://localhost:54329/health",
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: `npx next start --port ${PORT}`,
+      port: PORT,
+      reuseExistingServer: !process.env.CI,
+      timeout: 60_000,
+    },
+  ],
 });

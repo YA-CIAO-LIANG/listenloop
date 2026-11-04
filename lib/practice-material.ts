@@ -93,6 +93,24 @@ export function materialFromCustomPractice(
   };
 }
 
+/** How far a created practice's preparation got (notes, then audio). */
+export type CustomPracticeReadiness = {
+  notesReady: boolean;
+  /** Sentences that have audio. */
+  voiced: number;
+  total: number;
+};
+
+export function customPracticeReadiness(
+  row: Pick<CustomPracticeRow, "notes_generated_at" | "practice_sentences">,
+): CustomPracticeReadiness {
+  return {
+    notesReady: row.notes_generated_at !== null,
+    voiced: row.practice_sentences.filter((s) => s.audio_path).length,
+    total: row.practice_sentences.length,
+  };
+}
+
 /**
  * The language to mark a title with: built-in video titles are English;
  * a created practice's title is whatever the learner typed.
@@ -109,4 +127,12 @@ export function practiceRobots(material: PracticeMaterial) {
   return material.youtubeId
     ? {}
     : { robots: { index: false, follow: false } as const };
+}
+
+/** Metadata for a practice page shown as "still preparing" (D32). */
+export function preparingMetadata(practice: { title: string }) {
+  return {
+    title: practice.title,
+    robots: { index: false, follow: false } as const,
+  };
 }

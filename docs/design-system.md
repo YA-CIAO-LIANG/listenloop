@@ -202,6 +202,10 @@
 - **Collection 一節**：h2 → 說明 → 「新的 Collection 名稱」欄位＋secondary 的「新增」→ 清單（上下和項目之間 1px line）。每列：名稱（font-medium）＋ supporting、ink-muted 的「N 個練習」，右側「私人 / 公開」、ghost、sm 的「重新命名」和「刪除…」。重新命名時名稱變成欄位，旁邊是 primary、sm 的「儲存」和 ghost、sm 的「取消」。刪除確認和刪除練習相同，說明「裡面的練習會保留」。
 - 錯誤一律在該列下方，以 supporting、error 色、`role="alert"` 顯示。
 
+### 準備中的練習（D32）
+
+- 自己的練習講解或音檔還沒完成時，練習總覽、第 1～7 天、講義頁不顯示 404，而是：返回連結「← 我的教材」→ h1 練習標題 → Display h3「這個練習還在準備中」→ ink-muted 說明 → `PracticeReadiness`（狀態列和「繼續產生」，規則同「我的教材」）。完成後頁面重新整理，直接進入原本要打開的頁面。
+
 ## 筆記本 `/notebooks`
 
 - 只有管理員看得到（D25），入口是頁首的「筆記本」，樣式和「學習進度」相同。

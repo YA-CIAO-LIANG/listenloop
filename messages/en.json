@@ -701,7 +701,10 @@
       "failed": "Something went wrong while making the notes. Please try again.",
       "config": "The AI service's setup or billing has a problem (for example, a wrong key, an API that isn't enabled, or used-up Gemini prepaid credits). Check GEMINI_API_KEY and GOOGLE_CLOUD_API_KEY; the server log has the details."
     },
-    "privacyNote": "When you create a practice, its text is sent to Google's AI services (Gemini, Text-to-Speech). It isn't used to train models, but is kept briefly to detect abuse. Please don't include personal or sensitive information. See the <link>privacy policy</link>."
+    "privacyNote": "When you create a practice, its text is sent to Google's AI services (Gemini, Text-to-Speech). It isn't used to train models, but is kept briefly to detect abuse. Please don't include personal or sensitive information. See the <link>privacy policy</link>.",
+    "notReadyBack": "My materials",
+    "notReadyTitle": "This practice isn't ready yet",
+    "notReadyIntro": "Its notes or audio aren't all made yet (creating it may have been cut off, or the day's allowance ran out). Press “Continue” to finish them, and the practice opens right away."
   },
   "organize": {
     "collectionsTitle": "Collections",
