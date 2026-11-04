@@ -54,7 +54,7 @@ vi.mock("@/auth/server", () => ({
   }),
 }));
 
-const actions = await import("@/app/create/organize-actions");
+const actions = await import("@/app/materials/organize-actions");
 const id = "0b1d2c3e-4f50-4a6b-8c7d-9e0f1a2b3c4d";
 const other = "1b1d2c3e-4f50-4a6b-8c7d-9e0f1a2b3c4d";
 

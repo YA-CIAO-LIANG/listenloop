@@ -99,7 +99,7 @@ describe("MyPractices", () => {
   it("points to the library when nothing is started", async () => {
     await renderPractices(memoryStore([]));
     expect(
-      screen.getByRole("link", { name: "前往練習題庫 →" }).getAttribute("href"),
+      screen.getByRole("link", { name: "前往推薦練習 →" }).getAttribute("href"),
     ).toBe("/#library");
   });
 });

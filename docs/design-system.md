@@ -144,10 +144,10 @@
   - 取消（`?signin=cancelled`）：supporting、ink-muted，`role="status"`。
   - 兩種都要說明「進度仍然存在這台裝置上」，右側有 ghost、sm 的「關閉」。關閉時移除網址參數，不捲動頁面。
 
-## 我的練習 `/practices`
+## 學習進度 `/practices`
 
-- **入口**：頁首左側，品牌名右邊的 supporting、ink-muted 連結「我的練習」，hover 時變成 ink 並加底線。品牌名和這個連結一起包在 `nav`（「主要導覽」）裡。
-- **頁面**：h1「我的練習」→ 說明（ink-muted）→ 結果提示列（supporting、`aria-live`，移除成功時 ink-muted，失敗時 error）→ 依狀態分組：「進行中」「等待重新開始」「已通過」。沒有影片的組別不顯示。
+- **入口**：頁首左側，品牌名右邊的 supporting、ink-muted 連結「學習進度」（2026-11-03 前叫「我的練習」，D26），hover 時變成 ink 並加底線。品牌名和這個連結一起包在 `nav`（「主要導覽」）裡；管理員另外會看到「我的教材」「筆記本」，樣式相同。
+- **頁面**：h1「學習進度」→ 說明（ink-muted）→ 結果提示列（supporting、`aria-live`，移除成功時 ink-muted，失敗時 error）→ 依狀態分組：「進行中」「等待重新開始」「已通過」。沒有影片的組別不顯示。
 - **每組**：
   - Display h3 組名，同一行放 supporting、ink-muted 的「N 支」；
   - 下方是清單，上下各有 1px line 線，項目之間也用 1px line 分隔；
@@ -156,7 +156,7 @@
   - 按「移除…」後，在那一列下方展開確認區塊：error 色 1px 邊框、4px 圓角、內距 16px；
   - 內容是說明「各天的進度和成績會刪除，無法復原；練習日曆的紀錄會保留」，下方是 danger、sm 的「移除進度」和 ghost、sm 的「取消」；
   - 一次只會展開一列的確認區塊。
-- **空狀態**：ink-muted 的「還沒有開始的練習。」，下方是連到 `/#library` 的「前往練習題庫 →」。
+- **空狀態**：ink-muted 的「還沒有開始的練習。」，下方是連到 `/#library` 的「前往推薦練習 →」。
 - **組內排序**：依影片名稱。
 
 ## 帳號頁 `/account`
@@ -172,9 +172,11 @@
 - **未登入**：ink-muted 的說明，提示用頁首的「登入」，下方是「回首頁 →」。
 - 頁面最下方：supporting 字級的「隱私權政策」連結。
 
-## 建立練習 `/create`
+## 我的教材 `/materials` 與建立練習 `/materials/new`
 
-- 只有管理員看得到（D21）。入口是頁首「我的練習」右邊的「建立練習」，樣式和「我的練習」相同。
+- 只有管理員看得到（D21、D26）。入口是頁首「學習進度」右邊的「我的教材」。
+- **我的教材**：h1「我的教材」→ 說明 → primary 的「建立練習 →」（沒有接上供應者時，改成 supporting、ink-muted 的說明）→「你建立的練習」與「Collection」兩節（見下方「整理自建練習」）。
+- **建立練習**：返回連結「← 我的教材」→ h1「建立練習」→ 說明 → 表單。建立後，提示下方有 accent-ink 底線連結「到我的教材查看 →」。舊網址 `/create` 永久轉址到這裡。
 - **表單欄位**（這一頁首次使用，之後的表單沿用）：
   - 標籤在欄位上方，font-medium；說明文字在標籤下方，supporting、ink-muted，用 `aria-describedby` 連到欄位；
   - 欄位：surface 底、1px line 邊框、4px 圓角、內距 16px／12px，focus 時邊框變成 accent，並有既有的焦點外框；
@@ -189,7 +191,7 @@
   - 沒有練習時顯示 ink-muted 的「還沒有建立練習。」
 - 寬度上限和練習區相同（720px）。
 
-### 整理自建練習（`/create`）
+### 整理自建練習（`/materials`）
 
 - **練習清單**：h2「你建立的練習」→ supporting、ink-muted 的公開說明 → 依 Collection 分組（Display h3 組名；還沒有 Collection 時不顯示組名），最後是「未分組」。
 - **每個練習的操作列**（在音檔狀態下方）：
@@ -201,7 +203,7 @@
 
 ## 筆記本 `/notebooks`
 
-- 只有管理員看得到（D25），入口是頁首的「筆記本」，樣式和「我的練習」相同。
+- 只有管理員看得到（D25），入口是頁首的「筆記本」，樣式和「學習進度」相同。
 - **列表頁**：h1「筆記本」→ 說明（ink-muted）→「新的筆記本名稱」欄位＋secondary 的「新增」→ 清單（上下和項目之間 1px line）：名稱連結（font-medium，hover 時 accent-ink）＋ supporting、ink-muted 的「N 則」。沒有筆記本時 ink-muted 的「還沒有筆記本。」
 - **筆記本頁**：返回連結「← 筆記本」→ h1 名稱 → ghost、sm 的「重新命名」「刪除筆記本…」（重新命名和刪除確認的樣式同 Collection）→ h2「新增筆記」：「單字或句子」欄位（sentence 字級、`lang="en"`）、「筆記（選填）」文字框、primary「加入筆記本」→ 1px line 分隔線 → h2「筆記（N）」→ 清單：左側 sentence 字級的內容（`lang="en"`），下方 supporting、ink-muted 的筆記（保留換行）；右側 ghost、sm 的「刪除」。
 
@@ -299,7 +301,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 ## 首頁
 
-由上到下：標題與標語 → 練習日曆 → 今日任務 → 練習題庫。日曆與今日任務兩張 Card 間距 24px，題庫在下方 64px。
+由上到下：標題與標語 → 練習日曆 → 今日任務 → 推薦練習。日曆與今日任務兩張 Card 間距 24px，題庫在下方 64px。
 
 ### 練習日曆（熱度圖）
 
@@ -327,11 +329,11 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 | 週沒通過、第 7 天今天才做完 | success「✓ 已完成」＋「 · 第 2 週明天開始」             | secondary「再練一次」                             |
 
 - 已通過的影片不列出。排序：可以做的在前，再來是已完成；同組依影片名稱。
-- 沒有進行中的練習：supporting、ink-muted「還沒有開始的練習。從下方的練習題庫選一支影片，開始第 1 天。」＋ accent-ink 底線連結「前往練習題庫 ↓」（`#library`）。
+- 沒有進行中的練習：supporting、ink-muted「還沒有開始的練習。從下方的推薦練習選一支影片，開始第 1 天。」＋ accent-ink 底線連結「前往推薦練習 ↓」（`#library`）。
 
-### 練習題庫
+### 推薦練習（題庫）
 
-- Display h2「練習題庫」＋說明；section `id="library"`（`scroll-mt-8`）。元件：`PracticeLibrary`（讀寫網址）包著 `LibraryView`（畫面）。
+- Display h2「推薦練習」＋說明，只放內建影片（自建練習在「我的教材」）；section `id="library"`（`scroll-mt-8`）。元件：`PracticeLibrary`（讀寫網址）包著 `LibraryView`（畫面）。
 - 長度篩選列（說明下方 32px，`role="group"`、名稱「片段長度」）：metadata、ink-muted、字距加寬的「片段長度」→ 8 個 FilterChip「1～2 分鐘（3）」（括號是該區間的影片數，依 `LENGTH_BUCKETS`）→ 有選取時 ghost、sm「清除」。可複選；影片落在任一選取區間就顯示（沒有選取＝全部）。下方一行 supporting、ink-muted、`aria-live="polite"`：有選取時「顯示 5 支影片」。
 - 篩選狀態存在網址 `?length=1-2,8-plus`（不認得的 id 忽略），切換時 `router.replace`（不捲動、不加瀏覽紀錄），重新整理或分享連結都保留。伺服器先輸出沒有篩選的完整列表（`Suspense` fallback），畫面一致。
 - 依合集分組（`getVideosByCollection`，順序依 `videoCollections`）：只列出符合篩選的影片，沒有符合影片的合集整組隱藏。每組上方 48px（第一組 32px），Display h3 合集名稱＋同一行 supporting、ink-muted 的「13 支影片」（篩選後的數量）→ supporting、ink-muted 的合集說明 → 24px 後是卡片 grid（split 以上兩欄）。每組是 `aria-labelledby` 合集標題的 section。

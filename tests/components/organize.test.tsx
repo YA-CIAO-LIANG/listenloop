@@ -5,7 +5,7 @@ import { PracticeControls } from "@/components/PracticeControls";
 import { VisibilityToggle } from "@/components/VisibilityToggle";
 import { renderWithIntl } from "../render";
 
-vi.mock("@/app/create/organize-actions", () => ({
+vi.mock("@/app/materials/organize-actions", () => ({
   createCollection: vi.fn(),
   renameCollection: vi.fn(),
   deleteCollection: vi.fn(),
@@ -14,7 +14,7 @@ vi.mock("@/app/create/organize-actions", () => ({
   deletePractice: vi.fn(),
 }));
 // Server Actions can't run in a test DOM; components take them as props.
-vi.mock("@/app/create/actions", () => ({}));
+vi.mock("@/app/materials/actions", () => ({}));
 
 const ok = () => vi.fn(async () => ({ ok: true as const }));
 const click = async (name: string) => {

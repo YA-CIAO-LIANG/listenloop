@@ -6,7 +6,7 @@ import { useState } from "react";
 import {
   generatePracticeAudio,
   type GenerateAudioResult,
-} from "@/app/create/actions";
+} from "@/app/materials/actions";
 import { generateAllAudio, type GenerateAudio } from "./audio-generation";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";

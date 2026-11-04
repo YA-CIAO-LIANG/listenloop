@@ -48,7 +48,7 @@ vi.mock("@/auth/server", () => ({
 }));
 
 const { createPractice, prepareSentences } =
-  await import("@/app/create/actions");
+  await import("@/app/materials/actions");
 
 beforeEach(() => {
   state.creator = true;

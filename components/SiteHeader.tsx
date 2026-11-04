@@ -8,20 +8,20 @@ import { RewardBadge } from "./RewardBadge";
 import { ThemeToggle } from "./ThemeToggle";
 
 /**
- * Wordmark, "My practices", and (admins) "Create practice" on the left; rewards, language, and theme toggles on the right,
+ * Wordmark, "Progress", and (admins) "My materials" and "Notebooks" on the left; rewards, language, and theme toggles on the right,
  * then the account control when accounts are on (passed in by the layout,
  * which reads the session on the server).
  */
 export function SiteHeader({
   account,
-  showCreate = false,
+  showMaterials = false,
   showNotebooks = false,
 }: {
   account?: ReactNode;
   /** "Notebooks", for admins while it's admin-only (D25). */
   showNotebooks?: boolean;
-  /** "Create practice", for admins while it's admin-only (roadmap d). */
-  showCreate?: boolean;
+  /** "My materials", for admins while creating is admin-only (D26). */
+  showMaterials?: boolean;
 }) {
   const t = useTranslations("common");
 
@@ -38,12 +38,12 @@ export function SiteHeader({
           >
             {t("myPractices")}
           </Link>
-          {showCreate && (
+          {showMaterials && (
             <Link
-              href="/create"
+              href="/materials"
               className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >
-              {t("createPractice")}
+              {t("materials")}
             </Link>
           )}
           {showNotebooks && (

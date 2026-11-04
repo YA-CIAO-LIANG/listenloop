@@ -11,7 +11,7 @@ import { renderWithIntl } from "../render";
 const router = vi.hoisted(() => ({ push: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => router }));
 vi.mock("@/app/notebooks/actions", () => ({}));
-vi.mock("@/app/create/actions", () => ({}));
+vi.mock("@/app/materials/actions", () => ({}));
 
 const ok = () => vi.fn(async () => ({ ok: true as const }));
 const click = async (name: string) => {

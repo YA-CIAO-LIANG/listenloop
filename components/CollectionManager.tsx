@@ -6,7 +6,7 @@ import {
   createCollection as createCollectionAction,
   deleteCollection as deleteCollectionAction,
   renameCollection as renameCollectionAction,
-} from "@/app/create/organize-actions";
+} from "@/app/materials/organize-actions";
 import {
   COLLECTION_TITLE_MAX,
   type Visibility,

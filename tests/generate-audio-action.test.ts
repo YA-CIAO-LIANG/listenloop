@@ -51,7 +51,7 @@ vi.mock("@/auth/server", () => ({
   }),
 }));
 
-const { generatePracticeAudio } = await import("@/app/create/actions");
+const { generatePracticeAudio } = await import("@/app/materials/actions");
 
 const sentences = (count: number, voicedCount = 0): Sentence[] =>
   Array.from({ length: count }, (_, i) => ({
