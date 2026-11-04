@@ -56,7 +56,7 @@
   - 名單只放在伺服器端，前端改不了。
 - **要改時**：改用資料表記錄角色，在 e2 需要多位管理員時再評估。
 
-## D6 聲音與翻譯 API 的預設供應者（2026-10-30，等待 Joe 同意）
+## D6 聲音與翻譯 API 的預設供應者（2026-10-30；翻譯部分已由 D28 取代）
 
 - **決定**：
   - 建議使用 Google Cloud Text-to-Speech 和 Cloud Translation，透過「供應者介面」呼叫，之後可以換成其他供應者；
@@ -330,3 +330,23 @@
   - `practices.notes_generated_at` 是空的，代表還沒產生講解；這和「產生了但沒有可以講解的內容」不同。
 - **理由**：講解依照最後的句子產生，一定對得上；快取和分段可以避免重複付費，也比較不容易失敗。
 - **要改時**：`lib/custom-practice/notes.ts`、`app/materials/actions.ts` 的 `generatePracticeNotes`、`components/practice-generation.ts`、`supabase/migrations/20261103200000_practice_notes.sql`。
+
+## D28 供應者：Gemini（翻譯、講解）＋ Cloud Text-to-Speech（聲音）（2026-11-03，d6d）
+
+- **決定**（Joe 2026-11-03 指定）：
+  - **翻譯和講解**：Gemini API（Google AI Studio 的免費方案，不用綁卡）。
+    - 模型是 `gemini-3.6-flash`：2026-11-03 查官方模型頁，這是穩定版而且有免費方案。集中在 `lib/ai/gemini.ts` 的 `GEMINI_MODEL`；
+    - 用官方 REST `generateContent` 和 JSON schema 結構化輸出，不加 SDK 套件；
+    - 提示詞寫明：給臺灣學生、臺灣用語、每句最多 2 個單字和 1 個文法、例句要另外造句。
+  - **聲音**：Cloud Text-to-Speech，只用 Standard 語音（免費額度最高）。8 個聲音的對照在 `lib/ai/voices.ts`，語音名稱取自官方語音清單。
+  - **金鑰**：`GEMINI_API_KEY`、`GOOGLE_CLOUD_API_KEY`，兩把都有才開放建立練習。金鑰放在 HTTP header，不放在網址裡，避免出現在紀錄中。`AI_PROVIDERS=fake` 仍然可以強制使用假的供應者，但正式站一律不用。
+  - **錯誤分類**：
+    - HTTP 429、503 視為「忙碌」，提示稍後再試；
+    - 400～404（金鑰錯誤、API 沒有啟用、模型名稱錯誤）視為設定問題。畫面上直接提示檢查哪兩個環境變數（目前只有管理員會看到）；Google 回傳的詳細訊息只寫進伺服器紀錄；
+    - 其他都算失敗。
+    - 每次請求最多等 60 秒。
+  - **快取**：供應者 id 含模型和提示版本（`gemini/gemini-3.6-flash/p1`、`google-tts/standard/v1`）。改模型、提示詞或聲音時改版本號，就不會沿用舊的快取。
+- **條款注意**（2026-11-03 查 Gemini API 條款）：
+  - 免費方案的內容可能被 Google 用來改善產品，也可能經過人工審閱。隱私權政策和建立頁都已說明，並提醒不要輸入個人資料。
+  - 使用者需年滿 18 歲。目前只開放管理員；開放給一般使用者前要重新評估（roadmap「上線前待辦」）。
+- **要改時**：`lib/ai/gemini.ts`、`lib/ai/google-tts.ts`、`lib/ai/voices.ts`、`lib/ai/providers.ts`。

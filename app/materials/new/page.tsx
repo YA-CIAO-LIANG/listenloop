@@ -32,6 +32,18 @@ export default async function NewMaterialPage() {
       </Link>
       <h1 className="mt-6 font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
+      <p className="mt-4 max-w-reading text-supporting text-ink-muted">
+        {t.rich("privacyNote", {
+          link: (chunks) => (
+            <Link
+              href="/privacy"
+              className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+            >
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
       <div className="mt-12 max-w-practice">
         <CreatePracticeForm />
       </div>

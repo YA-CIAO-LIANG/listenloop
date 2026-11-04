@@ -118,6 +118,29 @@ describe("metered calls", () => {
     ).toEqual({ ok: false, reason: "failed" });
   });
 
+  it.each(["busy", "config"] as const)(
+    "passes on a %s provider error",
+    async (code) => {
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      const providers = {
+        ...fakes,
+        speech: {
+          id: "test",
+          synthesize: vi
+            .fn()
+            .mockRejectedValue(new ProviderError(code, "HTTP")),
+        },
+      };
+      expect(
+        await meteredSpeech(
+          { providers, meter: memoryMeter(100) },
+          "hi",
+          voice,
+        ),
+      ).toEqual({ ok: false, reason: code });
+    },
+  );
+
   it("tells a rate-limited provider apart as busy", async () => {
     const providers = {
       ...fakes,

@@ -522,6 +522,7 @@
         "items": [
           "Google 提供的帳號資料：email、名稱、頭像網址與 Google 帳號識別碼。畫面上只顯示 email。",
           "練習資料：每支影片的練習進度（各天是否完成、聽寫答案與正確率、跟讀的完成狀態）與每天的練習紀錄。",
+          "自建練習的內容（目前只開放給管理員）：建立練習時輸入或上傳的文字、斷句與翻譯結果、單字與文法講解，以及產生的音檔。",
           "登入狀態：存在瀏覽器 cookie 裡的登入憑證。"
         ]
       },
@@ -544,6 +545,7 @@
           "Supabase：帳號與雲端練習資料的資料庫，位於美國（us-east-1）。",
           "Vercel：網站主機，為了提供服務與維護安全，會處理連線需要的技術資料（例如 IP 位址）。",
           "Google：負責 Google 帳號登入。",
+          "Google AI 服務：建立練習時，輸入的文字會送到 Google 的 Gemini API 產生翻譯、單字與文法講解，英文句子會送到 Google Cloud Text-to-Speech 產生語音。目前使用 Gemini 的免費方案，依 Google 的條款，送出的內容可能被 Google 用來改善產品，也可能經過人工審閱（審閱前會和帳號分開）。請不要在練習文字中輸入個人或敏感資料。",
           "YouTube：練習影片由 YouTube 播放（使用 youtube-nocookie.com），播放時 YouTube 可能依 Google 的隱私權政策設定 cookie。",
           "語音辨識：跟讀使用瀏覽器內建的語音辨識；在 Chrome 中，聲音會傳到 Google 的伺服器辨識。ListenLoop 不錄音、不儲存聲音，只保存每句的完成狀態與涵蓋率。"
         ]
@@ -642,7 +644,8 @@
       "sentence-empty": "第 {n} 句的英文是空的。",
       "sentence-too-long": "第 {n} 句太長了，每句最多 {max, number} 字元。",
       "voice": "請選擇聲音。",
-      "busy": "AI 服務目前忙碌中，請過一分鐘再試。輸入的內容都還在。"
+      "busy": "AI 服務目前忙碌中，請過一分鐘再試。輸入的內容都還在。",
+      "config": "AI 服務的設定有問題（例如金鑰錯誤，或 API 還沒有啟用）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
     },
     "listTitle": "你建立的練習",
     "listEmpty": "還沒有建立練習。",
@@ -673,7 +676,8 @@
       "not-found": "找不到這個練習。",
       "limit": "今天的聲音用量已經用完。已產生的音檔會保留，明天（台灣時間 0 點後）可以繼續。",
       "failed": "產生音檔時發生錯誤。已產生的音檔會保留，請再試一次。",
-      "busy": "聲音服務目前忙碌中，請過一分鐘再試。已產生的音檔會保留。"
+      "busy": "聲音服務目前忙碌中，請過一分鐘再試。已產生的音檔會保留。",
+      "config": "AI 服務的設定有問題（例如金鑰錯誤，或 API 還沒有啟用）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
     },
     "startPractice": "開始練習",
     "ungrouped": "未分組",
@@ -690,8 +694,10 @@
       "not-found": "找不到這個練習。",
       "limit": "今天的翻譯與講解用量已經用完，明天（台灣時間 0 點後）可以繼續。",
       "busy": "AI 服務目前忙碌中，請過一分鐘再按「繼續產生」。",
-      "failed": "產生講解時發生錯誤，請再試一次。"
-    }
+      "failed": "產生講解時發生錯誤，請再試一次。",
+      "config": "AI 服務的設定有問題（例如金鑰錯誤，或 API 還沒有啟用）。請檢查 GEMINI_API_KEY、GOOGLE_CLOUD_API_KEY，詳細原因在伺服器紀錄。"
+    },
+    "privacyNote": "建立練習時，文字會送到 Google 的 AI 服務（Gemini、Text-to-Speech）處理；免費方案的內容可能被 Google 用來改善產品。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。"
   },
   "organize": {
     "collectionsTitle": "Collection",
