@@ -41,7 +41,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - **方案限制**（同時練習數、每月建立數、每篇字數）寫成集中的權限設定，程式只透過它判斷能不能做；目前全部不限制，未來收費時只改設定，不改功能程式碼。
 - **聲音 API 與 AI 翻譯**：付費功能上線前只開放給管理員帳號（我）。在伺服器端呼叫，API key 只放環境變數；設每日用量上限與費用警示。
 - **相同文字＋相同聲音只產生一次**：用內容雜湊快取，重複建立時直接沿用。
-- 外部服務：Supabase、Google 登入、聲音 API 和翻譯 API 已列入 `docs/roadmap.md`（2026-10-30）。翻譯、單字、文法用 Gemini API（AI Studio 免費方案，`GEMINI_API_KEY`）；聲音用 Cloud Text-to-Speech 的 Standard 語音（`GOOGLE_CLOUD_API_KEY`），見 D28。需要信用卡的服務（例如 Google Cloud 帳單），要我在清單中明確同意才導入。
+- 外部服務：Supabase、Google 登入、聲音 API 和翻譯 API 已列入 `docs/roadmap.md`（2026-10-30）。翻譯、單字、文法用 Gemini API（付費方案 Tier 1、預付制，`GEMINI_API_KEY`）；聲音用 Cloud Text-to-Speech 的 Chirp 3 HD 語音（`GOOGLE_CLOUD_API_KEY`），試聽範例用 `npm run voices:samples` 產生，見 D28、D29。需要信用卡的服務（例如 Google Cloud 帳單），要我在清單中明確同意才導入。
 
 ## 週循環規則
 

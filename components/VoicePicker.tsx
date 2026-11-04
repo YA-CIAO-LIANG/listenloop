@@ -18,6 +18,9 @@ const LOCALE: Record<VoiceAccent, string> = {
   in: "en-IN",
 };
 
+/** The clip each card plays, made by `npm run voices:samples`. */
+export const voiceSampleUrl = (id: string) => `/voices/${id}.mp3`;
+
 type VoicePickerProps = {
   /** The chosen voice id, e.g. "us-female". */
   value: string;

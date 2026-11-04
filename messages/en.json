@@ -253,7 +253,7 @@
       "whaleSharkNote": "The biggest and slowest: a broad flat head with a wide front mouth, white spots and faint stripes, white belly."
     },
     "heatScale": "Practice calendar steps: 0, 1, 2, 3, and 4+ official tasks finished that day",
-    "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a 1.5-second silent clip for now to show the playing state; real samples come once Text-to-Speech is connected."
+    "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a sample made in advance with Cloud Text-to-Speech (Chirp 3 HD), kept in public/voices/, so it costs no usage."
   },
   "library": {
     "title": "Recommended practices",
@@ -547,7 +547,7 @@
           "Supabase: the database for accounts and cloud practice data, in the United States (us-east-1).",
           "Vercel: the web host, which handles the technical data a connection needs (such as IP addresses) to serve and protect the site.",
           "Google: Google sign-in.",
-          "Google AI services: when you create a practice, its text is sent to Google's Gemini API for translation and vocabulary and grammar notes, and its English sentences to Google Cloud Text-to-Speech for audio. We use Gemini's free tier, under whose terms Google may use what's sent to improve its products, and human reviewers may read it (after it's separated from the account). Please don't put personal or sensitive information in practice text.",
+          "Google AI services: when you create a practice, its text is sent to Google's Gemini API for translation and vocabulary and grammar notes, and its English sentences to Google Cloud Text-to-Speech for audio. We use Gemini's paid tier: under Google's terms, what's sent and what's generated aren't used to improve or train Google's products, and are kept only for a limited time to detect violations of its usage policy. Text-to-Speech is handled under Google Cloud's terms and isn't used for training either. Even so, please don't put personal or sensitive information in practice text.",
           "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
           "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard."
         ]
@@ -647,7 +647,7 @@
       "sentence-too-long": "Sentence {n} is too long: {max, number} characters at most.",
       "voice": "Please choose a voice.",
       "busy": "The AI service is busy. Wait a minute and try again; your text is still here.",
-      "config": "The AI service isn't set up correctly (for example, a wrong key or an API that isn't enabled). Check GEMINI_API_KEY and GOOGLE_CLOUD_API_KEY; the server log has the details."
+      "config": "The AI service's setup or billing has a problem (for example, a wrong key, an API that isn't enabled, or used-up Gemini prepaid credits). Check GEMINI_API_KEY and GOOGLE_CLOUD_API_KEY; the server log has the details."
     },
     "listTitle": "Your practices",
     "listEmpty": "You haven't created a practice yet.",
@@ -657,12 +657,10 @@
       "zh": "Chinese"
     },
     "voiceTitle": "Voice",
-    "genderLegend": "Gender",
     "genders": {
       "female": "Female",
       "male": "Male"
     },
-    "accentLegend": "Accent",
     "accents": {
       "us": "American",
       "gb": "British",
@@ -679,7 +677,7 @@
       "limit": "Today's speech allowance is used up. The audio made so far is kept; continue tomorrow (after midnight, Taiwan time).",
       "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again.",
       "busy": "The speech service is busy. Wait a minute and try again; the audio made so far is kept.",
-      "config": "The AI service isn't set up correctly (for example, a wrong key or an API that isn't enabled). Check GEMINI_API_KEY and GOOGLE_CLOUD_API_KEY; the server log has the details."
+      "config": "The AI service's setup or billing has a problem (for example, a wrong key, an API that isn't enabled, or used-up Gemini prepaid credits). Check GEMINI_API_KEY and GOOGLE_CLOUD_API_KEY; the server log has the details."
     },
     "startPractice": "Start practicing",
     "ungrouped": "Ungrouped",
@@ -697,9 +695,9 @@
       "limit": "Today's translation and notes allowance is used up. Continue tomorrow (after midnight, Taiwan time).",
       "busy": "The AI service is busy. Wait a minute, then press Continue.",
       "failed": "Something went wrong while making the notes. Please try again.",
-      "config": "The AI service isn't set up correctly (for example, a wrong key or an API that isn't enabled). Check GEMINI_API_KEY and GOOGLE_CLOUD_API_KEY; the server log has the details."
+      "config": "The AI service's setup or billing has a problem (for example, a wrong key, an API that isn't enabled, or used-up Gemini prepaid credits). Check GEMINI_API_KEY and GOOGLE_CLOUD_API_KEY; the server log has the details."
     },
-    "privacyNote": "When you create a practice, its text is sent to Google's AI services (Gemini, Text-to-Speech). On the free tier Google may use it to improve its products, so please don't include personal or sensitive information. See the <link>privacy policy</link>."
+    "privacyNote": "When you create a practice, its text is sent to Google's AI services (Gemini, Text-to-Speech). It isn't used to train models, but is kept briefly to detect abuse. Please don't include personal or sensitive information. See the <link>privacy policy</link>."
   },
   "organize": {
     "collectionsTitle": "Collections",

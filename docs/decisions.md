@@ -338,7 +338,7 @@
     - 模型是 `gemini-3.6-flash`：2026-11-03 查官方模型頁，這是穩定版而且有免費方案。集中在 `lib/ai/gemini.ts` 的 `GEMINI_MODEL`；
     - 用官方 REST `generateContent` 和 JSON schema 結構化輸出，不加 SDK 套件；
     - 提示詞寫明：給臺灣學生、臺灣用語、每句最多 2 個單字和 1 個文法、例句要另外造句。
-  - **聲音**：Cloud Text-to-Speech，只用 Standard 語音（免費額度最高）。8 個聲音的對照在 `lib/ai/voices.ts`，語音名稱取自官方語音清單。
+  - **聲音**：Cloud Text-to-Speech，只用 Standard 語音（免費額度最高）。8 個聲音的對照在 `lib/ai/voices.ts`，語音名稱取自官方語音清單。（2026-11-03 改成 Chirp 3 HD，見 D29。）
   - **金鑰**：`GEMINI_API_KEY`、`GOOGLE_CLOUD_API_KEY`，兩把都有才開放建立練習。金鑰放在 HTTP header，不放在網址裡，避免出現在紀錄中。`AI_PROVIDERS=fake` 仍然可以強制使用假的供應者，但正式站一律不用。
   - **錯誤分類**：
     - HTTP 429、503 視為「忙碌」，提示稍後再試；
@@ -347,6 +347,20 @@
     - 每次請求最多等 60 秒。
   - **快取**：供應者 id 含模型和提示版本（`gemini/gemini-3.6-flash/p1`、`google-tts/standard/v1`）。改模型、提示詞或聲音時改版本號，就不會沿用舊的快取。
 - **條款注意**（2026-11-03 查 Gemini API 條款）：
-  - 免費方案的內容可能被 Google 用來改善產品，也可能經過人工審閱。隱私權政策和建立頁都已說明，並提醒不要輸入個人資料。
+  - 免費方案的內容可能被 Google 用來改善產品，也可能經過人工審閱。隱私權政策和建立頁都已說明，並提醒不要輸入個人資料。（2026-11-03 Joe 改用付費方案，見 D29。）
   - 使用者需年滿 18 歲。目前只開放管理員；開放給一般使用者前要重新評估（roadmap「上線前待辦」）。
 - **要改時**：`lib/ai/gemini.ts`、`lib/ai/google-tts.ts`、`lib/ai/voices.ts`、`lib/ai/providers.ts`。
+
+## D29 聲音改用 Chirp 3 HD；Gemini 改用付費方案（2026-11-03，d6e）
+
+- **聲音類型**（Joe 2026-11-03 聽過比較後選定）：
+  - 實測：同一個聲音名稱（例如 `en-US-*-F`）的 Standard、WaveNet、Neural2，產生的音檔長度完全相同，Standard 和 Neural2 的檔案常常每個位元都一樣，聽不出差別。真正不同的是 Chirp 3 HD。
+  - 改用 Chirp 3 HD，每種口音都用同樣兩位說話者：女聲 Kore、男聲 Charon，口音之間比較好比較。對照在 `lib/ai/voices.ts`。
+  - 價格（2026-11-03 查官方價格頁）：Chirp 3 HD 每月免費 100 萬字元，之後 US$30／百萬字元；Standard 和 WaveNet 共用每月 400 萬字元，之後 US$4／百萬。每日上限 20,000 字元（D7），一個人一個月最多約 62 萬字元，在免費額度內。
+  - 供應者 id 改成 `google-tts/chirp3-hd/v1`，之前產生的 Standard 音檔不會被沿用。
+- **試聽範例**：`npm run voices:samples` 用真的 Text-to-Speech 產生 8 個 MP3（每個約 25 KB），放在 `public/voices/`，隨程式發布。試聽不用等待，也不算用量。換聲音後要重新產生；測試會檢查每個聲音都有範例。
+- **Gemini 付費方案**（Joe 2026-11-03 決定，Tier 1，專案設了 US$1 的支出上限）：
+  - 依 Gemini API 條款，付費方案的內容不會被用來改善產品，只會保留一段有限的時間，用來偵測違反使用政策的行為。隱私權政策和建立頁已經改寫。
+  - 年滿 18 歲的規定付費方案也適用，所以「上線前待辦」仍保留。
+  - 付費方案預設是預付制：餘額用完時，Gemini 回傳 HTTP 402。程式把 402 歸在設定問題，管理員會看到「設定或帳單有問題」的提示。
+- **要改時**：`lib/ai/voices.ts`、`lib/ai/google-tts.ts` 的 `GOOGLE_TTS_ID`、`scripts/voice-samples.mts`、隱私權政策（`messages/*.json` 的 `privacy`）。

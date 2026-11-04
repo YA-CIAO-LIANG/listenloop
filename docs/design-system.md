@@ -258,6 +258,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - **選取**：整張卡片（試聽按鈕以外）是原生 radio 的 label，8 張卡片同一組，方向鍵可以切換。選中時邊框 accent、底色 accent 8%，加上 ✓，不只靠顏色區分。hover 時邊框變成 ink-muted。radio 有鍵盤焦點時，整張卡片顯示焦點外框；焦點在試聽按鈕上時，只有按鈕有外框。
 - **螢幕閱讀器**：每個 radio 讀作「美式英語・女聲」，試聽按鈕讀作「試聽美式英語・女聲」或「停止試聽……」。
 - 沒有範例音檔時，試聽按鈕停用。
+- **範例音檔**：`public/voices/<聲音 id>.mp3`，用 `npm run voices:samples` 產生（D29）。
 
 ## 設計系統展示頁
 

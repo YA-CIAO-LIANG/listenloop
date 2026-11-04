@@ -7,7 +7,8 @@ export const PROVIDER_TIMEOUT_MS = 60_000;
  * POSTs JSON to a Google API with the key in a header (not the URL, so it
  * never lands in logs) and maps failures to ProviderError codes: busy
  * (429, 503: try again later), config (400–404: bad key, API not enabled,
- * unknown model), failed (anything else).
+ * unknown model, 402 for used-up Gemini prepaid credits), failed (anything
+ * else).
  */
 export async function postGoogleJson(
   url: string,

@@ -3,11 +3,11 @@ import { voiceId, type SpeechProvider } from "./types";
 import { GOOGLE_VOICES } from "./voices";
 
 /** In the audio cache key: bump when voices or audio settings change. */
-export const GOOGLE_TTS_ID = "google-tts/standard/v1";
+export const GOOGLE_TTS_ID = "google-tts/chirp3-hd/v1";
 
 const ENDPOINT = "https://texttospeech.googleapis.com/v1/text:synthesize";
 
-/** Cloud Text-to-Speech (D28): MP3, one request per sentence. */
+/** Cloud Text-to-Speech (D28, D29): MP3, one request per sentence. */
 export function googleSpeech(
   apiKey: string,
   fetchImpl: typeof fetch = fetch,
