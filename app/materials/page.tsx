@@ -39,6 +39,8 @@ export default async function MaterialsPage() {
           .select(
             "id, title, source_language, voice, visibility, collection_id, created_at, notes_generated_at, practice_sentences(audio_path)",
           )
+          // Others' public practices are readable too (D30); list only theirs.
+          .eq("user_id", user.id)
           .order("created_at", { ascending: false }),
         supabase
           .from("collections")

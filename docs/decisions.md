@@ -364,3 +364,18 @@
   - 年滿 18 歲的規定付費方案也適用，所以「上線前待辦」仍保留。
   - 付費方案預設是預付制：餘額用完時，Gemini 回傳 HTTP 402。程式把 402 歸在設定問題，管理員會看到「設定或帳單有問題」的提示。
 - **要改時**：`lib/ai/voices.ts`、`lib/ai/google-tts.ts` 的 `GOOGLE_TTS_ID`、`scripts/voice-samples.mts`、隱私權政策（`messages/*.json` 的 `privacy`）。
+
+## D30 公開分享：瀏覽公開教材（2026-11-04，e1）
+
+- **決定**：
+  - **誰看得到**：所有人，不用登入。不登入也能練習別人公開的練習，進度和內建影片一樣先存在瀏覽器，登入後同步（D23 的 `p-<uuid>`）。頁面是 `/explore`，頁首叫「公開教材」，和「我的教材」對應。
+  - **資料庫**：新增兩條只能讀的 RLS 規則：`visibility = 'public'` 的練習和它的句子，`anon` 和 `authenticated` 都能讀。寫入仍然只有作者本人。
+    - 未登入的人只能讀指定的欄位（column grant），讀不到作者 id、Collection 和更新時間。登入的人技術上讀得到作者 id（一串 uuid，不是 email）；畫面上一律不顯示作者。
+    - 判斷「你建立的」：登入時另外查一次「自己的公開練習」，不靠作者 id 傳到瀏覽器。
+  - **原本依賴 RLS「只回傳自己的」的查詢都加上 `user_id` 條件**：「我的教材」的清單、產生講解和音檔的兩個 Server Action。否則管理員會看到，甚至花用量去產生別人的公開練習。單元測試會檢查查詢有帶上 `user_id`。
+  - **列出條件**：講解和音檔都完成才列出；最新的 200 份（`PUBLIC_PRACTICES_LIMIT`），之後數量多了再改成分頁或伺服器端搜尋。
+  - **搜尋與篩選**：在瀏覽器裡篩選伺服器送來的清單：標題搜尋、原文語言、長度。自建練習沒有時間點，所以長度用句數分組：10 句以內、11～30 句、31 句以上（`SENTENCE_BUCKETS`）。篩選狀態不存在網址，比題庫簡單；之後需要分享篩選結果時再改。
+  - **搜尋引擎**：自建和公開的練習頁（總覽、每天、講義）都設 `noindex`，避免使用者內容被索引（`practiceRobots`）。`/explore` 本身可以被索引。
+  - **作者不顯示**：學生使用者，先不公開任何身分資訊；之後如果需要「作者名稱」，要另外加「公開顯示名稱」欄位，讓使用者自己決定。
+  - 公開的 Collection 這次先不列出，之後需要時再加。
+- **要改時**：`supabase/migrations/20261104090000_public_practices.sql`、`auth/public-practices.ts`、`lib/custom-practice/explore.ts`、`components/ExploreList.tsx`、`app/explore/page.tsx`。

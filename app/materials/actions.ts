@@ -156,11 +156,12 @@ export async function generatePracticeAudio(
   if (!supabase) return { ok: false, reason: "unavailable" };
   if (typeof practiceId !== "string") return { ok: false, reason: "not-found" };
 
-  // Read with the user's session: row level security limits it to their own.
+  // Only their own: others' public practices are readable too (D30).
   const { data: practice, error } = await supabase
     .from("practices")
     .select("voice, practice_sentences(i, en, audio_path)")
     .eq("id", practiceId)
+    .eq("user_id", creator.user.id)
     .maybeSingle();
   if (error) return { ok: false, reason: "failed" };
   const voice = practice?.voice ? parseVoiceId(practice.voice) : null;
@@ -210,11 +211,12 @@ export async function generatePracticeNotes(
   if (!supabase) return { ok: false, reason: "unavailable" };
   if (typeof practiceId !== "string") return { ok: false, reason: "not-found" };
 
-  // Read with the user's session: row level security limits it to their own.
+  // Only their own: others' public practices are readable too (D30).
   const { data: practice, error } = await supabase
     .from("practices")
     .select("notes_generated_at, practice_sentences(i, en)")
     .eq("id", practiceId)
+    .eq("user_id", creator.user.id)
     .maybeSingle();
   if (error) return { ok: false, reason: "failed" };
   if (!practice) return { ok: false, reason: "not-found" };

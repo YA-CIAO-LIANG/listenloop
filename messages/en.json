@@ -3,6 +3,7 @@
     "appName": "ListenLoop",
     "dayN": "Day {day}",
     "myPractices": "Progress",
+    "explore": "Shared",
     "mainNav": "Main",
     "notebooks": "Notebooks",
     "materials": "My materials"
@@ -310,7 +311,9 @@
     },
     "custom": "Your practice",
     "backToCreate": "My materials",
-    "customSentences": "{count, plural, one {# sentence} other {# sentences}}, each with its own audio."
+    "customSentences": "{count, plural, one {# sentence} other {# sentences}}, each with its own audio.",
+    "shared": "Shared practice",
+    "backToExplore": "Shared materials"
   },
   "player": {
     "loading": "Loading video…",
@@ -785,5 +788,34 @@
     "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the recommended practices. Admins only for now.",
     "create": "Create a practice",
     "createUnavailable": "The speech and translation services aren't connected yet, so new practices can't be created for now."
+  },
+  "explore": {
+    "title": "Shared materials",
+    "intro": "Practices people have shared. Each one follows the same seven-day loop as the recommended practices, and you can practice without signing in.",
+    "none": "No shared practices yet.",
+    "searchLabel": "Search titles",
+    "searchPlaceholder": "For example: interview",
+    "languageLabel": "Written in",
+    "languages": {
+      "en": "English",
+      "zh": "Chinese"
+    },
+    "lengthLabel": "Length",
+    "lengths": {
+      "short": "Up to 10 sentences",
+      "medium": "11–30 sentences",
+      "long": "31 sentences or more"
+    },
+    "option": "{label} ({count})",
+    "clear": "Clear",
+    "clearAll": "Clear filters",
+    "results": "{count, plural, one {Showing # practice} other {Showing # practices}}",
+    "empty": "No practices match.",
+    "source": {
+      "en": "Written in English",
+      "zh": "Written in Chinese"
+    },
+    "sentences": "{count, plural, one {# sentence} other {# sentences}}",
+    "mine": "Yours"
   }
 }
