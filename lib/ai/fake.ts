@@ -1,12 +1,48 @@
-import type { SpeechAudio, SpeechProvider, TranslationProvider } from "./types";
+import type { LanguageProvider, SpeechAudio, SpeechProvider } from "./types";
 
 /**
  * Fake providers for tests and local development: no network, no cost,
  * and the same output for the same input.
  */
-export const fakeTranslation: TranslationProvider = {
+export const fakeLanguage: LanguageProvider = {
+  id: "fake",
   async translate(texts, { to }) {
     return texts.map((text) => `[${to}] ${text}`);
+  },
+  // Each sentence's longest word as vocabulary; every third sentence gets
+  // a grammar point on its first two words.
+  async annotate(sentences) {
+    const words = (sentence: string) => sentence.match(/[A-Za-z']+/g) ?? [];
+    return {
+      vocab: sentences.flatMap((sentence, i) => {
+        const word = [...words(sentence)].sort(
+          (a, b) => b.length - a.length,
+        )[0];
+        return word
+          ? [
+              {
+                sentence: i,
+                word: word.toLowerCase(),
+                pos: "n.",
+                zh: `[zh-Hant] ${word.toLowerCase()}`,
+                example: `An example with ${word.toLowerCase()}.`,
+              },
+            ]
+          : [];
+      }),
+      grammar: sentences.flatMap((sentence, i) =>
+        i % 3 === 0 && words(sentence).length >= 2
+          ? [
+              {
+                sentence: i,
+                point: words(sentence).slice(0, 2).join(" "),
+                explanation: `[zh-Hant] ${sentence}`,
+                example: sentence,
+              },
+            ]
+          : [],
+      ),
+    };
   },
 };
 

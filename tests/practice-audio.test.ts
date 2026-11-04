@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
-import { generateAllAudio } from "@/components/audio-generation";
-import { fakeSpeech, fakeTranslation } from "@/lib/ai/fake";
+import { generateAllAudio } from "@/components/practice-generation";
+import { fakeSpeech, fakeLanguage } from "@/lib/ai/fake";
 import type { SpeechAudio } from "@/lib/ai/types";
 import {
   audioFileName,
@@ -35,7 +35,7 @@ function deps(limit = 1_000) {
   const synthesize = vi.fn(fakeSpeech.synthesize);
   return {
     providers: {
-      translation: fakeTranslation,
+      language: fakeLanguage,
       speech: { id: "fake", synthesize },
     },
     meter: { reserve },

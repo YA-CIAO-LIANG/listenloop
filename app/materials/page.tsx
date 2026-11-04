@@ -5,7 +5,7 @@ import { getAdminUser, getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CollectionManager } from "@/components/CollectionManager";
-import { PracticeAudioStatus } from "@/components/PracticeAudioStatus";
+import { PracticeReadiness } from "@/components/PracticeReadiness";
 import { PracticeControls } from "@/components/PracticeControls";
 import { parseVoiceId } from "@/lib/ai/types";
 import { isTextSourceLanguage } from "@/lib/custom-practice/draft";
@@ -37,7 +37,7 @@ export default async function MaterialsPage() {
         supabase
           .from("practices")
           .select(
-            "id, title, source_language, voice, visibility, collection_id, created_at, practice_sentences(audio_path)",
+            "id, title, source_language, voice, visibility, collection_id, created_at, notes_generated_at, practice_sentences(audio_path)",
           )
           .order("created_at", { ascending: false }),
         supabase
@@ -96,9 +96,10 @@ export default async function MaterialsPage() {
             })}
           </p>
           {voice && (
-            <PracticeAudioStatus
+            <PracticeReadiness
               practiceId={practice.id}
               practiceHref={`/videos/${customPracticeId(practice.id)}`}
+              notesReady={practice.notes_generated_at !== null}
               voiced={sentences.filter((s) => s.audio_path).length}
               total={sentences.length}
             />

@@ -1,3 +1,4 @@
+import { storedNotes } from "./custom-practice/notes";
 import { isUuid } from "./custom-practice/organize";
 import type { Attribution, Video } from "./videos";
 
@@ -45,6 +46,9 @@ export const isCustomPracticeId = (id: string) =>
 export type CustomPracticeRow = {
   id: string;
   title: string;
+  vocab: unknown;
+  grammar: unknown;
+  notes_generated_at: string | null;
   practice_sentences: {
     i: number;
     en: string;
@@ -54,8 +58,8 @@ export type CustomPracticeRow = {
 };
 
 /**
- * A created practice as practice material, or null until every sentence
- * has audio (it can't be practiced before then).
+ * A created practice as practice material, or null until its notes are
+ * made and every sentence has audio (it can't be practiced before then).
  */
 export function materialFromCustomPractice(
   row: CustomPracticeRow,
@@ -68,7 +72,8 @@ export function materialFromCustomPractice(
     if (!url) return null;
     audioUrls.push(url);
   }
-  if (rows.length === 0) return null;
+  if (rows.length === 0 || !row.notes_generated_at) return null;
+  const notes = storedNotes(row.vocab, row.grammar, rows.length);
   return {
     id: customPracticeId(row.id),
     title: row.title,
@@ -80,8 +85,8 @@ export function materialFromCustomPractice(
       en: s.en,
       zh: s.zh,
     })),
-    vocab: [],
-    grammar: [],
+    vocab: notes.vocab,
+    grammar: notes.grammar,
     audioUrls,
   };
 }

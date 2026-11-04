@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { fakeSpeech, fakeTranslation } from "@/lib/ai/fake";
+import { fakeSpeech, fakeLanguage } from "@/lib/ai/fake";
 
 type Insert = { table: string; rows: unknown };
 const state = vi.hoisted(() => ({
@@ -16,8 +16,9 @@ vi.mock("@/auth/creator", () => ({
     state.creator
       ? {
           user: { id: "user-1", email: "joe@example.com" },
-          providers: { translation: fakeTranslation, speech: fakeSpeech },
+          providers: { language: fakeLanguage, speech: fakeSpeech },
           meter: { reserve: state.reserve },
+          cache: { get: async () => null, set: async () => {} },
         }
       : null,
 }));

@@ -1,4 +1,4 @@
-import { fakeSpeech, fakeTranslation } from "./fake";
+import { fakeLanguage, fakeSpeech } from "./fake";
 import type { AiProviders } from "./types";
 
 /**
@@ -13,7 +13,7 @@ export function getAiProviders(
 ): AiProviders | null {
   const choice = env.AI_PROVIDERS?.trim();
   if (choice === "fake" && env.VERCEL_ENV !== "production") {
-    return { translation: fakeTranslation, speech: fakeSpeech };
+    return { language: fakeLanguage, speech: fakeSpeech };
   }
   return null;
 }

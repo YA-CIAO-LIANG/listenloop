@@ -24,7 +24,9 @@ export const getPracticeMaterial = cache(
     if (!supabase) return null;
     const { data } = await supabase
       .from("practices")
-      .select("id, title, practice_sentences(i, en, zh, audio_path)")
+      .select(
+        "id, title, vocab, grammar, notes_generated_at, practice_sentences(i, en, zh, audio_path)",
+      )
       .eq("id", uuid)
       .maybeSingle();
     return data

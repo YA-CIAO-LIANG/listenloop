@@ -4,7 +4,9 @@ import { isAdminEmail } from "@/lib/admin";
 import { DAILY_CHAR_LIMITS, usageDay, type UsageMeter } from "@/lib/usage";
 import type { Supabase } from "@/lib/supabase/browser";
 import type { AudioStore } from "@/lib/custom-practice/audio";
+import type { AiCache } from "@/lib/custom-practice/notes";
 import { getAdminSupabase } from "./admin";
+import { supabaseAiCache } from "./ai-cache";
 import { supabaseAudioStore } from "./audio-store";
 import { getSignedInUser, type SignedInUser } from "./session";
 
@@ -33,7 +35,11 @@ export function supabaseUsageMeter(
   };
 }
 
-export type Creator = MeteredDeps & { user: SignedInUser; store: AudioStore };
+export type Creator = MeteredDeps & {
+  user: SignedInUser;
+  store: AudioStore;
+  cache: AiCache;
+};
 
 /**
  * Whether to show "Create practice" to this user: an admin, with a
@@ -72,5 +78,6 @@ export async function getCreator(): Promise<Creator | null> {
     providers,
     meter: supabaseUsageMeter(admin, user.id),
     store: supabaseAudioStore(admin),
+    cache: supabaseAiCache(admin),
   };
 }

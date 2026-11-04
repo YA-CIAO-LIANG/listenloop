@@ -10,11 +10,13 @@ vi.mock("@/app/materials/actions", () => ({
   prepareSentences: vi.fn(),
   createPractice: vi.fn(),
   generatePracticeAudio: vi.fn(),
+  generatePracticeNotes: vi.fn(),
 }));
 
 const prepare = vi.fn();
 const create = vi.fn();
 const generate = vi.fn();
+const generateNotes = vi.fn();
 
 beforeEach(() => {
   router.refresh.mockReset();
@@ -27,6 +29,7 @@ beforeEach(() => {
   });
   create.mockReset().mockResolvedValue({ ok: true, id: "p1" });
   generate.mockReset().mockResolvedValue({ ok: true, voiced: 1, total: 1 });
+  generateNotes.mockReset().mockResolvedValue({ ok: true });
 });
 
 async function renderForm() {
@@ -36,6 +39,7 @@ async function renderForm() {
         prepare={prepare}
         create={create}
         generate={generate}
+        generateNotes={generateNotes}
       />,
     );
   });
@@ -77,8 +81,14 @@ describe("CreatePracticeForm", () => {
       voice: "au-male",
       sentences: [{ en: "We moved here last year.", zh: "我們搬來這裡。" }],
     });
+    // Notes come first, so they match the reviewed English; then audio.
+    expect(generateNotes).toHaveBeenCalledWith("p1");
+    expect(generate).toHaveBeenCalledWith("p1");
+    expect(generateNotes.mock.invocationCallOrder[0]).toBeLessThan(
+      generate.mock.invocationCallOrder[0],
+    );
     expect(screen.getByRole("status").textContent).toContain(
-      "已建立「Moving」",
+      "已建立「Moving」，講解和音檔都完成了",
     );
     expect(router.refresh).toHaveBeenCalled();
     expect((textBox() as HTMLTextAreaElement).value).toBe("");
@@ -97,7 +107,7 @@ describe("CreatePracticeForm", () => {
     await click("斷句並翻譯");
     await click("建立練習");
     const status = screen.getByRole("status").textContent;
-    expect(status).toContain("音檔還沒有全部產生");
+    expect(status).toContain("講解或音檔還沒有全部完成");
     expect(status).toContain("今天的聲音用量已經用完");
     expect(router.refresh).toHaveBeenCalled();
   });

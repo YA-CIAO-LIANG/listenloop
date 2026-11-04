@@ -34,12 +34,38 @@ export function parseVoiceId(id: string): Voice | null {
 /** Languages of practice text: English, and Chinese (handouts: Traditional). */
 export type TextLanguage = "en" | "zh-Hant";
 
-export interface TranslationProvider {
+/**
+ * Translation and teaching notes (D27, D28): one language model does
+ * both. Results are cached by content, so `id` names the provider, model,
+ * and prompt version; change it when the output would change.
+ */
+export interface LanguageProvider {
+  readonly id: string;
   /** Translates each text; the result has the same length and order. */
   translate(
     texts: readonly string[],
     languages: { from: TextLanguage; to: TextLanguage },
   ): Promise<string[]>;
+  /**
+   * Vocabulary and grammar notes for English `sentences`, shaped like a
+   * built-in video's vocab and grammar, with `sentence` indexes into the
+   * given list. Unchecked: lib/custom-practice/notes.ts validates it.
+   */
+  annotate(sentences: readonly string[]): Promise<unknown>;
+}
+
+/**
+ * A provider call that failed for a reason worth telling apart: "busy"
+ * (rate-limited, try again later) or "config" (bad key, API not enabled).
+ */
+export class ProviderError extends Error {
+  constructor(
+    readonly code: "busy" | "config" | "failed",
+    message: string,
+  ) {
+    super(message);
+    this.name = "ProviderError";
+  }
 }
 
 export type SpeechAudio = {
@@ -59,6 +85,6 @@ export interface SpeechProvider {
 }
 
 export type AiProviders = {
-  translation: TranslationProvider;
+  language: LanguageProvider;
   speech: SpeechProvider;
 };

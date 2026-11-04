@@ -1,5 +1,10 @@
 import { countChars, type UsageKind, type UsageMeter } from "@/lib/usage";
-import type { AiProviders, SpeechAudio, TextLanguage, Voice } from "./types";
+import {
+  ProviderError,
+  type AiProviders,
+  type SpeechAudio,
+  type Voice,
+} from "./types";
 
 /**
  * The paid calls, each behind the daily limit: the characters are
@@ -8,7 +13,10 @@ import type { AiProviders, SpeechAudio, TextLanguage, Voice } from "./types";
  * failing provider can't be retried past the limit (D7).
  */
 export type MeteredResult<T> =
-  { ok: true; value: T } | { ok: false; reason: "limit" | "failed" };
+  { ok: true; value: T } | { ok: false; reason: MeteredFailure };
+
+/** limit: today's allowance is used up; busy: the provider is rate-limited. */
+export type MeteredFailure = "limit" | "busy" | "failed";
 
 export type MeteredDeps = { providers: AiProviders; meter: UsageMeter };
 
@@ -24,25 +32,23 @@ async function metered<T>(
       return { ok: false, reason: "limit" };
     }
     return { ok: true, value: await call() };
-  } catch {
-    return { ok: false, reason: "failed" };
+  } catch (error) {
+    if (!(error instanceof ProviderError)) {
+      return { ok: false, reason: "failed" };
+    }
+    // Admins need to see a configuration problem; learners just retry.
+    if (error.code === "config") console.error(`[AI] ${error.message}`);
+    return { ok: false, reason: error.code === "busy" ? "busy" : "failed" };
   }
 }
 
-export async function meteredTranslate(
-  { providers, meter }: MeteredDeps,
-  texts: readonly string[],
-  languages: { from: TextLanguage; to: TextLanguage },
-): Promise<MeteredResult<string[]>> {
-  if (texts.length === 0) return { ok: true, value: [] };
-  const result = await metered(meter, "translation", countChars(texts), () =>
-    providers.translation.translate(texts, languages),
-  );
-  // A provider that drops or adds lines would misalign the sentences.
-  if (result.ok && result.value.length !== texts.length) {
-    return { ok: false, reason: "failed" };
-  }
-  return result;
+/** Any metered language-model call, e.g. notes (lib/custom-practice/notes.ts). */
+export function meteredLanguage<T>(
+  { meter }: MeteredDeps,
+  chars: number,
+  call: () => Promise<T>,
+): Promise<MeteredResult<T>> {
+  return metered(meter, "translation", chars, call);
 }
 
 export async function meteredSpeech(
