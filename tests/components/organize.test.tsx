@@ -79,6 +79,25 @@ describe("PracticeControls", () => {
   };
   const collections = [{ id: "c1", title: "Week 1" }];
 
+  it("can't make a practice public again once it's taken down", () => {
+    const { unmount } = renderWithIntl(
+      <PracticeControls practice={practice} collections={collections} />,
+    );
+    expect(
+      screen.getByRole("group", { name: "「第一課」公開或私人" }),
+    ).toBeTruthy();
+    unmount();
+    renderWithIntl(
+      <PracticeControls
+        practice={{ ...practice, removed: true }}
+        collections={collections}
+      />,
+    );
+    expect(
+      screen.queryByRole("group", { name: "「第一課」公開或私人" }),
+    ).toBeNull();
+  });
+
   it("moves a practice into a collection and back out", async () => {
     const movePractice = ok();
     renderWithIntl(

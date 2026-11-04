@@ -516,7 +516,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 3, 2026",
+    "updated": "Last updated: November 4, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -528,6 +528,7 @@
           "Account details from Google: email, name, profile picture URL, and Google account ID. Only the email is shown.",
           "Practice data: your progress on each video (which days are done, dictation answers and accuracy, shadowing status) and a daily practice log.",
           "Created practices (admins only for now): the text you type or upload when creating a practice, its sentences and translations, the vocabulary and grammar notes, and the generated audio.",
+          "Sharing and reports: anyone can see a public practice's title, sentences, translations, notes, and audio, but not its author's account details. When you report a practice, we keep the reason, your details, and your account ID only to review it; the author isn't told who reported it.",
           "Sign-in state: a sign-in token in a browser cookie."
         ]
       },
@@ -723,7 +724,7 @@
       "private": "Private",
       "public": "Public"
     },
-    "visibilityNote": "Practices are private by default. Public ones will be findable and practicable by others once public browsing launches.",
+    "visibilityNote": "Practices are private by default. Once public, others can find and practice them in Shared materials; they don't see your account details.",
     "deletePractice": "Delete practice…",
     "deletePracticeConfirm": "Delete “{title}”? Its sentences go too, and this can't be undone; progress already on your devices can be removed in Progress.",
     "deletePracticeButton": "Delete practice for good",
@@ -787,7 +788,9 @@
     "title": "My materials",
     "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the recommended practices. Admins only for now.",
     "create": "Create a practice",
-    "createUnavailable": "The speech and translation services aren't connected yet, so new practices can't be created for now."
+    "createUnavailable": "The speech and translation services aren't connected yet, so new practices can't be created for now.",
+    "removed": "Taken down by an admin (reason: {reason}). It's no longer public; only you can see it, and it can't be made public again.",
+    "reviewReports": "Review reports ({count} open) →"
   },
   "explore": {
     "title": "Shared materials",
@@ -817,5 +820,64 @@
     },
     "sentences": "{count, plural, one {# sentence} other {# sentences}}",
     "mine": "Yours"
+  },
+  "report": {
+    "open": "Report this practice",
+    "title": "Report this practice",
+    "intro": "Admins review every report and take the practice down if it breaks the rules. The author won't know who reported it.",
+    "reasonLegend": "Reason",
+    "reasons": {
+      "copyright": "Copyright",
+      "inappropriate": "Inappropriate content",
+      "personal": "Personal information",
+      "spam": "Ads or spam",
+      "other": "Other"
+    },
+    "reasonHints": {
+      "copyright": "Someone else's article, lyrics, or teaching material used without permission.",
+      "inappropriate": "Violence, sexual content, hate, or harassment.",
+      "personal": "Real names, phone numbers, addresses, or anything else that identifies a person.",
+      "spam": "Promotes a product or site, or is meaningless.",
+      "other": "Something else; please explain in the details."
+    },
+    "detailsLabel": "Details (optional)",
+    "detailsCount": "{count} / {max} characters",
+    "send": "Send report",
+    "sending": "Sending…",
+    "cancel": "Cancel",
+    "sent": "Thanks — your report has been sent, and an admin will review it soon.",
+    "signInFirst": "Please sign in to report (Sign in at the top right).",
+    "errors": {
+      "signed-out": "Please sign in to report.",
+      "invalid": "Choose a reason; details can be up to 1,000 characters.",
+      "not-found": "This practice is no longer public, or it's your own.",
+      "already": "You've already reported this practice; an admin is reviewing it.",
+      "limit": "You've reached today's report limit; please try again tomorrow.",
+      "failed": "Couldn't send the report. Please try again later."
+    }
+  },
+  "moderation": {
+    "title": "Report review",
+    "intro": "Public practices people reported. Taking one down makes it private to its author, who sees the reason in My materials; dismissing just closes the reports.",
+    "openTitle": "Open ({count})",
+    "noneOpen": "No open reports.",
+    "reportCount": "{count, plural, one {# report} other {# reports}}",
+    "reasonTally": "{reason} {count}",
+    "reasonLabel": "Reason",
+    "remove": "Take down",
+    "removeLabel": "Take down “{title}”",
+    "dismiss": "Dismiss",
+    "dismissLabel": "Dismiss the reports on “{title}”",
+    "removedTitle": "Taken down",
+    "noneRemoved": "Nothing has been taken down.",
+    "removedMeta": "Reason: {reason} · {date}",
+    "restore": "Restore",
+    "restoreLabel": "Restore “{title}”",
+    "errors": {
+      "unavailable": "Can't review right now. Make sure you're signed in as an admin and the server has SUPABASE_SERVICE_ROLE_KEY.",
+      "invalid": "Something's off; please reload the page.",
+      "not-found": "Couldn't find it; it may have been handled already. Please reload the page.",
+      "failed": "Couldn't save. Please try again later."
+    }
   }
 }

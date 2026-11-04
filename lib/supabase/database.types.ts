@@ -176,6 +176,47 @@ export type Database = {
         };
         Relationships: [];
       };
+      practice_reports: {
+        Row: {
+          created_at: string;
+          details: string;
+          id: string;
+          practice_id: string;
+          reason: string;
+          reporter_id: string;
+          resolved_at: string | null;
+          status: string;
+        };
+        Insert: {
+          created_at?: string;
+          details?: string;
+          id?: string;
+          practice_id: string;
+          reason: string;
+          reporter_id?: string;
+          resolved_at?: string | null;
+          status?: string;
+        };
+        Update: {
+          created_at?: string;
+          details?: string;
+          id?: string;
+          practice_id?: string;
+          reason?: string;
+          reporter_id?: string;
+          resolved_at?: string | null;
+          status?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "practice_reports_practice_id_fkey";
+            columns: ["practice_id"];
+            isOneToOne: false;
+            referencedRelation: "practices";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       practice_sentences: {
         Row: {
           audio_path: string | null;
@@ -215,6 +256,8 @@ export type Database = {
           grammar: Json;
           id: string;
           notes_generated_at: string | null;
+          removed_at: string | null;
+          removed_reason: string | null;
           source_language: string;
           title: string;
           updated_at: string;
@@ -229,6 +272,8 @@ export type Database = {
           grammar?: Json;
           id?: string;
           notes_generated_at?: string | null;
+          removed_at?: string | null;
+          removed_reason?: string | null;
           source_language: string;
           title: string;
           updated_at?: string;
@@ -243,6 +288,8 @@ export type Database = {
           grammar?: Json;
           id?: string;
           notes_generated_at?: string | null;
+          removed_at?: string | null;
+          removed_reason?: string | null;
           source_language?: string;
           title?: string;
           updated_at?: string;

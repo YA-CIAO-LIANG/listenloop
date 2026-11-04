@@ -516,7 +516,7 @@
   },
   "privacy": {
     "title": "隱私權政策",
-    "updated": "最後更新：2026 年 11 月 3 日",
+    "updated": "最後更新：2026 年 11 月 4 日",
     "intro": "ListenLoop 是英語聽力練習網站。這份政策說明我們收集哪些資料、怎麼使用、存在哪裡，以及你可以怎麼刪除。不登入也能使用全部的練習功能。",
     "sections": [
       {
@@ -526,6 +526,7 @@
           "Google 提供的帳號資料：email、名稱、頭像網址與 Google 帳號識別碼。畫面上只顯示 email。",
           "練習資料：每支影片的練習進度（各天是否完成、聽寫答案與正確率、跟讀的完成狀態）與每天的練習紀錄。",
           "自建練習的內容（目前只開放給管理員）：建立練習時輸入或上傳的文字、斷句與翻譯結果、單字與文法講解，以及產生的音檔。",
+          "公開與檢舉：設為公開的練習，任何人都能看到標題、句子、翻譯、講解與音檔，但看不到作者的帳號資料。檢舉時，我們會保存檢舉原因、補充說明和你的帳號識別碼，只用來審查，作者不會知道是誰檢舉的。",
           "登入狀態：存在瀏覽器 cookie 裡的登入憑證。"
         ]
       },
@@ -721,7 +722,7 @@
       "private": "私人",
       "public": "公開"
     },
-    "visibilityNote": "練習預設是私人的。設為公開後，之後推出的公開瀏覽功能會讓其他人找到並練習。",
+    "visibilityNote": "練習預設是私人的。設為公開後，其他人可以在「公開教材」找到並練習；看不到你的帳號資料。",
     "deletePractice": "刪除練習…",
     "deletePracticeConfirm": "要刪除「{title}」嗎？句子會一起刪除，無法復原；各裝置上已有的練習進度可以在「學習進度」移除。",
     "deletePracticeButton": "永久刪除練習",
@@ -785,7 +786,9 @@
     "title": "我的教材",
     "intro": "你建立的練習和 Collection。每份練習都和推薦練習一樣，走七天的循環。目前只開放給管理員。",
     "create": "建立練習",
-    "createUnavailable": "還沒有接上聲音和翻譯服務，暫時無法建立新的練習。"
+    "createUnavailable": "還沒有接上聲音和翻譯服務，暫時無法建立新的練習。",
+    "removed": "已被管理員下架（原因：{reason}）。這份練習不再公開，只有你看得到，也不能再設為公開。",
+    "reviewReports": "檢舉審查（{count} 份練習待處理）→"
   },
   "explore": {
     "title": "公開教材",
@@ -815,5 +818,64 @@
     },
     "sentences": "{count} 句",
     "mine": "你建立的"
+  },
+  "report": {
+    "open": "檢舉這份練習",
+    "title": "檢舉這份練習",
+    "intro": "管理員會審查檢舉；確認違反規則時會下架這份練習。作者不會知道是誰檢舉的。",
+    "reasonLegend": "原因",
+    "reasons": {
+      "copyright": "侵權",
+      "inappropriate": "不當內容",
+      "personal": "含有個人資料",
+      "spam": "廣告或垃圾內容",
+      "other": "其他"
+    },
+    "reasonHints": {
+      "copyright": "未經授權使用別人的文章、歌詞、教材等。",
+      "inappropriate": "暴力、色情、仇恨或騷擾等內容。",
+      "personal": "包含真實姓名、電話、地址等可以認出某個人的資料。",
+      "spam": "宣傳商品、網站，或沒有意義的內容。",
+      "other": "其他問題，請在補充說明寫下原因。"
+    },
+    "detailsLabel": "補充說明（選填）",
+    "detailsCount": "{count} / {max} 字",
+    "send": "送出檢舉",
+    "sending": "送出中…",
+    "cancel": "取消",
+    "sent": "已收到你的檢舉，管理員會盡快審查。謝謝！",
+    "signInFirst": "登入後才能檢舉（右上角的「登入」）。",
+    "errors": {
+      "signed-out": "登入後才能檢舉。",
+      "invalid": "請選擇原因；補充說明最多 1,000 字。",
+      "not-found": "這份練習已經不公開了，或是你自己建立的。",
+      "already": "你已經檢舉過這份練習，管理員審查中。",
+      "limit": "今天的檢舉次數已達上限，明天再試。",
+      "failed": "送出失敗，請稍後再試一次。"
+    }
+  },
+  "moderation": {
+    "title": "檢舉審查",
+    "intro": "使用者檢舉的公開練習。下架後，練習不再公開，作者會在「我的教材」看到原因；駁回只會關閉這些檢舉。",
+    "openTitle": "待處理（{count}）",
+    "noneOpen": "沒有待處理的檢舉。",
+    "reportCount": "{count} 則檢舉",
+    "reasonTally": "{reason} {count}",
+    "reasonLabel": "下架原因",
+    "remove": "下架",
+    "removeLabel": "下架「{title}」",
+    "dismiss": "駁回",
+    "dismissLabel": "駁回「{title}」的檢舉",
+    "removedTitle": "已下架",
+    "noneRemoved": "沒有下架的練習。",
+    "removedMeta": "原因：{reason} · {date}",
+    "restore": "恢復",
+    "restoreLabel": "恢復「{title}」",
+    "errors": {
+      "unavailable": "目前無法審查。請確認已用管理員帳號登入，且伺服器設定了 SUPABASE_SERVICE_ROLE_KEY。",
+      "invalid": "資料不正確，請重新整理頁面。",
+      "not-found": "找不到這份練習或檢舉，可能已經處理過。請重新整理頁面。",
+      "failed": "儲存失敗，請稍後再試一次。"
+    }
   }
 }

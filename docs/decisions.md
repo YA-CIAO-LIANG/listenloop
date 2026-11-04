@@ -379,3 +379,14 @@
   - **作者不顯示**：學生使用者，先不公開任何身分資訊；之後如果需要「作者名稱」，要另外加「公開顯示名稱」欄位，讓使用者自己決定。
   - 公開的 Collection 這次先不列出，之後需要時再加。
 - **要改時**：`supabase/migrations/20261104090000_public_practices.sql`、`auth/public-practices.ts`、`lib/custom-practice/explore.ts`、`components/ExploreList.tsx`、`app/explore/page.tsx`。
+
+## D31 檢舉與下架（2026-11-04，e2）
+
+- **決定**：
+  - **誰能檢舉**：登入的使用者，只能檢舉別人公開的練習。不能檢舉自己的、私人的或已下架的練習（RLS 擋下）。每人每份練習同時只能有一則待處理的檢舉（唯一索引），每天最多 20 則（台灣時間，`REPORT_LIMITS`），避免濫用。
+  - **原因**：侵權、不當內容、含有個人資料、廣告或垃圾內容、其他，可以加最多 1,000 字的補充說明。目標使用者是學生，所以把「含有個人資料」獨立成一個原因。
+  - **審查**：管理員在 `/admin/reports` 依練習查看待處理的檢舉。可以選原因下架，也可以駁回；已下架的可以恢復。審查頁和這些動作都用 secret key 在伺服器執行，一般使用者讀不到檢舉，也改不了別人的練習。
+  - **下架**：`practices.removed_at`、`removed_reason`（必須一起設定）。公開讀取的 RLS 規則改成排除已下架的練習。用 trigger 保證只有伺服器（或 Supabase 後台）能設定或清除下架，作者不能自己恢復。作者仍然看得到、也能練習自己的練習，並會在「我的教材」看到原因；「私人 / 公開」切換會隱藏。
+  - **不自動下架**：檢舉數達到某個數字也不會自動下架，一律由管理員判斷（避免被惡意檢舉）。目前也不寄通知信。
+  - **隱私**：作者看不到是誰檢舉的。審查頁也不顯示檢舉人，只顯示日期、原因和說明。隱私權政策已補上公開與檢舉的資料說明。
+- **要改時**：`supabase/migrations/20261104120000_practice_reports.sql`、`lib/moderation.ts`、`app/reports/actions.ts`、`app/admin/reports/`、`components/ReportPractice.tsx`、`components/ModerationControls.tsx`。
