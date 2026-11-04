@@ -15,8 +15,12 @@ import {
 export type MeteredResult<T> =
   { ok: true; value: T } | { ok: false; reason: MeteredFailure };
 
-/** limit: today's allowance is used up; busy: the provider is rate-limited. */
-export type MeteredFailure = "limit" | "busy" | "failed";
+/**
+ * limit: today's allowance is used up; busy: the provider is rate-limited;
+ * config: a bad key or an API that isn't enabled (only admins create
+ * practices, so they're told which).
+ */
+export type MeteredFailure = "limit" | "busy" | "config" | "failed";
 
 export type MeteredDeps = { providers: AiProviders; meter: UsageMeter };
 
@@ -36,9 +40,9 @@ async function metered<T>(
     if (!(error instanceof ProviderError)) {
       return { ok: false, reason: "failed" };
     }
-    // Admins need to see a configuration problem; learners just retry.
-    if (error.code === "config") console.error(`[AI] ${error.message}`);
-    return { ok: false, reason: error.code === "busy" ? "busy" : "failed" };
+    // The details (status, Google's message) go to the server log only.
+    console.error(`[AI] ${error.message}`);
+    return { ok: false, reason: error.code };
   }
 }
 
