@@ -10,6 +10,7 @@ const state = vi.hoisted(() => ({
   } | null,
   updates: [] as { audio_path: string; i: number }[],
   reserve: vi.fn(),
+  filters: [] as [string, string][],
   saved: [] as string[],
 }));
 
@@ -35,11 +36,16 @@ vi.mock("@/auth/creator", () => ({
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
     from: () => ({
-      select: () => ({
-        eq: () => ({
+      select: () => {
+        const query = {
+          eq: (column: string, value: string) => {
+            state.filters.push([column, value]);
+            return query;
+          },
           maybeSingle: async () => ({ data: state.practice, error: null }),
-        }),
-      }),
+        };
+        return query;
+      },
       update: (row: { audio_path: string }) => ({
         eq: () => ({
           eq: async (_: string, i: number) => {
@@ -63,6 +69,7 @@ const sentences = (count: number, voicedCount = 0): Sentence[] =>
 
 beforeEach(() => {
   state.creator = true;
+  state.filters = [];
   state.updates = [];
   state.saved = [];
   state.reserve.mockReset().mockResolvedValue(true);
@@ -77,6 +84,11 @@ describe("generatePracticeAudio", () => {
       total: 10,
     });
     expect(state.updates.map((u) => u.i)).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+    // Only the user's own: others' public practices are readable too.
+    expect(state.filters).toEqual([
+      ["id", "p1"],
+      ["user_id", "user-1"],
+    ]);
   });
 
   it("continues where it left off", async () => {

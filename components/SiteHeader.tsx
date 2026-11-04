@@ -8,7 +8,8 @@ import { RewardBadge } from "./RewardBadge";
 import { ThemeToggle } from "./ThemeToggle";
 
 /**
- * Wordmark, "Progress", and (admins) "My materials" and "Notebooks" on the left; rewards, language, and theme toggles on the right,
+ * Wordmark, "Progress", "Shared", and (admins) "My materials" and
+ * "Notebooks" on the left; rewards, language, and theme toggles on the right,
  * then the account control when accounts are on (passed in by the layout,
  * which reads the session on the server).
  */
@@ -28,7 +29,10 @@ export function SiteHeader({
   return (
     <header className="border-b border-line print:hidden">
       <div className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 split:px-6">
-        <nav aria-label={t("mainNav")} className="flex items-baseline gap-x-6">
+        <nav
+          aria-label={t("mainNav")}
+          className="flex flex-wrap items-baseline gap-x-6 gap-y-1"
+        >
           <Link href="/" className="font-display text-h3">
             {t("appName")}
           </Link>
@@ -37,6 +41,12 @@ export function SiteHeader({
             className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
           >
             {t("myPractices")}
+          </Link>
+          <Link
+            href="/explore"
+            className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+          >
+            {t("explore")}
           </Link>
           {showMaterials && (
             <Link

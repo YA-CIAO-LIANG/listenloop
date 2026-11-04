@@ -6,6 +6,7 @@ const state = vi.hoisted(() => ({
   practice: null as unknown,
   updates: [] as Record<string, unknown>[],
   reserve: vi.fn(),
+  filters: [] as [string, string][],
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
@@ -23,11 +24,16 @@ vi.mock("@/auth/creator", () => ({
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
     from: () => ({
-      select: () => ({
-        eq: () => ({
+      select: () => {
+        const query = {
+          eq: (column: string, value: string) => {
+            state.filters.push([column, value]);
+            return query;
+          },
           maybeSingle: async () => ({ data: state.practice, error: null }),
-        }),
-      }),
+        };
+        return query;
+      },
       update: (row: Record<string, unknown>) => ({
         eq: () => ({
           select: async () => {
@@ -44,6 +50,7 @@ const { generatePracticeNotes } = await import("@/app/materials/actions");
 
 beforeEach(() => {
   state.creator = true;
+  state.filters = [];
   state.updates = [];
   state.reserve.mockReset().mockResolvedValue(true);
   state.practice = {
@@ -96,6 +103,11 @@ describe("generatePracticeNotes", () => {
       ok: false,
       reason: "not-found",
     });
+    // Asks for the user's own: others' public practices are readable too.
+    expect(state.filters).toEqual([
+      ["id", "p1"],
+      ["user_id", "user-1"],
+    ]);
   });
 
   it("is unavailable to non-admins", async () => {

@@ -8,20 +8,39 @@ import {
 import { videos } from "@/data/videos";
 
 const uuid = "0b1d2c3e-4f50-4a6b-8c7d-9e0f1a2b3c4d";
-const state = vi.hoisted(() => ({ row: null as unknown, eq: vi.fn() }));
+const state = vi.hoisted(() => ({
+  row: null as unknown,
+  eq: vi.fn(),
+  user: null as { id: string; email: string } | null,
+  ownerId: "owner",
+}));
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
     from: () => ({
-      select: () => ({
-        eq: (column: string, value: string) => {
-          state.eq(column, value);
-          return {
-            maybeSingle: async () => ({ data: state.row, error: null }),
-          };
-        },
-      }),
+      select: () => {
+        const filters: Record<string, string> = {};
+        const query = {
+          eq: (column: string, value: string) => {
+            state.eq(column, value);
+            filters[column] = value;
+            return query;
+          },
+          // The ownership query matches only the owner's id.
+          maybeSingle: async () => ({
+            data:
+              "user_id" in filters && filters.user_id !== state.ownerId
+                ? null
+                : state.row,
+            error: null,
+          }),
+        };
+        return query;
+      },
     }),
   }),
+}));
+vi.mock("@/auth/session", () => ({
+  getSignedInUser: async () => state.user,
 }));
 vi.mock("@/lib/supabase/config", async (original) => ({
   ...(await original<typeof import("@/lib/supabase/config")>()),
@@ -53,6 +72,7 @@ const row = {
 beforeEach(() => {
   state.row = row;
   state.eq.mockClear();
+  state.user = null;
 });
 
 describe("created practice ids", () => {
@@ -130,10 +150,20 @@ describe("getPracticeMaterial", () => {
     expect(state.eq).not.toHaveBeenCalled();
   });
 
-  it("loads the user's created practice by its uuid", async () => {
+  it("loads a created practice by its uuid", async () => {
     const material = await getPracticeMaterial(`p-${uuid}`);
     expect(state.eq).toHaveBeenCalledWith("id", uuid);
     expect(material?.audioUrls).toHaveLength(2);
+    // Signed out: someone's public practice, and no author id asked for.
+    expect(material?.mine).toBe(false);
+    expect(state.eq).not.toHaveBeenCalledWith("user_id", expect.anything());
+  });
+
+  it("knows whether the signed-in viewer made it", async () => {
+    state.user = { id: "owner", email: "a@example.com" };
+    expect((await getPracticeMaterial(`p-${uuid}`))?.mine).toBe(true);
+    state.user = { id: "someone-else", email: "b@example.com" };
+    expect((await getPracticeMaterial(`p-${uuid}`))?.mine).toBe(false);
   });
 
   it("is null for unknown ids and practices it can't read", async () => {

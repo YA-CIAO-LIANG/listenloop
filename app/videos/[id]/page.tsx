@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { CycleStatus } from "@/components/CycleStatus";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import { getPracticeMaterial } from "@/auth/practice-material";
-import { titleLang } from "@/lib/practice-material";
+import { practiceRobots, titleLang } from "@/lib/practice-material";
 import { getVideo } from "@/lib/video-library";
 import { VideoPlayerPanel } from "./VideoPlayerPanel";
 
@@ -13,7 +13,7 @@ export async function generateMetadata({
   params,
 }: PageProps<"/videos/[id]">): Promise<Metadata> {
   const material = await getPracticeMaterial((await params).id);
-  return material ? { title: material.title } : {};
+  return material ? { title: material.title, ...practiceRobots(material) } : {};
 }
 
 export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
@@ -28,17 +28,17 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <Link
-        href={video ? "/" : "/materials"}
+        href={video ? "/" : material.mine ? "/materials" : "/explore"}
         className="text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
-        {t(video ? "back" : "backToCreate")}
+        {t(video ? "back" : material.mine ? "backToCreate" : "backToExplore")}
       </Link>
 
       <p className="mt-8 text-metadata tracking-widest text-ink-muted uppercase">
         {video
           ? `${t(`levels.${video.level}`)} · ${t(`categories.${video.category}`)}`
-          : t("custom")}
+          : t(material.mine ? "custom" : "shared")}
       </p>
       <h1 lang={titleLang(material.id)} className="mt-2 font-display text-h1">
         {material.title}

@@ -13,6 +13,8 @@ export type PracticeMaterial = Pick<
 > & {
   /** Built-in videos credit their source; created practices have none. */
   attribution?: Attribution;
+  /** A created practice the viewer made (others' are public ones, D30). */
+  mine?: boolean;
 } & (
     | { youtubeId: string; audioUrls?: undefined }
     | {
@@ -97,4 +99,14 @@ export function materialFromCustomPractice(
  */
 export function titleLang(id: string): "en" | undefined {
   return isCustomPracticeId(id) ? undefined : "en";
+}
+
+/**
+ * Search engines index built-in videos but not practices people made
+ * (D30): spread into a practice page's metadata.
+ */
+export function practiceRobots(material: PracticeMaterial) {
+  return material.youtubeId
+    ? {}
+    : { robots: { index: false, follow: false } as const };
 }

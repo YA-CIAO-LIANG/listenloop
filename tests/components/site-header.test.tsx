@@ -9,11 +9,12 @@ const navLinks = () =>
   screen.getByRole("navigation", { name: "主要導覽" }).querySelectorAll("a");
 
 describe("SiteHeader", () => {
-  it("shows Progress to everyone", () => {
+  it("shows Progress and Shared materials to everyone", () => {
     renderWithIntl(<SiteHeader />);
     expect([...navLinks()].map((a) => a.textContent)).toEqual([
       "ListenLoop",
       "學習進度",
+      "公開教材",
     ]);
   });
 
@@ -24,6 +25,7 @@ describe("SiteHeader", () => {
     ).toEqual([
       ["ListenLoop", "/"],
       ["學習進度", "/practices"],
+      ["公開教材", "/explore"],
       ["我的教材", "/materials"],
       ["筆記本", "/notebooks"],
     ]);

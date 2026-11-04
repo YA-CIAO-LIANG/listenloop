@@ -8,6 +8,7 @@ import { VideoAttribution } from "@/components/VideoAttribution";
 import type { CycleDay } from "@/lib/cycle";
 import { isShadowingDay } from "@/lib/shadowing";
 import { getPracticeMaterial } from "@/auth/practice-material";
+import { practiceRobots } from "@/lib/practice-material";
 
 // Day 1 is dictation, Days 2–6 are shadowing, Day 7 is re-dictation.
 // DayGate keeps days closed until they unlock.
@@ -35,7 +36,12 @@ export async function generateMetadata({
   const { id, day } = await params;
   const n = parseDay(day);
   const video = n ? await getPracticeMaterial(id) : null;
-  return video && n ? { title: `${await dayTitle(n)} · ${video.title}` } : {};
+  return video && n
+    ? {
+        title: `${await dayTitle(n)} · ${video.title}`,
+        ...practiceRobots(video),
+      }
+    : {};
 }
 
 export default async function DayPage({

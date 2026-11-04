@@ -3,6 +3,7 @@
     "appName": "ListenLoop",
     "dayN": "第 {day} 天",
     "myPractices": "學習進度",
+    "explore": "公開教材",
     "mainNav": "主要導覽",
     "notebooks": "筆記本",
     "materials": "我的教材"
@@ -310,7 +311,9 @@
     },
     "custom": "自建練習",
     "backToCreate": "我的教材",
-    "customSentences": "共 {count} 句，每一句都有音檔。"
+    "customSentences": "共 {count} 句，每一句都有音檔。",
+    "shared": "公開練習",
+    "backToExplore": "公開教材"
   },
   "player": {
     "loading": "影片載入中…",
@@ -783,5 +786,34 @@
     "intro": "你建立的練習和 Collection。每份練習都和推薦練習一樣，走七天的循環。目前只開放給管理員。",
     "create": "建立練習",
     "createUnavailable": "還沒有接上聲音和翻譯服務，暫時無法建立新的練習。"
+  },
+  "explore": {
+    "title": "公開教材",
+    "intro": "其他人公開分享的練習。每份練習都和推薦練習一樣，走七天的循環；不用登入也能練習。",
+    "none": "目前還沒有公開的練習。",
+    "searchLabel": "搜尋標題",
+    "searchPlaceholder": "例如：面試",
+    "languageLabel": "原文",
+    "languages": {
+      "en": "英文",
+      "zh": "中文"
+    },
+    "lengthLabel": "長度",
+    "lengths": {
+      "short": "10 句以內",
+      "medium": "11～30 句",
+      "long": "31 句以上"
+    },
+    "option": "{label}（{count}）",
+    "clear": "清除",
+    "clearAll": "清除篩選",
+    "results": "顯示 {count} 份練習",
+    "empty": "沒有符合的練習。",
+    "source": {
+      "en": "英文原文",
+      "zh": "中文原文"
+    },
+    "sentences": "{count} 句",
+    "mine": "你建立的"
   }
 }

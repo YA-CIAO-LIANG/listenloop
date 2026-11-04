@@ -5,14 +5,16 @@ import { getTranslations } from "next-intl/server";
 import { Handout } from "@/components/Handout";
 import { HandoutGate } from "@/components/HandoutGate";
 import { getPracticeMaterial } from "@/auth/practice-material";
-import { titleLang } from "@/lib/practice-material";
+import { practiceRobots, titleLang } from "@/lib/practice-material";
 
 export async function generateMetadata({
   params,
 }: PageProps<"/videos/[id]/handout">): Promise<Metadata> {
   const video = await getPracticeMaterial((await params).id);
   const t = await getTranslations("handout");
-  return video ? { title: `${video.title} · ${t("title")}` } : {};
+  return video
+    ? { title: `${video.title} · ${t("title")}`, ...practiceRobots(video) }
+    : {};
 }
 
 export default async function HandoutPage({
