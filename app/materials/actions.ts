@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
-import { meteredTranslate } from "@/lib/ai/metered";
+import type { MeteredFailure } from "@/lib/ai/metered";
 import { parseVoiceId } from "@/lib/ai/types";
 import { AUDIO_BATCH_SIZE, voiceSentences } from "@/lib/custom-practice/audio";
 import {
@@ -14,6 +14,10 @@ import {
   type DraftSentence,
   type PracticeDraft,
 } from "@/lib/custom-practice/draft";
+import {
+  annotateSentences,
+  translateCached,
+} from "@/lib/custom-practice/notes";
 import { splitSentences } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
 
@@ -22,7 +26,7 @@ export type PrepareResult =
   | {
       ok: false;
       reason:
-        "unavailable" | "empty" | "too-long" | "too-many" | "limit" | "failed";
+        "unavailable" | "empty" | "too-long" | "too-many" | MeteredFailure;
     };
 
 /**
@@ -49,7 +53,7 @@ export async function prepareSentences(
   }
 
   const fromChinese = language === "zh";
-  const translated = await meteredTranslate(
+  const translated = await translateCached(
     creator,
     source,
     fromChinese ? { from: "zh-Hant", to: "en" } : { from: "en", to: "zh-Hant" },
@@ -132,7 +136,7 @@ export type GenerateAudioResult =
   | { ok: true; voiced: number; total: number }
   | {
       ok: false;
-      reason: "unavailable" | "not-found" | "limit" | "failed";
+      reason: "unavailable" | "not-found" | MeteredFailure;
       voiced?: number;
       total?: number;
     };
@@ -185,4 +189,53 @@ export async function generatePracticeAudio(
     return { ok: false, reason: batch.stopped, voiced, total };
   }
   return { ok: true, voiced, total };
+}
+
+export type GenerateNotesResult =
+  | { ok: true }
+  | { ok: false; reason: "unavailable" | "not-found" | MeteredFailure };
+
+/**
+ * Makes the vocabulary and grammar notes for one of the user's practices
+ * from its saved (already reviewed) English, so the notes match the final
+ * sentences. Does nothing if they exist. Long practices go in chunks that
+ * are each cached, so a retry after a failure only redoes what's missing.
+ */
+export async function generatePracticeNotes(
+  practiceId: unknown,
+): Promise<GenerateNotesResult> {
+  const creator = await getCreator();
+  if (!creator) return { ok: false, reason: "unavailable" };
+  const supabase = await getServerSupabase();
+  if (!supabase) return { ok: false, reason: "unavailable" };
+  if (typeof practiceId !== "string") return { ok: false, reason: "not-found" };
+
+  // Read with the user's session: row level security limits it to their own.
+  const { data: practice, error } = await supabase
+    .from("practices")
+    .select("notes_generated_at, practice_sentences(i, en)")
+    .eq("id", practiceId)
+    .maybeSingle();
+  if (error) return { ok: false, reason: "failed" };
+  if (!practice) return { ok: false, reason: "not-found" };
+  if (practice.notes_generated_at) return { ok: true };
+
+  const sentences = [...practice.practice_sentences]
+    .sort((a, b) => a.i - b.i)
+    .map((s) => s.en);
+  const notes = await annotateSentences(creator, sentences);
+  if (!notes.ok) return notes;
+
+  const { data: updated, error: updateError } = await supabase
+    .from("practices")
+    .update({
+      vocab: notes.value.vocab,
+      grammar: notes.value.grammar,
+      notes_generated_at: new Date().toISOString(),
+    })
+    .eq("id", practiceId)
+    .select("id");
+  if (updateError || !updated?.length) return { ok: false, reason: "failed" };
+  revalidatePath("/materials");
+  return { ok: true };
 }

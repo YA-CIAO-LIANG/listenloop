@@ -39,6 +39,27 @@ export type Database = {
   };
   public: {
     Tables: {
+      ai_cache: {
+        Row: {
+          created_at: string;
+          hash: string;
+          kind: string;
+          result: Json;
+        };
+        Insert: {
+          created_at?: string;
+          hash: string;
+          kind: string;
+          result: Json;
+        };
+        Update: {
+          created_at?: string;
+          hash?: string;
+          kind?: string;
+          result?: Json;
+        };
+        Relationships: [];
+      };
       api_usage: {
         Row: {
           chars: number;
@@ -191,34 +212,43 @@ export type Database = {
         Row: {
           collection_id: string | null;
           created_at: string;
+          grammar: Json;
           id: string;
+          notes_generated_at: string | null;
           source_language: string;
           title: string;
           updated_at: string;
           user_id: string;
           visibility: string;
+          vocab: Json;
           voice: string | null;
         };
         Insert: {
           collection_id?: string | null;
           created_at?: string;
+          grammar?: Json;
           id?: string;
+          notes_generated_at?: string | null;
           source_language: string;
           title: string;
           updated_at?: string;
           user_id?: string;
           visibility?: string;
+          vocab?: Json;
           voice?: string | null;
         };
         Update: {
           collection_id?: string | null;
           created_at?: string;
+          grammar?: Json;
           id?: string;
+          notes_generated_at?: string | null;
           source_language?: string;
           title?: string;
           updated_at?: string;
           user_id?: string;
           visibility?: string;
+          vocab?: Json;
           voice?: string | null;
         };
         Relationships: [

@@ -7,6 +7,7 @@ import { useId, useRef, useState, type ChangeEvent } from "react";
 import {
   createPractice,
   generatePracticeAudio,
+  generatePracticeNotes,
   prepareSentences,
   type CreatePracticeResult,
   type PrepareResult,
@@ -27,7 +28,12 @@ import {
   type TextSourceLanguage,
 } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
-import { generateAllAudio, type GenerateAudio } from "./audio-generation";
+import {
+  prepareForPractice,
+  type GenerateAudio,
+  type GenerateNotes,
+  type GenerationStage,
+} from "./practice-generation";
 import { Button, buttonClassName } from "./Button";
 import { SegmentedControl } from "./SegmentedControl";
 
@@ -44,6 +50,7 @@ type CreatePracticeFormProps = {
     sentences: DraftSentence[];
   }) => Promise<CreatePracticeResult>;
   generate?: GenerateAudio;
+  generateNotes?: GenerateNotes;
 };
 
 type FormError =
@@ -70,6 +77,7 @@ export function CreatePracticeForm({
   prepare = prepareSentences,
   create = createPractice,
   generate = generatePracticeAudio,
+  generateNotes = generatePracticeNotes,
 }: CreatePracticeFormProps) {
   const t = useTranslations("create");
   const router = useRouter();
@@ -82,10 +90,7 @@ export function CreatePracticeForm({
   const [languageChosen, setLanguageChosen] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
   const [voice, setVoice] = useState<Voice>({ accent: "us", gender: "female" });
-  const [progress, setProgress] = useState<{
-    voiced: number;
-    total: number;
-  } | null>(null);
+  const [progress, setProgress] = useState<GenerationStage | null>(null);
   const nextKey = useRef(0);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<FormError | null>(null);
@@ -171,24 +176,26 @@ export function CreatePracticeForm({
       );
       return;
     }
-    // Saved: now voice it. Whatever happens, the practice is kept and My
-    // materials can continue the audio.
-    setProgress({ voiced: 0, total: rows.length });
-    const audio = await generateAllAudio(generate, result.id, (voiced, total) =>
-      setProgress({ voiced, total }),
+    // Saved: now make its notes and audio. Whatever happens, the practice
+    // is kept and My materials can continue.
+    const ready = await prepareForPractice(
+      { generate, generateNotes },
+      result.id,
+      false,
+      setProgress,
     );
     setPending(false);
     setProgress(null);
     const createdTitle = title.trim();
     setNotice(
-      audio.ok
+      ready.ok
         ? {
             message: t("created", { title: createdTitle }),
             success: true,
             created: true,
           }
         : {
-            message: `${t("createdAudioFailed", { title: createdTitle })} ${t(`audioErrors.${audio.reason}`)}`,
+            message: `${t("createdIncomplete", { title: createdTitle })} ${t(`${ready.stage === "notes" ? "notesErrors" : "audioErrors"}.${ready.reason}`)}`,
             success: false,
             created: true,
           },
@@ -388,7 +395,12 @@ export function CreatePracticeForm({
             role="status"
             className="text-supporting text-ink-muted tabular-nums"
           >
-            {t("generating", progress)}
+            {progress.stage === "notes"
+              ? t("generatingNotes")
+              : t("generating", {
+                  voiced: progress.voiced,
+                  total: progress.total,
+                })}
           </p>
         )}
         {errorMessage}

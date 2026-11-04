@@ -1,5 +1,10 @@
-import { meteredSpeech, type MeteredDeps } from "@/lib/ai/metered";
+import {
+  meteredSpeech,
+  type MeteredDeps,
+  type MeteredFailure,
+} from "@/lib/ai/metered";
 import { voiceId, type SpeechAudio, type Voice } from "@/lib/ai/types";
+import { sha256Hex } from "./hash";
 
 /**
  * Generating a practice's audio, one file per sentence (D22). Same
@@ -15,13 +20,7 @@ export async function speechCacheKey(
   voice: Voice,
   text: string,
 ): Promise<string> {
-  const input = new TextEncoder().encode(
-    [providerId, voiceId(voice), text].join("\n"),
-  );
-  const digest = await crypto.subtle.digest("SHA-256", input);
-  return Array.from(new Uint8Array(digest), (byte) =>
-    byte.toString(16).padStart(2, "0"),
-  ).join("");
+  return sha256Hex([providerId, voiceId(voice), text].join("\n"));
 }
 
 export function audioFileName(
@@ -45,7 +44,7 @@ export type GeneratedBatch = {
   /** Sentences that now have audio, in order. */
   done: { i: number; path: string }[];
   /** Why it stopped early, if it did. */
-  stopped?: "limit" | "failed";
+  stopped?: MeteredFailure;
 };
 
 /**

@@ -627,7 +627,7 @@
     "create": "Create practice",
     "creating": "Creating…",
     "back": "Back",
-    "created": "Created “{title}” and generated all its audio. It's ready to practice.",
+    "created": "Created “{title}” with its notes and audio. It's ready to practice.",
     "errors": {
       "unavailable": "Creating practices isn't available. Make sure you're signed in with an admin account.",
       "empty": "No sentences to practice were found. Please check the text.",
@@ -643,7 +643,8 @@
       "no-sentences": "Add at least one sentence.",
       "sentence-empty": "Sentence {n} has no English.",
       "sentence-too-long": "Sentence {n} is too long: {max, number} characters at most.",
-      "voice": "Please choose a voice."
+      "voice": "Please choose a voice.",
+      "busy": "The AI service is busy. Wait a minute and try again; your text is still here."
     },
     "listTitle": "Your practices",
     "listEmpty": "You haven't created a practice yet.",
@@ -668,19 +669,31 @@
     "voiceNote": "Audio is generated for every sentence after you create the practice; the same sentence in the same voice is generated only once.",
     "voiceName": "{accent} · {gender}",
     "generating": "Generating audio… {voiced} / {total}",
-    "audioDone": "Audio ready",
     "audioPartial": "Audio {voiced} / {total}",
-    "resumeAudio": "Continue generating audio",
     "audioErrors": {
       "unavailable": "Audio can't be generated right now. Make sure you're signed in with an admin account.",
       "not-found": "This practice couldn't be found.",
       "limit": "Today's speech allowance is used up. The audio made so far is kept; continue tomorrow (after midnight, Taiwan time).",
-      "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again."
+      "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again.",
+      "busy": "The speech service is busy. Wait a minute and try again; the audio made so far is kept."
     },
-    "createdAudioFailed": "Created “{title}”, but not all of its audio is ready yet. You can continue in My materials.",
     "startPractice": "Start practicing",
     "ungrouped": "Ungrouped",
-    "backToMaterials": "See it in My materials →"
+    "backToMaterials": "See it in My materials →",
+    "createdIncomplete": "Created “{title}”, but its notes or audio aren't all ready yet. You can continue in My materials.",
+    "generatingNotes": "Writing the translation, vocabulary, and grammar notes…",
+    "readyDone": "Notes and audio ready",
+    "notesDone": "Notes ready",
+    "notesPending": "Notes not made yet",
+    "statusLine": "{notes} · {audio}",
+    "resume": "Continue",
+    "notesErrors": {
+      "unavailable": "Notes can't be made right now. Make sure you're signed in with an admin account.",
+      "not-found": "This practice couldn't be found.",
+      "limit": "Today's translation and notes allowance is used up. Continue tomorrow (after midnight, Taiwan time).",
+      "busy": "The AI service is busy. Wait a minute, then press Continue.",
+      "failed": "Something went wrong while making the notes. Please try again."
+    }
   },
   "organize": {
     "collectionsTitle": "Collections",

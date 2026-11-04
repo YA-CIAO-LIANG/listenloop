@@ -1,8 +1,13 @@
 import { describe, expect, it, vi } from "vitest";
-import { fakeSpeech, fakeTranslation } from "@/lib/ai/fake";
-import { meteredSpeech, meteredTranslate } from "@/lib/ai/metered";
+import { fakeSpeech, fakeLanguage } from "@/lib/ai/fake";
+import { meteredSpeech } from "@/lib/ai/metered";
 import { getAiProviders } from "@/lib/ai/providers";
-import { parseVoiceId, voiceId, type AiProviders } from "@/lib/ai/types";
+import {
+  parseVoiceId,
+  ProviderError,
+  voiceId,
+  type AiProviders,
+} from "@/lib/ai/types";
 import type { UsageMeter } from "@/lib/usage";
 
 const voice = { accent: "gb", gender: "female" } as const;
@@ -23,7 +28,7 @@ function memoryMeter(
   };
 }
 
-const fakes: AiProviders = { translation: fakeTranslation, speech: fakeSpeech };
+const fakes: AiProviders = { language: fakeLanguage, speech: fakeSpeech };
 
 describe("voices", () => {
   it("round-trips voice ids", () => {
@@ -59,7 +64,7 @@ describe("getAiProviders", () => {
 describe("fake providers", () => {
   it("translates each line, in order", async () => {
     expect(
-      await fakeTranslation.translate(["你好", "再見"], {
+      await fakeLanguage.translate(["你好", "再見"], {
         from: "zh-Hant",
         to: "en",
       }),
@@ -78,17 +83,6 @@ describe("fake providers", () => {
 });
 
 describe("metered calls", () => {
-  it("counts characters and calls the provider within the limit", async () => {
-    const meter = memoryMeter(10);
-    expect(
-      await meteredTranslate({ providers: fakes, meter }, ["你好", "再見"], {
-        from: "zh-Hant",
-        to: "en",
-      }),
-    ).toEqual({ ok: true, value: ["[en] 你好", "[en] 再見"] });
-    expect(meter.used.get("translation")).toBe(4);
-  });
-
   it("stops at the limit without calling the provider", async () => {
     const meter = memoryMeter(5);
     const synthesize = vi.fn(fakeSpeech.synthesize);
@@ -124,30 +118,20 @@ describe("metered calls", () => {
     ).toEqual({ ok: false, reason: "failed" });
   });
 
-  it("rejects a translation with the wrong number of lines", async () => {
+  it("tells a rate-limited provider apart as busy", async () => {
     const providers = {
       ...fakes,
-      translation: { translate: vi.fn().mockResolvedValue(["only one"]) },
+      speech: {
+        id: "test",
+        synthesize: vi
+          .fn()
+          .mockRejectedValue(
+            new ProviderError("busy", "429 Too Many Requests"),
+          ),
+      },
     };
     expect(
-      await meteredTranslate(
-        { providers, meter: memoryMeter(100) },
-        ["a", "b"],
-        {
-          from: "zh-Hant",
-          to: "en",
-        },
-      ),
-    ).toEqual({ ok: false, reason: "failed" });
-  });
-
-  it("spends nothing on an empty translation", async () => {
-    const meter = memoryMeter(0);
-    expect(
-      await meteredTranslate({ providers: fakes, meter }, [], {
-        from: "zh-Hant",
-        to: "en",
-      }),
-    ).toEqual({ ok: true, value: [] });
+      await meteredSpeech({ providers, meter: memoryMeter(100) }, "hi", voice),
+    ).toEqual({ ok: false, reason: "busy" });
   });
 });
