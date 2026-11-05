@@ -623,7 +623,7 @@
     "prepare": "斷句並翻譯",
     "preparing": "斷句、翻譯中…",
     "reviewTitle": "預覽與修改",
-    "reviewIntro": "每一句會成為一題聽寫和跟讀。可以修改英文和中文，或刪除不需要的句子；確認後再建立。",
+    "reviewIntro": "每一句會成為一題聽寫和跟讀。可以修改英文和中文、合併或拆分句子，或刪除不需要的句子；確認後再建立。",
     "sentenceCount": "共 {count} 句",
     "sentenceEn": "第 {n} 句英文",
     "sentenceZh": "第 {n} 句中文",
@@ -708,7 +708,13 @@
       "translate": "翻譯中 {done}/{total} 句",
       "notes": "產生講解 {done}/{total} 句",
       "audio": "產生音檔 {done}/{total} 句"
-    }
+    },
+    "splitSentence": "從游標處拆分",
+    "splitSentenceLabel": "從游標處拆分第 {n} 句",
+    "mergeSentence": "與下一句合併",
+    "mergeSentenceLabel": "第 {n} 句與下一句合併",
+    "splitHint": "要拆開一句時，先在英文框點一下要拆開的位置，再按「從游標處拆分」；拆出來的句子中文會在建立時自動翻譯。",
+    "zhPlaceholder": "留空會在建立時自動翻譯"
   },
   "organize": {
     "collectionsTitle": "Collection",

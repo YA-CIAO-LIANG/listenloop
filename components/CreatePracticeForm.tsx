@@ -14,7 +14,10 @@ import {
 } from "@/app/materials/actions";
 import {
   DEFAULT_VOICE,
+  canSplitAt,
+  mergeWithNext,
   PRACTICE_LIMITS,
+  splitRowAt,
   titleFromFileName,
   type DraftSentence,
 } from "@/lib/custom-practice/draft";
@@ -92,6 +95,8 @@ export function CreatePracticeForm({
   const [voice, setVoice] = useState(DEFAULT_VOICE);
   const [progress, setProgress] = useState<Stage | null>(null);
   const nextKey = useRef(0);
+  // Each row's cursor in its English box, for "Split at cursor".
+  const [carets, setCarets] = useState<Record<number, number>>({});
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<FormError | null>(null);
   const [notice, setNotice] = useState<{
@@ -263,6 +268,12 @@ export function CreatePracticeForm({
             {t("reviewTitle")}
           </h2>
           <p className="mt-2 text-ink-muted">{t("reviewIntro")}</p>
+          <p
+            id={`${ids.title}-split-hint`}
+            className="mt-2 text-supporting text-ink-muted"
+          >
+            {t("splitHint")}
+          </p>
           <p className="mt-2 text-supporting text-ink-muted">
             {t("sentenceCount", { count: rows.length })}
           </p>
@@ -279,12 +290,17 @@ export function CreatePracticeForm({
               <div className="min-w-0 flex-1 space-y-2">
                 <textarea
                   aria-label={t("sentenceEn", { n: index + 1 })}
+                  aria-describedby={`${ids.title}-split-hint`}
                   lang="en"
                   rows={2}
                   value={row.en}
                   onChange={(event) =>
                     editRow(row.key, "en", event.target.value)
                   }
+                  onSelect={(event) => {
+                    const at = event.currentTarget.selectionStart;
+                    setCarets((current) => ({ ...current, [row.key]: at }));
+                  }}
                   disabled={pending}
                   className={`${fieldClassName} resize-y text-sentence`}
                 />
@@ -293,28 +309,69 @@ export function CreatePracticeForm({
                   lang="zh-Hant"
                   rows={1}
                   value={row.zh}
+                  placeholder={t("zhPlaceholder")}
                   onChange={(event) =>
                     editRow(row.key, "zh", event.target.value)
                   }
                   disabled={pending}
                   className={`${fieldClassName} resize-y text-supporting`}
                 />
+                <div className="flex flex-wrap gap-1">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    aria-label={t("splitSentenceLabel", { n: index + 1 })}
+                    onClick={() =>
+                      setRows(
+                        (current) =>
+                          current &&
+                          splitRowAt(
+                            current,
+                            index,
+                            carets[row.key] ?? 0,
+                            (en) => ({ en, zh: "", key: nextKey.current++ }),
+                          ),
+                      )
+                    }
+                    disabled={
+                      pending ||
+                      rows.length >= PRACTICE_LIMITS.sentences ||
+                      !canSplitAt(row.en, carets[row.key] ?? 0)
+                    }
+                  >
+                    {t("splitSentence")}
+                  </Button>
+                  {index < rows.length - 1 && (
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      aria-label={t("mergeSentenceLabel", { n: index + 1 })}
+                      onClick={() =>
+                        setRows(
+                          (current) => current && mergeWithNext(current, index),
+                        )
+                      }
+                      disabled={pending}
+                    >
+                      {t("mergeSentence")}
+                    </Button>
+                  )}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    aria-label={t("removeSentenceLabel", { n: index + 1 })}
+                    onClick={() =>
+                      setRows(
+                        (current) =>
+                          current?.filter((r) => r.key !== row.key) ?? null,
+                      )
+                    }
+                    disabled={pending}
+                  >
+                    {t("removeSentence")}
+                  </Button>
+                </div>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                aria-label={t("removeSentenceLabel", { n: index + 1 })}
-                onClick={() =>
-                  setRows(
-                    (current) =>
-                      current?.filter((r) => r.key !== row.key) ?? null,
-                  )
-                }
-                disabled={pending}
-                className="mt-1"
-              >
-                {t("removeSentence")}
-              </Button>
             </li>
           ))}
         </ol>

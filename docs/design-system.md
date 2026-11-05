@@ -184,7 +184,7 @@
   - 錯誤訊息放在按鈕列下方，supporting、error 色、`role="alert"`；成功訊息 success 色、`role="status"`。
   - **選擇檔案**：原生 file input 隱藏（`sr-only`），用外觀和 secondary、sm 按鈕相同的 label 觸發；鍵盤焦點落在 input 上時，label 顯示焦點外框。
 - **第一步**：標題 → 文字內容（說明、選擇 .txt 檔、10 行高的文字框、metadata 字級的「字元數 / 上限」，超過時變成 error 色）→ 原文語言（SegmentedControl「英文 / 中文」，下方 supporting、ink-muted 說明翻譯方向）→ primary 的「斷句並翻譯 →」。處理中按鈕文字改成「斷句、翻譯中…」，欄位都不能操作。
-- **第二步：預覽與修改**：標題欄位 → h2「預覽與修改」與說明、句數 → 句子清單（上下和句子之間 1px line 線）。每列：左側 metadata、ink-muted 的兩位數句號；中間英文文字框（sentence 字級、`lang="en"`）和中文文字框（supporting 字級）；右側 ghost、sm 的「刪除」。清單下方 secondary、sm 的「新增一句」，再下方 primary「建立練習」和 ghost「回上一步」（保留原本的文字）。
+- **第二步：預覽與修改**：標題欄位 → h2「預覽與修改」與說明、句數 → 句子清單（上下和句子之間 1px line 線）。每列：左側 metadata、ink-muted 的兩位數句號；中間英文文字框（sentence 字級、`lang="en"`）和中文文字框（supporting 字級，留空時 placeholder「留空會在建立時自動翻譯」）；文字框下方一排 ghost、sm 按鈕：「從游標處拆分」（英文框的游標在句子中間時才可以按）、「與下一句合併」（最後一句沒有）、「刪除」（e+ 4）。清單上方說明之後，有一行 supporting、ink-muted 的拆分說明，也是英文框的 `aria-describedby`。清單下方 secondary、sm 的「新增一句」，再下方 primary「建立練習」和 ghost「回上一步」（保留原本的文字）。
 - **聲音**（預覽步驟，句子清單下方）：h3「聲音」→ 聲音卡片 `VoicePicker`（見下方，d6e）→ supporting、ink-muted 的說明。
 - **等待進度**（e+ 2）：「斷句並翻譯」和「建立練習」按下後，按鈕下方顯示 `StageProgress`（寬度上限 384px，`role="status"`）：上方標籤是目前步驟（「斷句中…」「翻譯中 3/6 句」「產生講解 10/12 句」「產生音檔 4/12 句」），右側是整體百分比。百分比只由完成的句數計算，沒有計時器或假動畫：斷句是一次呼叫，完成前停在 0%；翻譯每 8 句一批；建立時講解（每 10 句一段）佔前一半、音檔佔後一半。進度條的動畫遵守 reduced motion。
 - **產生講解與音檔**：按「建立練習」後先建立，再逐段產生講解，接著逐批產生音檔。全部完成時顯示 success 的「已建立……講解和音檔都完成了」；沒有完成時用 ink-muted 說明原因，並提示到「我的教材」繼續。下方有「到我的教材查看 →」。

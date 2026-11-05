@@ -7,6 +7,12 @@ import type { TextLanguage } from "@/lib/ai/types";
 import { countChars } from "@/lib/usage";
 import type { GrammarPoint, VocabItem } from "@/lib/videos";
 import { sha256Hex } from "./hash";
+import {
+  checkedSegments,
+  splitLine,
+  textLines,
+  type TextSourceLanguage,
+} from "./split";
 
 /**
  * Teaching notes for created practices (D27): vocabulary and grammar in
@@ -30,14 +36,12 @@ export const NOTES_PER_SENTENCE = { vocab: 2, grammar: 1 } as const;
 
 const MAX = { word: 60, pos: 20, zh: 120, point: 120, text: 400 } as const;
 
+export type CacheKind = "translation" | "notes" | "segmentation";
+
 /** Results of language-model calls by content hash; Supabase on the server. */
 export interface AiCache {
   get(hash: string): Promise<unknown>;
-  set(
-    hash: string,
-    kind: "translation" | "notes",
-    result: unknown,
-  ): Promise<void>;
+  set(hash: string, kind: CacheKind, result: unknown): Promise<void>;
 }
 
 const text = (value: unknown, max: number): string | null => {
@@ -146,27 +150,27 @@ async function readCache<T>(
  */
 async function cachedLanguageCall<T>(
   deps: LanguageDeps,
-  kind: "translation" | "notes",
+  kind: CacheKind,
   key: string,
   chars: number,
-  call: () => Promise<T>,
+  call: () => Promise<unknown>,
   check: (result: unknown) => T | null,
 ): Promise<MeteredResult<T> & { fresh?: boolean }>;
 async function cachedLanguageCall<T>(
   deps: LanguageDeps,
-  kind: "translation" | "notes",
+  kind: CacheKind,
   key: string,
   chars: number,
-  call: () => Promise<T>,
+  call: () => Promise<unknown>,
   check: (result: unknown) => T | null,
   allowCall: boolean,
 ): Promise<MeteredResult<T | null> & { fresh?: boolean }>;
 async function cachedLanguageCall<T>(
   deps: LanguageDeps,
-  kind: "translation" | "notes",
+  kind: CacheKind,
   key: string,
   chars: number,
-  call: () => Promise<T>,
+  call: () => Promise<unknown>,
   check: (result: unknown) => T | null,
   allowCall = true,
 ): Promise<MeteredResult<T | null> & { fresh?: boolean }> {
@@ -180,6 +184,37 @@ async function cachedLanguageCall<T>(
   if (value === null) return { ok: false, reason: "failed" };
   await deps.cache.set(hash, kind, value).catch(() => {});
   return { ok: true, value, fresh: true };
+}
+
+/**
+ * The text's sentences, split by meaning (e+ 4, D35), cached. The model's
+ * answer is checked line by line (checkedSegments); a line it didn't
+ * split cleanly, or the whole text when the call fails, is split by the
+ * rules instead, so splitting itself never fails. The call counts toward
+ * the language-model allowance.
+ */
+export async function segmentCached(
+  deps: LanguageDeps,
+  text: string,
+  language: TextSourceLanguage,
+): Promise<string[]> {
+  const lines = textLines(text);
+  if (lines.length === 0) return [];
+  const result = await cachedLanguageCall<string[][]>(
+    deps,
+    "segmentation",
+    JSON.stringify({ language, lines }),
+    countChars(lines),
+    () => deps.providers.language.segment(lines, language),
+    // Keep the checked sentences per line, so the cache holds clean data.
+    (raw) =>
+      Array.isArray(raw) && raw.length === lines.length
+        ? lines.map((line, i) => checkedSegments([line], [raw[i]], language))
+        : null,
+  );
+  return result.ok
+    ? result.value.flat()
+    : lines.flatMap((line) => splitLine(line, language));
 }
 
 /** Translations of `texts`, cached; same length and order, or a failure. */

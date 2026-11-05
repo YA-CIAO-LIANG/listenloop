@@ -42,6 +42,18 @@ const NOTES_INSTRUCTIONS = [
   "Do not repeat the same word or grammar point.",
 ].join("\n");
 
+const SEGMENT_INSTRUCTIONS = (language: "en" | "zh") =>
+  [
+    `You split ${language === "zh" ? "Chinese" : "English"} text into sentences for dictation practice: a Taiwanese student hears each one, then types it.`,
+    "The input is a list of lines. For each line, in order, return the list of pieces it splits into. Never join text from different lines.",
+    "Only cut: every piece is an exact, consecutive part of its line. Never change, add, remove, fix, or reorder any character; the pieces of a line joined together must be that line.",
+    'Cut where a sentence ends by meaning. Never cut inside an abbreviation (Dr., Mr., U.S., a.m., e.g., i.e., Ph.D., No. 5), a number, time, or amount (9:30, 3.5, $1,000, 90%), a quotation (keep a quote with the words that introduce it, like: He said, "Stop!"), or a name.',
+    language === "zh"
+      ? "Aim for pieces whose English translation would be about 5 to 25 words. Cut a long sentence at a natural clause boundary (，；：) only when each part is a complete thought."
+      : "Aim for pieces of about 5 to 25 words. Cut a sentence longer than 25 words at a natural clause boundary (; or a comma before and, but, so, because, which…) so each part still reads as a complete thought. A short sentence may stay short; you may keep a very short sentence together with the next one in the same line when they belong together.",
+    'Example: ["Dr. Smith arrived at 9:30 a.m. in the U.S. He said, \"It\'s 90% done.\" Then he left."] → [["Dr. Smith arrived at 9:30 a.m. in the U.S.", "He said, \"It\'s 90% done.\" Then he left."]]',
+  ].join("\n");
+
 const STRING = { type: "STRING" } as const;
 const INDEX = { type: "INTEGER" } as const;
 
@@ -77,6 +89,14 @@ const NOTES_SCHEMA = {
     },
   },
   required: ["vocab", "grammar"],
+} as const;
+
+const SEGMENTS_SCHEMA = {
+  type: "OBJECT",
+  properties: {
+    lines: { type: "ARRAY", items: { type: "ARRAY", items: STRING } },
+  },
+  required: ["lines"],
 } as const;
 
 const TRANSLATIONS_SCHEMA = {
@@ -150,6 +170,14 @@ export function geminiLanguage(
       return Array.isArray(result.translations)
         ? (result.translations as string[])
         : [];
+    },
+    async segment(lines, language) {
+      const result = (await generate(
+        SEGMENT_INSTRUCTIONS(language),
+        { lines },
+        SEGMENTS_SCHEMA,
+      )) as { lines?: unknown };
+      return result.lines;
     },
     async annotate(sentences) {
       return generate(

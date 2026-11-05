@@ -55,6 +55,22 @@ describe("Gemini", () => {
     );
   });
 
+  it("asks for sentences per line and returns them for split.ts to check", async () => {
+    const lines = [["Hi there.", "Bye now."]];
+    const fetchImpl = vi.fn(async () => geminiReply({ lines }));
+    const gemini = geminiLanguage("secret-key", fetchImpl);
+    expect(await gemini.segment(["Hi there. Bye now."], "en")).toEqual(lines);
+    const [, init] = fetchImpl.mock.calls[0] as unknown as [
+      string,
+      RequestInit,
+    ];
+    const body = JSON.parse(init.body as string);
+    expect(body.contents[0].parts[0].text).toBe(
+      JSON.stringify({ lines: ["Hi there. Bye now."] }),
+    );
+    expect(body.systemInstruction.parts[0].text).toContain("Only cut");
+  });
+
   it("returns the notes JSON as is, for notes.ts to check", async () => {
     const notes = { vocab: [{ sentence: 0, word: "move" }], grammar: [] };
     const gemini = geminiLanguage(

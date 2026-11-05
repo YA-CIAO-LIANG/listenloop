@@ -419,3 +419,16 @@
   - 試聽播放器抽成 `useSamplePlayer`，卡片和選單共用。
   - 浮動面板沿用「無陰影」原則，用 1px 邊框和 surface 底色與頁面區隔。
 - **要改時**：`components/VoiceMenu.tsx`、`components/useSamplePlayer.ts`、`lib/ai/voices.ts`、翻譯檔 `voicePicker.accentNotes`。
+
+## D35 用 Gemini 依語意斷句；預覽可以合併、拆分（2026-11-04，e 驗收修正 4）
+
+- **決定**：
+  - **斷句交給語言模型**：`LanguageProvider.segment` 把每一行切成句子（每行一組，不跨行），指示中寫明不可切斷縮寫、數字、時間、金額、引號和專有名詞，每句約 5～25 個英文字（中文原文以「翻成英文約 5～25 字」為準），太長在子句處拆。
+  - **模型只能切、不能改**：每一行的切法接起來（忽略空白）必須和原文完全相同，否則那一行改用規則斷句（`checkedSegments`）。整個呼叫失敗（忙碌、上限、設定問題）時也用規則斷句，所以斷句本身不會失敗；後面的翻譯步驟才會回報上限或設定問題。
+  - **規則斷句加強**：超過 25 個字的英文句子，在最接近中間的子句處（`;`、`:`、逗號後的 and、but、because、which…）再拆，兩邊都至少 5 個字才拆；找不到就保持一整句。
+  - **快取**：`ai_cache.kind` 新增 `segmentation`（migration 只放寬允許值）；計入語言模型的每日用量。
+  - **每日上限**：斷句、翻譯、講解、AI 生成文字都算在語言模型的用量裡，10,000 字的上傳一次就可能用掉 20,000，所以從 20,000 調高到 60,000 字元（Gemini Flash 的成本很低；Google 端另有 Joe 設定的每月支出上限）。
+  - **預覽**：每句可以「與下一句合併」（英文以空格連接，中文直接連接）和「從游標處拆分」（英文框游標處拆成兩句，新的一句中文留空）。建立時，中文留空的句子在伺服器端自動從英文翻譯（計入用量、有快取），所以使用者不必手動補。中文原文的練習拆分後，新句子的中文也是翻譯出來的。
+- **測試**：`tests/custom-practice-split.test.ts` 的「hard sentences」收錄難斷的例句（Dr.／a.m.／U.S.、$3.5／Ph.D.／e.g.／No. 5、刪節號、引號、對話、40 字長句、中文引號），以及模型改字、漏字、多字時退回規則的情況。
+- **已知**：2026-11-04 用真的 Gemini 實測時遇到 Google 的每月支出上限（roadmap 清單 5D），等 Joe 調高後補測。
+- **要改時**：`lib/ai/gemini.ts`（`SEGMENT_INSTRUCTIONS`）、`lib/custom-practice/split.ts`、`lib/custom-practice/notes.ts`（`segmentCached`）、`lib/custom-practice/draft.ts`（合併、拆分）、`lib/usage.ts`。

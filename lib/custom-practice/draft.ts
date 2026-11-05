@@ -101,3 +101,60 @@ export function titleFromFileName(name: string): string {
     PRACTICE_LIMITS.titleChars,
   );
 }
+
+const CJK_END = /[\p{Script=Han}　-〿＀-￯]$/u;
+const CJK_START = /^[\p{Script=Han}　-〿＀-￯]/u;
+
+/** Two pieces of text as one: Chinese joins directly, English with a space. */
+export function joinText(a: string, b: string): string {
+  const head = a.trim();
+  const tail = b.trim();
+  if (!head || !tail) return head || tail;
+  return CJK_END.test(head) && CJK_START.test(tail)
+    ? head + tail
+    : `${head} ${tail}`;
+}
+
+/** The review rows with row `index` and the next one merged (e+ 4). */
+export function mergeWithNext<T extends DraftSentence>(
+  rows: readonly T[],
+  index: number,
+): T[] {
+  const [row, next] = [rows[index], rows[index + 1]];
+  if (!row || !next) return [...rows];
+  return [
+    ...rows.slice(0, index),
+    { ...row, en: joinText(row.en, next.en), zh: joinText(row.zh, next.zh) },
+    ...rows.slice(index + 2),
+  ];
+}
+
+/**
+ * Where row English can be split: a position with letters or digits on
+ * both sides, or null.
+ */
+export function canSplitAt(en: string, at: number): boolean {
+  const content = /[\p{L}\p{N}]/u;
+  return content.test(en.slice(0, at)) && content.test(en.slice(at));
+}
+
+/**
+ * The review rows with row `index` split at character `at` of its English
+ * (e+ 4). The first part keeps the Chinese; the new row's Chinese is
+ * empty and is translated when the practice is created.
+ */
+export function splitRowAt<T extends DraftSentence>(
+  rows: readonly T[],
+  index: number,
+  at: number,
+  newRow: (en: string) => T,
+): T[] {
+  const row = rows[index];
+  if (!row || !canSplitAt(row.en, at)) return [...rows];
+  return [
+    ...rows.slice(0, index),
+    { ...row, en: row.en.slice(0, at).trim() },
+    newRow(row.en.slice(at).trim()),
+    ...rows.slice(index + 1),
+  ];
+}

@@ -15,10 +15,10 @@ import {
 } from "@/lib/custom-practice/draft";
 import {
   annotateSome,
+  segmentCached,
   TRANSLATE_BATCH,
   translateCached,
 } from "@/lib/custom-practice/notes";
-import { splitSentences } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
 
 export type SplitResult =
@@ -29,8 +29,8 @@ export type SplitResult =
     };
 
 /**
- * Splits the uploaded text into sentences, the first step of preparing a
- * draft; translateSentences then translates them a batch at a time, so
+ * Splits the uploaded text into sentences by meaning (D35), the first
+ * step of preparing a draft; translateSentences then translates them a batch at a time, so
  * the page can show real progress (e+ 2). Nothing is saved; the learner
  * reviews the result first.
  */
@@ -46,7 +46,7 @@ export async function splitText(
   if (countChars([text]) > PRACTICE_LIMITS.textChars) {
     return { ok: false, reason: "too-long" };
   }
-  const sentences = splitSentences(text, language);
+  const sentences = await segmentCached(creator, text, language);
   if (sentences.length === 0) return { ok: false, reason: "empty" };
   if (sentences.length > PRACTICE_LIMITS.sentences) {
     return { ok: false, reason: "too-many" };
@@ -92,7 +92,7 @@ export async function translateSentences(
 
 export type CreatePracticeResult =
   | { ok: true; id: string }
-  | { ok: false; reason: "unavailable" | "failed" }
+  | { ok: false; reason: "unavailable" | MeteredFailure }
   | { ok: false; reason: "invalid"; problem: DraftProblem; sentence?: number };
 
 /**
@@ -112,7 +112,24 @@ export async function createPractice(
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
 
-  const id = await savePractice(supabase, creator.user.id, cleaned.draft);
+  // Sentences split or added in review have no Chinese yet: translate
+  // them (e+ 4, D35) so every handout line has its translation.
+  const draft = cleaned.draft;
+  const missing = draft.sentences.filter((sentence) => !sentence.zh);
+  if (missing.length > 0) {
+    const translated = await translateCached(
+      creator,
+      missing.map((sentence) => sentence.en),
+      { from: "en", to: "zh-Hant" },
+    );
+    if (!translated.ok) return translated;
+    let next = 0;
+    draft.sentences = draft.sentences.map((sentence) =>
+      sentence.zh ? sentence : { ...sentence, zh: translated.value[next++] },
+    );
+  }
+
+  const id = await savePractice(supabase, creator.user.id, draft);
   if (!id) return { ok: false, reason: "failed" };
   revalidatePath("/materials");
   return { ok: true, id };
