@@ -255,7 +255,8 @@
       "whaleSharkNote": "最大、游得最慢：扁寬的頭與前端寬嘴、白色斑點與淡條紋、白腹。"
     },
     "heatScale": "練習日曆色階：當天完成 0、1、2、3、4 個以上的正式任務",
-    "voicePickerNote": "建立練習時選擇聲音用。試聽播放的是 Cloud Text-to-Speech（Chirp 3 HD）預先產生的範例句，放在 public/voices/，不花用量。"
+    "voicePickerNote": "建立練習時選擇聲音用。試聽播放的是 Cloud Text-to-Speech（Chirp 3 HD）預先產生的範例句，放在 public/voices/，不花用量。",
+    "voiceMenuNote": "新的聲音選單（e+ 3，取代下方的聲音卡片，確認後才換到建立練習）：依口音分組，每組附一句口音特色，每個聲音可以試聽。方向鍵移動、Enter 選定，Esc 關閉。"
   },
   "library": {
     "title": "推薦練習",
@@ -788,7 +789,15 @@
     "listen": "試聽",
     "playing": "播放中…",
     "listenLabel": "試聽{voice}",
-    "stopLabel": "停止試聽{voice}"
+    "stopLabel": "停止試聽{voice}",
+    "menuLabel": "聲音：{voice}",
+    "optionLabel": "{name}・{gender}・{accent}",
+    "accentNotes": {
+      "us": "最常見的標準口音，捲舌音明顯。",
+      "gb": "r 常不發音，語調起伏較大。",
+      "au": "母音較扁，語尾常上揚。",
+      "in": "節奏較快，子音清晰。"
+    }
   },
   "materials": {
     "title": "我的教材",

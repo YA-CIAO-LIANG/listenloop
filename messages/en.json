@@ -255,7 +255,8 @@
       "whaleSharkNote": "The biggest and slowest: a broad flat head with a wide front mouth, white spots and faint stripes, white belly."
     },
     "heatScale": "Practice calendar steps: 0, 1, 2, 3, and 4+ official tasks finished that day",
-    "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a sample made in advance with Cloud Text-to-Speech (Chirp 3 HD), kept in public/voices/, so it costs no usage."
+    "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a sample made in advance with Cloud Text-to-Speech (Chirp 3 HD), kept in public/voices/, so it costs no usage.",
+    "voiceMenuNote": "The new voice menu (e+ 3; replaces the voice cards below once approved): grouped by accent, with a line on how each accent sounds and a listen button for each voice. Arrow keys move, Enter chooses, Escape closes."
   },
   "library": {
     "title": "Recommended practices",
@@ -790,7 +791,15 @@
     "listen": "Listen",
     "playing": "Playing…",
     "listenLabel": "Listen to {voice}",
-    "stopLabel": "Stop {voice}"
+    "stopLabel": "Stop {voice}",
+    "menuLabel": "Voice: {voice}",
+    "optionLabel": "{name}, {gender}, {accent}",
+    "accentNotes": {
+      "us": "The most common standard accent, with a clear r sound.",
+      "gb": "The r is often silent, and the pitch rises and falls more.",
+      "au": "Flatter vowels, and sentences often end on a rising tone.",
+      "in": "A quicker rhythm with crisp consonants."
+    }
   },
   "materials": {
     "title": "My materials",

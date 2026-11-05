@@ -93,3 +93,30 @@ export function SpeakerIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+/** Stop: ends a sample that's playing (voice menu). */
+export function StopIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" {...props}>
+      <rect x="7" y="7" width="10" height="10" rx="1" />
+    </svg>
+  );
+}
+
+/** Chevron pointing down: a menu that opens below. */
+export function ChevronDownIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M6 9.5l6 6 6-6" />
+    </svg>
+  );
+}

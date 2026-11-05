@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useId, useRef, useState } from "react";
+import { useId } from "react";
 import {
   VOICE_ACCENTS,
   VOICE_GENDERS,
@@ -9,6 +9,7 @@ import {
   type VoiceAccent,
 } from "@/lib/ai/types";
 import { Button } from "./Button";
+import { useSamplePlayer } from "./useSamplePlayer";
 
 /** BCP 47 tag shown on each card, e.g. "en-US". */
 const LOCALE: Record<VoiceAccent, string> = {
@@ -44,38 +45,7 @@ export function VoicePicker({
 }: VoicePickerProps) {
   const t = useTranslations("voicePicker");
   const name = useId();
-  const [playing, setPlaying] = useState<string | null>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  // One player for every card, so only one sample plays at a time.
-  useEffect(() => {
-    const audio = new Audio();
-    const stopped = () => setPlaying(null);
-    audio.addEventListener("ended", stopped);
-    audio.addEventListener("error", stopped);
-    audioRef.current = audio;
-    return () => {
-      audio.pause();
-      audio.removeEventListener("ended", stopped);
-      audio.removeEventListener("error", stopped);
-      audioRef.current = null;
-    };
-  }, []);
-
-  function toggleSample(id: string) {
-    const audio = audioRef.current;
-    const url = sampleUrl(id);
-    if (!audio || !url) return;
-    if (playing === id) {
-      audio.pause();
-      setPlaying(null);
-      return;
-    }
-    audio.src = url;
-    audio.currentTime = 0;
-    setPlaying(id);
-    audio.play().catch(() => setPlaying(null));
-  }
+  const { playing, toggle: toggleSample } = useSamplePlayer(sampleUrl);
 
   return (
     <fieldset disabled={disabled} className="space-y-6">

@@ -6,6 +6,7 @@ import { Button } from "@/components/Button";
 import { DayTracker } from "@/components/DayTracker";
 import { ProgressBar } from "@/components/ProgressBar";
 import { SentenceRow } from "@/components/SentenceRow";
+import { VoiceMenu } from "@/components/VoiceMenu";
 import { VoicePicker, voiceSampleUrl } from "@/components/VoicePicker";
 import type { CycleDay, DayStatus } from "@/lib/cycle";
 
@@ -89,5 +90,13 @@ export function VoicePickerDemo() {
   const [voice, setVoice] = useState("us-female");
   return (
     <VoicePicker value={voice} onChange={setVoice} sampleUrl={voiceSampleUrl} />
+  );
+}
+
+/** The voice menu (e+ 3) with the real sample clips. */
+export function VoiceMenuDemo() {
+  const [voice, setVoice] = useState("us-female");
+  return (
+    <VoiceMenu value={voice} onChange={setVoice} sampleUrl={voiceSampleUrl} />
   );
 }

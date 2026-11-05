@@ -46,3 +46,12 @@ export const GOOGLE_VOICES: Record<
     name: "en-IN-Chirp3-HD-Charon",
   },
 };
+
+/**
+ * The speaker's name shown in the voice menu, e.g. "Kore" for
+ * "en-US-Chirp3-HD-Kore" (e+ 3), or null for an unknown voice id.
+ */
+export function voiceDisplayName(id: string): string | null {
+  const voice = GOOGLE_VOICES[id as keyof typeof GOOGLE_VOICES];
+  return voice ? (voice.name.split("-").at(-1) ?? null) : null;
+}
