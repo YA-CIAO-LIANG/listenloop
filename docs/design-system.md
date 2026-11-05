@@ -183,6 +183,9 @@
   - 欄位：surface 底、1px line 邊框、4px 圓角、內距 16px／12px，focus 時邊框變成 accent，並有既有的焦點外框；
   - 錯誤訊息放在按鈕列下方，supporting、error 色、`role="alert"`；成功訊息 success 色、`role="status"`。
   - **選擇檔案**：原生 file input 隱藏（`sr-only`），用外觀和 secondary、sm 按鈕相同的 label 觸發；鍵盤焦點落在 input 上時，label 顯示焦點外框。
+- **文字來源**（e+ 5）：第一步最上方是 font-medium 的「文字來源」＋ SegmentedControl「貼上或上傳文字 / AI 生成」。
+  - **AI 生成**：標題 →「類別與情境」原生 `<select>`（依類別 `<optgroup>`，樣式同表單欄位，寬度上限 448px）→「主題或關鍵字（選填）」欄位與說明 →「程度」「長度」「形式」三個 SegmentedControl（初級／中級／高級；約 1／3／5 分鐘；對話／獨白）→ supporting、ink-muted 的說明 → primary「生成文字 →」（生成中改成「生成中…」，欄位不能操作）。錯誤在按鈕下方（error 色、`role="alert"`）。
+  - 生成完成後切回「貼上或上傳文字」，標題和文字框填入生成結果、原文語言設為英文，下方 ink-muted 提示「已生成……可以修改文字後再斷句並翻譯」。
 - **第一步**：標題 → 文字內容（說明、選擇 .txt 檔、10 行高的文字框、metadata 字級的「字元數 / 上限」，超過時變成 error 色）→ 原文語言（SegmentedControl「英文 / 中文」，下方 supporting、ink-muted 說明翻譯方向）→ primary 的「斷句並翻譯 →」。處理中按鈕文字改成「斷句、翻譯中…」，欄位都不能操作。
 - **第二步：預覽與修改**：標題欄位 → h2「預覽與修改」與說明、句數 → 句子清單（上下和句子之間 1px line 線）。每列：左側 metadata、ink-muted 的兩位數句號；中間英文文字框（sentence 字級、`lang="en"`）和中文文字框（supporting 字級，留空時 placeholder「留空會在建立時自動翻譯」）；文字框下方一排 ghost、sm 按鈕：「從游標處拆分」（英文框的游標在句子中間時才可以按）、「與下一句合併」（最後一句沒有）、「刪除」（e+ 4）。清單上方說明之後，有一行 supporting、ink-muted 的拆分說明，也是英文框的 `aria-describedby`。清單下方 secondary、sm 的「新增一句」，再下方 primary「建立練習」和 ghost「回上一步」（保留原本的文字）。
 - **聲音**（預覽步驟，句子清單下方）：h3「聲音」→ 聲音卡片 `VoicePicker`（見下方，d6e）→ supporting、ink-muted 的說明。

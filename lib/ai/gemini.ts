@@ -54,6 +54,15 @@ const SEGMENT_INSTRUCTIONS = (language: "en" | "zh") =>
     'Example: ["Dr. Smith arrived at 9:30 a.m. in the U.S. He said, \"It\'s 90% done.\" Then he left."] → [["Dr. Smith arrived at 9:30 a.m. in the U.S.", "He said, \"It\'s 90% done.\" Then he left."]]',
   ].join("\n");
 
+const COMPOSE_INSTRUCTIONS = [
+  "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.",
+  "Write natural, spoken English with correct standard spelling. Give the text a short English title.",
+  "Return the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.",
+  "Keep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).",
+  "Do not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.",
+  "Match the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.",
+].join("\n");
+
 const STRING = { type: "STRING" } as const;
 const INDEX = { type: "INTEGER" } as const;
 
@@ -99,6 +108,12 @@ const SEGMENTS_SCHEMA = {
   required: ["lines"],
 } as const;
 
+const COMPOSITION_SCHEMA = {
+  type: "OBJECT",
+  properties: { title: STRING, lines: { type: "ARRAY", items: STRING } },
+  required: ["title", "lines"],
+} as const;
+
 const TRANSLATIONS_SCHEMA = {
   type: "OBJECT",
   properties: { translations: { type: "ARRAY", items: STRING } },
@@ -139,6 +154,7 @@ export function geminiLanguage(
     instructions: string,
     input: unknown,
     schema: unknown,
+    temperature = 0.2,
   ) {
     const response = await postGoogleJson(
       endpoint(model),
@@ -149,7 +165,7 @@ export function geminiLanguage(
         generationConfig: {
           responseMimeType: "application/json",
           responseSchema: schema,
-          temperature: 0.2,
+          temperature,
         },
       },
       fetchImpl,
@@ -170,6 +186,10 @@ export function geminiLanguage(
       return Array.isArray(result.translations)
         ? (result.translations as string[])
         : [];
+    },
+    async compose(prompt) {
+      // More varied than translation: every request should read fresh.
+      return generate(COMPOSE_INSTRUCTIONS, prompt, COMPOSITION_SCHEMA, 0.9);
     },
     async segment(lines, language) {
       const result = (await generate(

@@ -3,7 +3,13 @@
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
-import type { MeteredFailure } from "@/lib/ai/metered";
+import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
+import {
+  checkGeneratedText,
+  compositionPrompt,
+  expectedChars,
+  parseGenerationRequest,
+} from "@/lib/custom-practice/generation";
 import { parseVoiceId } from "@/lib/ai/types";
 import { AUDIO_BATCH_SIZE, voiceSentences } from "@/lib/custom-practice/audio";
 import {
@@ -285,4 +291,30 @@ export async function generatePracticeNotes(
   if (updateError || !updated?.length) return { ok: false, reason: "failed" };
   revalidatePath("/materials");
   return { ok: true, annotated: total, total };
+}
+
+export type GenerateTextResult =
+  | { ok: true; title: string; text: string }
+  | { ok: false; reason: "unavailable" | "invalid" | MeteredFailure };
+
+/**
+ * Writes new English practice text with the language model (e+ 5, D36)
+ * for the learner to review and edit before splitting. Admins only, like
+ * everything that calls a paid API; the expected length is reserved
+ * against the daily allowance first. Never cached: each request is new.
+ */
+export async function generatePracticeText(
+  input: unknown,
+): Promise<GenerateTextResult> {
+  const creator = await getCreator();
+  if (!creator) return { ok: false, reason: "unavailable" };
+  const request = parseGenerationRequest(input);
+  if (!request) return { ok: false, reason: "invalid" };
+  const prompt = compositionPrompt(request);
+  const result = await meteredLanguage(creator, expectedChars(prompt), () =>
+    creator.providers.language.compose(prompt),
+  );
+  if (!result.ok) return result;
+  const text = checkGeneratedText(result.value, prompt.words);
+  return text ? { ok: true, ...text } : { ok: false, reason: "failed" };
 }

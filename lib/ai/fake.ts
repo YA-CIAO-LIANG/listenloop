@@ -7,6 +7,18 @@ import type { LanguageProvider, SpeechAudio, SpeechProvider } from "./types";
  */
 export const fakeLanguage: LanguageProvider = {
   id: "fake",
+  // A fixed text about as long as asked, one line per sentence or turn.
+  async compose({ scenario, words, format }) {
+    const line =
+      format === "dialogue"
+        ? "Could you tell me more about it, please?"
+        : "This is a practice sentence for listening.";
+    const count = Math.max(1, Math.ceil(words / line.split(" ").length));
+    return {
+      title: `Practice: ${scenario}`.slice(0, 100),
+      lines: Array.from({ length: count }, () => line),
+    };
+  },
   // The rule-based split, as if the model agreed with it.
   async segment(lines, language) {
     return lines.map((line) => splitLine(line, language));

@@ -1,3 +1,5 @@
+import type { CompositionPrompt } from "@/lib/custom-practice/generation";
+
 /**
  * The provider interfaces for the paid APIs (docs/decisions.md D6, D20).
  * Features call these, never a vendor SDK, so the vendor can change and
@@ -58,6 +60,11 @@ export interface LanguageProvider {
    * lib/custom-practice/split.ts makes sure it only cut the text.
    */
   segment(lines: readonly string[], language: "en" | "zh"): Promise<unknown>;
+  /**
+   * New English practice text (e+ 5): `{ title, lines }`. Unchecked:
+   * lib/custom-practice/generation.ts checks it.
+   */
+  compose(prompt: CompositionPrompt): Promise<unknown>;
 }
 
 /**
