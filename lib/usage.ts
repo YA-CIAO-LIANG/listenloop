@@ -7,7 +7,9 @@ export type UsageKind = "speech" | "translation";
 
 export const DAILY_CHAR_LIMITS: Readonly<Record<UsageKind, number>> = {
   speech: 20_000,
-  translation: 20_000,
+  // Language-model work: splitting, translation, notes, and generated text
+  // all count here (D35); a 10,000-character upload alone can use 20,000.
+  translation: 60_000,
 };
 
 /** Days roll over at midnight in this time zone. */

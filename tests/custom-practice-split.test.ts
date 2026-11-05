@@ -1,7 +1,11 @@
 import { describe, expect, it } from "vitest";
 import {
+  checkedSegments,
   detectTextLanguage,
+  SENTENCE_WORDS,
+  splitLong,
   splitSentences,
+  textLines,
 } from "@/lib/custom-practice/split";
 
 describe("splitSentences: English", () => {
@@ -81,5 +85,129 @@ describe("detectTextLanguage", () => {
     ["123 !!!", "en"],
   ] as const)("%j is %s", (text, language) => {
     expect(detectTextLanguage(text)).toBe(language);
+  });
+});
+
+/**
+ * Hard cases for splitting (e+ 4): what a good split looks like. The
+ * language model is asked for these; the rules below must at least never
+ * cut inside them, and a model answer that changes the text is refused.
+ */
+const HARD = {
+  abbreviations:
+    'Dr. Smith arrived at 9:30 a.m. in the U.S. He said, "It\'s 90% done." Then he left.',
+  amounts:
+    "The Ph.D. program costs $3.5 million, e.g. for labs. No. 5 is next.",
+  ellipsis: "Wait... did he forget something? I think so.",
+  quote: '"Stop!" she shouted. "We\'re not done yet," he replied.',
+  longSentence:
+    "We spent the whole afternoon walking around the old part of the city looking for the little bookshop, but we could not find it anywhere because the street names had all been changed.",
+  dialogue:
+    "A: Excuse me, where is the station?\nB: Go straight and turn left at the bank.",
+  chinese: "他說：「我們明天見！」然後就走了。你覺得呢？",
+};
+
+describe("hard sentences", () => {
+  it("never cuts inside abbreviations, times, or percents", () => {
+    // "U.S. He" is ambiguous to the rules; the model splits it (below).
+    expect(splitSentences(HARD.abbreviations, "en")).toEqual([
+      'Dr. Smith arrived at 9:30 a.m. in the U.S. He said, "It\'s 90% done."',
+      "Then he left.",
+    ]);
+  });
+
+  it("keeps amounts, degrees, and numbered items whole", () => {
+    expect(splitSentences(HARD.amounts, "en")).toEqual([
+      "The Ph.D. program costs $3.5 million, e.g. for labs.",
+      "No. 5 is next.",
+    ]);
+  });
+
+  it("handles ellipses, quotes, and dialogue lines", () => {
+    expect(splitSentences(HARD.ellipsis, "en")).toEqual([
+      "Wait... did he forget something?",
+      "I think so.",
+    ]);
+    expect(splitSentences(HARD.quote, "en")).toEqual([
+      '"Stop!" she shouted.',
+      '"We\'re not done yet," he replied.',
+    ]);
+    expect(splitSentences(HARD.dialogue, "en")).toEqual([
+      "A: Excuse me, where is the station?",
+      "B: Go straight and turn left at the bank.",
+    ]);
+  });
+
+  it("keeps Chinese quotes with what introduces them", () => {
+    expect(splitSentences(HARD.chinese, "zh")).toEqual([
+      "他說：「我們明天見！」",
+      "然後就走了。",
+      "你覺得呢？",
+    ]);
+  });
+
+  it(`breaks sentences over ${SENTENCE_WORDS.max} words at a clause boundary`, () => {
+    const parts = splitSentences(HARD.longSentence, "en");
+    expect(parts).toEqual([
+      "We spent the whole afternoon walking around the old part of the city looking for the little bookshop,",
+      "but we could not find it anywhere because the street names had all been changed.",
+    ]);
+    for (const part of parts) {
+      expect(part.split(" ").length).toBeLessThanOrEqual(SENTENCE_WORDS.max);
+    }
+  });
+
+  it("leaves a long sentence whole when no clause boundary keeps both parts long enough", () => {
+    const sentence = Array(30).fill("word").join(" ") + ".";
+    expect(splitLong(sentence)).toEqual([sentence]);
+    expect(splitLong("Short, and fine.")).toEqual(["Short, and fine."]);
+  });
+});
+
+describe("checkedSegments", () => {
+  const lines = textLines(HARD.abbreviations + "\n" + HARD.ellipsis);
+
+  it("takes the model's split when it only cut the text", () => {
+    expect(
+      checkedSegments(
+        lines,
+        [
+          [
+            "Dr. Smith arrived at 9:30 a.m. in the U.S.",
+            'He said, "It\'s 90% done." Then he left.',
+          ],
+          ["Wait... did he forget something?", " I think so. "],
+        ],
+        "en",
+      ),
+    ).toEqual([
+      "Dr. Smith arrived at 9:30 a.m. in the U.S.",
+      'He said, "It\'s 90% done." Then he left.',
+      "Wait... did he forget something?",
+      "I think so.",
+    ]);
+  });
+
+  it("splits a line by the rules when the model changed, dropped, or added text", () => {
+    const rules = splitSentences(HARD.ellipsis, "en");
+    for (const changed of [
+      ["Wait, did he forget something?", "I think so."],
+      ["Wait... did he forget something?"],
+      ["Wait... did he forget something?", "I think so.", "Yes."],
+      [],
+      "not a list",
+    ]) {
+      expect(
+        checkedSegments([lines[1]], [changed], "en"),
+        JSON.stringify(changed),
+      ).toEqual(rules);
+    }
+  });
+
+  it("falls back for every line when the answer doesn't match the lines", () => {
+    expect(checkedSegments(lines, [["one"]], "en")).toEqual(
+      splitSentences(lines.join("\n"), "en"),
+    );
+    expect(checkedSegments(lines, null, "en")).toHaveLength(4);
   });
 });

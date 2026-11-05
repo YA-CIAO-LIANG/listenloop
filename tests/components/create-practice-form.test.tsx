@@ -228,6 +228,40 @@ describe("CreatePracticeForm", () => {
     expect(screen.queryByRole("progressbar")).toBeNull();
   });
 
+  it("merges a sentence with the next and splits one at the cursor", async () => {
+    await renderForm();
+    fireEvent.change(screen.getByLabelText("標題"), { target: { value: "T" } });
+    fireEvent.change(textBox(), { target: { value: "x" } });
+    await click("斷句並翻譯");
+
+    await click("第 1 句與下一句合併");
+    const first = screen.getByLabelText("第 1 句英文") as HTMLTextAreaElement;
+    expect(first.value).toBe("We moved here. Do you like it?");
+    expect(
+      (screen.getByLabelText("第 1 句中文") as HTMLTextAreaElement).value,
+    ).toBe("我們搬來這裡。你喜歡嗎？");
+    expect(screen.getByText("共 1 句")).toBeTruthy();
+
+    // No cursor inside the sentence yet: nothing to split.
+    const split = () =>
+      screen.getByRole("button", { name: "從游標處拆分第 1 句" });
+    expect((split() as HTMLButtonElement).disabled).toBe(true);
+    first.setSelectionRange(14, 14);
+    fireEvent.select(first);
+    expect((split() as HTMLButtonElement).disabled).toBe(false);
+    await click("從游標處拆分第 1 句");
+    expect(
+      (screen.getByLabelText("第 1 句英文") as HTMLTextAreaElement).value,
+    ).toBe("We moved here.");
+    expect(
+      (screen.getByLabelText("第 2 句英文") as HTMLTextAreaElement).value,
+    ).toBe("Do you like it?");
+    // The new sentence's Chinese is filled in when the practice is made.
+    expect(
+      (screen.getByLabelText("第 2 句中文") as HTMLTextAreaElement).value,
+    ).toBe("");
+  });
+
   it("can't split text over the length limit", async () => {
     await renderForm();
     fireEvent.change(textBox(), { target: { value: "a".repeat(10_001) } });

@@ -61,12 +61,20 @@ beforeEach(() => {
 });
 
 describe("splitText", () => {
-  it("splits without spending anything", async () => {
+  it("splits by meaning, counting the model call", async () => {
     expect(await splitText("你好。再見。", "zh")).toEqual({
       ok: true,
       sentences: ["你好。", "再見。"],
     });
-    expect(state.reserve).not.toHaveBeenCalled();
+    expect(state.reserve).toHaveBeenCalledWith("translation", 6);
+  });
+
+  it("still splits, by the rules, when the model can't be used", async () => {
+    state.reserve.mockResolvedValue(false);
+    expect(await splitText("Hi there. Bye now.", "en")).toEqual({
+      ok: true,
+      sentences: ["Hi there.", "Bye now."],
+    });
   });
 
   it.each([
@@ -161,10 +169,17 @@ describe("createPractice", () => {
         table: "practice_sentences",
         rows: [
           { practice_id: "p1", i: 0, en: "We moved.", zh: "我們搬家了。" },
-          { practice_id: "p1", i: 1, en: "Nice.", zh: "" },
+          // Chinese left empty in review is translated on save.
+          { practice_id: "p1", i: 1, en: "Nice.", zh: "[zh-Hant] Nice." },
         ],
       },
     ]);
+  });
+
+  it("saves nothing when the missing Chinese can't be translated", async () => {
+    state.reserve.mockResolvedValue(false);
+    expect(await createPractice(draft)).toEqual({ ok: false, reason: "limit" });
+    expect(state.inserts).toEqual([]);
   });
 
   it("removes the practice when its sentences can't be saved", async () => {

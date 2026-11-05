@@ -1,3 +1,4 @@
+import { splitLine } from "@/lib/custom-practice/split";
 import type { LanguageProvider, SpeechAudio, SpeechProvider } from "./types";
 
 /**
@@ -6,6 +7,10 @@ import type { LanguageProvider, SpeechAudio, SpeechProvider } from "./types";
  */
 export const fakeLanguage: LanguageProvider = {
   id: "fake",
+  // The rule-based split, as if the model agreed with it.
+  async segment(lines, language) {
+    return lines.map((line) => splitLine(line, language));
+  },
   async translate(texts, { to }) {
     return texts.map((text) => `[${to}] ${text}`);
   },

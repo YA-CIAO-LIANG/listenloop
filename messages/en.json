@@ -625,7 +625,7 @@
     "prepare": "Split and translate",
     "preparing": "Splitting and translating…",
     "reviewTitle": "Review and edit",
-    "reviewIntro": "Each sentence becomes one dictation and shadowing item. Edit the English and Chinese or delete sentences you don't need, then create the practice.",
+    "reviewIntro": "Each sentence becomes one dictation and shadowing item. Edit the English and Chinese, merge or split sentences, or delete ones you don't need, then create the practice.",
     "sentenceCount": "{count, plural, one {# sentence} other {# sentences}}",
     "sentenceEn": "Sentence {n}, English",
     "sentenceZh": "Sentence {n}, Chinese",
@@ -710,7 +710,13 @@
       "translate": "Translating {done}/{total} sentences",
       "notes": "Writing notes {done}/{total} sentences",
       "audio": "Making audio {done}/{total} sentences"
-    }
+    },
+    "splitSentence": "Split at cursor",
+    "splitSentenceLabel": "Split sentence {n} at the cursor",
+    "mergeSentence": "Merge with next",
+    "mergeSentenceLabel": "Merge sentence {n} with the next one",
+    "splitHint": "To split a sentence, click where it should break in the English box, then press “Split at cursor”. The new sentence's Chinese is translated when you create the practice.",
+    "zhPlaceholder": "Left empty, it's translated when you create the practice"
   },
   "organize": {
     "collectionsTitle": "Collections",

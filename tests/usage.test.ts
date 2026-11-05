@@ -14,6 +14,6 @@ describe("usage", () => {
   });
 
   it("limits speech and translation separately", () => {
-    expect(DAILY_CHAR_LIMITS).toEqual({ speech: 20_000, translation: 20_000 });
+    expect(DAILY_CHAR_LIMITS).toEqual({ speech: 20_000, translation: 60_000 });
   });
 });

@@ -3,6 +3,7 @@ import { fakeLanguage, fakeSpeech } from "@/lib/ai/fake";
 import { ProviderError } from "@/lib/ai/types";
 import {
   annotateSentences,
+  segmentCached,
   cleanNotes,
   NOTES_CHUNK,
   translateCached,
@@ -234,5 +235,56 @@ describe("annotateSentences", () => {
     const annotate = vi.spyOn(other.providers.language, "annotate");
     await annotateSentences(other, ["Hello there."]);
     expect(annotate).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("segmentCached", () => {
+  const text =
+    'Dr. Smith arrived at 9:30 a.m. in the U.S. He said, "It\'s 90% done."\nThen he left.';
+  const modelSplit = [
+    [
+      "Dr. Smith arrived at 9:30 a.m. in the U.S.",
+      'He said, "It\'s 90% done."',
+    ],
+    ["Then he left."],
+  ];
+
+  it("splits by the model's answer once, then from the cache", async () => {
+    const segment = vi.fn(async () => modelSplit);
+    const d = deps({ ...fakeLanguage, segment });
+    const expected = [
+      "Dr. Smith arrived at 9:30 a.m. in the U.S.",
+      'He said, "It\'s 90% done."',
+      "Then he left.",
+    ];
+    expect(await segmentCached(d, text, "en")).toEqual(expected);
+    expect(await segmentCached(d, text, "en")).toEqual(expected);
+    expect(segment).toHaveBeenCalledTimes(1);
+    expect(d.reserve).toHaveBeenCalledTimes(1);
+  });
+
+  it("uses the rules for a line the model rewrote", async () => {
+    const d = deps({
+      ...fakeLanguage,
+      segment: async () => [modelSplit[0], ["Then, he left."]],
+    });
+    expect((await segmentCached(d, text, "en")).at(-1)).toBe("Then he left.");
+  });
+
+  it("uses the rules when the model can't be called", async () => {
+    const segment = vi.fn(async () => {
+      throw new ProviderError("busy", "429");
+    });
+    const d = deps({ ...fakeLanguage, segment });
+    expect(await segmentCached(d, "Hi there. Bye now.", "en")).toEqual([
+      "Hi there.",
+      "Bye now.",
+    ]);
+    const limited = deps({ ...fakeLanguage, segment }, 3);
+    expect(await segmentCached(limited, "Hi there. Bye now.", "en")).toEqual([
+      "Hi there.",
+      "Bye now.",
+    ]);
+    expect(segment).toHaveBeenCalledTimes(1);
   });
 });

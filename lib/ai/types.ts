@@ -52,6 +52,12 @@ export interface LanguageProvider {
    * given list. Unchecked: lib/custom-practice/notes.ts validates it.
    */
   annotate(sentences: readonly string[]): Promise<unknown>;
+  /**
+   * Splits each line of a text into practice sentences by meaning (e+ 4):
+   * one list of pieces per line, in order. Unchecked:
+   * lib/custom-practice/split.ts makes sure it only cut the text.
+   */
+  segment(lines: readonly string[], language: "en" | "zh"): Promise<unknown>;
 }
 
 /**
