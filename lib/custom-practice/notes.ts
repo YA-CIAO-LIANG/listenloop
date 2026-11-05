@@ -16,8 +16,14 @@ import { sha256Hex } from "./hash";
  */
 export type PracticeNotes = { vocab: VocabItem[]; grammar: GrammarPoint[] };
 
-/** Sentences per model call: long texts go in several smaller requests. */
-export const NOTES_CHUNK = 40;
+/**
+ * Sentences per model call: long texts go in several smaller requests,
+ * and each finished chunk moves the progress bar (e+ 2).
+ */
+export const NOTES_CHUNK = 10;
+
+/** Sentences per translation call while preparing a draft (e+ 2). */
+export const TRANSLATE_BATCH = 8;
 
 /** Like the built-in library: at most 2 words and 1 grammar point a sentence. */
 export const NOTES_PER_SENTENCE = { vocab: 2, grammar: 1 } as const;
@@ -114,9 +120,29 @@ export function storedNotes(
 
 type LanguageDeps = MeteredDeps & { cache: AiCache };
 
+const cacheHash = (deps: LanguageDeps, kind: string, key: string) =>
+  sha256Hex(`${kind}\n${deps.providers.language.id}\n${key}`);
+
+/** A cached result that passes `check`, or null (missing or unreadable). */
+async function readCache<T>(
+  deps: LanguageDeps,
+  hash: string,
+  check: (result: unknown) => T | null,
+): Promise<T | null> {
+  try {
+    const stored = await deps.cache.get(hash);
+    return stored === null || stored === undefined ? null : check(stored);
+  } catch {
+    // An unreadable cache only costs a fresh call.
+    return null;
+  }
+}
+
 /**
  * Runs a language-model call once per distinct input: a cached result is
- * returned without calling the provider or counting usage.
+ * returned without calling the provider or counting usage. `fresh` says
+ * whether the provider was called; with `allowCall` false, a result that
+ * isn't cached comes back as null instead.
  */
 async function cachedLanguageCall<T>(
   deps: LanguageDeps,
@@ -125,34 +151,45 @@ async function cachedLanguageCall<T>(
   chars: number,
   call: () => Promise<T>,
   check: (result: unknown) => T | null,
-): Promise<MeteredResult<T>> {
-  const hash = await sha256Hex(
-    `${kind}\n${deps.providers.language.id}\n${key}`,
-  );
-  try {
-    const stored = await deps.cache.get(hash);
-    const cached =
-      stored === null || stored === undefined ? null : check(stored);
-    if (cached !== null) return { ok: true, value: cached };
-  } catch {
-    // An unreadable cache only costs a fresh call.
-  }
+): Promise<MeteredResult<T> & { fresh?: boolean }>;
+async function cachedLanguageCall<T>(
+  deps: LanguageDeps,
+  kind: "translation" | "notes",
+  key: string,
+  chars: number,
+  call: () => Promise<T>,
+  check: (result: unknown) => T | null,
+  allowCall: boolean,
+): Promise<MeteredResult<T | null> & { fresh?: boolean }>;
+async function cachedLanguageCall<T>(
+  deps: LanguageDeps,
+  kind: "translation" | "notes",
+  key: string,
+  chars: number,
+  call: () => Promise<T>,
+  check: (result: unknown) => T | null,
+  allowCall = true,
+): Promise<MeteredResult<T | null> & { fresh?: boolean }> {
+  const hash = await cacheHash(deps, kind, key);
+  const cached = await readCache(deps, hash, check);
+  if (cached !== null) return { ok: true, value: cached, fresh: false };
+  if (!allowCall) return { ok: true, value: null, fresh: false };
   const result = await meteredLanguage(deps, chars, call);
   if (!result.ok) return result;
   const value = check(result.value);
   if (value === null) return { ok: false, reason: "failed" };
   await deps.cache.set(hash, kind, value).catch(() => {});
-  return { ok: true, value };
+  return { ok: true, value, fresh: true };
 }
 
 /** Translations of `texts`, cached; same length and order, or a failure. */
-export function translateCached(
+export async function translateCached(
   deps: LanguageDeps,
   texts: readonly string[],
   languages: { from: TextLanguage; to: TextLanguage },
 ): Promise<MeteredResult<string[]>> {
-  if (texts.length === 0) return Promise.resolve({ ok: true, value: [] });
-  return cachedLanguageCall(
+  if (texts.length === 0) return { ok: true, value: [] };
+  const result = await cachedLanguageCall(
     deps,
     "translation",
     JSON.stringify({ ...languages, texts }),
@@ -165,18 +202,24 @@ export function translateCached(
         ? (result as string[]).map((line) => line.trim())
         : null,
   );
+  return result.ok ? { ok: true, value: result.value } : result;
 }
 
 /**
  * Notes for a practice's English sentences, NOTES_CHUNK at a time, each
- * chunk cached. Stops at the first chunk that fails; a retry reuses the
- * chunks already cached. Repeats across chunks are dropped at the end.
+ * chunk cached, making at most `freshCalls` model calls. `annotated` is
+ * how many sentences have notes so far (cached chunks count without a
+ * call); `notes` is the whole result once every chunk is done, else null.
+ * Stops at the first chunk that fails; a retry reuses the chunks already
+ * cached. Repeats across chunks are dropped at the end.
  */
-export async function annotateSentences(
+export async function annotateSome(
   deps: LanguageDeps,
   sentences: readonly string[],
-): Promise<MeteredResult<PracticeNotes>> {
+  freshCalls: number,
+): Promise<MeteredResult<{ annotated: number; notes: PracticeNotes | null }>> {
   const parts: PracticeNotes[] = [];
+  let calls = 0;
   for (let start = 0; start < sentences.length; start += NOTES_CHUNK) {
     const chunk = sentences.slice(start, start + NOTES_CHUNK);
     const result = await cachedLanguageCall(
@@ -186,19 +229,33 @@ export async function annotateSentences(
       countChars(chunk),
       () => deps.providers.language.annotate(chunk),
       (raw) => cleanNotes(raw, chunk.length),
+      // Out of calls: only a cached chunk can still count.
+      calls < freshCalls,
     );
     if (!result.ok) return result;
+    if (result.value === null) {
+      return { ok: true, value: { annotated: start, notes: null } };
+    }
+    if (result.fresh) calls++;
     parts.push(cleanNotes(result.value, chunk.length, start));
   }
   // Each chunk is clean on its own; clean the whole for repeats across chunks.
-  return {
-    ok: true,
-    value: cleanNotes(
-      {
-        vocab: parts.flatMap((part) => part.vocab),
-        grammar: parts.flatMap((part) => part.grammar),
-      },
-      sentences.length,
-    ),
-  };
+  const notes = cleanNotes(
+    {
+      vocab: parts.flatMap((part) => part.vocab),
+      grammar: parts.flatMap((part) => part.grammar),
+    },
+    sentences.length,
+  );
+  return { ok: true, value: { annotated: sentences.length, notes } };
+}
+
+/** All of a practice's notes, as many model calls as it takes. */
+export async function annotateSentences(
+  deps: LanguageDeps,
+  sentences: readonly string[],
+): Promise<MeteredResult<PracticeNotes>> {
+  const result = await annotateSome(deps, sentences, Infinity);
+  if (!result.ok) return result;
+  return { ok: true, value: result.value.notes ?? { vocab: [], grammar: [] } };
 }

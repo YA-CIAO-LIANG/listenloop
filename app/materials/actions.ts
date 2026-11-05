@@ -11,33 +11,33 @@ import {
   isTextSourceLanguage,
   PRACTICE_LIMITS,
   type DraftProblem,
-  type DraftSentence,
   type PracticeDraft,
 } from "@/lib/custom-practice/draft";
 import {
-  annotateSentences,
+  annotateSome,
+  TRANSLATE_BATCH,
   translateCached,
 } from "@/lib/custom-practice/notes";
 import { splitSentences } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
 
-export type PrepareResult =
-  | { ok: true; sentences: DraftSentence[] }
+export type SplitResult =
+  | { ok: true; sentences: string[] }
   | {
       ok: false;
-      reason:
-        "unavailable" | "empty" | "too-long" | "too-many" | MeteredFailure;
+      reason: "unavailable" | "empty" | "too-long" | "too-many";
     };
 
 /**
- * Splits the uploaded text into sentences and translates them: Chinese to
- * English (what's practiced), English to Chinese (the handout). Nothing
- * is saved; the learner reviews the result first.
+ * Splits the uploaded text into sentences, the first step of preparing a
+ * draft; translateSentences then translates them a batch at a time, so
+ * the page can show real progress (e+ 2). Nothing is saved; the learner
+ * reviews the result first.
  */
-export async function prepareSentences(
+export async function splitText(
   text: unknown,
   language: unknown,
-): Promise<PrepareResult> {
+): Promise<SplitResult> {
   const creator = await getCreator();
   if (!creator) return { ok: false, reason: "unavailable" };
   if (typeof text !== "string" || !isTextSourceLanguage(language)) {
@@ -46,27 +46,48 @@ export async function prepareSentences(
   if (countChars([text]) > PRACTICE_LIMITS.textChars) {
     return { ok: false, reason: "too-long" };
   }
-  const source = splitSentences(text, language);
-  if (source.length === 0) return { ok: false, reason: "empty" };
-  if (source.length > PRACTICE_LIMITS.sentences) {
+  const sentences = splitSentences(text, language);
+  if (sentences.length === 0) return { ok: false, reason: "empty" };
+  if (sentences.length > PRACTICE_LIMITS.sentences) {
     return { ok: false, reason: "too-many" };
   }
+  return { ok: true, sentences };
+}
 
-  const fromChinese = language === "zh";
+export type TranslateResult =
+  | { ok: true; translations: string[] }
+  | { ok: false; reason: "unavailable" | "empty" | MeteredFailure };
+
+/**
+ * Translates up to TRANSLATE_BATCH split sentences of a text in `language`:
+ * Chinese to English (what's practiced), English to Chinese (the handout).
+ */
+export async function translateSentences(
+  sentences: unknown,
+  language: unknown,
+): Promise<TranslateResult> {
+  const creator = await getCreator();
+  if (!creator) return { ok: false, reason: "unavailable" };
+  if (
+    !Array.isArray(sentences) ||
+    sentences.length === 0 ||
+    sentences.length > TRANSLATE_BATCH ||
+    !sentences.every((s) => typeof s === "string" && s.trim()) ||
+    countChars(sentences) > PRACTICE_LIMITS.textChars ||
+    !isTextSourceLanguage(language)
+  ) {
+    return { ok: false, reason: "empty" };
+  }
   const translated = await translateCached(
     creator,
-    source,
-    fromChinese ? { from: "zh-Hant", to: "en" } : { from: "en", to: "zh-Hant" },
+    sentences,
+    language === "zh"
+      ? { from: "zh-Hant", to: "en" }
+      : { from: "en", to: "zh-Hant" },
   );
-  if (!translated.ok) return translated;
-  return {
-    ok: true,
-    sentences: source.map((line, i) =>
-      fromChinese
-        ? { en: translated.value[i], zh: line }
-        : { en: line, zh: translated.value[i] },
-    ),
-  };
+  return translated.ok
+    ? { ok: true, translations: translated.value }
+    : translated;
 }
 
 export type CreatePracticeResult =
@@ -193,14 +214,16 @@ export async function generatePracticeAudio(
 }
 
 export type GenerateNotesResult =
-  | { ok: true }
+  | { ok: true; annotated: number; total: number }
   | { ok: false; reason: "unavailable" | "not-found" | MeteredFailure };
 
 /**
  * Makes the vocabulary and grammar notes for one of the user's practices
  * from its saved (already reviewed) English, so the notes match the final
- * sentences. Does nothing if they exist. Long practices go in chunks that
- * are each cached, so a retry after a failure only redoes what's missing.
+ * sentences: one chunk (NOTES_CHUNK sentences) per call, each cached, so
+ * each call stays short and the page can show progress. The browser calls
+ * again until annotated === total; the last call saves the notes. Does
+ * nothing if they exist; a retry after a failure only redoes what's missing.
  */
 export async function generatePracticeNotes(
   practiceId: unknown,
@@ -220,24 +243,29 @@ export async function generatePracticeNotes(
     .maybeSingle();
   if (error) return { ok: false, reason: "failed" };
   if (!practice) return { ok: false, reason: "not-found" };
-  if (practice.notes_generated_at) return { ok: true };
+  const total = practice.practice_sentences.length;
+  if (practice.notes_generated_at) {
+    return { ok: true, annotated: total, total };
+  }
 
   const sentences = [...practice.practice_sentences]
     .sort((a, b) => a.i - b.i)
     .map((s) => s.en);
-  const notes = await annotateSentences(creator, sentences);
-  if (!notes.ok) return notes;
+  const result = await annotateSome(creator, sentences, 1);
+  if (!result.ok) return result;
+  const { annotated, notes } = result.value;
+  if (!notes) return { ok: true, annotated, total };
 
   const { data: updated, error: updateError } = await supabase
     .from("practices")
     .update({
-      vocab: notes.value.vocab,
-      grammar: notes.value.grammar,
+      vocab: notes.vocab,
+      grammar: notes.grammar,
       notes_generated_at: new Date().toISOString(),
     })
     .eq("id", practiceId)
     .select("id");
   if (updateError || !updated?.length) return { ok: false, reason: "failed" };
   revalidatePath("/materials");
-  return { ok: true };
+  return { ok: true, annotated: total, total };
 }

@@ -12,7 +12,9 @@ const generateNotes = vi.fn();
 beforeEach(() => {
   router.refresh.mockReset();
   generate.mockReset();
-  generateNotes.mockReset().mockResolvedValue({ ok: true });
+  generateNotes
+    .mockReset()
+    .mockResolvedValue({ ok: true, annotated: 10, total: 10 });
 });
 
 function renderReadiness(props: {

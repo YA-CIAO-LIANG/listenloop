@@ -15,6 +15,7 @@ import { FeedIcon, LockIcon, PointsIcon } from "@/components/icons";
 import { AQUARIUM_ENABLED } from "@/lib/features";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
+import { StageProgress } from "@/components/StageProgress";
 import { ScoreBadge } from "@/components/ScoreBadge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
@@ -204,6 +205,12 @@ export default function StyleguidePage() {
                   {t("states.continuous")}
                 </p>
                 <ProgressBar value={20} max={52} label={tProgress("today")} />
+              </div>
+              <div>
+                <p className="mb-3 text-supporting text-ink-muted">
+                  {t("states.percent")}
+                </p>
+                <StageProgress stage={{ stage: "audio", done: 4, total: 10 }} />
               </div>
             </div>
           </Demo>

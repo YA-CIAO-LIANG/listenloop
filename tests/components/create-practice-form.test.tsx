@@ -7,36 +7,46 @@ const router = vi.hoisted(() => ({ refresh: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => router }));
 // The real Server Actions can't run in a test DOM; the form takes them as props.
 vi.mock("@/app/materials/actions", () => ({
-  prepareSentences: vi.fn(),
+  splitText: vi.fn(),
+  translateSentences: vi.fn(),
   createPractice: vi.fn(),
   generatePracticeAudio: vi.fn(),
   generatePracticeNotes: vi.fn(),
 }));
 
-const prepare = vi.fn();
+const split = vi.fn();
+const translate = vi.fn();
+const chinese: Record<string, string> = {
+  "We moved here.": "我們搬來這裡。",
+  "Do you like it?": "你喜歡嗎？",
+};
 const create = vi.fn();
 const generate = vi.fn();
 const generateNotes = vi.fn();
 
 beforeEach(() => {
   router.refresh.mockReset();
-  prepare.mockReset().mockResolvedValue({
+  split.mockReset().mockResolvedValue({
     ok: true,
-    sentences: [
-      { en: "We moved here.", zh: "我們搬來這裡。" },
-      { en: "Do you like it?", zh: "你喜歡嗎？" },
-    ],
+    sentences: ["We moved here.", "Do you like it?"],
   });
+  translate.mockReset().mockImplementation(async (sentences: string[]) => ({
+    ok: true,
+    translations: sentences.map((en) => chinese[en] ?? `[zh] ${en}`),
+  }));
   create.mockReset().mockResolvedValue({ ok: true, id: "p1" });
   generate.mockReset().mockResolvedValue({ ok: true, voiced: 1, total: 1 });
-  generateNotes.mockReset().mockResolvedValue({ ok: true });
+  generateNotes
+    .mockReset()
+    .mockResolvedValue({ ok: true, annotated: 1, total: 1 });
 });
 
 async function renderForm() {
   await act(async () => {
     renderWithIntl(
       <CreatePracticeForm
-        prepare={prepare}
+        split={split}
+        translate={translate}
         create={create}
         generate={generate}
         generateNotes={generateNotes}
@@ -62,8 +72,9 @@ describe("CreatePracticeForm", () => {
       target: { value: "We moved here. Do you like it?" },
     });
     await click("斷句並翻譯");
-    expect(prepare).toHaveBeenCalledWith(
-      "We moved here. Do you like it?",
+    expect(split).toHaveBeenCalledWith("We moved here. Do you like it?", "en");
+    expect(translate).toHaveBeenCalledWith(
+      ["We moved here.", "Do you like it?"],
       "en",
     );
 
@@ -160,7 +171,7 @@ describe("CreatePracticeForm", () => {
   });
 
   it("keeps the text and explains when today's limit is used up", async () => {
-    prepare.mockResolvedValue({ ok: false, reason: "limit" });
+    translate.mockResolvedValue({ ok: false, reason: "limit" });
     await renderForm();
     fireEvent.change(textBox(), { target: { value: "Hello." } });
     await click("斷句並翻譯");
@@ -183,6 +194,38 @@ describe("CreatePracticeForm", () => {
     expect(screen.getByRole("alert").textContent).toBe("第 2 句的英文是空的。");
     // Still on the review step with the sentences kept.
     expect(screen.getByLabelText("第 2 句英文")).toBeTruthy();
+  });
+
+  it("shows the real progress of each step while it works", async () => {
+    const sentences = Array.from({ length: 10 }, (_, i) => `Line ${i}.`);
+    split.mockResolvedValue({ ok: true, sentences });
+    let finishBatch = () => {};
+    translate.mockImplementation(
+      (batch: string[]) =>
+        new Promise((resolve) => {
+          finishBatch = () =>
+            resolve({
+              ok: true,
+              translations: batch.map((en) => `[zh] ${en}`),
+            });
+        }),
+    );
+    await renderForm();
+    fireEvent.change(textBox(), { target: { value: sentences.join(" ") } });
+    await click("斷句並翻譯");
+    const bar = () => screen.getByRole("progressbar");
+    expect(bar().getAttribute("aria-valuenow")).toBe("0");
+    expect(bar().getAttribute("aria-label")).toBe("翻譯中 0/10 句");
+
+    // The first batch of 8 is done: 80%.
+    await act(async () => finishBatch());
+    expect(bar().getAttribute("aria-valuenow")).toBe("80");
+    expect(bar().getAttribute("aria-label")).toBe("翻譯中 8/10 句");
+    expect(bar().getAttribute("aria-valuetext")).toBe("翻譯中 8/10 句 80%");
+
+    await act(async () => finishBatch());
+    expect(screen.getByText("共 10 句")).toBeTruthy();
+    expect(screen.queryByRole("progressbar")).toBeNull();
   });
 
   it("can't split text over the length limit", async () => {

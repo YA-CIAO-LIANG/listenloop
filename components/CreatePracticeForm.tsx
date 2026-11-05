@@ -8,9 +8,9 @@ import {
   createPractice,
   generatePracticeAudio,
   generatePracticeNotes,
-  prepareSentences,
+  splitText,
+  translateSentences,
   type CreatePracticeResult,
-  type PrepareResult,
 } from "@/app/materials/actions";
 import {
   DEFAULT_VOICE,
@@ -24,21 +24,24 @@ import {
 } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
 import {
+  prepareDraft,
   prepareForPractice,
   type GenerateAudio,
   type GenerateNotes,
-  type GenerationStage,
+  type PrepareDraftResult,
+  type SplitText,
+  type Stage,
+  type TranslateSentences,
 } from "./practice-generation";
 import { Button, buttonClassName } from "./Button";
 import { SegmentedControl } from "./SegmentedControl";
+import { StageProgress } from "./StageProgress";
 import { VoicePicker, voiceSampleUrl } from "./VoicePicker";
 
 type CreatePracticeFormProps = {
   /** Injected in tests; the Server Actions otherwise. */
-  prepare?: (
-    text: string,
-    language: TextSourceLanguage,
-  ) => Promise<PrepareResult>;
+  split?: SplitText;
+  translate?: TranslateSentences;
   create?: (draft: {
     title: string;
     sourceLanguage: TextSourceLanguage;
@@ -50,7 +53,7 @@ type CreatePracticeFormProps = {
 };
 
 type FormError =
-  | { key: Exclude<PrepareResult, { ok: true }>["reason"] }
+  | { key: Exclude<PrepareDraftResult, { ok: true }>["reason"] }
   | { key: "file-too-large" | "file-type" | "file-encoding" | "file-read" }
   | {
       key: Extract<CreatePracticeResult, { reason: "invalid" }>["problem"];
@@ -70,7 +73,8 @@ export const fieldClassName =
  * and create the practice.
  */
 export function CreatePracticeForm({
-  prepare = prepareSentences,
+  split = splitText,
+  translate = translateSentences,
   create = createPractice,
   generate = generatePracticeAudio,
   generateNotes = generatePracticeNotes,
@@ -86,7 +90,7 @@ export function CreatePracticeForm({
   const [languageChosen, setLanguageChosen] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
   const [voice, setVoice] = useState(DEFAULT_VOICE);
-  const [progress, setProgress] = useState<GenerationStage | null>(null);
+  const [progress, setProgress] = useState<Stage | null>(null);
   const nextKey = useRef(0);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<FormError | null>(null);
@@ -137,15 +141,18 @@ export function CreatePracticeForm({
     }
   }
 
-  async function split() {
+  async function prepare() {
     setPending(true);
     setError(null);
     setNotice(null);
-    const result = await prepare(text, language).catch((): PrepareResult => ({
-      ok: false,
-      reason: "failed",
-    }));
+    const result = await prepareDraft(
+      { split, translate },
+      text,
+      language,
+      setProgress,
+    );
     setPending(false);
+    setProgress(null);
     if (!result.ok) {
       setError({ key: result.reason });
       return;
@@ -176,8 +183,7 @@ export function CreatePracticeForm({
     // is kept and My materials can continue.
     const ready = await prepareForPractice(
       { generate, generateNotes },
-      result.id,
-      false,
+      { id: result.id, notesReady: false, total: rows.length },
       setProgress,
     );
     setPending(false);
@@ -354,19 +360,7 @@ export function CreatePracticeForm({
             {t("back")}
           </Button>
         </div>
-        {progress && (
-          <p
-            role="status"
-            className="text-supporting text-ink-muted tabular-nums"
-          >
-            {progress.stage === "notes"
-              ? t("generatingNotes")
-              : t("generating", {
-                  voiced: progress.voiced,
-                  total: progress.total,
-                })}
-          </p>
-        )}
+        {progress && <StageProgress stage={progress} className="max-w-sm" />}
         {errorMessage}
       </section>
     );
@@ -437,11 +431,12 @@ export function CreatePracticeForm({
       <Button
         variant="primary"
         arrow
-        onClick={split}
+        onClick={prepare}
         disabled={pending || !text.trim() || tooLong}
       >
         {pending ? t("preparing") : t("prepare")}
       </Button>
+      {progress && <StageProgress stage={progress} className="max-w-sm" />}
       {errorMessage}
       {notice && (
         <p

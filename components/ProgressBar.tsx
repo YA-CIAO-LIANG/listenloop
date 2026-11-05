@@ -13,6 +13,10 @@ type ProgressBarProps = {
   label: string;
   /** Show "value / max" next to the label (hide it when the label already says where you are). */
   showCount?: boolean;
+  /** "percent" shows the share done ("40%") instead of "value / max". */
+  format?: "count" | "percent";
+  /** What screen readers hear as the value, e.g. "Translating 3 / 6, 50%". */
+  valueText?: string;
   className?: string;
 };
 
@@ -30,6 +34,8 @@ export function ProgressBar({
   max,
   label,
   showCount = true,
+  format: countFormat = "count",
+  valueText,
   className = "",
 }: ProgressBarProps) {
   const t = useTranslations("practice.progress");
@@ -71,10 +77,14 @@ export function ProgressBar({
         </span>
         {showCount && (
           <span className="tabular-nums">
-            {t("count", {
-              value: format.number(current),
-              max: format.number(max),
-            })}
+            {countFormat === "percent"
+              ? format.number(max > 0 ? current / max : 0, {
+                  style: "percent",
+                })
+              : t("count", {
+                  value: format.number(current),
+                  max: format.number(max),
+                })}
           </span>
         )}
       </div>
@@ -84,6 +94,7 @@ export function ProgressBar({
         aria-valuemin={0}
         aria-valuemax={max}
         aria-valuenow={current}
+        aria-valuetext={valueText}
         data-mode={segmented ? "segmented" : "continuous"}
         data-done={done || undefined}
         className="relative flex h-1 gap-0.5"

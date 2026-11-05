@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fakeSpeech, fakeLanguage } from "@/lib/ai/fake";
+import { TRANSLATE_BATCH } from "@/lib/custom-practice/notes";
 
 type Insert = { table: string; rows: unknown };
 const state = vi.hoisted(() => ({
@@ -48,7 +49,7 @@ vi.mock("@/auth/server", () => ({
   }),
 }));
 
-const { createPractice, prepareSentences } =
+const { createPractice, splitText, translateSentences } =
   await import("@/app/materials/actions");
 
 beforeEach(() => {
@@ -59,26 +60,13 @@ beforeEach(() => {
   state.failSentences = false;
 });
 
-describe("prepareSentences", () => {
-  it("translates Chinese into the English to practice", async () => {
-    expect(await prepareSentences("你好。再見。", "zh")).toEqual({
+describe("splitText", () => {
+  it("splits without spending anything", async () => {
+    expect(await splitText("你好。再見。", "zh")).toEqual({
       ok: true,
-      sentences: [
-        { en: "[en] 你好。", zh: "你好。" },
-        { en: "[en] 再見。", zh: "再見。" },
-      ],
+      sentences: ["你好。", "再見。"],
     });
-    expect(state.reserve).toHaveBeenCalledWith("translation", 6);
-  });
-
-  it("translates English into Chinese for the handout", async () => {
-    expect(await prepareSentences("Hi. Bye.", "en")).toEqual({
-      ok: true,
-      sentences: [
-        { en: "Hi.", zh: "[zh-Hant] Hi." },
-        { en: "Bye.", zh: "[zh-Hant] Bye." },
-      ],
-    });
+    expect(state.reserve).not.toHaveBeenCalled();
   });
 
   it.each([
@@ -86,17 +74,52 @@ describe("prepareSentences", () => {
     ["a bad language", "Hi.", "fr", "empty"],
     ["text over the limit", "a".repeat(10_001), "en", "too-long"],
     ["too many sentences", "A.\n".repeat(301), "en", "too-many"],
-  ])("refuses %s without spending", async (_, text, language, reason) => {
-    expect(await prepareSentences(text, language)).toEqual({
+  ])("refuses %s", async (_, text, language, reason) => {
+    expect(await splitText(text, language)).toEqual({ ok: false, reason });
+  });
+
+  it("is unavailable to non-admins", async () => {
+    state.creator = false;
+    expect(await splitText("Hi.", "en")).toEqual({
       ok: false,
-      reason,
+      reason: "unavailable",
+    });
+  });
+});
+
+describe("translateSentences", () => {
+  it("translates Chinese into the English to practice", async () => {
+    expect(await translateSentences(["你好。", "再見。"], "zh")).toEqual({
+      ok: true,
+      translations: ["[en] 你好。", "[en] 再見。"],
+    });
+    expect(state.reserve).toHaveBeenCalledWith("translation", 6);
+  });
+
+  it("translates English into Chinese for the handout", async () => {
+    expect(await translateSentences(["Hi.", "Bye."], "en")).toEqual({
+      ok: true,
+      translations: ["[zh-Hant] Hi.", "[zh-Hant] Bye."],
+    });
+  });
+
+  it.each([
+    ["no sentences", [], "en"],
+    ["more than a batch", Array(TRANSLATE_BATCH + 1).fill("Hi."), "en"],
+    ["an empty sentence", ["Hi.", " "], "en"],
+    ["a non-string", ["Hi.", 3], "en"],
+    ["a bad language", ["Hi."], "fr"],
+  ])("refuses %s without spending", async (_, sentences, language) => {
+    expect(await translateSentences(sentences, language)).toEqual({
+      ok: false,
+      reason: "empty",
     });
     expect(state.reserve).not.toHaveBeenCalled();
   });
 
   it("passes on the daily limit", async () => {
     state.reserve.mockResolvedValue(false);
-    expect(await prepareSentences("Hi.", "en")).toEqual({
+    expect(await translateSentences(["Hi."], "en")).toEqual({
       ok: false,
       reason: "limit",
     });
@@ -104,7 +127,7 @@ describe("prepareSentences", () => {
 
   it("is unavailable to non-admins", async () => {
     state.creator = false;
-    expect(await prepareSentences("Hi.", "en")).toEqual({
+    expect(await translateSentences(["Hi."], "en")).toEqual({
       ok: false,
       reason: "unavailable",
     });
