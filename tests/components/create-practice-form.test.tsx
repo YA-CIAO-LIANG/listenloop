@@ -12,6 +12,7 @@ vi.mock("@/app/materials/actions", () => ({
   createPractice: vi.fn(),
   generatePracticeAudio: vi.fn(),
   generatePracticeNotes: vi.fn(),
+  generatePracticeText: vi.fn(),
 }));
 
 const split = vi.fn();
@@ -23,6 +24,7 @@ const chinese: Record<string, string> = {
 const create = vi.fn();
 const generate = vi.fn();
 const generateNotes = vi.fn();
+const generateText = vi.fn();
 
 beforeEach(() => {
   router.refresh.mockReset();
@@ -50,6 +52,7 @@ async function renderForm() {
         create={create}
         generate={generate}
         generateNotes={generateNotes}
+        generateText={generateText}
       />,
     );
   });
@@ -260,6 +263,54 @@ describe("CreatePracticeForm", () => {
     expect(
       (screen.getByLabelText("第 2 句中文") as HTMLTextAreaElement).value,
     ).toBe("");
+  });
+
+  it("writes text with AI into the form to edit", async () => {
+    generateText.mockReset().mockResolvedValue({
+      ok: true,
+      title: "At the Store",
+      text: "Where is the milk?\nIt's in aisle five.",
+    });
+    await renderForm();
+    fireEvent.click(screen.getByLabelText("AI 生成"));
+    fireEvent.change(screen.getByLabelText("類別與情境"), {
+      target: { value: "office-hours" },
+    });
+    fireEvent.change(screen.getByLabelText("主題或關鍵字（選填）"), {
+      target: { value: "期中考" },
+    });
+    fireEvent.click(screen.getByLabelText("高級"));
+    fireEvent.click(screen.getByLabelText("約 5 分鐘"));
+    fireEvent.click(screen.getByLabelText("獨白"));
+    await click("生成文字");
+    expect(generateText).toHaveBeenCalledWith({
+      topic: "期中考",
+      scenario: "office-hours",
+      level: "advanced",
+      minutes: 5,
+      format: "monologue",
+    });
+    // Back on the text form, filled in and editable.
+    expect((textBox() as HTMLTextAreaElement).value).toBe(
+      "Where is the milk?\nIt's in aisle five.",
+    );
+    expect((screen.getByLabelText("標題") as HTMLInputElement).value).toBe(
+      "At the Store",
+    );
+    expect((screen.getByLabelText("英文") as HTMLInputElement).checked).toBe(
+      true,
+    );
+    expect(screen.getByRole("status").textContent).toContain(
+      "已生成「At the Store」",
+    );
+  });
+
+  it("explains when AI can't write the text", async () => {
+    generateText.mockReset().mockResolvedValue({ ok: false, reason: "config" });
+    await renderForm();
+    fireEvent.click(screen.getByLabelText("AI 生成"));
+    await click("生成文字");
+    expect(screen.getByRole("alert").textContent).toContain("支出上限");
   });
 
   it("can't split text over the length limit", async () => {

@@ -432,3 +432,15 @@
 - **測試**：`tests/custom-practice-split.test.ts` 的「hard sentences」收錄難斷的例句（Dr.／a.m.／U.S.、$3.5／Ph.D.／e.g.／No. 5、刪節號、引號、對話、40 字長句、中文引號），以及模型改字、漏字、多字時退回規則的情況。
 - **已知**：2026-11-04 用真的 Gemini 實測時遇到 Google 的每月支出上限（roadmap 清單 5D），等 Joe 調高後補測。
 - **要改時**：`lib/ai/gemini.ts`（`SEGMENT_INSTRUCTIONS`）、`lib/custom-practice/split.ts`、`lib/custom-practice/notes.ts`（`segmentCached`）、`lib/custom-practice/draft.ts`（合併、拆分）、`lib/usage.ts`。
+
+## D36 AI 生成練習文字（2026-11-04，e 驗收修正 5）
+
+- **決定**：
+  - 「建立練習」新增第二種文字來源「AI 生成」：選類別與情境、程度、長度、形式，可以加主題或關鍵字（中英文都可以），由 Gemini 寫英文文字。結果填進原本的標題和文字框，可以修改，接著走原本的「斷句並翻譯 → 預覽 → 建立」，不另做一套流程。
+  - **集中設定**：`lib/custom-practice/generation.ts` 的 `GENERATION_CATEGORIES`（8 類，每類幾個情境；每個情境有一句給模型的英文描述）、`GENERATION_LEVELS`（初級 A2、中級 B1、高級 B2～C1）、`GENERATION_MINUTES`（約 1、3、5 分鐘）、`GENERATION_FORMATS`（對話、獨白）。要加類別或情境，只要在這裡加一筆，並在翻譯檔 `generate.categories`、`generate.scenarios` 加名稱（測試會檢查兩種語言都有）。
+  - **長度**：Chirp 3 HD 每分鐘約念 130 字（`WORDS_PER_MINUTE`），所以 1／3／5 分鐘約 130／390／650 字；聽寫時每句之間的停頓不算在內。
+  - **格式**：每行一句（獨白）或一個人的一次發言（對話），不加說話者名字，這樣斷句和聽寫都不會出現「A:」。指示中要求虛構人名與細節、不寫真實人物、品牌或時事，內容適合學生。
+  - **檢查**：要有標題、至少一行英文、字數至少是要求的 40%，而且不超過上傳上限（10,000 字元），否則顯示「生成的內容無法使用」。
+  - **用量與權限**：只開放管理員（`getCreator`）；呼叫前先預扣「預估輸出字元數」（字數 × 6 ＋ 主題長度）到語言模型的每日用量。不快取，因為每次都應該是新的內容；temperature 0.9，讓內容有變化。
+  - **已知限制**：對話目前用同一個聲音念。之後可以讓每一句記錄說話者，用兩個聲音產生音檔。
+- **要改時**：`lib/custom-practice/generation.ts`、`lib/ai/gemini.ts`（`COMPOSE_INSTRUCTIONS`）、`app/materials/actions.ts`（`generatePracticeText`）、`components/GenerateTextPanel.tsx`。

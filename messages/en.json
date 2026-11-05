@@ -606,7 +606,7 @@
   },
   "create": {
     "title": "Create a practice",
-    "intro": "Upload a Chinese or English text file. It's split into sentences and translated; review it, then create your own practice. Admins only for now.",
+    "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. Admins only for now.",
     "titleLabel": "Title",
     "textLabel": "Text",
     "textHint": "Paste it here or choose a .txt file. Each line is split separately.",
@@ -901,6 +901,79 @@
       "invalid": "Something's off; please reload the page.",
       "not-found": "Couldn't find it; it may have been handled already. Please reload the page.",
       "failed": "Couldn't save. Please try again later."
+    }
+  },
+  "generate": {
+    "sourceLegend": "Text source",
+    "sources": {
+      "text": "Paste or upload",
+      "ai": "Write with AI"
+    },
+    "scenarioLabel": "Category and scenario",
+    "topicLabel": "Topic or keywords (optional)",
+    "topicHint": "For example: my first trip to an American supermarket, a study group, working at a café. Chinese or English is fine.",
+    "levelLegend": "Level",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "lengthLegend": "Length",
+    "minutes": "About {count} min",
+    "formatLegend": "Format",
+    "formats": {
+      "dialogue": "Dialogue",
+      "monologue": "Monologue"
+    },
+    "note": "The English text goes into the text box below, where you can edit it before splitting and translating. Dialogues are read in one voice for now. Writing counts toward the daily allowance.",
+    "generate": "Write text",
+    "generating": "Writing…",
+    "generated": "Wrote “{title}”. Edit the text if you like, then split and translate it.",
+    "categories": {
+      "daily-life": "Daily life",
+      "study-abroad": "Studying abroad",
+      "casual-american": "Casual American English",
+      "campus": "Campus and classes",
+      "academic-writing": "Academic writing",
+      "business": "Work and business",
+      "talks-stories": "Talks and stories",
+      "exam": "Exam listening"
+    },
+    "scenarios": {
+      "restaurant": "Ordering at a restaurant",
+      "shopping": "Shopping",
+      "directions": "Directions and transportation",
+      "doctor": "Seeing a doctor",
+      "renting": "Renting a place",
+      "bank-account": "Opening a bank account",
+      "roommates": "Talking with roommates",
+      "school-office": "School offices",
+      "part-time-interview": "Part-time job interview",
+      "friends-chat": "Chatting with friends",
+      "slang": "Popular expressions and slang",
+      "social-media": "Social media talk",
+      "class-discussion": "Class discussion",
+      "office-hours": "Professor's office hours",
+      "group-presentation": "Group presentation",
+      "abstract": "Paper abstract",
+      "academic-paragraph": "Academic article paragraphs",
+      "job-interview": "Job interview",
+      "meeting": "Meetings",
+      "phone-email": "Phone calls and email",
+      "presentation": "Presentations",
+      "ted-talk": "TED-style talk",
+      "personal-story": "Personal story",
+      "news-report": "News report",
+      "ielts": "IELTS style",
+      "toefl": "TOEFL style"
+    },
+    "errors": {
+      "unavailable": "Text can't be written right now. Make sure you're signed in with an admin account.",
+      "invalid": "Something in the choices is off. Choose again and retry.",
+      "limit": "Today's AI allowance is used up. Try again tomorrow (after midnight, Taiwan time).",
+      "busy": "The AI service is busy. Try again in a minute.",
+      "failed": "The written text couldn't be used. Please try again.",
+      "config": "There's a problem with the AI service's setup or billing (for example a wrong key, or Gemini's spend cap or prepaid credit is used up). The server log has details."
     }
   }
 }

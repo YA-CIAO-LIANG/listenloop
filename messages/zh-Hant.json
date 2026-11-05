@@ -604,7 +604,7 @@
   },
   "create": {
     "title": "建立練習",
-    "intro": "上傳一份中文或英文的文字檔，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。目前只開放給管理員。",
+    "intro": "上傳一份中文或英文的文字檔，或讓 AI 依情境生成英文文字，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。目前只開放給管理員。",
     "titleLabel": "標題",
     "textLabel": "文字內容",
     "textHint": "可以直接貼上，或選擇 .txt 檔。每一行會分開斷句。",
@@ -899,6 +899,79 @@
       "invalid": "資料不正確，請重新整理頁面。",
       "not-found": "找不到這份練習或檢舉，可能已經處理過。請重新整理頁面。",
       "failed": "儲存失敗，請稍後再試一次。"
+    }
+  },
+  "generate": {
+    "sourceLegend": "文字來源",
+    "sources": {
+      "text": "貼上或上傳文字",
+      "ai": "AI 生成"
+    },
+    "scenarioLabel": "類別與情境",
+    "topicLabel": "主題或關鍵字（選填）",
+    "topicHint": "例如：第一次去美國超市、study group、咖啡廳打工。可以用中文或英文。",
+    "levelLegend": "程度",
+    "levels": {
+      "beginner": "初級",
+      "intermediate": "中級",
+      "advanced": "高級"
+    },
+    "lengthLegend": "長度",
+    "minutes": "約 {count} 分鐘",
+    "formatLegend": "形式",
+    "formats": {
+      "dialogue": "對話",
+      "monologue": "獨白"
+    },
+    "note": "生成的英文會填進下方的文字框，可以修改後再斷句並翻譯。對話目前由同一個聲音念。生成會計入每日用量。",
+    "generate": "生成文字",
+    "generating": "生成中…",
+    "generated": "已生成「{title}」，可以修改文字後再斷句並翻譯。",
+    "categories": {
+      "daily-life": "生活情境",
+      "study-abroad": "留學生活",
+      "casual-american": "美式日常口語",
+      "campus": "校園學術",
+      "academic-writing": "學術寫作",
+      "business": "職場商務",
+      "talks-stories": "演講與故事",
+      "exam": "考試聽力"
+    },
+    "scenarios": {
+      "restaurant": "餐廳點餐",
+      "shopping": "購物",
+      "directions": "問路與交通",
+      "doctor": "看醫生",
+      "renting": "租屋",
+      "bank-account": "開銀行帳戶",
+      "roommates": "和室友溝通",
+      "school-office": "學校行政",
+      "part-time-interview": "打工面試",
+      "friends-chat": "朋友閒聊",
+      "slang": "流行用語與俚語",
+      "social-media": "社群媒體用語",
+      "class-discussion": "課堂討論",
+      "office-hours": "教授 office hours",
+      "group-presentation": "小組報告",
+      "abstract": "論文摘要",
+      "academic-paragraph": "學術文章段落",
+      "job-interview": "面試",
+      "meeting": "會議",
+      "phone-email": "電話與 email",
+      "presentation": "簡報",
+      "ted-talk": "TED 風格演講",
+      "personal-story": "個人故事",
+      "news-report": "新聞報導",
+      "ielts": "IELTS 風格",
+      "toefl": "TOEFL 風格"
+    },
+    "errors": {
+      "unavailable": "目前無法生成文字。請確認已用管理員帳號登入。",
+      "invalid": "選項有誤，請重新選擇後再試。",
+      "limit": "今天的 AI 用量已經用完，明天（台灣時間 0 點後）再試。",
+      "busy": "AI 服務目前忙碌中，請過一分鐘再試。",
+      "failed": "生成的內容無法使用，請再試一次。",
+      "config": "AI 服務的設定或帳單有問題（例如金鑰錯誤，或 Gemini 的支出上限、預付額度用完）。詳細原因在伺服器紀錄。"
     }
   }
 }

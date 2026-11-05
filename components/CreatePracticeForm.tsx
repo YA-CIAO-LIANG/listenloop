@@ -37,6 +37,7 @@ import {
   type TranslateSentences,
 } from "./practice-generation";
 import { Button, buttonClassName } from "./Button";
+import { GenerateTextPanel, type GenerateText } from "./GenerateTextPanel";
 import { SegmentedControl } from "./SegmentedControl";
 import { StageProgress } from "./StageProgress";
 import { VoicePicker, voiceSampleUrl } from "./VoicePicker";
@@ -53,6 +54,7 @@ type CreatePracticeFormProps = {
   }) => Promise<CreatePracticeResult>;
   generate?: GenerateAudio;
   generateNotes?: GenerateNotes;
+  generateText?: GenerateText;
 };
 
 type FormError =
@@ -81,11 +83,15 @@ export function CreatePracticeForm({
   create = createPractice,
   generate = generatePracticeAudio,
   generateNotes = generatePracticeNotes,
+  generateText,
 }: CreatePracticeFormProps) {
   const t = useTranslations("create");
   const router = useRouter();
   const ids = { title: useId(), text: useId(), hint: useId(), file: useId() };
 
+  const tGenerate = useTranslations("generate");
+  // Paste or upload text, or have it written (e+ 5).
+  const [source, setSource] = useState<"text" | "ai">("text");
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
   const [language, setLanguage] = useState<TextSourceLanguage>("en");
@@ -112,6 +118,19 @@ export function CreatePracticeForm({
   function changeText(value: string) {
     setText(value);
     if (!languageChosen && value.trim()) setLanguage(detectTextLanguage(value));
+  }
+
+  /** Written text goes into the form to review and edit (it's English). */
+  function applyGenerated(generated: { title: string; text: string }) {
+    setTitle(generated.title);
+    setText(generated.text);
+    setLanguage("en");
+    setLanguageChosen(true);
+    setSource("text");
+    setNotice({
+      message: tGenerate("generated", { title: generated.title }),
+      success: false,
+    });
   }
 
   async function loadFile(event: ChangeEvent<HTMLInputElement>) {
@@ -425,75 +444,102 @@ export function CreatePracticeForm({
 
   return (
     <div className="space-y-6">
-      {titleField}
-      <div className="space-y-2">
-        <label htmlFor={ids.text} className="block font-medium">
-          {t("textLabel")}
-        </label>
-        <p id={ids.hint} className="text-supporting text-ink-muted">
-          {t("textHint")}
-        </p>
-        <div>
-          <input
-            id={ids.file}
-            type="file"
-            accept=".txt,text/plain"
-            onChange={loadFile}
-            disabled={pending}
-            className="peer sr-only"
-          />
-          <label
-            htmlFor={ids.file}
-            className={`${buttonClassName({ variant: "secondary", size: "sm", as: "link" })} cursor-pointer peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus peer-focus-visible:outline-solid`}
-          >
-            {t("chooseFile")}
-          </label>
-        </div>
-        <textarea
-          id={ids.text}
-          aria-describedby={ids.hint}
-          rows={10}
-          value={text}
-          onChange={(event) => changeText(event.target.value)}
-          disabled={pending}
-          className={`${fieldClassName} resize-y`}
-        />
-        <p
-          className={`text-metadata tabular-nums ${tooLong ? "text-error" : "text-ink-muted"}`}
-        >
-          {t("charCount", { count: chars, max: PRACTICE_LIMITS.textChars })}
-        </p>
-      </div>
       <div className="space-y-2">
         <p aria-hidden="true" className="font-medium">
-          {t("languageLegend")}
+          {tGenerate("sourceLegend")}
         </p>
         <SegmentedControl
-          legend={t("languageLegend")}
-          value={language}
+          legend={tGenerate("sourceLegend")}
+          value={source}
           options={[
-            { value: "en", label: t("languages.en") },
-            { value: "zh", label: t("languages.zh") },
+            { value: "text", label: tGenerate("sources.text") },
+            { value: "ai", label: tGenerate("sources.ai") },
           ]}
           onChange={(value) => {
-            setLanguage(value);
-            setLanguageChosen(true);
+            setSource(value);
+            setError(null);
           }}
           optionWidthClassName="min-w-16"
         />
-        <p className="text-supporting text-ink-muted">
-          {t(`languageNote.${language}`)}
-        </p>
       </div>
-      <Button
-        variant="primary"
-        arrow
-        onClick={prepare}
-        disabled={pending || !text.trim() || tooLong}
-      >
-        {pending ? t("preparing") : t("prepare")}
-      </Button>
-      {progress && <StageProgress stage={progress} className="max-w-sm" />}
+      {titleField}
+      {source === "ai" ? (
+        <GenerateTextPanel
+          generate={generateText}
+          onGenerated={applyGenerated}
+        />
+      ) : (
+        <>
+          <div className="space-y-2">
+            <label htmlFor={ids.text} className="block font-medium">
+              {t("textLabel")}
+            </label>
+            <p id={ids.hint} className="text-supporting text-ink-muted">
+              {t("textHint")}
+            </p>
+            <div>
+              <input
+                id={ids.file}
+                type="file"
+                accept=".txt,text/plain"
+                onChange={loadFile}
+                disabled={pending}
+                className="peer sr-only"
+              />
+              <label
+                htmlFor={ids.file}
+                className={`${buttonClassName({ variant: "secondary", size: "sm", as: "link" })} cursor-pointer peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-focus peer-focus-visible:outline-solid`}
+              >
+                {t("chooseFile")}
+              </label>
+            </div>
+            <textarea
+              id={ids.text}
+              aria-describedby={ids.hint}
+              rows={10}
+              value={text}
+              onChange={(event) => changeText(event.target.value)}
+              disabled={pending}
+              className={`${fieldClassName} resize-y`}
+            />
+            <p
+              className={`text-metadata tabular-nums ${tooLong ? "text-error" : "text-ink-muted"}`}
+            >
+              {t("charCount", { count: chars, max: PRACTICE_LIMITS.textChars })}
+            </p>
+          </div>
+          <div className="space-y-2">
+            <p aria-hidden="true" className="font-medium">
+              {t("languageLegend")}
+            </p>
+            <SegmentedControl
+              legend={t("languageLegend")}
+              value={language}
+              options={[
+                { value: "en", label: t("languages.en") },
+                { value: "zh", label: t("languages.zh") },
+              ]}
+              onChange={(value) => {
+                setLanguage(value);
+                setLanguageChosen(true);
+              }}
+              optionWidthClassName="min-w-16"
+            />
+            <p className="text-supporting text-ink-muted">
+              {t(`languageNote.${language}`)}
+            </p>
+          </div>
+          <Button
+            variant="primary"
+            arrow
+            onClick={prepare}
+            disabled={pending || !text.trim() || tooLong}
+          >
+            {pending ? t("preparing") : t("prepare")}
+          </Button>
+          {progress && <StageProgress stage={progress} className="max-w-sm" />}
+        </>
+      )}
       {errorMessage}
       {notice && (
         <p
