@@ -217,7 +217,8 @@
       "segmented": "Segmented (30 or fewer)",
       "continuous": "Continuous (over 30)",
       "belowPass": "Below pass",
-      "pass": "Pass"
+      "pass": "Pass",
+      "percent": "Percent (waiting while creating a practice)"
     },
     "progressDemo": {
       "add": "+1 sentence",
@@ -673,7 +674,6 @@
     },
     "voiceNote": "Audio is generated for every sentence after you create the practice; the same sentence in the same voice is generated only once.",
     "voiceName": "{accent} · {gender}",
-    "generating": "Generating audio… {voiced} / {total}",
     "audioPartial": "Audio {voiced} / {total}",
     "audioErrors": {
       "unavailable": "Audio can't be generated right now. Make sure you're signed in with an admin account.",
@@ -687,7 +687,6 @@
     "ungrouped": "Ungrouped",
     "backToMaterials": "See it in My materials →",
     "createdIncomplete": "Created “{title}”, but its notes or audio aren't all ready yet. You can continue in My materials.",
-    "generatingNotes": "Writing the translation, vocabulary, and grammar notes…",
     "readyDone": "Notes and audio ready",
     "notesDone": "Notes ready",
     "notesPending": "Notes not made yet",
@@ -704,7 +703,13 @@
     "privacyNote": "When you create a practice, its text is sent to Google's AI services (Gemini, Text-to-Speech). It isn't used to train models, but is kept briefly to detect abuse. Please don't include personal or sensitive information. See the <link>privacy policy</link>.",
     "notReadyBack": "My materials",
     "notReadyTitle": "This practice isn't ready yet",
-    "notReadyIntro": "Its notes or audio aren't all made yet (creating it may have been cut off, or the day's allowance ran out). Press “Continue” to finish them, and the practice opens right away."
+    "notReadyIntro": "Its notes or audio aren't all made yet (creating it may have been cut off, or the day's allowance ran out). Press “Continue” to finish them, and the practice opens right away.",
+    "stages": {
+      "split": "Splitting into sentences…",
+      "translate": "Translating {done}/{total} sentences",
+      "notes": "Writing notes {done}/{total} sentences",
+      "audio": "Making audio {done}/{total} sentences"
+    }
   },
   "organize": {
     "collectionsTitle": "Collections",

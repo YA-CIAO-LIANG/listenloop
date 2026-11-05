@@ -14,8 +14,9 @@ import {
   type GenerateAudio,
   type GenerateNotes,
   type GenerationResult,
-  type GenerationStage,
+  type Stage,
 } from "./practice-generation";
+import { StageProgress } from "./StageProgress";
 
 type PracticeReadinessProps = {
   practiceId: string;
@@ -47,7 +48,7 @@ export function PracticeReadiness({
   const router = useRouter();
   const [notesReady, setNotesReady] = useState(initialNotesReady);
   const [voiced, setVoiced] = useState(initialVoiced);
-  const [stage, setStage] = useState<GenerationStage | null>(null);
+  const [stage, setStage] = useState<Stage | null>(null);
   const [error, setError] = useState<Extract<
     GenerationResult,
     { ok: false }
@@ -57,13 +58,12 @@ export function PracticeReadiness({
     setError(null);
     const result = await prepareForPractice(
       { generate, generateNotes },
-      practiceId,
-      notesReady,
+      { id: practiceId, notesReady, total },
       (next) => {
         setStage(next);
         if (next.stage === "audio") {
           setNotesReady(true);
-          setVoiced(next.voiced);
+          setVoiced(next.done);
         }
       },
     );
@@ -90,14 +90,7 @@ export function PracticeReadiness({
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-3">
         {stage ? (
-          <p
-            role="status"
-            className="text-supporting text-ink-muted tabular-nums"
-          >
-            {stage.stage === "notes"
-              ? t("generatingNotes")
-              : t("generating", { voiced: stage.voiced, total: stage.total })}
-          </p>
+          <StageProgress stage={stage} className="w-full max-w-sm" />
         ) : (
           <p className="text-supporting text-ink-muted tabular-nums">
             {t("statusLine", {

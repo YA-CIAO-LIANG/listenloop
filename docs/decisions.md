@@ -400,3 +400,13 @@
   - **E2E 用假的 Supabase**（`e2e/mock-supabase/`）：自建練習的頁面在伺服器端讀 Supabase，Playwright 攔不到伺服器發出的請求，所以 E2E 啟動一個只回應必要查詢的假伺服器（練習資料在 `practices.json`，音檔一律是 1 秒無聲 WAV，接受任何登入憑證並視為練習的作者）。這是業界常見的做法（例如 WireMock、MSW）：不碰正式資料、不花錢、結果固定。E2E 用 `npm run build:e2e`（把 `NEXT_PUBLIC_SUPABASE_URL` 指向 `http://localhost:54329`）；CI 的 build 也改用它，正式站由 Vercel 自己 build，不受影響。
   - 為了讓假伺服器可以用 http，`readSupabaseConfig` 允許本機（`localhost`、`127.0.0.1`）的 http 網址，其他一律要 https。
 - **要改時**：`auth/practice-material.ts`、`components/PracticePreparing.tsx`、`e2e/mock-supabase/`、`e2e/custom-practice.spec.ts`、`playwright.config.ts`、`package.json` 的 `build:e2e`。
+
+## D33 等待時的百分比進度（2026-11-04，e 驗收修正 2）
+
+- **決定**：
+  - 進度只由實際完成的工作計算（句數），不用計時器或「假裝在跑」的動畫。
+  - 為了有真實的中間數字，伺服器的工作拆小：`prepareSentences` 拆成 `splitText`（斷句）和 `translateSentences`（每批 `TRANSLATE_BATCH = 8` 句，各自快取）；講解改成一次一段（`NOTES_CHUNK` 從 40 改成 10 句），`generatePracticeNotes` 每次只多做一段、回傳 `annotated / total`，最後一次才存進資料庫；音檔照舊逐批。用戶端在 `components/practice-generation.ts` 依序呼叫並回報。
+  - 整體百分比：斷句並翻譯 = 已翻譯句數 ÷ 句數（斷句完成前 0%）；建立練習 = 講解佔前 50%、音檔佔後 50%。
+  - 顯示用既有的 `ProgressBar`，新增百分比模式；元件 `StageProgress` 組合步驟文字與百分比。
+  - 業界做法：長時間的工作拆成小批次，每批回報進度（例如上傳、轉檔），使用者知道系統還在動、大約還要多久；批次小也讓中斷後可以從斷點繼續。
+- **要改時**：`components/practice-generation.ts`、`components/StageProgress.tsx`、`app/materials/actions.ts`、`lib/custom-practice/notes.ts`（`TRANSLATE_BATCH`、`NOTES_CHUNK`）。

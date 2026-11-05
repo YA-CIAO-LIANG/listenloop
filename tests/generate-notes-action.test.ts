@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fakeLanguage, fakeSpeech } from "@/lib/ai/fake";
+import { NOTES_CHUNK } from "@/lib/custom-practice/notes";
 
 const state = vi.hoisted(() => ({
   creator: true,
@@ -7,6 +8,7 @@ const state = vi.hoisted(() => ({
   updates: [] as Record<string, unknown>[],
   reserve: vi.fn(),
   filters: [] as [string, string][],
+  cache: new Map<string, unknown>(),
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
@@ -17,7 +19,12 @@ vi.mock("@/auth/creator", () => ({
           user: { id: "user-1", email: "joe@example.com" },
           providers: { language: fakeLanguage, speech: fakeSpeech },
           meter: { reserve: state.reserve },
-          cache: { get: async () => null, set: async () => {} },
+          cache: {
+            get: async (hash: string) => state.cache.get(hash) ?? null,
+            set: async (hash: string, _: string, value: unknown) => {
+              state.cache.set(hash, value);
+            },
+          },
         }
       : null,
 }));
@@ -49,6 +56,7 @@ vi.mock("@/auth/server", () => ({
 const { generatePracticeNotes } = await import("@/app/materials/actions");
 
 beforeEach(() => {
+  state.cache.clear();
   state.creator = true;
   state.filters = [];
   state.updates = [];
@@ -64,7 +72,11 @@ beforeEach(() => {
 
 describe("generatePracticeNotes", () => {
   it("saves notes made from the saved English, in sentence order", async () => {
-    expect(await generatePracticeNotes("p1")).toEqual({ ok: true });
+    expect(await generatePracticeNotes("p1")).toEqual({
+      ok: true,
+      annotated: 2,
+      total: 2,
+    });
     const [saved] = state.updates;
     expect(
       (saved.vocab as { sentence: number; word: string }[]).map((v) => [
@@ -81,11 +93,39 @@ describe("generatePracticeNotes", () => {
   it("does nothing when the notes already exist", async () => {
     state.practice = {
       notes_generated_at: "2026-11-03T00:00:00Z",
-      practice_sentences: [],
+      practice_sentences: [{ i: 0, en: "Hi." }],
     };
-    expect(await generatePracticeNotes("p1")).toEqual({ ok: true });
+    expect(await generatePracticeNotes("p1")).toEqual({
+      ok: true,
+      annotated: 1,
+      total: 1,
+    });
     expect(state.reserve).not.toHaveBeenCalled();
     expect(state.updates).toEqual([]);
+  });
+
+  it(`makes one chunk (${NOTES_CHUNK} sentences) per call, saving at the end`, async () => {
+    state.practice = {
+      notes_generated_at: null,
+      practice_sentences: Array.from({ length: NOTES_CHUNK + 3 }, (_, i) => ({
+        i,
+        en: `Sentence number ${i}.`,
+      })),
+    };
+    expect(await generatePracticeNotes("p1")).toEqual({
+      ok: true,
+      annotated: NOTES_CHUNK,
+      total: NOTES_CHUNK + 3,
+    });
+    expect(state.updates).toEqual([]);
+    expect(await generatePracticeNotes("p1")).toEqual({
+      ok: true,
+      annotated: NOTES_CHUNK + 3,
+      total: NOTES_CHUNK + 3,
+    });
+    expect(state.updates).toHaveLength(1);
+    // The first chunk came from the cache the second time.
+    expect(state.reserve).toHaveBeenCalledTimes(2);
   });
 
   it("saves nothing when today's allowance is used up", async () => {

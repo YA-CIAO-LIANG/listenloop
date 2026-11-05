@@ -217,7 +217,8 @@
       "segmented": "分段（30 句以內）",
       "continuous": "連續（超過 30 句）",
       "belowPass": "未達標",
-      "pass": "通過"
+      "pass": "通過",
+      "percent": "百分比（建立練習的等待）"
     },
     "progressDemo": {
       "add": "＋1 句",
@@ -671,7 +672,6 @@
     },
     "voiceNote": "建立後會為每一句產生音檔；相同的句子和聲音只會產生一次。",
     "voiceName": "{accent}{gender}",
-    "generating": "正在產生音檔… {voiced} / {total}",
     "audioPartial": "音檔 {voiced} / {total}",
     "audioErrors": {
       "unavailable": "目前無法產生音檔。請確認已用管理員帳號登入。",
@@ -685,7 +685,6 @@
     "ungrouped": "未分組",
     "backToMaterials": "到我的教材查看 →",
     "createdIncomplete": "已建立「{title}」，但講解或音檔還沒有全部完成。可以在我的教材繼續。",
-    "generatingNotes": "正在產生翻譯、單字和文法講解…",
     "readyDone": "講解和音檔都完成了",
     "notesDone": "講解已完成",
     "notesPending": "講解還沒產生",
@@ -702,7 +701,13 @@
     "privacyNote": "建立練習時，文字會送到 Google 的 AI 服務（Gemini、Text-to-Speech）處理，不會被用來訓練模型，但會短暫保留以偵測濫用。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。",
     "notReadyBack": "我的教材",
     "notReadyTitle": "這個練習還在準備中",
-    "notReadyIntro": "講解或音檔還沒有全部產生（可能是建立時中斷了，或當天用量用完）。按「繼續產生」完成後，就會直接開始練習。"
+    "notReadyIntro": "講解或音檔還沒有全部產生（可能是建立時中斷了，或當天用量用完）。按「繼續產生」完成後，就會直接開始練習。",
+    "stages": {
+      "split": "斷句中…",
+      "translate": "翻譯中 {done}/{total} 句",
+      "notes": "產生講解 {done}/{total} 句",
+      "audio": "產生音檔 {done}/{total} 句"
+    }
   },
   "organize": {
     "collectionsTitle": "Collection",
