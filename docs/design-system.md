@@ -254,6 +254,16 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 | FilterChip     | 可複選的切換按鈕（`aria-pressed`，元件 `FilterChip`），用於題庫長度篩選與公開教材的篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：1px line 邊框、ink-muted 文字，hover 邊框 ink-muted、文字 ink。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。                                                   |
 | CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                                                                                                                                                                                                                                         |
 
+## 聲音選單 `VoiceMenu`（e+ 3，Joe 確認後取代聲音卡片）
+
+- 建立練習時選擇聲音，像 Apple 的彈出式選單。
+- **按鈕**（收合時）：外觀和表單欄位相同（surface 底、1px line 邊框、4px 圓角、內距 16px／12px，寬度上限 448px），內容是 font-medium 的聲音名稱＋ ink-muted 的「・ 女聲 ・ 美式英語」，右側 20px 向下箭頭（展開時轉 180°，reduced motion 時不轉動）。hover 邊框 ink-muted；展開時邊框 accent；`aria-expanded`、`aria-controls`。
+- **面板**：按鈕下方 8px，surface 底、1px line 邊框、4px 圓角、內距 8px、無陰影；760px 以上寬 448px，以下和按鈕同寬；高度上限 min(512px, 70vh)，超過時面板內捲動。
+  - 依口音分四組（美式、英式、澳洲、印度），組間 1px line 分隔。每組：font-medium 組名，下方 supporting、ink-muted 一句口音特色（也是該組的 `aria-describedby`）。
+  - 每個聲音一列（至少 44px 高、4px 圓角）：左側 ✓（accent-ink，選中時才出現）、font-medium 聲音名稱（Kore、Charon，取自 Google 聲音名稱）＋ ink-muted「・ 女聲」；右側 44px 寬的 ghost、sm 試聽圖示按鈕（喇叭；播放中改成 primary、停止方塊，`aria-pressed`）。選中的列 accent 8% 底色；hover 時 ink 4% 底色；radio 有鍵盤焦點時整列有焦點外框。
+- **操作**：打開時焦點移到目前的聲音；方向鍵在聲音之間移動並選取（原生 radio），Enter 或空白鍵選定並關閉；滑鼠點聲音選定並關閉；Esc 關閉並回到按鈕；點選單外面或 Tab 離開也會關閉。試聽不會改變選擇，同一時間只播一個範例，關閉時停止。
+- **螢幕閱讀器**：按鈕讀作「聲音：Kore・女聲・美式英語」；每個 radio 讀作「Kore・女聲・美式英語」，試聽按鈕讀作「試聽……」或「停止試聽……」。
+
 ## 聲音卡片 `VoicePicker`
 
 - 建立練習時選擇聲音（D26）。8 張卡片，依口音分成四組：美式、英式、澳洲、印度英語，每組一張女聲、一張男聲。

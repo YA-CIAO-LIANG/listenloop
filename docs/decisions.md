@@ -410,3 +410,12 @@
   - 顯示用既有的 `ProgressBar`，新增百分比模式；元件 `StageProgress` 組合步驟文字與百分比。
   - 業界做法：長時間的工作拆成小批次，每批回報進度（例如上傳、轉檔），使用者知道系統還在動、大約還要多久；批次小也讓中斷後可以從斷點繼續。
 - **要改時**：`components/practice-generation.ts`、`components/StageProgress.tsx`、`app/materials/actions.ts`、`lib/custom-practice/notes.ts`（`TRANSLATE_BATCH`、`NOTES_CHUNK`）。
+
+## D34 聲音選單（2026-11-04，e 驗收修正 3a）
+
+- **決定**：
+  - 聲音選擇改成類似 Apple 的彈出式選單 `VoiceMenu`，依口音分組，每組附一句口音特色，每個聲音顯示名稱（Kore／Charon，取自 Google 的 Chirp 3 HD 聲音名稱，`voiceDisplayName`）和性別，旁邊有試聽按鈕。先放在 `/styleguide` 給 Joe 確認，確認後（3b）才取代建立練習的聲音卡片。
+  - **無障礙**：選項旁邊有試聽按鈕，`role="listbox"` 的選項裡不能放互動元件，所以用「按鈕＋展開面板（`aria-expanded`）＋原生 radio 群組」，方向鍵、Enter、Esc 的行為和原生選單接近。方向鍵切換 radio 時瀏覽器也會送出 click（`detail` 是 0），所以只有真正的滑鼠點擊（`detail` > 0）才關閉選單。
+  - 試聽播放器抽成 `useSamplePlayer`，卡片和選單共用。
+  - 浮動面板沿用「無陰影」原則，用 1px 邊框和 surface 底色與頁面區隔。
+- **要改時**：`components/VoiceMenu.tsx`、`components/useSamplePlayer.ts`、`lib/ai/voices.ts`、翻譯檔 `voicePicker.accentNotes`。
