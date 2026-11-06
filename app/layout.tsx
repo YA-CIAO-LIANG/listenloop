@@ -43,7 +43,11 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         {/* Inherits locale and messages from i18n/request.ts. */}
         <NextIntlClientProvider>
           {/* Signed in: progress syncs with the account (b3). */}
-          <StoresProvider key={user?.id ?? "guest"} userId={user?.id ?? null}>
+          <StoresProvider
+            key={user?.id ?? "guest"}
+            userId={user?.id ?? null}
+            accounts={accountsEnabled}
+          >
             <SiteHeader
               showMaterials={canCreatePractices(user)}
               showNotebooks={!!user && isAdminEmail(user.email)}

@@ -324,6 +324,12 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 由上到下：標題與標語 → 練習日曆 → 今日任務 → 推薦練習。日曆與今日任務兩張 Card 間距 24px，題庫在下方 64px。
 
+### 未登入時的進度卡片 `ProgressGate`（D2，2026-11-06）
+
+- 首頁的練習日曆和今日任務，以及「學習進度」頁的清單，未登入時換成同一張卡片：surface 背景、1px line 邊框、4px 圓角、內距 24px。
+- 內容：Display h3 標題（首頁「登入後查看你的進度」、學習進度頁「登入後查看學習進度」）→ ink-muted 說明 → supporting、ink-muted 的「還沒登入也可以先練習……」→ primary、md 的「登入」按鈕（和頁首的登入相同，登入後回到原頁）。
+- 首頁只放一張卡片，取代日曆和今日任務兩個區塊。
+
 ### 練習日曆（熱度圖）
 
 - 一張 Card（`PracticeCalendar`）。與遊戲化開關無關。

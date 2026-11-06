@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 import { withSignInResult } from "@/lib/auth/redirect";
 import { getBrowserSupabase } from "@/lib/supabase/browser";
-import { Button } from "./Button";
+import { Button, type ButtonSize, type ButtonVariant } from "./Button";
 
 type AccountMenuProps = {
   /** The signed-in account, or null when signed out. */
@@ -28,7 +28,18 @@ function useCurrentPath(): string {
   return query ? `${pathname}?${query}` : pathname;
 }
 
-function SignInButton() {
+/**
+ * Signs in with Google and comes back to this page. Also used where a
+ * page asks to sign in (ProgressGate). Uses useSearchParams: render it
+ * inside Suspense.
+ */
+export function SignInButton({
+  variant = "ghost",
+  size = "sm",
+}: {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+}) {
   const t = useTranslations("account");
   const router = useRouter();
   const here = useCurrentPath();
@@ -52,7 +63,7 @@ function SignInButton() {
   }
 
   return (
-    <Button variant="ghost" size="sm" onClick={signIn} disabled={pending}>
+    <Button variant={variant} size={size} onClick={signIn} disabled={pending}>
       {pending ? t("signingIn") : t("signIn")}
     </Button>
   );

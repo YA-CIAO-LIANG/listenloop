@@ -6,6 +6,7 @@ import {
   UnfilteredLibrary,
   type LibraryGroup,
 } from "@/components/PracticeLibrary";
+import { ProgressGate } from "@/components/ProgressGate";
 import { TodayTasks } from "@/components/TodayTasks";
 import { excerptSeconds } from "@/lib/excerpt-length";
 import { getVideosByCollection } from "@/lib/video-library";
@@ -33,8 +34,10 @@ export default function Home() {
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
 
       <div className="mt-12 space-y-6">
-        <PracticeCalendar />
-        <TodayTasks />
+        <ProgressGate place="home">
+          <PracticeCalendar />
+          <TodayTasks />
+        </ProgressGate>
       </div>
 
       <section id="library" className="mt-16 scroll-mt-8">

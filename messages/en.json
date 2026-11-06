@@ -604,6 +604,17 @@
     "removed": "Removed your progress on “{title}”.",
     "removeFailed": "Couldn't remove “{title}”. Please try again."
   },
+  "progressGate": {
+    "home": {
+      "title": "Sign in to see your progress",
+      "body": "Today's tasks and your practice calendar follow your account, on any phone or computer."
+    },
+    "practices": {
+      "title": "Sign in to see your progress",
+      "body": "Each video's 7-day cycle, scores, and practice history are kept in your account."
+    },
+    "deviceNote": "You can practice before signing in; what you do on this device is saved to your account when you sign in."
+  },
   "create": {
     "title": "Create a practice",
     "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. Admins only for now.",

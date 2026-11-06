@@ -1,5 +1,5 @@
 import sintel from "../data/videos/sintel.json";
-import { expect, setToday, test } from "./fixtures";
+import { expect, setToday, signInAsAuthor, test } from "./fixtures";
 
 const PROGRESS_KEY = (videoId: string) => `ll-progress:v1:${videoId}`;
 
@@ -23,6 +23,7 @@ const otherPractice = {
 test("Day 1 dictation through the UI, then Day 2 opens the next day", async ({
   page,
 }) => {
+  await signInAsAuthor(page);
   await setToday(page, "2026-11-01");
   await page.goto("/videos/sintel/day/1");
 
@@ -55,6 +56,7 @@ test("Day 1 dictation through the UI, then Day 2 opens the next day", async ({
 test("two practices keep their own cycles; removing one leaves the other", async ({
   page,
 }) => {
+  await signInAsAuthor(page);
   await setToday(page, "2026-11-01");
   await page.addInitScript(
     ([key, value]) => {
@@ -104,4 +106,34 @@ test("two practices keep their own cycles; removing one leaves the other", async
   );
   expect(stored.other).toBeNull();
   expect(stored.sintel.days["1"].answers[0]).toBe(sintel.sentences[0].en);
+});
+
+test("signed out, the home page and /practices ask to sign in instead of showing progress", async ({
+  page,
+}) => {
+  await setToday(page, "2026-11-01");
+  await page.addInitScript(
+    ([key, value]) => window.localStorage.setItem(key, value),
+    [
+      PROGRESS_KEY(otherPractice.videoId),
+      JSON.stringify(otherPractice),
+    ] as const,
+  );
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "登入後查看你的進度" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "今日任務" })).toHaveCount(0);
+
+  await page.goto("/practices");
+  await expect(
+    page.getByRole("heading", { name: "登入後查看學習進度" }),
+  ).toBeVisible();
+  await expect(page.getByText("（已下架的影片）")).toHaveCount(0);
+
+  // Practicing itself stays open.
+  await page.goto("/videos/sintel/day/1");
+  await expect(
+    page.getByRole("textbox", { name: "你聽到的句子" }),
+  ).toBeVisible();
 });
