@@ -8,9 +8,11 @@ const state = vi.hoisted(() => ({
 vi.mock("@/auth/session", () => ({ getSignedInUser: async () => state.user }));
 vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () => (state.hasAdminClient ? { rpc: state.rpc } : null),
+  hasAdminSupabase: () => state.hasAdminClient,
 }));
 
-const { getCreator, supabaseUsageMeter } = await import("@/auth/creator");
+const { diagnoseCreator, getCreator, supabaseUsageMeter } =
+  await import("@/auth/creator");
 
 beforeEach(() => {
   state.user = { id: "user-1", email: "Joe@Example.com" };
@@ -35,6 +37,33 @@ describe("getCreator", () => {
   ])("is unavailable when %s", async (_, arrange) => {
     arrange();
     expect(await getCreator()).toBeNull();
+  });
+});
+
+describe("diagnoseCreator (D47)", () => {
+  it("is ready when getCreator would be", () => {
+    expect(diagnoseCreator(state.user).ready).toBe(true);
+  });
+
+  it("names the missing secret key", () => {
+    state.hasAdminClient = false;
+    const { ready, groups } = diagnoseCreator(state.user);
+    expect(ready).toBe(false);
+    const checks = groups.flatMap((g) => g.checks);
+    expect(checks.find((c) => c.id === "serviceKey")?.ok).toBe(false);
+    // The fakes are on, so the vendors' keys aren't listed.
+    expect(groups[1]).toEqual({
+      id: "language",
+      vendor: "fake",
+      checks: [{ id: "fakeInUse", ok: true }],
+    });
+  });
+
+  it("names fake providers on the production site", () => {
+    vi.stubEnv("VERCEL_ENV", "production");
+    const { ready, groups } = diagnoseCreator(state.user);
+    expect(ready).toBe(false);
+    expect(groups[0].checks.find((c) => c.id === "notFake")?.ok).toBe(false);
   });
 });
 

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
-import { getAdminUser } from "@/auth/creator";
+import { diagnoseCreator, getAdminUser } from "@/auth/creator";
 import { DAILY_LIMITS } from "@/lib/usage";
 import {
   AZURE_CREDIT,
@@ -19,32 +19,37 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Paid-API usage (D38): estimated spend today and this month, the Azure
- * credit left, free speech characters used, and the latest calls. Admins
- * only; read with the secret key, since users can't see the log.
+ * Paid-API usage (D38): the setup check (D47), estimated spend today and
+ * this month, the Azure credit left, free speech characters used, and the
+ * latest calls. Admins only; the log is read with the secret key, since
+ * users can't see it. Without that key only the setup check shows, so it
+ * can tell that the key is missing.
  */
 export default async function UsagePage() {
   const user = await getAdminUser();
-  const admin = user && getAdminSupabase();
-  if (!admin) notFound();
+  if (!user) notFound();
+  const admin = getAdminSupabase();
   const [t, format] = await Promise.all([
     getTranslations("adminUsage"),
     getFormatter(),
   ]);
+  const diagnosis = diagnoseCreator(user);
   const { dayStart, monthStart } = usagePeriodStarts(new Date());
-  const [{ data: totalsRows }, { data: calls }] = await Promise.all([
-    admin.rpc("api_usage_totals", {
-      month_start: monthStart,
-      day_start: dayStart,
-    }),
-    admin
-      .from("api_calls")
-      .select(
-        "id, created_at, provider, operation, error, input_tokens, output_tokens, chars, cost_micros",
-      )
-      .order("created_at", { ascending: false })
-      .limit(RECENT_CALLS),
-  ]);
+  const [{ data: totalsRows }, { data: calls }] = admin
+    ? await Promise.all([
+        admin.rpc("api_usage_totals", {
+          month_start: monthStart,
+          day_start: dayStart,
+        }),
+        admin
+          .from("api_calls")
+          .select(
+            "id, created_at, provider, operation, error, input_tokens, output_tokens, chars, cost_micros",
+          )
+          .order("created_at", { ascending: false })
+          .limit(RECENT_CALLS),
+      ])
+    : [{ data: null }, { data: null }];
   const totals = totalsRows?.[0] ?? {
     today_micros: 0,
     today_calls: 0,
@@ -106,6 +111,57 @@ export default async function UsagePage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
+
+      <section
+        className="rounded mt-8 max-w-practice border border-line bg-surface p-6"
+        aria-labelledby="setup-check"
+      >
+        <h2 id="setup-check" className="font-display text-h3">
+          {t("diagnosis.title")}
+        </h2>
+        <p className="mt-2 text-supporting text-ink-muted">
+          {t("diagnosis.intro")}
+        </p>
+        <p
+          className={`mt-4 font-medium ${diagnosis.ready ? "text-success" : "text-error"}`}
+        >
+          {diagnosis.ready ? t("diagnosis.ready") : t("diagnosis.notReady")}
+        </p>
+        <div className="mt-4 space-y-6">
+          {diagnosis.groups.map((group) => (
+            <section key={group.id} aria-labelledby={`setup-${group.id}`}>
+              <h3
+                id={`setup-${group.id}`}
+                className="text-metadata tracking-widest text-ink-muted uppercase"
+              >
+                {t(`diagnosis.groups.${group.id}`, {
+                  vendor: t(`diagnosis.vendors.${group.vendor ?? "unknown"}`),
+                })}
+              </h3>
+              <ul className="mt-2 divide-y divide-line border-y border-line text-supporting">
+                {group.checks.map((check) => (
+                  <li
+                    key={check.id}
+                    className="flex items-baseline justify-between gap-4 py-2"
+                  >
+                    <span className="break-words">
+                      {t(
+                        `diagnosis.checks.${check.id}` as "diagnosis.checks.admin",
+                      )}
+                    </span>
+                    <span
+                      className={`shrink-0 font-medium ${check.ok ? "text-success" : "text-error"}`}
+                    >
+                      <span aria-hidden="true">{check.ok ? "✓ " : "✗ "}</span>
+                      {check.ok ? t("diagnosis.pass") : t("diagnosis.fail")}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </section>
 
       <dl className="mt-8 grid gap-4 split:grid-cols-2">
         {stats.map((stat) => (

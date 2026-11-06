@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { getAdminSupabase } from "@/auth/admin";
-import { getAdminUser, getCreator } from "@/auth/creator";
+import { getCreator } from "@/auth/creator";
+import { isAdminEmail } from "@/lib/admin";
 import { getServerSupabase } from "@/auth/server";
+import { getSignedInUser } from "@/auth/session";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CollectionManager } from "@/components/CollectionManager";
 import { PracticeReadiness } from "@/components/PracticeReadiness";
@@ -22,13 +24,26 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * "My materials" (D26): the practices the user created and their
- * collections. Admins only until paid plans launch; everyone else gets a
- * 404, as if it didn't exist. Creating needs a provider too.
+ * "My materials" (D26, D48): the practices the user created and their
+ * collections. Linked in the header for everyone signed in; until paid
+ * plans launch only admins can create, so others see that it isn't open
+ * yet. Signed out: 404. Creating needs the providers too.
  */
 export default async function MaterialsPage() {
-  const [user, creator] = await Promise.all([getAdminUser(), getCreator()]);
+  const [user, creator] = await Promise.all([getSignedInUser(), getCreator()]);
   if (!user) notFound();
+  if (!isAdminEmail(user.email)) {
+    const tMaterials = await getTranslations("materials");
+    return (
+      <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
+        <h1 className="font-display text-h1">{tMaterials("title")}</h1>
+        <section className="rounded mt-8 max-w-reading border border-line bg-surface p-6">
+          <h2 className="font-display text-h3">{tMaterials("notOpenTitle")}</h2>
+          <p className="mt-2 text-ink-muted">{tMaterials("notOpen")}</p>
+        </section>
+      </main>
+    );
+  }
   const [t, tMaterials, tOrganize, tReasons, format, supabase] =
     await Promise.all([
       getTranslations("create"),

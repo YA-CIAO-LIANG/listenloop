@@ -712,3 +712,32 @@
   - **流量**：學生練習時從 Storage 下載音檔。一份 3 分鐘的教材約 1.1 MB；一週的 7 天循環，即使每天都重新下載，約 8 MB。每月 5 GB 未快取傳輸約可支援 **600 人週**；瀏覽器和 CDN 有快取時會更多。之後使用者多了，先注意的是流量，不是儲存空間。
   - **資料庫**：每句的文字、中文和講解約 1 KB，500 MB 足夠數十萬句。
 - **要改時**：`supabase/migrations/20261106180000_official_practices.sql`、`app/materials/organize-actions.ts`（`setOfficial`）、`auth/public-practices.ts`（`listOfficialPractices`）、`components/OfficialPractices.tsx`、`components/OfficialToggle.tsx`。用量變大時，重新查 Supabase 的價格頁再估算一次。
+
+## D47 建立練習的設定診斷；環境變數寬鬆讀取（2026-11-06）
+
+- **問題**：Joe 在 Vercel 設好六個 `AZURE_*` 變數後，正式站仍顯示「還沒有接上聲音和翻譯服務」，`/materials/new` 回 404。程式只回傳「可以／不可以」，看不出是哪一項沒通過。
+- **判定條件**（全部成立才能建立練習，`auth/creator.ts` 的 `canCreatePractices`、`getCreator`）：
+  1. 登入的 email 在 `ADMIN_EMAILS` 裡；
+  2. 有 Supabase 設定和 `SUPABASE_SERVICE_ROLE_KEY`（記錄用量、存音檔要用）；
+  3. 正式站沒有設 `AI_PROVIDERS=fake`；
+  4. `AI_LANGUAGE_PROVIDER`、`AI_SPEECH_PROVIDER` 沒設定（預設 azure）或是 azure、google；
+  5. Azure 文字：端點、金鑰、部署名稱、模型都有設定；端點是 https 的 Azure 網址；模型在價格表裡（D38）；
+  6. Azure 聲音：金鑰、區域都有設定，區域是代碼格式。
+- **決定**：
+  - `/admin/usage` 最上面加「設定診斷」，逐項列出是否成立，**不顯示任何值**。沒有秘密金鑰時，這一頁仍然打得開，只顯示診斷（原本會 404，看不出原因）。
+  - 診斷和真正的判定共用同一份程式（`lib/ai/providers.ts` 的 `languageSetup`、`speechSetup`），不會出現「診斷通過、實際不通過」。
+  - 讀取變數時容忍常見的貼上錯誤：前後的引號、區域寫成「UAE North」、大小寫不同；端點也接受 Foundry 的 `*.services.ai.azure.com`。
+  - 頁首的「建立練習」也改成檢查秘密金鑰，和 `getCreator` 一致，不會出現按了卻 404 的按鈕。
+- **理由**：設定錯誤是部署後最常見的問題；只顯示「成立／不成立」就能定位，又不會把金鑰露在畫面上（業界的 health check 也是這樣做）。
+- **要改時**：`lib/ai/providers.ts`、`auth/creator.ts`（`diagnoseCreator`）、`app/admin/usage/page.tsx`、翻譯檔 `adminUsage.diagnosis`。
+
+## D48 頁首導覽：我的教材、建立練習；拿掉筆記本（2026-11-06）
+
+- **決定**：
+  - 登入後，頁首左側顯示「我的教材」（原本只有能建立練習的管理員看得到，而且接不上服務時連管理員也看不到）。
+  - 一般使用者打開「我的教材」，會看到「建立練習還沒開放」的說明；管理員看到原本的完整頁面。未登入仍然回 404。
+  - 管理員在可以建立練習時，頁首右側最前面多一個 primary 小按鈕「＋ 建立練習」。
+  - 筆記本之後會刪除（Joe 2026-11-06），先拿掉頁首的「筆記本」；`/notebooks` 頁面暫時保留。
+  - 手機：頁首左右兩組都會換行，所以兩個入口在窄螢幕也直接看得到，不藏進選單。
+- **理由**：常用的入口放在頁首，不藏在帳號選單裡；建立練習是管理員最主要的動作，用 primary 按鈕突顯。
+- **要改時**：`components/SiteHeader.tsx`、`app/layout.tsx`、`app/materials/page.tsx`。

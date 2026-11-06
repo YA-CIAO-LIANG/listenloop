@@ -2,27 +2,29 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import { AQUARIUM_ENABLED } from "@/lib/features";
+import { ButtonLink } from "./ButtonLink";
 import { Divider } from "./Divider";
 import { LanguageToggle } from "./LanguageToggle";
 import { RewardBadge } from "./RewardBadge";
 import { ThemeToggle } from "./ThemeToggle";
 
 /**
- * Wordmark, "Progress", "Shared", and (admins) "My materials" and
- * "Notebooks" on the left; rewards, language, and theme toggles on the right,
- * then the account control when accounts are on (passed in by the layout,
- * which reads the session on the server).
+ * Wordmark, "Progress", "Shared", and (signed in) "My materials" on the
+ * left; "+ Create a practice" (admins who can create), rewards, language,
+ * and theme toggles on the right, then the account control when accounts
+ * are on (passed in by the layout, which reads the session on the server).
+ * Both groups wrap on narrow screens, so every link stays visible (D48).
  */
 export function SiteHeader({
   account,
   showMaterials = false,
-  showNotebooks = false,
+  showCreate = false,
 }: {
   account?: ReactNode;
-  /** "Notebooks", for admins while it's admin-only (D25). */
-  showNotebooks?: boolean;
-  /** "My materials", for admins while creating is admin-only (D26). */
+  /** "My materials", for signed-in users (D48). */
   showMaterials?: boolean;
+  /** "+ Create a practice", for admins while creating is admin-only (D26). */
+  showCreate?: boolean;
 }) {
   const t = useTranslations("common");
 
@@ -56,17 +58,15 @@ export function SiteHeader({
               {t("materials")}
             </Link>
           )}
-          {showNotebooks && (
-            <Link
-              href="/notebooks"
-              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
-            >
-              {t("notebooks")}
-            </Link>
-          )}
         </nav>
         {/* Narrow screens: the controls wrap, without the dividers between. */}
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 split:gap-x-3">
+          {showCreate && (
+            <ButtonLink href="/materials/new" variant="primary" size="sm">
+              <span aria-hidden="true">+</span>
+              {t("createPractice")}
+            </ButtonLink>
+          )}
           {AQUARIUM_ENABLED && (
             <>
               <RewardBadge />

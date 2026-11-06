@@ -1,11 +1,16 @@
-import { getAiProviders } from "@/lib/ai/providers";
+import {
+  diagnoseAiProviders,
+  getAiProviders,
+  type ConfigCheck,
+} from "@/lib/ai/providers";
 import type { MeteredDeps } from "@/lib/ai/metered";
 import { isAdminEmail } from "@/lib/admin";
+import { supabaseConfig } from "@/lib/supabase/config";
 import { DAILY_LIMITS, usageDay, type UsageMeter } from "@/lib/usage";
 import type { Supabase } from "@/lib/supabase/browser";
 import type { AudioStore } from "@/lib/custom-practice/audio";
 import type { AiCache } from "@/lib/custom-practice/notes";
-import { getAdminSupabase } from "./admin";
+import { getAdminSupabase, hasAdminSupabase } from "./admin";
 import { supabaseAiCache } from "./ai-cache";
 import { supabaseAudioStore } from "./audio-store";
 import { getSignedInUser, type SignedInUser } from "./session";
@@ -74,14 +79,52 @@ export type Creator = MeteredDeps & {
 };
 
 /**
- * Whether to show "Create practice" to this user: an admin, with a
- * provider configured. A quick check for the header; getCreator is the
- * real gate.
+ * Whether to show "Create a practice" to this user: an admin, with the
+ * providers and the secret key configured; the same conditions as
+ * getCreator, without making the clients.
  */
 export function canCreatePractices(
   user: SignedInUser | null,
 ): user is SignedInUser {
-  return !!user && isAdminEmail(user.email) && getAiProviders() !== null;
+  return (
+    !!user &&
+    isAdminEmail(user.email) &&
+    hasAdminSupabase() &&
+    getAiProviders() !== null
+  );
+}
+
+/**
+ * Every condition canCreatePractices and getCreator check, grouped for the
+ * setup check on /admin/usage (D47): whether each holds, never a value.
+ */
+export function diagnoseCreator(user: SignedInUser | null) {
+  const ai = diagnoseAiProviders();
+  const account: ConfigCheck[] = [
+    { id: "admin", ok: !!user && isAdminEmail(user.email) },
+    { id: "supabase", ok: supabaseConfig !== null },
+    { id: "serviceKey", ok: hasAdminSupabase() },
+    { id: "notFake", ok: ai.fake !== "blocked" },
+  ];
+  // With the fakes on (local, preview), the vendors' keys don't matter.
+  const withChoice = (
+    id: string,
+    setup: typeof ai.language | typeof ai.speech,
+  ) =>
+    ai.fake === "on"
+      ? { vendor: "fake" as const, checks: [{ id: "fakeInUse", ok: true }] }
+      : {
+          vendor: setup.vendor,
+          checks: [{ id, ok: setup.vendor !== null }, ...setup.checks],
+        };
+  return {
+    ready: canCreatePractices(user),
+    groups: [
+      { id: "account" as const, vendor: null, checks: account },
+      { id: "language" as const, ...withChoice("languageChoice", ai.language) },
+      { id: "speech" as const, ...withChoice("speechChoice", ai.speech) },
+    ],
+  };
 }
 
 /**

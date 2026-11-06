@@ -21,62 +21,131 @@ export const DEFAULT_PROVIDERS = {
   speech: "azure",
 } as const satisfies Record<keyof AiProviders, ProviderChoice>;
 
-const read = (env: Env, name: string) => env[name]?.trim() || undefined;
+/**
+ * A variable's value, trimmed, without quotes pasted around it (a common
+ * slip in hosting dashboards, D47); undefined when empty.
+ */
+export function readEnv(env: Env, name: string): string | undefined {
+  const value = env[name]
+    ?.trim()
+    .replace(/^(["'])(.*)\1$/, "$2")
+    .trim();
+  return value || undefined;
+}
+
+/** "UAE North" or "UAENorth" as Azure writes it in URLs: "uaenorth". */
+export const normalizeRegion = (value: string) =>
+  value.toLowerCase().replace(/\s+/g, "");
+
+/**
+ * One condition for creating practices, as /admin/usage lists it (D47):
+ * whether it holds, never the value behind it. Ids name translation keys.
+ */
+export type ConfigCheck = { id: string; ok: boolean };
+
+/** How one kind of provider is set up: the vendor and its checks. */
+export type ProviderSetup<P> = {
+  /** Null when the choice variable is misspelled. */
+  vendor: ProviderChoice | null;
+  checks: ConfigCheck[];
+  /** The provider, when every check holds. */
+  provider: P | null;
+};
+
+function setup<P>(
+  vendor: ProviderChoice | null,
+  checks: ConfigCheck[],
+  make: () => P,
+): ProviderSetup<P> {
+  const ok = vendor !== null && checks.every((check) => check.ok);
+  return { vendor, checks, provider: ok ? make() : null };
+}
 
 function choice(
   env: Env,
   name: string,
   fallback: ProviderChoice,
 ): ProviderChoice | null {
-  const value = read(env, name);
+  const value = readEnv(env, name)?.toLowerCase();
   if (!value) return fallback;
   return (PROVIDER_CHOICES as readonly string[]).includes(value)
     ? (value as ProviderChoice)
     : null;
 }
 
-function languageProvider(env: Env): LanguageProvider | null {
+const isSet = (env: Env, name: string): ConfigCheck => ({
+  id: name,
+  ok: readEnv(env, name) !== undefined,
+});
+
+export function languageSetup(env: Env): ProviderSetup<LanguageProvider> {
   const vendor = choice(
     env,
     "AI_LANGUAGE_PROVIDER",
     DEFAULT_PROVIDERS.language,
   );
   if (vendor === "google") {
-    const key = read(env, "GEMINI_API_KEY");
-    return key ? geminiLanguage(key) : null;
+    const key = readEnv(env, "GEMINI_API_KEY") ?? "";
+    return setup(vendor, [isSet(env, "GEMINI_API_KEY")], () =>
+      geminiLanguage(key),
+    );
   }
-  if (vendor === "azure") {
-    const endpoint = read(env, "AZURE_OPENAI_ENDPOINT");
-    const apiKey = read(env, "AZURE_OPENAI_API_KEY");
-    const deployment = read(env, "AZURE_OPENAI_DEPLOYMENT");
-    const model = read(env, "AZURE_OPENAI_MODEL");
-    // A model without a known price would go uncounted (D38): off instead.
-    return endpoint &&
-      apiKey &&
-      deployment &&
-      model &&
-      azureEndpoint(endpoint) &&
-      azureModelPrice(model)
-      ? azureOpenAiLanguage({ endpoint, apiKey, deployment, model })
-      : null;
-  }
-  return null;
+  const endpoint = readEnv(env, "AZURE_OPENAI_ENDPOINT") ?? "";
+  const apiKey = readEnv(env, "AZURE_OPENAI_API_KEY") ?? "";
+  const deployment = readEnv(env, "AZURE_OPENAI_DEPLOYMENT") ?? "";
+  const model = readEnv(env, "AZURE_OPENAI_MODEL")?.toLowerCase() ?? "";
+  return setup(
+    vendor,
+    [
+      isSet(env, "AZURE_OPENAI_ENDPOINT"),
+      { id: "endpointValid", ok: azureEndpoint(endpoint) !== null },
+      isSet(env, "AZURE_OPENAI_API_KEY"),
+      isSet(env, "AZURE_OPENAI_DEPLOYMENT"),
+      isSet(env, "AZURE_OPENAI_MODEL"),
+      // A model without a known price would go uncounted (D38): off instead.
+      { id: "modelPriced", ok: azureModelPrice(model) !== null },
+    ],
+    () => azureOpenAiLanguage({ endpoint, apiKey, deployment, model }),
+  );
 }
 
-function speechProvider(env: Env): SpeechProvider | null {
+export function speechSetup(env: Env): ProviderSetup<SpeechProvider> {
   const vendor = choice(env, "AI_SPEECH_PROVIDER", DEFAULT_PROVIDERS.speech);
   if (vendor === "google") {
-    const key = read(env, "GOOGLE_CLOUD_API_KEY");
-    return key ? googleSpeech(key) : null;
+    const key = readEnv(env, "GOOGLE_CLOUD_API_KEY") ?? "";
+    return setup(vendor, [isSet(env, "GOOGLE_CLOUD_API_KEY")], () =>
+      googleSpeech(key),
+    );
   }
-  if (vendor === "azure") {
-    const key = read(env, "AZURE_SPEECH_KEY");
-    const region = read(env, "AZURE_SPEECH_REGION");
-    return key && region && isAzureRegion(region)
-      ? azureSpeech(key, region)
-      : null;
-  }
-  return null;
+  const key = readEnv(env, "AZURE_SPEECH_KEY") ?? "";
+  const region = normalizeRegion(readEnv(env, "AZURE_SPEECH_REGION") ?? "");
+  return setup(
+    vendor,
+    [
+      isSet(env, "AZURE_SPEECH_KEY"),
+      isSet(env, "AZURE_SPEECH_REGION"),
+      { id: "regionValid", ok: isAzureRegion(region) },
+    ],
+    () => azureSpeech(key, region),
+  );
+}
+
+/** AI_PROVIDERS=fake: the fakes, except on the production site. */
+function fakeMode(env: Env): "off" | "on" | "blocked" {
+  if (readEnv(env, "AI_PROVIDERS") !== "fake") return "off";
+  return env.VERCEL_ENV === "production" ? "blocked" : "on";
+}
+
+/**
+ * Every condition getAiProviders checks, for the admin's diagnosis on
+ * /admin/usage (D47). Holds no values, only whether each check passed.
+ */
+export function diagnoseAiProviders(env: Env = process.env) {
+  return {
+    fake: fakeMode(env),
+    language: languageSetup(env),
+    speech: speechSetup(env),
+  };
 }
 
 /**
@@ -90,12 +159,10 @@ function speechProvider(env: Env): SpeechProvider | null {
  *   feature stays off.
  */
 export function getAiProviders(env: Env = process.env): AiProviders | null {
-  if (read(env, "AI_PROVIDERS") === "fake") {
-    return env.VERCEL_ENV === "production"
-      ? null
-      : { language: fakeLanguage, speech: fakeSpeech };
-  }
-  const language = languageProvider(env);
-  const speech = speechProvider(env);
+  const fake = fakeMode(env);
+  if (fake === "on") return { language: fakeLanguage, speech: fakeSpeech };
+  if (fake === "blocked") return null;
+  const language = languageSetup(env).provider;
+  const speech = speechSetup(env).provider;
   return language && speech ? { language, speech } : null;
 }
