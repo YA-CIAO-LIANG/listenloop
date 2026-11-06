@@ -379,6 +379,11 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 全部不符合：ink-muted「沒有符合的影片。」＋ secondary「清除篩選」。
 - 影片卡片（CardLink）：程度 · 類別 → 影片名 → 進度 → 最下行「Blender Foundation · 15 句 · 片段長度 2 分 5 秒」（整分時「片段長度 2 分鐘」；英文「Excerpt 2 min 5 s」）。
 
+### 官方教材（e+ 10，D46）
+
+- 首頁「推薦練習」的說明下方、內建合集上方，第一個群組：h3「ListenLoop 官方教材」＋ supporting、ink-muted 的「N 份」→ supporting、ink-muted 說明 → 卡片網格（同公開教材的 `PracticeCard`，760px 以上兩欄，間距 24px）。還沒有官方教材時整區不顯示。
+- 「我的教材」每個練習（未下架）：ghost、sm「設為官方教材」；已設定時是 secondary、sm「✓ 官方教材」（`aria-pressed`）。官方教材不顯示公開／私人切換，改成 supporting、ink-muted 的「官方教材一律公開。」
+
 ### 公開教材 `/explore`
 
 - 其他人公開的練習（D30），所有人都看得到，不用登入。入口是頁首「學習進度」右邊的「公開教材」。

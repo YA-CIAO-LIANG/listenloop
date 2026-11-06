@@ -52,7 +52,7 @@ function silentWav(): Buffer {
  */
 function matching(params: URLSearchParams): Row[] {
   let rows = practices;
-  for (const column of ["id", "user_id"]) {
+  for (const column of ["id", "user_id", "official"]) {
     const filter = params.get(column);
     if (!filter) continue;
     const eq = /^eq\.(.+)$/.exec(filter);

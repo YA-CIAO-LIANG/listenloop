@@ -14,6 +14,25 @@ import { getSignedInUser } from "./session";
  * ones are the viewer's comes from a second query of their own.
  */
 export async function listPublicPractices(): Promise<PublicPracticeSummary[]> {
+  return listPractices({ onlyOfficial: false });
+}
+
+/**
+ * The official practices (D46): made by admins for everyone, listed in
+ * the home page's library, oldest first like a course. Same checks as
+ * /explore: public, not taken down, notes and audio made.
+ */
+export async function listOfficialPractices(): Promise<
+  PublicPracticeSummary[]
+> {
+  return listPractices({ onlyOfficial: true });
+}
+
+async function listPractices({
+  onlyOfficial,
+}: {
+  onlyOfficial: boolean;
+}): Promise<PublicPracticeSummary[]> {
   const [supabase, user] = await Promise.all([
     getServerSupabase(),
     getSignedInUser(),
@@ -29,7 +48,9 @@ export async function listPublicPractices(): Promise<PublicPracticeSummary[]> {
       // Authors can still read their own taken-down practices (D31).
       .is("removed_at", null)
       .not("notes_generated_at", "is", null)
-      .order("created_at", { ascending: false })
+      // /explore lists every public practice; the library only official ones.
+      .in("official", onlyOfficial ? [true] : [true, false])
+      .order("created_at", { ascending: onlyOfficial })
       .limit(PUBLIC_PRACTICES_LIMIT),
     user
       ? supabase

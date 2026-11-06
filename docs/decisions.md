@@ -694,3 +694,21 @@
   - 用一個交易加上版本號檢查（樂觀鎖定）是常見的避免覆蓋別人修改的做法；
   - 儲存前就翻譯，講解和音檔沿用原本可以中斷、再繼續的流程，用量都經過每日上限（D38）。
 - **要改時**：`lib/custom-practice/edit.ts`、`app/materials/edit-actions.ts`、`components/EditPracticeForm.tsx`、`app/materials/[id]/edit/page.tsx`、`supabase/migrations/20261106150000_save_practice_edit.sql`。
+
+## D46 官方教材；Supabase 免費方案可以放多少音檔（2026-11-06，e+ 10）
+
+- **決定**：
+  - **官方教材**：`practices.official`。管理員在「我的教材」按「設為官方教材」，那份教材就會：
+    - 自動改成公開（資料庫限制：官方教材一定公開）；
+    - 出現在首頁「推薦練習」最上面的「ListenLoop 官方教材」，依建立順序排列，像一門課；還沒有官方教材時不顯示這一區；
+    - 所有人都能練：和公開練習一樣直接讀取同一份句子、音檔和講解，不會替每個人重新產生，也不花 API 費用。
+  - **誰能標記**：只有伺服器用秘密金鑰的管理員動作（`setOfficial`），而且只能標記自己建立、沒有被下架的練習。資料庫觸發器 `guard_official` 拒絕來自使用者連線的修改，即使使用者可以修改自己的練習，也不能把它設成官方教材。
+  - **永久保存、只呼叫一次 API**：每一句的文字、中文、講解存在 `practice_sentences`（D43），音檔存在 Supabase Storage，以「聲音＋句子文字」命名（D22）；翻譯和講解的快取以「模型與提示詞版本＋句子文字」為鍵（D43）。相同的句子出現在任何教材，都直接沿用。
+  - 卡片和「公開教材」頁共用 `PracticeCard`。
+- **儲存空間估算**（2026-11-06 查 supabase.com/pricing：Free 方案檔案儲存 1 GB、上傳單檔上限 50 MB、未快取傳輸 5 GB／月、快取傳輸 5 GB／月、資料庫 500 MB）：
+  - **音檔大小**：Azure 的 MP3 是 48 kbps 固定位元率，每秒 6 KB，每分鐘約 360 KB。實測：正式站目前 8 個音檔共 124,224 bytes；試聽範例 101 字元約 40 KB、約 6.6 秒。
+  - **可以放多少**：1 GB ÷ 360 KB ≈ **2,900 分鐘，約 48 小時的音檔**。以一份 3 分鐘的教材計算，約 **970 份**；相同的句子和聲音只存一次，實際會更多。
+  - **字數換算**：英文大約每分鐘 130 字（D36）、每字約 6 字元，1 分鐘的音檔約 780 字元。Azure F0 每月 50 萬字元，約可產生 640 分鐘，所以每月新增的量會先受 F0 限制，不是儲存空間。
+  - **流量**：學生練習時從 Storage 下載音檔。一份 3 分鐘的教材約 1.1 MB；一週的 7 天循環，即使每天都重新下載，約 8 MB。每月 5 GB 未快取傳輸約可支援 **600 人週**；瀏覽器和 CDN 有快取時會更多。之後使用者多了，先注意的是流量，不是儲存空間。
+  - **資料庫**：每句的文字、中文和講解約 1 KB，500 MB 足夠數十萬句。
+- **要改時**：`supabase/migrations/20261106180000_official_practices.sql`、`app/materials/organize-actions.ts`（`setOfficial`）、`auth/public-practices.ts`（`listOfficialPractices`）、`components/OfficialPractices.tsx`、`components/OfficialToggle.tsx`。用量變大時，重新查 Supabase 的價格頁再估算一次。

@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
-import { parseVoiceId } from "@/lib/ai/types";
 import {
   filterPublicPractices,
   NO_FILTER,
@@ -14,9 +13,8 @@ import {
 } from "@/lib/custom-practice/explore";
 import type { TextSourceLanguage } from "@/lib/custom-practice/split";
 import { Button } from "./Button";
-import { CardLink } from "./CardLink";
 import { FilterChip } from "./FilterChip";
-import { VideoProgressLabel } from "./VideoProgressLabel";
+import { PracticeCard } from "./PracticeCard";
 
 const LANGUAGES: readonly TextSourceLanguage[] = ["en", "zh"];
 
@@ -38,7 +36,6 @@ export function ExploreList({
   practices: readonly PublicPracticeSummary[];
 }) {
   const t = useTranslations("explore");
-  const tVoice = useTranslations("voicePicker");
   const ids = useId();
   const [filter, setFilter] = useState<ExploreFilter>(NO_FILTER);
 
@@ -53,15 +50,6 @@ export function ExploreList({
     filter.lengths.length > 0;
   const count = <K,>(match: (p: PublicPracticeSummary) => K, key: K) =>
     practices.filter((p) => match(p) === key).length;
-  const voiceName = (voice: string | null) => {
-    const parsed = voice ? parseVoiceId(voice) : null;
-    return parsed
-      ? tVoice("voiceName", {
-          accent: tVoice(`accents.${parsed.accent}`),
-          gender: tVoice(`genders.${parsed.gender}`),
-        })
-      : null;
-  };
 
   return (
     <>
@@ -166,28 +154,11 @@ export function ExploreList({
         </div>
       ) : (
         <ul className="mt-8 grid gap-6 split:grid-cols-2">
-          {shown.map((practice) => {
-            const voice = voiceName(practice.voice);
-            return (
-              <li key={practice.id}>
-                <CardLink href={`/videos/${practice.id}`}>
-                  <p className="text-metadata tracking-widest text-ink-muted uppercase">
-                    {t(`source.${practice.sourceLanguage}`)}
-                    {voice && ` · ${voice}`}
-                  </p>
-                  <p className="mt-4 font-display text-h3">{practice.title}</p>
-                  <VideoProgressLabel videoId={practice.id} />
-                  <p className="mt-4 flex justify-between gap-4 text-supporting text-ink-muted">
-                    <span>
-                      {t("sentences", { count: practice.sentenceCount })}
-                      {practice.mine && ` · ${t("mine")}`}
-                    </span>
-                    <span aria-hidden="true">→</span>
-                  </p>
-                </CardLink>
-              </li>
-            );
-          })}
+          {shown.map((practice) => (
+            <li key={practice.id}>
+              <PracticeCard practice={practice} />
+            </li>
+          ))}
         </ul>
       )}
     </>

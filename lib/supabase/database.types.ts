@@ -354,6 +354,7 @@ export type Database = {
           grammar: Json;
           id: string;
           notes_generated_at: string | null;
+          official: boolean;
           removed_at: string | null;
           removed_reason: string | null;
           source_language: string;
@@ -371,6 +372,7 @@ export type Database = {
           grammar?: Json;
           id?: string;
           notes_generated_at?: string | null;
+          official?: boolean;
           removed_at?: string | null;
           removed_reason?: string | null;
           source_language: string;
@@ -388,6 +390,7 @@ export type Database = {
           grammar?: Json;
           id?: string;
           notes_generated_at?: string | null;
+          official?: boolean;
           removed_at?: string | null;
           removed_reason?: string | null;
           source_language?: string;
