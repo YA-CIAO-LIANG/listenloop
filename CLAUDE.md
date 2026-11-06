@@ -86,7 +86,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - 字幕：官方沒有可強制關閉的參數，字幕依使用者自己的偏好顯示。聽寫與跟讀頁面要提示使用者點播放器的 CC 按鈕關閉字幕（2026-10-26 決定，方案 A）。
 - 跟讀：Web Speech API（en-US），建議 Chrome。
 - 進度：一律透過 `lib/storage` 抽象層存取，元件用 `useStores()`（`components/StoresProvider.tsx`）取得，不直接建立儲存。
-  - 未登入時只存在 localStorage。
+  - 未登入時只存在 localStorage。練習不用登入，但首頁的練習日曆、今日任務和「學習進度」頁只在登入後顯示，未登入時顯示登入卡片（`ProgressGate`，D2 於 2026-11-06 修訂）。
   - 登入後，讀取仍從本機；每次存檔同時送到 Supabase 的 `progress`、`user_documents`（activity）。
   - 每次載入頁面都和雲端同步一次（`lib/sync/`），規則見 `docs/decisions.md` 的 D3、D14。
   - 本機的 `ll-account:v1` 格式是 `{ "userId", "synced": ["sintel"] }`：`userId` 記錄這台裝置的資料屬於哪個帳號；`synced` 是上次同步完成時兩邊都有的影片，用來分辨「別台裝置移除的練習」和「這台裝置新開始的練習」（D15）。

@@ -27,6 +27,17 @@ const localStores: Stores = {
 const StoresContext = createContext<Stores>(localStores);
 
 /**
+ * Whether progress may be shown here (D2, revised 2026-11-06): only to a
+ * signed-in learner. Outside a provider (component tests) it shows, and
+ * so does a build without accounts, where nobody could sign in.
+ */
+const ProgressVisibleContext = createContext(true);
+
+export function useProgressVisible(): boolean {
+  return useContext(ProgressVisibleContext);
+}
+
+/**
  * Where pages read and save practice data: this device only (signed out,
  * or no provider, as in tests), or this device plus the account.
  */
@@ -39,12 +50,15 @@ export function useStores(): Stores {
  * sends every later save to the account too. When the sync brings in data
  * from another device, the stores are handed out anew so pages read again.
  * Give it key={userId}: signing in or out mounts a fresh provider.
+ * `accounts`: whether this build can sign in at all.
  */
 export function StoresProvider({
   userId,
+  accounts = true,
   children,
 }: {
   userId: string | null;
+  accounts?: boolean;
   children: ReactNode;
 }) {
   const [cloud] = useState(() => {
@@ -80,7 +94,13 @@ export function StoresProvider({
     };
   }, [cloud, userId]);
 
-  return <StoresContext value={stores}>{children}</StoresContext>;
+  return (
+    <StoresContext value={stores}>
+      <ProgressVisibleContext value={!accounts || userId !== null}>
+        {children}
+      </ProgressVisibleContext>
+    </StoresContext>
+  );
 }
 
 function reportSyncError(error: unknown) {

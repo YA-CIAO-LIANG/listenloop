@@ -1,6 +1,5 @@
 import mock from "./mock-supabase/practices.json";
-import type { Page } from "@playwright/test";
-import { expect, setToday, test } from "./fixtures";
+import { expect, setToday, signInAsAuthor, test } from "./fixtures";
 
 /**
  * A created practice ("p-<uuid>") must open from today's tasks on every
@@ -53,6 +52,8 @@ const headings: Record<number, RegExp> = {
 
 for (const day of [1, 2, 3, 4, 5, 6, 7]) {
   test(`day ${day} opens from today's tasks`, async ({ page }) => {
+    // Today's tasks show only when signed in (D2).
+    await signInAsAuthor(page);
     await setToday(page, date(day - 1));
     await page.addInitScript(
       ([key, value]) => window.localStorage.setItem(key, value),
@@ -73,40 +74,6 @@ for (const day of [1, 2, 3, 4, 5, 6, 7]) {
     ).toBeVisible();
     await expect(page.getByText("聲音練習")).toBeVisible();
   });
-}
-
-/** Signs in as the practices' author: a session cookie the stand-in accepts. */
-async function signInAsAuthor(page: Page) {
-  const base64url = (value: unknown) =>
-    Buffer.from(JSON.stringify(value)).toString("base64url");
-  const expiresAt = 4_102_444_800; // 2100
-  const user = { id: "e2e-author", email: "author@example.com" };
-  const accessToken = [
-    base64url({ alg: "HS256", typ: "JWT" }),
-    base64url({
-      sub: user.id,
-      email: user.email,
-      aud: "authenticated",
-      role: "authenticated",
-      exp: expiresAt,
-    }),
-    base64url("signature"),
-  ].join(".");
-  const session = {
-    access_token: accessToken,
-    refresh_token: "refresh",
-    token_type: "bearer",
-    expires_in: 3600,
-    expires_at: expiresAt,
-    user: { ...user, aud: "authenticated", role: "authenticated" },
-  };
-  await page.context().addCookies([
-    {
-      name: "sb-localhost-auth-token",
-      value: `base64-${base64url(session)}`,
-      url: "http://localhost:3200",
-    },
-  ]);
 }
 
 test("the author's unfinished practice offers to finish it, not a 404", async ({
