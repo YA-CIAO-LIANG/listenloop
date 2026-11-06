@@ -509,6 +509,19 @@ export type Database = {
         };
         Returns: boolean;
       };
+      save_practice_edit: {
+        Args: {
+          expected_version: number;
+          new_grammar: Json;
+          new_sentences: Json;
+          new_title: string;
+          new_vocab: Json;
+          new_voice: string;
+          notes_ready: boolean;
+          target: string;
+        };
+        Returns: number;
+      };
       settle_api_cost: {
         Args: { delta: number; target_user: string; usage_day: string };
         Returns: undefined;
