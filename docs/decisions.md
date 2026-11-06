@@ -625,3 +625,22 @@
   - 第 1 天聽寫完成後講解就已經開放，跟讀時顯示不會洩漏答案；
   - 內建影片有畫面可以看，而且 Joe 只指定自建練習，所以不改變既有的練習方式。
 - **要改時**：`components/ShadowingSession.tsx`（`video.audioUrls` 的判斷）、`components/SentenceNotes.tsx`。
+
+## D43 每句各自保存講解；翻譯和講解的快取以一句為單位（2026-11-06，e+ 9a）
+
+- **決定**：
+  - **每句的講解**：`practice_sentences.notes`（jsonb），格式是 `{ vocab: [{word, pos, zh, example}], grammar: [{point, explanation, example}] }`，還沒產生時是 null。
+    - 練習層級的 `practices.vocab`、`grammar` 保留，改成由每句合併而來（`joinNotes`，合併時去掉重複的單字或句型），所以講義、聽寫、跟讀、公開教材的讀取都不用改；
+    - 舊的練習用 migration 把練習層級的講解拆到每句（只寫新欄位，舊資料不變）。2026-11-06 套用到正式站：1 個練習、8 句，單字 7 個、文法 2 個，拆分前後一致。
+  - **產生講解**（`generatePracticeNotes`）：只處理還沒有講解的句子，每次最多一個模型呼叫（10 句）；每句一完成就存起來；全部完成後才合併到練習層級並設定 `notes_generated_at`。中斷後再按一次，只會做剩下的句子。
+  - **句子層級的快取**（`ai_cache`）：
+    - 翻譯的鍵是「供應者 id（含模型和提示詞版本）＋語言方向＋這一句的文字」；
+    - 講解的鍵是「供應者 id ＋這一句的英文」；
+    - 同一句出現在任何練習，都直接沿用，不再呼叫 API；一批裡只有沒快取的句子會送給模型；
+    - 斷句仍然以整段文字為鍵，因為斷句本來就看整段；
+    - 音檔原本就是「供應者＋聲音＋文字」一句一個檔（D22）。
+- **理由**：
+  - 編輯練習（e+ 9）時，只要重新產生改過的句子，沒改的句子連講解也保留；使用者手動修改的講解也不會被覆蓋；
+  - 官方教材（e+ 10）會大量重複常見句子，以一句為單位快取，相同的句子在所有教材都只付一次費用；
+  - 以前的快取是一整批（8 或 10 句）一個鍵，只要其中一句不同就全部重做。
+- **要改時**：`lib/custom-practice/notes.ts`（`translateCached`、`annotateMissing`、`joinNotes`）、`app/materials/actions.ts`（`generatePracticeNotes`）、`supabase/migrations/20261106090000_sentence_notes.sql`。

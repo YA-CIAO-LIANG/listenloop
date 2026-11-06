@@ -3,7 +3,11 @@ import { fakeLanguage, fakeSpeech } from "@/lib/ai/fake";
 import { INSTRUCTION_CHARS } from "@/lib/ai/budgets";
 import { ProviderError, type LanguageProvider } from "@/lib/ai/types";
 import {
+  annotateMissing,
   annotateSentences,
+  joinNotes,
+  parseSentenceNotes,
+  splitNotes,
   segmentCached,
   cleanNotes,
   NOTES_CHUNK,
@@ -287,5 +291,99 @@ describe("segmentCached", () => {
       "Bye now.",
     ]);
     expect(segment).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe("sentence-level caching (D43)", () => {
+  const zhToEn = { from: "zh-Hant", to: "en" } as const;
+
+  it("translates only the sentences not translated before, in any practice", async () => {
+    const translate = vi.fn(fakeLanguage.translate);
+    const d = deps({ ...fakeLanguage, translate });
+    await translateCached(d, ["你好", "再見"], zhToEn);
+    // Another practice sharing one sentence: only the new one is asked.
+    expect(await translateCached(d, ["再見", "謝謝"], zhToEn)).toEqual({
+      ok: true,
+      value: ["[en] 再見", "[en] 謝謝"],
+    });
+    expect(translate).toHaveBeenCalledTimes(2);
+    expect(translate.mock.calls[1][0]).toEqual(["謝謝"]);
+    // All cached: no call at all.
+    await translateCached(d, ["謝謝", "你好"], zhToEn);
+    expect(translate).toHaveBeenCalledTimes(2);
+  });
+
+  it("annotates only sentences without notes or a cached result", async () => {
+    const annotate = vi.fn(fakeLanguage.annotate);
+    const d = deps({ ...fakeLanguage, annotate });
+    await annotateMissing(d, ["We moved here."], [null], Infinity);
+    const kept = { vocab: [], grammar: [] };
+    const result = await annotateMissing(
+      d,
+      ["Already noted.", "We moved here.", "Wonderful weather."],
+      [kept, null, null],
+      Infinity,
+    );
+    expect(result.ok && result.value[0]).toBe(kept);
+    expect(result.ok && result.value[1]?.vocab[0].word).toBe("moved");
+    expect(annotate).toHaveBeenCalledTimes(2);
+    expect(annotate.mock.calls[1][0]).toEqual(["Wonderful weather."]);
+  });
+
+  it("stops after its fresh calls, leaving the rest for later", async () => {
+    const d = deps();
+    const sentences = Array.from(
+      { length: NOTES_CHUNK + 2 },
+      (_, i) => `${word(i)} here.`,
+    );
+    const first = await annotateMissing(
+      d,
+      sentences,
+      sentences.map(() => null),
+      1,
+    );
+    expect(first.ok && first.value.filter(Boolean)).toHaveLength(NOTES_CHUNK);
+  });
+
+  it("splits and joins notes by sentence, keeping a repeated word once", () => {
+    const notes = {
+      vocab: [
+        { sentence: 0, word: "go", pos: "v.", zh: "去", example: "Go." },
+        { sentence: 1, word: "go", pos: "v.", zh: "去", example: "Go!" },
+      ],
+      grammar: [
+        {
+          sentence: 1,
+          point: "let's + V",
+          explanation: "說明",
+          example: "Ok.",
+        },
+      ],
+    };
+    const each = splitNotes(notes, 2);
+    expect(each[0].vocab).toEqual([
+      { word: "go", pos: "v.", zh: "去", example: "Go." },
+    ]);
+    expect(each[1].grammar).toHaveLength(1);
+    const joined = joinNotes(each);
+    expect(joined.vocab.map((v) => v.sentence)).toEqual([0]);
+    expect(joined.grammar.map((g) => g.sentence)).toEqual([1]);
+  });
+
+  it("checks stored notes", () => {
+    expect(parseSentenceNotes(null)).toBeNull();
+    expect(parseSentenceNotes({ vocab: "x", grammar: [] })).toBeNull();
+    expect(
+      parseSentenceNotes({
+        vocab: [
+          { word: "go", pos: "v.", zh: "去", example: "Go." },
+          { word: "" },
+        ],
+        grammar: [],
+      }),
+    ).toEqual({
+      vocab: [{ word: "go", pos: "v.", zh: "去", example: "Go." }],
+      grammar: [],
+    });
   });
 });

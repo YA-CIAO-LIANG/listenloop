@@ -149,9 +149,7 @@ async function readCache<T>(
 
 /**
  * Runs a language-model call once per distinct input: a cached result is
- * returned without calling the provider or counting usage. `fresh` says
- * whether the provider was called; with `allowCall` false, a result that
- * isn't cached comes back as null instead.
+ * returned without calling the provider or counting usage.
  */
 async function cachedLanguageCall<T>(
   deps: LanguageDeps,
@@ -160,35 +158,16 @@ async function cachedLanguageCall<T>(
   budget: LanguageBudget,
   call: () => Promise<Billed<unknown>>,
   check: (result: unknown) => T | null,
-): Promise<MeteredResult<T> & { fresh?: boolean }>;
-async function cachedLanguageCall<T>(
-  deps: LanguageDeps,
-  kind: CacheKind,
-  key: string,
-  budget: LanguageBudget,
-  call: () => Promise<Billed<unknown>>,
-  check: (result: unknown) => T | null,
-  allowCall: boolean,
-): Promise<MeteredResult<T | null> & { fresh?: boolean }>;
-async function cachedLanguageCall<T>(
-  deps: LanguageDeps,
-  kind: CacheKind,
-  key: string,
-  budget: LanguageBudget,
-  call: () => Promise<Billed<unknown>>,
-  check: (result: unknown) => T | null,
-  allowCall = true,
-): Promise<MeteredResult<T | null> & { fresh?: boolean }> {
+): Promise<MeteredResult<T>> {
   const hash = await cacheHash(deps, kind, key);
   const cached = await readCache(deps, hash, check);
-  if (cached !== null) return { ok: true, value: cached, fresh: false };
-  if (!allowCall) return { ok: true, value: null, fresh: false };
+  if (cached !== null) return { ok: true, value: cached };
   const result = await meteredLanguage(deps, budget, call);
   if (!result.ok) return result;
   const value = check(result.value);
   if (value === null) return { ok: false, reason: "failed" };
   await deps.cache.set(hash, kind, value).catch(() => {});
-  return { ok: true, value, fresh: true };
+  return { ok: true, value };
 }
 
 /**
@@ -222,72 +201,170 @@ export async function segmentCached(
     : lines.flatMap((line) => splitLine(line, language));
 }
 
-/** Translations of `texts`, cached; same length and order, or a failure. */
+/**
+ * One sentence's notes, as stored on practice_sentences.notes and in the
+ * cache (D43): a practice's notes without the sentence index.
+ */
+export type SentenceNotes = {
+  vocab: Omit<VocabItem, "sentence">[];
+  grammar: Omit<GrammarPoint, "sentence">[];
+};
+
+const NO_NOTES: SentenceNotes = { vocab: [], grammar: [] };
+
+/** A practice's notes split by sentence, `count` sentences long. */
+export function splitNotes(
+  notes: PracticeNotes,
+  count: number,
+): SentenceNotes[] {
+  return Array.from({ length: count }, (_, i) => ({
+    vocab: notes.vocab
+      .filter((item) => item.sentence === i)
+      .map(({ word, pos, zh, example }) => ({ word, pos, zh, example })),
+    grammar: notes.grammar
+      .filter((point) => point.sentence === i)
+      .map(({ point, explanation, example }) => ({
+        point,
+        explanation,
+        example,
+      })),
+  }));
+}
+
+/**
+ * Per-sentence notes joined into a practice's, checked again as a whole
+ * so a word or grammar point noted on two sentences is kept once.
+ */
+export function joinNotes(list: readonly SentenceNotes[]): PracticeNotes {
+  return cleanNotes(
+    {
+      vocab: list.flatMap((notes, sentence) =>
+        notes.vocab.map((item) => ({ ...item, sentence })),
+      ),
+      grammar: list.flatMap((notes, sentence) =>
+        notes.grammar.map((point) => ({ ...point, sentence })),
+      ),
+    },
+    list.length,
+  );
+}
+
+/** Stored or cached notes for one sentence, checked; null if unusable. */
+export function parseSentenceNotes(value: unknown): SentenceNotes | null {
+  if (typeof value !== "object" || value === null) return null;
+  const raw = value as Record<string, unknown>;
+  if (!Array.isArray(raw.vocab) || !Array.isArray(raw.grammar)) return null;
+  const withIndex = (items: unknown[]) =>
+    items.map((item) => ({ ...(item as object), sentence: 0 }));
+  return splitNotes(
+    cleanNotes(
+      { vocab: withIndex(raw.vocab), grammar: withIndex(raw.grammar) },
+      1,
+    ),
+    1,
+  )[0];
+}
+
+/**
+ * Translations of `texts`, same length and order, or a failure. Cached a
+ * sentence at a time (D43): a sentence translated before, in any
+ * practice, costs nothing; only the rest go to the model, in one call.
+ */
 export async function translateCached(
   deps: LanguageDeps,
   texts: readonly string[],
   languages: { from: TextLanguage; to: TextLanguage },
 ): Promise<MeteredResult<string[]>> {
-  if (texts.length === 0) return { ok: true, value: [] };
-  const result = await cachedLanguageCall(
-    deps,
-    "translation",
-    JSON.stringify({ ...languages, texts }),
-    translateBudget(texts),
-    () => deps.providers.language.translate(texts, languages),
-    (result) =>
-      Array.isArray(result) &&
-      result.length === texts.length &&
-      result.every((line) => typeof line === "string" && line.trim())
-        ? (result as string[]).map((line) => line.trim())
-        : null,
+  const keyOf = (text: string) => JSON.stringify({ ...languages, text });
+  const checkLine = (value: unknown) =>
+    typeof value === "string" && value.trim() ? value.trim() : null;
+  const hashes = await Promise.all(
+    texts.map((text) => cacheHash(deps, "translation", keyOf(text))),
   );
-  return result.ok ? { ok: true, value: result.value } : result;
+  const found = await Promise.all(
+    hashes.map((hash) => readCache(deps, hash, checkLine)),
+  );
+  const missing = texts.flatMap((_, i) => (found[i] === null ? [i] : []));
+  if (missing.length > 0) {
+    const asked = missing.map((i) => texts[i]);
+    const result = await meteredLanguage(deps, translateBudget(asked), () =>
+      deps.providers.language.translate(asked, languages),
+    );
+    if (!result.ok) return result;
+    const lines = Array.isArray(result.value) ? result.value : [];
+    const checked = lines.map(checkLine);
+    if (lines.length !== asked.length || checked.includes(null)) {
+      return { ok: false, reason: "failed" };
+    }
+    for (const [k, i] of missing.entries()) {
+      found[i] = checked[k];
+      await deps.cache
+        .set(hashes[i], "translation", checked[k])
+        .catch(() => {});
+    }
+  }
+  return { ok: true, value: found as string[] };
 }
 
 /**
- * Notes for a practice's English sentences, NOTES_CHUNK at a time, each
- * chunk cached, making at most `freshCalls` model calls. `annotated` is
- * how many sentences have notes so far (cached chunks count without a
- * call); `notes` is the whole result once every chunk is done, else null.
- * Stops at the first chunk that fails; a retry reuses the chunks already
- * cached. Repeats across chunks are dropped at the end.
+ * Fills in the missing (null) entries of `notes` for `sentences` (D43):
+ * each from the cache when that sentence was annotated before, in any
+ * practice, else from the model, NOTES_CHUNK missing sentences per call,
+ * at most `freshCalls` calls. Returns the notes with what it filled;
+ * entries still null are left for a later call. Stops at the first
+ * failure, keeping nothing from that call.
  */
-export async function annotateSome(
+export async function annotateMissing(
   deps: LanguageDeps,
   sentences: readonly string[],
+  notes: readonly (SentenceNotes | null)[],
   freshCalls: number,
-): Promise<MeteredResult<{ annotated: number; notes: PracticeNotes | null }>> {
-  const parts: PracticeNotes[] = [];
+): Promise<MeteredResult<(SentenceNotes | null)[]>> {
+  const filled = sentences.map((_, i) => notes[i] ?? null);
+  const keyOf = (en: string) => JSON.stringify({ en });
   let calls = 0;
-  for (let start = 0; start < sentences.length; start += NOTES_CHUNK) {
-    const chunk = sentences.slice(start, start + NOTES_CHUNK);
-    const result = await cachedLanguageCall(
-      deps,
-      "notes",
-      JSON.stringify(chunk),
-      annotateBudget(chunk),
-      () => deps.providers.language.annotate(chunk),
-      (raw) => cleanNotes(raw, chunk.length),
-      // Out of calls: only a cached chunk can still count.
-      calls < freshCalls,
+  let pending: number[] = [];
+
+  async function ask(): Promise<MeteredResult<null>> {
+    const chunk = pending.map((i) => sentences[i]);
+    const result = await meteredLanguage(deps, annotateBudget(chunk), () =>
+      deps.providers.language.annotate(chunk),
     );
     if (!result.ok) return result;
-    if (result.value === null) {
-      return { ok: true, value: { annotated: start, notes: null } };
+    const each = splitNotes(
+      cleanNotes(result.value, chunk.length),
+      chunk.length,
+    );
+    for (const [k, i] of pending.entries()) {
+      filled[i] = each[k];
+      const hash = await cacheHash(deps, "notes", keyOf(sentences[i]));
+      await deps.cache.set(hash, "notes", each[k]).catch(() => {});
     }
-    if (result.fresh) calls++;
-    parts.push(cleanNotes(result.value, chunk.length, start));
+    calls++;
+    pending = [];
+    return { ok: true, value: null };
   }
-  // Each chunk is clean on its own; clean the whole for repeats across chunks.
-  const notes = cleanNotes(
-    {
-      vocab: parts.flatMap((part) => part.vocab),
-      grammar: parts.flatMap((part) => part.grammar),
-    },
-    sentences.length,
-  );
-  return { ok: true, value: { annotated: sentences.length, notes } };
+
+  for (const [i, en] of sentences.entries()) {
+    if (filled[i]) continue;
+    const hash = await cacheHash(deps, "notes", keyOf(en));
+    const cached = await readCache(deps, hash, parseSentenceNotes);
+    if (cached) {
+      filled[i] = cached;
+      continue;
+    }
+    if (calls >= freshCalls) break;
+    pending.push(i);
+    if (pending.length === NOTES_CHUNK) {
+      const asked = await ask();
+      if (!asked.ok) return asked;
+    }
+  }
+  if (pending.length > 0 && calls < freshCalls) {
+    const asked = await ask();
+    if (!asked.ok) return asked;
+  }
+  return { ok: true, value: filled };
 }
 
 /** All of a practice's notes, as many model calls as it takes. */
@@ -295,7 +372,15 @@ export async function annotateSentences(
   deps: LanguageDeps,
   sentences: readonly string[],
 ): Promise<MeteredResult<PracticeNotes>> {
-  const result = await annotateSome(deps, sentences, Infinity);
+  const result = await annotateMissing(
+    deps,
+    sentences,
+    sentences.map(() => null),
+    Infinity,
+  );
   if (!result.ok) return result;
-  return { ok: true, value: result.value.notes ?? { vocab: [], grammar: [] } };
+  return {
+    ok: true,
+    value: joinNotes(result.value.map((notes) => notes ?? NO_NOTES)),
+  };
 }
