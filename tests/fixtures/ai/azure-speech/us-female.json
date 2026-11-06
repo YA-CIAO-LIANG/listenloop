@@ -1,0 +1,6 @@
+{
+  "request": "<speak version=\"1.0\" xml:lang=\"en-US\"><voice name=\"en-US-AvaNeural\">Nice to meet you.</voice></speak>",
+  "response": {
+    "status": 200
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences.\nFor each sentence, choose 0 to 2 vocabulary items (a word or a short phrase) most worth learning; skip very basic words.\nFor each item give: the sentence index (0-based), the word as it is best learned (base form for verbs), its part of speech (n., v., adj., adv., prep., phr., …), a short meaning in Traditional Chinese as used in Taiwan, and a NEW short English example sentence (not the original sentence).\nChoose 0 or 1 grammar point per sentence, only when the sentence shows a pattern worth teaching; about one grammar point for every three sentences overall.\nFor each grammar point give: the sentence index, the pattern in short English form (e.g. \"be a fool for + V-ing\"), an explanation in Traditional Chinese as used in Taiwan (one or two sentences), and a NEW short English example sentence.\nDo not repeat the same word or grammar point."
+      },
+      {
+        "role": "user",
+        "content": "{\"sentences\":[{\"index\":0,\"en\":\"Nice to meet you, too.\"}]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "notes",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "vocab": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sentence": {
+                    "type": "integer"
+                  },
+                  "word": {
+                    "type": "string"
+                  },
+                  "pos": {
+                    "type": "string"
+                  },
+                  "zh": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "type": "string"
+                  }
+                },
+                "required": ["sentence", "word", "pos", "zh", "example"],
+                "additionalProperties": false
+              }
+            },
+            "grammar": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "sentence": {
+                    "type": "integer"
+                  },
+                  "point": {
+                    "type": "string"
+                  },
+                  "explanation": {
+                    "type": "string"
+                  },
+                  "example": {
+                    "type": "string"
+                  }
+                },
+                "required": ["sentence", "point", "explanation", "example"],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": ["vocab", "grammar"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 500,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"vocab\":[{\"sentence\":0,\"word\":\"nice\",\"pos\":\"adj.\",\"zh\":\"令人愉快的；好的（用來表示禮貌）\",\"example\":\"It was nice of her to help me with the homework.\"}],\"grammar\":[]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1793946140,
+    "id": "chatcmpl-Eh7d68hZVjblctxTqKMEof201XrWM",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261103035502-ca77201f-default-r2-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 66,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 66,
+        "engine_ttlt_ms": 560,
+        "pre_inference_ms": 99,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 703,
+        "service_ttlt_ms": 1205,
+        "user_visible_ttft_ms": 604
+      },
+      "prompt_tokens": 358,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 424
+    }
+  }
+}
