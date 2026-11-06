@@ -25,6 +25,7 @@ import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { NextDayNote } from "./NextDayNote";
+import { SentenceNotes } from "./SentenceNotes";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import {
@@ -418,11 +419,18 @@ export function ShadowingSession({
                 ))
               : sentence.en}
           </p>
-          <details className="text-supporting text-ink-muted">
-            <summary className="cursor-pointer">{t("chinese")}</summary>
-            <p className="mt-1">{sentence.zh}</p>
-          </details>
+          {/* A created practice has no video to watch, so its meaning,
+              vocabulary, and grammar show while shadowing; a built-in
+              video keeps the Chinese folded away. */}
+          {!video.audioUrls && (
+            <details className="text-supporting text-ink-muted">
+              <summary className="cursor-pointer">{t("chinese")}</summary>
+              <p className="mt-1">{sentence.zh}</p>
+            </details>
+          )}
         </div>
+
+        {video.audioUrls && <SentenceNotes video={video} index={current} />}
 
         <div aria-live="polite" className="space-y-1">
           {phase === "listening" && (

@@ -21,6 +21,16 @@ vi.mock("@/components/youtube/useYouTubePlayer", () => ({
   }),
 }));
 
+vi.mock("@/components/audio/useAudioPlayer", () => ({
+  useAudioPlayer: () => ({
+    status: "ready",
+    error: null,
+    isPlaying: false,
+    playSentence: vi.fn(),
+    stop: vi.fn(),
+  }),
+}));
+
 /** Stand-in for the browser's SpeechRecognition; tests drive its events. */
 class FakeRecognition {
   static last: FakeRecognition | undefined;
@@ -339,5 +349,59 @@ describe("ShadowingSession", () => {
     const first = within(list).getAllByRole("listitem")[0];
     expect(first.getAttribute("aria-current")).toBe("step");
     expect(first.textContent).toContain("50%");
+  });
+});
+
+describe("ShadowingSession with a created practice", () => {
+  it("shows each sentence's Chinese, vocabulary, and grammar while shadowing", async () => {
+    renderWithIntl(
+      <ShadowingSession
+        video={{
+          id: "p-00000000-0000-4000-8000-000000000001",
+          title: "我的練習",
+          sentences: video.sentences.map((s) => ({ ...s, start: 0, end: 0 })),
+          vocab: [
+            {
+              sentence: 0,
+              word: "home",
+              pos: "n.",
+              zh: "家",
+              example: "I'm home.",
+            },
+            {
+              sentence: 1,
+              word: "move",
+              pos: "v.",
+              zh: "搬家",
+              example: "We moved.",
+            },
+          ],
+          grammar: [
+            {
+              sentence: 1,
+              point: "move to + place",
+              explanation: "搬到某地",
+              example: "They moved to Taipei.",
+            },
+          ],
+          audioUrls: ["https://cdn.test/a.wav", "https://cdn.test/b.wav"],
+        }}
+        day={2}
+        title="第 2 天：跟讀"
+        store={memoryStore()}
+      />,
+    );
+    await act(async () => {});
+    // Shown, not folded away, and only the current sentence's notes.
+    expect(screen.queryByText("中文")).toBeNull();
+    expect(screen.getByText("回家。")).toBeDefined();
+    expect(screen.getByText("home")).toBeDefined();
+    expect(screen.queryByText("move to + place")).toBeNull();
+  });
+
+  it("keeps a built-in video's Chinese folded away", async () => {
+    await renderSession();
+    expect(screen.getByText("中文").closest("details")).not.toBeNull();
+    expect(screen.queryByText("home")).toBeNull();
   });
 });
