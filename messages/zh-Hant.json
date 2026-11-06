@@ -811,7 +811,8 @@
     "create": "建立練習",
     "createUnavailable": "還沒有接上聲音和翻譯服務，暫時無法建立新的練習。",
     "removed": "已被管理員下架（原因：{reason}）。這份練習不再公開，只有你看得到，也不能再設為公開。",
-    "reviewReports": "檢舉審查（{count} 份練習待處理）→"
+    "reviewReports": "檢舉審查（{count} 份練習待處理）→",
+    "usageLink": "API 用量 →"
   },
   "explore": {
     "title": "公開教材",
@@ -900,6 +901,33 @@
       "not-found": "找不到這份練習或檢舉，可能已經處理過。請重新整理頁面。",
       "failed": "儲存失敗，請稍後再試一次。"
     }
+  },
+  "adminUsage": {
+    "title": "API 用量",
+    "intro": "聲音與 AI 文字每次呼叫的 token 數、字元數和估算費用（依 lib/ai/pricing.ts 的牌價計算，實際金額以 Azure 帳單為準）。",
+    "today": "今天（所有帳號）",
+    "todayNote": "{calls} 次呼叫；每人每天上限 {limit}",
+    "month": "本月估算費用",
+    "monthNote": "所有供應者，台灣時間每月 1 日重新計算",
+    "credit": "學生額度估計剩餘",
+    "creditNote": "Azure 累計 {spent}／US${total}，{endsOn} 到期",
+    "speech": "本月 Azure 聲音字元",
+    "speechValue": "{used}／{free}",
+    "speechNote": "F0 免費方案，超過就停止，不會收費；每人每天上限 {limit} 字元",
+    "recentTitle": "最近 {count} 次呼叫",
+    "noCalls": "還沒有任何呼叫。",
+    "columns": {
+      "time": "時間",
+      "operation": "工作",
+      "provider": "供應者",
+      "tokens": "Token（輸入／輸出）",
+      "chars": "字元",
+      "cost": "估算費用",
+      "status": "結果"
+    },
+    "tokens": "{input}／{output}",
+    "ok": "成功",
+    "failed": "失敗（{reason}）"
   },
   "generate": {
     "sourceLegend": "文字來源",

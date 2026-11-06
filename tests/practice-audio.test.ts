@@ -9,6 +9,7 @@ import {
   type AudioStore,
 } from "@/lib/custom-practice/audio";
 import { readSupabaseConfig, speechAudioUrl } from "@/lib/supabase/config";
+import { memoryMeter } from "./memory-meter";
 
 const voice = { accent: "us", gender: "female" } as const;
 
@@ -26,21 +27,16 @@ function memoryStore(): AudioStore & { files: Map<string, SpeechAudio> } {
 }
 
 function deps(limit = 1_000) {
-  let used = 0;
-  const reserve = vi.fn(async (_kind: string, chars: number) => {
-    if (used + chars > limit) return false;
-    used += chars;
-    return true;
-  });
+  const meter = memoryMeter({ speech: limit });
   const synthesize = vi.fn(fakeSpeech.synthesize);
   return {
     providers: {
       language: fakeLanguage,
       speech: { id: "fake", synthesize },
     },
-    meter: { reserve },
+    meter,
     store: memoryStore(),
-    reserve,
+    reserve: meter.reserve,
     synthesize,
   };
 }

@@ -36,7 +36,7 @@ describe("Gemini", () => {
     const gemini = geminiLanguage("secret-key", fetchImpl);
     expect(
       await gemini.translate(["你好。"], { from: "zh-Hant", to: "en" }),
-    ).toEqual(["Hello."]);
+    ).toMatchObject({ value: ["Hello."] });
     const [url, init] = fetchImpl.mock.calls[0] as unknown as [
       string,
       RequestInit,
@@ -50,6 +50,8 @@ describe("Gemini", () => {
     );
     const body = JSON.parse(init.body as string);
     expect(body.generationConfig.responseMimeType).toBe("application/json");
+    // The output cap from lib/ai/budgets.ts: 3 characters × 1.5 + 200.
+    expect(body.generationConfig.maxOutputTokens).toBe(205);
     expect(body.contents[0].parts[0].text).toBe(
       JSON.stringify({ lines: ["你好。"] }),
     );
@@ -59,7 +61,9 @@ describe("Gemini", () => {
     const lines = [["Hi there.", "Bye now."]];
     const fetchImpl = vi.fn(async () => geminiReply({ lines }));
     const gemini = geminiLanguage("secret-key", fetchImpl);
-    expect(await gemini.segment(["Hi there. Bye now."], "en")).toEqual(lines);
+    expect((await gemini.segment(["Hi there. Bye now."], "en")).value).toEqual(
+      lines,
+    );
     const [, init] = fetchImpl.mock.calls[0] as unknown as [
       string,
       RequestInit,
@@ -77,7 +81,49 @@ describe("Gemini", () => {
       "k",
       vi.fn(async () => geminiReply(notes)),
     );
-    expect(await gemini.annotate(["We moved."])).toEqual(notes);
+    expect((await gemini.annotate(["We moved."])).value).toEqual(notes);
+  });
+
+  it("reports tokens, thinking included, and their estimated cost", async () => {
+    const gemini = geminiLanguage(
+      "k",
+      vi.fn(async () =>
+        json(200, {
+          candidates: [
+            { content: { parts: [{ text: "{}" }] }, finishReason: "STOP" },
+          ],
+          usageMetadata: {
+            promptTokenCount: 1_000,
+            candidatesTokenCount: 300,
+            thoughtsTokenCount: 200,
+          },
+        }),
+      ),
+    );
+    const { usage } = await gemini.annotate(["We moved."]);
+    expect(usage).toEqual({
+      inputTokens: 1_000,
+      outputTokens: 500,
+      chars: 9,
+      // gemini-3.6-flash: US$0.75 in, 3.75 out per million.
+      costUsd: (1_000 * 0.75 + 500 * 3.75) / 1e6,
+    });
+  });
+
+  it("still reports the usage of an answer it can't use", async () => {
+    const gemini = geminiLanguage(
+      "k",
+      vi.fn(async () =>
+        json(200, {
+          candidates: [{ content: { parts: [{ text: "Sure! Here" }] } }],
+          usageMetadata: { promptTokenCount: 10, candidatesTokenCount: 5 },
+        }),
+      ),
+    );
+    await expect(gemini.annotate(["Hi."])).rejects.toMatchObject({
+      code: "failed",
+      usage: { inputTokens: 10, outputTokens: 5 },
+    });
   });
 
   it("names the model and prompt version in its id", () => {
@@ -137,12 +183,22 @@ describe("Cloud Text-to-Speech", () => {
         audioContent: Buffer.from("ID3 fake mp3").toString("base64"),
       }),
     );
-    const audio = await googleSpeech("k", fetchImpl).synthesize("Hello.", {
+    const { value: audio, usage } = await googleSpeech(
+      "k",
+      fetchImpl,
+    ).synthesize("Hello.", {
       accent: "in",
       gender: "male",
     });
     expect(new TextDecoder().decode(audio.data)).toBe("ID3 fake mp3");
     expect(audio.mimeType).toBe("audio/mpeg");
+    // Logged at the price past the free tier, so the estimate errs high.
+    expect(usage).toEqual({
+      inputTokens: 0,
+      outputTokens: 0,
+      chars: 6,
+      costUsd: (6 * 30) / 1e6,
+    });
     const body = JSON.parse(
       (fetchImpl.mock.calls[0] as unknown as [string, RequestInit])[1]
         .body as string,

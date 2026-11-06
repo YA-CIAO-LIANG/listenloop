@@ -1,15 +1,17 @@
 /**
- * Daily limits on the paid APIs (docs/decisions.md D7). Speech and
- * translation are counted separately, in characters, per user and per day
- * in Taiwan time. All the numbers live here.
+ * Daily limits on the paid APIs (docs/decisions.md D7, D38), per user and
+ * per day in Taiwan time. All the numbers live here.
+ * - speech: characters. Azure Speech is free up to 500,000 a month and
+ *   then stops, so the limit spreads that over the month (~500,000 / 31).
+ * - cost: estimated micro-dollars (US$0.000001) of language-model work:
+ *   splitting, translation, notes, and generated text (lib/ai/pricing.ts).
  */
-export type UsageKind = "speech" | "translation";
+export type UsageKind = "speech" | "cost";
 
-export const DAILY_CHAR_LIMITS: Readonly<Record<UsageKind, number>> = {
-  speech: 20_000,
-  // Language-model work: splitting, translation, notes, and generated text
-  // all count here (D35); a 10,000-character upload alone can use 20,000.
-  translation: 60_000,
+export const DAILY_LIMITS: Readonly<Record<UsageKind, number>> = {
+  speech: 16_000,
+  // US$0.50; with gpt-5-mini a 10,000-character practice is about US$0.03.
+  cost: 500_000,
 };
 
 /** Days roll over at midnight in this time zone. */
@@ -36,11 +38,32 @@ export function countChars(texts: readonly string[]): number {
   return total;
 }
 
+/** One provider call, for the usage log (/admin/usage). */
+export type UsageLogEntry = {
+  /** The provider id, e.g. "azure-openai/gpt-5-mini/p1". */
+  provider: string;
+  /** "speech", or the language operation ("translate", "annotate", …). */
+  operation: string;
+  /** null when it worked, else why not (MeteredFailure). */
+  error: string | null;
+  inputTokens: number;
+  outputTokens: number;
+  chars: number;
+  /** What was charged against the daily cost limit. */
+  costMicros: number;
+};
+
 /** Records usage for one user; the server implements it with Supabase. */
 export interface UsageMeter {
   /**
-   * Adds `chars` to today's `kind` usage if that stays within the daily
+   * Adds `amount` to today's `kind` usage if that stays within the daily
    * limit, atomically. False (nothing added) when it would go over.
    */
-  reserve(kind: UsageKind, chars: number): Promise<boolean>;
+  reserve(kind: UsageKind, amount: number): Promise<boolean>;
+  /**
+   * Adds `micros` (negative to give back) to today's cost once a call's
+   * real cost is known; never below zero.
+   */
+  settle(micros: number): Promise<void>;
+  log(entry: UsageLogEntry): Promise<void>;
 }

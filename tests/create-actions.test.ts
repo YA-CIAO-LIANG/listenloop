@@ -18,7 +18,11 @@ vi.mock("@/auth/creator", () => ({
       ? {
           user: { id: "user-1", email: "joe@example.com" },
           providers: { language: fakeLanguage, speech: fakeSpeech },
-          meter: { reserve: state.reserve },
+          meter: {
+            reserve: state.reserve,
+            settle: async () => {},
+            log: async () => {},
+          },
           cache: { get: async () => null, set: async () => {} },
         }
       : null,
@@ -66,7 +70,7 @@ describe("splitText", () => {
       ok: true,
       sentences: ["你好。", "再見。"],
     });
-    expect(state.reserve).toHaveBeenCalledWith("translation", 6);
+    expect(state.reserve).toHaveBeenCalledWith("cost", expect.any(Number));
   });
 
   it("still splits, by the rules, when the model can't be used", async () => {
@@ -101,7 +105,7 @@ describe("translateSentences", () => {
       ok: true,
       translations: ["[en] 你好。", "[en] 再見。"],
     });
-    expect(state.reserve).toHaveBeenCalledWith("translation", 6);
+    expect(state.reserve).toHaveBeenCalledWith("cost", expect.any(Number));
   });
 
   it("translates English into Chinese for the handout", async () => {

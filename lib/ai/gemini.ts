@@ -1,6 +1,16 @@
+import {
+  annotateBudget,
+  composeBudget,
+  segmentBudget,
+  translateBudget,
+  type LanguageBudget,
+} from "./budgets";
 import { postGoogleJson } from "./http";
+import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   ProviderError,
+  type Billed,
+  type CallUsage,
   type LanguageProvider,
   type TextLanguage,
 } from "./types";
@@ -145,17 +155,53 @@ export function responseJson(response: unknown): unknown {
   }
 }
 
+/**
+ * Tokens from a response's usageMetadata (thinking counts as output) and
+ * their cost; zeros when it's missing.
+ */
+export function geminiUsage(
+  response: unknown,
+  price: TokenPrice,
+  chars: number,
+): CallUsage {
+  const meta =
+    (
+      response as {
+        usageMetadata?: {
+          promptTokenCount?: number;
+          candidatesTokenCount?: number;
+          thoughtsTokenCount?: number;
+        };
+      }
+    ).usageMetadata ?? {};
+  const inputTokens = meta.promptTokenCount ?? 0;
+  const outputTokens =
+    (meta.candidatesTokenCount ?? 0) + (meta.thoughtsTokenCount ?? 0);
+  return {
+    inputTokens,
+    outputTokens,
+    chars,
+    costUsd: tokenCost(price, inputTokens, outputTokens),
+  };
+}
+
 export function geminiLanguage(
   apiKey: string,
   fetchImpl: typeof fetch = fetch,
   model: string = GEMINI_MODEL,
 ): LanguageProvider {
+  const price = LANGUAGE_PRICES[`gemini/${model}`] ?? {
+    inputPerM: 0,
+    outputPerM: 0,
+  };
+
   async function generate(
     instructions: string,
     input: unknown,
     schema: unknown,
+    budget: LanguageBudget,
     temperature = 0.2,
-  ) {
+  ): Promise<Billed<unknown>> {
     const response = await postGoogleJson(
       endpoint(model),
       apiKey,
@@ -166,44 +212,68 @@ export function geminiLanguage(
           responseMimeType: "application/json",
           responseSchema: schema,
           temperature,
+          maxOutputTokens: budget.maxOutputTokens,
         },
       },
       fetchImpl,
       "Gemini",
     );
-    return responseJson(response);
+    const usage = geminiUsage(response, price, budget.inputChars);
+    try {
+      return { value: responseJson(response), usage };
+    } catch (error) {
+      // Tokens spent on an unusable answer are still paid for.
+      if (error instanceof ProviderError) {
+        throw new ProviderError(error.code, error.message, usage);
+      }
+      throw error;
+    }
   }
 
   return {
     id: `gemini/${model}/p${GEMINI_PROMPT_VERSION}`,
+    price,
     async translate(texts, { from, to }) {
-      const result = (await generate(
+      const { value, usage } = await generate(
         TRANSLATE_INSTRUCTIONS(from, to),
         { lines: texts },
         TRANSLATIONS_SCHEMA,
-      )) as { translations?: unknown };
+        translateBudget(texts),
+      );
+      const result = value as { translations?: unknown };
       // The caller checks the count and contents (translateCached).
-      return Array.isArray(result.translations)
-        ? (result.translations as string[])
-        : [];
+      return {
+        value: Array.isArray(result.translations)
+          ? (result.translations as string[])
+          : [],
+        usage,
+      };
     },
     async compose(prompt) {
       // More varied than translation: every request should read fresh.
-      return generate(COMPOSE_INSTRUCTIONS, prompt, COMPOSITION_SCHEMA, 0.9);
+      return generate(
+        COMPOSE_INSTRUCTIONS,
+        prompt,
+        COMPOSITION_SCHEMA,
+        composeBudget(prompt),
+        0.9,
+      );
     },
     async segment(lines, language) {
-      const result = (await generate(
+      const { value, usage } = await generate(
         SEGMENT_INSTRUCTIONS(language),
         { lines },
         SEGMENTS_SCHEMA,
-      )) as { lines?: unknown };
-      return result.lines;
+        segmentBudget(lines),
+      );
+      return { value: (value as { lines?: unknown }).lines, usage };
     },
     async annotate(sentences) {
       return generate(
         NOTES_INSTRUCTIONS,
         { sentences: sentences.map((en, index) => ({ index, en })) },
         NOTES_SCHEMA,
+        annotateBudget(sentences),
       );
     },
   };

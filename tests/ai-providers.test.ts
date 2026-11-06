@@ -9,24 +9,9 @@ import {
   type AiProviders,
 } from "@/lib/ai/types";
 import type { UsageMeter } from "@/lib/usage";
+import { memoryMeter } from "./memory-meter";
 
 const voice = { accent: "gb", gender: "female" } as const;
-
-/** A meter with a running total per kind, like the database function. */
-function memoryMeter(
-  limit: number,
-): UsageMeter & { used: Map<string, number> } {
-  const used = new Map<string, number>();
-  return {
-    used,
-    async reserve(kind, chars) {
-      const total = (used.get(kind) ?? 0) + chars;
-      if (total > limit) return false;
-      used.set(kind, total);
-      return true;
-    },
-  };
-}
 
 const fakes: AiProviders = { language: fakeLanguage, speech: fakeSpeech };
 
@@ -68,11 +53,17 @@ describe("fake providers", () => {
         from: "zh-Hant",
         to: "en",
       }),
-    ).toEqual(["[en] 你好", "[en] 再見"]);
+    ).toEqual({
+      value: ["[en] 你好", "[en] 再見"],
+      usage: { inputTokens: 0, outputTokens: 0, chars: 4, costUsd: 0 },
+    });
   });
 
   it("returns a playable silent WAV, 0.4 s per word", async () => {
-    const audio = await fakeSpeech.synthesize("one two three four five", voice);
+    const { value: audio } = await fakeSpeech.synthesize(
+      "one two three four five",
+      voice,
+    );
     expect(audio.mimeType).toBe("audio/wav");
     const text = new TextDecoder().decode(audio.data.slice(0, 16));
     expect(text.startsWith("RIFF")).toBe(true);
@@ -84,7 +75,7 @@ describe("fake providers", () => {
 
 describe("metered calls", () => {
   it("stops at the limit without calling the provider", async () => {
-    const meter = memoryMeter(5);
+    const meter = memoryMeter({ speech: 5 });
     const synthesize = vi.fn(fakeSpeech.synthesize);
     const providers = { ...fakes, speech: { id: "test", synthesize } };
     expect(
@@ -94,7 +85,7 @@ describe("metered calls", () => {
   });
 
   it("keeps the characters counted when the provider fails", async () => {
-    const meter = memoryMeter(100);
+    const meter = memoryMeter({ speech: 100 });
     const providers = {
       ...fakes,
       speech: {
@@ -111,6 +102,7 @@ describe("metered calls", () => {
 
   it("fails when the meter can't be reached", async () => {
     const meter: UsageMeter = {
+      ...memoryMeter(),
       reserve: vi.fn().mockRejectedValue(new Error()),
     };
     expect(
@@ -133,7 +125,7 @@ describe("metered calls", () => {
       };
       expect(
         await meteredSpeech(
-          { providers, meter: memoryMeter(100) },
+          { providers, meter: memoryMeter({ speech: 100 }) },
           "hi",
           voice,
         ),
@@ -154,7 +146,11 @@ describe("metered calls", () => {
       },
     };
     expect(
-      await meteredSpeech({ providers, meter: memoryMeter(100) }, "hi", voice),
+      await meteredSpeech(
+        { providers, meter: memoryMeter({ speech: 100 }) },
+        "hi",
+        voice,
+      ),
     ).toEqual({ ok: false, reason: "busy" });
   });
 });

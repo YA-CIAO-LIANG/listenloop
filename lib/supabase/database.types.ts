@@ -60,6 +60,63 @@ export type Database = {
         };
         Relationships: [];
       };
+      api_calls: {
+        Row: {
+          chars: number;
+          cost_micros: number;
+          created_at: string;
+          error: string | null;
+          id: number;
+          input_tokens: number;
+          operation: string;
+          output_tokens: number;
+          provider: string;
+          user_id: string | null;
+        };
+        Insert: {
+          chars?: number;
+          cost_micros?: number;
+          created_at?: string;
+          error?: string | null;
+          id?: never;
+          input_tokens?: number;
+          operation: string;
+          output_tokens?: number;
+          provider: string;
+          user_id?: string | null;
+        };
+        Update: {
+          chars?: number;
+          cost_micros?: number;
+          created_at?: string;
+          error?: string | null;
+          id?: never;
+          input_tokens?: number;
+          operation?: string;
+          output_tokens?: number;
+          provider?: string;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
+      api_daily_cost: {
+        Row: {
+          day: string;
+          micros: number;
+          user_id: string;
+        };
+        Insert: {
+          day: string;
+          micros?: number;
+          user_id: string;
+        };
+        Update: {
+          day?: string;
+          micros?: number;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       api_usage: {
         Row: {
           chars: number;
@@ -379,6 +436,25 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      api_usage_totals: {
+        Args: { day_start: string; month_start: string };
+        Returns: {
+          azure_micros: number;
+          month_azure_speech_chars: number;
+          month_micros: number;
+          today_calls: number;
+          today_micros: number;
+        }[];
+      };
+      reserve_api_cost: {
+        Args: {
+          amount: number;
+          max_micros: number;
+          target_user: string;
+          usage_day: string;
+        };
+        Returns: boolean;
+      };
       reserve_api_usage: {
         Args: {
           amount: number;
@@ -388,6 +464,10 @@ export type Database = {
           usage_kind: string;
         };
         Returns: boolean;
+      };
+      settle_api_cost: {
+        Args: { delta: number; target_user: string; usage_day: string };
+        Returns: undefined;
       };
     };
     Enums: {

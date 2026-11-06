@@ -466,3 +466,48 @@
 - **要改時**：
   - 換區域時，在新區域重建資源，更新 `AZURE_SPEECH_REGION`、`AZURE_OPENAI_ENDPOINT` 和金鑰；
   - 設定步驟在 `docs/roadmap.md` 清單 6。
+
+## D38 每次呼叫記錄用量；每日上限改用估算費用（2026-11-05，e+ 6 PR 1）
+
+- **決定**（Joe 2026-11-05 指定）：
+  - **供應者回報用量**：每個方法回傳 `{ value, usage }`，`usage` 是 token 數（推理或思考的 token 算在輸出）、字元數和估算費用。
+    - Gemini 讀 `usageMetadata`；
+    - Cloud TTS 依字元數，以超過免費額度後的牌價 US$30／百萬字元計算，寧可估高；
+    - 假的供應者全部是 0。
+  - **價格**：集中在 `lib/ai/pricing.ts`，2026-11-05 查證。
+    - Azure 用官方的 retail prices API（`prices.azure.com`，uaenorth Global Standard）：gpt-5-mini 輸入 US$0.25、輸出 2.00，gpt-4.1-mini 0.40／1.60（每百萬 token）；
+    - Gemini 3.6 Flash 是 0.75／3.75，2027 年起加倍；
+    - Azure Speech F0 是 0。
+  - **每次呼叫的大小上限**：集中在 `lib/ai/budgets.ts`，輸出 token 上限會送給模型（Gemini 的 `maxOutputTokens`）。
+    - 翻譯：字數 ×1.5 ＋ 200，最多 8,000；
+    - 講解：每句 200 ＋ 300，最多 6,000；
+    - 斷句：字數 ＋ 200，最多 8,000；
+    - 生成：字數 ×2 ＋ 300，最多 3,000。
+  - **每日上限**（每人，台灣時間）：
+    - 語言模型：估算費用 US$0.50（以 micro-dollar 整數存）。一篇 1 萬字的練習用 gpt-5-mini 約 US$0.03；
+    - 聲音：16,000 字元，F0 每月 50 萬字元 ÷ 31 天，原本是 20,000。
+  - **扣額度的流程**：
+    1. 先預留最壞情況：輸入字元數（含約 2,000 字的指示）全部當成 token，加上整個輸出上限；
+    2. 呼叫完用實際用量結算，退回多預留的部分；
+    3. 失敗而且沒有用量資料時，預留的不退（D7）；失敗但供應者回報了用量（例如被截斷），就照實際用量結算；
+    4. 結算或記錄失敗時，不影響呼叫的結果，只寫進伺服器紀錄。
+  - **資料表**：
+    - `api_daily_cost`：每人每天的費用，由 `reserve_api_cost`、`settle_api_cost` 原子性地更新；
+    - `api_calls`：每次呼叫一筆，只記數字，不記送出的文字。刪除帳號時，`user_id` 改成 null 但保留紀錄，讓學生額度的累計正確；
+    - `api_usage_totals`：在資料庫加總，不受 API 每次最多 1,000 列的限制；
+    - 這些都只有 service_role 能讀寫。2026-11-05 已用公開金鑰確認一般使用者被拒絕。
+  - **管理員頁 `/admin/usage`**：
+    - 今天的費用與上限、本月費用、學生額度估計剩餘（US$100 減去 Azure 累計）、本月 Azure 聲音字元和 50 萬的比較；
+    - 最近 50 次呼叫；
+    - 入口在「我的教材」，「檢舉審查」旁邊。
+  - **測試不呼叫真的 API**：`tests/setup-network.ts` 擋掉 Azure 和 Google 的網址；Playwright 強制使用假的供應者並清空金鑰。規則寫在 CLAUDE.md。
+- **理由**：
+  - 依 token 計費的模型，字數和花費不成正比：輸出、推理 token 比輸入貴 8 倍，所以上限要用費用來控制；
+  - 「先預留、後結算」是額度控制的常見做法，不會因為同時送出多個請求而超過上限；
+  - 只記數字不記內容，也符合隱私的最小化原則。
+- **要改時**：
+  - 價格：`lib/ai/pricing.ts`；
+  - 上限：`lib/usage.ts`；
+  - 輸出上限：`lib/ai/budgets.ts`；
+  - 頁面：`app/admin/usage/page.tsx`、`lib/usage-report.ts`；
+  - 資料表：`supabase/migrations/20261105090000_api_cost.sql`、`20261105100000_api_usage_totals.sql`。

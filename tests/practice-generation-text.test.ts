@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
+import { composeBudget } from "@/lib/ai/budgets";
 import { fakeLanguage, fakeSpeech } from "@/lib/ai/fake";
 import {
   checkGeneratedText,
   compositionPrompt,
-  expectedChars,
   GENERATION_CATEGORIES,
   parseGenerationRequest,
   WORDS_PER_MINUTE,
@@ -20,7 +20,11 @@ vi.mock("@/auth/creator", () => ({
       ? {
           user: { id: "user-1", email: "joe@example.com" },
           providers: { language: fakeLanguage, speech: fakeSpeech },
-          meter: { reserve: state.reserve },
+          meter: {
+            reserve: state.reserve,
+            settle: async () => {},
+            log: async () => {},
+          },
           cache: { get: async () => null, set: async () => {} },
         }
       : null,
@@ -87,7 +91,10 @@ describe("parseGenerationRequest", () => {
     const prompt = compositionPrompt(parseGenerationRequest(request)!);
     expect(prompt.words).toBe(WORDS_PER_MINUTE);
     expect(prompt.scenario).toBe("shopping in a store");
-    expect(expectedChars(prompt)).toBe(WORDS_PER_MINUTE * 6 + 7);
+    expect(composeBudget(prompt)).toMatchObject({
+      operation: "compose",
+      maxOutputTokens: WORDS_PER_MINUTE * 2 + 300,
+    });
   });
 });
 
@@ -112,16 +119,14 @@ describe("checkGeneratedText", () => {
 });
 
 describe("generatePracticeText", () => {
-  it("writes text, reserving the expected length first", async () => {
+  it("writes text, reserving the worst-case cost first", async () => {
     state.creator = true;
     state.reserve.mockReset().mockResolvedValue(true);
     const result = await generatePracticeText(request);
     expect(result.ok && result.title).toBe("Practice: shopping in a store");
     expect(result.ok && result.text.split("\n").length).toBeGreaterThan(5);
-    expect(state.reserve).toHaveBeenCalledWith(
-      "translation",
-      WORDS_PER_MINUTE * 6 + 7,
-    );
+    // The fake is free, so the worst case reserved is 0 (D38).
+    expect(state.reserve).toHaveBeenCalledWith("cost", 0);
   });
 
   it("stops at the daily limit, and for bad requests and non-admins", async () => {
