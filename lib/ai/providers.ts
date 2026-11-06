@@ -1,3 +1,8 @@
+import {
+  azureEndpoint,
+  azureModelPrice,
+  azureOpenAiLanguage,
+} from "./azure-openai";
 import { azureSpeech, isAzureRegion } from "./azure-speech";
 import { fakeLanguage, fakeSpeech } from "./fake";
 import { geminiLanguage } from "./gemini";
@@ -12,7 +17,7 @@ export type ProviderChoice = (typeof PROVIDER_CHOICES)[number];
 
 /** The default for each, when its variable is unset. */
 export const DEFAULT_PROVIDERS = {
-  language: "google",
+  language: "azure",
   speech: "azure",
 } as const satisfies Record<keyof AiProviders, ProviderChoice>;
 
@@ -36,9 +41,26 @@ function languageProvider(env: Env): LanguageProvider | null {
     "AI_LANGUAGE_PROVIDER",
     DEFAULT_PROVIDERS.language,
   );
-  if (vendor !== "google") return null;
-  const key = read(env, "GEMINI_API_KEY");
-  return key ? geminiLanguage(key) : null;
+  if (vendor === "google") {
+    const key = read(env, "GEMINI_API_KEY");
+    return key ? geminiLanguage(key) : null;
+  }
+  if (vendor === "azure") {
+    const endpoint = read(env, "AZURE_OPENAI_ENDPOINT");
+    const apiKey = read(env, "AZURE_OPENAI_API_KEY");
+    const deployment = read(env, "AZURE_OPENAI_DEPLOYMENT");
+    const model = read(env, "AZURE_OPENAI_MODEL");
+    // A model without a known price would go uncounted (D38): off instead.
+    return endpoint &&
+      apiKey &&
+      deployment &&
+      model &&
+      azureEndpoint(endpoint) &&
+      azureModelPrice(model)
+      ? azureOpenAiLanguage({ endpoint, apiKey, deployment, model })
+      : null;
+  }
+  return null;
 }
 
 function speechProvider(env: Env): SpeechProvider | null {

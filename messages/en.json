@@ -518,7 +518,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 4, 2026",
+    "updated": "Last updated: November 6, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -553,7 +553,7 @@
           "Supabase: the database for accounts and cloud practice data, in the United States (us-east-1).",
           "Vercel: the web host, which handles the technical data a connection needs (such as IP addresses) to serve and protect the site.",
           "Google: Google sign-in.",
-          "AI services (Google, Microsoft): when you create a practice, its text is sent to Google's Gemini API for translation and vocabulary and grammar notes, and its English sentences to Microsoft's Azure Speech for audio. We use Gemini's paid tier: under Google's terms, what's sent and what's generated aren't used to improve or train Google's products, and are kept only for a limited time to detect violations of its usage policy. Azure Speech is handled under Microsoft Azure's terms, in the region of our resource (United Arab Emirates), and isn't used to train models. Even so, please don't put personal or sensitive information in practice text.",
+          "Microsoft Azure AI services: when you create a practice, its text is sent to Azure OpenAI (the gpt-5-mini model) to split it into sentences, translate it, and write vocabulary and grammar notes, or to write practice text for the situation you pick; its English sentences go to Azure Speech for audio. Under Microsoft's terms, what's sent and what's generated aren't used to train models. Azure OpenAI may keep them for up to 30 days to detect abuse, and may process them in any of Microsoft's regions (a Global Standard deployment); Azure Speech processes them in the United Arab Emirates. Even so, please don't put personal or sensitive information in practice text.",
           "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
           "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard."
         ]
@@ -701,7 +701,7 @@
       "failed": "Something went wrong while making the notes. Please try again.",
       "config": "The AI service's setup or allowance has a problem (for example, a wrong key, a model that isn't deployed, or a used-up free tier or prepaid credit). Check the AI variables listed in .env.example; the server log has the details."
     },
-    "privacyNote": "When you create a practice, its text is sent to AI services (Google Gemini, Microsoft Azure Speech). It isn't used to train models, but is kept briefly to detect abuse. Please don't include personal or sensitive information. See the <link>privacy policy</link>.",
+    "privacyNote": "When you create a practice, its text is sent to Microsoft Azure's AI services (Azure OpenAI, Azure Speech). It isn't used to train models, but may be kept for up to 30 days to detect abuse. Please don't include personal or sensitive information. See the <link>privacy policy</link>.",
     "notReadyBack": "My materials",
     "notReadyTitle": "This practice isn't ready yet",
     "notReadyIntro": "Its notes or audio aren't all made yet (creating it may have been cut off, or the day's allowance ran out). Press “Continue” to finish them, and the practice opens right away.",

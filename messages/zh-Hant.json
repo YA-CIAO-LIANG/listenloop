@@ -518,7 +518,7 @@
   },
   "privacy": {
     "title": "隱私權政策",
-    "updated": "最後更新：2026 年 11 月 4 日",
+    "updated": "最後更新：2026 年 11 月 6 日",
     "intro": "ListenLoop 是英語聽力練習網站。這份政策說明我們收集哪些資料、怎麼使用、存在哪裡，以及你可以怎麼刪除。不登入也能使用全部的練習功能。",
     "sections": [
       {
@@ -551,7 +551,7 @@
           "Supabase：帳號與雲端練習資料的資料庫，位於美國（us-east-1）。",
           "Vercel：網站主機，為了提供服務與維護安全，會處理連線需要的技術資料（例如 IP 位址）。",
           "Google：負責 Google 帳號登入。",
-          "AI 服務（Google、Microsoft）：建立練習時，輸入的文字會送到 Google 的 Gemini API 產生翻譯、單字與文法講解，英文句子會送到 Microsoft 的 Azure Speech 產生語音。Gemini 使用付費方案：依 Google 的條款，送出的內容和產生的結果不會被用來改善或訓練 Google 的產品，只會保留一段有限的時間，用來偵測違反使用政策的行為。Azure Speech 依 Microsoft Azure 的條款處理，在資源所在的區域（阿拉伯聯合大公國）處理，不會用於訓練模型。即使如此，仍請不要在練習文字中輸入個人或敏感資料。",
+          "Microsoft Azure AI 服務：建立練習時，輸入的文字會送到 Azure OpenAI（gpt-5-mini 模型）產生斷句、翻譯、單字與文法講解，或依你選的情境寫出練習文字；英文句子會送到 Azure Speech 產生語音。依 Microsoft 的條款，送出的內容和產生的結果不會被用來訓練模型；Azure OpenAI 為了偵測濫用，可能保留最多 30 天，而且可能在 Microsoft 任何區域的資料中心處理（Global Standard 部署）；Azure Speech 在阿拉伯聯合大公國的資料中心處理。即使如此，仍請不要在練習文字中輸入個人或敏感資料。",
           "YouTube：練習影片由 YouTube 播放（使用 youtube-nocookie.com），播放時 YouTube 可能依 Google 的隱私權政策設定 cookie。",
           "語音辨識：跟讀使用瀏覽器內建的語音辨識；在 Chrome 中，聲音會傳到 Google 的伺服器辨識。ListenLoop 不錄音、不儲存聲音，只保存每句的完成狀態與涵蓋率。"
         ]
@@ -699,7 +699,7 @@
       "failed": "產生講解時發生錯誤，請再試一次。",
       "config": "AI 服務的設定或額度有問題（例如金鑰錯誤、模型還沒有部署，或免費額度、預付額度用完）。請對照 .env.example 檢查 AI 相關的環境變數，詳細原因在伺服器紀錄。"
     },
-    "privacyNote": "建立練習時，文字會送到 AI 服務（Google Gemini、Microsoft Azure Speech）處理，不會被用來訓練模型，但會短暫保留以偵測濫用。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。",
+    "privacyNote": "建立練習時，文字會送到 Microsoft Azure 的 AI 服務（Azure OpenAI、Azure Speech）處理，不會被用來訓練模型，但可能保留最多 30 天以偵測濫用。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。",
     "notReadyBack": "我的教材",
     "notReadyTitle": "這個練習還在準備中",
     "notReadyIntro": "講解或音檔還沒有全部產生（可能是建立時中斷了，或當天用量用完）。按「繼續產生」完成後，就會直接開始練習。",

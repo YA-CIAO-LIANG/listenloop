@@ -545,3 +545,34 @@
   - 供應者：`lib/ai/azure-speech.ts`、`lib/ai/providers.ts`；
   - 重試：`components/practice-generation.ts` 的 `BUSY_RETRY_SECONDS`；
   - 範例：`scripts/voice-samples.mts`（預設只印預估，加 `--yes` 才呼叫）。
+
+## D40 AI 文字改用 Azure OpenAI gpt-5-mini（2026-11-06，e+ 6 PR 3）
+
+- **決定**：
+  - **API**：Azure OpenAI 的 v1 chat completions（`{endpoint}/openai/v1/chat/completions`），header `api-key`，`model` 填部署名稱。不加 SDK 套件。
+  - **結構化輸出**：`response_format` 用 `json_schema`、`strict: true`。四個 schema（翻譯、講解、斷句、生成）在 `AZURE_SCHEMAS`，每個物件的欄位都必填，也不允許其他欄位（strict 模式的要求）。
+  - **提示詞**：抽到 `lib/ai/prompts.ts`，Gemini 和 Azure 共用同一份。`PROMPT_VERSION` 仍然是 1，所以 Gemini 的快取不受影響。
+  - **模型設定**（`AZURE_MODEL_SETTINGS`）：
+    - gpt-5-mini 是推理模型：送 `reasoning_effort: "minimal"`，節省推理 token；不能設定 temperature，所以「生成文字」的變化度用模型預設；
+    - gpt-4.1-mini（備選）送 temperature（翻譯 0.2、生成 0.9）。
+  - **只用有價格的模型**：`AZURE_OPENAI_MODEL` 必須同時在 `AZURE_MODEL_SETTINGS` 和 `LANGUAGE_PRICES` 裡，否則視為沒有設定，建立練習會關閉，避免出現沒有計費的呼叫（D38）。
+  - **端點**：只接受 https，而且主機是 `*.openai.azure.com` 或 `*.cognitiveservices.azure.com`。
+  - **失敗**：
+    - `finish_reason` 是 `length`（被輸出上限截斷）、`content_filter`，或模型拒絕、回答不是 JSON，都算失敗；
+    - 這些失敗仍然回報用量，照實際用量扣額度；
+    - HTTP 錯誤的分類同 D39。
+  - **預設**：`AI_LANGUAGE_PROVIDER` 預設 `azure`；設成 `google` 可以改回 Gemini。
+  - **隱私權政策**（2026-11-06 更新）：
+    - 文字送到 Azure OpenAI 和 Azure Speech，不會被用來訓練模型；
+    - Azure OpenAI 為了偵測濫用，可能保留最多 30 天，而且 Global Standard 部署可能在 Microsoft 任何區域處理；
+    - Azure Speech 在阿拉伯聯合大公國處理。
+- **理由**：
+  - gpt-5-mini 是學生方案區域（UAE North）唯一可以部署、價格又低的新模型（D37）；
+  - strict JSON schema 讓模型一定照格式回答，`lib/custom-practice/` 仍然會檢查每一筆內容；
+  - 提示詞共用，換供應者時教學內容不變。
+- **要改時**：
+  - `lib/ai/azure-openai.ts`（模型設定、schema）；
+  - `lib/ai/prompts.ts`（改了要調高 `PROMPT_VERSION`）；
+  - `lib/ai/pricing.ts`；
+  - `lib/ai/providers.ts`；
+  - 隱私權政策（`messages/*.json` 的 `privacy`）。
