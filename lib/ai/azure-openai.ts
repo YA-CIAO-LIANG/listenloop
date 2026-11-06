@@ -60,7 +60,7 @@ export function azureEndpoint(value: string): string | null {
     const url = new URL(value);
     if (
       url.protocol !== "https:" ||
-      !/\.(openai\.azure\.com|cognitiveservices\.azure\.com)$/.test(
+      !/\.(openai\.azure\.com|cognitiveservices\.azure\.com|services\.ai\.azure\.com)$/.test(
         url.hostname,
       )
     ) {

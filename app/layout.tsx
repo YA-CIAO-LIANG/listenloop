@@ -3,7 +3,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { canCreatePractices } from "@/auth/creator";
-import { isAdminEmail } from "@/lib/admin";
 import { getSignedInUser } from "@/auth/session";
 import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
@@ -49,8 +48,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             accounts={accountsEnabled}
           >
             <SiteHeader
-              showMaterials={canCreatePractices(user)}
-              showNotebooks={!!user && isAdminEmail(user.email)}
+              showMaterials={!!user}
+              showCreate={canCreatePractices(user)}
               account={
                 accountsEnabled && (
                   // useSearchParams inside: Suspense keeps the page renderable.

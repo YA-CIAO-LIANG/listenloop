@@ -1,7 +1,9 @@
 import { describe, expect, it, vi } from "vitest";
 import { fakeSpeech, fakeLanguage } from "@/lib/ai/fake";
 import { meteredSpeech } from "@/lib/ai/metered";
-import { getAiProviders } from "@/lib/ai/providers";
+import { diagnoseAiProviders, getAiProviders } from "@/lib/ai/providers";
+import en from "@/messages/en.json";
+import zh from "@/messages/zh-Hant.json";
 import {
   parseVoiceId,
   ProviderError,
@@ -43,6 +45,88 @@ describe("getAiProviders", () => {
     expect(
       getAiProviders({ AI_PROVIDERS: "fake", VERCEL_ENV: "production" }),
     ).toBeNull();
+  });
+});
+
+const azure = {
+  AZURE_OPENAI_ENDPOINT: "https://listenloop-ai.openai.azure.com",
+  AZURE_OPENAI_API_KEY: "key",
+  AZURE_OPENAI_DEPLOYMENT: "gpt-5-mini",
+  AZURE_OPENAI_MODEL: "gpt-5-mini",
+  AZURE_SPEECH_KEY: "key",
+  AZURE_SPEECH_REGION: "uaenorth",
+};
+
+describe("provider setup (D47)", () => {
+  it("uses Azure by default when its variables are set", () => {
+    const providers = getAiProviders(azure);
+    expect(providers?.speech.id).toBe("azure-tts/neural/v1");
+    expect(providers?.language.id).toContain("gpt-5-mini");
+  });
+
+  it("forgives quotes, spaced regions, and capitals", () => {
+    expect(
+      getAiProviders({
+        ...azure,
+        AZURE_OPENAI_ENDPOINT: '"https://listenloop-ai.openai.azure.com/"',
+        AZURE_OPENAI_MODEL: "GPT-5-mini",
+        AZURE_SPEECH_REGION: "UAE North",
+        AI_LANGUAGE_PROVIDER: "Azure",
+      }),
+    ).not.toBeNull();
+  });
+
+  it("takes a Foundry endpoint", () => {
+    expect(
+      getAiProviders({
+        ...azure,
+        AZURE_OPENAI_ENDPOINT: "https://listenloop-ai.services.ai.azure.com/",
+      }),
+    ).not.toBeNull();
+  });
+
+  it("names each failed condition, never a value", () => {
+    const { language, speech, fake } = diagnoseAiProviders({
+      ...azure,
+      AZURE_OPENAI_MODEL: "gpt-9",
+      AZURE_SPEECH_KEY: " ",
+      AI_PROVIDERS: "fake",
+      VERCEL_ENV: "production",
+    });
+    expect(fake).toBe("blocked");
+    const failed = [...language.checks, ...speech.checks]
+      .filter((check) => !check.ok)
+      .map((check) => check.id);
+    expect(failed).toEqual(["modelPriced", "AZURE_SPEECH_KEY"]);
+    expect(JSON.stringify(language.checks)).not.toContain("gpt-9");
+  });
+
+  it("flags a misspelled vendor", () => {
+    const { language } = diagnoseAiProviders({
+      ...azure,
+      AI_LANGUAGE_PROVIDER: "gemini",
+    });
+    expect(language.vendor).toBeNull();
+    expect(language.provider).toBeNull();
+  });
+
+  it("has a label for every check, in both languages", () => {
+    const ids = new Set(["admin", "supabase", "serviceKey", "notFake"]);
+    ids.add("fakeInUse");
+    ids.add("languageChoice").add("speechChoice");
+    for (const vendor of ["azure", "google"]) {
+      const { language, speech } = diagnoseAiProviders({
+        AI_LANGUAGE_PROVIDER: vendor,
+        AI_SPEECH_PROVIDER: vendor,
+      });
+      for (const check of [...language.checks, ...speech.checks]) {
+        ids.add(check.id);
+      }
+    }
+    for (const messages of [en, zh]) {
+      const labels = messages.adminUsage.diagnosis.checks;
+      for (const id of ids) expect(labels).toHaveProperty([id]);
+    }
   });
 });
 

@@ -5,8 +5,8 @@
     "myPractices": "Progress",
     "explore": "Shared",
     "mainNav": "Main",
-    "notebooks": "Notebooks",
-    "materials": "My materials"
+    "materials": "My materials",
+    "createPractice": "Create a practice"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -887,12 +887,14 @@
     "title": "My materials",
     "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the recommended practices. Admins only for now.",
     "create": "Create a practice",
-    "createUnavailable": "The speech and translation services aren't connected yet, so new practices can't be created for now.",
+    "createUnavailable": "Creating practices is off: a setup condition isn't met. See \"Setup check\" on the API usage page for which one.",
     "removed": "Taken down by an admin (reason: {reason}). It's no longer public; only you can see it, and it can't be made public again.",
     "reviewReports": "Review reports ({count} open) →",
     "usageLink": "API usage →",
     "edit": "Edit",
-    "editLabel": "Edit \"{title}\""
+    "editLabel": "Edit \"{title}\"",
+    "notOpenTitle": "Creating practices isn’t open yet",
+    "notOpen": "Making your own practices is for admins only for now. Once it opens, the practices you make will be listed here."
   },
   "explore": {
     "title": "Shared materials",
@@ -1007,7 +1009,46 @@
     },
     "tokens": "{input} / {output}",
     "ok": "OK",
-    "failed": "Failed ({reason})"
+    "failed": "Failed ({reason})",
+    "diagnosis": {
+      "title": "Setup check",
+      "intro": "Creating practices needs every condition below. This shows only whether each one holds, never a value. After changing environment variables on Vercel, redeploy for them to take effect.",
+      "ready": "All set: practices can be created.",
+      "notReady": "A condition isn't met, so creating practices is off.",
+      "pass": "Yes",
+      "fail": "No",
+      "groups": {
+        "account": "Account and database",
+        "language": "AI text: {vendor}",
+        "speech": "Speech: {vendor}"
+      },
+      "vendors": {
+        "azure": "Azure",
+        "google": "Google",
+        "unknown": "not recognized",
+        "fake": "fake providers"
+      },
+      "checks": {
+        "admin": "Your email is in ADMIN_EMAILS",
+        "supabase": "The Supabase URL and public key are set",
+        "serviceKey": "SUPABASE_SERVICE_ROLE_KEY is set",
+        "notFake": "AI_PROVIDERS=fake isn’t set on the production site",
+        "languageChoice": "AI_LANGUAGE_PROVIDER is unset, azure, or google",
+        "speechChoice": "AI_SPEECH_PROVIDER is unset, azure, or google",
+        "AZURE_OPENAI_ENDPOINT": "AZURE_OPENAI_ENDPOINT is set",
+        "endpointValid": "The endpoint is an https:// Azure URL",
+        "AZURE_OPENAI_API_KEY": "AZURE_OPENAI_API_KEY is set",
+        "AZURE_OPENAI_DEPLOYMENT": "AZURE_OPENAI_DEPLOYMENT is set",
+        "AZURE_OPENAI_MODEL": "AZURE_OPENAI_MODEL is set",
+        "modelPriced": "AZURE_OPENAI_MODEL is a model with known prices (gpt-5-mini or gpt-4.1-mini)",
+        "GEMINI_API_KEY": "GEMINI_API_KEY is set",
+        "AZURE_SPEECH_KEY": "AZURE_SPEECH_KEY is set",
+        "AZURE_SPEECH_REGION": "AZURE_SPEECH_REGION is set",
+        "regionValid": "AZURE_SPEECH_REGION is a region code (such as uaenorth)",
+        "GOOGLE_CLOUD_API_KEY": "GOOGLE_CLOUD_API_KEY is set",
+        "fakeInUse": "Using the fake providers (AI_PROVIDERS=fake, local and preview only)"
+      }
+    }
   },
   "generate": {
     "sourceLegend": "Text source",

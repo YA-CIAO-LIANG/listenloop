@@ -5,8 +5,8 @@
     "myPractices": "學習進度",
     "explore": "公開教材",
     "mainNav": "主要導覽",
-    "notebooks": "筆記本",
-    "materials": "我的教材"
+    "materials": "我的教材",
+    "createPractice": "建立練習"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -885,12 +885,14 @@
     "title": "我的教材",
     "intro": "你建立的練習和 Collection。每份練習都和推薦練習一樣，走七天的循環。目前只開放給管理員。",
     "create": "建立練習",
-    "createUnavailable": "還沒有接上聲音和翻譯服務，暫時無法建立新的練習。",
+    "createUnavailable": "建立練習目前關閉：有設定條件不成立，請到「API 用量」頁的「設定診斷」查看是哪一項。",
     "removed": "已被管理員下架（原因：{reason}）。這份練習不再公開，只有你看得到，也不能再設為公開。",
     "reviewReports": "檢舉審查（{count} 份練習待處理）→",
     "usageLink": "API 用量 →",
     "edit": "編輯",
-    "editLabel": "編輯「{title}」"
+    "editLabel": "編輯「{title}」",
+    "notOpenTitle": "建立練習還沒開放",
+    "notOpen": "建立自己的練習目前只開放給管理員。開放後，你建立的練習會列在這裡。"
   },
   "explore": {
     "title": "公開教材",
@@ -1005,7 +1007,46 @@
     },
     "tokens": "{input}／{output}",
     "ok": "成功",
-    "failed": "失敗（{reason}）"
+    "failed": "失敗（{reason}）",
+    "diagnosis": {
+      "title": "設定診斷",
+      "intro": "建立練習需要下列條件全部成立。這裡只顯示每一項是否成立，不顯示任何設定值。改了 Vercel 的環境變數後，要重新部署才會生效。",
+      "ready": "全部成立：可以建立練習。",
+      "notReady": "有條件不成立，建立練習目前關閉。",
+      "pass": "成立",
+      "fail": "不成立",
+      "groups": {
+        "account": "帳號與資料庫",
+        "language": "AI 文字：{vendor}",
+        "speech": "聲音：{vendor}"
+      },
+      "vendors": {
+        "azure": "Azure",
+        "google": "Google",
+        "unknown": "無法辨識",
+        "fake": "假的供應者"
+      },
+      "checks": {
+        "admin": "你的 email 在 ADMIN_EMAILS 裡",
+        "supabase": "已設定 Supabase 的網址和公開金鑰",
+        "serviceKey": "已設定 SUPABASE_SERVICE_ROLE_KEY",
+        "notFake": "正式站沒有設定 AI_PROVIDERS=fake",
+        "languageChoice": "AI_LANGUAGE_PROVIDER 沒有設定，或是 azure、google",
+        "speechChoice": "AI_SPEECH_PROVIDER 沒有設定，或是 azure、google",
+        "AZURE_OPENAI_ENDPOINT": "已設定 AZURE_OPENAI_ENDPOINT",
+        "endpointValid": "端點是 https:// 開頭的 Azure 網址",
+        "AZURE_OPENAI_API_KEY": "已設定 AZURE_OPENAI_API_KEY",
+        "AZURE_OPENAI_DEPLOYMENT": "已設定 AZURE_OPENAI_DEPLOYMENT",
+        "AZURE_OPENAI_MODEL": "已設定 AZURE_OPENAI_MODEL",
+        "modelPriced": "AZURE_OPENAI_MODEL 是有價格資料的模型（gpt-5-mini 或 gpt-4.1-mini）",
+        "GEMINI_API_KEY": "已設定 GEMINI_API_KEY",
+        "AZURE_SPEECH_KEY": "已設定 AZURE_SPEECH_KEY",
+        "AZURE_SPEECH_REGION": "已設定 AZURE_SPEECH_REGION",
+        "regionValid": "AZURE_SPEECH_REGION 是區域代碼（例如 uaenorth）",
+        "GOOGLE_CLOUD_API_KEY": "已設定 GOOGLE_CLOUD_API_KEY",
+        "fakeInUse": "使用假的供應者（AI_PROVIDERS=fake，只用在本機和預覽）"
+      }
+    }
   },
   "generate": {
     "sourceLegend": "文字來源",
