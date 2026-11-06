@@ -29,11 +29,18 @@ export type TranslateSentences = (
  * the bar never moves on its own:
  * - split: the text is being split (one call, no count yet);
  * - translate: `done` of `total` sentences translated;
- * - notes / audio: `done` of `total` sentences have notes / audio.
+ * - notes / audio: `done` of `total` sentences have notes / audio;
+ *   `waitSeconds` when the speech service is busy and the next batch
+ *   waits that long first (D39).
  */
 export type Stage =
   | { stage: "split" }
-  | { stage: "translate" | "notes" | "audio"; done: number; total: number };
+  | {
+      stage: "translate" | "notes" | "audio";
+      done: number;
+      total: number;
+      waitSeconds?: number;
+    };
 
 /**
  * The whole job's progress, 0–100. Preparing a draft is splitting then
@@ -134,20 +141,56 @@ async function runBatches<R extends { ok: boolean }>(
   }
 }
 
-/** Every sentence's audio, batch by batch (AUDIO_BATCH_SIZE per call). */
-export function generateAllAudio(
+/**
+ * How long to wait after the speech service says it's busy, before each
+ * retry in turn (D39). Azure Speech's free tier takes 20 requests a
+ * minute, so a long practice goes in waves; a retry that gets further
+ * starts the waits over.
+ */
+export const BUSY_RETRY_SECONDS = [20, 30, 60, 60] as const;
+
+const sleep = (seconds: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, seconds * 1000));
+
+/**
+ * Every sentence's audio, batch by batch (AUDIO_BATCH_SIZE per call).
+ * When the service is busy, waits and tries again (BUSY_RETRY_SECONDS),
+ * telling `onWait` how long first; gives up as "busy" after the last.
+ */
+export async function generateAllAudio(
   generate: GenerateAudio,
   practiceId: string,
   onProgress: (voiced: number, total: number) => void,
+  {
+    onWait = () => {},
+    wait = sleep,
+  }: {
+    onWait?: (seconds: number) => void;
+    wait?: (seconds: number) => Promise<void>;
+  } = {},
 ): Promise<GenerateAudioResult> {
-  return runBatches(
-    () => generate(practiceId),
-    (result) =>
-      result.voiced !== undefined && result.total !== undefined
-        ? { done: result.voiced, total: result.total }
-        : null,
-    onProgress,
-  );
+  let retries = 0;
+  let best = -1;
+  for (;;) {
+    const result = await runBatches(
+      () => generate(practiceId),
+      (result) =>
+        result.voiced !== undefined && result.total !== undefined
+          ? { done: result.voiced, total: result.total }
+          : null,
+      onProgress,
+    );
+    if (result.ok || result.reason !== "busy") return result;
+    const voiced = "voiced" in result ? (result.voiced ?? -1) : -1;
+    if (voiced > best) {
+      best = voiced;
+      retries = 0;
+    }
+    const seconds = BUSY_RETRY_SECONDS[retries++];
+    if (seconds === undefined) return result;
+    onWait(seconds);
+    await wait(seconds);
+  }
 }
 
 /** The practice's notes, chunk by chunk (NOTES_CHUNK sentences per call). */
@@ -196,10 +239,18 @@ export async function prepareForPractice(
     );
     if (!notes.ok) return { ok: false, stage: "notes", reason: notes.reason };
   }
+  let voiced = { done: 0, total };
   const audio = await generateAllAudio(
     actions.generate,
     practiceId,
-    (done, total) => onStage({ stage: "audio", done, total }),
+    (done, total) => {
+      voiced = { done, total };
+      onStage({ stage: "audio", ...voiced });
+    },
+    {
+      onWait: (waitSeconds) =>
+        onStage({ stage: "audio", ...voiced, waitSeconds }),
+    },
   );
   return audio.ok
     ? { ok: true }

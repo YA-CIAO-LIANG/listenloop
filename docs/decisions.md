@@ -511,3 +511,37 @@
   - 輸出上限：`lib/ai/budgets.ts`；
   - 頁面：`app/admin/usage/page.tsx`、`lib/usage-report.ts`；
   - 資料表：`supabase/migrations/20261105090000_api_cost.sql`、`20261105100000_api_usage_totals.sql`。
+
+## D39 聲音改用 Azure Speech（F0）；忙碌時自動等待（2026-11-05，e+ 6 PR 2）
+
+- **決定**：
+  - **供應者**：Azure Speech 的 REST API，一句一個請求，輸出 MP3（`audio-24khz-48kbitrate-mono-mp3`）。不加 SDK 套件，和 D28 的做法一致。
+    - 文字放進 SSML 前先做 XML 跳脫，文字只會被念出來，不會被當成標記；
+    - 區域只接受小寫英文字母和數字，避免網址被注入。
+  - **聲音**：每個口音一女一男，都是一般的 Neural 語音。HD 語音沒有 en-AU 和 en-IN。2026-11-05 用 uaenorth 的語音清單 API 確認 8 個都是 GA；這個 API 免費，不算字元：
+
+    | 口音 | 女聲    | 男聲    |
+    | ---- | ------- | ------- |
+    | 美式 | Ava     | Andrew  |
+    | 英式 | Sonia   | Ryan    |
+    | 澳洲 | Natasha | William |
+    | 印度 | Neerja  | Prabhat |
+
+  - **聲音選單的名字**：改用 Azure 的名字（例如「Ava」），由 `voiceDisplayName` 從 `AZURE_VOICES` 取出。試聽範例要在 PR 4 用 Azure 重新產生，在那之前播放的還是舊的 Chirp 3 HD 範例。
+  - **切換**：`AI_SPEECH_PROVIDER` 是 `azure`（預設）或 `google`；`AI_LANGUAGE_PROVIDER` 在 PR 3 之前預設 `google`。值拼錯時視為沒有設定，建立練習會關閉，不會悄悄改用另一家。
+  - **快取**：供應者 id 是 `azure-tts/neural/v1`，不會沿用 Chirp 3 HD 的音檔。
+  - **錯誤**：401、403（包括 F0 每月額度用完、學生額度用完）是設定問題；429、503 是忙碌。內容過濾（400 加上 `content_filter`）算失敗，因為問題在文字本身，不在設定。這部分寫在共用的 `postToProvider`（`lib/ai/http.ts`）。
+  - **忙碌時自動等待**：F0 每 60 秒最多 20 次請求，而且不能調高（官方 quotas 頁，2026-11-05）。
+    - 一批音檔遇到 429 時，瀏覽器依序等 20、30、60、60 秒後再試；
+    - 只要有新的進度，等待就重新從 20 秒開始；
+    - 等待時，進度條顯示「語音服務忙碌，20 秒後自動繼續（4/12 句）」；
+    - 四次都失敗才顯示「忙碌」。
+  - **每日上限**：16,000 字元（D38）。
+- **理由**：
+  - 遇到 429 時退避重試，是 Azure 官方建議的做法；
+  - 用浮動的等待時間，比固定每 3 秒送一次單純，也不會在不忙的時候拖慢速度。
+- **要改時**：
+  - 聲音：`lib/ai/voices.ts`（`AZURE_VOICES`；改了要調高 `AZURE_TTS_ID`，並重新產生範例）；
+  - 供應者：`lib/ai/azure-speech.ts`、`lib/ai/providers.ts`；
+  - 重試：`components/practice-generation.ts` 的 `BUSY_RETRY_SECONDS`；
+  - 範例：`scripts/voice-samples.mts`（預設只印預估，加 `--yes` 才呼叫）。

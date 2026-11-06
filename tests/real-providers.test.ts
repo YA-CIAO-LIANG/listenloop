@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { GEMINI_MODEL, geminiLanguage } from "@/lib/ai/gemini";
+import { azureSpeech, isAzureRegion } from "@/lib/ai/azure-speech";
 import { googleSpeech } from "@/lib/ai/google-tts";
 import { getAiProviders } from "@/lib/ai/providers";
 import {
@@ -10,7 +11,7 @@ import {
   VOICE_GENDERS,
   voiceId,
 } from "@/lib/ai/types";
-import { GOOGLE_VOICES } from "@/lib/ai/voices";
+import { AZURE_VOICES, GOOGLE_VOICES } from "@/lib/ai/voices";
 
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), {
@@ -241,7 +242,7 @@ describe("Cloud Text-to-Speech", () => {
 
 describe("voice samples", () => {
   it("has an MP3 sample for every voice card", () => {
-    for (const id of Object.keys(GOOGLE_VOICES)) {
+    for (const id of Object.keys(AZURE_VOICES)) {
       const file = readFileSync(join("public", "voices", `${id}.mp3`));
       // An MP3 starts with an ID3 tag or an MPEG frame sync.
       const id3 = file.subarray(0, 3).toString("latin1") === "ID3";
@@ -252,27 +253,145 @@ describe("voice samples", () => {
 });
 
 describe("getAiProviders with real keys", () => {
-  it("uses Gemini and Cloud TTS when both keys are set", () => {
-    const providers = getAiProviders({
-      GEMINI_API_KEY: "g",
-      GOOGLE_CLOUD_API_KEY: "c",
-    });
+  const google = { GEMINI_API_KEY: "g", GOOGLE_CLOUD_API_KEY: "c" };
+  const azureSpeechKeys = {
+    AZURE_SPEECH_KEY: "s",
+    AZURE_SPEECH_REGION: "uaenorth",
+  };
+
+  it("uses Gemini and Azure Speech by default", () => {
+    const providers = getAiProviders({ ...google, ...azureSpeechKeys });
     expect(providers?.language.id).toBe(`gemini/${GEMINI_MODEL}/p1`);
+    expect(providers?.speech.id).toBe("azure-tts/neural/v1");
+  });
+
+  it("can switch speech back to Cloud TTS", () => {
+    const providers = getAiProviders({
+      ...google,
+      AI_SPEECH_PROVIDER: "google",
+    });
     expect(providers?.speech.id).toBe("google-tts/chirp3-hd/v1");
   });
 
-  it("is off with either key missing", () => {
-    expect(getAiProviders({ GEMINI_API_KEY: "g" })).toBeNull();
-    expect(getAiProviders({ GOOGLE_CLOUD_API_KEY: "c" })).toBeNull();
+  it("is off with a key, region, or provider missing or wrong", () => {
+    expect(getAiProviders(google)).toBeNull();
+    expect(getAiProviders(azureSpeechKeys)).toBeNull();
+    expect(getAiProviders({ ...google, AZURE_SPEECH_KEY: "s" })).toBeNull();
+    expect(
+      getAiProviders({
+        ...google,
+        ...azureSpeechKeys,
+        AZURE_SPEECH_REGION: "uae north/../x",
+      }),
+    ).toBeNull();
+    expect(
+      getAiProviders({
+        ...google,
+        ...azureSpeechKeys,
+        AI_SPEECH_PROVIDER: "azur",
+      }),
+    ).toBeNull();
+    expect(
+      getAiProviders({ ...google, AI_LANGUAGE_PROVIDER: "openai" }),
+    ).toBeNull();
   });
 
   it("lets AI_PROVIDERS=fake override the keys, except in production", () => {
-    const keys = {
-      GEMINI_API_KEY: "g",
-      GOOGLE_CLOUD_API_KEY: "c",
-      AI_PROVIDERS: "fake",
-    };
+    const keys = { ...google, ...azureSpeechKeys, AI_PROVIDERS: "fake" };
     expect(getAiProviders(keys)?.language.id).toBe("fake");
     expect(getAiProviders({ ...keys, VERCEL_ENV: "production" })).toBeNull();
+  });
+});
+
+describe("Azure Speech", () => {
+  const audio = (bytes: number[]) =>
+    new Response(new Uint8Array(bytes), {
+      status: 200,
+      headers: { "content-type": "audio/mpeg" },
+    });
+
+  it("posts escaped SSML in the mapped voice and returns the MP3", async () => {
+    const fetchImpl = vi.fn(async () => audio([0xff, 0xf3, 1, 2]));
+    const { value, usage } = await azureSpeech(
+      "secret-key",
+      "uaenorth",
+      fetchImpl,
+    ).synthesize(`Tom & "Ann" <said> it's 5 > 3.`, {
+      accent: "au",
+      gender: "female",
+    });
+    expect([...value.data]).toEqual([0xff, 0xf3, 1, 2]);
+    expect(value.mimeType).toBe("audio/mpeg");
+    // F0 is free; the characters are what the free tier counts.
+    expect(usage).toEqual({
+      inputTokens: 0,
+      outputTokens: 0,
+      chars: 30,
+      costUsd: 0,
+    });
+    const [url, init] = fetchImpl.mock.calls[0] as unknown as [
+      string,
+      RequestInit,
+    ];
+    expect(url).toBe(
+      "https://uaenorth.tts.speech.microsoft.com/cognitiveservices/v1",
+    );
+    expect(url).not.toContain("secret-key");
+    const headers = init.headers as Record<string, string>;
+    expect(headers["ocp-apim-subscription-key"]).toBe("secret-key");
+    expect(headers["x-microsoft-outputformat"]).toBe(
+      "audio-24khz-48kbitrate-mono-mp3",
+    );
+    expect(init.body).toBe(
+      '<speak version="1.0" xml:lang="en-AU"><voice name="en-AU-NatashaNeural">Tom &amp; &quot;Ann&quot; &lt;said&gt; it&apos;s 5 &gt; 3.</voice></speak>',
+    );
+  });
+
+  it("refuses a region that isn't one", () => {
+    expect(() => azureSpeech("k", "evil.example.com/x")).toThrow();
+    expect(isAzureRegion("uaenorth")).toBe(true);
+  });
+
+  it.each([
+    [401, "config"],
+    [403, "config"],
+    [429, "busy"],
+    [500, "failed"],
+  ] as const)("maps HTTP %i to %s", async (status, code) => {
+    const tts = azureSpeech(
+      "k",
+      "uaenorth",
+      vi.fn(async () => new Response("", { status })),
+    );
+    await expect(
+      tts.synthesize("Hi.", { accent: "us", gender: "male" }),
+    ).rejects.toMatchObject({ code });
+  });
+
+  it("fails on an empty answer", async () => {
+    const tts = azureSpeech(
+      "k",
+      "uaenorth",
+      vi.fn(async () => audio([])),
+    );
+    await expect(
+      tts.synthesize("Hi.", { accent: "us", gender: "male" }),
+    ).rejects.toMatchObject({ code: "failed" });
+  });
+
+  it("uses a GA neural voice of the right accent for every choice", () => {
+    for (const accent of VOICE_ACCENTS) {
+      for (const gender of VOICE_GENDERS) {
+        const voice =
+          AZURE_VOICES[
+            voiceId({ accent, gender }) as keyof typeof AZURE_VOICES
+          ];
+        const locale = { us: "en-US", gb: "en-GB", au: "en-AU", in: "en-IN" }[
+          accent
+        ];
+        expect(voice.locale).toBe(locale);
+        expect(voice.name).toMatch(new RegExp(`^${locale}-[A-Z][a-z]+Neural$`));
+      }
+    }
   });
 });
