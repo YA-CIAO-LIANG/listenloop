@@ -2,6 +2,7 @@ import { cache } from "react";
 import {
   customPracticeReadiness,
   materialFromCustomPractice,
+  materialFromSnapshot,
   parseCustomPracticeId,
   type CustomPracticeReadiness,
   type PracticeMaterial,
@@ -20,7 +21,10 @@ import { getSignedInUser } from "./session";
  *   yet (made before notes existed, or cut off while generating), so the
  *   page can offer to finish it instead of answering 404 (D32);
  * - null: nothing to show (404), including others' unfinished practices.
- * Cached per request, so a page and its metadata share one database read.
+ * `version` (from ?v=, D44) asks for an earlier version of a created
+ * practice, for a week that started on it; the latest is shown when it's
+ * the latest, or when that version wasn't kept. Cached per request, so a
+ * page and its metadata share one database read.
  */
 export type PracticeState =
   | { status: "ready"; material: PracticeMaterial }
@@ -33,7 +37,7 @@ export type PracticeState =
     };
 
 export const getPracticeState = cache(
-  async (id: string): Promise<PracticeState | null> => {
+  async (id: string, version?: number): Promise<PracticeState | null> => {
     const video = getVideo(id);
     if (video) return { status: "ready", material: video };
     const uuid = parseCustomPracticeId(id);
@@ -47,7 +51,7 @@ export const getPracticeState = cache(
       supabase
         .from("practices")
         .select(
-          "id, title, vocab, grammar, notes_generated_at, practice_sentences(i, en, zh, audio_path)",
+          "id, title, version, vocab, grammar, notes_generated_at, practice_sentences(i, en, zh, audio_path)",
         )
         .eq("id", uuid)
         .maybeSingle(),
@@ -63,6 +67,18 @@ export const getPracticeState = cache(
     ]);
     if (!data) return null;
     const mine = !!own?.data;
+    if (version !== undefined && version !== data.version) {
+      const { data: snapshot } = await supabase
+        .from("practice_versions")
+        .select("practice_id, version, title, sentences, vocab, grammar")
+        .eq("practice_id", uuid)
+        .eq("version", version)
+        .maybeSingle();
+      const earlier =
+        snapshot &&
+        materialFromSnapshot(snapshot, (path) => speechAudioUrl(path));
+      if (earlier) return { status: "ready", material: { ...earlier, mine } };
+    }
     const material = materialFromCustomPractice(data, (path) =>
       speechAudioUrl(path),
     );
@@ -80,8 +96,8 @@ export const getPracticeState = cache(
 
 /** The practicable material behind /videos/<id>, or null. */
 export const getPracticeMaterial = cache(
-  async (id: string): Promise<PracticeMaterial | null> => {
-    const state = await getPracticeState(id);
+  async (id: string, version?: number): Promise<PracticeMaterial | null> => {
+    const state = await getPracticeState(id, version);
     return state?.status === "ready" ? state.material : null;
   },
 );

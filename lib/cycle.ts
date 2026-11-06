@@ -142,13 +142,16 @@ export function startNextWeek(progress: Progress, today: LocalDate): Progress {
   if (progress.status !== "repeat") {
     throw new Error("Only a week that needs repeating can start again");
   }
-  return {
+  const next: Progress = {
     ...progress,
     week: progress.week + 1,
     startedAt: today,
     days: {},
     status: "in-progress",
   };
+  // The new week takes the practice's latest version when it starts (D44).
+  delete next.materialVersion;
+  return next;
 }
 
 /**

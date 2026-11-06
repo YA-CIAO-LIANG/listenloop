@@ -42,6 +42,13 @@ export type Progress = {
   status: ProgressStatus;
   /** Finished weeks, oldest first. */
   history: WeekSummary[];
+  /**
+   * The version of a created practice this week uses (D44), set when the
+   * week's first day starts; a new week takes the latest. Missing on
+   * built-in videos, and on weeks begun before versions existed, which
+   * all used version 1.
+   */
+  materialVersion?: number;
 };
 
 export function createProgress(videoId: string, today: LocalDate): Progress {
@@ -130,5 +137,40 @@ export function parseProgress(data: unknown): Progress | null {
     if (!/^[1-7]$/.test(key) || !isDayRecord(record)) return null;
   }
   if (!Array.isArray(history) || !history.every(isWeekSummary)) return null;
+  if (
+    data.materialVersion !== undefined &&
+    !isPositiveInteger(data.materialVersion)
+  ) {
+    return null;
+  }
   return data as Progress;
+}
+
+/**
+ * The practice version this week uses (D44), or undefined when it isn't
+ * fixed yet (no week, or a week with nothing done) or the material has no
+ * versions. A week begun before versions existed used version 1.
+ */
+export function pinnedVersion(progress: Progress | null): number | undefined {
+  if (!progress) return undefined;
+  if (progress.materialVersion !== undefined) return progress.materialVersion;
+  return Object.keys(progress.days).length > 0 ? 1 : undefined;
+}
+
+/**
+ * Fixes the week to `version` when it starts: only a week with nothing
+ * done yet and no version set. Anything else is returned as is.
+ */
+export function pinVersion(
+  progress: Progress,
+  version: number | undefined,
+): Progress {
+  if (
+    version === undefined ||
+    progress.materialVersion !== undefined ||
+    Object.keys(progress.days).length > 0
+  ) {
+    return progress;
+  }
+  return { ...progress, materialVersion: version };
 }

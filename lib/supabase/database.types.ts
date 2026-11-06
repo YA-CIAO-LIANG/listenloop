@@ -309,6 +309,44 @@ export type Database = {
           },
         ];
       };
+      practice_versions: {
+        Row: {
+          created_at: string;
+          grammar: Json;
+          practice_id: string;
+          sentences: Json;
+          title: string;
+          version: number;
+          vocab: Json;
+        };
+        Insert: {
+          created_at?: string;
+          grammar: Json;
+          practice_id: string;
+          sentences: Json;
+          title: string;
+          version: number;
+          vocab: Json;
+        };
+        Update: {
+          created_at?: string;
+          grammar?: Json;
+          practice_id?: string;
+          sentences?: Json;
+          title?: string;
+          version?: number;
+          vocab?: Json;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "practice_versions_practice_id_fkey";
+            columns: ["practice_id"];
+            isOneToOne: false;
+            referencedRelation: "practices";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       practices: {
         Row: {
           collection_id: string | null;
@@ -322,6 +360,7 @@ export type Database = {
           title: string;
           updated_at: string;
           user_id: string;
+          version: number;
           visibility: string;
           vocab: Json;
           voice: string | null;
@@ -338,6 +377,7 @@ export type Database = {
           title: string;
           updated_at?: string;
           user_id?: string;
+          version?: number;
           visibility?: string;
           vocab?: Json;
           voice?: string | null;
@@ -354,6 +394,7 @@ export type Database = {
           title?: string;
           updated_at?: string;
           user_id?: string;
+          version?: number;
           visibility?: string;
           vocab?: Json;
           voice?: string | null;
