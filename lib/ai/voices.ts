@@ -48,10 +48,36 @@ export const GOOGLE_VOICES: Record<
 };
 
 /**
- * The speaker's name shown in the voice menu, e.g. "Kore" for
- * "en-US-Chirp3-HD-Kore" (e+ 3), or null for an unknown voice id.
+ * Azure Speech neural voices for each of our 8 voices (D39): standard
+ * neural voices (HD voices don't cover en-AU or en-IN), one woman and one
+ * man per accent. All checked GA on 2026-11-05 with the voices list API
+ * in uaenorth. Change a name here to switch voices, bump AZURE_TTS_ID so
+ * cached audio isn't reused, and remake the samples (npm run
+ * voices:samples).
+ */
+export const AZURE_VOICES: Record<
+  `${VoiceAccent}-${VoiceGender}`,
+  { locale: string; name: string }
+> = {
+  "us-female": { locale: "en-US", name: "en-US-AvaNeural" },
+  "us-male": { locale: "en-US", name: "en-US-AndrewNeural" },
+  "gb-female": { locale: "en-GB", name: "en-GB-SoniaNeural" },
+  "gb-male": { locale: "en-GB", name: "en-GB-RyanNeural" },
+  "au-female": { locale: "en-AU", name: "en-AU-NatashaNeural" },
+  "au-male": { locale: "en-AU", name: "en-AU-WilliamNeural" },
+  "in-female": { locale: "en-IN", name: "en-IN-NeerjaNeural" },
+  "in-male": { locale: "en-IN", name: "en-IN-PrabhatNeural" },
+};
+
+/**
+ * The speaker's name shown in the voice menu, e.g. "Ava" for
+ * "en-US-AvaNeural" (e+ 3), or null for an unknown voice id. The names
+ * and the samples in public/voices/ are Azure's, the default speech
+ * provider (D39).
  */
 export function voiceDisplayName(id: string): string | null {
-  const voice = GOOGLE_VOICES[id as keyof typeof GOOGLE_VOICES];
-  return voice ? (voice.name.split("-").at(-1) ?? null) : null;
+  const voice = AZURE_VOICES[id as keyof typeof AZURE_VOICES];
+  return voice
+    ? voice.name.slice(voice.locale.length + 1).replace(/Neural$/, "")
+    : null;
 }

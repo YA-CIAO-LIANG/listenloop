@@ -310,7 +310,7 @@ describe("CreatePracticeForm", () => {
     await renderForm();
     fireEvent.click(screen.getByLabelText("AI 生成"));
     await click("生成文字");
-    expect(screen.getByRole("alert").textContent).toContain("支出上限");
+    expect(screen.getByRole("alert").textContent).toContain("額度用完");
   });
 
   it("can't split text over the length limit", async () => {

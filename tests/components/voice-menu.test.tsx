@@ -29,8 +29,8 @@ const menuButton = () => screen.getByRole("button", { name: /^聲音：/ });
 
 describe("voiceDisplayName", () => {
   it("is the speaker's name from the Google voice", () => {
-    expect(voiceDisplayName("us-female")).toBe("Kore");
-    expect(voiceDisplayName("in-male")).toBe("Charon");
+    expect(voiceDisplayName("us-female")).toBe("Ava");
+    expect(voiceDisplayName("in-male")).toBe("Prabhat");
     expect(voiceDisplayName("xx-female")).toBeNull();
   });
 });
@@ -38,7 +38,7 @@ describe("voiceDisplayName", () => {
 describe("VoiceMenu", () => {
   it("shows the chosen voice and opens grouped by accent", () => {
     renderMenu();
-    expect(menuButton().textContent).toBe("Kore · 女聲 · 美式英語");
+    expect(menuButton().textContent).toBe("Ava · 女聲 · 美式英語");
     expect(menuButton().getAttribute("aria-expanded")).toBe("false");
 
     fireEvent.click(menuButton());
@@ -50,14 +50,14 @@ describe("VoiceMenu", () => {
     expect(screen.getAllByRole("radio")).toHaveLength(8);
     // Focus lands on the chosen voice.
     expect(document.activeElement).toBe(
-      screen.getByRole("radio", { name: "Kore・女聲・美式英語" }),
+      screen.getByRole("radio", { name: "Ava・女聲・美式英語" }),
     );
   });
 
   it("chooses a voice with a click and closes", () => {
     const onChange = renderMenu();
     fireEvent.click(menuButton());
-    const radio = screen.getByRole("radio", { name: "Charon・男聲・英式英語" });
+    const radio = screen.getByRole("radio", { name: "Ryan・男聲・英式英語" });
     fireEvent.click(radio, { detail: 1 });
     expect(onChange).toHaveBeenCalledWith("gb-male");
     expect(menuButton().getAttribute("aria-expanded")).toBe("false");
@@ -67,7 +67,9 @@ describe("VoiceMenu", () => {
   it("stays open while arrow keys move between voices; Enter chooses", () => {
     const onChange = renderMenu();
     fireEvent.click(menuButton());
-    const radio = screen.getByRole("radio", { name: "Kore・女聲・澳洲英語" });
+    const radio = screen.getByRole("radio", {
+      name: "Natasha・女聲・澳洲英語",
+    });
     // Arrow keys check the next radio with a click of detail 0.
     fireEvent.click(radio, { detail: 0 });
     expect(onChange).toHaveBeenCalledWith("au-female");
@@ -95,12 +97,12 @@ describe("VoiceMenu", () => {
     const onChange = renderMenu();
     fireEvent.click(menuButton());
     const listen = screen.getByRole("button", {
-      name: "試聽Charon・男聲・印度英語",
+      name: "試聽Prabhat・男聲・印度英語",
     });
     await act(async () => fireEvent.click(listen));
     expect(listen.getAttribute("aria-pressed")).toBe("true");
     expect(
-      screen.getByRole("button", { name: "停止試聽Charon・男聲・印度英語" }),
+      screen.getByRole("button", { name: "停止試聽Prabhat・男聲・印度英語" }),
     ).toBe(listen);
     expect(onChange).not.toHaveBeenCalled();
     expect(menuButton().getAttribute("aria-expanded")).toBe("true");

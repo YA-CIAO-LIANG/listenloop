@@ -1,5 +1,8 @@
 import { describe, expect, it, vi } from "vitest";
-import { generateAllAudio } from "@/components/practice-generation";
+import {
+  BUSY_RETRY_SECONDS,
+  generateAllAudio,
+} from "@/components/practice-generation";
 import { fakeSpeech, fakeLanguage } from "@/lib/ai/fake";
 import type { SpeechAudio } from "@/lib/ai/types";
 import {
@@ -124,6 +127,60 @@ describe("generateAllAudio", () => {
       reason: "failed",
     });
     expect(stuck).toHaveBeenCalledTimes(2);
+  });
+
+  it("waits and continues while the speech service is busy", async () => {
+    const generate = vi
+      .fn()
+      .mockResolvedValueOnce({
+        ok: false,
+        reason: "busy",
+        voiced: 4,
+        total: 12,
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        reason: "busy",
+        voiced: 4,
+        total: 12,
+      })
+      .mockResolvedValueOnce({
+        ok: false,
+        reason: "busy",
+        voiced: 9,
+        total: 12,
+      })
+      .mockResolvedValueOnce({ ok: true, voiced: 12, total: 12 });
+    const waits: number[] = [];
+    const told: number[] = [];
+    expect(
+      await generateAllAudio(generate, "p1", () => {}, {
+        onWait: (seconds) => told.push(seconds),
+        wait: async (seconds) => {
+          waits.push(seconds);
+        },
+      }),
+    ).toEqual({ ok: true, voiced: 12, total: 12 });
+    // Progress (4 → 9) starts the waits over.
+    expect(waits).toEqual([20, 30, 20]);
+    expect(told).toEqual(waits);
+  });
+
+  it("gives up as busy after the last wait", async () => {
+    const generate = vi
+      .fn()
+      .mockResolvedValue({ ok: false, reason: "busy", voiced: 2, total: 9 });
+    const waits: number[] = [];
+    const wait = async (seconds: number) => {
+      waits.push(seconds);
+    };
+    expect(await generateAllAudio(generate, "p1", () => {}, { wait })).toEqual({
+      ok: false,
+      reason: "busy",
+      voiced: 2,
+      total: 9,
+    });
+    expect(waits).toEqual([...BUSY_RETRY_SECONDS]);
   });
 
   it("treats a thrown error as a failure", async () => {

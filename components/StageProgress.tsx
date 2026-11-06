@@ -23,7 +23,13 @@ export function StageProgress({
   const label =
     stage.stage === "split"
       ? t("split")
-      : t(stage.stage, { done: stage.done, total: stage.total });
+      : stage.waitSeconds
+        ? t("busy", {
+            seconds: stage.waitSeconds,
+            done: stage.done,
+            total: stage.total,
+          })
+        : t(stage.stage, { done: stage.done, total: stage.total });
   return (
     <div role="status" className={className}>
       <ProgressBar
