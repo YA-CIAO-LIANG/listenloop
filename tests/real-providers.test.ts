@@ -259,8 +259,12 @@ describe("getAiProviders with real keys", () => {
     AZURE_SPEECH_REGION: "uaenorth",
   };
 
-  it("uses Gemini and Azure Speech by default", () => {
-    const providers = getAiProviders({ ...google, ...azureSpeechKeys });
+  it("uses Gemini with Azure Speech when asked", () => {
+    const providers = getAiProviders({
+      ...google,
+      ...azureSpeechKeys,
+      AI_LANGUAGE_PROVIDER: "google",
+    });
     expect(providers?.language.id).toBe(`gemini/${GEMINI_MODEL}/p1`);
     expect(providers?.speech.id).toBe("azure-tts/neural/v1");
   });
@@ -268,6 +272,7 @@ describe("getAiProviders with real keys", () => {
   it("can switch speech back to Cloud TTS", () => {
     const providers = getAiProviders({
       ...google,
+      AI_LANGUAGE_PROVIDER: "google",
       AI_SPEECH_PROVIDER: "google",
     });
     expect(providers?.speech.id).toBe("google-tts/chirp3-hd/v1");
