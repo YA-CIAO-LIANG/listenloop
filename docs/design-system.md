@@ -385,6 +385,19 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
   - h2「已下架」→ 每列標題、「原因：侵權 · 日期」，右側 ghost、sm「恢復」。
 - **作者看到的下架**（「我的教材」的練習列）：清單資訊下方一行 supporting、error 色的「已被管理員下架（原因：侵權）……」，不再顯示「私人 / 公開」切換。
 
+### API 用量 `/admin/usage`（D38）
+
+- 只有管理員能看，其他人看到 404。入口在「我的教材」，「檢舉審查」連結的右邊，同樣是 accent-ink 底線連結「API 用量 →」。
+- h1 → 說明 → 4 張統計卡片：
+  - 360px 以下一欄，760px 以上兩欄，間距 16px；
+  - 卡片同 Card：surface 背景、1px line、4px 圓角、內距 16px；
+  - 卡片內：metadata 全大寫小標籤 → Display h2 等寬數字 → supporting、ink-muted 說明。
+- h2「最近 50 次呼叫」→ 表格：
+  - 上下 1px line，列之間 1px line，supporting 字級，數字等寬；
+  - 標題列 ink-muted、不加粗；
+  - 數字欄靠右；結果欄：成功是 success 色，失敗是 error 色並附上原因文字（不只靠顏色）；
+  - 窄螢幕時表格本身可以左右捲動（最小寬 40rem），頁面不會橫向捲動。
+
 ## 七天循環
 
 - 解鎖：Day 1 永遠開放；第 N 天在第 N−1 天完成後的**之後日曆日**開放（裝置當地日期）。已完成的天數一直可以回看與重練。`NEXT_PUBLIC_DEV_TEST_MODE=true` 時略過日期限制（仍需完成前一天），影片頁顯示 metadata 字級提示「測試模式：已略過日期限制」。

@@ -1,4 +1,6 @@
+import { countChars } from "@/lib/usage";
 import { postGoogleJson } from "./http";
+import { SPEECH_PRICES_PER_M_CHARS } from "./pricing";
 import { voiceId, type SpeechProvider } from "./types";
 import { GOOGLE_VOICES } from "./voices";
 
@@ -29,9 +31,18 @@ export function googleSpeech(
       if (typeof result.audioContent !== "string" || !result.audioContent) {
         throw new Error("Text-to-Speech: no audio in the response");
       }
+      const chars = countChars([text]);
       return {
-        data: Uint8Array.from(Buffer.from(result.audioContent, "base64")),
-        mimeType: "audio/mpeg",
+        value: {
+          data: Uint8Array.from(Buffer.from(result.audioContent, "base64")),
+          mimeType: "audio/mpeg",
+        },
+        usage: {
+          inputTokens: 0,
+          outputTokens: 0,
+          chars,
+          costUsd: (chars * SPEECH_PRICES_PER_M_CHARS.googleChirp3Hd) / 1e6,
+        },
       };
     },
   };

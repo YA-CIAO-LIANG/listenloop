@@ -813,7 +813,8 @@
     "create": "Create a practice",
     "createUnavailable": "The speech and translation services aren't connected yet, so new practices can't be created for now.",
     "removed": "Taken down by an admin (reason: {reason}). It's no longer public; only you can see it, and it can't be made public again.",
-    "reviewReports": "Review reports ({count} open) →"
+    "reviewReports": "Review reports ({count} open) →",
+    "usageLink": "API usage →"
   },
   "explore": {
     "title": "Shared materials",
@@ -902,6 +903,33 @@
       "not-found": "Couldn't find it; it may have been handled already. Please reload the page.",
       "failed": "Couldn't save. Please try again later."
     }
+  },
+  "adminUsage": {
+    "title": "API usage",
+    "intro": "Tokens, characters, and estimated cost of every speech and AI text call (at the list prices in lib/ai/pricing.ts; the Azure bill has the real amount).",
+    "today": "Today (all accounts)",
+    "todayNote": "{calls} calls; limit {limit} per person a day",
+    "month": "This month (estimated)",
+    "monthNote": "All providers; resets on the 1st, Taiwan time",
+    "credit": "Student credit left (estimated)",
+    "creditNote": "Azure so far {spent} of US${total}, ends {endsOn}",
+    "speech": "Azure speech characters this month",
+    "speechValue": "{used} / {free}",
+    "speechNote": "Free F0 tier: it stops past this, never charges; limit {limit} characters per person a day",
+    "recentTitle": "Latest {count} calls",
+    "noCalls": "No calls yet.",
+    "columns": {
+      "time": "Time",
+      "operation": "Job",
+      "provider": "Provider",
+      "tokens": "Tokens (in / out)",
+      "chars": "Characters",
+      "cost": "Estimated cost",
+      "status": "Result"
+    },
+    "tokens": "{input} / {output}",
+    "ok": "OK",
+    "failed": "Failed ({reason})"
   },
   "generate": {
     "sourceLegend": "Text source",

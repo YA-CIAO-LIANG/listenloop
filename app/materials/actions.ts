@@ -3,11 +3,11 @@
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
+import { composeBudget } from "@/lib/ai/budgets";
 import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
 import {
   checkGeneratedText,
   compositionPrompt,
-  expectedChars,
   parseGenerationRequest,
 } from "@/lib/custom-practice/generation";
 import { parseVoiceId } from "@/lib/ai/types";
@@ -300,8 +300,8 @@ export type GenerateTextResult =
 /**
  * Writes new English practice text with the language model (e+ 5, D36)
  * for the learner to review and edit before splitting. Admins only, like
- * everything that calls a paid API; the expected length is reserved
- * against the daily allowance first. Never cached: each request is new.
+ * everything that calls a paid API; the worst-case cost is reserved
+ * against the daily allowance first (D38). Never cached: each request is new.
  */
 export async function generatePracticeText(
   input: unknown,
@@ -311,7 +311,7 @@ export async function generatePracticeText(
   const request = parseGenerationRequest(input);
   if (!request) return { ok: false, reason: "invalid" };
   const prompt = compositionPrompt(request);
-  const result = await meteredLanguage(creator, expectedChars(prompt), () =>
+  const result = await meteredLanguage(creator, composeBudget(prompt), () =>
     creator.providers.language.compose(prompt),
   );
   if (!result.ok) return result;

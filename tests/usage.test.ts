@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { countChars, DAILY_CHAR_LIMITS, usageDay } from "@/lib/usage";
+import { countChars, DAILY_LIMITS, usageDay } from "@/lib/usage";
 
 describe("usage", () => {
   it("rolls the day over at midnight in Taiwan, not UTC", () => {
@@ -13,7 +13,10 @@ describe("usage", () => {
     expect(countChars([])).toBe(0);
   });
 
-  it("limits speech and translation separately", () => {
-    expect(DAILY_CHAR_LIMITS).toEqual({ speech: 20_000, translation: 60_000 });
+  it("limits speech in characters and language work in estimated cost", () => {
+    // 16,000 characters a day stays within Azure F0's 500,000 a month;
+    // US$0.50 a day in micro-dollars.
+    expect(DAILY_LIMITS).toEqual({ speech: 16_000, cost: 500_000 });
+    expect(DAILY_LIMITS.speech * 31).toBeLessThanOrEqual(500_000);
   });
 });

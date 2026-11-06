@@ -212,14 +212,6 @@ export function compositionPrompt(
   };
 }
 
-/**
- * About how many characters the answer will be, reserved against the
- * daily allowance before the call (English averages ~6 per word).
- */
-export function expectedChars(prompt: CompositionPrompt): number {
-  return prompt.words * 6 + [...prompt.topic].length;
-}
-
 export type GeneratedText = { title: string; text: string };
 
 const wordCount = (text: string) => text.split(/\s+/).filter(Boolean).length;

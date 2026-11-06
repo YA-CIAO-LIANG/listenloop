@@ -1,4 +1,5 @@
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
+import type { TokenPrice } from "./pricing";
 
 /**
  * The provider interfaces for the paid APIs (docs/decisions.md D6, D20).
@@ -37,44 +38,69 @@ export function parseVoiceId(id: string): Voice | null {
 export type TextLanguage = "en" | "zh-Hant";
 
 /**
+ * What one provider call used (D38), from the provider's own count where
+ * it gives one; logged and charged against the daily cost limit.
+ */
+export type CallUsage = {
+  inputTokens: number;
+  /** Output tokens, thinking or reasoning included. */
+  outputTokens: number;
+  /** Characters sent: the text (speech) or the input (language). */
+  chars: number;
+  /** Estimated from lib/ai/pricing.ts. */
+  costUsd: number;
+};
+
+/** A provider's answer and what it cost. */
+export type Billed<T> = { value: T; usage: CallUsage };
+
+/**
  * Translation and teaching notes (D27, D28): one language model does
- * both. Results are cached by content, so `id` names the provider, model,
- * and prompt version; change it when the output would change.
+ * all of it. Results are cached by content, so `id` names the provider,
+ * model, and prompt version; change it when the output would change.
  */
 export interface LanguageProvider {
   readonly id: string;
+  /** For the worst-case reservation before each call (lib/ai/budgets.ts). */
+  readonly price: TokenPrice;
   /** Translates each text; the result has the same length and order. */
   translate(
     texts: readonly string[],
     languages: { from: TextLanguage; to: TextLanguage },
-  ): Promise<string[]>;
+  ): Promise<Billed<string[]>>;
   /**
    * Vocabulary and grammar notes for English `sentences`, shaped like a
    * built-in video's vocab and grammar, with `sentence` indexes into the
    * given list. Unchecked: lib/custom-practice/notes.ts validates it.
    */
-  annotate(sentences: readonly string[]): Promise<unknown>;
+  annotate(sentences: readonly string[]): Promise<Billed<unknown>>;
   /**
    * Splits each line of a text into practice sentences by meaning (e+ 4):
    * one list of pieces per line, in order. Unchecked:
    * lib/custom-practice/split.ts makes sure it only cut the text.
    */
-  segment(lines: readonly string[], language: "en" | "zh"): Promise<unknown>;
+  segment(
+    lines: readonly string[],
+    language: "en" | "zh",
+  ): Promise<Billed<unknown>>;
   /**
    * New English practice text (e+ 5): `{ title, lines }`. Unchecked:
    * lib/custom-practice/generation.ts checks it.
    */
-  compose(prompt: CompositionPrompt): Promise<unknown>;
+  compose(prompt: CompositionPrompt): Promise<Billed<unknown>>;
 }
 
 /**
  * A provider call that failed for a reason worth telling apart: "busy"
  * (rate-limited, try again later) or "config" (bad key, API not enabled).
+ * `usage` is set when the provider still charged for it (e.g. an answer
+ * cut off at the output cap).
  */
 export class ProviderError extends Error {
   constructor(
     readonly code: "busy" | "config" | "failed",
     message: string,
+    readonly usage?: CallUsage,
   ) {
     super(message);
     this.name = "ProviderError";
@@ -94,7 +120,7 @@ export interface SpeechProvider {
    */
   readonly id: string;
   /** Reads `text` aloud in English with `voice`. */
-  synthesize(text: string, voice: Voice): Promise<SpeechAudio>;
+  synthesize(text: string, voice: Voice): Promise<Billed<SpeechAudio>>;
 }
 
 export type AiProviders = {

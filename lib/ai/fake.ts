@@ -1,5 +1,22 @@
 import { splitLine } from "@/lib/custom-practice/split";
-import type { LanguageProvider, SpeechAudio, SpeechProvider } from "./types";
+import { countChars } from "@/lib/usage";
+import type {
+  Billed,
+  LanguageProvider,
+  SpeechAudio,
+  SpeechProvider,
+} from "./types";
+
+/** Free: no tokens, no cost; only the characters sent are counted. */
+const free = <T>(value: T, input: readonly string[]): Billed<T> => ({
+  value,
+  usage: {
+    inputTokens: 0,
+    outputTokens: 0,
+    chars: countChars(input),
+    costUsd: 0,
+  },
+});
 
 /**
  * Fake providers for tests and local development: no network, no cost,
@@ -7,6 +24,7 @@ import type { LanguageProvider, SpeechAudio, SpeechProvider } from "./types";
  */
 export const fakeLanguage: LanguageProvider = {
   id: "fake",
+  price: { inputPerM: 0, outputPerM: 0 },
   // A fixed text about as long as asked, one line per sentence or turn.
   async compose({ scenario, words, format }) {
     const line =
@@ -14,54 +32,65 @@ export const fakeLanguage: LanguageProvider = {
         ? "Could you tell me more about it, please?"
         : "This is a practice sentence for listening.";
     const count = Math.max(1, Math.ceil(words / line.split(" ").length));
-    return {
-      title: `Practice: ${scenario}`.slice(0, 100),
-      lines: Array.from({ length: count }, () => line),
-    };
+    return free(
+      {
+        title: `Practice: ${scenario}`.slice(0, 100),
+        lines: Array.from({ length: count }, () => line),
+      },
+      [scenario],
+    );
   },
   // The rule-based split, as if the model agreed with it.
   async segment(lines, language) {
-    return lines.map((line) => splitLine(line, language));
+    return free(
+      lines.map((line) => splitLine(line, language)),
+      lines,
+    );
   },
   async translate(texts, { to }) {
-    return texts.map((text) => `[${to}] ${text}`);
+    return free(
+      texts.map((text) => `[${to}] ${text}`),
+      texts,
+    );
   },
   // Each sentence's longest word as vocabulary; every third sentence gets
   // a grammar point on its first two words.
   async annotate(sentences) {
-    const words = (sentence: string) => sentence.match(/[A-Za-z']+/g) ?? [];
-    return {
-      vocab: sentences.flatMap((sentence, i) => {
-        const word = [...words(sentence)].sort(
-          (a, b) => b.length - a.length,
-        )[0];
-        return word
-          ? [
-              {
-                sentence: i,
-                word: word.toLowerCase(),
-                pos: "n.",
-                zh: `[zh-Hant] ${word.toLowerCase()}`,
-                example: `An example with ${word.toLowerCase()}.`,
-              },
-            ]
-          : [];
-      }),
-      grammar: sentences.flatMap((sentence, i) =>
-        i % 3 === 0 && words(sentence).length >= 2
-          ? [
-              {
-                sentence: i,
-                point: words(sentence).slice(0, 2).join(" "),
-                explanation: `[zh-Hant] ${sentence}`,
-                example: sentence,
-              },
-            ]
-          : [],
-      ),
-    };
+    return free(fakeNotes(sentences), sentences);
   },
 };
+
+function fakeNotes(sentences: readonly string[]) {
+  const words = (sentence: string) => sentence.match(/[A-Za-z']+/g) ?? [];
+  return {
+    vocab: sentences.flatMap((sentence, i) => {
+      const word = [...words(sentence)].sort((a, b) => b.length - a.length)[0];
+      return word
+        ? [
+            {
+              sentence: i,
+              word: word.toLowerCase(),
+              pos: "n.",
+              zh: `[zh-Hant] ${word.toLowerCase()}`,
+              example: `An example with ${word.toLowerCase()}.`,
+            },
+          ]
+        : [];
+    }),
+    grammar: sentences.flatMap((sentence, i) =>
+      i % 3 === 0 && words(sentence).length >= 2
+        ? [
+            {
+              sentence: i,
+              point: words(sentence).slice(0, 2).join(" "),
+              explanation: `[zh-Hant] ${sentence}`,
+              example: sentence,
+            },
+          ]
+        : [],
+    ),
+  };
+}
 
 const SAMPLE_RATE = 8000;
 const SECONDS_PER_WORD = 0.4;
@@ -98,11 +127,14 @@ export function silentWav(seconds: number): Uint8Array {
 
 export const fakeSpeech: SpeechProvider = {
   id: "fake",
-  async synthesize(text: string): Promise<SpeechAudio> {
+  async synthesize(text: string): Promise<Billed<SpeechAudio>> {
     const words = text.split(/\s+/).filter(Boolean).length;
-    return {
-      data: silentWav(Math.max(1, words * SECONDS_PER_WORD)),
-      mimeType: "audio/wav",
-    };
+    return free(
+      {
+        data: silentWav(Math.max(1, words * SECONDS_PER_WORD)),
+        mimeType: "audio/wav",
+      },
+      [text],
+    );
   },
 };

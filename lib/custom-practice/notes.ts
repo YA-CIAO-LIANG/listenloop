@@ -3,8 +3,13 @@ import {
   type MeteredDeps,
   type MeteredResult,
 } from "@/lib/ai/metered";
-import type { TextLanguage } from "@/lib/ai/types";
-import { countChars } from "@/lib/usage";
+import {
+  annotateBudget,
+  segmentBudget,
+  translateBudget,
+  type LanguageBudget,
+} from "@/lib/ai/budgets";
+import type { Billed, TextLanguage } from "@/lib/ai/types";
 import type { GrammarPoint, VocabItem } from "@/lib/videos";
 import { sha256Hex } from "./hash";
 import {
@@ -152,16 +157,16 @@ async function cachedLanguageCall<T>(
   deps: LanguageDeps,
   kind: CacheKind,
   key: string,
-  chars: number,
-  call: () => Promise<unknown>,
+  budget: LanguageBudget,
+  call: () => Promise<Billed<unknown>>,
   check: (result: unknown) => T | null,
 ): Promise<MeteredResult<T> & { fresh?: boolean }>;
 async function cachedLanguageCall<T>(
   deps: LanguageDeps,
   kind: CacheKind,
   key: string,
-  chars: number,
-  call: () => Promise<unknown>,
+  budget: LanguageBudget,
+  call: () => Promise<Billed<unknown>>,
   check: (result: unknown) => T | null,
   allowCall: boolean,
 ): Promise<MeteredResult<T | null> & { fresh?: boolean }>;
@@ -169,8 +174,8 @@ async function cachedLanguageCall<T>(
   deps: LanguageDeps,
   kind: CacheKind,
   key: string,
-  chars: number,
-  call: () => Promise<unknown>,
+  budget: LanguageBudget,
+  call: () => Promise<Billed<unknown>>,
   check: (result: unknown) => T | null,
   allowCall = true,
 ): Promise<MeteredResult<T | null> & { fresh?: boolean }> {
@@ -178,7 +183,7 @@ async function cachedLanguageCall<T>(
   const cached = await readCache(deps, hash, check);
   if (cached !== null) return { ok: true, value: cached, fresh: false };
   if (!allowCall) return { ok: true, value: null, fresh: false };
-  const result = await meteredLanguage(deps, chars, call);
+  const result = await meteredLanguage(deps, budget, call);
   if (!result.ok) return result;
   const value = check(result.value);
   if (value === null) return { ok: false, reason: "failed" };
@@ -204,7 +209,7 @@ export async function segmentCached(
     deps,
     "segmentation",
     JSON.stringify({ language, lines }),
-    countChars(lines),
+    segmentBudget(lines),
     () => deps.providers.language.segment(lines, language),
     // Keep the checked sentences per line, so the cache holds clean data.
     (raw) =>
@@ -228,7 +233,7 @@ export async function translateCached(
     deps,
     "translation",
     JSON.stringify({ ...languages, texts }),
-    countChars(texts),
+    translateBudget(texts),
     () => deps.providers.language.translate(texts, languages),
     (result) =>
       Array.isArray(result) &&
@@ -261,7 +266,7 @@ export async function annotateSome(
       deps,
       "notes",
       JSON.stringify(chunk),
-      countChars(chunk),
+      annotateBudget(chunk),
       () => deps.providers.language.annotate(chunk),
       (raw) => cleanNotes(raw, chunk.length),
       // Out of calls: only a cached chunk can still count.

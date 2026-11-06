@@ -39,9 +39,14 @@ describe("getCreator", () => {
 });
 
 describe("supabaseUsageMeter", () => {
-  it("reserves against today's Taiwan-time limit", async () => {
+  const insert = vi.fn();
+  const admin = () =>
+    ({ rpc: state.rpc, from: vi.fn(() => ({ insert })) }) as never;
+  beforeEach(() => insert.mockReset().mockResolvedValue({ error: null }));
+
+  it("reserves speech characters against today's Taiwan-time limit", async () => {
     const meter = supabaseUsageMeter(
-      { rpc: state.rpc } as never,
+      admin(),
       "user-1",
       () => new Date("2026-11-03T16:30:00Z"),
     );
@@ -51,15 +56,71 @@ describe("supabaseUsageMeter", () => {
       usage_kind: "speech",
       usage_day: "2026-11-04",
       amount: 120,
-      max_chars: 20_000,
+      max_chars: 16_000,
+    });
+  });
+
+  it("reserves and settles cost on the day it was made", async () => {
+    let now = new Date("2026-11-04T15:59:00Z");
+    const meter = supabaseUsageMeter(admin(), "user-1", () => now);
+    expect(await meter.reserve("cost", 900)).toBe(true);
+    expect(state.rpc).toHaveBeenCalledWith("reserve_api_cost", {
+      target_user: "user-1",
+      usage_day: "2026-11-04",
+      amount: 900,
+      max_micros: 500_000,
+    });
+    // Past midnight in Taiwan, the call still settles on its own day.
+    now = new Date("2026-11-04T16:01:00Z");
+    await meter.settle(-400);
+    expect(state.rpc).toHaveBeenLastCalledWith("settle_api_cost", {
+      target_user: "user-1",
+      usage_day: "2026-11-04",
+      delta: -400,
+    });
+  });
+
+  it("logs each call's counts", async () => {
+    const meter = supabaseUsageMeter(admin(), "user-1");
+    await meter.log({
+      provider: "fake",
+      operation: "translate",
+      error: null,
+      inputTokens: 10,
+      outputTokens: 20,
+      chars: 5,
+      costMicros: 3,
+    });
+    expect(insert).toHaveBeenCalledWith({
+      user_id: "user-1",
+      provider: "fake",
+      operation: "translate",
+      error: null,
+      input_tokens: 10,
+      output_tokens: 20,
+      chars: 5,
+      cost_micros: 3,
     });
   });
 
   it("reports the limit, and throws on database errors", async () => {
-    const meter = supabaseUsageMeter({ rpc: state.rpc } as never, "user-1");
+    const meter = supabaseUsageMeter(admin(), "user-1");
     state.rpc.mockResolvedValue({ data: false, error: null });
-    expect(await meter.reserve("translation", 1)).toBe(false);
+    expect(await meter.reserve("cost", 1)).toBe(false);
     state.rpc.mockResolvedValue({ data: null, error: { message: "down" } });
-    await expect(meter.reserve("translation", 1)).rejects.toThrow("down");
+    await expect(meter.reserve("cost", 1)).rejects.toThrow("down");
+    await expect(meter.settle(1)).rejects.toThrow("down");
+    insert.mockResolvedValue({ error: { message: "full" } });
+    await expect(
+      meter.log({
+        provider: "fake",
+        operation: "speech",
+        error: null,
+        inputTokens: 0,
+        outputTokens: 0,
+        chars: 1,
+        costMicros: 0,
+      }),
+    ).rejects.toThrow("full");
   });
 });

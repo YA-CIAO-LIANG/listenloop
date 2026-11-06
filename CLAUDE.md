@@ -43,6 +43,21 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - **相同文字＋相同聲音只產生一次**：用內容雜湊快取，重複建立時直接沿用。
 - 外部服務：Supabase、Google 登入、聲音 API 和翻譯 API 已列入 `docs/roadmap.md`（2026-10-30）。翻譯、單字、文法用 Gemini API（付費方案 Tier 1、預付制，`GEMINI_API_KEY`）；聲音用 Cloud Text-to-Speech 的 Chirp 3 HD 語音（`GOOGLE_CLOUD_API_KEY`），試聽範例用 `npm run voices:samples` 產生，見 D28、D29。需要信用卡的服務（例如 Google Cloud 帳單），要我在清單中明確同意才導入。
 
+## AI 供應者與測試（省額度；Joe 2026-11-04、11-05 指定，必須嚴格遵守）
+
+- **開發和所有自動測試只用假的供應者或已錄製的 fixture，絕不呼叫真的 API**：單元測試、E2E、CI 都一樣。
+  - `tests/setup-network.ts` 會擋掉 Azure、Google 的網址；
+  - Playwright 啟動時強制 `AI_PROVIDERS=fake`，並清空金鑰。
+- **呼叫真的 API 之前**：先告訴 Joe 預計呼叫幾次和預估花費，等 Joe 同意才執行。
+  - 例外：Joe 已經預先核准的額度。2026-11-05 的任務合計 US$0.05，聲音只能用 F0 免費額度；
+  - 超過額度，或需要重複呼叫時，先停下來問。
+- **真實測試只用最短的內容**（1～2 句），而且只在最後實測時做。
+- **第一次呼叫的結果存成 fixture**（`tests/fixtures/ai/`），之後的測試重複使用，不重複呼叫。錄製用 `npm run ai:record`：預設只印出預估，加 `--yes` 才真的呼叫。
+- **每次實測完都要回報**：實際的 token 數、字元數和估算費用，以 `/admin/usage` 或腳本的輸出為準。
+- **程式記錄每次呼叫**（`api_calls`）：token、字元數、估算費用，管理員在 `/admin/usage` 查看。
+  - 語言模型的每日上限用估算費用控制（`lib/usage.ts` 的 `DAILY_LIMITS.cost`）；聲音用字元數控制；
+  - 價格集中在 `lib/ai/pricing.ts`，每次呼叫的輸出上限集中在 `lib/ai/budgets.ts`（D38）。
+
 ## 週循環規則
 
 - **Day 1 精聽聽寫**：逐句播放影片原音，使用者打字，逐字比對算正確率。完成後可查看雙語講義（英中對照＋單字＋文法），可輸出 PDF；講義在第 1 天完成前不開放，避免先看原文。支援單句重播。

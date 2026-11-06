@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { fakeLanguage, fakeSpeech } from "@/lib/ai/fake";
-import { ProviderError } from "@/lib/ai/types";
+import { INSTRUCTION_CHARS } from "@/lib/ai/budgets";
+import { ProviderError, type LanguageProvider } from "@/lib/ai/types";
 import {
   annotateSentences,
   segmentCached,
@@ -9,6 +10,7 @@ import {
   translateCached,
   type AiCache,
 } from "@/lib/custom-practice/notes";
+import { billed, memoryMeter, TEST_PRICE } from "./memory-meter";
 
 const vocab = (sentence: number, word: string) => ({
   sentence,
@@ -35,18 +37,17 @@ function memoryCache(): AiCache & { entries: Map<string, unknown> } {
   };
 }
 
-function deps(language = fakeLanguage, limit = 100_000) {
-  let used = 0;
-  const reserve = vi.fn(async (_kind: string, chars: number) => {
-    if (used + chars > limit) return false;
-    used += chars;
-    return true;
-  });
+/** Deps with a priced language model: `limit` is in micro-dollars. */
+function deps(language: LanguageProvider = fakeLanguage, limit = Infinity) {
+  const meter = memoryMeter({ cost: limit });
   return {
-    providers: { language, speech: fakeSpeech },
-    meter: { reserve },
+    providers: {
+      language: { ...language, price: TEST_PRICE },
+      speech: fakeSpeech,
+    },
+    meter,
     cache: memoryCache(),
-    reserve,
+    reserve: meter.reserve,
   };
 }
 
@@ -125,7 +126,7 @@ describe("translateCached", () => {
       ok: true,
       value: ["[en] 你好", "[en] 再見"],
     });
-    expect(d.reserve).toHaveBeenCalledWith("translation", 4);
+    expect(d.reserve).toHaveBeenCalledWith("cost", 4 + INSTRUCTION_CHARS);
     expect(await translateCached(d, ["你好", "再見"], zhToEn)).toEqual({
       ok: true,
       value: ["[en] 你好", "[en] 再見"],
@@ -136,7 +137,7 @@ describe("translateCached", () => {
   it("rejects a translation with the wrong number of lines, and doesn't cache it", async () => {
     const d = deps({
       ...fakeLanguage,
-      translate: vi.fn().mockResolvedValue(["one"]),
+      translate: vi.fn().mockResolvedValue(billed(["one"])),
     });
     expect(await translateCached(d, ["a", "b"], zhToEn)).toEqual({
       ok: false,
@@ -250,7 +251,7 @@ describe("segmentCached", () => {
   ];
 
   it("splits by the model's answer once, then from the cache", async () => {
-    const segment = vi.fn(async () => modelSplit);
+    const segment = vi.fn(async () => billed(modelSplit));
     const d = deps({ ...fakeLanguage, segment });
     const expected = [
       "Dr. Smith arrived at 9:30 a.m. in the U.S.",
@@ -266,7 +267,7 @@ describe("segmentCached", () => {
   it("uses the rules for a line the model rewrote", async () => {
     const d = deps({
       ...fakeLanguage,
-      segment: async () => [modelSplit[0], ["Then, he left."]],
+      segment: async () => billed([modelSplit[0], ["Then, he left."]]),
     });
     expect((await segmentCached(d, text, "en")).at(-1)).toBe("Then he left.");
   });

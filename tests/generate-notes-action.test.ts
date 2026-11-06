@@ -18,7 +18,11 @@ vi.mock("@/auth/creator", () => ({
       ? {
           user: { id: "user-1", email: "joe@example.com" },
           providers: { language: fakeLanguage, speech: fakeSpeech },
-          meter: { reserve: state.reserve },
+          meter: {
+            reserve: state.reserve,
+            settle: async () => {},
+            log: async () => {},
+          },
           cache: {
             get: async (hash: string) => state.cache.get(hash) ?? null,
             set: async (hash: string, _: string, value: unknown) => {

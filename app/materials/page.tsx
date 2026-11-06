@@ -149,12 +149,18 @@ export default async function MaterialsPage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{tMaterials("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{tMaterials("intro")}</p>
-      <p className="mt-4">
+      <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
         <Link
           href="/admin/reports"
           className="text-supporting text-accent-ink underline underline-offset-4"
         >
           {tMaterials("reviewReports", { count: openReports })}
+        </Link>
+        <Link
+          href="/admin/usage"
+          className="text-supporting text-accent-ink underline underline-offset-4"
+        >
+          {tMaterials("usageLink")}
         </Link>
       </p>
       <div className="mt-8">

@@ -14,6 +14,7 @@ export default defineConfig({
           name: "unit",
           environment: "node",
           include: ["tests/**/*.test.ts", "lib/**/*.test.ts"],
+          setupFiles: ["tests/setup-network.ts"],
         },
       },
       {
@@ -23,7 +24,7 @@ export default defineConfig({
           name: "dom",
           environment: "jsdom",
           include: ["tests/**/*.test.tsx"],
-          setupFiles: ["tests/setup-dom.ts"],
+          setupFiles: ["tests/setup-network.ts", "tests/setup-dom.ts"],
         },
       },
     ],
