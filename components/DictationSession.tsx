@@ -192,6 +192,7 @@ export function DictationSession({
         day,
         sentences.length,
         toLocalDate(new Date()),
+        video.version,
       );
       setProgress(started);
       if (startInRetry && started.days[day]?.done) {

@@ -1,6 +1,7 @@
 import type { LocalDate } from "./dates";
 import {
   createProgress,
+  pinVersion,
   withDay,
   type Progress,
   type ShadowingSentenceRecord,
@@ -75,8 +76,13 @@ export function startShadowing(
   day: ShadowingDay,
   sentenceCount: number,
   today: LocalDate,
+  /** A created practice's version, fixed for the week when it starts (D44). */
+  materialVersion?: number,
 ): Progress {
-  const base = progress ?? createProgress(videoId, today);
+  const base = pinVersion(
+    progress ?? createProgress(videoId, today),
+    materialVersion,
+  );
   const record = base.days[day];
   if (record?.sentences?.length === sentenceCount) return base;
   return withDay(base, day, {

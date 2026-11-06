@@ -1,6 +1,6 @@
 import { settleWeek } from "./cycle";
 import type { LocalDate } from "./dates";
-import { createProgress, withDay, type Progress } from "./progress";
+import { createProgress, pinVersion, withDay, type Progress } from "./progress";
 import { scoreDictation, totalAccuracy } from "./scoring/dictation";
 import type { Sentence } from "./videos";
 
@@ -60,8 +60,13 @@ export function startDictation(
   day: DictationDay,
   sentenceCount: number,
   today: LocalDate,
+  /** A created practice's version, fixed for the week when it starts (D44). */
+  materialVersion?: number,
 ): Progress {
-  const base = progress ?? createProgress(videoId, today);
+  const base = pinVersion(
+    progress ?? createProgress(videoId, today),
+    materialVersion,
+  );
   const record = base.days[day];
   if (record?.answers?.length === sentenceCount) return base;
   return withDay(base, day, {

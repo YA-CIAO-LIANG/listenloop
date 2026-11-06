@@ -109,6 +109,8 @@ describe("materialFromCustomPractice", () => {
     expect(materialFromCustomPractice(row, url)).toEqual({
       id: `p-${uuid}`,
       title: "第一課",
+      // Rows read before versions existed are version 1 (D44).
+      version: 1,
       sentences: [
         { i: 0, start: 0, end: 0, en: "Hi.", zh: "嗨。" },
         { i: 1, start: 0, end: 0, en: "Bye.", zh: "再見。" },

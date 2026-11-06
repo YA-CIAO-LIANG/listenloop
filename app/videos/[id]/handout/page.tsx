@@ -6,7 +6,9 @@ import { Handout } from "@/components/Handout";
 import { HandoutGate } from "@/components/HandoutGate";
 import { getPracticeState } from "@/auth/practice-material";
 import { PracticePreparing } from "@/components/PracticePreparing";
+import { VersionGate } from "@/components/VersionGate";
 import {
+  parseVersionParam,
   practiceRobots,
   preparingMetadata,
   titleLang,
@@ -14,8 +16,12 @@ import {
 
 export async function generateMetadata({
   params,
+  searchParams,
 }: PageProps<"/videos/[id]/handout">): Promise<Metadata> {
-  const state = await getPracticeState((await params).id);
+  const state = await getPracticeState(
+    (await params).id,
+    parseVersionParam((await searchParams).v),
+  );
   if (state?.status === "preparing") return preparingMetadata(state);
   const t = await getTranslations("handout");
   return state
@@ -28,9 +34,14 @@ export async function generateMetadata({
 
 export default async function HandoutPage({
   params,
+  searchParams,
 }: PageProps<"/videos/[id]/handout">) {
   const { id } = await params;
-  const state = await getPracticeState(id);
+  // ?v= shows the version the learner's week uses (D44, VersionGate).
+  const state = await getPracticeState(
+    id,
+    parseVersionParam((await searchParams).v),
+  );
   if (state?.status === "preparing") {
     return (
       <PracticePreparing
@@ -56,9 +67,11 @@ export default async function HandoutPage({
         <span lang={titleLang(video.id)}>{video.title}</span> · {t("title")}
       </h1>
       <div className="mt-6">
-        <HandoutGate videoId={video.id}>
-          <Handout video={video} />
-        </HandoutGate>
+        <VersionGate videoId={video.id} version={video.version}>
+          <HandoutGate videoId={video.id}>
+            <Handout video={video} />
+          </HandoutGate>
+        </VersionGate>
       </div>
     </main>
   );

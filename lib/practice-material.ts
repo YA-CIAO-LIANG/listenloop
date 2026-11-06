@@ -15,6 +15,11 @@ export type PracticeMaterial = Pick<
   attribution?: Attribution;
   /** A created practice the viewer made (others' are public ones, D30). */
   mine?: boolean;
+  /**
+   * A created practice's version (D44); a week keeps the version it
+   * started with. Built-in videos have none.
+   */
+  version?: number;
 } & (
     | { youtubeId: string; audioUrls?: undefined }
     | {
@@ -48,6 +53,8 @@ export const isCustomPracticeId = (id: string) =>
 export type CustomPracticeRow = {
   id: string;
   title: string;
+  /** Missing on rows read before versions existed: version 1. */
+  version?: number;
   vocab: unknown;
   grammar: unknown;
   notes_generated_at: string | null;
@@ -79,6 +86,7 @@ export function materialFromCustomPractice(
   return {
     id: customPracticeId(row.id),
     title: row.title,
+    version: row.version ?? 1,
     // Each sentence is its own file, so there are no timestamps to keep.
     sentences: rows.map((s, i) => ({
       i,
@@ -135,4 +143,77 @@ export function preparingMetadata(practice: { title: string }) {
     title: practice.title,
     robots: { index: false, follow: false } as const,
   };
+}
+
+/** A stored snapshot of an earlier version (practice_versions, D44). */
+export type PracticeVersionRow = {
+  practice_id: string;
+  version: number;
+  title: string;
+  sentences: unknown;
+  vocab: unknown;
+  grammar: unknown;
+};
+
+/**
+ * An earlier version of a created practice as material, or null if the
+ * snapshot is unusable. Snapshots are only taken of practicable versions,
+ * so every sentence has its audio and the notes are made.
+ */
+export function materialFromSnapshot(
+  snapshot: PracticeVersionRow,
+  audioUrl: (path: string) => string | null,
+): PracticeMaterial | null {
+  if (!Array.isArray(snapshot.sentences)) return null;
+  const sentences = snapshot.sentences.map((raw, i) => {
+    const s = (raw ?? {}) as Record<string, unknown>;
+    return {
+      i,
+      en: typeof s.en === "string" ? s.en : "",
+      zh: typeof s.zh === "string" ? s.zh : "",
+      audio_path: typeof s.audio_path === "string" ? s.audio_path : null,
+    };
+  });
+  if (sentences.some((s) => !s.en)) return null;
+  return materialFromCustomPractice(
+    {
+      id: snapshot.practice_id,
+      title: snapshot.title,
+      version: snapshot.version,
+      vocab: snapshot.vocab,
+      grammar: snapshot.grammar,
+      // Snapshots are of finished versions.
+      notes_generated_at: "snapshot",
+      practice_sentences: sentences,
+    },
+    audioUrl,
+  );
+}
+
+/**
+ * The version in a page's ?v= (D44): a positive integer, or undefined
+ * for the latest.
+ */
+export function parseVersionParam(value: unknown): number | undefined {
+  if (typeof value !== "string" || !/^[1-9]\d{0,5}$/.test(value)) {
+    return undefined;
+  }
+  return Number(value);
+}
+
+/**
+ * Which version a page should show instead of `shown` (D44), for a week
+ * fixed to `pinned`, or null to stay. `asked` is the page's ?v=: once it
+ * already asks for the pinned version, the page stays even if that
+ * version wasn't kept (it then shows the latest), so it never loops.
+ */
+export function versionToShow(
+  pinned: number | undefined,
+  shown: number | undefined,
+  asked: string | null,
+): number | null {
+  if (pinned === undefined || shown === undefined || pinned === shown) {
+    return null;
+  }
+  return asked === String(pinned) ? null : pinned;
 }
