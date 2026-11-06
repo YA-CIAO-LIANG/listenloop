@@ -576,3 +576,35 @@
   - `lib/ai/pricing.ts`；
   - `lib/ai/providers.ts`；
   - 隱私權政策（`messages/*.json` 的 `privacy`）。
+
+## D41 錄製真實回應當 fixture；第一次實測（2026-11-06，e+ 6 PR 4）
+
+- **決定**：
+  - **錄製腳本** `npm run ai:record`（`scripts/ai-record.record.ts`）：
+    - 用 Vitest 執行，這樣能重用正式的供應者程式和 `@/` 路徑別名，不用另外加套件；
+    - 設定檔是 `vitest.record.config.mts`，不包含擋網路的 setup，平常的 `npm test` 也不會執行它；
+    - 預設只印出要呼叫幾次和最壞情況的費用；設 `AI_RECORD_YES=1` 才真的呼叫；
+    - 已經存在的 fixture 不會重錄，要設 `AI_RECORD_FORCE=1`；
+    - 每次真的呼叫都會寫進 `api_calls`（`user_id` 是 null），`/admin/usage` 會把它算進學生額度。
+  - **內容**：翻譯 1 句、講解 1 句、斷句 1 行（2 句）、生成約 40 字、聲音 1 句，存在 `tests/fixtures/ai/`。存的是請求內容和完整回應，不含 header，所以沒有金鑰。
+  - **回放測試** `tests/azure-fixtures.test.ts`：
+    - 把錄到的回應餵給供應者，確認結果能通過 App 的檢查（`cleanNotes`、`checkedSegments`、`checkGeneratedText`）；
+    - 也比對現在送出的請求和錄製時一樣。改了提示詞或設定，這個測試就會失敗，提醒要重錄；重錄要經過 Joe 同意。
+  - **試聽範例**：`npm run voices:samples -- --yes` 用 Azure 重新產生 8 個（每個 36～51 KB）。
+- **2026-11-06 第一次實測**（Joe 預先核准的 US$0.05 額度內）：
+
+  | 呼叫                | 輸入 token | 輸出 token | 字元 | 估算費用    |
+  | ------------------- | ---------- | ---------- | ---- | ----------- |
+  | 翻譯（gpt-5-mini）  | 150        | 24         | 10   | US$0.000086 |
+  | 講解                | 358        | 66         | 22   | US$0.000221 |
+  | 斷句                | 395        | 30         | 40   | US$0.000159 |
+  | 生成                | 274        | 129        | 80   | US$0.000327 |
+  | 聲音 1 句（F0）     | —          | —          | 17   | US$0        |
+  | 試聽範例 8 個（F0） | —          | —          | 800  | US$0        |
+  | **合計**            | 1,177      | 249        | 969  | US$0.000792 |
+  - `reasoning_effort: "minimal"` 讓推理 token 是 0；
+  - 最壞情況的預估是 US$0.0047，實際只用了六分之一；
+  - 另外呼叫了一次免費的語音清單 API（D39），不算字元；
+  - 還有 3 次在 PR 1 開發時，擋網路的設定還沒生效，對 Azure／Google 送出的請求。這些請求沒有附金鑰，直接被拒絕，不會計費。
+
+- **要改時**：`scripts/ai-record.record.ts`、`tests/azure-fixtures.test.ts`、`tests/fixtures/ai/`。

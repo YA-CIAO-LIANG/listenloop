@@ -1,0 +1,139 @@
+{
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate each Traditional Chinese as written in Taiwan (臺灣用語) line into English.\nThe lines are sentences of one text that a Taiwanese student will use to practice English listening.\nTranslate every line on its own, in order, one translation per line; never merge, split, or skip lines.\nKeep the meaning and tone. Write natural, everyday language, not word-for-word.\nUse simple, clear English a learner can dictate: common words, standard spelling, no abbreviations."
+      },
+      {
+        "role": "user",
+        "content": "{\"lines\":[\"你好，很高興認識你。\"]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "translations",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "translations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["translations"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 215,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"translations\":[\"Hello, nice to meet you.\"]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1793946138,
+    "id": "chatcmpl-Eh7d4AQM0kgfjgSSc5lJKhdBkqgi5",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261025034109-9083486c-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 24,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 34,
+        "engine_ttlt_ms": 277,
+        "pre_inference_ms": 84,
+        "service_tbt_ms": 9,
+        "service_ttft_ms": 434,
+        "service_ttlt_ms": 715,
+        "user_visible_ttft_ms": 350
+      },
+      "prompt_tokens": 150,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 174
+    }
+  }
+}

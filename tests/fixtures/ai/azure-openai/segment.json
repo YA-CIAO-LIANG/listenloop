@@ -1,0 +1,142 @@
+{
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You split English text into sentences for dictation practice: a Taiwanese student hears each one, then types it.\nThe input is a list of lines. For each line, in order, return the list of pieces it splits into. Never join text from different lines.\nOnly cut: every piece is an exact, consecutive part of its line. Never change, add, remove, fix, or reorder any character; the pieces of a line joined together must be that line.\nCut where a sentence ends by meaning. Never cut inside an abbreviation (Dr., Mr., U.S., a.m., e.g., i.e., Ph.D., No. 5), a number, time, or amount (9:30, 3.5, $1,000, 90%), a quotation (keep a quote with the words that introduce it, like: He said, \"Stop!\"), or a name.\nAim for pieces of about 5 to 25 words. Cut a sentence longer than 25 words at a natural clause boundary (; or a comma before and, but, so, because, which…) so each part still reads as a complete thought. A short sentence may stay short; you may keep a very short sentence together with the next one in the same line when they belong together.\nExample: [\"Dr. Smith arrived at 9:30 a.m. in the U.S. He said, \"It's 90% done.\" Then he left.\"] → [[\"Dr. Smith arrived at 9:30 a.m. in the U.S.\", \"He said, \"It's 90% done.\" Then he left.\"]]"
+      },
+      {
+        "role": "user",
+        "content": "{\"lines\":[\"I missed the bus. So I walked to school.\"]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "segments",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lines": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": ["lines"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 240,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"lines\":[[\"I missed the bus.\", \"So I walked to school.\"]]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1793946142,
+    "id": "chatcmpl-Eh7d810O2g1kKbXFRvYPXbXSAJkmz",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261026034401-5d12c835-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 30,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 35,
+        "engine_ttlt_ms": 316,
+        "pre_inference_ms": 84,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 409,
+        "service_ttlt_ms": 684,
+        "user_visible_ttft_ms": 325
+      },
+      "prompt_tokens": 395,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 425
+    }
+  }
+}
