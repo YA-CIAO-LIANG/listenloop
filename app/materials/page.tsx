@@ -8,6 +8,7 @@ import { getServerSupabase } from "@/auth/server";
 import { ButtonLink } from "@/components/ButtonLink";
 import { CollectionManager } from "@/components/CollectionManager";
 import { PracticeReadiness } from "@/components/PracticeReadiness";
+import { OfficialToggle } from "@/components/OfficialToggle";
 import { PracticeControls } from "@/components/PracticeControls";
 import { parseVoiceId } from "@/lib/ai/types";
 import { isTextSourceLanguage } from "@/lib/custom-practice/draft";
@@ -50,7 +51,7 @@ export default async function MaterialsPage() {
         supabase
           .from("practices")
           .select(
-            "id, title, source_language, voice, visibility, collection_id, created_at, notes_generated_at, removed_at, removed_reason, practice_sentences(audio_path)",
+            "id, title, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, practice_sentences(audio_path)",
           )
           // Others' public practices are readable too (D30); list only theirs.
           .eq("user_id", user.id)
@@ -140,11 +141,21 @@ export default async function MaterialsPage() {
             })}
           </p>
         )}
+        {!practice.removed_at && (
+          <OfficialToggle
+            practice={{
+              id: practice.id,
+              title: practice.title,
+              official: practice.official,
+            }}
+          />
+        )}
         <PracticeControls
           practice={{
             id: practice.id,
             title: practice.title,
             removed: practice.removed_at !== null,
+            official: practice.official,
             collectionId: practice.collection_id,
             visibility: isVisibility(practice.visibility)
               ? practice.visibility

@@ -281,6 +281,11 @@
       "clearAll": "Clear filters",
       "results": "{count, plural, one {Showing # video} other {Showing # videos}}",
       "empty": "No videos match."
+    },
+    "official": {
+      "title": "ListenLoop official practices",
+      "count": "{count, plural, one {# practice} other {# practices}}",
+      "intro": "Practices ListenLoop made for everyone; work through them in order."
     }
   },
   "collections": {
@@ -815,7 +820,11 @@
       "invalid": "Please enter a name (100 characters at most).",
       "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
       "failed": "Couldn't save. Please try again."
-    }
+    },
+    "officialOff": "Make official",
+    "officialOn": "✓ Official",
+    "officialLabel": "Whether \"{title}\" is official",
+    "officialPublic": "Official practices are always public."
   },
   "notebooks": {
     "title": "Notebooks",

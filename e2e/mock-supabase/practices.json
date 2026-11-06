@@ -28,7 +28,8 @@
         "zh": "在銀行右轉。",
         "audio_path": "1111111111111111111111111111111111111111111111111111111111111111.wav"
       }
-    ]
+    ],
+    "official": false
   },
   "unfinished": {
     "id": "9a1f3c7e-2b4d-4e6f-8a0b-c1d2e3f4a5b6",
@@ -51,6 +52,7 @@
         "zh": "然後他就離開了。",
         "audio_path": null
       }
-    ]
+    ],
+    "official": false
   }
 }

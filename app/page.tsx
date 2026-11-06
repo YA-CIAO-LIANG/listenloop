@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
+import { OfficialPractices } from "@/components/OfficialPractices";
 import { PracticeCalendar } from "@/components/PracticeCalendar";
 import {
   PracticeLibrary,
@@ -43,6 +44,10 @@ export default function Home() {
       <section id="library" className="mt-16 scroll-mt-8">
         <h2 className="font-display text-h2">{t("library.title")}</h2>
         <p className="mt-2 text-ink-muted">{t("library.intro")}</p>
+        {/* Read from the database: the built-in library doesn't wait. */}
+        <Suspense fallback={null}>
+          <OfficialPractices />
+        </Suspense>
         <Suspense fallback={<UnfilteredLibrary groups={groups} />}>
           <PracticeLibrary groups={groups} />
         </Suspense>

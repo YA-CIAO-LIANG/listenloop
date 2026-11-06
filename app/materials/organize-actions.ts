@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+import { getAdminSupabase } from "@/auth/admin";
 import {
   writeAsAdmin,
   writeOutcome,
@@ -11,6 +13,7 @@ import {
   isUuid,
   isVisibility,
 } from "@/lib/custom-practice/organize";
+import { getAdminUser } from "@/auth/creator";
 
 /**
  * Organizing created practices (roadmap d5): collections, public or
@@ -118,4 +121,34 @@ export async function deletePractice(id: unknown): Promise<OrganizeResult> {
       await supabase.from("practices").delete().eq("id", id).select("id"),
     ),
   );
+}
+
+/**
+ * Marks one of the admin's own practices official, or not (D46). An
+ * official practice is public (it's listed for everyone), so marking
+ * makes it public too. Written with the secret key: the database lets
+ * only that change the mark, so users can't mark their own.
+ */
+export async function setOfficial(
+  id: unknown,
+  official: unknown,
+): Promise<OrganizeResult> {
+  if (!isUuid(id) || typeof official !== "boolean") {
+    return { ok: false, reason: "invalid" };
+  }
+  const user = await getAdminUser();
+  const admin = user && getAdminSupabase();
+  if (!user || !admin) return { ok: false, reason: "unavailable" };
+  const result = outcome(
+    await admin
+      .from("practices")
+      .update(official ? { official, visibility: "public" } : { official })
+      .eq("id", id)
+      .eq("user_id", user.id)
+      .is("removed_at", null)
+      .select("id"),
+  );
+  // The home page's library lists official practices.
+  if (result.ok) revalidatePath("/", "layout");
+  return result;
 }

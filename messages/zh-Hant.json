@@ -281,6 +281,11 @@
       "clearAll": "清除篩選",
       "results": "顯示 {count} 支影片",
       "empty": "沒有符合的影片。"
+    },
+    "official": {
+      "title": "ListenLoop 官方教材",
+      "count": "{count} 份",
+      "intro": "ListenLoop 為所有人準備的練習，照順序一份一份練。"
     }
   },
   "collections": {
@@ -813,7 +818,11 @@
       "invalid": "請填寫名稱（最多 100 字）。",
       "not-found": "找不到這個項目，可能已經刪除。請重新整理頁面。",
       "failed": "儲存失敗，請稍後再試一次。"
-    }
+    },
+    "officialOff": "設為官方教材",
+    "officialOn": "✓ 官方教材",
+    "officialLabel": "「{title}」是否為官方教材",
+    "officialPublic": "官方教材一律公開。"
   },
   "notebooks": {
     "title": "筆記本",
