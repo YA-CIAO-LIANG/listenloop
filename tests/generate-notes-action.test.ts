@@ -6,6 +6,7 @@ const state = vi.hoisted(() => ({
   creator: true,
   practice: null as unknown,
   updates: [] as Record<string, unknown>[],
+  sentenceUpdates: [] as { notes: unknown; filters: [string, unknown][] }[],
   reserve: vi.fn(),
   filters: [] as [string, string][],
   cache: new Map<string, unknown>(),
@@ -34,7 +35,7 @@ vi.mock("@/auth/creator", () => ({
 }));
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
-    from: () => ({
+    from: (table: string) => ({
       select: () => {
         const query = {
           eq: (column: string, value: string) => {
@@ -45,14 +46,28 @@ vi.mock("@/auth/server", () => ({
         };
         return query;
       },
-      update: (row: Record<string, unknown>) => ({
-        eq: () => ({
+      update: (row: Record<string, unknown>) => {
+        // practice_sentences: .update().eq().eq(), awaited;
+        // practices: .update().eq().select().
+        const filters: [string, unknown][] = [];
+        const chain = {
+          eq: (column: string, value: unknown) => {
+            filters.push([column, value]);
+            return chain;
+          },
           select: async () => {
             state.updates.push(row);
             return { data: [{ id: "p1" }], error: null };
           },
-        }),
-      }),
+          then: (resolve: (value: { error: null }) => void) => {
+            if (table === "practice_sentences") {
+              state.sentenceUpdates.push({ notes: row.notes, filters });
+            }
+            resolve({ error: null });
+          },
+        };
+        return chain;
+      },
     }),
   }),
 }));
@@ -64,12 +79,13 @@ beforeEach(() => {
   state.creator = true;
   state.filters = [];
   state.updates = [];
+  state.sentenceUpdates = [];
   state.reserve.mockReset().mockResolvedValue(true);
   state.practice = {
     notes_generated_at: null,
     practice_sentences: [
-      { i: 1, en: "Wonderful weather today." },
-      { i: 0, en: "We moved here." },
+      { i: 1, en: "Wonderful weather today.", notes: null },
+      { i: 0, en: "We moved here.", notes: null },
     ],
   };
 });
@@ -92,6 +108,58 @@ describe("generatePracticeNotes", () => {
       [1, "wonderful"],
     ]);
     expect(typeof saved.notes_generated_at).toBe("string");
+    // Each sentence keeps its own notes too (D43).
+    expect(state.sentenceUpdates).toEqual([
+      {
+        notes: {
+          vocab: [expect.objectContaining({ word: "moved" })],
+          grammar: [expect.objectContaining({ point: "We moved" })],
+        },
+        filters: [
+          ["practice_id", "p1"],
+          ["i", 0],
+        ],
+      },
+      {
+        notes: {
+          vocab: [expect.objectContaining({ word: "wonderful" })],
+          grammar: [],
+        },
+        filters: [
+          ["practice_id", "p1"],
+          ["i", 1],
+        ],
+      },
+    ]);
+  });
+
+  it("annotates only the sentences without notes, keeping the others", async () => {
+    state.practice = {
+      notes_generated_at: null,
+      practice_sentences: [
+        {
+          i: 0,
+          en: "We moved here.",
+          notes: {
+            vocab: [{ word: "edited", pos: "v.", zh: "改過", example: "Ok." }],
+            grammar: [],
+          },
+        },
+        { i: 1, en: "Wonderful weather today.", notes: null },
+      ],
+    };
+    await generatePracticeNotes("p1");
+    expect(state.sentenceUpdates).toHaveLength(1);
+    const [saved] = state.updates;
+    expect(
+      (saved.vocab as { sentence: number; word: string }[]).map((v) => [
+        v.sentence,
+        v.word,
+      ]),
+    ).toEqual([
+      [0, "edited"],
+      [1, "wonderful"],
+    ]);
   });
 
   it("does nothing when the notes already exist", async () => {
@@ -114,6 +182,7 @@ describe("generatePracticeNotes", () => {
       practice_sentences: Array.from({ length: NOTES_CHUNK + 3 }, (_, i) => ({
         i,
         en: `Sentence number ${i}.`,
+        notes: null,
       })),
     };
     expect(await generatePracticeNotes("p1")).toEqual({
@@ -122,13 +191,21 @@ describe("generatePracticeNotes", () => {
       total: NOTES_CHUNK + 3,
     });
     expect(state.updates).toEqual([]);
+    expect(state.sentenceUpdates).toHaveLength(NOTES_CHUNK);
+    // The database now has the first chunk's notes.
+    const practice = state.practice as {
+      practice_sentences: { i: number; notes: unknown }[];
+    };
+    for (const update of state.sentenceUpdates) {
+      const i = update.filters.find(([column]) => column === "i")?.[1];
+      practice.practice_sentences[i as number].notes = update.notes;
+    }
     expect(await generatePracticeNotes("p1")).toEqual({
       ok: true,
       annotated: NOTES_CHUNK + 3,
       total: NOTES_CHUNK + 3,
     });
     expect(state.updates).toHaveLength(1);
-    // The first chunk came from the cache the second time.
     expect(state.reserve).toHaveBeenCalledTimes(2);
   });
 

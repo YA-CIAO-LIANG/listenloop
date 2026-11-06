@@ -20,7 +20,10 @@ import {
   type PracticeDraft,
 } from "@/lib/custom-practice/draft";
 import {
-  annotateSome,
+  annotateMissing,
+  joinNotes,
+  parseSentenceNotes,
+  type SentenceNotes,
   segmentCached,
   TRANSLATE_BATCH,
   translateCached,
@@ -243,10 +246,13 @@ export type GenerateNotesResult =
 /**
  * Makes the vocabulary and grammar notes for one of the user's practices
  * from its saved (already reviewed) English, so the notes match the final
- * sentences: one chunk (NOTES_CHUNK sentences) per call, each cached, so
- * each call stays short and the page can show progress. The browser calls
- * again until annotated === total; the last call saves the notes. Does
- * nothing if they exist; a retry after a failure only redoes what's missing.
+ * sentences. Each sentence keeps its own notes (practice_sentences.notes,
+ * D43), cached by its text, so a sentence annotated before (here or in
+ * any practice) costs nothing. One model call (NOTES_CHUNK sentences) per
+ * server call keeps each short and lets the page show progress; the
+ * browser calls again until annotated === total. Once every sentence has
+ * notes, they're joined into the practice's vocab and grammar. Does
+ * nothing if that's done; a retry only redoes what's missing.
  */
 export async function generatePracticeNotes(
   practiceId: unknown,
@@ -260,7 +266,7 @@ export async function generatePracticeNotes(
   // Only their own: others' public practices are readable too (D30).
   const { data: practice, error } = await supabase
     .from("practices")
-    .select("notes_generated_at, practice_sentences(i, en)")
+    .select("notes_generated_at, practice_sentences(i, en, notes)")
     .eq("id", practiceId)
     .eq("user_id", creator.user.id)
     .maybeSingle();
@@ -271,19 +277,35 @@ export async function generatePracticeNotes(
     return { ok: true, annotated: total, total };
   }
 
-  const sentences = [...practice.practice_sentences]
-    .sort((a, b) => a.i - b.i)
-    .map((s) => s.en);
-  const result = await annotateSome(creator, sentences, 1);
+  const rows = [...practice.practice_sentences].sort((a, b) => a.i - b.i);
+  const stored = rows.map((row) => parseSentenceNotes(row.notes));
+  const result = await annotateMissing(
+    creator,
+    rows.map((row) => row.en),
+    stored,
+    1,
+  );
   if (!result.ok) return result;
-  const { annotated, notes } = result.value;
-  if (!notes) return { ok: true, annotated, total };
+  const notes = result.value;
 
+  for (const [k, row] of rows.entries()) {
+    if (stored[k] || !notes[k]) continue;
+    const { error: saveError } = await supabase
+      .from("practice_sentences")
+      .update({ notes: notes[k] })
+      .eq("practice_id", practiceId)
+      .eq("i", row.i);
+    if (saveError) return { ok: false, reason: "failed" };
+  }
+  const annotated = notes.filter(Boolean).length;
+  if (annotated < total) return { ok: true, annotated, total };
+
+  const joined = joinNotes(notes as SentenceNotes[]);
   const { data: updated, error: updateError } = await supabase
     .from("practices")
     .update({
-      vocab: notes.vocab,
-      grammar: notes.grammar,
+      vocab: joined.vocab,
+      grammar: joined.grammar,
       notes_generated_at: new Date().toISOString(),
     })
     .eq("id", practiceId)

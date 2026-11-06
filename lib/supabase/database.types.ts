@@ -279,6 +279,7 @@ export type Database = {
           audio_path: string | null;
           en: string;
           i: number;
+          notes: Json | null;
           practice_id: string;
           zh: string;
         };
@@ -286,6 +287,7 @@ export type Database = {
           audio_path?: string | null;
           en: string;
           i: number;
+          notes?: Json | null;
           practice_id: string;
           zh?: string;
         };
@@ -293,6 +295,7 @@ export type Database = {
           audio_path?: string | null;
           en?: string;
           i?: number;
+          notes?: Json | null;
           practice_id?: string;
           zh?: string;
         };
