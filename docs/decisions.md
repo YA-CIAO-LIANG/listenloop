@@ -444,3 +444,25 @@
   - **用量與權限**：只開放管理員（`getCreator`）；呼叫前先預扣「預估輸出字元數」（字數 × 6 ＋ 主題長度）到語言模型的每日用量。不快取，因為每次都應該是新的內容；temperature 0.9，讓內容有變化。
   - **已知限制**：對話目前用同一個聲音念。之後可以讓每一句記錄說話者，用兩個聲音產生音檔。
 - **要改時**：`lib/custom-practice/generation.ts`、`lib/ai/gemini.ts`（`COMPOSE_INSTRUCTIONS`）、`app/materials/actions.ts`（`generatePracticeText`）、`components/GenerateTextPanel.tsx`。
+
+## D37 供應者改用 Azure；兩個資源都在 UAE North（2026-11-05，e+ 6）
+
+- **決定**（Joe 2026-11-05 指定改用 Azure for Students）：
+  - 聲音用 Azure Speech 神經語音，F0 免費方案；
+  - AI 文字用 Azure OpenAI 的 `gpt-5-mini`（Global Standard）。部署不了時，退回 `gpt-4.1-mini`，或文字繼續用 Gemini；
+  - 用環境變數 `AI_LANGUAGE_PROVIDER`、`AI_SPEECH_PROVIDER` 分別切換，預設 `azure`，Google 保留作為備用；
+  - `gpt-4.1-nano` 已經不能新部署，所以不考慮。
+- **區域**：
+  - 學生方案只允許 `uaenorth`、`indiasouthcentral`、`eastasia`、`centralindia`、`malaysiawest`（Joe 實測）；
+  - 官方區域表（2026-11-05 查）中，五個區域只有 `uaenorth` 有 Global Standard 的 gpt-5-mini 和 gpt-4.1-mini。Speech 神經語音在 `uaenorth`、`eastasia`、`centralindia` 都有，另外兩區沒有；
+  - 兩個資源都建在 `uaenorth`，集中在同一個地方管理。
+- **延遲的考量**：
+  - 呼叫 Azure 的是 Vercel 的伺服器函式（預設在美東 iad1），不是使用者的瀏覽器。所以要比較的是美東到 Azure 的距離，不是台灣到 Azure 的距離。
+  - 美東到 `uaenorth`、`eastasia`、`centralindia`，每次往返大約都是 200 毫秒，差別不大。
+  - AI 文字一次呼叫要好幾秒，多 0.2 秒影響不大，而且 Global Standard 會自動選處理的區域。
+  - 聲音一句一個請求，每批 8 句依序產生，一批大約多 1.6 秒，可以接受。
+  - 練習時播放的是 Supabase Storage 裡已經產生的音檔，不經過 Azure，所以學生聽音檔完全不受影響。
+  - 所以不為了延遲把 Speech 放到 `eastasia`。
+- **要改時**：
+  - 換區域時，在新區域重建資源，更新 `AZURE_SPEECH_REGION`、`AZURE_OPENAI_ENDPOINT` 和金鑰；
+  - 設定步驟在 `docs/roadmap.md` 清單 6。

@@ -13,7 +13,7 @@
 | c    | 同時練習多部影片完整支援 | 完成（#42、c2 c3 本 PR；c2 沿用現有功能，見 D18）                                       |
 | d    | 建立練習                 | 完成（#44～#49；d6 修改 #50～#54，2026-11-04 用真的 Gemini 和 Text-to-Speech 完整實測） |
 | e    | 公開分享                 | 完成（e1 #55、手機頁首 #56、e2 本 PR）                                                  |
-| e+   | e 驗收修正（5 項）       | 1、2、3a、4、5 完成（#58～#62）；3b 等 Joe 確認聲音選單                                 |
+| e+   | e 驗收修正（6 項）       | 1、2、3a、4、5 完成（#58～#62）；3b 等 Joe 確認聲音選單；6 供應者改 Azure 進行中        |
 | f    | 方案限制的權限設定       | e+ 完成後                                                                               |
 | —    | 內容工作                 | 暫停，功能都完成後一次處理                                                              |
 
@@ -94,7 +94,16 @@
 
 ## e+. e 驗收修正（2026-11-04 Joe 驗收 e 後提出，f 之前完成）
 
-順序 1 → 2 → 3a → 4 → 5 → 3b（3b 要等 Joe 在 `/styleguide` 確認 3a）。
+順序 1 → 2 → 3a → 4 → 5 → 6 → 3b（3b 要等 Joe 在 `/styleguide` 確認 3a）。
+
+**6 的 PR 拆法**（2026-11-05 Joe 核准）：
+
+1. 用量紀錄：每次呼叫記錄 token、字元數和估算費用，每日上限改用估算費用控制，管理員頁 `/admin/usage`；寫入省額度的測試規則。
+2. Azure Speech 供應者。
+3. Azure OpenAI 供應者。
+4. 錄製 fixture、重新產生試聽範例、真實實測：要等清單 6 完成，而且 Claude 先回報預估的呼叫次數和費用、Joe 同意後才執行。
+
+1～3 只用假的供應者，不需要等清單 6。
 
 | 項目 | 內容                                                                  | 狀態                                     |
 | ---- | --------------------------------------------------------------------- | ---------------------------------------- |
@@ -104,6 +113,7 @@
 | 3b   | 建立練習改用聲音下拉選單                                              | 等 Joe 確認                              |
 | 4    | 用 Gemini 依語意斷句；預覽可以合併、拆分（D35）                       | 完成（#61；真實 Gemini 實測等清單 5D）   |
 | 5    | AI 生成練習文字（類別、程度、長度、形式）（D36）                      | 完成（#62；真實 Gemini 實測等清單 5D）   |
+| 6    | 聲音與 AI 文字的供應者改用 Azure；用量與費用紀錄（D37）               | 進行中（清單 6 等 Joe 設定 Azure）       |
 
 ## f. 方案限制的權限設定
 
@@ -261,3 +271,99 @@ Text-to-Speech 就算只用免費額度，也一定要有帳單帳戶，也就�
 - 原本規劃的 Cloud Translation API 已經不需要（改用 Gemini，D28）；如果之前已經啟用，可以停用。
 
 **想先試用畫面（選擇性）**：在 Vercel「Settings → Environment Variables」新增 `AI_PROVIDERS`，值填 `fake`，Environment **只勾 Preview**。之後的預覽網站就能用管理員帳號打開 `/materials/new`。翻譯會顯示成「[en] 原文」這種假的結果，音檔是無聲的，不會產生任何費用。正式站一律不會使用假的供應者。
+
+### 6. Azure：聲音與 AI 文字（2026-11-05 新增，**需要 Joe 操作**）
+
+Joe 使用 Azure for Students：US$100 額度，到 2027-11-04，不需要信用卡；額度用完時服務會停用，不會收費。程式改用 Azure 之後，Gemini（5C、5D）和 Cloud Text-to-Speech（5B）都只當備用。區域的理由見 D37。
+
+**區域**：學生方案只允許 `uaenorth`、`indiasouthcentral`、`eastasia`、`centralindia`、`malaysiawest`（2026-11-05 Joe 實測，East US 2、Sweden Central 都被政策擋下）。查官方區域表（2026-11-05）的結果：
+
+| 區域                | Azure OpenAI（Global Standard 的 gpt-5-mini） | Speech 神經語音 |
+| ------------------- | --------------------------------------------- | --------------- |
+| `uaenorth`          | 有                                            | 有              |
+| `eastasia`          | 沒有                                          | 有              |
+| `centralindia`      | 沒有                                          | 有              |
+| `malaysiawest`      | 沒有                                          | 沒有            |
+| `indiasouthcentral` | 沒有                                          | 沒有            |
+
+所以**兩個資源都建在 UAE North**。
+
+#### 6A. 資源群組
+
+1. 登入 https://portal.azure.com ，確認「訂閱」裡有「Azure for Students」，並查看額度和到期日。
+2. 搜尋「資源群組」→「建立」：
+   - 訂閱：Azure for Students；
+   - 名稱：`listenloop`；
+   - 區域：**(Middle East) UAE North**。
+3. 按「檢閱 + 建立」→「建立」。
+
+#### 6B. Azure OpenAI（AI 文字：翻譯、講解、斷句、生成）
+
+1. 搜尋「Azure OpenAI」→「建立」：
+   - 資源群組 `listenloop`；
+   - 區域 **UAE North**；
+   - 名稱：例如 `listenloop-openai`（會變成網址的一部分，必須全球唯一，被用走時就加數字）；
+   - 定價層 **Standard S0**（依用量計費，從學生額度扣）；
+   - 網路：維持「所有網路」。
+2. 建好後打開資源，按「前往 Foundry 入口網站」（或「Explore Azure AI Foundry portal」）。
+3. 左側「部署」（Deployments）→「部署模型」→「部署基本模型」：
+   - 模型選 **gpt-5-mini**；
+   - 部署類型選 **Global Standard**；
+   - 部署名稱填 `gpt-5-mini`；
+   - 每分鐘 token 數（TPM）調到最低可用值，例如 10K。只有管理員在用，這樣就夠了，也能防止意外大量呼叫；
+   - 按「部署」。
+4. 如果出現「Quota insufficient」或「unusual activity」：
+   - 改部署 **gpt-4.1-mini**，部署名稱填 `gpt-4.1-mini`；
+   - 還是失敗，就告訴 Claude「OpenAI 部署不了」。AI 文字會繼續用 Gemini（`AI_LANGUAGE_PROVIDER=google`），聲音照樣改用 Azure。
+5. 部署成功後，回到 Azure 入口網站的資源頁 →「金鑰和端點」，複製：
+   - **端點**：`https://listenloop-openai.openai.azure.com/`；
+   - **金鑰 1**：秘密金鑰，不要貼進對話。
+
+**要知道的**：Global Standard 表示 Microsoft 可能在任何區域處理請求，所以資源建在 UAE North 也不會比較慢。依 Azure OpenAI 的條款，送出的內容不會被用來訓練模型，但會保留最多 30 天，用來偵測濫用。隱私權政策會在 PR 2 改寫。
+
+#### 6C. Speech（聲音）
+
+1. 搜尋「語音服務」（Speech services）→「建立」：
+   - 資源群組 `listenloop`；
+   - 區域 **UAE North**；
+   - 名稱：`listenloop-speech`；
+   - 定價層：一定要選 **Free F0**。每月 50 萬字元，超過就停止，不會收費；一個訂閱只能有一個 F0。
+2. 建好後到「金鑰和端點」，複製：
+   - **金鑰 1**：秘密金鑰；
+   - **位置／區域**：應該是 `uaenorth`。
+
+#### 6D. 填環境變數
+
+Vercel「Settings → Environment Variables」，Environment 勾 Production 和 Preview，秘密金鑰勾選「Sensitive」；`.env.local` 也加上同樣的內容：
+
+```
+AZURE_SPEECH_KEY=（6C 的金鑰 1）
+AZURE_SPEECH_REGION=uaenorth
+AZURE_OPENAI_ENDPOINT=https://listenloop-openai.openai.azure.com
+AZURE_OPENAI_API_KEY=（6B 的金鑰 1）
+AZURE_OPENAI_DEPLOYMENT=gpt-5-mini
+AZURE_OPENAI_MODEL=gpt-5-mini
+```
+
+- 6B 改用 gpt-4.1-mini 時，最後兩行都填 `gpt-4.1-mini`。
+- 6B 部署不了時，`AZURE_OPENAI_*` 四行不用填，另外加 `AI_LANGUAGE_PROVIDER=google`。
+- 程式要等 PR 2、3 合併才會讀這些變數，可以先填好。
+
+#### 6E. 預算警示
+
+1. 搜尋「成本管理 + 計費」→「成本管理」→ 上方「範圍」選 Azure for Students 訂閱。
+2. 左側「預算」→「新增」：
+   - 名稱：`listenloop-monthly`；
+   - 重設期間：每月；
+   - 金額：US$5；
+   - 下一步「設定警示」：類型「實際」，門檻 50%、80%、100%，警示收件者填你的 email；
+   - 建立。
+3. 如果學生訂閱不能建立預算（選項是灰的或出現錯誤）：改到 https://www.microsoftazuresponsorships.com ，或在入口網站搜尋「教育」（Education）查看剩餘額度，再搭配 PR 1 的 `/admin/usage` 估算。
+
+#### 完成後
+
+- 告訴 Claude「Azure 好了」，並說明 6B 部署的是哪個模型。
+- Claude 會先回報預計呼叫幾次、預估費用，**等你同意後**才：
+  - 錄製測試用的 fixture；
+  - 重新產生 8 個試聽範例（約 800 字元，F0 免費）；
+  - 用 1～2 句實測，回報實際的 token 數、字元數和費用。
