@@ -92,7 +92,18 @@ export default async function MaterialsPage() {
     return (
       <li key={practice.id} className="space-y-3 py-4">
         <div className="space-y-2">
-          <p className="font-medium">{practice.title}</p>
+          <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+            <span className="font-medium">{practice.title}</span>
+            {creator && (
+              <Link
+                href={`/materials/${practice.id}/edit`}
+                className="text-supporting text-accent-ink underline underline-offset-4"
+                aria-label={tMaterials("editLabel", { title: practice.title })}
+              >
+                {tMaterials("edit")}
+              </Link>
+            )}
+          </p>
           <p className="mt-1 text-supporting text-ink-muted">
             {t("listMeta", {
               count: sentences.length,
