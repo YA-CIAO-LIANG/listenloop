@@ -259,7 +259,14 @@
     },
     "heatScale": "Practice calendar steps: 0, 1, 2, 3, and 4+ official tasks finished that day",
     "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a sample made in advance with an Azure Speech neural voice, kept in public/voices/, so it costs no usage.",
-    "voiceMenuNote": "The new voice menu (e+ 3; replaces the voice cards below once approved): grouped by accent, with a line on how each accent sounds and a listen button for each voice. Arrow keys move, Enter chooses, Escape closes."
+    "voiceMenuNote": "The new voice menu (e+ 3; replaces the voice cards below once approved): grouped by accent, with a line on how each accent sounds and a listen button for each voice. Arrow keys move, Enter chooses, Escape closes.",
+    "marks": {
+      "before": "I was",
+      "key": "going to",
+      "middle": "call you, but I",
+      "miss": "ran out of",
+      "after": " time."
+    }
   },
   "library": {
     "title": "Recommended practices",
@@ -1639,5 +1646,13 @@
     "body": "ListenLoop needs a connection to load practice pages and videos. Check your connection and try again.",
     "progress": "Your progress is saved on this device; it’ll be there when you’re back online, and syncs to your account when you’re signed in.",
     "retry": "Try again"
+  },
+  "marks": {
+    "missLabel": "You misheard: ",
+    "keyLabel": "Key: ",
+    "missName": "What you misheard",
+    "keyName": "Key words",
+    "missSample": "misheard",
+    "keySample": "key"
   }
 }

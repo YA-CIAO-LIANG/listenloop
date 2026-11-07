@@ -11,6 +11,7 @@ import { Button, type ButtonVariant } from "@/components/Button";
 import { Card } from "@/components/Card";
 import { CardLink } from "@/components/CardLink";
 import { Divider } from "@/components/Divider";
+import { Mark, MarkLegend } from "@/components/Mark";
 import { FeedIcon, LockIcon, PointsIcon } from "@/components/icons";
 import { AQUARIUM_ENABLED } from "@/lib/features";
 import { LanguageToggle } from "@/components/LanguageToggle";
@@ -260,6 +261,29 @@ export default function StyleguidePage() {
 
           <Demo name="Divider">
             <Divider />
+          </Demo>
+
+          <Demo name="Mark (highlighter)">
+            <div className="grid gap-4 split:grid-cols-2">
+              {(["light", "dark"] as const).map((theme) => (
+                <div
+                  key={theme}
+                  data-theme={theme}
+                  className="space-y-3 rounded-base border border-line bg-ground p-4 text-ink"
+                >
+                  <p className="text-metadata tracking-widest text-ink-muted uppercase">
+                    {theme}
+                  </p>
+                  <p lang="en" className="text-sentence">
+                    {t("marks.before")} <Mark kind="key">{t("marks.key")}</Mark>{" "}
+                    {t("marks.middle")}{" "}
+                    <Mark kind="miss">{t("marks.miss")}</Mark>
+                    {t("marks.after")}
+                  </p>
+                  <MarkLegend kinds={["miss", "key"]} />
+                </div>
+              ))}
+            </div>
           </Demo>
         </div>
       </Section>
