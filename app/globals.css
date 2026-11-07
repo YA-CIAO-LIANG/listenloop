@@ -33,6 +33,13 @@
   --ll-heat-4: #e8590c;
   /* Date numbers on the darkest steps (AA on every step). */
   --ll-heat-ink-strong: #141414;
+
+  /* Highlighter (D66): what the learner misheard, and each sentence's key
+     words. Backgrounds behind ink text; underlines tell them apart too. */
+  --ll-mark-miss: #ffd2b5;
+  --ll-mark-miss-line: #a63d09;
+  --ll-mark-key: #fff0a3;
+  --ll-mark-key-line: #6b5a00;
 }
 
 :root {
@@ -88,6 +95,11 @@
     --ll-heat-3: #c4602b;
     --ll-heat-4: #ff7a33;
     --ll-heat-ink-strong: #121212;
+
+    --ll-mark-miss: #5e2a0e;
+    --ll-mark-miss-line: #ff8f52;
+    --ll-mark-key: #47400c;
+    --ll-mark-key-line: #e8d36a;
   }
 }
 
@@ -113,6 +125,11 @@
   --ll-heat-3: #c4602b;
   --ll-heat-4: #ff7a33;
   --ll-heat-ink-strong: #121212;
+
+  --ll-mark-miss: #5e2a0e;
+  --ll-mark-miss-line: #ff8f52;
+  --ll-mark-key: #47400c;
+  --ll-mark-key-line: #e8d36a;
 }
 
 /*
@@ -140,6 +157,10 @@
   --color-heat-3: var(--ll-heat-3);
   --color-heat-4: var(--ll-heat-4);
   --color-heat-ink-strong: var(--ll-heat-ink-strong);
+  --color-mark-miss: var(--ll-mark-miss);
+  --color-mark-miss-line: var(--ll-mark-miss-line);
+  --color-mark-key: var(--ll-mark-key);
+  --color-mark-key-line: var(--ll-mark-key-line);
 
   --font-*: initial;
   --font-display: var(--ll-font-display);
@@ -290,6 +311,39 @@
   margin-inline: 0;
 }
 
+/*
+ * Highlighter marks (D66). Never color alone: "missed" has a solid
+ * underline, "key" a dotted one, and each carries screen-reader text.
+ * They print (light backgrounds, so printer friendly) with their lines.
+ */
+@utility mark-miss {
+  background-color: var(--ll-mark-miss);
+  color: var(--ll-ink);
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: var(--ll-mark-miss-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  border-radius: 2px;
+  padding-inline: 1px;
+  box-decoration-break: clone;
+  print-color-adjust: exact;
+}
+
+@utility mark-key {
+  background-color: var(--ll-mark-key);
+  color: var(--ll-ink);
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--ll-mark-key-line);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  border-radius: 2px;
+  padding-inline: 1px;
+  box-decoration-break: clone;
+  print-color-adjust: exact;
+}
+
 @utility pressable {
   position: relative;
   overflow: hidden;
@@ -364,8 +418,13 @@
     --ll-ink: #000000 !important;
     --ll-ink-muted: #444444 !important;
     --ll-line: #cccccc !important;
-    --ll-accent: #b8440a !important;
-    --ll-accent-ink: #b8440a !important;
+    --ll-accent: #a63d09 !important;
+    --ll-accent-ink: #a63d09 !important;
+    /* Printer-friendly highlighter (D66): pale fills, dark lines. */
+    --ll-mark-miss: #ffe3d1 !important;
+    --ll-mark-miss-line: #a63d09 !important;
+    --ll-mark-key: #fff6c7 !important;
+    --ll-mark-key-line: #6b5a00 !important;
   }
 
   body {

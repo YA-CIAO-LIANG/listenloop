@@ -259,7 +259,14 @@
     },
     "heatScale": "練習日曆色階：當天完成 0、1、2、3、4 個以上的正式任務",
     "voicePickerNote": "建立練習時選擇聲音用。試聽播放的是 Azure Speech 神經語音預先產生的範例句，放在 public/voices/，不花用量。",
-    "voiceMenuNote": "新的聲音選單（e+ 3，取代下方的聲音卡片，確認後才換到建立練習）：依口音分組，每組附一句口音特色，每個聲音可以試聽。方向鍵移動、Enter 選定，Esc 關閉。"
+    "voiceMenuNote": "新的聲音選單（e+ 3，取代下方的聲音卡片，確認後才換到建立練習）：依口音分組，每組附一句口音特色，每個聲音可以試聽。方向鍵移動、Enter 選定，Esc 關閉。",
+    "marks": {
+      "before": "I was",
+      "key": "going to",
+      "middle": "call you, but I",
+      "miss": "ran out of",
+      "after": " time."
+    }
   },
   "library": {
     "title": "推薦練習",
@@ -1635,5 +1642,13 @@
     "body": "ListenLoop 需要網路才能載入練習頁和影片。請確認連線後再試一次。",
     "progress": "你的練習進度存在這台裝置上，連線恢復後會照常顯示，登入時也會再同步到雲端。",
     "retry": "再試一次"
+  },
+  "marks": {
+    "missLabel": "你聽錯的字：",
+    "keyLabel": "重點：",
+    "missName": "你聽錯的地方",
+    "keyName": "重點",
+    "missSample": "聽錯",
+    "keySample": "重點"
   }
 }

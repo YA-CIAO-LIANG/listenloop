@@ -1118,3 +1118,14 @@
   - `cost-report`：本週用量和每份教材的成本，用 `scripts/cost-report.mts` 讀取 `api_calls`，不呼叫任何 API。每份教材的歸屬依時間和呼叫類型推算，是近似值。
 - **AI 開發紀錄**（`docs/ai-dev-log.md`）：PR 數、測試數、各里程碑日期、API 總花費，以及哪些由 Joe 決定、哪些由 Claude 完成。CLAUDE.md 加上規則：每個里程碑都要更新。
 - **要改時**：`scripts/auto-continue/run.sh`（允許的工具、時間上限）、`.claude/skills/*/SKILL.md`、`scripts/cost-report.mts`、`docs/ai-dev-log.md`。
+
+## D66 螢光筆標示（2026-11-08，講解升級 1）
+
+- **決定**：設計系統新增兩種標示：
+  - `mark-miss`：學習者聽錯或漏掉的字；
+  - `mark-key`：每句的 1～2 個重點字或片語。
+- **不只靠顏色**：miss 是實線底線、key 是點狀底線，並附上螢幕閱讀器文字（「你聽錯的字：」「重點：」）。
+- **色票**：淺色、深色、列印各一組（見 design-system「螢光筆」）。文字固定用 ink；用 axe 在淺色和深色模式檢查，對比都通過。
+  - 橘色延續品牌的 accent，用來標示「要注意」的地方；黃色是一般螢光筆的顏色，用來標示「值得學」的地方。兩者一看就能分辨。
+- **列印**：底色調得更淡，並強制印出（`print-color-adjust: exact`）；只靠底線也能分辨兩種標示。
+- **要改時**：`app/globals.css`（`--ll-mark-*`、`@utility mark-miss`／`mark-key`、列印的設定）、`components/Mark.tsx`、`/styleguide`。
