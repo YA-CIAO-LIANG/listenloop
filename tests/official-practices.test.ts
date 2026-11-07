@@ -8,6 +8,8 @@ const state = vi.hoisted(() => ({
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
+const logAudit = vi.hoisted(() => vi.fn());
+vi.mock("@/auth/audit", () => ({ logAudit }));
 vi.mock("@/auth/creator", () => ({ getAdminUser: async () => state.user }));
 vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () =>

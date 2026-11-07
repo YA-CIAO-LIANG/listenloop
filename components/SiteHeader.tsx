@@ -19,12 +19,15 @@ export function SiteHeader({
   account,
   showMaterials = false,
   showCreate = false,
+  showAdmin = false,
 }: {
   account?: ReactNode;
   /** "My materials", for signed-in users (D48). */
   showMaterials?: boolean;
   /** "+ Create a practice", for admins while creating is admin-only (D26). */
   showCreate?: boolean;
+  /** "Admin", the dashboard's entry, for admins only (D56). */
+  showAdmin?: boolean;
 }) {
   const t = useTranslations("common");
 
@@ -56,6 +59,14 @@ export function SiteHeader({
               className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >
               {t("materials")}
+            </Link>
+          )}
+          {showAdmin && (
+            <Link
+              href="/admin"
+              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            >
+              {t("admin")}
             </Link>
           )}
         </nav>

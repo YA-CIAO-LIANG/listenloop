@@ -509,3 +509,13 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - 標題「這句好像一直辨識不出來」→ 說明 → 4 個建議（supporting 項目清單）→ ink-muted 的 supporting 說明（跳過算完成、回報不含錄音）→ primary「再試一次」、secondary「跳過這句並回報」。
 - 逐句紀錄中，跳過的句子顯示「✓ 已跳過」。
+
+## 管理員後台 `/admin`（D56）
+
+- **入口**：頁首「後台」連結（只有管理員看得到），樣式同「學習進度」。
+- **區塊導覽 `AdminNav`**：頁面內容上方，下緣 1px line。每個連結是 supporting 字級：目前的區塊是 ink 字色加 2px accent 底線，其他是 ink-muted（hover 變 ink）。手機上不換行，改成左右捲動。
+- **頁面**：h1 → ink-muted 說明 → 內容。數字用 `StatTile`（metadata 大寫標籤、Display h2 數字、supporting 說明），排成 1／2／4 欄（窄／split／wide）。總覽依主題分組，每組一個 h3。
+- **表格**：上下 1px line、列之間 1px line；表頭是 ink-muted、font-normal；數字欄用 tabular-nums。手機上可以左右捲動（`overflow-x-auto`，表格有最小寬度）。連結用 accent-ink 底線。
+- **篩選列**：label 在上的欄位（surface 底、1px line 邊框），手機一欄、split 兩欄、wide 一排；secondary「篩選」按鈕。
+- **使用者個人頁**：← 使用者 → h1「使用者 001」→ 日期清單（ink-muted 標籤＋值）→ 角色與狀態（停用時用 error 色）→ secondary 小按鈕「設為管理員」／「改為一般使用者」，ghost「停用帳號…」按下後變成 primary「確定停用」＋ ghost「取消」，並顯示說明 → h2「最近的操作」與紀錄表格。
+- **容易出錯的句子**：清單，每項依序是 ink-muted 的出處（練習名稱・第 N 句）、sentence 字級的英文、supporting 的統計數字、accent-ink 連結（編輯或打開影片頁）。

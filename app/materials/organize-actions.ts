@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
+import { logAudit } from "@/auth/audit";
 import {
   writeAsAdmin,
   writeOutcome,
@@ -165,6 +166,14 @@ export async function setOfficial(
       .select("id"),
   );
   // The home page's library lists official practices.
-  if (result.ok) revalidatePath("/", "layout");
+  if (result.ok) {
+    await logAudit(
+      user.id,
+      "practice.official",
+      { type: "practice", id },
+      { to: official },
+    );
+    revalidatePath("/", "layout");
+  }
   return result;
 }

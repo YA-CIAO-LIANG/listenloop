@@ -6,7 +6,8 @@
     "explore": "公開教材",
     "mainNav": "主要導覽",
     "materials": "我的教材",
-    "createPractice": "建立練習"
+    "createPractice": "建立練習",
+    "admin": "後台"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -1145,5 +1146,149 @@
       "charsPerPractice": "文字超過方案上限，每份練習最多 {max, number} 字元。"
     },
     "seePractices": "查看學習進度"
+  },
+  "admin": {
+    "nav": {
+      "label": "後台導覽",
+      "overview": "總覽",
+      "users": "使用者",
+      "materials": "教材",
+      "reports": "檢舉審查",
+      "sentences": "容易出錯的句子",
+      "usage": "API 用量",
+      "events": "操作紀錄",
+      "feedback": "意見回饋",
+      "errors": "錯誤紀錄",
+      "audit": "管理稽核"
+    },
+    "overview": {
+      "title": "後台總覽",
+      "intro": "使用者、練習、費用和儲存空間。打開這一頁時，也會刪除超過保留期限的紀錄。",
+      "noSecretKey": "伺服器沒有設定 SUPABASE_SERVICE_ROLE_KEY，無法讀取後台資料。請到「API 用量」頁看設定診斷。",
+      "groups": {
+        "learners": "使用者",
+        "practice": "練習",
+        "costs": "費用與額度",
+        "storage": "Supabase 儲存空間"
+      },
+      "users": "使用者總數",
+      "activeToday": "今日活躍",
+      "activeWeek": "本週活躍",
+      "newUsers": "新註冊",
+      "weekNote": "近 7 天（台灣時間）",
+      "newPractices": "新增練習",
+      "daysCompleted": "完成天數",
+      "monthCost": "本月 API 費用",
+      "credit": "Azure 學生額度剩餘",
+      "creditNote": "共 US${total}，{endsOn} 到期；以呼叫紀錄估算",
+      "speech": "Azure 聲音字元（本月）",
+      "speechNote": "{used} / {free} 免費字元",
+      "database": "資料庫",
+      "files": "檔案（音檔）",
+      "bytesNote": "{used} MB / {limit} MB（免費方案）"
+    },
+    "users": {
+      "title": "使用者",
+      "intro": "所有帳號，以使用者編號顯示，不顯示 email。點編號可以查看操作紀錄、設定角色或停用帳號。",
+      "none": "還沒有使用者。",
+      "userName": "使用者 {number}",
+      "activity": "最近的操作",
+      "columns": {
+        "number": "使用者",
+        "joined": "註冊日期",
+        "lastSeen": "最後活動",
+        "practices": "練習數",
+        "cost": "本月用量",
+        "role": "角色",
+        "status": "狀態"
+      },
+      "roles": {
+        "admin": "管理員",
+        "user": "一般使用者"
+      },
+      "statuses": {
+        "active": "正常",
+        "disabled": "已停用"
+      },
+      "roleIs": "角色：{role}",
+      "selfNote": "這是你自己的帳號，不能在這裡變更角色或停用。",
+      "makeAdmin": "設為管理員",
+      "makeUser": "改為一般使用者",
+      "disable": "停用帳號…",
+      "confirmDisable": "確定停用",
+      "restore": "恢復帳號",
+      "cancel": "取消",
+      "disableNote": "停用後，這個帳號無法登入，已登入的工作階段也會失效。練習資料會保留，恢復後可以繼續使用。",
+      "saved": "已更新，並記錄在管理稽核。",
+      "errors": {
+        "unavailable": "只有管理員可以變更。",
+        "invalid": "資料不正確，請重新整理後再試。",
+        "not-found": "找不到這個帳號。",
+        "self": "不能變更自己的帳號。",
+        "listed": "這個帳號在 ADMIN_EMAILS 裡，會一直是管理員，不能改為一般使用者或停用。要先從 Vercel 的 ADMIN_EMAILS 移除。",
+        "failed": "變更失敗，請稍後再試。"
+      }
+    },
+    "events": {
+      "title": "操作紀錄",
+      "intro": "使用者的操作，最新的在最上面。只記錄使用者編號和必要欄位，保留 180 天。",
+      "none": "沒有符合條件的紀錄。",
+      "shown": "最多顯示 {max} 筆。",
+      "columns": {
+        "time": "時間",
+        "user": "使用者",
+        "type": "事件",
+        "practice": "練習",
+        "day": "天",
+        "score": "分數",
+        "code": "代碼"
+      },
+      "filters": {
+        "user": "使用者編號",
+        "type": "事件",
+        "allTypes": "全部事件",
+        "from": "開始日期",
+        "to": "結束日期",
+        "apply": "篩選"
+      }
+    },
+    "audit": {
+      "title": "管理稽核",
+      "intro": "每一次管理員的變更：誰、什麼時候、對什麼、改了什麼。保留 2 年。",
+      "none": "還沒有管理員的變更紀錄。",
+      "columns": {
+        "time": "時間",
+        "admin": "管理員",
+        "action": "動作",
+        "target": "對象",
+        "changes": "變更"
+      }
+    },
+    "sentences": {
+      "title": "容易出錯的句子",
+      "intro": "學習者跟讀時連續 5 次低於 50% 而回報的句子，依跳過次數和平均涵蓋率排序。可以直接到編輯頁修正。",
+      "none": "還沒有回報。",
+      "where": "{title}・第 {n} 句",
+      "missing": "（找不到這一句，可能已經改過）",
+      "stats": "跳過 {skips} 次・回報 {reports} 次・平均涵蓋率 {coverage}",
+      "edit": "編輯這份練習 →",
+      "open": "打開影片頁 →"
+    }
+  },
+  "events": {
+    "types": {
+      "sign_in": "登入",
+      "practice_start": "開始練習",
+      "day_complete": "完成一天",
+      "retry": "重練",
+      "practice_create": "建立練習",
+      "practice_edit": "編輯練習",
+      "practice_delete": "刪除練習",
+      "practice_public": "設為公開",
+      "report": "檢舉",
+      "sentence_skip": "跳過句子",
+      "recognition_fail": "辨識失敗",
+      "account_delete": "刪除帳號"
+    }
   }
 }

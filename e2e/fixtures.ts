@@ -31,10 +31,22 @@ export async function setToday(page: Page, date: string) {
  * /practices shows only when signed in (D2).
  */
 export async function signInAsAuthor(page: Page) {
+  await signInAs(page, { id: "e2e-author", email: "author@example.com" });
+}
+
+/**
+ * Signs in as an admin (D56): the stand-in reports role "admin" for this
+ * account's profile. No secret key in E2E, so admin pages show their
+ * empty or "no key" states: enough to see each page renders.
+ */
+export async function signInAsAdmin(page: Page) {
+  await signInAs(page, { id: "e2e-admin", email: "admin@example.com" });
+}
+
+async function signInAs(page: Page, user: { id: string; email: string }) {
   const base64url = (value: unknown) =>
     Buffer.from(JSON.stringify(value)).toString("base64url");
   const expiresAt = 4_102_444_800; // 2100
-  const user = { id: "e2e-author", email: "author@example.com" };
   const accessToken = [
     base64url({ alg: "HS256", typ: "JWT" }),
     base64url({

@@ -9,6 +9,8 @@ const state = vi.hoisted(() => ({
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
+const logAudit = vi.hoisted(() => vi.fn());
+vi.mock("@/auth/audit", () => ({ logAudit }));
 vi.mock("@/auth/creator", () => ({
   getAdminUser: async () =>
     state.admin ? { id: "admin-1", email: "joe@example.com" } : null,
@@ -62,6 +64,13 @@ describe("moderation actions", () => {
       ["eq", "practice_id", uuid],
       ["eq", "status", "open"],
     ]);
+    // Recorded in the admin audit (D56).
+    expect(logAudit).toHaveBeenCalledWith(
+      expect.any(String),
+      "practice.remove",
+      { type: "practice", id: uuid },
+      { reason: "personal" },
+    );
   });
 
   it("dismiss only open reports", async () => {

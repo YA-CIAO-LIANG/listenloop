@@ -67,6 +67,18 @@ function matching(params: URLSearchParams): Row[] {
   return rows;
 }
 
+/** The `sub` of a "Bearer <jwt>" header, unverified (it's a stand-in). */
+function tokenSubject(header: string | undefined): string | null {
+  const payload = header?.replace(/^Bearer /, "").split(".")[1];
+  if (!payload) return null;
+  try {
+    const claims = JSON.parse(Buffer.from(payload, "base64url").toString());
+    return typeof claims.sub === "string" ? claims.sub : null;
+  } catch {
+    return null;
+  }
+}
+
 const cors = {
   "access-control-allow-origin": "*",
   "access-control-allow-headers": "*",
@@ -93,12 +105,25 @@ createServer((request, response) => {
     response
       .writeHead(status, { ...cors, "content-type": "application/json" })
       .end(JSON.stringify(body));
+  // Profiles (D50): the admin account's says so; everyone else is a user.
+  if (url.pathname === "/rest/v1/profiles" && request.method === "GET") {
+    const sub = tokenSubject(request.headers.authorization);
+    json(200, [
+      {
+        number: sub === "e2e-admin" ? 0 : 1,
+        role: sub === "e2e-admin" ? "admin" : "user",
+        status: "active",
+      },
+    ]);
+    return;
+  }
   if (url.pathname === "/rest/v1/practices" && request.method === "GET") {
     json(200, matching(url.searchParams));
     return;
   }
   if (url.pathname === "/auth/v1/user") {
-    json(200, AUTHOR);
+    const sub = tokenSubject(request.headers.authorization);
+    json(200, sub === "e2e-admin" ? { ...AUTHOR, id: sub } : AUTHOR);
     return;
   }
   // Anything else finds nothing (reads) or isn't allowed (writes).
