@@ -42,7 +42,7 @@ async function listPractices({
     supabase
       .from("practices")
       .select(
-        "id, title, source_language, voice, created_at, category, exam, practice_sentences(audio_path)",
+        "id, title, subtitle, source_language, voice, created_at, category, exam, exam_target, level, sort_order, practice_sentences(audio_path)",
       )
       .eq("visibility", "public")
       // Authors can still read their own taken-down practices (D31).
@@ -84,6 +84,10 @@ async function listPractices({
         mine: mine.has(row.id),
         category: row.category,
         exam: row.exam,
+        examTarget: row.exam_target,
+        level: row.level,
+        subtitle: row.subtitle,
+        sortOrder: row.sort_order,
       },
     ];
   });

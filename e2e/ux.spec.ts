@@ -1,9 +1,11 @@
-import { expect, test } from "./fixtures";
+import { expect, signInAsAuthor, test } from "./fixtures";
 
 /** First visit, errors, and keyboard basics (D61). */
 test("a first visit shows the seven-day guide, which can be skipped", async ({
   page,
 }) => {
+  // Signed out, the home page's intro explains the loop instead (D70).
+  await signInAsAuthor(page);
   await page.goto("/");
   const guide = page.getByRole("region", { name: "第一次來？這樣練" });
   await expect(guide).toBeVisible();

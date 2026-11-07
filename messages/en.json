@@ -16,7 +16,25 @@
     "siteName": "ListenLoop"
   },
   "home": {
-    "tagline": "Seven days. One video. Hear every word."
+    "tagline": "Seven days. One video. Hear every word.",
+    "intro": {
+      "title": "Seven days to hear every word",
+      "steps": {
+        "day1": {
+          "title": "Day 1 Dictation",
+          "body": "Listen sentence by sentence and type what you hear; see your mistakes right away, then read the handout."
+        },
+        "days2to6": {
+          "title": "Days 2–6 Shadowing",
+          "body": "Say every sentence after the audio each day; speech recognition shows the words you missed."
+        },
+        "day7": {
+          "title": "Day 7 Dictation again",
+          "body": "Take the same dictation again and compare it with Day 1 to see your progress."
+        }
+      },
+      "noAccount": "You can practice without an account; sign in for the calendar, today's tasks, and your stats."
+    }
   },
   "settings": {
     "theme": {
@@ -103,8 +121,8 @@
   },
   "today": {
     "title": "Today’s tasks",
-    "empty": "No practice started yet. Pick a video from the recommended practices below to start Day 1.",
-    "emptyLink": "Go to the recommended practices",
+    "empty": "No practice started yet. Pick a material from the library below to start Day 1.",
+    "emptyLink": "Go to the library",
     "newWeekLine": "<video>{title}</video> · Week {week} starts again",
     "available": "Ready",
     "done": "Done",
@@ -266,17 +284,64 @@
       "middle": "call you, but I",
       "miss": "ran out of",
       "after": " time."
+    },
+    "library": {
+      "subtitle": "A phone call to move a client meeting, TOEIC-style.",
+      "tagAudio": "Audio",
+      "tagLevel": "Intermediate",
+      "openSheet": "Open the bottom drawer",
+      "sheetTitle": "Filters",
+      "closeSheet": "Done"
     }
   },
   "library": {
-    "title": "Recommended practices",
-    "intro": "Pick a video and start a seven-day loop.",
-    "sentences": "{count, plural, one {# sentence} other {# sentences}}",
-    "videoCount": "{count, plural, one {# video} other {# videos}}",
-    "excerptLength": "{seconds, plural, =0 {Excerpt {minutes} min} other {Excerpt {minutes} min {seconds} s}}",
+    "title": "Library",
+    "intro": "Videos and audio lessons, all in one place. Pick one and start a seven-day loop.",
+    "kinds": {
+      "video": "Video",
+      "audio": "Audio"
+    },
+    "filters": {
+      "title": "Filters",
+      "open": "Filters",
+      "openCount": "Filters ({count})",
+      "time": "Time a day",
+      "timeOption": "Up to {minutes} min ({count})",
+      "kind": "Type",
+      "category": "Category",
+      "level": "Level",
+      "length": "Length",
+      "accent": "Accent",
+      "option": "{label} ({count})",
+      "search": "Search",
+      "searchPlaceholder": "Title or summary, e.g. airport",
+      "sort": "Sort by",
+      "sorts": {
+        "recommended": "Recommended",
+        "newest": "Newest",
+        "shortest": "Shortest",
+        "popular": "Most practiced"
+      },
+      "results": "{count, plural, one {# material} other {# materials}}",
+      "show": "Show {count, plural, one {# material} other {# materials}}",
+      "clear": "Clear filters",
+      "clearAll": "Clear all filters",
+      "empty": "Nothing matches."
+    },
+    "time": {
+      "title": "How many minutes do you have today?",
+      "option": "{minutes} min",
+      "hint": "Pick a time and the library below shows only what you can finish in a day."
+    },
+    "card": {
+      "length": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",
+      "perDay": "About {minutes} min a day",
+      "target": "Target: {target}",
+      "mine": "Yours"
+    },
     "length": {
-      "label": "Excerpt length",
       "buckets": {
+        "0-1": "Under 1 min",
         "1-2": "1–2 min",
         "2-3": "2–3 min",
         "3-4": "3–4 min",
@@ -285,19 +350,7 @@
         "6-7": "6–7 min",
         "7-8": "7–8 min",
         "8-plus": "8 min or more"
-      },
-      "option": "{bucket} ({count})",
-      "clear": "Clear",
-      "clearAll": "Clear filters",
-      "results": "{count, plural, one {Showing # video} other {Showing # videos}}",
-      "empty": "No videos match."
-    },
-    "official": {
-      "title": "ListenLoop official practices",
-      "count": "{count, plural, one {# practice} other {# practices}}",
-      "intro": "Practices ListenLoop made for everyone; work through them in order.",
-      "filterCategory": "Category",
-      "filterExam": "Exam"
+      }
     }
   },
   "collections": {
@@ -648,7 +701,7 @@
     },
     "count": "{count}",
     "empty": "You haven't started any practice yet.",
-    "toLibrary": "Go to the recommended practices →",
+    "toLibrary": "Go to the library →",
     "unknownVideo": "(A video no longer in the library)",
     "remove": "Remove…",
     "removeConfirm": "Remove your progress on “{title}”? Each day's progress and scores are deleted and can't be restored; the practice calendar keeps its history.",
@@ -847,7 +900,7 @@
   },
   "organize": {
     "collectionsTitle": "Collections",
-    "collectionsIntro": "Group your practices, like the library's collections. Deleting a collection keeps its practices; they just become ungrouped.",
+    "collectionsIntro": "Group your practices, like folders. Deleting a collection keeps its practices; they just become ungrouped.",
     "newCollection": "New collection name",
     "addCollection": "Add",
     "practiceCount": "{count, plural, one {# practice} other {# practices}}",
@@ -909,7 +962,7 @@
   },
   "materials": {
     "title": "My materials",
-    "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the recommended practices. Admins only for now.",
+    "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the library's materials. Admins only for now.",
     "create": "Create a practice",
     "createUnavailable": "Creating practices is off: a setup condition isn't met. See \"Setup check\" on the API usage page for which one.",
     "removed": "Taken down by an admin (reason: {reason}). It's no longer public; only you can see it, and it can't be made public again.",
@@ -922,7 +975,7 @@
   },
   "explore": {
     "title": "Shared materials",
-    "intro": "Practices people have shared. Each one follows the same seven-day loop as the recommended practices, and you can practice without signing in.",
+    "intro": "Practices people have shared. Each one follows the same seven-day loop as the library's materials, and you can practice without signing in.",
     "none": "No shared practices yet.",
     "searchLabel": "Search titles",
     "searchPlaceholder": "For example: interview",
@@ -1284,7 +1337,7 @@
     },
     "materials": {
       "title": "Materials",
-      "intro": "Official and public materials. Official practices must be made by an admin; they start as private drafts and can be published to the library once their notes and audio are done. Published ones can be reordered in the library.",
+      "intro": "Official and public materials. Official practices must be made by an admin; they start as private drafts and can be published to the library once their notes and audio are done. Published ones can be reordered in the library's recommended order.",
       "none": "No materials match.",
       "author": "User {number}",
       "sentences": "{count} sentences",

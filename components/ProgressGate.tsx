@@ -14,16 +14,21 @@ import { useProgressVisible } from "./StoresProvider";
 export function ProgressGate({
   place,
   className = "",
+  signedOut,
   children,
 }: {
   /** Which wording to use. */
   place: "home" | "practices";
   /** Spacing for the sign-in card. */
   className?: string;
+  /** Shown signed out instead of the sign-in card (the home page's intro). */
+  signedOut?: ReactNode;
   children: ReactNode;
 }) {
   const t = useTranslations("progressGate");
-  if (useProgressVisible()) return children;
+  const visible = useProgressVisible();
+  if (visible) return children;
+  if (signedOut) return signedOut;
   return (
     <section
       aria-labelledby={`progress-gate-${place}`}

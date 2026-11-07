@@ -28,7 +28,8 @@ describe("excerptSeconds", () => {
 
 describe("lengthBucket", () => {
   it("includes the lower bound and excludes the upper one", () => {
-    expect(lengthBucket(59)).toBeNull();
+    expect(lengthBucket(0)).toBe("0-1");
+    expect(lengthBucket(59)).toBe("0-1");
     expect(lengthBucket(60)).toBe("1-2");
     expect(lengthBucket(119)).toBe("1-2");
     expect(lengthBucket(120)).toBe("2-3");

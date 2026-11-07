@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { practiceSeconds } from "@/auth/library";
 import { listPublicPractices } from "@/auth/public-practices";
 import { ExploreList } from "@/components/ExploreList";
 
@@ -17,12 +18,16 @@ export default async function ExplorePage() {
     getTranslations("explore"),
     listPublicPractices(),
   ]);
+  const seconds = await practiceSeconds(practices.map((p) => p.id));
 
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
-      <ExploreList practices={practices} />
+      <ExploreList
+        practices={practices}
+        seconds={Object.fromEntries(seconds)}
+      />
     </main>
   );
 }

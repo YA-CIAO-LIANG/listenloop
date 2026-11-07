@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { MyPractices } from "@/components/MyPractices";
+import { PracticeCalendar } from "@/components/PracticeCalendar";
 import { ProgressGate } from "@/components/ProgressGate";
 import { getAllVideos } from "@/lib/video-library";
 
@@ -21,6 +22,10 @@ export default async function PracticesPage() {
       <h1 className="font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
       <ProgressGate place="practices" className="mt-8">
+        {/* The calendar moved here from the home page (D70). */}
+        <div className="mt-8">
+          <PracticeCalendar />
+        </div>
         <MyPractices titles={titles} />
       </ProgressGate>
     </main>

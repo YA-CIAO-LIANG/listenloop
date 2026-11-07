@@ -11,6 +11,8 @@ export const MIN_EXCERPT_SECONDS = 60;
  * translation files (library.length.buckets.<id>).
  */
 export const LENGTH_BUCKETS = [
+  // Audio practices can be shorter than a published video (D70).
+  { id: "0-1", min: 0, max: 60 },
   { id: "1-2", min: 60, max: 120 },
   { id: "2-3", min: 120, max: 180 },
   { id: "3-4", min: 180, max: 240 },
@@ -35,7 +37,7 @@ export function excerptSeconds(sentences: readonly Sentence[]): number {
   return Math.round(last.end - first.start);
 }
 
-/** The length filter an excerpt falls in, or null below the shortest one. */
+/** The length filter an excerpt falls in, or null if none holds it. */
 export function lengthBucket(seconds: number): LengthBucketId | null {
   return (
     LENGTH_BUCKETS.find(({ min, max }) => seconds >= min && seconds < max)

@@ -10,10 +10,13 @@ import { useEffect, useId, useRef, type ReactNode } from "react";
 export function Dialog({
   title,
   onClose,
+  variant = "center",
   children,
 }: {
   title: string;
   onClose: () => void;
+  /** "sheet": a bottom drawer across the screen, for phones (D70). */
+  variant?: "center" | "sheet";
   children: ReactNode;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -38,7 +41,11 @@ export function Dialog({
         event.preventDefault();
         onClose();
       }}
-      className="m-auto w-[min(32rem,calc(100vw-2rem))] rounded-base border border-line bg-surface p-6 text-ink backdrop:bg-ink/40"
+      className={`${
+        variant === "sheet"
+          ? "mx-0 mt-auto mb-0 max-h-[85dvh] w-full max-w-none overflow-y-auto rounded-t-base border-t border-line"
+          : "m-auto w-[min(32rem,calc(100vw-2rem))] rounded-base border border-line"
+      } bg-surface p-6 text-ink backdrop:bg-ink/40`}
     >
       <h2 id={titleId} className="font-display text-h3">
         {title}

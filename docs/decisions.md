@@ -1220,3 +1220,21 @@
   - 補跑時重新錄的 fixture 有一個片語沒有 IPA（格式允許），所以保留前一次錄好的 fixture，沒有改測試。
 - **注意**：14 份裡的「First Order at the Coffee Shop」在 2026-11-08 03:29 被取消官方教材（管理稽核有紀錄），這次升級不改變它的狀態。
 - **要改時**：`scripts/upgrade-notes.record.ts`、`supabase/migrations/20261108120000_upgrade_practice_notes.sql`、`scripts/cost-guard.ts`。
+
+## D70 教材庫：影片與音檔合一、篩選存在網址（2026-11-08，新產品方向 1）
+
+- **決定**：首頁的「推薦練習」（內建影片，依合集分組）和「ListenLoop 官方教材」合併成一個**教材庫**。資料統一成 `LibraryItem`（`lib/library.ts`），伺服器端由 `getLibraryItems`（`auth/library.ts`）組合，瀏覽器端篩選（清單小，不需要分頁）。
+- **篩選**：類型、分類、程度、長度、口音，可複選；同一組是「其中之一」，不同組是「而且」。另加「每天練習時間」（10／20／30 分鐘內，單選）、搜尋（標題＋副標）、排序（推薦、最新、最短、最多人練）。全部存在網址參數（`q`、`type`、`cat`、`level`、`length`、`accent`、`min`、`sort`），重新整理和分享連結都保留；不認得的值忽略。
+- **合理的預設**：
+  - 內建影片的類別對應到教材分類：daily → 日常生活、campus → 校園、business → 職場、interview 與 story → 演講與故事（`VIDEO_CATEGORY_IN_LIBRARY`）。
+  - 內建影片沒有建立時間，排序「最新」時視為 2026-10-24（第一支影片上架日）。
+  - **推薦順序**：先依管理員排的官方順序，再依程度由淺到深、短的在前。
+  - **每天預估時間** = 長度 × 4（`PRACTICE_TIME_FACTOR`，`lib/library-config.ts`），無條件進位到分鐘。理由：聽寫要逐句播放、重播、打字，跟讀要播放和錄音，實測大約是原長的 3～5 倍。之後有練習時間紀錄（D74）後，改用實際平均。
+  - **音檔長度**：從語音檔大小推算（Azure 輸出固定 48 kbit/s MP3），由資料庫函式 `practice_audio_bytes` 加總，不用另外補資料；不知道時用「每句 12 字、每分鐘 130 字」估。
+  - 長度新增「1 分鐘以內」，因為音檔教材可能比正式影片短。
+  - 「最多人練」用 `material_learner_counts()`：只回傳每份教材的人數，不含任何個人資料。
+  - 篩選組只有一種值時不顯示（例如目前只有一支影片時，類型仍顯示，因為有影片和音檔兩種）。
+- **首頁順序**：登入後是今日任務 →「我今天有幾分鐘？」→ 教材庫；未登入是產品介紹（三個步驟＋登入）→ 教材庫。練習日曆移到「學習進度」頁。新手引導只給已登入、還沒有練習的人，未登入由產品介紹取代，避免兩個說明框重複。
+- **元件**：`MaterialCard`（取代 `PracticeCard` 和題庫卡片，`/explore` 也用）、`Tag`、`LibraryFilters`、`Dialog` 的 `sheet`（手機底部抽屜），規格寫在 `docs/design-system.md`，`/styleguide` 有範例。
+- **不新增套件**。
+- **要改時**：`lib/library.ts`、`lib/library-config.ts`、`auth/library.ts`、`components/MaterialLibrary.tsx`、`components/MaterialCard.tsx`、`supabase/migrations/20261108140000_library.sql`。

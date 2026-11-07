@@ -20,6 +20,10 @@ const practice = (
   mine: false,
   category: null,
   exam: null,
+  examTarget: null,
+  level: null,
+  subtitle: null,
+  sortOrder: null,
 });
 
 const list = [
