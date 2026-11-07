@@ -1214,5 +1214,9 @@
   - **錯誤的連音說明**：真實回答把「going to the library」說成「gonna」。going to 只有接動詞時才會唸成 gonna。現在有兩道防線：
     1. 檢查程式（`impossibleReduction`）：going to／want to 後面接冠詞、所有格或地點名詞時，丟掉說成 gonna／wanna 的連音說明。顯示時也會重新檢查，所以已經產生的講解也會自動套用；
     2. 提示詞寫明這個規則，並要求只描述這句實際會發生的連音。提示詞改了，所以 fixture 重新錄了一次。
+- **結果（2026-11-08）**：
+  - 13 份升級到第 2 版；「Study Plans for the Midterm」被官方帳號的**每日費用上限**擋下（保護機制，沒有調高），台灣時間隔天重設後用同一個指令補跑，預估約 US$0.02。
+  - 實際花費（`api_calls`）：講解 70 次呼叫（1 次被截斷失敗），輸入 68,187、輸出 185,237 token，**US$0.3875**；在 US$0.50 的額度內。
+  - 補跑時重新錄的 fixture 有一個片語沒有 IPA（格式允許），所以保留前一次錄好的 fixture，沒有改測試。
 - **注意**：14 份裡的「First Order at the Coffee Shop」在 2026-11-08 03:29 被取消官方教材（管理稽核有紀錄），這次升級不改變它的狀態。
 - **要改時**：`scripts/upgrade-notes.record.ts`、`supabase/migrations/20261108120000_upgrade_practice_notes.sql`、`scripts/cost-guard.ts`。
