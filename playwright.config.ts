@@ -32,8 +32,11 @@ export default defineConfig({
     {
       command: `npx next start --port ${PORT}`,
       port: PORT,
-      // Set here, these win over .env.local.
+      // Set here, these win over .env.local. The secret key is a stand-in
+      // for the stand-in Supabase: the same locally and in CI, never the
+      // real one.
       env: {
+        SUPABASE_SERVICE_ROLE_KEY: "e2e-secret-key",
         AI_PROVIDERS: "fake",
         AZURE_SPEECH_KEY: "",
         AZURE_OPENAI_API_KEY: "",

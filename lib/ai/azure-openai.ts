@@ -76,7 +76,6 @@ export function azureEndpoint(value: string): string | null {
 }
 
 const STRING = { type: "string" } as const;
-const INDEX = { type: "integer" } as const;
 const object = (properties: Record<string, unknown>) => ({
   type: "object",
   properties,

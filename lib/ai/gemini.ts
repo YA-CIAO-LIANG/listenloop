@@ -36,7 +36,6 @@ const endpoint = (model: string) =>
   `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
 const STRING = { type: "STRING" } as const;
-const INDEX = { type: "INTEGER" } as const;
 
 const NOTES_SCHEMA = toGeminiSchema(RICH_NOTES_SCHEMA);
 

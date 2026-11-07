@@ -33,13 +33,7 @@ import {
   TRANSLATE_BATCH,
   translateCached,
 } from "@/lib/custom-practice/notes";
-import {
-  can,
-  needsCount,
-  planFor,
-  type PlanBlock,
-  type PlanCheck,
-} from "@/lib/plans";
+import { can, planFor, type PlanBlock, type PlanCheck } from "@/lib/plans";
 import { countChars } from "@/lib/usage";
 import {
   isDialogue,
@@ -47,7 +41,6 @@ import {
   type Speaker,
 } from "@/lib/custom-practice/speakers";
 import { customPracticeId } from "@/lib/practice-material";
-import { usagePeriodStarts } from "@/lib/usage-report";
 
 export type SplitResult =
   | {
