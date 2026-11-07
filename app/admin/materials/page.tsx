@@ -64,7 +64,7 @@ export default async function AdminMaterialsPage({
   let request = admin
     ?.from("practices")
     .select(
-      "id, title, user_id, visibility, official, published, sort_order, removed_at, removed_reason, category, scenario, level, exam, exam_target, created_at, notes_generated_at, practice_sentences(audio_path)",
+      "id, title, subtitle, user_id, visibility, official, published, sort_order, removed_at, removed_reason, category, scenario, level, exam, exam_target, created_at, notes_generated_at, practice_sentences(audio_path)",
     )
     .or("official.eq.true,visibility.eq.public,removed_at.not.is.null")
     .order("created_at", { ascending: false })
@@ -246,6 +246,7 @@ export default async function AdminMaterialsPage({
                     practice={{
                       id: practice.id,
                       title: practice.title,
+                      subtitle: practice.subtitle,
                       state: officialState(practice),
                       position: position === -1 ? null : position,
                       published: order.length,

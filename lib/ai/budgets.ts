@@ -1,6 +1,7 @@
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 import { tokenCost, type TokenPrice } from "./pricing";
+import type { DescribeInput } from "./types";
 
 /**
  * How big each language-model call may get (D38). The cap on output
@@ -9,7 +10,7 @@ import { tokenCost, type TokenPrice } from "./pricing";
  * is reserved against the daily cost limit before the call.
  */
 export type LanguageOperation =
-  "translate" | "annotate" | "segment" | "compose";
+  "translate" | "annotate" | "segment" | "compose" | "describe";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -63,6 +64,15 @@ export function composeBudget(prompt: CompositionPrompt): LanguageBudget {
     operation: "compose",
     inputChars: countChars([prompt.topic, prompt.scenario, prompt.level]),
     maxOutputTokens: capped(prompt.words * 2 + 300, 3_000),
+  };
+}
+
+/** One short sentence back (D71); room for minimal reasoning. */
+export function describeBudget(material: DescribeInput): LanguageBudget {
+  return {
+    operation: "describe",
+    inputChars: countChars([material.title, material.text]),
+    maxOutputTokens: 300,
   };
 }
 

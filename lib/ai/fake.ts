@@ -41,6 +41,10 @@ export const fakeLanguage: LanguageProvider = {
       [scenario],
     );
   },
+  // The title, as if it were a summary (D71).
+  async describe({ title, text }) {
+    return free({ subtitle: `${title}（練習）`.slice(0, 60) }, [title, text]);
+  },
   // The rule-based split, as if the model agreed with it.
   async segment(lines, language) {
     return free(

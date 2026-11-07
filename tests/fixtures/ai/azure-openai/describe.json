@@ -1,0 +1,136 @@
+{
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.\nRead the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.\nWrite it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」."
+      },
+      {
+        "role": "user",
+        "content": "{\"title\":\"First Order at the Coffee Shop\",\"text\":\"Hi, can I help you? Yes, please. I would like a drink and a snack. What drink would you like to try today? Maybe a latte, please. What size would you like, small, medium, or large? What is the difference between small and medium? Small is 12 ounces and medium is 16 ounces. I think I will try a medium, please. Would you like whole milk, skim milk, or soy milk? Do you have almond milk? Yes, we have almond milk too. Can I have almond milk in my latte? Sure, any flavor for your latte, like vanilla or caramel? Vanilla sounds good, please. Okay, medium vanilla latte with almond milk.\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "description",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "subtitle": {
+              "type": "string"
+            }
+          },
+          "required": ["subtitle"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 300,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"subtitle\":\"咖啡店點餐對話：顧客與店員點拿鐵\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794083746,
+    "id": "chatcmpl-EhhQYtz5oxdVC4dfHcKJU8MAgW1Mu",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261103051020-05b5f4fd-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 35,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 5,
+        "engine_ttft_ms": 28,
+        "engine_ttlt_ms": 262,
+        "pre_inference_ms": 92,
+        "service_tbt_ms": 5,
+        "service_ttft_ms": 570,
+        "service_ttlt_ms": 798,
+        "user_visible_ttft_ms": 478
+      },
+      "prompt_tokens": 305,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 340
+    }
+  }
+}

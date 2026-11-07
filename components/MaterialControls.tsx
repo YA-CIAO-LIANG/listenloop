@@ -4,8 +4,10 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 import {
+  generateMaterialSubtitle as generateMaterialSubtitleAction,
   moveOfficial as moveOfficialAction,
   setMaterialCategory as setMaterialCategoryAction,
+  setMaterialSubtitle as setMaterialSubtitleAction,
   setOfficialState as setOfficialStateAction,
   type MaterialResult,
 } from "@/app/admin/materials/actions";
@@ -31,6 +33,8 @@ type MaterialControlsProps = {
   practice: {
     id: string;
     title: string;
+    /** The library card's one-line summary (D71). */
+    subtitle: string | null;
     state: OfficialState;
     /** Position among published official practices, 0-based, or null. */
     position: number | null;
@@ -43,6 +47,8 @@ type MaterialControlsProps = {
   setOfficialState?: typeof setOfficialStateAction;
   moveOfficial?: typeof moveOfficialAction;
   setMaterialCategory?: typeof setMaterialCategoryAction;
+  setMaterialSubtitle?: typeof setMaterialSubtitleAction;
+  generateMaterialSubtitle?: typeof generateMaterialSubtitleAction;
 };
 
 /**
@@ -55,6 +61,8 @@ export function MaterialControls({
   setOfficialState = setOfficialStateAction,
   moveOfficial = moveOfficialAction,
   setMaterialCategory = setMaterialCategoryAction,
+  setMaterialSubtitle = setMaterialSubtitleAction,
+  generateMaterialSubtitle = generateMaterialSubtitleAction,
 }: MaterialControlsProps) {
   const t = useTranslations("admin.materials");
   const tc = useTranslations("categories");
@@ -64,7 +72,10 @@ export function MaterialControls({
     category: useId(),
     scenario: useId(),
     level: useId(),
+    subtitle: useId(),
+    subtitleHint: useId(),
   };
+  const [subtitle, setSubtitle] = useState(practice.subtitle ?? "");
   const [pending, setPending] = useState(false);
   const [result, setResult] = useState<MaterialResult | null>(null);
   const [category, setCategory] = useState<CategoryId | "">(
@@ -254,6 +265,43 @@ export function MaterialControls({
           onClick={saveCategory}
         >
           {t("saveCategory")}
+        </Button>
+      </div>
+      <div className="flex flex-wrap items-end gap-2">
+        <div className="min-w-60 flex-1 space-y-1">
+          <label htmlFor={ids.subtitle} className="block text-ink-muted">
+            {t("subtitleLabel")}
+          </label>
+          <input
+            id={ids.subtitle}
+            value={subtitle}
+            maxLength={60}
+            disabled={pending}
+            aria-describedby={ids.subtitleHint}
+            onChange={(event) => setSubtitle(event.target.value)}
+            className="h-8 w-full rounded-base border border-line bg-surface px-2 focus-visible:border-accent pointer-coarse:min-h-11"
+          />
+          <p id={ids.subtitleHint} className="text-metadata text-ink-muted">
+            {t("subtitleHint")}
+          </p>
+        </div>
+        <Button
+          variant="secondary"
+          size="sm"
+          disabled={pending || subtitle === (practice.subtitle ?? "")}
+          onClick={() =>
+            run(() => setMaterialSubtitle(practice.id, subtitle.trim()))
+          }
+        >
+          {t("saveSubtitle")}
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          disabled={pending}
+          onClick={() => run(() => generateMaterialSubtitle(practice.id))}
+        >
+          {t("generateSubtitle")}
         </Button>
       </div>
       <div aria-live="polite">

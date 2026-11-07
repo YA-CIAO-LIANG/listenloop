@@ -1,6 +1,7 @@
 import {
   annotateBudget,
   composeBudget,
+  describeBudget,
   segmentBudget,
   translateBudget,
   type LanguageBudget,
@@ -10,6 +11,7 @@ import { RICH_NOTES_SCHEMA } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   COMPOSE_INSTRUCTIONS,
+  DESCRIBE_INSTRUCTIONS,
   NOTES_INSTRUCTIONS,
   PROMPT_VERSION,
   SEGMENT_INSTRUCTIONS,
@@ -93,6 +95,7 @@ export const AZURE_SCHEMAS = {
     title: STRING,
     lines: { type: "array", items: STRING },
   }),
+  description: object({ subtitle: STRING }),
 } as const;
 
 type ChatCompletion = {
@@ -243,6 +246,14 @@ export function azureOpenAiLanguage(
         prompt,
         composeBudget(prompt),
         0.9,
+      );
+    },
+    async describe(material) {
+      return generate(
+        "description",
+        DESCRIBE_INSTRUCTIONS,
+        material,
+        describeBudget(material),
       );
     },
     async segment(lines, language) {

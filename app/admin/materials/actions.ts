@@ -4,7 +4,14 @@ import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import type { WriteResult } from "@/auth/admin-writes";
 import { logAudit } from "@/auth/audit";
-import { getAdminUser } from "@/auth/creator";
+import { getAdminUser, getCreator } from "@/auth/creator";
+import { describeBudget } from "@/lib/ai/budgets";
+import { meteredLanguage } from "@/lib/ai/metered";
+import {
+  cleanSubtitle,
+  describeInput,
+  subtitleFromModel,
+} from "@/lib/custom-practice/subtitle";
 import { parseMaterialMeta } from "@/lib/custom-practice/generation";
 import { isUuid } from "@/lib/custom-practice/organize";
 import {
@@ -21,7 +28,8 @@ import {
  * only a practice with its notes and audio done can be published.
  */
 export type MaterialResult =
-  WriteResult | { ok: false; reason: "not-admin-made" | "not-ready" };
+  | WriteResult
+  | { ok: false; reason: "not-admin-made" | "not-ready" | "busy" | "limit" };
 
 type Admin = NonNullable<ReturnType<typeof getAdminSupabase>>;
 
@@ -81,6 +89,13 @@ export async function setOfficialState(
       .update(officialColumns(state))
       .eq("id", practiceId);
     if (error) return { ok: false, reason: "failed" };
+    // Published without a subtitle: write one (D71). Best effort: the
+    // practice is published either way, and the admin can add it later.
+    if (state === "published") {
+      await writeSubtitle(admin, practiceId, { onlyIfMissing: true }).catch(
+        () => null,
+      );
+    }
     await logAudit(
       actorId,
       "practice.official-state",
@@ -158,5 +173,96 @@ export async function setMaterialCategory(
       { to: parsed ? `${parsed.category}/${parsed.scenario}` : null },
     );
     return { ok: true };
+  });
+}
+
+/**
+ * Has the language model write a practice's subtitle (D71) and saves it.
+ * `onlyIfMissing` keeps one that's already there. Metered like every
+ * call, on the admin's daily limit.
+ */
+async function writeSubtitle(
+  admin: Admin,
+  practiceId: string,
+  { onlyIfMissing = false }: { onlyIfMissing?: boolean } = {},
+): Promise<MaterialResult & { subtitle?: string }> {
+  const creator = await getCreator();
+  if (!creator) return { ok: false, reason: "unavailable" };
+  const { data: practice } = await admin
+    .from("practices")
+    .select("title, subtitle, practice_sentences(i, en)")
+    .eq("id", practiceId)
+    .maybeSingle();
+  if (!practice) return { ok: false, reason: "not-found" };
+  if (onlyIfMissing && practice.subtitle) return { ok: true };
+  const input = describeInput(
+    practice.title,
+    [...practice.practice_sentences].sort((a, b) => a.i - b.i).map((s) => s.en),
+  );
+  const result = await meteredLanguage(creator, describeBudget(input), () =>
+    creator.providers.language.describe(input),
+  );
+  if (!result.ok) {
+    return {
+      ok: false,
+      reason:
+        result.reason === "busy" || result.reason === "limit"
+          ? result.reason
+          : "failed",
+    };
+  }
+  const subtitle = subtitleFromModel(result.value);
+  if (!subtitle) return { ok: false, reason: "failed" };
+  const { error } = await admin
+    .from("practices")
+    .update({ subtitle })
+    .eq("id", practiceId);
+  if (error) return { ok: false, reason: "failed" };
+  return { ok: true, subtitle };
+}
+
+/** Saves a subtitle typed by an admin (D71), or clears it (empty). */
+export async function setMaterialSubtitle(
+  practiceId: unknown,
+  value: unknown,
+): Promise<MaterialResult> {
+  const subtitle = value === "" ? null : cleanSubtitle(value);
+  if (!isUuid(practiceId) || (value !== "" && !subtitle)) {
+    return { ok: false, reason: "invalid" };
+  }
+  return asAdmin(async (admin, actorId) => {
+    const { data, error } = await admin
+      .from("practices")
+      .update({ subtitle })
+      .eq("id", practiceId)
+      .select("id");
+    if (error) return { ok: false, reason: "failed" };
+    if (!data.length) return { ok: false, reason: "not-found" };
+    await logAudit(
+      actorId,
+      "practice.subtitle",
+      { type: "practice", id: practiceId },
+      { to: subtitle },
+    );
+    return { ok: true };
+  });
+}
+
+/** Writes a new subtitle with the language model (D71), replacing any. */
+export async function generateMaterialSubtitle(
+  practiceId: unknown,
+): Promise<MaterialResult> {
+  if (!isUuid(practiceId)) return { ok: false, reason: "invalid" };
+  return asAdmin(async (admin, actorId) => {
+    const result = await writeSubtitle(admin, practiceId);
+    if (result.ok && result.subtitle) {
+      await logAudit(
+        actorId,
+        "practice.subtitle",
+        { type: "practice", id: practiceId },
+        { to: result.subtitle, by: "ai" },
+      );
+    }
+    return result.ok ? { ok: true } : result;
   });
 }

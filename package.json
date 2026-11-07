@@ -24,7 +24,8 @@
     "official:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.official.config.mts --silent=false",
     "rls:check": "node --env-file=.env.local scripts/rls-check.mts",
     "db:backup": "node --env-file=.env.local scripts/backup-db.mts",
-    "notes:upgrade": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.upgrade.config.mts --silent=false"
+    "notes:upgrade": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.upgrade.config.mts --silent=false",
+    "subtitles:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.subtitles.config.mts --silent=false"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",

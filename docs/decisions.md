@@ -1238,3 +1238,15 @@
 - **元件**：`MaterialCard`（取代 `PracticeCard` 和題庫卡片，`/explore` 也用）、`Tag`、`LibraryFilters`、`Dialog` 的 `sheet`（手機底部抽屜），規格寫在 `docs/design-system.md`，`/styleguide` 有範例。
 - **不新增套件**。
 - **要改時**：`lib/library.ts`、`lib/library-config.ts`、`auth/library.ts`、`components/MaterialLibrary.tsx`、`components/MaterialCard.tsx`、`supabase/migrations/20261108140000_library.sql`。
+
+## D71 教材副標：AI 產生、管理員可改（2026-11-08，新產品方向 2）
+
+- **決定**：每份教材有一句繁體中文副標，顯示在教材卡片的標題下方。
+  - 音檔教材存在 `practices.subtitle`（60 字以內）；內建影片寫在影片 JSON 的 `subtitle`（手寫）。
+  - 新增 AI 工作 `describe`：讀標題和正文前 600 字元，回傳 `{ subtitle }`（30 字以內，提示詞在 `lib/ai/prompts.ts`），輸出上限 300 token。檢查程式 `lib/custom-practice/subtitle.ts` 會去掉包住整句的引號、壓縮空白，超過 60 字就不用。
+- **什麼時候產生**：管理員把教材**發布到教材庫**時，如果還沒有副標就自動產生。這是盡力而為：AI 失敗或達到每日上限，教材照樣發布，之後可以在後台補。一般使用者自己建立的練習不產生，因為它們不會出現在教材庫，也不多花費用。
+- **後台**：`/admin/materials` 每份教材可以直接輸入副標、清除，或按「用 AI 重新產生」；每次變更都寫進管理稽核（`practice.subtitle`）。
+- **14 份官方草稿**：`npm run subtitles:record`（`scripts/subtitles.record.ts`）一次補上。預設只印預估，加 `SUBTITLES_YES=1` 才呼叫；第一次的回答存成 fixture（`tests/fixtures/ai/azure-openai/describe.json`），不另外多呼叫。
+  - 實際花費（2026-11-08）：14 次呼叫，輸入 3,939、輸出 467 token，**US$0.0019**。
+- **共用**：14 份草稿的 id 移到 `scripts/draft-ids.ts`，升級講解與副標兩個腳本都使用。
+- **要改時**：`lib/custom-practice/subtitle.ts`、`lib/ai/prompts.ts`（`DESCRIBE_INSTRUCTIONS`）、`app/admin/materials/actions.ts`、`components/MaterialControls.tsx`。

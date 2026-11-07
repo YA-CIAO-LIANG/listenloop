@@ -1380,8 +1380,14 @@
         "not-found": "找不到這份教材，或已被下架。",
         "failed": "變更失敗，請稍後再試。",
         "not-admin-made": "官方教材只能是管理員建立的教材。",
-        "not-ready": "講解或音檔還沒完成，先到「我的教材」完成後再發布。"
-      }
+        "not-ready": "講解或音檔還沒完成，先到「我的教材」完成後再發布。",
+        "busy": "AI 服務忙碌，請稍後再試。",
+        "limit": "今天的 AI 用量已達上限，明天再試。"
+      },
+      "subtitleLabel": "卡片簡介",
+      "subtitleHint": "教材庫卡片上的一句話，60 字以內。發布時如果還沒有，會用 AI 自動產生。",
+      "saveSubtitle": "儲存簡介",
+      "generateSubtitle": "用 AI 重新產生"
     },
     "feedback": {
       "title": "意見回饋",

@@ -97,7 +97,15 @@ export interface LanguageProvider {
    * lib/custom-practice/generation.ts checks it.
    */
   compose(prompt: CompositionPrompt): Promise<Billed<unknown>>;
+  /**
+   * A one-sentence Traditional Chinese subtitle for a library card (D71):
+   * `{ subtitle }`. Unchecked: lib/custom-practice/subtitle.ts checks it.
+   */
+  describe(material: DescribeInput): Promise<Billed<unknown>>;
 }
+
+/** What a subtitle is written from: the title and the text's beginning. */
+export type DescribeInput = { title: string; text: string };
 
 /**
  * A provider call that failed for a reason worth telling apart: "busy"

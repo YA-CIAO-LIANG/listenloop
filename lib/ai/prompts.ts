@@ -62,3 +62,9 @@ export const COMPOSE_INSTRUCTIONS = [
   "Do not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.",
   "Match the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.",
 ].join("\n");
+
+export const DESCRIBE_INSTRUCTIONS = [
+  "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.",
+  "Read the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.",
+  "Write it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.",
+].join("\n");
