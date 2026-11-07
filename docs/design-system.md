@@ -222,11 +222,9 @@
 
 - 自己的練習講解或音檔還沒完成時，練習總覽、第 1～7 天、講義頁不顯示 404，而是：返回連結「← 我的教材」→ h1 練習標題 → Display h3「這個練習還在準備中」→ ink-muted 說明 → `PracticeReadiness`（狀態列和「繼續產生」，規則同「我的教材」）。完成後頁面重新整理，直接進入原本要打開的頁面。
 
-## 筆記本 `/notebooks`
+## 筆記本 `/notebooks`（已移除）
 
-- 只有管理員看得到（D25），入口是頁首的「筆記本」，樣式和「學習進度」相同。
-- **列表頁**：h1「筆記本」→ 說明（ink-muted）→「新的筆記本名稱」欄位＋secondary 的「新增」→ 清單（上下和項目之間 1px line）：名稱連結（font-medium，hover 時 accent-ink）＋ supporting、ink-muted 的「N 則」。沒有筆記本時 ink-muted 的「還沒有筆記本。」
-- **筆記本頁**：返回連結「← 筆記本」→ h1 名稱 → ghost、sm 的「重新命名」「刪除筆記本…」（重新命名和刪除確認的樣式同 Collection）→ h2「新增筆記」：「單字或句子」欄位（sentence 字級、`lang="en"`）、「筆記（選填）」文字框、primary「加入筆記本」→ 1px line 分隔線 → h2「筆記（N）」→ 清單：左側 sentence 字級的內容（`lang="en"`），下方 supporting、ink-muted 的筆記（保留換行）；右側 ghost、sm 的「刪除」。
+2026-11-07 依 Joe 的決定移除頁面、程式和資料表（D53）。
 
 ## 聲音練習面板（自建練習）
 

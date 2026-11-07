@@ -130,7 +130,7 @@ export function diagnoseCreator(user: SignedInUser | null) {
 
 /**
  * The signed-in admin, for actions that don't call a paid API (organizing
- * practices, notebooks). Null for everyone else.
+ * practices, the admin pages). Null for everyone else.
  */
 export async function getAdminUser(): Promise<SignedInUser | null> {
   const user = await getSignedInUser();

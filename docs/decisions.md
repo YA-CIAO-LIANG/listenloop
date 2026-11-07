@@ -809,3 +809,13 @@
   - 管理員後台的「容易出錯的句子」會用這份紀錄。
 - **對話框元件**：`components/Dialog.tsx`，用原生的 `<dialog>` 加 `showModal()`：焦點留在對話框裡、背景不能操作，按 Escape 等於「再試一次」。
 - **要改時**：`lib/shadowing-trouble.ts`、`components/ShadowingSession.tsx`、`app/videos/shadowing-actions.ts`、`components/PerfectCelebration.tsx`、`components/Dialog.tsx`、`supabase/migrations/20261107140000_shadowing_issues.sql`。
+
+## D53 移除筆記本（2026-11-07，P0-2）
+
+- **決定**：依 Joe 的決定，刪除筆記本的頁面（`/notebooks`）、Server Actions、元件、測試、翻譯文字，以及資料表 `notebooks`、`notebook_entries`（migration `20261107150000_drop_notebooks.sql`）。
+- **刪除前的確認**：
+  - 沒有其他資料表參照這兩張表：`notebook_entries` 只參照 `notebooks`，其他資料表沒有外鍵指向它們；
+  - 程式中只有筆記本自己的頁面與動作使用它們；
+  - 正式資料庫當時有 1 本筆記本、1 筆內容，是測試資料。
+- **理由**：產品聚焦在 7 天循環；單字與文法已經在講義裡。之後如果要做「收藏句子」，重新設計，不沿用舊的表。
+- **要改時**：已經沒有相關程式。舊網址 `/notebooks` 現在是 404（原本只有管理員看得到）。

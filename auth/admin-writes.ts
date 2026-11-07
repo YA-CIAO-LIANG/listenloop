@@ -4,7 +4,7 @@ import { getServerSupabase } from "./server";
 
 /**
  * Shared by the admin-only Server Actions that organize content
- * (collections, notebooks; D24, D25). Writes use the user's own session,
+ * (collections; D24). Writes use the user's own session,
  * so row level security limits them to the user's rows; a write that
  * matches no row means it isn't theirs (or is gone).
  */
