@@ -39,7 +39,7 @@ import {
   type Stage,
 } from "./practice-generation";
 import { StageProgress } from "./StageProgress";
-import { VoicePicker, voiceSampleUrl } from "./VoicePicker";
+import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
 
 type EditPracticeFormProps = {
   practice: {
@@ -319,7 +319,7 @@ export function EditPracticeForm({
         <h2 id={`${ids.title}-voice`} className="font-display text-h2">
           {tCreate("voiceTitle")}
         </h2>
-        <VoicePicker
+        <VoiceMenu
           value={voice}
           onChange={setVoice}
           sampleUrl={voiceSampleUrl}

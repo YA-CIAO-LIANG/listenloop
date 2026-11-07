@@ -76,6 +76,17 @@ describe("provider setup (D47)", () => {
     ).not.toBeNull();
   });
 
+  it("makes full-width settings half-width and lowercase (D51)", () => {
+    const providers = getAiProviders({
+      ...azure,
+      AZURE_OPENAI_DEPLOYMENT: "\u3000ＧＰＴ－５－ｍｉｎｉ ",
+      AZURE_OPENAI_MODEL: "ＧＰＴ-5-MINI",
+      AZURE_SPEECH_REGION: "ｕａｅｎｏｒｔｈ\u3000",
+    });
+    expect(providers).not.toBeNull();
+    expect(providers?.language.id).toContain("gpt-5-mini");
+  });
+
   it("takes a Foundry endpoint", () => {
     expect(
       getAiProviders({

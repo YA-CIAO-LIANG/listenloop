@@ -23,7 +23,6 @@ import {
   ProgressBarDemo,
   SentenceRowDemo,
   VoiceMenuDemo,
-  VoicePickerDemo,
 } from "./InteractiveDemos";
 import { PixelFishSection } from "./PixelFishSection";
 
@@ -236,13 +235,6 @@ export default function StyleguidePage() {
               {t("voiceMenuNote")}
             </p>
             <VoiceMenuDemo />
-          </Demo>
-
-          <Demo name="VoicePicker">
-            <p className="mb-4 max-w-reading text-supporting text-ink-muted">
-              {t("voicePickerNote")}
-            </p>
-            <VoicePickerDemo />
           </Demo>
 
           <Demo name="Icons">

@@ -786,3 +786,10 @@
   - **權限**：使用者只能讀自己的資料；只有伺服器（service_role）能寫。另外新增 `is_admin()` 函式，供其他資料表的 RLS 判斷管理員。
 - **理由**：角色存在資料庫，才能在後台指定管理員；編號讓後台不用顯示 email，降低個資外洩的風險。
 - **要改時**：`supabase/migrations/20261107120000_profiles.sql`、`auth/session.ts`、`lib/accounts.ts`、`scripts/backfill-profiles.mts`。
+
+## D51 環境變數耐錯讀取（全形轉半形）；建立與編輯練習改用聲音選單（2026-11-07，P0-2）
+
+- **環境變數**：所有 AI 相關變數讀取時，先做 Unicode NFKC 正規化（全形英數字與全形空白轉成半形），再去掉前後空白和前後成對的引號。`AZURE_OPENAI_MODEL`、`AZURE_OPENAI_DEPLOYMENT`、`AZURE_SPEECH_REGION` 另外轉小寫；區域再去掉中間的空白（「UAE North」→ `uaenorth`）。
+  - 部署名稱轉小寫的前提：部署名稱用小寫建立（Joe 的是 `gpt-5-mini`）。如果之後建立了含大寫字母的部署名稱，要改 `lib/ai/providers.ts` 的 `readEnvName`。
+- **聲音選擇**：Joe 確認 `VoiceMenu`（e+ 3b），建立與編輯練習都改用它，刪除舊的 `VoicePicker` 卡片元件和測試。`voiceSampleUrl` 移到 `components/VoiceMenu.tsx`。
+- **要改時**：`lib/ai/providers.ts`、`components/VoiceMenu.tsx`、`components/CreatePracticeForm.tsx`、`components/EditPracticeForm.tsx`。

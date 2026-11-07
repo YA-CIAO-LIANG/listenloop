@@ -20,6 +20,9 @@ import { Button } from "./Button";
 import { ChevronDownIcon, SpeakerIcon, StopIcon } from "./icons";
 import { useSamplePlayer } from "./useSamplePlayer";
 
+/** Where each voice's sample clip is served (npm run voices:samples). */
+export const voiceSampleUrl = (id: string) => `/voices/${id}.mp3`;
+
 type VoiceMenuProps = {
   /** The chosen voice id, e.g. "us-female". */
   value: string;

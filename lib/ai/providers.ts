@@ -22,15 +22,23 @@ export const DEFAULT_PROVIDERS = {
 } as const satisfies Record<keyof AiProviders, ProviderChoice>;
 
 /**
- * A variable's value, trimmed, without quotes pasted around it (a common
- * slip in hosting dashboards, D47); undefined when empty.
+ * A variable's value, tidied the way hosting dashboards get it wrong
+ * (D47, D51): full-width characters made half-width (NFKC, so "ｕａｅｎｏｒｔｈ"
+ * and an ideographic space are fixed), trimmed, and without quotes pasted
+ * around it; undefined when empty.
  */
 export function readEnv(env: Env, name: string): string | undefined {
   const value = env[name]
-    ?.trim()
+    ?.normalize("NFKC")
+    .trim()
     .replace(/^(["'])(.*)\1$/, "$2")
     .trim();
   return value || undefined;
+}
+
+/** A name compared without case: model, deployment, region (D51). */
+export function readEnvName(env: Env, name: string): string | undefined {
+  return readEnv(env, name)?.toLowerCase();
 }
 
 /** "UAE North" or "UAENorth" as Azure writes it in URLs: "uaenorth". */
@@ -92,8 +100,8 @@ export function languageSetup(env: Env): ProviderSetup<LanguageProvider> {
   }
   const endpoint = readEnv(env, "AZURE_OPENAI_ENDPOINT") ?? "";
   const apiKey = readEnv(env, "AZURE_OPENAI_API_KEY") ?? "";
-  const deployment = readEnv(env, "AZURE_OPENAI_DEPLOYMENT") ?? "";
-  const model = readEnv(env, "AZURE_OPENAI_MODEL")?.toLowerCase() ?? "";
+  const deployment = readEnvName(env, "AZURE_OPENAI_DEPLOYMENT") ?? "";
+  const model = readEnvName(env, "AZURE_OPENAI_MODEL") ?? "";
   return setup(
     vendor,
     [

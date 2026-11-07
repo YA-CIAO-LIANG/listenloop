@@ -188,7 +188,7 @@
   - 生成完成後切回「貼上或上傳文字」，標題和文字框填入生成結果、原文語言設為英文，下方 ink-muted 提示「已生成……可以修改文字後再斷句並翻譯」。
 - **第一步**：標題 → 文字內容（說明、選擇 .txt 檔、10 行高的文字框、metadata 字級的「字元數 / 上限」，超過時變成 error 色）→ 原文語言（SegmentedControl「英文 / 中文」，下方 supporting、ink-muted 說明翻譯方向）→ primary 的「斷句並翻譯 →」。處理中按鈕文字改成「斷句、翻譯中…」，欄位都不能操作。
 - **第二步：預覽與修改**：標題欄位 → h2「預覽與修改」與說明、句數 → 句子清單（上下和句子之間 1px line 線）。每列：左側 metadata、ink-muted 的兩位數句號；中間英文文字框（sentence 字級、`lang="en"`）和中文文字框（supporting 字級，留空時 placeholder「留空會在建立時自動翻譯」）；文字框下方一排 ghost、sm 按鈕：「從游標處拆分」（英文框的游標在句子中間時才可以按）、「與下一句合併」（最後一句沒有）、「刪除」（e+ 4）。清單上方說明之後，有一行 supporting、ink-muted 的拆分說明，也是英文框的 `aria-describedby`。清單下方 secondary、sm 的「新增一句」，再下方 primary「建立練習」和 ghost「回上一步」（保留原本的文字）。
-- **聲音**（預覽步驟，句子清單下方）：h3「聲音」→ 聲音卡片 `VoicePicker`（見下方，d6e）→ supporting、ink-muted 的說明。
+- **聲音**（預覽步驟，句子清單下方）：h3「聲音」→ 聲音選單 `VoiceMenu`（見下方）→ supporting、ink-muted 的說明。
 - **等待進度**（e+ 2）：「斷句並翻譯」和「建立練習」按下後，按鈕下方顯示 `StageProgress`（寬度上限 384px，`role="status"`）：上方標籤是目前步驟（「斷句中…」「翻譯中 3/6 句」「產生講解 10/12 句」「產生音檔 4/12 句」），右側是整體百分比。百分比只由完成的句數計算，沒有計時器或假動畫：斷句是一次呼叫，完成前停在 0%；翻譯每 8 句一批；建立時講解（每 10 句一段）佔前一半、音檔佔後一半。進度條的動畫遵守 reduced motion。
 - **產生講解與音檔**：按「建立練習」後先建立，再逐段產生講解，接著逐批產生音檔。全部完成時顯示 success 的「已建立……講解和音檔都完成了」；沒有完成時用 ink-muted 說明原因，並提示到「我的教材」繼續。下方有「到我的教材查看 →」。
 - **你建立的練習**：1px line 分隔線 → h2 → 清單（標題 font-medium；下一行 supporting、ink-muted 的「N 句・中文原文・日期・英式女聲」；再下一行音檔狀態）。
@@ -209,7 +209,7 @@
 ### 編輯練習 `/materials/<id>/edit`（e+ 9c，D45）
 
 - 入口：「我的教材」每個練習標題右邊，supporting、accent-ink 底線連結「編輯」（`aria-label`「編輯「標題」」）。
-- 版面同建立練習：← 我的教材 → h1「編輯練習」→ ink-muted 說明 → 標題欄位 → h2「句子」（提示和句數）→ 句子清單 → h2「聲音」（VoicePicker）→ 版本說明 → primary「儲存」＋ ghost 連結「取消」→ 進度條（StageProgress）→ 結果訊息。
+- 版面同建立練習：← 我的教材 → h1「編輯練習」→ ink-muted 說明 → 標題欄位 → h2「句子」（提示和句數）→ 句子清單 → h2「聲音」（VoiceMenu）→ 版本說明 → primary「儲存」＋ ghost 連結「取消」→ 進度條（StageProgress）→ 結果訊息。
 - 每一列同建立時的檢查畫面：兩位數句號、英文和中文文字框；英文改過時下方顯示 supporting、accent-ink 的「英文改過了：儲存後會重新產生……」。
 - 講解：每句一個收合的區塊（1px line 邊框、4px 圓角），摘要是「講解：單字 1、文法 0」，或「講解：儲存後重新產生」加上 ghost、sm 的「改成自己填寫」。展開後：
   - 「單字」小標籤（metadata、全大寫）：每個單字四個欄位（單字、詞性、中文、例句），760px 以上排成兩欄，加上 ghost、sm 的「刪除」；
@@ -269,7 +269,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 | FilterChip     | 可複選的切換按鈕（`aria-pressed`，元件 `FilterChip`），用於題庫長度篩選與公開教材的篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：1px line 邊框、ink-muted 文字，hover 邊框 ink-muted、文字 ink。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。                                                                                                                                                              |
 | CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
-## 聲音選單 `VoiceMenu`（e+ 3，Joe 確認後取代聲音卡片）
+## 聲音選單 `VoiceMenu`（e+ 3；2026-11-07 Joe 確認，建立與編輯練習使用）
 
 - 建立練習時選擇聲音，像 Apple 的彈出式選單。
 - **按鈕**（收合時）：外觀和表單欄位相同（surface 底、1px line 邊框、4px 圓角、內距 16px／12px，寬度上限 448px），內容是 font-medium 的聲音名稱＋ ink-muted 的「・ 女聲 ・ 美式英語」，右側 20px 向下箭頭（展開時轉 180°，reduced motion 時不轉動）。hover 邊框 ink-muted；展開時邊框 accent；`aria-expanded`、`aria-controls`。
@@ -279,17 +279,9 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - **操作**：打開時焦點移到目前的聲音；方向鍵在聲音之間移動並選取（原生 radio），Enter 或空白鍵選定並關閉；滑鼠點聲音選定並關閉；Esc 關閉並回到按鈕；點選單外面或 Tab 離開也會關閉。試聽不會改變選擇，同一時間只播一個範例，關閉時停止。
 - **螢幕閱讀器**：按鈕讀作「聲音：Kore・女聲・美式英語」；每個 radio 讀作「Kore・女聲・美式英語」，試聽按鈕讀作「試聽……」或「停止試聽……」。
 
-## 聲音卡片 `VoicePicker`
+## 聲音卡片 `VoicePicker`（已移除）
 
-- 建立練習時選擇聲音（D26）。8 張卡片，依口音分成四組：美式、英式、澳洲、印度英語，每組一張女聲、一張男聲。
-- **版面**：每組上方是 font-medium 的組名，下方兩張卡片並排。760px（split）以上，四組排成 2×2；以下改成上下堆疊，每行仍然兩張。
-- **卡片**：surface 底、1px line 邊框、4px 圓角、內距 16px。
-  - 上方：Display h3 的性別（「女聲」）、metadata 字級、ink-muted 的語言代碼（`en-US`）；右上角是選中時才出現的 ✓（accent-ink）；
-  - 下方：secondary、sm 的「試聽」。播放中改成 primary 的「播放中…」（`aria-pressed="true"`），再按一次停止。同一時間只播放一個範例。
-- **選取**：整張卡片（試聽按鈕以外）是原生 radio 的 label，8 張卡片同一組，方向鍵可以切換。選中時邊框 accent、底色 accent 8%，加上 ✓，不只靠顏色區分。hover 時邊框變成 ink-muted。radio 有鍵盤焦點時，整張卡片顯示焦點外框；焦點在試聽按鈕上時，只有按鈕有外框。
-- **螢幕閱讀器**：每個 radio 讀作「美式英語・女聲」，試聽按鈕讀作「試聽美式英語・女聲」或「停止試聽……」。
-- 沒有範例音檔時，試聽按鈕停用。
-- **範例音檔**：`public/voices/<聲音 id>.mp3`，用 `npm run voices:samples` 產生（D29）。
+2026-11-07 Joe 確認 VoiceMenu 後，建立與編輯練習都改用 `VoiceMenu`，卡片元件已刪除（D51）。範例音檔仍在 `public/voices/<聲音 id>.mp3`，用 `npm run voices:samples` 產生（D29）。
 
 ## 設計系統展示頁
 
