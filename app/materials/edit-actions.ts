@@ -58,7 +58,7 @@ export async function savePracticeEdit(
   const { data: practice, error } = await supabase
     .from("practices")
     .select(
-      "voice, version, source_language, practice_sentences(i, en, audio_path, notes)",
+      "voice, voice_b, version, source_language, practice_sentences(i, en, audio_path, notes, speaker)",
     )
     .eq("id", practiceId)
     .eq("user_id", creator.user.id)
@@ -71,6 +71,7 @@ export async function savePracticeEdit(
   const cleaned = cleanDraft({
     title: raw.title,
     voice: raw.voice,
+    voiceB: raw.voiceB,
     sourceLanguage: practice.source_language,
     sentences: list,
   });
@@ -90,7 +91,7 @@ export async function savePracticeEdit(
   if (raw.expectedVersion !== practice.version) {
     return { ok: false, reason: "conflict" };
   }
-  const { title, voice } = cleaned.draft;
+  const { title, voice, voiceB } = cleaned.draft;
   const sentences: EditSentence[] = cleaned.draft.sentences.map((s, i) => ({
     ...s,
     notes: ((list[i] as { notes?: SentenceNotes | null })?.notes ??
@@ -99,11 +100,8 @@ export async function savePracticeEdit(
 
   const current = [...practice.practice_sentences].sort((a, b) => a.i - b.i);
   const plan = planEdit(
-    { voice: practice.voice, sentences: current },
-    {
-      voice,
-      sentences,
-    },
+    { voice: practice.voice, voiceB: practice.voice_b, sentences: current },
+    { voice, voiceB: voiceB ?? null, sentences },
   );
   if (plan.translate.length > 0) {
     const translated = await translateCached(
@@ -132,6 +130,7 @@ export async function savePracticeEdit(
       new_vocab: joined.vocab,
       new_grammar: joined.grammar,
       notes_ready: notesReady,
+      new_voice_b: voiceB,
     },
   );
   if (saveError) {

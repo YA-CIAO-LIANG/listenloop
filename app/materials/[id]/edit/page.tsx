@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
 import { EditPracticeForm } from "@/components/EditPracticeForm";
+import type { Speaker } from "@/lib/custom-practice/speakers";
 import { DEFAULT_VOICE } from "@/lib/custom-practice/draft";
 import { isUuid } from "@/lib/custom-practice/organize";
 import { parseSentenceNotes } from "@/lib/custom-practice/notes";
@@ -35,7 +36,9 @@ export default async function EditPracticePage({
   if (!creator || !supabase || !isUuid(id)) notFound();
   const { data: practice } = await supabase
     .from("practices")
-    .select("id, title, voice, version, practice_sentences(i, en, zh, notes)")
+    .select(
+      "id, title, voice, voice_b, version, practice_sentences(i, en, zh, notes, speaker)",
+    )
     .eq("id", id)
     .eq("user_id", creator.user.id)
     .maybeSingle();
@@ -46,7 +49,14 @@ export default async function EditPracticePage({
   ]);
   const sentences = [...practice.practice_sentences]
     .sort((a, b) => a.i - b.i)
-    .map((s) => ({ en: s.en, zh: s.zh, notes: parseSentenceNotes(s.notes) }));
+    .map((s) => ({
+      en: s.en,
+      zh: s.zh,
+      notes: parseSentenceNotes(s.notes),
+      ...(s.speaker === 0 || s.speaker === 1
+        ? { speaker: s.speaker as Speaker }
+        : {}),
+    }));
 
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
@@ -65,6 +75,7 @@ export default async function EditPracticePage({
             id: practice.id,
             title: practice.title,
             voice: practice.voice ?? DEFAULT_VOICE,
+            voiceB: practice.voice_b,
             version: practice.version,
             sentences,
           }}

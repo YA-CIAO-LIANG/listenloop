@@ -10,6 +10,8 @@ import {
   checkGeneratedText,
   compositionPrompt,
   parseGenerationRequest,
+  parseMaterialMeta,
+  type MaterialMeta,
 } from "@/lib/custom-practice/generation";
 import { parseVoiceId } from "@/lib/ai/types";
 import { AUDIO_BATCH_SIZE, voiceSentences } from "@/lib/custom-practice/audio";
@@ -25,17 +27,27 @@ import {
   joinNotes,
   parseSentenceNotes,
   type SentenceNotes,
-  segmentCached,
+  segmentLines,
   TRANSLATE_BATCH,
   translateCached,
 } from "@/lib/custom-practice/notes";
 import { can, needsCount, planFor, type PlanBlock } from "@/lib/plans";
 import { countChars } from "@/lib/usage";
+import {
+  isDialogue,
+  speakerLines,
+  type Speaker,
+} from "@/lib/custom-practice/speakers";
 import { customPracticeId } from "@/lib/practice-material";
 import { usagePeriodStarts } from "@/lib/usage-report";
 
 export type SplitResult =
-  | { ok: true; sentences: string[] }
+  | {
+      ok: true;
+      sentences: string[];
+      /** Each sentence's speaker, for a two-voice dialogue (D57). */
+      speakers?: Speaker[];
+    }
   | {
       ok: false;
       reason: "unavailable" | "empty" | "too-long" | "too-many";
@@ -65,12 +77,27 @@ export async function splitText(
   // The plan's own limit (D54); unlimited today.
   const allowed = can(planFor(creator.user), { kind: "practice-chars", chars });
   if (!allowed.ok) return { ok: false, reason: "too-long", max: allowed.max };
-  const sentences = await segmentCached(creator, text, language);
+  // "A:" and "B:" labels pick the voice and aren't read aloud (D57).
+  const lines = speakerLines(text);
+  const pieces = await segmentLines(
+    creator,
+    lines.map((line) => line.text),
+    language,
+  );
+  const sentences = pieces.flat();
   if (sentences.length === 0) return { ok: false, reason: "empty" };
   if (sentences.length > PRACTICE_LIMITS.sentences) {
     return { ok: false, reason: "too-many" };
   }
-  return { ok: true, sentences };
+  return isDialogue(lines)
+    ? {
+        ok: true,
+        sentences,
+        speakers: lines.flatMap((line, i) =>
+          pieces[i].map(() => line.speaker ?? 0),
+        ),
+      }
+    : { ok: true, sentences };
 }
 
 export type TranslateResult =
@@ -163,7 +190,9 @@ export async function createPractice(
     );
   }
 
-  const id = await savePractice(supabase, creator.user.id, draft);
+  // Where AI-written text belongs (D57); checked against the categories.
+  const meta = parseMaterialMeta((input as { meta?: unknown } | null)?.meta);
+  const id = await savePractice(supabase, creator.user.id, draft, meta);
   if (!id) return { ok: false, reason: "failed" };
   await logEvent(creator.user.id, {
     type: "practice_create",
@@ -191,6 +220,7 @@ async function savePractice(
   supabase: NonNullable<Awaited<ReturnType<typeof getServerSupabase>>>,
   userId: string,
   draft: PracticeDraft,
+  meta: MaterialMeta | null,
 ): Promise<string | null> {
   const { data, error } = await supabase
     .from("practices")
@@ -199,6 +229,16 @@ async function savePractice(
       title: draft.title,
       source_language: draft.sourceLanguage,
       voice: draft.voice,
+      voice_b: draft.voiceB ?? null,
+      ...(meta
+        ? {
+            category: meta.category,
+            scenario: meta.scenario,
+            level: meta.level,
+            exam: meta.exam,
+            exam_target: meta.examTarget,
+          }
+        : {}),
     })
     .select("id")
     .single();
@@ -212,6 +252,7 @@ async function savePractice(
         i,
         en: sentence.en,
         zh: sentence.zh,
+        speaker: sentence.speaker ?? null,
       })),
     );
   if (sentencesError) {
@@ -249,7 +290,7 @@ export async function generatePracticeAudio(
   // Only their own: others' public practices are readable too (D30).
   const { data: practice, error } = await supabase
     .from("practices")
-    .select("voice, practice_sentences(i, en, audio_path)")
+    .select("voice, voice_b, practice_sentences(i, en, audio_path, speaker)")
     .eq("id", practiceId)
     .eq("user_id", creator.user.id)
     .maybeSingle();
@@ -260,10 +301,16 @@ export async function generatePracticeAudio(
   const sentences = [...practice.practice_sentences].sort((a, b) => a.i - b.i);
   const total = sentences.length;
   const missing = sentences.filter((s) => !s.audio_path);
+  // In a dialogue, speaker B's sentences use the second voice (D57).
+  const voiceB = practice.voice_b ? parseVoiceId(practice.voice_b) : null;
   const batch = await voiceSentences(
     creator,
     voice,
-    missing.slice(0, AUDIO_BATCH_SIZE),
+    missing.slice(0, AUDIO_BATCH_SIZE).map((s) => ({
+      i: s.i,
+      en: s.en,
+      ...(s.speaker === 1 && voiceB ? { voice: voiceB } : {}),
+    })),
   );
 
   for (const { i, path } of batch.done) {

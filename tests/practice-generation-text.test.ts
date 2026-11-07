@@ -2,10 +2,19 @@ import { describe, expect, it, vi } from "vitest";
 import { composeBudget } from "@/lib/ai/budgets";
 import { fakeLanguage, fakeSpeech } from "@/lib/ai/fake";
 import {
+  allScenarioIds,
+  CATEGORY_IDS,
+  EXAMS,
+  findScenario,
+  LEVEL_PROMPTS,
+} from "@/lib/categories";
+import {
   checkGeneratedText,
   compositionPrompt,
-  GENERATION_CATEGORIES,
+  lengthWords,
+  materialMeta,
   parseGenerationRequest,
+  parseMaterialMeta,
   WORDS_PER_MINUTE,
 } from "@/lib/custom-practice/generation";
 import en from "@/messages/en.json";
@@ -38,39 +47,53 @@ const { generatePracticeText } = await import("@/app/materials/actions");
 
 const request = {
   topic: " 第一次 去超市 ",
-  scenario: "shopping",
+  scenario: "supermarket",
   level: "beginner",
-  minutes: 1,
+  length: "1-2",
   format: "dialogue",
+  accent: "gb",
 };
 
-describe("generation settings", () => {
-  it("lists Joe's eight categories, each with scenarios", () => {
-    expect(GENERATION_CATEGORIES.map((c) => c.id)).toEqual([
+describe("categories (D57)", () => {
+  it("lists Joe's eleven categories, exam last, with unique scenario ids", () => {
+    expect(CATEGORY_IDS).toEqual([
       "daily-life",
+      "travel",
       "study-abroad",
       "casual-american",
       "campus",
       "academic-writing",
       "business",
+      "news",
+      "science",
       "talks-stories",
       "exam",
     ]);
-    const ids = GENERATION_CATEGORIES.flatMap((c) =>
-      c.scenarios.map((s) => s.id),
-    );
+    const ids = allScenarioIds();
     expect(new Set(ids).size).toBe(ids.length);
+    expect(EXAMS.map((e) => e.id)).toEqual(["toefl", "ielts", "toeic", "gept"]);
   });
 
-  it("names every category and scenario in both languages", () => {
+  it("names every category, scenario, exam, and target in both languages", () => {
     for (const messages of [en, zh]) {
-      for (const category of GENERATION_CATEGORIES) {
-        expect(messages.generate.categories).toHaveProperty(category.id);
-        for (const scenario of category.scenarios) {
-          expect(messages.generate.scenarios).toHaveProperty(scenario.id);
+      for (const id of CATEGORY_IDS) {
+        expect(messages.categories.names).toHaveProperty([id]);
+      }
+      for (const id of allScenarioIds()) {
+        expect(messages.categories.scenarios).toHaveProperty([id]);
+      }
+      for (const exam of EXAMS) {
+        expect(messages.categories.exams).toHaveProperty([exam.id]);
+        for (const target of exam.targets) {
+          expect(messages.categories.targets).toHaveProperty([target.id]);
         }
       }
     }
+  });
+
+  it("asks exam texts to be original, and news to be invented", () => {
+    for (const exam of EXAMS) expect(exam.style).toMatch(/original/);
+    expect(findScenario("news-tech")?.scenario.prompt).toMatch(/invented/);
   });
 });
 
@@ -82,24 +105,103 @@ describe("parseGenerationRequest", () => {
     });
   });
 
+  it("takes an exam part with one of its exam's targets", () => {
+    const exam = {
+      ...request,
+      scenario: "ielts-part1",
+      level: "ielts-6.5",
+    };
+    expect(parseGenerationRequest(exam)).toMatchObject({ level: "ielts-6.5" });
+    expect(parseGenerationRequest({ ...exam, level: "toeic-750" })).toBeNull();
+    expect(parseGenerationRequest({ ...exam, level: "beginner" })).toBeNull();
+  });
+
   it.each([
     ["an unknown scenario", { scenario: "skydiving" }],
     ["an unknown level", { level: "expert" }],
-    ["a length not offered", { minutes: 2 }],
+    ["a length not offered", { length: "8-plus" }],
     ["an unknown format", { format: "poem" }],
+    ["an unknown accent", { accent: "nz" }],
     ["a topic too long", { topic: "x".repeat(201) }],
   ])("refuses %s", (_, change) => {
     expect(parseGenerationRequest({ ...request, ...change })).toBeNull();
   });
 
-  it("asks for about 130 words a minute", () => {
+  it("asks for the middle of the length, in the chosen English", () => {
     const prompt = compositionPrompt(parseGenerationRequest(request)!);
-    expect(prompt.words).toBe(WORDS_PER_MINUTE);
-    expect(prompt.scenario).toBe("shopping in a store");
-    expect(composeBudget(prompt)).toMatchObject({
-      operation: "compose",
-      maxOutputTokens: WORDS_PER_MINUTE * 2 + 300,
+    expect(prompt.words).toBe(Math.round(1.5 * WORDS_PER_MINUTE));
+    expect(prompt.scenario).toBe("shopping at a supermarket");
+    expect(prompt.level).toBe(
+      `${LEVEL_PROMPTS.beginner}; British English spelling and expressions`,
+    );
+    expect(lengthWords("4-5")).toBe(Math.round(4.5 * WORDS_PER_MINUTE));
+    expect(composeBudget(prompt)).toMatchObject({ operation: "compose" });
+  });
+
+  it("pitches an exam text at its target, in the exam's style", () => {
+    const prompt = compositionPrompt(
+      parseGenerationRequest({
+        ...request,
+        scenario: "toeic-conversation",
+        level: "toeic-750",
+      })!,
+    );
+    expect(prompt.scenario).toMatch(/TOEIC/);
+    expect(prompt.level).toMatch(/750/);
+  });
+});
+
+describe("material meta", () => {
+  it("records where a request's text belongs", () => {
+    expect(materialMeta(parseGenerationRequest(request)!)).toEqual({
+      category: "daily-life",
+      scenario: "supermarket",
+      level: "beginner",
+      exam: null,
+      examTarget: null,
     });
+    const exam = materialMeta(
+      parseGenerationRequest({
+        ...request,
+        scenario: "gept-conversation",
+        level: "gept-high-intermediate",
+      })!,
+    );
+    expect(exam).toEqual({
+      category: "exam",
+      scenario: "gept-conversation",
+      level: "advanced",
+      exam: "gept",
+      examTarget: "gept-high-intermediate",
+    });
+    expect(parseMaterialMeta(exam)).toEqual(exam);
+  });
+
+  it.each([
+    {
+      category: "travel",
+      scenario: "supermarket",
+      level: "beginner",
+      exam: null,
+      examTarget: null,
+    },
+    {
+      category: "exam",
+      scenario: "gept-conversation",
+      level: "advanced",
+      exam: "gept",
+      examTarget: "toeic-900",
+    },
+    {
+      category: "daily-life",
+      scenario: "supermarket",
+      level: "beginner",
+      exam: "gept",
+      examTarget: null,
+    },
+    null,
+  ])("refuses %j", (raw) => {
+    expect(parseMaterialMeta(raw)).toBeNull();
   });
 });
 
@@ -128,7 +230,9 @@ describe("generatePracticeText", () => {
     state.creator = true;
     state.reserve.mockReset().mockResolvedValue(true);
     const result = await generatePracticeText(request);
-    expect(result.ok && result.title).toBe("Practice: shopping in a store");
+    expect(result.ok && result.title).toBe(
+      "Practice: shopping at a supermarket",
+    );
     expect(result.ok && result.text.split("\n").length).toBeGreaterThan(5);
     // The fake is free, so the worst case reserved is 0 (D38).
     expect(state.reserve).toHaveBeenCalledWith("cost", 0);

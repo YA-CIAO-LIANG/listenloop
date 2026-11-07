@@ -37,7 +37,13 @@ import {
   type TranslateSentences,
 } from "./practice-generation";
 import { Button, buttonClassName } from "./Button";
-import { GenerateTextPanel, type GenerateText } from "./GenerateTextPanel";
+import {
+  GenerateTextPanel,
+  type GeneratedPractice,
+  type GenerateText,
+} from "./GenerateTextPanel";
+import { SpeakerToggle } from "./SpeakerToggle";
+import type { MaterialMeta } from "@/lib/custom-practice/generation";
 import { SegmentedControl } from "./SegmentedControl";
 import { StageProgress } from "./StageProgress";
 import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
@@ -51,7 +57,9 @@ type CreatePracticeFormProps = {
     title: string;
     sourceLanguage: TextSourceLanguage;
     voice: string;
+    voiceB?: string;
     sentences: DraftSentence[];
+    meta?: MaterialMeta | null;
   }) => Promise<CreatePracticeResult>;
   generate?: GenerateAudio;
   generateNotes?: GenerateNotes;
@@ -88,6 +96,7 @@ export function CreatePracticeForm({
   generateText,
 }: CreatePracticeFormProps) {
   const tPlans = useTranslations("plans");
+  const tSpeakers = useTranslations("speakers");
   const t = useTranslations("create");
   const router = useRouter();
   const ids = { title: useId(), text: useId(), hint: useId(), file: useId() };
@@ -102,6 +111,10 @@ export function CreatePracticeForm({
   const [languageChosen, setLanguageChosen] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
   const [voice, setVoice] = useState(DEFAULT_VOICE);
+  // Speaker B's voice, used when the sentences have speakers (D57).
+  const [voiceB, setVoiceB] = useState("us-male");
+  // Where AI-written text belongs, saved with the practice (D57).
+  const [meta, setMeta] = useState<MaterialMeta | null>(null);
   const [progress, setProgress] = useState<Stage | null>(null);
   const nextKey = useRef(0);
   // Each row's cursor in its English box, for "Split at cursor".
@@ -116,6 +129,8 @@ export function CreatePracticeForm({
   } | null>(null);
 
   const chars = countChars([text]);
+  // Sentences with speakers make a two-voice dialogue (D57).
+  const dialogue = rows?.some((row) => row.speaker !== undefined) ?? false;
   const tooLong = chars > PRACTICE_LIMITS.textChars;
 
   function changeText(value: string) {
@@ -124,9 +139,13 @@ export function CreatePracticeForm({
   }
 
   /** Written text goes into the form to review and edit (it's English). */
-  function applyGenerated(generated: { title: string; text: string }) {
+  function applyGenerated(generated: GeneratedPractice) {
     setTitle(generated.title);
     setText(generated.text);
+    setMeta(generated.meta);
+    // The accent asked for: A a female voice, B a male one (D57).
+    setVoice(`${generated.accent}-female`);
+    setVoiceB(`${generated.accent}-male`);
     setLanguage("en");
     setLanguageChosen(true);
     setSource("text");
@@ -157,6 +176,7 @@ export function CreatePracticeForm({
         return;
       }
       setError(null);
+      setMeta(null);
       changeText(content);
       if (!title.trim()) setTitle(titleFromFileName(file.name));
       setNotice({
@@ -198,7 +218,11 @@ export function CreatePracticeForm({
       title,
       sourceLanguage: language,
       voice,
-      sentences: rows.map(({ en, zh }) => ({ en, zh })),
+      ...(dialogue ? { voiceB } : {}),
+      sentences: rows.map(({ en, zh, speaker }) =>
+        dialogue ? { en, zh, speaker: speaker ?? 0 } : { en, zh },
+      ),
+      meta,
     }).catch((): CreatePracticeResult => ({ ok: false, reason: "failed" }));
     if (!result.ok) {
       setPending(false);
@@ -312,12 +336,29 @@ export function CreatePracticeForm({
         <ol className="divide-y divide-line border-y border-line">
           {rows.map((row, index) => (
             <li key={row.key} className="flex gap-4 py-4">
-              <span
-                aria-hidden="true"
-                className="w-6 shrink-0 pt-3 text-metadata text-ink-muted tabular-nums"
-              >
-                {String(index + 1).padStart(2, "0")}
-              </span>
+              <div className="flex shrink-0 flex-col items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="w-6 pt-3 text-metadata text-ink-muted tabular-nums"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {dialogue && (
+                  <SpeakerToggle
+                    speaker={row.speaker ?? 0}
+                    index={index}
+                    disabled={pending}
+                    onChange={(speaker) =>
+                      setRows(
+                        (current) =>
+                          current?.map((r) =>
+                            r.key === row.key ? { ...r, speaker } : r,
+                          ) ?? null,
+                      )
+                    }
+                  />
+                )}
+              </div>
               <div className="min-w-0 flex-1 space-y-2">
                 <textarea
                   aria-label={t("sentenceEn", { n: index + 1 })}
@@ -360,7 +401,14 @@ export function CreatePracticeForm({
                             current,
                             index,
                             carets[row.key] ?? 0,
-                            (en) => ({ en, zh: "", key: nextKey.current++ }),
+                            (en) => ({
+                              en,
+                              zh: "",
+                              key: nextKey.current++,
+                              ...(row.speaker === undefined
+                                ? {}
+                                : { speaker: row.speaker }),
+                            }),
                           ),
                       )
                     }
@@ -409,10 +457,19 @@ export function CreatePracticeForm({
         <Button
           size="sm"
           onClick={() =>
-            setRows((current) => [
-              ...(current ?? []),
-              { en: "", zh: "", key: nextKey.current++ },
-            ])
+            setRows((current) => {
+              const last = current?.at(-1);
+              return [
+                ...(current ?? []),
+                {
+                  en: "",
+                  zh: "",
+                  key: nextKey.current++,
+                  // In a dialogue, the next line goes to the other speaker.
+                  ...(dialogue ? { speaker: last?.speaker === 0 ? 1 : 0 } : {}),
+                },
+              ];
+            })
           }
           disabled={pending || rows.length >= PRACTICE_LIMITS.sentences}
         >
@@ -425,13 +482,27 @@ export function CreatePracticeForm({
           <h3 id={`${ids.title}-voice`} className="font-display text-h3">
             {t("voiceTitle")}
           </h3>
+          {dialogue && <p className="font-medium">{tSpeakers("voiceA")}</p>}
           <VoiceMenu
             value={voice}
             onChange={setVoice}
             sampleUrl={voiceSampleUrl}
             disabled={pending}
           />
-          <p className="text-supporting text-ink-muted">{t("voiceNote")}</p>
+          {dialogue && (
+            <>
+              <p className="font-medium">{tSpeakers("voiceB")}</p>
+              <VoiceMenu
+                value={voiceB}
+                onChange={setVoiceB}
+                sampleUrl={voiceSampleUrl}
+                disabled={pending}
+              />
+            </>
+          )}
+          <p className="text-supporting text-ink-muted">
+            {dialogue ? tSpeakers("note") : t("voiceNote")}
+          </p>
         </section>
         <div className="flex flex-wrap gap-3">
           <Button variant="primary" onClick={submit} disabled={pending}>

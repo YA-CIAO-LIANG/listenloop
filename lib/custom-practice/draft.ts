@@ -1,4 +1,5 @@
 import { parseVoiceId } from "@/lib/ai/types";
+import type { Speaker } from "./speakers";
 import type { TextSourceLanguage } from "./split";
 
 /**
@@ -16,13 +17,20 @@ export const PRACTICE_LIMITS = {
   titleChars: 100,
 } as const;
 
-export type DraftSentence = { en: string; zh: string };
+export type DraftSentence = {
+  en: string;
+  zh: string;
+  /** In a two-voice dialogue: 0 is A, 1 is B (D57). */
+  speaker?: Speaker;
+};
 
 export type PracticeDraft = {
   title: string;
   sourceLanguage: TextSourceLanguage;
   /** The voice to generate the audio with, e.g. "us-female". */
   voice: string;
+  /** Speaker B's voice in a dialogue (D57); absent otherwise. */
+  voiceB?: string;
   sentences: DraftSentence[];
 };
 
@@ -65,6 +73,13 @@ export function cleanDraft(input: unknown): CleanDraftResult {
   }
   const voice = typeof draft.voice === "string" ? draft.voice : "";
   if (!parseVoiceId(voice)) return { ok: false, problem: "voice" };
+  const voiceB =
+    draft.voiceB === undefined || draft.voiceB === null || draft.voiceB === ""
+      ? undefined
+      : typeof draft.voiceB === "string" && parseVoiceId(draft.voiceB)
+        ? draft.voiceB
+        : null;
+  if (voiceB === null) return { ok: false, problem: "voice" };
   const list = Array.isArray(draft.sentences) ? draft.sentences : [];
   if (list.length === 0) return { ok: false, problem: "no-sentences" };
   if (list.length > PRACTICE_LIMITS.sentences) {
@@ -86,11 +101,20 @@ export function cleanDraft(input: unknown): CleanDraftResult {
     ) {
       return { ok: false, problem: "sentence-too-long", sentence: index };
     }
-    sentences.push({ en, zh });
+    const speaker = sentence?.speaker;
+    sentences.push(
+      speaker === 0 || speaker === 1 ? { en, zh, speaker } : { en, zh },
+    );
   }
   return {
     ok: true,
-    draft: { title, sourceLanguage: draft.sourceLanguage, voice, sentences },
+    draft: {
+      title,
+      sourceLanguage: draft.sourceLanguage,
+      voice,
+      ...(voiceB ? { voiceB } : {}),
+      sentences,
+    },
   };
 }
 

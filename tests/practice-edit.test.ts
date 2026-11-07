@@ -83,11 +83,44 @@ describe("planEdit", () => {
         zh: "我們搬家了。",
         audio_path: hash("b"),
         notes: null,
+        speaker: null,
       },
-      { en: "Go home.", zh: "回家。", audio_path: hash("a"), notes },
-      { en: "New one.", zh: "", audio_path: null, notes: null },
+      {
+        en: "Go home.",
+        zh: "回家。",
+        audio_path: hash("a"),
+        notes,
+        speaker: null,
+      },
+      { en: "New one.", zh: "", audio_path: null, notes: null, speaker: null },
     ]);
     expect(plan.translate).toEqual([2]);
+  });
+
+  it("in a dialogue, remakes only the audio whose voice changed (D57)", () => {
+    const dialogue = {
+      voice: "us-female",
+      voiceB: "us-male",
+      sentences: [
+        { en: "We moved.", audio_path: hash("b"), notes: null, speaker: 0 },
+        { en: "Go home.", audio_path: hash("a"), notes: null, speaker: 1 },
+      ],
+    };
+    const plan = planEdit(dialogue, {
+      voice: "us-female",
+      voiceB: "gb-male",
+      sentences: [
+        { en: "We moved.", zh: "", notes: null, speaker: 0 },
+        { en: "Go home.", zh: "", notes: null, speaker: 1 },
+      ],
+    });
+    expect(plan.sentences.map((s) => s.audio_path)).toEqual([hash("b"), null]);
+    // A sentence moved to the other speaker is voiced again.
+    const moved = planEdit(dialogue, {
+      ...dialogue,
+      sentences: [{ en: "We moved.", zh: "", notes: null, speaker: 1 }],
+    });
+    expect(moved.sentences[0]).toMatchObject({ audio_path: null, speaker: 1 });
   });
 
   it("makes all audio again with a new voice", () => {

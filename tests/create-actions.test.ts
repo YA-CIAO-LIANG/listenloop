@@ -78,6 +78,15 @@ describe("splitText", () => {
     expect(state.reserve).toHaveBeenCalledWith("cost", expect.any(Number));
   });
 
+  it("takes A:/B: labels off and returns each sentence's speaker (D57)", async () => {
+    state.reserve.mockResolvedValue(false);
+    expect(await splitText("A: Hi. Bye.\nB: See you.", "en")).toEqual({
+      ok: true,
+      sentences: ["Hi.", "Bye.", "See you."],
+      speakers: [0, 0, 1],
+    });
+  });
+
   it("still splits, by the rules, when the model can't be used", async () => {
     state.reserve.mockResolvedValue(false);
     expect(await splitText("Hi there. Bye now.", "en")).toEqual({
@@ -175,17 +184,61 @@ describe("createPractice", () => {
           title: "Moving",
           source_language: "en",
           voice: "gb-male",
+          voice_b: null,
         },
       },
       {
         table: "practice_sentences",
         rows: [
-          { practice_id: "p1", i: 0, en: "We moved.", zh: "我們搬家了。" },
+          {
+            practice_id: "p1",
+            i: 0,
+            en: "We moved.",
+            zh: "我們搬家了。",
+            speaker: null,
+          },
           // Chinese left empty in review is translated on save.
-          { practice_id: "p1", i: 1, en: "Nice.", zh: "[zh-Hant] Nice." },
+          {
+            practice_id: "p1",
+            i: 1,
+            en: "Nice.",
+            zh: "[zh-Hant] Nice.",
+            speaker: null,
+          },
         ],
       },
     ]);
+  });
+
+  it("saves a dialogue's second voice, speakers, and categories (D57)", async () => {
+    expect(
+      await createPractice({
+        ...draft,
+        voiceB: "gb-female",
+        sentences: [
+          { en: "We moved.", zh: "我們搬家了。", speaker: 0 },
+          { en: "Nice.", zh: "不錯。", speaker: 1 },
+        ],
+        meta: {
+          category: "daily-life",
+          scenario: "supermarket",
+          level: "beginner",
+          exam: null,
+          examTarget: null,
+        },
+      }),
+    ).toEqual({ ok: true, id: "p1" });
+    expect(state.inserts[0].rows).toMatchObject({
+      voice_b: "gb-female",
+      category: "daily-life",
+      scenario: "supermarket",
+      level: "beginner",
+      exam: null,
+      exam_target: null,
+    });
+    expect(
+      (state.inserts[1].rows as { speaker: number }[]).map((r) => r.speaker),
+    ).toEqual([0, 1]);
   });
 
   it("saves nothing when the missing Chinese can't be translated", async () => {
