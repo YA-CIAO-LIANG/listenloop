@@ -1,4 +1,5 @@
 import { parseSentenceNotes, type SentenceNotes } from "./notes";
+import type { Speaker } from "./speakers";
 
 /**
  * Editing a created practice (e+ 9c, D45). Saving makes a new version
@@ -14,6 +15,8 @@ export type EditSentence = {
   zh: string;
   /** Null: make new notes after saving (cached by the sentence's text). */
   notes: SentenceNotes | null;
+  /** In a two-voice dialogue: 0 is A, 1 is B (D57). */
+  speaker?: Speaker;
 };
 
 export type PracticeEdit = {
@@ -21,6 +24,8 @@ export type PracticeEdit = {
   expectedVersion: number;
   title: string;
   voice: string;
+  /** Speaker B's voice, for a dialogue (D57). */
+  voiceB?: string;
   sentences: EditSentence[];
 };
 
@@ -47,6 +52,7 @@ export function editSentences(rows: readonly EditRow[]): EditSentence[] {
       en: row.en,
       zh: enChanged && !zhEdited ? "" : row.zh,
       notes: enChanged && !row.notesEdited ? null : row.notes,
+      ...(row.speaker === undefined ? {} : { speaker: row.speaker }),
     };
   });
 }
@@ -70,6 +76,7 @@ export type SavedSentence = {
   zh: string;
   audio_path: string | null;
   notes: SentenceNotes | null;
+  speaker: Speaker | null;
 };
 
 /**
@@ -81,25 +88,39 @@ export type SavedSentence = {
 export function planEdit(
   current: {
     voice: string | null;
+    voiceB?: string | null;
     sentences: readonly {
       en: string;
       audio_path: string | null;
       notes: unknown;
+      speaker?: number | null;
     }[];
   },
-  edit: { voice: string; sentences: readonly EditSentence[] },
+  edit: {
+    voice: string;
+    voiceB?: string | null;
+    sentences: readonly EditSentence[];
+  },
 ): { sentences: SavedSentence[]; translate: number[] } {
+  // The voice a sentence is read in: B's own in a dialogue (D57).
+  const voiceOf = (
+    practice: { voice: string | null; voiceB?: string | null },
+    speaker: number | null | undefined,
+  ) => (speaker === 1 && practice.voiceB ? practice.voiceB : practice.voice);
   const before = new Map(current.sentences.map((s) => [s.en, s]));
-  const sameVoice = current.voice === edit.voice;
   const translate: number[] = [];
   const sentences = edit.sentences.map((sentence, i) => {
     const old = before.get(sentence.en);
     if (!sentence.zh) translate.push(i);
+    const sameVoice =
+      old !== undefined &&
+      voiceOf(current, old.speaker) === voiceOf(edit, sentence.speaker);
     return {
       en: sentence.en,
       zh: sentence.zh,
       audio_path: sameVoice ? (old?.audio_path ?? null) : null,
       notes: sentence.notes ?? (old ? parseSentenceNotes(old.notes) : null),
+      speaker: sentence.speaker ?? null,
     };
   });
   return { sentences, translate };

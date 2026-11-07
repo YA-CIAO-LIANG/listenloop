@@ -285,6 +285,7 @@ export type Database = {
           i: number;
           notes: Json | null;
           practice_id: string;
+          speaker: number | null;
           zh: string;
         };
         Insert: {
@@ -293,6 +294,7 @@ export type Database = {
           i: number;
           notes?: Json | null;
           practice_id: string;
+          speaker?: number | null;
           zh?: string;
         };
         Update: {
@@ -301,6 +303,7 @@ export type Database = {
           i?: number;
           notes?: Json | null;
           practice_id?: string;
+          speaker?: number | null;
           zh?: string;
         };
         Relationships: [
@@ -353,14 +356,21 @@ export type Database = {
       };
       practices: {
         Row: {
+          category: string | null;
           collection_id: string | null;
           created_at: string;
+          exam: string | null;
+          exam_target: string | null;
           grammar: Json;
           id: string;
+          level: string | null;
           notes_generated_at: string | null;
           official: boolean;
+          published: boolean;
           removed_at: string | null;
           removed_reason: string | null;
+          scenario: string | null;
+          sort_order: number | null;
           source_language: string;
           title: string;
           updated_at: string;
@@ -369,16 +379,24 @@ export type Database = {
           visibility: string;
           vocab: Json;
           voice: string | null;
+          voice_b: string | null;
         };
         Insert: {
+          category?: string | null;
           collection_id?: string | null;
           created_at?: string;
+          exam?: string | null;
+          exam_target?: string | null;
           grammar?: Json;
           id?: string;
+          level?: string | null;
           notes_generated_at?: string | null;
           official?: boolean;
+          published?: boolean;
           removed_at?: string | null;
           removed_reason?: string | null;
+          scenario?: string | null;
+          sort_order?: number | null;
           source_language: string;
           title: string;
           updated_at?: string;
@@ -387,16 +405,24 @@ export type Database = {
           visibility?: string;
           vocab?: Json;
           voice?: string | null;
+          voice_b?: string | null;
         };
         Update: {
+          category?: string | null;
           collection_id?: string | null;
           created_at?: string;
+          exam?: string | null;
+          exam_target?: string | null;
           grammar?: Json;
           id?: string;
+          level?: string | null;
           notes_generated_at?: string | null;
           official?: boolean;
+          published?: boolean;
           removed_at?: string | null;
           removed_reason?: string | null;
+          scenario?: string | null;
+          sort_order?: number | null;
           source_language?: string;
           title?: string;
           updated_at?: string;
@@ -405,6 +431,7 @@ export type Database = {
           visibility?: string;
           vocab?: Json;
           voice?: string | null;
+          voice_b?: string | null;
         };
         Relationships: [
           {
@@ -618,6 +645,7 @@ export type Database = {
           new_title: string;
           new_vocab: Json;
           new_voice: string;
+          new_voice_b?: string;
           notes_ready: boolean;
           target: string;
         };

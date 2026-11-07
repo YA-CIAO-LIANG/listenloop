@@ -519,3 +519,13 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - **篩選列**：label 在上的欄位（surface 底、1px line 邊框），手機一欄、split 兩欄、wide 一排；secondary「篩選」按鈕。
 - **使用者個人頁**：← 使用者 → h1「使用者 001」→ 日期清單（ink-muted 標籤＋值）→ 角色與狀態（停用時用 error 色）→ secondary 小按鈕「設為管理員」／「改為一般使用者」，ghost「停用帳號…」按下後變成 primary「確定停用」＋ ghost「取消」，並顯示說明 → h2「最近的操作」與紀錄表格。
 - **容易出錯的句子**：清單，每項依序是 ink-muted 的出處（練習名稱・第 N 句）、sentence 字級的英文、supporting 的統計數字、accent-ink 連結（編輯或打開影片頁）。
+
+## AI 生成練習的選項（D57）
+
+- 上方是下拉選單：「類別」「情境」，考試類多一個「考試」（split 以上兩欄排列）。考試類下方有 supporting、ink-muted 的說明「考試類只模仿題型風格與難度……」。
+- 接著是「主題或關鍵字（選填）」，以及四排 SegmentedControl：程度（考試類改成「目標程度」）、長度（「1–2 分鐘」等）、形式、口音。
+
+## 對話的說話者 `SpeakerToggle`（D57）
+
+- 預覽和編輯的句子清單中，對話的每句在編號下方有一個 secondary、sm、固定寬度的按鈕，顯示「A」或「B」，按一下切換；螢幕閱讀器讀作「第 N 句由 A 念，按一下切換」。
+- 聲音區塊：font-medium 的「A 的聲音」→ VoiceMenu →「B 的聲音」→ VoiceMenu → supporting、ink-muted 的說明。不是對話時只有一個 VoiceMenu，和原本相同。

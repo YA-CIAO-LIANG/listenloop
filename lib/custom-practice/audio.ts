@@ -38,7 +38,12 @@ export interface AudioStore {
   save(hash: string, audio: SpeechAudio): Promise<string>;
 }
 
-export type SentenceToVoice = { i: number; en: string };
+export type SentenceToVoice = {
+  i: number;
+  en: string;
+  /** This sentence's own voice (speaker B in a dialogue, D57). */
+  voice?: Voice;
+};
 
 export type GeneratedBatch = {
   /** Sentences that now have audio, in order. */
@@ -60,14 +65,15 @@ export async function voiceSentences(
   const done: GeneratedBatch["done"] = [];
   for (const sentence of sentences) {
     try {
+      const sentenceVoice = sentence.voice ?? voice;
       const hash = await speechCacheKey(
         deps.providers.speech.id,
-        voice,
+        sentenceVoice,
         sentence.en,
       );
       let path = await deps.store.find(hash);
       if (!path) {
-        const audio = await meteredSpeech(deps, sentence.en, voice);
+        const audio = await meteredSpeech(deps, sentence.en, sentenceVoice);
         if (!audio.ok) return { done, stopped: audio.reason };
         path = await deps.store.save(hash, audio.value);
       }

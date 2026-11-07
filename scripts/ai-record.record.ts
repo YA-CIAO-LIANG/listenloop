@@ -11,6 +11,7 @@
  * is also added to api_calls (no user) when the Supabase secret key is
  * set, so /admin/usage counts it against the credit.
  */
+import { LEVEL_PROMPTS } from "@/lib/categories";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -27,10 +28,7 @@ import {
 } from "@/lib/ai/budgets";
 import { toMicros } from "@/lib/ai/pricing";
 import type { Billed, CallUsage, Voice } from "@/lib/ai/types";
-import {
-  GENERATION_LEVELS,
-  type CompositionPrompt,
-} from "@/lib/custom-practice/generation";
+import { type CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 
 export const FIXTURE_DIR = join(process.cwd(), "tests", "fixtures", "ai");
@@ -41,7 +39,7 @@ const segmentInput = ["I missed the bus. So I walked to school."];
 const composeInput: CompositionPrompt = {
   topic: "",
   scenario: "ordering a drink at a coffee shop",
-  level: GENERATION_LEVELS.beginner,
+  level: LEVEL_PROMPTS.beginner,
   words: 40,
   format: "dialogue",
 };

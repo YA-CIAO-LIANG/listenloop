@@ -9,8 +9,9 @@ import {
   type DraftSentence,
 } from "@/lib/custom-practice/draft";
 import { TRANSLATE_BATCH } from "@/lib/custom-practice/notes";
+import { isDialogue, speakerLines } from "@/lib/custom-practice/speakers";
 import {
-  splitSentences,
+  splitLine,
   type TextSourceLanguage,
 } from "@/lib/custom-practice/split";
 
@@ -83,12 +84,22 @@ export type PrepareDraftResult =
  * (D49): splitting never fails for want of the model or the server.
  */
 function splitByRules(text: string, language: TextSourceLanguage): SplitResult {
-  const sentences = splitSentences(text, language);
+  const lines = speakerLines(text);
+  const pieces = lines.map((line) => splitLine(line.text, language));
+  const sentences = pieces.flat();
   if (sentences.length === 0) return { ok: false, reason: "empty" };
   if (sentences.length > PRACTICE_LIMITS.sentences) {
     return { ok: false, reason: "too-many" };
   }
-  return { ok: true, sentences };
+  return isDialogue(lines)
+    ? {
+        ok: true,
+        sentences,
+        speakers: lines.flatMap((line, i) =>
+          pieces[i].map(() => line.speaker ?? 0),
+        ),
+      }
+    : { ok: true, sentences };
 }
 
 /**
@@ -126,11 +137,15 @@ export async function prepareDraft(
   }
   return {
     ok: true,
-    sentences: source.map((line, i) =>
-      language === "zh"
-        ? { en: translations[i], zh: line }
-        : { en: line, zh: translations[i] },
-    ),
+    sentences: source.map((line, i) => {
+      const speaker = split.speakers?.[i];
+      return {
+        ...(language === "zh"
+          ? { en: translations[i], zh: line }
+          : { en: line, zh: translations[i] }),
+        ...(speaker === undefined ? {} : { speaker }),
+      };
+    }),
   };
 }
 

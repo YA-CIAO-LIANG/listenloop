@@ -204,9 +204,21 @@ export async function segmentCached(
   language: TextSourceLanguage,
   waitMs = SEGMENT_WAIT_MS,
 ): Promise<string[]> {
-  const lines = textLines(text);
+  return (await segmentLines(deps, textLines(text), language, waitMs)).flat();
+}
+
+/**
+ * Like segmentCached, for lines already taken apart (dialogue labels
+ * removed, D57): each line's sentences, in order.
+ */
+export async function segmentLines(
+  deps: LanguageDeps,
+  lines: readonly string[],
+  language: TextSourceLanguage,
+  waitMs = SEGMENT_WAIT_MS,
+): Promise<string[][]> {
   if (lines.length === 0) return [];
-  const byRules = () => lines.flatMap((line) => splitLine(line, language));
+  const byRules = () => lines.map((line) => splitLine(line, language));
   try {
     const result = await within(
       cachedLanguageCall<string[][]>(
@@ -214,7 +226,7 @@ export async function segmentCached(
         "segmentation",
         JSON.stringify({ language, lines }),
         segmentBudget(lines),
-        () => deps.providers.language.segment(lines, language),
+        () => deps.providers.language.segment([...lines], language),
         // Keep the checked sentences per line, so the cache holds clean data.
         (raw) =>
           Array.isArray(raw) && raw.length === lines.length
@@ -225,7 +237,7 @@ export async function segmentCached(
       ),
       waitMs,
     );
-    return result?.ok ? result.value.flat() : byRules();
+    return result?.ok ? result.value : byRules();
   } catch (error) {
     console.error(
       `[AI] splitting by meaning failed, split by rules: ${error instanceof Error ? error.message : String(error)}`,

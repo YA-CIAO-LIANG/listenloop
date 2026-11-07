@@ -98,6 +98,7 @@ describe("CreatePracticeForm", () => {
       title: "Moving",
       sourceLanguage: "en",
       voice: "au-male",
+      meta: null,
       sentences: [{ en: "We moved here last year.", zh: "我們搬來這裡。" }],
     });
     // Notes come first, so they match the reviewed English; then audio.
@@ -279,26 +280,31 @@ describe("CreatePracticeForm", () => {
     });
     await renderForm();
     fireEvent.click(screen.getByLabelText("AI 生成"));
-    fireEvent.change(screen.getByLabelText("類別與情境"), {
+    fireEvent.change(screen.getByLabelText("類別"), {
+      target: { value: "campus" },
+    });
+    fireEvent.change(screen.getByLabelText("情境"), {
       target: { value: "office-hours" },
     });
     fireEvent.change(screen.getByLabelText("主題或關鍵字（選填）"), {
       target: { value: "期中考" },
     });
     fireEvent.click(screen.getByLabelText("高級"));
-    fireEvent.click(screen.getByLabelText("約 5 分鐘"));
-    fireEvent.click(screen.getByLabelText("獨白"));
+    fireEvent.click(screen.getByLabelText("4–5 分鐘"));
+    fireEvent.click(screen.getByLabelText("英式"));
     await click("生成文字");
     expect(generateText).toHaveBeenCalledWith({
       topic: "期中考",
       scenario: "office-hours",
       level: "advanced",
-      minutes: 5,
-      format: "monologue",
+      length: "4-5",
+      format: "dialogue",
+      accent: "gb",
     });
-    // Back on the text form, filled in and editable.
+    // Back on the text form, filled in and editable; a dialogue's lines
+    // are labeled with their speakers (D57).
     expect((textBox() as HTMLTextAreaElement).value).toBe(
-      "Where is the milk?\nIt's in aisle five.",
+      "A: Where is the milk?\nB: It's in aisle five.",
     );
     expect((screen.getByLabelText("標題") as HTMLInputElement).value).toBe(
       "At the Store",

@@ -40,12 +40,16 @@ import {
 } from "./practice-generation";
 import { StageProgress } from "./StageProgress";
 import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
+import { SpeakerToggle } from "./SpeakerToggle";
+import type { Speaker } from "@/lib/custom-practice/speakers";
 
 type EditPracticeFormProps = {
   practice: {
     id: string;
     title: string;
     voice: string;
+    /** Speaker B's voice, when the practice is a dialogue (D57). */
+    voiceB?: string | null;
     version: number;
     sentences: EditSentence[];
   };
@@ -77,6 +81,8 @@ export function EditPracticeForm({
   const ids = { title: useId(), hint: useId() };
   const [title, setTitle] = useState(practice.title);
   const [voice, setVoice] = useState(practice.voice);
+  const [voiceB, setVoiceB] = useState(practice.voiceB ?? "us-male");
+  const tSpeakers = useTranslations("speakers");
   const [rows, setRows] = useState<EditRow[]>(() =>
     rowsFromSentences(practice.sentences),
   );
@@ -89,13 +95,16 @@ export function EditPracticeForm({
   >(null);
   const [saved, setSaved] = useState(false);
 
-  const newRow = (en: string): EditRow => ({
+  // Sentences with speakers make a two-voice dialogue (D57).
+  const dialogue = rows.some((row) => row.speaker !== undefined);
+  const newRow = (en: string, speaker?: Speaker): EditRow => ({
     key: nextKey.current++,
     en,
     zh: "",
     notes: null,
     original: null,
     notesEdited: false,
+    ...(speaker === undefined ? {} : { speaker }),
   });
   const update = (key: number, change: Partial<EditRow>) =>
     setRows((current) =>
@@ -117,6 +126,7 @@ export function EditPracticeForm({
       expectedVersion: practice.version,
       title,
       voice,
+      ...(dialogue ? { voiceB } : {}),
       sentences: editSentences(rows),
     }).catch((): SaveEditResult => ({ ok: false, reason: "failed" }));
     if (!result.ok) {
@@ -184,12 +194,22 @@ export function EditPracticeForm({
             const changed = !row.original || row.en.trim() !== row.original.en;
             return (
               <li key={row.key} className="flex gap-4 py-4">
-                <span
-                  aria-hidden="true"
-                  className="w-6 shrink-0 pt-3 text-metadata text-ink-muted tabular-nums"
-                >
-                  {String(n).padStart(2, "0")}
-                </span>
+                <div className="flex shrink-0 flex-col items-center gap-2">
+                  <span
+                    aria-hidden="true"
+                    className="w-6 pt-3 text-metadata text-ink-muted tabular-nums"
+                  >
+                    {String(n).padStart(2, "0")}
+                  </span>
+                  {dialogue && (
+                    <SpeakerToggle
+                      speaker={row.speaker ?? 0}
+                      index={index}
+                      disabled={pending}
+                      onChange={(speaker) => update(row.key, { speaker })}
+                    />
+                  )}
+                </div>
                 <div className="min-w-0 flex-1 space-y-2">
                   <textarea
                     aria-label={tCreate("sentenceEn", { n })}
@@ -262,7 +282,7 @@ export function EditPracticeForm({
                             current,
                             index,
                             carets[row.key] ?? 0,
-                            newRow,
+                            (en) => newRow(en, row.speaker),
                           ),
                         )
                       }
@@ -308,7 +328,16 @@ export function EditPracticeForm({
         </ol>
         <Button
           size="sm"
-          onClick={() => setRows((current) => [...current, newRow("")])}
+          onClick={() =>
+            setRows((current) => [
+              ...current,
+              // In a dialogue, the next line goes to the other speaker.
+              newRow(
+                "",
+                dialogue ? (current.at(-1)?.speaker === 0 ? 1 : 0) : undefined,
+              ),
+            ])
+          }
           disabled={pending || rows.length >= PRACTICE_LIMITS.sentences}
         >
           {tCreate("addSentence")}
@@ -319,12 +348,24 @@ export function EditPracticeForm({
         <h2 id={`${ids.title}-voice`} className="font-display text-h2">
           {tCreate("voiceTitle")}
         </h2>
+        {dialogue && <p className="font-medium">{tSpeakers("voiceA")}</p>}
         <VoiceMenu
           value={voice}
           onChange={setVoice}
           sampleUrl={voiceSampleUrl}
           disabled={pending}
         />
+        {dialogue && (
+          <>
+            <p className="font-medium">{tSpeakers("voiceB")}</p>
+            <VoiceMenu
+              value={voiceB}
+              onChange={setVoiceB}
+              sampleUrl={voiceSampleUrl}
+              disabled={pending}
+            />
+          </>
+        )}
         <p className="text-supporting text-ink-muted">{t("voiceNote")}</p>
       </section>
 

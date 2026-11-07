@@ -4,10 +4,8 @@ import { describe, expect, it, vi } from "vitest";
 import { azureOpenAiLanguage } from "@/lib/ai/azure-openai";
 import { azureSpeech } from "@/lib/ai/azure-speech";
 import { ProviderError } from "@/lib/ai/types";
-import {
-  checkGeneratedText,
-  GENERATION_LEVELS,
-} from "@/lib/custom-practice/generation";
+import { checkGeneratedText } from "@/lib/custom-practice/generation";
+import { LEVEL_PROMPTS } from "@/lib/categories";
 import { cleanNotes } from "@/lib/custom-practice/notes";
 import { checkedSegments } from "@/lib/custom-practice/split";
 
@@ -90,7 +88,7 @@ describe("recorded Azure OpenAI answers", () => {
     const { value } = await azureOpenAiLanguage(config, fetchImpl).compose({
       topic: "",
       scenario: "ordering a drink at a coffee shop",
-      level: GENERATION_LEVELS.beginner,
+      level: LEVEL_PROMPTS.beginner,
       words: 40,
       format: "dialogue",
     });

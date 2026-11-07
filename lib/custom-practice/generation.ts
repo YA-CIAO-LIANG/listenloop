@@ -1,155 +1,58 @@
 import { PRACTICE_LIMITS } from "./draft";
 
+import {
+  findExam,
+  findScenario,
+  findTarget,
+  isLevel,
+  LEVEL_PROMPTS,
+  type CategoryId,
+  type Level,
+} from "@/lib/categories";
+import { VOICE_ACCENTS, type VoiceAccent } from "@/lib/ai/types";
+
 /**
- * Practice text written by a language model (e+ 5, D36): the learner picks
- * a scenario, level, length, and format, and optionally a topic. All the
- * choices live here; add a category or scenario by adding it below and
- * its names to the message files (generate.categories / .scenarios).
- * Each scenario's `prompt` is what the model is asked to write about.
+ * Practice text written by a language model (e+ 5, D36, D57): the learner
+ * picks a scenario from lib/categories.ts, a level (or, for exam
+ * practice, a target), a length, the form, and an accent, and
+ * optionally a topic.
  */
-export const GENERATION_CATEGORIES = [
-  {
-    id: "daily-life",
-    scenarios: [
-      { id: "restaurant", prompt: "ordering food at a restaurant" },
-      { id: "shopping", prompt: "shopping in a store" },
-      {
-        id: "directions",
-        prompt: "asking for directions and using transportation",
-      },
-      { id: "doctor", prompt: "seeing a doctor" },
-      { id: "renting", prompt: "renting an apartment" },
-    ],
-  },
-  {
-    id: "study-abroad",
-    scenarios: [
-      {
-        id: "bank-account",
-        prompt: "opening a bank account as an international student",
-      },
-      { id: "roommates", prompt: "talking things through with a roommate" },
-      {
-        id: "school-office",
-        prompt:
-          "sorting out paperwork at a university office (registration, visas, housing)",
-      },
-      {
-        id: "part-time-interview",
-        prompt: "a job interview for a part-time job while studying abroad",
-      },
-    ],
-  },
-  {
-    id: "casual-american",
-    scenarios: [
-      {
-        id: "friends-chat",
-        prompt: "friends chatting casually in American English",
-      },
-      {
-        id: "slang",
-        prompt:
-          "everyday American slang and popular expressions, used naturally in conversation",
-      },
-      {
-        id: "social-media",
-        prompt:
-          "talking about social media, with common social media expressions",
-      },
-    ],
-  },
-  {
-    id: "campus",
-    scenarios: [
-      { id: "class-discussion", prompt: "a class discussion at a university" },
-      {
-        id: "office-hours",
-        prompt: "a student visiting a professor's office hours",
-      },
-      {
-        id: "group-presentation",
-        prompt: "students planning and giving a group presentation",
-      },
-    ],
-  },
-  {
-    id: "academic-writing",
-    scenarios: [
-      { id: "abstract", prompt: "the abstract of a research paper" },
-      {
-        id: "academic-paragraph",
-        prompt: "paragraphs from an academic article",
-      },
-    ],
-  },
-  {
-    id: "business",
-    scenarios: [
-      { id: "job-interview", prompt: "a job interview at a company" },
-      { id: "meeting", prompt: "a work meeting" },
-      {
-        id: "phone-email",
-        prompt: "a business phone call, or an email read aloud",
-      },
-      { id: "presentation", prompt: "a business presentation" },
-    ],
-  },
-  {
-    id: "talks-stories",
-    scenarios: [
-      { id: "ted-talk", prompt: "a TED-style talk" },
-      { id: "personal-story", prompt: "a personal story told aloud" },
-      {
-        id: "news-report",
-        prompt: "a news report (invented, not about real current events)",
-      },
-    ],
-  },
-  {
-    id: "exam",
-    scenarios: [
-      {
-        id: "ielts",
-        prompt: "an IELTS-style listening conversation or lecture",
-      },
-      {
-        id: "toefl",
-        prompt: "a TOEFL-style campus conversation or academic lecture",
-      },
-    ],
-  },
-] as const;
 
-export type GenerationCategory = (typeof GENERATION_CATEGORIES)[number];
-export type GenerationScenario = GenerationCategory["scenarios"][number];
+/** Lengths offered, as the library's length buckets (minutes). */
+export const GENERATION_LENGTHS = ["1-2", "2-3", "3-4", "4-5"] as const;
+export type GenerationLength = (typeof GENERATION_LENGTHS)[number];
 
-export const GENERATION_LEVELS = {
-  beginner: "CEFR A2: short sentences, the most common words",
-  intermediate: "CEFR B1: everyday vocabulary, some longer sentences",
-  advanced: "CEFR B2 to C1: natural, varied vocabulary and sentence structure",
-} as const;
-export type GenerationLevel = keyof typeof GENERATION_LEVELS;
-
-/** About how many minutes the audio runs, like the library's length filter. */
-export const GENERATION_MINUTES = [1, 3, 5] as const;
-export type GenerationMinutes = (typeof GENERATION_MINUTES)[number];
-
-/** Chirp 3 HD reads about this many words a minute (D36). */
+/** Azure neural voices read about this many words a minute (D36). */
 export const WORDS_PER_MINUTE = 130;
+
+/** The words asked for: the middle of the length bucket. */
+export function lengthWords(length: GenerationLength): number {
+  const [min, max] = length.split("-").map(Number);
+  return Math.round(((min + max) / 2) * WORDS_PER_MINUTE);
+}
 
 export const GENERATION_FORMATS = ["dialogue", "monologue"] as const;
 export type GenerationFormat = (typeof GENERATION_FORMATS)[number];
 
 export const TOPIC_MAX_CHARS = 200;
 
+/** How each accent's English is asked for. */
+const ACCENT_PROMPTS: Readonly<Record<VoiceAccent, string>> = {
+  us: "American English spelling and expressions",
+  gb: "British English spelling and expressions",
+  au: "Australian English spelling and expressions",
+  in: "Indian English expressions, with British spelling",
+};
+
 export type GenerationRequest = {
   /** Optional topic or keywords, in any language. */
   topic: string;
-  scenario: GenerationScenario["id"];
-  level: GenerationLevel;
-  minutes: GenerationMinutes;
+  scenario: string;
+  /** A general level, or for exam practice the exam's target id. */
+  level: string;
+  length: GenerationLength;
   format: GenerationFormat;
+  accent: VoiceAccent;
 };
 
 /** What the language provider is asked to write (lib/ai/types.ts). */
@@ -161,18 +64,19 @@ export type CompositionPrompt = {
   format: GenerationFormat;
 };
 
-export function findScenario(id: unknown): GenerationScenario | null {
-  for (const category of GENERATION_CATEGORIES) {
-    for (const scenario of category.scenarios) {
-      if (scenario.id === id) return scenario;
-    }
-  }
-  return null;
-}
+/** Where a written practice belongs, saved with it (D57). */
+export type MaterialMeta = {
+  category: CategoryId;
+  scenario: string;
+  level: Level;
+  exam: string | null;
+  examTarget: string | null;
+};
 
 /**
  * Checks a request from the browser. Takes `unknown` because it guards
- * the server action.
+ * the server action. An exam part needs one of its exam's targets; any
+ * other scenario a general level.
  */
 export function parseGenerationRequest(
   input: unknown,
@@ -180,35 +84,90 @@ export function parseGenerationRequest(
   const raw = (input ?? {}) as Record<string, unknown>;
   const topic =
     typeof raw.topic === "string" ? raw.topic.replace(/\s+/g, " ").trim() : "";
-  const scenario = findScenario(raw.scenario);
+  const place = findScenario(raw.scenario);
+  const levelOk = place?.exam
+    ? findTarget(place.exam, raw.level) !== null
+    : isLevel(raw.level);
   if (
     [...topic].length > TOPIC_MAX_CHARS ||
-    !scenario ||
-    typeof raw.level !== "string" ||
-    !(raw.level in GENERATION_LEVELS) ||
-    !(GENERATION_MINUTES as readonly unknown[]).includes(raw.minutes) ||
-    !(GENERATION_FORMATS as readonly unknown[]).includes(raw.format)
+    !place ||
+    !levelOk ||
+    !(GENERATION_LENGTHS as readonly unknown[]).includes(raw.length) ||
+    !(GENERATION_FORMATS as readonly unknown[]).includes(raw.format) ||
+    !(VOICE_ACCENTS as readonly unknown[]).includes(raw.accent)
   ) {
     return null;
   }
   return {
     topic,
-    scenario: scenario.id,
-    level: raw.level as GenerationLevel,
-    minutes: raw.minutes as GenerationMinutes,
+    scenario: place.scenario.id,
+    level: raw.level as string,
+    length: raw.length as GenerationLength,
     format: raw.format as GenerationFormat,
+    accent: raw.accent as VoiceAccent,
   };
 }
 
 export function compositionPrompt(
   request: GenerationRequest,
 ): CompositionPrompt {
+  const place = findScenario(request.scenario);
+  const target = place?.exam ? findTarget(place.exam, request.level) : null;
+  const scenario = place?.exam
+    ? `${place.scenario.prompt}, ${place.exam.style}`
+    : (place?.scenario.prompt ?? "");
+  const level = target
+    ? target.prompt
+    : LEVEL_PROMPTS[isLevel(request.level) ? request.level : "intermediate"];
   return {
     topic: request.topic,
-    scenario: findScenario(request.scenario)?.prompt ?? "",
-    level: GENERATION_LEVELS[request.level],
-    words: request.minutes * WORDS_PER_MINUTE,
+    scenario,
+    level: `${level}; ${ACCENT_PROMPTS[request.accent]}`,
+    words: lengthWords(request.length),
     format: request.format,
+  };
+}
+
+/** The categories a request's text belongs to, for saving (D57). */
+export function materialMeta(request: GenerationRequest): MaterialMeta | null {
+  const place = findScenario(request.scenario);
+  if (!place) return null;
+  const target = place.exam ? findTarget(place.exam, request.level) : null;
+  return {
+    category: place.category,
+    scenario: place.scenario.id,
+    level: target
+      ? target.level
+      : isLevel(request.level)
+        ? request.level
+        : "intermediate",
+    exam: place.exam?.id ?? null,
+    examTarget: target?.id ?? null,
+  };
+}
+
+/** A meta from the browser, checked against the categories; null if off. */
+export function parseMaterialMeta(input: unknown): MaterialMeta | null {
+  if (typeof input !== "object" || input === null) return null;
+  const raw = input as Record<string, unknown>;
+  const place = findScenario(raw.scenario);
+  if (!place || place.category !== raw.category || !isLevel(raw.level)) {
+    return null;
+  }
+  if (place.exam) {
+    const exam = findExam(raw.exam);
+    if (exam?.id !== place.exam.id || !findTarget(exam, raw.examTarget)) {
+      return null;
+    }
+  } else if (raw.exam !== null || raw.examTarget !== null) {
+    return null;
+  }
+  return {
+    category: place.category,
+    scenario: place.scenario.id,
+    level: raw.level,
+    exam: place.exam?.id ?? null,
+    examTarget: place.exam ? (raw.examTarget as string) : null,
   };
 }
 

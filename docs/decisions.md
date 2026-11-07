@@ -874,3 +874,31 @@
 - **管理稽核**：新增 `admin_audit` 資料表，記錄誰、什麼時候、對什麼、改了什麼（改前 → 改後），保留 2 年。目前記錄的動作：變更使用者角色或狀態、下架、恢復、駁回檢舉、設為官方教材。
 - **保留期限修正**：API 呼叫紀錄不再自動刪除，因為它是 Azure 學生額度剩餘的計算基礎（D38）。D55 原本寫 365 天，已改成不刪除。
 - **要改時**：`app/admin/`、`lib/admin-dashboard.ts`、`lib/hard-sentences.ts`、`auth/audit.ts`、`components/AdminNav.tsx`、`components/UserControls.tsx`、`components/EventTable.tsx`、`supabase/migrations/20261107180000_admin_dashboard.sql`。
+
+## D57 教材分類、AI 建立教材、雙聲音對話（2026-11-07，P0）
+
+- **分類集中設定**：`lib/categories.ts`。
+  - 結構：類別 ＞ 子情境；考試類是考試 ＞ 題型，另外加上目標程度。依 Joe 列的 11 類、子情境、4 種考試與目標程度建立。
+  - 使用的地方：AI 生成練習、後台教材管理的篩選、推薦練習的篩選。
+  - 每個子情境有給模型的描述，以及預設的形式（對話或獨白），使用者可以改。
+  - 名稱放在翻譯檔的 `categories` 群組；測試會檢查每個 id 在兩種語言都有名稱，而且子情境 id 不重複。
+  - 托福沒有指定目標程度，自訂為「約 80 分」「約 100 分」。
+- **考試類只模仿題型風格與難度**：給模型的描述都寫明「內容原創，不是真實考題」；介面寫「托福風格」，旁邊有一行說明「與考試主辦單位無關」。
+- **新聞類**：要求「原創新聞風格，不寫真實事件」；共用的生成指示原本就禁止真實人名、品牌和時事（D36）。
+- **AI 生成的選項**：類別、子情境（考試類改成考試、題型）、程度（考試類改成目標程度）、長度、形式、口音。
+  - 長度沿用片段長度區間：1–2、2–3、3–4、4–5 分鐘，以區間中點 × 每分鐘 130 字估算字數。
+  - 口音同時決定拼字與用語（例如英式拼字），並把預覽步驟的聲音預設成該口音的女聲，B 是同口音的男聲。
+  - 選項都併入原本傳給模型的欄位，生成指示和輸出格式不變，所以已錄製的 fixture 仍然有效，不需要重新呼叫。
+- **教材的分類資料**：`practices` 新增 `category`、`scenario`、`level`、`exam`、`exam_target`。AI 生成的練習建立時自動填入，伺服器會對照分類設定再檢查一次；上傳的文字沒有分類，之後由管理員在後台設定。
+- **官方教材草稿**：新增 `published`。官方教材可以先存成草稿：未發布、保持私人，管理員在後台發布後才公開。資料庫限制從「官方教材一定公開」改成「已發布的官方教材一定公開」。`published` 和推薦排序 `sort_order` 只有伺服器能改，和 `official` 一樣。
+- **雙聲音對話**：
+  - 文字框裡每行開頭的「A:」「B:」（全形冒號也可以）代表說話者，不會被念出來。AI 生成的對話會自動加上標記，一行一個人輪流說。
+  - 斷句時每句記下說話者（`practice_sentences.speaker`）；B 的句子用第二個聲音（`practices.voice_b`）產生音檔。
+  - 預覽和編輯時，每句左邊有 A／B 按鈕可以切換，下方有 A、B 兩個聲音選單。新增的句子預設給另一個人。
+  - 編輯時，只有「實際使用的聲音」改變的句子才重新產生音檔，例如只改了 B 的聲音，就只重做 B 的句子。
+  - 儲存編輯的資料庫函式改成一併儲存說話者和第二個聲音；版本快照也包含說話者。
+  - 只有一個說話者的文字（沒有 B），維持原本的單一聲音。
+- **要改時**：
+  - 分類與生成：`lib/categories.ts`、`lib/custom-practice/generation.ts`、`components/GenerateTextPanel.tsx`；
+  - 對話：`lib/custom-practice/speakers.ts`、`components/SpeakerToggle.tsx`、`components/CreatePracticeForm.tsx`、`components/EditPracticeForm.tsx`、`app/materials/actions.ts`、`lib/custom-practice/edit.ts`；
+  - Migration：`20261107200000_practice_categories.sql`、`20261107210000_dialogue_speakers.sql`。
