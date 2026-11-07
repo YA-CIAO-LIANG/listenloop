@@ -174,6 +174,39 @@ export type Database = {
         };
         Relationships: [];
       };
+      events: {
+        Row: {
+          code: string | null;
+          created_at: string;
+          day: number | null;
+          id: number;
+          score: number | null;
+          type: string;
+          user_id: string | null;
+          video_id: string | null;
+        };
+        Insert: {
+          code?: string | null;
+          created_at?: string;
+          day?: number | null;
+          id?: never;
+          score?: number | null;
+          type: string;
+          user_id?: string | null;
+          video_id?: string | null;
+        };
+        Update: {
+          code?: string | null;
+          created_at?: string;
+          day?: number | null;
+          id?: never;
+          score?: number | null;
+          type?: string;
+          user_id?: string | null;
+          video_id?: string | null;
+        };
+        Relationships: [];
+      };
       practice_reports: {
         Row: {
           created_at: string;
@@ -501,6 +534,7 @@ export type Database = {
         }[];
       };
       is_admin: { Args: never; Returns: boolean };
+      prune_logs: { Args: never; Returns: undefined };
       reserve_api_cost: {
         Args: {
           amount: number;

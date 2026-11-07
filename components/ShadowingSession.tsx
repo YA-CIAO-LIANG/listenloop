@@ -48,6 +48,7 @@ import { useSentencePlayback } from "./useSentencePlayback";
 import { useSentencePlayer } from "./useSentencePlayer";
 import { PracticeFrame } from "./PracticeFrame";
 import { useStores } from "./StoresProvider";
+import { logClientEvent } from "./useEventLog";
 
 /** official: saved for the cycle. retry: extra practice, kept in memory only. */
 type Mode = "official" | "retry";
@@ -142,12 +143,23 @@ export function ShadowingSession({
     format.number(value, { style: "percent", maximumFractionDigits: 0 });
 
   async function save(next: Progress) {
+    // The official day just finished: log it once, with its score (D55).
+    const justFinished =
+      progress !== null && !progress.days[day]?.done && next.days[day]?.done;
     try {
       await progressStore.save(next);
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
       return;
+    }
+    if (justFinished) {
+      logClientEvent({
+        type: "day_complete",
+        videoId: video.id,
+        day,
+        score: averageCoverage(next.days[day]?.sentences ?? []),
+      });
     }
     if (next.days[day]?.done) {
       const today = toLocalDate(new Date());
@@ -173,6 +185,7 @@ export function ShadowingSession({
   }
 
   function beginRetry() {
+    logClientEvent({ type: "retry", videoId: video.id, day });
     speech.reset();
     setMode("retry");
     setRetryRecords(emptySentenceRecords(sentences.length));
@@ -208,6 +221,21 @@ export function ShadowingSession({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- load once per video/day
   }, [progressStore, video.id, day, sentences.length]);
+
+  // Each recognition failure, once per sentence and kind (D55).
+  const loggedFailures = useRef(new Set<string>());
+  useEffect(() => {
+    if (!speech.error) return;
+    const key = `${current}:${speech.error}`;
+    if (loggedFailures.current.has(key)) return;
+    loggedFailures.current.add(key);
+    logClientEvent({
+      type: "recognition_fail",
+      videoId: video.id,
+      day,
+      code: speech.error,
+    });
+  }, [speech.error, current, video.id, day]);
 
   // After a passing result, focus "next" so Enter continues.
   useEffect(() => {
@@ -303,6 +331,7 @@ export function ShadowingSession({
       skipped,
     }).catch(() => {});
     if (!skipped) return;
+    logClientEvent({ type: "sentence_skip", videoId: video.id, day });
     record(current, { skipped: true });
     const after = recordAttempt(records, current, { skipped: true });
     const nextIndex = nextUnfinished(after);

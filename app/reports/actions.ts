@@ -1,5 +1,6 @@
 "use server";
 
+import { logEvent } from "@/auth/events";
 import { getServerSupabase } from "@/auth/server";
 import { getSignedInUser } from "@/auth/session";
 import {
@@ -7,7 +8,10 @@ import {
   isReportReason,
   REPORT_LIMITS,
 } from "@/lib/moderation";
-import { parseCustomPracticeId } from "@/lib/practice-material";
+import {
+  customPracticeId,
+  parseCustomPracticeId,
+} from "@/lib/practice-material";
 import { usageDay } from "@/lib/usage";
 
 export type ReportResult =
@@ -56,7 +60,14 @@ export async function reportPractice(
   const { error } = await supabase
     .from("practice_reports")
     .insert({ practice_id: uuid, reporter_id: user.id, reason, details: text });
-  if (!error) return { ok: true };
+  if (!error) {
+    await logEvent(user.id, {
+      type: "report",
+      videoId: customPracticeId(uuid),
+      code: reason,
+    });
+    return { ok: true };
+  }
   // 23505: the one-open-report index; 42501: row level security.
   if (error.code === "23505") return { ok: false, reason: "already" };
   if (error.code === "42501") return { ok: false, reason: "not-found" };
