@@ -8,7 +8,7 @@ import { EditPracticeForm } from "@/components/EditPracticeForm";
 import type { Speaker } from "@/lib/custom-practice/speakers";
 import { DEFAULT_VOICE } from "@/lib/custom-practice/draft";
 import { isUuid } from "@/lib/custom-practice/organize";
-import { parseSentenceNotes } from "@/lib/custom-practice/notes";
+import { parseStoredNotes } from "@/lib/custom-practice/notes";
 
 /**
  * The server actions on this page call the AI providers: up to 60 s
@@ -52,7 +52,7 @@ export default async function EditPracticePage({
     .map((s) => ({
       en: s.en,
       zh: s.zh,
-      notes: parseSentenceNotes(s.notes),
+      notes: parseStoredNotes(s.notes, s.en),
       ...(s.speaker === 0 || s.speaker === 1
         ? { speaker: s.speaker as Speaker }
         : {}),

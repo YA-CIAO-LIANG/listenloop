@@ -34,12 +34,15 @@ export function translateBudget(texts: readonly string[]): LanguageBudget {
   };
 }
 
-/** Up to 2 words and 1 grammar point a sentence, in JSON. */
+/**
+ * Version 2 notes (D67), in JSON: about 150 tokens for an easy sentence
+ * and up to about 600 for a hard one; capped at 700 a sentence.
+ */
 export function annotateBudget(sentences: readonly string[]): LanguageBudget {
   return {
     operation: "annotate",
     inputChars: countChars(sentences),
-    maxOutputTokens: capped(sentences.length * 200 + 300, 6_000),
+    maxOutputTokens: capped(sentences.length * 700 + 400, 8_000),
   };
 }
 

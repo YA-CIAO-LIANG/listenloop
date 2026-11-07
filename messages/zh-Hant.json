@@ -834,7 +834,12 @@
       "config": "AI 服務的設定或額度有問題，詳細原因在伺服器紀錄。",
       "failed": "儲存失敗，請再試一次。",
       "prepare": "新版本已儲存，但講解或音檔還沒產生完成。到「我的教材」按「繼續產生」即可接著做。"
-    }
+    },
+    "richSummary": "新版講解：難度「{difficulty}」、單字 {vocab} 個、文法 {grammar} 個（含音標、例句、結構與連音）。",
+    "richRegenerate": "儲存後重新產生講解",
+    "richRegenerateLabel": "儲存後重新產生第 {n} 句的講解",
+    "richEditByHand": "改成手動編輯（簡易格式）",
+    "richEditByHandLabel": "把第 {n} 句的講解改成手動編輯"
   },
   "organize": {
     "collectionsTitle": "Collection",
@@ -1650,5 +1655,12 @@
     "keyName": "重點",
     "missSample": "聽錯",
     "keySample": "重點"
+  },
+  "explain": {
+    "difficulty": {
+      "easy": "簡單",
+      "medium": "中等",
+      "hard": "困難"
+    }
   }
 }

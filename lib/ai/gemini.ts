@@ -6,6 +6,7 @@ import {
   type LanguageBudget,
 } from "./budgets";
 import { postGoogleJson, probeProvider } from "./http";
+import { RICH_NOTES_SCHEMA, toGeminiSchema } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   COMPOSE_INSTRUCTIONS,
@@ -35,39 +36,7 @@ const endpoint = (model: string) =>
 const STRING = { type: "STRING" } as const;
 const INDEX = { type: "INTEGER" } as const;
 
-const NOTES_SCHEMA = {
-  type: "OBJECT",
-  properties: {
-    vocab: {
-      type: "ARRAY",
-      items: {
-        type: "OBJECT",
-        properties: {
-          sentence: INDEX,
-          word: STRING,
-          pos: STRING,
-          zh: STRING,
-          example: STRING,
-        },
-        required: ["sentence", "word", "pos", "zh", "example"],
-      },
-    },
-    grammar: {
-      type: "ARRAY",
-      items: {
-        type: "OBJECT",
-        properties: {
-          sentence: INDEX,
-          point: STRING,
-          explanation: STRING,
-          example: STRING,
-        },
-        required: ["sentence", "point", "explanation", "example"],
-      },
-    },
-  },
-  required: ["vocab", "grammar"],
-} as const;
+const NOTES_SCHEMA = toGeminiSchema(RICH_NOTES_SCHEMA);
 
 const SEGMENTS_SCHEMA = {
   type: "OBJECT",

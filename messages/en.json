@@ -836,7 +836,12 @@
       "config": "The AI service's setup or allowance has a problem; the server log has details.",
       "failed": "Couldn't save. Please try again.",
       "prepare": "The new version is saved, but its notes or audio aren't finished. Use \"Continue\" in My materials to finish them."
-    }
+    },
+    "richSummary": "New notes: {difficulty}, {vocab} words, {grammar} grammar points (with IPA, examples, structure, and linking).",
+    "richRegenerate": "Make the notes again after saving",
+    "richRegenerateLabel": "Make sentence {n}’s notes again after saving",
+    "richEditByHand": "Edit by hand (simple format)",
+    "richEditByHandLabel": "Edit sentence {n}’s notes by hand"
   },
   "organize": {
     "collectionsTitle": "Collections",
@@ -1654,5 +1659,12 @@
     "keyName": "Key words",
     "missSample": "misheard",
     "keySample": "key"
+  },
+  "explain": {
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    }
   }
 }

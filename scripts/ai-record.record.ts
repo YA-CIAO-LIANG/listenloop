@@ -34,7 +34,9 @@ import { countChars } from "@/lib/usage";
 export const FIXTURE_DIR = join(process.cwd(), "tests", "fixtures", "ai");
 
 const translateInput = ["你好，很高興認識你。"];
-const annotateInput = ["Nice to meet you, too."];
+const annotateInput = [
+  "If you're going to the library later, could you pick up the book I reserved for my history class?",
+];
 const segmentInput = ["I missed the bus. So I walked to school."];
 const composeInput: CompositionPrompt = {
   topic: "",

@@ -46,8 +46,9 @@ describe("budgets", () => {
   it("caps output by the size of each job", () => {
     expect(translateBudget(["你好"]).maxOutputTokens).toBe(203);
     expect(translateBudget(["x".repeat(20_000)]).maxOutputTokens).toBe(8_000);
-    expect(annotateBudget(["a", "b"]).maxOutputTokens).toBe(700);
-    expect(annotateBudget(Array(100).fill("a")).maxOutputTokens).toBe(6_000);
+    // Version 2 notes (D67): 700 a sentence plus 400, at most 8,000.
+    expect(annotateBudget(["a", "b"]).maxOutputTokens).toBe(1_800);
+    expect(annotateBudget(Array(100).fill("a")).maxOutputTokens).toBe(8_000);
     expect(segmentBudget(["Hi. Bye."]).maxOutputTokens).toBe(208);
     expect(
       composeBudget({

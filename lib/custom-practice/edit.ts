@@ -1,4 +1,9 @@
-import { parseSentenceNotes, type SentenceNotes } from "./notes";
+import {
+  parseSentenceNotes,
+  parseStoredNotes,
+  type StoredNotes,
+} from "./notes";
+import { isRichNotes, parseRichNotes } from "./rich-notes";
 import type { Speaker } from "./speakers";
 
 /**
@@ -14,7 +19,7 @@ export type EditSentence = {
   /** Empty: translate it again when saving. */
   zh: string;
   /** Null: make new notes after saving (cached by the sentence's text). */
-  notes: SentenceNotes | null;
+  notes: StoredNotes | null;
   /** In a two-voice dialogue: 0 is A, 1 is B (D57). */
   speaker?: Speaker;
 };
@@ -75,7 +80,7 @@ export type SavedSentence = {
   en: string;
   zh: string;
   audio_path: string | null;
-  notes: SentenceNotes | null;
+  notes: StoredNotes | null;
   speaker: Speaker | null;
 };
 
@@ -119,7 +124,8 @@ export function planEdit(
       en: sentence.en,
       zh: sentence.zh,
       audio_path: sameVoice ? (old?.audio_path ?? null) : null,
-      notes: sentence.notes ?? (old ? parseSentenceNotes(old.notes) : null),
+      notes:
+        sentence.notes ?? (old ? parseStoredNotes(old.notes, old.en) : null),
       speaker: sentence.speaker ?? null,
     };
   });
@@ -144,7 +150,11 @@ export function badNotes(sentences: readonly unknown[]): number | null {
   for (const [i, raw] of sentences.entries()) {
     const notes = (raw as { notes?: unknown } | null)?.notes;
     if (notes === null || notes === undefined) continue;
-    const checked = parseSentenceNotes(notes);
+    const en = (raw as { en?: unknown } | null)?.en;
+    // Version 2 notes (D67) are checked against their sentence.
+    const checked = isRichNotes(notes)
+      ? parseRichNotes(notes, typeof en === "string" ? en : "")
+      : parseSentenceNotes(notes);
     const sent = notes as { vocab?: unknown[]; grammar?: unknown[] };
     if (
       !checked ||

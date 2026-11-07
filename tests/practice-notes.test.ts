@@ -169,7 +169,7 @@ describe("annotateSentences", () => {
   it("makes notes with indexes into the whole practice", async () => {
     const d = deps();
     const result = await annotateSentences(d, [
-      "We moved here.",
+      "We moved here last year for a new job.",
       "Wonderful weather.",
     ]);
     expect(
@@ -178,6 +178,7 @@ describe("annotateSentences", () => {
       [0, "moved"],
       [1, "wonderful"],
     ]);
+    // The fake gives every third sentence of 7+ words a grammar point.
     expect(result.ok && result.value.grammar.map((g) => g.sentence)).toEqual([
       0,
     ]);
@@ -376,7 +377,8 @@ describe("sentence-level caching (D43)", () => {
       Infinity,
     );
     expect(result.ok && result.value[0]).toBe(kept);
-    expect(result.ok && result.value[1]?.vocab[0].word).toBe("moved");
+    const second = result.ok ? result.value[1] : null;
+    expect(second && "v" in second && second.vocab[0].term).toBe("moved");
     expect(annotate).toHaveBeenCalledTimes(2);
     expect(annotate.mock.calls[1][0]).toEqual(["Wonderful weather."]);
   });

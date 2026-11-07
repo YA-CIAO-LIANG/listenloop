@@ -13,6 +13,14 @@ import type { Billed, TextLanguage } from "@/lib/ai/types";
 import type { GrammarPoint, VocabItem } from "@/lib/videos";
 import { sha256Hex } from "./hash";
 import {
+  cleanRichNotes,
+  emptyRichNotes,
+  isRichNotes,
+  NOTES_VERSION,
+  parseRichNotes,
+  type RichNotes,
+} from "./rich-notes";
+import {
   checkedSegments,
   splitLine,
   textLines,
@@ -31,7 +39,7 @@ export type PracticeNotes = { vocab: VocabItem[]; grammar: GrammarPoint[] };
  * Sentences per model call: long texts go in several smaller requests,
  * and each finished chunk moves the progress bar (e+ 2).
  */
-export const NOTES_CHUNK = 10;
+export const NOTES_CHUNK = 6;
 
 /** Sentences per translation call while preparing a draft (e+ 2). */
 export const TRANSLATE_BATCH = 8;
@@ -257,6 +265,31 @@ export type SentenceNotes = {
 
 const NO_NOTES: SentenceNotes = { vocab: [], grammar: [] };
 
+/**
+ * What practice_sentences.notes holds: the first format, or version 2
+ * (D67). New notes are version 2; earlier ones and version snapshots keep
+ * theirs.
+ */
+export type StoredNotes = SentenceNotes | RichNotes;
+
+/** Version 2 notes in the first format, for the joined lists (D67). */
+export function legacyNotes(notes: StoredNotes): SentenceNotes {
+  if (!isRichNotes(notes)) return notes;
+  return {
+    vocab: notes.vocab.map((item) => ({
+      word: item.term,
+      pos: item.pos,
+      zh: item.zh,
+      example: item.examples[0]?.en ?? "",
+    })),
+    grammar: notes.grammar.map((point) => ({
+      point: point.point,
+      explanation: point.explanation,
+      example: point.examples[0]?.en ?? "",
+    })),
+  };
+}
+
 /** A practice's notes split by sentence, `count` sentences long. */
 export function splitNotes(
   notes: PracticeNotes,
@@ -280,13 +313,14 @@ export function splitNotes(
  * Per-sentence notes joined into a practice's, checked again as a whole
  * so a word or grammar point noted on two sentences is kept once.
  */
-export function joinNotes(list: readonly SentenceNotes[]): PracticeNotes {
+export function joinNotes(list: readonly StoredNotes[]): PracticeNotes {
+  const legacy = list.map(legacyNotes);
   return cleanNotes(
     {
-      vocab: list.flatMap((notes, sentence) =>
+      vocab: legacy.flatMap((notes, sentence) =>
         notes.vocab.map((item) => ({ ...item, sentence })),
       ),
-      grammar: list.flatMap((notes, sentence) =>
+      grammar: legacy.flatMap((notes, sentence) =>
         notes.grammar.map((point) => ({ ...point, sentence })),
       ),
     },
@@ -297,6 +331,7 @@ export function joinNotes(list: readonly SentenceNotes[]): PracticeNotes {
 /** Stored or cached notes for one sentence, checked; null if unusable. */
 export function parseSentenceNotes(value: unknown): SentenceNotes | null {
   if (typeof value !== "object" || value === null) return null;
+  if (isRichNotes(value)) value = legacyNotes(value);
   const raw = value as Record<string, unknown>;
   if (!Array.isArray(raw.vocab) || !Array.isArray(raw.grammar)) return null;
   const withIndex = (items: unknown[]) =>
@@ -352,21 +387,50 @@ export async function translateCached(
 }
 
 /**
- * Fills in the missing (null) entries of `notes` for `sentences` (D43):
- * each from the cache when that sentence was annotated before, in any
- * practice, else from the model, NOTES_CHUNK missing sentences per call,
- * at most `freshCalls` calls. Returns the notes with what it filled;
- * entries still null are left for a later call. Stops at the first
- * failure, keeping nothing from that call.
+ * The model's notes for a chunk of sentences (D67): `{ sentences: [{
+ * index, ... }] }`, each checked against its sentence; one it left out
+ * or got wrong gets notes with only a difficulty.
+ */
+export function richNotesFromModel(
+  raw: unknown,
+  sentences: readonly string[],
+): RichNotes[] {
+  const items =
+    typeof raw === "object" && raw !== null
+      ? (raw as { sentences?: unknown }).sentences
+      : undefined;
+  const byIndex = new Map<number, unknown>();
+  for (const item of Array.isArray(items) ? items : []) {
+    const index = (item as { index?: unknown } | null)?.index;
+    if (Number.isInteger(index) && !byIndex.has(index as number)) {
+      byIndex.set(index as number, item);
+    }
+  }
+  return sentences.map(
+    (en, i) => cleanRichNotes(byIndex.get(i), en) ?? emptyRichNotes(en),
+  );
+}
+
+/**
+ * Fills in the missing (null) entries of `notes` for `sentences` (D43,
+ * D67): each from the cache when that sentence was annotated before, in
+ * any practice, else from the model, NOTES_CHUNK missing sentences per
+ * call, at most `freshCalls` calls. New notes are version 2; the cache
+ * key carries the version, so the first format is never reused for them.
+ * Returns the notes with what it filled; entries still null are left for
+ * a later call. Stops at the first failure, keeping nothing from that
+ * call.
  */
 export async function annotateMissing(
   deps: LanguageDeps,
   sentences: readonly string[],
-  notes: readonly (SentenceNotes | null)[],
+  notes: readonly (StoredNotes | null)[],
   freshCalls: number,
-): Promise<MeteredResult<(SentenceNotes | null)[]>> {
-  const filled = sentences.map((_, i) => notes[i] ?? null);
-  const keyOf = (en: string) => JSON.stringify({ en });
+): Promise<MeteredResult<(StoredNotes | null)[]>> {
+  const filled: (StoredNotes | null)[] = sentences.map(
+    (_, i) => notes[i] ?? null,
+  );
+  const keyOf = (en: string) => JSON.stringify({ en, v: NOTES_VERSION });
   let calls = 0;
   let pending: number[] = [];
 
@@ -376,10 +440,7 @@ export async function annotateMissing(
       deps.providers.language.annotate(chunk),
     );
     if (!result.ok) return result;
-    const each = splitNotes(
-      cleanNotes(result.value, chunk.length),
-      chunk.length,
-    );
+    const each = richNotesFromModel(result.value, chunk);
     for (const [k, i] of pending.entries()) {
       filled[i] = each[k];
       const hash = await cacheHash(deps, "notes", keyOf(sentences[i]));
@@ -393,7 +454,9 @@ export async function annotateMissing(
   for (const [i, en] of sentences.entries()) {
     if (filled[i]) continue;
     const hash = await cacheHash(deps, "notes", keyOf(en));
-    const cached = await readCache(deps, hash, parseSentenceNotes);
+    const cached = await readCache(deps, hash, (value) =>
+      parseRichNotes(value, en),
+    );
     if (cached) {
       filled[i] = cached;
       continue;
@@ -428,4 +491,17 @@ export async function annotateSentences(
     ok: true,
     value: joinNotes(result.value.map((notes) => notes ?? NO_NOTES)),
   };
+}
+
+/**
+ * Stored notes for the sentence `en`, checked, in whichever format they
+ * were made (D67); null if unusable.
+ */
+export function parseStoredNotes(
+  value: unknown,
+  en: string,
+): StoredNotes | null {
+  return isRichNotes(value)
+    ? parseRichNotes(value, en)
+    : parseSentenceNotes(value);
 }
