@@ -3,7 +3,10 @@ import { useTranslations } from "next-intl";
 
 const linkClassName = "underline-offset-4 hover:text-ink hover:underline";
 
-/** Bottom of every page: the privacy policy and the credits. */
+/**
+ * Bottom of every page (D60): terms, privacy policy, credits, and
+ * feedback; public for Google sign-in's and Google Play's review.
+ */
 export function SiteFooter() {
   const t = useTranslations("footer");
 
@@ -13,11 +16,17 @@ export function SiteFooter() {
         aria-label={t("label")}
         className="mx-auto flex max-w-content flex-wrap gap-x-6 gap-y-2 px-4 py-6 text-supporting text-ink-muted split:px-6"
       >
+        <Link href="/terms" className={linkClassName}>
+          {t("terms")}
+        </Link>
         <Link href="/privacy" className={linkClassName}>
           {t("privacy")}
         </Link>
         <Link href="/credits" className={linkClassName}>
           {t("credits")}
+        </Link>
+        <Link href="/feedback" className={linkClassName}>
+          {t("feedback")}
         </Link>
       </nav>
     </footer>

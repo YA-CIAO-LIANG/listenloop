@@ -530,17 +530,27 @@
       "deleting": "Deleting…",
       "cancel": "Cancel",
       "failed": "Deleting didn't work, and your account still exists. Check your connection and try again.",
-      "signedOut": "Your sign-in has expired. Please sign in again, then delete."
-    }
+      "signedOut": "Your sign-in has expired. Please sign in again, then delete.",
+      "lossCreated": "The practices you made, audio only they use, and your collections",
+      "lossLogs": "Your activity log, hard-sentence reports, feedback, and reports you sent"
+    },
+    "export": {
+      "title": "Download my data",
+      "intro": "Download everything ListenLoop keeps about you (a JSON file): your account data, cloud progress and history, the practices you made, your activity, hard-sentence reports, feedback, reports you sent, and API usage.",
+      "link": "Download my data (JSON)"
+    },
+    "terms": "Terms"
   },
   "footer": {
     "privacy": "Privacy policy",
     "credits": "Credits",
-    "label": "Site information"
+    "label": "Site information",
+    "terms": "Terms",
+    "feedback": "Feedback"
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 6, 2026",
+    "updated": "Last updated: November 7, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -553,7 +563,11 @@
           "Practice data: your progress on each video (which days are done, dictation answers and accuracy, shadowing status) and a daily practice log.",
           "Created practices (admins only for now): the text you type or upload when creating a practice, its sentences and translations, the vocabulary and grammar notes, and the generated audio.",
           "Sharing and reports: anyone can see a public practice's title, sentences, translations, notes, and audio, but not its author's account details. When you report a practice, we keep the reason, your details, and your account ID only to review it; the author isn't told who reported it.",
-          "Sign-in state: a sign-in token in a browser cookie."
+          "Sign-in state: a sign-in token in a browser cookie.",
+          "Account data: the user number the system gives you, your role (user or admin), account status, and when you joined and were last active. The admin pages identify users by number and don’t show emails.",
+          "Activity log: events such as signing in, starting a practice, completing a day (with its score), retrying, creating, editing, deleting, or publishing a practice, reporting, skipping a sentence, speech recognition failures, and deleting your account. Only your user number and the needed fields (practice code, day, score, a short code) are kept — never practice text, recognized speech, or recordings.",
+          "Hard-sentence reports: when shadowing one sentence stays under half five times in a row and you choose “Try again” or “Skip and report,” we keep the sentence’s position, each try’s coverage, the text speech recognition heard, your browser and system names, and whether you skipped; and, if you’re signed in, your account. Text only, never audio. You can report without signing in, in which case no account is kept.",
+          "Feedback: what you send us, and (if signed in) your account."
         ]
       },
       {
@@ -583,16 +597,23 @@
       {
         "title": "How long we keep it",
         "paragraphs": [
-          "As long as your account exists. When you delete your account, it and your cloud practice data are deleted from the database right away; any system backups kept by our providers are cleared when they expire."
+          "Your account and practice data are kept while your account exists. The activity log is kept 180 days and hard-sentence reports 365 days, then deleted automatically. The API usage log (number of calls, tokens, characters, estimated cost — no text) is kept to account for service costs; deleting your account removes its link to you. When you delete your account, your account, practices, activity, reports, and feedback are deleted from the database right away; audio files of your practices are deleted too, unless another practice shares them. Service providers’ system backups are cleared when their retention ends."
         ]
       },
       {
         "title": "Your choices and rights",
         "paragraphs": [],
         "items": [
-          "Sign out at any time; your practice data stays on this device.",
-          "On the Account page you can delete your account and cloud data for good, which also clears the practice data on this device.",
-          "To ask about or correct your data, contact us as below."
+          "You can sign out at any time; your practice data stays on this device.",
+          "On the Account page you can download your data (JSON): your account data, cloud progress, the practices you made, your activity, reports, and feedback.",
+          "On the Account page you can permanently delete your account and cloud data, which also clears the practice data on this device.",
+          "To see, correct, or delete your data, or with any other privacy question, contact us through “Feedback” at the bottom of the page."
+        ]
+      },
+      {
+        "title": "Young users",
+        "paragraphs": [
+          "ListenLoop is mainly for high school and university students. If you’re under 18, use it with the consent of a parent or guardian who has read this policy. If you’re under 13, don’t create an account yourself. Creating practices with AI is for admins only for now, so regular users don’t send any text to AI services."
         ]
       },
       {
@@ -602,8 +623,8 @@
         ]
       }
     ],
-    "contact": "For privacy questions, post on the project's GitHub page (posts are public, so please leave out personal details; we'll get in touch):",
-    "contactLink": "ListenLoop Issues"
+    "contact": "Privacy questions, or want to see, correct, or delete your data? Use",
+    "contactLink": "Feedback"
   },
   "practices": {
     "title": "Progress",
@@ -1294,6 +1315,17 @@
         "not-admin-made": "Only practices made by an admin can be official.",
         "not-ready": "Its notes or audio aren’t done yet; finish them in My materials first."
       }
+    },
+    "feedback": {
+      "title": "Feedback",
+      "intro": "What users sent from the footer, open first.",
+      "none": "No feedback yet.",
+      "from": "User {number}",
+      "anonymous": "Signed out",
+      "done": "Done",
+      "markDone": "Mark done",
+      "reopen": "Reopen",
+      "failed": "That didn’t save; try again."
     }
   },
   "events": {
@@ -1448,5 +1480,110 @@
     "voiceA": "A’s voice",
     "voiceB": "B’s voice",
     "note": "This is a dialogue between two speakers: the A or B beside each sentence is who reads it; press it to switch. Two voices of different genders are easier to tell apart."
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "updated": "Last updated: November 7, 2026",
+    "intro": "Welcome to ListenLoop (the “Service”), a seven-day loop for English listening practice. By using the Service you agree to these terms; if you don’t, please stop using it.",
+    "sections": [
+      {
+        "title": "1. What the Service is",
+        "paragraphs": [
+          "The Service offers dictation, shadowing, and bilingual handouts, with built-in public-domain or Creative Commons material, ListenLoop’s official materials, and practices that users share publicly. You can practice without signing in; signing in syncs your progress across devices.",
+          "Some content (such as the English text, translations, vocabulary and grammar notes, and voices of official materials) is made by AI and may contain mistakes; treat it as a learning aid."
+        ]
+      },
+      {
+        "title": "2. Accounts",
+        "paragraphs": [
+          "You can sign in with a Google account. Keep it secure; you’re responsible for what happens under it. If you’re under 18, use the Service with the consent of a parent or guardian who has read these terms and the privacy policy. If you’re under 13, don’t create an account yourself."
+        ]
+      },
+      {
+        "title": "3. Rules",
+        "paragraphs": ["When using the Service, don’t:"],
+        "items": [
+          "upload or share content that infringes copyright, trademarks, or other rights;",
+          "upload personal data, confidential information, or illegal, harassing, hateful, sexual, or violent content;",
+          "impersonate others, or access, disrupt, or attack the Service in bulk or by automated means;",
+          "get around the Service’s usage limits or security;",
+          "use the Service for anything illegal."
+        ]
+      },
+      {
+        "title": "4. Content you upload",
+        "paragraphs": [
+          "Text you type or upload to make a practice stays yours or its rights holder’s. You must have the right to use it and are responsible for it.",
+          "To run the Service, you let ListenLoop store, process (including sending it to AI services for translations, notes, and voices), and display it; when you make a practice public, you also let other users view and practice it. You can make it private again or delete it at any time, after which we stop offering it."
+        ]
+      },
+      {
+        "title": "5. Reports and takedowns",
+        "paragraphs": [
+          "If you believe a public practice infringes your rights or is inappropriate, use “Report” on its page or tell us through “Feedback” at the bottom of the page, saying which practice and why.",
+          "We review every report and take the practice down when needed; its author sees the reason in My materials. An author who thinks a takedown is mistaken can explain through Feedback, and we’ll review it again. Accounts that break the rules repeatedly may be disabled."
+        ]
+      },
+      {
+        "title": "6. Exam-style materials",
+        "paragraphs": [
+          "Materials labeled “TOEFL-style,” “IELTS-style,” “TOEIC-style,” or “GEPT-style” imitate the format and difficulty only. Their content is original, not real test items, and the Service has no partnership with or license from the test makers."
+        ]
+      },
+      {
+        "title": "7. Disclaimer",
+        "paragraphs": [
+          "The Service is provided “as is.” We work to keep it running and its content accurate, but we don’t promise it will be uninterrupted or error-free, or any learning result or test score. Speech recognition depends on your browser and surroundings and is only a practice aid.",
+          "As far as the law allows, we aren’t liable for indirect losses from using or being unable to use the Service."
+        ]
+      },
+      {
+        "title": "8. Changes to the Service",
+        "paragraphs": [
+          "We may add, change, or stop features, or change usage limits. If these terms are broken, we may disable accounts or remove content. You can delete your account at any time on the Account page."
+        ]
+      },
+      {
+        "title": "9. Changes to these terms",
+        "paragraphs": [
+          "When these terms change, we update this page and the date above, and announce major changes on the site. Using the Service after a change means you accept the new terms."
+        ]
+      },
+      {
+        "title": "10. Governing law",
+        "paragraphs": [
+          "These terms are governed by the laws of the Republic of China (Taiwan)."
+        ]
+      }
+    ],
+    "contact": "Questions about these terms? Use",
+    "contactLink": "Feedback"
+  },
+  "feedback": {
+    "title": "Feedback",
+    "intro": "Found a problem, have an idea, or want to tell us about content or your account? Let us know here. We read every message on the admin dashboard. Please don’t include personal information.",
+    "categoryLabel": "Type",
+    "categories": {
+      "bug": "Problem",
+      "suggestion": "Suggestion",
+      "content": "Content (translations, notes, copyright)",
+      "account": "Account and data",
+      "other": "Other"
+    },
+    "messageLabel": "Message",
+    "messageHint": "Say which page and what you were doing, if you can. Up to 2,000 characters.",
+    "send": "Send",
+    "sending": "Sending…",
+    "sent": "Sent. Thank you!",
+    "errors": {
+      "invalid": "Choose a type and write a message (up to 2,000 characters).",
+      "limit": "You’ve sent a lot of feedback today; try again tomorrow.",
+      "failed": "It didn’t send; try again later."
+    }
+  },
+  "usageNotice": {
+    "label": "About using ListenLoop",
+    "text": "By using ListenLoop you agree to the <terms>Terms</terms> and the <privacy>Privacy policy</privacy>. If you’re under 18, use it with a parent’s or guardian’s consent.",
+    "ok": "Got it"
   }
 }

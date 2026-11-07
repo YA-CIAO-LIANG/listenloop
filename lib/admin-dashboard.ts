@@ -13,6 +13,7 @@ export const ADMIN_SECTIONS = [
   { id: "sentences", href: "/admin/sentences" },
   { id: "usage", href: "/admin/usage" },
   { id: "events", href: "/admin/events" },
+  { id: "feedback", href: "/admin/feedback" },
   { id: "audit", href: "/admin/audit" },
 ] as const;
 export type AdminSection = (typeof ADMIN_SECTIONS)[number]["id"];

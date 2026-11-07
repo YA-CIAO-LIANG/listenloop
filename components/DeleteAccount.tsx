@@ -60,6 +60,8 @@ export function DeleteAccount({
       <ul className="list-disc space-y-1 pl-5 text-supporting text-ink-muted">
         <li>{t("lossAccount")}</li>
         <li>{t("lossProgress")}</li>
+        <li>{t("lossCreated")}</li>
+        <li>{t("lossLogs")}</li>
         <li>{t("lossDevice")}</li>
       </ul>
       <label htmlFor={confirmId} className="flex items-start gap-3">

@@ -95,6 +95,14 @@ export default async function AdminMaterialsPage({
     : { data: null };
   const order = (publishedRows ?? []).map((row) => row.id);
 
+  // A date, or a dash for a missing or broken one (never a thrown error).
+  const day = (iso: string | null | undefined) => {
+    const date = new Date(iso ?? "");
+    return Number.isNaN(date.getTime())
+      ? "—"
+      : format.dateTime(date, { dateStyle: "medium" });
+  };
+
   const authorIds = [...new Set(practices.map((p) => p.user_id))];
   const { data: profiles } =
     admin && authorIds.length
@@ -190,9 +198,7 @@ export default async function AdminMaterialsPage({
                       author !== undefined
                         ? t("author", { number: userNumberLabel(author) })
                         : null,
-                      format.dateTime(new Date(practice.created_at), {
-                        dateStyle: "medium",
-                      }),
+                      day(practice.created_at),
                       t("sentences", { count: sentences.length }),
                       meta
                         ? [

@@ -88,11 +88,11 @@ describe("DeleteAccount", () => {
 });
 
 describe("SiteFooter", () => {
-  it("links the privacy policy and the credits", () => {
+  it("links the terms, privacy policy, credits, and feedback (D60)", () => {
     renderWithIntl(<SiteFooter />, "en");
     const nav = screen.getByRole("navigation", { name: "Site information" });
     expect(
       [...nav.querySelectorAll("a")].map((a) => a.getAttribute("href")),
-    ).toEqual(["/privacy", "/credits"]);
+    ).toEqual(["/terms", "/privacy", "/credits", "/feedback"]);
   });
 });
