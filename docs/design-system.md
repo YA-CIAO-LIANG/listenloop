@@ -15,10 +15,10 @@
 | `--ll-ink`             | #141414                                         | #F2F2F0                                         | 標題與主要文字                                                                                |
 | `--ll-ink-muted`       | #5C5C5C                                         | #A3A3A0                                         | 次要資訊                                                                                      |
 | `--ll-accent`          | #E8590C                                         | #FF7A33                                         | 橘：細線、進度條、按鈕底色、小點綴                                                            |
-| `--ll-accent-ink`      | #B8440A                                         | #FF8F52                                         | 橘色文字（符合 AA 對比）                                                                      |
+| `--ll-accent-ink`      | #A63D09（2026-11-07 前是 #B8440A，D61）         | #FF8F52                                         | 橘色文字（符合 AA 對比）                                                                      |
 | `--ll-line`            | #E5E3DE                                         | #2E2E2E                                         | 細分隔線、邊框                                                                                |
 | `--ll-success`         | #2D784C                                         | #5CC28A                                         | 聽寫答對的字                                                                                  |
-| `--ll-error`           | #C2362B                                         | #FF6B5E                                         | 聽寫答錯、漏字                                                                                |
+| `--ll-error`           | #B3302A（2026-11-07 前是 #C2362B，D61）         | #FF6B5E                                         | 聽寫答錯、漏字                                                                                |
 | `--ll-focus`           | #E8590C                                         | #FF7A33                                         | 鍵盤焦點外框                                                                                  |
 | `--ll-heat-0`～`4`     | #EBE9E4 / #F6D2BD / #F1AA82 / #EC8147 / #E8590C | #262626 / #4D2C1A / #884622 / #C4602B / #FF7A33 | 練習日曆熱度圖：當天完成 0、1、2、3、4 個以上的正式任務（橘色與背景混合 25%／50%／75%／100%） |
 | `--ll-heat-ink-strong` | #141414                                         | #121212                                         | 熱度第 3、4 階上的日期數字（深色模式的亮橘配淺色字不足 AA）                                   |
@@ -561,3 +561,20 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - 「刪除帳號」上方新增一節 h2「下載我的資料」→ 說明 → accent-ink 底線連結「下載我的資料（JSON）」。
 - 頁面最下方的連結：隱私權政策 · 服務條款。
+
+## 新手引導（D61）
+
+- 首頁標題下方、練習日曆上方：surface 卡片（1px line 邊框、4px 圓角、內距 24px）→ Display h3「第一次來？這樣練」→ 三欄（split 以上；手機堆疊）：metadata 大寫 accent-ink 的「第 1 天」→ font-medium 標題 → supporting、ink-muted 說明 → supporting、ink-muted 補充 → primary「從推薦的第一份開始 →」＋ ghost「略過」。
+
+## 404 與錯誤頁（D61）
+
+- 404：metadata 大寫「404」→ h1「找不到這一頁」→ ink-muted 說明 → primary「回首頁 →」＋ ghost「回報問題」。
+- 錯誤：h1 → ink-muted 說明 → supporting 錯誤代碼 → primary「再試一次」＋ ghost「回首頁」。
+
+## 骨架畫面 `Skeleton`（D61）
+
+- band 色的圓角方塊，形狀接近即將出現的內容，緩慢明暗變化；系統設定減少動態效果時不動。螢幕閱讀器只會讀到一行「載入中…」。
+
+## 跳到主要內容（D61）
+
+- 平常隱藏，按第一次 Tab 時出現在左上角：surface 底、ink 文字、4px 圓角、陰影，按 Enter 跳到主要內容。

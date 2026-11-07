@@ -19,10 +19,10 @@
   --ll-ink: #141414;
   --ll-ink-muted: #5c5c5c;
   --ll-accent: #e8590c;
-  --ll-accent-ink: #b8440a;
+  --ll-accent-ink: #a63d09;
   --ll-line: #e5e3de;
   --ll-success: #2d784c;
-  --ll-error: #c2362b;
+  --ll-error: #b3302a;
   --ll-focus: #e8590c;
 
   /* Practice calendar heat map: 0 tasks, then 1, 2, 3, 4+ (accent mixed into ground). */

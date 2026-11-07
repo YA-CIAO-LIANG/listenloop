@@ -949,3 +949,35 @@
 - **意見回饋 `/feedback`**：類型（問題、建議、內容、帳號、其他）＋內容（最多 2000 字）。存到 `feedback` 資料表：登入時附上帳號，登入的帳號每天最多 10 則。管理員在「後台 → 意見回饋」查看，並標示已處理（記入稽核）。
 - **頁尾**：服務條款、隱私權政策、素材出處、意見回饋。
 - **要改時**：翻譯檔的 `terms`、`privacy`、`usageNotice`、`feedback`；`components/LegalPage.tsx`、`components/UsageNotice.tsx`、`auth/account-data.ts`、`app/account/`、`app/feedback/`、`app/admin/feedback/`。
+
+## D61 使用者體驗與上線品質：新手引導、錯誤頁、無障礙、SEO（2026-11-07，P1）
+
+- **新手引導**：
+  - 首頁上方的卡片「第一次來？這樣練」：用三步驟說明 7 天循環（第 1 天聽寫、第 2～6 天跟讀、第 7 天再聽寫），附上「從推薦的第一份開始」和「略過」。
+  - 推薦起點是推薦練習中排第一的官方教材；還沒有官方教材時，用內建影片庫的第一支初級影片。
+  - 開始任何練習後就不再顯示，按「略過」也會在這台裝置上記住。只在瀏覽器檢查完後才顯示，所以已經在練的人不會看到它閃一下。
+- **錯誤與 404**：
+  - 自訂 404：中英文，「回首頁」和「回報問題」；
+  - 頁面錯誤：說明「進度不受影響」，提供「再試一次」「回首頁」，並顯示錯誤代碼方便回報；
+  - 版面本身出錯時（`global-error`）：翻譯和樣式都不能用，所以是中英並列的小頁面，用品牌色的行內樣式。這是唯一允許寫死文字的檔案，有測試把關。
+- **載入中**：
+  - 不使用全站的 `app/loading.tsx`：它會讓頁面先開始串流輸出，之後頁面裡的 `notFound()` 只能回 HTTP 200，搜尋引擎和測試都會判斷錯誤（E2E 抓到）；
+  - 改成在需要等資料庫的區塊放骨架畫面（`Skeleton`），例如首頁的官方教材；
+  - 練習頁本來就有「載入進度中…」的狀態。
+- **無障礙**：
+  - E2E 加入 axe 自動檢查（`@axe-core/playwright` 4.14.0，Deque 官方維護的開源檢查引擎）：WCAG 2.1 A／AA，主要頁面在淺色、深色、登入、未登入時都檢查，有違規就讓測試失敗；
+  - 檢查發現兩個淺色模式的對比問題，調整色票：`accent-ink` #B8440A → #A63D09（主要按鈕文字原本約 4.4:1，現在約 5.1:1）、`error` #C2362B → #B3302A（約 4.5:1 → 5.1:1）。深色模式不變；
+  - 新增「跳到主要內容」連結：按第一次 Tab 時出現；
+  - 既有的鍵盤操作（聽寫 Enter、跟讀捷徑、對話框焦點）沿用。
+- **SEO 與分享**：
+  - 每頁標題加上「 · ListenLoop」；
+  - 預設描述、Open Graph（網站名稱、語系）、Twitter 大圖卡片；
+  - 分享圖片：1200×630，品牌色。內建字型不支援中文，所以只用英文；
+  - `robots.txt` 不收錄後台、帳號、我的教材、學習進度等個人頁（這些頁面原本也有 noindex）；
+  - `sitemap.xml` 列出公開頁面和每支內建影片；
+  - 網址集中在 `lib/site.ts`，可以用 `NEXT_PUBLIC_SITE_URL` 覆蓋。
+- **中英文完整性**：
+  - 原本就有測試確認兩份翻譯檔的 key 完全一致；
+  - 新增測試：`app/`、`components/` 的 .tsx 在註解以外不能有中文，只允許 global-error。
+- **效能**：基準分數見 D62（Lighthouse，合併後對正式站量測）。
+- **要改時**：`components/Onboarding.tsx`、`components/OnboardingStart.tsx`、`app/not-found.tsx`、`app/error.tsx`、`app/global-error.tsx`、`components/Skeleton.tsx`、`e2e/a11y.spec.ts`、`app/robots.ts`、`app/sitemap.ts`、`app/opengraph-image.tsx`、`lib/site.ts`。
