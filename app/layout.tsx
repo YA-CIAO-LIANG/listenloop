@@ -6,6 +6,7 @@ import { canCreatePractices } from "@/auth/creator";
 import { getSignedInUser } from "@/auth/session";
 import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
+import { UsageNotice } from "@/components/UsageNotice";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
@@ -68,6 +69,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                   <SignInNotice />
                 </Suspense>
               )}
+              <UsageNotice />
               {children}
               <SiteFooter />
             </StoresProvider>

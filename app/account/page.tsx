@@ -41,6 +41,19 @@ export default async function AccountPage({
             </p>
           </section>
           <section className="mt-16 max-w-reading border-t border-line pt-8">
+            <h2 className="font-display text-h2">{t("export.title")}</h2>
+            <p className="mt-4 text-ink-muted">{t("export.intro")}</p>
+            <p className="mt-6">
+              <a
+                href="/account/export"
+                download
+                className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+              >
+                {t("export.link")}
+              </a>
+            </p>
+          </section>
+          <section className="mt-16 max-w-reading border-t border-line pt-8">
             <h2 className="font-display text-h2">{t("delete.title")}</h2>
             <p className="mt-4 text-ink-muted">{t("delete.intro")}</p>
             <div className="mt-6">
@@ -65,6 +78,10 @@ export default async function AccountPage({
       <p className="mt-16 text-supporting text-ink-muted">
         <Link href="/privacy" className={linkClassName}>
           {t("privacy")}
+        </Link>
+        {" · "}
+        <Link href="/terms" className={linkClassName}>
+          {t("terms")}
         </Link>
       </p>
     </main>

@@ -543,3 +543,21 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - 「ListenLoop 官方教材」說明下方，FilterChip 一排：metadata 大寫標籤「類別」＋各類別。選「考試聽力」時再出現一排「考試」。一次只選一個，再按一次取消。
 - 卡片上方的 metadata 行：有分類時顯示類別（考試類再加上考試），沒有時維持原本的來源語言；後面接聲音。
+
+## 法律頁面 `LegalPage`（D60）
+
+- 服務條款與隱私權政策共用：h1 → supporting、ink-muted 的更新日期 → 前言 → 每一節 h3 標題＋ ink-muted 段落或項目清單 → 最下方「有疑問請使用 意見回饋」（accent-ink 底線連結）。
+
+## 使用提示 `UsageNotice`（D60）
+
+- 位置和樣式同登入結果提示：頁首下方整條 band 底、下方 1px line。左邊是 supporting、ink-muted 的文字，其中「服務條款」「隱私權政策」是 accent-ink 底線連結；右邊是 ghost、sm 的「知道了」。每台裝置只顯示一次。
+
+## 意見回饋 `/feedback`（D60）
+
+- h1 → 說明 → 「類型」下拉 →「內容」文字框（上方有提示）→ primary「送出」。送出後內容會清空，並顯示 success 色的「已送出」；失敗時顯示 error 色的訊息。
+- 後台：清單每項是 ink-muted 的時間、類型、使用者（或「未登入」）、狀態 → 內容（保留換行）→ 來源頁連結 → 「標示為已處理」（secondary）或「改回未處理」（ghost）。
+
+## 帳號頁（D60 補充）
+
+- 「刪除帳號」上方新增一節 h2「下載我的資料」→ 說明 → accent-ink 底線連結「下載我的資料（JSON）」。
+- 頁面最下方的連結：隱私權政策 · 服務條款。

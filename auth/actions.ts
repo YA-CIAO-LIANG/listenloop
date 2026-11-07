@@ -1,5 +1,6 @@
 "use server";
 
+import { audioOnlyFor, removeAudio } from "./account-data";
 import { getAdminSupabase } from "./admin";
 import { logEvent } from "./events";
 import { userNumberLabel } from "@/lib/accounts";
@@ -21,8 +22,14 @@ export async function deleteAccount(): Promise<DeleteAccountResult> {
   const admin = getAdminSupabase();
   if (!admin) return { ok: false, reason: "failed" };
 
+  // Audio only this account's practices use goes too (D60); found before
+  // the practices are deleted with the account, removed after.
+  const audio = await audioOnlyFor(admin, user.id).catch(() => []);
   const { error } = await admin.auth.admin.deleteUser(user.id);
   if (error) return { ok: false, reason: "failed" };
+  await removeAudio(admin, audio).catch((e: unknown) =>
+    console.error(`[account] audio not removed: ${String(e)}`),
+  );
   // The account's own events went with it; this one keeps only its number.
   await logEvent(null, {
     type: "account_delete",
