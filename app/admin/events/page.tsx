@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const fieldClass =
-  "block w-full rounded-base border border-line bg-surface px-3 py-2 text-supporting focus-visible:border-accent";
+  "block w-full rounded-base border border-line bg-surface px-3 py-2 text-supporting focus-visible:border-accent pointer-coarse:min-h-11";
 
 /**
  * The activity log (D55, D56), newest first, filtered by account number,

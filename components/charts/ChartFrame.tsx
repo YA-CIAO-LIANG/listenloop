@@ -55,7 +55,7 @@ export function ChartFrame({
             {summary}
           </figcaption>
           <details className="text-supporting">
-            <summary className="cursor-pointer text-accent-ink underline-offset-4 hover:underline pointer-coarse:py-2">
+            <summary className="tap cursor-pointer text-accent-ink underline-offset-4 hover:underline">
               {t("table")}
             </summary>
             <div className="mt-3 overflow-x-auto">

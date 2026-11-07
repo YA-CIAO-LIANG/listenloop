@@ -344,6 +344,18 @@
   print-color-adjust: exact;
 }
 
+/*
+ * A touch target (D76): on touch screens a link or control is at least
+ * 44px tall, without changing how it looks with a mouse.
+ */
+@utility tap {
+  @media (pointer: coarse) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
 @utility pressable {
   position: relative;
   overflow: hidden;

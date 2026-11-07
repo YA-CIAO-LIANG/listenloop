@@ -45,7 +45,7 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <Link
         href={video ? "/" : material.mine ? "/materials" : "/explore"}
-        className="text-supporting text-ink-muted hover:text-ink"
+        className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
         {t(video ? "back" : material.mine ? "backToCreate" : "backToExplore")}

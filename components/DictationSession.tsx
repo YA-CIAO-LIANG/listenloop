@@ -388,7 +388,7 @@ export function DictationSession({
     <div>
       <Link
         href={`/videos/${video.id}`}
-        className="text-supporting text-ink-muted hover:text-ink"
+        className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
         <span lang={titleLang(video.id)}>{video.title}</span>

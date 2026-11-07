@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-const linkClassName = "underline-offset-4 hover:text-ink hover:underline";
+const linkClassName = "tap underline-offset-4 hover:text-ink hover:underline";
 
 /**
  * Bottom of every page (D60): terms, privacy policy, credits, and

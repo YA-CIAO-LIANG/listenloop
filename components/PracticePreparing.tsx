@@ -24,7 +24,7 @@ export async function PracticePreparing({
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <Link
         href="/materials"
-        className="text-supporting text-ink-muted hover:text-ink"
+        className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
         {t("notReadyBack")}
