@@ -59,6 +59,7 @@ describe("submitAnswer", () => {
     expect(progress.days[1]).toEqual({
       done: false,
       answers: ["go home", null],
+      speeds: [1, null],
     });
   });
 
@@ -83,8 +84,45 @@ describe("submitAnswer", () => {
       done: true,
       date: today,
       score: 6 / 7,
+      weightedScore: 6 / 7,
       answers: ["go home", "we move to the city"],
+      speeds: [1, 1],
     });
+  });
+
+  it("weights each answer by the speed it was heard at (D73)", () => {
+    // 2/2 at 0.75× (×0.9) + 4/5 at 1.25× (×1.05): (1.8 + 4.2) / 7.
+    let progress = submitAnswer(
+      started,
+      1,
+      0,
+      "go home",
+      sentences,
+      today,
+      0.75,
+    );
+    progress = submitAnswer(
+      progress,
+      1,
+      1,
+      "we move to the city",
+      sentences,
+      today,
+      1.25,
+    );
+    expect(progress.days[1]?.score).toBeCloseTo(6 / 7);
+    expect(progress.days[1]?.weightedScore).toBeCloseTo(6 / 7);
+    expect(progress.days[1]?.speeds).toEqual([0.75, 1.25]);
+    const allSlow = submitAnswer(
+      submitAnswer(started, 1, 0, "go home", sentences, today, 0.75),
+      1,
+      1,
+      "we move to the city",
+      sentences,
+      today,
+      0.75,
+    );
+    expect(allSlow.days[1]?.weightedScore).toBeCloseTo((6 * 0.9) / 7);
   });
 
   it("can be answered out of order", () => {
@@ -174,6 +212,8 @@ describe("finishing Day 7 settles the week", () => {
         startedAt: "2026-10-20",
         day1Score: 0.5,
         day7Score: 6 / 7,
+        day1Weighted: 0.5,
+        day7Weighted: 6 / 7,
         passed: true,
       },
     ]);

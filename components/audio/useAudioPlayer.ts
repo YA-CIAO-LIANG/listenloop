@@ -16,9 +16,13 @@ export type AudioPlayerApi = {
 /**
  * Plays created practices' audio, one file per sentence (D23), with a
  * single <audio> element. Ready once the first file's metadata loads;
- * a file that can't load turns the player to "error".
+ * a file that can't load turns the player to "error". `rate` is the
+ * playback speed (D73), kept at the same pitch.
  */
-export function useAudioPlayer(urls: readonly string[]): AudioPlayerApi {
+export function useAudioPlayer(
+  urls: readonly string[],
+  rate = 1,
+): AudioPlayerApi {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   // Bumped by every play or stop, so a stale "ended" never fires onEnd.
   const playToken = useRef(0);
@@ -77,6 +81,10 @@ export function useAudioPlayer(urls: readonly string[]): AudioPlayerApi {
         audio.src = url;
       }
       audio.currentTime = 0;
+      // Set on every play: a new source resets the rate in some browsers.
+      audio.preservesPitch = true;
+      audio.defaultPlaybackRate = rate;
+      audio.playbackRate = rate;
       audio.addEventListener(
         "ended",
         () => {
@@ -92,7 +100,7 @@ export function useAudioPlayer(urls: readonly string[]): AudioPlayerApi {
         console.error("[Audio] play failed", error);
       });
     },
-    [urls],
+    [urls, rate],
   );
 
   return {

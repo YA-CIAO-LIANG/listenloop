@@ -50,6 +50,8 @@ import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { useSentencePlayer } from "./useSentencePlayer";
 import { PracticeFrame } from "./PracticeFrame";
+import { SpeedControl } from "./SpeedControl";
+import { DEFAULT_SPEED, type Speed } from "@/lib/speed";
 import { useStores } from "./StoresProvider";
 import { logClientEvent } from "./useEventLog";
 
@@ -100,7 +102,9 @@ export function ShadowingSession({
   const t = useTranslations("shadowing");
   const tHandout = useTranslations("handout");
   const format = useFormatter();
-  const player = useSentencePlayer(video);
+  // Audio practices can slow down or speed up (D73); videos stay at 1×.
+  const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
+  const player = useSentencePlayer(video, speed);
   const speech = useSpeechRecognition();
   const stores = useStores();
   const progressStore = store ?? stores.progress;
@@ -485,6 +489,9 @@ export function ShadowingSession({
         <div className="scroll-mt-16">
           <PracticeFrame player={player} />
         </div>
+        {player.kind === "audio" && (
+          <SpeedControl value={speed} onChange={setSpeed} showWeights={false} />
+        )}
 
         <div className="space-y-2">
           <p lang="en" className="text-sentence">
