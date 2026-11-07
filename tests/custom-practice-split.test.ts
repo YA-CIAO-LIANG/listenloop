@@ -7,6 +7,18 @@ import {
   splitSentences,
   textLines,
 } from "@/lib/custom-practice/split";
+import { NEWS_SENTENCES, NEWS_TEXT } from "./news-text";
+
+describe("splitSentences: the news text (D49)", () => {
+  it("keeps curly apostrophes and skips the blank line", () => {
+    expect(NEWS_TEXT).toContain("Party’s");
+    expect(NEWS_TEXT).toContain("\n\n");
+    expect(splitSentences(NEWS_TEXT, "en")).toEqual(NEWS_SENTENCES);
+    expect(splitSentences(NEWS_TEXT.replace(/\n/g, "\r\n"), "en")).toEqual(
+      NEWS_SENTENCES,
+    );
+  });
+});
 
 describe("splitSentences: English", () => {
   it("splits after . ! ? when the next sentence starts with a capital", () => {

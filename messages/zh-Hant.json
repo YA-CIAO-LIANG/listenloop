@@ -667,7 +667,8 @@
       "sentence-too-long": "第 {n} 句太長了，每句最多 {max, number} 字元。",
       "voice": "請選擇聲音。",
       "busy": "AI 服務目前忙碌中，請過一分鐘再試。輸入的內容都還在。",
-      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤、模型還沒有部署，或免費額度、預付額度用完）。請對照 .env.example 檢查 AI 相關的環境變數，詳細原因在伺服器紀錄。"
+      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤、模型還沒有部署，或免費額度、預付額度用完）。請對照 .env.example 檢查 AI 相關的環境變數，詳細原因在伺服器紀錄。",
+      "network": "連不上伺服器，可能是網站剛更新。請先複製你的文字，重新整理頁面後再試一次。"
     },
     "listTitle": "你建立的練習",
     "listEmpty": "還沒有建立練習。",
@@ -1045,6 +1046,35 @@
         "regionValid": "AZURE_SPEECH_REGION 是區域代碼（例如 uaenorth）",
         "GOOGLE_CLOUD_API_KEY": "已設定 GOOGLE_CLOUD_API_KEY",
         "fakeInUse": "使用假的供應者（AI_PROVIDERS=fake，只用在本機和預覽）"
+      }
+    },
+    "failedWith": "失敗（{reason}；{detail}）",
+    "connection": {
+      "title": "測試連線",
+      "intro": "用不計費的請求確認金鑰、端點、部署名稱和區域是否正確：不送出任何文字，不計入每日上限，也不記錄在下方的呼叫紀錄。",
+      "button": "測試連線（免費）",
+      "testing": "測試中…",
+      "language": "AI 文字",
+      "speech": "聲音",
+      "ok": "連線成功",
+      "failed": "失敗",
+      "failedWith": "失敗（{detail}）",
+      "noCheck": "這個供應者沒有測試方式",
+      "hints": {
+        "400": "請求被拒絕：通常是部署的模型不支援，或 AZURE_OPENAI_MODEL 和部署的模型不同。",
+        "401": "金鑰錯誤：重新複製 Azure「金鑰和端點」的金鑰 1，貼到 Vercel 後重新部署。",
+        "403": "沒有權限或額度用完：確認訂閱仍然有效、F0 本月的免費字元還有剩。",
+        "404": "找不到：AI 文字通常是端點或 AZURE_OPENAI_DEPLOYMENT 的部署名稱打錯；聲音通常是 AZURE_SPEECH_REGION 不對。",
+        "DeploymentNotFound": "找不到這個部署名稱：確認 AZURE_OPENAI_DEPLOYMENT 和 Foundry「部署」頁的名稱完全相同。",
+        "429": "服務忙碌或超過每分鐘上限，過一分鐘再試。",
+        "timeout": "等太久沒有回應：再試一次；一直逾時的話，確認端點網址。",
+        "network": "連不到服務：確認端點網址或區域是否正確。",
+        "other": "其他錯誤：狀態碼和錯誤代碼可以用來查 Azure 文件。"
+      },
+      "errors": {
+        "unavailable": "只有管理員可以測試連線。",
+        "not-configured": "設定不完整，無法測試：請先看上方「設定診斷」哪一項不成立。",
+        "network": "連不上伺服器，可能是網站剛更新。請重新整理頁面後再試。"
       }
     }
   },

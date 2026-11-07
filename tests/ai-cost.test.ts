@@ -88,6 +88,8 @@ describe("meteredLanguage", () => {
         provider: "test/model",
         operation: "translate",
         error: null,
+        httpStatus: null,
+        errorCode: null,
         inputTokens: 400,
         outputTokens: 100,
         chars: 12,
@@ -111,12 +113,22 @@ describe("meteredLanguage", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
     const meter = memoryMeter();
     const result = await meteredLanguage({ providers, meter }, budget, () =>
-      Promise.reject(new ProviderError("busy", "429")),
+      Promise.reject(
+        new ProviderError("busy", "429", undefined, {
+          status: 429,
+          code: "RateLimitReached",
+        }),
+      ),
     );
     expect(result).toEqual({ ok: false, reason: "busy" });
     expect(meter.settle).not.toHaveBeenCalled();
     expect(meter.used.get("cost")).toBe(worst);
-    expect(meter.logs[0]).toMatchObject({ error: "busy", costMicros: worst });
+    expect(meter.logs[0]).toMatchObject({
+      error: "busy",
+      httpStatus: 429,
+      errorCode: "RateLimitReached",
+      costMicros: worst,
+    });
   });
 
   it("charges what a failed call still cost when it says", async () => {
@@ -158,6 +170,8 @@ describe("meteredSpeech", () => {
         provider: "fake",
         operation: "speech",
         error: null,
+        httpStatus: null,
+        errorCode: null,
         inputTokens: 0,
         outputTokens: 0,
         chars: 6,

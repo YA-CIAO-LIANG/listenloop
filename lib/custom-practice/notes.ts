@@ -171,34 +171,67 @@ async function cachedLanguageCall<T>(
 }
 
 /**
+ * How long splitting waits for the model before the rules split instead
+ * (D49): well under the server functions' 60 s, so the learner never
+ * waits long for what the rules can do at once.
+ */
+export const SEGMENT_WAIT_MS = 20_000;
+
+/** The promise's value, or null if it takes longer than `ms`. */
+async function within<T>(promise: Promise<T>, ms: number): Promise<T | null> {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const late = new Promise<null>((resolve) => {
+    timer = setTimeout(() => resolve(null), ms);
+  });
+  try {
+    return await Promise.race([promise, late]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
  * The text's sentences, split by meaning (e+ 4, D35), cached. The model's
  * answer is checked line by line (checkedSegments); a line it didn't
- * split cleanly, or the whole text when the call fails, is split by the
- * rules instead, so splitting itself never fails. The call counts toward
- * the language-model allowance.
+ * split cleanly, or the whole text when the call fails, throws, or takes
+ * longer than `waitMs`, is split by the rules instead, so splitting
+ * itself never fails (D49). The call counts toward the language-model
+ * allowance.
  */
 export async function segmentCached(
   deps: LanguageDeps,
   text: string,
   language: TextSourceLanguage,
+  waitMs = SEGMENT_WAIT_MS,
 ): Promise<string[]> {
   const lines = textLines(text);
   if (lines.length === 0) return [];
-  const result = await cachedLanguageCall<string[][]>(
-    deps,
-    "segmentation",
-    JSON.stringify({ language, lines }),
-    segmentBudget(lines),
-    () => deps.providers.language.segment(lines, language),
-    // Keep the checked sentences per line, so the cache holds clean data.
-    (raw) =>
-      Array.isArray(raw) && raw.length === lines.length
-        ? lines.map((line, i) => checkedSegments([line], [raw[i]], language))
-        : null,
-  );
-  return result.ok
-    ? result.value.flat()
-    : lines.flatMap((line) => splitLine(line, language));
+  const byRules = () => lines.flatMap((line) => splitLine(line, language));
+  try {
+    const result = await within(
+      cachedLanguageCall<string[][]>(
+        deps,
+        "segmentation",
+        JSON.stringify({ language, lines }),
+        segmentBudget(lines),
+        () => deps.providers.language.segment(lines, language),
+        // Keep the checked sentences per line, so the cache holds clean data.
+        (raw) =>
+          Array.isArray(raw) && raw.length === lines.length
+            ? lines.map((line, i) =>
+                checkedSegments([line], [raw[i]], language),
+              )
+            : null,
+      ),
+      waitMs,
+    );
+    return result?.ok ? result.value.flat() : byRules();
+  } catch (error) {
+    console.error(
+      `[AI] splitting by meaning failed, split by rules: ${error instanceof Error ? error.message : String(error)}`,
+    );
+    return byRules();
+  }
 }
 
 /**

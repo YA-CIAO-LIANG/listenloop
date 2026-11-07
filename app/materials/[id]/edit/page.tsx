@@ -9,6 +9,13 @@ import { DEFAULT_VOICE } from "@/lib/custom-practice/draft";
 import { isUuid } from "@/lib/custom-practice/organize";
 import { parseSentenceNotes } from "@/lib/custom-practice/notes";
 
+/**
+ * The server actions on this page call the AI providers: up to 60 s
+ * (Vercel Hobby's limit), longer than any provider timeout, so a slow call
+ * ends in a logged timeout, never a cut-off function (D49).
+ */
+export const maxDuration = 60;
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("editPractice");
   return { title: t("title"), robots: { index: false, follow: false } };

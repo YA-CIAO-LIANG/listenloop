@@ -46,6 +46,10 @@ export type UsageLogEntry = {
   operation: string;
   /** null when it worked, else why not (MeteredFailure). */
   error: string | null;
+  /** A failure's HTTP status from the provider, when it answered (D49). */
+  httpStatus: number | null;
+  /** A failure's short code: the provider's, or "timeout", "network" (D49). */
+  errorCode: string | null;
   inputTokens: number;
   outputTokens: number;
   chars: number;

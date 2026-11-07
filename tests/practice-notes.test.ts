@@ -15,6 +15,7 @@ import {
   type AiCache,
 } from "@/lib/custom-practice/notes";
 import { billed, memoryMeter, TEST_PRICE } from "./memory-meter";
+import { NEWS_SENTENCES, NEWS_TEXT } from "./news-text";
 
 const vocab = (sentence: number, word: string) => ({
   sentence,
@@ -266,6 +267,56 @@ describe("segmentCached", () => {
     expect(await segmentCached(d, text, "en")).toEqual(expected);
     expect(segment).toHaveBeenCalledTimes(1);
     expect(d.reserve).toHaveBeenCalledTimes(1);
+  });
+
+  describe("falls back to the rules for the news text (D49)", () => {
+    const failing = (segment: LanguageProvider["segment"]) =>
+      deps({ ...fakeLanguage, segment });
+
+    it.each([
+      [
+        "a config error",
+        () =>
+          Promise.reject(
+            new ProviderError("config", "HTTP 401", undefined, {
+              status: 401,
+            }),
+          ),
+      ],
+      ["an unexpected exception", () => Promise.reject(new TypeError("x"))],
+      [
+        "a throw before any promise",
+        () => {
+          throw new Error("sync");
+        },
+      ],
+    ])("on %s", async (_, segment) => {
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      const d = failing(segment as LanguageProvider["segment"]);
+      expect(await segmentCached(d, NEWS_TEXT, "en")).toEqual(NEWS_SENTENCES);
+    });
+
+    it("when the model takes too long", async () => {
+      const d = failing(() => new Promise(() => {}));
+      expect(await segmentCached(d, NEWS_TEXT, "en", 10)).toEqual(
+        NEWS_SENTENCES,
+      );
+    });
+
+    it("when the usage meter or cache can't be reached", async () => {
+      vi.spyOn(console, "error").mockImplementation(() => {});
+      const d = deps();
+      d.meter.reserve = vi.fn().mockRejectedValue(new Error("down"));
+      d.cache.get = vi.fn().mockRejectedValue(new Error("down"));
+      expect(await segmentCached(d, NEWS_TEXT, "en")).toEqual(NEWS_SENTENCES);
+    });
+
+    it("when the model straightens the apostrophes", async () => {
+      const d = failing(async () =>
+        billed(NEWS_SENTENCES.map((s) => [s.replace(/’/g, "'")])),
+      );
+      expect(await segmentCached(d, NEWS_TEXT, "en")).toEqual(NEWS_SENTENCES);
+    });
   });
 
   it("uses the rules for a line the model rewrote", async () => {

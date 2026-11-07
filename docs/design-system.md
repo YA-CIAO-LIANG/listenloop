@@ -413,6 +413,8 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - 只有管理員能看，其他人看到 404。入口在「我的教材」，「檢舉審查」連結的右邊，同樣是 accent-ink 底線連結「API 用量 →」。
 - **設定診斷**（D47）：說明下方的 surface 卡片，h3「設定診斷」→ 說明 → 結果（success 或 error 色的一行）→ 三組清單（帳號與資料庫、AI 文字、聲音），每組 metadata 大寫標題＋上下 line 的 supporting 清單，每列左邊是條件，右邊是 success「✓ 成立」或 error「✗ 不成立」。不顯示任何設定值；沒有秘密金鑰時只顯示這一區。
+- **測試連線**（D49）：在設定診斷卡片裡，h3「測試連線」→ supporting、ink-muted 說明 → secondary、sm 的 Button「測試連線（免費）」（進行中顯示「測試中…」）→ 結果清單（樣式同診斷清單：左邊「AI 文字」「聲音」，右邊 success「✓ 連線成功」或 error「✗ 失敗（HTTP 404 DeploymentNotFound）」，失敗時下一行是 ink-muted 的提示）。結果區是 `aria-live="polite"`。
+- **呼叫紀錄的失敗原因**：有狀態碼或錯誤代碼時顯示「失敗（config；HTTP 404 DeploymentNotFound）」，沒有時維持「失敗（config）」。
 - h1 → 說明 → 4 張統計卡片：
   - 360px 以下一欄，760px 以上兩欄，間距 16px；
   - 卡片同 Card：surface 背景、1px line、4px 圓角、內距 16px；

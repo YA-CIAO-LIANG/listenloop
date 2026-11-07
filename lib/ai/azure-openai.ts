@@ -5,7 +5,7 @@ import {
   translateBudget,
   type LanguageBudget,
 } from "./budgets";
-import { postToProvider } from "./http";
+import { postToProvider, probeProvider } from "./http";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   COMPOSE_INSTRUCTIONS,
@@ -144,18 +144,23 @@ export function completionJson(
   usage: CallUsage,
 ): unknown {
   const choice = response.choices?.[0];
-  const fail = (why: string) =>
-    new ProviderError("failed", `Azure OpenAI: ${why}`, usage);
+  const fail = (why: string, code: string) =>
+    new ProviderError("failed", `Azure OpenAI: ${why}`, usage, {
+      status: 200,
+      code,
+    });
   if (choice?.finish_reason === "length")
-    throw fail("cut off at the token cap");
-  if (choice?.finish_reason === "content_filter") throw fail("content filter");
-  if (choice?.message?.refusal) throw fail("the model refused");
+    throw fail("cut off at the token cap", "length");
+  if (choice?.finish_reason === "content_filter")
+    throw fail("content filter", "content_filter");
+  if (choice?.message?.refusal) throw fail("the model refused", "refusal");
   const text = choice?.message?.content;
-  if (!text) throw fail(`empty answer (${choice?.finish_reason ?? "none"})`);
+  if (!text)
+    throw fail(`empty answer (${choice?.finish_reason ?? "none"})`, "empty");
   try {
     return JSON.parse(text);
   } catch {
-    throw fail("the answer wasn't JSON");
+    throw fail("the answer wasn't JSON", "not-json");
   }
 }
 
@@ -215,6 +220,24 @@ export function azureOpenAiLanguage(
   return {
     id: `azure-openai/${config.model}/p${PROMPT_VERSION}`,
     price,
+    // An empty conversation reaches the deployment but is refused before
+    // the model runs: 400 means the endpoint, key, and deployment are all
+    // right, and nothing is billed. 401: the key; 404: the endpoint or
+    // deployment name (D49).
+    checkConnection: () =>
+      probeProvider(
+        url,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            "api-key": config.apiKey,
+          },
+          body: JSON.stringify({ model: config.deployment, messages: [] }),
+        },
+        fetchImpl,
+        (status) => status === 400 || status === 200,
+      ),
     async translate(texts, { from, to }) {
       const { value, usage } = await generate(
         "translations",

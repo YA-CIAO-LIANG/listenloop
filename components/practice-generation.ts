@@ -4,9 +4,15 @@ import type {
   SplitResult,
   TranslateResult,
 } from "@/app/materials/actions";
-import type { DraftSentence } from "@/lib/custom-practice/draft";
+import {
+  PRACTICE_LIMITS,
+  type DraftSentence,
+} from "@/lib/custom-practice/draft";
 import { TRANSLATE_BATCH } from "@/lib/custom-practice/notes";
-import type { TextSourceLanguage } from "@/lib/custom-practice/split";
+import {
+  splitSentences,
+  type TextSourceLanguage,
+} from "@/lib/custom-practice/split";
 
 export type GenerateAudio = (
   practiceId: string,
@@ -65,8 +71,23 @@ export type PrepareDraftResult =
       ok: false;
       reason:
         | Exclude<SplitResult, { ok: true }>["reason"]
-        | Exclude<TranslateResult, { ok: true }>["reason"];
+        | Exclude<TranslateResult, { ok: true }>["reason"]
+        /** The server couldn't be reached, e.g. the site was just updated. */
+        | "network";
     };
+
+/**
+ * The rules' split, here in the browser, when the server's can't be had
+ * (D49): splitting never fails for want of the model or the server.
+ */
+function splitByRules(text: string, language: TextSourceLanguage): SplitResult {
+  const sentences = splitSentences(text, language);
+  if (sentences.length === 0) return { ok: false, reason: "empty" };
+  if (sentences.length > PRACTICE_LIMITS.sentences) {
+    return { ok: false, reason: "too-many" };
+  }
+  return { ok: true, sentences };
+}
 
 /**
  * Splits the text, then translates it TRANSLATE_BATCH sentences at a time,
@@ -79,9 +100,11 @@ export async function prepareDraft(
   onStage: (stage: Stage) => void,
 ): Promise<PrepareDraftResult> {
   onStage({ stage: "split" });
+  // A thrown call (a lost connection, a page from before a deploy) once
+  // showed "no sentences found" (D49); the rules split instead.
   const split = await actions
     .split(text, language)
-    .catch((): SplitResult => ({ ok: false, reason: "empty" }));
+    .catch(() => splitByRules(text, language));
   if (!split.ok) return split;
   const source = split.sentences;
   const translations: string[] = [];
@@ -90,7 +113,7 @@ export async function prepareDraft(
     const batch = source.slice(start, start + TRANSLATE_BATCH);
     const result = await actions
       .translate(batch, language)
-      .catch((): TranslateResult => ({ ok: false, reason: "failed" }));
+      .catch(() => ({ ok: false, reason: "network" }) as const);
     if (!result.ok) return result;
     translations.push(...result.translations);
     onStage({
