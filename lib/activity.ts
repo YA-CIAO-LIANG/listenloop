@@ -1,4 +1,5 @@
 import { isLocalDate, type LocalDate } from "./dates";
+import { isDayTime, type DayTime } from "./practice-time";
 import type { Progress } from "./progress";
 
 /** One finished official task: which video, which week, which day. */
@@ -18,6 +19,8 @@ export type DayActivity = {
   retries: string[];
   /** Official tasks finished that day (added later; older logs lack it). */
   tasks?: PracticeTask[];
+  /** Seconds practiced, per device and material (D74; lib/practice-time.ts). */
+  time?: DayTime;
 };
 
 /** Saved as ll-activity:v1 (see CLAUDE.md 資料格式). */
@@ -121,7 +124,7 @@ export function parseActivity(data: unknown): Activity | null {
     if (!isLocalDate(date) || typeof day !== "object" || day === null) {
       return null;
     }
-    const { official, retries, tasks } = day as Record<string, unknown>;
+    const { official, retries, tasks, time } = day as Record<string, unknown>;
     if (
       typeof official !== "boolean" ||
       !Array.isArray(retries) ||
@@ -132,6 +135,7 @@ export function parseActivity(data: unknown): Activity | null {
     if (tasks !== undefined && !(Array.isArray(tasks) && tasks.every(isTask))) {
       return null;
     }
+    if (time !== undefined && !isDayTime(time)) return null;
   }
   return data as Activity;
 }

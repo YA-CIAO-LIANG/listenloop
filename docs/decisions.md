@@ -1282,3 +1282,17 @@
   - 速度選擇不記住，每次打開練習都從 1× 開始，避免學生忘記自己開了慢速。
 - **分析與後台**：學習分析與後台會同時顯示原始與加權（D75）。
 - **要改時**：`lib/speed.ts`、`lib/dictation.ts`、`lib/cycle.ts`（`officialScore`、`settleWeek`）、`components/SpeedControl.tsx`、`components/audio/useAudioPlayer.ts`。
+
+## D74 練習時間記錄（2026-11-08，新產品方向 5）
+
+- **決定**（Joe 指定：只算前景且有互動的時間，閒置超過 2 分鐘不算）：練習時間記在練習紀錄 `ll-activity:v1` 每天的 `time` 欄位，格式 `{ 裝置 id: { 教材 id: 秒數 } }`，跟著原本的活動紀錄一起同步到雲端（`user_documents` 的 `activity`），不另外開新的資料表。
+- **怎麼算**（`lib/practice-time.ts` 的 `isPracticing`，`components/usePracticeTimer.ts` 每秒判斷一次）：
+  - 只在聽寫、跟讀頁計時；
+  - 分頁必須在前景（`visibilityState`）；
+  - 視窗有焦點，而且 2 分鐘內有按鍵、點擊、輸入或捲動；或者音檔、影片正在播放（播放時不需要輸入）。
+  - 每 30 秒、切到背景或離開頁面時存一次。
+- **合理的預設**：
+  - **跨裝置不重算也不漏算**：每台裝置只加自己的計數（裝置 id 是隨機產生、存在 `ll-device:v1`）。合併時每台裝置、每份教材取較大值，再把裝置加總。
+  - 依教材分開記錄，之後「每天預估時間」可以改用實際平均（D70 的 `MIN_TIMED_SESSIONS`）。
+  - 未登入時只存在這台裝置，登入後跟著活動紀錄同步。
+- **要改時**：`lib/practice-time.ts`（`IDLE_LIMIT_MS`、`SAVE_EVERY_MS`）、`components/usePracticeTimer.ts`、`lib/sync/merge.ts`。

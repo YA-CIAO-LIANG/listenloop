@@ -1,3 +1,4 @@
+import { mergeDayTime } from "../practice-time";
 import type { Activity, DayActivity, PracticeTask } from "../activity";
 import type { LocalDate } from "../dates";
 import type { Progress } from "../progress";
@@ -93,6 +94,7 @@ function mergeDay(a: DayActivity, b: DayActivity): DayActivity {
     retries: [...new Set([...a.retries, ...b.retries])],
   };
   if (tasks.size > 0) merged.tasks = [...tasks.values()];
+  if (a.time || b.time) merged.time = mergeDayTime(a.time ?? {}, b.time ?? {});
   return merged;
 }
 

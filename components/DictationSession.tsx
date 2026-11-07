@@ -51,6 +51,7 @@ import { SentenceRow } from "./SentenceRow";
 import { SpeedControl } from "./SpeedControl";
 import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
+import { usePracticeTimer } from "./usePracticeTimer";
 import { useSentencePlayer } from "./useSentencePlayer";
 import { WeekResult } from "./WeekResult";
 import { WordDiffView } from "./WordDiffView";
@@ -123,6 +124,7 @@ export function DictationSession({
   const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
   const player = useSentencePlayer(video, speed);
   const heardAt = player.kind === "audio" ? speed : DEFAULT_SPEED;
+  usePracticeTimer(video.id, player.isPlaying);
   const stores = useStores();
   const progressStore = store ?? stores.progress;
   const [progress, setProgress] = useState<Progress | null>(null);

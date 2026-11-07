@@ -48,6 +48,7 @@ import {
 } from "./speech/useSpeechRecognition";
 import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
+import { usePracticeTimer } from "./usePracticeTimer";
 import { useSentencePlayer } from "./useSentencePlayer";
 import { PracticeFrame } from "./PracticeFrame";
 import { SpeedControl } from "./SpeedControl";
@@ -105,6 +106,7 @@ export function ShadowingSession({
   // Audio practices can slow down or speed up (D73); videos stay at 1×.
   const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
   const player = useSentencePlayer(video, speed);
+  usePracticeTimer(video.id, player.isPlaying);
   const speech = useSpeechRecognition();
   const stores = useStores();
   const progressStore = store ?? stores.progress;
