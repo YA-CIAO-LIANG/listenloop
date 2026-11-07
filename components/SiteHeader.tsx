@@ -38,33 +38,33 @@ export function SiteHeader({
           aria-label={t("mainNav")}
           className="flex flex-wrap items-baseline gap-x-6 gap-y-1"
         >
-          <Link href="/" className="font-display text-h3">
+          <Link href="/" className="tap font-display text-h3">
             {t("appName")}
           </Link>
           <Link
             href="/practices"
-            className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
           >
             {t("myPractices")}
           </Link>
           {showMaterials && (
             <Link
               href="/stats"
-              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+              className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >
               {t("stats")}
             </Link>
           )}
           <Link
             href="/explore"
-            className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
           >
             {t("explore")}
           </Link>
           {showMaterials && (
             <Link
               href="/materials"
-              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+              className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >
               {t("materials")}
             </Link>
@@ -72,7 +72,7 @@ export function SiteHeader({
           {showAdmin && (
             <Link
               href="/admin"
-              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+              className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >
               {t("admin")}
             </Link>

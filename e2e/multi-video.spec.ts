@@ -121,7 +121,7 @@ test("signed out, the home page and /practices ask to sign in instead of showing
   );
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "七天，聽清楚每一個字" }),
+    page.getByRole("heading", { name: "怎麼練：七天一個循環" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "今日任務" })).toHaveCount(0);
 

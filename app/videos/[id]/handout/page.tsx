@@ -58,7 +58,7 @@ export default async function HandoutPage({
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6 print:max-w-none print:p-0">
       <Link
         href={`/videos/${video.id}`}
-        className="text-supporting text-ink-muted hover:text-ink print:hidden"
+        className="tap text-supporting text-ink-muted hover:text-ink print:hidden"
       >
         <span aria-hidden="true">← </span>
         <span lang={titleLang(video.id)}>{video.title}</span>

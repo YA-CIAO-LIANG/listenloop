@@ -512,7 +512,7 @@ function NotesEditor({
 
   return (
     <details className="rounded-base border border-line px-4 py-2">
-      <summary className="cursor-pointer text-supporting text-ink-muted">
+      <summary className="tap cursor-pointer text-supporting text-ink-muted">
         {shown
           ? t("notesSummary", { vocab: vocab.length, grammar: grammar.length })
           : t("notesRegenerate")}

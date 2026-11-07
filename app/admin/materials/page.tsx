@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 const fieldClass =
-  "block w-full rounded-base border border-line bg-surface px-3 py-2 text-supporting focus-visible:border-accent";
+  "block w-full rounded-base border border-line bg-surface px-3 py-2 text-supporting focus-visible:border-accent pointer-coarse:min-h-11";
 
 /**
  * Official and public materials (D58): each one's official state (draft

@@ -80,6 +80,13 @@
 - 尺寸：sm 32px / md 40px / lg 48px 高。手機上主要按鈕至少 44px，好點擊。
 - 標籤可帶一個小方向箭頭（→）。
 
+## 點擊範圍 `tap`（D76）
+
+- 觸控裝置（`pointer: coarse`）上，所有可點的東西至少 44px 高；滑鼠操作時外觀不變。
+- 按鈕和 FilterChip 本來就有 `pointer-coarse:min-h-11`；文字連結（頁首導覽、頁尾、每頁上方的「← 返回」）、`<summary>` 加上 `tap` 工具類別（觸控時 inline-flex、置中、最小 44px）；表單欄位與下拉選單加 `pointer-coarse:min-h-11`。
+- 段落裡的行內連結不加（會撐開行高），靠周圍文字的行距。
+- 檢查方式：375px、觸控模式掃描每一頁（點擊範圍、字級不小於 12px、沒有橫向捲動），2026-11-08 全部通過。
+
 ## 點擊動畫
 
 所有可點擊元素（按鈕、可點的卡片、句子列）都有：
@@ -333,7 +340,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 ### 產品介紹 `ProductIntro`（D70）
 
-- Card（surface、1px line、4px、內距 24px）：Display h2「七天，聽清楚每一個字」→ 24px → 三個步驟（split 以上三欄、以下堆疊，間距 24px）：Display h3「**1** 第 1 天 聽寫」（數字 accent-ink、等寬）＋ supporting、ink-muted 說明。
+- Card（surface、1px line、4px、內距 24px）：Display h2「怎麼練：七天一個循環」→ 24px → 三個步驟（split 以上三欄、以下堆疊，間距 24px）：Display h3「**1** 第 1 天 聽寫」（數字 accent-ink、等寬）＋ supporting、ink-muted 說明。
 - 24px 後：primary、md「登入」＋同一行 supporting、ink-muted「不用登入也能練習；登入後可以看練習日曆、今日任務和學習分析。」（窄螢幕換行）。
 
 ### 我今天有幾分鐘？`TimeBudgetBar`（D70）

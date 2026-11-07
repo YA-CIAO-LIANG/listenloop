@@ -55,7 +55,7 @@ export default async function AdminErrorsPage() {
               <p className="break-words text-error">{row.message}</p>
               {row.stack && (
                 <details className="text-supporting text-ink-muted">
-                  <summary className="cursor-pointer">{t("stack")}</summary>
+                  <summary className="tap cursor-pointer">{t("stack")}</summary>
                   <pre className="mt-2 overflow-x-auto break-words whitespace-pre-wrap">
                     {row.stack}
                   </pre>

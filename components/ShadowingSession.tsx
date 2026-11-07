@@ -362,7 +362,7 @@ export function ShadowingSession({
     <div>
       <Link
         href={`/videos/${video.id}`}
-        className="text-supporting text-ink-muted hover:text-ink"
+        className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
         <span lang={titleLang(video.id)}>{video.title}</span>
@@ -518,7 +518,7 @@ export function ShadowingSession({
               video keeps the Chinese folded away. */}
           {!video.audioUrls && (
             <details className="text-supporting text-ink-muted">
-              <summary className="cursor-pointer">{t("chinese")}</summary>
+              <summary className="tap cursor-pointer">{t("chinese")}</summary>
               <p className="mt-1">{sentence.zh}</p>
             </details>
           )}

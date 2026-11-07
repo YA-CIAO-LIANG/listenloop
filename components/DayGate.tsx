@@ -60,7 +60,7 @@ export function DayGate({
     <div className="practice-column space-y-4">
       <Link
         href={`/videos/${videoId}`}
-        className="text-supporting text-ink-muted hover:text-ink"
+        className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
         <span lang={titleLang(videoId)}>{videoTitle}</span>
