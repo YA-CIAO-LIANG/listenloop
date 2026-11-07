@@ -839,3 +839,18 @@
   - 超過限制的訊息統一放在翻譯檔的 `plans.limits`。
 - **之後收費**：新增方案 id（例如 `pro`），在 `PLANS` 填數字，`planFor` 改成讀取使用者的訂閱；功能程式不用改。
 - **要改時**：`lib/plans.ts`、`components/PlanProvider.tsx`、`app/materials/actions.ts`、`auth/creator.ts`、`components/DictationSession.tsx`。
+
+## D55 使用者操作紀錄（2026-11-07，P0-3）
+
+- **記錄的事件**（`events` 資料表，`lib/events.ts`）：
+  - 登入、開始練習、完成某一天（附分數：聽寫正確率或跟讀平均涵蓋率）、重練；
+  - 建立、編輯、刪除練習，設為公開；
+  - 檢舉（附原因代碼）；
+  - 跳過句子、語音辨識失敗（附錯誤代碼，同一句同一種錯誤只記一次）；
+  - 刪除帳號：帳號的紀錄會跟著刪除，這筆只留使用者編號（例如 `user-001`）。
+- **只記必要欄位**：使用者 id、練習 id、第幾天、分數、簡短代碼。不記 email、練習的文字內容、辨識出的文字（辨識文字只在使用者主動回報問題句子時，存在 `shadowing_issues`，見 D52），也不記錄音。
+- **誰能寫、誰能讀**：只有伺服器（service_role）能寫；瀏覽器透過 Server Action `recordEvent` 回報，而且只接受 5 種類型（開始練習、完成一天、重練、跳過句子、辨識失敗），並檢查每個欄位。RLS 只讓管理員（`is_admin()`）讀取。
+- **未登入的練習不記錄**：只存在使用者自己的裝置上。
+- **保留期限**：操作紀錄 180 天；問題句子紀錄和 API 呼叫紀錄 365 天。由資料庫函式 `prune_logs()` 刪除，管理員打開後台總覽時執行（不需要排程服務）。
+- **最後活動**：每次記錄事件時，一併更新 `profiles.last_seen_at`，供後台的使用者清單使用。
+- **要改時**：`lib/events.ts`、`auth/events.ts`、`app/events/actions.ts`、`supabase/migrations/20261107160000_events.sql`，以及各個記錄的地方（搜尋 `logEvent`、`logClientEvent`）。

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
+import { logEvent } from "@/auth/events";
 import { getServerSupabase } from "@/auth/server";
 import { composeBudget } from "@/lib/ai/budgets";
 import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
@@ -30,6 +31,7 @@ import {
 } from "@/lib/custom-practice/notes";
 import { can, needsCount, planFor, type PlanBlock } from "@/lib/plans";
 import { countChars } from "@/lib/usage";
+import { customPracticeId } from "@/lib/practice-material";
 import { usagePeriodStarts } from "@/lib/usage-report";
 
 export type SplitResult =
@@ -163,6 +165,10 @@ export async function createPractice(
 
   const id = await savePractice(supabase, creator.user.id, draft);
   if (!id) return { ok: false, reason: "failed" };
+  await logEvent(creator.user.id, {
+    type: "practice_create",
+    videoId: customPracticeId(id),
+  });
   revalidatePath("/materials");
   return { ok: true, id };
 }

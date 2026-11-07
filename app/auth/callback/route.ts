@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getServerSupabase } from "@/auth/server";
+import { logEvent } from "@/auth/events";
 import { safeNextPath, withSignInResult } from "@/lib/auth/redirect";
 
 /**
@@ -27,12 +28,13 @@ export async function GET(request: NextRequest) {
   const supabase = await getServerSupabase();
   if (!code || !supabase) return back(withSignInResult(next, "failed"));
 
-  const { error: exchangeError } =
+  const { data: session, error: exchangeError } =
     await supabase.auth.exchangeCodeForSession(code);
   if (exchangeError) {
     // A disabled account is banned in Supabase Auth (D50).
     const banned = /banned/i.test(exchangeError.message);
     return back(withSignInResult(next, banned ? "disabled" : "failed"));
   }
+  if (session.user) await logEvent(session.user.id, { type: "sign_in" });
   return back(next);
 }

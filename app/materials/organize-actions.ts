@@ -14,6 +14,8 @@ import {
   isVisibility,
 } from "@/lib/custom-practice/organize";
 import { getAdminUser } from "@/auth/creator";
+import { logEvent } from "@/auth/events";
+import { customPracticeId } from "@/lib/practice-material";
 
 /**
  * Organizing created practices (roadmap d5): collections, public or
@@ -79,15 +81,22 @@ export async function setVisibility(
   ) {
     return { ok: false, reason: "invalid" };
   }
-  return asAdmin(async (supabase) =>
-    outcome(
+  return asAdmin(async (supabase, userId) => {
+    const result = outcome(
       await supabase
         .from(kind === "practice" ? "practices" : "collections")
         .update({ visibility })
         .eq("id", id)
         .select("id"),
-    ),
-  );
+    );
+    if (result.ok && kind === "practice" && visibility === "public") {
+      await logEvent(userId, {
+        type: "practice_public",
+        videoId: customPracticeId(id),
+      });
+    }
+    return result;
+  });
 }
 
 /** Moves a practice into one of the user's collections, or out (null). */
@@ -116,11 +125,18 @@ export async function movePractice(
  */
 export async function deletePractice(id: unknown): Promise<OrganizeResult> {
   if (!isUuid(id)) return { ok: false, reason: "invalid" };
-  return asAdmin(async (supabase) =>
-    outcome(
+  return asAdmin(async (supabase, userId) => {
+    const result = outcome(
       await supabase.from("practices").delete().eq("id", id).select("id"),
-    ),
-  );
+    );
+    if (result.ok) {
+      await logEvent(userId, {
+        type: "practice_delete",
+        videoId: customPracticeId(id),
+      });
+    }
+    return result;
+  });
 }
 
 /**

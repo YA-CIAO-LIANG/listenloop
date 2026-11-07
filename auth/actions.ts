@@ -1,6 +1,8 @@
 "use server";
 
 import { getAdminSupabase } from "./admin";
+import { logEvent } from "./events";
+import { userNumberLabel } from "@/lib/accounts";
 import { getServerSupabase } from "./server";
 import { getSignedInUser } from "./session";
 
@@ -21,6 +23,11 @@ export async function deleteAccount(): Promise<DeleteAccountResult> {
 
   const { error } = await admin.auth.admin.deleteUser(user.id);
   if (error) return { ok: false, reason: "failed" };
+  // The account's own events went with it; this one keeps only its number.
+  await logEvent(null, {
+    type: "account_delete",
+    code: `user-${userNumberLabel(user.number)}`,
+  });
 
   // The account is gone; drop this browser's session cookies too.
   const supabase = await getServerSupabase();

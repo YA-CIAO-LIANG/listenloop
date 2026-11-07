@@ -12,6 +12,9 @@ vi.mock("@/auth/server", () => ({
       : null,
 }));
 
+const logEvent = vi.hoisted(() => vi.fn());
+vi.mock("@/auth/events", () => ({ logEvent }));
+
 const { GET } = await import("@/app/auth/callback/route");
 
 const callback = async (query: string) => {
@@ -28,11 +31,26 @@ beforeEach(() => {
 
 describe("/auth/callback", () => {
   it("swaps the code for a session and returns to the page", async () => {
-    supabase.exchangeCodeForSession.mockResolvedValue({ error: null });
+    supabase.exchangeCodeForSession.mockResolvedValue({
+      data: { user: { id: "u1" } },
+      error: null,
+    });
     expect(await callback("code=abc&next=%2Fvideos%2Fsintel")).toBe(
       "https://listenloop.test/videos/sintel",
     );
     expect(supabase.exchangeCodeForSession).toHaveBeenCalledWith("abc");
+    // Signing in is logged (D55).
+    expect(logEvent).toHaveBeenCalledWith("u1", { type: "sign_in" });
+  });
+
+  it("says when a disabled account tries to sign in (D50)", async () => {
+    supabase.exchangeCodeForSession.mockResolvedValue({
+      data: { user: null },
+      error: { message: "User is banned" },
+    });
+    expect(await callback("code=abc&next=%2F")).toBe(
+      "https://listenloop.test/?signin=disabled",
+    );
   });
 
   it("marks a cancelled sign-in", async () => {
@@ -58,7 +76,10 @@ describe("/auth/callback", () => {
   });
 
   it("never redirects off the site", async () => {
-    supabase.exchangeCodeForSession.mockResolvedValue({ error: null });
+    supabase.exchangeCodeForSession.mockResolvedValue({
+      data: { user: null },
+      error: null,
+    });
     expect(await callback("code=abc&next=https%3A%2F%2Fevil.example")).toBe(
       "https://listenloop.test/",
     );

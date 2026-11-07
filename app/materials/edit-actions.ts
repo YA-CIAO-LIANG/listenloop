@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
+import { logEvent } from "@/auth/events";
 import { getServerSupabase } from "@/auth/server";
 import type { MeteredFailure } from "@/lib/ai/metered";
 import { cleanDraft, type DraftProblem } from "@/lib/custom-practice/draft";
@@ -143,6 +144,10 @@ export async function savePracticeEdit(
   }
   revalidatePath("/materials");
   revalidatePath(`/videos/${customPracticeId(practiceId)}`);
+  await logEvent(creator.user.id, {
+    type: "practice_edit",
+    videoId: customPracticeId(practiceId),
+  });
   return {
     ok: true,
     version: version as number,

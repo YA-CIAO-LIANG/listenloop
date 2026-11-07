@@ -45,6 +45,7 @@ import { useSentencePlayer } from "./useSentencePlayer";
 import { WeekResult } from "./WeekResult";
 import { WordDiffView } from "./WordDiffView";
 import { useStores } from "./StoresProvider";
+import { logClientEvent } from "./useEventLog";
 
 /** How long "Skip" waits for the confirming second click. */
 export const SKIP_CONFIRM_MS = 3000;
@@ -144,12 +145,23 @@ export function DictationSession({
     format.number(value, { style: "percent", maximumFractionDigits: 0 });
 
   async function save(next: Progress) {
+    // The official day just finished: log it once, with its score (D55).
+    const justFinished =
+      progress !== null && !progress.days[day]?.done && next.days[day]?.done;
     try {
       await progressStore.save(next);
       setSaveFailed(false);
     } catch {
       setSaveFailed(true);
       return;
+    }
+    if (justFinished) {
+      logClientEvent({
+        type: "day_complete",
+        videoId: video.id,
+        day,
+        score: next.days[day]?.score ?? null,
+      });
     }
     if (next.days[day]?.done) {
       const today = toLocalDate(new Date());
@@ -175,6 +187,7 @@ export function DictationSession({
   }
 
   function beginRetry() {
+    logClientEvent({ type: "retry", videoId: video.id, day });
     window.clearTimeout(skipTimer.current);
     setSkipArmed(false);
     setMode("retry");
@@ -209,6 +222,9 @@ export function DictationSession({
         video.version,
       );
       setProgress(started);
+      if (!saved) {
+        logClientEvent({ type: "practice_start", videoId: video.id, day });
+      }
       if (startInRetry && started.days[day]?.done) {
         beginRetry();
       } else {
