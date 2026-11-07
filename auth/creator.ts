@@ -87,9 +87,10 @@ export type Creator = MeteredDeps & {
 };
 
 /**
- * Whether to show "Create a practice" to this user: an admin, with the
- * providers and the secret key configured; the same conditions as
- * getCreator, without making the clients.
+ * Whether to show "Create a practice" to this user: a plan that creates
+ * practices (every signed-in plan since D72; how many is checked when
+ * one is created), with the providers and the secret key configured; the
+ * same conditions as getCreator, without making the clients.
  */
 export function canCreatePractices(
   user: SignedInUser | null,
@@ -145,9 +146,11 @@ export async function getAdminUser(): Promise<SignedInUser | null> {
 }
 
 /**
- * Who may create practices: until paid plans launch, only signed-in admins
- * (D5), and only when a provider and the secret key are configured. Every
- * server action of roadmap d starts here; null means "not available".
+ * Who may create practices: signed-in accounts whose plan allows it (D72;
+ * the free plan's one-practice trial and the paid plan's monthly count
+ * are checked when a practice is created), and only when a provider and
+ * the secret key are configured. Every server action of roadmap d starts
+ * here; null means "not available".
  */
 export async function getCreator(): Promise<Creator | null> {
   const providers = getAiProviders();

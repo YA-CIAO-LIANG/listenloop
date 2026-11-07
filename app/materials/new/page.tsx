@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
+import { onWaitlist } from "@/app/plans/actions";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
+import { PaidPlanCard } from "@/components/PaidPlanCard";
 
 /**
  * The server actions on this page call the AI providers: up to 60 s
@@ -18,11 +21,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * Creating a practice from uploaded text (roadmap d). Admins only until
- * paid plans launch, and only with a provider; 404 for everyone else.
+ * Creating a practice from uploaded text (roadmap d): signed-in accounts
+ * whose plan allows it, with a provider; 404 for everyone else. Past the
+ * plan's limit (the free trial, D72), the paid plan and its waiting list
+ * show instead of the form.
  */
 export default async function NewMaterialPage() {
-  if (!(await getCreator())) notFound();
+  const creator = await getCreator();
+  if (!creator) notFound();
+  const allowed = await creationAllowed(creator);
+  const joined = allowed.ok ? false : await onWaitlist();
   const [t, tMaterials] = await Promise.all([
     getTranslations("create"),
     getTranslations("materials"),
@@ -52,7 +60,14 @@ export default async function NewMaterialPage() {
         })}
       </p>
       <div className="mt-12 max-w-practice">
-        <CreatePracticeForm />
+        {allowed.ok ? (
+          <CreatePracticeForm />
+        ) : (
+          <PaidPlanCard
+            block={{ limit: allowed.limit, max: allowed.max }}
+            joined={joined}
+          />
+        )}
       </div>
     </main>
   );

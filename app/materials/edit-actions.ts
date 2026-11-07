@@ -1,5 +1,7 @@
 "use server";
 
+import { can, planFor, type PlanBlock } from "@/lib/plans";
+import { countChars } from "@/lib/usage";
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
@@ -36,7 +38,8 @@ export type SaveEditResult =
       reason: "invalid";
       problem: DraftProblem | "notes";
       sentence?: number;
-    };
+    }
+  | { ok: false; reason: "plan"; limit: PlanBlock["limit"]; max?: number };
 
 /**
  * Saves an edit of one of the user's practices as its next version (e+ 9c,
@@ -82,6 +85,19 @@ export async function savePracticeEdit(
   if (!cleaned.ok) {
     const { problem, sentence } = cleaned;
     return { ok: false, reason: "invalid", problem, sentence };
+  }
+  // The plan's characters per practice (D72) apply to an edit too.
+  const tooLong = can(planFor(creator.user), {
+    kind: "practice-chars",
+    chars: countChars(cleaned.draft.sentences.map((s) => s.en)),
+  });
+  if (!tooLong.ok) {
+    return {
+      ok: false,
+      reason: "plan",
+      limit: tooLong.limit,
+      max: tooLong.max,
+    };
   }
   const notesProblem = badNotes(list);
   if (notesProblem !== null) {

@@ -49,8 +49,24 @@ describe("getSignedInUser", () => {
       email: "learner@example.com",
       number: 1,
       role: "user",
+      plan: "free",
+      practicesCreated: 0,
     });
     expect(state.upsert).not.toHaveBeenCalled();
+  });
+
+  it("carries the plan and the practices created (D72)", async () => {
+    state.profile = {
+      number: 1,
+      role: "user",
+      status: "active",
+      plan: "paid",
+      practices_created: 3,
+    } as typeof state.profile;
+    expect(await getSignedInUser()).toMatchObject({
+      plan: "paid",
+      practicesCreated: 3,
+    });
   });
 
   it("treats a disabled account as signed out", async () => {

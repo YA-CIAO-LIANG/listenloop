@@ -1250,3 +1250,21 @@
   - 實際花費（2026-11-08）：14 次呼叫，輸入 3,939、輸出 467 token，**US$0.0019**。
 - **共用**：14 份草稿的 id 移到 `scripts/draft-ids.ts`，升級講解與副標兩個腳本都使用。
 - **要改時**：`lib/custom-practice/subtitle.ts`、`lib/ai/prompts.ts`（`DESCRIBE_INSTRUCTIONS`）、`app/admin/materials/actions.ts`、`components/MaterialControls.tsx`。
+
+## D72 方案：免費試用 1 份、付費每月 30 份、等候名單（2026-11-08，新產品方向 3；取代 D54 的部分內容）
+
+- **決定**（Joe 指定）：
+  - **免費**：所有官方教材與功能，加上**試做 1 份**自己的教材；
+  - **付費**：每月建立 30 份，每份最多 2,000 字；
+  - **管理員**：不限。
+  - 數字都在 `lib/plans.ts` 的 `PLANS`；程式只透過 `can(plan, action)` 判斷。D54 的「建立練習只限管理員」不再適用；Joe 提到的「一般使用者每月 3 份」設定沒有在程式裡出現過，這次一併以新規則為準。
+- **合理的預設**：
+  - 免費方案每份也是 2,000 字（和付費相同），避免試用那一份就花掉大量額度。
+  - 「試做 1 份」用 `profiles.practices_created` 計算：資料庫觸發器在每次新增練習時加 1，**刪除練習不會減少**，所以刪掉不能重新試用。既有帳號在 migration 時依現有練習數補上。
+  - 付費方案的每月份數沿用 D54 的算法（本月建立、仍存在的練習數）。
+  - 方案存在 `profiles.plan`（`free`／`paid`），付費功能上線前由管理員在 `/admin/users/<編號>` 手動切換，寫進管理稽核（`user.plan`）。
+- **防止超額花費**：建立前每個會呼叫 AI 的步驟（斷句、翻譯、AI 產生文字）和存檔時都檢查方案額度（`auth/creation-quota.ts`）；已經建立的那一份，之後產生講解和音檔不受影響。編輯練習也檢查每份字數。
+- **超過額度時**：`/materials/new` 不顯示建立表單，改成付費方案卡片（內容、價格「即將推出」、「加入等候名單」）。等候名單存在 `waitlist` 資料表（使用者只能新增、讀取自己那一筆）；管理員在 `/admin` 總覽看到人數與名單。
+- **隱私權政策**：一般使用者現在也會把文字送到 AI 服務，所以更新相關段落（最後更新日改為 2026-11-08）。
+- **影響**：Google 登入仍是「測試」狀態，只有測試使用者能登入；每人每天的費用上限（`DAILY_LIMITS`）照常有效。
+- **要改時**：`lib/plans.ts`、`auth/creation-quota.ts`、`components/PaidPlanCard.tsx`、`app/plans/actions.ts`、`supabase/migrations/20261108160000_plans_waitlist.sql`。

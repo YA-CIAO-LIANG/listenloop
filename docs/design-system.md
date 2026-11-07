@@ -578,6 +578,17 @@ CardLink，內容由上到下：
   - 簡介列（D71）：「卡片簡介」標籤＋輸入框（高 32px、觸控 44px，最多 60 字，最小寬 15rem）＋下方 metadata、ink-muted 說明；右側 secondary、sm「儲存簡介」（沒改時停用）和 ghost、sm「用 AI 重新產生」；
   - 下架控制（同檢舉審查，不含駁回），或下架後的「恢復」。
 
+## 付費方案卡片 `PaidPlanCard`（D72）
+
+- 免費方案的試用用完（或付費方案本月用完）時，`/materials/new` 用這張卡片取代建立表單，不會開始任何 AI 步驟。
+- Card（surface、1px line、4px、內距 24px，寬度上限 720px），由上到下、間距 16px：
+  - ink-muted 一行原因（`plans.limits.*`，例如「免費方案可以試做 1 份自己的教材，你已經用完了。」）；
+  - Display h2「付費方案」（section 的 `aria-labelledby`）；
+  - 三行內容，每行前面 success 色「✓」（`aria-hidden`）：每月份數、每份字數（數字來自 `PLANS.paid`）、所有官方教材與功能；
+  - Display h3「價格：即將推出」；
+  - primary、md「加入等候名單」；加入後換成 success「✓ 已加入等候名單……」（`aria-live`），重新整理仍顯示已加入；失敗時 error 文字（`role="alert"`）；
+  - supporting、ink-muted 說明目前的免費方案內容。
+
 ## 法律頁面 `LegalPage`（D60）
 
 - 服務條款與隱私權政策共用：h1 → supporting、ink-muted 的更新日期 → 前言 → 每一節 h3 標題＋ ink-muted 段落或項目清單 → 最下方「有疑問請使用 意見回饋」（accent-ink 底線連結）。

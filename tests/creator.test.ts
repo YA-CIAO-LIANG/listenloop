@@ -21,6 +21,8 @@ beforeEach(() => {
     email: "joe@example.com",
     number: 0,
     role: "admin",
+    plan: "free",
+    practicesCreated: 0,
   };
   state.hasAdminClient = true;
   state.rpc.mockReset().mockResolvedValue({ data: true, error: null });
@@ -35,9 +37,13 @@ describe("getCreator", () => {
     expect(creator?.user.id).toBe("user-1");
   });
 
+  it("lets a regular account create too: the plan counts them (D72)", async () => {
+    state.user = { ...state.user!, role: "user", practicesCreated: 5 };
+    expect((await getCreator())?.user.id).toBe("user-1");
+  });
+
   it.each([
     ["signed out", () => (state.user = null)],
-    ["not an admin", () => (state.user = { ...state.user!, role: "user" })],
     ["no provider", () => vi.stubEnv("AI_PROVIDERS", "")],
     ["no secret key", () => (state.hasAdminClient = false)],
   ])("is unavailable when %s", async (_, arrange) => {

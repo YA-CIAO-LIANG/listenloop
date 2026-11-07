@@ -514,6 +514,8 @@ export type Database = {
           created_at: string;
           last_seen_at: string | null;
           number: number;
+          plan: string;
+          practices_created: number;
           role: string;
           status: string;
           user_id: string;
@@ -522,6 +524,8 @@ export type Database = {
           created_at?: string;
           last_seen_at?: string | null;
           number?: number;
+          plan?: string;
+          practices_created?: number;
           role?: string;
           status?: string;
           user_id: string;
@@ -530,6 +534,8 @@ export type Database = {
           created_at?: string;
           last_seen_at?: string | null;
           number?: number;
+          plan?: string;
+          practices_created?: number;
           role?: string;
           status?: string;
           user_id?: string;
@@ -655,6 +661,21 @@ export type Database = {
           data?: Json;
           key?: string;
           updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      waitlist: {
+        Row: {
+          created_at: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
           user_id?: string;
         };
         Relationships: [];

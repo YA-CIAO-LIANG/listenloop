@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { isAdminEmail } from "@/lib/admin";
 import type { Role } from "@/lib/accounts";
+import { isAccountPlan, type AccountPlan } from "@/lib/plans";
 import { getAdminSupabase } from "./admin";
 import { getServerSupabase } from "./server";
 
@@ -11,6 +12,10 @@ export type SignedInUser = {
   /** "User 001" on the admin pages (D50); null if the profile is missing. */
   number: number | null;
   role: Role;
+  /** The account's plan (D72); admins are unlimited whatever it says. */
+  plan: AccountPlan;
+  /** Practices this account has ever created (the free trial, D72). */
+  practicesCreated: number;
 };
 
 /**
@@ -30,7 +35,7 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
   const email = claims.email ?? "";
   const { data: profile } = await supabase
     .from("profiles")
-    .select("number, role, status")
+    .select("number, role, status, plan, practices_created")
     .eq("user_id", id)
     .maybeSingle();
   if (profile?.status === "disabled") return null;
@@ -46,5 +51,12 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
       );
   }
   const role: Role = profile?.role === "admin" || listed ? "admin" : "user";
-  return { id, email, number: profile?.number ?? null, role };
+  return {
+    id,
+    email,
+    number: profile?.number ?? null,
+    role,
+    plan: isAccountPlan(profile?.plan) ? profile.plan : "free",
+    practicesCreated: profile?.practices_created ?? 0,
+  };
 });

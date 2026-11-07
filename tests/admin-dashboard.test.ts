@@ -117,6 +117,23 @@ describe("changeUser (D50, D56)", () => {
     );
   });
 
+  it("moves an account to the paid plan and back (D72)", async () => {
+    db.profile = { ...db.profile, plan: "free" };
+    expect(await changeUser(target, { plan: "paid" })).toEqual({ ok: true });
+    expect(db.update).toHaveBeenCalledWith({ plan: "paid" });
+    expect(logAudit).toHaveBeenCalledWith(
+      "admin-0",
+      "user.plan",
+      { type: "user", id: "user-1" },
+      { from: "free", to: "paid" },
+    );
+    expect(db.ban).not.toHaveBeenCalled();
+    expect(await changeUser(target, { plan: "gold" })).toEqual({
+      ok: false,
+      reason: "invalid",
+    });
+  });
+
   it("disables with a ban, and restores by lifting it", async () => {
     await changeUser(target, { status: "disabled" });
     expect(db.ban).toHaveBeenLastCalledWith({ ban_duration: "876000h" });
