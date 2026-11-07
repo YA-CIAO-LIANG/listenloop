@@ -1081,3 +1081,20 @@
   - 不使用付費的監控服務。
 - **備份**：`npm run db:backup` 把每張表匯出成 JSON（`backups/`，已加入 `.gitignore`）；完整 SQL 備份與還原步驟見 `docs/backup.md`。Supabase 免費方案沒有可以還原的自動備份，所以需要手動備份。2026-11-08 已執行一次，確認腳本可以運作。
 - **要改時**：`lib/security/csp.ts`、`proxy.ts`、`next.config.ts`、`lib/rate-limits.ts`、`auth/rate-limit.ts`、`instrumentation.ts`、`lib/error-log.ts`、`app/admin/errors/`、`scripts/rls-check.mts`、`scripts/backup-db.mts`、`supabase/migrations/20261108090000_rate_limits_error_logs.sql`。
+
+## D64 PWA、App 圖示、Google Play 上架準備（2026-11-08，P2）
+
+- **PWA**：
+  - `app/manifest.ts`：名稱、短名稱、說明、`standalone`、主題色 ink（#141414）、啟動畫面底色 ground（#fafaf8）、一般與 maskable 圖示（192、512）、類別「教育」。
+  - `public/sw.js`：刻意寫得很小。頁面導覽先走網路，斷線時顯示快取的 `/offline`；其他請求（腳本、Supabase、YouTube、音檔）一律不攔截，所以登入、同步和 CSP 都和沒有 service worker 時一樣。
+  - service worker 只在正式版註冊，避免開發時讀到舊頁面。`/sw.js` 不快取，每次造訪都會檢查是否有更新。
+  - 離線頁：說明需要網路，並提醒「進度存在這台裝置上」。
+- **App 圖示**：
+  - `brand/icon.svg`：深色圓角方形底，白色的循環弧線，起點有一個橘色圓點，代表「每天回到同一份素材」；只用設計系統的 ink、ground、accent。
+  - 內容都在 maskable 的安全區（中心半徑 205 px）內。
+  - `node scripts/brand-assets.mts` 從 SVG 產生所有尺寸：PWA 圖示、Apple 圖示、網站圖示（SVG）、Play 商店圖示 512、主題圖片 1024×500（`docs/store/`）。原本 create-next-app 預設的 favicon.ico 已移除。
+  - 如果 Joe 想自己設計，規格是：512×512 PNG、內容在中心 80% 的圓內、背景不要透明；替換 `brand/icon.svg` 後重新執行腳本即可。
+- **Trusted Web Activity**：`public/.well-known/assetlinks.json` 先放空陣列 `[]`（合法、不會誤認任何 App）；拿到簽署金鑰的 SHA-256 指紋後再填入。打包步驟（PWABuilder 或 Bubblewrap）見 `docs/twa.md`。
+- **商店資料**：中英文的名稱、簡短說明、完整說明、分類、內容分級問卷與資料安全表單的建議答案（依目前實際收集的資料）、截圖清單與尺寸、上架順序，見 `docs/play-store.md`。
+- **上架規定**（2026-11-07 查證，Google Play 說明 answer/14151465）：2023-11-13 之後建立的個人開發者帳號，申請正式版之前必須封閉測試：至少 12 位測試者，連續 14 天保持加入。建議找 15～20 位。
+- **要改時**：`app/manifest.ts`、`public/sw.js`（改離線頁時把 `VERSION` 加一）、`app/offline/page.tsx`、`brand/icon.svg`、`scripts/brand-assets.mts`、`public/.well-known/assetlinks.json`、`docs/twa.md`、`docs/play-store.md`。

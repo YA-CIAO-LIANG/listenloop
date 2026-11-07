@@ -9,6 +9,7 @@ import { SignInNotice } from "@/components/SignInNotice";
 import { UsageNotice } from "@/components/UsageNotice";
 import { USAGE_NOTICE_COOKIE } from "@/lib/notices";
 import { cookies, headers } from "next/headers";
+import { ServiceWorker } from "@/components/ServiceWorker";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
@@ -39,6 +40,11 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: locale === "en" ? "en_US" : "zh_TW",
     },
     twitter: { card: "summary_large_image" },
+    appleWebApp: {
+      capable: true,
+      title: t("siteName"),
+      statusBarStyle: "default",
+    },
   };
 }
 
@@ -110,6 +116,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                 {children}
               </div>
               <SiteFooter />
+              <ServiceWorker />
             </StoresProvider>
           </PlanProvider>
         </NextIntlClientProvider>

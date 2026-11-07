@@ -11,7 +11,23 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig: NextConfig = {
   // On every response, pages and files alike (D63).
   async headers() {
-    return [{ source: "/:path*", headers: [...SECURITY_HEADERS] }];
+    return [
+      { source: "/:path*", headers: [...SECURITY_HEADERS] },
+      // The service worker is checked for updates on every visit (D64).
+      {
+        source: "/sw.js",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-cache, no-store, must-revalidate",
+          },
+          {
+            key: "Content-Type",
+            value: "application/javascript; charset=utf-8",
+          },
+        ],
+      },
+    ];
   },
   // /create moved under My materials (D26); keep old links working.
   async redirects() {

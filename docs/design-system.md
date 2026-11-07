@@ -578,3 +578,13 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 ## 跳到主要內容（D61）
 
 - 平常隱藏，按第一次 Tab 時出現在左上角：surface 底、ink 文字、4px 圓角、陰影，按 Enter 跳到主要內容。
+
+## App 圖示與品牌素材（D64）
+
+- 圖示：ink 底的方形（啟動器自己套圓角或遮罩），ground 色、粗 46/512 的開口圓弧（約 300°，圓頭），開口處一個 accent 圓點。所有內容在中心半徑 205/512 的安全區內。
+- 原始檔 `brand/icon.svg`，用 `node scripts/brand-assets.mts` 產生各尺寸，不要手動編輯 PNG。
+- Play 商店主題圖片：ground 底，左邊是 48px 圓角的圖示，右邊是 Display 字體的「ListenLoop」和 ink-muted 的副標「7 天聽力循環 · Hear every word」。
+
+## 離線頁 `/offline`（D64）
+
+- h1「目前沒有網路」→ 兩段 ink-muted 說明 → primary「再試一次」（回首頁）。
