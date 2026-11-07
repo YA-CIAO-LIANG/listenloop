@@ -1,7 +1,9 @@
+import Link from "next/link";
 import type { Metadata } from "next";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
 import { StatTile } from "@/components/StatTile";
+import { userNumberLabel } from "@/lib/accounts";
 import { adminPeriods, shareOf, SUPABASE_FREE } from "@/lib/admin-dashboard";
 import {
   AZURE_CREDIT,
@@ -18,11 +20,13 @@ export async function generateMetadata(): Promise<Metadata> {
 /**
  * The dashboard's overview (D56): learners, activity, practices, API
  * spend against the Azure credit, free speech characters, and Supabase
- * storage. Opening it also prunes logs past their retention (D55).
+ * storage, paid accounts and the paid plan's waiting list (D72).
+ * Opening it also prunes logs past their retention (D55).
  */
 export default async function AdminOverviewPage() {
-  const [t, format] = await Promise.all([
+  const [t, tUsers, format] = await Promise.all([
     getTranslations("admin.overview"),
+    getTranslations("admin.users"),
     getFormatter(),
   ]);
   const admin = getAdminSupabase();
@@ -35,18 +39,46 @@ export default async function AdminOverviewPage() {
     );
   }
   const { dayStart, weekStart, monthStart } = adminPeriods(new Date());
-  const [{ data: overviewRows }, { data: usageRows }] = await Promise.all([
+  const [
+    { data: overviewRows },
+    { data: usageRows },
+    { data: waitlist },
+    { count: paidAccounts },
+  ] = await Promise.all([
     admin.rpc("admin_overview", { day_start: dayStart, week_start: weekStart }),
     admin.rpc("api_usage_totals", {
       month_start: monthStart,
       day_start: dayStart,
     }),
+    // The paid plan's waiting list, newest first (D72).
+    admin
+      .from("waitlist")
+      .select("user_id, created_at")
+      .order("created_at", { ascending: false })
+      .limit(200),
+    admin
+      .from("profiles")
+      .select("user_id", { count: "exact", head: true })
+      .eq("plan", "paid"),
     // Retention (D55); its result doesn't matter here.
     admin.rpc("prune_logs").then(
       () => null,
       () => null,
     ),
   ]);
+  const waiting = waitlist ?? [];
+  const { data: waitingProfiles } = waiting.length
+    ? await admin
+        .from("profiles")
+        .select("user_id, number")
+        .in(
+          "user_id",
+          waiting.map((row) => row.user_id),
+        )
+    : { data: [] };
+  const numberOf = new Map(
+    (waitingProfiles ?? []).map((row) => [row.user_id, row.number]),
+  );
   const o = overviewRows?.[0];
   const u = usageRows?.[0];
   const count = (value: number | undefined) => format.number(value ?? 0);
@@ -93,6 +125,13 @@ export default async function AdminOverviewPage() {
           value: count(o?.days_completed_week),
           note: t("weekNote"),
         },
+      ],
+    },
+    {
+      id: "plans",
+      stats: [
+        { label: t("paidAccounts"), value: count(paidAccounts ?? 0) },
+        { label: t("waitlist"), value: count(waiting.length) },
       ],
     },
     {
@@ -168,6 +207,46 @@ export default async function AdminOverviewPage() {
           </dl>
         </section>
       ))}
+      <section className="mt-10" aria-labelledby="waitlist">
+        <h2 id="waitlist" className="font-display text-h3">
+          {t("waitlistTitle")}
+        </h2>
+        {waiting.length === 0 ? (
+          <p className="mt-4 text-supporting text-ink-muted">
+            {t("waitlistEmpty")}
+          </p>
+        ) : (
+          <ul className="mt-4 divide-y divide-line border-y border-line text-supporting">
+            {waiting.map((row) => {
+              const number = numberOf.get(row.user_id);
+              return (
+                <li
+                  key={row.user_id}
+                  className="flex flex-wrap justify-between gap-x-4 py-2"
+                >
+                  {number === undefined ? (
+                    <span>{t("waitlistUnknown")}</span>
+                  ) : (
+                    <Link
+                      href={`/admin/users/${number}`}
+                      className="text-accent-ink underline underline-offset-4"
+                    >
+                      {tUsers("userName", {
+                        number: userNumberLabel(number),
+                      })}
+                    </Link>
+                  )}
+                  <span className="text-ink-muted">
+                    {format.dateTime(new Date(row.created_at), {
+                      dateStyle: "medium",
+                    })}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </section>
     </main>
   );
 }

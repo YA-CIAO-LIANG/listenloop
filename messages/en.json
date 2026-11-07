@@ -614,7 +614,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 7, 2026",
+    "updated": "Last updated: November 8, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -625,7 +625,7 @@
         "items": [
           "Account details from Google: email, name, profile picture URL, and Google account ID. Only the email is shown.",
           "Practice data: your progress on each video (which days are done, dictation answers and accuracy, shadowing status) and a daily practice log.",
-          "Created practices (admins only for now): the text you type or upload when creating a practice, its sentences and translations, the vocabulary and grammar notes, and the generated audio.",
+          "Created practices: the text you type or upload when creating a practice, its sentences and translations, the vocabulary and grammar notes, and the generated audio.",
           "Sharing and reports: anyone can see a public practice's title, sentences, translations, notes, and audio, but not its author's account details. When you report a practice, we keep the reason, your details, and your account ID only to review it; the author isn't told who reported it.",
           "Sign-in state: a sign-in token in a browser cookie.",
           "Account data: the user number the system gives you, your role (user or admin), account status, and when you joined and were last active. The admin pages identify users by number and don’t show emails.",
@@ -677,7 +677,7 @@
       {
         "title": "Young users",
         "paragraphs": [
-          "ListenLoop is mainly for high school and university students. If you’re under 18, use it with the consent of a parent or guardian who has read this policy. If you’re under 13, don’t create an account yourself. Creating practices with AI is for admins only for now, so regular users don’t send any text to AI services."
+          "ListenLoop is mainly for high school and university students. If you’re under 18, use it with the consent of a parent or guardian who has read this policy. If you’re under 13, don’t create an account yourself. When you create a practice of your own, the text you type or upload is sent to AI services to be processed (see above), so don’t include personal information."
         ]
       },
       {
@@ -724,7 +724,7 @@
   },
   "create": {
     "title": "Create a practice",
-    "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. Admins only for now.",
+    "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. The free plan lets you try one.",
     "titleLabel": "Title",
     "textLabel": "Text",
     "textHint": "Paste it here or choose a .txt file. Each line is split separately.",
@@ -962,7 +962,7 @@
   },
   "materials": {
     "title": "My materials",
-    "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the library's materials. Admins only for now.",
+    "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the library's materials.",
     "create": "Create a practice",
     "createUnavailable": "Creating practices is off: a setup condition isn't met. See \"Setup check\" on the API usage page for which one.",
     "removed": "Taken down by an admin (reason: {reason}). It's no longer public; only you can see it, and it can't be made public again.",
@@ -970,8 +970,8 @@
     "usageLink": "API usage →",
     "edit": "Edit",
     "editLabel": "Edit \"{title}\"",
-    "notOpenTitle": "Creating practices isn’t open yet",
-    "notOpen": "Making your own practices is for admins only for now. Once it opens, the practices you make will be listed here."
+    "notOpenTitle": "Creating practices isn’t available right now",
+    "notOpen": "Making your own practices isn't available right now. Try again later. The practices you make will be listed here."
   },
   "explore": {
     "title": "Shared materials",
@@ -1204,9 +1204,21 @@
       "createPractices": "Your plan can’t create practices.",
       "practicesPerMonth": "You’ve created {max} practices this month, your plan’s limit. Try again next month.",
       "activePractices": "You already have {max} practices in progress, your plan’s limit. Finish or remove one before starting another.",
-      "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice."
+      "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice.",
+      "practicesTotal": "The free plan lets you try {max} practice of your own, and you've made it."
     },
-    "seePractices": "See your progress"
+    "seePractices": "See your progress",
+    "paid": {
+      "title": "Paid plan",
+      "price": "Price: coming soon",
+      "perMonth": "{max} practices of your own a month",
+      "chars": "Up to {max, number} characters each",
+      "everything": "Every official material and feature",
+      "free": "You're on the free plan: every official material and feature, plus one practice of your own to try.",
+      "join": "Join the waitlist",
+      "joined": "You're on the waitlist. We'll let you know when the paid plan opens.",
+      "failed": "Couldn't join. Try again later."
+    }
   },
   "admin": {
     "nav": {
@@ -1230,7 +1242,8 @@
         "learners": "Users",
         "practice": "Practice",
         "costs": "Spending and credit",
-        "storage": "Supabase storage"
+        "storage": "Supabase storage",
+        "plans": "Plans"
       },
       "users": "Total users",
       "activeToday": "Active today",
@@ -1246,7 +1259,12 @@
       "speechNote": "{used} / {free} free characters",
       "database": "Database",
       "files": "Files (audio)",
-      "bytesNote": "{used} MB / {limit} MB (free plan)"
+      "bytesNote": "{used} MB / {limit} MB (free plan)",
+      "paidAccounts": "Paid accounts",
+      "waitlist": "On the waitlist",
+      "waitlistTitle": "Paid plan waitlist",
+      "waitlistEmpty": "No one has joined the waitlist yet.",
+      "waitlistUnknown": "(Account not found)"
     },
     "users": {
       "title": "Users",
@@ -1288,7 +1306,14 @@
         "self": "You can’t change your own account.",
         "listed": "This account is in ADMIN_EMAILS, so it stays an admin and can’t be demoted or disabled. Remove it from ADMIN_EMAILS on Vercel first.",
         "failed": "The change didn’t go through; try again later."
-      }
+      },
+      "planIs": "Plan: {plan}",
+      "plans": {
+        "free": "Free",
+        "paid": "Paid"
+      },
+      "makePaid": "Move to the paid plan",
+      "makeFree": "Move back to free"
     },
     "events": {
       "title": "Activity",

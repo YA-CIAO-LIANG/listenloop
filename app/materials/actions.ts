@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
@@ -32,7 +33,13 @@ import {
   TRANSLATE_BATCH,
   translateCached,
 } from "@/lib/custom-practice/notes";
-import { can, needsCount, planFor, type PlanBlock } from "@/lib/plans";
+import {
+  can,
+  needsCount,
+  planFor,
+  type PlanBlock,
+  type PlanCheck,
+} from "@/lib/plans";
 import { countChars } from "@/lib/usage";
 import {
   isDialogue,
@@ -67,7 +74,9 @@ export async function splitText(
   language: unknown,
 ): Promise<SplitResult> {
   const creator = await getCreator();
-  if (!creator) return { ok: false, reason: "unavailable" };
+  if (!creator || !(await creationAllowed(creator)).ok) {
+    return { ok: false, reason: "unavailable" };
+  }
   if (typeof text !== "string" || !isTextSourceLanguage(language)) {
     return { ok: false, reason: "empty" };
   }
@@ -75,7 +84,7 @@ export async function splitText(
   if (chars > PRACTICE_LIMITS.textChars) {
     return { ok: false, reason: "too-long", max: PRACTICE_LIMITS.textChars };
   }
-  // The plan's own limit (D54); unlimited today.
+  // The plan's own limit (D54, D72).
   const allowed = can(planFor(creator.user), { kind: "practice-chars", chars });
   if (!allowed.ok) return { ok: false, reason: "too-long", max: allowed.max };
   // "A:" and "B:" labels pick the voice and aren't read aloud (D57).
@@ -114,7 +123,9 @@ export async function translateSentences(
   language: unknown,
 ): Promise<TranslateResult> {
   const creator = await getCreator();
-  if (!creator) return { ok: false, reason: "unavailable" };
+  if (!creator || !(await creationAllowed(creator)).ok) {
+    return { ok: false, reason: "unavailable" };
+  }
   if (!(await allowAction("ai", creator.user.id))) {
     return { ok: false, reason: "busy" };
   }
@@ -165,18 +176,20 @@ export async function createPractice(
   }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
-  const plan = planFor(creator.user);
-  // Counted only when the plan has a monthly limit (D54).
-  const createdThisMonth = needsCount(plan, "create-practice")
-    ? await countCreatedThisMonth(supabase, creator.user.id)
-    : 0;
-  const allowed = can(plan, { kind: "create-practice", createdThisMonth });
-  if (!allowed.ok) {
+  const allowed = await creationAllowed(creator);
+  const length = can(planFor(creator.user), {
+    kind: "practice-chars",
+    chars: countChars(cleaned.draft.sentences.map((s) => s.en)),
+  });
+  if (!allowed.ok || !length.ok) {
+    const block = !allowed.ok
+      ? allowed
+      : (length as Extract<PlanCheck, { ok: false }>);
     return {
       ok: false,
       reason: "plan",
-      limit: allowed.limit,
-      max: allowed.max,
+      limit: block.limit,
+      max: block.max,
     };
   }
 
@@ -207,20 +220,6 @@ export async function createPractice(
   });
   revalidatePath("/materials");
   return { ok: true, id };
-}
-
-/** The user's practices created since the start of this month (Taiwan time). */
-async function countCreatedThisMonth(
-  supabase: NonNullable<Awaited<ReturnType<typeof getServerSupabase>>>,
-  userId: string,
-): Promise<number> {
-  const { monthStart } = usagePeriodStarts(new Date());
-  const { count } = await supabase
-    .from("practices")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", userId)
-    .gte("created_at", monthStart);
-  return count ?? 0;
 }
 
 async function savePractice(
@@ -432,7 +431,9 @@ export async function generatePracticeText(
   input: unknown,
 ): Promise<GenerateTextResult> {
   const creator = await getCreator();
-  if (!creator) return { ok: false, reason: "unavailable" };
+  if (!creator || !(await creationAllowed(creator)).ok) {
+    return { ok: false, reason: "unavailable" };
+  }
   if (!(await allowAction("ai", creator.user.id))) {
     return { ok: false, reason: "busy" };
   }

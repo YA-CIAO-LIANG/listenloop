@@ -1,22 +1,36 @@
 import type { Role } from "./accounts";
 
 /**
- * Plan limits (roadmap f, D54): what each plan may do, in one place. The
- * code asks `can(plan, action)` and never checks a role or a number
- * itself, so charging later means editing PLANS only. Today nothing is
- * limited; creating practices is for admins, as before (D5).
+ * Plan limits (roadmap f, D54, D72): what each plan may do, in one place.
+ * The code asks `can(plan, action)` and never checks a role or a number
+ * itself, so changing what a plan includes means editing PLANS only.
+ *
+ * - free: every official material and feature, and one practice of
+ *   their own to try creating;
+ * - paid: 30 practices a month of up to 2,000 characters (set by an
+ *   admin until payments exist; the price shows "coming soon");
+ * - admin: no limits.
  *
  * null means unlimited. Technical ceilings that protect the service
  * (PRACTICE_LIMITS in lib/custom-practice/draft.ts) still apply on top.
  */
-export const PLAN_IDS = ["free", "admin"] as const;
+export const PLAN_IDS = ["free", "paid", "admin"] as const;
 export type PlanId = (typeof PLAN_IDS)[number];
+
+/** The plans an admin can put an account on (profiles.plan). */
+export const ACCOUNT_PLANS = ["free", "paid"] as const;
+export type AccountPlan = (typeof ACCOUNT_PLANS)[number];
+
+export const isAccountPlan = (value: unknown): value is AccountPlan =>
+  (ACCOUNT_PLANS as readonly unknown[]).includes(value);
 
 export type PlanLimits = {
   /** May create practices with the paid voice and AI APIs. */
   createPractices: boolean;
   /** Practices in progress at once (built-in videos and created ones). */
   activePractices: number | null;
+  /** Practices ever created (deleting one doesn't give it back): a trial. */
+  practicesTotal: number | null;
   /** New practices created per calendar month (Taiwan time). */
   practicesPerMonth: number | null;
   /** Characters of text per created practice. */
@@ -25,27 +39,43 @@ export type PlanLimits = {
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
   free: {
-    createPractices: false,
+    createPractices: true,
     activePractices: null,
+    practicesTotal: 1,
     practicesPerMonth: null,
-    charsPerPractice: null,
+    charsPerPractice: 2_000,
+  },
+  paid: {
+    createPractices: true,
+    activePractices: null,
+    practicesTotal: null,
+    practicesPerMonth: 30,
+    charsPerPractice: 2_000,
   },
   admin: {
     createPractices: true,
     activePractices: null,
+    practicesTotal: null,
     practicesPerMonth: null,
     charsPerPractice: null,
   },
 };
 
 /** The plan an account is on; signed out is "free". */
-export function planFor(user: { role: Role } | null): PlanId {
-  return user?.role === "admin" ? "admin" : "free";
+export function planFor(
+  user: { role: Role; plan?: AccountPlan } | null,
+): PlanId {
+  if (user?.role === "admin") return "admin";
+  return user?.plan === "paid" ? "paid" : "free";
 }
 
 /** What's being checked, with the counts it depends on. */
 export type PlanAction =
-  | { kind: "create-practice"; createdThisMonth?: number }
+  | {
+      kind: "create-practice";
+      createdThisMonth?: number;
+      createdTotal?: number;
+    }
   | { kind: "start-practice"; active?: number }
   | { kind: "practice-chars"; chars: number };
 
@@ -77,6 +107,16 @@ export function can(
     case "create-practice":
       if (!limits.createPractices) {
         return { ok: false, limit: "createPractices" };
+      }
+      if (
+        limits.practicesTotal !== null &&
+        (action.createdTotal ?? 0) >= limits.practicesTotal
+      ) {
+        return {
+          ok: false,
+          limit: "practicesTotal",
+          max: limits.practicesTotal,
+        };
       }
       return over(
         "practicesPerMonth",

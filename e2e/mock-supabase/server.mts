@@ -27,6 +27,9 @@ const practices: Row[] = Object.values(
   ) as Record<string, Row>,
 );
 
+/** Accounts on the paid plan's waiting list. */
+const waitlist = new Set<string>();
+
 /** One second of 8 kHz, 8-bit mono silence. */
 function silentWav(): Buffer {
   const samples = 8000;
@@ -113,12 +116,27 @@ createServer((request, response) => {
         number: sub === "e2e-admin" ? 0 : 1,
         role: sub === "e2e-admin" ? "admin" : "user",
         status: "active",
+        plan: "free",
+        // The author made both practices in practices.json: the free
+        // plan's one-practice trial is used up (D72).
+        practices_created: sub === "e2e-admin" ? 0 : 2,
       },
     ]);
     return;
   }
   if (url.pathname === "/rest/v1/practices" && request.method === "GET") {
     json(200, matching(url.searchParams));
+    return;
+  }
+  // The paid plan's waiting list (D72), kept while the server runs.
+  if (url.pathname === "/rest/v1/waitlist") {
+    const sub = tokenSubject(request.headers.authorization);
+    if (request.method === "POST" && sub) {
+      waitlist.add(sub);
+      response.writeHead(201, cors).end();
+      return;
+    }
+    json(200, sub && waitlist.has(sub) ? [{ user_id: sub }] : []);
     return;
   }
   // The library's totals (D70): one learner on Sintel, no audio lengths.

@@ -7,6 +7,7 @@ import { getAdminUser } from "@/auth/creator";
 import { EventTable } from "@/components/EventTable";
 import { UserControls } from "@/components/UserControls";
 import { isAccountStatus, isRole, userNumberLabel } from "@/lib/accounts";
+import { isAccountPlan } from "@/lib/plans";
 import { ADMIN_PAGE_ROWS } from "@/lib/admin-dashboard";
 
 export async function generateMetadata({
@@ -35,7 +36,7 @@ export default async function AdminUserPage({
   ]);
   const { data: profile } = await admin
     .from("profiles")
-    .select("user_id, number, role, status, created_at, last_seen_at")
+    .select("user_id, number, role, status, plan, created_at, last_seen_at")
     .eq("number", number)
     .maybeSingle();
   if (!profile) notFound();
@@ -77,6 +78,7 @@ export default async function AdminUserPage({
             id: profile.user_id,
             role: isRole(profile.role) ? profile.role : "user",
             status: isAccountStatus(profile.status) ? profile.status : "active",
+            plan: isAccountPlan(profile.plan) ? profile.plan : "free",
           }}
           self={actor?.id === profile.user_id}
         />

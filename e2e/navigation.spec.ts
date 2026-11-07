@@ -1,9 +1,9 @@
 import { expect, signInAsAdmin, signInAsAuthor, test } from "./fixtures";
 
 /**
- * The header's entries (D48): "My materials" once signed in, on phones
- * too; "+ Create a practice" only for admins who can create (the E2E
- * author isn't an admin).
+ * The header's entries (D48): "My materials" and "+ Create a practice"
+ * once signed in, on phones too (every plan creates since D72; the E2E
+ * author has used the free trial, so the paid plan shows instead).
  */
 for (const viewport of [
   { width: 1280, height: 800 },
@@ -18,12 +18,13 @@ for (const viewport of [
 
     const nav = page.getByRole("navigation", { name: "主要導覽" });
     await expect(nav.getByRole("link", { name: "筆記本" })).toHaveCount(0);
-    await expect(page.getByRole("link", { name: /建立練習/ })).toHaveCount(0);
     await nav.getByRole("link", { name: "我的教材" }).click();
-
-    await expect(
-      page.getByRole("heading", { name: "建立練習還沒開放" }),
-    ).toBeVisible();
+    await expect(page).toHaveURL(/\/materials$/);
+    await page
+      .getByRole("link", { name: /建立練習/ })
+      .first()
+      .click();
+    await expect(page.getByRole("heading", { name: "付費方案" })).toBeVisible();
   });
 }
 

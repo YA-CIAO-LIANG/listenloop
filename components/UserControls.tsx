@@ -8,6 +8,7 @@ import {
   type UserChangeResult,
 } from "@/app/admin/users/actions";
 import type { AccountStatus, Role } from "@/lib/accounts";
+import type { AccountPlan } from "@/lib/plans";
 import { Button } from "./Button";
 
 /**
@@ -20,7 +21,7 @@ export function UserControls({
   self,
   changeUser = changeUserAction,
 }: {
-  user: { id: string; role: Role; status: AccountStatus };
+  user: { id: string; role: Role; status: AccountStatus; plan: AccountPlan };
   self: boolean;
   /** Injected in tests; the Server Action otherwise. */
   changeUser?: typeof changeUserAction;
@@ -48,7 +49,8 @@ export function UserControls({
         {t("roleIs", { role: t(`roles.${user.role}`) })} ·{" "}
         <span className={user.status === "disabled" ? "text-error" : ""}>
           {t(`statuses.${user.status}`)}
-        </span>
+        </span>{" "}
+        · {t("planIs", { plan: t(`plans.${user.plan}`) })}
       </p>
       {self ? (
         <p className="text-supporting text-ink-muted">{t("selfNote")}</p>
@@ -63,6 +65,16 @@ export function UserControls({
             }
           >
             {user.role === "admin" ? t("makeUser") : t("makeAdmin")}
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            disabled={pending}
+            onClick={() =>
+              run({ plan: user.plan === "paid" ? "free" : "paid" })
+            }
+          >
+            {user.plan === "paid" ? t("makeFree") : t("makePaid")}
           </Button>
           {user.status === "disabled" ? (
             <Button

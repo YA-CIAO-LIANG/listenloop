@@ -7,6 +7,7 @@ import { getAdminUser } from "@/auth/creator";
 import { isAccountStatus, isRole } from "@/lib/accounts";
 import { isAdminEmail } from "@/lib/admin";
 import { isUuid } from "@/lib/custom-practice/organize";
+import { isAccountPlan } from "@/lib/plans";
 
 export type UserChangeResult =
   | { ok: true }
@@ -19,11 +20,12 @@ export type UserChangeResult =
 /** A Supabase Auth ban long enough to mean "until restored" (D50). */
 const BAN_FOREVER = "876000h";
 
-type Change = { role: unknown } | { status: unknown };
+type Change = { role: unknown } | { status: unknown } | { plan: unknown };
 
 /**
- * Changes another account's role or status from the admin dashboard
- * (D50, D56), and records it in the audit log. An admin can't change
+ * Changes another account's role, status, or plan (D72; set by hand
+ * until payments exist) from the admin dashboard (D50, D56), and records
+ * it in the audit log. An admin can't change
  * their own account (no locking yourself out), and accounts in
  * ADMIN_EMAILS stay admins (they'd be made admins again at sign-in).
  * Disabling also bans the account in Supabase Auth, so it can't sign in
@@ -36,16 +38,26 @@ export async function changeUser(
   const [actor, admin] = [await getAdminUser(), getAdminSupabase()];
   if (!actor || !admin) return { ok: false, reason: "unavailable" };
   if (!isUuid(userId)) return { ok: false, reason: "invalid" };
-  const field = "role" in change ? "role" : "status";
-  const value = "role" in change ? change.role : change.status;
-  if (field === "role" ? !isRole(value) : !isAccountStatus(value)) {
-    return { ok: false, reason: "invalid" };
-  }
+  const field =
+    "role" in change ? "role" : "status" in change ? "status" : "plan";
+  const value =
+    "role" in change
+      ? change.role
+      : "status" in change
+        ? change.status
+        : change.plan;
+  const valid =
+    field === "role"
+      ? isRole(value)
+      : field === "status"
+        ? isAccountStatus(value)
+        : isAccountPlan(value);
+  if (!valid) return { ok: false, reason: "invalid" };
   if (userId === actor.id) return { ok: false, reason: "self" };
 
   const { data: profile } = await admin
     .from("profiles")
-    .select("number, role, status")
+    .select("number, role, status, plan")
     .eq("user_id", userId)
     .maybeSingle();
   if (!profile) return { ok: false, reason: "not-found" };
@@ -65,17 +77,13 @@ export async function changeUser(
   }
   const { error } = await admin
     .from("profiles")
-    .update(
-      field === "role"
-        ? { role: value as string }
-        : { status: value as string },
-    )
+    .update({ [field]: value as string } as Record<typeof field, string>)
     .eq("user_id", userId);
   if (error) return { ok: false, reason: "failed" };
 
   await logAudit(
     actor.id,
-    field === "role" ? "user.role" : "user.status",
+    `user.${field}`,
     { type: "user", id: `user-${profile.number}` },
     { from: profile[field], to: value },
   );

@@ -78,6 +78,7 @@ export function EditPracticeForm({
   generateNotes = generatePracticeNotes,
 }: EditPracticeFormProps) {
   const t = useTranslations("editPractice");
+  const tPlans = useTranslations("plans");
   const tCreate = useTranslations("create");
   const router = useRouter();
   const ids = { title: useId(), hint: useId() };
@@ -158,6 +159,9 @@ export function EditPracticeForm({
       return t(`problems.${failure.problem}`, {
         n: sentence === undefined ? 0 : sentence + 1,
       });
+    }
+    if (failure.reason === "plan") {
+      return tPlans(`limits.${failure.limit}`, { max: failure.max ?? 0 });
     }
     return t(`errors.${failure.reason}`);
   })();
