@@ -37,9 +37,8 @@ export default function Home() {
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
 
       <div className="mt-12 space-y-6">
-        <Suspense fallback={null}>
-          <OnboardingStart />
-        </Suspense>
+        {/* Not in Suspense: it's in the first HTML, so nothing shifts (D62). */}
+        <OnboardingStart />
         <ProgressGate place="home">
           <PracticeCalendar />
           <TodayTasks />

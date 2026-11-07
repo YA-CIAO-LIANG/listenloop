@@ -10,6 +10,11 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 
+// A server component that reads cookies and the database (D62).
+vi.mock("@/components/OnboardingStart", () => ({
+  OnboardingStart: () => null,
+}));
+
 describe("home practice library", () => {
   it("groups videos under their collection's heading", async () => {
     renderWithIntl(<Home />);

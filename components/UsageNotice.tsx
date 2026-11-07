@@ -2,41 +2,21 @@
 
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
+import { rememberDismissed, USAGE_NOTICE_COOKIE } from "@/lib/notices";
 import { Button } from "./Button";
 
-/** Remembers on this device that the notice was read (D60). */
-export const USAGE_NOTICE_KEY = "ll-usage-notice:v1";
-
-const noSubscription = () => () => {};
-
-/** Whether this device hasn't dismissed the notice yet. */
-function readUnread(): boolean {
-  try {
-    return window.localStorage.getItem(USAGE_NOTICE_KEY) === null;
-  } catch {
-    return true;
-  }
-}
-
 /**
- * Shown once per device, under the header (D60): using ListenLoop means
- * agreeing to the terms and privacy policy, and under-18s should use it
- * with a parent's or guardian's consent. "Got it" hides it for good on
- * this device. Nothing shows before the browser has checked, so it never
- * flashes for someone who already dismissed it.
+ * Shown under the header until dismissed on this browser (D60, D62):
+ * using ListenLoop means agreeing to the terms and privacy policy, and
+ * under-18s should use it with a parent's or guardian's consent. The
+ * layout renders it only while the cookie isn't set, so it's part of the
+ * first HTML and never shifts the page.
  */
 export function UsageNotice() {
   const t = useTranslations("usageNotice");
-  const unread = useSyncExternalStore(
-    noSubscription,
-    readUnread,
-    // On the server, and while hydrating: hidden, so it never flashes.
-    () => false,
-  );
   const [dismissed, setDismissed] = useState(false);
-
-  if (!unread || dismissed) return null;
+  if (dismissed) return null;
   return (
     <div className="border-b border-line bg-band print:hidden">
       <div
@@ -68,14 +48,7 @@ export function UsageNotice() {
           variant="ghost"
           size="sm"
           onClick={() => {
-            try {
-              window.localStorage.setItem(
-                USAGE_NOTICE_KEY,
-                new Date().toISOString(),
-              );
-            } catch {
-              // Private mode: it just shows again next time.
-            }
+            rememberDismissed(USAGE_NOTICE_COOKIE);
             setDismissed(true);
           }}
         >
