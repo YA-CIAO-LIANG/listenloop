@@ -11,16 +11,21 @@ import {
   type ReactNode,
 } from "react";
 import { toLocalDate } from "@/lib/dates";
+import { officialScore as countedScore } from "@/lib/cycle";
 import {
   attemptScore,
+  attemptWeightedScore,
   emptyAnswers,
   nextUnanswered,
   recordAnswer,
+  recordSpeed,
   startDictation,
   submitAnswer,
   type Answers,
   type DictationDay,
+  type Speeds,
 } from "@/lib/dictation";
+import { DEFAULT_SPEED, pace, type Pace, type Speed } from "@/lib/speed";
 import { recordTask } from "@/lib/activity";
 import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
@@ -38,10 +43,12 @@ import { PracticeFrame } from "./PracticeFrame";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
+import { Tag } from "./Tag";
 import { SentenceExplanation } from "./SentenceExplanation";
 import { missedPieces } from "@/lib/custom-practice/marks";
 import { notesForSentence } from "@/lib/videos";
 import { SentenceRow } from "./SentenceRow";
+import { SpeedControl } from "./SpeedControl";
 import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { useSentencePlayer } from "./useSentencePlayer";
@@ -112,12 +119,16 @@ export function DictationSession({
 }: DictationSessionProps) {
   const t = useTranslations("dictation");
   const format = useFormatter();
-  const player = useSentencePlayer(video);
+  // Audio practices only (D73); YouTube videos always play at 1×.
+  const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
+  const player = useSentencePlayer(video, speed);
+  const heardAt = player.kind === "audio" ? speed : DEFAULT_SPEED;
   const stores = useStores();
   const progressStore = store ?? stores.progress;
   const [progress, setProgress] = useState<Progress | null>(null);
   const [mode, setMode] = useState<Mode>("official");
   const [retryAnswers, setRetryAnswers] = useState<Answers>([]);
+  const [retrySpeeds, setRetrySpeeds] = useState<Speeds>([]);
   const [current, setCurrent] = useState(0);
   // Index whose feedback is showing (after submit or skip, before "next").
   const [feedbackIndex, setFeedbackIndex] = useState<number | null>(null);
@@ -135,9 +146,12 @@ export function DictationSession({
 
   const { sentences } = video;
   const official = progress?.days[day];
-  const officialScore = official?.score ?? 0;
+  // What the day counts with: weighted by speed (D73).
+  const officialScore = (official && countedScore(official)) ?? 0;
   const answers: Answers =
     mode === "retry" ? retryAnswers : (official?.answers ?? []);
+  const speeds: Speeds =
+    mode === "retry" ? retrySpeeds : (official?.speeds ?? []);
   const answeredCount = answers.filter((a) => a !== null).length;
   const attemptDone = answers.length > 0 && nextUnanswered(answers) === -1;
   const showing = feedbackIndex ?? current;
@@ -195,6 +209,7 @@ export function DictationSession({
     setSkipArmed(false);
     setMode("retry");
     setRetryAnswers(emptyAnswers(sentences.length));
+    setRetrySpeeds(sentences.map(() => null));
     setCurrent(0);
     setFeedbackIndex(null);
     setInput("");
@@ -292,6 +307,9 @@ export function DictationSession({
     if (mode === "retry") {
       const next = recordAnswer(retryAnswers, current, answer);
       setRetryAnswers(next);
+      setRetrySpeeds(
+        recordSpeed(retrySpeeds, current, heardAt, sentences.length),
+      );
       if (next !== retryAnswers && nextUnanswered(next) === -1) claimRetry();
     } else {
       const next = submitAnswer(
@@ -301,6 +319,7 @@ export function DictationSession({
         answer,
         sentences,
         toLocalDate(new Date()),
+        heardAt,
       );
       setProgress(next);
       void save(next);
@@ -441,8 +460,19 @@ export function DictationSession({
           mode={mode}
           answers={answers}
           score={
-            mode === "retry" ? attemptScore(sentences, answers) : officialScore
+            mode === "retry"
+              ? attemptWeightedScore(sentences, answers, speeds)
+              : officialScore
           }
+          rawScore={
+            mode === "retry"
+              ? attemptScore(sentences, answers)
+              : (official?.score ?? 0)
+          }
+          pace={pace(
+            sentences.map((s, i) => scoreDictation(s.en, answers[i] ?? "")),
+            speeds,
+          )}
           officialScore={officialScore}
           onRetry={beginRetry}
           saveError={saveError}
@@ -485,6 +515,9 @@ export function DictationSession({
           <div ref={videoRef} className="scroll-mt-16">
             <PracticeFrame player={player} />
           </div>
+          {player.kind === "audio" && (
+            <SpeedControl value={speed} onChange={setSpeed} />
+          )}
 
           {feedbackIndex === null ? (
             <div>
@@ -629,6 +662,8 @@ function DictationResult({
   mode,
   answers,
   score,
+  rawScore,
+  pace: heardPace,
   officialScore,
   onRetry,
   saveError,
@@ -636,13 +671,20 @@ function DictationResult({
   video: PracticeMaterial;
   mode: Mode;
   answers: Answers;
-  /** The score to show: official for the first run, this attempt's for a retry. */
+  /**
+   * The score to show, weighted by speed (D73): official for the first
+   * run, this attempt's for a retry.
+   */
   score: number;
+  /** The same without the speed weights, shown when they differ. */
+  rawScore: number;
+  pace: Pace | null;
   officialScore: number;
   onRetry: () => void;
   saveError: ReactNode;
 }) {
   const t = useTranslations("dictation");
+  const tSpeed = useTranslations("speed");
   const tHandout = useTranslations("handout");
   const format = useFormatter();
   const percent = (value: number) =>
@@ -663,6 +705,13 @@ function DictationResult({
         )}
         <RewardGainedNote />
         <ScoreBadge score={score} />
+        {heardPace && (
+          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-supporting text-ink-muted">
+            <Tag>{tSpeed(heardPace)}</Tag>
+            {Math.abs(rawScore - score) > 1e-9 &&
+              tSpeed("raw", { score: percent(rawScore) })}
+          </p>
+        )}
         <p className="font-display text-h3">
           {mode === "official" ? t("complete") : t("retryComplete")}
         </p>

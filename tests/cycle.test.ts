@@ -147,9 +147,37 @@ describe("settleWeek", () => {
         startedAt: START,
         day1Score: 0.7,
         day7Score: 0.8,
+        day1Weighted: 0.7,
+        day7Weighted: 0.8,
         passed: true,
       },
     ]);
+  });
+
+  it("passes or fails on the speed-weighted score (D73)", () => {
+    const slow = settleWeek(
+      withDay(doneThrough(7), 7, {
+        done: true,
+        date: "2026-10-30",
+        score: 0.85,
+        weightedScore: 0.765,
+      }),
+    );
+    expect(slow.status).toBe("repeat");
+    expect(slow.history[0]).toMatchObject({
+      day7Score: 0.85,
+      day7Weighted: 0.765,
+      passed: false,
+    });
+    const fast = settleWeek(
+      withDay(doneThrough(7), 7, {
+        done: true,
+        date: "2026-10-30",
+        score: 0.78,
+        weightedScore: 0.819,
+      }),
+    );
+    expect(fast.status).toBe("passed");
   });
 
   it("asks to repeat below 80%", () => {

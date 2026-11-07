@@ -30,9 +30,13 @@ export type SentencePlayer = {
  * the unused one stays idle: YouTube loads nothing until its frame mounts,
  * and audio has no files.
  */
-export function useSentencePlayer(material: PracticeMaterial): SentencePlayer {
+export function useSentencePlayer(
+  material: PracticeMaterial,
+  /** Playback speed for audio (D73); YouTube always plays at 1×. */
+  rate = 1,
+): SentencePlayer {
   const youtube = useYouTubePlayer(material.youtubeId ?? "");
-  const audio = useAudioPlayer(material.audioUrls ?? NO_URLS);
+  const audio = useAudioPlayer(material.audioUrls ?? NO_URLS, rate);
   const { sentences } = material;
   const { playSegment } = youtube;
 

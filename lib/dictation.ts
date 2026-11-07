@@ -2,6 +2,7 @@ import { settleWeek } from "./cycle";
 import type { LocalDate } from "./dates";
 import { createProgress, pinVersion, withDay, type Progress } from "./progress";
 import { scoreDictation, totalAccuracy } from "./scoring/dictation";
+import { DEFAULT_SPEED, weightedAccuracy } from "./speed";
 import type { Sentence } from "./videos";
 
 /** Dictation happens on Day 1 and again on Day 7. */
@@ -9,6 +10,9 @@ export type DictationDay = 1 | 7;
 
 /** One answer per sentence; null = not answered yet. */
 export type Answers = readonly (string | null)[];
+
+/** The speed each answer was heard at (D73); null = not answered yet. */
+export type Speeds = readonly (number | null)[];
 
 // --- One attempt (shared by the official run and retries) -----------------
 // These work on an answers list only. Retries use them directly and never see
@@ -46,6 +50,38 @@ export function attemptScore(
       scoreDictation(sentence.en, answers[i] ?? ""),
     ),
   );
+}
+
+/**
+ * The same attempt weighted by the speed each answer was heard at (D73):
+ * what passes or fails Day 7. Without speeds, it equals attemptScore.
+ */
+export function attemptWeightedScore(
+  sentences: readonly Sentence[],
+  answers: Answers,
+  speeds: Speeds = [],
+): number {
+  return weightedAccuracy(
+    sentences.map((sentence, i) =>
+      scoreDictation(sentence.en, answers[i] ?? ""),
+    ),
+    speeds,
+  );
+}
+
+/** Notes the speed an answer was heard at, alongside recordAnswer. */
+export function recordSpeed(
+  speeds: Speeds,
+  index: number,
+  speed: number,
+  sentenceCount: number,
+): Speeds {
+  const list =
+    speeds.length === sentenceCount
+      ? speeds
+      : Array.from({ length: sentenceCount }, (_, i) => speeds[i] ?? null);
+  if (list[index] !== null && list[index] !== undefined) return list;
+  return list.map((s, i) => (i === index ? speed : s));
 }
 
 // --- The official run (saved in Progress) ----------------------------------
@@ -89,6 +125,8 @@ export function submitAnswer(
   answer: string,
   sentences: readonly Sentence[],
   today: LocalDate,
+  /** The speed this answer was heard at (D73); videos are always 1×. */
+  speed: number = DEFAULT_SPEED,
 ): Progress {
   const record = progress.days[day];
   const answers = record?.answers;
@@ -96,15 +134,22 @@ export function submitAnswer(
 
   const next = recordAnswer(answers, index, answer);
   if (next === answers) return progress;
+  const speeds = recordSpeed(record.speeds ?? [], index, speed, answers.length);
   if (nextUnanswered(next) !== -1) {
-    return withDay(progress, day, { ...record, answers: [...next] });
+    return withDay(progress, day, {
+      ...record,
+      answers: [...next],
+      speeds: [...speeds],
+    });
   }
 
   const finished = withDay(progress, day, {
     done: true,
     date: today,
     score: attemptScore(sentences, next),
+    weightedScore: attemptWeightedScore(sentences, next, speeds),
     answers: [...next],
+    speeds: [...speeds],
   });
   return day === 7 && finished.days[1]?.score !== undefined
     ? settleWeek(finished)

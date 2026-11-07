@@ -10,7 +10,10 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { PracticeMaterial } from "@/lib/practice-material";
 import { ButtonLink } from "./ButtonLink";
 import { RewardGainedNote } from "./RewardBadge";
+import { scoreDictation } from "@/lib/scoring/dictation";
+import { pace } from "@/lib/speed";
 import { ScoreBadge } from "./ScoreBadge";
+import { Tag } from "./Tag";
 import { StartNextWeekButton } from "./StartNextWeekButton";
 import { WordDiffView } from "./WordDiffView";
 
@@ -27,6 +30,7 @@ type WeekResultProps = {
  * sentence compared, and earlier weeks.
  */
 export function WeekResult({ video, progress, store }: WeekResultProps) {
+  const tSpeed = useTranslations("speed");
   const t = useTranslations("week");
   const tCycle = useTranslations("cycle");
   const tHandout = useTranslations("handout");
@@ -45,6 +49,15 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
     ignoreDates: isDevTestMode(),
   });
   const earlierWeeks = progress.history.slice(0, -1);
+  // How Day 7 was heard (D73): its weighted score passes the week.
+  const day7Record = progress.days[7];
+  const day7Raw = day7Record?.score;
+  const day7Pace = pace(
+    video.sentences.map((s, i) =>
+      scoreDictation(s.en, day7Record?.answers?.[i] ?? ""),
+    ),
+    day7Record?.speeds ?? [],
+  );
 
   return (
     <div className="practice-column mt-8 space-y-12">
@@ -77,6 +90,14 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
             <ScoreBadge score={comparison.day7} />
           </div>
         </div>
+        {day7Pace && (
+          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-supporting text-ink-muted">
+            <Tag>{tSpeed(day7Pace)}</Tag>
+            {day7Raw !== undefined &&
+              Math.abs(day7Raw - comparison.day7) > 1e-9 &&
+              tSpeed("raw", { score: percent(day7Raw) })}
+          </p>
+        )}
         <p
           className={`text-supporting ${change > 0 ? "text-success" : "text-ink-muted"}`}
         >
@@ -165,8 +186,8 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
               <li key={week.week}>
                 {t("historyRow", {
                   week: week.week,
-                  day1: percent(week.day1Score),
-                  day7: percent(week.day7Score),
+                  day1: percent(week.day1Weighted ?? week.day1Score),
+                  day7: percent(week.day7Weighted ?? week.day7Score),
                   result: week.passed ? t("passed") : t("notPassed"),
                 })}
               </li>

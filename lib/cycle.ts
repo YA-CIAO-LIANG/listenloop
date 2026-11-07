@@ -16,6 +16,17 @@ export type DayTask = "dictation" | "shadowing" | "redictation";
 
 export type DayStatus = "locked" | "available" | "today" | "done";
 
+/**
+ * The score a dictation day counts with (D73): weighted by playback
+ * speed, or the raw score on days from before speeds existed.
+ */
+export function officialScore(record: {
+  score?: number;
+  weightedScore?: number;
+}): number | undefined {
+  return record.weightedScore ?? record.score;
+}
+
 /** Score is a ratio between 0 and 1. */
 export function isPassingScore(score: number): boolean {
   return score >= PASS_THRESHOLD;
@@ -114,13 +125,15 @@ export function canOpenDay(
 export function settleWeek(progress: Progress): Progress {
   if (progress.status !== "in-progress") return progress;
 
-  const day1Score = progress.days[1]?.score;
+  const day1 = progress.days[1];
+  const day1Score = day1?.score;
   const day7 = progress.days[7];
   if (!day7?.done || day7.score === undefined || day1Score === undefined) {
     throw new Error("Cannot settle a week before Day 1 and Day 7 are scored");
   }
 
-  const passed = isPassingScore(day7.score);
+  // The weighted score passes or fails the week (D73).
+  const passed = isPassingScore(officialScore(day7) ?? day7.score);
   return {
     ...progress,
     status: passed ? "passed" : "repeat",
@@ -131,6 +144,8 @@ export function settleWeek(progress: Progress): Progress {
         startedAt: progress.startedAt,
         day1Score,
         day7Score: day7.score,
+        day1Weighted: officialScore(day1!) ?? day1Score,
+        day7Weighted: officialScore(day7) ?? day7.score,
         passed,
       },
     ],
@@ -185,9 +200,10 @@ export function weekComparison(
   if (day1?.score === undefined || day7?.score === undefined) return null;
   const accuracy = (answers: (string | null)[] | undefined, i: number) =>
     scoreDictation(sentences[i].en, answers?.[i] ?? "").accuracy;
+  // Overall: the scores the week counted (weighted, D73).
   return {
-    day1: day1.score,
-    day7: day7.score,
+    day1: officialScore(day1) ?? day1.score,
+    day7: officialScore(day7) ?? day7.score,
     sentences: sentences.map((_, i) => ({
       day1: accuracy(day1.answers, i),
       day7: accuracy(day7.answers, i),

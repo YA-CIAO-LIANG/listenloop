@@ -1776,5 +1776,14 @@
       "modifier": "modifier",
       "connector": "connector"
     }
+  },
+  "speed": {
+    "label": "Speed",
+    "option": "{speed}×",
+    "weights": "Slow answers count {slow}, fast ones {fast} (up to 100%)",
+    "slow": "Done at slow speed",
+    "fast": "Done at fast speed",
+    "raw": "Raw accuracy {score}",
+    "weighted": "Weighted accuracy"
   }
 }

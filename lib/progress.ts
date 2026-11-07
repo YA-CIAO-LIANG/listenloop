@@ -19,8 +19,15 @@ export type DayRecord = {
   date?: LocalDate;
   /** Dictation accuracy for Day 1 and Day 7, between 0 and 1. */
   score?: number;
+  /**
+   * Day 1 and Day 7 accuracy weighted by playback speed (D73); what Day 7
+   * passes on. Missing on days scored before speeds existed: same as score.
+   */
+  weightedScore?: number;
   /** Dictation answers per sentence; null = not answered yet. */
   answers?: (string | null)[];
+  /** The speed each answer was heard at (D73); null = not answered yet. */
+  speeds?: (number | null)[];
   /** Shadowing state per sentence for Days 2–6. */
   sentences?: ShadowingSentenceRecord[];
 };
@@ -32,6 +39,9 @@ export type WeekSummary = {
   startedAt: LocalDate;
   day1Score: number;
   day7Score: number;
+  /** Speed-weighted scores (D73); missing on older weeks (same as raw). */
+  day1Weighted?: number;
+  day7Weighted?: number;
   passed: boolean;
 };
 
@@ -85,6 +95,20 @@ function isDayRecord(value: unknown): value is DayRecord {
   if (!isObject(value) || typeof value.done !== "boolean") return false;
   if (value.date !== undefined && !isLocalDate(value.date)) return false;
   if (value.score !== undefined && !isRatio(value.score)) return false;
+  if (value.weightedScore !== undefined && !isRatio(value.weightedScore)) {
+    return false;
+  }
+  if (
+    value.speeds !== undefined &&
+    !(
+      Array.isArray(value.speeds) &&
+      value.speeds.every(
+        (s) => s === null || (typeof s === "number" && s > 0 && s <= 4),
+      )
+    )
+  ) {
+    return false;
+  }
   if (
     value.answers !== undefined &&
     !(
@@ -119,6 +143,8 @@ function isWeekSummary(value: unknown): value is WeekSummary {
     isLocalDate(value.startedAt) &&
     isRatio(value.day1Score) &&
     isRatio(value.day7Score) &&
+    (value.day1Weighted === undefined || isRatio(value.day1Weighted)) &&
+    (value.day7Weighted === undefined || isRatio(value.day7Weighted)) &&
     typeof value.passed === "boolean"
   );
 }

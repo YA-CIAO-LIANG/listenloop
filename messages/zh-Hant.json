@@ -1772,5 +1772,14 @@
       "modifier": "修飾語",
       "connector": "連接詞"
     }
+  },
+  "speed": {
+    "label": "播放速度",
+    "option": "{speed}×",
+    "weights": "慢速作答以 {slow} 計分，快速以 {fast} 計分（最高 100%）",
+    "slow": "慢速完成",
+    "fast": "快速完成",
+    "raw": "原始正確率 {score}",
+    "weighted": "加權正確率"
   }
 }
