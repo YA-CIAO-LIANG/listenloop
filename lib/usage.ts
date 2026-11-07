@@ -14,6 +14,17 @@ export const DAILY_LIMITS: Readonly<Record<UsageKind, number>> = {
   cost: 500_000,
 };
 
+/**
+ * Creating official materials (D59) is the one place an admin's daily
+ * speech allowance is raised: a batch of official drafts reads far more
+ * than one learner's practice. Still well inside Azure F0's 500,000 free
+ * characters a month. Only scripts/official-drafts.record.ts uses it.
+ */
+export const OFFICIAL_DAILY_LIMITS: Readonly<Record<UsageKind, number>> = {
+  ...DAILY_LIMITS,
+  speech: 120_000,
+};
+
 /** Days roll over at midnight in this time zone. */
 export const USAGE_TIME_ZONE = "Asia/Taipei";
 
