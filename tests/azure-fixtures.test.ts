@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
 import { azureOpenAiLanguage } from "@/lib/ai/azure-openai";
 import { azureSpeech } from "@/lib/ai/azure-speech";
+import { ProviderError } from "@/lib/ai/types";
 import {
   checkGeneratedText,
   GENERATION_LEVELS,
@@ -123,5 +124,46 @@ describe("recorded Azure Speech audio", () => {
     ).toBe(true);
     expect(usage.chars).toBe(17);
     expect(fetchImpl.mock.calls[0][1]?.body).toBe(request);
+  });
+});
+
+describe("Azure OpenAI failures in the usage log (D49)", () => {
+  it("keeps the status and Azure's error code, not the message", async () => {
+    // Azure's documented error body for a deployment name that doesn't exist.
+    const fetchImpl = vi.fn<typeof fetch>(
+      async () =>
+        new Response(
+          JSON.stringify({
+            error: {
+              code: "DeploymentNotFound",
+              message: "The API deployment for this resource does not exist.",
+            },
+          }),
+          { status: 404, headers: { "content-type": "application/json" } },
+        ),
+    );
+    const error = await azureOpenAiLanguage(config, fetchImpl)
+      .segment(["One. Two."], "en")
+      .catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(ProviderError);
+    expect(error).toMatchObject({
+      code: "config",
+      detail: { status: 404, code: "DeploymentNotFound" },
+    });
+  });
+
+  it("names a timeout", async () => {
+    const timeout = new DOMException(
+      "The operation timed out.",
+      "TimeoutError",
+    );
+    const fetchImpl = vi.fn<typeof fetch>().mockRejectedValue(timeout);
+    const error = await azureOpenAiLanguage(config, fetchImpl)
+      .segment(["One. Two."], "en")
+      .catch((e: unknown) => e);
+    expect(error).toMatchObject({
+      code: "failed",
+      detail: { code: "timeout" },
+    });
   });
 });

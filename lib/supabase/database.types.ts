@@ -66,6 +66,8 @@ export type Database = {
           cost_micros: number;
           created_at: string;
           error: string | null;
+          error_code: string | null;
+          http_status: number | null;
           id: number;
           input_tokens: number;
           operation: string;
@@ -78,6 +80,8 @@ export type Database = {
           cost_micros?: number;
           created_at?: string;
           error?: string | null;
+          error_code?: string | null;
+          http_status?: number | null;
           id?: never;
           input_tokens?: number;
           operation: string;
@@ -90,6 +94,8 @@ export type Database = {
           cost_micros?: number;
           created_at?: string;
           error?: string | null;
+          error_code?: string | null;
+          http_status?: number | null;
           id?: never;
           input_tokens?: number;
           operation?: string;

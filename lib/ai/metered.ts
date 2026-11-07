@@ -6,6 +6,7 @@ import {
   type AiProviders,
   type Billed,
   type CallUsage,
+  type ProviderErrorDetail,
   type SpeechAudio,
   type Voice,
 } from "./types";
@@ -58,6 +59,7 @@ async function finish(
   charge: Charge,
   usage: CallUsage | undefined,
   error: MeteredFailure | null,
+  detail: ProviderErrorDetail = {},
 ) {
   // Without a usage report, a language call keeps its whole reservation.
   const spent = usage
@@ -73,6 +75,8 @@ async function finish(
       provider: charge.provider,
       operation: charge.operation,
       error,
+      httpStatus: detail.status ?? null,
+      errorCode: detail.code ?? null,
       inputTokens: usage?.inputTokens ?? 0,
       outputTokens: usage?.outputTokens ?? 0,
       chars: usage?.chars || charge.chars,
@@ -106,6 +110,7 @@ async function metered<T>(
       charge,
       error instanceof ProviderError ? error.usage : undefined,
       reason,
+      error instanceof ProviderError ? error.detail : { code: "exception" },
     );
     return { ok: false, reason };
   }

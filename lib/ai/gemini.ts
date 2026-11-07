@@ -5,7 +5,7 @@ import {
   translateBudget,
   type LanguageBudget,
 } from "./budgets";
-import { postGoogleJson } from "./http";
+import { postGoogleJson, probeProvider } from "./http";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   COMPOSE_INSTRUCTIONS,
@@ -183,7 +183,7 @@ export function geminiLanguage(
     } catch (error) {
       // Tokens spent on an unusable answer are still paid for.
       if (error instanceof ProviderError) {
-        throw new ProviderError(error.code, error.message, usage);
+        throw new ProviderError(error.code, error.message, usage, error.detail);
       }
       throw error;
     }
@@ -191,6 +191,14 @@ export function geminiLanguage(
 
   return {
     id: `gemini/${model}/p${PROMPT_VERSION}`,
+    // Reading the model's details is free and needs the same key (D49).
+    checkConnection: () =>
+      probeProvider(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}`,
+        { method: "GET", headers: { "x-goog-api-key": apiKey } },
+        fetchImpl,
+        (status) => status === 200,
+      ),
     price,
     async translate(texts, { from, to }) {
       const { value, usage } = await generate(

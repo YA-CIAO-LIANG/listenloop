@@ -24,6 +24,7 @@ const free = <T>(value: T, input: readonly string[]): Billed<T> => ({
  */
 export const fakeLanguage: LanguageProvider = {
   id: "fake",
+  checkConnection: async () => ({ ok: true }),
   price: { inputPerM: 0, outputPerM: 0 },
   // A fixed text about as long as asked, one line per sentence or turn.
   async compose({ scenario, words, format }) {
@@ -127,6 +128,7 @@ export function silentWav(seconds: number): Uint8Array {
 
 export const fakeSpeech: SpeechProvider = {
   id: "fake",
+  checkConnection: async () => ({ ok: true }),
   async synthesize(text: string): Promise<Billed<SpeechAudio>> {
     const words = text.split(/\s+/).filter(Boolean).length;
     return free(

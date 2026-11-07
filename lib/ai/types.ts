@@ -59,7 +59,16 @@ export type Billed<T> = { value: T; usage: CallUsage };
  * all of it. Results are cached by content, so `id` names the provider,
  * model, and prompt version; change it when the output would change.
  */
+/**
+ * A free check that a provider's key and settings work (D49), for the
+ * "Test connection" button on /admin/usage: no text is sent and nothing
+ * is billed. `status` and `code` are what the provider answered.
+ */
+export type ConnectionCheck = { ok: boolean; status?: number; code?: string };
+
 export interface LanguageProvider {
+  /** A free connection check (D49); providers without one can't be tested. */
+  checkConnection?(): Promise<ConnectionCheck>;
   readonly id: string;
   /** For the worst-case reservation before each call (lib/ai/budgets.ts). */
   readonly price: TokenPrice;
@@ -96,11 +105,19 @@ export interface LanguageProvider {
  * `usage` is set when the provider still charged for it (e.g. an answer
  * cut off at the output cap).
  */
+/**
+ * What the provider answered, for the usage log (D49): the HTTP status and
+ * the provider's short error code ("DeploymentNotFound", "timeout"), never
+ * a key or the text sent.
+ */
+export type ProviderErrorDetail = { status?: number; code?: string };
+
 export class ProviderError extends Error {
   constructor(
     readonly code: "busy" | "config" | "failed",
     message: string,
     readonly usage?: CallUsage,
+    readonly detail: ProviderErrorDetail = {},
   ) {
     super(message);
     this.name = "ProviderError";
@@ -121,6 +138,8 @@ export interface SpeechProvider {
   readonly id: string;
   /** Reads `text` aloud in English with `voice`. */
   synthesize(text: string, voice: Voice): Promise<Billed<SpeechAudio>>;
+  /** A free connection check (D49); providers without one can't be tested. */
+  checkConnection?(): Promise<ConnectionCheck>;
 }
 
 export type AiProviders = {

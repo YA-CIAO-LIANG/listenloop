@@ -1,5 +1,5 @@
 import { countChars } from "@/lib/usage";
-import { postToProvider } from "./http";
+import { postToProvider, probeProvider } from "./http";
 import { SPEECH_PRICES_PER_M_CHARS } from "./pricing";
 import { ProviderError, voiceId, type SpeechProvider } from "./types";
 import { AZURE_VOICES } from "./voices";
@@ -52,6 +52,14 @@ export function azureSpeech(
   const url = `https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`;
   return {
     id: AZURE_TTS_ID,
+    // The voice list is free and needs the same key and region (D49).
+    checkConnection: () =>
+      probeProvider(
+        `https://${region}.tts.speech.microsoft.com/cognitiveservices/voices/list`,
+        { method: "GET", headers: { "ocp-apim-subscription-key": apiKey } },
+        fetchImpl,
+        (status) => status === 200,
+      ),
     async synthesize(text, voice) {
       const response = await postToProvider(
         url,

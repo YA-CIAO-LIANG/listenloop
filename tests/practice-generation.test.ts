@@ -7,6 +7,7 @@ import {
   type Stage,
 } from "@/components/practice-generation";
 import { TRANSLATE_BATCH } from "@/lib/custom-practice/notes";
+import { NEWS_SENTENCES, NEWS_TEXT } from "./news-text";
 
 describe("stagePercent", () => {
   it.each<[Stage, number]>([
@@ -20,6 +21,52 @@ describe("stagePercent", () => {
     [{ stage: "audio", done: 10, total: 10 }, 100],
   ])("%j is %i%", (stage, percent) => {
     expect(stagePercent(stage)).toBe(percent);
+  });
+});
+
+describe("prepareDraft when the server can't be reached (D49)", () => {
+  const translate = vi.fn(async (batch: string[]) => ({
+    ok: true as const,
+    translations: batch.map((line) => `[zh] ${line}`),
+  }));
+
+  it("splits the news text by the rules in the browser", async () => {
+    const split = vi
+      .fn()
+      .mockRejectedValue(new Error("Server Action not found"));
+    const result = await prepareDraft(
+      { split, translate },
+      NEWS_TEXT,
+      "en",
+      () => {},
+    );
+    expect(result).toEqual({
+      ok: true,
+      sentences: NEWS_SENTENCES.map((en) => ({ en, zh: `[zh] ${en}` })),
+    });
+  });
+
+  it("still says when there's nothing to practice", async () => {
+    const split = vi.fn().mockRejectedValue(new Error("offline"));
+    expect(
+      await prepareDraft({ split, translate }, " \n\n ", "en", () => {}),
+    ).toEqual({ ok: false, reason: "empty" });
+  });
+
+  it("tells a lost connection apart from an empty text", async () => {
+    const split = vi.fn(async () => ({
+      ok: true as const,
+      sentences: NEWS_SENTENCES,
+    }));
+    const offline = vi.fn().mockRejectedValue(new Error("fetch failed"));
+    expect(
+      await prepareDraft(
+        { split, translate: offline },
+        NEWS_TEXT,
+        "en",
+        () => {},
+      ),
+    ).toEqual({ ok: false, reason: "network" });
   });
 });
 

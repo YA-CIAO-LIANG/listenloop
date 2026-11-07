@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
+import { ConnectionTest } from "@/components/ConnectionTest";
 import { diagnoseCreator, getAdminUser } from "@/auth/creator";
 import { DAILY_LIMITS } from "@/lib/usage";
 import {
@@ -12,6 +13,13 @@ import {
   RECENT_CALLS,
   usagePeriodStarts,
 } from "@/lib/usage-report";
+
+/**
+ * The server actions on this page call the AI providers: up to 60 s
+ * (Vercel Hobby's limit), longer than any provider timeout, so a slow call
+ * ends in a logged timeout, never a cut-off function (D49).
+ */
+export const maxDuration = 60;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("adminUsage");
@@ -44,7 +52,7 @@ export default async function UsagePage() {
         admin
           .from("api_calls")
           .select(
-            "id, created_at, provider, operation, error, input_tokens, output_tokens, chars, cost_micros",
+            "id, created_at, provider, operation, error, http_status, error_code, input_tokens, output_tokens, chars, cost_micros",
           )
           .order("created_at", { ascending: false })
           .limit(RECENT_CALLS),
@@ -161,6 +169,10 @@ export default async function UsagePage() {
             </section>
           ))}
         </div>
+        <h3 className="mt-8 font-display text-h3">{t("connection.title")}</h3>
+        <div className="mt-2">
+          <ConnectionTest />
+        </div>
       </section>
 
       <dl className="mt-8 grid gap-4 split:grid-cols-2">
@@ -240,7 +252,17 @@ export default async function UsagePage() {
                       }
                     >
                       {call.error
-                        ? t("failed", { reason: call.error })
+                        ? call.http_status || call.error_code
+                          ? t("failedWith", {
+                              reason: call.error,
+                              detail: [
+                                call.http_status && `HTTP ${call.http_status}`,
+                                call.error_code,
+                              ]
+                                .filter(Boolean)
+                                .join(" "),
+                            })
+                          : t("failed", { reason: call.error })
                         : t("ok")}
                     </td>
                   </tr>

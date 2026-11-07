@@ -741,3 +741,37 @@
   - 手機：頁首左右兩組都會換行，所以兩個入口在窄螢幕也直接看得到，不藏進選單。
 - **理由**：常用的入口放在頁首，不藏在帳號選單裡；建立練習是管理員最主要的動作，用 primary 按鈕突顯。
 - **要改時**：`components/SiteHeader.tsx`、`app/layout.tsx`、`app/materials/page.tsx`。
+
+## D49 斷句一定退回規則；失敗紀錄加上 HTTP 狀態碼；免費的「測試連線」（2026-11-07）
+
+- **問題**：正式站貼上兩段英文新聞（349 字元，含彎引號 ’ 和空行）按「斷句並翻譯」，顯示「找不到可以練習的句子」，`/admin/usage` 也沒有新的呼叫紀錄。
+- **原因**：
+  - 文字本身沒有問題：規則斷句和 AI 斷句的檢查都能正確切成 2 句（已加進測試，`tests/fixtures/text/news-two-paragraphs.txt`）。
+  - 斷句失敗時，伺服器本來就會退回規則斷句；但**伺服器動作本身拋出錯誤時**，表單（`components/practice-generation.ts`）把任何錯誤都當成「找不到句子」。
+  - 會拋出錯誤、又不留下呼叫紀錄的情況有兩種：
+    - 網站重新部署後，還開著的舊頁面呼叫舊的伺服器動作，Next.js 會回「找不到這個 Server Action」。Joe 剛重設金鑰、重新部署後測試，最符合這種情況；
+    - 函式超過 Vercel 的執行時間被中止，呼叫來不及記錄。
+- **決定**：
+  - **斷句一定有結果**：
+    - 伺服器端的 AI 斷句失敗、拋出例外、超過 20 秒（`SEGMENT_WAIT_MS`），或用量紀錄、快取連不上時，都改用規則斷句；
+    - 連伺服器都連不上時，瀏覽器直接用同一套規則斷句（`splitSentences`），再繼續翻譯。
+  - **翻譯連不上伺服器**時，改顯示「連不上伺服器，可能是網站剛更新。請先複製你的文字，重新整理頁面後再試」，不再說「找不到句子」。
+  - **時間上限**：呼叫 AI 的頁面設 `maxDuration = 60`（Hobby 的上限）。供應者的請求在 45 秒時放棄，所以慢的呼叫會記成 `timeout`，函式不會先被中止。
+  - **失敗紀錄**：`api_calls` 新增 `http_status`、`error_code`（migration `20261107090000`，只新增欄位）。
+    - 記的是供應者回應的狀態碼和簡短的錯誤代碼，例如 `HTTP 404 DeploymentNotFound`，或 `timeout`、`network`、`exception`；
+    - 不記金鑰、送出的文字，也不記錯誤訊息全文；
+    - `/admin/usage` 顯示成「失敗（config；HTTP 401）」。
+  - **測試連線（免費）**：`/admin/usage` 的「設定診斷」下方有按鈕，每個供應者用不計費的請求檢查：
+    - Azure OpenAI：送出空的對話。部署存在時，Azure 在模型執行前就拒絕，回 400，不計 token。2026-11-07 用本機金鑰實測 1 次：HTTP 400 `empty_array`，沒有 usage，費用 US$0；
+    - Azure Speech：讀取聲音清單（免費）；
+    - Gemini：讀取模型資料；Google TTS：讀取聲音清單。
+    - 結果顯示狀態碼、錯誤代碼，以及要檢查哪個設定（例如 401 是金鑰錯誤，`DeploymentNotFound` 是部署名稱錯誤）。測試連線不計入每日上限，也不寫進呼叫紀錄。
+    - 還沒驗證：部署名稱錯誤時，Azure 是先回 404，還是先檢查請求內容、回 400。驗證需要再呼叫一次，所以留給 Joe 在正式站操作時確認。
+- **理由**：
+  - 斷句是規則就能做的事，AI 只是讓結果更好，所以 AI 或連線出問題時不應該讓使用者卡住；
+  - 錯誤訊息要說出真正的原因。把「連線失敗」顯示成「找不到句子」，會讓人去檢查文字，而不是重新整理；
+  - 用狀態碼和錯誤代碼定位設定問題，又不暴露秘密資訊，是常見的做法。
+- **要改時**：
+  - `lib/custom-practice/notes.ts`（`segmentCached`、`SEGMENT_WAIT_MS`）、`components/practice-generation.ts`；
+  - `lib/ai/http.ts`（`PROVIDER_TIMEOUT_MS`、`probeProvider`）、各供應者的 `checkConnection`；
+  - `app/admin/usage/actions.ts`、`components/ConnectionTest.tsx`、`app/admin/usage/page.tsx`。

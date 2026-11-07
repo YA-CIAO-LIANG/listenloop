@@ -1,5 +1,5 @@
 import { countChars } from "@/lib/usage";
-import { postGoogleJson } from "./http";
+import { postGoogleJson, probeProvider } from "./http";
 import { SPEECH_PRICES_PER_M_CHARS } from "./pricing";
 import { voiceId, type SpeechProvider } from "./types";
 import { GOOGLE_VOICES } from "./voices";
@@ -16,6 +16,14 @@ export function googleSpeech(
 ): SpeechProvider {
   return {
     id: GOOGLE_TTS_ID,
+    // Listing voices is free and needs the same key (D49).
+    checkConnection: () =>
+      probeProvider(
+        "https://texttospeech.googleapis.com/v1/voices?languageCode=en-US",
+        { method: "GET", headers: { "x-goog-api-key": apiKey } },
+        fetchImpl,
+        (status) => status === 200,
+      ),
     async synthesize(text, voice) {
       const result = (await postGoogleJson(
         ENDPOINT,

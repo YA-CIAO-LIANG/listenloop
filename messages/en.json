@@ -669,7 +669,8 @@
       "sentence-too-long": "Sentence {n} is too long: {max, number} characters at most.",
       "voice": "Please choose a voice.",
       "busy": "The AI service is busy. Wait a minute and try again; your text is still here.",
-      "config": "The AI service's setup or allowance has a problem (for example, a wrong key, a model that isn't deployed, or a used-up free tier or prepaid credit). Check the AI variables listed in .env.example; the server log has the details."
+      "config": "The AI service's setup or allowance has a problem (for example, a wrong key, a model that isn't deployed, or a used-up free tier or prepaid credit). Check the AI variables listed in .env.example; the server log has the details.",
+      "network": "Couldn't reach the server; the site may have just been updated. Copy your text, reload the page, and try again."
     },
     "listTitle": "Your practices",
     "listEmpty": "You haven't created a practice yet.",
@@ -1047,6 +1048,35 @@
         "regionValid": "AZURE_SPEECH_REGION is a region code (such as uaenorth)",
         "GOOGLE_CLOUD_API_KEY": "GOOGLE_CLOUD_API_KEY is set",
         "fakeInUse": "Using the fake providers (AI_PROVIDERS=fake, local and preview only)"
+      }
+    },
+    "failedWith": "Failed ({reason}; {detail})",
+    "connection": {
+      "title": "Test connection",
+      "intro": "Checks the keys, endpoint, deployment name, and region with requests that aren’t billed: no text is sent, nothing counts toward the daily limits, and nothing is logged below.",
+      "button": "Test connection (free)",
+      "testing": "Testing…",
+      "language": "AI text",
+      "speech": "Speech",
+      "ok": "Connected",
+      "failed": "Failed",
+      "failedWith": "Failed ({detail})",
+      "noCheck": "This provider has no test",
+      "hints": {
+        "400": "Request refused: usually the deployed model isn’t supported, or AZURE_OPENAI_MODEL differs from the deployed model.",
+        "401": "Wrong key: copy Key 1 from Azure’s “Keys and Endpoint” again, paste it into Vercel, and redeploy.",
+        "403": "No access or out of quota: check that the subscription is active and F0 has free characters left this month.",
+        "404": "Not found: for AI text, usually a typo in the endpoint or the AZURE_OPENAI_DEPLOYMENT name; for speech, usually the wrong AZURE_SPEECH_REGION.",
+        "DeploymentNotFound": "No deployment by that name: make AZURE_OPENAI_DEPLOYMENT exactly match the name on Foundry’s Deployments page.",
+        "429": "Busy or over the per-minute limit; try again in a minute.",
+        "timeout": "No answer in time: try again; if it keeps timing out, check the endpoint URL.",
+        "network": "Couldn’t reach the service: check the endpoint URL or region.",
+        "other": "Another error: look up the status and error code in Azure’s docs."
+      },
+      "errors": {
+        "unavailable": "Only admins can test the connection.",
+        "not-configured": "The setup is incomplete, so there’s nothing to test: see which condition fails in “Setup check” above.",
+        "network": "Couldn’t reach the server; the site may have just been updated. Reload the page and try again."
       }
     }
   },
