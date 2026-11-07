@@ -819,3 +819,23 @@
   - 正式資料庫當時有 1 本筆記本、1 筆內容，是測試資料。
 - **理由**：產品聚焦在 7 天循環；單字與文法已經在講義裡。之後如果要做「收藏句子」，重新設計，不沿用舊的表。
 - **要改時**：已經沒有相關程式。舊網址 `/notebooks` 現在是 404（原本只有管理員看得到）。
+
+## D54 方案限制的集中設定（2026-11-07，roadmap f）
+
+- **決定**：`lib/plans.ts` 集中設定每個方案能做什麼，程式一律透過 `can(plan, action)` 判斷。
+  - 方案：`free`（一般使用者與未登入）、`admin`。`planFor(user)` 依角色決定。
+  - 限制項目：
+    - `createPractices`：能不能建立練習。目前只有 admin 可以，和 D5 一樣；
+    - `activePractices`：同時進行中的練習數；
+    - `practicesPerMonth`：每月建立數（台灣時間的月份）；
+    - `charsPerPractice`：每份練習的字數。
+  - 數字型的限制目前全部是 `null`（不限制）。服務本身的技術上限（`PRACTICE_LIMITS`：1 萬字元、300 句）仍然有效，兩者取較嚴格的。
+  - 只有方案真的有限制時（`needsCount`），才會去計算目前的數量，所以現在不會多查資料庫。
+  - 套用位置：
+    - 頁首的「建立練習」和 `getCreator`；
+    - 斷句前的字數檢查；
+    - 建立練習時的每月數量；
+    - 第 1 天聽寫開始一份新練習時的同時練習數（瀏覽器端，透過 `PlanProvider` 取得方案）。
+  - 超過限制的訊息統一放在翻譯檔的 `plans.limits`。
+- **之後收費**：新增方案 id（例如 `pro`），在 `PLANS` 填數字，`planFor` 改成讀取使用者的訂閱；功能程式不用改。
+- **要改時**：`lib/plans.ts`、`components/PlanProvider.tsx`、`app/materials/actions.ts`、`auth/creator.ts`、`components/DictationSession.tsx`。

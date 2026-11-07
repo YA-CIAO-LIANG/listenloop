@@ -16,7 +16,12 @@ vi.mock("@/auth/creator", () => ({
   getCreator: async () =>
     state.creator
       ? {
-          user: { id: "user-1", email: "joe@example.com" },
+          user: {
+            id: "user-1",
+            email: "joe@example.com",
+            number: 0,
+            role: "admin",
+          },
           providers: { language: fakeLanguage, speech: fakeSpeech },
           meter: {
             reserve: state.reserve,
@@ -87,7 +92,10 @@ describe("splitText", () => {
     ["text over the limit", "a".repeat(10_001), "en", "too-long"],
     ["too many sentences", "A.\n".repeat(301), "en", "too-many"],
   ])("refuses %s", async (_, text, language, reason) => {
-    expect(await splitText(text, language)).toEqual({ ok: false, reason });
+    expect(await splitText(text, language)).toMatchObject({
+      ok: false,
+      reason,
+    });
   });
 
   it("is unavailable to non-admins", async () => {

@@ -31,6 +31,8 @@ import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { PerfectCelebration } from "./PerfectCelebration";
+import { usePlan } from "./PlanProvider";
+import { can, needsCount, type PlanBlock } from "@/lib/plans";
 import { PracticeFrame } from "./PracticeFrame";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
@@ -117,6 +119,9 @@ export function DictationSession({
   const [feedbackIndex, setFeedbackIndex] = useState<number | null>(null);
   const [input, setInput] = useState("");
   const [skipArmed, setSkipArmed] = useState(false);
+  const plan = usePlan();
+  const tPlans = useTranslations("plans");
+  const [blocked, setBlocked] = useState<PlanBlock | null>(null);
   const [saveFailed, setSaveFailed] = useState(false);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
@@ -182,7 +187,18 @@ export function DictationSession({
   // Load saved progress (or start fresh) once, in the browser.
   useEffect(() => {
     let cancelled = false;
-    progressStore.get(video.id).then((saved) => {
+    progressStore.get(video.id).then(async (saved) => {
+      if (cancelled) return;
+      // Starting a new practice may be limited by the plan (D54).
+      if (!saved && needsCount(plan, "start-practice")) {
+        const all = await progressStore.list();
+        const active = all.filter((p) => p.status === "in-progress").length;
+        const allowed = can(plan, { kind: "start-practice", active });
+        if (!allowed.ok) {
+          if (!cancelled) setBlocked(allowed);
+          return;
+        }
+      }
       if (cancelled) return;
       const started = startDictation(
         saved,
@@ -346,6 +362,23 @@ export function DictationSession({
       {t("saveFailed")}
     </p>
   );
+
+  if (blocked) {
+    return (
+      <>
+        <div className="practice-column space-y-4">
+          {header}
+          <p role="alert" className="text-error">
+            {tPlans(`limits.${blocked.limit}`, { max: blocked.max ?? 0 })}
+          </p>
+          <ButtonLink href="/practices" variant="secondary">
+            {tPlans("seePractices")}
+          </ButtonLink>
+        </div>
+        {children}
+      </>
+    );
+  }
 
   if (!progress) {
     // Keep `children` (intro and video credit) visible while loading: the

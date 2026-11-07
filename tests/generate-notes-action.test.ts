@@ -17,7 +17,12 @@ vi.mock("@/auth/creator", () => ({
   getCreator: async () =>
     state.creator
       ? {
-          user: { id: "user-1", email: "joe@example.com" },
+          user: {
+            id: "user-1",
+            email: "joe@example.com",
+            number: 0,
+            role: "admin",
+          },
           providers: { language: fakeLanguage, speech: fakeSpeech },
           meter: {
             reserve: state.reserve,
