@@ -41,6 +41,7 @@ import { GenerateTextPanel, type GenerateText } from "./GenerateTextPanel";
 import { SegmentedControl } from "./SegmentedControl";
 import { StageProgress } from "./StageProgress";
 import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
+import type { PlanBlock } from "@/lib/plans";
 
 type CreatePracticeFormProps = {
   /** Injected in tests; the Server Actions otherwise. */
@@ -58,7 +59,8 @@ type CreatePracticeFormProps = {
 };
 
 type FormError =
-  | { key: Exclude<PrepareDraftResult, { ok: true }>["reason"] }
+  | { key: Exclude<PrepareDraftResult, { ok: true }>["reason"]; max?: number }
+  | { key: "plan"; limit: PlanBlock["limit"]; max?: number }
   | { key: "file-too-large" | "file-type" | "file-encoding" | "file-read" }
   | {
       key: Extract<CreatePracticeResult, { reason: "invalid" }>["problem"];
@@ -85,6 +87,7 @@ export function CreatePracticeForm({
   generateNotes = generatePracticeNotes,
   generateText,
 }: CreatePracticeFormProps) {
+  const tPlans = useTranslations("plans");
   const t = useTranslations("create");
   const router = useRouter();
   const ids = { title: useId(), text: useId(), hint: useId(), file: useId() };
@@ -178,7 +181,10 @@ export function CreatePracticeForm({
     setPending(false);
     setProgress(null);
     if (!result.ok) {
-      setError({ key: result.reason });
+      setError({
+        key: result.reason,
+        max: result.max,
+      });
       return;
     }
     setRows(result.sentences.map((s) => ({ ...s, key: nextKey.current++ })));
@@ -199,7 +205,9 @@ export function CreatePracticeForm({
       setError(
         result.reason === "invalid"
           ? { key: result.problem, sentence: result.sentence }
-          : { key: result.reason },
+          : result.reason === "plan"
+            ? { key: "plan", limit: result.limit, max: result.max }
+            : { key: result.reason },
       );
       return;
     }
@@ -244,20 +252,24 @@ export function CreatePracticeForm({
 
   const errorMessage = error && (
     <p role="alert" className="text-supporting text-error">
-      {t(`errors.${error.key}`, {
-        max:
-          error.key === "too-long"
-            ? PRACTICE_LIMITS.textChars
-            : error.key === "too-many"
-              ? PRACTICE_LIMITS.sentences
-              : error.key === "title"
-                ? PRACTICE_LIMITS.titleChars
-                : PRACTICE_LIMITS.sentenceChars,
-        n:
-          "sentence" in error && error.sentence !== undefined
-            ? error.sentence + 1
-            : 0,
-      })}
+      {error.key === "plan"
+        ? tPlans(`limits.${error.limit}`, { max: error.max ?? 0 })
+        : t(`errors.${error.key}`, {
+            max:
+              "max" in error && error.max !== undefined
+                ? error.max
+                : error.key === "too-long"
+                  ? PRACTICE_LIMITS.textChars
+                  : error.key === "too-many"
+                    ? PRACTICE_LIMITS.sentences
+                    : error.key === "title"
+                      ? PRACTICE_LIMITS.titleChars
+                      : PRACTICE_LIMITS.sentenceChars,
+            n:
+              "sentence" in error && error.sentence !== undefined
+                ? error.sentence + 1
+                : 0,
+          })}
     </p>
   );
 

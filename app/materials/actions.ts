@@ -28,13 +28,17 @@ import {
   TRANSLATE_BATCH,
   translateCached,
 } from "@/lib/custom-practice/notes";
+import { can, needsCount, planFor, type PlanBlock } from "@/lib/plans";
 import { countChars } from "@/lib/usage";
+import { usagePeriodStarts } from "@/lib/usage-report";
 
 export type SplitResult =
   | { ok: true; sentences: string[] }
   | {
       ok: false;
       reason: "unavailable" | "empty" | "too-long" | "too-many";
+      /** For too-long: the most characters allowed (the plan's or the service's). */
+      max?: number;
     };
 
 /**
@@ -52,9 +56,13 @@ export async function splitText(
   if (typeof text !== "string" || !isTextSourceLanguage(language)) {
     return { ok: false, reason: "empty" };
   }
-  if (countChars([text]) > PRACTICE_LIMITS.textChars) {
-    return { ok: false, reason: "too-long" };
+  const chars = countChars([text]);
+  if (chars > PRACTICE_LIMITS.textChars) {
+    return { ok: false, reason: "too-long", max: PRACTICE_LIMITS.textChars };
   }
+  // The plan's own limit (D54); unlimited today.
+  const allowed = can(planFor(creator.user), { kind: "practice-chars", chars });
+  if (!allowed.ok) return { ok: false, reason: "too-long", max: allowed.max };
   const sentences = await segmentCached(creator, text, language);
   if (sentences.length === 0) return { ok: false, reason: "empty" };
   if (sentences.length > PRACTICE_LIMITS.sentences) {
@@ -102,6 +110,7 @@ export async function translateSentences(
 export type CreatePracticeResult =
   | { ok: true; id: string }
   | { ok: false; reason: "unavailable" | MeteredFailure }
+  | { ok: false; reason: "plan"; limit: PlanBlock["limit"]; max?: number }
   | { ok: false; reason: "invalid"; problem: DraftProblem; sentence?: number };
 
 /**
@@ -120,6 +129,20 @@ export async function createPractice(
   }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
+  const plan = planFor(creator.user);
+  // Counted only when the plan has a monthly limit (D54).
+  const createdThisMonth = needsCount(plan, "create-practice")
+    ? await countCreatedThisMonth(supabase, creator.user.id)
+    : 0;
+  const allowed = can(plan, { kind: "create-practice", createdThisMonth });
+  if (!allowed.ok) {
+    return {
+      ok: false,
+      reason: "plan",
+      limit: allowed.limit,
+      max: allowed.max,
+    };
+  }
 
   // Sentences split or added in review have no Chinese yet: translate
   // them (e+ 4, D35) so every handout line has its translation.
@@ -142,6 +165,20 @@ export async function createPractice(
   if (!id) return { ok: false, reason: "failed" };
   revalidatePath("/materials");
   return { ok: true, id };
+}
+
+/** The user's practices created since the start of this month (Taiwan time). */
+async function countCreatedThisMonth(
+  supabase: NonNullable<Awaited<ReturnType<typeof getServerSupabase>>>,
+  userId: string,
+): Promise<number> {
+  const { monthStart } = usagePeriodStarts(new Date());
+  const { count } = await supabase
+    .from("practices")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .gte("created_at", monthStart);
+  return count ?? 0;
 }
 
 async function savePractice(

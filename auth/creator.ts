@@ -4,6 +4,7 @@ import {
   type ConfigCheck,
 } from "@/lib/ai/providers";
 import type { MeteredDeps } from "@/lib/ai/metered";
+import { can, planFor } from "@/lib/plans";
 import { supabaseConfig } from "@/lib/supabase/config";
 import { DAILY_LIMITS, usageDay, type UsageMeter } from "@/lib/usage";
 import type { Supabase } from "@/lib/supabase/browser";
@@ -89,7 +90,7 @@ export function canCreatePractices(
 ): user is SignedInUser {
   return (
     !!user &&
-    user.role === "admin" &&
+    can(planFor(user), { kind: "create-practice" }).ok &&
     hasAdminSupabase() &&
     getAiProviders() !== null
   );

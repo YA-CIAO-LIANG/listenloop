@@ -1138,5 +1138,14 @@
   },
   "celebration": {
     "perfect": "Perfect!"
+  },
+  "plans": {
+    "limits": {
+      "createPractices": "Your plan can’t create practices.",
+      "practicesPerMonth": "You’ve created {max} practices this month, your plan’s limit. Try again next month.",
+      "activePractices": "You already have {max} practices in progress, your plan’s limit. Finish or remove one before starting another.",
+      "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice."
+    },
+    "seePractices": "See your progress"
   }
 }

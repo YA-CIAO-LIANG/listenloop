@@ -1136,5 +1136,14 @@
   },
   "celebration": {
     "perfect": "完美！"
+  },
+  "plans": {
+    "limits": {
+      "createPractices": "你目前的方案不能建立練習。",
+      "practicesPerMonth": "這個月已經建立 {max} 份練習，達到方案上限，下個月再試。",
+      "activePractices": "你同時在練的練習已經有 {max} 份，達到方案上限。先完成或移除一份，再開始新的。",
+      "charsPerPractice": "文字超過方案上限，每份練習最多 {max, number} 字元。"
+    },
+    "seePractices": "查看學習進度"
   }
 }

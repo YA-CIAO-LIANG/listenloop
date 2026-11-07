@@ -74,6 +74,8 @@ export type PrepareDraftResult =
         | Exclude<TranslateResult, { ok: true }>["reason"]
         /** The server couldn't be reached, e.g. the site was just updated. */
         | "network";
+      /** For too-long: the most characters allowed. */
+      max?: number;
     };
 
 /**
