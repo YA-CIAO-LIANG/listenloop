@@ -16,6 +16,7 @@ export const PRIVATE_PATHS = [
   "/auth",
   "/shop",
   "/styleguide",
+  "/offline",
 ] as const;
 
 /** Public pages for the sitemap, besides each built-in video's. */

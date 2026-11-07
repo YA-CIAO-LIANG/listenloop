@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- ListenLoop app icon (D64): an open loop with a starting dot, in the
+       design system's ink, ground, and accent. Content stays inside the
+       maskable safe zone (a circle of radius 205 around the center). -->
+  <rect width="512" height="512" fill="#141414"/>
+  <path d="M 336 141 A 140 140 0 1 0 396 256" fill="none" stroke="#fafaf8" stroke-width="46" stroke-linecap="round"/>
+  <circle cx="389" cy="174" r="30" fill="#e8590c"/>
+</svg>

@@ -1633,5 +1633,11 @@
     "note": "One session a day, about 10–20 minutes. Start without signing in; sign in to sync across devices.",
     "start": "Start with the first recommended one",
     "skip": "Skip"
+  },
+  "offline": {
+    "title": "You’re offline",
+    "body": "ListenLoop needs a connection to load practice pages and videos. Check your connection and try again.",
+    "progress": "Your progress is saved on this device; it’ll be there when you’re back online, and syncs to your account when you’re signed in.",
+    "retry": "Try again"
   }
 }
