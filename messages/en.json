@@ -7,11 +7,13 @@
     "mainNav": "Main",
     "materials": "My materials",
     "createPractice": "Create a practice",
-    "admin": "Admin"
+    "admin": "Admin",
+    "skipToContent": "Skip to main content"
   },
   "metadata": {
     "title": "ListenLoop",
-    "description": "A 7-day English listening loop. Hear every word."
+    "description": "A 7-day English listening loop. Hear every word.",
+    "siteName": "ListenLoop"
   },
   "home": {
     "tagline": "Seven days. One video. Hear every word."
@@ -1585,5 +1587,44 @@
     "label": "About using ListenLoop",
     "text": "By using ListenLoop you agree to the <terms>Terms</terms> and the <privacy>Privacy policy</privacy>. If you’re under 18, use it with a parent’s or guardian’s consent.",
     "ok": "Got it"
+  },
+  "states": {
+    "loading": "Loading…",
+    "notFound": {
+      "title": "Page not found",
+      "body": "The address may be mistyped, or this practice was removed or made private.",
+      "home": "Go home",
+      "report": "Report a problem"
+    },
+    "error": {
+      "title": "Something went wrong on this page",
+      "body": "The connection may be unstable, or the site was just updated. Your progress is safe; try again. If it keeps happening, tell us through Feedback.",
+      "code": "Error code: {code}",
+      "retry": "Try again",
+      "home": "Go home"
+    }
+  },
+  "onboarding": {
+    "title": "New here? Here’s how it works",
+    "steps": {
+      "day1": {
+        "label": "Day 1",
+        "title": "Dictation",
+        "body": "Hear each sentence, type it, see it compared word by word, then read the bilingual handout."
+      },
+      "days2to6": {
+        "label": "Days 2–6",
+        "title": "Shadowing",
+        "body": "Hear a sentence, say it back, and see which words you missed. Finish every sentence each day."
+      },
+      "day7": {
+        "label": "Day 7",
+        "title": "Dictation again",
+        "body": "Compare with Day 1 and see your progress. 80% or more passes."
+      }
+    },
+    "note": "One session a day, about 10–20 minutes. Start without signing in; sign in to sync across devices.",
+    "start": "Start with the first recommended one",
+    "skip": "Skip"
   }
 }

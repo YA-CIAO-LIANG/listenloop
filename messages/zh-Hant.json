@@ -7,11 +7,13 @@
     "mainNav": "主要導覽",
     "materials": "我的教材",
     "createPractice": "建立練習",
-    "admin": "後台"
+    "admin": "後台",
+    "skipToContent": "跳到主要內容"
   },
   "metadata": {
     "title": "ListenLoop",
-    "description": "七天一循環的英語聽力練習，聽清楚每一個字。"
+    "description": "七天一循環的英語聽力練習，聽清楚每一個字。",
+    "siteName": "ListenLoop"
   },
   "home": {
     "tagline": "七天一循環，聽清楚每一個字。"
@@ -1581,5 +1583,44 @@
     "label": "使用說明",
     "text": "使用 ListenLoop 即表示你同意<terms>服務條款</terms>與<privacy>隱私權政策</privacy>。未滿 18 歲請在家長或法定代理人同意下使用。",
     "ok": "知道了"
+  },
+  "states": {
+    "loading": "載入中…",
+    "notFound": {
+      "title": "找不到這一頁",
+      "body": "網址可能打錯了，或這份練習已經被移除或改成私人。",
+      "home": "回首頁",
+      "report": "回報問題"
+    },
+    "error": {
+      "title": "這一頁暫時出了問題",
+      "body": "可能是網路不穩，或網站剛更新。你的練習進度不受影響，請再試一次；如果一直發生，請透過意見回饋告訴我們。",
+      "code": "錯誤代碼：{code}",
+      "retry": "再試一次",
+      "home": "回首頁"
+    }
+  },
+  "onboarding": {
+    "title": "第一次來？這樣練",
+    "steps": {
+      "day1": {
+        "label": "第 1 天",
+        "title": "精聽聽寫",
+        "body": "一句一句聽、打字，逐字比對，完成後看雙語講義。"
+      },
+      "days2to6": {
+        "label": "第 2～6 天",
+        "title": "跟讀",
+        "body": "聽一句、念一句，看看漏了哪些字。每天練完全部句子。"
+      },
+      "day7": {
+        "label": "第 7 天",
+        "title": "再聽寫一次",
+        "body": "和第 1 天比較，看見進步。80% 以上就過關。"
+      }
+    },
+    "note": "一天練一次，每份大約 10～20 分鐘。不用登入就能開始；登入後可以在不同裝置同步進度。",
+    "start": "從推薦的第一份開始",
+    "skip": "略過"
   }
 }

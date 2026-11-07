@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import { OfficialPractices } from "@/components/OfficialPractices";
+import { OnboardingStart } from "@/components/OnboardingStart";
 import { PracticeCalendar } from "@/components/PracticeCalendar";
 import {
   PracticeLibrary,
@@ -8,6 +9,7 @@ import {
   type LibraryGroup,
 } from "@/components/PracticeLibrary";
 import { ProgressGate } from "@/components/ProgressGate";
+import { LibrarySkeleton } from "@/components/Skeleton";
 import { TodayTasks } from "@/components/TodayTasks";
 import { excerptSeconds } from "@/lib/excerpt-length";
 import { getVideosByCollection } from "@/lib/video-library";
@@ -35,6 +37,9 @@ export default function Home() {
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
 
       <div className="mt-12 space-y-6">
+        <Suspense fallback={null}>
+          <OnboardingStart />
+        </Suspense>
         <ProgressGate place="home">
           <PracticeCalendar />
           <TodayTasks />
@@ -45,7 +50,8 @@ export default function Home() {
         <h2 className="font-display text-h2">{t("library.title")}</h2>
         <p className="mt-2 text-ink-muted">{t("library.intro")}</p>
         {/* Read from the database: the built-in library doesn't wait. */}
-        <Suspense fallback={null}>
+        {/* A placeholder while the official practices load (D61). */}
+        <Suspense fallback={<LibrarySkeleton label={t("states.loading")} />}>
           <OfficialPractices />
         </Suspense>
         <Suspense fallback={<UnfilteredLibrary groups={groups} />}>

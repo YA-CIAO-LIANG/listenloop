@@ -15,20 +15,36 @@ import { planFor } from "@/lib/plans";
 import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "./fonts";
 import { themeInitScript } from "@/lib/theme";
+import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("metadata");
+  const [t, locale] = await Promise.all([
+    getTranslations("metadata"),
+    getLocale(),
+  ]);
   return {
-    title: t("title"),
+    metadataBase: new URL(SITE_URL),
+    // Each page's own title, then the app's name (D61).
+    title: { default: t("title"), template: `%s · ${t("siteName")}` },
     description: t("description"),
+    applicationName: t("siteName"),
+    openGraph: {
+      type: "website",
+      siteName: t("siteName"),
+      title: t("title"),
+      description: t("description"),
+      locale: locale === "en" ? "en_US" : "zh_TW",
+    },
+    twitter: { card: "summary_large_image" },
   };
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const [locale, user] = await Promise.all([
+  const [locale, user, tCommon] = await Promise.all([
     getLocale(),
     accountsEnabled ? getSignedInUser() : null,
+    getTranslations("common"),
   ]);
 
   return (
@@ -51,6 +67,13 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               userId={user?.id ?? null}
               accounts={accountsEnabled}
             >
+              {/* Keyboard users skip the header (D61). */}
+              <a
+                href="#main"
+                className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-base focus:bg-surface focus:px-4 focus:py-2 focus:text-ink focus:shadow"
+              >
+                {tCommon("skipToContent")}
+              </a>
               <SiteHeader
                 showMaterials={!!user}
                 showCreate={canCreatePractices(user)}
@@ -70,7 +93,13 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                 </Suspense>
               )}
               <UsageNotice />
-              {children}
+              <div
+                id="main"
+                tabIndex={-1}
+                className="flex flex-1 flex-col outline-none"
+              >
+                {children}
+              </div>
               <SiteFooter />
             </StoresProvider>
           </PlanProvider>
