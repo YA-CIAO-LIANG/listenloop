@@ -418,6 +418,33 @@ export type Database = {
           },
         ];
       };
+      profiles: {
+        Row: {
+          created_at: string;
+          last_seen_at: string | null;
+          number: number;
+          role: string;
+          status: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          last_seen_at?: string | null;
+          number?: number;
+          role?: string;
+          status?: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          last_seen_at?: string | null;
+          number?: number;
+          role?: string;
+          status?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       progress: {
         Row: {
           data: Json;
@@ -499,6 +526,7 @@ export type Database = {
           today_micros: number;
         }[];
       };
+      is_admin: { Args: never; Returns: boolean };
       reserve_api_cost: {
         Args: {
           amount: number;

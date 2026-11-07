@@ -4,7 +4,6 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { getAdminSupabase } from "@/auth/admin";
 import { getCreator } from "@/auth/creator";
-import { isAdminEmail } from "@/lib/admin";
 import { getServerSupabase } from "@/auth/server";
 import { getSignedInUser } from "@/auth/session";
 import { ButtonLink } from "@/components/ButtonLink";
@@ -39,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function MaterialsPage() {
   const [user, creator] = await Promise.all([getSignedInUser(), getCreator()]);
   if (!user) notFound();
-  if (!isAdminEmail(user.email)) {
+  if (user.role !== "admin") {
     const tMaterials = await getTranslations("materials");
     return (
       <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">

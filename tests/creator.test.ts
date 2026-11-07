@@ -1,7 +1,8 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { SignedInUser } from "@/auth/session";
 
 const state = vi.hoisted(() => ({
-  user: null as { id: string; email: string } | null,
+  user: null as SignedInUser | null,
   hasAdminClient: true,
   rpc: vi.fn(),
 }));
@@ -15,7 +16,12 @@ const { diagnoseCreator, getCreator, supabaseUsageMeter } =
   await import("@/auth/creator");
 
 beforeEach(() => {
-  state.user = { id: "user-1", email: "Joe@Example.com" };
+  state.user = {
+    id: "user-1",
+    email: "joe@example.com",
+    number: 0,
+    role: "admin",
+  };
   state.hasAdminClient = true;
   state.rpc.mockReset().mockResolvedValue({ data: true, error: null });
   vi.stubEnv("AI_PROVIDERS", "fake");
@@ -31,7 +37,7 @@ describe("getCreator", () => {
 
   it.each([
     ["signed out", () => (state.user = null)],
-    ["not an admin", () => vi.stubEnv("ADMIN_EMAILS", "someone@else.com")],
+    ["not an admin", () => (state.user = { ...state.user!, role: "user" })],
     ["no provider", () => vi.stubEnv("AI_PROVIDERS", "")],
     ["no secret key", () => (state.hasAdminClient = false)],
   ])("is unavailable when %s", async (_, arrange) => {

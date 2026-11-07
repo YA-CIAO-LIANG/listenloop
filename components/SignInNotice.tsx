@@ -30,17 +30,23 @@ export function SignInNotice() {
   return (
     <div className="border-b border-line bg-band print:hidden">
       <div
-        role={result === "failed" ? "alert" : "status"}
+        role={result === "cancelled" ? "status" : "alert"}
         className="mx-auto flex max-w-content flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3 split:px-6"
       >
         <p
           className={
-            result === "failed"
+            result !== "cancelled"
               ? "text-error"
               : "text-supporting text-ink-muted"
           }
         >
-          {t(result === "failed" ? "signInFailed" : "signInCancelled")}
+          {t(
+            result === "failed"
+              ? "signInFailed"
+              : result === "disabled"
+                ? "signInDisabled"
+                : "signInCancelled",
+          )}
         </p>
         <Button variant="ghost" size="sm" onClick={dismiss}>
           {t("dismiss")}

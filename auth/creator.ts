@@ -4,7 +4,6 @@ import {
   type ConfigCheck,
 } from "@/lib/ai/providers";
 import type { MeteredDeps } from "@/lib/ai/metered";
-import { isAdminEmail } from "@/lib/admin";
 import { supabaseConfig } from "@/lib/supabase/config";
 import { DAILY_LIMITS, usageDay, type UsageMeter } from "@/lib/usage";
 import type { Supabase } from "@/lib/supabase/browser";
@@ -90,7 +89,7 @@ export function canCreatePractices(
 ): user is SignedInUser {
   return (
     !!user &&
-    isAdminEmail(user.email) &&
+    user.role === "admin" &&
     hasAdminSupabase() &&
     getAiProviders() !== null
   );
@@ -103,7 +102,7 @@ export function canCreatePractices(
 export function diagnoseCreator(user: SignedInUser | null) {
   const ai = diagnoseAiProviders();
   const account: ConfigCheck[] = [
-    { id: "admin", ok: !!user && isAdminEmail(user.email) },
+    { id: "admin", ok: user?.role === "admin" },
     { id: "supabase", ok: supabaseConfig !== null },
     { id: "serviceKey", ok: hasAdminSupabase() },
     { id: "notFake", ok: ai.fake !== "blocked" },
@@ -135,7 +134,7 @@ export function diagnoseCreator(user: SignedInUser | null) {
  */
 export async function getAdminUser(): Promise<SignedInUser | null> {
   const user = await getSignedInUser();
-  return user && isAdminEmail(user.email) ? user : null;
+  return user?.role === "admin" ? user : null;
 }
 
 /**
