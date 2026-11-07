@@ -17,8 +17,12 @@ export function isShadowingDay(day: number): day is ShadowingDay {
   return SHADOWING_DAYS.includes(day as ShadowingDay);
 }
 
-/** One attempt at a sentence: a recognized coverage, or "I said it" by hand. */
-export type ShadowingAttempt = { coverage: number } | { manual: true };
+/**
+ * One attempt at a sentence: a recognized coverage, "I said it" by hand,
+ * or skipping it after repeated failures (D52).
+ */
+export type ShadowingAttempt =
+  { coverage: number } | { manual: true } | { skipped: true };
 
 export type SentenceRecords = readonly ShadowingSentenceRecord[];
 
@@ -51,11 +55,17 @@ export function recordAttempt(
     if (previous.done) return records;
     return records.map((r, i) => (i === index ? { ...r, done: true } : r));
   }
+  if ("skipped" in attempt) {
+    if (previous.done) return records;
+    return records.map((r, i) =>
+      i === index ? { ...r, done: true, skipped: true as const } : r,
+    );
+  }
 
   const coverage = Math.max(previous.coverage ?? 0, attempt.coverage);
   const done = previous.done || attempt.coverage >= COVERAGE_THRESHOLD;
   if (done === previous.done && coverage === previous.coverage) return records;
-  return records.map((r, i) => (i === index ? { done, coverage } : r));
+  return records.map((r, i) => (i === index ? { ...r, done, coverage } : r));
 }
 
 /** Average of recognized coverage (manual-only sentences are left out). */

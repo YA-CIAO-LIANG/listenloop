@@ -402,8 +402,7 @@
     "officialUnchanged": "Official score {score} (unchanged)",
     "thisAttempt": "This attempt",
     "todayDone": "Today’s task done",
-    "retryComplete": "Practice done!",
-    "perfect": "Perfect!"
+    "retryComplete": "Practice done!"
   },
   "redictation": {
     "title": "Day 7: Re-dictation",
@@ -477,7 +476,21 @@
     "retryComplete": "Practice done!",
     "recordUnchanged": "Today’s record is unchanged.",
     "review": "Sentence record",
-    "backToVideo": "Back to video"
+    "backToVideo": "Back to video",
+    "skippedDone": "Skipped",
+    "trouble": {
+      "title": "This sentence keeps not being recognized",
+      "intro": "{count} tries in a row under half. It may be the recognition, not your speaking. Try:",
+      "tips": {
+        "mic": "Check that the browser uses the right microphone, and speak a little closer to it.",
+        "quiet": "Move somewhere quieter, and turn off background music or video sound.",
+        "chrome": "Use Chrome on a computer; its speech recognition is the most reliable.",
+        "pace": "Listen to the whole sentence before you start, then speak at a natural pace."
+      },
+      "retry": "Try again",
+      "skip": "Skip this sentence and report it",
+      "note": "A skipped sentence counts as done and doesn’t affect today’s task. The report includes only the coverage and the recognized text, never a recording."
+    }
   },
   "account": {
     "signIn": "Sign in",
@@ -1153,5 +1166,8 @@
       "failed": "The written text couldn't be used. Please try again.",
       "config": "There's a problem with the AI service's setup or allowance (for example a wrong key, or a used-up free tier or prepaid credit). The server log has details."
     }
+  },
+  "celebration": {
+    "perfect": "Perfect!"
   }
 }

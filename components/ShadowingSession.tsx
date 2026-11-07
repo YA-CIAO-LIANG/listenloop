@@ -20,10 +20,20 @@ import {
   type ShadowingAttempt,
   type ShadowingDay,
 } from "@/lib/shadowing";
+import {
+  browserLabel,
+  isStuck,
+  TROUBLE_ATTEMPTS,
+  TROUBLE_COVERAGE,
+  type TroubleAttempt,
+} from "@/lib/shadowing-trouble";
 import type { ProgressStore } from "@/lib/storage/progress-store";
+import { reportShadowingTrouble } from "@/app/videos/shadowing-actions";
 import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
+import { Dialog } from "./Dialog";
+import { PerfectCelebration } from "./PerfectCelebration";
 import { NextDayNote } from "./NextDayNote";
 import { SentenceNotes } from "./SentenceNotes";
 import { ProgressBar } from "./ProgressBar";
@@ -57,6 +67,8 @@ type ShadowingSessionProps = {
   children?: ReactNode;
   /** Injected in tests; defaults to localStorage. */
   store?: ProgressStore;
+  /** Injected in tests; the Server Action otherwise (D52). */
+  reportTrouble?: typeof reportShadowingTrouble;
 };
 
 /** Ctrl+Space or Ctrl+Enter: replay (Ctrl+Enter is the Mac-friendly backup). */
@@ -79,6 +91,7 @@ export function ShadowingSession({
   startInRetry = false,
   children,
   store,
+  reportTrouble = reportShadowingTrouble,
 }: ShadowingSessionProps) {
   const t = useTranslations("shadowing");
   const tHandout = useTranslations("handout");
@@ -94,6 +107,11 @@ export function ShadowingSession({
   const [rawPhase, setPhase] = useState<Phase>("ready");
   const [lastResult, setLastResult] = useState<LastResult | null>(null);
   const [saveFailed, setSaveFailed] = useState(false);
+  // This sentence's recent failed attempts, for the trouble dialog (D52).
+  const troubleRef = useRef<TroubleAttempt[]>([]);
+  const [troubleOpen, setTroubleOpen] = useState(false);
+  // Each result plays its own celebration.
+  const [resultCount, setResultCount] = useState(0);
   const nextRef = useRef<HTMLButtonElement>(null);
 
   const { sentences } = video;
@@ -230,6 +248,7 @@ export function ShadowingSession({
 
   /** Play the sentence, then (unless in manual mode) listen automatically. */
   function attempt(index: number) {
+    if (index !== current) troubleRef.current = [];
     setCurrent(index);
     setLastResult(null);
     setPhase("playing");
@@ -247,7 +266,14 @@ export function ShadowingSession({
           coverage: result.coverage,
           complete: result.complete,
         });
+        setResultCount((count) => count + 1);
         setPhase("result");
+        const tries =
+          result.coverage >= TROUBLE_COVERAGE
+            ? []
+            : [...troubleRef.current, { coverage: result.coverage, heard }];
+        troubleRef.current = tries;
+        if (isStuck(tries)) setTroubleOpen(true);
       });
     });
   }
@@ -258,6 +284,31 @@ export function ShadowingSession({
     setPhase("ready");
     if (nextIndex === -1) return; // all done → results view
     attempt(nextIndex);
+  }
+
+  /**
+   * The trouble dialog's answer (D52): either way the attempts are
+   * reported; skipping also marks the sentence done and moves on.
+   */
+  function resolveTrouble(skipped: boolean) {
+    const attempts = troubleRef.current;
+    troubleRef.current = [];
+    setTroubleOpen(false);
+    void reportTrouble({
+      videoId: video.id,
+      materialVersion: video.version ?? null,
+      sentenceIndex: current,
+      attempts,
+      browser: browserLabel(navigator.userAgent),
+      skipped,
+    }).catch(() => {});
+    if (!skipped) return;
+    record(current, { skipped: true });
+    const after = recordAttempt(records, current, { skipped: true });
+    const nextIndex = nextUnfinished(after);
+    setLastResult(null);
+    setPhase("ready");
+    if (nextIndex !== -1) setCurrent(nextIndex);
   }
 
   function markSaidIt() {
@@ -433,7 +484,7 @@ export function ShadowingSession({
 
         {video.audioUrls && <SentenceNotes video={video} index={current} />}
 
-        <div aria-live="polite" className="space-y-1">
+        <div aria-live="polite" className="relative space-y-1">
           {phase === "listening" && (
             <p className="text-supporting text-accent-ink">
               <span aria-hidden="true">● </span>
@@ -457,6 +508,9 @@ export function ShadowingSession({
               {lastResult.complete ? `${t("passed")} · ` : ""}
               {t("coverage", { score: percent(lastResult.coverage) })}
               {!lastResult.complete && <> · {t("notYet")}</>}
+              {lastResult.coverage === 1 && (
+                <PerfectCelebration key={resultCount} />
+              )}
             </p>
           )}
           {transientError && (
@@ -504,6 +558,30 @@ export function ShadowingSession({
         </div>
         <p className="text-metadata text-ink-muted">{t("shortcuts")}</p>
         {saveError}
+        {troubleOpen && (
+          <Dialog
+            title={t("trouble.title")}
+            onClose={() => resolveTrouble(false)}
+          >
+            <p>{t("trouble.intro", { count: TROUBLE_ATTEMPTS })}</p>
+            <ul className="list-disc space-y-1 pl-5 text-supporting">
+              {(["mic", "quiet", "chrome", "pace"] as const).map((tip) => (
+                <li key={tip}>{t(`trouble.tips.${tip}`)}</li>
+              ))}
+            </ul>
+            <p className="text-supporting text-ink-muted">
+              {t("trouble.note")}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button variant="primary" onClick={() => resolveTrouble(false)}>
+                {t("trouble.retry")}
+              </Button>
+              <Button variant="secondary" onClick={() => resolveTrouble(true)}>
+                {t("trouble.skip")}
+              </Button>
+            </div>
+          </Dialog>
+        )}
       </section>
 
       {children}
@@ -548,14 +626,16 @@ function RecordList({
                   ✓{" "}
                 </span>
               )}
-              {record?.coverage !== null && record?.coverage !== undefined
-                ? format.number(record.coverage, {
-                    style: "percent",
-                    maximumFractionDigits: 0,
-                  })
-                : record?.done
-                  ? t("manualDone")
-                  : ""}
+              {record?.skipped
+                ? t("skippedDone")
+                : record?.coverage !== null && record?.coverage !== undefined
+                  ? format.number(record.coverage, {
+                      style: "percent",
+                      maximumFractionDigits: 0,
+                    })
+                  : record?.done
+                    ? t("manualDone")
+                    : ""}
             </span>
           </li>
         );

@@ -466,6 +466,45 @@ export type Database = {
         };
         Relationships: [];
       };
+      shadowing_issues: {
+        Row: {
+          browser: string;
+          coverages: number[];
+          created_at: string;
+          heard: string[];
+          id: string;
+          material_version: number | null;
+          sentence_index: number;
+          skipped: boolean;
+          user_id: string | null;
+          video_id: string;
+        };
+        Insert: {
+          browser: string;
+          coverages: number[];
+          created_at?: string;
+          heard: string[];
+          id?: string;
+          material_version?: number | null;
+          sentence_index: number;
+          skipped: boolean;
+          user_id?: string | null;
+          video_id: string;
+        };
+        Update: {
+          browser?: string;
+          coverages?: number[];
+          created_at?: string;
+          heard?: string[];
+          id?: string;
+          material_version?: number | null;
+          sentence_index?: number;
+          skipped?: boolean;
+          user_id?: string | null;
+          video_id?: string;
+        };
+        Relationships: [];
+      };
       speech_audio: {
         Row: {
           bytes: number;
