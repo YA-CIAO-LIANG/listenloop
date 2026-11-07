@@ -13,6 +13,7 @@ export const PRIVATE_PATHS = [
   "/account",
   "/materials",
   "/practices",
+  "/stats",
   "/auth",
   "/shop",
   "/styleguide",

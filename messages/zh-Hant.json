@@ -8,7 +8,8 @@
     "materials": "我的教材",
     "createPractice": "建立練習",
     "admin": "後台",
-    "skipToContent": "跳到主要內容"
+    "skipToContent": "跳到主要內容",
+    "stats": "學習分析"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -1241,7 +1242,8 @@
         "practice": "練習",
         "costs": "費用與額度",
         "storage": "Supabase 儲存空間",
-        "plans": "方案"
+        "plans": "方案",
+        "study": "學習"
       },
       "users": "使用者總數",
       "activeToday": "今日活躍",
@@ -1262,7 +1264,19 @@
       "waitlist": "等候名單人數",
       "waitlistTitle": "付費方案等候名單",
       "waitlistEmpty": "還沒有人加入等候名單。",
-      "waitlistUnknown": "（找不到這個帳號）"
+      "waitlistUnknown": "（找不到這個帳號）",
+      "averageMinutes": "平均每日練習（分鐘）",
+      "averageMinutesNote": "近 30 天，當天有練習的使用者平均",
+      "accuracyWeighted": "平均正確率（加權）",
+      "accuracyRaw": "平均正確率（原始）",
+      "accuracyNote": "目前進度中的 {n} 次聽寫",
+      "activityTitle": "近 30 天活躍人數",
+      "activitySummary": "近 {days} 天每天有練習的人數，最多一天 {peak} 人。",
+      "date": "日期",
+      "activeLearners": "活躍人數",
+      "minutes": "練習分鐘",
+      "activeCount": "{n} 人",
+      "minutesCount": "{n} 分鐘"
     },
     "users": {
       "title": "使用者",
@@ -1781,5 +1795,54 @@
     "fast": "快速完成",
     "raw": "原始正確率 {score}",
     "weighted": "加權正確率"
+  },
+  "stats": {
+    "title": "學習分析",
+    "intro": "你的練習時間、正確率和進步，都從這台裝置與帳號同步的紀錄計算。",
+    "loading": "載入中…",
+    "unknownMaterial": "（已移除的教材）",
+    "streak": "連續練習",
+    "days": "{n} 天",
+    "longest": "最長 {n} 天",
+    "weekMinutes": "近 7 天練習",
+    "monthMinutes": "近 30 天練習",
+    "minutes": "{n} 分鐘",
+    "started": "開始過的教材",
+    "passed": "通過的教材",
+    "timeTitle": "每日練習時間",
+    "timeSummary": "近 {days} 天共練習 {total} 分鐘，其中 {active} 天有練習。只計算畫面在前景、2 分鐘內有操作的時間。",
+    "range": "期間",
+    "ranges": {
+      "week": "週",
+      "month": "月"
+    },
+    "date": "日期",
+    "minutesColumn": "分鐘",
+    "trendTitle": "正確率趨勢",
+    "trendSummary": "共 {count} 次聽寫，加權正確率從 {first} 到 {last}。",
+    "trendEmpty": "完成第 1 天或第 7 天的聽寫後，這裡會出現正確率的變化。",
+    "material": "教材",
+    "dayColumn": "天",
+    "weighted": "加權正確率",
+    "raw": "原始正確率",
+    "passMark": "通過 80%",
+    "compareTitle": "第 1 天與第 7 天",
+    "compareSummary": "{count} 份教材有第 1 天和第 7 天的成績，其中 {improved} 份進步。",
+    "compareEmpty": "完成一份教材的第 7 天後，這裡會比較第 1 天和第 7 天。",
+    "day1": "第 1 天",
+    "day7": "第 7 天",
+    "missedTitle": "最常聽錯的字",
+    "missedSummary": "最常聽錯的是「{word}」，共 {count} 次。",
+    "missedEmpty": "聽寫後，這裡會列出最常聽錯的字。",
+    "word": "字",
+    "times": "次數",
+    "categoryTitle": "練習的分類",
+    "levelTitle": "練習的程度",
+    "spreadSummary": "最多的是{top}，{count} 份。",
+    "spreadEmpty": "開始練習後，這裡會顯示分布。",
+    "category": "分類",
+    "level": "程度",
+    "count": "份數",
+    "table": "查看資料表"
   }
 }

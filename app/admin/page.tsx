@@ -2,9 +2,18 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
+import { SiteActivityChart } from "@/components/SiteActivityChart";
 import { StatTile } from "@/components/StatTile";
+import { parseActivity } from "@/lib/activity";
+import { siteActivity } from "@/lib/analytics";
+import { parseProgress } from "@/lib/progress";
 import { userNumberLabel } from "@/lib/accounts";
-import { adminPeriods, shareOf, SUPABASE_FREE } from "@/lib/admin-dashboard";
+import {
+  taiwanToday,
+  adminPeriods,
+  shareOf,
+  SUPABASE_FREE,
+} from "@/lib/admin-dashboard";
 import {
   AZURE_CREDIT,
   AZURE_SPEECH_FREE_CHARS,
@@ -44,6 +53,8 @@ export default async function AdminOverviewPage() {
     { data: usageRows },
     { data: waitlist },
     { count: paidAccounts },
+    { data: activityRows },
+    { data: progressRows },
   ] = await Promise.all([
     admin.rpc("admin_overview", { day_start: dayStart, week_start: weekStart }),
     admin.rpc("api_usage_totals", {
@@ -60,12 +71,24 @@ export default async function AdminOverviewPage() {
       .from("profiles")
       .select("user_id", { count: "exact", head: true })
       .eq("plan", "paid"),
+    // Everyone's activity logs and progress, for site-wide totals (D75).
+    admin
+      .from("user_documents")
+      .select("data")
+      .eq("key", "activity")
+      .limit(2000),
+    admin.from("progress").select("data").limit(5000),
     // Retention (D55); its result doesn't matter here.
     admin.rpc("prune_logs").then(
       () => null,
       () => null,
     ),
   ]);
+  const site = siteActivity(
+    (activityRows ?? []).flatMap((row) => parseActivity(row.data) ?? []),
+    (progressRows ?? []).flatMap((row) => parseProgress(row.data) ?? []),
+    taiwanToday(new Date()),
+  );
   const waiting = waitlist ?? [];
   const { data: waitingProfiles } = waiting.length
     ? await admin
@@ -124,6 +147,29 @@ export default async function AdminOverviewPage() {
           label: t("daysCompleted"),
           value: count(o?.days_completed_week),
           note: t("weekNote"),
+        },
+      ],
+    },
+    {
+      id: "study",
+      stats: [
+        {
+          label: t("averageMinutes"),
+          value: format.number(site.averageMinutes, {
+            maximumFractionDigits: 1,
+          }),
+          note: t("averageMinutesNote"),
+        },
+        {
+          label: t("accuracyWeighted"),
+          value: site.accuracy ? percent(site.accuracy.weighted) : "—",
+          note: site.accuracy
+            ? t("accuracyNote", { n: site.accuracy.n })
+            : undefined,
+        },
+        {
+          label: t("accuracyRaw"),
+          value: site.accuracy ? percent(site.accuracy.raw) : "—",
         },
       ],
     },
@@ -207,6 +253,9 @@ export default async function AdminOverviewPage() {
           </dl>
         </section>
       ))}
+      <div className="mt-10">
+        <SiteActivityChart days={site.days} />
+      </div>
       <section className="mt-10" aria-labelledby="waitlist">
         <h2 id="waitlist" className="font-display text-h3">
           {t("waitlistTitle")}
