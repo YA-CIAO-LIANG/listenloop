@@ -15,6 +15,7 @@ import {
   LEVELS,
   type CategoryId,
   type Scenario,
+  targetMessageKey,
 } from "@/lib/categories";
 import {
   GENERATION_FORMATS,
@@ -159,7 +160,9 @@ export function GenerateTextPanel({
   const levelOptions = isExam
     ? currentExam.targets.map((target) => ({
         value: target.id,
-        label: tc(`targets.${target.id}` as "targets.toefl-80"),
+        label: tc(
+          `targets.${targetMessageKey(target.id)}` as "targets.toefl-80",
+        ),
       }))
     : LEVELS.map((value) => ({ value, label: tc(`levels.${value}`) }));
 

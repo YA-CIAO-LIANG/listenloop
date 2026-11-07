@@ -38,7 +38,9 @@ import { PracticeFrame } from "./PracticeFrame";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
-import { SentenceNotes } from "./SentenceNotes";
+import { SentenceExplanation } from "./SentenceExplanation";
+import { missedPieces } from "@/lib/custom-practice/marks";
+import { notesForSentence } from "@/lib/videos";
 import { SentenceRow } from "./SentenceRow";
 import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
@@ -560,12 +562,25 @@ export function DictationSession({
         {/* Below the buttons on narrow screens, so "next" stays put; a sticky
           column on wide screens, reserved before answering so nothing jumps. */}
         <div
-          className={`practice-column wide:sticky wide:top-0 wide:mx-0 wide:mt-0 wide:w-80 wide:shrink-0 wide:pt-2 ${
+          // Scrolls on its own on wide screens: keyboard users can focus it.
+          tabIndex={feedbackIndex !== null ? 0 : undefined}
+          role={feedbackIndex !== null ? "region" : undefined}
+          aria-label={feedbackIndex !== null ? t("notesLabel") : undefined}
+          className={`practice-column wide:sticky wide:top-0 wide:mx-0 wide:mt-0 wide:max-h-screen wide:w-80 wide:shrink-0 wide:overflow-y-auto wide:pt-2 ${
             feedbackIndex !== null ? "mt-4" : ""
           }`}
         >
           {feedbackIndex !== null ? (
-            <SentenceNotes video={video} index={feedbackIndex} />
+            <div className="border-t border-line pt-6">
+              {/* What was misheard comes first, highlighted (D68). */}
+              <SentenceExplanation
+                en={sentences[feedbackIndex].en}
+                zh={sentences[feedbackIndex].zh}
+                rich={video.richNotes?.[feedbackIndex] ?? null}
+                legacy={notesForSentence(video, feedbackIndex)}
+                missed={missedPieces(sentences[feedbackIndex].en, shownAnswer)}
+              />
+            </div>
           ) : (
             <p className="hidden text-supporting text-ink-muted wide:block">
               {t("notesHint")}

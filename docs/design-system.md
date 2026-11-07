@@ -603,3 +603,19 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 列印：改用很淡的底色（miss #FFE3D1、key #FFF6C7）加上底線，並設定 `print-color-adjust: exact`，黑白印表機也能靠底線區分。
 - 需要說明時，在區塊上方放 `MarkLegend`（兩個樣本加名稱）。
 - 範例：`/styleguide` 的「Mark (highlighter)」，淺色和深色並排。
+
+## 句子講解 `SentenceExplanation`（D68）
+
+- 聽寫：寬螢幕在右側 w-80 的固定欄，內容超過畫面高度時可以捲動（可用鍵盤聚焦）；窄螢幕在按鈕下方。跟讀（自建練習）：在句子下方。上方都有 1px line 分隔。
+- 第一行：難度標籤（1px line 框、supporting 字級，例如「難度：困難」）＋ MarkLegend。
+- 「你這句聽錯的地方」：1px line 框、4px 圓角、內距 16px 的區塊，font-medium 標題 → 聽錯的字（miss 標示，用「·」分隔）→ 相關的單字、文法、連音。
+- 其他區塊的標題都是 metadata 大寫、ink-muted：重點、句子結構與逐段意譯、為什麼難聽懂、單字與片語、文法。
+- 意群：窄螢幕上下排；split 以上兩欄（7rem 角色欄＋內容），角色寫成「［主要子句］」；英文在上、中文在下（ink-muted）。
+- 單字：font-medium 單字＋ ink-muted 音標、詞性、種類＋中文；下一行是搭配詞；例句英文在上、中文在下。
+- 文法：font-medium 句型 → 說明 →「句中：」＋引用（聽錯的字有標示）→ 例句 →「常見錯誤：」。
+
+## 講義的標示（D68）
+
+- 句子清單上方：MarkLegend ＋ supporting、ink-muted 的說明（第 1 天聽錯的字）。
+- 每句：英文（miss、key 標示）→ 中文 → 困難句的意群（［角色］英文 中文）→「為什麼難聽懂：」連音。
+- 單字表第一欄加上音標，中文欄加上搭配詞，例句欄加上中文。

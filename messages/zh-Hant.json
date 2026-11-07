@@ -414,7 +414,8 @@
     "officialUnchanged": "正式成績 {score}（不變）",
     "thisAttempt": "這次的成績",
     "todayDone": "今日任務完成",
-    "retryComplete": "練習完成！"
+    "retryComplete": "練習完成！",
+    "notesLabel": "這句的講解"
   },
   "redictation": {
     "title": "第 7 天：重新聽寫",
@@ -439,7 +440,8 @@
     "goDay1": "前往第 1 天",
     "lockedShort": "雙語講義：完成第 1 天後開放",
     "open": "看雙語講義",
-    "loading": "載入中…"
+    "loading": "載入中…",
+    "marksNote": "用橘色螢光筆、加上實線底線的，是你這週第 1 天聽錯或漏掉的字，複習時特別注意。"
   },
   "shadowing": {
     "title": "第 {day} 天：跟讀",
@@ -1476,9 +1478,9 @@
     "targets": {
       "toefl-80": "約 80 分",
       "toefl-100": "約 100 分",
-      "ielts-5.5": "Band 5.5",
-      "ielts-6.5": "Band 6.5",
-      "ielts-7.5": "Band 7.5",
+      "ielts-5_5": "Band 5.5",
+      "ielts-6_5": "Band 6.5",
+      "ielts-7_5": "Band 7.5",
       "toeic-550": "550 分",
       "toeic-750": "750 分",
       "toeic-900": "900 分",
@@ -1661,6 +1663,30 @@
       "easy": "簡單",
       "medium": "中等",
       "hard": "困難"
+    },
+    "difficultyLabel": "難度：{difficulty}",
+    "mistakesTitle": "你這句聽錯的地方",
+    "missedWords": "聽錯或漏掉的字：",
+    "keyTitle": "重點",
+    "structureTitle": "句子結構與逐段意譯",
+    "wholeSentence": "整句：",
+    "connectedTitle": "為什麼難聽懂",
+    "soundsLike": "聽起來像「{sound}」",
+    "vocabTitle": "單字與片語",
+    "grammarTitle": "文法",
+    "collocations": "常見搭配：",
+    "inThisSentence": "句中：",
+    "pitfall": "常見錯誤：",
+    "kinds": {
+      "word": "單字",
+      "phrase": "片語",
+      "idiom": "慣用語"
+    },
+    "roles": {
+      "main": "主要子句",
+      "subordinate": "從屬子句",
+      "modifier": "修飾語",
+      "connector": "連接詞"
     }
   }
 }

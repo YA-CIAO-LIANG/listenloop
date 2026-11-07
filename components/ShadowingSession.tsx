@@ -36,7 +36,9 @@ import { PracticeSkeleton } from "./Skeleton";
 import { Dialog } from "./Dialog";
 import { PerfectCelebration } from "./PerfectCelebration";
 import { NextDayNote } from "./NextDayNote";
-import { SentenceNotes } from "./SentenceNotes";
+import { SentenceExplanation } from "./SentenceExplanation";
+import { missedPieces } from "@/lib/custom-practice/marks";
+import { notesForSentence } from "@/lib/videos";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import {
@@ -513,7 +515,23 @@ export function ShadowingSession({
           )}
         </div>
 
-        {video.audioUrls && <SentenceNotes video={video} index={current} />}
+        {video.audioUrls && (
+          <div className="border-t border-line pt-6">
+            {/* After an attempt, the words not said are highlighted (D68). */}
+            <SentenceExplanation
+              en={sentence.en}
+              zh={sentence.zh}
+              rich={video.richNotes?.[current] ?? null}
+              legacy={notesForSentence(video, current)}
+              missed={
+                showingResult && lastResult
+                  ? missedPieces(sentence.en, lastResult.heard)
+                  : null
+              }
+              showSentence={!!video.richNotes?.[current]?.highlights.length}
+            />
+          </div>
+        )}
 
         <div aria-live="polite" className="relative space-y-1">
           {phase === "listening" && (

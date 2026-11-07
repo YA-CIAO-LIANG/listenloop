@@ -26,7 +26,56 @@
         "i": 1,
         "en": "Turn right at the bank.",
         "zh": "在銀行右轉。",
-        "audio_path": "1111111111111111111111111111111111111111111111111111111111111111.wav"
+        "audio_path": "1111111111111111111111111111111111111111111111111111111111111111.wav",
+        "notes": {
+          "v": 2,
+          "difficulty": "medium",
+          "highlights": [
+            {
+              "text": "Turn right",
+              "note": "問路時最常用的指示。"
+            }
+          ],
+          "vocab": [
+            {
+              "term": "turn right",
+              "inSentence": "Turn right",
+              "kind": "phrase",
+              "pos": "phr.",
+              "zh": "右轉",
+              "ipa": "/tɝːn raɪt/",
+              "collocations": ["turn left", "turn around"],
+              "examples": [
+                {
+                  "en": "Turn right after the post office.",
+                  "zh": "過了郵局後右轉。"
+                }
+              ]
+            }
+          ],
+          "grammar": [
+            {
+              "point": "Imperative",
+              "quote": "Turn right",
+              "explanation": "祈使句用原形動詞開頭，用來給指示。",
+              "examples": [
+                {
+                  "en": "Go straight for two blocks.",
+                  "zh": "直走兩個路口。"
+                }
+              ],
+              "pitfall": "不要加 to：說 Turn right，不說 To turn right。"
+            }
+          ],
+          "chunks": [],
+          "connected": [
+            {
+              "text": "right at",
+              "soundsLike": "rai-dat",
+              "note": "right 的 t 和 at 連在一起，美式發音常變成輕快的 d。"
+            }
+          ]
+        }
       }
     ],
     "official": false

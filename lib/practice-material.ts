@@ -1,4 +1,5 @@
 import { storedNotes } from "./custom-practice/notes";
+import { parseRichNotes, type RichNotes } from "./custom-practice/rich-notes";
 import { isUuid } from "./custom-practice/organize";
 import type { Attribution, Video } from "./videos";
 
@@ -20,6 +21,11 @@ export type PracticeMaterial = Pick<
    * started with. Built-in videos have none.
    */
   version?: number;
+  /**
+   * Each sentence's version 2 notes (D67), in sentence order: null for a
+   * sentence with first-format notes. Absent for built-in videos.
+   */
+  richNotes?: (RichNotes | null)[];
 } & (
     | { youtubeId: string; audioUrls?: undefined }
     | {
@@ -63,6 +69,8 @@ export type CustomPracticeRow = {
     en: string;
     zh: string;
     audio_path: string | null;
+    /** The sentence's own notes (D43), either format. */
+    notes?: unknown;
   }[];
 };
 
@@ -97,6 +105,7 @@ export function materialFromCustomPractice(
     })),
     vocab: notes.vocab,
     grammar: notes.grammar,
+    richNotes: rows.map((s) => parseRichNotes(s.notes, s.en)),
     audioUrls,
   };
 }
@@ -172,6 +181,7 @@ export function materialFromSnapshot(
       en: typeof s.en === "string" ? s.en : "",
       zh: typeof s.zh === "string" ? s.zh : "",
       audio_path: typeof s.audio_path === "string" ? s.audio_path : null,
+      notes: s.notes,
     };
   });
   if (sentences.some((s) => !s.en)) return null;

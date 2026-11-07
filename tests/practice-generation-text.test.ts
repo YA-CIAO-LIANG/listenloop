@@ -7,6 +7,7 @@ import {
   EXAMS,
   findScenario,
   LEVEL_PROMPTS,
+  targetMessageKey,
 } from "@/lib/categories";
 import {
   checkGeneratedText,
@@ -85,7 +86,9 @@ describe("categories (D57)", () => {
       for (const exam of EXAMS) {
         expect(messages.categories.exams).toHaveProperty([exam.id]);
         for (const target of exam.targets) {
-          expect(messages.categories.targets).toHaveProperty([target.id]);
+          expect(messages.categories.targets).toHaveProperty([
+            targetMessageKey(target.id),
+          ]);
         }
       }
     }

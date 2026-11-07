@@ -26,8 +26,8 @@ import {
 import {
   annotateMissing,
   joinNotes,
-  parseSentenceNotes,
-  type SentenceNotes,
+  parseStoredNotes,
+  type StoredNotes,
   segmentLines,
   TRANSLATE_BATCH,
   translateCached,
@@ -381,7 +381,7 @@ export async function generatePracticeNotes(
   }
 
   const rows = [...practice.practice_sentences].sort((a, b) => a.i - b.i);
-  const stored = rows.map((row) => parseSentenceNotes(row.notes));
+  const stored = rows.map((row) => parseStoredNotes(row.notes, row.en));
   const result = await annotateMissing(
     creator,
     rows.map((row) => row.en),
@@ -403,7 +403,7 @@ export async function generatePracticeNotes(
   const annotated = notes.filter(Boolean).length;
   if (annotated < total) return { ok: true, annotated, total };
 
-  const joined = joinNotes(notes as SentenceNotes[]);
+  const joined = joinNotes(notes as StoredNotes[]);
   const { data: updated, error: updateError } = await supabase
     .from("practices")
     .update({

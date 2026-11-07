@@ -155,21 +155,44 @@ describe("DictationSession", () => {
     // Sentence 1 has no vocabulary or grammar: translation only.
     await userEvent.type(input(), "go home{Enter}");
     expect(screen.getByText("回家。")).toBeDefined();
-    expect(screen.queryByRole("heading", { name: "單字" })).toBeNull();
-    expect(screen.queryByRole("heading", { name: "文法重點" })).toBeNull();
+    expect(screen.queryByRole("heading", { name: "單字與片語" })).toBeNull();
+    expect(screen.queryByRole("heading", { name: "文法" })).toBeNull();
+    // All right: nothing misheard to show.
+    expect(
+      screen.queryByRole("heading", { name: "你這句聽錯的地方" }),
+    ).toBeNull();
 
     await userEvent.keyboard("{Enter}");
     expect(screen.queryByText("回家。")).toBeNull();
     await userEvent.type(input(), "we moved to the city{Enter}");
     expect(screen.getByText("我們搬到城市。")).toBeDefined();
-    expect(screen.getByRole("heading", { name: "單字" })).toBeDefined();
+    expect(screen.getByRole("heading", { name: "單字與片語" })).toBeDefined();
     expect(screen.getByText("move").getAttribute("lang")).toBe("en");
     expect(screen.getByText(/搬家/)).toBeDefined();
-    expect(screen.getByRole("heading", { name: "文法重點" })).toBeDefined();
+    expect(screen.getByRole("heading", { name: "文法" })).toBeDefined();
     expect(screen.getByText("move to + place")).toBeDefined();
     expect(screen.getByText("搬到某個地方。")).toBeDefined();
     // Examples stay in the handout.
     expect(screen.queryByText("We moved.")).toBeNull();
+  });
+
+  it("puts what was misheard first, highlighted (D68)", async () => {
+    await renderSession();
+    await userEvent.type(input(), "go home{Enter}");
+    await userEvent.keyboard("{Enter}");
+    await userEvent.type(input(), "we move to city{Enter}");
+    const mistakes = screen
+      .getByRole("heading", { name: "你這句聽錯的地方" })
+      .closest("section")!;
+    const marks = [...mistakes.querySelectorAll("mark.mark-miss")].map(
+      (mark) => mark.textContent,
+    );
+    // The missed words, then the vocabulary they belong to.
+    expect(marks).toEqual([
+      "你聽錯的字：moved",
+      "你聽錯的字：the",
+      "你聽錯的字：move",
+    ]);
   });
 
   it("explains a skipped sentence too", async () => {
