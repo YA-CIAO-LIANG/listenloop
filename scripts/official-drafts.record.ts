@@ -250,6 +250,10 @@ function guardedMeter(
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 it("makes the official drafts", { timeout: 3_600_000 }, async () => {
+  // Never in an unattended run (scripts/auto-continue/run.sh, D65).
+  expect(env("LISTENLOOP_UNATTENDED"), "no paid calls unattended").not.toBe(
+    "1",
+  );
   const providers = getAiProviders(process.env);
   const url = env("NEXT_PUBLIC_SUPABASE_URL");
   const key = env("SUPABASE_SERVICE_ROLE_KEY");

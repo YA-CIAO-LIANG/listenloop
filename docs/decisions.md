@@ -1098,3 +1098,23 @@
 - **商店資料**：中英文的名稱、簡短說明、完整說明、分類、內容分級問卷與資料安全表單的建議答案（依目前實際收集的資料）、截圖清單與尺寸、上架順序，見 `docs/play-store.md`。
 - **上架規定**（2026-11-07 查證，Google Play 說明 answer/14151465）：2023-11-13 之後建立的個人開發者帳號，申請正式版之前必須封閉測試：至少 12 位測試者，連續 14 天保持加入。建議找 15～20 位。
 - **要改時**：`app/manifest.ts`、`public/sw.js`（改離線頁時把 `VERSION` 加一）、`app/offline/page.tsx`、`brand/icon.svg`、`scripts/brand-assets.mts`、`public/.well-known/assetlinks.json`、`docs/twa.md`、`docs/play-store.md`。
+
+## D65 開發工具：自動續做、專案 skills、AI 開發紀錄（2026-11-08，P2）
+
+- **自動續做**（`scripts/auto-continue/`、`docs/auto-continue.md`）：launchd 每 6 小時用無頭模式執行「繼續 roadmap」。
+  - 安全機制：
+    - 用電池就略過；
+    - 鎖定資料夾防止重複執行；
+    - 執行時用 caffeinate 防止睡眠，最長 3 小時；
+    - 明確列出允許與禁止的工具，不跳過權限檢查；
+    - 禁止刪除資料、改環境變數、強制推送；
+    - `LISTENLOOP_UNATTENDED=1` 會讓所有真實 API 的腳本（fixture 錄製、官方教材、試聽範例）拒絕執行；
+    - roadmap 沒有未完成項目時自動停用。
+  - 每次執行都記錄：開始時間、電源狀態、做了什麼、結束原因。
+  - **只建立、未安裝**：今晚嘗試安裝 LaunchAgent 時被權限檢查擋下，這是合理的，因為背景常駐的設定應該由 Joe 本人決定。安裝、啟用、暫停、看紀錄、移除的步驟見 `docs/auto-continue.md`。
+- **專案 skills**（`.claude/skills/`）：
+  - `add-video`：依影片製作流程，從字幕新增影片的檢查清單；
+  - `verify-prod`：部署後檢查正式站（頁面、標頭、CSP、YouTube、RLS），並列出要 Joe 手動確認的後台項目；
+  - `cost-report`：本週用量和每份教材的成本，用 `scripts/cost-report.mts` 讀取 `api_calls`，不呼叫任何 API。每份教材的歸屬依時間和呼叫類型推算，是近似值。
+- **AI 開發紀錄**（`docs/ai-dev-log.md`）：PR 數、測試數、各里程碑日期、API 總花費，以及哪些由 Joe 決定、哪些由 Claude 完成。CLAUDE.md 加上規則：每個里程碑都要更新。
+- **要改時**：`scripts/auto-continue/run.sh`（允許的工具、時間上限）、`.claude/skills/*/SKILL.md`、`scripts/cost-report.mts`、`docs/ai-dev-log.md`。

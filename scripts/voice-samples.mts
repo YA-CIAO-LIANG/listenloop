@@ -26,6 +26,11 @@ if (!process.argv.includes("--yes")) {
   process.exit(0);
 }
 
+// Never in an unattended run (scripts/auto-continue/run.sh, D65).
+if (process.env.LISTENLOOP_UNATTENDED === "1") {
+  console.error("Refusing: no paid calls in an unattended run.");
+  process.exit(1);
+}
 const apiKey = process.env.AZURE_SPEECH_KEY?.trim();
 const region = process.env.AZURE_SPEECH_REGION?.trim();
 if (!apiKey || !region || !/^[a-z0-9]+$/.test(region)) {
