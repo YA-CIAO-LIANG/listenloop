@@ -902,3 +902,21 @@
   - 分類與生成：`lib/categories.ts`、`lib/custom-practice/generation.ts`、`components/GenerateTextPanel.tsx`；
   - 對話：`lib/custom-practice/speakers.ts`、`components/SpeakerToggle.tsx`、`components/CreatePracticeForm.tsx`、`components/EditPracticeForm.tsx`、`app/materials/actions.ts`、`lib/custom-practice/edit.ts`；
   - Migration：`20261107200000_practice_categories.sql`、`20261107210000_dialogue_speakers.sql`。
+
+## D58 後台教材管理；推薦練習的篩選與順序（2026-11-07，P0）
+
+- **`/admin/materials`**：列出官方教材、公開教材，以及被下架的教材，可以依類別、考試、狀態篩選（草稿、已發布、一般公開）。每份教材顯示：
+  - 作者編號、建立日期、句數、分類；
+  - 公開或私人，或下架原因；還沒完成時顯示音檔進度。
+- **官方教材的三種狀態**：不是官方、草稿（私人）、已發布（公開，出現在推薦練習）。
+  - 只有管理員建立的教材可以設為官方，避免學習者之後修改所有人看到的內容；
+  - 講解和全部音檔都完成後才能發布；
+  - 取消官方不改變公開狀態。
+  - 在「我的教材」按「設為官方教材」，現在會先存成草稿，需要到後台發布（原本會直接公開）。
+- **推薦順序**：已發布的官方教材可以在後台用 ↑／↓ 調整。每次調整後，`sort_order` 會重新編號成 1、2、3……；推薦練習依這個順序顯示，沒有設定順序的排在最後，依建立時間。
+- **分類**：可以為任何教材設定或清除類別、情境、程度（考試類是目標程度），伺服器會對照分類設定檢查。
+- **下架與恢復**：沿用檢舉審查的動作（D31），在這裡不顯示「駁回檢舉」。
+- **編輯**：如果是自己建立的教材，可以直接進入編輯頁。編輯頁限作者本人，這是 D45 的權限設計。
+- **每一項變更都記錄在管理稽核**。
+- **推薦練習的篩選**：首頁「ListenLoop 官方教材」上方有類別篩選；選「考試聽力」後，可以再選考試。只顯示有教材的類別；只有一個類別時不顯示篩選。卡片上方顯示類別和考試名稱。
+- **要改時**：`app/admin/materials/`、`lib/material-admin.ts`、`components/MaterialControls.tsx`、`components/OfficialLibrary.tsx`、`auth/public-practices.ts`。

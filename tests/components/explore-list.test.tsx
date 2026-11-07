@@ -17,6 +17,8 @@ const practice = (
   sentenceCount,
   createdAt: "2026-11-04T00:00:00Z",
   mine,
+  category: null,
+  exam: null,
 });
 
 const practices = [

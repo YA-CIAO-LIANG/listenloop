@@ -590,6 +590,9 @@ export function findTarget(
 export const isCategoryId = (value: unknown): value is CategoryId =>
   (CATEGORY_IDS as readonly unknown[]).includes(value);
 
+export const isExamId = (value: unknown): value is ExamId =>
+  EXAMS.some((exam) => exam.id === value);
+
 export const isLevel = (value: unknown): value is Level =>
   (LEVELS as readonly unknown[]).includes(value);
 

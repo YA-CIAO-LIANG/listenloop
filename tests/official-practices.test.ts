@@ -50,11 +50,11 @@ beforeEach(() => {
 });
 
 describe("setOfficial", () => {
-  it("marks the admin's own practice official and public, with the secret key", async () => {
+  it("marks the admin's own practice an official draft, with the secret key (D58)", async () => {
     expect(await setOfficial(id, true)).toEqual({ ok: true });
     expect(state.updates).toEqual([
       {
-        row: { official: true, visibility: "public" },
+        row: { official: true, published: false, visibility: "private" },
         filters: [
           ["eq", "id", id],
           ["eq", "user_id", "admin-1"],
@@ -66,7 +66,7 @@ describe("setOfficial", () => {
 
   it("unmarks without changing visibility", async () => {
     await setOfficial(id, false);
-    expect(state.updates[0].row).toEqual({ official: false });
+    expect(state.updates[0].row).toEqual({ official: false, published: true });
   });
 
   it("says when it isn't theirs, is invalid, or isn't available", async () => {

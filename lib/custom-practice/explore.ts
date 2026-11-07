@@ -17,6 +17,9 @@ export type PublicPracticeSummary = {
   createdAt: string;
   /** Made by the viewer. */
   mine: boolean;
+  /** Where it belongs (D57); null when it hasn't been sorted. */
+  category: string | null;
+  exam: string | null;
 };
 
 /** The newest this many public practices are listed. */

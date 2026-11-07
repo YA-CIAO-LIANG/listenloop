@@ -42,14 +42,21 @@ async function listPractices({
     supabase
       .from("practices")
       .select(
-        "id, title, source_language, voice, created_at, practice_sentences(audio_path)",
+        "id, title, source_language, voice, created_at, category, exam, practice_sentences(audio_path)",
       )
       .eq("visibility", "public")
       // Authors can still read their own taken-down practices (D31).
       .is("removed_at", null)
       .not("notes_generated_at", "is", null)
+      // Drafts wait in the admin dashboard (D57).
+      .eq("published", true)
       // /explore lists every public practice; the library only official ones.
       .in("official", onlyOfficial ? [true] : [true, false])
+      // The library in the admins' order (D57), then oldest first.
+      .order(onlyOfficial ? "sort_order" : "created_at", {
+        ascending: onlyOfficial,
+        nullsFirst: false,
+      })
       .order("created_at", { ascending: onlyOfficial })
       .limit(PUBLIC_PRACTICES_LIMIT),
     user
@@ -75,6 +82,8 @@ async function listPractices({
         sentenceCount: sentences.length,
         createdAt: row.created_at,
         mine: mine.has(row.id),
+        category: row.category,
+        exam: row.exam,
       },
     ];
   });

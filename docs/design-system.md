@@ -529,3 +529,17 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - 預覽和編輯的句子清單中，對話的每句在編號下方有一個 secondary、sm、固定寬度的按鈕，顯示「A」或「B」，按一下切換；螢幕閱讀器讀作「第 N 句由 A 念，按一下切換」。
 - 聲音區塊：font-medium 的「A 的聲音」→ VoiceMenu →「B 的聲音」→ VoiceMenu → supporting、ink-muted 的說明。不是對話時只有一個 VoiceMenu，和原本相同。
+
+## 後台教材管理（D58）
+
+- 篩選列同操作紀錄。清單每項依序是：
+  - 標題連結（font-medium）和 supporting、ink-muted 的資訊（作者、日期、句數、分類）；
+  - 狀態：公開或私人用 ink-muted，下架用 error，未完成時加上音檔進度；
+  - 控制列（supporting）：「官方教材」下拉（不是官方／草稿（私人）／已發布）。已發布的會顯示「推薦順序 3/12」和 ghost、sm 的 ↑ ↓，自己建立的會有 accent-ink「編輯 →」；
+  - 分類列：類別、情境、程度三個小下拉，加上 secondary、sm 的「儲存分類」；
+  - 下架控制（同檢舉審查，不含駁回），或下架後的「恢復」。
+
+## 推薦練習的篩選（D58）
+
+- 「ListenLoop 官方教材」說明下方，FilterChip 一排：metadata 大寫標籤「類別」＋各類別。選「考試聽力」時再出現一排「考試」。一次只選一個，再按一次取消。
+- 卡片上方的 metadata 行：有分類時顯示類別（考試類再加上考試），沒有時維持原本的來源語言；後面接聲音。

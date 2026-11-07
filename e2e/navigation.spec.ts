@@ -58,6 +58,7 @@ test("an admin opens every dashboard section (D56)", async ({ page }) => {
   const sections = page.getByRole("navigation", { name: "後台導覽" });
   for (const [link, heading] of [
     ["使用者", "使用者"],
+    ["教材", "教材管理"],
     ["容易出錯的句子", "容易出錯的句子"],
     ["操作紀錄", "操作紀錄"],
     ["管理稽核", "管理稽核"],

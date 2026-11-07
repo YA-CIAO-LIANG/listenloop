@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
+import { officialColumns } from "@/lib/material-admin";
 import {
   writeAsAdmin,
   writeOutcome,
@@ -159,7 +160,9 @@ export async function setOfficial(
   const result = outcome(
     await admin
       .from("practices")
-      .update(official ? { official, visibility: "public" } : { official })
+      // A new official practice starts as a draft, published from the
+      // admin dashboard (D58).
+      .update(officialColumns(official ? "draft" : "none"))
       .eq("id", id)
       .eq("user_id", user.id)
       .is("removed_at", null)

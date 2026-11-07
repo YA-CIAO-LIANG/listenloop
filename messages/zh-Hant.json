@@ -286,7 +286,9 @@
     "official": {
       "title": "ListenLoop 官方教材",
       "count": "{count} 份",
-      "intro": "ListenLoop 為所有人準備的練習，照順序一份一份練。"
+      "intro": "ListenLoop 為所有人準備的練習，照順序一份一份練。",
+      "filterCategory": "類別",
+      "filterExam": "考試"
     }
   },
   "collections": {
@@ -838,7 +840,7 @@
     "officialOff": "設為官方教材",
     "officialOn": "✓ 官方教材",
     "officialLabel": "「{title}」是否為官方教材",
-    "officialPublic": "官方教材一律公開。"
+    "officialPublic": "設為官方教材後會先存成草稿（私人），到「後台 → 教材」發布後才會出現在推薦練習。"
   },
   "voicePicker": {
     "legend": "選擇聲音",
@@ -1240,6 +1242,56 @@
       "stats": "跳過 {skips} 次・回報 {reports} 次・平均涵蓋率 {coverage}",
       "edit": "編輯這份練習 →",
       "open": "打開影片頁 →"
+    },
+    "materials": {
+      "title": "教材管理",
+      "intro": "官方教材和公開教材。官方教材只能是管理員建立的；先存成草稿（私人），講解和音檔都完成後才能發布到推薦練習。已發布的官方教材可以調整在推薦練習的順序。",
+      "none": "沒有符合條件的教材。",
+      "author": "使用者 {number}",
+      "sentences": "{count} 句",
+      "noCategory": "未分類",
+      "removed": "已下架（{reason}）",
+      "visibility": {
+        "public": "公開",
+        "private": "私人"
+      },
+      "notReady": "尚未完成（音檔 {voiced}/{total}）",
+      "stateLabel": "官方教材",
+      "states": {
+        "none": "不是官方教材",
+        "draft": "草稿（私人）",
+        "published": "已發布"
+      },
+      "position": "推薦順序 {n}/{total}",
+      "moveUpLabel": "把「{title}」往前移",
+      "moveDownLabel": "把「{title}」往後移",
+      "edit": "編輯 →",
+      "categoryLabel": "類別",
+      "scenarioLabel": "情境",
+      "levelLabel": "程度",
+      "saveCategory": "儲存分類",
+      "saved": "已更新，並記錄在管理稽核。",
+      "filters": {
+        "category": "類別",
+        "exam": "考試",
+        "status": "狀態",
+        "all": "全部",
+        "apply": "篩選",
+        "statuses": {
+          "all": "全部",
+          "draft": "官方草稿",
+          "published": "官方已發布",
+          "public": "一般公開"
+        }
+      },
+      "errors": {
+        "unavailable": "只有管理員可以變更。",
+        "invalid": "資料不正確，請重新整理後再試。",
+        "not-found": "找不到這份教材，或已被下架。",
+        "failed": "變更失敗，請稍後再試。",
+        "not-admin-made": "官方教材只能是管理員建立的教材。",
+        "not-ready": "講解或音檔還沒完成，先到「我的教材」完成後再發布。"
+      }
     }
   },
   "events": {

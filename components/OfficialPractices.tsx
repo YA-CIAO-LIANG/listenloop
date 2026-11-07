@@ -1,10 +1,11 @@
 import { getTranslations } from "next-intl/server";
 import { listOfficialPractices } from "@/auth/public-practices";
-import { PracticeCard } from "./PracticeCard";
+import { OfficialLibrary } from "./OfficialLibrary";
 
 /**
- * The library's first group (D46): practices admins made for everyone,
- * in the order they were made. Nothing shows until there's one.
+ * The library's first group (D46, D57): published practices admins made
+ * for everyone, in the admins' order, with category and exam filters.
+ * Nothing shows until there's one.
  */
 export async function OfficialPractices() {
   const practices = await listOfficialPractices();
@@ -22,13 +23,7 @@ export async function OfficialPractices() {
         </span>
       </h3>
       <p className="mt-1 text-supporting text-ink-muted">{t("intro")}</p>
-      <ul className="mt-6 grid gap-6 split:grid-cols-2">
-        {practices.map((practice) => (
-          <li key={practice.id}>
-            <PracticeCard practice={practice} />
-          </li>
-        ))}
-      </ul>
+      <OfficialLibrary practices={practices} />
     </section>
   );
 }
