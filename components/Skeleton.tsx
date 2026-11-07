@@ -27,3 +27,24 @@ export function LibrarySkeleton({ label }: { label: string }) {
     </div>
   );
 }
+
+/**
+ * A practice page while its progress loads (D62): the progress bar, the
+ * player (a 16:9 video, or the shorter audio panel), the answer area, and
+ * the buttons, about as tall as the real thing, so the page doesn't jump
+ * when practice begins.
+ */
+export function PracticeSkeleton({ audio }: { audio: boolean }) {
+  return (
+    <div aria-hidden="true" className="space-y-4">
+      <Skeleton className="h-6" />
+      <Skeleton className={audio ? "h-32" : "aspect-video w-full"} />
+      <Skeleton className="h-6 w-3/4" />
+      <Skeleton className="h-28" />
+      <div className="flex gap-3">
+        <Skeleton className="h-10 w-24" />
+        <Skeleton className="h-10 w-32" />
+      </div>
+    </div>
+  );
+}

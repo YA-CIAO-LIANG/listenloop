@@ -32,6 +32,7 @@ import { reportShadowingTrouble } from "@/app/videos/shadowing-actions";
 import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
+import { PracticeSkeleton } from "./Skeleton";
 import { Dialog } from "./Dialog";
 import { PerfectCelebration } from "./PerfectCelebration";
 import { NextDayNote } from "./NextDayNote";
@@ -376,6 +377,7 @@ export function ShadowingSession({
           <p role="status" className="text-ink-muted">
             {t("loading")}
           </p>
+          <PracticeSkeleton audio={!!video.audioUrls} />
         </div>
         {children}
       </>

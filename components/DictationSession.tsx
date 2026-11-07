@@ -30,6 +30,7 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
 import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
+import { PracticeSkeleton } from "./Skeleton";
 import { PerfectCelebration } from "./PerfectCelebration";
 import { usePlan } from "./PlanProvider";
 import { can, needsCount, type PlanBlock } from "@/lib/plans";
@@ -406,6 +407,7 @@ export function DictationSession({
           <p role="status" className="text-ink-muted">
             {t("loading")}
           </p>
+          <PracticeSkeleton audio={!!video.audioUrls} />
         </div>
         {children}
       </>

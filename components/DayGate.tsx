@@ -6,9 +6,10 @@ import type { ReactNode } from "react";
 import { isDevTestMode } from "@/lib/config";
 import { lockReason, type CycleDay } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
-import { titleLang } from "@/lib/practice-material";
+import { isCustomPracticeId, titleLang } from "@/lib/practice-material";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { ButtonLink } from "./ButtonLink";
+import { PracticeSkeleton } from "./Skeleton";
 import { useVideoProgress } from "./useVideoProgress";
 
 type DayGateProps = {
@@ -38,10 +39,14 @@ export function DayGate({
   const { progress, loaded } = useVideoProgress(videoId, store);
 
   if (!loaded) {
+    // As tall as the practice to come, so nothing jumps (D62).
     return (
-      <p role="status" className="practice-column text-ink-muted">
-        {t("loading")}
-      </p>
+      <div className="practice-column space-y-4">
+        <p role="status" className="text-ink-muted">
+          {t("loading")}
+        </p>
+        <PracticeSkeleton audio={isCustomPracticeId(videoId)} />
+      </div>
     );
   }
 
