@@ -35,14 +35,15 @@ export function translateBudget(texts: readonly string[]): LanguageBudget {
 }
 
 /**
- * Version 2 notes (D67), in JSON: about 150 tokens for an easy sentence
- * and up to about 600 for a hard one; capped at 700 a sentence.
+ * Version 2 notes (D67), in JSON: about 200 tokens for an easy sentence
+ * and up to about 800 for a hard one. 700 a sentence cut a real answer
+ * off (2026-11-08, D69), so 1,000 a sentence plus 600, at most 8,000.
  */
 export function annotateBudget(sentences: readonly string[]): LanguageBudget {
   return {
     operation: "annotate",
     inputChars: countChars(sentences),
-    maxOutputTokens: capped(sentences.length * 700 + 400, 8_000),
+    maxOutputTokens: capped(sentences.length * 1_000 + 600, 8_000),
   };
 }
 

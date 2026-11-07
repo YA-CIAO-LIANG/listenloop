@@ -157,6 +157,31 @@ function examples(value: unknown): Example[] {
     .slice(0, NOTES_LIMITS.examples);
 }
 
+/** Words that start a noun phrase: "going to the …" is a place, not "gonna". */
+const NOUN_START =
+  /^(the|a|an|my|your|his|her|its|our|their|this|that|these|those|some|school|work|bed|class|church|town|college)\b/i;
+
+/**
+ * Whether a connected-speech note claims a reduction the sentence can't
+ * have (D69): "going to" and "want to" only become "gonna" and "wanna"
+ * before a verb, never before a place or thing ("going to the library").
+ */
+export function impossibleReduction(
+  sentence: string,
+  item: { text: string; soundsLike: string },
+): boolean {
+  const reduced = /\b(gonna|wanna)\b/i.exec(item.soundsLike)?.[1].toLowerCase();
+  if (!reduced) return false;
+  const phrase = reduced === "gonna" ? "going to" : "want to";
+  // The phrase within this item's own place in the sentence.
+  const lower = sentence.toLowerCase();
+  const from = Math.max(0, lower.indexOf(item.text.toLowerCase()));
+  const at = lower.indexOf(phrase, from);
+  if (at === -1) return false;
+  const next = sentence.slice(at + phrase.length).trim();
+  return NOUN_START.test(next);
+}
+
 /**
  * One sentence's notes from the model, checked (D67), or null if the
  * answer isn't usable at all. `en` is the sentence the notes are for.
@@ -167,9 +192,14 @@ export function cleanRichNotes(raw: unknown, en: string): RichNotes | null {
   const modelDifficulty = (DIFFICULTIES as readonly unknown[]).includes(said)
     ? (said as Difficulty)
     : localDifficulty(en);
-  // The local estimate is a floor: never easier than one step below it.
-  const floor = Math.max(0, RANK[localDifficulty(en)] - 1);
-  let difficulty = DIFFICULTIES[Math.max(RANK[modelDifficulty], floor)];
+  // The local estimate bounds the model's: at most one step easier (a
+  // long, many-claused sentence is never easy) or harder (an 8-word
+  // question isn't hard, D69).
+  const local = RANK[localDifficulty(en)];
+  let difficulty =
+    DIFFICULTIES[
+      Math.min(Math.max(RANK[modelDifficulty], local - 1, 0), local + 1, 2)
+    ];
 
   const seenTerms = new Set<string>();
   const vocab = list(field(raw, "vocab")).flatMap((item): RichVocab[] => {
@@ -230,7 +260,11 @@ export function cleanRichNotes(raw: unknown, en: string): RichNotes | null {
       const text = str(field(item, "text"), MAX.text);
       const soundsLike = str(field(item, "soundsLike"), MAX.short);
       const note = str(field(item, "note"), MAX.explanation);
-      return text && soundsLike && note && inSentence(en, text)
+      return text &&
+        soundsLike &&
+        note &&
+        inSentence(en, text) &&
+        !impossibleReduction(en, { text, soundsLike })
         ? [{ text, soundsLike, note }]
         : [];
     },
@@ -241,7 +275,11 @@ export function cleanRichNotes(raw: unknown, en: string): RichNotes | null {
     const text = str(field(item, "text"), MAX.text);
     const role = field(item, "role");
     const zh = str(field(item, "zh"), MAX.zh);
-    return text && zh && (CHUNK_ROLES as readonly unknown[]).includes(role)
+    // A chunk is words: punctuation alone ("?") isn't a meaning group.
+    return text &&
+      zh &&
+      /[\p{L}\p{N}]/u.test(text) &&
+      (CHUNK_ROLES as readonly unknown[]).includes(role)
       ? [{ text, role: role as ChunkRole, zh }]
       : [];
   });

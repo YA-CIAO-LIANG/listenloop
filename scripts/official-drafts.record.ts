@@ -15,6 +15,7 @@
  * stopped run can simply be started again. Every call is in api_calls.
  */
 import { createClient } from "@supabase/supabase-js";
+import { emptyTally, guardedMeter, usd } from "./cost-guard";
 import { expect, it } from "vitest";
 import { supabaseAiCache } from "@/auth/ai-cache";
 import { supabaseAudioStore } from "@/auth/audio-store";
@@ -42,12 +43,7 @@ import {
 } from "@/lib/custom-practice/notes";
 import { speakerLines, withSpeakers } from "@/lib/custom-practice/speakers";
 import type { Database } from "@/lib/supabase/database.types";
-import {
-  countChars,
-  OFFICIAL_DAILY_LIMITS,
-  type UsageLogEntry,
-  type UsageMeter,
-} from "@/lib/usage";
+import { countChars, OFFICIAL_DAILY_LIMITS } from "@/lib/usage";
 
 /** Joe's approved total for tonight's real calls (2026-11-07). */
 const BUDGET_USD = 1.0;
@@ -185,68 +181,6 @@ export const SPECS: Spec[] = (
 ).map((spec) => ({ ...spec }));
 
 const env = (name: string) => process.env[name]?.trim() ?? "";
-const usd = (micros: number) => `US$${(micros / 1_000_000).toFixed(4)}`;
-
-/** Totals for the report: per draft and overall. */
-type Tally = {
-  inputTokens: number;
-  outputTokens: number;
-  chars: number;
-  micros: number;
-  calls: number;
-};
-const emptyTally = (): Tally => ({
-  inputTokens: 0,
-  outputTokens: 0,
-  chars: 0,
-  micros: 0,
-  calls: 0,
-});
-
-/**
- * The meter, with the run's budget on top: a cost reservation that could
- * take the total past BUDGET_USD (spent plus every open worst case) is
- * refused, which stops the call before it's made.
- */
-function guardedMeter(
-  inner: UsageMeter,
-  tally: { current: Tally; total: Tally },
-) {
-  let reservedOpen = 0;
-  const budget = toMicros(BUDGET_USD);
-  const meter: UsageMeter = {
-    async reserve(kind, amount) {
-      if (
-        kind === "cost" &&
-        tally.total.micros + reservedOpen + amount > budget
-      ) {
-        console.log(
-          `  ✋ budget: ${usd(tally.total.micros)} spent; this call could cost ${usd(amount)}`,
-        );
-        return false;
-      }
-      const ok = await inner.reserve(kind, amount);
-      if (ok && kind === "cost") reservedOpen += amount;
-      return ok;
-    },
-    async settle(micros) {
-      await inner.settle(micros);
-    },
-    async log(entry: UsageLogEntry) {
-      await inner.log(entry);
-      if (entry.operation !== "speech") reservedOpen = 0;
-      for (const t of [tally.current, tally.total]) {
-        t.inputTokens += entry.inputTokens;
-        t.outputTokens += entry.outputTokens;
-        t.chars += entry.chars;
-        t.micros += entry.costMicros;
-        t.calls += 1;
-      }
-    },
-  };
-  return meter;
-}
-
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 it("makes the official drafts", { timeout: 3_600_000 }, async () => {
@@ -321,6 +255,7 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
           OFFICIAL_DAILY_LIMITS,
         ),
         tally,
+        BUDGET_USD,
       ),
       cache: supabaseAiCache(admin),
       store: supabaseAudioStore(admin),

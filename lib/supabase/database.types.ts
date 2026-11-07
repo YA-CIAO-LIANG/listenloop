@@ -740,6 +740,15 @@ export type Database = {
         Args: { delta: number; target_user: string; usage_day: string };
         Returns: undefined;
       };
+      upgrade_practice_notes: {
+        Args: {
+          new_grammar: Json;
+          new_notes: Json;
+          new_vocab: Json;
+          target: string;
+        };
+        Returns: number;
+      };
     };
     Enums: {
       [_ in never]: never;

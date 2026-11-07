@@ -20,10 +20,9 @@ import { memoryMeter, TEST_PRICE } from "./memory-meter";
 /** Version 2 notes (D67). */
 const HARD =
   "If you're going to the library later, could you pick up the book I reserved for my history class?";
-const fixture = JSON.parse(
-  readFileSync("tests/fixtures/ai/azure-openai/annotate.json", "utf8"),
+const { answer } = JSON.parse(
+  readFileSync("tests/fixtures/notes-v2-hard.json", "utf8"),
 );
-const answer = JSON.parse(fixture.response.choices[0].message.content);
 const hard = (): Record<string, unknown> =>
   JSON.parse(JSON.stringify(answer.sentences[0]));
 
@@ -207,5 +206,49 @@ describe("caching version 2 notes", () => {
     expect(annotate).toHaveBeenCalledTimes(1);
     // Every cache key is a version 2 one.
     for (const value of entries.values()) expect(value).toMatchObject({ v: 2 });
+  });
+});
+
+describe("impossible reductions (D69)", () => {
+  it("drops gonna/wanna before a place or thing, keeps them before a verb", () => {
+    const en = "If you're going to the library later, I'm going to call you.";
+    const notes = cleanRichNotes(
+      {
+        difficulty: "medium",
+        connected: [
+          { text: "you're going to", soundsLike: "yer gonna", note: "x" },
+          {
+            text: "I'm going to call",
+            soundsLike: "I'm gonna call",
+            note: "y",
+          },
+        ],
+      },
+      en,
+    )!;
+    expect(notes.connected.map((c) => c.note)).toEqual(["y"]);
+  });
+});
+
+describe("difficulty bounds (D69)", () => {
+  it("keeps a short question from being hard, and drops punctuation chunks", () => {
+    const en = "What drink would you like to try today?";
+    const notes = cleanRichNotes(
+      {
+        difficulty: "hard",
+        chunks: [
+          {
+            text: "What drink would you like",
+            role: "main",
+            zh: "你想要哪種飲料",
+          },
+          { text: "to try today", role: "modifier", zh: "今天試試" },
+          { text: "?", role: "connector", zh: "問句" },
+        ],
+      },
+      en,
+    )!;
+    expect(notes.difficulty).toBe("medium");
+    expect(notes.chunks).toEqual([]);
   });
 });
