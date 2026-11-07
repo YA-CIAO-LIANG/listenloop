@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { parseVoiceId } from "@/lib/ai/types";
+import { isCategoryId, isExamId } from "@/lib/categories";
 import type { PublicPracticeSummary } from "@/lib/custom-practice/explore";
 import { CardLink } from "./CardLink";
 import { VideoProgressLabel } from "./VideoProgressLabel";
@@ -18,6 +19,7 @@ export function PracticeCard({
 }) {
   const t = useTranslations("explore");
   const tVoice = useTranslations("voicePicker");
+  const tc = useTranslations("categories");
   const parsed = practice.voice ? parseVoiceId(practice.voice) : null;
   const voice = parsed
     ? tVoice("voiceName", {
@@ -28,7 +30,10 @@ export function PracticeCard({
   return (
     <CardLink href={`/videos/${practice.id}`}>
       <p className="text-metadata tracking-widest text-ink-muted uppercase">
-        {t(`source.${practice.sourceLanguage}`)}
+        {isCategoryId(practice.category)
+          ? tc(`names.${practice.category}`)
+          : t(`source.${practice.sourceLanguage}`)}
+        {isExamId(practice.exam) && ` · ${tc(`exams.${practice.exam}`)}`}
         {voice && ` · ${voice}`}
       </p>
       <p className="mt-4 font-display text-h3">{practice.title}</p>

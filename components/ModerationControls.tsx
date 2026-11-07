@@ -17,6 +17,8 @@ type ModerationControlsProps = {
   title: string;
   /** Preselected takedown reason: the most reported one. */
   defaultReason: ReportReason;
+  /** "Dismiss reports": only where there are reports to dismiss. */
+  showDismiss?: boolean;
   /** Injected in tests; the Server Actions otherwise. */
   removePractice?: typeof removePracticeAction;
   dismissReports?: typeof dismissReportsAction;
@@ -27,6 +29,7 @@ export function ModerationControls({
   practiceId,
   title,
   defaultReason,
+  showDismiss = true,
   removePractice = removePracticeAction,
   dismissReports = dismissReportsAction,
 }: ModerationControlsProps) {
@@ -66,15 +69,17 @@ export function ModerationControls({
         >
           {t("remove")}
         </Button>
-        <Button
-          variant="secondary"
-          size="sm"
-          aria-label={t("dismissLabel", { title })}
-          disabled={action.pending}
-          onClick={() => action.run(() => dismissReports(practiceId))}
-        >
-          {t("dismiss")}
-        </Button>
+        {showDismiss && (
+          <Button
+            variant="secondary"
+            size="sm"
+            aria-label={t("dismissLabel", { title })}
+            disabled={action.pending}
+            onClick={() => action.run(() => dismissReports(practiceId))}
+          >
+            {t("dismiss")}
+          </Button>
+        )}
       </div>
       {action.error && (
         <p role="alert" className="text-supporting text-error">

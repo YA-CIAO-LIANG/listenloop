@@ -286,7 +286,9 @@
     "official": {
       "title": "ListenLoop official practices",
       "count": "{count, plural, one {# practice} other {# practices}}",
-      "intro": "Practices ListenLoop made for everyone; work through them in order."
+      "intro": "Practices ListenLoop made for everyone; work through them in order.",
+      "filterCategory": "Category",
+      "filterExam": "Exam"
     }
   },
   "collections": {
@@ -840,7 +842,7 @@
     "officialOff": "Make official",
     "officialOn": "✓ Official",
     "officialLabel": "Whether \"{title}\" is official",
-    "officialPublic": "Official practices are always public."
+    "officialPublic": "A practice made official starts as a private draft; publish it from Admin → Materials to list it in the library."
   },
   "voicePicker": {
     "legend": "Choose a voice",
@@ -1242,6 +1244,56 @@
       "stats": "Skipped {skips} times · reported {reports} times · average coverage {coverage}",
       "edit": "Edit this practice →",
       "open": "Open the video page →"
+    },
+    "materials": {
+      "title": "Materials",
+      "intro": "Official and public materials. Official practices must be made by an admin; they start as private drafts and can be published to the library once their notes and audio are done. Published ones can be reordered in the library.",
+      "none": "No materials match.",
+      "author": "User {number}",
+      "sentences": "{count} sentences",
+      "noCategory": "Uncategorized",
+      "removed": "Taken down ({reason})",
+      "visibility": {
+        "public": "Public",
+        "private": "Private"
+      },
+      "notReady": "Not finished (audio {voiced}/{total})",
+      "stateLabel": "Official",
+      "states": {
+        "none": "Not official",
+        "draft": "Draft (private)",
+        "published": "Published"
+      },
+      "position": "Library order {n}/{total}",
+      "moveUpLabel": "Move “{title}” up",
+      "moveDownLabel": "Move “{title}” down",
+      "edit": "Edit →",
+      "categoryLabel": "Category",
+      "scenarioLabel": "Scenario",
+      "levelLabel": "Level",
+      "saveCategory": "Save category",
+      "saved": "Updated, and recorded in the admin audit.",
+      "filters": {
+        "category": "Category",
+        "exam": "Exam",
+        "status": "Status",
+        "all": "All",
+        "apply": "Filter",
+        "statuses": {
+          "all": "All",
+          "draft": "Official drafts",
+          "published": "Official, published",
+          "public": "Other public"
+        }
+      },
+      "errors": {
+        "unavailable": "Only admins can change this.",
+        "invalid": "Something’s off; reload the page and try again.",
+        "not-found": "This material wasn’t found, or it’s been taken down.",
+        "failed": "The change didn’t go through; try again later.",
+        "not-admin-made": "Only practices made by an admin can be official.",
+        "not-ready": "Its notes or audio aren’t done yet; finish them in My materials first."
+      }
     }
   },
   "events": {

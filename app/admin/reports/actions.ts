@@ -40,6 +40,7 @@ async function asModerator(
       audit.changes,
     );
     revalidatePath("/admin/reports");
+    revalidatePath("/admin/materials");
     revalidatePath("/explore");
   }
   return result;

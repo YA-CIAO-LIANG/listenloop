@@ -18,6 +18,8 @@ const practice = (
   sentenceCount,
   createdAt: "2026-11-04T00:00:00Z",
   mine: false,
+  category: null,
+  exam: null,
 });
 
 const list = [
