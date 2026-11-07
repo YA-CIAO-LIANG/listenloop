@@ -6,7 +6,12 @@ import {
 import type { MeteredDeps } from "@/lib/ai/metered";
 import { can, planFor } from "@/lib/plans";
 import { supabaseConfig } from "@/lib/supabase/config";
-import { DAILY_LIMITS, usageDay, type UsageMeter } from "@/lib/usage";
+import {
+  DAILY_LIMITS,
+  usageDay,
+  type UsageKind,
+  type UsageMeter,
+} from "@/lib/usage";
 import type { Supabase } from "@/lib/supabase/browser";
 import type { AudioStore } from "@/lib/custom-practice/audio";
 import type { AiCache } from "@/lib/custom-practice/notes";
@@ -26,6 +31,7 @@ export function supabaseUsageMeter(
   admin: Supabase,
   userId: string,
   now: () => Date = () => new Date(),
+  limits: Readonly<Record<UsageKind, number>> = DAILY_LIMITS,
 ): UsageMeter {
   const day = usageDay(now());
   return {
@@ -37,13 +43,13 @@ export function supabaseUsageMeter(
               usage_kind: kind,
               usage_day: day,
               amount,
-              max_chars: DAILY_LIMITS.speech,
+              max_chars: limits.speech,
             })
           : await admin.rpc("reserve_api_cost", {
               target_user: userId,
               usage_day: day,
               amount,
-              max_micros: DAILY_LIMITS.cost,
+              max_micros: limits.cost,
             });
       if (error) throw new Error(error.message);
       return data === true;
