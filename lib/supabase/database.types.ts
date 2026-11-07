@@ -39,6 +39,36 @@ export type Database = {
   };
   public: {
     Tables: {
+      admin_audit: {
+        Row: {
+          action: string;
+          admin_id: string | null;
+          changes: Json;
+          created_at: string;
+          id: number;
+          target_id: string;
+          target_type: string;
+        };
+        Insert: {
+          action: string;
+          admin_id?: string | null;
+          changes?: Json;
+          created_at?: string;
+          id?: never;
+          target_id: string;
+          target_type: string;
+        };
+        Update: {
+          action?: string;
+          admin_id?: string | null;
+          changes?: Json;
+          created_at?: string;
+          id?: never;
+          target_id?: string;
+          target_type?: string;
+        };
+        Relationships: [];
+      };
       ai_cache: {
         Row: {
           created_at: string;
@@ -523,6 +553,32 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      admin_overview: {
+        Args: { day_start: string; week_start: string };
+        Returns: {
+          active_today: number;
+          active_week: number;
+          database_bytes: number;
+          days_completed_week: number;
+          new_practices_week: number;
+          new_users_week: number;
+          storage_bytes: number;
+          users: number;
+        }[];
+      };
+      admin_users: {
+        Args: { month_start: string };
+        Returns: {
+          created_at: string;
+          last_seen_at: string;
+          month_micros: number;
+          number: number;
+          practices: number;
+          role: string;
+          status: string;
+          user_id: string;
+        }[];
+      };
       api_usage_totals: {
         Args: { day_start: string; month_start: string };
         Returns: {

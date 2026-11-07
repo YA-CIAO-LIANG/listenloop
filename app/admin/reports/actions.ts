@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import type { WriteResult } from "@/auth/admin-writes";
+import { logAudit } from "@/auth/audit";
 import { getAdminUser } from "@/auth/creator";
 import { isUuid } from "@/lib/custom-practice/organize";
 import { isReportReason } from "@/lib/moderation";
@@ -18,6 +19,11 @@ export type ModerationResult = WriteResult;
 type Admin = NonNullable<ReturnType<typeof getAdminSupabase>>;
 
 async function asModerator(
+  audit: {
+    action: string;
+    practiceId: string;
+    changes?: Record<string, unknown>;
+  },
   write: (admin: Admin, now: string) => Promise<ModerationResult>,
 ): Promise<ModerationResult> {
   const [user, admin] = [await getAdminUser(), getAdminSupabase()];
@@ -26,6 +32,13 @@ async function asModerator(
     (): ModerationResult => ({ ok: false, reason: "failed" }),
   );
   if (result.ok) {
+    // Every moderation step goes into the admin audit (D56).
+    await logAudit(
+      user.id,
+      audit.action,
+      { type: "practice", id: audit.practiceId },
+      audit.changes,
+    );
     revalidatePath("/admin/reports");
     revalidatePath("/explore");
   }
@@ -40,21 +53,24 @@ export async function removePractice(
   if (!isUuid(practiceId) || !isReportReason(reason)) {
     return { ok: false, reason: "invalid" };
   }
-  return asModerator(async (admin, now) => {
-    const { data, error } = await admin
-      .from("practices")
-      .update({ removed_at: now, removed_reason: reason })
-      .eq("id", practiceId)
-      .select("id");
-    if (error) return { ok: false, reason: "failed" };
-    if (!data.length) return { ok: false, reason: "not-found" };
-    const { error: reportsError } = await admin
-      .from("practice_reports")
-      .update({ status: "removed", resolved_at: now })
-      .eq("practice_id", practiceId)
-      .eq("status", "open");
-    return reportsError ? { ok: false, reason: "failed" } : { ok: true };
-  });
+  return asModerator(
+    { action: "practice.remove", practiceId, changes: { reason } },
+    async (admin, now) => {
+      const { data, error } = await admin
+        .from("practices")
+        .update({ removed_at: now, removed_reason: reason })
+        .eq("id", practiceId)
+        .select("id");
+      if (error) return { ok: false, reason: "failed" };
+      if (!data.length) return { ok: false, reason: "not-found" };
+      const { error: reportsError } = await admin
+        .from("practice_reports")
+        .update({ status: "removed", resolved_at: now })
+        .eq("practice_id", practiceId)
+        .eq("status", "open");
+      return reportsError ? { ok: false, reason: "failed" } : { ok: true };
+    },
+  );
 }
 
 /** Closes a practice's open reports without taking it down. */
@@ -62,16 +78,19 @@ export async function dismissReports(
   practiceId: unknown,
 ): Promise<ModerationResult> {
   if (!isUuid(practiceId)) return { ok: false, reason: "invalid" };
-  return asModerator(async (admin, now) => {
-    const { data, error } = await admin
-      .from("practice_reports")
-      .update({ status: "dismissed", resolved_at: now })
-      .eq("practice_id", practiceId)
-      .eq("status", "open")
-      .select("id");
-    if (error) return { ok: false, reason: "failed" };
-    return data.length ? { ok: true } : { ok: false, reason: "not-found" };
-  });
+  return asModerator(
+    { action: "reports.dismiss", practiceId },
+    async (admin, now) => {
+      const { data, error } = await admin
+        .from("practice_reports")
+        .update({ status: "dismissed", resolved_at: now })
+        .eq("practice_id", practiceId)
+        .eq("status", "open")
+        .select("id");
+      if (error) return { ok: false, reason: "failed" };
+      return data.length ? { ok: true } : { ok: false, reason: "not-found" };
+    },
+  );
 }
 
 /** Undoes a takedown: public again if its author still has it public. */
@@ -79,14 +98,17 @@ export async function restorePractice(
   practiceId: unknown,
 ): Promise<ModerationResult> {
   if (!isUuid(practiceId)) return { ok: false, reason: "invalid" };
-  return asModerator(async (admin) => {
-    const { data, error } = await admin
-      .from("practices")
-      .update({ removed_at: null, removed_reason: null })
-      .eq("id", practiceId)
-      .not("removed_at", "is", null)
-      .select("id");
-    if (error) return { ok: false, reason: "failed" };
-    return data.length ? { ok: true } : { ok: false, reason: "not-found" };
-  });
+  return asModerator(
+    { action: "practice.restore", practiceId },
+    async (admin) => {
+      const { data, error } = await admin
+        .from("practices")
+        .update({ removed_at: null, removed_reason: null })
+        .eq("id", practiceId)
+        .not("removed_at", "is", null)
+        .select("id");
+      if (error) return { ok: false, reason: "failed" };
+      return data.length ? { ok: true } : { ok: false, reason: "not-found" };
+    },
+  );
 }

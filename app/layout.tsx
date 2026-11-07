@@ -53,6 +53,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               <SiteHeader
                 showMaterials={!!user}
                 showCreate={canCreatePractices(user)}
+                showAdmin={user?.role === "admin"}
                 account={
                   accountsEnabled && (
                     // useSearchParams inside: Suspense keeps the page renderable.

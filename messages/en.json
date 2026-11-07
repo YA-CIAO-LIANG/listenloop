@@ -6,7 +6,8 @@
     "explore": "Shared",
     "mainNav": "Main",
     "materials": "My materials",
-    "createPractice": "Create a practice"
+    "createPractice": "Create a practice",
+    "admin": "Admin"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -1147,5 +1148,149 @@
       "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice."
     },
     "seePractices": "See your progress"
+  },
+  "admin": {
+    "nav": {
+      "label": "Admin sections",
+      "overview": "Overview",
+      "users": "Users",
+      "materials": "Materials",
+      "reports": "Reports",
+      "sentences": "Hard sentences",
+      "usage": "API usage",
+      "events": "Activity",
+      "feedback": "Feedback",
+      "errors": "Errors",
+      "audit": "Admin audit"
+    },
+    "overview": {
+      "title": "Admin overview",
+      "intro": "Users, practice, spending, and storage. Opening this page also deletes logs past their retention.",
+      "noSecretKey": "SUPABASE_SERVICE_ROLE_KEY isn’t set on the server, so the dashboard can’t read its data. See the setup check on the API usage page.",
+      "groups": {
+        "learners": "Users",
+        "practice": "Practice",
+        "costs": "Spending and credit",
+        "storage": "Supabase storage"
+      },
+      "users": "Total users",
+      "activeToday": "Active today",
+      "activeWeek": "Active this week",
+      "newUsers": "New sign-ups",
+      "weekNote": "Last 7 days (Taiwan time)",
+      "newPractices": "New practices",
+      "daysCompleted": "Days completed",
+      "monthCost": "API spend this month",
+      "credit": "Azure student credit left",
+      "creditNote": "US${total} in all, ends {endsOn}; estimated from the call log",
+      "speech": "Azure speech characters (this month)",
+      "speechNote": "{used} / {free} free characters",
+      "database": "Database",
+      "files": "Files (audio)",
+      "bytesNote": "{used} MB / {limit} MB (free plan)"
+    },
+    "users": {
+      "title": "Users",
+      "intro": "Every account, by user number; emails aren’t shown. Open a number to see its activity, set its role, or disable it.",
+      "none": "No users yet.",
+      "userName": "User {number}",
+      "activity": "Recent activity",
+      "columns": {
+        "number": "User",
+        "joined": "Joined",
+        "lastSeen": "Last active",
+        "practices": "Practices",
+        "cost": "Usage this month",
+        "role": "Role",
+        "status": "Status"
+      },
+      "roles": {
+        "admin": "Admin",
+        "user": "User"
+      },
+      "statuses": {
+        "active": "Active",
+        "disabled": "Disabled"
+      },
+      "roleIs": "Role: {role}",
+      "selfNote": "This is your own account; its role and status can’t be changed here.",
+      "makeAdmin": "Make admin",
+      "makeUser": "Make regular user",
+      "disable": "Disable account…",
+      "confirmDisable": "Disable",
+      "restore": "Restore account",
+      "cancel": "Cancel",
+      "disableNote": "A disabled account can’t sign in, and its sessions stop working. Its practice data is kept, so restoring it picks up where it left off.",
+      "saved": "Updated, and recorded in the admin audit.",
+      "errors": {
+        "unavailable": "Only admins can change this.",
+        "invalid": "Something’s off; reload the page and try again.",
+        "not-found": "No such account.",
+        "self": "You can’t change your own account.",
+        "listed": "This account is in ADMIN_EMAILS, so it stays an admin and can’t be demoted or disabled. Remove it from ADMIN_EMAILS on Vercel first.",
+        "failed": "The change didn’t go through; try again later."
+      }
+    },
+    "events": {
+      "title": "Activity",
+      "intro": "What users did, newest first. Only user numbers and the needed fields are kept, for 180 days.",
+      "none": "Nothing matches.",
+      "shown": "Shows up to {max} entries.",
+      "columns": {
+        "time": "Time",
+        "user": "User",
+        "type": "Event",
+        "practice": "Practice",
+        "day": "Day",
+        "score": "Score",
+        "code": "Code"
+      },
+      "filters": {
+        "user": "User number",
+        "type": "Event",
+        "allTypes": "All events",
+        "from": "From",
+        "to": "To",
+        "apply": "Filter"
+      }
+    },
+    "audit": {
+      "title": "Admin audit",
+      "intro": "Every admin change: who, when, on what, and what changed. Kept 2 years.",
+      "none": "No admin changes yet.",
+      "columns": {
+        "time": "Time",
+        "admin": "Admin",
+        "action": "Action",
+        "target": "Target",
+        "changes": "Change"
+      }
+    },
+    "sentences": {
+      "title": "Hard sentences",
+      "intro": "Sentences learners reported after 5 shadowing tries in a row under 50%, ranked by skips and average coverage. Open one to fix it.",
+      "none": "No reports yet.",
+      "where": "{title} · sentence {n}",
+      "missing": "(This sentence wasn’t found; it may have been edited.)",
+      "stats": "Skipped {skips} times · reported {reports} times · average coverage {coverage}",
+      "edit": "Edit this practice →",
+      "open": "Open the video page →"
+    }
+  },
+  "events": {
+    "types": {
+      "sign_in": "Signed in",
+      "practice_start": "Started a practice",
+      "day_complete": "Completed a day",
+      "retry": "Retried",
+      "practice_create": "Created a practice",
+      "practice_edit": "Edited a practice",
+      "practice_delete": "Deleted a practice",
+      "practice_public": "Made public",
+      "report": "Reported",
+      "sentence_skip": "Skipped a sentence",
+      "recognition_fail": "Recognition failed",
+      "account_delete": "Deleted account"
+    }
   }
 }
