@@ -1,6 +1,7 @@
 "use server";
 
 import { logEvent } from "@/auth/events";
+import { allowAction } from "@/auth/rate-limit";
 import { getSignedInUser } from "@/auth/session";
 import { cleanClientEvent } from "@/lib/events";
 
@@ -14,5 +15,6 @@ export async function recordEvent(raw: unknown): Promise<void> {
   if (!event) return;
   const user = await getSignedInUser();
   if (!user) return;
+  if (!(await allowAction("event", user.id))) return;
   await logEvent(user.id, event);
 }

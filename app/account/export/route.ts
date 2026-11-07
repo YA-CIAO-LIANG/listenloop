@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { exportAccountData } from "@/auth/account-data";
 import { getAdminSupabase } from "@/auth/admin";
+import { allowAction } from "@/auth/rate-limit";
 import { getSignedInUser } from "@/auth/session";
 
 /**
@@ -10,6 +11,9 @@ import { getSignedInUser } from "@/auth/session";
 export async function GET() {
   const user = await getSignedInUser();
   if (!user) return new NextResponse(null, { status: 401 });
+  if (!(await allowAction("export", user.id))) {
+    return new NextResponse(null, { status: 429 });
+  }
   const admin = getAdminSupabase();
   if (!admin) return new NextResponse(null, { status: 503 });
   const data = await exportAccountData(admin, user.id);

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
+import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
 import { composeBudget } from "@/lib/ai/budgets";
 import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
@@ -114,6 +115,9 @@ export async function translateSentences(
 ): Promise<TranslateResult> {
   const creator = await getCreator();
   if (!creator) return { ok: false, reason: "unavailable" };
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
   if (
     !Array.isArray(sentences) ||
     sentences.length === 0 ||
@@ -151,6 +155,9 @@ export async function createPractice(
 ): Promise<CreatePracticeResult> {
   const creator = await getCreator();
   if (!creator) return { ok: false, reason: "unavailable" };
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
   const cleaned = cleanDraft(input);
   if (!cleaned.ok) {
     const { problem, sentence } = cleaned;
@@ -283,6 +290,9 @@ export async function generatePracticeAudio(
 ): Promise<GenerateAudioResult> {
   const creator = await getCreator();
   if (!creator) return { ok: false, reason: "unavailable" };
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
   if (typeof practiceId !== "string") return { ok: false, reason: "not-found" };
@@ -349,6 +359,9 @@ export async function generatePracticeNotes(
 ): Promise<GenerateNotesResult> {
   const creator = await getCreator();
   if (!creator) return { ok: false, reason: "unavailable" };
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
   if (typeof practiceId !== "string") return { ok: false, reason: "not-found" };
@@ -420,6 +433,9 @@ export async function generatePracticeText(
 ): Promise<GenerateTextResult> {
   const creator = await getCreator();
   if (!creator) return { ok: false, reason: "unavailable" };
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
   const request = parseGenerationRequest(input);
   if (!request) return { ok: false, reason: "invalid" };
   const prompt = compositionPrompt(request);
