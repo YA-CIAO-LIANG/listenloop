@@ -775,3 +775,14 @@
   - `lib/custom-practice/notes.ts`（`segmentCached`、`SEGMENT_WAIT_MS`）、`components/practice-generation.ts`；
   - `lib/ai/http.ts`（`PROVIDER_TIMEOUT_MS`、`probeProvider`）、各供應者的 `checkConnection`；
   - `app/admin/usage/actions.ts`、`components/ConnectionTest.tsx`、`app/admin/usage/page.tsx`。
+
+## D50 帳號資料：角色、使用者編號、停用（2026-11-07，P0-1）
+
+- **決定**：
+  - 新增 `profiles` 資料表：`number`（使用者編號）、`role`（admin／user）、`status`（active／disabled）、`created_at`、`last_seen_at`。不存 email。
+  - **使用者編號**：新帳號註冊時由資料庫觸發器建立資料，編號自動遞增；後台顯示成「使用者 001」（至少三位數）。既有帳號用 `scripts/backfill-profiles.mts` 補上：ADMIN_EMAILS 的第一個帳號（Joe 的管理員帳號）是 000，其他人依註冊順序從 001 開始，所以 Joe 的一般帳號是「使用者 001」。腳本讀取 ADMIN_EMAILS，所以 email 不會進到 repo。
+  - **角色**：ADMIN_EMAILS 裡的帳號每次登入（伺服器讀取工作階段時）自動成為 admin，並寫回 `profiles`；其他管理員之後在後台指定。程式只看 `user.role`，不再直接比對 email。
+  - **停用**：`status = disabled` 時，伺服器把這個帳號當成未登入；後台停用時同時在 Supabase Auth 封鎖（ban），所以無法登入或延長工作階段。被封鎖的人登入時，會看到「這個帳號已被停用」。已發出的存取權杖最長 1 小時內失效，期間伺服器頁面已經不認得這個帳號。
+  - **權限**：使用者只能讀自己的資料；只有伺服器（service_role）能寫。另外新增 `is_admin()` 函式，供其他資料表的 RLS 判斷管理員。
+- **理由**：角色存在資料庫，才能在後台指定管理員；編號讓後台不用顯示 email，降低個資外洩的風險。
+- **要改時**：`supabase/migrations/20261107120000_profiles.sql`、`auth/session.ts`、`lib/accounts.ts`、`scripts/backfill-profiles.mts`。

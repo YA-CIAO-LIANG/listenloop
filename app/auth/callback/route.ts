@@ -29,5 +29,10 @@ export async function GET(request: NextRequest) {
 
   const { error: exchangeError } =
     await supabase.auth.exchangeCodeForSession(code);
-  return back(exchangeError ? withSignInResult(next, "failed") : next);
+  if (exchangeError) {
+    // A disabled account is banned in Supabase Auth (D50).
+    const banned = /banned/i.test(exchangeError.message);
+    return back(withSignInResult(next, banned ? "disabled" : "failed"));
+  }
+  return back(next);
 }

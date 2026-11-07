@@ -490,7 +490,8 @@
     "signInFailed": "登入沒有成功，請稍後再試一次。練習進度仍然存在這台裝置上。",
     "signInCancelled": "已取消登入。不登入也可以練習，進度會存在這台裝置上。",
     "dismiss": "關閉",
-    "accountSettings": "帳號設定"
+    "accountSettings": "帳號設定",
+    "signInDisabled": "這個帳號已被停用，無法登入。如果你認為這是誤會，請透過頁尾的「意見回饋」聯絡我們。"
   },
   "accountPage": {
     "title": "帳號",

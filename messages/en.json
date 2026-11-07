@@ -490,7 +490,8 @@
     "signInFailed": "Sign-in didn't work. Please try again later. Your progress is still saved on this device.",
     "signInCancelled": "Sign-in cancelled. You can practice without an account; progress is saved on this device.",
     "dismiss": "Close",
-    "accountSettings": "Account settings"
+    "accountSettings": "Account settings",
+    "signInDisabled": "This account has been disabled and can’t sign in. If you think this is a mistake, contact us through “Feedback” at the bottom of the page."
   },
   "accountPage": {
     "title": "Account",
