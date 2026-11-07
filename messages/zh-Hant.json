@@ -402,8 +402,7 @@
     "officialUnchanged": "正式成績 {score}（不變）",
     "thisAttempt": "這次的成績",
     "todayDone": "今日任務完成",
-    "retryComplete": "練習完成！",
-    "perfect": "完美！"
+    "retryComplete": "練習完成！"
   },
   "redictation": {
     "title": "第 7 天：重新聽寫",
@@ -477,7 +476,21 @@
     "retryComplete": "練習完成！",
     "recordUnchanged": "今天的紀錄不變。",
     "review": "逐句紀錄",
-    "backToVideo": "回影片頁"
+    "backToVideo": "回影片頁",
+    "skippedDone": "已跳過",
+    "trouble": {
+      "title": "這句好像一直辨識不出來",
+      "intro": "連續 {count} 次都不到一半。可能不是你念得不好，而是辨識出了問題。可以先試試：",
+      "tips": {
+        "mic": "確認瀏覽器用的是正確的麥克風，並靠近一點說話。",
+        "quiet": "換到安靜一點的地方，關掉背景音樂或影片聲音。",
+        "chrome": "建議使用電腦版 Chrome，語音辨識最穩定。",
+        "pace": "聽完整句再開始念，語速自然就好，不用刻意放慢。"
+      },
+      "retry": "再試一次",
+      "skip": "跳過這句並回報",
+      "note": "跳過的句子算完成，不影響今天的任務。回報只包含涵蓋率和辨識出的文字，不包含錄音。"
+    }
   },
   "account": {
     "signIn": "登入",
@@ -1151,5 +1164,8 @@
       "failed": "生成的內容無法使用，請再試一次。",
       "config": "AI 服務的設定或額度有問題（例如金鑰錯誤，或免費額度、預付額度用完）。詳細原因在伺服器紀錄。"
     }
+  },
+  "celebration": {
+    "perfect": "完美！"
   }
 }

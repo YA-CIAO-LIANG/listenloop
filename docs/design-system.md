@@ -496,3 +496,18 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 最後是 VideoAttribution（CC BY 要求，列印時也要有）。
 - 輸出 PDF：「輸出 PDF」按鈕呼叫瀏覽器列印，提示使用者在列印視窗選「儲存為 PDF」。
 - 列印規則（`globals.css` 的 `@media print` 與 `@page`）：A4、邊界 16mm、11pt；不管網站主題一律白底黑字；頁首、按鈕、返回連結用 `print:hidden` 隱藏；句子、單字列、文法點與出處加 `break-inside-avoid`，不被切到兩頁；第一頁頂端有標題與「ListenLoop · 列印日期」。
+
+## 對話框 `Dialog`（D52）
+
+- 原生 `<dialog>` 加 `showModal()`：焦點限制在對話框內，背景不能操作，Escape 關閉（呼叫 `onClose`）。
+- surface 底、1px line 邊框、4px 圓角、內距 24px；寬度最多 32rem，手機留左右 16px。背景遮罩是 ink 40%。
+- 內容：Display h3 標題（`aria-labelledby`）→ 16px 間距的內文 → 按鈕列（primary 在前，其他用 secondary）。
+
+## 完美彩帶 `PerfectCelebration`（D52）
+
+- 聽寫和跟讀一句 100% 時使用：播放 `PerfectBurst` 彩帶（範圍限制在結果區，不蓋住播放器）。系統設定減少動態效果時，改在分數後面顯示 accent-ink、font-medium 的「完美！」。
+
+## 跟讀的排查對話框（D52）
+
+- 標題「這句好像一直辨識不出來」→ 說明 → 4 個建議（supporting 項目清單）→ ink-muted 的 supporting 說明（跳過算完成、回報不含錄音）→ primary「再試一次」、secondary「跳過這句並回報」。
+- 逐句紀錄中，跳過的句子顯示「✓ 已跳過」。

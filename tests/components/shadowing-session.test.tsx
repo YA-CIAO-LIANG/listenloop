@@ -21,6 +21,10 @@ vi.mock("@/components/youtube/useYouTubePlayer", () => ({
   }),
 }));
 
+vi.mock("@/app/videos/shadowing-actions", () => ({
+  reportShadowingTrouble: vi.fn(),
+}));
+
 vi.mock("@/components/audio/useAudioPlayer", () => ({
   useAudioPlayer: () => ({
     status: "ready",
@@ -403,5 +407,89 @@ describe("ShadowingSession with a created practice", () => {
     await renderSession();
     expect(screen.getByText("中文").closest("details")).not.toBeNull();
     expect(screen.queryByText("home")).toBeNull();
+  });
+
+  it("celebrates a 100% sentence (D52)", async () => {
+    await renderSession();
+    shadow("go home");
+    expect(document.querySelector("[data-perfect-burst]")).not.toBeNull();
+  });
+
+  it("after 5 tries under 50%, offers tips and skipping, and reports (D52)", async () => {
+    const store = memoryStore();
+    const reportTrouble = vi.fn().mockResolvedValue({ ok: true });
+    renderWithIntl(
+      <ShadowingSession
+        video={video}
+        day={2}
+        title="第 2 天：跟讀"
+        store={store}
+        reportTrouble={reportTrouble}
+      />,
+    );
+    await act(async () => {});
+    shadow("go home");
+    fireEvent.click(button("下一句"));
+    finishPlaying();
+    say("we");
+    for (let i = 0; i < 3; i++) shadow("we");
+    expect(screen.queryByRole("dialog")).toBeNull();
+    shadow("city");
+
+    const dialog = screen.getByRole("dialog", {
+      name: "這句好像一直辨識不出來",
+    });
+    expect(within(dialog).getByText(/連續 5 次都不到一半/)).toBeDefined();
+    fireEvent.click(
+      within(dialog).getByRole("button", { name: "跳過這句並回報" }),
+    );
+
+    expect(reportTrouble).toHaveBeenCalledWith(
+      expect.objectContaining({
+        videoId: "test-video",
+        sentenceIndex: 1,
+        skipped: true,
+        attempts: [
+          { coverage: 0.2, heard: "we" },
+          { coverage: 0.2, heard: "we" },
+          { coverage: 0.2, heard: "we" },
+          { coverage: 0.2, heard: "we" },
+          { coverage: 0.2, heard: "city" },
+        ],
+      }),
+    );
+    expect(store.saved()?.days[2]).toMatchObject({
+      done: true,
+      sentences: [
+        { done: true, coverage: 1 },
+        { done: true, coverage: 0.2, skipped: true },
+      ],
+    });
+  });
+
+  it("a passing try or 'try again' starts the count over", async () => {
+    const reportTrouble = vi.fn().mockResolvedValue({ ok: true });
+    renderWithIntl(
+      <ShadowingSession
+        video={video}
+        day={2}
+        title="第 2 天：跟讀"
+        store={memoryStore()}
+        reportTrouble={reportTrouble}
+      />,
+    );
+    await act(async () => {});
+    for (let i = 0; i < 5; i++) shadow("nothing");
+    fireEvent.click(
+      within(screen.getByRole("dialog")).getByRole("button", {
+        name: "再試一次",
+      }),
+    );
+    expect(reportTrouble).toHaveBeenLastCalledWith(
+      expect.objectContaining({ skipped: false }),
+    );
+    expect(screen.queryByRole("dialog")).toBeNull();
+    for (let i = 0; i < 4; i++) shadow("nothing");
+    expect(screen.queryByRole("dialog")).toBeNull();
   });
 });

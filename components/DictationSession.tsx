@@ -30,7 +30,7 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
 import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
-import { PerfectBurst } from "./PerfectBurst";
+import { PerfectCelebration } from "./PerfectCelebration";
 import { PracticeFrame } from "./PracticeFrame";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
@@ -38,7 +38,6 @@ import { ScoreBadge } from "./ScoreBadge";
 import { SentenceNotes } from "./SentenceNotes";
 import { SentenceRow } from "./SentenceRow";
 import { claimAndAnnounce } from "./useRewards";
-import { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { useSentencePlayer } from "./useSentencePlayer";
 import { WeekResult } from "./WeekResult";
@@ -124,7 +123,6 @@ export function DictationSession({
   const videoRef = useRef<HTMLDivElement>(null);
   const feedbackRef = useRef<HTMLDivElement>(null);
   const skipTimer = useRef<number | undefined>(undefined);
-  const reduceMotion = usePrefersReducedMotion();
 
   const { sentences } = video;
   const official = progress?.days[day];
@@ -468,16 +466,11 @@ export function DictationSession({
               />
               <p className="text-supporting text-ink-muted">
                 {t("sentenceScore", { score: percent(feedbackAccuracy) })}
-                {feedbackAccuracy === 1 && reduceMotion && (
-                  <span className="ml-2 font-medium text-accent-ink">
-                    {t("perfect")}
-                  </span>
+                {/* Feedback only shows right after a submit, so this plays once per answer. */}
+                {feedbackAccuracy === 1 && (
+                  <PerfectCelebration key={`${mode}:${feedbackIndex}`} />
                 )}
               </p>
-              {/* Feedback only shows right after a submit, so this plays once per answer. */}
-              {feedbackAccuracy === 1 && !reduceMotion && (
-                <PerfectBurst key={`${mode}:${feedbackIndex}`} />
-              )}
             </div>
           )}
 

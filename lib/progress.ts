@@ -9,6 +9,8 @@ export type ShadowingSentenceRecord = {
   done: boolean;
   /** Heard share of words, or null when marked done manually (no speech recognition). */
   coverage: number | null;
+  /** Skipped after repeated failures and reported (D52); counts as done. */
+  skipped?: true;
 };
 
 export type DayRecord = {
@@ -100,7 +102,8 @@ function isDayRecord(value: unknown): value is DayRecord {
         (s) =>
           isObject(s) &&
           typeof s.done === "boolean" &&
-          (s.coverage === null || isRatio(s.coverage)),
+          (s.coverage === null || isRatio(s.coverage)) &&
+          (s.skipped === undefined || s.skipped === true),
       )
     )
   ) {

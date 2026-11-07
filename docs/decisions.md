@@ -793,3 +793,19 @@
   - 部署名稱轉小寫的前提：部署名稱用小寫建立（Joe 的是 `gpt-5-mini`）。如果之後建立了含大寫字母的部署名稱，要改 `lib/ai/providers.ts` 的 `readEnvName`。
 - **聲音選擇**：Joe 確認 `VoiceMenu`（e+ 3b），建立與編輯練習都改用它，刪除舊的 `VoicePicker` 卡片元件和測試。`voiceSampleUrl` 移到 `components/VoiceMenu.tsx`。
 - **要改時**：`lib/ai/providers.ts`、`components/VoiceMenu.tsx`、`components/CreatePracticeForm.tsx`、`components/EditPracticeForm.tsx`。
+
+## D52 跟讀：100% 彩帶；連續 5 次低於 50% 的排查對話框與問題句子紀錄（2026-11-07，P0-2）
+
+- **彩帶**：聽寫和跟讀共用 `PerfectCelebration`。一句 100% 時播放彩帶；系統設定減少動態效果時，改顯示靜態的「完美！」。文字移到共用的翻譯群組 `celebration.perfect`。
+- **排查對話框**：同一句連續 5 次涵蓋率都低於 50%（`lib/shadowing-trouble.ts` 的 `TROUBLE_ATTEMPTS`、`TROUBLE_COVERAGE`）時，跳出對話框。
+  - 對話框說明可能是辨識的問題，不一定是念得不好，並列出 4 個建議：麥克風、安靜的環境、使用電腦版 Chrome、聽完整句再念。
+  - 「再試一次」：關閉對話框，重新計算 5 次。
+  - 「跳過這句並回報」：這句記為完成（進度裡加 `skipped: true`），不影響當天任務。逐句紀錄顯示「已跳過」，平均涵蓋率仍然用最好的那次。
+  - 一次涵蓋率達 50% 以上、或換到別句，都會重新計算。
+- **問題句子紀錄**：兩個選項都會送出紀錄到 `shadowing_issues`。
+  - 內容：練習 id 與版本、句子位置、5 次的涵蓋率與辨識文字（每次最多 300 字）、瀏覽器與作業系統名稱（例如「Chrome 140 · macOS」，只取主版本）、是否跳過；登入時另外記使用者 id。
+  - 只存文字，不存錄音；未登入也可以回報；送出失敗不會打斷練習。
+  - 只有伺服器（service_role）寫入，只有管理員可以讀取（`is_admin()`）。刪除帳號時一併刪除。
+  - 管理員後台的「容易出錯的句子」會用這份紀錄。
+- **對話框元件**：`components/Dialog.tsx`，用原生的 `<dialog>` 加 `showModal()`：焦點留在對話框裡、背景不能操作，按 Escape 等於「再試一次」。
+- **要改時**：`lib/shadowing-trouble.ts`、`components/ShadowingSession.tsx`、`app/videos/shadowing-actions.ts`、`components/PerfectCelebration.tsx`、`components/Dialog.tsx`、`supabase/migrations/20261107140000_shadowing_issues.sql`。
