@@ -61,35 +61,85 @@ export const fakeLanguage: LanguageProvider = {
   },
 };
 
+/**
+ * Version 2 notes (D67) made from the words themselves: the longest word
+ * as vocabulary and key word, a grammar point on every third sentence,
+ * and, for long sentences, two chunks split at the middle word and the
+ * first two words as connected speech. Enough for every part of the
+ * interface to show up in development and tests.
+ */
 function fakeNotes(sentences: readonly string[]) {
   const words = (sentence: string) => sentence.match(/[A-Za-z']+/g) ?? [];
   return {
-    vocab: sentences.flatMap((sentence, i) => {
-      const word = [...words(sentence)].sort((a, b) => b.length - a.length)[0];
-      return word
-        ? [
-            {
-              sentence: i,
-              word: word.toLowerCase(),
-              pos: "n.",
-              zh: `[zh-Hant] ${word.toLowerCase()}`,
-              example: `An example with ${word.toLowerCase()}.`,
-            },
-          ]
-        : [];
+    sentences: sentences.map((sentence, index) => {
+      const list = words(sentence);
+      const longest = [...list].sort((a, b) => b.length - a.length)[0];
+      const pieces = sentence.split(/\s+/);
+      const hard = pieces.length >= 12;
+      const middle = Math.ceil(pieces.length / 2);
+      return {
+        index,
+        difficulty: hard ? "hard" : list.length >= 7 ? "medium" : "easy",
+        highlights: longest
+          ? [{ text: longest, note: `[zh-Hant] ${longest}` }]
+          : [],
+        vocab: longest
+          ? [
+              {
+                term: longest.toLowerCase(),
+                inSentence: longest,
+                kind: "word",
+                pos: "n.",
+                zh: `[zh-Hant] ${longest.toLowerCase()}`,
+                ipa: "/fake/",
+                collocations: [`a ${longest.toLowerCase()}`],
+                examples: [
+                  {
+                    en: `An example with ${longest.toLowerCase()}.`,
+                    zh: `[zh-Hant] 例句 ${longest.toLowerCase()}`,
+                  },
+                ],
+              },
+            ]
+          : [],
+        grammar:
+          index % 3 === 0 && list.length >= 7
+            ? [
+                {
+                  point: list.slice(0, 2).join(" "),
+                  quote: list.slice(0, 2).join(" "),
+                  explanation: `[zh-Hant] ${sentence}`,
+                  examples: [{ en: sentence, zh: `[zh-Hant] ${sentence}` }],
+                  pitfall: "[zh-Hant] pitfall",
+                },
+              ]
+            : [],
+        chunks: hard
+          ? [
+              {
+                text: pieces.slice(0, middle).join(" "),
+                role: "main",
+                zh: "[zh-Hant] 1",
+              },
+              {
+                text: pieces.slice(middle).join(" "),
+                role: "modifier",
+                zh: "[zh-Hant] 2",
+              },
+            ]
+          : [],
+        connected:
+          list.length >= 7
+            ? [
+                {
+                  text: list.slice(0, 2).join(" "),
+                  soundsLike: list.slice(0, 2).join("-").toLowerCase(),
+                  note: "[zh-Hant] linking",
+                },
+              ]
+            : [],
+      };
     }),
-    grammar: sentences.flatMap((sentence, i) =>
-      i % 3 === 0 && words(sentence).length >= 2
-        ? [
-            {
-              sentence: i,
-              point: words(sentence).slice(0, 2).join(" "),
-              explanation: `[zh-Hant] ${sentence}`,
-              example: sentence,
-            },
-          ]
-        : [],
-    ),
   };
 }
 

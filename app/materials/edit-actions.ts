@@ -15,7 +15,7 @@ import {
 import {
   joinNotes,
   translateCached,
-  type SentenceNotes,
+  type StoredNotes,
 } from "@/lib/custom-practice/notes";
 import { customPracticeId } from "@/lib/practice-material";
 
@@ -98,8 +98,8 @@ export async function savePracticeEdit(
   const { title, voice, voiceB } = cleaned.draft;
   const sentences: EditSentence[] = cleaned.draft.sentences.map((s, i) => ({
     ...s,
-    notes: ((list[i] as { notes?: SentenceNotes | null })?.notes ??
-      null) as SentenceNotes | null,
+    notes: ((list[i] as { notes?: StoredNotes | null })?.notes ??
+      null) as StoredNotes | null,
   }));
 
   const current = [...practice.practice_sentences].sort((a, b) => a.i - b.i);
@@ -121,7 +121,7 @@ export async function savePracticeEdit(
 
   const notesReady = plan.sentences.every((s) => s.notes !== null);
   const joined = notesReady
-    ? joinNotes(plan.sentences.map((s) => s.notes as SentenceNotes))
+    ? joinNotes(plan.sentences.map((s) => s.notes as StoredNotes))
     : { vocab: [], grammar: [] };
   const { data: version, error: saveError } = await supabase.rpc(
     "save_practice_edit",

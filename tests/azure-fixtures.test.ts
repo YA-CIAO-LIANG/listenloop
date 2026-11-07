@@ -6,7 +6,7 @@ import { azureSpeech } from "@/lib/ai/azure-speech";
 import { ProviderError } from "@/lib/ai/types";
 import { checkGeneratedText } from "@/lib/custom-practice/generation";
 import { LEVEL_PROMPTS } from "@/lib/categories";
-import { cleanNotes } from "@/lib/custom-practice/notes";
+import { richNotesFromModel } from "@/lib/custom-practice/notes";
 import { checkedSegments } from "@/lib/custom-practice/split";
 
 /**
@@ -59,13 +59,27 @@ describe("recorded Azure OpenAI answers", () => {
     expect(sent()).toEqual(recorded.request);
   });
 
-  it("writes notes that pass cleanNotes", async () => {
+  it("writes version 2 notes that pass cleanRichNotes (D67)", async () => {
+    const sentence =
+      "If you're going to the library later, could you pick up the book I reserved for my history class?";
     const { recorded, fetchImpl, sent } = replay("azure-openai/annotate.json");
     const { value } = await azureOpenAiLanguage(config, fetchImpl).annotate([
-      "Nice to meet you, too.",
+      sentence,
     ]);
-    const notes = cleanNotes(value, 1);
-    expect(notes.vocab.length + notes.grammar.length).toBeGreaterThan(0);
+    const [notes] = richNotesFromModel(value, [sentence]);
+    expect(notes.difficulty).toBe("hard");
+    expect(notes.chunks.map((c) => c.role)).toEqual([
+      "subordinate",
+      "main",
+      "modifier",
+    ]);
+    expect(notes.vocab[0]).toMatchObject({ term: "pick up", ipa: "/pɪk ʌp/" });
+    expect(notes.grammar).toHaveLength(2);
+    expect(notes.connected.length).toBeGreaterThan(0);
+    expect(notes.highlights.map((h) => h.text)).toEqual([
+      "pick up",
+      "reserved",
+    ]);
     expect(sent()).toEqual(recorded.request);
   });
 

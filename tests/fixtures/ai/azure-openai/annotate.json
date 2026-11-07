@@ -1,14 +1,15 @@
 {
+  "note": "Hand-made for version 2 notes (D67): the request is what the code sends; the answer is written to match the schema, not recorded. Replaced by a recorded one when the official drafts are re-annotated.",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences.\nFor each sentence, choose 0 to 2 vocabulary items (a word or a short phrase) most worth learning; skip very basic words.\nFor each item give: the sentence index (0-based), the word as it is best learned (base form for verbs), its part of speech (n., v., adj., adv., prep., phr., …), a short meaning in Traditional Chinese as used in Taiwan, and a NEW short English example sentence (not the original sentence).\nChoose 0 or 1 grammar point per sentence, only when the sentence shows a pattern worth teaching; about one grammar point for every three sentences overall.\nFor each grammar point give: the sentence index, the pattern in short English form (e.g. \"be a fool for + V-ing\"), an explanation in Traditional Chinese as used in Taiwan (one or two sentences), and a NEW short English example sentence.\nDo not repeat the same word or grammar point."
+        "content": "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences. Write every Chinese text in Traditional Chinese as used in Taiwan.\nReturn one entry per sentence, with its 0-based index.\ndifficulty: easy, medium, or hard, judged for a B1 listener by length, number of clauses, vocabulary level, and connected speech (linking, weak forms, reductions).\nhighlights: 1 or 2 key words or phrases most worth learning, copied exactly as they appear in the sentence, each with a short Chinese note on why.\nvocab: easy 1-2 items, medium or hard up to 3 (words, phrasal verbs, phrases, or idioms worth learning; skip very basic words). For each: term as best learned (base form for verbs), inSentence (the words exactly as in the sentence), kind (word, phrase, idiom), pos (n., v., adj., adv., prep., phr., idiom…), zh (short meaning), ipa (American IPA in slashes, e.g. /ˈɡɑːrdn/; empty for long idioms), collocations (0-3 common collocations), examples (1 NEW short sentence, not the original, each with zh).\ngrammar: none for easy; medium 0-1, hard 0-2, only patterns worth teaching. For each: point (short English form, e.g. \"would rather + V\"), quote (the words in the sentence that show it, copied exactly), explanation (1-2 Chinese sentences), examples (1 NEW sentence with zh), pitfall (one common mistake learners make, in Chinese).\nchunks: only for hard sentences, else empty. Split the sentence into 2-6 meaning groups in order, covering every word exactly once, copied exactly; role is main (main clause), subordinate (subordinate clause), modifier (phrase that modifies), or connector (linking word); zh translates that group alone.\nconnected: none for easy; for medium and hard, 0-3 places hard to catch by ear (e.g. want to → wanna, going to → gonna, did you → didja, a final consonant linked to the next vowel, weak forms of and/to/of). text is copied exactly from the sentence, soundsLike shows how it sounds (e.g. \"wanna\", \"tur-nit-off\"), note explains in Chinese.\nDo not repeat a word or grammar point across sentences. Keep notes short."
       },
       {
         "role": "user",
-        "content": "{\"sentences\":[{\"index\":0,\"en\":\"Nice to meet you, too.\"}]}"
+        "content": "{\"sentences\":[{\"index\":0,\"en\":\"If you're going to the library later, could you pick up the book I reserved for my history class?\"}]}"
       }
     ],
     "response_format": {
@@ -19,162 +20,222 @@
         "schema": {
           "type": "object",
           "properties": {
-            "vocab": {
+            "sentences": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
-                  "sentence": {
+                  "index": {
                     "type": "integer"
                   },
-                  "word": {
-                    "type": "string"
+                  "difficulty": {
+                    "type": "string",
+                    "enum": ["easy", "medium", "hard"]
                   },
-                  "pos": {
-                    "type": "string"
+                  "highlights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["text", "note"],
+                      "additionalProperties": false
+                    }
                   },
-                  "zh": {
-                    "type": "string"
+                  "vocab": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "term": {
+                          "type": "string"
+                        },
+                        "inSentence": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": ["word", "phrase", "idiom"]
+                        },
+                        "pos": {
+                          "type": "string"
+                        },
+                        "zh": {
+                          "type": "string"
+                        },
+                        "ipa": {
+                          "type": "string"
+                        },
+                        "collocations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": ["en", "zh"],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "term",
+                        "inSentence",
+                        "kind",
+                        "pos",
+                        "zh",
+                        "ipa",
+                        "collocations",
+                        "examples"
+                      ],
+                      "additionalProperties": false
+                    }
                   },
-                  "example": {
-                    "type": "string"
+                  "grammar": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "point": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        },
+                        "explanation": {
+                          "type": "string"
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": ["en", "zh"],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pitfall": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "point",
+                        "quote",
+                        "explanation",
+                        "examples",
+                        "pitfall"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "chunks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "main",
+                            "subordinate",
+                            "modifier",
+                            "connector"
+                          ]
+                        },
+                        "zh": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["text", "role", "zh"],
+                      "additionalProperties": false
+                    }
+                  },
+                  "connected": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "soundsLike": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": ["text", "soundsLike", "note"],
+                      "additionalProperties": false
+                    }
                   }
                 },
-                "required": ["sentence", "word", "pos", "zh", "example"],
-                "additionalProperties": false
-              }
-            },
-            "grammar": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "sentence": {
-                    "type": "integer"
-                  },
-                  "point": {
-                    "type": "string"
-                  },
-                  "explanation": {
-                    "type": "string"
-                  },
-                  "example": {
-                    "type": "string"
-                  }
-                },
-                "required": ["sentence", "point", "explanation", "example"],
+                "required": [
+                  "index",
+                  "difficulty",
+                  "highlights",
+                  "vocab",
+                  "grammar",
+                  "chunks",
+                  "connected"
+                ],
                 "additionalProperties": false
               }
             }
           },
-          "required": ["vocab", "grammar"],
+          "required": ["sentences"],
           "additionalProperties": false
         }
       }
     },
-    "max_completion_tokens": 500,
+    "max_completion_tokens": 1100,
     "reasoning_effort": "minimal"
   },
   "response": {
     "choices": [
       {
-        "content_filter_results": {
-          "hate": {
-            "filtered": false,
-            "severity": "safe"
-          },
-          "protected_material_code": {
-            "detected": false,
-            "filtered": false
-          },
-          "protected_material_text": {
-            "detected": false,
-            "filtered": false
-          },
-          "self_harm": {
-            "filtered": false,
-            "severity": "safe"
-          },
-          "sexual": {
-            "filtered": false,
-            "severity": "safe"
-          },
-          "violence": {
-            "filtered": false,
-            "severity": "safe"
-          }
-        },
         "finish_reason": "stop",
         "index": 0,
-        "logprobs": null,
         "message": {
-          "annotations": [],
-          "content": "{\"vocab\":[{\"sentence\":0,\"word\":\"nice\",\"pos\":\"adj.\",\"zh\":\"令人愉快的；好的（用來表示禮貌）\",\"example\":\"It was nice of her to help me with the homework.\"}],\"grammar\":[]}",
-          "refusal": null,
-          "role": "assistant"
+          "role": "assistant",
+          "content": "{\"sentences\": [{\"index\": 0, \"difficulty\": \"hard\", \"highlights\": [{\"text\": \"pick up\", \"note\": \"「去拿、順便帶回來」，口語很常用。\"}, {\"text\": \"reserved\", \"note\": \"圖書館「預約」書籍的說法。\"}], \"vocab\": [{\"term\": \"pick up\", \"inSentence\": \"pick up\", \"kind\": \"phrase\", \"pos\": \"phr. v.\", \"zh\": \"（順路）去拿；接（人）\", \"ipa\": \"/pɪk ʌp/\", \"collocations\": [\"pick up a package\", \"pick up the kids\", \"pick up groceries\"], \"examples\": [{\"en\": \"Can you pick up some milk on your way home?\", \"zh\": \"你回家路上可以順便買些牛奶嗎？\"}]}, {\"term\": \"reserve\", \"inSentence\": \"reserved\", \"kind\": \"word\", \"pos\": \"v.\", \"zh\": \"預約；預訂\", \"ipa\": \"/rɪˈzɝːv/\", \"collocations\": [\"reserve a table\", \"reserve a seat\", \"reserve a book\"], \"examples\": [{\"en\": \"I reserved a study room for Friday afternoon.\", \"zh\": \"我預約了星期五下午的自習室。\"}]}], \"grammar\": [{\"point\": \"could you + V?\", \"quote\": \"could you pick up\", \"explanation\": \"用 could you 開頭的問句比 can you 更客氣，常用來請別人幫忙。\", \"examples\": [{\"en\": \"Could you send me the notes from today's class?\", \"zh\": \"你可以把今天上課的筆記傳給我嗎？\"}], \"pitfall\": \"could you 後面接原形動詞，不要寫成 could you to pick up。\"}, {\"point\": \"the book (that) I reserved\", \"quote\": \"the book I reserved\", \"explanation\": \"關係代名詞 that 當受詞時可以省略，聽的時候要知道 book 後面直接接一個子句。\", \"examples\": [{\"en\": \"This is the jacket I bought last week.\", \"zh\": \"這是我上週買的外套。\"}], \"pitfall\": \"省略 that 時，後面的子句不能再重複受詞：不要說 the book I reserved it。\"}], \"chunks\": [{\"text\": \"If you're going to the library later,\", \"role\": \"subordinate\", \"zh\": \"如果你等一下要去圖書館，\"}, {\"text\": \"could you pick up the book\", \"role\": \"main\", \"zh\": \"可以幫我拿那本書嗎\"}, {\"text\": \"I reserved for my history class?\", \"role\": \"modifier\", \"zh\": \"（就是）我為歷史課預約的那本？\"}], \"connected\": [{\"text\": \"going to the\", \"soundsLike\": \"goin' tə the\", \"note\": \"going 的 g 常被吃掉，to 弱讀成 /tə/，和 the 連在一起，聽起來很快。\"}, {\"text\": \"pick up\", \"soundsLike\": \"pi-kup\", \"note\": \"pick 字尾的 k 和 up 的母音連在一起，聽起來像一個字。\"}, {\"text\": \"could you\", \"soundsLike\": \"couldja\", \"note\": \"d 和 y 連在一起變成「ㄐ」的音。\"}]}]}",
+          "refusal": null
         }
       }
     ],
-    "created": 1793946140,
-    "id": "chatcmpl-Eh7d68hZVjblctxTqKMEof201XrWM",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
-    "prompt_filter_results": [
-      {
-        "prompt_index": 0,
-        "content_filter_results": {
-          "hate": {
-            "filtered": false,
-            "severity": "safe"
-          },
-          "jailbreak": {
-            "detected": false,
-            "filtered": false
-          },
-          "self_harm": {
-            "filtered": false,
-            "severity": "safe"
-          },
-          "sexual": {
-            "filtered": false,
-            "severity": "safe"
-          },
-          "violence": {
-            "filtered": false,
-            "severity": "safe"
-          }
-        }
-      }
-    ],
-    "routing": {
-      "serving_pipereplica": "d20261103035502-ca77201f-default-r2-dp0-default"
-    },
-    "service_tier": "default",
-    "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 66,
-      "completion_tokens_details": {
-        "accepted_prediction_tokens": 0,
-        "audio_tokens": 0,
-        "reasoning_tokens": 0,
-        "rejected_prediction_tokens": 0
-      },
-      "latency_checkpoint": {
-        "engine_tbt_ms": 7,
-        "engine_ttft_ms": 66,
-        "engine_ttlt_ms": 560,
-        "pre_inference_ms": 99,
-        "service_tbt_ms": 7,
-        "service_ttft_ms": 703,
-        "service_ttlt_ms": 1205,
-        "user_visible_ttft_ms": 604
-      },
-      "prompt_tokens": 358,
-      "prompt_tokens_details": {
-        "audio_tokens": 0,
-        "cached_tokens": 0
-      },
-      "total_tokens": 424
+      "prompt_tokens": 1180,
+      "completion_tokens": 980,
+      "total_tokens": 2160
     }
   }
 }

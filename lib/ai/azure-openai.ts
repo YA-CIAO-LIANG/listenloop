@@ -6,6 +6,7 @@ import {
   type LanguageBudget,
 } from "./budgets";
 import { postToProvider, probeProvider } from "./http";
+import { RICH_NOTES_SCHEMA } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   COMPOSE_INSTRUCTIONS,
@@ -84,27 +85,7 @@ const object = (properties: Record<string, unknown>) => ({
 /** Strict mode: every property required, nothing else allowed. */
 export const AZURE_SCHEMAS = {
   translations: object({ translations: { type: "array", items: STRING } }),
-  notes: object({
-    vocab: {
-      type: "array",
-      items: object({
-        sentence: INDEX,
-        word: STRING,
-        pos: STRING,
-        zh: STRING,
-        example: STRING,
-      }),
-    },
-    grammar: {
-      type: "array",
-      items: object({
-        sentence: INDEX,
-        point: STRING,
-        explanation: STRING,
-        example: STRING,
-      }),
-    },
-  }),
+  notes: RICH_NOTES_SCHEMA,
   segments: object({
     lines: { type: "array", items: { type: "array", items: STRING } },
   }),

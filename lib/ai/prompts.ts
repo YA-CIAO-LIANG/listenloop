@@ -24,13 +24,22 @@ export const TRANSLATE_INSTRUCTIONS = (from: TextLanguage, to: TextLanguage) =>
       : "Use Taiwanese usage and full-width punctuation.",
   ].join("\n");
 
+/**
+ * Version 2 notes (D67): as detailed as each sentence needs. Only the
+ * notes changed, so their cache key carries NOTES_VERSION
+ * (lib/custom-practice/rich-notes.ts) instead of bumping PROMPT_VERSION,
+ * which would throw away every cached translation too.
+ */
 export const NOTES_INSTRUCTIONS = [
-  "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences.",
-  "For each sentence, choose 0 to 2 vocabulary items (a word or a short phrase) most worth learning; skip very basic words.",
-  "For each item give: the sentence index (0-based), the word as it is best learned (base form for verbs), its part of speech (n., v., adj., adv., prep., phr., …), a short meaning in Traditional Chinese as used in Taiwan, and a NEW short English example sentence (not the original sentence).",
-  "Choose 0 or 1 grammar point per sentence, only when the sentence shows a pattern worth teaching; about one grammar point for every three sentences overall.",
-  'For each grammar point give: the sentence index, the pattern in short English form (e.g. "be a fool for + V-ing"), an explanation in Traditional Chinese as used in Taiwan (one or two sentences), and a NEW short English example sentence.',
-  "Do not repeat the same word or grammar point.",
+  "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences. Write every Chinese text in Traditional Chinese as used in Taiwan.",
+  "Return one entry per sentence, with its 0-based index.",
+  "difficulty: easy, medium, or hard, judged for a B1 listener by length, number of clauses, vocabulary level, and connected speech (linking, weak forms, reductions).",
+  "highlights: 1 or 2 key words or phrases most worth learning, copied exactly as they appear in the sentence, each with a short Chinese note on why.",
+  "vocab: easy 1-2 items, medium or hard up to 3 (words, phrasal verbs, phrases, or idioms worth learning; skip very basic words). For each: term as best learned (base form for verbs), inSentence (the words exactly as in the sentence), kind (word, phrase, idiom), pos (n., v., adj., adv., prep., phr., idiom…), zh (short meaning), ipa (American IPA in slashes, e.g. /ˈɡɑːrdn/; empty for long idioms), collocations (0-3 common collocations), examples (1 NEW short sentence, not the original, each with zh).",
+  'grammar: none for easy; medium 0-1, hard 0-2, only patterns worth teaching. For each: point (short English form, e.g. "would rather + V"), quote (the words in the sentence that show it, copied exactly), explanation (1-2 Chinese sentences), examples (1 NEW sentence with zh), pitfall (one common mistake learners make, in Chinese).',
+  "chunks: only for hard sentences, else empty. Split the sentence into 2-6 meaning groups in order, covering every word exactly once, copied exactly; role is main (main clause), subordinate (subordinate clause), modifier (phrase that modifies), or connector (linking word); zh translates that group alone.",
+  'connected: none for easy; for medium and hard, 0-3 places hard to catch by ear (e.g. want to → wanna, going to → gonna, did you → didja, a final consonant linked to the next vowel, weak forms of and/to/of). text is copied exactly from the sentence, soundsLike shows how it sounds (e.g. "wanna", "tur-nit-off"), note explains in Chinese.',
+  "Do not repeat a word or grammar point across sentences. Keep notes short.",
 ].join("\n");
 
 export const SEGMENT_INSTRUCTIONS = (language: "en" | "zh") =>

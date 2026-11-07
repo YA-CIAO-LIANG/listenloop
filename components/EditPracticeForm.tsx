@@ -27,6 +27,7 @@ import {
 } from "@/lib/custom-practice/edit";
 import {
   NOTES_PER_SENTENCE,
+  legacyNotes,
   type SentenceNotes,
 } from "@/lib/custom-practice/notes";
 import { customPracticeId } from "@/lib/practice-material";
@@ -41,6 +42,7 @@ import {
 import { StageProgress } from "./StageProgress";
 import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
 import { SpeakerToggle } from "./SpeakerToggle";
+import { isRichNotes, type RichNotes } from "@/lib/custom-practice/rich-notes";
 import type { Speaker } from "@/lib/custom-practice/speakers";
 
 type EditPracticeFormProps = {
@@ -244,15 +246,36 @@ export function EditPracticeForm({
                       {t("changedNote")}
                     </p>
                   )}
-                  <NotesEditor
-                    n={n}
-                    notes={row.notes}
-                    willRegenerate={changed && !row.notesEdited}
-                    disabled={pending}
-                    onChange={(notes) =>
-                      update(row.key, { notes, notesEdited: true })
-                    }
-                  />
+                  {isRichNotes(row.notes) && !(changed && !row.notesEdited) ? (
+                    <RichNotesSummary
+                      n={n}
+                      notes={row.notes}
+                      disabled={pending}
+                      onRegenerate={() =>
+                        update(row.key, { notes: null, notesEdited: true })
+                      }
+                      onEditByHand={() =>
+                        update(row.key, {
+                          notes: legacyNotes(row.notes as RichNotes),
+                          notesEdited: true,
+                        })
+                      }
+                    />
+                  ) : (
+                    <NotesEditor
+                      n={n}
+                      notes={
+                        row.notes && !isRichNotes(row.notes) ? row.notes : null
+                      }
+                      willRegenerate={
+                        (changed && !row.notesEdited) || row.notes === null
+                      }
+                      disabled={pending}
+                      onChange={(notes) =>
+                        update(row.key, { notes, notesEdited: true })
+                      }
+                    />
+                  )}
                   <div className="flex flex-wrap gap-1">
                     <Button
                       variant="ghost"
@@ -399,6 +422,59 @@ export function EditPracticeForm({
             </Link>
           </p>
         )}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Version 2 notes (D67) aren't edited field by field here: they say what
+ * they hold, and can be made again (after saving) or turned into the
+ * simple, editable format.
+ */
+function RichNotesSummary({
+  n,
+  notes,
+  disabled,
+  onRegenerate,
+  onEditByHand,
+}: {
+  n: number;
+  notes: RichNotes;
+  disabled: boolean;
+  onRegenerate: () => void;
+  onEditByHand: () => void;
+}) {
+  const t = useTranslations("editPractice");
+  const tDifficulty = useTranslations("explain.difficulty");
+  return (
+    <div className="space-y-2 rounded-base border border-line px-4 py-3">
+      <p className="text-supporting text-ink-muted">
+        {t("richSummary", {
+          difficulty: tDifficulty(notes.difficulty),
+          vocab: notes.vocab.length,
+          grammar: notes.grammar.length,
+        })}
+      </p>
+      <div className="flex flex-wrap gap-1">
+        <Button
+          variant="ghost"
+          size="sm"
+          aria-label={t("richRegenerateLabel", { n })}
+          onClick={onRegenerate}
+          disabled={disabled}
+        >
+          {t("richRegenerate")}
+        </Button>
+        <Button
+          variant="ghost"
+          size="sm"
+          aria-label={t("richEditByHandLabel", { n })}
+          onClick={onEditByHand}
+          disabled={disabled}
+        >
+          {t("richEditByHand")}
+        </Button>
       </div>
     </div>
   );

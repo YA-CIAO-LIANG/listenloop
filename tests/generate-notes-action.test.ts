@@ -116,20 +116,24 @@ describe("generatePracticeNotes", () => {
     // Each sentence keeps its own notes too (D43).
     expect(state.sentenceUpdates).toEqual([
       {
-        notes: {
-          vocab: [expect.objectContaining({ word: "moved" })],
-          grammar: [expect.objectContaining({ point: "We moved" })],
-        },
+        // Version 2 notes (D67).
+        notes: expect.objectContaining({
+          v: 2,
+          difficulty: "easy",
+          vocab: [expect.objectContaining({ term: "moved", ipa: "/fake/" })],
+          highlights: [expect.objectContaining({ text: "moved" })],
+        }),
         filters: [
           ["practice_id", "p1"],
           ["i", 0],
         ],
       },
       {
-        notes: {
-          vocab: [expect.objectContaining({ word: "wonderful" })],
+        notes: expect.objectContaining({
+          v: 2,
+          vocab: [expect.objectContaining({ term: "wonderful" })],
           grammar: [],
-        },
+        }),
         filters: [
           ["practice_id", "p1"],
           ["i", 1],
