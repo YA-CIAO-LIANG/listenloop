@@ -1004,3 +1004,27 @@
   - 新增測試：`app/`、`components/` 的 .tsx 在註解以外不能有中文，只允許 global-error。
 - **效能**：基準分數見 D62（Lighthouse，合併後對正式站量測）。
 - **要改時**：`components/Onboarding.tsx`、`components/OnboardingStart.tsx`、`app/not-found.tsx`、`app/error.tsx`、`app/global-error.tsx`、`components/Skeleton.tsx`、`e2e/a11y.spec.ts`、`app/robots.ts`、`app/sitemap.ts`、`app/opengraph-image.tsx`、`lib/site.ts`。
+
+## D62 效能：Lighthouse 基準；一次性提示改由伺服器決定（2026-11-07，P1）
+
+- **基準**（2026-11-07，Lighthouse 13.5.0，正式站，Chromium 無頭模式）：
+
+  | 頁面          | 裝置 | 效能 | 無障礙 | 最佳做法 | SEO | LCP   | CLS   |
+  | ------------- | ---- | ---- | ------ | -------- | --- | ----- | ----- |
+  | 首頁          | 手機 | 60   | 100    | 100      | 100 | 8.2 s | 0     |
+  | 首頁          | 桌機 | 93   | 100    | 100      | 100 | 0.5 s | 0.171 |
+  | 影片頁 sintel | 手機 | 64   | 100    | 96       | 100 | 7.3 s | 0.004 |
+  | 影片頁 sintel | 桌機 | 97   | 100    | 96       | 100 | 1.2 s | 0.041 |
+  | 第 1 天聽寫   | 手機 | 75   | 100    | 96       | 100 | 1.8 s | 0.836 |
+  | 第 1 天聽寫   | 桌機 | 73   | 100    | 96       | 100 | 1.1 s | 0.991 |
+
+- **找到的原因**：
+  - 「使用提示」（D60）和「新手引導」（D61）要等瀏覽器讀完 localStorage 才顯示。插進內容上方時，把整頁往下推，所以練習頁的 CLS 接近 1；
+  - 手機上，最大的內容（LCP）就是這個晚出現的提示，所以 LCP 要 8 秒左右。
+- **修正**：
+  - 改用 cookie 記住是否已關閉，由伺服器決定要不要顯示，提示會直接出現在第一份 HTML 裡，不再插入；
+  - 新手引導也由伺服器判斷：已略過（cookie）或已登入且有練習的人不顯示，而且不包在 Suspense 裡，避免串流時晚出現。
+  - 使用者按「知道了」「略過」造成的版面變化，是操作後 0.5 秒內的變化，不計入 CLS。
+- **修正後的數字**：合併部署後重新量測，記在晨間報告。
+- **之後可以再改善**：影片頁的「最佳做法」96 分，是 YouTube 播放器的第三方 cookie 與主控台訊息造成的，無法由我們修正；兩個約 37 KB 的 CSS 檔可以再研究是否重複。
+- **要改時**：`lib/notices.ts`、`components/UsageNotice.tsx`、`components/Onboarding.tsx`、`components/OnboardingStart.tsx`、`app/layout.tsx`。

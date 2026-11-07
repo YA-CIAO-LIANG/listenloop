@@ -7,6 +7,8 @@ import { getSignedInUser } from "@/auth/session";
 import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
 import { UsageNotice } from "@/components/UsageNotice";
+import { USAGE_NOTICE_COOKIE } from "@/lib/notices";
+import { cookies } from "next/headers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
@@ -41,10 +43,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const [locale, user, tCommon] = await Promise.all([
+  const [locale, user, tCommon, cookieStore] = await Promise.all([
     getLocale(),
     accountsEnabled ? getSignedInUser() : null,
     getTranslations("common"),
+    cookies(),
   ]);
 
   return (
@@ -92,7 +95,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                   <SignInNotice />
                 </Suspense>
               )}
-              <UsageNotice />
+              {!cookieStore.has(USAGE_NOTICE_COOKIE) && <UsageNotice />}
               <div
                 id="main"
                 tabIndex={-1}

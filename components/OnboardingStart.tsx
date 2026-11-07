@@ -1,12 +1,31 @@
+import { cookies } from "next/headers";
 import { listOfficialPractices } from "@/auth/public-practices";
+import { getServerSupabase } from "@/auth/server";
+import { getSignedInUser } from "@/auth/session";
+import { ONBOARDING_COOKIE } from "@/lib/notices";
 import { getVideosByCollection } from "@/lib/video-library";
 import { Onboarding } from "./Onboarding";
 
 /**
- * Where a new learner should start (D61): the first official practice in
- * the admins' order, else the first beginner video in the library.
+ * Whether to show the first-visit guide, and where it starts (D61, D62):
+ * not once skipped (cookie), nor for a signed-in learner who has a
+ * practice. It starts at the first official practice in the admins'
+ * order, else the first beginner video in the library. Decided on the
+ * server, so the guide never pops in after the page has drawn.
  */
 export async function OnboardingStart() {
+  const [cookieStore, user] = await Promise.all([cookies(), getSignedInUser()]);
+  if (cookieStore.has(ONBOARDING_COOKIE)) return null;
+  if (user) {
+    const supabase = await getServerSupabase();
+    const { count } = supabase
+      ? await supabase
+          .from("progress")
+          .select("video_id", { count: "exact", head: true })
+          .eq("user_id", user.id)
+      : { count: 0 };
+    if ((count ?? 0) > 0) return null;
+  }
   const official = await listOfficialPractices().catch(() => []);
   const videos = getVideosByCollection().flatMap(({ videos }) => videos);
   const start =

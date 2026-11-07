@@ -1,52 +1,21 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { ButtonLink } from "./ButtonLink";
+import { useState } from "react";
+import { ONBOARDING_COOKIE, rememberDismissed } from "@/lib/notices";
 import { Button } from "./Button";
-import { useStores } from "./StoresProvider";
-
-/** Remembers on this device that the guide was skipped (D61). */
-export const ONBOARDING_KEY = "ll-onboarding:v1";
-
-const noSubscription = () => () => {};
-function readDismissed(): boolean {
-  try {
-    return window.localStorage.getItem(ONBOARDING_KEY) !== null;
-  } catch {
-    return false;
-  }
-}
+import { ButtonLink } from "./ButtonLink";
 
 /**
- * The first-visit guide on the home page (D61): the seven-day loop in
- * three steps and a recommended place to start. Shows until the learner
- * starts a practice or skips it; nothing shows on the server, so it never
- * flashes for someone who doesn't need it.
+ * The first-visit guide on the home page (D61, D62): the seven-day loop
+ * in three steps and a recommended place to start. The server decides
+ * whether it shows (OnboardingStart), so it's in the first HTML; "Skip"
+ * remembers it in a cookie.
  */
 export function Onboarding({ startHref }: { startHref: string }) {
   const t = useTranslations("onboarding");
-  const { progress } = useStores();
-  const dismissed = useSyncExternalStore(
-    noSubscription,
-    readDismissed,
-    () => true,
-  );
   const [skipped, setSkipped] = useState(false);
-  const [practicing, setPracticing] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-    progress
-      .list()
-      .then((all) => !cancelled && setPracticing(all.length > 0))
-      .catch(() => !cancelled && setPracticing(false));
-    return () => {
-      cancelled = true;
-    };
-  }, [progress]);
-
-  if (dismissed || skipped || practicing !== false) return null;
+  if (skipped) return null;
   return (
     <section
       aria-labelledby="onboarding-title"
@@ -76,14 +45,7 @@ export function Onboarding({ startHref }: { startHref: string }) {
         <Button
           variant="ghost"
           onClick={() => {
-            try {
-              window.localStorage.setItem(
-                ONBOARDING_KEY,
-                new Date().toISOString(),
-              );
-            } catch {
-              // Private mode: it shows again next time.
-            }
+            rememberDismissed(ONBOARDING_COOKIE);
             setSkipped(true);
           }}
         >
