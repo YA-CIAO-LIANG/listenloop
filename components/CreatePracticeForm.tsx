@@ -40,7 +40,7 @@ import { Button, buttonClassName } from "./Button";
 import { GenerateTextPanel, type GenerateText } from "./GenerateTextPanel";
 import { SegmentedControl } from "./SegmentedControl";
 import { StageProgress } from "./StageProgress";
-import { VoicePicker, voiceSampleUrl } from "./VoicePicker";
+import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
 
 type CreatePracticeFormProps = {
   /** Injected in tests; the Server Actions otherwise. */
@@ -413,7 +413,7 @@ export function CreatePracticeForm({
           <h3 id={`${ids.title}-voice`} className="font-display text-h3">
             {t("voiceTitle")}
           </h3>
-          <VoicePicker
+          <VoiceMenu
             value={voice}
             onChange={setVoice}
             sampleUrl={voiceSampleUrl}
