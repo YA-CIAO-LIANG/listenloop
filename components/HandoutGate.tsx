@@ -1,13 +1,31 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { isHandoutUnlocked } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { useStores } from "./StoresProvider";
+
+/**
+ * This week's Day 1 answers, for marking what was misheard in the
+ * handout (D68); null when there are none.
+ */
+const Day1AnswersContext = createContext<readonly (string | null)[] | null>(
+  null,
+);
+
+export function useDay1Answers(): readonly (string | null)[] | null {
+  return useContext(Day1AnswersContext);
+}
 
 type HandoutGateProps = {
   videoId: string;
@@ -28,14 +46,18 @@ export function HandoutGate({ videoId, children, store }: HandoutGateProps) {
   const stores = useStores();
   const progressStore = store ?? stores.progress;
   const [state, setState] = useState<"loading" | "locked" | "open">("loading");
+  const [answers, setAnswers] = useState<readonly (string | null)[] | null>(
+    null,
+  );
 
   useEffect(() => {
     let cancelled = false;
     progressStore
       .get(videoId)
       .then((progress) => {
-        if (!cancelled)
-          setState(isHandoutUnlocked(progress) ? "open" : "locked");
+        if (cancelled) return;
+        setAnswers(progress?.days[1]?.answers ?? null);
+        setState(isHandoutUnlocked(progress) ? "open" : "locked");
       })
       .catch(() => {
         if (!cancelled) setState("locked");
@@ -75,7 +97,9 @@ export function HandoutGate({ videoId, children, store }: HandoutGateProps) {
       <p className="text-metadata text-ink-muted">
         {t("generated", { date: toLocalDate(new Date()) })}
       </p>
-      {children}
+      <Day1AnswersContext.Provider value={answers}>
+        {children}
+      </Day1AnswersContext.Provider>
     </div>
   );
 }

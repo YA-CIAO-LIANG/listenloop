@@ -414,7 +414,8 @@
     "officialUnchanged": "Official score {score} (unchanged)",
     "thisAttempt": "This attempt",
     "todayDone": "Today’s task done",
-    "retryComplete": "Practice done!"
+    "retryComplete": "Practice done!",
+    "notesLabel": "Notes on this sentence"
   },
   "redictation": {
     "title": "Day 7: Re-dictation",
@@ -439,7 +440,8 @@
     "goDay1": "Go to Day 1",
     "lockedShort": "Handout: unlocks after Day 1",
     "open": "Bilingual handout",
-    "loading": "Loading…"
+    "loading": "Loading…",
+    "marksNote": "Words with the orange highlighter and a solid underline are the ones you misheard or missed on Day 1 this week; give them extra attention."
   },
   "shadowing": {
     "title": "Day {day}: Shadowing",
@@ -1478,9 +1480,9 @@
     "targets": {
       "toefl-80": "About 80",
       "toefl-100": "About 100",
-      "ielts-5.5": "Band 5.5",
-      "ielts-6.5": "Band 6.5",
-      "ielts-7.5": "Band 7.5",
+      "ielts-5_5": "Band 5.5",
+      "ielts-6_5": "Band 6.5",
+      "ielts-7_5": "Band 7.5",
       "toeic-550": "550",
       "toeic-750": "750",
       "toeic-900": "900",
@@ -1665,6 +1667,30 @@
       "easy": "Easy",
       "medium": "Medium",
       "hard": "Hard"
+    },
+    "difficultyLabel": "Difficulty: {difficulty}",
+    "mistakesTitle": "What you misheard in this sentence",
+    "missedWords": "Words you missed or got wrong:",
+    "keyTitle": "Key words",
+    "structureTitle": "Structure, chunk by chunk",
+    "wholeSentence": "Whole sentence:",
+    "connectedTitle": "Why it’s hard to hear",
+    "soundsLike": "sounds like “{sound}”",
+    "vocabTitle": "Words and phrases",
+    "grammarTitle": "Grammar",
+    "collocations": "Common with:",
+    "inThisSentence": "Here:",
+    "pitfall": "Common mistake:",
+    "kinds": {
+      "word": "word",
+      "phrase": "phrase",
+      "idiom": "idiom"
+    },
+    "roles": {
+      "main": "main clause",
+      "subordinate": "subordinate clause",
+      "modifier": "modifier",
+      "connector": "connector"
     }
   }
 }

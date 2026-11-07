@@ -17,6 +17,7 @@ import {
   findScenario,
   LEVELS,
   type CategoryId,
+  targetMessageKey,
 } from "@/lib/categories";
 import type { MaterialMeta } from "@/lib/custom-practice/generation";
 import type { OfficialState } from "@/lib/material-admin";
@@ -93,7 +94,9 @@ export function MaterialControls({
   const levelOptions = exam
     ? exam.targets.map((target) => ({
         value: target.id,
-        label: tc(`targets.${target.id}` as "targets.toefl-80"),
+        label: tc(
+          `targets.${targetMessageKey(target.id)}` as "targets.toefl-80",
+        ),
       }))
     : LEVELS.map((value) => ({ value, label: tc(`levels.${value}`) }));
 

@@ -603,3 +603,10 @@ export function allScenarioIds(): string[] {
     ...EXAMS.flatMap((e) => e.parts.map((x) => x.id)),
   ];
 }
+
+/**
+ * A target's key in the message files: next-intl keys can't contain
+ * ".", so "ielts-6.5" is "ielts-6_5" there. The id itself (stored with
+ * practices) keeps its dot.
+ */
+export const targetMessageKey = (id: string) => id.replaceAll(".", "_");

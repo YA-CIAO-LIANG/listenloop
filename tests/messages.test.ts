@@ -53,3 +53,17 @@ describe("messages", () => {
     }
   });
 });
+
+describe("message keys", () => {
+  it("never contain a dot, which next-intl reads as nesting", () => {
+    const dotted = (value: unknown, path: string[] = []): string[] =>
+      typeof value === "object" && value !== null && !Array.isArray(value)
+        ? Object.entries(value).flatMap(([key, child]) => [
+            ...(key.includes(".") ? [[...path, key].join(" › ")] : []),
+            ...dotted(child, [...path, key]),
+          ])
+        : [];
+    expect(dotted(zhHant)).toEqual([]);
+    expect(dotted(en)).toEqual([]);
+  });
+});
