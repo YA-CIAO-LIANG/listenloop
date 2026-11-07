@@ -1,6 +1,7 @@
 "use server";
 
 import { logEvent } from "@/auth/events";
+import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
 import { getSignedInUser } from "@/auth/session";
 import {
@@ -44,6 +45,9 @@ export async function reportPractice(
     getServerSupabase(),
   ]);
   if (!user || !supabase) return { ok: false, reason: "signed-out" };
+  if (!(await allowAction("report", user.id))) {
+    return { ok: false, reason: "limit" };
+  }
 
   // Today in Taiwan time, like the usage limits (D7).
   const since = `${usageDay(new Date())}T00:00:00+08:00`;

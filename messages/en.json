@@ -1328,6 +1328,13 @@
       "markDone": "Mark done",
       "reopen": "Reopen",
       "failed": "That didn’t save; try again."
+    },
+    "errors": {
+      "title": "Errors",
+      "intro": "Recent server errors, newest first. Request contents and personal data aren’t kept; kept 90 days. The “error code” on the error page is the code here.",
+      "none": "No recent errors.",
+      "digest": "Code {digest}",
+      "stack": "Details"
     }
   },
   "events": {

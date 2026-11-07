@@ -1,6 +1,7 @@
 "use server";
 
 import { getAdminSupabase } from "@/auth/admin";
+import { allowAction } from "@/auth/rate-limit";
 import { getSignedInUser } from "@/auth/session";
 import { cleanFeedback, FEEDBACK_PER_DAY } from "@/lib/feedback";
 import { usageDay } from "@/lib/usage";
@@ -19,6 +20,9 @@ export async function submitFeedback(raw: unknown): Promise<FeedbackResult> {
   const admin = getAdminSupabase();
   if (!admin) return { ok: false, reason: "failed" };
   const user = await getSignedInUser();
+  if (!(await allowAction("feedback", user?.id ?? null))) {
+    return { ok: false, reason: "limit" };
+  }
   if (user) {
     const { count } = await admin
       .from("feedback")

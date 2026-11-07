@@ -8,7 +8,7 @@ import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
 import { UsageNotice } from "@/components/UsageNotice";
 import { USAGE_NOTICE_COOKIE } from "@/lib/notices";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
@@ -43,12 +43,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const [locale, user, tCommon, cookieStore] = await Promise.all([
+  const [locale, user, tCommon, cookieStore, headerStore] = await Promise.all([
     getLocale(),
     accountsEnabled ? getSignedInUser() : null,
     getTranslations("common"),
     cookies(),
+    headers(),
   ]);
+  // This request's CSP nonce, for the inline theme script (D63).
+  const nonce = headerStore.get("x-nonce") ?? undefined;
 
   return (
     // suppressHydrationWarning: the theme script sets data-theme before hydration.
@@ -58,7 +61,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <script
+          nonce={nonce}
+          dangerouslySetInnerHTML={{ __html: themeInitScript }}
+        />
       </head>
       <body className="flex min-h-full flex-col">
         {/* Inherits locale and messages from i18n/request.ts. */}

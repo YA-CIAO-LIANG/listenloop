@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
+import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
 import type { MeteredFailure } from "@/lib/ai/metered";
 import { cleanDraft, type DraftProblem } from "@/lib/custom-practice/draft";
@@ -51,6 +52,9 @@ export async function savePracticeEdit(
 ): Promise<SaveEditResult> {
   const creator = await getCreator();
   if (!creator) return { ok: false, reason: "unavailable" };
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
   if (typeof practiceId !== "string") return { ok: false, reason: "not-found" };

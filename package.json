@@ -21,7 +21,9 @@
     "db:types": "npx supabase@3.0.0 gen types typescript --linked > lib/supabase/database.types.ts && prettier --write lib/supabase/database.types.ts",
     "voices:samples": "node --env-file=.env.local scripts/voice-samples.mts",
     "ai:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.record.config.mts --silent=false",
-    "official:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.official.config.mts --silent=false"
+    "official:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.official.config.mts --silent=false",
+    "rls:check": "node --env-file=.env.local scripts/rls-check.mts",
+    "db:backup": "node --env-file=.env.local scripts/backup-db.mts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",

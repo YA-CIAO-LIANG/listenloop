@@ -1,6 +1,7 @@
 "use server";
 
 import { getAdminSupabase } from "@/auth/admin";
+import { allowAction } from "@/auth/rate-limit";
 import { getSignedInUser } from "@/auth/session";
 import { cleanTroubleReport } from "@/lib/shadowing-trouble";
 
@@ -17,6 +18,9 @@ export async function reportShadowingTrouble(
   const admin = getAdminSupabase();
   if (!report || !admin) return { ok: false };
   const user = await getSignedInUser();
+  if (!(await allowAction("troubleReport", user?.id ?? null))) {
+    return { ok: false };
+  }
   const { error } = await admin.from("shadowing_issues").insert({
     user_id: user?.id ?? null,
     video_id: report.videoId,

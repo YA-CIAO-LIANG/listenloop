@@ -1028,3 +1028,43 @@
 - **修正後的數字**：合併部署後重新量測，記在晨間報告。
 - **之後可以再改善**：影片頁的「最佳做法」96 分，是 YouTube 播放器的第三方 cookie 與主控台訊息造成的，無法由我們修正；兩個約 37 KB 的 CSS 檔可以再研究是否重複。
 - **要改時**：`lib/notices.ts`、`components/UsageNotice.tsx`、`components/Onboarding.tsx`、`components/OnboardingStart.tsx`、`app/layout.tsx`。
+
+## D63 安全與穩定：安全標頭、速率限制、RLS 檢查、錯誤紀錄、備份（2026-11-08，P1）
+
+- **安全標頭**：
+  - 所有回應都加上：
+    - HSTS（2 年，含子網域）；
+    - `X-Content-Type-Options: nosniff`；
+    - `X-Frame-Options: DENY`；
+    - `Referrer-Policy: strict-origin-when-cross-origin`；
+    - `Permissions-Policy`：只允許本站使用麥克風（跟讀需要），其他功能（相機、定位等）全部關閉；
+    - `Cross-Origin-Opener-Policy: same-origin`。
+  - **CSP**（`lib/security/csp.ts`）：
+    - 每個請求產生新的 nonce，Next.js 自己的腳本和主題腳本都帶上它；
+    - 加上 `'strict-dynamic'`，讓 YouTube IFrame API 可以載入播放器腳本；
+    - 播放器只允許 `www.youtube-nocookie.com` 和 `www.youtube.com` 的 iframe；
+    - 連線、音檔、圖片只允許本站和 Supabase；
+    - `object-src 'none'`、`frame-ancestors 'none'`；
+    - 正式環境自動把 http 升級成 https（本機的 http Supabase 除外，E2E 才能運作）。
+  - 允許的網域是在 2026-11-07 用瀏覽器實際載入正式站確認的：主頁面只從 `www.youtube.com` 載入外部腳本。E2E 也會檢查主要頁面沒有任何 CSP 違規。
+  - 樣式允許 inline（`'unsafe-inline'`），因為動畫用了行內的 CSS 變數；樣式無法執行程式碼，風險低，這是常見的取捨。
+- **速率限制**（`lib/rate-limits.ts`、`auth/rate-limit.ts`）：
+  - 用資料庫記錄固定時間窗內的次數（`rate_limits` 資料表，`hit_rate_limit` 函式），一個 SQL 敘述就完成累加和檢查，同時送出的請求也不會超過上限。
+  - 登入時依帳號計算；未登入時依 IP 的雜湊計算，不儲存 IP 本身。
+  - 每小時的上限：
+    - 意見回饋 5 次；
+    - 問題句子回報 30 次；
+    - 操作紀錄 300 次；
+    - 檢舉 10 次（另有每日上限）；
+    - 每個 AI 步驟 600 次（另有每日費用上限，D38）；
+    - 下載資料 10 次。
+  - 無法連到資料庫時改成放行（fail open），並寫進伺服器紀錄，避免資料庫短暫故障把所有人擋在外面。
+- **RLS 檢查**：
+  - 單元測試確認每個 migration 建立的資料表都有開啟 RLS，而且只有伺服器寫入的紀錄表沒有開放給 anon；
+  - `npm run rls:check` 用公開金鑰實際測試正式資料庫：讀取 15 張私人資料表、寫入 4 張表、呼叫 6 個管理函式都必須被拒絕，公開練習只能看到公開且未下架的。2026-11-08 執行結果全部通過。
+- **錯誤紀錄**：
+  - `instrumentation.ts` 的 `onRequestError` 把伺服器錯誤寫進 `error_logs`：時間、路徑（去掉查詢字串）、方法、類型、訊息、堆疊（遮蔽 email）、digest。
+  - 錯誤頁顯示的「錯誤代碼」就是 digest，可以在「後台 → 錯誤紀錄」對到原始錯誤。保留 90 天。
+  - 不使用付費的監控服務。
+- **備份**：`npm run db:backup` 把每張表匯出成 JSON（`backups/`，已加入 `.gitignore`）；完整 SQL 備份與還原步驟見 `docs/backup.md`。Supabase 免費方案沒有可以還原的自動備份，所以需要手動備份。2026-11-08 已執行一次，確認腳本可以運作。
+- **要改時**：`lib/security/csp.ts`、`proxy.ts`、`next.config.ts`、`lib/rate-limits.ts`、`auth/rate-limit.ts`、`instrumentation.ts`、`lib/error-log.ts`、`app/admin/errors/`、`scripts/rls-check.mts`、`scripts/backup-db.mts`、`supabase/migrations/20261108090000_rate_limits_error_logs.sql`。

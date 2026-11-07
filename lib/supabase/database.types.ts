@@ -204,6 +204,39 @@ export type Database = {
         };
         Relationships: [];
       };
+      error_logs: {
+        Row: {
+          created_at: string;
+          digest: string | null;
+          id: number;
+          message: string;
+          method: string | null;
+          path: string | null;
+          route_type: string | null;
+          stack: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          digest?: string | null;
+          id?: never;
+          message: string;
+          method?: string | null;
+          path?: string | null;
+          route_type?: string | null;
+          stack?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          digest?: string | null;
+          id?: never;
+          message?: string;
+          method?: string | null;
+          path?: string | null;
+          route_type?: string | null;
+          stack?: string | null;
+        };
+        Relationships: [];
+      };
       events: {
         Row: {
           code: string | null;
@@ -521,6 +554,24 @@ export type Database = {
         };
         Relationships: [];
       };
+      rate_limits: {
+        Row: {
+          hits: number;
+          key: string;
+          window_start: string;
+        };
+        Insert: {
+          hits?: number;
+          key: string;
+          window_start: string;
+        };
+        Update: {
+          hits?: number;
+          key?: string;
+          window_start?: string;
+        };
+        Relationships: [];
+      };
       shadowing_issues: {
         Row: {
           browser: string;
@@ -645,6 +696,10 @@ export type Database = {
           today_calls: number;
           today_micros: number;
         }[];
+      };
+      hit_rate_limit: {
+        Args: { limit_key: string; max_hits: number; window_seconds: number };
+        Returns: boolean;
       };
       is_admin: { Args: never; Returns: boolean };
       prune_logs: { Args: never; Returns: undefined };

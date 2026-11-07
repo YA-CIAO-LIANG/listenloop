@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
+import { SECURITY_HEADERS } from "./lib/security/csp";
 
 // Connects next-intl to the request config in ./i18n/request.ts.
 const withNextIntl = createNextIntlPlugin();
@@ -8,6 +9,10 @@ const withNextIntl = createNextIntlPlugin();
 // renders per request anyway. Revisit when upgrading to Next 17, where it
 // becomes the default (see docs: migrating-to-cache-components).
 const nextConfig: NextConfig = {
+  // On every response, pages and files alike (D63).
+  async headers() {
+    return [{ source: "/:path*", headers: [...SECURITY_HEADERS] }];
+  },
   // /create moved under My materials (D26); keep old links working.
   async redirects() {
     return [

@@ -5,11 +5,17 @@ import type { Database } from "@/lib/supabase/database.types";
 
 /**
  * Refreshes the Supabase session cookies on every page request (Server
- * Components can read cookies but not write them). Pass-through when
- * accounts aren't configured.
+ * Components can read cookies but not write them). `requestHeaders` are
+ * passed on to the page (the CSP nonce, D63). Pass-through when accounts
+ * aren't configured.
  */
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
+export async function updateSession(
+  request: NextRequest,
+  requestHeaders: Headers = request.headers,
+) {
+  const next = () =>
+    NextResponse.next({ request: { headers: requestHeaders } });
+  let response = next();
   if (!supabaseConfig) return response;
 
   const supabase = createServerClient<Database>(
@@ -22,7 +28,9 @@ export async function updateSession(request: NextRequest) {
           for (const { name, value } of cookiesToSet) {
             request.cookies.set(name, value);
           }
-          response = NextResponse.next({ request });
+          // The refreshed cookies, for the page rendered below.
+          requestHeaders.set("cookie", request.cookies.toString());
+          response = next();
           for (const { name, value, options } of cookiesToSet) {
             response.cookies.set(name, value, options);
           }
