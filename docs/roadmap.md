@@ -4,22 +4,155 @@
 
 **接續進度**：開新對話時，先讀 CLAUDE.md 和這份文件，從「進度」表第一個不是「完成」的項目接著做。每合併一個 PR，就更新這份表。
 
-## 2026-11-07 夜間任務進度（Joe 睡前指定，P0 → P1 → P2）
+## 晨間報告（2026-11-08）
 
-完成或停下來時，改寫成「晨間報告」。
+夜間任務全部完成，P0、P1、P2 共 17 個 PR（#78～#94），每個都通過本機五項檢查、E2E 和 CI 後才合併。正式站最後檢查也都正常。
 
-- [x] P0-1 管理員與角色、使用者編號（#78，D50）
-- [x] P0-2 環境變數耐錯、VoiceMenu（#79，D51）；跟讀彩帶與排查（#80，D52）；刪除筆記本（#81，D53）；方案限制 f（#82，D54）
-- [x] P0-3 使用者操作紀錄（#83，D55）
-- [x] P0 管理員後台 /admin：總覽、使用者、操作紀錄、容易出錯的句子、稽核（#84，D56）；教材管理（#86，D58）；意見回饋、錯誤紀錄在 P1 加入
-- [x] P0 教材分類、AI 建立教材、雙聲音對話（#85，D57）；教材管理與推薦篩選（#86，D58）；官方範例教材 14 份草稿（#89，D59）
-- [x] P1 法律與隱私、帳號、頁尾（#87，D60）；OAuth 網址寫在「需要 Joe 操作的事」
-- [x] P1 使用者體驗與上線品質（#88，D61）；Lighthouse 基準見 D62
-- [x] P1 安全與穩定（#91，D63）；效能修正（#90、#92，D62）
-- [x] P2 Google Play 準備（#93，D64）：PWA、圖示、TWA 說明、商店資料草稿
-- [x] P2 開發工具（#94，D65）：自動續做（已建立、未安裝）、3 個 skills、AI 開發紀錄
+### 1. 完成了哪些
 
-**真實 API 用量（額度 US$1.00）**：官方草稿 US$0.1026（輸入 50,410／輸出 44,976 token）；聲音 26,677 字元（F0 免費）。
+**P0｜帳號、管理員與待辦收尾**
+
+- [x] 管理員與角色：資料庫角色、ADMIN_EMAILS 自動成為管理員、後台可以指定其他管理員；使用者編號（你的一般帳號是「使用者 001」）（#78，D50）
+- [x] 環境變數耐錯（全形轉半形、轉小寫）（#79，D51）
+- [x] 跟讀 100% 彩帶（和聽寫共用）、連續 5 次低於 50% 的排查對話框、問題句子紀錄（#80，D52）
+- [x] 刪除筆記本：頁面、程式、測試、資料表（#81，D53）
+- [x] VoiceMenu 換上建立與編輯練習（#79，D51）
+- [x] roadmap f：方案限制的集中設定（#82，D54）
+- [x] 使用者操作紀錄：12 種事件，只有管理員能讀，保留 180 天（#83，D55）
+
+**P0｜管理員後台 /admin**
+
+- [x] 總覽、使用者管理（角色、停用／恢復、操作紀錄）、教材管理、檢舉審查、容易出錯的句子、API 用量與設定診斷、操作紀錄篩選、管理稽核（#84、#86，D56、D58）
+- [x] 另外加上意見回饋與錯誤紀錄（#87、#91）
+
+**P0｜教材分類與 AI 建立教材**
+
+- [x] 分類集中設定：11 類＋考試（托福、雅思、多益、全民英檢，各有題型與目標程度）（#85，D57）
+- [x] AI 建立教材：類別、子情境、程度、長度、對話或獨白、口音；**對話可以為兩個角色選不同聲音**（文字用 A:／B: 標記）（#85，D57）
+- [x] 教材管理：官方教材草稿／已發布、推薦排序、分類、篩選；首頁推薦練習的類別與考試篩選（#86，D58）
+- [x] 官方範例教材 **14 份草稿**（#89，D59，清單見第 3 點）
+
+**P1**
+
+- [x] 服務條款、隱私權政策更新、下載我的資料、刪除帳號（含音檔）、年齡提示、頁尾、意見回饋（#87，D60）
+- [x] 新手引導、自訂 404 與錯誤頁、骨架畫面、axe 無障礙檢查（並修正兩個對比問題）、跳到主要內容、SEO（標題、Open Graph 圖片、sitemap、robots）、中英文完整性測試（#88，D61）
+- [x] 效能：Lighthouse 手機首頁 60 → **95**、影片頁 64 → **98**、第 1 天聽寫 75 → **90**；無障礙和 SEO 都是 100（#90、#92，D62）
+- [x] 安全：CSP（nonce）與安全標頭、速率限制、RLS 檢查（`npm run rls:check` 全部通過）、錯誤紀錄、備份腳本（#91，D63）
+
+**P2**
+
+- [x] PWA（可安裝、離線頁）、App 圖示與商店主題圖片、TWA 的 assetlinks、Google Play 商店資料草稿與上架步驟（#93，D64；`docs/play-store.md`、`docs/twa.md`）
+- [x] 開發工具：自動續做腳本、3 個 skills（add-video、verify-prod、cost-report）、`docs/ai-dev-log.md`（#94，D65）
+
+**沒完成或要你決定的**
+
+- 自動續做**已建立但沒有安裝**：安裝到 `~/Library/LaunchAgents` 時被權限檢查擋下。這是合理的，背景常駐的設定應該由你決定。要用的話照第 6 點的步驟。
+- 上架 Google Play、發布 OAuth 都需要你本人操作（第 6 點）。
+
+### 2. 正式站的測試重點
+
+**管理員帳號**
+
+1. [首頁](https://listenloop-three.vercel.app)：頁首有「我的教材」「後台」，可以建立練習時還有「＋ 建立練習」。
+2. [後台總覽](https://listenloop-three.vercel.app/admin)：使用者、活躍、練習、費用、Azure 額度、Supabase 用量都有數字。
+3. [使用者](https://listenloop-three.vercel.app/admin/users)：看得到「使用者 000」（你）和「使用者 001」（一般帳號），點進 001 可以看操作紀錄。不要停用自己；可以試著把 001 設為管理員再改回來，然後到[管理稽核](https://listenloop-three.vercel.app/admin/audit)看紀錄。
+4. [教材](https://listenloop-three.vercel.app/admin/materials?status=draft)：14 份官方草稿。點標題試聽，覺得可以就把「官方教材」改成「已發布」，用 ↑／↓ 排順序；再到首頁看推薦練習的類別篩選。
+5. [建立練習](https://listenloop-three.vercel.app/materials/new) →「AI 生成」：選「考試聽力 → 雅思風格 → Part 1」、對話、英式，生成後在預覽步驟可以看到每句的 A／B，以及「B 的聲音」。（會用到真實 API，約 US$0.01）
+6. [API 用量](https://listenloop-three.vercel.app/admin/usage)：設定診斷全部 ✓，按「測試連線（免費）」兩項都成功。
+7. [錯誤紀錄](https://listenloop-three.vercel.app/admin/errors)、[意見回饋](https://listenloop-three.vercel.app/admin/feedback)：先送一則回饋，確認這裡看得到。
+
+**一般使用者帳號（使用者 001）**
+
+1. 無痕視窗打開[首頁](https://listenloop-three.vercel.app)：頁首下方有一次性的使用提示，首頁有新手引導；按「知道了」「略過」後重新整理，不會再出現。
+2. 登入一般帳號：頁首有「我的教材」，打開後顯示「建立練習還沒開放」；沒有「後台」，打開 [/admin](https://listenloop-three.vercel.app/admin) 是 404。
+3. 練一份影片的第 2 天跟讀：念對一句會有彩帶；故意亂念同一句 5 次，會跳出排查對話框，選「跳過這句並回報」，這句會顯示「已跳過」。（之後用管理員到[容易出錯的句子](https://listenloop-three.vercel.app/admin/sentences)可以看到這筆回報）
+4. [帳號](https://listenloop-three.vercel.app/account)：「下載我的資料」會下載 JSON。（刪除帳號請用另一個測試帳號試）
+5. 頁尾：[服務條款](https://listenloop-three.vercel.app/terms)、[隱私權政策](https://listenloop-three.vercel.app/privacy)、[意見回饋](https://listenloop-three.vercel.app/feedback)。
+6. 手機 Chrome：選單「安裝應用程式」，可以安裝成 App；開飛航模式後打開會看到離線頁。
+
+### 3. 官方教材草稿（14 份，都是私人草稿，只有你看得到）
+
+| #   | 標題                                                                                                                                   | 類別                                | 程度・形式      | 長度               | 口音 |
+| --- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | --------------- | ------------------ | ---- |
+| 1   | [First Order at the Coffee Shop](https://listenloop-three.vercel.app/videos/p-94439aa3-7ec3-48ed-89ad-9a70ce985226)                    | 生活情境／咖啡店                    | 初級・對話      | 約 1.1 分（33 句） | 美   |
+| 2   | [Checking In for a Flight Home](https://listenloop-three.vercel.app/videos/p-ff87bb4a-6294-4c89-8de1-9602df9e08cb)                     | 旅遊英文／機場報到與登機            | 初級・對話      | 約 1.2 分（25 句） | 英   |
+| 3   | [Opening a Student Account](https://listenloop-three.vercel.app/videos/p-0ef050f7-30bd-4e49-9789-ddfdd02fb6c8)                         | 留學生活／開銀行帳戶                | 中級・對話      | 約 2.8 分（42 句） | 澳   |
+| 4   | [Hiking or Night Market](https://listenloop-three.vercel.app/videos/p-e2ede85c-c7a2-4614-af18-0e58c9edc4ea)                            | 美式日常口語／週末計畫              | 中級・對話      | 約 2.3 分（29 句） | 美   |
+| 5   | [Improving My Midterm Essay](https://listenloop-three.vercel.app/videos/p-2aa761f9-4342-4088-b55a-cd185cd879a9)                        | 校園學術／教授 office hours         | 中級・對話      | 約 3.0 分（34 句） | 印   |
+| 6   | [Short Daily Listening and Student Confidence](https://listenloop-three.vercel.app/videos/p-1685838a-1298-43bc-a45e-177b9744d1f2)      | 學術寫作與發表／論文摘要            | 高級・獨白      | 約 2.0 分（16 句） | 英   |
+| 7   | [Talking About a Team Project and Strengths](https://listenloop-three.vercel.app/videos/p-7a790f83-d241-4de0-9923-f54e99c493e6)        | 職場商務／求職面試                  | 中級・對話      | 約 2.1 分（32 句） | 澳   |
+| 8   | [Campus Trial for Self-Driving Buses](https://listenloop-three.vercel.app/videos/p-6f395363-ce2a-46d3-9ac3-8d211dd2eee2)               | 新聞與時事／科技                    | 中級・獨白      | 約 1.8 分（14 句） | 美   |
+| 9   | [The Small-Step Way to Beat Procrastination](https://listenloop-three.vercel.app/videos/p-d8f90c9f-c6f0-4265-977d-e910ddbff79b)        | 科普與知識／心理學                  | 高級・獨白      | 約 2.5 分（20 句） | 印   |
+| 10  | [Finding My Voice in English](https://listenloop-three.vercel.app/videos/p-7c6db1a2-e298-4405-ac0e-b81b00060f0e)                       | 演講與故事／個人成長故事            | 中級・獨白      | 約 2.3 分（27 句） | 英   |
+| 11  | [Surviving the Dry: Water Storage in Desert Plants](https://listenloop-three.vercel.app/videos/p-84ff0c51-5734-4300-b09c-d728295562c9) | 考試聽力／托福風格・學術講座：生物  | 約 100 分・獨白 | 約 2.4 分（22 句） | 美   |
+| 12  | [Booking a Beginner Swimming Course](https://listenloop-three.vercel.app/videos/p-6402cf6e-6f59-46fd-a6d5-984572ac2923)                | 考試聽力／雅思風格・Part 1 日常對話 | Band 6.5・對話  | 約 2.6 分（26 句） | 英   |
+| 13  | [Rescheduling the Client Meeting](https://listenloop-three.vercel.app/videos/p-c0002540-bce3-471c-a672-a70ee49749ff)                   | 考試聽力／多益風格・職場簡短對話    | 750 分・對話    | 約 1.6 分（21 句） | 澳   |
+| 14  | [Study Plans for the Midterm](https://listenloop-three.vercel.app/videos/p-2afeab5b-6fc7-4579-9cb2-004018cf740c)                       | 考試聽力／全民英檢風格・簡短對話    | 中級・對話      | 約 1.4 分（23 句） | 美   |
+
+對話的 A 是女聲、B 是同口音的男聲。審核方式：在「後台 → 教材」點標題試聽和看講義；要修改就按「編輯 →」；確定後把狀態改成「已發布」。
+
+### 4. 實際花費（今晚的真實 API 額度 US$1.00）
+
+| 項目                                                      | 呼叫次數 | 輸入 token | 輸出 token | 字元   | 費用            |
+| --------------------------------------------------------- | -------- | ---------- | ---------- | ------ | --------------- |
+| 驗證「測試連線」的判斷（Azure OpenAI 空對話，11-07 白天） | 1        | 0          | 0          | 0      | US$0            |
+| 官方範例教材 14 份：AI 寫文字、斷句、翻譯、講解           | 121      | 50,410     | 44,976     | —      | **US$0.1026**   |
+| 官方範例教材 14 份：Azure Speech 音檔                     | 367      | —          | —          | 26,677 | US$0（F0 免費） |
+| **合計**                                                  |          | 50,410     | 44,976     | 26,677 | **US$0.1026**   |
+
+- 本月用量合計（含你白天在正式站建立的練習）：US$0.1086；Azure 學生額度估計還剩約 US$99.89；F0 聲音本月用了 5.5%。
+- 開發與所有自動測試都只用假的供應者和 fixture。之後可以用 `cost-report` skill 隨時查看。
+
+### 5. 遇到的問題與需要你決定的事
+
+1. **官方草稿的審核與發布**（上面第 3 點）。
+2. **設計系統的兩個色票稍微調深了**：為了通過 WCAG AA 對比，淺色模式的 `accent-ink` 從 #B8440A 改成 #A63D09、`error` 從 #C2362B 改成 #B3302A（D61）。如果你想要別的色調，告訴我。
+3. **App 圖示**：我依黑白橘畫了一個（循環弧線加上橘色圓點，`brand/icon.svg`，預覽見 `docs/store/feature-graphic.png`）。如果你想自己設計，規格寫在 D64。
+4. **服務條款與隱私權政策是依常見做法寫的範本**，不是法律意見。正式收費或使用者變多前，建議請律師看過。
+5. **年齡**：提示「未滿 18 歲請在家長同意下使用」，條款寫「未滿 13 歲請勿自行建立帳號」，Google Play 目標年齡建議選 13 歲以上（D60）。如果要開放一般使用者用 AI 建立練習，需要再評估。
+6. **停用帳號**：停用後立刻無法登入，伺服器頁面也立刻不認得這個帳號；但瀏覽器已經拿到的存取權杖最長 1 小時內仍可同步自己的進度（D50）。一般情況足夠；如果要更嚴格，需要在每張表的 RLS 加上狀態檢查。
+7. **自動續做要不要啟用**（第 6 點的 D）。
+8. 下一步建議：
+   - 先審核並發布官方教材，然後開始封閉測試；
+   - 之後回到暫停中的內容工作（M3：Blender 影片、時間點校正）；
+   - 或開放一般使用者建立練習（需要先決定方案與費用）。
+
+### 6. 需要你親手做的事
+
+**A. 審核官方教材**（約 30～60 分鐘）：見第 3 點。
+
+**B. Google OAuth 發布（讓所有人都能用 Google 登入）**
+
+1. 打開 https://console.cloud.google.com → 選 ListenLoop 專案 →「Google Auth Platform」（舊名「OAuth 同意畫面」）→「品牌宣傳」。
+2. 填入：
+   - 應用程式首頁：`https://listenloop-three.vercel.app`
+   - 隱私權政策：`https://listenloop-three.vercel.app/privacy`
+   - 服務條款：`https://listenloop-three.vercel.app/terms`
+   - 使用者支援 email、開發人員聯絡資訊：你的 email。
+3. **不要上傳 logo**：上傳 logo 會觸發品牌驗證，需要驗證網域擁有權，而 `vercel.app` 是 Vercel 的網域，你無法驗證。
+4. 「目標對象」→「發布應用程式」→ 從「測試」改成「正式版」。只用 email、profile 這些基本權限，通常不需要 Google 審核。
+5. 如果 Google 仍然要求驗證網域，就需要自訂網域（例如 listenloop.app，每年約 US$15～20，需要信用卡）。要的話告訴我，我會把設定步驟整理給你。
+
+**C. Google Play 上架**（完整步驟與商店資料草稿見 `docs/play-store.md`、`docs/twa.md`）
+
+1. 註冊開發者帳號：一次性 US$25，需要信用卡（依工作規則，要你同意）。
+2. 準備一個公開的聯絡 email（會顯示在商店頁）。
+3. 用 PWABuilder 打包 → 把兩個 SHA-256 指紋告訴我（不是秘密，可以貼在對話中），我會更新 `assetlinks.json`。
+4. 封閉測試：至少 12 位測試者、連續 14 天保持加入（建議找 15～20 位）。
+5. 申請正式版 → 送審。
+
+**D. 自動續做（選用）**：照 `docs/auto-continue.md`：
+
+```
+scripts/auto-continue/install.sh
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.listenloop.auto-continue.plist
+```
+
+- 暫停：`launchctl bootout gui/$(id -u)/com.listenloop.auto-continue`
+- 看紀錄：`tail -50 ~/Library/Logs/listenloop-auto/$(date +%Y-%m).log`
+- 移除：`scripts/auto-continue/uninstall.sh`
+
+**E. 每週備份**：`npm run db:backup`（存到 `backups/`，有個人資料，請存在加密的地方）。完整 SQL 備份與還原見 `docs/backup.md`。今晚已經跑過一次，在 `backups/` 裡。
 
 ## 進度
 
@@ -32,6 +165,7 @@
 | e    | 公開分享                 | 完成（e1 #55、手機頁首 #56、e2 本 PR）                                                  |
 | e+   | e 驗收修正（14 項）      | 全部完成（#58～#81；3b、13 於 2026-11-07 完成，D51～D53）                               |
 | f    | 方案限制的權限設定       | 完成（2026-11-07，D54）                                                                 |
+| 夜間 | P0～P2 上線準備          | 完成（#78～#94，2026-11-07～08；見最上方晨間報告）                                      |
 | —    | 內容工作                 | 暫停，功能都完成後一次處理                                                              |
 
 ## a. 小修正（PR #35）
