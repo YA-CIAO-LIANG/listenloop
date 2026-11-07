@@ -435,6 +435,7 @@ export type Database = {
           scenario: string | null;
           sort_order: number | null;
           source_language: string;
+          subtitle: string | null;
           title: string;
           updated_at: string;
           user_id: string;
@@ -461,6 +462,7 @@ export type Database = {
           scenario?: string | null;
           sort_order?: number | null;
           source_language: string;
+          subtitle?: string | null;
           title: string;
           updated_at?: string;
           user_id?: string;
@@ -487,6 +489,7 @@ export type Database = {
           scenario?: string | null;
           sort_order?: number | null;
           source_language?: string;
+          subtitle?: string | null;
           title?: string;
           updated_at?: string;
           user_id?: string;
@@ -702,6 +705,21 @@ export type Database = {
         Returns: boolean;
       };
       is_admin: { Args: never; Returns: boolean };
+      material_learner_counts: {
+        Args: never;
+        Returns: {
+          learners: number;
+          video_id: string;
+        }[];
+      };
+      practice_audio_bytes: {
+        Args: { ids: string[] };
+        Returns: {
+          bytes: number;
+          mime_type: string;
+          practice_id: string;
+        }[];
+      };
       prune_logs: { Args: never; Returns: undefined };
       reserve_api_cost: {
         Args: {

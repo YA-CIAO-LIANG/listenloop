@@ -19,6 +19,10 @@ const practice = (
   mine,
   category: null,
   exam: null,
+  examTarget: null,
+  level: null,
+  subtitle: null,
+  sortOrder: null,
 });
 
 const practices = [
@@ -33,7 +37,7 @@ const cardTitles = () =>
     .map((link) => link.querySelector("p + p")?.textContent);
 
 describe("ExploreList", () => {
-  it("shows a card per practice with its source, voice, length, and owner", () => {
+  it("shows a card per practice with its type, accent, length, and owner", () => {
     renderWithIntl(<ExploreList practices={practices} />);
     expect(cardTitles()).toEqual([
       "Job Interview",
@@ -42,8 +46,10 @@ describe("ExploreList", () => {
     ]);
     const first = screen.getAllByRole("link")[0];
     expect(first.getAttribute("href")).toBe("/videos/p-136");
-    expect(first.textContent).toContain("英文原文 · 英式英語・男聲");
-    expect(first.textContent).toContain("6 句 · 你建立的");
+    expect(first.textContent).toContain("音檔");
+    expect(first.textContent).toContain("你建立的");
+    // 6 sentences, no audio length known: about 33 s (D70).
+    expect(first.textContent).toContain("33 秒 · 英式英語 · 每天約 3 分鐘");
     expect(screen.getAllByRole("link")[1].textContent).not.toContain(
       "你建立的",
     );

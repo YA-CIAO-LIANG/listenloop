@@ -121,6 +121,15 @@ createServer((request, response) => {
     json(200, matching(url.searchParams));
     return;
   }
+  // The library's totals (D70): one learner on Sintel, no audio lengths.
+  if (url.pathname === "/rest/v1/rpc/material_learner_counts") {
+    json(200, [{ video_id: "sintel", learners: 1 }]);
+    return;
+  }
+  if (url.pathname === "/rest/v1/rpc/practice_audio_bytes") {
+    json(200, []);
+    return;
+  }
   if (url.pathname === "/auth/v1/user") {
     const sub = tokenSubject(request.headers.authorization);
     json(200, sub === "e2e-admin" ? { ...AUTHOR, id: sub } : AUTHOR);

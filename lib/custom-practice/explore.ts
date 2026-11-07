@@ -20,6 +20,12 @@ export type PublicPracticeSummary = {
   /** Where it belongs (D57); null when it hasn't been sorted. */
   category: string | null;
   exam: string | null;
+  examTarget: string | null;
+  level: string | null;
+  /** One sentence on what it's about (D71). */
+  subtitle: string | null;
+  /** Admins' order in the library (official practices). */
+  sortOrder: number | null;
 };
 
 /** The newest this many public practices are listed. */

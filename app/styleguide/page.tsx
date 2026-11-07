@@ -12,7 +12,13 @@ import { Card } from "@/components/Card";
 import { CardLink } from "@/components/CardLink";
 import { Divider } from "@/components/Divider";
 import { Mark, MarkLegend } from "@/components/Mark";
-import { FeedIcon, LockIcon, PointsIcon } from "@/components/icons";
+import {
+  FeedIcon,
+  LockIcon,
+  PointsIcon,
+  SpeakerIcon,
+  VideoIcon,
+} from "@/components/icons";
 import { AQUARIUM_ENABLED } from "@/lib/features";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
@@ -21,6 +27,8 @@ import { ScoreBadge } from "@/components/ScoreBadge";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   DayTrackerDemo,
+  LibraryFiltersDemo,
+  MaterialCardDemo,
   ProgressBarDemo,
   SentenceRowDemo,
   VoiceMenuDemo,
@@ -193,6 +201,14 @@ export default function StyleguidePage() {
             </div>
           </Demo>
 
+          <Demo name="MaterialCard / Tag">
+            <MaterialCardDemo />
+          </Demo>
+
+          <Demo name="LibraryFilters / Dialog (sheet)">
+            <LibraryFiltersDemo />
+          </Demo>
+
           <Demo name="ProgressBar">
             <div className="grid gap-8 split:grid-cols-2">
               <div>
@@ -243,6 +259,8 @@ export default function StyleguidePage() {
               {(
                 [
                   ["LockIcon", LockIcon],
+                  ["VideoIcon", VideoIcon],
+                  ["SpeakerIcon", SpeakerIcon],
                   ...(AQUARIUM_ENABLED
                     ? ([
                         ["PointsIcon", PointsIcon],

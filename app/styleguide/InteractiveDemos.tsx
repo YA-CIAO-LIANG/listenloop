@@ -4,10 +4,20 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "@/components/Button";
 import { DayTracker } from "@/components/DayTracker";
+import { Dialog } from "@/components/Dialog";
+import { SpeakerIcon } from "@/components/icons";
+import { MaterialCard } from "@/components/MaterialCard";
+import { LibraryFilters } from "@/components/MaterialLibrary";
+import { Tag } from "@/components/Tag";
 import { ProgressBar } from "@/components/ProgressBar";
 import { SentenceRow } from "@/components/SentenceRow";
 import { VoiceMenu, voiceSampleUrl } from "@/components/VoiceMenu";
 import type { CycleDay, DayStatus } from "@/lib/cycle";
+import {
+  NO_LIBRARY_FILTER,
+  type LibraryFilter,
+  type LibraryItem,
+} from "@/lib/library";
 
 // Sample practice content (not UI copy), like a video's sentences.
 const sampleSentences = [
@@ -90,5 +100,99 @@ export function VoiceMenuDemo() {
   const [voice, setVoice] = useState("us-female");
   return (
     <VoiceMenu value={voice} onChange={setVoice} sampleUrl={voiceSampleUrl} />
+  );
+}
+
+// Sample library items (content, not UI copy): an official practice for
+// an exam, and a video.
+const sampleItems: LibraryItem[] = [
+  {
+    id: "p-styleguide-1",
+    kind: "audio",
+    title: "Rescheduling the Client Meeting",
+    subtitle: null,
+    category: "exam",
+    exam: "toeic",
+    examTarget: "toeic-750",
+    level: "intermediate",
+    seconds: 125,
+    accent: "au",
+    sentenceCount: 16,
+    createdAt: "2026-11-07T00:00:00Z",
+    sortOrder: 1,
+    learners: 4,
+  },
+  {
+    id: "sintel",
+    kind: "video",
+    title: "Sintel",
+    subtitle: null,
+    category: "talks-stories",
+    exam: null,
+    examTarget: null,
+    level: "advanced",
+    seconds: 49,
+    accent: null,
+    sentenceCount: 12,
+    createdAt: "2026-10-24T00:00:00Z",
+    sortOrder: null,
+    learners: 9,
+  },
+];
+
+/** MaterialCard and Tag (D70), with a subtitle from the message files. */
+export function MaterialCardDemo() {
+  const t = useTranslations("styleguide.library");
+  return (
+    <div className="space-y-6">
+      <p className="flex flex-wrap gap-2">
+        <Tag icon={<SpeakerIcon className="size-4" />}>{t("tagAudio")}</Tag>
+        <Tag>{t("tagLevel")}</Tag>
+      </p>
+      <ul className="grid gap-6 split:grid-cols-2">
+        {sampleItems.map((item) => (
+          <li key={item.id}>
+            <MaterialCard item={{ ...item, subtitle: t("subtitle") }} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** The filter groups, and the bottom drawer phones open them in (D70). */
+export function LibraryFiltersDemo() {
+  const t = useTranslations("styleguide.library");
+  const [filter, setFilter] = useState<LibraryFilter>(NO_LIBRARY_FILTER);
+  const [sheet, setSheet] = useState(false);
+  return (
+    <div className="space-y-6">
+      <div className="max-w-sm">
+        <LibraryFilters
+          items={sampleItems}
+          filter={filter}
+          onChange={setFilter}
+        />
+      </div>
+      <Button variant="secondary" onClick={() => setSheet(true)}>
+        {t("openSheet")}
+      </Button>
+      {sheet && (
+        <Dialog
+          title={t("sheetTitle")}
+          variant="sheet"
+          onClose={() => setSheet(false)}
+        >
+          <LibraryFilters
+            items={sampleItems}
+            filter={filter}
+            onChange={setFilter}
+          />
+          <Button variant="primary" onClick={() => setSheet(false)}>
+            {t("closeSheet")}
+          </Button>
+        </Dialog>
+      )}
+    </div>
   );
 }

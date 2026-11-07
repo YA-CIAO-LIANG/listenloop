@@ -16,7 +16,25 @@
     "siteName": "ListenLoop"
   },
   "home": {
-    "tagline": "七天一循環，聽清楚每一個字。"
+    "tagline": "七天一循環，聽清楚每一個字。",
+    "intro": {
+      "title": "七天，聽清楚每一個字",
+      "steps": {
+        "day1": {
+          "title": "第 1 天 聽寫",
+          "body": "逐句聽、打出聽到的字，馬上看到哪裡聽錯，再看講義。"
+        },
+        "days2to6": {
+          "title": "第 2～6 天 跟讀",
+          "body": "每天跟著念全部的句子，語音辨識告訴你漏念哪些字。"
+        },
+        "day7": {
+          "title": "第 7 天 再聽寫",
+          "body": "同一份教材重新聽寫，和第 1 天對比，看得見進步。"
+        }
+      },
+      "noAccount": "不用登入也能練習；登入後可以看練習日曆、今日任務和學習分析。"
+    }
   },
   "settings": {
     "theme": {
@@ -103,8 +121,8 @@
   },
   "today": {
     "title": "今日任務",
-    "empty": "還沒有開始的練習。從下方的推薦練習選一支影片，開始第 1 天。",
-    "emptyLink": "前往推薦練習",
+    "empty": "還沒有開始的練習。從下方的教材庫選一份，開始第 1 天。",
+    "emptyLink": "前往教材庫",
     "newWeekLine": "<video>{title}</video>｜第 {week} 週重新開始",
     "available": "可以做",
     "done": "已完成",
@@ -266,17 +284,64 @@
       "middle": "call you, but I",
       "miss": "ran out of",
       "after": " time."
+    },
+    "library": {
+      "subtitle": "改約客戶會議的電話，練習多益情境。",
+      "tagAudio": "音檔",
+      "tagLevel": "中級",
+      "openSheet": "打開底部抽屜",
+      "sheetTitle": "篩選",
+      "closeSheet": "完成"
     }
   },
   "library": {
-    "title": "推薦練習",
-    "intro": "選一支影片，開始七天的循環練習。",
-    "sentences": "{count} 句",
-    "videoCount": "{count} 支影片",
-    "excerptLength": "{seconds, plural, =0 {片段長度 {minutes} 分鐘} other {片段長度 {minutes} 分 {seconds} 秒}}",
+    "title": "教材庫",
+    "intro": "影片和音檔教材都在這裡。選一份，開始七天的循環練習。",
+    "kinds": {
+      "video": "影片",
+      "audio": "音檔"
+    },
+    "filters": {
+      "title": "篩選",
+      "open": "篩選",
+      "openCount": "篩選（{count}）",
+      "time": "每天練習時間",
+      "timeOption": "{minutes} 分鐘內（{count}）",
+      "kind": "類型",
+      "category": "分類",
+      "level": "程度",
+      "length": "長度",
+      "accent": "口音",
+      "option": "{label}（{count}）",
+      "search": "搜尋",
+      "searchPlaceholder": "標題或簡介，例如：機場",
+      "sort": "排序",
+      "sorts": {
+        "recommended": "推薦",
+        "newest": "最新",
+        "shortest": "最短",
+        "popular": "最多人練"
+      },
+      "results": "{count} 份教材",
+      "show": "顯示 {count} 份教材",
+      "clear": "清除篩選",
+      "clearAll": "清除所有篩選",
+      "empty": "沒有符合的教材。"
+    },
+    "time": {
+      "title": "我今天有幾分鐘？",
+      "option": "{minutes} 分鐘",
+      "hint": "選一個時間，下方教材庫只顯示一天練得完的教材。"
+    },
+    "card": {
+      "length": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}",
+      "perDay": "每天約 {minutes} 分鐘",
+      "target": "目標 {target}",
+      "mine": "你建立的"
+    },
     "length": {
-      "label": "片段長度",
       "buckets": {
+        "0-1": "1 分鐘以內",
         "1-2": "1～2 分鐘",
         "2-3": "2～3 分鐘",
         "3-4": "3～4 分鐘",
@@ -285,19 +350,7 @@
         "6-7": "6～7 分鐘",
         "7-8": "7～8 分鐘",
         "8-plus": "8 分鐘以上"
-      },
-      "option": "{bucket}（{count}）",
-      "clear": "清除",
-      "clearAll": "清除篩選",
-      "results": "顯示 {count} 支影片",
-      "empty": "沒有符合的影片。"
-    },
-    "official": {
-      "title": "ListenLoop 官方教材",
-      "count": "{count} 份",
-      "intro": "ListenLoop 為所有人準備的練習，照順序一份一份練。",
-      "filterCategory": "類別",
-      "filterExam": "考試"
+      }
     }
   },
   "collections": {
@@ -646,7 +699,7 @@
     },
     "count": "{count} 支",
     "empty": "還沒有開始的練習。",
-    "toLibrary": "前往推薦練習 →",
+    "toLibrary": "前往教材庫 →",
     "unknownVideo": "（已下架的影片）",
     "remove": "移除…",
     "removeConfirm": "確定移除「{title}」的練習進度嗎？各天的進度和成績會刪除，無法復原；練習日曆的紀錄會保留。",
@@ -845,7 +898,7 @@
   },
   "organize": {
     "collectionsTitle": "Collection",
-    "collectionsIntro": "把練習分組整理，就像題庫的合集。刪除 Collection 時，裡面的練習會保留，改成未分組。",
+    "collectionsIntro": "把練習分組整理，像資料夾一樣。刪除 Collection 時，裡面的練習會保留，改成未分組。",
     "newCollection": "新的 Collection 名稱",
     "addCollection": "新增",
     "practiceCount": "{count} 個練習",
@@ -877,7 +930,7 @@
     "officialOff": "設為官方教材",
     "officialOn": "✓ 官方教材",
     "officialLabel": "「{title}」是否為官方教材",
-    "officialPublic": "設為官方教材後會先存成草稿（私人），到「後台 → 教材」發布後才會出現在推薦練習。"
+    "officialPublic": "設為官方教材後會先存成草稿（私人），到「後台 → 教材」發布後才會出現在教材庫。"
   },
   "voicePicker": {
     "legend": "選擇聲音",
@@ -907,7 +960,7 @@
   },
   "materials": {
     "title": "我的教材",
-    "intro": "你建立的練習和 Collection。每份練習都和推薦練習一樣，走七天的循環。目前只開放給管理員。",
+    "intro": "你建立的練習和 Collection。每份練習都和教材庫的教材一樣，走七天的循環。目前只開放給管理員。",
     "create": "建立練習",
     "createUnavailable": "建立練習目前關閉：有設定條件不成立，請到「API 用量」頁的「設定診斷」查看是哪一項。",
     "removed": "已被管理員下架（原因：{reason}）。這份練習不再公開，只有你看得到，也不能再設為公開。",
@@ -920,7 +973,7 @@
   },
   "explore": {
     "title": "公開教材",
-    "intro": "其他人公開分享的練習。每份練習都和推薦練習一樣，走七天的循環；不用登入也能練習。",
+    "intro": "其他人公開分享的練習。每份練習都和教材庫的教材一樣，走七天的循環；不用登入也能練習。",
     "none": "目前還沒有公開的練習。",
     "searchLabel": "搜尋標題",
     "searchPlaceholder": "例如：面試",
@@ -1282,7 +1335,7 @@
     },
     "materials": {
       "title": "教材管理",
-      "intro": "官方教材和公開教材。官方教材只能是管理員建立的；先存成草稿（私人），講解和音檔都完成後才能發布到推薦練習。已發布的官方教材可以調整在推薦練習的順序。",
+      "intro": "官方教材和公開教材。官方教材只能是管理員建立的；先存成草稿（私人），講解和音檔都完成後才能發布到教材庫。已發布的官方教材可以調整在教材庫的推薦順序。",
       "none": "沒有符合條件的教材。",
       "author": "使用者 {number}",
       "sentences": "{count} 句",

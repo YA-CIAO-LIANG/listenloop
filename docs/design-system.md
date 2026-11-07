@@ -248,7 +248,7 @@
 
 ## 核心元件清單
 
-Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreBadge、ThemeToggle、LanguageToggle、Divider。
+Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreBadge、ThemeToggle、LanguageToggle、Divider、MaterialCard、Tag、FilterChip（D70）。
 
 ## 元件規格
 
@@ -264,7 +264,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 | Divider        | 1px line 細線，水平或垂直。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ButtonLink     | 外觀與 Button 完全相同的連結（例如「開始第 1 天 →」）。按壓效果只回應 Enter。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | WordDiffView   | 聽寫回饋，兩行對照：「你的答案」中寫錯或多寫的字用 error 色＋刪除線（`<del>`）；「正確答案」中沒寫對的字用 error 色＋2px 底線，並附螢幕閱讀器文字「（沒寫對）」。兩行都顯示原文寫法（不是正規化後的字）。                                                                                                                                                                                                                                                                                                                                                       |
-| FilterChip     | 可複選的切換按鈕（`aria-pressed`，元件 `FilterChip`），用於題庫長度篩選與公開教材的篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：1px line 邊框、ink-muted 文字，hover 邊框 ink-muted、文字 ink。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。                                                                                                                                                              |
+| FilterChip     | 可複選的切換按鈕（`aria-pressed`，元件 `FilterChip`），用於教材庫的篩選、「我今天有幾分鐘？」與公開教材的篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：1px line 邊框、ink-muted 文字，hover 邊框 ink-muted、文字 ink。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。                                                                                                                                        |
 | CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 ## 聲音選單 `VoiceMenu`（e+ 3；2026-11-07 Joe 確認，建立與編輯練習使用）
@@ -324,7 +324,22 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 ## 首頁
 
-由上到下：標題與標語 → 練習日曆 → 今日任務 → 推薦練習。日曆與今日任務兩張 Card 間距 24px，題庫在下方 64px。
+（D70，2026-11-08 起）由上到下：標題與標語 →
+
+- **登入**：今日任務（Card）→ 24px →「我今天有幾分鐘？」→ 64px → 教材庫；
+- **未登入**：產品介紹（`ProductIntro`）→ 64px → 教材庫。
+
+練習日曆移到「學習進度」頁 `/practices` 的最上方（之後的學習分析頁也會用到）。新手引導（`Onboarding`）只給已登入、還沒有練習的人；未登入時由產品介紹說明七天循環。
+
+### 產品介紹 `ProductIntro`（D70）
+
+- Card（surface、1px line、4px、內距 24px）：Display h2「七天，聽清楚每一個字」→ 24px → 三個步驟（split 以上三欄、以下堆疊，間距 24px）：Display h3「**1** 第 1 天 聽寫」（數字 accent-ink、等寬）＋ supporting、ink-muted 說明。
+- 24px 後：primary、md「登入」＋同一行 supporting、ink-muted「不用登入也能練習；登入後可以看練習日曆、今日任務和學習分析。」（窄螢幕換行）。
+
+### 我今天有幾分鐘？`TimeBudgetBar`（D70）
+
+- Display h3「我今天有幾分鐘？」→ 12px → 一排 FilterChip「10 分鐘」「20 分鐘」「30 分鐘」（`role="group"`，名稱同標題；一次只選一個，再按一次取消）→ supporting、ink-muted 一行說明。
+- 按下時把教材庫篩成「每天預估時間 ≤ N 分鐘」（網址 `?min=10`），並捲到教材庫。和教材庫側欄的「每天練習時間」是同一個篩選。
 
 ### 未登入時的進度卡片 `ProgressGate`（D2，2026-11-06）
 
@@ -360,19 +375,41 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 已通過的影片不列出。排序：可以做的在前，再來是已完成；同組依影片名稱。
 - 沒有進行中的練習：supporting、ink-muted「還沒有開始的練習。從下方的推薦練習選一支影片，開始第 1 天。」＋ accent-ink 底線連結「前往推薦練習 ↓」（`#library`）。
 
-### 推薦練習（題庫）
+### 教材庫 `MaterialLibrary`（D70，取代原本的「推薦練習」和「官方教材」兩區）
 
-- Display h2「推薦練習」＋說明，只放內建影片（自建練習在「我的教材」）；section `id="library"`（`scroll-mt-8`）。元件：`PracticeLibrary`（讀寫網址）包著 `LibraryView`（畫面）。
-- 長度篩選列（說明下方 32px，`role="group"`、名稱「片段長度」）：metadata、ink-muted、字距加寬的「片段長度」→ 8 個 FilterChip「1～2 分鐘（3）」（括號是該區間的影片數，依 `LENGTH_BUCKETS`）→ 有選取時 ghost、sm「清除」。可複選；影片落在任一選取區間就顯示（沒有選取＝全部）。下方一行 supporting、ink-muted、`aria-live="polite"`：有選取時「顯示 5 支影片」。
-- 篩選狀態存在網址 `?length=1-2,8-plus`（不認得的 id 忽略），切換時 `router.replace`（不捲動、不加瀏覽紀錄），重新整理或分享連結都保留。伺服器先輸出沒有篩選的完整列表（`Suspense` fallback），畫面一致。
-- 依合集分組（`getVideosByCollection`，順序依 `videoCollections`）：只列出符合篩選的影片，沒有符合影片的合集整組隱藏。每組上方 48px（第一組 32px），Display h3 合集名稱＋同一行 supporting、ink-muted 的「13 支影片」（篩選後的數量）→ supporting、ink-muted 的合集說明 → 24px 後是卡片 grid（split 以上兩欄）。每組是 `aria-labelledby` 合集標題的 section。
-- 全部不符合：ink-muted「沒有符合的影片。」＋ secondary「清除篩選」。
-- 影片卡片（CardLink）：程度 · 類別 → 影片名 → 進度 → 最下行「Blender Foundation · 15 句 · 片段長度 2 分 5 秒」（整分時「片段長度 2 分鐘」；英文「Excerpt 2 min 5 s」）。
+- Display h2「教材庫」＋ ink-muted 說明；section `id="library"`（`scroll-mt-8`）。內建影片和官方音檔教材放在同一個清單（`getLibraryItems`），不再依合集分組。
+- **版面**：
+  - wide（1024px）以上：左側 15rem 篩選側欄（`<aside>`，名稱「篩選」）＋ 48px ＋ 右側結果；
+  - 以下：沒有側欄，搜尋列最後多一個 secondary、md「篩選」按鈕（有條件時「篩選（2）」，`aria-haspopup="dialog"`），打開底部抽屜（`Dialog variant="sheet"`）。
+- **搜尋列**（結果欄最上方，`flex-wrap`、間距 12px）：
+  - 「搜尋」欄位（metadata 大寫標籤在上，`type="search"`，高 40px、觸控 44px，表單欄位樣式，最小寬 12rem 並佔滿剩餘空間）：標題＋副標包含每個詞就符合；
+  - 「排序」原生 `<select>`（同高）：推薦、最新、最短、最多人練。
+- 下方一行 supporting、ink-muted、`aria-live="polite"`：「3 份教材」；有任何條件時旁邊 ghost、sm「清除篩選」。
+- 卡片網格：split 以上兩欄、間距 24px，卡片等高（`h-full`，最下行貼底）。
+- 沒有符合：ink-muted「沒有符合的教材。」＋ secondary「清除所有篩選」。
+- **網址參數**（`router.replace`，不捲動、不加紀錄；不認得的值忽略）：`q`、`type`、`cat`、`level`、`length`、`accent`、`min`、`sort`（推薦是預設，不寫進網址）。伺服器先輸出沒有篩選的列表（Suspense fallback）。
 
-### 官方教材（e+ 10，D46）
+### 篩選群組 `LibraryFilters`（D70）
 
-- 首頁「推薦練習」的說明下方、內建合集上方，第一個群組：h3「ListenLoop 官方教材」＋ supporting、ink-muted 的「N 份」→ supporting、ink-muted 說明 → 卡片網格（同公開教材的 `PracticeCard`，760px 以上兩欄，間距 24px）。還沒有官方教材時整區不顯示。
-- 「我的教材」每個練習（未下架）：ghost、sm「設為官方教材」；已設定時是 secondary、sm「✓ 官方教材」（`aria-pressed`）。官方教材不顯示公開／私人切換，改成 supporting、ink-muted 的「官方教材一律公開。」
+- 每組：metadata、ink-muted、字距加寬的標籤（`role="group"` 的名稱）→ 8px → FilterChip 一排（換行，間距 8px）。組與組之間 24px。
+- 順序：每天練習時間（10／20／30 分鐘內，單選）→ 類型（影片、音檔）→ 分類 → 程度（初級、中級、高級）→ 長度（`LENGTH_BUCKETS`，新增「1 分鐘以內」）→ 口音。
+- 除了時間，其他都可複選：同一組選了幾個就是「其中之一」，不同組之間是「而且」。
+- 每個 chip 後面括號是符合的份數（不受其他條件影響）。教材庫裡某一組只有一種值時，整組不顯示（已經選取時例外）。
+
+### 教材卡片 `MaterialCard`（D70）
+
+CardLink，內容由上到下：
+
+1. 標籤列（`Tag`，間距 8px、可換行）：類型（影片／音檔圖示＋文字）、分類、程度（文字，不靠顏色），自己建立的加「你建立的」。
+2. 考試教材：supporting、ink-muted「多益 TOEIC 風格 · 目標 750 分」（12px 間距）。
+3. 16px 後 Display h3 標題（內建影片標 `lang="en"`）→ 4px 後 supporting、ink-muted 副標（D71，沒有就不顯示）。
+4. 進度（`VideoProgressLabel`：「第 3 天 · 跟讀」等，同之前）。
+5. 最下行（貼卡片底部，上方至少 16px）：supporting、ink-muted「2 分 5 秒 · 英式英語 · 每天約 9 分鐘」＋右側 →。不足 1 分鐘時「49 秒」。
+
+### 標籤 `Tag`（D70）
+
+- 卡片上的資訊標籤，不能點：1px line 邊框、4px 圓角、左右 8px、最小高 24px、metadata 字級、ink-muted；可帶 16px 圖示（間距 4px）。
+- 可點的篩選一律用 FilterChip，兩者外觀刻意不同（Tag 沒有 hover、沒有 ✓）。
 
 ### 公開教材 `/explore`
 
@@ -500,6 +537,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 原生 `<dialog>` 加 `showModal()`：焦點限制在對話框內，背景不能操作，Escape 關閉（呼叫 `onClose`）。
 - surface 底、1px line 邊框、4px 圓角、內距 24px；寬度最多 32rem，手機留左右 16px。背景遮罩是 ink 40%。
 - 內容：Display h3 標題（`aria-labelledby`）→ 16px 間距的內文 → 按鈕列（primary 在前，其他用 secondary）。
+- **底部抽屜**（`variant="sheet"`，D70）：手機上的篩選。貼齊畫面底部、全寬，只有上緣 1px line 和上方兩角 4px 圓角，高度最多 85dvh（超過時抽屜內捲動）。焦點、Escape、背景遮罩同一般對話框。最下方 1px line 分隔後是按鈕列：primary「顯示 N 份教材」（關閉）＋有條件時 secondary「清除所有篩選」。
 
 ## 完美彩帶 `PerfectCelebration`（D52）
 
@@ -538,11 +576,6 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
   - 控制列（supporting）：「官方教材」下拉（不是官方／草稿（私人）／已發布）。已發布的會顯示「推薦順序 3/12」和 ghost、sm 的 ↑ ↓，自己建立的會有 accent-ink「編輯 →」；
   - 分類列：類別、情境、程度三個小下拉，加上 secondary、sm 的「儲存分類」；
   - 下架控制（同檢舉審查，不含駁回），或下架後的「恢復」。
-
-## 推薦練習的篩選（D58）
-
-- 「ListenLoop 官方教材」說明下方，FilterChip 一排：metadata 大寫標籤「類別」＋各類別。選「考試聽力」時再出現一排「考試」。一次只選一個，再按一次取消。
-- 卡片上方的 metadata 行：有分類時顯示類別（考試類再加上考試），沒有時維持原本的來源語言；後面接聲音。
 
 ## 法律頁面 `LegalPage`（D60）
 

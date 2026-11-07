@@ -12,9 +12,10 @@ import {
   type SentenceBucketId,
 } from "@/lib/custom-practice/explore";
 import type { TextSourceLanguage } from "@/lib/custom-practice/split";
+import { practiceLibraryItem } from "@/lib/library";
 import { Button } from "./Button";
 import { FilterChip } from "./FilterChip";
-import { PracticeCard } from "./PracticeCard";
+import { MaterialCard } from "./MaterialCard";
 
 const LANGUAGES: readonly TextSourceLanguage[] = ["en", "zh"];
 
@@ -32,8 +33,11 @@ function toggle<T>(list: readonly T[], value: T, order: readonly T[]): T[] {
  */
 export function ExploreList({
   practices,
+  seconds = {},
 }: {
   practices: readonly PublicPracticeSummary[];
+  /** Each practice's audio length, by id (D70). */
+  seconds?: Readonly<Record<string, number>>;
 }) {
   const t = useTranslations("explore");
   const ids = useId();
@@ -156,7 +160,12 @@ export function ExploreList({
         <ul className="mt-8 grid gap-6 split:grid-cols-2">
           {shown.map((practice) => (
             <li key={practice.id}>
-              <PracticeCard practice={practice} />
+              <MaterialCard
+                item={practiceLibraryItem(practice, {
+                  seconds: seconds[practice.id],
+                })}
+                mine={practice.mine}
+              />
             </li>
           ))}
         </ul>

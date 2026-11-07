@@ -23,6 +23,12 @@ export const videoCategories = [
  */
 export const ALLOWED_LICENSE = /^(Public Domain|CC BY(-SA)? \d\.\d)$/;
 
+/** Accents a material may be in (the same ids as lib/ai/types.ts VOICE_ACCENTS). */
+export const videoAccents = ["us", "gb", "au", "in"] as const;
+
+/** The longest subtitle (D71), in characters. */
+export const SUBTITLE_MAX = 60;
+
 export type VideoLevel = (typeof videoLevels)[number];
 export type VideoCategory = (typeof videoCategories)[number];
 export type VideoCollection = (typeof videoCollections)[number];
@@ -80,6 +86,10 @@ export type Video = {
   collection: VideoCollection;
   /** Rights holder's display name, e.g. "Blender Foundation". */
   source: string;
+  /** One sentence on what it's about, for the library card (D71). */
+  subtitle?: string;
+  /** The speakers' accent, when there is one main one (library filter). */
+  accent?: (typeof videoAccents)[number];
   attribution: Attribution;
   sentences: Sentence[];
   vocab: VocabItem[];
@@ -200,6 +210,21 @@ export function validateVideo(data: unknown): string[] {
   }
   if (!videoCollections.includes(data.collection as VideoCollection)) {
     problems.push(`collection must be one of ${videoCollections.join(", ")}`);
+  }
+
+  if (
+    data.subtitle !== undefined &&
+    (!isText(data.subtitle) || [...data.subtitle].length > SUBTITLE_MAX)
+  ) {
+    problems.push(
+      `subtitle must be text of at most ${SUBTITLE_MAX} characters`,
+    );
+  }
+  if (
+    data.accent !== undefined &&
+    !(videoAccents as readonly unknown[]).includes(data.accent)
+  ) {
+    problems.push(`accent must be one of ${videoAccents.join(", ")}`);
   }
 
   if (data.excerptOf !== undefined) {
