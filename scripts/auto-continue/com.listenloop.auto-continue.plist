@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Auto-continue every 6 hours (D65). A template: install.sh fills in
+     the paths; nothing runs until Joe enables it with launchctl
+     (docs/auto-continue.md). -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.listenloop.auto-continue</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-l</string>
+    <string>__REPO__/scripts/auto-continue/run.sh</string>
+  </array>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>LISTENLOOP_REPO</key>
+    <string>__REPO__</string>
+  </dict>
+  <key>StartInterval</key>
+  <integer>21600</integer>
+  <key>RunAtLoad</key>
+  <false/>
+  <key>StandardOutPath</key>
+  <string>__HOME__/Library/Logs/listenloop-auto/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>__HOME__/Library/Logs/listenloop-auto/launchd.err.log</string>
+</dict>
+</plist>

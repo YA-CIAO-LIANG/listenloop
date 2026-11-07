@@ -74,6 +74,10 @@ function recordingFetch() {
 const env = (name: string) => process.env[name]?.trim() ?? "";
 
 it("records the Azure fixtures", async () => {
+  // Never in an unattended run (scripts/auto-continue/run.sh, D65).
+  expect(env("LISTENLOOP_UNATTENDED"), "no paid calls unattended").not.toBe(
+    "1",
+  );
   const model = env("AZURE_OPENAI_MODEL");
   const recorder = recordingFetch();
   const language = azureOpenAiLanguage(
