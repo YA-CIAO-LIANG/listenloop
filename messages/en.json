@@ -1382,8 +1382,14 @@
         "not-found": "This material wasn’t found, or it’s been taken down.",
         "failed": "The change didn’t go through; try again later.",
         "not-admin-made": "Only practices made by an admin can be official.",
-        "not-ready": "Its notes or audio aren’t done yet; finish them in My materials first."
-      }
+        "not-ready": "Its notes or audio aren’t done yet; finish them in My materials first.",
+        "busy": "The AI service is busy. Try again later.",
+        "limit": "Today's AI usage limit is reached. Try again tomorrow."
+      },
+      "subtitleLabel": "Card summary",
+      "subtitleHint": "One line on the library card, up to 60 characters. Written by AI on publishing if there isn't one.",
+      "saveSubtitle": "Save summary",
+      "generateSubtitle": "Rewrite with AI"
     },
     "feedback": {
       "title": "Feedback",

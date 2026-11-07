@@ -36,13 +36,27 @@ const db = vi.hoisted(() => ({
   practice: null as Record<string, unknown> | null,
   authorRole: "admin",
   updates: [] as unknown[],
+  reserve: true,
 }));
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 const logAudit = vi.hoisted(() => vi.fn());
 vi.mock("@/auth/audit", () => ({ logAudit }));
-vi.mock("@/auth/creator", () => ({
-  getAdminUser: async () => ({ id: "admin-0" }),
-}));
+vi.mock("@/auth/creator", async () => {
+  const { fakeLanguage, fakeSpeech } = await import("@/lib/ai/fake");
+  return {
+    getAdminUser: async () => ({ id: "admin-0" }),
+    getCreator: async () => ({
+      user: { id: "admin-0", email: "a@example.com", number: 0, role: "admin" },
+      providers: { language: fakeLanguage, speech: fakeSpeech },
+      meter: {
+        reserve: async () => db.reserve,
+        settle: async () => {},
+        log: async () => {},
+      },
+      cache: { get: async () => null, set: async () => {} },
+    }),
+  };
+});
 vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () => ({
     from: (table: string) => ({
@@ -67,8 +81,12 @@ vi.mock("@/auth/admin", () => ({
   }),
 }));
 
-const { setOfficialState, setMaterialCategory } =
-  await import("@/app/admin/materials/actions");
+const {
+  generateMaterialSubtitle,
+  setMaterialCategory,
+  setMaterialSubtitle,
+  setOfficialState,
+} = await import("@/app/admin/materials/actions");
 const id = "123e4567-e89b-12d3-a456-426614174000";
 
 beforeEach(() => {
@@ -78,10 +96,13 @@ beforeEach(() => {
     published: false,
     notes_generated_at: "2026-11-07T00:00:00Z",
     removed_at: null,
-    practice_sentences: [{ audio_path: "a.mp3" }],
+    title: "Checking In",
+    subtitle: null,
+    practice_sentences: [{ i: 0, en: "Hello.", audio_path: "a.mp3" }],
   };
   db.authorRole = "admin";
   db.updates = [];
+  db.reserve = true;
   logAudit.mockReset();
 });
 
@@ -146,5 +167,53 @@ describe("setMaterialCategory", () => {
     expect(
       await setMaterialCategory(id, { category: "exam", scenario: "nope" }),
     ).toMatchObject({ reason: "invalid" });
+  });
+});
+
+describe("subtitles (D71)", () => {
+  it("are written when a draft is published without one", async () => {
+    expect(await setOfficialState(id, "published")).toEqual({ ok: true });
+    expect(db.updates[1]).toEqual({ subtitle: "Checking In（練習）" });
+  });
+
+  it("keep one that's already there on publishing", async () => {
+    db.practice!.subtitle = "在機場報到。";
+    await setOfficialState(id, "published");
+    expect(db.updates).toHaveLength(1);
+  });
+
+  it("don't stop publishing when the model can't run", async () => {
+    db.reserve = false;
+    expect(await setOfficialState(id, "published")).toEqual({ ok: true });
+    expect(db.updates).toHaveLength(1);
+  });
+
+  it("can be rewritten with AI, and the limit is reported", async () => {
+    db.practice!.subtitle = "舊的。";
+    expect(await generateMaterialSubtitle(id)).toEqual({ ok: true });
+    expect(db.updates[0]).toEqual({ subtitle: "Checking In（練習）" });
+    expect(logAudit).toHaveBeenCalledWith(
+      "admin-0",
+      "practice.subtitle",
+      { type: "practice", id },
+      { to: "Checking In（練習）", by: "ai" },
+    );
+    db.reserve = false;
+    expect(await generateMaterialSubtitle(id)).toEqual({
+      ok: false,
+      reason: "limit",
+    });
+  });
+
+  it("can be typed, cleared, and are checked", async () => {
+    expect(await setMaterialSubtitle(id, " 「在機場報到」 ")).toEqual({
+      ok: true,
+    });
+    expect(db.updates[0]).toEqual({ subtitle: "在機場報到" });
+    expect(await setMaterialSubtitle(id, "")).toEqual({ ok: true });
+    expect(db.updates[1]).toEqual({ subtitle: null });
+    expect(await setMaterialSubtitle(id, "長".repeat(61))).toMatchObject({
+      reason: "invalid",
+    });
   });
 });

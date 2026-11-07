@@ -1,6 +1,7 @@
 import {
   annotateBudget,
   composeBudget,
+  describeBudget,
   segmentBudget,
   translateBudget,
   type LanguageBudget,
@@ -10,6 +11,7 @@ import { RICH_NOTES_SCHEMA, toGeminiSchema } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   COMPOSE_INSTRUCTIONS,
+  DESCRIBE_INSTRUCTIONS,
   NOTES_INSTRUCTIONS,
   PROMPT_VERSION,
   SEGMENT_INSTRUCTIONS,
@@ -50,6 +52,12 @@ const COMPOSITION_SCHEMA = {
   type: "OBJECT",
   properties: { title: STRING, lines: { type: "ARRAY", items: STRING } },
   required: ["title", "lines"],
+} as const;
+
+const DESCRIPTION_SCHEMA = {
+  type: "OBJECT",
+  properties: { subtitle: STRING },
+  required: ["subtitle"],
 } as const;
 
 const TRANSLATIONS_SCHEMA = {
@@ -193,6 +201,14 @@ export function geminiLanguage(
         COMPOSITION_SCHEMA,
         composeBudget(prompt),
         0.9,
+      );
+    },
+    async describe(material) {
+      return generate(
+        DESCRIBE_INSTRUCTIONS,
+        material,
+        DESCRIPTION_SCHEMA,
+        describeBudget(material),
       );
     },
     async segment(lines, language) {

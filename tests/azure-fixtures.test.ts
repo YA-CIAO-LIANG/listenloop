@@ -1,3 +1,4 @@
+import { subtitleFromModel } from "@/lib/custom-practice/subtitle";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it, vi } from "vitest";
@@ -78,6 +79,19 @@ describe("recorded Azure OpenAI answers", () => {
     if (notes.difficulty === "hard") {
       expect(notes.chunks.length).toBeGreaterThanOrEqual(2);
     }
+    expect(sent()).toEqual(recorded.request);
+  });
+
+  it("writes a subtitle that passes subtitleFromModel (D71)", async () => {
+    const { recorded, fetchImpl, sent } = replay("azure-openai/describe.json");
+    const input = (recorded.request as { messages: { content: string }[] })
+      .messages[1].content;
+    const { value } = await azureOpenAiLanguage(config, fetchImpl).describe(
+      JSON.parse(input),
+    );
+    const subtitle = subtitleFromModel(value);
+    expect(subtitle).toBeTruthy();
+    expect([...subtitle!].length).toBeLessThanOrEqual(30);
     expect(sent()).toEqual(recorded.request);
   });
 
