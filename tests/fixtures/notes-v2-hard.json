@@ -1,0 +1,121 @@
+{
+  "note": "Hand-made version 2 notes for a hard sentence (D67): unit tests of the checks and the interface. The recorded model answer is tests/fixtures/ai/azure-openai/annotate.json.",
+  "answer": {
+    "sentences": [
+      {
+        "index": 0,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "pick up",
+            "note": "「去拿、順便帶回來」，口語很常用。"
+          },
+          {
+            "text": "reserved",
+            "note": "圖書館「預約」書籍的說法。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "pick up",
+            "inSentence": "pick up",
+            "kind": "phrase",
+            "pos": "phr. v.",
+            "zh": "（順路）去拿；接（人）",
+            "ipa": "/pɪk ʌp/",
+            "collocations": [
+              "pick up a package",
+              "pick up the kids",
+              "pick up groceries"
+            ],
+            "examples": [
+              {
+                "en": "Can you pick up some milk on your way home?",
+                "zh": "你回家路上可以順便買些牛奶嗎？"
+              }
+            ]
+          },
+          {
+            "term": "reserve",
+            "inSentence": "reserved",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "預約；預訂",
+            "ipa": "/rɪˈzɝːv/",
+            "collocations": [
+              "reserve a table",
+              "reserve a seat",
+              "reserve a book"
+            ],
+            "examples": [
+              {
+                "en": "I reserved a study room for Friday afternoon.",
+                "zh": "我預約了星期五下午的自習室。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "could you + V?",
+            "quote": "could you pick up",
+            "explanation": "用 could you 開頭的問句比 can you 更客氣，常用來請別人幫忙。",
+            "examples": [
+              {
+                "en": "Could you send me the notes from today's class?",
+                "zh": "你可以把今天上課的筆記傳給我嗎？"
+              }
+            ],
+            "pitfall": "could you 後面接原形動詞，不要寫成 could you to pick up。"
+          },
+          {
+            "point": "the book (that) I reserved",
+            "quote": "the book I reserved",
+            "explanation": "關係代名詞 that 當受詞時可以省略，聽的時候要知道 book 後面直接接一個子句。",
+            "examples": [
+              {
+                "en": "This is the jacket I bought last week.",
+                "zh": "這是我上週買的外套。"
+              }
+            ],
+            "pitfall": "省略 that 時，後面的子句不能再重複受詞：不要說 the book I reserved it。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "If you're going to the library later,",
+            "role": "subordinate",
+            "zh": "如果你等一下要去圖書館，"
+          },
+          {
+            "text": "could you pick up the book",
+            "role": "main",
+            "zh": "可以幫我拿那本書嗎"
+          },
+          {
+            "text": "I reserved for my history class?",
+            "role": "modifier",
+            "zh": "（就是）我為歷史課預約的那本？"
+          }
+        ],
+        "connected": [
+          {
+            "text": "going to the",
+            "soundsLike": "goin' tə the",
+            "note": "going 的 g 常被吃掉，to 弱讀成 /tə/，和 the 連在一起，聽起來很快。"
+          },
+          {
+            "text": "pick up",
+            "soundsLike": "pi-kup",
+            "note": "pick 字尾的 k 和 up 的母音連在一起，聽起來像一個字。"
+          },
+          {
+            "text": "could you",
+            "soundsLike": "couldja",
+            "note": "d 和 y 連在一起變成「ㄐ」的音。"
+          }
+        ]
+      }
+    ]
+  }
+}
