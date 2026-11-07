@@ -8,7 +8,8 @@
     "materials": "My materials",
     "createPractice": "Create a practice",
     "admin": "Admin",
-    "skipToContent": "Skip to main content"
+    "skipToContent": "Skip to main content",
+    "stats": "Stats"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -1243,7 +1244,8 @@
         "practice": "Practice",
         "costs": "Spending and credit",
         "storage": "Supabase storage",
-        "plans": "Plans"
+        "plans": "Plans",
+        "study": "Study"
       },
       "users": "Total users",
       "activeToday": "Active today",
@@ -1264,7 +1266,19 @@
       "waitlist": "On the waitlist",
       "waitlistTitle": "Paid plan waitlist",
       "waitlistEmpty": "No one has joined the waitlist yet.",
-      "waitlistUnknown": "(Account not found)"
+      "waitlistUnknown": "(Account not found)",
+      "averageMinutes": "Average minutes a day",
+      "averageMinutesNote": "Last 30 days, per learner who practiced that day",
+      "accuracyWeighted": "Average accuracy (weighted)",
+      "accuracyRaw": "Average accuracy (raw)",
+      "accuracyNote": "{n} dictations in current progress",
+      "activityTitle": "Active learners, last 30 days",
+      "activitySummary": "Learners who practiced each day over the last {days} days; at most {peak} in a day.",
+      "date": "Date",
+      "activeLearners": "Active learners",
+      "minutes": "Minutes",
+      "activeCount": "{n} learners",
+      "minutesCount": "{n} min"
     },
     "users": {
       "title": "Users",
@@ -1785,5 +1799,54 @@
     "fast": "Done at fast speed",
     "raw": "Raw accuracy {score}",
     "weighted": "Weighted accuracy"
+  },
+  "stats": {
+    "title": "Stats",
+    "intro": "Your practice time, accuracy, and progress, from the records synced between this device and your account.",
+    "loading": "Loading…",
+    "unknownMaterial": "(Removed material)",
+    "streak": "Streak",
+    "days": "{n, plural, one {# day} other {# days}}",
+    "longest": "Longest {n, plural, one {# day} other {# days}}",
+    "weekMinutes": "Last 7 days",
+    "monthMinutes": "Last 30 days",
+    "minutes": "{n} min",
+    "started": "Materials started",
+    "passed": "Materials passed",
+    "timeTitle": "Practice time a day",
+    "timeSummary": "{total} minutes over the last {days} days, practiced on {active} of them. Only time with the page in front and activity in the last 2 minutes counts.",
+    "range": "Period",
+    "ranges": {
+      "week": "Week",
+      "month": "Month"
+    },
+    "date": "Date",
+    "minutesColumn": "Minutes",
+    "trendTitle": "Accuracy over time",
+    "trendSummary": "{count} dictations; weighted accuracy went from {first} to {last}.",
+    "trendEmpty": "Finish a Day 1 or Day 7 dictation to see your accuracy here.",
+    "material": "Material",
+    "dayColumn": "Day",
+    "weighted": "Weighted accuracy",
+    "raw": "Raw accuracy",
+    "passMark": "Pass: 80%",
+    "compareTitle": "Day 1 and Day 7",
+    "compareSummary": "{count} materials have Day 1 and Day 7 scores; {improved} improved.",
+    "compareEmpty": "Finish Day 7 of a material to compare it with Day 1 here.",
+    "day1": "Day 1",
+    "day7": "Day 7",
+    "missedTitle": "Words you miss most",
+    "missedSummary": "You miss “{word}” most, {count} times.",
+    "missedEmpty": "After a dictation, the words you miss most are listed here.",
+    "word": "Word",
+    "times": "Times",
+    "categoryTitle": "By category",
+    "levelTitle": "By level",
+    "spreadSummary": "Most are {top}: {count}.",
+    "spreadEmpty": "Start practicing to see the spread here.",
+    "category": "Category",
+    "level": "Level",
+    "count": "Materials",
+    "table": "Show the data table"
   }
 }

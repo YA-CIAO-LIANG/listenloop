@@ -1,10 +1,21 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { adminPeriods, ADMIN_SECTIONS } from "@/lib/admin-dashboard";
+import {
+  adminPeriods,
+  ADMIN_SECTIONS,
+  taiwanToday,
+} from "@/lib/admin-dashboard";
 import { rankHardSentences } from "@/lib/hard-sentences";
 import en from "@/messages/en.json";
 import zh from "@/messages/zh-Hant.json";
 
 /** The admin dashboard (D56). */
+describe("taiwanToday", () => {
+  it("is the date in UTC+8", () => {
+    expect(taiwanToday(new Date("2026-11-07T15:59:00Z"))).toBe("2026-11-07");
+    expect(taiwanToday(new Date("2026-11-07T16:00:00Z"))).toBe("2026-11-08");
+  });
+});
+
 describe("adminPeriods", () => {
   it("counts the week as the last 7 Taiwan days, today included", () => {
     expect(adminPeriods(new Date("2026-11-07T03:00:00Z"))).toEqual({

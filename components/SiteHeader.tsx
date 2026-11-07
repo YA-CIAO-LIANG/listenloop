@@ -47,6 +47,14 @@ export function SiteHeader({
           >
             {t("myPractices")}
           </Link>
+          {showMaterials && (
+            <Link
+              href="/stats"
+              className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            >
+              {t("stats")}
+            </Link>
+          )}
           <Link
             href="/explore"
             className="text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"

@@ -44,3 +44,10 @@ export function adminPeriods(now: Date): {
 /** A share of a limit, 0–1, for "12% of 500 MB". */
 export const shareOf = (used: number, limit: number) =>
   limit > 0 ? Math.min(1, used / limit) : 0;
+
+/** Today's date in Taiwan (UTC+8), as learners' local dates mostly are. */
+export function taiwanToday(now: Date): string {
+  return new Date(now.getTime() + 8 * 60 * 60 * 1000)
+    .toISOString()
+    .slice(0, 10);
+}

@@ -18,13 +18,14 @@ describe("SiteHeader", () => {
     ]);
   });
 
-  it("adds My materials when signed in", () => {
+  it("adds Stats and My materials when signed in", () => {
     renderWithIntl(<SiteHeader showMaterials />);
     expect(
       [...navLinks()].map((a) => [a.textContent, a.getAttribute("href")]),
     ).toEqual([
       ["ListenLoop", "/"],
       ["學習進度", "/practices"],
+      ["學習分析", "/stats"],
       ["公開教材", "/explore"],
       ["我的教材", "/materials"],
     ]);
