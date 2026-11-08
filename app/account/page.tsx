@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { getSignedInUser } from "@/auth/session";
+import { getOwnBilling } from "@/auth/billing";
+import { getPaymentProvider } from "@/auth/payments";
+import { BillingSection } from "@/components/BillingSection";
 import { DeleteAccount } from "@/components/DeleteAccount";
 import { accountsEnabled } from "@/lib/supabase/config";
 
@@ -27,6 +30,9 @@ export default async function AccountPage({
     getSignedInUser(),
     searchParams,
   ]);
+  const billing = user
+    ? await getOwnBilling(user.id)
+    : { subscription: null, payments: [] };
 
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
@@ -40,6 +46,12 @@ export default async function AccountPage({
               {t("syncNote")}
             </p>
           </section>
+          <BillingSection
+            plan={user.plan}
+            subscription={billing.subscription}
+            payments={billing.payments}
+            canManage={getPaymentProvider() !== null}
+          />
           <section className="mt-16 max-w-reading border-t border-line pt-8">
             <h2 className="font-display text-h2">{t("export.title")}</h2>
             <p className="mt-4 text-ink-muted">{t("export.intro")}</p>

@@ -6,7 +6,12 @@ import {
 } from "@/lib/payments/apply";
 import { parsePaymentEvent } from "@/lib/payments/events";
 import { fakePaymentProvider, fakeSubscriptionId } from "@/lib/payments/fake";
-import { PRICES, yearlyPerMonth, yearlySaving } from "@/lib/payments/pricing";
+import {
+  formatPrice,
+  PRICES,
+  yearlyPerMonth,
+  yearlySaving,
+} from "@/lib/payments/pricing";
 import {
   SIGNATURE_HEADER,
   signPayload,
@@ -316,5 +321,17 @@ describe("downgrading (D72, D85)", () => {
     expect(
       can("free", { kind: "create-practice", createdTotal: 12 }),
     ).toMatchObject({ ok: false, limit: "practicesTotal" });
+  });
+});
+
+describe("formatPrice", () => {
+  const n = (value: number, currency?: string) =>
+    new Intl.NumberFormat(
+      "en",
+      currency ? { style: "currency", currency } : {},
+    ).format(value);
+  it("shows NT$ without decimals, other currencies from cents", () => {
+    expect(formatPrice(1490, "TWD", n)).toBe("NT$1,490");
+    expect(formatPrice(499, "USD", n)).toBe("$4.99");
   });
 });

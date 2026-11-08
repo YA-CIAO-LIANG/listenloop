@@ -30,6 +30,84 @@ const practices: Row[] = Object.values(
 /** Accounts on the paid plan's waiting list. */
 const waitlist = new Set<string>();
 
+/**
+ * Payments (D85), kept while the server runs: what the fake provider's
+ * webhooks write with the secret key, read back by the account and
+ * admin pages. Plans changed by those webhooks are in `plans`.
+ */
+const tables: Record<string, Row[]> = {
+  subscriptions: [],
+  payments: [],
+  payment_events: [],
+};
+const conflictKeys: Record<string, string[]> = {
+  subscriptions: ["user_id"],
+  payments: ["provider_payment_id"],
+  payment_events: ["provider", "event_id"],
+};
+const plans = new Map<string, string>();
+
+/** The `column=eq.value` filters of a PostgREST request. */
+function eqFilters(params: URLSearchParams): [string, string][] {
+  return [...params.entries()].flatMap(([column, value]) => {
+    const eq = /^eq\.(.*)$/.exec(value);
+    return eq ? [[column, eq[1]] as [string, string]] : [];
+  });
+}
+
+/** One of the payment tables: insert or upsert, update, read, delete. */
+async function paymentTable(
+  name: string,
+  request: import("node:http").IncomingMessage,
+  url: URL,
+  sub: string | null,
+): Promise<[number, Row[]]> {
+  const rows = tables[name];
+  const filters = eqFilters(url.searchParams);
+  const matches = (row: Row) =>
+    filters.every(([column, value]) => String(row[column]) === value) &&
+    // Row level security: people read only their own rows.
+    (sub === null || row.user_id === sub);
+  if (request.method === "GET") return [200, rows.filter(matches)];
+  if (request.method === "DELETE") {
+    tables[name] = rows.filter((row) => !matches(row));
+    return [200, []];
+  }
+  // Only the server (secret key, no user) writes these.
+  if (sub !== null) return [401, []];
+  const body = JSON.parse((await readBody(request)) || "null");
+  if (request.method === "PATCH") {
+    const changed = rows.filter(matches);
+    for (const row of changed) Object.assign(row, body);
+    return [200, changed];
+  }
+  const keys = (url.searchParams.get("on_conflict") ?? "")
+    .split(",")
+    .filter(Boolean);
+  const conflict = keys.length ? keys : conflictKeys[name];
+  const ignore = String(request.headers.prefer ?? "").includes(
+    "ignore-duplicates",
+  );
+  const written: Row[] = [];
+  for (const incoming of Array.isArray(body) ? body : [body]) {
+    const existing = rows.find((row) =>
+      conflict.every((key) => row[key] === incoming[key]),
+    );
+    if (existing) {
+      if (!ignore) written.push(Object.assign(existing, incoming));
+      continue;
+    }
+    const row = {
+      id: crypto.randomUUID(),
+      created_at: new Date().toISOString(),
+      ...incoming,
+    };
+    rows.push(row);
+    written.push(row);
+  }
+  return [201, written];
+}
+
 /** One second of 8 kHz, 8-bit mono silence. */
 function silentWav(): Buffer {
   const samples = 8000;
@@ -125,13 +203,34 @@ createServer(async (request, response) => {
         number: sub === "e2e-admin" ? 0 : 1,
         role: sub === "e2e-admin" ? "admin" : "user",
         status: "active",
-        plan: "free",
+        plan: (sub && plans.get(sub)) ?? "free",
         // The author made both practices in practices.json: the free
         // plan's one-practice trial is used up (D72). The learner hasn't
         // made one yet.
         practices_created: sub === "e2e-author" ? 2 : 0,
       },
     ]);
+    return;
+  }
+  // A webhook's plan change (D85), with the secret key.
+  if (url.pathname === "/rest/v1/profiles" && request.method === "PATCH") {
+    const body = JSON.parse((await readBody(request)) || "{}");
+    const user = eqFilters(url.searchParams).find(([c]) => c === "user_id");
+    if (user && typeof body.plan === "string") plans.set(user[1], body.plan);
+    json(200, []);
+    return;
+  }
+  const table = /^\/rest\/v1\/(subscriptions|payments|payment_events)$/.exec(
+    url.pathname,
+  );
+  if (table) {
+    const [status, rows] = await paymentTable(
+      table[1],
+      request,
+      url,
+      tokenSubject(request.headers.authorization),
+    );
+    json(status, rows);
     return;
   }
   if (url.pathname === "/rest/v1/practices" && request.method === "GET") {

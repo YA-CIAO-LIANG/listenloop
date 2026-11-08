@@ -1450,3 +1450,23 @@
   - 金額存成幣別的最小單位（新台幣沒有小數，所以 NT$149 存 149）。
   - 假的供應者在 `VERCEL_ENV=production` 一律停用，避免正式站出現測試付款。
 - **要改時**：`lib/payments/`、`auth/payments.ts`、`app/payments/webhook/route.ts`、`supabase/migrations/20261109010000_payments.sql`。
+
+### D85 補充：定價、結帳、帳號、後台、法律頁（2026-11-09）
+
+- **頁面**：
+  - `/pricing`：免費與付費並排，可切換月繳／年繳，預設年繳；
+  - `/checkout/fake`：只有假的供應者才有；
+  - `/checkout/success`、`/checkout/failed`；
+  - `/account#billing`：目前方案、下次扣款日、取消／恢復續訂、付款紀錄；
+  - `/admin/revenue`：統計、訂閱、付款、退款、測試用的模擬；
+  - `/admin/waitlist/export`：等候名單 CSV；
+  - `/refund`：退款政策。
+- **合理的預設**：
+  - 付款服務還沒設定時，付費方案顯示「即將推出」，按鈕是「加入等候名單」（沿用 D72）；
+  - 假的供應者會在頁面上方顯示「測試模式」，後台營收標示「測試」；
+  - 取消一律是「期末取消」（cancel at period end），不提供立即終止。這是訂閱服務的業界慣例，使用者已付的這一期仍可使用；
+  - 退款要由管理員在後台操作，按兩次確認，並寫入管理稽核。使用者透過意見回饋申請，政策寫在 `/refund`；
+  - 新台幣顯示成「NT$1,490」（`formatPrice`），不顯示小數；
+  - 結帳與改訂閱有速率限制：每小時 20 次（`RATE_LIMITS.billing`）；
+  - 頁尾新增「方案與價格」「退款政策」；服務條款新增第 7 條「付費方案與訂閱」（後面的條號往後移）；隱私權政策新增「付款資料」。
+- **要改時**：`components/PricingPlans.tsx`、`components/BillingSection.tsx`、`app/billing/actions.ts`、`app/admin/revenue/`、`messages/*.json` 的 `pricing`、`checkout`、`billing`、`refund`、`admin.revenue`。
