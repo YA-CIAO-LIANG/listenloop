@@ -106,6 +106,7 @@
     "nextOpen": "Day {day} is open"
   },
   "calendar": {
+    "loading": "Loading the calendar…",
     "title": "Practice calendar",
     "previousMonth": "Previous",
     "nextMonth": "Next",

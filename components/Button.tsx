@@ -27,11 +27,12 @@ const hoverClassNames = {
   },
 } as const;
 
-// Touch screens get at least 44px so buttons are easy to tap.
+// Touch screens get at least 44px so buttons are easy to tap. Heights are
+// minimums: a label too long for a phone wraps instead of being cut off.
 const sizeClassNames = {
-  sm: "h-8 px-3 text-supporting pointer-coarse:min-h-11",
-  md: "h-10 px-4 text-body pointer-coarse:min-h-11",
-  lg: "h-12 px-6 text-body",
+  sm: "min-h-8 px-3 py-1 text-supporting pointer-coarse:min-h-11 pointer-coarse:min-w-11",
+  md: "min-h-10 px-4 py-1.5 text-body pointer-coarse:min-h-11 pointer-coarse:min-w-11",
+  lg: "min-h-12 px-6 py-2 text-body",
 } as const;
 
 export type ButtonVariant = keyof typeof variantClassNames;
@@ -50,7 +51,7 @@ export function buttonClassName({
   as?: "button" | "link";
 }): string {
   return [
-    "pressable inline-flex items-center justify-center gap-2 rounded-base border whitespace-nowrap backdrop-blur-sm select-none disabled:cursor-not-allowed disabled:opacity-40",
+    "pressable inline-flex max-w-full items-center justify-center gap-2 rounded-base border text-center text-balance backdrop-blur-sm select-none disabled:cursor-not-allowed disabled:opacity-40",
     variantClassNames[variant],
     hoverClassNames[as][variant],
     sizeClassNames[size],

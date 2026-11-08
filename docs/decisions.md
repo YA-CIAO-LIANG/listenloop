@@ -1562,3 +1562,26 @@
   - 開關狀態記在這個瀏覽器（`ll-loop:v1`），是個人偏好，不同步到帳號。
   - 跟讀不提供循環：念完就會自動評分，循環播放會和收音衝突。
 - **要改時**：`components/useLoopingPlayback.ts`、`components/DictationSession.tsx`、`components/ShadowingSession.tsx`。
+
+## D91 持續品質檢查（qa-sweep）與第一輪修正（2026-11-08，夜間任務 P0）
+
+- **工具**：`qa/sweep.spec.ts` 對 E2E build 逐頁檢查：
+  - 38 頁 × 寬度 360、375、414、768、1280 px × 淺色與深色 × 中英文；
+  - 偵測重疊、截斷、超出畫面、點擊範圍、axe（含對比）、瀏覽器錯誤、壞連結、載入時間；
+  - 指令：`npm run qa`、`npm run qa:summary`；
+  - 做成 skill `qa-sweep`，每輪的紀錄在 `docs/qa-log.md`。
+- **點擊範圍的標準**：
+  - 手機（≤ 414 px，觸控）：44 px，依 Apple、Material 的建議；
+  - 其他：24 px，依 WCAG 2.5.8；
+  - 段落裡的文字連結不算。
+- **修正**：
+  1. **日期只在瀏覽器計算**：練習日曆的「今天」改用 `useToday()`（`useSyncExternalStore`，伺服器回 null），伺服器先輸出骨架。
+     - 原因：伺服器時區（Vercel 是 UTC）和台灣不同，00:00～08:00 會畫出前一天並造成 hydration 錯誤。
+     - 其他用到「今天」的元件都是在資料載入後才在瀏覽器畫，所以不受影響。
+  2. **按鈕可以換行**：`Button` 的高度改成最小高度（`min-h-*`），去掉 `whitespace-nowrap`，加上 `max-w-full`、`text-balance`。窄螢幕上過長的標籤會換行，不會被截掉；一般長度的按鈕外觀不變。
+  3. **`tap` 工具類別**：
+     - 滑鼠：上下各加 4 px 內距，讓文字連結至少 24 px 高（行內內距不會推動周圍文字）；
+     - 觸控：最少 44×44 px。
+     - 小按鈕在觸控裝置上最少 44 px 寬（例如「↑」「↓」）。
+  4. **影片出處連結**：觸控裝置上加大到 44 px 高（D86 時是 32 px）。
+- **要改時**：`qa/sweep.spec.ts`（頁面清單、門檻）、`app/globals.css` 的 `tap`、`components/Button.tsx`。

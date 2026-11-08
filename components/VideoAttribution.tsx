@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import type { Attribution } from "@/lib/videos";
 
 const linkClassName =
-  "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink inline-block py-1";
+  "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink inline-block py-1 pointer-coarse:py-3";
 
 /**
  * Credit for the video, shown on every page that plays it. CC BY requires

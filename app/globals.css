@@ -346,10 +346,15 @@
  * 44px tall, without changing how it looks with a mouse.
  */
 @utility tap {
+  /* At least 24 px tall with a mouse (WCAG 2.5.8); padding on an inline
+     link grows its target without moving the text around it. */
+  padding-block: 0.25rem;
   @media (pointer: coarse) {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+    min-width: 44px;
+    padding-block: 0;
   }
 }
 
