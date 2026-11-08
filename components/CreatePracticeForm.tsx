@@ -1,5 +1,7 @@
 "use client";
 
+import { SUBTITLE_MAX } from "@/lib/videos";
+import { oneLineTitle } from "@/lib/titles";
 import type { UsageBlock } from "@/lib/usage";
 import { UsageLimitMessage } from "./UsageLimitMessage";
 import Link from "next/link";
@@ -7,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useId, useRef, useState, type ChangeEvent } from "react";
 import {
+  describeDraft,
   createPractice,
   generatePracticeAudio,
   generatePracticeNotes,
@@ -56,7 +59,9 @@ type CreatePracticeFormProps = {
   split?: SplitText;
   translate?: TranslateSentences;
   create?: (draft: {
-    title: string;
+    titleEn: string;
+    titleZh: string;
+    subtitle?: string;
     sourceLanguage: TextSourceLanguage;
     voice: string;
     voiceB?: string;
@@ -64,6 +69,8 @@ type CreatePracticeFormProps = {
     meta?: MaterialMeta | null;
     official?: boolean;
   }) => Promise<CreatePracticeResult>;
+  /** Writes the missing title and the subtitle of pasted text (D83). */
+  describe?: typeof describeDraft;
   generate?: GenerateAudio;
   generateNotes?: GenerateNotes;
   generateText?: GenerateText;
@@ -104,6 +111,7 @@ export function CreatePracticeForm({
   generate = generatePracticeAudio,
   generateNotes = generatePracticeNotes,
   generateText,
+  describe = describeDraft,
   official = false,
 }: CreatePracticeFormProps) {
   const tPlans = useTranslations("plans");
@@ -115,7 +123,14 @@ export function CreatePracticeForm({
   const tGenerate = useTranslations("generate");
   // Paste or upload text, or have it written (e+ 5).
   const [source, setSource] = useState<"text" | "ai">("text");
-  const [title, setTitle] = useState("");
+  // Both titles and the subtitle (D83): typed ones are kept exactly.
+  const [titleEn, setTitleEn] = useState("");
+  const [titleZh, setTitleZh] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const shownTitle = oneLineTitle({
+    en: titleEn.trim() || titleZh.trim(),
+    zh: titleEn.trim() ? titleZh.trim() || null : null,
+  });
   const [text, setText] = useState("");
   const [language, setLanguage] = useState<TextSourceLanguage>("en");
   // Once the learner picks a language, stop guessing it from the text.
@@ -153,7 +168,9 @@ export function CreatePracticeForm({
 
   /** Written text goes into the form to review and edit (it's English). */
   function applyGenerated(generated: GeneratedPractice) {
-    setTitle(generated.title);
+    setTitleEn(generated.titleEn);
+    setTitleZh(generated.titleZh);
+    setSubtitle(generated.subtitle);
     setText(generated.text);
     setMeta(generated.meta);
     // The accent asked for: A a female voice, B a male one (D57).
@@ -163,7 +180,9 @@ export function CreatePracticeForm({
     setLanguageChosen(true);
     setSource("text");
     setNotice({
-      message: tGenerate("generated", { title: generated.title }),
+      message: tGenerate("generated", {
+        title: oneLineTitle({ en: generated.titleEn, zh: generated.titleZh }),
+      }),
       success: false,
     });
   }
@@ -191,7 +210,12 @@ export function CreatePracticeForm({
       setError(null);
       setMeta(null);
       changeText(content);
-      if (!title.trim()) setTitle(titleFromFileName(file.name));
+      // A file's name is a title in its own language (D83).
+      if (!titleEn.trim() && !titleZh.trim()) {
+        const name = titleFromFileName(file.name);
+        if (/\p{Script=Han}/u.test(name)) setTitleZh(name);
+        else setTitleEn(name);
+      }
       setNotice({
         message: t("fileLoaded", { name: file.name }),
         success: false,
@@ -221,6 +245,21 @@ export function CreatePracticeForm({
       });
       return;
     }
+    // The missing title and the subtitle (D83), unless AI wrote them
+    // already. One call; what's typed is kept. If it fails, the learner
+    // types them in the review step instead.
+    if (!(titleEn.trim() && titleZh.trim() && subtitle.trim())) {
+      const described = await describe({
+        titleEn,
+        titleZh,
+        sentences: result.sentences.map((s) => s.en),
+      }).catch(() => null);
+      if (described?.ok) {
+        setTitleEn(described.titleEn);
+        setTitleZh(described.titleZh);
+        if (!subtitle.trim()) setSubtitle(described.subtitle);
+      }
+    }
     setRows(result.sentences.map((s) => ({ ...s, key: nextKey.current++ })));
   }
 
@@ -229,7 +268,9 @@ export function CreatePracticeForm({
     setPending(true);
     setError(null);
     const result = await create({
-      title,
+      titleEn,
+      titleZh,
+      subtitle,
       sourceLanguage: language,
       voice,
       ...(dialogue ? { voiceB } : {}),
@@ -259,7 +300,7 @@ export function CreatePracticeForm({
     );
     setPending(false);
     setProgress(null);
-    const createdTitle = title.trim();
+    const createdTitle = shownTitle;
     setNotice(
       ready.ok
         ? {
@@ -278,7 +319,9 @@ export function CreatePracticeForm({
             created: true,
           },
     );
-    setTitle("");
+    setTitleEn("");
+    setTitleZh("");
+    setSubtitle("");
     setText("");
     setLanguageChosen(false);
     setRows(null);
@@ -321,29 +364,68 @@ export function CreatePracticeForm({
     </p>
   );
 
-  // With AI, the title is optional and kept exactly when given (D81, D82).
-  const aiTitle = source === "ai" && !rows;
+  // Both titles first (D82, D83): each optional; what's typed is kept
+  // exactly, the other language is written. The review step adds the
+  // subtitle, and everything stays editable.
   const titleField = (
-    <div className="space-y-2">
-      <label htmlFor={ids.title} className="block font-medium">
-        {aiTitle ? tGenerate("titleLabel") : t("titleLabel")}
-      </label>
-      {aiTitle && (
-        <p id={`${ids.title}-hint`} className="text-supporting text-ink-muted">
-          {tGenerate("titleHint")}
-        </p>
+    <fieldset className="space-y-3">
+      <legend className="font-medium">{t("titlesLegend")}</legend>
+      <p id={`${ids.title}-hint`} className="text-supporting text-ink-muted">
+        {tGenerate("titleHint")}
+      </p>
+      <div className="grid gap-3 split:grid-cols-2">
+        <div className="space-y-1">
+          <label htmlFor={ids.title} className="block text-supporting">
+            {t("titleEnLabel")}
+          </label>
+          <input
+            id={ids.title}
+            type="text"
+            lang="en"
+            value={titleEn}
+            maxLength={PRACTICE_LIMITS.titleChars}
+            aria-describedby={`${ids.title}-hint`}
+            onChange={(event) => setTitleEn(event.target.value)}
+            disabled={pending}
+            className={fieldClassName}
+          />
+        </div>
+        <div className="space-y-1">
+          <label htmlFor={`${ids.title}-zh`} className="block text-supporting">
+            {t("titleZhLabel")}
+          </label>
+          <input
+            id={`${ids.title}-zh`}
+            type="text"
+            value={titleZh}
+            maxLength={PRACTICE_LIMITS.titleChars}
+            aria-describedby={`${ids.title}-hint`}
+            onChange={(event) => setTitleZh(event.target.value)}
+            disabled={pending}
+            className={fieldClassName}
+          />
+        </div>
+      </div>
+      {rows && (
+        <div className="space-y-1">
+          <label
+            htmlFor={`${ids.title}-subtitle`}
+            className="block text-supporting"
+          >
+            {t("subtitleLabel")}
+          </label>
+          <input
+            id={`${ids.title}-subtitle`}
+            type="text"
+            value={subtitle}
+            maxLength={SUBTITLE_MAX}
+            onChange={(event) => setSubtitle(event.target.value)}
+            disabled={pending}
+            className={fieldClassName}
+          />
+        </div>
       )}
-      <input
-        id={ids.title}
-        type="text"
-        value={title}
-        maxLength={PRACTICE_LIMITS.titleChars}
-        aria-describedby={aiTitle ? `${ids.title}-hint` : undefined}
-        onChange={(event) => setTitle(event.target.value)}
-        disabled={pending}
-        className={fieldClassName}
-      />
-    </div>
+    </fieldset>
   );
 
   if (rows) {
@@ -581,7 +663,7 @@ export function CreatePracticeForm({
       </div>
       {source === "ai" ? (
         <GenerateTextPanel
-          title={title}
+          titles={{ en: titleEn, zh: titleZh }}
           generate={generateText}
           onGenerated={applyGenerated}
         />

@@ -1,5 +1,11 @@
 "use server";
 
+import {
+  cleanSubtitle,
+  describeInput,
+  subtitleFromModel,
+} from "@/lib/custom-practice/subtitle";
+import { keepTypedTitles } from "@/lib/titles";
 import { officialColumns } from "@/lib/material-admin";
 import { getAdminSupabase } from "@/auth/admin";
 import type { UsageBlock } from "@/lib/usage";
@@ -9,7 +15,7 @@ import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
-import { composeBudget } from "@/lib/ai/budgets";
+import { composeBudget, describeBudget } from "@/lib/ai/budgets";
 import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
 import {
   checkGeneratedText,
@@ -173,7 +179,26 @@ export async function createPractice(
   if (!(await allowAction("ai", creator.user.id))) {
     return { ok: false, reason: "busy" };
   }
-  const cleaned = cleanDraft(input);
+  // The titles as typed or reviewed (D83): kept exactly (ends trimmed);
+  // the legacy title is the English one, else the Chinese one.
+  const raw = (input ?? {}) as Record<string, unknown>;
+  // An older client sends one `title`: it's a title in its own language.
+  const legacy = typeof raw.title === "string" ? raw.title.trim() : "";
+  const legacyHan = /\p{Script=Han}/u.test(legacy);
+  const titles = keepTypedTitles(
+    { en: raw.titleEn, zh: raw.titleZh },
+    { en: legacyHan ? "" : legacy, zh: legacyHan ? legacy : "" },
+  );
+  if (
+    [...titles.en].length > PRACTICE_LIMITS.titleChars ||
+    [...titles.zh].length > PRACTICE_LIMITS.titleChars
+  ) {
+    return { ok: false, reason: "invalid", problem: "title" };
+  }
+  const subtitle = cleanSubtitle(raw.subtitle);
+  const cleaned = cleanDraft(
+    titles.en || titles.zh ? { ...raw, title: titles.en || titles.zh } : input,
+  );
   if (!cleaned.ok) {
     const { problem, sentence } = cleaned;
     return { ok: false, reason: "invalid", problem, sentence };
@@ -218,7 +243,11 @@ export async function createPractice(
 
   // Where AI-written text belongs (D57); checked against the categories.
   const meta = parseMaterialMeta((input as { meta?: unknown } | null)?.meta);
-  const id = await savePractice(supabase, creator.user.id, draft, meta);
+  const id = await savePractice(supabase, creator.user.id, draft, meta, {
+    titleEn: titles.en,
+    titleZh: titles.zh,
+    subtitle,
+  });
   if (!id) return { ok: false, reason: "failed" };
   // A new official material (D80): admins only, an official draft from
   // the start, marked with the secret key (users can't mark official).
@@ -245,12 +274,17 @@ async function savePractice(
   userId: string,
   draft: PracticeDraft,
   meta: MaterialMeta | null,
+  labels: { titleEn: string; titleZh: string; subtitle: string | null },
 ): Promise<string | null> {
   const { data, error } = await supabase
     .from("practices")
     .insert({
       user_id: userId,
       title: draft.title,
+      // Both titles (D83), each as typed or written; null when empty.
+      title_en: labels.titleEn || null,
+      title_zh: labels.titleZh || null,
+      subtitle: labels.subtitle,
       source_language: draft.sourceLanguage,
       voice: draft.voice,
       voice_b: draft.voiceB ?? null,
@@ -445,7 +479,14 @@ export async function generatePracticeNotes(
 }
 
 export type GenerateTextResult =
-  | { ok: true; title: string; text: string }
+  | {
+      ok: true;
+      /** Typed ones kept exactly; written ones fill the rest (D83). */
+      titleEn: string;
+      titleZh: string;
+      subtitle: string;
+      text: string;
+    }
   | ({
       ok: false;
       reason: "unavailable" | "invalid" | MeteredFailure;
@@ -476,7 +517,83 @@ export async function generatePracticeText(
   if (!result.ok) return result;
   const text = checkGeneratedText(result.value, prompt.words);
   if (!text) return { ok: false, reason: "failed" };
-  // The learner's title is kept exactly; the model's is used only when
-  // there isn't one (D81).
-  return { ok: true, ...text, title: request.title || text.title };
+  // The learner's titles are kept exactly; the model's fill only the
+  // language left empty (D81, D83).
+  const titles = keepTypedTitles(
+    { en: request.titleEn, zh: request.titleZh },
+    { en: text.title, zh: text.titleZh },
+  );
+  return {
+    ok: true,
+    titleEn: titles.en,
+    titleZh: titles.zh,
+    subtitle: text.subtitle,
+    text: text.text,
+  };
+}
+
+export type DescribeDraftResult =
+  | { ok: true; titleEn: string; titleZh: string; subtitle: string }
+  | ({
+      ok: false;
+      reason: "unavailable" | "invalid" | MeteredFailure;
+    } & LimitDetail);
+
+/**
+ * The titles and subtitle of a draft from pasted text (D83), in one call
+ * after it's split and translated: the language the learner typed is
+ * kept exactly, the other one and the subtitle are written. With both
+ * titles typed, only the subtitle is new.
+ */
+export async function describeDraft(
+  input: unknown,
+): Promise<DescribeDraftResult> {
+  const creator = await getCreator();
+  if (!creator || !(await creationAllowed(creator)).ok) {
+    return { ok: false, reason: "unavailable" };
+  }
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
+  const raw = (input ?? {}) as Record<string, unknown>;
+  const sentences = Array.isArray(raw.sentences)
+    ? raw.sentences.filter((s): s is string => typeof s === "string")
+    : [];
+  const typed = keepTypedTitles({ en: raw.titleEn, zh: raw.titleZh }, {});
+  if (
+    sentences.length === 0 ||
+    [...typed.en].length > PRACTICE_LIMITS.titleChars ||
+    [...typed.zh].length > PRACTICE_LIMITS.titleChars
+  ) {
+    return { ok: false, reason: "invalid" };
+  }
+  const describe = {
+    ...describeInput(typed.en || typed.zh, sentences),
+    ...(typed.en ? { titleEn: typed.en } : {}),
+    ...(typed.zh ? { titleZh: typed.zh } : {}),
+  };
+  const result = await meteredLanguage(creator, describeBudget(describe), () =>
+    creator.providers.language.describe(describe),
+  );
+  if (!result.ok) return result;
+  const written = (result.value ?? {}) as {
+    titleEn?: unknown;
+    titleZh?: unknown;
+  };
+  const titles = keepTypedTitles(typed, {
+    en:
+      typeof written.titleEn === "string"
+        ? written.titleEn.replace(/\s+/g, " ")
+        : "",
+    zh:
+      typeof written.titleZh === "string"
+        ? written.titleZh.replace(/\s+/g, " ")
+        : "",
+  });
+  return {
+    ok: true,
+    titleEn: titles.en.slice(0, PRACTICE_LIMITS.titleChars),
+    titleZh: titles.zh.slice(0, PRACTICE_LIMITS.titleChars),
+    subtitle: subtitleFromModel(result.value) ?? "",
+  };
 }

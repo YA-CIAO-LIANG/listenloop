@@ -49,7 +49,10 @@ import { countChars } from "@/lib/usage";
 /** Joe's approved total for tonight's real calls (2026-11-07). */
 const BUDGET_USD = 1.0;
 
-type Spec = Omit<GenerationRequest, "customScenario" | "title"> & {
+type Spec = Omit<
+  GenerationRequest,
+  "customScenario" | "customCategory" | "titleEn" | "titleZh"
+> & {
   accent: VoiceAccent;
 };
 
@@ -181,7 +184,7 @@ export const SPECS: GenerationRequest[] = (
         "two high school students planning a group study session before an exam",
     },
   ] as const satisfies readonly Spec[]
-).map((spec) => ({ ...spec, customScenario: "", title: "" }));
+).map((spec) => ({ ...spec, customScenario: "", titleEn: "", titleZh: "" }));
 
 const env = (name: string) => process.env[name]?.trim() ?? "";
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

@@ -839,9 +839,15 @@
     "zhPlaceholder": "Left empty, it's translated when you create the practice",
     "officialTitle": "New official material",
     "officialBack": "Official materials",
-    "backToOfficial": "Go to official materials →"
+    "backToOfficial": "Go to official materials →",
+    "titlesLegend": "Titles (optional)",
+    "titleEnLabel": "English title",
+    "titleZhLabel": "Chinese title",
+    "subtitleLabel": "Subtitle (one line on what this practices)"
   },
   "editPractice": {
+    "titlesLegend": "Titles",
+    "titlesHint": "Fill in at least one language. Learners see the English title first, the Chinese one below it.",
     "title": "Edit practice",
     "intro": "Change the title, the sentences, each sentence's Chinese and notes, or the voice. Saving makes a new version: only changed sentences get new Chinese, notes, and audio; anyone practicing this now keeps the version their week started with.",
     "sentencesTitle": "Sentences",
@@ -1223,7 +1229,7 @@
     "customRequired": "What do you want to practice? (required)",
     "customHint": "Describe the situation, topic, or keywords in your own words, in Chinese or English. With a scenario chosen above, add details here.",
     "titleLabel": "Title (optional)",
-    "titleHint": "If you give one, it's kept exactly, and the text is written to fit it, the category, scenario, and description; if not, AI names it from the text. You can change both afterwards.",
+    "titleHint": "Fill in Chinese, English, or both: what you type is kept exactly and AI writes the other; leave both empty and AI names it in both. You can change them after writing or splitting.",
     "customPlaceholder": "e.g. asking a professor for sick leave and a later deadline",
     "customCategoryOption": "My own category…",
     "customCategoryLabel": "Category name (required)",

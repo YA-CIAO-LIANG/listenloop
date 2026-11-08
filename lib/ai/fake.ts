@@ -36,14 +36,23 @@ export const fakeLanguage: LanguageProvider = {
     return free(
       {
         title: `Practice: ${scenario}`.slice(0, 100),
+        titleZh: "練習（測試）",
+        subtitle: "測試用的練習內容",
         lines: Array.from({ length: count }, () => line),
       },
       [scenario],
     );
   },
   // The title, as if it were a summary (D71).
-  async describe({ title, text }) {
-    return free({ subtitle: `${title}（練習）`.slice(0, 60) }, [title, text]);
+  async describe({ title, text, titleEn, titleZh }) {
+    return free(
+      {
+        titleEn: titleEn || "Listening Practice",
+        titleZh: titleZh || "聽力練習",
+        subtitle: `${title}（練習）`.slice(0, 60),
+      },
+      [title, text],
+    );
   },
   // The rule-based split, as if the model agreed with it.
   async segment(lines, language) {

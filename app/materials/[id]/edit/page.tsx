@@ -37,12 +37,16 @@ export default async function EditPracticePage({
   const { data: practice } = await supabase
     .from("practices")
     .select(
-      "id, title, voice, voice_b, version, practice_sentences(i, en, zh, notes, speaker)",
+      "id, title, title_en, title_zh, subtitle, voice, voice_b, version, practice_sentences(i, en, zh, notes, speaker)",
     )
     .eq("id", id)
     .eq("user_id", creator.user.id)
     .maybeSingle();
   if (!practice) notFound();
+  // Older practices have one title; it fills the field of its language.
+  const legacyHan = /\p{Script=Han}/u.test(practice.title);
+  const titleEn = practice.title_en ?? (legacyHan ? "" : practice.title);
+  const titleZh = practice.title_zh ?? (legacyHan ? practice.title : "");
   const [t, tMaterials] = await Promise.all([
     getTranslations("editPractice"),
     getTranslations("materials"),
@@ -74,6 +78,9 @@ export default async function EditPracticePage({
           practice={{
             id: practice.id,
             title: practice.title,
+            titleEn,
+            titleZh,
+            subtitle: practice.subtitle ?? "",
             voice: practice.voice ?? DEFAULT_VOICE,
             voiceB: practice.voice_b,
             version: practice.version,

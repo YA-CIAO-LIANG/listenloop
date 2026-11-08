@@ -19,6 +19,9 @@ const notes = {
 const practice = {
   id: "p1",
   title: "第一課",
+  titleEn: "",
+  titleZh: "第一課",
+  subtitle: "",
   voice: "us-female",
   version: 2,
   sentences: [
@@ -75,6 +78,9 @@ describe("EditPracticeForm", () => {
     expect(save).toHaveBeenCalledWith("p1", {
       expectedVersion: 2,
       title: "第一課",
+      titleEn: "",
+      titleZh: "第一課",
+      subtitle: "",
       voice: "us-female",
       sentences: [
         {
@@ -89,6 +95,23 @@ describe("EditPracticeForm", () => {
     expect(generate).toHaveBeenCalledWith("p1");
     expect(screen.getByRole("status").textContent).toContain("已儲存新版本");
     expect(router.refresh).toHaveBeenCalled();
+  });
+
+  it("sends both titles and the subtitle as typed (D83)", async () => {
+    renderForm();
+    fireEvent.change(field("英文標題"), {
+      target: { value: " Lesson One " },
+    });
+    fireEvent.change(field("副標題（一句話說明這份練習練什麼）"), {
+      target: { value: "搬家的對話" },
+    });
+    await click("儲存");
+    expect(save.mock.calls[0][1]).toMatchObject({
+      title: "Lesson One",
+      titleEn: " Lesson One ",
+      titleZh: "第一課",
+      subtitle: "搬家的對話",
+    });
   });
 
   it("sends notes the author wrote by hand", async () => {

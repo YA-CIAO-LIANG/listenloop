@@ -3,6 +3,7 @@
 import { UsageLimitMessage } from "./UsageLimitMessage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SUBTITLE_MAX } from "@/lib/videos";
 import { useTranslations } from "next-intl";
 import { useId, useRef, useState } from "react";
 import {
@@ -50,6 +51,10 @@ type EditPracticeFormProps = {
   practice: {
     id: string;
     title: string;
+    /** Both titles and the subtitle (D83). */
+    titleEn: string;
+    titleZh: string;
+    subtitle: string;
     voice: string;
     /** Speaker B's voice, when the practice is a dialogue (D57). */
     voiceB?: string | null;
@@ -83,7 +88,9 @@ export function EditPracticeForm({
   const tCreate = useTranslations("create");
   const router = useRouter();
   const ids = { title: useId(), hint: useId() };
-  const [title, setTitle] = useState(practice.title);
+  const [titleEn, setTitleEn] = useState(practice.titleEn);
+  const [titleZh, setTitleZh] = useState(practice.titleZh);
+  const [subtitle, setSubtitle] = useState(practice.subtitle);
   const [voice, setVoice] = useState(practice.voice);
   const [voiceB, setVoiceB] = useState(practice.voiceB ?? "us-male");
   const tSpeakers = useTranslations("speakers");
@@ -128,7 +135,10 @@ export function EditPracticeForm({
     setSaved(false);
     const result = await save(practice.id, {
       expectedVersion: practice.version,
-      title,
+      title: titleEn.trim() || titleZh.trim(),
+      titleEn,
+      titleZh,
+      subtitle,
       voice,
       ...(dialogue ? { voiceB } : {}),
       sentences: editSentences(rows),
@@ -178,19 +188,62 @@ export function EditPracticeForm({
 
   return (
     <div className="space-y-8">
-      <div className="space-y-2">
-        <label htmlFor={ids.title} className="font-medium">
-          {tCreate("titleLabel")}
-        </label>
-        <input
-          id={ids.title}
-          value={title}
-          maxLength={PRACTICE_LIMITS.titleChars}
-          onChange={(event) => setTitle(event.target.value)}
-          disabled={pending}
-          className={fieldClassName}
-        />
-      </div>
+      <fieldset className="space-y-3">
+        <legend className="font-medium">{t("titlesLegend")}</legend>
+        <p id={`${ids.title}-hint`} className="text-supporting text-ink-muted">
+          {t("titlesHint")}
+        </p>
+        <div className="grid gap-3 split:grid-cols-2">
+          <div className="space-y-1">
+            <label htmlFor={ids.title} className="block text-supporting">
+              {tCreate("titleEnLabel")}
+            </label>
+            <input
+              id={ids.title}
+              lang="en"
+              value={titleEn}
+              maxLength={PRACTICE_LIMITS.titleChars}
+              aria-describedby={`${ids.title}-hint`}
+              onChange={(event) => setTitleEn(event.target.value)}
+              disabled={pending}
+              className={fieldClassName}
+            />
+          </div>
+          <div className="space-y-1">
+            <label
+              htmlFor={`${ids.title}-zh`}
+              className="block text-supporting"
+            >
+              {tCreate("titleZhLabel")}
+            </label>
+            <input
+              id={`${ids.title}-zh`}
+              value={titleZh}
+              maxLength={PRACTICE_LIMITS.titleChars}
+              aria-describedby={`${ids.title}-hint`}
+              onChange={(event) => setTitleZh(event.target.value)}
+              disabled={pending}
+              className={fieldClassName}
+            />
+          </div>
+        </div>
+        <div className="space-y-1">
+          <label
+            htmlFor={`${ids.title}-subtitle`}
+            className="block text-supporting"
+          >
+            {tCreate("subtitleLabel")}
+          </label>
+          <input
+            id={`${ids.title}-subtitle`}
+            value={subtitle}
+            maxLength={SUBTITLE_MAX}
+            onChange={(event) => setSubtitle(event.target.value)}
+            disabled={pending}
+            className={fieldClassName}
+          />
+        </div>
+      </fieldset>
 
       <section aria-labelledby={`${ids.title}-sentences`} className="space-y-4">
         <div>

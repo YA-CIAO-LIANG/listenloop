@@ -182,6 +182,10 @@ describe("createPractice", () => {
         rows: {
           user_id: "user-1",
           title: "Moving",
+          // An older client's one title is the English one (D83).
+          title_en: "Moving",
+          title_zh: null,
+          subtitle: null,
           source_language: "en",
           voice: "gb-male",
           voice_b: null,
@@ -208,6 +212,22 @@ describe("createPractice", () => {
         ],
       },
     ]);
+  });
+
+  it("keeps both typed titles exactly, and the subtitle", async () => {
+    await createPractice({
+      ...draft,
+      title: undefined,
+      titleEn: "  My  First Move ",
+      titleZh: " 第一次 搬家 ",
+      subtitle: "搬家時和朋友的對話",
+    });
+    expect(state.inserts[0].rows).toMatchObject({
+      title: "My First Move",
+      title_en: "My  First Move",
+      title_zh: "第一次 搬家",
+      subtitle: "搬家時和朋友的對話",
+    });
   });
 
   it("saves a dialogue's second voice, speakers, and categories (D57)", async () => {

@@ -61,12 +61,14 @@ export const COMPOSE_INSTRUCTIONS = [
   "Keep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).",
   "Do not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.",
   "Match the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.",
+  "Also give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.",
 ].join("\n");
 
 export const DESCRIBE_INSTRUCTIONS = [
   "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.",
   "Read the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.",
   "Write it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.",
+  "Also return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation.",
 ].join("\n");
 
 /**
@@ -77,7 +79,8 @@ export const DESCRIBE_INSTRUCTIONS = [
 export function composeInstructions(prompt: {
   customScenario?: string;
   customCategory?: string;
-  title?: string;
+  titleEn?: string;
+  titleZh?: string;
 }): string {
   const extra = [
     prompt.customCategory
@@ -86,8 +89,11 @@ export function composeInstructions(prompt: {
     prompt.customScenario
       ? "customScenario (in any language) is the main situation: write that situation, using the scenario, if any, only as its setting."
       : null,
-    prompt.title
-      ? "The text must fit the given title. Return that title exactly as given, unchanged."
+    prompt.titleEn
+      ? "The text must fit titleEn. Return titleEn exactly as given, unchanged, as the title."
+      : null,
+    prompt.titleZh
+      ? "The text must fit titleZh. Return titleZh exactly as given, unchanged."
       : null,
   ].filter(Boolean);
   return extra.length
