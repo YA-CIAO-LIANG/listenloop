@@ -318,6 +318,69 @@ export type Database = {
         };
         Relationships: [];
       };
+      payment_events: {
+        Row: {
+          event_id: string;
+          provider: string;
+          received_at: string;
+          type: string;
+        };
+        Insert: {
+          event_id: string;
+          provider: string;
+          received_at?: string;
+          type: string;
+        };
+        Update: {
+          event_id?: string;
+          provider?: string;
+          received_at?: string;
+          type?: string;
+        };
+        Relationships: [];
+      };
+      payments: {
+        Row: {
+          amount: number;
+          billing_interval: string | null;
+          created_at: string;
+          currency: string;
+          id: string;
+          provider: string;
+          provider_payment_id: string;
+          refunded_at: string | null;
+          status: string;
+          test: boolean;
+          user_id: string;
+        };
+        Insert: {
+          amount: number;
+          billing_interval?: string | null;
+          created_at?: string;
+          currency: string;
+          id?: string;
+          provider: string;
+          provider_payment_id: string;
+          refunded_at?: string | null;
+          status: string;
+          test?: boolean;
+          user_id: string;
+        };
+        Update: {
+          amount?: number;
+          billing_interval?: string | null;
+          created_at?: string;
+          currency?: string;
+          id?: string;
+          provider?: string;
+          provider_payment_id?: string;
+          refunded_at?: string | null;
+          status?: string;
+          test?: boolean;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       practice_reports: {
         Row: {
           created_at: string;
@@ -665,6 +728,45 @@ export type Database = {
           hash?: string;
           mime_type?: string;
           path?: string;
+        };
+        Relationships: [];
+      };
+      subscriptions: {
+        Row: {
+          billing_interval: string;
+          cancel_at_period_end: boolean;
+          created_at: string;
+          current_period_end: string;
+          provider: string;
+          provider_subscription_id: string;
+          status: string;
+          test: boolean;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          billing_interval: string;
+          cancel_at_period_end?: boolean;
+          created_at?: string;
+          current_period_end: string;
+          provider: string;
+          provider_subscription_id: string;
+          status: string;
+          test?: boolean;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          billing_interval?: string;
+          cancel_at_period_end?: boolean;
+          created_at?: string;
+          current_period_end?: string;
+          provider?: string;
+          provider_subscription_id?: string;
+          status?: string;
+          test?: boolean;
+          updated_at?: string;
+          user_id?: string;
         };
         Relationships: [];
       };
