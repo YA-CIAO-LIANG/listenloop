@@ -858,7 +858,12 @@
     "titlesLegend": "Titles (optional)",
     "titleEnLabel": "English title",
     "titleZhLabel": "Chinese title",
-    "subtitleLabel": "Subtitle (one line on what this practices)"
+    "subtitleLabel": "Subtitle (one line on what this practices)",
+    "estimate": "Once created, it should be ready to practice in about {time}.",
+    "remaining": "About {time} left.",
+    "longJob": "This takes a while: you can leave this page and we’ll keep going in the background; it’ll be ready in My materials.",
+    "toMaterials": "Go to My materials",
+    "duration": "{minutes, plural, =0 {{seconds} seconds} one {# minute} other {# minutes}}"
   },
   "editPractice": {
     "titlesLegend": "Titles",

@@ -101,6 +101,11 @@ describe("CreatePracticeForm", () => {
     );
 
     expect(screen.getByText("共 2 句")).toBeTruthy();
+    // How long it should take, before creating (D95): 2 × 2.5 s.
+    expect(screen.getByText(/建立後預計約/).textContent).toBe(
+      "建立後預計約 10 秒可以開始練習。",
+    );
+    expect(screen.queryByText(/可以離開這個頁面/)).toBeNull();
     fireEvent.change(screen.getByLabelText("第 1 句英文"), {
       target: { value: "We moved here last year." },
     });
@@ -134,6 +139,42 @@ describe("CreatePracticeForm", () => {
     );
     expect(router.refresh).toHaveBeenCalled();
     expect((textBox() as HTMLTextAreaElement).value).toBe("");
+    // This device's pace is remembered for the next estimate (D95).
+    expect(
+      JSON.parse(localStorage.getItem("ll-gen-speed:v1") ?? "null"),
+    ).toMatchObject({ samples: 1 });
+    localStorage.removeItem("ll-gen-speed:v1");
+  });
+
+  it("suggests leaving a long job, and the server finishes it if the page closes (D95)", async () => {
+    const sentences = Array.from({ length: 30 }, (_, i) => `Line ${i}.`);
+    split.mockResolvedValueOnce({ ok: true, sentences });
+    translate.mockImplementation(async (batch: string[]) => ({
+      ok: true,
+      translations: batch.map(() => "一句。"),
+    }));
+    await renderForm();
+    fireEvent.change(textBox(), { target: { value: sentences.join(" ") } });
+    await click("斷句並翻譯");
+    expect(screen.getByText(/預計約 2 分鐘/).textContent).toContain(
+      "可以離開這個頁面",
+    );
+
+    // Notes never finish here: the page is closed midway.
+    let finishNotes: (value: unknown) => void = () => {};
+    generateNotes.mockImplementationOnce(
+      () => new Promise((resolve) => (finishNotes = resolve)),
+    );
+    const beacon = vi.fn(() => true);
+    Object.defineProperty(navigator, "sendBeacon", {
+      value: beacon,
+      configurable: true,
+    });
+    fireEvent.click(screen.getByRole("button", { name: "建立練習" }));
+    await act(async () => {});
+    window.dispatchEvent(new Event("pagehide"));
+    expect(beacon).toHaveBeenCalledWith("/materials/p1/prepare");
+    await act(async () => finishNotes({ ok: false, reason: "failed" }));
   });
 
   it("keeps the practice and says so when its audio stops halfway", async () => {
