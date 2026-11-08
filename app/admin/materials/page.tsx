@@ -205,9 +205,11 @@ export default async function AdminMaterialsPage({
                             meta.exam
                               ? tc(`exams.${meta.exam as "toefl"}`)
                               : null,
-                            tc(
-                              `scenarios.${meta.scenario}` as "scenarios.restaurant",
-                            ),
+                            meta.scenario
+                              ? tc(
+                                  `scenarios.${meta.scenario}` as "scenarios.restaurant",
+                                )
+                              : null,
                           ]
                             .filter(Boolean)
                             .join(" · ")

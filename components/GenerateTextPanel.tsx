@@ -1,6 +1,5 @@
 "use client";
 
-import { PRACTICE_LIMITS } from "@/lib/custom-practice/draft";
 import { UsageLimitMessage } from "./UsageLimitMessage";
 import type { UsageBlock } from "@/lib/usage";
 import { useTranslations } from "next-intl";
@@ -16,6 +15,7 @@ import {
   EXAM_CATEGORY,
   EXAMS,
   LEVELS,
+  OTHER_CATEGORY,
   type CategoryId,
   type Scenario,
   targetMessageKey,
@@ -23,8 +23,8 @@ import {
 import {
   GENERATION_FORMATS,
   GENERATION_LENGTHS,
+  CUSTOM_CATEGORY_MAX_CHARS,
   CUSTOM_SCENARIO_MAX_CHARS,
-  TOPIC_MAX_CHARS,
   materialMeta,
   type GenerationFormat,
   type GenerationLength,
@@ -49,6 +49,11 @@ export type GeneratedPractice = {
 };
 
 type GenerateTextPanelProps = {
+  /**
+   * The title typed at the top of the form (D82): kept exactly when
+   * given (D81), else the model writes one.
+   */
+  title: string;
   /** The written title and text, for the learner to review and edit. */
   onGenerated: (generated: GeneratedPractice) => void;
   /** Injected in tests; the Server Action otherwise. */
@@ -67,43 +72,41 @@ function scenariosOf(category: CategoryId, exam: string): readonly Scenario[] {
 }
 
 /**
- * The second way to start a practice (e+ 5, D36, D57): pick a category
- * and scenario (for exam listening: an exam, a part, and a target), a
- * level, length, form, and accent, optionally a topic, and the language
- * model writes English text. A dialogue comes back with "A:" and "B:"
- * on its lines. The text lands in the regular form to edit, then goes
- * through the same split, translate, and review steps.
+ * The second way to start a practice (e+ 5, D36, D57, D81, D82), in the
+ * order a first-timer decides: what it's about (a category and scenario
+ * from the lists, or one's own category, and the situation in one's own
+ * words), then how hard, how long, monologue or dialogue, and the
+ * accent. The language model writes English text; a dialogue comes back
+ * with "A:" and "B:" on its lines. The text lands in the regular form to
+ * edit, then goes through the same split, translate, and review steps.
  */
 export function GenerateTextPanel({
+  title,
   onGenerated,
   generate = generatePracticeText,
 }: GenerateTextPanelProps) {
   const t = useTranslations("generate");
   const tc = useTranslations("categories");
   const ids = {
-    topic: useId(),
     category: useId(),
+    customCategory: useId(),
+    customCategoryHint: useId(),
     exam: useId(),
     scenario: useId(),
-    hint: useId(),
     custom: useId(),
     customHint: useId(),
-    title: useId(),
-    titleHint: useId(),
   };
-  const [topic, setTopic] = useState("");
-  const [customScenario, setCustomScenario] = useState("");
-  const [title, setTitle] = useState("");
   const [category, setCategory] = useState<CategoryId>(CATEGORY_IDS[0]);
+  const [customCategory, setCustomCategory] = useState("");
   const [exam, setExam] = useState<string>(EXAMS[0].id);
   const [scenario, setScenario] = useState<string>(
     CATEGORIES[0].scenarios[0].id,
   );
+  const [customScenario, setCustomScenario] = useState("");
   const [level, setLevel] = useState<string>("intermediate");
   const [length, setLength] = useState<GenerationLength>("2-3");
-  const [format, setFormat] = useState<GenerationFormat>(
-    CATEGORIES[0].scenarios[0].format,
-  );
+  // A monologue unless the learner picks a dialogue (D82).
+  const [format, setFormat] = useState<GenerationFormat>("monologue");
   const [accent, setAccent] = useState<VoiceAccent>("us");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<
@@ -112,18 +115,21 @@ export function GenerateTextPanel({
   const [usage, setUsage] = useState<UsageBlock | undefined>(undefined);
 
   const isExam = category === EXAM_CATEGORY;
+  const isOther = category === OTHER_CATEGORY;
   const currentExam = EXAMS.find((e) => e.id === exam) ?? EXAMS[0];
   const scenarios = scenariosOf(category, exam);
+  // What's required: a scenario from the list, or something described.
+  const needsOwnScenario = !isOther && scenario === "";
+  const missing =
+    (isOther && !customCategory.trim()) ||
+    (needsOwnScenario && !customScenario.trim());
 
-  /** A new scenario brings its usual form; an exam its middle target. */
-  function chooseScenario(next: Scenario) {
-    setScenario(next.id);
-    setFormat(next.format);
-  }
+  /** An exam gets its middle target; other categories a general level. */
   function chooseCategory(next: CategoryId) {
     setCategory(next);
-    const options = scenariosOf(next, exam);
-    chooseScenario(options[0]);
+    setScenario(
+      next === OTHER_CATEGORY ? "" : (scenariosOf(next, exam)[0]?.id ?? ""),
+    );
     if (next === EXAM_CATEGORY) {
       setLevel(
         currentExam.targets[Math.floor(currentExam.targets.length / 2)].id,
@@ -135,7 +141,7 @@ export function GenerateTextPanel({
   function chooseExam(next: string) {
     setExam(next);
     const chosen = EXAMS.find((e) => e.id === next) ?? EXAMS[0];
-    chooseScenario(chosen.parts[0]);
+    setScenario(chosen.parts[0].id);
     setLevel(chosen.targets[Math.floor(chosen.targets.length / 2)].id);
   }
 
@@ -143,9 +149,10 @@ export function GenerateTextPanel({
     setPending(true);
     setError(null);
     const request: GenerationRequest = {
-      topic,
-      scenario,
+      topic: "",
+      scenario: isOther ? "" : scenario,
       customScenario,
+      customCategory: isOther ? customCategory : "",
       title,
       level,
       length,
@@ -198,7 +205,9 @@ export function GenerateTextPanel({
           >
             {CATEGORY_IDS.map((id) => (
               <option key={id} value={id}>
-                {tc(`names.${id}`)}
+                {id === OTHER_CATEGORY
+                  ? t("customCategoryOption")
+                  : tc(`names.${id}`)}
               </option>
             ))}
           </select>
@@ -223,90 +232,74 @@ export function GenerateTextPanel({
             </select>
           </div>
         )}
-        <div className="space-y-2">
-          <label htmlFor={ids.scenario} className="block font-medium">
-            {t("scenarioLabel")}
-          </label>
-          <select
-            id={ids.scenario}
-            value={scenario}
-            onChange={(event) => {
-              if (event.target.value === "") {
-                setScenario("");
-                return;
-              }
-              const next = scenarios.find((x) => x.id === event.target.value);
-              if (next) chooseScenario(next);
-            }}
-            disabled={pending}
-            className={fieldClass}
-          >
-            {/* Exam parts are fixed formats; elsewhere a described one will do (D81). */}
-            {!isExam && <option value="">{t("customOnly")}</option>}
-            {scenarios.map((option) => (
-              <option key={option.id} value={option.id}>
-                {tc(`scenarios.${option.id}` as "scenarios.restaurant")}
-              </option>
-            ))}
-          </select>
-        </div>
+        {isOther ? (
+          <div className="space-y-2">
+            <label htmlFor={ids.customCategory} className="block font-medium">
+              {t("customCategoryLabel")}
+            </label>
+            <input
+              id={ids.customCategory}
+              type="text"
+              value={customCategory}
+              maxLength={CUSTOM_CATEGORY_MAX_CHARS}
+              placeholder={t("customCategoryPlaceholder")}
+              aria-describedby={ids.customCategoryHint}
+              aria-required
+              onChange={(event) => setCustomCategory(event.target.value)}
+              disabled={pending}
+              className={fieldClass}
+            />
+            <p
+              id={ids.customCategoryHint}
+              className="text-supporting text-ink-muted"
+            >
+              {t("customCategoryHint")}
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <label htmlFor={ids.scenario} className="block font-medium">
+              {t("scenarioLabel")}
+            </label>
+            <select
+              id={ids.scenario}
+              value={scenario}
+              onChange={(event) => setScenario(event.target.value)}
+              disabled={pending}
+              className={fieldClass}
+            >
+              {scenarios.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {tc(`scenarios.${option.id}` as "scenarios.restaurant")}
+                </option>
+              ))}
+              {/* Exam parts are fixed formats; elsewhere one's own will do (D81). */}
+              {!isExam && <option value="">{t("customOnly")}</option>}
+            </select>
+          </div>
+        )}
       </div>
       {isExam && (
         <p className="text-supporting text-ink-muted">{tc("examNote")}</p>
       )}
       <div className="space-y-2">
         <label htmlFor={ids.custom} className="block font-medium">
-          {scenario === "" ? t("customRequired") : t("customLabel")}
+          {needsOwnScenario ? t("customRequired") : t("customLabel")}
         </label>
         <p id={ids.customHint} className="text-supporting text-ink-muted">
           {t("customHint")}
         </p>
         <textarea
           id={ids.custom}
-          rows={2}
+          rows={3}
           value={customScenario}
           maxLength={CUSTOM_SCENARIO_MAX_CHARS}
+          placeholder={t("customPlaceholder")}
           aria-describedby={ids.customHint}
-          aria-required={scenario === ""}
+          aria-required={needsOwnScenario}
           onChange={(event) => setCustomScenario(event.target.value)}
           disabled={pending}
           className="block w-full resize-y rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent"
-        />
-      </div>
-      <div className="space-y-2">
-        <label htmlFor={ids.title} className="block font-medium">
-          {t("titleLabel")}
-        </label>
-        <p id={ids.titleHint} className="text-supporting text-ink-muted">
-          {t("titleHint")}
-        </p>
-        <input
-          id={ids.title}
-          type="text"
-          value={title}
-          maxLength={PRACTICE_LIMITS.titleChars}
-          aria-describedby={ids.titleHint}
-          onChange={(event) => setTitle(event.target.value)}
-          disabled={pending}
-          className="block w-full rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent"
-        />
-      </div>
-      <div className="space-y-2">
-        <label htmlFor={ids.topic} className="block font-medium">
-          {t("topicLabel")}
-        </label>
-        <p id={ids.hint} className="text-supporting text-ink-muted">
-          {t("topicHint")}
-        </p>
-        <input
-          id={ids.topic}
-          type="text"
-          value={topic}
-          maxLength={TOPIC_MAX_CHARS}
-          aria-describedby={ids.hint}
-          onChange={(event) => setTopic(event.target.value)}
-          disabled={pending}
-          className="block w-full rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent"
         />
       </div>
       {(
@@ -360,9 +353,19 @@ export function GenerateTextPanel({
         </div>
       ))}
       <p className="text-supporting text-ink-muted">{t("note")}</p>
-      <Button variant="primary" arrow onClick={submit} disabled={pending}>
+      <Button
+        variant="primary"
+        arrow
+        onClick={submit}
+        disabled={pending || missing}
+      >
         {pending ? t("generating") : t("generate")}
       </Button>
+      {missing && !pending && (
+        <p className="text-supporting text-ink-muted">
+          {isOther ? t("needCategory") : t("needScenario")}
+        </p>
+      )}
       {error && (
         <p role="alert" className="text-supporting text-error">
           {error === "limit" ? (

@@ -940,14 +940,23 @@ export const EXAMS = [
 /** The exam category's id, alongside CATEGORIES' ids. */
 export const EXAM_CATEGORY = "exam";
 
+/**
+ * Practices written for a category the learner named themselves (D82):
+ * "Other" in the library's filters. It has no scenarios.
+ */
+export const OTHER_CATEGORY = "other";
+
 export type CategoryId =
-  (typeof CATEGORIES)[number]["id"] | typeof EXAM_CATEGORY;
+  | (typeof CATEGORIES)[number]["id"]
+  | typeof EXAM_CATEGORY
+  | typeof OTHER_CATEGORY;
 export type ExamId = (typeof EXAMS)[number]["id"];
 
-/** Every category id, exam last, in display order. */
+/** Every category id in display order: exam, then other, last. */
 export const CATEGORY_IDS: readonly CategoryId[] = [
   ...CATEGORIES.map((category) => category.id),
   EXAM_CATEGORY,
+  OTHER_CATEGORY,
 ];
 
 export const LEVELS = ["beginner", "intermediate", "advanced"] as const;

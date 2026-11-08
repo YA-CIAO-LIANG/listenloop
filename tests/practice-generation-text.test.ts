@@ -58,7 +58,7 @@ const request = {
 };
 
 describe("categories (D57)", () => {
-  it("lists Joe's categories, exam last, with unique scenario ids (D57, D81)", () => {
+  it("lists Joe's categories, then exam and other, with unique scenario ids (D57, D81, D82)", () => {
     expect(CATEGORY_IDS).toEqual([
       "daily-life",
       "travel",
@@ -79,6 +79,7 @@ describe("categories (D57)", () => {
       "food",
       "culture",
       "exam",
+      "other",
     ]);
     const ids = allScenarioIds();
     expect(new Set(ids).size).toBe(ids.length);
@@ -122,8 +123,41 @@ describe("parseGenerationRequest", () => {
       ...request,
       topic: "第一次 去超市",
       customScenario: "",
+      customCategory: "",
       title: "",
     });
+  });
+
+  it("takes a category of one's own, filed under other (D82)", () => {
+    const own = parseGenerationRequest({
+      ...request,
+      scenario: "",
+      customCategory: " 天文攝影 ",
+    });
+    expect(own).toMatchObject({ scenario: "", customCategory: "天文攝影" });
+    expect(materialMeta(own!)).toEqual({
+      category: "other",
+      scenario: null,
+      level: "beginner",
+      exam: null,
+      examTarget: null,
+    });
+    // One's own category has no scenarios from the list.
+    expect(
+      parseGenerationRequest({ ...request, customCategory: "天文攝影" }),
+    ).toBeNull();
+    expect(
+      parseMaterialMeta({
+        category: "other",
+        scenario: null,
+        level: "advanced",
+        exam: null,
+        examTarget: null,
+      }),
+    ).toMatchObject({ category: "other", level: "advanced" });
+    expect(composeInstructions({ customCategory: "x" })).toMatch(
+      /subject area/,
+    );
   });
 
   it("takes a scenario of one's own, with a category's or on its own (D81)", () => {

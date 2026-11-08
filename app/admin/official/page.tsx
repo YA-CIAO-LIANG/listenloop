@@ -102,10 +102,14 @@ export default async function OfficialMaterialsPage({
                         meta
                           ? [
                               tc(`names.${meta.category}`),
-                              tc(
-                                `scenarios.${meta.scenario}` as "scenarios.restaurant",
-                              ),
-                            ].join(" · ")
+                              meta.scenario
+                                ? tc(
+                                    `scenarios.${meta.scenario}` as "scenarios.restaurant",
+                                  )
+                                : null,
+                            ]
+                              .filter(Boolean)
+                              .join(" · ")
                           : t("noCategory"),
                         t("sentences", { count: sentences.length }),
                         current ? t("notesCurrent") : t("notesOld"),

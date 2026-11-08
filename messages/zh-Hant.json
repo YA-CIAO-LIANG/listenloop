@@ -1183,8 +1183,6 @@
       "text": "貼上或上傳文字",
       "ai": "AI 生成"
     },
-    "topicLabel": "主題或關鍵字（選填）",
-    "topicHint": "例如：第一次去美國超市、study group、咖啡廳打工。可以用中文或英文。",
     "levelLegend": "程度",
     "lengthLegend": "長度",
     "formatLegend": "形式",
@@ -1192,13 +1190,13 @@
       "dialogue": "對話",
       "monologue": "獨白"
     },
-    "note": "生成的英文會填進下方的文字框，可以修改後再斷句並翻譯。對話每行開頭的「A:」「B:」代表兩個角色，可以在下一步為 B 選另一個聲音。生成會計入每日用量。",
+    "note": "生成的英文會填進下方的文字框，可以修改後再斷句並翻譯。選「對話」時，每行開頭的「A:」「B:」代表兩個角色，下一步可以為 B 選另一個聲音。生成會計入每日用量。",
     "generate": "生成文字",
     "generating": "生成中…",
     "generated": "已生成「{title}」，可以修改文字後再斷句並翻譯。",
     "errors": {
       "unavailable": "目前無法生成文字。請確認已用管理員帳號登入。",
-      "invalid": "選項有誤：請選一個情境，或填寫自訂情境。",
+      "invalid": "選項有誤：請選一個情境、描述想練的內容，或填寫類別名稱。",
       "limit": "今天的 AI 用量已經用完，明天（台灣時間 0 點後）再試。",
       "busy": "AI 服務目前忙碌中，請過一分鐘再試。",
       "failed": "生成的內容無法使用，請再試一次。",
@@ -1216,12 +1214,19 @@
       "in": "印度"
     },
     "length": "{range} 分鐘",
-    "customOnly": "（不選，只用自訂情境）",
-    "customLabel": "自訂情境（選填）",
-    "customRequired": "自訂情境（必填）",
-    "customHint": "用自己的話描述想練的情境，例如：跟教授請病假並詢問補交作業。可以和上方的類別一起用，也可以單獨使用。",
+    "customOnly": "其他（自己描述）",
+    "customLabel": "想練什麼？（選填）",
+    "customRequired": "想練什麼？（必填）",
+    "customHint": "用自己的話描述情境、主題或關鍵字，中文或英文都可以。選了上方的情境也可以在這裡補充細節。",
     "titleLabel": "標題（選填）",
-    "titleHint": "有填的話，標題會原樣保留，內容依標題、類別、情境和描述生成；沒填的話由 AI 依內容取標題，生成後都可以修改。"
+    "titleHint": "有填的話，標題會原樣保留，內容依標題、類別、情境和描述生成；沒填的話由 AI 依內容取標題，生成後都可以修改。",
+    "customPlaceholder": "例如：跟教授請病假並詢問補交作業",
+    "customCategoryOption": "自訂類別…",
+    "customCategoryLabel": "類別名稱（必填）",
+    "customCategoryPlaceholder": "例如：天文攝影、桌遊",
+    "customCategoryHint": "AI 會依這個類別生成；在教材庫的篩選中歸類為「其他」。",
+    "needCategory": "請先填寫類別名稱。",
+    "needScenario": "請描述想練的情境，或從上方選一個情境。"
   },
   "celebration": {
     "perfect": "完美！"
@@ -1514,7 +1519,8 @@
       "leisure": "運動與休閒",
       "food": "美食與烹飪",
       "culture": "文化與節慶",
-      "exam": "考試聽力"
+      "exam": "考試聽力",
+      "other": "其他"
     },
     "scenarios": {
       "restaurant": "餐廳點餐",

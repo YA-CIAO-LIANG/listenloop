@@ -321,16 +321,24 @@ export function CreatePracticeForm({
     </p>
   );
 
+  // With AI, the title is optional and kept exactly when given (D81, D82).
+  const aiTitle = source === "ai" && !rows;
   const titleField = (
     <div className="space-y-2">
       <label htmlFor={ids.title} className="block font-medium">
-        {t("titleLabel")}
+        {aiTitle ? tGenerate("titleLabel") : t("titleLabel")}
       </label>
+      {aiTitle && (
+        <p id={`${ids.title}-hint`} className="text-supporting text-ink-muted">
+          {tGenerate("titleHint")}
+        </p>
+      )}
       <input
         id={ids.title}
         type="text"
         value={title}
         maxLength={PRACTICE_LIMITS.titleChars}
+        aria-describedby={aiTitle ? `${ids.title}-hint` : undefined}
         onChange={(event) => setTitle(event.target.value)}
         disabled={pending}
         className={fieldClassName}
@@ -551,6 +559,8 @@ export function CreatePracticeForm({
 
   return (
     <div className="space-y-6">
+      {/* The title first (D82), then where the text comes from. */}
+      {titleField}
       <div className="space-y-2">
         <p aria-hidden="true" className="font-medium">
           {tGenerate("sourceLegend")}
@@ -569,9 +579,9 @@ export function CreatePracticeForm({
           optionWidthClassName="min-w-16"
         />
       </div>
-      {titleField}
       {source === "ai" ? (
         <GenerateTextPanel
+          title={title}
           generate={generateText}
           onGenerated={applyGenerated}
         />

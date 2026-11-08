@@ -280,29 +280,30 @@ describe("CreatePracticeForm", () => {
     });
     await renderForm();
     fireEvent.click(screen.getByLabelText("AI 生成"));
+    // The title sits at the top of the form (D82).
+    fireEvent.change(screen.getByLabelText("標題（選填）"), {
+      target: { value: "我的期中報告" },
+    });
     fireEvent.change(screen.getByLabelText("類別"), {
       target: { value: "campus" },
     });
     fireEvent.change(screen.getByLabelText("情境"), {
       target: { value: "office-hours" },
     });
-    fireEvent.change(screen.getByLabelText("主題或關鍵字（選填）"), {
-      target: { value: "期中考" },
-    });
-    fireEvent.change(screen.getByLabelText("自訂情境（選填）"), {
+    expect(screen.queryByLabelText(/主題或關鍵字/)).toBeNull();
+    fireEvent.change(screen.getByLabelText("想練什麼？（選填）"), {
       target: { value: "請教授延後期中報告" },
-    });
-    fireEvent.change(screen.getByLabelText("標題（選填）"), {
-      target: { value: "我的期中報告" },
     });
     fireEvent.click(screen.getByLabelText("高級"));
     fireEvent.click(screen.getByLabelText("4–5 分鐘"));
+    fireEvent.click(screen.getByLabelText("對話"));
     fireEvent.click(screen.getByLabelText("英式"));
     await click("生成文字");
     expect(generateText).toHaveBeenCalledWith({
-      topic: "期中考",
+      topic: "",
       scenario: "office-hours",
       customScenario: "請教授延後期中報告",
+      customCategory: "",
       title: "我的期中報告",
       level: "advanced",
       length: "4-5",
@@ -322,6 +323,39 @@ describe("CreatePracticeForm", () => {
     );
     expect(screen.getByRole("status").textContent).toContain(
       "已生成「At the Store」",
+    );
+  });
+
+  it("starts with a monologue, and takes a category of one's own (D82)", async () => {
+    generateText.mockReset().mockResolvedValue({
+      ok: true,
+      title: "Stars at Night",
+      text: "Find a dark place.\nWait for your eyes to adjust.",
+    });
+    await renderForm();
+    fireEvent.click(screen.getByLabelText("AI 生成"));
+    expect((screen.getByLabelText("獨白") as HTMLInputElement).checked).toBe(
+      true,
+    );
+    fireEvent.change(screen.getByLabelText("類別"), {
+      target: { value: "other" },
+    });
+    // No scenario list for one's own category; its name is required.
+    expect(screen.queryByLabelText("情境")).toBeNull();
+    expect(
+      (screen.getByRole("button", { name: /生成文字/ }) as HTMLButtonElement)
+        .disabled,
+    ).toBe(true);
+    fireEvent.change(screen.getByLabelText("類別名稱（必填）"), {
+      target: { value: "天文攝影" },
+    });
+    await click("生成文字");
+    expect(generateText).toHaveBeenCalledWith(
+      expect.objectContaining({
+        scenario: "",
+        customCategory: "天文攝影",
+        format: "monologue",
+      }),
     );
   });
 
