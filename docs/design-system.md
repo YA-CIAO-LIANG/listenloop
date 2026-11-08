@@ -134,7 +134,11 @@
 - 窄螢幕（760px 以下）：頁首右側的語言、主題、帳號可以換行，中間不顯示直線分隔，改用 16px 間距；任何寬度都不能出現橫向捲動（320px 也一樣）。
 - LanguageToggle 顯示「中文 / EN」兩個選項，目前語言以 accent-ink 文字＋底線標示，不只靠顏色。
 - 切換語言時版面不可跳動：按鈕、標籤要預留足夠寬度，英文通常比中文長 30～50%。
-- 字體依語言套用：中文介面以 Noto Sans TC / Noto Serif TC 為主；英文介面以 Instrument Sans / EB Garamond 為主。
+- 字體依語言套用：中文介面以中文字體為主；英文介面以 Instrument Sans / EB Garamond 為主。
+- 中文字體用系統內建字型（D87）：
+  - Reading：蘋方（PingFang TC）→ Noto Sans CJK TC → Noto Sans TC → 微軟正黑體；
+  - Display：宋體（Songti TC）→ Noto Serif CJK TC → Noto Serif TC → 新細明體。
+  - Android 內建 Noto CJK，所以 Android 上看起來和原本的 Noto Sans／Serif TC 一樣；Apple 與 Windows 裝置會用各自的系統字型。
 - 數字、日期、百分比依介面語言格式化（例如「第 3 天」/「Day 3」）。
 - 文案語氣：中文簡潔溫和；英文簡短直接。避免直譯。
 

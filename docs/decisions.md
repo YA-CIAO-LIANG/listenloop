@@ -1486,3 +1486,20 @@
   - 量測時，段落裡的文字連結不算點擊目標（依 WCAG 2.5.8 的例外）；
   - 模擬 SUS 只用來比較前後，不代表真實分數。
 - **要改時**：`usability/tasks.spec.ts`、`usability/playwright.config.ts`、`.claude/skills/ai-usability-test/SKILL.md`。
+
+## D87 上線前完善：中文改用系統字型、套件更新、檢查（2026-11-09，夜間任務五）
+
+- **中文字型**：Lighthouse 手機版效能只有 56～66。原因是每頁要下載 26 個 Noto Sans／Serif TC 的 unicode-range 切片（約 1.4 MB），在模擬的手機網路下拖慢首次畫面（FCP 9.8 秒）。
+  - 改用系統字型（`--ll-cjk-sans`、`--ll-cjk-serif`）後，首頁、教材庫、影片頁、聽寫頁分別是 91、92、92、91，FCP 1.1 秒；
+  - 這是中文網站常見的做法：Android 內建 Noto CJK，外觀與原本相同；
+  - 英文的 EB Garamond、Instrument Sans 很小，保留為網頁字型。
+  - 要改回時：在 `app/fonts.ts` 加回 `Noto_Sans_TC`、`Noto_Serif_TC`（`preload: false`），並在 `app/globals.css` 的 `--ll-cjk-*` 最前面加上它們的變數。
+- **套件**：只更新 minor／patch，維持原本固定版本的寫法：
+  - Next 16.4.5、React 19.3.1、supabase-js 2.119.0、Playwright 1.65.0、Vitest 5.1.0、Tailwind 4.3.5、plugin-react 6.2.1、eslint-config-next 16.4.5。
+  - major 版本（TypeScript 7、ESLint 10、jsdom 31、@types/node 26）會有破壞性變更，另外評估。
+- **檢查**：
+  - 翻譯：兩種語言的 key 一致；英文裡只有語言名稱「繁體中文」是中文（刻意保留）。
+  - RLS：靜態測試與即時檢查（`npm run rls:check`）加入 `usage_settings`、`api_batch_cost`、`waitlist`、`subscriptions`、`payments`、`payment_events`，並確認公開金鑰無法寫入付款相關資料表。
+  - 新功能的速率限制：結帳與改訂閱每小時 20 次（D85）；webhook 只接受有簽章的請求。
+  - 無障礙：axe 掃描加入 `/pricing`、`/refund`。
+  - 手機版、空狀態、錯誤狀態：見 `docs/usability-ai-test.md`。

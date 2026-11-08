@@ -30,6 +30,9 @@ const SERVER_ONLY = [
   "feedback",
   "rate_limits",
   "error_logs",
+  "usage_settings",
+  "api_batch_cost",
+  "payment_events",
 ];
 
 describe("row level security", () => {

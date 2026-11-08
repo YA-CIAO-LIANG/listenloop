@@ -44,10 +44,20 @@
 
 :root {
   /* Font stacks: Latin first for English UI and practice content. */
+  /*
+   * Chinese uses the system's fonts (D87): Android ships Noto CJK, Apple
+   * PingFang and Songti, Windows JhengHei and MingLiU. Web fonts for
+   * Chinese were 1.4 MB per page and kept phones from a fast first paint.
+   */
+  --ll-cjk-sans:
+    "PingFang TC", "Noto Sans CJK TC", "Noto Sans TC", "Microsoft JhengHei",
+    "Heiti TC";
+  --ll-cjk-serif:
+    "Songti TC", "Noto Serif CJK TC", "Noto Serif TC", "PMingLiU", "MingLiU";
   --ll-font-display:
-    var(--font-eb-garamond), var(--font-noto-serif-tc), Georgia, serif;
+    var(--font-eb-garamond), var(--ll-cjk-serif), Georgia, serif;
   --ll-font-reading:
-    var(--font-instrument-sans), var(--font-noto-sans-tc), system-ui, sans-serif;
+    var(--font-instrument-sans), var(--ll-cjk-sans), system-ui, sans-serif;
 
   /* Motion */
   --ll-duration-press: 120ms;
@@ -56,20 +66,20 @@
   --ll-duration-ripple: 400ms;
 }
 
-/* Chinese UI leads with Noto so CJK punctuation and digits stay consistent. */
+/* Chinese UI leads with the Chinese fonts so CJK punctuation and digits stay consistent. */
 :lang(zh-Hant) {
   --ll-font-display:
-    var(--font-noto-serif-tc), var(--font-eb-garamond), Georgia, serif;
+    var(--ll-cjk-serif), var(--font-eb-garamond), Georgia, serif;
   --ll-font-reading:
-    var(--font-noto-sans-tc), var(--font-instrument-sans), system-ui, sans-serif;
+    var(--ll-cjk-sans), var(--font-instrument-sans), system-ui, sans-serif;
 }
 
 /* English content inside a Chinese page (lang="en") switches back to Latin first. */
 :lang(en) {
   --ll-font-display:
-    var(--font-eb-garamond), var(--font-noto-serif-tc), Georgia, serif;
+    var(--font-eb-garamond), var(--ll-cjk-serif), Georgia, serif;
   --ll-font-reading:
-    var(--font-instrument-sans), var(--font-noto-sans-tc), system-ui, sans-serif;
+    var(--font-instrument-sans), var(--ll-cjk-sans), system-ui, sans-serif;
 }
 
 /* Dark tokens: follow the system unless the user explicitly chose light. */

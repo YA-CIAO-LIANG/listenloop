@@ -15,6 +15,8 @@ const PAGES = [
   "/privacy",
   "/feedback",
   "/credits",
+  "/pricing",
+  "/refund",
   "/practices",
   "/no-such-page",
 ];

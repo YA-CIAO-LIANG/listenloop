@@ -1,9 +1,4 @@
-import {
-  EB_Garamond,
-  Instrument_Sans,
-  Noto_Sans_TC,
-  Noto_Serif_TC,
-} from "next/font/google";
+import { EB_Garamond, Instrument_Sans } from "next/font/google";
 
 // Display: serif, regular weight only (see docs/design-system.md).
 const ebGaramond = EB_Garamond({
@@ -21,26 +16,9 @@ const instrumentSans = Instrument_Sans({
   variable: "--font-instrument-sans",
 });
 
-// CJK fonts have no preloadable Chinese subset; Google serves them in
-// unicode-range slices, so only the characters on the page are downloaded.
-const notoSerifTC = Noto_Serif_TC({
-  weight: "400",
-  preload: false,
-  display: "swap",
-  variable: "--font-noto-serif-tc",
-});
+// Chinese uses the system's fonts (--ll-cjk-sans and --ll-cjk-serif in
+// app/globals.css, D87): no web font download for Chinese.
 
-const notoSansTC = Noto_Sans_TC({
-  preload: false,
-  display: "swap",
-  variable: "--font-noto-sans-tc",
-});
-
-export const fontVariables = [
-  ebGaramond,
-  instrumentSans,
-  notoSerifTC,
-  notoSansTC,
-]
+export const fontVariables = [ebGaramond, instrumentSans]
   .map((font) => font.variable)
   .join(" ");
