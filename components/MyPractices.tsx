@@ -99,7 +99,7 @@ export function MyPractices({ titles, store }: MyPracticesProps) {
       {sorted.length === 0 ? (
         <div className="mt-4 space-y-4">
           <p className="text-ink-muted">{t("empty")}</p>
-          <Link href="/#library" className={linkClassName}>
+          <Link href="/#library" className={`tap ${linkClassName}`}>
             {t("toLibrary")}
           </Link>
         </div>

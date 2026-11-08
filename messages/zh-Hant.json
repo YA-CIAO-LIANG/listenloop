@@ -106,6 +106,7 @@
     "nextOpen": "第 {day} 天已開放"
   },
   "calendar": {
+    "loading": "日曆載入中…",
     "title": "練習日曆",
     "previousMonth": "上個月",
     "nextMonth": "下個月",

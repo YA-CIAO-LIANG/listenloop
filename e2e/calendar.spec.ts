@@ -50,3 +50,18 @@ for (const width of [360, 375]) {
     });
   });
 }
+
+// The server's date can differ from the viewer's (Vercel runs in UTC); the
+// page's clock here is days away from the server's, so drawing "today" on
+// the server would break hydration (D91).
+test("the signed-in home page hydrates when the server's date differs", async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await setToday(page, "2026-12-24");
+  await signInAsAuthor(page);
+  await page.goto("/");
+  await expect(page.getByText(/12月24日 · 今天/)).toBeVisible();
+  expect(errors).toEqual([]);
+});

@@ -20,7 +20,9 @@ import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
+import { Skeleton } from "./Skeleton";
 import { useStores } from "./StoresProvider";
+import { useToday } from "./useToday";
 
 type PracticeCalendarProps = {
   /** Injected in tests; default to localStorage. */
@@ -100,7 +102,29 @@ const utcNoon = (year: number, month: number, day: number) =>
  * their column up to 36 px (44 px on touch screens) and shrink with it, so
  * seven of them fit side by side at 360 px without overlapping.
  */
-export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
+export function PracticeCalendar(props: PracticeCalendarProps) {
+  const t = useTranslations("calendar");
+  const today = useToday();
+  // The month is drawn in the browser only, where "today" is the viewer's.
+  if (!today) {
+    return (
+      <Card className="space-y-4 max-split:p-4">
+        <h2 className="font-display text-h3">{t("title")}</h2>
+        <p role="status" className="sr-only">
+          {t("loading")}
+        </p>
+        <Skeleton className="h-48 split:h-72" />
+      </Card>
+    );
+  }
+  return <CalendarMonth {...props} today={today} />;
+}
+
+function CalendarMonth({
+  progress,
+  rewards,
+  today,
+}: PracticeCalendarProps & { today: LocalDate }) {
   const t = useTranslations("calendar");
   const format = useFormatter();
   const contextStores = useStores();
@@ -114,11 +138,9 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   const [tasks, setTasks] = useState<Map<LocalDate, PracticeTask[]> | null>(
     null,
   );
-  const now = new Date();
-  const today = toLocalDate(now);
   const [shown, setShown] = useState({
-    year: now.getFullYear(),
-    month: now.getMonth(),
+    year: Number(today.slice(0, 4)),
+    month: Number(today.slice(5, 7)) - 1,
   });
   const [selected, setSelected] = useState<LocalDate>(today);
   const [hovered, setHovered] = useState<LocalDate | null>(null);

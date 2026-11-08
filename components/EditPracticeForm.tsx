@@ -467,7 +467,7 @@ export function EditPracticeForm({
           </Button>
           <Link
             href="/materials"
-            className="inline-flex h-10 items-center px-4 text-ink-muted hover:text-ink"
+            className="inline-flex h-10 items-center px-4 text-ink-muted hover:text-ink pointer-coarse:h-11"
           >
             {t("cancel")}
           </Link>
