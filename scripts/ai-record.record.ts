@@ -7,7 +7,8 @@
  *   AI_RECORD_YES=1 npm run ai:record # makes the calls (with Joe's go-ahead)
  *
  * A fixture that already exists is kept, and its call skipped, unless
- * AI_RECORD_FORCE=1. Reads the Azure keys from .env.local. Each call made
+ * AI_RECORD_FORCE=1; AI_RECORD_ONLY=compose,describe re-records just those
+ * (after their prompt changed, D83). Reads the Azure keys from .env.local. Each call made
  * is also added to api_calls (no user) when the Supabase secret key is
  * set, so /admin/usage counts it against the credit.
  */
@@ -21,13 +22,14 @@ import { azureSpeech } from "@/lib/ai/azure-speech";
 import {
   annotateBudget,
   composeBudget,
+  describeBudget,
   maxCost,
   segmentBudget,
   translateBudget,
   type LanguageBudget,
 } from "@/lib/ai/budgets";
 import { toMicros } from "@/lib/ai/pricing";
-import type { Billed, CallUsage, Voice } from "@/lib/ai/types";
+import type { Billed, CallUsage, DescribeInput, Voice } from "@/lib/ai/types";
 import { type CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 
@@ -44,6 +46,10 @@ const composeInput: CompositionPrompt = {
   level: LEVEL_PROMPTS.beginner,
   words: 40,
   format: "dialogue",
+};
+const describeInput: DescribeInput = {
+  title: "",
+  text: "Hi, can I help you? Yes, please. I'd like a latte. What size would you like? A small one, please.",
 };
 const speechInput = "Nice to meet you.";
 const speechVoice: Voice = { accent: "us", gender: "female" };
@@ -129,6 +135,12 @@ it("records the Azure fixtures", async () => {
       run: () => language.compose(composeInput),
     },
     {
+      file: "azure-openai/describe.json",
+      budget: describeBudget(describeInput),
+      chars: 0,
+      run: () => language.describe(describeInput),
+    },
+    {
       file: "azure-speech/us-female.json",
       chars: countChars([speechInput]),
       run: () => speech.synthesize(speechInput, speechVoice),
@@ -136,8 +148,11 @@ it("records the Azure fixtures", async () => {
   ];
 
   const force = env("AI_RECORD_FORCE") === "1";
-  const todo = calls.filter(
-    (call) => force || !existsSync(join(FIXTURE_DIR, call.file)),
+  const only = env("AI_RECORD_ONLY").split(",").filter(Boolean);
+  const todo = calls.filter((call) =>
+    only.length > 0
+      ? only.some((name) => call.file.endsWith(`/${name}.json`))
+      : force || !existsSync(join(FIXTURE_DIR, call.file)),
   );
   const worst = todo.reduce(
     (sum, call) =>
