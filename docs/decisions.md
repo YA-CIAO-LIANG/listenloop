@@ -1529,3 +1529,23 @@
 - **理由**：日曆 7 欄是固定的，不能換行。WCAG 2.5.8 要求 24 px，39 px 已足夠；44 px 是 Apple／Material 的建議值，寬度足夠時（≥ 400 px）仍會達到。
 - **測試**：`e2e/calendar.spec.ts` 在 360、375 px（觸控）展開整月，比對 30 個方塊的邊界框，不能重疊、不能超出畫面。
 - **要改時**：`components/PracticeCalendar.tsx` 的方塊 class。
+
+## D89 Android 跟讀的語音辨識不重複（2026-11-08，夜間任務 P0-2）
+
+- **問題**：Android Chrome 的 Web Speech API 在連續模式（`continuous = true`）下會重複回傳結果。
+  - 新的結果常常包含前面全部的內容，例如依序收到 "I"、"I am"、"I am going"；
+  - 同一句也可能回傳兩次。
+  - 原本把所有結果直接接起來，所以變成 "I I am I am going"，畫面上的字重複，涵蓋率也算錯。
+  - 這是 Chromium 在 Android 上的已知行為；桌機 Chrome 每段只回傳一次，所以之前沒發現。
+- **決定**：
+  1. **去除重複**（所有瀏覽器，`lib/speech-transcript.ts` 的 `mergeTranscript`）：逐一看每個結果，忽略大小寫與標點比對單字：
+     - 以目前全部內容開頭 → 取代（是較長的版本）；
+     - 已經在結尾（2 個字以上的片語）→ 丟掉；
+     - 其他 → 接在後面。
+     - 單一個字不視為重複，因為句子可能真的有 "No, no"。
+  2. **Android 改用非連續模式**：只聽一段話，收到第一個最終結果（`isFinal`）就直接評分，不再等後續重複的結果。
+     - 中間結果仍然即時顯示，讓使用者知道有在聽；
+     - 桌機與 iOS 維持連續模式，停頓 1.5 秒才結束，避免句中停頓就被切斷。
+- **測試**：`tests/speech-transcript.test.ts`（桌機與 Android 的結果序列、大小寫與標點、真的重複的單字）；`tests/components/speech-recognition.test.tsx`（Android 的使用者代理字串：非連續模式、只評分一次、重複的結果不會重複出現）。
+- **限制**：模擬的測試無法取代真機。上線後請在 Android Chrome 實際跟讀一次確認。
+- **要改時**：`lib/speech-transcript.ts`、`components/speech/useSpeechRecognition.ts`。
