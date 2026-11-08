@@ -26,22 +26,29 @@ test("a student's classes page: join with a code; teachers see the class plans (
   );
 });
 
-test("class plans: yearly first, 9 months' price, subscribing is a fake door (D103)", async ({
+test("the class plan: NT$4,990 a year, NT$3,490 on the priority list, a fake door (D105)", async ({
   page,
 }) => {
   await page.goto("/pricing/classroom");
-  await expect(page.getByRole("heading", { name: "班級方案" })).toBeVisible();
   await expect(
-    page.getByText(/12 個月只付 9 個月的價格，省 25%/),
+    page.getByRole("heading", { level: 1, name: "班級方案" }),
   ).toBeVisible();
-  const ten = page.getByRole("row", { name: /^10 人/ });
-  await expect(ten.getByText("NT$5,310")).toBeVisible();
-  await page.getByText("兩年 · 最划算").click();
-  await expect(ten.getByText("NT$9,440")).toBeVisible();
-  await ten.getByRole("button", { name: "訂閱" }).click();
+  await expect(
+    page.getByRole("radio", { name: "年繳 · 省 2 個月" }),
+  ).toBeChecked();
+  const plan = page.getByRole("region", { name: "班級版" });
+  await expect(plan.getByText("NT$4,990")).toBeVisible();
+  await expect(plan.getByText("每月平均 NT$416")).toBeVisible();
+  await expect(plan.getByText("NT$3,490")).toBeVisible();
+  await expect(plan.getByText("每月平均 NT$291")).toBeVisible();
+  await expect(page.locator("main")).not.toContainText("%");
+  await page.getByText("月繳", { exact: true }).click();
+  await expect(plan.getByText("NT$499")).toBeVisible();
+  await expect(plan.getByText("NT$349")).toBeVisible();
+  await plan.getByRole("button", { name: "訂閱" }).click();
   await expect(
     page
-      .getByRole("dialog", { name: "10 人班級 · 兩年" })
+      .getByRole("dialog", { name: "班級方案 · 月繳" })
       .getByText(/現在不會收費/),
   ).toBeVisible();
 });

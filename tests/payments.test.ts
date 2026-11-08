@@ -6,12 +6,7 @@ import {
 } from "@/lib/payments/apply";
 import { parsePaymentEvent } from "@/lib/payments/events";
 import { fakePaymentProvider, fakeSubscriptionId } from "@/lib/payments/fake";
-import {
-  formatPrice,
-  PRICES,
-  yearlyPerMonth,
-  yearlySaving,
-} from "@/lib/payments/pricing";
+import { formatPrice, averagePerMonth, PRICES } from "@/lib/payments/pricing";
 import {
   SIGNATURE_HEADER,
   signPayload,
@@ -100,8 +95,7 @@ const subscriptionEvent = (extra: Partial<PaymentEvent> = {}): PaymentEvent =>
 describe("prices (one place)", () => {
   it("bills a year as ten months", () => {
     expect(PRICES.year.amount).toBe(PRICES.month.amount * 10);
-    expect(yearlySaving()).toBe(17);
-    expect(yearlyPerMonth()).toBe(124);
+    expect(averagePerMonth(PRICES.year.amount)).toBe(124);
   });
 });
 

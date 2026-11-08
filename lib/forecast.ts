@@ -59,8 +59,8 @@ export function defaultForecastInput(aiPerMinute: number): ForecastInput {
   return {
     subscribers: grid((plan, period) =>
       plan === "plus"
-        ? { month: 30, year: 50, twoYear: 10 }[period]
-        : { month: 5, year: 10, twoYear: 2 }[period],
+        ? { month: 30, year: 60 }[period]
+        : { month: 5, year: 12 }[period],
     ),
     prices: grid((plan, period) => PLAN_PRICES[plan][period].amount),
     usage: { plus: 0.4, pro: 0.4 },

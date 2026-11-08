@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
   classMinutes,
+  CLASS_PLAN,
   classPrice,
   classReport,
-  classSaving,
   isInviteCode,
   newInviteCode,
   reportCsv,
@@ -11,15 +11,14 @@ import {
 import { createProgress, withDay, type Progress } from "@/lib/progress";
 
 describe("class plans (D103)", () => {
-  it("are Joe's prices: a year is 9 months, two years 16", () => {
-    expect(classPrice(10, "month")).toBe(590);
-    expect(classPrice(10, "year")).toBe(590 * 9);
-    expect(classPrice(100, "twoYear")).toBe(3990 * 16);
-    expect(classSaving("year")).toBe(25);
-    expect(classSaving("twoYear")).toBe(33);
-    expect([10, 20, 40, 80, 100].map((s) => classMinutes(s as 10))).toEqual([
-      60, 100, 160, 240, 300,
-    ]);
+  it("is one plan: NT$499 a month, NT$4,990 a year; priority NT$3,490 (D105)", () => {
+    expect(classPrice("month")).toBe(499);
+    expect(classPrice("year")).toBe(4990);
+    expect(classPrice("month", { priority: true })).toBe(349);
+    expect(classPrice("year", { priority: true })).toBe(3490);
+    expect(classMinutes(40)).toBe(CLASS_PLAN.minutes);
+    // An earlier grant keeps working, with today's minutes.
+    expect(classMinutes(10)).toBe(CLASS_PLAN.minutes);
     expect(classMinutes(null)).toBeNull();
   });
 

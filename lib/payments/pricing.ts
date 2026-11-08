@@ -12,24 +12,39 @@ export const isBillingInterval = (value: unknown): value is BillingInterval =>
 
 export type Price = { amount: number; currency: string };
 
-export const PRICES: Readonly<Record<BillingInterval, Price>> = {
-  month: { amount: 149, currency: "TWD" },
-  // Two months free: 10 × the monthly price.
-  year: { amount: 1490, currency: "TWD" },
-};
+/**
+ * Every yearly price is the monthly price × this (D105): a year costs ten
+ * months, two months free. Yearly prices are never written by hand.
+ */
+export const YEARLY_MONTHS_CHARGED = 10;
+/** The months a year saves: 12 − YEARLY_MONTHS_CHARGED. */
+export const YEARLY_MONTHS_FREE = 12 - YEARLY_MONTHS_CHARGED;
+
+/** A yearly price from its monthly price. */
+export const yearlyFromMonthly = (monthly: number): number =>
+  monthly * YEARLY_MONTHS_CHARGED;
+
+/** "Averages NT$X a month": a yearly price ÷ 12, rounded. */
+export const averagePerMonth = (yearly: number): number =>
+  Math.round(yearly / 12);
+
+/** Prices as monthly + yearly, the yearly one derived. */
+const monthlyAndYearly = (
+  monthly: number,
+  currency = "TWD",
+): Readonly<Record<BillingInterval, Price>> => ({
+  month: { amount: monthly, currency },
+  year: { amount: yearlyFromMonthly(monthly), currency },
+});
+
+/** Plus, as checkout and the fake provider charge it (D85). */
+export const PRICES = monthlyAndYearly(149);
 
 /** Days of free trial before the first charge (none for now). */
 export const TRIAL_DAYS = 0;
 
 /** Full refunds are given within this many days of a payment. */
 export const REFUND_DAYS = 7;
-
-/** The yearly price per month, for "NT$124 / month, billed yearly". */
-export const yearlyPerMonth = () => Math.round(PRICES.year.amount / 12);
-
-/** How much a year saves against paying monthly, in whole percent. */
-export const yearlySaving = () =>
-  Math.round((1 - PRICES.year.amount / (PRICES.month.amount * 12)) * 100);
 
 /**
  * A stored amount for people to read: "NT$1,490" for NT$ (which has no
@@ -46,7 +61,7 @@ export function formatPrice(
     : formatNumber(amount / 100, currency);
 }
 
-// --- Plans and pricing (D102): Plus and Pro, three billing periods. -----
+// --- Plans and pricing (D102, D105): Plus and Pro, monthly or yearly. ----
 
 /** The paid plans on the pricing page. "plus" is the account plan "paid". */
 export const PAID_PLANS = ["plus", "pro"] as const;
@@ -56,10 +71,10 @@ export const isPaidPlan = (value: unknown): value is PaidPlan =>
   (PAID_PLANS as readonly unknown[]).includes(value);
 
 /**
- * Billing periods: a month, a year, or two years paid ahead. Longer
- * periods still reset the monthly minutes each month; they don't pile up.
+ * Billing periods: a month, or a year paid ahead (D105: no two-year
+ * period). A year still resets the monthly minutes each month.
  */
-export const BILLING_PERIODS = ["month", "year", "twoYear"] as const;
+export const BILLING_PERIODS = BILLING_INTERVALS;
 export type BillingPeriod = (typeof BILLING_PERIODS)[number];
 
 export const isBillingPeriod = (value: unknown): value is BillingPeriod =>
@@ -68,49 +83,23 @@ export const isBillingPeriod = (value: unknown): value is BillingPeriod =>
 export const PERIOD_MONTHS: Readonly<Record<BillingPeriod, number>> = {
   month: 1,
   year: 12,
-  twoYear: 24,
 };
 
-/** Joe's prices (D102), in NT$. */
+/** Joe's monthly prices (D102), in NT$; the yearly ones follow (D105). */
+export const PLAN_MONTHLY: Readonly<Record<PaidPlan, number>> = {
+  plus: PRICES.month.amount,
+  pro: 299,
+};
+
 export const PLAN_PRICES: Readonly<
   Record<PaidPlan, Readonly<Record<BillingPeriod, Price>>>
 > = {
-  plus: {
-    month: { amount: 149, currency: "TWD" },
-    year: { amount: 1290, currency: "TWD" },
-    twoYear: { amount: 2290, currency: "TWD" },
-  },
-  pro: {
-    month: { amount: 299, currency: "TWD" },
-    year: { amount: 2590, currency: "TWD" },
-    twoYear: { amount: 4590, currency: "TWD" },
-  },
+  plus: monthlyAndYearly(PLAN_MONTHLY.plus),
+  pro: monthlyAndYearly(PLAN_MONTHLY.pro),
 };
 
 /** Shown first, and marked "most popular". */
 export const DEFAULT_PERIOD: BillingPeriod = "year";
-/** Marked "best value". */
-export const BEST_VALUE_PERIOD: BillingPeriod = "twoYear";
-/**
- * Offered on the website only: Google Play's auto-renewing subscriptions
- * go up to a year (D102), so the Android app doesn't show these.
- */
-export const WEB_ONLY_PERIODS: readonly BillingPeriod[] = ["twoYear"];
-
-/** The price per month for a period, rounded to whole NT$. */
-export function pricePerMonth(plan: PaidPlan, period: BillingPeriod): number {
-  return Math.round(PLAN_PRICES[plan][period].amount / PERIOD_MONTHS[period]);
-}
-
-/** What a period saves against paying monthly for as long. */
-export function periodSaving(
-  plan: PaidPlan,
-  period: BillingPeriod,
-): { amount: number; percent: number } {
-  const monthly = PLAN_PRICES[plan].month.amount * PERIOD_MONTHS[period];
-  const amount = monthly - PLAN_PRICES[plan][period].amount;
-  return { amount, percent: Math.round((amount / monthly) * 100) };
-}
 
 /**
  * Refund for a prepaid period cancelled early (D102): within REFUND_DAYS
