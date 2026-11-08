@@ -3,7 +3,8 @@
 import { MaterialTitle } from "./MaterialTitle";
 import { useTranslations } from "next-intl";
 import { isExamId, targetMessageKey } from "@/lib/categories";
-import { estimateMinutes, type LibraryItem } from "@/lib/library";
+import { type LibraryItem } from "@/lib/library";
+import { dailyMinutes } from "@/lib/library-time";
 import { minutesAndSeconds } from "@/lib/excerpt-length";
 import { CardLink } from "./CardLink";
 import { SpeakerIcon, VideoIcon } from "./icons";
@@ -19,10 +20,13 @@ import { VideoProgressLabel } from "./VideoProgressLabel";
 export function MaterialCard({
   item,
   mine = false,
+  pace = 1,
 }: {
   item: LibraryItem;
   /** Made by the viewer (/explore). */
   mine?: boolean;
+  /** The learner's pace (D98): measured time ÷ estimate; 1 until known. */
+  pace?: number;
 }) {
   const t = useTranslations("library.card");
   const tAll = useTranslations();
@@ -68,7 +72,7 @@ export function MaterialCard({
           {t("length", minutesAndSeconds(item.seconds))}
           {item.accent && ` · ${tAll(`voicePicker.accents.${item.accent}`)}`}
           {" · "}
-          {t("perDay", { minutes: estimateMinutes(item.seconds) })}
+          {t("perDay", { minutes: dailyMinutes(item, pace) })}
         </span>
         <span aria-hidden="true">→</span>
       </p>

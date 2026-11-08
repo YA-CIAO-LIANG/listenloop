@@ -5,13 +5,13 @@ import { useId, useState, type ReactNode } from "react";
 import { LENGTH_BUCKETS, lengthBucket } from "@/lib/excerpt-length";
 import {
   activeFilterCount,
-  estimateMinutes,
   filterLibrary,
   NO_LIBRARY_FILTER,
   presentValues,
   type LibraryFilter,
   type LibraryItem,
 } from "@/lib/library";
+import { dailyMinutes } from "@/lib/library-time";
 import {
   LIBRARY_SORTS,
   TIME_BUDGETS,
@@ -22,11 +22,15 @@ import { Dialog } from "./Dialog";
 import { FilterChip } from "./FilterChip";
 import { MaterialCard } from "./MaterialCard";
 import { toggled, useLibraryFilter } from "./useLibraryFilter";
+import { LibraryDefaultControls, useLibraryDefault } from "./LibraryDefault";
+import { useLibraryPace } from "./useLibraryPace";
 
 type ViewProps = {
   items: readonly LibraryItem[];
   filter: LibraryFilter;
   onChange: (next: LibraryFilter) => void;
+  /** The learner's pace (D98); 1 until measured. */
+  pace?: number;
 };
 
 const groupLabel = "text-metadata tracking-widest text-ink-muted uppercase";
@@ -234,12 +238,21 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
  * sidebar on wide screens, and in a bottom drawer behind "篩選（N）" on
  * phones. The match count is announced as it changes.
  */
-export function MaterialLibraryView({ items, filter, onChange }: ViewProps) {
+export function MaterialLibraryView({
+  items,
+  filter,
+  onChange,
+  pace = 1,
+  defaults,
+}: ViewProps & {
+  /** "Save as my default filter" (D98), under the filters. */
+  defaults?: ReactNode;
+}) {
   const t = useTranslations("library.filters");
   const ids = useId();
   const [drawer, setDrawer] = useState(false);
   const [query, setQuery] = useState(filter.query);
-  const shown = filterLibrary(items, filter);
+  const shown = filterLibrary(items, filter, pace);
   const active = activeFilterCount(filter);
   const filtering = active > 0 || filter.query.trim() !== "";
   const clear = () => {
@@ -251,10 +264,16 @@ export function MaterialLibraryView({ items, filter, onChange }: ViewProps) {
     <div className="mt-8 wide:grid wide:grid-cols-[15rem_1fr] wide:gap-12">
       <aside aria-label={t("title")} className="hidden wide:block">
         <LibraryFilters items={items} filter={filter} onChange={onChange} />
+        {defaults && <div className="mt-6">{defaults}</div>}
       </aside>
 
       <div>
-        <TimeBudget items={items} filter={filter} onChange={onChange} />
+        <TimeBudget
+          items={items}
+          filter={filter}
+          onChange={onChange}
+          pace={pace}
+        />
         <div className="mt-6 flex flex-wrap items-end gap-3">
           <div className="min-w-0 flex-1 basis-48 space-y-2">
             <label htmlFor={`${ids}-search`} className={`block ${groupLabel}`}>
@@ -324,7 +343,7 @@ export function MaterialLibraryView({ items, filter, onChange }: ViewProps) {
           <ul className="mt-6 grid gap-6 split:grid-cols-2">
             {shown.map((item) => (
               <li key={item.id}>
-                <MaterialCard item={item} />
+                <MaterialCard item={item} pace={pace} />
               </li>
             ))}
           </ul>
@@ -338,6 +357,7 @@ export function MaterialLibraryView({ items, filter, onChange }: ViewProps) {
           onClose={() => setDrawer(false)}
         >
           <LibraryFilters items={items} filter={filter} onChange={onChange} />
+          {defaults}
           <div className="flex flex-wrap gap-3 border-t border-line pt-4">
             <Button variant="primary" onClick={() => setDrawer(false)}>
               {t("show", { count: shown.length })}
@@ -354,11 +374,30 @@ export function MaterialLibraryView({ items, filter, onChange }: ViewProps) {
   );
 }
 
-/** The library with its filter in the URL. Render inside <Suspense>. */
-export function MaterialLibrary({ items }: { items: readonly LibraryItem[] }) {
+/**
+ * The library with its filter in the URL. Render inside <Suspense>. The
+ * learner's default filter (D98) applies when the page opens without one:
+ * from their account when signed in (`savedDefault`, null if none), else
+ * from this browser (`savedDefault` undefined).
+ */
+export function MaterialLibrary({
+  items,
+  savedDefault,
+}: {
+  items: readonly LibraryItem[];
+  savedDefault?: string | null;
+}) {
   const [filter, setFilter] = useLibraryFilter();
+  const pace = useLibraryPace(items);
+  const defaults = useLibraryDefault(savedDefault, setFilter);
   return (
-    <MaterialLibraryView items={items} filter={filter} onChange={setFilter} />
+    <MaterialLibraryView
+      items={items}
+      filter={filter}
+      onChange={setFilter}
+      pace={pace}
+      defaults={<LibraryDefaultControls filter={filter} {...defaults} />}
+    />
   );
 }
 
@@ -381,7 +420,7 @@ export function UnfilteredMaterialLibrary({
  * "我今天有幾分鐘？" (D70, D79): above the library for everyone, one tap
  * keeps what a day's practice fits in; tapping it again shows all.
  */
-function TimeBudget({ items, filter, onChange }: ViewProps) {
+function TimeBudget({ items, filter, onChange, pace = 1 }: ViewProps) {
   const t = useTranslations("library.time");
   const id = useId();
   return (
@@ -403,7 +442,7 @@ function TimeBudget({ items, filter, onChange }: ViewProps) {
           >
             {t("option", {
               minutes,
-              count: items.filter((i) => estimateMinutes(i.seconds) <= minutes)
+              count: items.filter((i) => dailyMinutes(i, pace) <= minutes)
                 .length,
             })}
           </FilterChip>

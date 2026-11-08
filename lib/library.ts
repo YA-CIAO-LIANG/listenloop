@@ -13,7 +13,6 @@ import {
 } from "./excerpt-length";
 import {
   LIBRARY_SORTS,
-  PRACTICE_TIME_FACTOR,
   TIME_BUDGETS,
   type LibrarySort,
   type TimeBudget,
@@ -22,6 +21,7 @@ import { parseVoiceId } from "@/lib/ai/types";
 import { isCategoryId, isLevel } from "@/lib/categories";
 import type { PublicPracticeSummary } from "@/lib/custom-practice/explore";
 import { excerptSeconds } from "./excerpt-length";
+import { dailyMinutes } from "./library-time";
 import type { Video, VideoCategory } from "./videos";
 
 /**
@@ -76,11 +76,6 @@ export const VIDEO_CATEGORY_IN_LIBRARY: Readonly<
   interview: "talks-stories",
   story: "talks-stories",
 };
-
-/** A day's practice in minutes, rounded up (at least 1). */
-export function estimateMinutes(seconds: number): number {
-  return Math.max(1, Math.ceil((seconds * PRACTICE_TIME_FACTOR) / 60));
-}
 
 export type LibraryFilter = {
   query: string;
@@ -203,6 +198,8 @@ const normalize = (text: string) =>
 export function matchesLibraryFilter(
   item: LibraryItem,
   filter: LibraryFilter,
+  /** The learner's pace (D98); 1 until measured. */
+  pace = 1,
 ): boolean {
   const words = normalize(filter.query).split(" ").filter(Boolean);
   // Both titles and the subtitle (D83).
@@ -219,7 +216,7 @@ export function matchesLibraryFilter(
     within(filter.levels, item.level) &&
     within(filter.lengths, lengthBucket(item.seconds)) &&
     within(filter.accents, item.accent) &&
-    (filter.minutes === null || estimateMinutes(item.seconds) <= filter.minutes)
+    (filter.minutes === null || dailyMinutes(item, pace) <= filter.minutes)
   );
 }
 
@@ -253,9 +250,10 @@ const COMPARE: Record<LibrarySort, (a: LibraryItem, b: LibraryItem) => number> =
 export function filterLibrary(
   items: readonly LibraryItem[],
   filter: LibraryFilter,
+  pace = 1,
 ): LibraryItem[] {
   return items
-    .filter((item) => matchesLibraryFilter(item, filter))
+    .filter((item) => matchesLibraryFilter(item, filter, pace))
     .sort((a, b) => COMPARE[filter.sort](a, b) || recommended(a, b));
 }
 
@@ -329,4 +327,26 @@ export function practiceLibraryItem(
     sortOrder: practice.sortOrder,
     learners,
   };
+}
+
+/** Whether the URL sets any part of the library's filter (D98). */
+export function hasLibraryParams(params: {
+  has(name: string): boolean;
+}): boolean {
+  return Object.values(LIBRARY_PARAMS).some((name) => params.has(name));
+}
+
+/**
+ * A saved default filter (D98), stored as the URL query it would make;
+ * unknown values are dropped as in a URL. Null when there's none.
+ */
+export function parseSavedFilter(value: unknown): LibraryFilter | null {
+  if (typeof value !== "string" || value.length > 2000) return null;
+  const params = new URLSearchParams(value);
+  return hasLibraryParams(params) ? parseLibraryParams(params) : null;
+}
+
+/** The filter as the string a default is saved as. */
+export function savedFilterString(filter: LibraryFilter): string {
+  return writeLibraryParams(new URLSearchParams(), filter).toString();
 }
