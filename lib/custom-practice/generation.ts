@@ -1,6 +1,7 @@
 import { PRACTICE_LIMITS } from "./draft";
 
 import {
+  OTHER_CATEGORY,
   findExam,
   findScenario,
   findTarget,
@@ -39,6 +40,9 @@ export const TOPIC_MAX_CHARS = 200;
 /** A situation the learner describes in their own words (D81). */
 export const CUSTOM_SCENARIO_MAX_CHARS = 200;
 
+/** A category the learner names themselves (D82). */
+export const CUSTOM_CATEGORY_MAX_CHARS = 40;
+
 /** How each accent's English is asked for. */
 const ACCENT_PROMPTS: Readonly<Record<VoiceAccent, string>> = {
   us: "American English spelling and expressions",
@@ -54,6 +58,11 @@ export type GenerationRequest = {
   scenario: string;
   /** The situation in the learner's words (D81), in any language; may be "". */
   customScenario: string;
+  /**
+   * A category the learner named (D82) instead of choosing one; then
+   * there's no scenario from the list. "" when one was chosen.
+   */
+  customCategory?: string;
   /**
    * The learner's title (D81): kept exactly (ends trimmed), never the
    * model's; "" lets the model name it.
@@ -72,6 +81,8 @@ export type CompositionPrompt = {
   scenario: string;
   /** The learner's own situation, the main one (D81); only when given. */
   customScenario?: string;
+  /** The learner's own category (D82); only when given. */
+  customCategory?: string;
   /** The learner's title, for the text to match (D81); only when given. */
   title?: string;
   level: string;
@@ -82,7 +93,8 @@ export type CompositionPrompt = {
 /** Where a written practice belongs, saved with it (D57). */
 export type MaterialMeta = {
   category: CategoryId;
-  scenario: string;
+  /** null for the "other" category (a learner's own, D82). */
+  scenario: string | null;
   level: Level;
   exam: string | null;
   examTarget: string | null;
@@ -101,6 +113,7 @@ export function parseGenerationRequest(
     typeof value === "string" ? value.replace(/\s+/g, " ").trim() : "";
   const topic = tidy(raw.topic);
   const customScenario = tidy(raw.customScenario);
+  const customCategory = tidy(raw.customCategory);
   // The title as typed: only its ends are trimmed (D81).
   const title = typeof raw.title === "string" ? raw.title.trim() : "";
   const place = raw.scenario === "" ? null : findScenario(raw.scenario);
@@ -110,9 +123,12 @@ export function parseGenerationRequest(
   if (
     [...topic].length > TOPIC_MAX_CHARS ||
     [...customScenario].length > CUSTOM_SCENARIO_MAX_CHARS ||
+    [...customCategory].length > CUSTOM_CATEGORY_MAX_CHARS ||
     [...title].length > PRACTICE_LIMITS.titleChars ||
-    // A scenario from the list, or one described: at least one of them.
-    (!place && (raw.scenario !== "" || !customScenario)) ||
+    // A scenario from the list, or something described: a scenario of
+    // one's own, or a category of one's own (which has no list, D82).
+    (!place && (raw.scenario !== "" || !(customScenario || customCategory))) ||
+    (customCategory !== "" && place !== null) ||
     !levelOk ||
     !(GENERATION_LENGTHS as readonly unknown[]).includes(raw.length) ||
     !(GENERATION_FORMATS as readonly unknown[]).includes(raw.format) ||
@@ -124,6 +140,7 @@ export function parseGenerationRequest(
     topic,
     scenario: place?.scenario.id ?? "",
     customScenario,
+    customCategory,
     title,
     level: raw.level as string,
     length: raw.length as GenerationLength,
@@ -150,6 +167,9 @@ export function compositionPrompt(
     ...(request.customScenario
       ? { customScenario: request.customScenario }
       : {}),
+    ...(request.customCategory
+      ? { customCategory: request.customCategory }
+      : {}),
     ...(request.title ? { title: request.title } : {}),
     level: `${level}; ${ACCENT_PROMPTS[request.accent]}`,
     words: lengthWords(request.length),
@@ -159,6 +179,16 @@ export function compositionPrompt(
 
 /** The categories a request's text belongs to, for saving (D57). */
 export function materialMeta(request: GenerationRequest): MaterialMeta | null {
+  // A category of one's own is filed under "other" (D82).
+  if (request.customCategory) {
+    return {
+      category: OTHER_CATEGORY,
+      scenario: null,
+      level: isLevel(request.level) ? request.level : "intermediate",
+      exam: null,
+      examTarget: null,
+    };
+  }
   const place = findScenario(request.scenario);
   if (!place) return null;
   const target = place.exam ? findTarget(place.exam, request.level) : null;
@@ -179,6 +209,20 @@ export function materialMeta(request: GenerationRequest): MaterialMeta | null {
 export function parseMaterialMeta(input: unknown): MaterialMeta | null {
   if (typeof input !== "object" || input === null) return null;
   const raw = input as Record<string, unknown>;
+  if (raw.category === OTHER_CATEGORY) {
+    return isLevel(raw.level) &&
+      (raw.scenario ?? null) === null &&
+      (raw.exam ?? null) === null &&
+      (raw.examTarget ?? null) === null
+      ? {
+          category: OTHER_CATEGORY,
+          scenario: null,
+          level: raw.level,
+          exam: null,
+          examTarget: null,
+        }
+      : null;
+  }
   const place = findScenario(raw.scenario);
   if (!place || place.category !== raw.category || !isLevel(raw.level)) {
     return null;

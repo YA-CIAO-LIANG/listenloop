@@ -242,7 +242,7 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
       .select("id, title")
       .eq("user_id", ownerId)
       .eq("official", true)
-      .eq("scenario", meta.scenario)
+      .eq("scenario", meta.scenario ?? "")
       .maybeSingle();
     if (existing) {
       console.log(`skip ${meta.scenario}: "${existing.title}" exists`);

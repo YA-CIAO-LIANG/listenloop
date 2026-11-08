@@ -76,9 +76,13 @@ export const DESCRIBE_INSTRUCTIONS = [
  */
 export function composeInstructions(prompt: {
   customScenario?: string;
+  customCategory?: string;
   title?: string;
 }): string {
   const extra = [
+    prompt.customCategory
+      ? "customCategory (in any language) is the subject area the learner chose; keep the text within it."
+      : null,
     prompt.customScenario
       ? "customScenario (in any language) is the main situation: write that situation, using the scenario, if any, only as its setting."
       : null,

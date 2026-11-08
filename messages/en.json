@@ -1185,8 +1185,6 @@
       "text": "Paste or upload",
       "ai": "Write with AI"
     },
-    "topicLabel": "Topic or keywords (optional)",
-    "topicHint": "For example: my first trip to an American supermarket, a study group, working at a café. Chinese or English is fine.",
     "levelLegend": "Level",
     "lengthLegend": "Length",
     "formatLegend": "Format",
@@ -1194,13 +1192,13 @@
       "dialogue": "Dialogue",
       "monologue": "Monologue"
     },
-    "note": "The English lands in the text box below to edit before splitting and translating. In a dialogue, “A:” and “B:” at the start of each line are the two speakers; the next step lets you pick a second voice for B. Writing counts toward the daily usage.",
+    "note": "The English text goes into the text box below, where you can edit it before splitting and translating. For a dialogue, “A:” and “B:” at the start of each line are the two speakers; you can give B another voice in the next step. Writing counts toward your daily usage.",
     "generate": "Write text",
     "generating": "Writing…",
     "generated": "Wrote “{title}”. Edit the text if you like, then split and translate it.",
     "errors": {
       "unavailable": "Text can't be written right now. Make sure you're signed in with an admin account.",
-      "invalid": "Something's off: choose a scenario, or describe your own.",
+      "invalid": "Something's off: choose a scenario, describe what to practice, or name the category.",
       "limit": "Today's AI allowance is used up. Try again tomorrow (after midnight, Taiwan time).",
       "busy": "The AI service is busy. Try again in a minute.",
       "failed": "The written text couldn't be used. Please try again.",
@@ -1218,12 +1216,19 @@
       "in": "Indian"
     },
     "length": "{range} min",
-    "customOnly": "(None: use my own scenario)",
-    "customLabel": "Your own scenario (optional)",
-    "customRequired": "Your own scenario (required)",
-    "customHint": "Describe what you want to practice in your own words, e.g. asking a professor for sick leave and a later deadline. Use it with a category above, or on its own.",
+    "customOnly": "Other (describe it myself)",
+    "customLabel": "What do you want to practice? (optional)",
+    "customRequired": "What do you want to practice? (required)",
+    "customHint": "Describe the situation, topic, or keywords in your own words, in Chinese or English. With a scenario chosen above, add details here.",
     "titleLabel": "Title (optional)",
-    "titleHint": "If you give one, it's kept exactly, and the text is written to fit it, the category, scenario, and description; if not, AI names it. You can change both afterwards."
+    "titleHint": "If you give one, it's kept exactly, and the text is written to fit it, the category, scenario, and description; if not, AI names it from the text. You can change both afterwards.",
+    "customPlaceholder": "e.g. asking a professor for sick leave and a later deadline",
+    "customCategoryOption": "My own category…",
+    "customCategoryLabel": "Category name (required)",
+    "customCategoryPlaceholder": "e.g. astrophotography, board games",
+    "customCategoryHint": "AI writes within this category; the library's filters list it under Other.",
+    "needCategory": "Name the category first.",
+    "needScenario": "Describe what you want to practice, or choose a scenario above."
   },
   "celebration": {
     "perfect": "Perfect!"
@@ -1516,7 +1521,8 @@
       "leisure": "Sports and leisure",
       "food": "Food and cooking",
       "culture": "Culture and festivals",
-      "exam": "Exam listening"
+      "exam": "Exam listening",
+      "other": "Other"
     },
     "scenarios": {
       "restaurant": "Ordering at a restaurant",

@@ -17,6 +17,7 @@ import {
   CATEGORY_IDS,
   EXAM_CATEGORY,
   EXAMS,
+  OTHER_CATEGORY,
   findScenario,
   LEVELS,
   type CategoryId,
@@ -119,6 +120,17 @@ export function MaterialControls({
     : LEVELS.map((value) => ({ value, label: tc(`levels.${value}`) }));
 
   function saveCategory() {
+    // "Other" (D82) has no scenarios: a general level only.
+    if (category === OTHER_CATEGORY) {
+      const meta: MaterialMeta = {
+        category,
+        scenario: null,
+        level: LEVELS.find((l) => l === level) ?? "intermediate",
+        exam: null,
+        examTarget: null,
+      };
+      return run(() => setMaterialCategory(practice.id, meta));
+    }
     if (!category || !findScenario(scenario)) {
       return run(() => setMaterialCategory(practice.id, null));
     }
@@ -230,29 +242,33 @@ export function MaterialControls({
         </select>
         {category && (
           <>
-            <label htmlFor={ids.scenario} className="sr-only">
-              {t("scenarioLabel")}
-            </label>
-            <select
-              id={ids.scenario}
-              value={scenario}
-              disabled={pending}
-              onChange={(event) => {
-                setScenario(event.target.value);
-                const nextExam = findScenario(event.target.value)?.exam;
-                if (nextExam) setLevel(nextExam.targets[0].id);
-              }}
-              className={selectClass}
-            >
-              {scenarios.map((option) => (
-                <option key={option.id} value={option.id}>
-                  {exam || category === EXAM_CATEGORY
-                    ? `${tc(`exams.${findScenario(option.id)?.exam?.id ?? "toefl"}`)} · `
-                    : ""}
-                  {tc(`scenarios.${option.id}` as "scenarios.restaurant")}
-                </option>
-              ))}
-            </select>
+            {category !== OTHER_CATEGORY && (
+              <>
+                <label htmlFor={ids.scenario} className="sr-only">
+                  {t("scenarioLabel")}
+                </label>
+                <select
+                  id={ids.scenario}
+                  value={scenario}
+                  disabled={pending}
+                  onChange={(event) => {
+                    setScenario(event.target.value);
+                    const nextExam = findScenario(event.target.value)?.exam;
+                    if (nextExam) setLevel(nextExam.targets[0].id);
+                  }}
+                  className={selectClass}
+                >
+                  {scenarios.map((option) => (
+                    <option key={option.id} value={option.id}>
+                      {exam || category === EXAM_CATEGORY
+                        ? `${tc(`exams.${findScenario(option.id)?.exam?.id ?? "toefl"}`)} · `
+                        : ""}
+                      {tc(`scenarios.${option.id}` as "scenarios.restaurant")}
+                    </option>
+                  ))}
+                </select>
+              </>
+            )}
             <label htmlFor={ids.level} className="sr-only">
               {t("levelLabel")}
             </label>
