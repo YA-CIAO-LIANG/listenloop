@@ -296,8 +296,8 @@
     }
   },
   "library": {
-    "title": "教材庫",
-    "intro": "影片和音檔教材都在這裡。選一份，開始七天的循環練習。",
+    "title": "官方教材庫",
+    "intro": "影片和音檔教材都在這裡，所有人都能練。選一份，開始七天的循環練習。",
     "kinds": {
       "video": "影片",
       "audio": "音檔"
@@ -306,8 +306,6 @@
       "title": "篩選",
       "open": "篩選",
       "openCount": "篩選（{count}）",
-      "time": "每天練習時間",
-      "timeOption": "{minutes} 分鐘內（{count}）",
       "kind": "類型",
       "category": "分類",
       "level": "程度",
@@ -327,12 +325,12 @@
       "show": "顯示 {count} 份教材",
       "clear": "清除篩選",
       "clearAll": "清除所有篩選",
-      "empty": "沒有符合的教材。"
+      "empty": "沒有符合的教材。",
+      "scenario": "情境"
     },
     "time": {
       "title": "我今天有幾分鐘？",
-      "option": "{minutes} 分鐘",
-      "hint": "選一個時間，下方教材庫只顯示一天練得完的教材。"
+      "option": "{minutes} 分鐘內（{count}）"
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}",

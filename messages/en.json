@@ -296,8 +296,8 @@
     }
   },
   "library": {
-    "title": "Library",
-    "intro": "Videos and audio lessons, all in one place. Pick one and start a seven-day loop.",
+    "title": "Official library",
+    "intro": "Videos and audio lessons, open to everyone. Pick one and start a seven-day loop.",
     "kinds": {
       "video": "Video",
       "audio": "Audio"
@@ -306,8 +306,6 @@
       "title": "Filters",
       "open": "Filters",
       "openCount": "Filters ({count})",
-      "time": "Time a day",
-      "timeOption": "Up to {minutes} min ({count})",
       "kind": "Type",
       "category": "Category",
       "level": "Level",
@@ -327,12 +325,12 @@
       "show": "Show {count, plural, one {# material} other {# materials}}",
       "clear": "Clear filters",
       "clearAll": "Clear all filters",
-      "empty": "Nothing matches."
+      "empty": "Nothing matches.",
+      "scenario": "Scenario"
     },
     "time": {
       "title": "How many minutes do you have today?",
-      "option": "{minutes} min",
-      "hint": "Pick a time and the library below shows only what you can finish in a day."
+      "option": "Up to {minutes} min ({count})"
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",
