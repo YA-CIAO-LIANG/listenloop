@@ -32,6 +32,7 @@ import {
 import { passRulesOf } from "@/lib/pass-rules";
 import { DEFAULT_SPEED, pace, type Pace, type Speed } from "@/lib/speed";
 import { recordTask } from "@/lib/activity";
+import { perfectSentences } from "@/lib/score-points";
 import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
 import { scoreDictation } from "@/lib/scoring/dictation";
@@ -203,6 +204,7 @@ export function DictationSession({
           videoId: video.id,
           week: next.week,
           day,
+          perfect: perfectSentences(next.days[day], sentences),
         }),
       ).catch(() => {});
       // A finished official day earns points and today's feed.

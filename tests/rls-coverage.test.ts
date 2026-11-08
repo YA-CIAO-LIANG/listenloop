@@ -33,6 +33,7 @@ const SERVER_ONLY = [
   "usage_settings",
   "api_batch_cost",
   "payment_events",
+  "intent_events",
 ];
 
 describe("row level security", () => {

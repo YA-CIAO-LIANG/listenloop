@@ -86,9 +86,15 @@ const taskKey = (task: PracticeTask) =>
   `${task.videoId}:${task.week}:${task.day}`;
 
 function mergeDay(a: DayActivity, b: DayActivity): DayActivity {
-  const tasks = new Map(
-    [...(a.tasks ?? []), ...(b.tasks ?? [])].map((t) => [taskKey(t), t]),
-  );
+  // The same task from both sides: keep the copy that knows its perfect
+  // sentences (D93).
+  const tasks = new Map<string, PracticeTask>();
+  for (const task of [...(a.tasks ?? []), ...(b.tasks ?? [])]) {
+    const known = tasks.get(taskKey(task));
+    if (!known || (known.perfect ?? -1) < (task.perfect ?? -1)) {
+      tasks.set(taskKey(task), task);
+    }
+  }
   const merged: DayActivity = {
     official: a.official || b.official,
     retries: [...new Set([...a.retries, ...b.retries])],
