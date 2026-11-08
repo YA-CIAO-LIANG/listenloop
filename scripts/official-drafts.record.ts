@@ -1,6 +1,6 @@
 /**
- * Makes ListenLoop's official sample materials as drafts (P0, D59), with
- * the real providers: one per category 1–10 and four exam-style ones.
+ * Makes ListenLoop's official sample materials as drafts (P0, D59, D84),
+ * with the real providers, from SPECS.
  * Each is written by AI, split, translated, annotated, and voiced, then
  * saved as an official draft (private, not published) owned by the first
  * admin ("User 000"), for Joe to review on Admin → Materials.
@@ -21,7 +21,8 @@ import { expect, it } from "vitest";
 import { supabaseAiCache } from "@/auth/ai-cache";
 import { supabaseAudioStore } from "@/auth/audio-store";
 import { supabaseUsageMeter } from "@/auth/creator";
-import { composeBudget, maxCost } from "@/lib/ai/budgets";
+import { composeBudget, describeBudget, maxCost } from "@/lib/ai/budgets";
+import { subtitleFromModel } from "@/lib/custom-practice/subtitle";
 import { meteredLanguage } from "@/lib/ai/metered";
 import { getAiProviders } from "@/lib/ai/providers";
 import { toMicros } from "@/lib/ai/pricing";
@@ -46,8 +47,11 @@ import { speakerLines, withSpeakers } from "@/lib/custom-practice/speakers";
 import type { Database } from "@/lib/supabase/database.types";
 import { countChars } from "@/lib/usage";
 
-/** Joe's approved total for tonight's real calls (2026-11-07). */
-const BUDGET_USD = 1.0;
+/**
+ * Joe's approved total for the night of 2026-11-08 (US$0.50), less the
+ * fixture re-record that came first (D84).
+ */
+const BUDGET_USD = 0.49;
 
 type Spec = Omit<
   GenerationRequest,
@@ -56,132 +60,246 @@ type Spec = Omit<
   accent: VoiceAccent;
 };
 
-/** One per category 1–10, then the four exams (D59). */
+/**
+ * Two drafts for every category (D84), the emptiest first: one for each
+ * category added in D81, then their second, then a second for the rest.
+ * Levels and accents are spread out; the run stops when the budget does.
+ * The first run's specs (D59) are in git history; their drafts exist.
+ */
 export const SPECS: GenerationRequest[] = (
   [
     {
-      scenario: "coffee-shop",
+      scenario: "appointment-booking",
       level: "beginner",
       length: "1-2",
       format: "dialogue",
       accent: "us",
       topic:
-        "a Taiwanese exchange student ordering a drink and a snack for the first time, asking about cup sizes and milk options",
+        "an international student calling the campus clinic to book an appointment for a sore throat and a fever",
     },
     {
-      scenario: "airport-check-in",
+      scenario: "declining-invitation",
+      level: "intermediate",
+      length: "1-2",
+      format: "dialogue",
+      accent: "gb",
+      topic:
+        "politely turning down a friend's birthday dinner because of a big exam the next morning, and suggesting another day",
+    },
+    {
+      scenario: "account-security",
+      level: "intermediate",
+      length: "1-2",
+      format: "monologue",
+      accent: "au",
+      topic:
+        "a short how-to after a fake login email: changing your password and turning on two-step verification",
+    },
+    {
+      scenario: "budgeting",
+      level: "beginner",
+      length: "1-2",
+      format: "monologue",
+      accent: "in",
+      topic:
+        "a first-year student explaining how they split a monthly budget between rent, food, transport, and savings",
+    },
+    {
+      scenario: "internship-interview",
+      level: "intermediate",
+      length: "2-3",
+      format: "dialogue",
+      accent: "us",
+      topic:
+        "a student interviewing for a summer internship at a small design studio, talking about a class project and teamwork",
+    },
+    {
+      scenario: "gym-signup",
+      level: "beginner",
+      length: "1-2",
+      format: "dialogue",
+      accent: "au",
+      topic:
+        "signing up for the university gym, asking about opening hours, lockers, and a free beginner class",
+    },
+    {
+      scenario: "dietary-needs",
+      level: "intermediate",
+      length: "1-2",
+      format: "dialogue",
+      accent: "gb",
+      topic:
+        "ordering at a restaurant with a peanut allergy, checking the sauces and asking how the food is prepared",
+    },
+    {
+      scenario: "culture-shock",
+      level: "intermediate",
+      length: "1-2",
+      format: "monologue",
+      accent: "in",
+      topic:
+        "an exchange student describing small surprises in the first month abroad: tipping, small talk with strangers, and dinner times",
+    },
+    {
+      scenario: "counseling-booking",
+      level: "advanced",
+      length: "1-2",
+      format: "dialogue",
+      accent: "gb",
+      topic:
+        "a student contacting the counseling center about exam stress and trouble sleeping, and choosing between a workshop and a one-to-one session",
+    },
+    {
+      scenario: "roommate-conflict",
+      level: "beginner",
+      length: "1-2",
+      format: "dialogue",
+      accent: "us",
+      topic:
+        "two roommates calmly sorting out dirty dishes left in the sink and making a simple cleaning schedule",
+    },
+    {
+      scenario: "ai-tools",
+      level: "advanced",
+      length: "1-2",
+      format: "monologue",
+      accent: "us",
+      topic:
+        "a professor's guidance on using AI writing tools responsibly for homework: what is allowed and how to cite it",
+    },
+    {
+      scenario: "lease-terms",
+      level: "intermediate",
+      length: "2-3",
+      format: "dialogue",
+      accent: "au",
+      topic:
+        "a student asking a landlord about the security deposit, utilities, and ending the lease early",
+    },
+    {
+      scenario: "career-advice",
+      level: "advanced",
+      length: "1-2",
+      format: "monologue",
+      accent: "in",
+      topic:
+        "a mentor's advice on the first year in a new job: asking questions early, keeping notes, and building trust",
+    },
+    {
+      scenario: "trip-planning",
+      level: "intermediate",
+      length: "1-2",
+      format: "dialogue",
+      accent: "gb",
+      topic:
+        "two friends planning a weekend trip by train on a small budget, choosing where to stay and what to see",
+    },
+    {
+      scenario: "recipe",
+      level: "beginner",
+      length: "1-2",
+      format: "monologue",
+      accent: "au",
+      topic: "a step-by-step way to make Taiwanese scallion pancakes at home",
+    },
+    {
+      scenario: "lunar-new-year",
+      level: "beginner",
+      length: "1-2",
+      format: "monologue",
+      accent: "us",
+      topic:
+        "a Taiwanese student telling classmates how their family celebrates Lunar New Year: cleaning, the reunion dinner, and red envelopes",
+    },
+    {
+      scenario: "pharmacy",
       level: "beginner",
       length: "1-2",
       format: "dialogue",
       accent: "gb",
       topic:
-        "a student checking in for a flight home to Taipei, with a bag that is slightly overweight",
+        "asking a pharmacist for something for a cold, and how often to take it",
     },
     {
-      scenario: "bank-account",
+      scenario: "hotel",
       level: "intermediate",
-      length: "2-3",
+      length: "1-2",
       format: "dialogue",
-      accent: "au",
+      accent: "in",
       topic:
-        "a new international student from Taiwan opening a student bank account and asking about fees and a debit card",
+        "checking in late at a hotel and finding the booked room has two beds instead of one",
     },
     {
-      scenario: "weekend-plans",
+      scenario: "course-registration",
       level: "intermediate",
       length: "1-2",
       format: "dialogue",
       accent: "us",
       topic:
-        "two classmates deciding between a hiking trip and a night market food festival",
+        "a student asking an advisor how to get into a full class and whether to join the waitlist",
     },
     {
-      scenario: "office-hours",
-      level: "intermediate",
-      length: "2-3",
+      scenario: "small-talk",
+      level: "beginner",
+      length: "1-2",
       format: "dialogue",
-      accent: "in",
+      accent: "us",
       topic:
-        "a student asking a professor how to improve a midterm essay and narrow a research question",
+        "two neighbors making small talk in an elevator about the weather and weekend plans",
     },
     {
-      scenario: "abstract",
+      scenario: "group-project",
+      level: "intermediate",
+      length: "1-2",
+      format: "dialogue",
+      accent: "au",
+      topic:
+        "a group project team dividing the work fairly and setting a deadline for the first draft",
+    },
+    {
+      scenario: "conference-talk",
+      level: "advanced",
+      length: "1-2",
+      format: "monologue",
+      accent: "us",
+      topic:
+        "the opening of a short student conference talk about how campus bike sharing changed commuting",
+    },
+    {
+      scenario: "meeting",
+      level: "intermediate",
+      length: "1-2",
+      format: "dialogue",
+      accent: "gb",
+      topic:
+        "a short team meeting to decide whether to delay a product launch by one week",
+    },
+    {
+      scenario: "news-environment",
+      level: "intermediate",
+      length: "1-2",
+      format: "monologue",
+      accent: "au",
+      topic:
+        "a news report on a coastal town replanting mangroves to protect against storms",
+    },
+    {
+      scenario: "space",
       level: "advanced",
       length: "1-2",
       format: "monologue",
       accent: "gb",
       topic:
-        "a study on how short daily listening practice affects university students' listening confidence",
+        "why astronauts lose muscle and bone strength in space, and how they exercise to stay healthy",
     },
     {
-      scenario: "job-interview",
-      level: "intermediate",
-      length: "2-3",
-      format: "dialogue",
-      accent: "au",
-      topic:
-        "a recent graduate interviewing for a junior marketing role, talking about a team project and strengths",
-    },
-    {
-      scenario: "news-tech",
+      scenario: "travel-story",
       level: "intermediate",
       length: "1-2",
-      format: "monologue",
-      accent: "us",
-      topic: "a city testing self-driving buses on a university campus route",
-    },
-    {
-      scenario: "psychology",
-      level: "advanced",
-      length: "2-3",
       format: "monologue",
       accent: "in",
       topic:
-        "why people procrastinate and what research suggests about breaking tasks into small steps",
-    },
-    {
-      scenario: "personal-growth",
-      level: "intermediate",
-      length: "2-3",
-      format: "monologue",
-      accent: "gb",
-      topic:
-        "a student who was afraid of speaking English in class and slowly built confidence",
-    },
-    {
-      scenario: "toefl-lecture-biology",
-      level: "toefl-100",
-      length: "2-3",
-      format: "monologue",
-      accent: "us",
-      topic: "how some desert plants store water and survive long droughts",
-    },
-    {
-      scenario: "ielts-part1",
-      level: "ielts-6.5",
-      length: "1-2",
-      format: "dialogue",
-      accent: "gb",
-      topic:
-        "a student phoning a sports centre to book a beginner swimming course",
-    },
-    {
-      scenario: "toeic-conversation",
-      level: "toeic-750",
-      length: "1-2",
-      format: "dialogue",
-      accent: "au",
-      topic:
-        "two coworkers rescheduling a client meeting because a shipment is delayed",
-    },
-    {
-      scenario: "gept-conversation",
-      level: "gept-intermediate",
-      length: "1-2",
-      format: "dialogue",
-      accent: "us",
-      topic:
-        "two high school students planning a group study session before an exam",
+        "a traveler's story about missing the last train in a small town and the stranger who helped",
     },
   ] as const satisfies readonly Spec[]
 ).map((spec) => ({ ...spec, customScenario: "", titleEn: "", titleZh: "" }));
@@ -237,7 +355,8 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
 
   const total = emptyTally();
   const report: string[] = [];
-  for (const spec of SPECS) {
+  // Out of budget mid-draft: stop there, still printing the report.
+  drafts: for (const spec of SPECS) {
     const request = parseGenerationRequest(spec)!;
     const meta = materialMeta(request)!;
     const { data: existing } = await admin
@@ -246,6 +365,7 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
       .eq("user_id", ownerId)
       .eq("official", true)
       .eq("scenario", meta.scenario ?? "")
+      .limit(1)
       .maybeSingle();
     if (existing) {
       console.log(`skip ${meta.scenario}: "${existing.title}" exists`);
@@ -278,6 +398,29 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
       console.log("  the written text wasn't usable; skipped");
       continue;
     }
+    // Both titles and a subtitle come with the text (D83); the rare one
+    // missing either is described in one more short call.
+    let labels = {
+      titleZh: text.titleZh,
+      subtitle: text.subtitle,
+    };
+    if (!labels.titleZh || !labels.subtitle) {
+      const input = { title: text.title, text: text.text, titleEn: text.title };
+      const described = await meteredLanguage(deps, describeBudget(input), () =>
+        deps.providers.language.describe(input),
+      );
+      if (!described.ok) {
+        console.log(`  stop: describe ${described.reason}`);
+        break;
+      }
+      const value = (described.value ?? {}) as { titleZh?: unknown };
+      labels = {
+        titleZh:
+          labels.titleZh ||
+          (typeof value.titleZh === "string" ? value.titleZh.trim() : ""),
+        subtitle: labels.subtitle || (subtitleFromModel(described.value) ?? ""),
+      };
+    }
     const body =
       spec.format === "dialogue" ? withSpeakers(text.text) : text.text;
 
@@ -306,7 +449,10 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
           to: "zh-Hant",
         },
       );
-      if (!batch.ok) throw new Error(`translate: ${batch.reason}`);
+      if (!batch.ok) {
+        console.log(`  stop: translate ${batch.reason}`);
+        break drafts;
+      }
       zh.push(...batch.value);
     }
 
@@ -317,7 +463,10 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
       sentences.map(() => null),
       Infinity,
     );
-    if (!annotated.ok) throw new Error(`notes: ${annotated.reason}`);
+    if (!annotated.ok) {
+      console.log(`  stop: notes ${annotated.reason}`);
+      break;
+    }
     const notes = annotated.value.map(
       (n) => n ?? { vocab: [], grammar: [] },
     ) as SentenceNotes[];
@@ -331,6 +480,9 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
       .insert({
         user_id: ownerId,
         title: text.title,
+        title_en: text.title,
+        title_zh: labels.titleZh || null,
+        subtitle: labels.subtitle || null,
         source_language: "en",
         voice,
         voice_b: voiceB,
@@ -397,7 +549,7 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
 
     const c = tally.current;
     const minutes = (countChars(sentences) / 15 / 60).toFixed(1);
-    const line = `${practice.id}\t${text.title}\t${meta.category}/${meta.scenario}\t${spec.format}\t${spec.accent}\t~${minutes} min\t${sentences.length} sentences\tin ${c.inputTokens} / out ${c.outputTokens} tokens\t${c.chars} chars\t${usd(c.micros)}`;
+    const line = `${practice.id}\t${text.title}｜${labels.titleZh}\t${meta.category}/${meta.scenario}\t${spec.format}\t${spec.accent}\t~${minutes} min\t${sentences.length} sentences\tin ${c.inputTokens} / out ${c.outputTokens} tokens\t${c.chars} chars\t${usd(c.micros)}`;
     console.log(`  ✓ ${line}`);
     report.push(line);
   }

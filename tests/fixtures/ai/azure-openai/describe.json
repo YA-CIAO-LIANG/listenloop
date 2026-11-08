@@ -4,11 +4,11 @@
     "messages": [
       {
         "role": "system",
-        "content": "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.\nRead the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.\nWrite it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」."
+        "content": "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.\nRead the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.\nWrite it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.\nAlso return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation."
       },
       {
         "role": "user",
-        "content": "{\"title\":\"First Order at the Coffee Shop\",\"text\":\"Hi, can I help you? Yes, please. I would like a drink and a snack. What drink would you like to try today? Maybe a latte, please. What size would you like, small, medium, or large? What is the difference between small and medium? Small is 12 ounces and medium is 16 ounces. I think I will try a medium, please. Would you like whole milk, skim milk, or soy milk? Do you have almond milk? Yes, we have almond milk too. Can I have almond milk in my latte? Sure, any flavor for your latte, like vanilla or caramel? Vanilla sounds good, please. Okay, medium vanilla latte with almond milk.\"}"
+        "content": "{\"title\":\"\",\"text\":\"Hi, can I help you? Yes, please. I'd like a latte. What size would you like? A small one, please.\"}"
       }
     ],
     "response_format": {
@@ -19,11 +19,17 @@
         "schema": {
           "type": "object",
           "properties": {
+            "titleEn": {
+              "type": "string"
+            },
+            "titleZh": {
+              "type": "string"
+            },
             "subtitle": {
               "type": "string"
             }
           },
-          "required": ["subtitle"],
+          "required": ["titleEn", "titleZh", "subtitle"],
           "additionalProperties": false
         }
       }
@@ -65,14 +71,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"subtitle\":\"咖啡店點餐對話：顧客與店員點拿鐵\"}",
+          "content": "{\"titleEn\":\"Ordering Coffee\",\"titleZh\":\"點咖啡\",\"subtitle\":\"在咖啡店內顧客與店員點餐對話\"}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794083746,
-    "id": "chatcmpl-EhhQYtz5oxdVC4dfHcKJU8MAgW1Mu",
+    "created": 1794123499,
+    "id": "chatcmpl-Ehrlj6tHc57SICwwLAyhvSbjoN13b",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -103,12 +109,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261103051020-05b5f4fd-default-r0-dp0-default"
+      "serving_pipereplica": "d20261105045246-27939950-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 35,
+      "completion_tokens": 46,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -116,21 +122,21 @@
         "rejected_prediction_tokens": 0
       },
       "latency_checkpoint": {
-        "engine_tbt_ms": 5,
-        "engine_ttft_ms": 28,
-        "engine_ttlt_ms": 262,
-        "pre_inference_ms": 92,
-        "service_tbt_ms": 5,
-        "service_ttft_ms": 570,
-        "service_ttlt_ms": 798,
-        "user_visible_ttft_ms": 478
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 31,
+        "engine_ttlt_ms": 363,
+        "pre_inference_ms": 84,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 467,
+        "service_ttlt_ms": 791,
+        "user_visible_ttft_ms": 383
       },
-      "prompt_tokens": 305,
+      "prompt_tokens": 252,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 340
+      "total_tokens": 298
     }
   }
 }
