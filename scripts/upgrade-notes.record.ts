@@ -34,8 +34,8 @@ import {
 } from "@/lib/custom-practice/notes";
 import { isRichNotes, type RichNotes } from "@/lib/custom-practice/rich-notes";
 import type { Database } from "@/lib/supabase/database.types";
-import { OFFICIAL_DAILY_LIMITS } from "@/lib/usage";
-import { emptyTally, guardedMeter, usd } from "./cost-guard";
+import { emptyTally, guardedMeter, usd, batchMeterOptions } from "./cost-guard";
+import { getUsageSettings } from "@/auth/usage-settings";
 import { DRAFT_IDS } from "./draft-ids";
 
 /**
@@ -69,6 +69,7 @@ it(
     const admin = createClient<Database>(url, key, {
       auth: { persistSession: false },
     });
+    const batchOptions = batchMeterOptions(await getUsageSettings(admin));
 
     const { data: practices, error } = await admin
       .from("practices")
@@ -112,12 +113,7 @@ it(
     if (ownerId) {
       const tally = { current: emptyTally(), total };
       const meter = guardedMeter(
-        supabaseUsageMeter(
-          admin,
-          ownerId,
-          () => new Date(),
-          OFFICIAL_DAILY_LIMITS,
-        ),
+        supabaseUsageMeter(admin, ownerId, () => new Date(), batchOptions),
         tally,
         BUDGET_USD,
       );
@@ -168,7 +164,7 @@ it(
             admin,
             practice.user_id,
             () => new Date(),
-            OFFICIAL_DAILY_LIMITS,
+            batchOptions,
           ),
           tally,
           BUDGET_USD,

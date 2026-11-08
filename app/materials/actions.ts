@@ -1,5 +1,6 @@
 "use server";
 
+import type { UsageBlock } from "@/lib/usage";
 import { revalidatePath } from "next/cache";
 import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
@@ -103,9 +104,15 @@ export async function splitText(
     : { ok: true, sentences };
 }
 
+/** Which allowance stopped an AI step, when one did (D77). */
+type LimitDetail = { limit?: UsageBlock };
+
 export type TranslateResult =
   | { ok: true; translations: string[] }
-  | { ok: false; reason: "unavailable" | "empty" | MeteredFailure };
+  | ({
+      ok: false;
+      reason: "unavailable" | "empty" | MeteredFailure;
+    } & LimitDetail);
 
 /**
  * Translates up to TRANSLATE_BATCH split sentences of a text in `language`:
@@ -146,7 +153,9 @@ export async function translateSentences(
 
 export type CreatePracticeResult =
   | { ok: true; id: string }
-  | { ok: false; reason: "unavailable" | MeteredFailure }
+  | ({ ok: false; reason: "unavailable" | MeteredFailure } & {
+      usage?: UsageBlock;
+    })
   | { ok: false; reason: "plan"; limit: PlanBlock["limit"]; max?: number }
   | { ok: false; reason: "invalid"; problem: DraftProblem; sentence?: number };
 
@@ -196,7 +205,9 @@ export async function createPractice(
       missing.map((sentence) => sentence.en),
       { from: "en", to: "zh-Hant" },
     );
-    if (!translated.ok) return translated;
+    if (!translated.ok) {
+      return { ok: false, reason: translated.reason, usage: translated.limit };
+    }
     let next = 0;
     draft.sentences = draft.sentences.map((sentence) =>
       sentence.zh ? sentence : { ...sentence, zh: translated.value[next++] },
@@ -264,12 +275,12 @@ async function savePractice(
 
 export type GenerateAudioResult =
   | { ok: true; voiced: number; total: number }
-  | {
+  | ({
       ok: false;
       reason: "unavailable" | "not-found" | MeteredFailure;
       voiced?: number;
       total?: number;
-    };
+    } & LimitDetail);
 
 /**
  * Generates audio for the next few sentences of one of the user's
@@ -326,14 +337,23 @@ export async function generatePracticeAudio(
   const voiced = total - missing.length + batch.done.length;
   if (voiced === total) revalidatePath("/materials");
   if (batch.stopped) {
-    return { ok: false, reason: batch.stopped, voiced, total };
+    return {
+      ok: false,
+      reason: batch.stopped,
+      voiced,
+      total,
+      limit: batch.limit,
+    };
   }
   return { ok: true, voiced, total };
 }
 
 export type GenerateNotesResult =
   | { ok: true; annotated: number; total: number }
-  | { ok: false; reason: "unavailable" | "not-found" | MeteredFailure };
+  | ({
+      ok: false;
+      reason: "unavailable" | "not-found" | MeteredFailure;
+    } & LimitDetail);
 
 /**
  * Makes the vocabulary and grammar notes for one of the user's practices
@@ -412,7 +432,10 @@ export async function generatePracticeNotes(
 
 export type GenerateTextResult =
   | { ok: true; title: string; text: string }
-  | { ok: false; reason: "unavailable" | "invalid" | MeteredFailure };
+  | ({
+      ok: false;
+      reason: "unavailable" | "invalid" | MeteredFailure;
+    } & LimitDetail);
 
 /**
  * Writes new English practice text with the language model (e+ 5, D36)

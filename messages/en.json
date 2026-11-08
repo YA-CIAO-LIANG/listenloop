@@ -1155,7 +1155,28 @@
         "not-configured": "The setup is incomplete, so there’s nothing to test: see which condition fails in “Setup check” above.",
         "network": "Couldn’t reach the server; the site may have just been updated. Reload the page and try again."
       }
-    }
+    },
+    "settings": {
+      "title": "AI limits",
+      "intro": "Daily AI cost limits are counted by role and kind of work: batch jobs (upgrading notes, subtitles) never use up the allowance for creating by hand. The site's monthly cap protects the Azure student credit: past it, regular users can't create, while admins still can by hand.",
+      "currency": "US$",
+      "fields": {
+        "adminManualMicros": "Admin, by hand (a day)",
+        "adminBatchMicros": "Admin, batch jobs (a day)",
+        "paidMicros": "Paid users (a day)",
+        "freeMicros": "Free users (a day)",
+        "siteMonthlyMicros": "Whole site, a month"
+      },
+      "note": "In US dollars, 0–100. Resets at midnight Taiwan time each day, and on the 1st each month.",
+      "save": "Save limits",
+      "saved": "Saved.",
+      "errors": {
+        "unavailable": "Only admins can change this.",
+        "invalid": "Enter a number from 0 to 100.",
+        "failed": "Couldn't save. Try again later."
+      }
+    },
+    "monthCapNote": "Site cap {cap}"
   },
   "generate": {
     "sourceLegend": "Text source",
@@ -1278,7 +1299,10 @@
       "activeLearners": "Active learners",
       "minutes": "Minutes",
       "activeCount": "{n} learners",
-      "minutesCount": "{n} min"
+      "minutesCount": "{n} min",
+      "capWarning": "This month's AI spend is at {share} of the site cap ({cap}); at the cap, regular users can't create.",
+      "capReached": "This month's AI spend has reached the site cap ({cap}): regular users can't create; admins still can by hand.",
+      "capLink": "Change the limits →"
     },
     "users": {
       "title": "Users",
@@ -1848,5 +1872,12 @@
     "level": "Level",
     "count": "Materials",
     "table": "Show the data table"
+  },
+  "usageLimit": {
+    "daily": "You've reached today's AI limit. It resets {when} (Taiwan time). What you've entered is still on the page.",
+    "batch": "Today's batch allowance is used up. It resets {when} (Taiwan time); creating by hand isn't affected.",
+    "monthly": "The site's AI allowance for this month is used up, so new practices are paused until {when} (Taiwan time).",
+    "speech": "Today's speech allowance is used up. It resets {when} (Taiwan time); audio already made is kept.",
+    "adminLink": "See usage on the dashboard →"
   }
 }

@@ -1318,3 +1318,20 @@
 - **決定**：新增 `tap` 工具類別（`app/globals.css`），只在觸控裝置把元素撐到 44px，滑鼠操作的外觀不變；後台欄位加 `pointer-coarse:min-h-11`。段落中的行內連結不改。
 - **順便**：首頁的標語和產品介紹標題幾乎一樣，介紹標題改成「怎麼練：七天一個循環」。
 - **要改時**：`app/globals.css`（`tap`）、`components/SiteHeader.tsx`、`components/SiteFooter.tsx`。
+
+## D77 AI 額度：依身分與工作類型分開，加上全站每月上限（2026-11-08，第二輪 1）
+
+- **決定**（Joe 指定）：
+  - 每日 AI 費用上限：管理員手動 US$1.00、管理員批次 US$1.00、付費使用者 US$0.20、免費使用者 US$0.05；
+  - 全站每月 AI 費用總上限 US$8（保護 Azure 學生額度），超過時暫停一般使用者建立，管理員仍可手動建立；
+  - 達到 80% 時，後台總覽顯示警告。
+- **做法**：
+  - 預設值在 `lib/usage.ts` 的 `DEFAULT_USAGE_SETTINGS`；管理員在 `/admin/usage` 的「AI 額度設定」修改，存在 `usage_settings`（只有伺服器能讀寫），每次修改寫進管理稽核。讀不到設定時一律用預設值，不會因為設定出錯而解除上限。
+  - 批次作業（講解升級、副標、建立官方草稿的腳本、後台的批次重新產生講解）記在新的 `api_batch_cost`，和手動的 `api_daily_cost` 分開，所以批次不會用掉手動建立的額度。
+  - 每月上限用 `month_api_cost` 加總本月（台灣時間）`api_calls` 的費用，在預留之前檢查；管理員不檢查。
+- **合理的預設**：
+  - 每月上限的檢查不是原子操作：多人同時建立時可能稍微超過。上限是保護用的，誤差只有一次呼叫的大小，可以接受。
+  - 聲音仍用每日字元上限（16,000；批次 120,000），因為 F0 免費，真正的限制是每月 50 萬字元。
+  - 提示文字依類型（每日、批次、每月、聲音）說明何時重設（台灣時間，24 小時制）；管理員另外看到「查看後台用量 →」。
+  - 舊的「每人每天 US$0.50」不再使用。
+- **要改時**：`lib/usage.ts`、`auth/creator.ts`（`supabaseUsageMeter`、`creatorMeter`、`getBatchCreator`）、`auth/usage-settings.ts`、`components/UsageLimitMessage.tsx`、`supabase/migrations/20261108180000_usage_buckets.sql`。

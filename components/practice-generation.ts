@@ -1,3 +1,4 @@
+import type { UsageBlock } from "@/lib/usage";
 import type {
   GenerateAudioResult,
   GenerateNotesResult,
@@ -77,6 +78,8 @@ export type PrepareDraftResult =
         | "network";
       /** For too-long: the most characters allowed. */
       max?: number;
+      /** For limit: which allowance ran out (D77). */
+      limit?: UsageBlock;
     };
 
 /**
@@ -256,6 +259,7 @@ export type GenerationResult =
         GenerateNotesResult | GenerateAudioResult,
         { ok: true }
       >["reason"];
+      limit?: UsageBlock;
     };
 
 /**
@@ -277,7 +281,14 @@ export async function prepareForPractice(
       practiceId,
       (done, total) => onStage({ stage: "notes", done, total }),
     );
-    if (!notes.ok) return { ok: false, stage: "notes", reason: notes.reason };
+    if (!notes.ok) {
+      return {
+        ok: false,
+        stage: "notes",
+        reason: notes.reason,
+        limit: "limit" in notes ? notes.limit : undefined,
+      };
+    }
   }
   let voiced = { done: 0, total };
   const audio = await generateAllAudio(
@@ -294,5 +305,10 @@ export async function prepareForPractice(
   );
   return audio.ok
     ? { ok: true }
-    : { ok: false, stage: "audio", reason: audio.reason };
+    : {
+        ok: false,
+        stage: "audio",
+        reason: audio.reason,
+        limit: "limit" in audio ? audio.limit : undefined,
+      };
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { UsageLimitMessage } from "./UsageLimitMessage";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
@@ -105,8 +106,17 @@ export function PracticeReadiness({
       </div>
       {error && (
         <p role="alert" className="text-supporting text-error">
-          {t(
-            `${error.stage === "notes" ? "notesErrors" : "audioErrors"}.${error.reason}`,
+          {error.reason === "limit" && error.limit ? (
+            <UsageLimitMessage
+              block={error.limit}
+              fallback={t(
+                `${error.stage === "notes" ? "notesErrors" : "audioErrors"}.limit`,
+              )}
+            />
+          ) : (
+            t(
+              `${error.stage === "notes" ? "notesErrors" : "audioErrors"}.${error.reason}`,
+            )
           )}
         </p>
       )}

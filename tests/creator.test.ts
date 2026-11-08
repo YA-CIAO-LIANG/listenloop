@@ -109,7 +109,7 @@ describe("supabaseUsageMeter", () => {
       target_user: "user-1",
       usage_day: "2026-11-04",
       amount: 900,
-      max_micros: 500_000,
+      max_micros: 50_000,
     });
     // Past midnight in Taiwan, the call still settles on its own day.
     now = new Date("2026-11-04T16:01:00Z");
@@ -146,6 +146,65 @@ describe("supabaseUsageMeter", () => {
       chars: 5,
       cost_micros: 3,
     });
+  });
+
+  it("keeps batch jobs on their own allowance (D77)", async () => {
+    const meter = supabaseUsageMeter(
+      admin(),
+      "admin-1",
+      () => new Date("2026-11-04T01:00:00Z"),
+      { limits: { speech: 1, cost: 1_000_000 }, bucket: "batch" },
+    );
+    await meter.reserve("cost", 900);
+    expect(state.rpc).toHaveBeenCalledWith("reserve_api_batch_cost", {
+      target_user: "admin-1",
+      usage_day: "2026-11-04",
+      amount: 900,
+      max_micros: 1_000_000,
+    });
+    await meter.settle(-100);
+    expect(state.rpc).toHaveBeenLastCalledWith("settle_api_batch_cost", {
+      target_user: "admin-1",
+      usage_day: "2026-11-04",
+      delta: -100,
+    });
+  });
+
+  it("names the allowance that ran out and when it resets (D77)", async () => {
+    const now = () => new Date("2026-11-04T01:00:00Z");
+    state.rpc.mockResolvedValue({ data: false, error: null });
+    const daily = supabaseUsageMeter(admin(), "user-1", now);
+    expect(await daily.reserve("cost", 1)).toBe(false);
+    // Taiwan midnight after 2026-11-04 09:00 local.
+    expect(daily.lastBlock?.()).toEqual({
+      kind: "daily",
+      resetsAt: "2026-11-04T16:00:00.000Z",
+    });
+    expect(await daily.reserve("speech", 1)).toBe(false);
+    expect(daily.lastBlock?.()?.kind).toBe("speech");
+  });
+
+  it("stops everyone but admins at the site's monthly cap (D77)", async () => {
+    const now = () => new Date("2026-11-20T01:00:00Z");
+    state.rpc.mockImplementation(async (name: string) =>
+      name === "month_api_cost"
+        ? { data: 7_999_500, error: null }
+        : { data: true, error: null },
+    );
+    const capped = supabaseUsageMeter(admin(), "user-1", now, {
+      monthlyMicros: 8_000_000,
+    });
+    expect(await capped.reserve("cost", 400)).toBe(true);
+    expect(await capped.reserve("cost", 600)).toBe(false);
+    expect(capped.lastBlock?.()).toEqual({
+      kind: "monthly",
+      resetsAt: "2026-11-30T16:00:00.000Z",
+    });
+    expect(state.rpc).toHaveBeenCalledWith("month_api_cost", {
+      month_start: "2026-10-31T16:00:00.000Z",
+    });
+    const uncapped = supabaseUsageMeter(admin(), "admin-1", now);
+    expect(await uncapped.reserve("cost", 600)).toBe(true);
   });
 
   it("reports the limit, and throws on database errors", async () => {

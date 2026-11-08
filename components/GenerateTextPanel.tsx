@@ -1,5 +1,7 @@
 "use client";
 
+import { UsageLimitMessage } from "./UsageLimitMessage";
+import type { UsageBlock } from "@/lib/usage";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 import {
@@ -99,6 +101,7 @@ export function GenerateTextPanel({
   const [error, setError] = useState<
     Extract<GenerateTextResult, { ok: false }>["reason"] | null
   >(null);
+  const [usage, setUsage] = useState<UsageBlock | undefined>(undefined);
 
   const isExam = category === EXAM_CATEGORY;
   const currentExam = EXAMS.find((e) => e.id === exam) ?? EXAMS[0];
@@ -146,6 +149,7 @@ export function GenerateTextPanel({
     setPending(false);
     if (!result.ok) {
       setError(result.reason);
+      setUsage(result.limit);
       return;
     }
     onGenerated({
@@ -308,7 +312,11 @@ export function GenerateTextPanel({
       </Button>
       {error && (
         <p role="alert" className="text-supporting text-error">
-          {t(`errors.${error}`)}
+          {error === "limit" ? (
+            <UsageLimitMessage block={usage} fallback={t("errors.limit")} />
+          ) : (
+            t(`errors.${error}`)
+          )}
         </p>
       )}
     </div>

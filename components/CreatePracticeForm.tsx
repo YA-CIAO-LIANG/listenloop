@@ -1,5 +1,7 @@
 "use client";
 
+import type { UsageBlock } from "@/lib/usage";
+import { UsageLimitMessage } from "./UsageLimitMessage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -67,7 +69,12 @@ type CreatePracticeFormProps = {
 };
 
 type FormError =
-  | { key: Exclude<PrepareDraftResult, { ok: true }>["reason"]; max?: number }
+  | {
+      key: Exclude<PrepareDraftResult, { ok: true }>["reason"];
+      max?: number;
+      /** For limit: which allowance ran out (D77). */
+      usage?: UsageBlock;
+    }
   | { key: "plan"; limit: PlanBlock["limit"]; max?: number }
   | { key: "file-too-large" | "file-type" | "file-encoding" | "file-read" }
   | {
@@ -126,6 +133,8 @@ export function CreatePracticeForm({
     success: boolean;
     /** A practice was saved: offer the way to My materials. */
     created?: boolean;
+    /** Notes or audio stopped at a limit: which one (D77). */
+    usage?: UsageBlock;
   } | null>(null);
 
   const chars = countChars([text]);
@@ -204,6 +213,7 @@ export function CreatePracticeForm({
       setError({
         key: result.reason,
         max: result.max,
+        usage: result.limit,
       });
       return;
     }
@@ -231,7 +241,7 @@ export function CreatePracticeForm({
           ? { key: result.problem, sentence: result.sentence }
           : result.reason === "plan"
             ? { key: "plan", limit: result.limit, max: result.max }
-            : { key: result.reason },
+            : { key: result.reason, usage: result.usage },
       );
       return;
     }
@@ -253,7 +263,12 @@ export function CreatePracticeForm({
             created: true,
           }
         : {
-            message: `${t("createdIncomplete", { title: createdTitle })} ${t(`${ready.stage === "notes" ? "notesErrors" : "audioErrors"}.${ready.reason}`)}`,
+            // With a limit's details, the reason is UsageLimitMessage's.
+            message:
+              ready.reason === "limit" && ready.limit
+                ? t("createdIncomplete", { title: createdTitle })
+                : `${t("createdIncomplete", { title: createdTitle })} ${t(`${ready.stage === "notes" ? "notesErrors" : "audioErrors"}.${ready.reason}`)}`,
+            usage: ready.reason === "limit" ? ready.limit : undefined,
             success: false,
             created: true,
           },
@@ -276,24 +291,28 @@ export function CreatePracticeForm({
 
   const errorMessage = error && (
     <p role="alert" className="text-supporting text-error">
-      {error.key === "plan"
-        ? tPlans(`limits.${error.limit}`, { max: error.max ?? 0 })
-        : t(`errors.${error.key}`, {
-            max:
-              "max" in error && error.max !== undefined
-                ? error.max
-                : error.key === "too-long"
-                  ? PRACTICE_LIMITS.textChars
-                  : error.key === "too-many"
-                    ? PRACTICE_LIMITS.sentences
-                    : error.key === "title"
-                      ? PRACTICE_LIMITS.titleChars
-                      : PRACTICE_LIMITS.sentenceChars,
-            n:
-              "sentence" in error && error.sentence !== undefined
-                ? error.sentence + 1
-                : 0,
-          })}
+      {error.key === "plan" ? (
+        tPlans(`limits.${error.limit}`, { max: error.max ?? 0 })
+      ) : error.key === "limit" && "usage" in error && error.usage ? (
+        <UsageLimitMessage block={error.usage} fallback={t("errors.limit")} />
+      ) : (
+        t(`errors.${error.key}`, {
+          max:
+            "max" in error && error.max !== undefined
+              ? error.max
+              : error.key === "too-long"
+                ? PRACTICE_LIMITS.textChars
+                : error.key === "too-many"
+                  ? PRACTICE_LIMITS.sentences
+                  : error.key === "title"
+                    ? PRACTICE_LIMITS.titleChars
+                    : PRACTICE_LIMITS.sentenceChars,
+          n:
+            "sentence" in error && error.sentence !== undefined
+              ? error.sentence + 1
+              : 0,
+        })
+      )}
     </p>
   );
 
@@ -630,6 +649,12 @@ export function CreatePracticeForm({
           className={`text-supporting ${notice.success ? "text-success" : "text-ink-muted"}`}
         >
           {notice.message}
+          {notice.usage && (
+            <>
+              {" "}
+              <UsageLimitMessage block={notice.usage} fallback="" />
+            </>
+          )}
         </p>
       )}
       {notice?.created && (

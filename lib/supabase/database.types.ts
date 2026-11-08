@@ -90,6 +90,24 @@ export type Database = {
         };
         Relationships: [];
       };
+      api_batch_cost: {
+        Row: {
+          day: string;
+          micros: number;
+          user_id: string;
+        };
+        Insert: {
+          day: string;
+          micros?: number;
+          user_id: string;
+        };
+        Update: {
+          day?: string;
+          micros?: number;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       api_calls: {
         Row: {
           chars: number;
@@ -644,6 +662,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      usage_settings: {
+        Row: {
+          admin_batch_micros: number;
+          admin_manual_micros: number;
+          free_micros: number;
+          id: number;
+          paid_micros: number;
+          site_monthly_micros: number;
+          updated_at: string;
+        };
+        Insert: {
+          admin_batch_micros?: number;
+          admin_manual_micros?: number;
+          free_micros?: number;
+          id?: number;
+          paid_micros?: number;
+          site_monthly_micros?: number;
+          updated_at?: string;
+        };
+        Update: {
+          admin_batch_micros?: number;
+          admin_manual_micros?: number;
+          free_micros?: number;
+          id?: number;
+          paid_micros?: number;
+          site_monthly_micros?: number;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       user_documents: {
         Row: {
           data: Json;
@@ -733,6 +781,7 @@ export type Database = {
           video_id: string;
         }[];
       };
+      month_api_cost: { Args: { month_start: string }; Returns: number };
       practice_audio_bytes: {
         Args: { ids: string[] };
         Returns: {
@@ -742,6 +791,15 @@ export type Database = {
         }[];
       };
       prune_logs: { Args: never; Returns: undefined };
+      reserve_api_batch_cost: {
+        Args: {
+          amount: number;
+          max_micros: number;
+          target_user: string;
+          usage_day: string;
+        };
+        Returns: boolean;
+      };
       reserve_api_cost: {
         Args: {
           amount: number;
@@ -774,6 +832,10 @@ export type Database = {
           target: string;
         };
         Returns: number;
+      };
+      settle_api_batch_cost: {
+        Args: { delta: number; target_user: string; usage_day: string };
+        Returns: undefined;
       };
       settle_api_cost: {
         Args: { delta: number; target_user: string; usage_day: string };

@@ -1153,7 +1153,28 @@
         "not-configured": "設定不完整，無法測試：請先看上方「設定診斷」哪一項不成立。",
         "network": "連不上伺服器，可能是網站剛更新。請重新整理頁面後再試。"
       }
-    }
+    },
+    "settings": {
+      "title": "AI 額度設定",
+      "intro": "每天的 AI 費用上限依身分與工作類型分開計算：批次作業（講解升級、副標）不會占用手動建立的額度。全站每月上限保護 Azure 學生額度，超過時暫停一般使用者建立，管理員仍可手動建立。",
+      "currency": "US$",
+      "fields": {
+        "adminManualMicros": "管理員手動（每天）",
+        "adminBatchMicros": "管理員批次（每天）",
+        "paidMicros": "付費使用者（每天）",
+        "freeMicros": "免費使用者（每天）",
+        "siteMonthlyMicros": "全站每月總上限"
+      },
+      "note": "以美元輸入，0～100。台灣時間每天 0 點、每月 1 日重設。",
+      "save": "儲存額度",
+      "saved": "已儲存。",
+      "errors": {
+        "unavailable": "只有管理員可以變更。",
+        "invalid": "請輸入 0 到 100 之間的數字。",
+        "failed": "儲存失敗，請稍後再試。"
+      }
+    },
+    "monthCapNote": "全站上限 {cap}"
   },
   "generate": {
     "sourceLegend": "文字來源",
@@ -1276,7 +1297,10 @@
       "activeLearners": "活躍人數",
       "minutes": "練習分鐘",
       "activeCount": "{n} 人",
-      "minutesCount": "{n} 分鐘"
+      "minutesCount": "{n} 分鐘",
+      "capWarning": "本月 AI 花費已達全站上限 {cap} 的 {share}，接近上限時一般使用者會暫停建立。",
+      "capReached": "本月 AI 花費已達全站上限 {cap}，一般使用者已暫停建立；管理員仍可手動建立。",
+      "capLink": "調整額度 →"
     },
     "users": {
       "title": "使用者",
@@ -1844,5 +1868,12 @@
     "level": "程度",
     "count": "份數",
     "table": "查看資料表"
+  },
+  "usageLimit": {
+    "daily": "你今天的 AI 用量已達每日上限，{when}（台灣時間）重設。已輸入的內容還在頁面上。",
+    "batch": "今天的批次作業額度已用完，{when}（台灣時間）重設；手動建立不受影響。",
+    "monthly": "本月全站的 AI 額度已用完，暫停建立新練習，{when}（台灣時間）恢復。",
+    "speech": "今天的聲音用量已用完，{when}（台灣時間）重設。已產生的音檔會保留。",
+    "adminLink": "查看後台用量 →"
   }
 }

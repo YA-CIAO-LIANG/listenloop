@@ -4,7 +4,9 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
 import { ConnectionTest } from "@/components/ConnectionTest";
 import { diagnoseCreator, getAdminUser } from "@/auth/creator";
-import { DAILY_LIMITS } from "@/lib/usage";
+import { getUsageSettings } from "@/auth/usage-settings";
+import { UsageSettingsForm } from "@/components/UsageSettingsForm";
+import { DAILY_LIMITS, DEFAULT_USAGE_SETTINGS } from "@/lib/usage";
 import {
   AZURE_CREDIT,
   AZURE_SPEECH_FREE_CHARS,
@@ -58,6 +60,9 @@ export default async function UsagePage() {
           .limit(RECENT_CALLS),
       ])
     : [{ data: null }, { data: null }];
+  const settings = admin
+    ? await getUsageSettings(admin)
+    : DEFAULT_USAGE_SETTINGS;
   const totals = totalsRows?.[0] ?? {
     today_micros: 0,
     today_calls: 0,
@@ -83,13 +88,13 @@ export default async function UsagePage() {
       value: usd(totals.today_micros),
       note: t("todayNote", {
         calls: totals.today_calls,
-        limit: usd(DAILY_LIMITS.cost),
+        limit: usd(settings.adminManualMicros),
       }),
     },
     {
       label: t("month"),
       value: usd(totals.month_micros),
-      note: t("monthNote"),
+      note: t("monthCapNote", { cap: usd(settings.siteMonthlyMicros) }),
     },
     {
       label: t("credit"),
@@ -119,6 +124,21 @@ export default async function UsagePage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
+
+      {admin && (
+        <section
+          className="mt-8 max-w-practice rounded-base border border-line bg-surface p-6"
+          aria-labelledby="usage-settings"
+        >
+          <h2 id="usage-settings" className="font-display text-h3">
+            {t("settings.title")}
+          </h2>
+          <p className="mt-2 mb-6 text-supporting text-ink-muted">
+            {t("settings.intro")}
+          </p>
+          <UsageSettingsForm settings={settings} />
+        </section>
+      )}
 
       <section
         className="rounded mt-8 max-w-practice border border-line bg-surface p-6"

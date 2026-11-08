@@ -15,7 +15,8 @@
  * stopped run can simply be started again. Every call is in api_calls.
  */
 import { createClient } from "@supabase/supabase-js";
-import { emptyTally, guardedMeter, usd } from "./cost-guard";
+import { emptyTally, guardedMeter, usd, batchMeterOptions } from "./cost-guard";
+import { getUsageSettings } from "@/auth/usage-settings";
 import { expect, it } from "vitest";
 import { supabaseAiCache } from "@/auth/ai-cache";
 import { supabaseAudioStore } from "@/auth/audio-store";
@@ -43,7 +44,7 @@ import {
 } from "@/lib/custom-practice/notes";
 import { speakerLines, withSpeakers } from "@/lib/custom-practice/speakers";
 import type { Database } from "@/lib/supabase/database.types";
-import { countChars, OFFICIAL_DAILY_LIMITS } from "@/lib/usage";
+import { countChars } from "@/lib/usage";
 
 /** Joe's approved total for tonight's real calls (2026-11-07). */
 const BUDGET_USD = 1.0;
@@ -196,6 +197,7 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
   const admin = createClient<Database>(url, key, {
     auth: { persistSession: false },
   });
+  const batchOptions = batchMeterOptions(await getUsageSettings(admin));
   const { data: owner } = await admin
     .from("profiles")
     .select("user_id")
@@ -248,12 +250,7 @@ it("makes the official drafts", { timeout: 3_600_000 }, async () => {
     const deps = {
       providers: providers!,
       meter: guardedMeter(
-        supabaseUsageMeter(
-          admin,
-          ownerId,
-          () => new Date(),
-          OFFICIAL_DAILY_LIMITS,
-        ),
+        supabaseUsageMeter(admin, ownerId, () => new Date(), batchOptions),
         tally,
         BUDGET_USD,
       ),
