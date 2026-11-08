@@ -4,7 +4,13 @@ import { join } from "node:path";
 import type { Browser, Page } from "@playwright/test";
 import mock from "../e2e/mock-supabase/practices.json";
 import { USAGE_NOTICE_COOKIE } from "../lib/notices";
-import { setToday, signInAsAdmin, signInAsAuthor, test } from "../e2e/fixtures";
+import {
+  setToday,
+  signInAsAdmin,
+  signInAsAuthor,
+  signInAsPaid,
+  test,
+} from "../e2e/fixtures";
 
 /**
  * The QA sweep (docs/qa-log.md): opens every page in every combination of
@@ -25,9 +31,11 @@ const PHONE_MAX = 414;
 /** Slower than this to load (the E2E build on this machine) is a finding. */
 const SLOW_MS = 3000;
 
-type Role = "none" | "author" | "admin";
+type Role = "none" | "author" | "admin" | "paid";
+/** Something to do on the page before checking it (an open panel, a step). */
+type Step = (page: Page) => Promise<void>;
 const ready = mock.ready.id;
-const PAGES: { path: string; role: Role }[] = [
+const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
   ...[
     "/",
     "/explore",
@@ -75,6 +83,39 @@ const PAGES: { path: string; role: Role }[] = [
           "/admin/audit",
           "/admin/sentences",
         ].map((path) => ({ path, role: "admin" as const })),
+        // States behind a click: forms past their first step.
+        {
+          path: "/materials/new",
+          role: "author" as const,
+          state: "ai-panel",
+          then: async (page: Page) => {
+            await page.getByText(/^(AI 生成|Write with AI)$/).click();
+          },
+        },
+        {
+          path: "/materials/new",
+          role: "paid" as const,
+          state: "youtube-review",
+          then: async (page: Page) => {
+            await page.getByText(/^(YouTube 連結|YouTube link)$/).click();
+            await page
+              .getByLabel(/YouTube 影片連結|YouTube video link/)
+              .fill("ccVideo0001");
+            await page
+              .getByRole("button", { name: /讀取影片|Read the video/ })
+              .click();
+            await page
+              .getByLabel(/字幕記錄|Transcript/)
+              .fill(
+                "0:01\nso how does\n0:03\nsleep work?\n0:05\nLet's find out.",
+              );
+            await page
+              .getByRole("button", { name: /斷句並翻譯|Split and translate/ })
+              .click();
+            await page.getByText("0:01–0:04").waitFor();
+          },
+        },
+        { path: "/videos/sintel", role: "paid" as const },
       ]),
 ];
 
@@ -248,6 +289,7 @@ function inspect(minTarget: number) {
 async function signIn(page: Page, role: Role) {
   if (role === "author") await signInAsAuthor(page);
   if (role === "admin") await signInAsAdmin(page);
+  if (role === "paid") await signInAsPaid(page);
 }
 
 async function open(browser: Browser, combo: Combo, role: Role) {
@@ -290,15 +332,17 @@ const COMBOS: Combo[] = WIDTHS.flatMap((width) =>
   ),
 );
 
-test.setTimeout(600_000);
+// Pages with a step (an open form) take longer for 20 combinations.
+test.setTimeout(1_200_000);
 
-for (const { path, role } of PAGES) {
-  test(`${role} ${path}`, async ({ browser }) => {
+for (const { path, role, state, then } of PAGES) {
+  const name = state ? `${path}#${state}` : path;
+  test(`${role} ${name}`, async ({ browser }) => {
     mkdirSync(OUT, { recursive: true });
     const record = (combo: Combo, finding: Finding) =>
       appendFileSync(
         FINDINGS,
-        JSON.stringify({ page: path, role, ...combo, ...finding }) + "\n",
+        JSON.stringify({ page: name, role, ...combo, ...finding }) + "\n",
       );
     const linkSet = new Set<string>();
 
@@ -334,6 +378,14 @@ for (const { path, role } of PAGES) {
       }
       if (took > SLOW_MS) record(combo, { kind: "slow", detail: `${took} ms` });
       await page.waitForLoadState("networkidle").catch(() => {});
+      if (then) {
+        await then(page).catch((error: Error) =>
+          record(combo, {
+            kind: "status",
+            detail: `step failed: ${error.message.slice(0, 150)}`,
+          }),
+        );
+      }
       const minTarget = combo.width <= PHONE_MAX ? 44 : 24;
       const { findings, links } = await page.evaluate(inspect, minTarget);
       for (const finding of findings) record(combo, finding as Finding);

@@ -1,9 +1,10 @@
 import {
+  parseSavedFilter,
   practiceLibraryItem,
   videoLibraryItem,
   type LibraryItem,
 } from "@/lib/library";
-import { audioSeconds } from "@/lib/library-config";
+import { audioSeconds, LIBRARY_DEFAULT_DOCUMENT } from "@/lib/library-config";
 import {
   customPracticeId,
   parseCustomPracticeId,
@@ -11,6 +12,7 @@ import {
 import { getAllVideos } from "@/lib/video-library";
 import { listOfficialPractices } from "./public-practices";
 import { getServerSupabase } from "./server";
+import { getSignedInUser } from "./session";
 
 /** How many people practice each material, by its id in links. */
 export async function learnerCounts(): Promise<Map<string, number>> {
@@ -64,4 +66,25 @@ export async function getLibraryItems(): Promise<LibraryItem[]> {
       videoLibraryItem(video, learners.get(video.id)),
     ),
   ];
+}
+
+/**
+ * The signed-in learner's saved default filter (D98), as its query
+ * string; undefined when signed out (the browser keeps theirs), null
+ * when they haven't saved one.
+ */
+export async function getSavedLibraryDefault(): Promise<
+  string | null | undefined
+> {
+  const user = await getSignedInUser();
+  const supabase = user ? await getServerSupabase() : null;
+  if (!user || !supabase) return undefined;
+  const { data } = await supabase
+    .from("user_documents")
+    .select("data")
+    .eq("user_id", user.id)
+    .eq("key", LIBRARY_DEFAULT_DOCUMENT)
+    .maybeSingle();
+  const filter = (data?.data as { filter?: unknown } | null)?.filter;
+  return parseSavedFilter(filter) ? (filter as string) : null;
 }

@@ -101,7 +101,7 @@ describe("MaterialLibraryView", () => {
     expect(card.textContent).toContain("考試聽力");
     expect(card.textContent).toContain("中級");
     expect(card.textContent).toContain("多益 TOEIC 風格 · 目標 750 分");
-    expect(card.textContent).toContain("2 分 5 秒 · 澳洲英語 · 每天約 9 分鐘");
+    expect(card.textContent).toContain("2 分 5 秒 · 澳洲英語 · 每天約 8 分鐘");
     expect(screen.getAllByRole("link")[2].textContent).toContain(
       "少女尋找小龍",
     );

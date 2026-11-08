@@ -145,3 +145,42 @@ for (const scheme of ["light", "dark"] as const) {
     ).toEqual([]);
   });
 }
+
+test("signed out, a saved default filter opens the library with it next time (D98)", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  const sidebar = page.getByRole("complementary", { name: "篩選" });
+  await sidebar
+    .getByRole("group", { name: "程度" })
+    .getByRole("button", { name: /初級/ })
+    .click();
+  await expect(page).toHaveURL(/level=beginner/);
+  await sidebar.getByRole("button", { name: "存為我的預設篩選" }).click();
+  await expect(sidebar.getByText(/已存在這個瀏覽器/)).toBeVisible();
+
+  await page.goto("/");
+  await expect(page).toHaveURL(/level=beginner/);
+  await expect(
+    sidebar.getByRole("button", { name: "✓ 這是我的預設篩選" }),
+  ).toBeDisabled();
+  // A link with its own filter keeps it.
+  await page.goto("/?level=intermediate");
+  await expect(page).toHaveURL(/level=intermediate/);
+  await expect(page).not.toHaveURL(/beginner/);
+});
+
+test("the time choices are 5 to 30 minutes, one tap to filter (D98)", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const time = page.getByRole("group", { name: "我今天有幾分鐘？" });
+  for (const minutes of [5, 10, 15, 20, 30]) {
+    await expect(
+      time.getByRole("button", { name: new RegExp(`^${minutes} 分鐘內`) }),
+    ).toBeVisible();
+  }
+  await time.getByRole("button", { name: /^5 分鐘內/ }).click();
+  await expect(page).toHaveURL(/min=5/);
+});

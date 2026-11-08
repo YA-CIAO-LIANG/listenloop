@@ -4,7 +4,6 @@ import { VOICE_ACCENTS } from "@/lib/ai/types";
 import type { PublicPracticeSummary } from "@/lib/custom-practice/explore";
 import {
   activeFilterCount,
-  estimateMinutes,
   filterLibrary,
   NO_LIBRARY_FILTER,
   parseLibraryParams,
@@ -15,7 +14,14 @@ import {
   type LibraryFilter,
   type LibraryItem,
 } from "@/lib/library";
-import { audioSeconds, PRACTICE_TIME_FACTOR } from "@/lib/library-config";
+import { audioSeconds, TIME_BUDGETS } from "@/lib/library-config";
+import {
+  averageDaySeconds,
+  dailyMinutes,
+  dayEstimateSeconds,
+  personalPace,
+} from "@/lib/library-time";
+import { parseSavedFilter, savedFilterString } from "@/lib/library";
 import { getAllVideos } from "@/lib/video-library";
 import { videoAccents } from "@/lib/videos";
 
@@ -46,14 +52,59 @@ const filter = (over: Partial<LibraryFilter>): LibraryFilter => ({
 
 const ids = (items: LibraryItem[]) => items.map((i) => i.id);
 
-describe("estimateMinutes", () => {
-  it("is the length times the factor, rounded up", () => {
-    expect(estimateMinutes(60)).toBe(PRACTICE_TIME_FACTOR);
-    expect(estimateMinutes(61)).toBe(PRACTICE_TIME_FACTOR + 1);
+describe("a day's practice time (D98)", () => {
+  const material = { seconds: 60, sentenceCount: 10 };
+
+  it("is length × 4 + 10 s a sentence for dictation, length × 3 for shadowing", () => {
+    expect(dayEstimateSeconds("dictation", material)).toBe(340);
+    expect(dayEstimateSeconds("shadowing", material)).toBe(180);
+    // A week: 2 dictation days and 5 shadowing days.
+    expect(averageDaySeconds(material)).toBeCloseTo((2 * 340 + 5 * 180) / 7);
+    expect(dailyMinutes(material)).toBe(4);
+    expect(dailyMinutes({ seconds: 0, sentenceCount: 0 })).toBe(1);
   });
 
-  it("is at least a minute", () => {
-    expect(estimateMinutes(0)).toBe(1);
+  it("offers 5, 10, 15, 20, and 30 minutes", () => {
+    expect(TIME_BUDGETS).toEqual([5, 10, 15, 20, 30]);
+  });
+
+  it("uses the learner's pace once five timed days are known", () => {
+    const materials = new Map([["sintel", material]]);
+    const day = (n: number, seconds: number) => [
+      `2026-11-0${n}`,
+      {
+        official: true,
+        retries: [],
+        tasks: [{ videoId: "sintel", week: 1, day: n + 1 }],
+        time: { phone: { sintel: seconds } },
+      },
+    ];
+    // Shadowing days (2–6), each twice the estimate.
+    const four = {
+      days: Object.fromEntries([1, 2, 3, 4].map((n) => day(n, 360))),
+    };
+    expect(personalPace(four, materials)).toBeNull();
+    const five = {
+      days: Object.fromEntries([1, 2, 3, 4, 5].map((n) => day(n, 360))),
+    };
+    expect(personalPace(five, materials)).toBeCloseTo(2);
+    expect(dailyMinutes(material, 2)).toBe(8);
+    // Kept within bounds: an hour on a short day doesn't make it 20×.
+    const slow = {
+      days: Object.fromEntries([1, 2, 3, 4, 5].map((n) => day(n, 3600))),
+    };
+    expect(personalPace(slow, materials)).toBe(3);
+  });
+});
+
+describe("my default filter (D98)", () => {
+  it("is saved as the URL query and read back the same way", () => {
+    const chosen = filter({ levels: ["beginner"], minutes: 10 });
+    const saved = savedFilterString(chosen);
+    expect(saved).toBe("level=beginner&min=10");
+    expect(parseSavedFilter(saved)).toEqual(chosen);
+    expect(parseSavedFilter("")).toBeNull();
+    expect(parseSavedFilter(42)).toBeNull();
   });
 });
 
@@ -140,7 +191,7 @@ describe("filterLibrary", () => {
   });
 
   it("keeps what fits in the minutes chosen", () => {
-    // 49 s × 4 → 4 min; 200 s → 14 min; 400 s → 27 min.
+    // A day averages 4, 12, and 23 minutes (D98).
     expect(ids(filterLibrary(items, filter({ minutes: 10 })))).toEqual(["a"]);
     expect(ids(filterLibrary(items, filter({ minutes: 20 })))).toEqual([
       "b",
@@ -213,7 +264,7 @@ describe("library URL parameters", () => {
   it("drops unknown values", () => {
     const parsed = parseLibraryParams(
       new URLSearchParams(
-        "type=film,audio&cat=nope&level=expert&accent=fr&min=15&sort=random",
+        "type=film,audio&cat=nope&level=expert&accent=fr&min=25&sort=random",
       ),
     );
     expect(parsed).toEqual(filter({ kinds: ["audio"] }));

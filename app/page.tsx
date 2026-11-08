@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
-import { getLibraryItems } from "@/auth/library";
+import { getLibraryItems, getSavedLibraryDefault } from "@/auth/library";
 import {
   MaterialLibrary,
   UnfilteredMaterialLibrary,
@@ -48,10 +48,11 @@ export default function Home() {
 }
 
 async function Library() {
-  const items: LibraryItem[] = await getLibraryItems();
+  const [items, savedDefault]: [LibraryItem[], string | null | undefined] =
+    await Promise.all([getLibraryItems(), getSavedLibraryDefault()]);
   return (
     <Suspense fallback={<UnfilteredMaterialLibrary items={items} />}>
-      <MaterialLibrary items={items} />
+      <MaterialLibrary items={items} savedDefault={savedDefault} />
     </Suspense>
   );
 }

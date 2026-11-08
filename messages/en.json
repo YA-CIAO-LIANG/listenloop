@@ -355,6 +355,15 @@
         "7-8": "7–8 min",
         "8-plus": "8 min or more"
       }
+    },
+    "defaults": {
+      "save": "Save as my default",
+      "isDefault": "✓ This is my default",
+      "clear": "Clear the default",
+      "savedAccount": "Saved to your account: the home page opens with it next time.",
+      "savedBrowser": "Saved in this browser: the home page opens with it next time. Sign in to keep it in your account.",
+      "cleared": "Default cleared.",
+      "failed": "Couldn’t save. Please try again."
     }
   },
   "collections": {
