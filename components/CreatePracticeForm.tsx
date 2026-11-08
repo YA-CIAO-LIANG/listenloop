@@ -7,7 +7,16 @@ import { UsageLimitMessage } from "./UsageLimitMessage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useId, useRef, useState, type ChangeEvent } from "react";
+import { useEffect, useId, useRef, useState, type ChangeEvent } from "react";
+import {
+  addMeasurement,
+  estimateSeconds,
+  LONG_JOB_SECONDS,
+  remainingSeconds,
+  roundForDisplay,
+  secondsPerSentence,
+} from "@/lib/custom-practice/estimate";
+import { useMeasuredSpeed, useNow } from "./useGenerationEstimate";
 import {
   describeDraft,
   createPractice,
@@ -34,6 +43,7 @@ import { countChars } from "@/lib/usage";
 import {
   prepareDraft,
   prepareForPractice,
+  stagePercent,
   type GenerateAudio,
   type GenerateNotes,
   type PrepareDraftResult,
@@ -133,6 +143,21 @@ export function CreatePracticeForm({
   });
   const [text, setText] = useState("");
   const [language, setLanguage] = useState<TextSourceLanguage>("en");
+  // How long getting ready takes on this device (D95).
+  const [speed, saveSpeed] = useMeasuredSpeed();
+  const [startedAt, setStartedAt] = useState<number | null>(null);
+  const preparing = useRef<string | null>(null);
+  const now = useNow(startedAt !== null);
+  // Closing or leaving the page midway: the server finishes the job.
+  useEffect(() => {
+    const onHide = () => {
+      if (preparing.current && typeof navigator.sendBeacon === "function") {
+        navigator.sendBeacon(`/materials/${preparing.current}/prepare`);
+      }
+    };
+    window.addEventListener("pagehide", onHide);
+    return () => window.removeEventListener("pagehide", onHide);
+  }, []);
   // Once the learner picks a language, stop guessing it from the text.
   const [languageChosen, setLanguageChosen] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
@@ -292,14 +317,25 @@ export function CreatePracticeForm({
       return;
     }
     // Saved: now make its notes and audio. Whatever happens, the practice
-    // is kept and My materials can continue.
+    // is kept and My materials can continue. If the page goes away
+    // midway, the server carries on (D95).
+    preparing.current = result.id;
+    setStartedAt(Date.now());
+    const began = performance.now();
     const ready = await prepareForPractice(
       { generate, generateNotes },
       { id: result.id, notesReady: false, total: rows.length },
       setProgress,
     );
+    preparing.current = null;
+    if (ready.ok) {
+      saveSpeed(
+        addMeasurement(speed, (performance.now() - began) / 1000, rows.length),
+      );
+    }
     setPending(false);
     setProgress(null);
+    setStartedAt(null);
     const createdTitle = shownTitle;
     setNotice(
       ready.ok
@@ -427,6 +463,13 @@ export function CreatePracticeForm({
       )}
     </fieldset>
   );
+
+  // Getting ready: notes and audio for each sentence (D95).
+  const estimate = estimateSeconds(
+    rows?.length ?? 0,
+    secondsPerSentence(speed),
+  );
+  const duration = (seconds: number) => t("duration", roundForDisplay(seconds));
 
   if (rows) {
     return (
@@ -633,6 +676,32 @@ export function CreatePracticeForm({
             {t("back")}
           </Button>
         </div>
+        {/* The time it should take (D95): before, then what's left. */}
+        <p className="text-supporting text-ink-muted">
+          {startedAt !== null && progress && progress.stage !== "split"
+            ? t("remaining", {
+                time: duration(
+                  remainingSeconds(
+                    stagePercent(progress) / 100,
+                    Math.max(0, (now - startedAt) / 1000),
+                    estimate,
+                  ),
+                ),
+              })
+            : t("estimate", { time: duration(estimate) })}
+          {estimate > LONG_JOB_SECONDS && (
+            <>
+              {" "}
+              {t("longJob")}{" "}
+              <Link
+                href="/materials"
+                className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+              >
+                {t("toMaterials")}
+              </Link>
+            </>
+          )}
+        </p>
         {progress && <StageProgress stage={progress} className="max-w-sm" />}
         {errorMessage}
       </section>

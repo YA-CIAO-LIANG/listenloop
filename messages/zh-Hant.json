@@ -856,7 +856,12 @@
     "titlesLegend": "標題（選填）",
     "titleEnLabel": "英文標題",
     "titleZhLabel": "中文標題",
-    "subtitleLabel": "副標題（一句話說明這份練習練什麼）"
+    "subtitleLabel": "副標題（一句話說明這份練習練什麼）",
+    "estimate": "建立後預計約 {time}可以開始練習。",
+    "remaining": "剩餘約 {time}。",
+    "longJob": "需要比較久：你可以離開這個頁面，我們會在背景繼續準備，完成後在「我的教材」就能開始練習。",
+    "toMaterials": "前往我的教材",
+    "duration": "{minutes, plural, =0 {{seconds} 秒} other {# 分鐘}}"
   },
   "editPractice": {
     "titlesLegend": "標題",
