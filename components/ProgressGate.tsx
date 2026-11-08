@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Suspense, type ReactNode } from "react";
-import { SignInButton } from "./AccountMenu";
+import { SignInLink } from "./AccountMenu";
 import { useProgressVisible } from "./StoresProvider";
 
 /**
@@ -42,10 +42,10 @@ export function ProgressGate({
         {t("deviceNote")}
       </p>
       <div className="mt-4">
-        {/* SignInButton reads the URL to come back here: Suspense keeps
+        {/* SignInLink reads the URL to come back here: Suspense keeps
             the page renderable on the server. */}
         <Suspense fallback={null}>
-          <SignInButton variant="primary" size="md" />
+          <SignInLink variant="primary" size="md" />
         </Suspense>
       </div>
     </section>

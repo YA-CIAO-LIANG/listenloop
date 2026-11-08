@@ -45,7 +45,9 @@ export function SignInNotice() {
               ? "signInFailed"
               : result === "disabled"
                 ? "signInDisabled"
-                : "signInCancelled",
+                : result === "noEmail"
+                  ? "signInNoEmail"
+                  : "signInCancelled",
           )}
         </p>
         <Button variant="ghost" size="sm" onClick={dismiss}>

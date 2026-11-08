@@ -586,7 +586,8 @@
     "signInCancelled": "Sign-in cancelled. You can practice without an account; progress is saved on this device.",
     "dismiss": "Close",
     "accountSettings": "Account settings",
-    "signInDisabled": "This account has been disabled and can’t sign in. If you think this is a mistake, contact us through “Feedback” at the bottom of the page."
+    "signInDisabled": "This account has been disabled and can’t sign in. If you think this is a mistake, contact us through “Feedback” at the bottom of the page.",
+    "signInNoEmail": "LINE didn’t share an email, so you can’t sign in with it. Use Google or email instead (or allow LINE to share your email)."
   },
   "accountPage": {
     "title": "Account",
@@ -637,10 +638,11 @@
       {
         "title": "What we collect",
         "paragraphs": [
-          "Only when you sign in with a Google account do we collect:"
+          "Only when you sign in (Google, LINE, or email) do we collect the following:"
         ],
         "items": [
-          "Account details from Google: email, name, profile picture URL, and Google account ID. Only the email is shown.",
+          "Account details from how you sign in: from Google, your email, name, picture URL, and account ID; from LINE, your email, display name, and LINE user ID; with email sign-up, your email and password. Supabase stores the password hashed, so we never see it. Only the email is shown on screen.",
+          "One account: whichever way you sign in, one email is one account, and your progress is combined.",
           "Practice data: your progress on each video (which days are done, dictation answers and accuracy, shadowing status) and a daily practice log.",
           "Created practices: the text you type or upload when creating a practice, its sentences and translations, the vocabulary and grammar notes, and the generated audio.",
           "Sharing and reports: anyone can see a public practice's title, sentences, translations, notes, and audio, but not its author's account details. When you report a practice, we keep the reason, your details, and your account ID only to review it; the author isn't told who reported it.",
@@ -672,7 +674,8 @@
           "Google: Google sign-in.",
           "Microsoft Azure AI services: when you create a practice, its text is sent to Azure OpenAI (the gpt-5-mini model) to split it into sentences, translate it, and write vocabulary and grammar notes, or to write practice text for the situation you pick; its English sentences go to Azure Speech for audio. Under Microsoft's terms, what's sent and what's generated aren't used to train models. Azure OpenAI may keep them for up to 30 days to detect abuse, and may process them in any of Microsoft's regions (a Global Standard deployment); Azure Speech processes them in the United Arab Emirates. Even so, please don't put personal or sensitive information in practice text.",
           "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
-          "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard."
+          "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard.",
+          "LINE (LY Corporation): when you sign in with LINE, it handles the sign-in and gives us your account details."
         ]
       },
       {
@@ -1850,7 +1853,7 @@
       {
         "title": "2. Accounts",
         "paragraphs": [
-          "You can sign in with a Google account. Keep it secure; you’re responsible for what happens under it. If you’re under 18, use the Service with the consent of a parent or guardian who has read these terms and the privacy policy. If you’re under 13, don’t create an account yourself."
+          "You can sign in with Google, LINE, or an email and password; one email is one account whichever way you use. Keep your password safe and don’t reuse it on other sites; you’re responsible for activity on your account. If you’re under 18, use the service with the consent of a parent or guardian who has read these terms and the privacy policy; if you’re under 13, please don’t create an account."
         ]
       },
       {
@@ -2376,5 +2379,60 @@
       "tooLong": "This part is {length}, over your plan’s {max}. Pick a shorter part.",
       "notes": "The practice is saved, but its notes aren’t done; continue in My materials."
     }
+  },
+  "login": {
+    "title": "Sign in",
+    "intro": "Sign in to keep your progress in the cloud and continue on any device. Use Google, LINE, or email; one email is one account, whichever way you sign in.",
+    "google": "Continue with Google",
+    "line": "Continue with LINE",
+    "or": "or with email",
+    "email": "Email",
+    "password": "Password",
+    "newPassword": "New password",
+    "passwordRule": "At least {min} characters; spaces and any language are fine. Longer is safer; common passwords aren’t allowed.",
+    "strength": {
+      "weak": "Too weak",
+      "fair": "OK",
+      "strong": "Strong"
+    },
+    "titles": {
+      "signin": "Sign in with email",
+      "signup": "Create an account",
+      "forgot": "Forgot your password"
+    },
+    "submit": {
+      "signin": "Sign in",
+      "signup": "Create account",
+      "forgot": "Send a reset link"
+    },
+    "switch": {
+      "signin": "Have an account? Sign in",
+      "signup": "New here? Create an account",
+      "forgot": "Forgot your password?"
+    },
+    "sent": {
+      "signup": "We sent a confirmation email. Open the link in it to finish (if this email already has an account, sign in or reset the password).",
+      "forgot": "If this email has an account, a reset link is on its way. Check your inbox."
+    },
+    "working": "Working…",
+    "errors": {
+      "unavailable": "Signing in isn’t available right now. Please try later.",
+      "busy": "Too many tries. Please wait a moment.",
+      "email": "Enter a valid email.",
+      "credentials": "The email or password isn’t right.",
+      "unconfirmed": "This email isn’t confirmed yet. Open the link in the confirmation email.",
+      "disabled": "This account has been disabled.",
+      "failed": "That didn’t work. Please try later.",
+      "short": "Use at least 10 characters.",
+      "long": "That password is too long.",
+      "common": "That password is too common. Pick another.",
+      "emailPassword": "Don’t use your email’s name in the password."
+    },
+    "resetTitle": "Set a new password",
+    "resetFor": "Set a new password for {email}.",
+    "resetSave": "Save the new password",
+    "resetDone": "Your new password is saved, and you’re signed in.",
+    "resetExpired": "This reset link has expired or was used. Ask for a new one.",
+    "home": "Home"
   }
 }

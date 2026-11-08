@@ -1737,3 +1737,33 @@
   - 存的是篩選對應的網址參數（不含搜尋文字），讀回時和網址一樣過濾未知的值。
   - 可以「清除預設」。
 - **要改時**：`lib/library-config.ts`（係數、按鈕）、`lib/library-time.ts`、`components/LibraryDefault.tsx`。
+
+## D101 Email 與密碼、LINE 登入、一個 Email 一個帳號（2026-11-09，夜間任務 P2 帳號）
+
+- **登入頁 `/login`**：頁首的「登入」改成連到這裡（帶 `next` 回原頁），可以用：
+  - Google（原本的流程）；
+  - LINE（設定好才顯示）；
+  - Email 與密碼：登入、建立帳號、忘記密碼三種模式。
+- **Email 與密碼**（Supabase Auth）：
+  - 註冊後寄確認信，點連結（`/auth/confirm` 驗證一次性 token）才完成；
+  - 忘記密碼寄重設連結，點了之後到 `/login/reset` 設新密碼；
+  - 密碼由 Supabase 以 bcrypt 雜湊保存。
+- **密碼規則**（`lib/auth/password.ts`，依 NIST SP 800-63B）：
+  - 至少 10 個字元，任何字元都可以（空格、中文）；
+  - 擋常見密碼、同一字元重複、包含 Email 名稱的密碼；
+  - 不強制「要有數字和符號」（這類規則讓人寫出好猜的密碼）；
+  - 下方顯示強度（太弱／可以／很安全）。
+- **不洩漏帳號是否存在**：註冊和忘記密碼的回應，不論 Email 有沒有帳號都一樣。登入失敗一律說「Email 或密碼不正確」。每個 IP 每小時 20 次（`RATE_LIMITS.auth`）。
+- **LINE 登入**（查證結果）：
+  - Supabase 沒有內建 LINE。2026 年 4 月起支援自訂 OIDC，但 LINE 網頁登入的 id_token 用 Channel Secret 以 HS256 簽章，和它 discovery 文件公布的 ES256 不一致，所以自訂 OIDC 驗不過（Supabase 社群的說明，官方未確認）。
+  - 因此由我們的伺服器處理：`/auth/line` 帶 state、nonce 前往 LINE；`/auth/line/callback` 用授權碼換 token，交給 LINE 的 `/verify` 驗證 id_token（簽章、對象、期限、nonce）。
+  - 接著用 Supabase Admin 產生一次性登入連結，在伺服器上驗證，等於登入該 Email 的帳號（沒有就建立）。LINE 使用者 id 存在帳號的 `app_metadata.line_sub`。
+  - 需要 `LINE_CHANNEL_ID`、`LINE_CHANNEL_SECRET`，以及 LINE 審核通過的 Email 權限；沒有 Email 的 LINE 帳號無法登入，畫面會說明改用其他方式。
+- **帳號連結：一個 Email 一個帳號**：
+  - Google 與 Email 註冊：Supabase 會把同一個已驗證 Email 的身分連到同一個帳號；
+  - LINE：用 Email 登入同一個帳號；
+  - 已用 Google 登入的人想加密碼：用「忘記密碼」設定一組，之後兩種都能登入。
+  - 理由：學生常換登入方式，分成兩個帳號會讓進度分散。Email 都經過驗證（Google、LINE 的 Email 由對方驗證，Email 註冊要點確認信），不會被冒用。
+- **隱私權政策與服務條款**：更新收集的資料（LINE 的識別碼與顯示名稱、密碼雜湊）、一個 Email 一個帳號、新增 LINE 為資料處理者。
+- **寄信**：Supabase 內建的寄信服務每小時只能寄很少封，正式使用要設定自己的 SMTP（例如 Resend 免費方案），步驟在晨間報告。
+- **要改時**：`lib/auth/password.ts`、`app/login/actions.ts`、`auth/line.ts`。
