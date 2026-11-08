@@ -35,6 +35,8 @@ export type PlanLimits = {
   practicesPerMonth: number | null;
   /** Characters of text per created practice. */
   charsPerPractice: number | null;
+  /** May set each practice's own pass rules (D92); otherwise the defaults. */
+  customRules: boolean;
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
@@ -44,6 +46,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesTotal: 1,
     practicesPerMonth: null,
     charsPerPractice: 2_000,
+    customRules: false,
   },
   paid: {
     createPractices: true,
@@ -51,6 +54,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesTotal: null,
     practicesPerMonth: 30,
     charsPerPractice: 2_000,
+    customRules: true,
   },
   admin: {
     createPractices: true,
@@ -58,6 +62,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesTotal: null,
     practicesPerMonth: null,
     charsPerPractice: null,
+    customRules: true,
   },
 };
 
@@ -77,7 +82,8 @@ export type PlanAction =
       createdTotal?: number;
     }
   | { kind: "start-practice"; active?: number }
-  | { kind: "practice-chars"; chars: number };
+  | { kind: "practice-chars"; chars: number }
+  | { kind: "custom-rules" };
 
 /** Why an action isn't allowed: a translation key under plans.limits. */
 export type PlanBlock = {
@@ -129,6 +135,10 @@ export function can(
         limits.activePractices,
         action.active ?? 0,
       );
+    case "custom-rules":
+      return limits.customRules
+        ? { ok: true }
+        : { ok: false, limit: "customRules" };
     case "practice-chars":
       return limits.charsPerPractice !== null &&
         action.chars > limits.charsPerPractice

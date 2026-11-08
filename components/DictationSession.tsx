@@ -18,15 +18,18 @@ import {
   attemptScore,
   attemptWeightedScore,
   emptyAnswers,
+  isBelowMinimum,
   nextUnanswered,
   recordAnswer,
   recordSpeed,
+  restartDictation,
   startDictation,
   submitAnswer,
   type Answers,
   type DictationDay,
   type Speeds,
 } from "@/lib/dictation";
+import { passRulesOf } from "@/lib/pass-rules";
 import { DEFAULT_SPEED, pace, type Pace, type Speed } from "@/lib/speed";
 import { recordTask } from "@/lib/activity";
 import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
@@ -476,6 +479,42 @@ export function DictationSession({
       <>
         <div className="practice-column space-y-4">{header}</div>
         <WeekResult video={video} progress={progress} store={progressStore} />
+        {children}
+      </>
+    );
+  }
+
+  // Every answer is in but short of the practice's minimum (D92): the day
+  // isn't done; dictate it again.
+  if (!practicing && mode === "official" && isBelowMinimum(progress, day)) {
+    const restart = () => {
+      const next = restartDictation(progress, day);
+      setProgress(next);
+      void save(next);
+      setCurrent(0);
+      setFeedbackIndex(null);
+      looping.start(0);
+    };
+    return (
+      <>
+        <div className="practice-column space-y-4">{header}</div>
+        <div className="practice-column mt-8 space-y-4">
+          <ScoreBadge score={officialScore} />
+          <p role="status" className="font-display text-h3">
+            {t("belowMinimum", {
+              score: percent(officialScore),
+              min: percent(passRulesOf(progress).dictationMin),
+            })}
+          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button variant="primary" arrow onClick={restart}>
+              {t("dictateAgain")}
+            </Button>
+            <ButtonLink href={`/videos/${video.id}#pass-rules`} variant="ghost">
+              {t("changeRules")}
+            </ButtonLink>
+          </div>
+        </div>
         {children}
       </>
     );

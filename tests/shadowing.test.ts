@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { DEFAULT_PASS_RULES } from "@/lib/pass-rules";
 import { createProgress } from "@/lib/progress";
 import {
   averageCoverage,
@@ -30,18 +31,28 @@ describe("isShadowingDay", () => {
 describe("recordAttempt", () => {
   const empty = emptySentenceRecords(2);
 
-  it("marks a sentence done at 70% coverage or more", () => {
-    expect(recordAttempt(empty, 0, { coverage: 0.7 })[0]).toEqual({
+  it("marks a sentence done at 60% coverage or more by default (D92)", () => {
+    expect(recordAttempt(empty, 0, { coverage: 0.6 })[0]).toEqual({
       done: true,
-      coverage: 0.7,
+      coverage: 0.6,
     });
   });
 
-  it("keeps a sentence open below 70%, remembering the coverage", () => {
-    expect(recordAttempt(empty, 0, { coverage: 0.69 })[0]).toEqual({
+  it("keeps a sentence open below 60%, remembering the coverage", () => {
+    expect(recordAttempt(empty, 0, { coverage: 0.59 })[0]).toEqual({
       done: false,
-      coverage: 0.69,
+      coverage: 0.59,
     });
+  });
+
+  it("uses the practice's own minimum when given (D92)", () => {
+    const rules = { ...DEFAULT_PASS_RULES, shadowingMin: 0.8 };
+    expect(recordAttempt(empty, 0, { coverage: 0.7 }, rules)[0].done).toBe(
+      false,
+    );
+    expect(recordAttempt(empty, 0, { coverage: 0.8 }, rules)[0].done).toBe(
+      true,
+    );
   });
 
   it("keeps the best coverage and never undoes a done sentence", () => {

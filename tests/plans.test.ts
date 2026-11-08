@@ -20,6 +20,7 @@ const limited: Record<PlanId, PlanLimits> = {
     practicesTotal: null,
     practicesPerMonth: 5,
     charsPerPractice: 2000,
+    customRules: false,
   },
 };
 

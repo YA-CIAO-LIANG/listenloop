@@ -7,6 +7,7 @@ import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { toLocalDate } from "@/lib/dates";
 import { recordTask } from "@/lib/activity";
 import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
+import { passRulesOf } from "@/lib/pass-rules";
 import type { Progress } from "@/lib/progress";
 import { scoreShadowing } from "@/lib/scoring/shadowing";
 import { wordDiff } from "@/lib/scoring/word-diff";
@@ -86,7 +87,8 @@ const isReplayShortcut = (event: globalThis.KeyboardEvent) =>
 
 /**
  * Shadowing (Days 2–6): "Play and shadow" plays the sentence, then listens
- * automatically and ends after a short pause. 70% coverage or more completes
+ * automatically and ends after a short pause. The practice's coverage
+ * minimum (D92; 60% by default) or more completes
  * the sentence (missed words are underlined); otherwise try again, as often
  * as needed. Without speech recognition (unsupported, Brave, mic blocked,
  * repeated network errors), learners
@@ -279,7 +281,12 @@ export function ShadowingSession({
   function record(index: number, attempt: ShadowingAttempt) {
     if (!progress) return;
     if (mode === "retry") {
-      const next = recordAttempt(retryRecords, index, attempt);
+      const next = recordAttempt(
+        retryRecords,
+        index,
+        attempt,
+        passRulesOf(progress),
+      );
       setRetryRecords(next);
       if (next !== retryRecords && nextUnfinished(next) === -1) claimRetry();
       return;
@@ -308,7 +315,11 @@ export function ShadowingSession({
       }
       setPhase("listening");
       speech.start((heard) => {
-        const result = scoreShadowing(sentences[index].en, heard);
+        const result = scoreShadowing(
+          sentences[index].en,
+          heard,
+          passRulesOf(progress).shadowingMin,
+        );
         record(index, { coverage: result.coverage });
         setLastResult({
           heard,

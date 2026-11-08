@@ -122,14 +122,14 @@ describe("CycleStatus (video page)", () => {
   });
 
   it("starts the next week from the day after a week that didn't pass", async () => {
-    await renderStatus(settled(0.7, TODAY));
-    expect(screen.getByText("這週沒通過（第 7 天 70%）")).toBeDefined();
+    await renderStatus(settled(0.5, TODAY));
+    expect(screen.getByText("這週沒通過（第 7 天 50%）")).toBeDefined();
     expect(screen.getByText("第 2 週明天開始")).toBeDefined();
     expect(screen.queryByRole("button", { name: /開始第 2 週/ })).toBeNull();
   });
 
   it("starts week 2: saves a fresh week and opens Day 1", async () => {
-    const progress = settled(0.7, YESTERDAY);
+    const progress = settled(0.5, YESTERDAY);
     const store = storeWith(progress);
     renderWithIntl(<CycleStatus videoId="sintel" store={store} />);
     await act(async () => {});
@@ -228,7 +228,7 @@ describe("VideoProgressLabel (library cards)", () => {
   });
 
   it("shows a week to repeat", async () => {
-    expect(await renderLabel(settled(0.7, TODAY))).toBe(
+    expect(await renderLabel(settled(0.5, TODAY))).toBe(
       "第 1 週未通過 · 第 2 週明天開始",
     );
   });

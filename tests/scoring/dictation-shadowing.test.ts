@@ -142,16 +142,21 @@ describe("scoreShadowing", () => {
     expect(result.coverage).toBeCloseTo(5 / 7);
   });
 
-  it("uses a 70% threshold, inclusive", () => {
-    expect(COVERAGE_THRESHOLD).toBe(0.7);
-    // 7 of 10 words → exactly 70%.
+  it("uses a 60% threshold by default, inclusive (D92)", () => {
+    expect(COVERAGE_THRESHOLD).toBe(0.6);
+    // 6 of 10 words → exactly 60%.
+    const ref = "one two three four five six seven eight nine ten";
+    expect(scoreShadowing(ref, "one two three four five six").complete).toBe(
+      true,
+    );
+    expect(scoreShadowing(ref, "one two three four five").complete).toBe(false);
+  });
+
+  it("takes the practice's own threshold (D92)", () => {
     const ref = "one two three four five six seven eight nine ten";
     expect(
-      scoreShadowing(ref, "one two three four five six seven").complete,
-    ).toBe(true);
-    expect(scoreShadowing(ref, "one two three four five six").complete).toBe(
-      false,
-    );
+      scoreShadowing(ref, "one two three four five six seven", 0.8).complete,
+    ).toBe(false);
   });
 
   it("ignores extra recognized words", () => {
