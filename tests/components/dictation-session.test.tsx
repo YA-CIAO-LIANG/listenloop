@@ -6,6 +6,7 @@ import {
   SKIP_CONFIRM_MS,
 } from "@/components/DictationSession";
 import { startDictation, submitAnswer } from "@/lib/dictation";
+import { LOOP_GAP_MS, LOOP_STORAGE_KEY } from "@/lib/player/loop";
 import type { Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
@@ -100,6 +101,9 @@ async function renderSession(store = memoryStore()) {
     />,
   );
   await act(async () => {}); // load progress
+  // The first sentence played by itself (D90); tests count plays after it.
+  playSegment.mockClear();
+  playSentence.mockClear();
   return store;
 }
 
@@ -143,7 +147,11 @@ describe("DictationSession", () => {
     const next = screen.getByRole("button", { name: "下一句" });
     expect(document.activeElement).toBe(next);
     await userEvent.keyboard("{Enter}");
-    expect(playSegment).toHaveBeenLastCalledWith(2.85, 5.25, undefined);
+    expect(playSegment).toHaveBeenLastCalledWith(
+      2.85,
+      5.25,
+      expect.any(Function),
+    );
     expect(screen.getByText("第 2 / 2 句")).toBeDefined();
     expect(document.activeElement).toBe(input());
   });
@@ -279,11 +287,54 @@ describe("DictationSession controls", () => {
     expect((input() as HTMLTextAreaElement).value).toBe("go home");
   });
 
-  it("plays and then replays the current sentence from the button", async () => {
-    await renderSession();
-    await userEvent.click(screen.getByRole("button", { name: "播放" }));
-    expect(playSegment).toHaveBeenLastCalledWith(0.85, 2.25, undefined);
-    expect(screen.getByRole("button", { name: "重播" })).toBeDefined();
+  it("plays the first sentence by itself, then replays it from the button (D90)", async () => {
+    renderWithIntl(
+      <DictationSession
+        video={video}
+        day={1}
+        title="第 1 天"
+        store={memoryStore()}
+      />,
+    );
+    await act(async () => {});
+    expect(playSegment).toHaveBeenCalledTimes(1);
+    expect(playSegment).toHaveBeenLastCalledWith(
+      0.85,
+      2.25,
+      expect.any(Function),
+    );
+    await userEvent.click(screen.getByRole("button", { name: "重播" }));
+    expect(playSegment).toHaveBeenCalledTimes(2);
+  });
+
+  it("with Loop on, replays 1.5 s after each ending until answered (D90)", async () => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+    try {
+      await renderSession();
+      fireEvent.click(screen.getByRole("button", { name: "循環播放" }));
+      expect(
+        screen
+          .getByRole("button", { name: "循環播放" })
+          .getAttribute("aria-pressed"),
+      ).toBe("true");
+      // Turning it on plays right away; each ending schedules another.
+      expect(playSegment).toHaveBeenCalledTimes(1);
+      act(() => playSegment.mock.lastCall?.[2]());
+      act(() => vi.advanceTimersByTime(LOOP_GAP_MS - 1));
+      expect(playSegment).toHaveBeenCalledTimes(1);
+      act(() => vi.advanceTimersByTime(1));
+      expect(playSegment).toHaveBeenCalledTimes(2);
+      // Submitting stops it.
+      act(() => playSegment.mock.lastCall?.[2]());
+      fireEvent.change(input(), { target: { value: "go home" } });
+      fireEvent.keyDown(input(), { key: "Enter" });
+      act(() => vi.advanceTimersByTime(LOOP_GAP_MS * 2));
+      expect(playSegment).toHaveBeenCalledTimes(2);
+      expect(localStorage.getItem(LOOP_STORAGE_KEY)).toBe("1");
+    } finally {
+      localStorage.removeItem(LOOP_STORAGE_KEY);
+      vi.useRealTimers();
+    }
   });
 
   it.each([
@@ -445,7 +496,7 @@ describe("DictationSession layout by screen width", () => {
     await userEvent.type(input(), "go home{Enter}");
     scrolled.length = 0;
 
-    await userEvent.click(screen.getByRole("button", { name: /播放|重播/ }));
+    await userEvent.click(screen.getByRole("button", { name: "重播" }));
     expect(scrolled).toHaveLength(1);
     expect(scrolled[0].element.contains(screen.getByText(/CC 按鈕關閉/))).toBe(
       true,
@@ -550,8 +601,8 @@ describe("DictationSession with a created practice", () => {
     // The title isn't marked English: learners name their own practices.
     expect(screen.getByText("我的練習").getAttribute("lang")).toBeNull();
 
-    fireEvent.click(screen.getByRole("button", { name: "播放" }));
-    expect(playSentence).toHaveBeenLastCalledWith(0, undefined);
+    fireEvent.click(screen.getByRole("button", { name: "重播" }));
+    expect(playSentence).toHaveBeenLastCalledWith(0, expect.any(Function));
     expect(playSegment).not.toHaveBeenCalled();
 
     await userEvent.type(input(), "go home{Enter}");

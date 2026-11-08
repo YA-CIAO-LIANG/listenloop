@@ -11,6 +11,16 @@ class FakePlayer {
     queueMicrotask(() => options.events?.onReady?.({} as YT.PlayerEvent));
   }
   destroy() {}
+  // The dictation page plays the first sentence once ready (D90).
+  seekTo() {}
+  playVideo() {}
+  pauseVideo() {}
+  getCurrentTime() {
+    return 0;
+  }
+  getPlayerState() {
+    return -1;
+  }
 }
 const loadYouTubeApi = vi.hoisted(() => vi.fn());
 vi.mock("@/components/youtube/loadYouTubeApi", () => ({ loadYouTubeApi }));
