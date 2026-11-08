@@ -21,8 +21,10 @@ import {
   targetMessageKey,
 } from "@/lib/categories";
 import {
+  CUSTOM_LENGTH,
   GENERATION_FORMATS,
   GENERATION_LENGTHS,
+  lengthSeconds,
   CUSTOM_CATEGORY_MAX_CHARS,
   CUSTOM_SCENARIO_MAX_CHARS,
   materialMeta,
@@ -32,6 +34,9 @@ import {
   type MaterialMeta,
 } from "@/lib/custom-practice/generation";
 import { withSpeakers } from "@/lib/custom-practice/speakers";
+import { PLANS } from "@/lib/plans";
+import Link from "next/link";
+import { usePlan } from "./PlanProvider";
 import { Button } from "./Button";
 import { SegmentedControl } from "./SegmentedControl";
 
@@ -97,6 +102,7 @@ export function GenerateTextPanel({
     scenario: useId(),
     custom: useId(),
     customHint: useId(),
+    lengthHint: useId(),
   };
   const [category, setCategory] = useState<CategoryId>(CATEGORY_IDS[0]);
   const [customCategory, setCustomCategory] = useState("");
@@ -106,7 +112,30 @@ export function GenerateTextPanel({
   );
   const [customScenario, setCustomScenario] = useState("");
   const [level, setLevel] = useState<string>("intermediate");
-  const [length, setLength] = useState<GenerationLength>("2-3");
+  // The plan's longest practice (D94): longer choices aren't offered.
+  const plan = usePlan();
+  const maxSeconds = Math.min(
+    PLANS[plan].maxPracticeSeconds ?? CUSTOM_LENGTH.max,
+    CUSTOM_LENGTH.max,
+  );
+  const lengths = GENERATION_LENGTHS.filter(
+    (value) => value === "custom" || lengthSeconds(value) <= maxSeconds,
+  );
+  const [length, setLength] = useState<GenerationLength>(
+    lengths.includes("2-3") ? "2-3" : "30s",
+  );
+  const [customMinutes, setCustomMinutes] = useState(
+    String(Math.floor(Math.min(90, maxSeconds) / 60)),
+  );
+  const [customSecs, setCustomSecs] = useState(
+    String(Math.min(90, maxSeconds) % 60),
+  );
+  const customSeconds =
+    (Number(customMinutes) || 0) * 60 + (Number(customSecs) || 0);
+  const customOk =
+    Number.isInteger(customSeconds) &&
+    customSeconds >= CUSTOM_LENGTH.min &&
+    customSeconds <= maxSeconds;
   // A monologue unless the learner picks a dialogue (D82).
   const [format, setFormat] = useState<GenerationFormat>("monologue");
   const [accent, setAccent] = useState<VoiceAccent>("us");
@@ -115,6 +144,7 @@ export function GenerateTextPanel({
     Extract<GenerateTextResult, { ok: false }>["reason"] | null
   >(null);
   const [usage, setUsage] = useState<UsageBlock | undefined>(undefined);
+  const [tooLongMax, setTooLongMax] = useState(0);
 
   const isExam = category === EXAM_CATEGORY;
   const isOther = category === OTHER_CATEGORY;
@@ -124,7 +154,8 @@ export function GenerateTextPanel({
   const needsOwnScenario = !isOther && scenario === "";
   const missing =
     (isOther && !customCategory.trim()) ||
-    (needsOwnScenario && !customScenario.trim());
+    (needsOwnScenario && !customScenario.trim()) ||
+    (length === "custom" && !customOk);
 
   /** An exam gets its middle target; other categories a general level. */
   function chooseCategory(next: CategoryId) {
@@ -159,6 +190,7 @@ export function GenerateTextPanel({
       titleZh: titles.zh,
       level,
       length,
+      ...(length === "custom" ? { seconds: customSeconds } : {}),
       format,
       accent,
     };
@@ -169,7 +201,8 @@ export function GenerateTextPanel({
     setPending(false);
     if (!result.ok) {
       setError(result.reason);
-      setUsage(result.limit);
+      if (result.reason === "tooLong") setTooLongMax(result.max ?? 0);
+      else setUsage(result.limit);
       return;
     }
     onGenerated({
@@ -191,6 +224,67 @@ export function GenerateTextPanel({
         ),
       }))
     : LEVELS.map((value) => ({ value, label: tc(`levels.${value}`) }));
+
+  const duration = (seconds: number) =>
+    t("duration", { minutes: Math.floor(seconds / 60), seconds: seconds % 60 });
+  const numberClass =
+    "h-10 w-20 rounded-base border border-line bg-surface px-3 text-body tabular-nums focus-visible:border-accent pointer-coarse:min-h-11";
+  // One's own length (D94), and how long the plan allows.
+  const lengthDetails = (
+    <>
+      {length === "custom" && (
+        <fieldset className="space-y-2">
+          <legend className="text-supporting">{t("customLength")}</legend>
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="flex items-center gap-2">
+              <input
+                type="number"
+                inputMode="numeric"
+                min={0}
+                max={Math.floor(maxSeconds / 60)}
+                value={customMinutes}
+                onChange={(event) => setCustomMinutes(event.target.value)}
+                aria-describedby={ids.lengthHint}
+                className={numberClass}
+              />
+              {t("customMinutes")}
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="number"
+                inputMode="numeric"
+                min={0}
+                max={59}
+                step={5}
+                value={customSecs}
+                onChange={(event) => setCustomSecs(event.target.value)}
+                aria-describedby={ids.lengthHint}
+                className={numberClass}
+              />
+              {t("customSeconds")}
+            </label>
+          </div>
+          <p
+            id={ids.lengthHint}
+            className={`text-supporting ${customOk ? "text-ink-muted" : "text-error"}`}
+          >
+            {t("customLengthHint", { max: duration(maxSeconds) })}
+          </p>
+        </fieldset>
+      )}
+      {maxSeconds < CUSTOM_LENGTH.max && (
+        <p className="text-supporting text-ink-muted">
+          {t("planLength", { max: duration(maxSeconds) })}{" "}
+          <Link
+            href="/pricing?from=length"
+            className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+          >
+            {t("seePlans")}
+          </Link>
+        </p>
+      )}
+    </>
+  );
 
   return (
     <div className="space-y-6">
@@ -318,9 +412,12 @@ export function GenerateTextPanel({
           [
             "lengthLegend",
             length,
-            GENERATION_LENGTHS.map((value) => ({
+            lengths.map((value) => ({
               value,
-              label: t("length", { range: value.replace("-", "–") }),
+              label:
+                value === "30s" || value === "custom"
+                  ? t(`lengthOptions.${value}`)
+                  : t("length", { range: value.replace("-", "–") }),
             })),
             (value: string) => setLength(value as GenerationLength),
           ],
@@ -355,6 +452,7 @@ export function GenerateTextPanel({
             onChange={onChange}
             optionWidthClassName="min-w-16"
           />
+          {key === "lengthLegend" && lengthDetails}
         </div>
       ))}
       <p className="text-supporting text-ink-muted">{t("note")}</p>
@@ -375,6 +473,8 @@ export function GenerateTextPanel({
         <p role="alert" className="text-supporting text-error">
           {error === "limit" ? (
             <UsageLimitMessage block={usage} fallback={t("errors.limit")} />
+          ) : error === "tooLong" ? (
+            t("errors.tooLong", { max: tooLongMax })
           ) : (
             t(`errors.${error}`)
           )}

@@ -14,6 +14,7 @@ import {
 import {
   checkGeneratedText,
   compositionPrompt,
+  lengthSeconds,
   lengthWords,
   materialMeta,
   parseGenerationRequest,
@@ -388,5 +389,32 @@ describe("generatePracticeText", () => {
       ok: false,
       reason: "unavailable",
     });
+  });
+});
+
+describe("lengths (D94)", () => {
+  it("asks for 30 seconds or one's own length in words", () => {
+    expect(lengthWords("30s")).toBe(65);
+    expect(lengthWords("custom", 90)).toBe(195);
+    // The buckets read as before (the recorded fixtures depend on it).
+    expect(lengthWords("1-2")).toBe(195);
+    expect(lengthSeconds("2-3")).toBe(180);
+    expect(lengthSeconds("custom", 45)).toBe(45);
+  });
+
+  it("takes a length of one's own between 15 seconds and 10 minutes", () => {
+    expect(
+      parseGenerationRequest({ ...request, length: "custom", seconds: 45 }),
+    ).toMatchObject({ length: "custom", seconds: 45 });
+    for (const seconds of [14, 601, 30.5, "60", undefined]) {
+      expect(
+        parseGenerationRequest({ ...request, length: "custom", seconds }),
+      ).toBeNull();
+    }
+    expect(
+      compositionPrompt(
+        parseGenerationRequest({ ...request, length: "custom", seconds: 60 })!,
+      ).words,
+    ).toBe(130);
   });
 });

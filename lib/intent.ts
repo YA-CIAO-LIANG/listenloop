@@ -22,6 +22,7 @@ export const INTENT_SOURCES = [
   "classroom",
   "youtube",
   "speed",
+  "length",
   "stats",
   "account",
 ] as const;

@@ -20,17 +20,47 @@ import { VOICE_ACCENTS, type VoiceAccent } from "@/lib/ai/types";
  * optionally a topic.
  */
 
-/** Lengths offered, as the library's length buckets (minutes). */
-export const GENERATION_LENGTHS = ["1-2", "2-3", "3-4", "4-5"] as const;
+/**
+ * Lengths offered (D94): 30 seconds, the library's length buckets
+ * (minutes), or the learner's own length in seconds.
+ */
+export const GENERATION_LENGTHS = [
+  "30s",
+  "1-2",
+  "2-3",
+  "3-4",
+  "4-5",
+  "custom",
+] as const;
 export type GenerationLength = (typeof GENERATION_LENGTHS)[number];
+
+/** A length of one's own (D94), in seconds; the plan may allow less. */
+export const CUSTOM_LENGTH = { min: 15, max: 600 } as const;
 
 /** Azure neural voices read about this many words a minute (D36). */
 export const WORDS_PER_MINUTE = 130;
 
-/** The words asked for: the middle of the length bucket. */
-export function lengthWords(length: GenerationLength): number {
+/**
+ * The words asked for: the middle of a length bucket, or the length
+ * itself for 30 seconds and one's own.
+ */
+export function lengthWords(length: GenerationLength, seconds = 0): number {
+  if (length === "30s") return Math.round(WORDS_PER_MINUTE / 2);
+  if (length === "custom") {
+    return Math.round((seconds / 60) * WORDS_PER_MINUTE);
+  }
   const [min, max] = length.split("-").map(Number);
   return Math.round(((min + max) / 2) * WORDS_PER_MINUTE);
+}
+
+/**
+ * The longest the audio may come out, in seconds: what the plan's limit
+ * is checked against (D94). A bucket counts as its upper end.
+ */
+export function lengthSeconds(length: GenerationLength, seconds = 0): number {
+  if (length === "30s") return 30;
+  if (length === "custom") return seconds;
+  return Number(length.split("-")[1]) * 60;
 }
 
 export const GENERATION_FORMATS = ["dialogue", "monologue"] as const;
@@ -73,6 +103,8 @@ export type GenerationRequest = {
   /** A general level, or for exam practice the exam's target id. */
   level: string;
   length: GenerationLength;
+  /** With length "custom" only: the length in seconds (D94). */
+  seconds?: number;
   format: GenerationFormat;
   accent: VoiceAccent;
 };
@@ -138,6 +170,12 @@ export function parseGenerationRequest(
     (customCategory !== "" && place !== null) ||
     !levelOk ||
     !(GENERATION_LENGTHS as readonly unknown[]).includes(raw.length) ||
+    (raw.length === "custom" &&
+      !(
+        Number.isInteger(raw.seconds) &&
+        (raw.seconds as number) >= CUSTOM_LENGTH.min &&
+        (raw.seconds as number) <= CUSTOM_LENGTH.max
+      )) ||
     !(GENERATION_FORMATS as readonly unknown[]).includes(raw.format) ||
     !(VOICE_ACCENTS as readonly unknown[]).includes(raw.accent)
   ) {
@@ -152,6 +190,7 @@ export function parseGenerationRequest(
     titleZh,
     level: raw.level as string,
     length: raw.length as GenerationLength,
+    ...(raw.length === "custom" ? { seconds: raw.seconds as number } : {}),
     format: raw.format as GenerationFormat,
     accent: raw.accent as VoiceAccent,
   };
@@ -181,7 +220,7 @@ export function compositionPrompt(
     ...(request.titleEn ? { titleEn: request.titleEn } : {}),
     ...(request.titleZh ? { titleZh: request.titleZh } : {}),
     level: `${level}; ${ACCENT_PROMPTS[request.accent]}`,
-    words: lengthWords(request.length),
+    words: lengthWords(request.length, request.seconds),
     format: request.format,
   };
 }
