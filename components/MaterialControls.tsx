@@ -1,5 +1,6 @@
 "use client";
 
+import { UsageLimitMessage } from "./UsageLimitMessage";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
@@ -310,7 +311,14 @@ export function MaterialControls({
             <p className="text-success">{t("saved")}</p>
           ) : (
             <p role="alert" className="text-error">
-              {t(`errors.${result.reason}`)}
+              {result.reason === "limit" ? (
+                <UsageLimitMessage
+                  block={result.usage}
+                  fallback={t("errors.limit")}
+                />
+              ) : (
+                t(`errors.${result.reason}`)
+              )}
             </p>
           ))}
       </div>

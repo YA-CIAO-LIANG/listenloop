@@ -1,5 +1,6 @@
 "use server";
 
+import type { UsageBlock } from "@/lib/usage";
 import { can, planFor, type PlanBlock } from "@/lib/plans";
 import { countChars } from "@/lib/usage";
 import { revalidatePath } from "next/cache";
@@ -32,6 +33,8 @@ export type SaveEditResult =
   | {
       ok: false;
       reason: "unavailable" | "not-found" | "conflict" | MeteredFailure;
+      /** For limit: which allowance ran out (D77). */
+      usage?: UsageBlock;
     }
   | {
       ok: false;
@@ -129,7 +132,9 @@ export async function savePracticeEdit(
       plan.translate.map((i) => plan.sentences[i].en),
       { from: "en", to: "zh-Hant" },
     );
-    if (!translated.ok) return translated;
+    if (!translated.ok) {
+      return { ok: false, reason: translated.reason, usage: translated.limit };
+    }
     for (const [k, i] of plan.translate.entries()) {
       plan.sentences[i].zh = translated.value[k];
     }

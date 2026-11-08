@@ -7,6 +7,8 @@ import { StatTile } from "@/components/StatTile";
 import { parseActivity } from "@/lib/activity";
 import { siteActivity } from "@/lib/analytics";
 import { parseProgress } from "@/lib/progress";
+import { getUsageSettings } from "@/auth/usage-settings";
+import { MONTHLY_WARNING_SHARE } from "@/lib/usage";
 import { userNumberLabel } from "@/lib/accounts";
 import {
   taiwanToday,
@@ -104,6 +106,12 @@ export default async function AdminOverviewPage() {
   );
   const o = overviewRows?.[0];
   const u = usageRows?.[0];
+  // The site's monthly cap (D77): warn from 80%, and say when it's reached.
+  const settings = await getUsageSettings(admin);
+  const monthShare =
+    settings.siteMonthlyMicros > 0
+      ? (u?.month_micros ?? 0) / settings.siteMonthlyMicros
+      : 0;
   const count = (value: number | undefined) => format.number(value ?? 0);
   const usd = (micros: number) =>
     format.number(microsToUsd(micros), {
@@ -241,6 +249,20 @@ export default async function AdminOverviewPage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
+      {monthShare >= MONTHLY_WARNING_SHARE && (
+        <p
+          role="alert"
+          className="mt-6 max-w-reading rounded-base border border-error p-4 text-error"
+        >
+          {t(monthShare >= 1 ? "capReached" : "capWarning", {
+            share: percent(Math.min(monthShare, 1)),
+            cap: usd(settings.siteMonthlyMicros),
+          })}{" "}
+          <Link href="/admin/usage" className="underline underline-offset-4">
+            {t("capLink")}
+          </Link>
+        </p>
+      )}
       {groups.map((group) => (
         <section key={group.id} className="mt-10" aria-labelledby={group.id}>
           <h2 id={group.id} className="font-display text-h3">

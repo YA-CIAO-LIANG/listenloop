@@ -1,5 +1,6 @@
 "use client";
 
+import { UsageLimitMessage } from "./UsageLimitMessage";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -145,7 +146,11 @@ export function EditPracticeForm({
     setProgress(null);
     setPending(false);
     if (!ready.ok) {
-      setFailure({ reason: "prepare" });
+      setFailure(
+        ready.reason === "limit" && ready.limit
+          ? { ok: false, reason: "limit", usage: ready.limit }
+          : { reason: "prepare" },
+      );
       return;
     }
     setSaved(true);
@@ -162,6 +167,11 @@ export function EditPracticeForm({
     }
     if (failure.reason === "plan") {
       return tPlans(`limits.${failure.limit}`, { max: failure.max ?? 0 });
+    }
+    if (failure.reason === "limit" && "usage" in failure && failure.usage) {
+      return (
+        <UsageLimitMessage block={failure.usage} fallback={t("errors.limit")} />
+      );
     }
     return t(`errors.${failure.reason}`);
   })();

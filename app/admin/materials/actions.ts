@@ -1,5 +1,6 @@
 "use server";
 
+import type { UsageBlock } from "@/lib/usage";
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import type { WriteResult } from "@/auth/admin-writes";
@@ -29,7 +30,8 @@ import {
  */
 export type MaterialResult =
   | WriteResult
-  | { ok: false; reason: "not-admin-made" | "not-ready" | "busy" | "limit" };
+  | { ok: false; reason: "not-admin-made" | "not-ready" | "busy" }
+  | { ok: false; reason: "limit"; usage?: UsageBlock };
 
 type Admin = NonNullable<ReturnType<typeof getAdminSupabase>>;
 
@@ -203,13 +205,10 @@ async function writeSubtitle(
     creator.providers.language.describe(input),
   );
   if (!result.ok) {
-    return {
-      ok: false,
-      reason:
-        result.reason === "busy" || result.reason === "limit"
-          ? result.reason
-          : "failed",
-    };
+    if (result.reason === "limit") {
+      return { ok: false, reason: "limit", usage: result.limit };
+    }
+    return { ok: false, reason: result.reason === "busy" ? "busy" : "failed" };
   }
   const subtitle = subtitleFromModel(result.value);
   if (!subtitle) return { ok: false, reason: "failed" };

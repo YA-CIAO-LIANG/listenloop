@@ -1,4 +1,9 @@
-import { countChars, type UsageKind, type UsageMeter } from "@/lib/usage";
+import {
+  countChars,
+  type UsageBlock,
+  type UsageKind,
+  type UsageMeter,
+} from "@/lib/usage";
 import { maxCost, type LanguageBudget } from "./budgets";
 import { toMicros } from "./pricing";
 import {
@@ -19,7 +24,13 @@ import {
  * provider can't be retried past the limit. Every call is logged.
  */
 export type MeteredResult<T> =
-  { ok: true; value: T } | { ok: false; reason: MeteredFailure };
+  | { ok: true; value: T }
+  | {
+      ok: false;
+      reason: MeteredFailure;
+      /** For "limit": which allowance ran out, and when it resets (D77). */
+      limit?: UsageBlock;
+    };
 
 /**
  * limit: today's allowance is used up; busy: the provider is rate-limited;
@@ -93,7 +104,12 @@ async function metered<T>(
   call: () => Promise<Billed<T>>,
 ): Promise<MeteredResult<T>> {
   try {
-    if (!(await reserve())) return { ok: false, reason: "limit" };
+    if (!(await reserve())) {
+      const limit = meter.lastBlock?.() ?? undefined;
+      return limit
+        ? { ok: false, reason: "limit", limit }
+        : { ok: false, reason: "limit" };
+    }
   } catch {
     return { ok: false, reason: "failed" };
   }

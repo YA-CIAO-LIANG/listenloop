@@ -1,5 +1,10 @@
 import { toMicros } from "@/lib/ai/pricing";
-import type { UsageLogEntry, UsageMeter } from "@/lib/usage";
+import {
+  BATCH_SPEECH_CHARS,
+  type UsageLogEntry,
+  type UsageMeter,
+  type UsageSettings,
+} from "@/lib/usage";
 
 /**
  * The budget guard for scripts that call the paid APIs (D59, D69): every
@@ -62,5 +67,17 @@ export function guardedMeter(
         t.calls += 1;
       }
     },
+  };
+}
+
+/**
+ * Batch scripts' meter settings (D77): the admin's batch allowance from
+ * usage_settings, apart from what's created by hand, and more speech.
+ */
+export function batchMeterOptions(settings: UsageSettings) {
+  return {
+    limits: { speech: BATCH_SPEECH_CHARS, cost: settings.adminBatchMicros },
+    bucket: "batch" as const,
+    monthlyMicros: null,
   };
 }

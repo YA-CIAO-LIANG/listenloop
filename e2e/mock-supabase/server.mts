@@ -139,6 +139,15 @@ createServer((request, response) => {
     json(200, sub && waitlist.has(sub) ? [{ user_id: sub }] : []);
     return;
   }
+  // Every daily AI allowance is used up (D77), so a paid call is refused
+  // before anything runs, and the page says which limit and when it resets.
+  if (
+    url.pathname === "/rest/v1/rpc/reserve_api_cost" ||
+    url.pathname === "/rest/v1/rpc/reserve_api_batch_cost"
+  ) {
+    json(200, false);
+    return;
+  }
   // The library's totals (D70): one learner on Sintel, no audio lengths.
   if (url.pathname === "/rest/v1/rpc/material_learner_counts") {
     json(200, [{ video_id: "sintel", learners: 1 }]);

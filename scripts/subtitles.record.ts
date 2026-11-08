@@ -28,8 +28,8 @@ import {
   subtitleFromModel,
 } from "@/lib/custom-practice/subtitle";
 import type { Database } from "@/lib/supabase/database.types";
-import { OFFICIAL_DAILY_LIMITS } from "@/lib/usage";
-import { emptyTally, guardedMeter, usd } from "./cost-guard";
+import { emptyTally, guardedMeter, usd, batchMeterOptions } from "./cost-guard";
+import { getUsageSettings } from "@/auth/usage-settings";
 import { DRAFT_IDS } from "./draft-ids";
 
 /** Joe approved about US$0.003 for this (2026-11-08); a guard well above. */
@@ -52,6 +52,7 @@ it("writes the official drafts' subtitles", { timeout: 600_000 }, async () => {
   const admin = createClient<Database>(url, key, {
     auth: { persistSession: false },
   });
+  const batchOptions = batchMeterOptions(await getUsageSettings(admin));
 
   const { data: practices, error } = await admin
     .from("practices")
@@ -108,7 +109,7 @@ it("writes the official drafts' subtitles", { timeout: 600_000 }, async () => {
         admin,
         practice.user_id,
         () => new Date(),
-        OFFICIAL_DAILY_LIMITS,
+        batchOptions,
       ),
       tally,
       BUDGET_USD,

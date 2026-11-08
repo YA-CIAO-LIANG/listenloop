@@ -1,3 +1,4 @@
+import type { UsageBlock } from "@/lib/usage";
 import {
   meteredSpeech,
   type MeteredDeps,
@@ -50,6 +51,8 @@ export type GeneratedBatch = {
   done: { i: number; path: string }[];
   /** Why it stopped early, if it did. */
   stopped?: MeteredFailure;
+  /** For "limit": which allowance ran out (D77). */
+  limit?: UsageBlock;
 };
 
 /**
@@ -74,7 +77,11 @@ export async function voiceSentences(
       let path = await deps.store.find(hash);
       if (!path) {
         const audio = await meteredSpeech(deps, sentence.en, sentenceVoice);
-        if (!audio.ok) return { done, stopped: audio.reason };
+        if (!audio.ok) {
+          return audio.limit
+            ? { done, stopped: audio.reason, limit: audio.limit }
+            : { done, stopped: audio.reason };
+        }
         path = await deps.store.save(hash, audio.value);
       }
       done.push({ i: sentence.i, path });

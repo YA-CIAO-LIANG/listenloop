@@ -57,7 +57,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 - **第一次呼叫的結果存成 fixture**（`tests/fixtures/ai/`），之後的測試重複使用，不重複呼叫。錄製用 `npm run ai:record`：預設只印出預估，加 `--yes` 才真的呼叫。
 - **每次實測完都要回報**：實際的 token 數、字元數和估算費用，以 `/admin/usage` 或腳本的輸出為準。
 - **程式記錄每次呼叫**（`api_calls`）：token、字元數、估算費用，管理員在 `/admin/usage` 查看。
-  - 語言模型的每日上限用估算費用控制（`lib/usage.ts` 的 `DAILY_LIMITS.cost`）；聲音用字元數控制；
+  - 語言模型的每日上限用估算費用控制，依身分與工作類型分開（D77）：管理員手動 US$1.00、管理員批次 US$1.00、付費 US$0.20、免費 US$0.05；全站每月上限 US$8，超過時暫停一般使用者建立。預設在 `lib/usage.ts`，管理員在 `/admin/usage` 調整（`usage_settings`）。批次腳本一律用批次額度；聲音用字元數控制；
   - 價格集中在 `lib/ai/pricing.ts`，每次呼叫的輸出上限集中在 `lib/ai/budgets.ts`（D38）。
 
 ## 週循環規則
