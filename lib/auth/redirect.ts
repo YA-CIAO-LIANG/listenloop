@@ -1,7 +1,13 @@
 /** URL parameter telling the page how a sign-in attempt ended. */
 export const SIGN_IN_PARAM = "signin";
 
-export const signInResults = ["failed", "cancelled", "disabled"] as const;
+export const signInResults = [
+  "failed",
+  "cancelled",
+  "disabled",
+  /** LINE gave no email (D101): sign in another way. */
+  "noEmail",
+] as const;
 export type SignInResult = (typeof signInResults)[number];
 
 /**

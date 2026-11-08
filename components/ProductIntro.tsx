@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { Suspense } from "react";
-import { SignInButton } from "./AccountMenu";
+import { SignInLink } from "./AccountMenu";
 
 const STEPS = ["day1", "days2to6", "day7"] as const;
 
@@ -35,9 +35,9 @@ export function ProductIntro() {
         ))}
       </ol>
       <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
-        {/* SignInButton reads the URL to come back here. */}
+        {/* SignInLink reads the URL to come back here. */}
         <Suspense fallback={null}>
-          <SignInButton variant="primary" size="md" />
+          <SignInLink variant="primary" size="md" />
         </Suspense>
         <p className="text-supporting text-ink-muted">{t("noAccount")}</p>
       </div>

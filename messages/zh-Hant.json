@@ -586,7 +586,8 @@
     "signInCancelled": "已取消登入。不登入也可以練習，進度會存在這台裝置上。",
     "dismiss": "關閉",
     "accountSettings": "帳號設定",
-    "signInDisabled": "這個帳號已被停用，無法登入。如果你認為這是誤會，請透過頁尾的「意見回饋」聯絡我們。"
+    "signInDisabled": "這個帳號已被停用，無法登入。如果你認為這是誤會，請透過頁尾的「意見回饋」聯絡我們。",
+    "signInNoEmail": "LINE 沒有提供 Email，無法登入。請改用 Google 或 Email 登入（或在 LINE 允許分享 Email）。"
   },
   "accountPage": {
     "title": "帳號",
@@ -636,9 +637,12 @@
     "sections": [
       {
         "title": "我們收集的資料",
-        "paragraphs": ["只有在你用 Google 帳號登入時，我們才會收集以下資料："],
+        "paragraphs": [
+          "只有在你登入時（Google、LINE 或 Email），我們才會收集以下資料："
+        ],
         "items": [
-          "Google 提供的帳號資料：email、名稱、頭像網址與 Google 帳號識別碼。畫面上只顯示 email。",
+          "登入方式提供的帳號資料：Google 的 email、名稱、頭像網址與帳號識別碼；LINE 的 email、顯示名稱與 LINE 使用者識別碼；Email 註冊的 email 與密碼。密碼由 Supabase 以雜湊方式保存，我們看不到原本的密碼。畫面上只顯示 email。",
+          "同一個帳號：不論用哪種方式登入，同一個 email 就是同一個帳號，練習進度會合在一起。",
           "練習資料：每支影片的練習進度（各天是否完成、聽寫答案與正確率、跟讀的完成狀態）與每天的練習紀錄。",
           "自建練習的內容：建立練習時輸入或上傳的文字、斷句與翻譯結果、單字與文法講解，以及產生的音檔。",
           "公開與檢舉：設為公開的練習，任何人都能看到標題、句子、翻譯、講解與音檔，但看不到作者的帳號資料。檢舉時，我們會保存檢舉原因、補充說明和你的帳號識別碼，只用來審查，作者不會知道是誰檢舉的。",
@@ -670,7 +674,8 @@
           "Google：負責 Google 帳號登入。",
           "Microsoft Azure AI 服務：建立練習時，輸入的文字會送到 Azure OpenAI（gpt-5-mini 模型）產生斷句、翻譯、單字與文法講解，或依你選的情境寫出練習文字；英文句子會送到 Azure Speech 產生語音。依 Microsoft 的條款，送出的內容和產生的結果不會被用來訓練模型；Azure OpenAI 為了偵測濫用，可能保留最多 30 天，而且可能在 Microsoft 任何區域的資料中心處理（Global Standard 部署）；Azure Speech 在阿拉伯聯合大公國的資料中心處理。即使如此，仍請不要在練習文字中輸入個人或敏感資料。",
           "YouTube：練習影片由 YouTube 播放（使用 youtube-nocookie.com），播放時 YouTube 可能依 Google 的隱私權政策設定 cookie。",
-          "語音辨識：跟讀使用瀏覽器內建的語音辨識；在 Chrome 中，聲音會傳到 Google 的伺服器辨識。ListenLoop 不錄音、不儲存聲音，只保存每句的完成狀態與涵蓋率。"
+          "語音辨識：跟讀使用瀏覽器內建的語音辨識；在 Chrome 中，聲音會傳到 Google 的伺服器辨識。ListenLoop 不錄音、不儲存聲音，只保存每句的完成狀態與涵蓋率。",
+          "LINE（LY Corporation）：用 LINE 登入時，處理登入與提供你的帳號資料。"
         ]
       },
       {
@@ -1848,7 +1853,7 @@
       {
         "title": "2. 帳號",
         "paragraphs": [
-          "你可以用 Google 帳號登入。請保管好你的帳號，帳號下的活動由你負責。未滿 18 歲的使用者，請在家長或法定代理人同意並了解本條款與隱私權政策後使用；未滿 13 歲請勿自行建立帳號。"
+          "你可以用 Google、LINE 或 Email 與密碼登入；同一個 email 不論用哪種方式，都是同一個帳號。請保管好你的密碼，不要和其他網站共用；帳號下的活動由你負責。未滿 18 歲的使用者，請在家長或法定代理人同意並了解本條款與隱私權政策後使用；未滿 13 歲請勿自行建立帳號。"
         ]
       },
       {
@@ -2372,5 +2377,60 @@
       "tooLong": "這一段有 {length}，超過你的方案上限 {max}。請選短一點的片段。",
       "notes": "練習已建立，但講解還沒做完；可以在「我的教材」繼續。"
     }
+  },
+  "login": {
+    "title": "登入",
+    "intro": "登入後，練習進度會存在雲端，換裝置也能接著練。可以用 Google、LINE 或 Email 登入；同一個 Email 不論用哪種方式，都是同一個帳號。",
+    "google": "用 Google 登入",
+    "line": "用 LINE 登入",
+    "or": "或用 Email",
+    "email": "Email",
+    "password": "密碼",
+    "newPassword": "新密碼",
+    "passwordRule": "至少 {min} 個字元，可以用空格或中文；越長越安全，常見的密碼不能用。",
+    "strength": {
+      "weak": "太弱",
+      "fair": "可以",
+      "strong": "很安全"
+    },
+    "titles": {
+      "signin": "Email 登入",
+      "signup": "建立帳號",
+      "forgot": "忘記密碼"
+    },
+    "submit": {
+      "signin": "登入",
+      "signup": "建立帳號",
+      "forgot": "寄重設連結"
+    },
+    "switch": {
+      "signin": "已經有帳號？登入",
+      "signup": "還沒有帳號？建立一個",
+      "forgot": "忘記密碼？"
+    },
+    "sent": {
+      "signup": "已寄出確認信。請到信箱點連結完成註冊（如果這個 Email 已經有帳號，請直接登入或重設密碼）。",
+      "forgot": "如果這個 Email 有帳號，重設密碼的連結已經寄出，請到信箱查看。"
+    },
+    "working": "處理中…",
+    "errors": {
+      "unavailable": "目前無法登入，請稍後再試。",
+      "busy": "嘗試太多次了，請稍後再試。",
+      "email": "請輸入正確的 Email。",
+      "credentials": "Email 或密碼不正確。",
+      "unconfirmed": "這個 Email 還沒有確認，請到信箱點確認連結。",
+      "disabled": "這個帳號已被停用。",
+      "failed": "沒有成功，請稍後再試。",
+      "short": "密碼至少要 10 個字元。",
+      "long": "密碼太長了。",
+      "common": "這個密碼太常見，請換一個。",
+      "emailPassword": "密碼不能包含 Email 的名稱。"
+    },
+    "resetTitle": "設定新密碼",
+    "resetFor": "為 {email} 設定新密碼。",
+    "resetSave": "儲存新密碼",
+    "resetDone": "新密碼已儲存，你已經登入。",
+    "resetExpired": "重設連結已失效或已用過，請重新申請。",
+    "home": "回首頁"
   }
 }

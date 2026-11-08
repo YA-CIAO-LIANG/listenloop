@@ -7,6 +7,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { withSignInResult } from "@/lib/auth/redirect";
 import { getBrowserSupabase } from "@/lib/supabase/browser";
 import { Button, type ButtonSize, type ButtonVariant } from "./Button";
+import { ButtonLink } from "./ButtonLink";
 
 type AccountMenuProps = {
   /** The signed-in account, or null when signed out. */
@@ -19,13 +20,38 @@ type AccountMenuProps = {
  * "Sign out", and a link to the account page (disclosure pattern: Escape or a click outside closes it).
  */
 export function AccountMenu({ user }: AccountMenuProps) {
-  return user ? <AccountPanel email={user.email} /> : <SignInButton />;
+  return user ? <AccountPanel email={user.email} /> : <SignInLink />;
 }
 
 function useCurrentPath(): string {
   const pathname = usePathname();
   const query = useSearchParams().toString();
   return query ? `${pathname}?${query}` : pathname;
+}
+
+/**
+ * "Sign in": to /login (D101), which offers Google, LINE, and email, and
+ * comes back to this page. Uses useSearchParams: render it inside
+ * Suspense.
+ */
+export function SignInLink({
+  variant = "ghost",
+  size = "sm",
+}: {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+}) {
+  const t = useTranslations("account");
+  const here = useCurrentPath();
+  return (
+    <ButtonLink
+      href={`/login?next=${encodeURIComponent(here)}`}
+      variant={variant}
+      size={size}
+    >
+      {t("signIn")}
+    </ButtonLink>
+  );
 }
 
 /**
@@ -36,9 +62,12 @@ function useCurrentPath(): string {
 export function SignInButton({
   variant = "ghost",
   size = "sm",
+  label,
 }: {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  /** Instead of "Sign in" (e.g. "Continue with Google" on /login). */
+  label?: string;
 }) {
   const t = useTranslations("account");
   const router = useRouter();
@@ -64,7 +93,7 @@ export function SignInButton({
 
   return (
     <Button variant={variant} size={size} onClick={signIn} disabled={pending}>
-      {pending ? t("signingIn") : t("signIn")}
+      {pending ? t("signingIn") : (label ?? t("signIn"))}
     </Button>
   );
 }

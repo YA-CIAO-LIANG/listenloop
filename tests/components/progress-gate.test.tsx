@@ -29,14 +29,14 @@ describe("ProgressGate", () => {
     expect(
       screen.getByRole("heading", { name: "登入後查看你的進度" }),
     ).toBeDefined();
-    expect(screen.getByRole("button", { name: "登入" })).toBeDefined();
+    expect(screen.getByRole("link", { name: "登入" })).toBeDefined();
     expect(screen.getByText(/登入後會一起存進帳號/)).toBeDefined();
   });
 
   it("shows progress to a signed-in learner", () => {
     renderGate({ userId: "user-1", accounts: true });
     expect(screen.getByText("今日任務的內容")).toBeDefined();
-    expect(screen.queryByRole("button", { name: "登入" })).toBeNull();
+    expect(screen.queryByRole("link", { name: "登入" })).toBeNull();
   });
 
   it("shows progress when this build has no accounts to sign in to", () => {

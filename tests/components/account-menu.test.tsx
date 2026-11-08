@@ -1,6 +1,6 @@
 import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { AccountMenu } from "@/components/AccountMenu";
+import { AccountMenu, SignInButton } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
 import { renderWithIntl } from "../render";
 
@@ -42,10 +42,20 @@ beforeEach(() => {
 });
 
 describe("AccountMenu signed out", () => {
+  it("links to /login, which comes back to this page (D101)", () => {
+    navigation.query = "length=1-2";
+    renderWithIntl(<AccountMenu user={null} />);
+    expect(
+      screen.getByRole("link", { name: "登入" }).getAttribute("href"),
+    ).toBe("/login?next=%2Fvideos%2Fsintel%3Flength%3D1-2");
+  });
+});
+
+describe("SignInButton (Google, on /login)", () => {
   it("signs in with Google and comes back to this page", async () => {
     navigation.query = "length=1-2";
     auth.signInWithOAuth.mockResolvedValue({ data: {}, error: null });
-    renderWithIntl(<AccountMenu user={null} />);
+    renderWithIntl(<SignInButton />);
     fireEvent.click(screen.getByRole("button", { name: "登入" }));
 
     await waitFor(() => expect(auth.signInWithOAuth).toHaveBeenCalled());
@@ -68,7 +78,7 @@ describe("AccountMenu signed out", () => {
       data: {},
       error: new Error("offline"),
     });
-    renderWithIntl(<AccountMenu user={null} />);
+    renderWithIntl(<SignInButton />);
     fireEvent.click(screen.getByRole("button", { name: "登入" }));
 
     await waitFor(() =>
