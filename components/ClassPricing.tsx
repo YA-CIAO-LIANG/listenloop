@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollRegion } from "./ScrollRegion";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { recordIntent } from "@/app/intent-actions";
@@ -89,7 +90,7 @@ export function ClassPricing({
         )}
       </div>
 
-      <div className="overflow-x-auto">
+      <ScrollRegion label={t("title")}>
         <table className="w-full min-w-120 text-left text-supporting tabular-nums">
           <thead>
             <tr className="border-b border-line">
@@ -147,7 +148,7 @@ export function ClassPricing({
             })}
           </tbody>
         </table>
-      </div>
+      </ScrollRegion>
       <p className="text-supporting text-ink-muted">{t("note")}</p>
 
       {offer && (

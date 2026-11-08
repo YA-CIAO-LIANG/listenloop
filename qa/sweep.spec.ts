@@ -52,6 +52,9 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
     "/practices",
     "/offline",
     "/checkout/failed",
+    "/login",
+    "/pricing/classroom",
+    "/classroom/join/ABCD2345",
     "/no-such-page",
   ].map((path) => ({ path, role: "none" as const })),
   ...(LIVE
@@ -68,6 +71,7 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           `/videos/p-${ready}/day/1`,
           `/videos/p-${ready}/day/2`,
           `/materials/${ready}/edit`,
+          "/classroom",
         ].map((path) => ({ path, role: "author" as const })),
         ...[
           "/admin",
@@ -82,6 +86,9 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           "/admin/feedback",
           "/admin/audit",
           "/admin/sentences",
+          "/admin/interest",
+          "/admin/forecast",
+          "/classroom",
         ].map((path) => ({ path, role: "admin" as const })),
         // States behind a click: forms past their first step.
         {

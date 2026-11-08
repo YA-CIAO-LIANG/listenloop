@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollRegion } from "./ScrollRegion";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -241,7 +242,7 @@ export function PricingPlans({
         })}
       </ul>
 
-      <div className="overflow-x-auto">
+      <ScrollRegion label={t("compareTitle")}>
         <table className="w-full min-w-120 text-left text-supporting">
           <caption className="mb-3 text-left font-display text-h3">
             {t("compareTitle")}
@@ -273,7 +274,7 @@ export function PricingPlans({
             ))}
           </tbody>
         </table>
-      </div>
+      </ScrollRegion>
 
       <div className="space-y-2 text-supporting text-ink-muted">
         <p>

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ScrollRegion } from "@/components/ScrollRegion";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
@@ -282,7 +283,7 @@ export default async function ClassPage({
                   due: date(assignment.dueOn),
                 })}
               </p>
-              <div className="overflow-x-auto">
+              <ScrollRegion label={assignment.title}>
                 <table className="w-full min-w-150 text-left text-supporting tabular-nums">
                   <thead>
                     <tr className="border-b border-line">
@@ -344,7 +345,7 @@ export default async function ClassPage({
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </ScrollRegion>
               <p className="text-supporting">
                 <span className="text-ink-muted">{t("unfinished")}</span>{" "}
                 {unfinished.length === 0 ? t("none") : unfinished.join("、")}

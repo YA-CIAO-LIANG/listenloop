@@ -258,7 +258,7 @@ export function YouTubeCreate({
               setRows(null);
             }}
             disabled={pending}
-            className={`${fieldClassName} max-w-md flex-1`}
+            className={`${fieldClassName} max-w-md min-w-0 flex-1 basis-48`}
           />
           <Button
             variant="secondary"

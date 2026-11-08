@@ -1,5 +1,6 @@
 "use client";
 
+import { ScrollRegion } from "./ScrollRegion";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { forecast, type ForecastInput } from "@/lib/forecast";
@@ -69,7 +70,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
         />
       </dl>
 
-      <div className="overflow-x-auto">
+      <ScrollRegion label={t("plansTitle")}>
         <table className="w-full min-w-120 text-left text-supporting">
           <caption className="mb-3 text-left font-display text-h3">
             {t("plansTitle")}
@@ -112,7 +113,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
             )}
           </tbody>
         </table>
-      </div>
+      </ScrollRegion>
 
       <fieldset className="grid gap-4 split:grid-cols-2 wide:grid-cols-3">
         <legend className="mb-3 font-display text-h3">
