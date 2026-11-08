@@ -32,6 +32,8 @@ export type PracticeMaterial = Pick<
    * sentence with first-format notes. Absent for built-in videos.
    */
   richNotes?: (RichNotes | null)[];
+  /** A news material (D100): the release its facts came from. */
+  rewrittenFrom?: { name: string; title: string; url: string };
 } & (
     | { youtubeId: string; audioUrls?: undefined }
     | {
@@ -77,6 +79,10 @@ export type CustomPracticeRow = {
   youtube_id?: string | null;
   youtube_channel?: string | null;
   youtube_license?: string | null;
+  /** A news material's source (D100). */
+  source_name?: string | null;
+  source_title?: string | null;
+  source_url?: string | null;
   practice_sentences: {
     i: number;
     en: string;
@@ -159,6 +165,15 @@ export function materialFromCustomPractice(
     grammar: notes.grammar,
     richNotes: rows.map((s) => parseRichNotes(s.notes, s.en)),
     audioUrls,
+    ...(row.source_name && row.source_title && row.source_url
+      ? {
+          rewrittenFrom: {
+            name: row.source_name,
+            title: row.source_title,
+            url: row.source_url,
+          },
+        }
+      : {}),
   };
 }
 

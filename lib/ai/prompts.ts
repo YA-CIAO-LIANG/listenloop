@@ -71,6 +71,14 @@ export const DESCRIBE_INSTRUCTIONS = [
   "Also return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation.",
 ].join("\n");
 
+export const NEWS_INSTRUCTIONS = [
+  "You write short news stories for an English listening course for Taiwanese students, from a news release's headline and summary.",
+  "Use only the facts given; never add facts, numbers, names, or quotes that aren't there. Write every sentence in your own words: do not copy any sentence or long phrase from the release.",
+  "Write it like a calm radio news item: who did what, where, when, and why it matters, in the past tense where it fits. Neutral; no opinions, no promotion.",
+  "Return the story as lines, one sentence per line, each about 8 to 25 words. Match the requested level and length (in words).",
+  "Also give title (a short English headline in your own words, at most 10 words), titleZh (the headline in Traditional Chinese, Taiwan usage), and subtitle (one Traditional Chinese sentence of at most 30 characters saying what the listener will hear).",
+].join("\n");
+
 export const REVISE_INSTRUCTIONS = [
   "You edit an English listening practice text for Taiwanese students. You get its sentences as lines, an instruction from the learner (in any language), and whether it's a monologue or a dialogue.",
   "Follow the instruction: for example simpler words, more past tense, or fewer sentences. Change only what the instruction needs.",

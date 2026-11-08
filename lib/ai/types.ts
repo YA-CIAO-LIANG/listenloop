@@ -108,7 +108,24 @@ export interface LanguageProvider {
    * lib/custom-practice/revise.ts checks it.
    */
   revise(input: RevisionInput): Promise<Billed<unknown>>;
+  /**
+   * A news story for learners, in its own words, from a news release's
+   * facts (D100): `{ title, titleZh, subtitle, lines }`. Unchecked:
+   * checkGeneratedText checks it like composed text.
+   */
+  rewriteNews(input: NewsInput): Promise<Billed<unknown>>;
 }
+
+/** The facts a news material is rewritten from (D100). */
+export type NewsInput = {
+  headline: string;
+  /** The release's own summary, plain text. */
+  summary: string;
+  source: string;
+  /** A general level prompt (lib/categories.ts LEVEL_PROMPTS). */
+  level: string;
+  words: number;
+};
 
 /** What a revision (D96) works from. */
 export type RevisionInput = {
