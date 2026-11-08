@@ -495,8 +495,8 @@ export function DictationSession({
   return (
     <>
       {/* Wide screens: notes beside the practice column, no scrolling. */}
-      <div className="wide:mx-auto wide:flex wide:max-w-content wide:items-start wide:justify-center wide:gap-8">
-        <section className="practice-column space-y-4 wide:practice-column-notes">
+      <div>
+        <section className="practice-column space-y-4">
           {header}
           {mode === "retry" && (
             <p className="text-supporting text-accent-ink">
@@ -552,6 +552,10 @@ export function DictationSession({
               <WordDiffView
                 diff={wordDiff(sentences[feedbackIndex].en, shownAnswer)}
               />
+              {/* The meaning right under the sentence (D78). */}
+              <p className="text-supporting text-ink-muted">
+                {sentences[feedbackIndex].zh}
+              </p>
               <p className="text-supporting text-ink-muted">
                 {t("sentenceScore", { score: percent(feedbackAccuracy) })}
                 {/* Feedback only shows right after a submit, so this plays once per answer. */}
@@ -592,36 +596,25 @@ export function DictationSession({
           </div>
           <p className="text-metadata text-ink-muted">{t("shortcuts")}</p>
           {saveError}
-        </section>
-
-        {/* Below the buttons on narrow screens, so "next" stays put; a sticky
-          column on wide screens, reserved before answering so nothing jumps. */}
-        <div
-          // Scrolls on its own on wide screens: keyboard users can focus it.
-          tabIndex={feedbackIndex !== null ? 0 : undefined}
-          role={feedbackIndex !== null ? "region" : undefined}
-          aria-label={feedbackIndex !== null ? t("notesLabel") : undefined}
-          className={`practice-column wide:sticky wide:top-0 wide:mx-0 wide:mt-0 wide:max-h-screen wide:w-80 wide:shrink-0 wide:overflow-y-auto wide:pt-2 ${
-            feedbackIndex !== null ? "mt-4" : ""
-          }`}
-        >
-          {feedbackIndex !== null ? (
-            <div className="border-t border-line pt-6">
-              {/* What was misheard comes first, highlighted (D68). */}
+          {feedbackIndex !== null && (
+            <div
+              role="region"
+              aria-label={t("notesLabel")}
+              className="border-t border-line pt-6"
+            >
+              {/* What was misheard first, highlighted (D68); the meaning is
+                  already under the sentence above (D78). */}
               <SentenceExplanation
                 en={sentences[feedbackIndex].en}
                 zh={sentences[feedbackIndex].zh}
+                showZh={false}
                 rich={video.richNotes?.[feedbackIndex] ?? null}
                 legacy={notesForSentence(video, feedbackIndex)}
                 missed={missedPieces(sentences[feedbackIndex].en, shownAnswer)}
               />
             </div>
-          ) : (
-            <p className="hidden text-supporting text-ink-muted wide:block">
-              {t("notesHint")}
-            </p>
           )}
-        </div>
+        </section>
       </div>
 
       {children}
@@ -750,7 +743,13 @@ function DictationResult({
                 <span className="text-metadata text-ink-muted tabular-nums">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <WordDiffView diff={wordDiff(sentence.en, answer)} />
+                <div className="space-y-1">
+                  <WordDiffView diff={wordDiff(sentence.en, answer)} />
+                  {/* The meaning right under the sentence (D78). */}
+                  <p className="text-supporting text-ink-muted">
+                    {sentence.zh}
+                  </p>
+                </div>
                 <span className="text-supporting text-ink-muted tabular-nums">
                   {percent(accuracy)}
                 </span>

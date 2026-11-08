@@ -35,6 +35,23 @@ test("Day 1 puts what was misheard first, highlighted", async ({ page }) => {
   await expect(page.getByText("/tɝːn raɪt/")).toBeVisible();
 });
 
+test("the meaning sits right under the sentence, above the notes (D78)", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await mishearSentence2(page);
+  const feedback = page.getByRole("status").filter({ hasText: "在銀行右轉。" });
+  await expect(feedback).toBeVisible();
+  const meaning = await feedback.getByText("在銀行右轉。").boundingBox();
+  const notes = await page
+    .getByRole("region", { name: "這句的講解" })
+    .boundingBox();
+  // Below the sentence and above the notes, in one column.
+  expect(meaning && notes && meaning.y < notes.y).toBe(true);
+  expect(meaning && notes && Math.abs(meaning.x - notes.x) < 40).toBe(true);
+  await expect(page.getByText("在銀行右轉。")).toHaveCount(1);
+});
+
 for (const scheme of ["light", "dark"] as const) {
   test(`the highlighted notes pass axe (${scheme})`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: scheme });

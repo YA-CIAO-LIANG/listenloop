@@ -28,6 +28,11 @@ type SentenceExplanationProps = {
   missed: ReadonlySet<number> | null;
   /** Show the sentence itself, marked (not where it's already on screen). */
   showSentence?: boolean;
+  /**
+   * Show the translation; false where it's already right under the
+   * sentence on the page (D78).
+   */
+  showZh?: boolean;
 };
 
 /** Renders marked segments, a run of words per mark. */
@@ -65,6 +70,7 @@ export function SentenceExplanation({
   legacy,
   missed,
   showSentence = false,
+  showZh = true,
 }: SentenceExplanationProps) {
   const t = useTranslations("explain");
   const none = new Set<number>();
@@ -149,7 +155,7 @@ export function SentenceExplanation({
         </section>
       )}
 
-      <p>{zh}</p>
+      {showZh && <p>{zh}</p>}
 
       {rich && rich.highlights.length > 0 && (
         <Section title={t("keyTitle")}>

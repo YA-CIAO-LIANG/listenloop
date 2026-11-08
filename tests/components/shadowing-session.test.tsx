@@ -163,12 +163,13 @@ afterEach(() => {
 });
 
 describe("ShadowingSession", () => {
-  it("starts at sentence 1 with English shown, Chinese folded, and saves a fresh day", async () => {
+  it("starts at sentence 1 with English and its meaning shown, and saves a fresh day", async () => {
     const store = await renderSession();
     expect(screen.getByText("第 1 / 2 句")).toBeDefined();
     expect(screen.getByText(/CC 按鈕關閉/)).toBeDefined();
     expect(screen.getAllByText("Go home.").length).toBeGreaterThan(0);
-    expect(screen.getByText("回家。").closest("details")).not.toBeNull();
+    // The meaning is right under the sentence, not folded away (D78).
+    expect(screen.getByText("回家。").closest("details")).toBeNull();
     expect(store.saved()?.days[2]).toEqual({
       done: false,
       sentences: [
@@ -403,9 +404,9 @@ describe("ShadowingSession with a created practice", () => {
     expect(screen.queryByText("move to + place")).toBeNull();
   });
 
-  it("keeps a built-in video's Chinese folded away", async () => {
+  it("shows the meaning once, under the sentence, not again in the notes (D78)", async () => {
     await renderSession();
-    expect(screen.getByText("中文").closest("details")).not.toBeNull();
+    expect(document.querySelector("details")).toBeNull();
     expect(screen.queryByText("home")).toBeNull();
   });
 

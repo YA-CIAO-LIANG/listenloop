@@ -414,15 +414,15 @@ describe("DictationSession layout by screen width", () => {
     delete (Element.prototype as { scrollIntoView?: unknown }).scrollIntoView;
   });
 
-  it("reserves the notes column with a hint on wide screens", async () => {
+  it("shows the meaning right under the sentence after answering (D78)", async () => {
     screenIs(true);
     await renderSession();
-    expect(screen.getByText(/送出後，這裡會顯示/)).toBeDefined();
-
     await userEvent.type(input(), "go home{Enter}");
-    expect(screen.queryByText(/送出後，這裡會顯示/)).toBeNull();
-    expect(screen.getByText("回家。")).toBeDefined();
-    // Everything fits beside the video: no scrolling.
+    const meaning = screen.getByText("回家。");
+    // In the feedback, under the sentence, and only once.
+    expect(screen.getByRole("status").contains(meaning)).toBe(true);
+    expect(screen.getAllByText("回家。")).toHaveLength(1);
+    // Wide screens fit it all: no scrolling.
     expect(scrolled).toEqual([]);
   });
 
