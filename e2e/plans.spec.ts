@@ -7,10 +7,10 @@ test("past the free trial, the create page offers the paid plan's waitlist", asy
 }) => {
   await signInAsAuthor(page);
   await page.goto("/materials/new");
-  const card = page.getByRole("region", { name: "付費方案" });
+  const card = page.getByRole("region", { name: "Plus 方案" });
   await expect(card).toContainText("免費方案可以試做 1 份自己的教材");
-  await expect(card).toContainText("每月建立 30 份自己的教材");
-  await expect(card).toContainText("每份最多 2,000 字");
+  await expect(card).toContainText("每月自建 40 分鐘的教材");
+  await expect(card).toContainText("每份最長 5 分鐘");
   await expect(card).toContainText("價格：即將推出");
   // No creating form, so no paid call can start.
   await expect(page.getByRole("button", { name: /斷句/ })).toHaveCount(0);

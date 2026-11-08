@@ -19,7 +19,10 @@ import { ChartFrame } from "./charts/ChartFrame";
 import { ColumnChart } from "./charts/ColumnChart";
 import { PairedBars } from "./charts/PairedBars";
 import { TrendChart } from "./charts/TrendChart";
+import { ButtonLink } from "./ButtonLink";
+import { usePlan } from "./PlanProvider";
 import { ScoreSection } from "./ScoreSection";
+import { can } from "@/lib/plans";
 import { SegmentedControl } from "./SegmentedControl";
 import { StatTile } from "./StatTile";
 import { useStores } from "./StoresProvider";
@@ -44,6 +47,8 @@ export function StatsView({
   const tAll = useTranslations();
   const format = useFormatter();
   const { progress: progressStore, rewards } = useStores();
+  // Every chart is Plus and Pro (D102); the free plan has the basics.
+  const full = can(usePlan(), { kind: "feature", feature: "fullStats" }).ok;
   const [data, setData] = useState<{
     progresses: Progress[];
     activity: Activity;
@@ -149,166 +154,186 @@ export function StatsView({
         />
       </ChartFrame>
 
-      <ChartFrame
-        title={t("trendTitle")}
-        summary={
-          trend.length > 0
-            ? t("trendSummary", {
-                count: trend.length,
-                first: percent(trend[0].weighted),
-                last: percent(trend.at(-1)!.weighted),
-              })
-            : t("trendEmpty")
-        }
-        empty={t("trendEmpty")}
-        columns={[
-          { label: t("date") },
-          { label: t("material") },
-          { label: t("dayColumn") },
-          { label: t("weighted"), numeric: true },
-          { label: t("raw"), numeric: true },
-        ]}
-        rows={trend.map((p) => [
-          day(p.date),
-          titleOf(p.videoId),
-          tAll("common.dayN", { day: p.day }),
-          percent(p.weighted),
-          percent(p.raw),
-        ])}
-      >
-        <TrendChart
-          points={trend.map((p) => ({
-            weighted: p.weighted,
-            raw: p.raw,
-            tooltip: `${day(p.date)} · ${titleOf(p.videoId)} · ${tAll("common.dayN", { day: p.day })} · ${percent(p.weighted)}`,
-          }))}
-          format={percent}
-          labels={{
-            weighted: t("weighted"),
-            raw: t("raw"),
-            pass: t("passMark"),
-            first: trend[0] ? day(trend[0].date) : "",
-            last: trend.at(-1) ? day(trend.at(-1)!.date) : "",
-          }}
-        />
-      </ChartFrame>
+      {full ? (
+        <>
+          <ChartFrame
+            title={t("trendTitle")}
+            summary={
+              trend.length > 0
+                ? t("trendSummary", {
+                    count: trend.length,
+                    first: percent(trend[0].weighted),
+                    last: percent(trend.at(-1)!.weighted),
+                  })
+                : t("trendEmpty")
+            }
+            empty={t("trendEmpty")}
+            columns={[
+              { label: t("date") },
+              { label: t("material") },
+              { label: t("dayColumn") },
+              { label: t("weighted"), numeric: true },
+              { label: t("raw"), numeric: true },
+            ]}
+            rows={trend.map((p) => [
+              day(p.date),
+              titleOf(p.videoId),
+              tAll("common.dayN", { day: p.day }),
+              percent(p.weighted),
+              percent(p.raw),
+            ])}
+          >
+            <TrendChart
+              points={trend.map((p) => ({
+                weighted: p.weighted,
+                raw: p.raw,
+                tooltip: `${day(p.date)} · ${titleOf(p.videoId)} · ${tAll("common.dayN", { day: p.day })} · ${percent(p.weighted)}`,
+              }))}
+              format={percent}
+              labels={{
+                weighted: t("weighted"),
+                raw: t("raw"),
+                pass: t("passMark"),
+                first: trend[0] ? day(trend[0].date) : "",
+                last: trend.at(-1) ? day(trend.at(-1)!.date) : "",
+              }}
+            />
+          </ChartFrame>
 
-      <ChartFrame
-        title={t("compareTitle")}
-        summary={
-          pairs.length > 0
-            ? t("compareSummary", {
-                count: pairs.length,
-                improved: pairs.filter((p) => p.day7 > p.day1).length,
-              })
-            : t("compareEmpty")
-        }
-        empty={t("compareEmpty")}
-        columns={[
-          { label: t("material") },
-          { label: t("day1"), numeric: true },
-          { label: t("day7"), numeric: true },
-        ]}
-        rows={pairs.map((p) => [
-          titleOf(p.videoId),
-          percent(p.day1),
-          percent(p.day7),
-        ])}
-      >
-        <PairedBars
-          data={pairs.map((p) => ({
-            label: titleOf(p.videoId),
-            before: p.day1,
-            after: p.day7,
-          }))}
-          format={percent}
-          labels={{ before: t("day1"), after: t("day7"), pass: t("passMark") }}
-        />
-      </ChartFrame>
+          <ChartFrame
+            title={t("compareTitle")}
+            summary={
+              pairs.length > 0
+                ? t("compareSummary", {
+                    count: pairs.length,
+                    improved: pairs.filter((p) => p.day7 > p.day1).length,
+                  })
+                : t("compareEmpty")
+            }
+            empty={t("compareEmpty")}
+            columns={[
+              { label: t("material") },
+              { label: t("day1"), numeric: true },
+              { label: t("day7"), numeric: true },
+            ]}
+            rows={pairs.map((p) => [
+              titleOf(p.videoId),
+              percent(p.day1),
+              percent(p.day7),
+            ])}
+          >
+            <PairedBars
+              data={pairs.map((p) => ({
+                label: titleOf(p.videoId),
+                before: p.day1,
+                after: p.day7,
+              }))}
+              format={percent}
+              labels={{
+                before: t("day1"),
+                after: t("day7"),
+                pass: t("passMark"),
+              }}
+            />
+          </ChartFrame>
 
-      <ChartFrame
-        title={t("missedTitle")}
-        summary={
-          missed.length > 0
-            ? t("missedSummary", {
-                word: missed[0].word,
-                count: missed[0].count,
-              })
-            : t("missedEmpty")
-        }
-        empty={t("missedEmpty")}
-        columns={[{ label: t("word") }, { label: t("times"), numeric: true }]}
-        rows={missed.map((m) => [m.word, m.count])}
-      >
-        <BarList
-          data={missed.map((m) => ({ label: m.word, value: m.count }))}
-          labelLang="en"
-        />
-      </ChartFrame>
+          <ChartFrame
+            title={t("missedTitle")}
+            summary={
+              missed.length > 0
+                ? t("missedSummary", {
+                    word: missed[0].word,
+                    count: missed[0].count,
+                  })
+                : t("missedEmpty")
+            }
+            empty={t("missedEmpty")}
+            columns={[
+              { label: t("word") },
+              { label: t("times"), numeric: true },
+            ]}
+            rows={missed.map((m) => [m.word, m.count])}
+          >
+            <BarList
+              data={missed.map((m) => ({ label: m.word, value: m.count }))}
+              labelLang="en"
+            />
+          </ChartFrame>
 
-      <div className="grid gap-8 wide:grid-cols-2">
-        <ChartFrame
-          title={t("categoryTitle")}
-          summary={
-            categories.length > 0
-              ? t("spreadSummary", {
-                  top: tAll(
-                    `categories.names.${categories[0].key}` as "categories.names.travel",
+          <div className="grid gap-8 wide:grid-cols-2">
+            <ChartFrame
+              title={t("categoryTitle")}
+              summary={
+                categories.length > 0
+                  ? t("spreadSummary", {
+                      top: tAll(
+                        `categories.names.${categories[0].key}` as "categories.names.travel",
+                      ),
+                      count: categories[0].count,
+                    })
+                  : t("spreadEmpty")
+              }
+              empty={t("spreadEmpty")}
+              columns={[
+                { label: t("category") },
+                { label: t("count"), numeric: true },
+              ]}
+              rows={categories.map((c) => [
+                tAll(`categories.names.${c.key}` as "categories.names.travel"),
+                c.count,
+              ])}
+            >
+              <BarList
+                data={categories.map((c) => ({
+                  label: tAll(
+                    `categories.names.${c.key}` as "categories.names.travel",
                   ),
-                  count: categories[0].count,
-                })
-              : t("spreadEmpty")
-          }
-          empty={t("spreadEmpty")}
-          columns={[
-            { label: t("category") },
-            { label: t("count"), numeric: true },
-          ]}
-          rows={categories.map((c) => [
-            tAll(`categories.names.${c.key}` as "categories.names.travel"),
-            c.count,
-          ])}
-        >
-          <BarList
-            data={categories.map((c) => ({
-              label: tAll(
-                `categories.names.${c.key}` as "categories.names.travel",
-              ),
-              value: c.count,
-            }))}
-          />
-        </ChartFrame>
-        <ChartFrame
-          title={t("levelTitle")}
-          summary={
-            levels.length > 0
-              ? t("spreadSummary", {
-                  top: tAll(
-                    `video.levels.${levels[0].key}` as "video.levels.beginner",
+                  value: c.count,
+                }))}
+              />
+            </ChartFrame>
+            <ChartFrame
+              title={t("levelTitle")}
+              summary={
+                levels.length > 0
+                  ? t("spreadSummary", {
+                      top: tAll(
+                        `video.levels.${levels[0].key}` as "video.levels.beginner",
+                      ),
+                      count: levels[0].count,
+                    })
+                  : t("spreadEmpty")
+              }
+              empty={t("spreadEmpty")}
+              columns={[
+                { label: t("level") },
+                { label: t("count"), numeric: true },
+              ]}
+              rows={levels.map((l) => [
+                tAll(`video.levels.${l.key}` as "video.levels.beginner"),
+                l.count,
+              ])}
+            >
+              <BarList
+                data={levels.map((l) => ({
+                  label: tAll(
+                    `video.levels.${l.key}` as "video.levels.beginner",
                   ),
-                  count: levels[0].count,
-                })
-              : t("spreadEmpty")
-          }
-          empty={t("spreadEmpty")}
-          columns={[
-            { label: t("level") },
-            { label: t("count"), numeric: true },
-          ]}
-          rows={levels.map((l) => [
-            tAll(`video.levels.${l.key}` as "video.levels.beginner"),
-            l.count,
-          ])}
-        >
-          <BarList
-            data={levels.map((l) => ({
-              label: tAll(`video.levels.${l.key}` as "video.levels.beginner"),
-              value: l.count,
-            }))}
-          />
-        </ChartFrame>
-      </div>
-
+                  value: l.count,
+                }))}
+              />
+            </ChartFrame>
+          </div>
+        </>
+      ) : (
+        <section className="space-y-3 rounded-base border border-line bg-surface p-6">
+          <h2 className="font-display text-h3">{t("lockedTitle")}</h2>
+          <p className="text-ink-muted">{t("lockedBody")}</p>
+          <ButtonLink href="/pricing?from=stats" variant="secondary" arrow>
+            {t("seePlans")}
+          </ButtonLink>
+        </section>
+      )}
       <div className="border-t border-line pt-8">
         <ScoreSection
           progresses={progresses}

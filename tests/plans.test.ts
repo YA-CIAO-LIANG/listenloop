@@ -23,6 +23,11 @@ const limited: Record<PlanId, PlanLimits> = {
     customRules: false,
     maxPracticeSeconds: 30,
     youtubePractices: false,
+    minutesPerMonth: null,
+    playbackSpeed: false,
+    fullStats: false,
+    priority: false,
+    batchPdf: false,
   },
 };
 
@@ -46,19 +51,20 @@ describe("plans (D54, D72)", () => {
     });
   });
 
-  it("paid accounts make 30 a month, whatever they made before", () => {
+  it("paid (Plus) accounts make 40 minutes a month, whatever they made before (D102)", () => {
     expect(
       can("paid", {
         kind: "create-practice",
         createdTotal: 100,
         createdThisMonth: 29,
+        secondsThisMonth: 30 * 60,
       }),
     ).toEqual({ ok: true });
     expect(
-      can("paid", { kind: "create-practice", createdThisMonth: 30 }),
-    ).toEqual({ ok: false, limit: "practicesPerMonth", max: 30 });
+      can("paid", { kind: "create-practice", secondsThisMonth: 40 * 60 }),
+    ).toEqual({ ok: false, limit: "minutesPerMonth", max: 40 });
     expect(needsCount("paid", "create-practice")).toBe(true);
-    expect(PLANS.paid.charsPerPractice).toBe(2000);
+    expect(PLANS.paid.charsPerPractice).toBe(2000); // a technical cap now
   });
 
   it("admins have no limits, and nobody is limited in practices at once", () => {

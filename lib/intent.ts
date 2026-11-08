@@ -25,6 +25,7 @@ export const INTENT_SOURCES = [
   "length",
   "stats",
   "account",
+  "pricing",
 ] as const;
 export type IntentSource = (typeof INTENT_SOURCES)[number];
 

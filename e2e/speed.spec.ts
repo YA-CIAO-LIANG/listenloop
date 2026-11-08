@@ -1,5 +1,5 @@
 import mock from "./mock-supabase/practices.json";
-import { expect, setToday, test } from "./fixtures";
+import { expect, setToday, signInAsPaid, test } from "./fixtures";
 
 /**
  * Playback speed (D73): audio practices offer 0.75×, 1×, 1.25×; answers
@@ -12,6 +12,8 @@ test("a slow dictation scores 90% of its words and says so", async ({
   page,
 }) => {
   await setToday(page, "2026-11-01");
+  // Playback speed is a paid feature (D102).
+  await signInAsPaid(page);
   await page.goto(`/videos/p-${practice.id}/day/1`);
   const speed = page.getByRole("group", { name: "播放速度" });
   await speed.getByText("0.75×").click();
@@ -40,4 +42,16 @@ test("videos have no speed control", async ({ page }) => {
     page.getByRole("textbox", { name: "你聽到的句子" }),
   ).toBeVisible();
   await expect(page.getByRole("group", { name: "播放速度" })).toHaveCount(0);
+});
+
+test("on the free plan, speed is a paid feature (D102)", async ({ page }) => {
+  await setToday(page, "2026-11-01");
+  await page.goto(`/videos/p-${practice.id}/day/1`);
+  await expect(
+    page.getByText(/播放速度.*是 Plus 以上方案的功能/),
+  ).toBeVisible();
+  await expect(page.getByRole("link", { name: "看方案" })).toHaveAttribute(
+    "href",
+    "/pricing?from=speed",
+  );
 });

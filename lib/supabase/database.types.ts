@@ -545,6 +545,7 @@ export type Database = {
           category: string | null;
           collection_id: string | null;
           created_at: string;
+          estimated_seconds: number | null;
           exam: string | null;
           exam_target: string | null;
           grammar: Json;
@@ -558,6 +559,9 @@ export type Database = {
           scenario: string | null;
           sort_order: number | null;
           source_language: string;
+          source_name: string | null;
+          source_title: string | null;
+          source_url: string | null;
           subtitle: string | null;
           title: string;
           title_en: string | null;
@@ -577,6 +581,7 @@ export type Database = {
           category?: string | null;
           collection_id?: string | null;
           created_at?: string;
+          estimated_seconds?: number | null;
           exam?: string | null;
           exam_target?: string | null;
           grammar?: Json;
@@ -590,6 +595,9 @@ export type Database = {
           scenario?: string | null;
           sort_order?: number | null;
           source_language: string;
+          source_name?: string | null;
+          source_title?: string | null;
+          source_url?: string | null;
           subtitle?: string | null;
           title: string;
           title_en?: string | null;
@@ -609,6 +617,7 @@ export type Database = {
           category?: string | null;
           collection_id?: string | null;
           created_at?: string;
+          estimated_seconds?: number | null;
           exam?: string | null;
           exam_target?: string | null;
           grammar?: Json;
@@ -622,6 +631,9 @@ export type Database = {
           scenario?: string | null;
           sort_order?: number | null;
           source_language?: string;
+          source_name?: string | null;
+          source_title?: string | null;
+          source_url?: string | null;
           subtitle?: string | null;
           title?: string;
           title_en?: string | null;
@@ -874,15 +886,24 @@ export type Database = {
       };
       waitlist: {
         Row: {
+          billing_period: string | null;
           created_at: string;
+          plan: string | null;
+          source: string | null;
           user_id: string;
         };
         Insert: {
+          billing_period?: string | null;
           created_at?: string;
+          plan?: string | null;
+          source?: string | null;
           user_id: string;
         };
         Update: {
+          billing_period?: string | null;
           created_at?: string;
+          plan?: string | null;
+          source?: string | null;
           user_id?: string;
         };
         Relationships: [];

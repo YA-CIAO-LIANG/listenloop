@@ -53,6 +53,15 @@ export function lengthWords(length: GenerationLength, seconds = 0): number {
   return Math.round(((min + max) / 2) * WORDS_PER_MINUTE);
 }
 
+/** About how long English text takes to read aloud, in seconds (D102). */
+export function estimateSeconds(sentences: readonly string[]): number {
+  const words = sentences.reduce(
+    (sum, s) => sum + s.split(/\s+/).filter(Boolean).length,
+    0,
+  );
+  return Math.round((words / WORDS_PER_MINUTE) * 60);
+}
+
 /**
  * The longest the audio may come out, in seconds: what the plan's limit
  * is checked against (D94). A bucket counts as its upper end.

@@ -55,20 +55,20 @@ export function PaidPlanCard({
         {t("paid.title")}
       </h2>
       <ul className="space-y-1">
-        {paid.practicesPerMonth !== null && (
+        {paid.minutesPerMonth !== null && (
           <li>
             <span aria-hidden="true" className="text-success">
               ✓{" "}
             </span>
-            {t("paid.perMonth", { max: paid.practicesPerMonth })}
+            {t("paid.perMonth", { max: paid.minutesPerMonth })}
           </li>
         )}
-        {paid.charsPerPractice !== null && (
+        {paid.maxPracticeSeconds !== null && (
           <li>
             <span aria-hidden="true" className="text-success">
               ✓{" "}
             </span>
-            {t("paid.chars", { max: paid.charsPerPractice })}
+            {t("paid.longest", { max: paid.maxPracticeSeconds / 60 })}
           </li>
         )}
         <li>

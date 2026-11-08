@@ -187,6 +187,7 @@ describe("createPractice", () => {
           title_zh: null,
           subtitle: null,
           source_language: "en",
+          estimated_seconds: 1,
           voice: "gb-male",
           voice_b: null,
         },

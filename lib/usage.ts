@@ -58,7 +58,7 @@ export const MONTHLY_WARNING_SHARE = 0.8;
 /** A day's cost limit for an account on `plan` doing `bucket` work. */
 export function dailyCostLimit(
   settings: UsageSettings,
-  plan: "free" | "paid" | "admin",
+  plan: "free" | "paid" | "pro" | "admin",
   bucket: UsageBucket,
 ): number {
   if (plan === "admin") {
@@ -66,6 +66,9 @@ export function dailyCostLimit(
       ? settings.adminBatchMicros
       : settings.adminManualMicros;
   }
+  // Pro makes three times Plus's minutes (D102), so three times its daily
+  // AI allowance.
+  if (plan === "pro") return settings.paidMicros * 3;
   return plan === "paid" ? settings.paidMicros : settings.freeMicros;
 }
 

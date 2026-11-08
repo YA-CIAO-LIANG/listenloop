@@ -1,7 +1,10 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
+import Link from "next/link";
+import { can } from "@/lib/plans";
 import { SPEED_WEIGHTS, SPEEDS, type Speed } from "@/lib/speed";
+import { usePlan } from "./PlanProvider";
 import { SegmentedControl } from "./SegmentedControl";
 
 /**
@@ -21,6 +24,20 @@ export function SpeedControl({
 }) {
   const t = useTranslations("speed");
   const format = useFormatter();
+  // Plus and Pro (D102); the free plan sees what it is (a fake door).
+  if (!can(usePlan(), { kind: "feature", feature: "playbackSpeed" }).ok) {
+    return (
+      <p className="text-supporting text-ink-muted">
+        {t("locked")}{" "}
+        <Link
+          href="/pricing?from=speed"
+          className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+        >
+          {t("seePlans")}
+        </Link>
+      </p>
+    );
+  }
   const percent = (n: number) =>
     format.number(n, { style: "percent", maximumFractionDigits: 0 });
   return (

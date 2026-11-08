@@ -256,8 +256,12 @@ createServer(async (request, response) => {
   // The paid plan's waiting list (D72), kept while the server runs.
   if (url.pathname === "/rest/v1/waitlist") {
     const sub = tokenSubject(request.headers.authorization);
-    if (request.method === "POST" && sub) {
-      waitlist.add(sub);
+    if (request.method === "POST") {
+      // The person's own insert, or the server's upsert with the secret
+      // key (D102), which names the account in the row.
+      const row = JSON.parse((await readBody(request)) || "{}");
+      const id = sub ?? [row].flat()[0]?.user_id;
+      if (id) waitlist.add(id);
       response.writeHead(201, cors).end();
       return;
     }

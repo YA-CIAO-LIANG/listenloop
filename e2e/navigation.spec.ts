@@ -24,7 +24,7 @@ for (const viewport of [
       .getByRole("link", { name: /建立練習/ })
       .first()
       .click();
-    await expect(page.getByRole("heading", { name: "付費方案" })).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Plus 方案" })).toBeVisible();
   });
 }
 

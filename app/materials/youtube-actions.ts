@@ -167,6 +167,7 @@ export async function createYouTubePractice(
       youtube_channel: video.channel,
       youtube_license: video.license,
       visibility: "private",
+      estimated_seconds: excerptSeconds(sentences),
     })
     .select("id")
     .single();
