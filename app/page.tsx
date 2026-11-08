@@ -3,10 +3,10 @@ import { Suspense } from "react";
 import { getLibraryItems } from "@/auth/library";
 import {
   MaterialLibrary,
-  TimeBudgetBar,
   UnfilteredMaterialLibrary,
 } from "@/components/MaterialLibrary";
 import { OnboardingStart } from "@/components/OnboardingStart";
+import { PracticeCalendar } from "@/components/PracticeCalendar";
 import { ProductIntro } from "@/components/ProductIntro";
 import { ProgressGate } from "@/components/ProgressGate";
 import { LibrarySkeleton } from "@/components/Skeleton";
@@ -14,9 +14,10 @@ import { TodayTasks } from "@/components/TodayTasks";
 import type { LibraryItem } from "@/lib/library";
 
 /**
- * The home page (D70). Signed in: today's tasks, "how many minutes do I
- * have today?", then the library. Signed out: what the seven-day loop
- * is, then the library.
+ * The home page (D79). Signed in: the practice calendar, today's tasks,
+ * then the official library. Signed out: what the seven-day loop is,
+ * then the library. The library is for everyone, with "how many minutes
+ * do I have today?" on top.
  */
 export default function Home() {
   const t = useTranslations();
@@ -29,12 +30,8 @@ export default function Home() {
         {/* Not in Suspense: it's in the first HTML, so nothing shifts (D62). */}
         <OnboardingStart />
         <ProgressGate place="home" signedOut={<ProductIntro />}>
+          <PracticeCalendar />
           <TodayTasks />
-          <Suspense fallback={null}>
-            <div className="pt-6">
-              <TimeBudgetBar />
-            </div>
-          </Suspense>
         </ProgressGate>
       </div>
 

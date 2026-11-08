@@ -79,7 +79,7 @@ test("on a phone, the filters open in a drawer that works by keyboard", async ({
   expect(overflow).toBe(false);
 });
 
-test("signed in, the home page goes today's tasks, minutes, then library", async ({
+test("signed in, the home page goes calendar, today's tasks, then library (D79)", async ({
   page,
 }) => {
   await signInAsAuthor(page);
@@ -87,19 +87,36 @@ test("signed in, the home page goes today's tasks, minutes, then library", async
   const headings = await page
     .getByRole("heading", { level: 2 })
     .allTextContents();
-  expect(headings.indexOf("今日任務")).toBeLessThan(
-    headings.indexOf("我今天有幾分鐘？"),
-  );
-  expect(headings.indexOf("我今天有幾分鐘？")).toBeLessThan(
-    headings.indexOf("教材庫"),
-  );
+  const at = (name: string) => headings.findIndex((h) => h.startsWith(name));
+  expect(at("練習日曆")).toBeGreaterThanOrEqual(0);
+  expect(at("練習日曆")).toBeLessThan(at("今日任務"));
+  expect(at("今日任務")).toBeLessThan(at("官方教材庫"));
   await page
     .getByRole("group", { name: "我今天有幾分鐘？" })
-    .getByRole("button", { name: "10 分鐘" })
+    .getByRole("button", { name: /10 分鐘內/ })
     .click();
   await expect(page).toHaveURL(/min=10/);
   // Sintel takes about 9 minutes a day; the practice's estimate is 1.
   await expect(cards(page)).toHaveCount(2);
+});
+
+test("signed out, the library and its filters are open to everyone", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "官方教材庫" })).toBeVisible();
+  const sidebar = page.getByRole("complementary", { name: "篩選" });
+  await sidebar
+    .getByRole("group", { name: "分類" })
+    .getByRole("button", { name: /旅遊/ })
+    .click();
+  await sidebar
+    .getByRole("group", { name: "情境" })
+    .getByRole("button", { name: /機場報到與登機/ })
+    .click();
+  await expect(page).toHaveURL(/sc=airport-check-in/);
+  await expect(cards(page)).toHaveCount(1);
 });
 
 for (const scheme of ["light", "dark"] as const) {

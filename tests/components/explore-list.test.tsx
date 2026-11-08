@@ -18,6 +18,7 @@ const practice = (
   createdAt: "2026-11-04T00:00:00Z",
   mine,
   category: null,
+  scenario: null,
   exam: null,
   examTarget: null,
   level: null,

@@ -19,6 +19,7 @@ export type PublicPracticeSummary = {
   mine: boolean;
   /** Where it belongs (D57); null when it hasn't been sorted. */
   category: string | null;
+  scenario: string | null;
   exam: string | null;
   examTarget: string | null;
   level: string | null;

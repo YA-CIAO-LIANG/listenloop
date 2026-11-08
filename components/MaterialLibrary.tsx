@@ -64,28 +64,19 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
     items.filter(match).length;
   const shows = (values: readonly unknown[], chosen: readonly unknown[]) =>
     values.length > 1 || chosen.length > 0;
+  const tCategories = useTranslations("categories");
+  // Scenarios show once a category is chosen: those it really has (D79).
+  const scenarios = present.scenarios.filter((scenario) =>
+    items.some(
+      (i) =>
+        i.scenario === scenario &&
+        i.category !== null &&
+        filter.categories.includes(i.category),
+    ),
+  );
 
   return (
     <div className="space-y-6">
-      <FilterGroup label={t("time")}>
-        {TIME_BUDGETS.map((minutes) => (
-          <FilterChip
-            key={minutes}
-            on={filter.minutes === minutes}
-            onToggle={() =>
-              onChange({
-                ...filter,
-                minutes: filter.minutes === minutes ? null : minutes,
-              })
-            }
-          >
-            {t("timeOption", {
-              minutes,
-              count: count((i) => estimateMinutes(i.seconds) <= minutes),
-            })}
-          </FilterChip>
-        ))}
-      </FilterGroup>
       {shows(present.kinds, filter.kinds) && (
         <FilterGroup label={t("kind")}>
           {present.kinds.map((kind) => (
@@ -121,12 +112,47 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
                     category,
                     present.categories,
                   ),
+                  // A category turned off takes its scenarios with it.
+                  scenarios: filter.categories.includes(category)
+                    ? filter.scenarios.filter((sc) =>
+                        items.some(
+                          (i) =>
+                            i.scenario === sc &&
+                            i.category !== category &&
+                            i.category !== null &&
+                            filter.categories.includes(i.category),
+                        ),
+                      )
+                    : filter.scenarios,
                 })
               }
             >
               {t("option", {
                 label: tAll(`categories.names.${category}`),
                 count: count((i) => i.category === category),
+              })}
+            </FilterChip>
+          ))}
+        </FilterGroup>
+      )}
+      {scenarios.length > 0 && (
+        <FilterGroup label={t("scenario")}>
+          {scenarios.map((scenario) => (
+            <FilterChip
+              key={scenario}
+              on={filter.scenarios.includes(scenario)}
+              onToggle={() =>
+                onChange({
+                  ...filter,
+                  scenarios: toggled(filter.scenarios, scenario, scenarios),
+                })
+              }
+            >
+              {t("option", {
+                label: tCategories(
+                  `scenarios.${scenario}` as "scenarios.restaurant",
+                ),
+                count: count((i) => i.scenario === scenario),
               })}
             </FilterChip>
           ))}
@@ -228,7 +254,8 @@ export function MaterialLibraryView({ items, filter, onChange }: ViewProps) {
       </aside>
 
       <div>
-        <div className="flex flex-wrap items-end gap-3">
+        <TimeBudget items={items} filter={filter} onChange={onChange} />
+        <div className="mt-6 flex flex-wrap items-end gap-3">
           <div className="min-w-48 flex-1 space-y-2">
             <label htmlFor={`${ids}-search`} className={`block ${groupLabel}`}>
               {t("search")}
@@ -351,41 +378,37 @@ export function UnfilteredMaterialLibrary({
 }
 
 /**
- * "我今天有幾分鐘？" (D70): on the home page above the library, one tap
- * filters it to what fits and scrolls down to it.
+ * "我今天有幾分鐘？" (D70, D79): above the library for everyone, one tap
+ * keeps what a day's practice fits in; tapping it again shows all.
  */
-export function TimeBudgetBar() {
+function TimeBudget({ items, filter, onChange }: ViewProps) {
   const t = useTranslations("library.time");
-  const [filter, setFilter] = useLibraryFilter();
+  const id = useId();
   return (
-    <section aria-labelledby="time-budget" className="space-y-3">
-      <h2 id="time-budget" className="font-display text-h3">
+    <div className="space-y-2">
+      <p id={id} className="font-medium">
         {t("title")}
-      </h2>
-      <div
-        role="group"
-        aria-labelledby="time-budget"
-        className="flex flex-wrap gap-2"
-      >
+      </p>
+      <div role="group" aria-labelledby={id} className="flex flex-wrap gap-2">
         {TIME_BUDGETS.map((minutes) => (
           <FilterChip
             key={minutes}
             on={filter.minutes === minutes}
-            onToggle={() => {
-              const on = filter.minutes !== minutes;
-              setFilter({ ...filter, minutes: on ? minutes : null });
-              if (on) {
-                document
-                  .getElementById("library")
-                  ?.scrollIntoView({ block: "start" });
-              }
-            }}
+            onToggle={() =>
+              onChange({
+                ...filter,
+                minutes: filter.minutes === minutes ? null : minutes,
+              })
+            }
           >
-            {t("option", { minutes })}
+            {t("option", {
+              minutes,
+              count: items.filter((i) => estimateMinutes(i.seconds) <= minutes)
+                .length,
+            })}
           </FilterChip>
         ))}
       </div>
-      <p className="text-supporting text-ink-muted">{t("hint")}</p>
-    </section>
+    </div>
   );
 }

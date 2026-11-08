@@ -25,6 +25,7 @@ const item = (over: Partial<LibraryItem>): LibraryItem => ({
   title: "Title",
   subtitle: null,
   category: null,
+  scenario: null,
   exam: null,
   examTarget: null,
   level: null,
@@ -64,6 +65,7 @@ describe("filterLibrary", () => {
       subtitle: "少女尋找小龍",
       level: "intermediate",
       category: "talks-stories",
+      scenario: null,
       seconds: 49,
       createdAt: "2026-10-24T00:00:00Z",
       learners: 5,
@@ -73,6 +75,7 @@ describe("filterLibrary", () => {
       title: "Checking In",
       level: "beginner",
       category: "travel",
+      scenario: null,
       accent: "gb",
       seconds: 200,
       sortOrder: 2,
@@ -83,6 +86,7 @@ describe("filterLibrary", () => {
       title: "Water in Deserts",
       level: "advanced",
       category: "exam",
+      scenario: null,
       accent: "us",
       seconds: 400,
       sortOrder: 1,
@@ -180,6 +184,7 @@ describe("library URL parameters", () => {
       query: "coffee",
       kinds: ["audio"],
       categories: ["travel", "exam"],
+      scenarios: ["hotel"],
       levels: ["beginner"],
       lengths: ["1-2"],
       accents: ["au"],
@@ -188,7 +193,7 @@ describe("library URL parameters", () => {
     });
     const params = writeLibraryParams(new URLSearchParams(), chosen);
     expect(params.toString()).toBe(
-      "q=coffee&type=audio&cat=travel%2Cexam&level=beginner&length=1-2&accent=au&min=20&sort=newest",
+      "q=coffee&type=audio&cat=travel%2Cexam&sc=hotel&level=beginner&length=1-2&accent=au&min=20&sort=newest",
     );
     expect(parseLibraryParams(params)).toEqual(chosen);
   });
@@ -212,11 +217,13 @@ describe("library URL parameters", () => {
 
   it("counts the filters on", () => {
     expect(activeFilterCount(NO_LIBRARY_FILTER)).toBe(0);
+    // The time a day sits above the library, outside the panel (D79).
     expect(
       activeFilterCount(
         filter({ levels: ["beginner", "advanced"], minutes: 10, query: "x" }),
       ),
-    ).toBe(3);
+    ).toBe(2);
+    expect(activeFilterCount(filter({ scenarios: ["hotel"] }))).toBe(1);
   });
 });
 
@@ -254,6 +261,7 @@ describe("library items", () => {
     createdAt: "2026-11-07T00:00:00Z",
     mine: false,
     category: "travel",
+    scenario: null,
     exam: null,
     examTarget: null,
     level: "beginner",
@@ -269,6 +277,7 @@ describe("library items", () => {
         kind: "audio",
         accent: "gb",
         category: "travel",
+        scenario: null,
         level: "beginner",
         seconds: 70,
         learners: 2,
@@ -285,6 +294,7 @@ describe("library items", () => {
     const odd = practiceLibraryItem({
       ...practice,
       category: "nope",
+      scenario: null,
       level: "expert",
     });
     expect(odd.category).toBeNull();

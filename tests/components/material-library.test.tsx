@@ -14,6 +14,7 @@ const item = (over: Partial<LibraryItem>): LibraryItem => ({
   title: "Title",
   subtitle: null,
   category: null,
+  scenario: null,
   exam: null,
   examTarget: null,
   level: null,
@@ -33,6 +34,7 @@ const items = [
     title: "Sintel",
     subtitle: "少女尋找小龍",
     category: "talks-stories",
+    scenario: null,
     level: "intermediate",
     seconds: 49,
   }),
@@ -40,6 +42,7 @@ const items = [
     id: "p-1",
     title: "Rescheduling the Client Meeting",
     category: "exam",
+    scenario: null,
     exam: "toeic",
     examTarget: "toeic-750",
     level: "intermediate",
@@ -51,6 +54,7 @@ const items = [
     id: "p-2",
     title: "Checking In for a Flight Home",
     category: "travel",
+    scenario: "airport-check-in",
     level: "beginner",
     accent: "gb",
     seconds: 400,
@@ -139,10 +143,31 @@ describe("MaterialLibraryView", () => {
 
   it("opens the filters in a drawer on phones, counting the ones on", () => {
     show({ accents: ["gb"], minutes: 30 });
-    fireEvent.click(screen.getByRole("button", { name: "篩選（2）" }));
+    fireEvent.click(screen.getByRole("button", { name: "篩選（1）" }));
     const drawer = screen.getByRole("dialog", { name: "篩選" });
     expect(
       within(drawer).getByRole("button", { name: "顯示 1 份教材" }),
     ).toBeTruthy();
+  });
+
+  it("offers the time a day above the library, for everyone (D79)", () => {
+    const onChange = show();
+    const time = screen.getByRole("group", { name: "我今天有幾分鐘？" });
+    fireEvent.click(within(time).getByRole("button", { name: /10 分鐘內/ }));
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ minutes: 10 }),
+    );
+  });
+
+  it("shows a chosen category's scenarios (D79)", () => {
+    const onChange = show({ categories: ["travel"] });
+    const sidebar = screen.getByRole("complementary", { name: "篩選" });
+    const scenarios = within(sidebar).getByRole("group", { name: "情境" });
+    fireEvent.click(
+      within(scenarios).getByRole("button", { name: /機場報到與登機/ }),
+    );
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ scenarios: ["airport-check-in"] }),
+    );
   });
 });

@@ -1,5 +1,6 @@
 import { VOICE_ACCENTS, type VoiceAccent } from "@/lib/ai/types";
 import {
+  allScenarioIds,
   CATEGORY_IDS,
   LEVELS,
   type CategoryId,
@@ -41,6 +42,8 @@ export type LibraryItem = {
   /** One sentence on what it's about (D71); null until written. */
   subtitle: string | null;
   category: CategoryId | null;
+  /** Scenario id within the category (lib/categories.ts), or null. */
+  scenario: string | null;
   exam: string | null;
   /** Exam target id, e.g. "toeic-750". */
   examTarget: string | null;
@@ -56,6 +59,9 @@ export type LibraryItem = {
   /** How many people have practiced it. */
   learners: number;
 };
+
+/** Every scenario id, in display order (exam parts last). */
+const SCENARIO_IDS: readonly string[] = allScenarioIds();
 
 /** Built-in videos' own categories in the library's (D70). */
 export const VIDEO_CATEGORY_IN_LIBRARY: Readonly<
@@ -77,6 +83,8 @@ export type LibraryFilter = {
   query: string;
   kinds: readonly MaterialKind[];
   categories: readonly CategoryId[];
+  /** Scenarios within the chosen categories (D79). */
+  scenarios: readonly string[];
   levels: readonly Level[];
   lengths: readonly LengthBucketId[];
   accents: readonly VoiceAccent[];
@@ -89,6 +97,7 @@ export const NO_LIBRARY_FILTER: LibraryFilter = {
   query: "",
   kinds: [],
   categories: [],
+  scenarios: [],
   levels: [],
   lengths: [],
   accents: [],
@@ -101,6 +110,7 @@ export const LIBRARY_PARAMS = {
   query: "q",
   kinds: "type",
   categories: "cat",
+  scenarios: "sc",
   levels: "level",
   lengths: "length",
   accents: "accent",
@@ -128,6 +138,7 @@ export function parseLibraryParams(params: {
     query: (params.get(LIBRARY_PARAMS.query) ?? "").slice(0, 100),
     kinds: pick(MATERIAL_KINDS, params.get(LIBRARY_PARAMS.kinds)),
     categories: pick(CATEGORY_IDS, params.get(LIBRARY_PARAMS.categories)),
+    scenarios: pick(SCENARIO_IDS, params.get(LIBRARY_PARAMS.scenarios)),
     levels: pick(LEVELS, params.get(LIBRARY_PARAMS.levels)),
     lengths: pick(
       LENGTH_BUCKETS.map((b) => b.id),
@@ -157,6 +168,7 @@ export function writeLibraryParams(
   set(LIBRARY_PARAMS.query, filter.query.trim());
   set(LIBRARY_PARAMS.kinds, filter.kinds.join(","));
   set(LIBRARY_PARAMS.categories, filter.categories.join(","));
+  set(LIBRARY_PARAMS.scenarios, filter.scenarios.join(","));
   set(LIBRARY_PARAMS.levels, filter.levels.join(","));
   set(LIBRARY_PARAMS.lengths, filter.lengths.join(","));
   set(LIBRARY_PARAMS.accents, filter.accents.join(","));
@@ -165,15 +177,18 @@ export function writeLibraryParams(
   return next;
 }
 
-/** How many filters are on (the sort and search aside), for "篩選（3）". */
+/**
+ * How many filters in the panel are on, for "篩選（3）": the time a day
+ * sits above the library (D79), so it isn't counted here.
+ */
 export function activeFilterCount(filter: LibraryFilter): number {
   return (
     filter.kinds.length +
     filter.categories.length +
+    filter.scenarios.length +
     filter.levels.length +
     filter.lengths.length +
-    filter.accents.length +
-    (filter.minutes ? 1 : 0)
+    filter.accents.length
   );
 }
 
@@ -194,6 +209,7 @@ export function matchesLibraryFilter(
   return (
     within(filter.kinds, item.kind) &&
     within(filter.categories, item.category) &&
+    within(filter.scenarios, item.scenario) &&
     within(filter.levels, item.level) &&
     within(filter.lengths, lengthBucket(item.seconds)) &&
     within(filter.accents, item.accent) &&
@@ -244,6 +260,7 @@ export function presentValues(items: readonly LibraryItem[]) {
   return {
     kinds: has(MATERIAL_KINDS, (item) => item.kind),
     categories: has(CATEGORY_IDS, (item) => item.category),
+    scenarios: has(SCENARIO_IDS, (item) => item.scenario),
     levels: has(LEVELS, (item) => item.level),
     lengths: has(
       LENGTH_BUCKETS.map((b) => b.id),
@@ -263,6 +280,7 @@ export function videoLibraryItem(video: Video, learners = 0): LibraryItem {
     title: video.title,
     subtitle: video.subtitle ?? null,
     category: VIDEO_CATEGORY_IN_LIBRARY[video.category],
+    scenario: null,
     exam: null,
     examTarget: null,
     level: video.level,
@@ -290,6 +308,7 @@ export function practiceLibraryItem(
     title: practice.title,
     subtitle: practice.subtitle,
     category: isCategoryId(practice.category) ? practice.category : null,
+    scenario: practice.scenario,
     exam: practice.exam,
     examTarget: practice.examTarget,
     level: isLevel(practice.level) ? practice.level : null,
