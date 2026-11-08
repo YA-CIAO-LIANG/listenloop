@@ -18,6 +18,8 @@ export const RATE_LIMITS = {
   export: { windowSeconds: 3600, max: 10 },
   /** Starting a checkout or changing a subscription (D85). */
   billing: { windowSeconds: 3600, max: 20 },
+  /** Making classes, joining, and announcements (D103). */
+  classroom: { windowSeconds: 3600, max: 60 },
   /** Email sign-up, sign-in, and reset requests, per IP (D101). */
   auth: { windowSeconds: 3600, max: 20 },
   /** Steps toward paying, from the fake doors (D93). */

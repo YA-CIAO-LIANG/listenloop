@@ -64,6 +64,14 @@ export function SiteHeader({
           </Link>
           {showMaterials && (
             <Link
+              href="/classroom"
+              className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            >
+              {t("classroom")}
+            </Link>
+          )}
+          {showMaterials && (
+            <Link
               href="/materials"
               className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >

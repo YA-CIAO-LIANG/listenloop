@@ -51,6 +51,7 @@ describe("getSignedInUser", () => {
       role: "user",
       plan: "free",
       practicesCreated: 0,
+      classroomSeats: null,
     });
     expect(state.upsert).not.toHaveBeenCalled();
   });
@@ -66,6 +67,7 @@ describe("getSignedInUser", () => {
     expect(await getSignedInUser()).toMatchObject({
       plan: "paid",
       practicesCreated: 3,
+      classroomSeats: null,
     });
   });
 

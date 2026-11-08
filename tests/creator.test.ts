@@ -23,6 +23,7 @@ beforeEach(() => {
     role: "admin",
     plan: "free",
     practicesCreated: 0,
+    classroomSeats: null,
   };
   state.hasAdminClient = true;
   state.rpc.mockReset().mockResolvedValue({ data: true, error: null });
@@ -38,7 +39,12 @@ describe("getCreator", () => {
   });
 
   it("lets a regular account create too: the plan counts them (D72)", async () => {
-    state.user = { ...state.user!, role: "user", practicesCreated: 5 };
+    state.user = {
+      ...state.user!,
+      role: "user",
+      practicesCreated: 5,
+      classroomSeats: null,
+    };
     expect((await getCreator())?.user.id).toBe("user-1");
   });
 

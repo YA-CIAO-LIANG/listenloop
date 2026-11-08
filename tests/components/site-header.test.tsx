@@ -27,6 +27,7 @@ describe("SiteHeader", () => {
       ["學習進度", "/practices"],
       ["學習分析", "/stats"],
       ["公開教材", "/explore"],
+      ["班級", "/classroom"],
       ["我的教材", "/materials"],
     ]);
     expect(screen.queryByRole("link", { name: /建立練習/ })).toBeNull();

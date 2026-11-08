@@ -1,4 +1,5 @@
-import { can, needsCount, planFor, type PlanCheck } from "@/lib/plans";
+import { classMinutes, isClassSeats } from "@/lib/classroom";
+import { can, needsCount, PLANS, planFor, type PlanCheck } from "@/lib/plans";
 import { usagePeriodStarts } from "@/lib/usage-report";
 import type { SignedInUser } from "./session";
 import { getServerSupabase } from "./server";
@@ -17,18 +18,46 @@ export async function creationAllowed({
   user: SignedInUser;
 }): Promise<PlanCheck> {
   const plan = planFor(user);
-  const supabase = needsCount(plan, "create-practice")
-    ? await getServerSupabase()
-    : null;
+  const supabase =
+    needsCount(plan, "create-practice") ||
+    (user.classroomSeats ?? null) !== null
+      ? await getServerSupabase()
+      : null;
   const month = supabase
     ? await createdThisMonth(supabase, user.id)
     : { count: 0, seconds: 0 };
-  return can(plan, {
-    kind: "create-practice",
-    createdThisMonth: month.count,
-    secondsThisMonth: month.seconds,
-    createdTotal: user.practicesCreated,
-  });
+  // A teacher's class plan brings its own monthly minutes (D103), when
+  // more than their own plan's.
+  const classMonthly = classMinutes(
+    isClassSeats(user.classroomSeats) ? user.classroomSeats : null,
+  );
+  const own = PLANS[plan];
+  const plans =
+    classMonthly !== null &&
+    (own.minutesPerMonth === null ||
+      own.practicesTotal !== null ||
+      own.minutesPerMonth < classMonthly) &&
+    plan !== "admin"
+      ? {
+          ...PLANS,
+          [plan]: {
+            ...own,
+            practicesTotal: null,
+            minutesPerMonth: classMonthly,
+            maxPracticeSeconds: Math.max(own.maxPracticeSeconds ?? 0, 300),
+          },
+        }
+      : PLANS;
+  return can(
+    plan,
+    {
+      kind: "create-practice",
+      createdThisMonth: month.count,
+      secondsThisMonth: month.seconds,
+      createdTotal: user.practicesCreated,
+    },
+    plans,
+  );
 }
 
 /** A practice from before lengths were kept counts as this long (D102). */

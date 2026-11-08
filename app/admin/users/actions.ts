@@ -7,6 +7,7 @@ import { getAdminUser } from "@/auth/creator";
 import { isAccountStatus, isRole } from "@/lib/accounts";
 import { isAdminEmail } from "@/lib/admin";
 import { isUuid } from "@/lib/custom-practice/organize";
+import { isClassSeats } from "@/lib/classroom";
 import { isAccountPlan } from "@/lib/plans";
 
 export type UserChangeResult =
@@ -86,6 +87,40 @@ export async function changeUser(
     `user.${field}`,
     { type: "user", id: `user-${profile.number}` },
     { from: profile[field], to: value },
+  );
+  revalidatePath("/admin/users", "layout");
+  return { ok: true };
+}
+
+/**
+ * Turns a teacher's class plan on (its seats) or off (null) by hand, for
+ * trying Classroom before payments open (D103); audited.
+ */
+export async function setClassroomSeats(
+  userId: unknown,
+  seats: unknown,
+): Promise<UserChangeResult> {
+  const [actor, admin] = [await getAdminUser(), getAdminSupabase()];
+  if (!actor || !admin) return { ok: false, reason: "unavailable" };
+  if (!isUuid(userId) || (seats !== null && !isClassSeats(seats))) {
+    return { ok: false, reason: "invalid" };
+  }
+  const { data: profile } = await admin
+    .from("profiles")
+    .select("number, classroom_seats")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (!profile) return { ok: false, reason: "not-found" };
+  const { error } = await admin
+    .from("profiles")
+    .update({ classroom_seats: seats })
+    .eq("user_id", userId);
+  if (error) return { ok: false, reason: "failed" };
+  await logAudit(
+    actor.id,
+    "user.classroom",
+    { type: "user", id: `user-${profile.number}` },
+    { from: profile.classroom_seats, to: seats },
   );
   revalidatePath("/admin/users", "layout");
   return { ok: true };

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { ScrollRegion } from "@/components/ScrollRegion";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
 import { StatTile } from "@/components/StatTile";
@@ -77,7 +78,7 @@ export default async function AdminInterestPage() {
 
       <section className="mt-12 space-y-3">
         <h2 className="font-display text-h2">{t("trendTitle")}</h2>
-        <div className="overflow-x-auto">
+        <ScrollRegion label={t("trendTitle")}>
           <table className="w-full min-w-120 text-left text-supporting tabular-nums">
             <thead>
               <tr className="border-b border-line">
@@ -109,7 +110,7 @@ export default async function AdminInterestPage() {
               ))}
             </tbody>
           </table>
-        </div>
+        </ScrollRegion>
       </section>
 
       <div className="mt-12 grid gap-8 split:grid-cols-2">

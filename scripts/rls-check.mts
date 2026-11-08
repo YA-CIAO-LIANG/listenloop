@@ -44,6 +44,11 @@ const PRIVATE = [
   "payment_events",
   // Steps toward paying (D93).
   "intent_events",
+  // Classroom (D103).
+  "classes",
+  "class_members",
+  "assignments",
+  "announcements",
 ];
 const failures: string[] = [];
 
@@ -102,6 +107,14 @@ for (const [table, row] of [
   ],
   ["payment_events", { provider: "rls-check", event_id: "x", type: "x" }],
   ["intent_events", { visitor_id: "rls-check", step: "pricing_view" }],
+  [
+    "classes",
+    {
+      teacher_id: "00000000-0000-0000-0000-000000000000",
+      name: "rls-check",
+      invite_code: "RLSCHECK",
+    },
+  ],
 ] as const) {
   const { error } = await anon.from(table).insert(row as never);
   console.log(
