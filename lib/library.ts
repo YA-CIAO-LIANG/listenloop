@@ -7,21 +7,17 @@ import {
   type Level,
 } from "@/lib/categories";
 import {
-  LENGTH_BUCKETS,
-  lengthBucket,
-  type LengthBucketId,
-} from "./excerpt-length";
-import {
+  isLibraryLengthId,
+  LIBRARY_LENGTHS,
   LIBRARY_SORTS,
-  TIME_BUDGETS,
+  MAX_CATEGORIES,
+  type LibraryLengthId,
   type LibrarySort,
-  type TimeBudget,
 } from "./library-config";
 import { parseVoiceId } from "@/lib/ai/types";
 import { isCategoryId, isLevel } from "@/lib/categories";
 import type { PublicPracticeSummary } from "@/lib/custom-practice/explore";
 import { excerptSeconds } from "./excerpt-length";
-import { dailyMinutes } from "./library-time";
 import type { Video, VideoCategory } from "./videos";
 
 /**
@@ -84,10 +80,9 @@ export type LibraryFilter = {
   /** Scenarios within the chosen categories (D79). */
   scenarios: readonly string[];
   levels: readonly Level[];
-  lengths: readonly LengthBucketId[];
+  /** Audio length (D104): one range, "all" by default. */
+  length: LibraryLengthId;
   accents: readonly VoiceAccent[];
-  /** "How many minutes do I have today?"; null: any. */
-  minutes: TimeBudget | null;
   sort: LibrarySort;
 };
 
@@ -97,9 +92,8 @@ export const NO_LIBRARY_FILTER: LibraryFilter = {
   categories: [],
   scenarios: [],
   levels: [],
-  lengths: [],
+  length: "all",
   accents: [],
-  minutes: null,
   sort: LIBRARY_SORTS[0],
 };
 
@@ -110,9 +104,8 @@ export const LIBRARY_PARAMS = {
   categories: "cat",
   scenarios: "sc",
   levels: "level",
-  lengths: "length",
+  length: "len",
   accents: "accent",
-  minutes: "min",
   sort: "sort",
 } as const;
 
@@ -130,22 +123,20 @@ function pick<T extends string>(
 export function parseLibraryParams(params: {
   get(name: string): string | null;
 }): LibraryFilter {
-  const minutes = Number(params.get(LIBRARY_PARAMS.minutes));
   const sort = params.get(LIBRARY_PARAMS.sort);
+  const length = params.get(LIBRARY_PARAMS.length);
   return {
     query: (params.get(LIBRARY_PARAMS.query) ?? "").slice(0, 100),
     kinds: pick(MATERIAL_KINDS, params.get(LIBRARY_PARAMS.kinds)),
-    categories: pick(CATEGORY_IDS, params.get(LIBRARY_PARAMS.categories)),
+    // At most MAX_CATEGORIES (D104).
+    categories: pick(CATEGORY_IDS, params.get(LIBRARY_PARAMS.categories)).slice(
+      0,
+      MAX_CATEGORIES,
+    ),
     scenarios: pick(SCENARIO_IDS, params.get(LIBRARY_PARAMS.scenarios)),
     levels: pick(LEVELS, params.get(LIBRARY_PARAMS.levels)),
-    lengths: pick(
-      LENGTH_BUCKETS.map((b) => b.id),
-      params.get(LIBRARY_PARAMS.lengths),
-    ),
+    length: isLibraryLengthId(length) ? length : "all",
     accents: pick(VOICE_ACCENTS, params.get(LIBRARY_PARAMS.accents)),
-    minutes: (TIME_BUDGETS as readonly number[]).includes(minutes)
-      ? (minutes as TimeBudget)
-      : null,
     sort: (LIBRARY_SORTS as readonly (string | null)[]).includes(sort)
       ? (sort as LibrarySort)
       : LIBRARY_SORTS[0],
@@ -168,24 +159,20 @@ export function writeLibraryParams(
   set(LIBRARY_PARAMS.categories, filter.categories.join(","));
   set(LIBRARY_PARAMS.scenarios, filter.scenarios.join(","));
   set(LIBRARY_PARAMS.levels, filter.levels.join(","));
-  set(LIBRARY_PARAMS.lengths, filter.lengths.join(","));
+  set(LIBRARY_PARAMS.length, filter.length === "all" ? "" : filter.length);
   set(LIBRARY_PARAMS.accents, filter.accents.join(","));
-  set(LIBRARY_PARAMS.minutes, filter.minutes ? String(filter.minutes) : "");
   set(LIBRARY_PARAMS.sort, filter.sort === LIBRARY_SORTS[0] ? "" : filter.sort);
   return next;
 }
 
-/**
- * How many filters in the panel are on, for "篩選（3）": the time a day
- * sits above the library (D79), so it isn't counted here.
- */
+/** How many filters in the panel are on, for "篩選（3）". */
 export function activeFilterCount(filter: LibraryFilter): number {
   return (
     filter.kinds.length +
     filter.categories.length +
     filter.scenarios.length +
     filter.levels.length +
-    filter.lengths.length +
+    (filter.length === "all" ? 0 : 1) +
     filter.accents.length
   );
 }
@@ -194,12 +181,32 @@ export function activeFilterCount(filter: LibraryFilter): number {
 const normalize = (text: string) =>
   text.normalize("NFKC").toLowerCase().replace(/\s+/g, " ").trim();
 
+/** Whether `seconds` is inside a length choice (D104), ends included. */
+export function inLength(seconds: number, length: LibraryLengthId): boolean {
+  const range = LIBRARY_LENGTHS.find((l) => l.id === length)!;
+  // Whole seconds, like duration_sec, so no length falls between ranges.
+  const whole = Math.round(seconds);
+  return (
+    (range.min === null || whole >= range.min) &&
+    (range.max === null || whole <= range.max)
+  );
+}
+
+/** Whether a material is in any of the categories (none chosen: all). */
+export function inCategories(
+  category: CategoryId | null,
+  categories: readonly CategoryId[],
+): boolean {
+  return (
+    categories.length === 0 ||
+    (category !== null && categories.includes(category))
+  );
+}
+
 /** Whether one item passes every filter (sort aside). */
 export function matchesLibraryFilter(
   item: LibraryItem,
   filter: LibraryFilter,
-  /** The learner's pace (D98); 1 until measured. */
-  pace = 1,
 ): boolean {
   const words = normalize(filter.query).split(" ").filter(Boolean);
   // Both titles and the subtitle (D83).
@@ -211,12 +218,11 @@ export function matchesLibraryFilter(
     chosen.length === 0 || (value !== null && chosen.includes(value));
   return (
     within(filter.kinds, item.kind) &&
-    within(filter.categories, item.category) &&
+    inCategories(item.category, filter.categories) &&
     within(filter.scenarios, item.scenario) &&
     within(filter.levels, item.level) &&
-    within(filter.lengths, lengthBucket(item.seconds)) &&
-    within(filter.accents, item.accent) &&
-    (filter.minutes === null || dailyMinutes(item, pace) <= filter.minutes)
+    inLength(item.seconds, filter.length) &&
+    within(filter.accents, item.accent)
   );
 }
 
@@ -250,10 +256,18 @@ const COMPARE: Record<LibrarySort, (a: LibraryItem, b: LibraryItem) => number> =
 export function filterLibrary(
   items: readonly LibraryItem[],
   filter: LibraryFilter,
-  pace = 1,
+  /**
+   * The ids the server's search found for the categories and length
+   * (D104); null until it answers (the same test runs here meanwhile).
+   */
+  found: ReadonlySet<string> | null = null,
 ): LibraryItem[] {
   return items
-    .filter((item) => matchesLibraryFilter(item, filter, pace))
+    .filter(
+      (item) =>
+        matchesLibraryFilter(item, filter) &&
+        (found === null || found.has(item.id)),
+    )
     .sort((a, b) => COMPARE[filter.sort](a, b) || recommended(a, b));
 }
 
@@ -266,10 +280,6 @@ export function presentValues(items: readonly LibraryItem[]) {
     categories: has(CATEGORY_IDS, (item) => item.category),
     scenarios: has(SCENARIO_IDS, (item) => item.scenario),
     levels: has(LEVELS, (item) => item.level),
-    lengths: has(
-      LENGTH_BUCKETS.map((b) => b.id),
-      (item) => lengthBucket(item.seconds),
-    ),
     accents: has(VOICE_ACCENTS, (item) => item.accent),
   };
 }

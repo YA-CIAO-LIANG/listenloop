@@ -146,7 +146,7 @@ describe("MaterialLibraryView", () => {
   });
 
   it("opens the filters in a drawer on phones, counting the ones on", () => {
-    show({ accents: ["gb"], minutes: 30 });
+    show({ accents: ["gb"] });
     fireEvent.click(screen.getByRole("button", { name: "篩選（1）" }));
     const drawer = screen.getByRole("dialog", { name: "篩選" });
     expect(
@@ -154,13 +154,87 @@ describe("MaterialLibraryView", () => {
     ).toBeTruthy();
   });
 
-  it("offers the time a day above the library, for everyone (D79)", () => {
-    const onChange = show();
-    const time = screen.getByRole("group", { name: "我今天有幾分鐘？" });
-    fireEvent.click(within(time).getByRole("button", { name: /10 分鐘內/ }));
+  it("has no time-a-day choice any more (D104)", () => {
+    show();
+    expect(screen.queryByText("我今天有幾分鐘？")).toBeNull();
+  });
+
+  it("clears every category with 全部 (D104)", () => {
+    const onChange = show({ categories: ["travel"], scenarios: ["x"] });
+    const sidebar = screen.getByRole("complementary", { name: "篩選" });
+    const group = within(sidebar).getByRole("group", { name: "分類" });
+    const all = within(group).getByRole("button", { name: "全部" });
+    expect(all.getAttribute("aria-pressed")).toBe("false");
+    fireEvent.click(all);
     expect(onChange).toHaveBeenCalledWith(
-      expect.objectContaining({ minutes: 10 }),
+      expect.objectContaining({ categories: [], scenarios: [] }),
     );
+  });
+
+  it("allows five categories, then disables the rest (D104)", () => {
+    const many = (
+      ["travel", "exam", "talks-stories", "food", "health", "tech"] as const
+    ).map((category, n) => item({ id: `m-${n}`, category }));
+    const chosen = many.slice(0, 5).map((i) => i.category!);
+    renderWithIntl(
+      <MaterialLibraryView
+        items={many}
+        filter={{ ...NO_LIBRARY_FILTER, categories: chosen }}
+        onChange={vi.fn()}
+      />,
+    );
+    const sidebar = screen.getByRole("complementary", { name: "篩選" });
+    const group = within(sidebar).getByRole("group", { name: "分類" });
+    expect(within(group).getByText("已選 5 / 5")).toBeTruthy();
+    const buttons = within(group).getAllByRole("button");
+    const disabled = buttons.filter((b) => (b as HTMLButtonElement).disabled);
+    expect(disabled).toHaveLength(1);
+    expect(disabled[0].getAttribute("aria-pressed")).toBe("false");
+    // A chosen one can still be turned off.
+    expect(
+      buttons.filter(
+        (b) =>
+          b.getAttribute("aria-pressed") === "true" &&
+          !(b as HTMLButtonElement).disabled,
+      ),
+    ).toHaveLength(5);
+  });
+
+  it("chooses one audio length, all by default (D104)", () => {
+    const onChange = show();
+    const sidebar = screen.getByRole("complementary", { name: "篩選" });
+    const lengths = within(sidebar).getByRole("group", { name: "長度" });
+    expect(
+      (within(lengths).getByLabelText("全部長度") as HTMLInputElement).checked,
+    ).toBe(true);
+    fireEvent.click(within(lengths).getByLabelText("5–10 分鐘"));
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ length: "5-10" }),
+    );
+  });
+
+  it("keeps what the search found and says when it's searching", () => {
+    renderWithIntl(
+      <MaterialLibraryView
+        items={items}
+        filter={NO_LIBRARY_FILTER}
+        onChange={vi.fn()}
+        found={new Set(["p-2"])}
+      />,
+    );
+    expect(screen.getByText("1 份教材")).toBeTruthy();
+  });
+
+  it("says it's searching while the search runs", () => {
+    renderWithIntl(
+      <MaterialLibraryView
+        items={items}
+        filter={NO_LIBRARY_FILTER}
+        onChange={vi.fn()}
+        searching
+      />,
+    );
+    expect(screen.getByText("搜尋中…")).toBeTruthy();
   });
 
   it("shows a chosen category's scenarios (D79)", () => {

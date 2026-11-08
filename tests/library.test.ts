@@ -5,6 +5,8 @@ import type { PublicPracticeSummary } from "@/lib/custom-practice/explore";
 import {
   activeFilterCount,
   filterLibrary,
+  inCategories,
+  inLength,
   NO_LIBRARY_FILTER,
   parseLibraryParams,
   practiceLibraryItem,
@@ -14,12 +16,16 @@ import {
   type LibraryFilter,
   type LibraryItem,
 } from "@/lib/library";
-import { audioSeconds, TIME_BUDGETS } from "@/lib/library-config";
+import { CATEGORY_IDS } from "@/lib/categories";
+import {
+  audioSeconds,
+  LIBRARY_LENGTHS,
+  MAX_CATEGORIES,
+} from "@/lib/library-config";
 import {
   averageDaySeconds,
   dailyMinutes,
   dayEstimateSeconds,
-  personalPace,
 } from "@/lib/library-time";
 import { parseSavedFilter, savedFilterString } from "@/lib/library";
 import { getAllVideos } from "@/lib/video-library";
@@ -63,45 +69,13 @@ describe("a day's practice time (D98)", () => {
     expect(dailyMinutes(material)).toBe(4);
     expect(dailyMinutes({ seconds: 0, sentenceCount: 0 })).toBe(1);
   });
-
-  it("offers 5, 10, 15, 20, and 30 minutes", () => {
-    expect(TIME_BUDGETS).toEqual([5, 10, 15, 20, 30]);
-  });
-
-  it("uses the learner's pace once five timed days are known", () => {
-    const materials = new Map([["sintel", material]]);
-    const day = (n: number, seconds: number) => [
-      `2026-11-0${n}`,
-      {
-        official: true,
-        retries: [],
-        tasks: [{ videoId: "sintel", week: 1, day: n + 1 }],
-        time: { phone: { sintel: seconds } },
-      },
-    ];
-    // Shadowing days (2–6), each twice the estimate.
-    const four = {
-      days: Object.fromEntries([1, 2, 3, 4].map((n) => day(n, 360))),
-    };
-    expect(personalPace(four, materials)).toBeNull();
-    const five = {
-      days: Object.fromEntries([1, 2, 3, 4, 5].map((n) => day(n, 360))),
-    };
-    expect(personalPace(five, materials)).toBeCloseTo(2);
-    expect(dailyMinutes(material, 2)).toBe(8);
-    // Kept within bounds: an hour on a short day doesn't make it 20×.
-    const slow = {
-      days: Object.fromEntries([1, 2, 3, 4, 5].map((n) => day(n, 3600))),
-    };
-    expect(personalPace(slow, materials)).toBe(3);
-  });
 });
 
 describe("my default filter (D98)", () => {
   it("is saved as the URL query and read back the same way", () => {
-    const chosen = filter({ levels: ["beginner"], minutes: 10 });
+    const chosen = filter({ levels: ["beginner"], length: "3-5" });
     const saved = savedFilterString(chosen);
-    expect(saved).toBe("level=beginner&min=10");
+    expect(saved).toBe("level=beginner&len=3-5");
     expect(parseSavedFilter(saved)).toEqual(chosen);
     expect(parseSavedFilter("")).toBeNull();
     expect(parseSavedFilter(42)).toBeNull();
@@ -170,9 +144,9 @@ describe("filterLibrary", () => {
     expect(ids(filterLibrary(items, filter({ accents: ["gb"] })))).toEqual([
       "b",
     ]);
-    expect(ids(filterLibrary(items, filter({ lengths: ["0-1"] })))).toEqual([
-      "a",
-    ]);
+    expect(
+      ids(filterLibrary(items, filter({ categories: ["travel", "exam"] }))),
+    ).toEqual(["c", "b"]);
   });
 
   it("needs every filter to match", () => {
@@ -190,14 +164,23 @@ describe("filterLibrary", () => {
     ).toEqual(["c", "b"]);
   });
 
-  it("keeps what fits in the minutes chosen", () => {
-    // A day averages 4, 12, and 23 minutes (D98).
-    expect(ids(filterLibrary(items, filter({ minutes: 10 })))).toEqual(["a"]);
-    expect(ids(filterLibrary(items, filter({ minutes: 20 })))).toEqual([
-      "b",
+  it("keeps the audio length chosen (D104)", () => {
+    // 49 s, 200 s, and 400 s.
+    expect(ids(filterLibrary(items, filter({ length: "under-3" })))).toEqual([
       "a",
     ]);
-    expect(filterLibrary(items, filter({ minutes: 30 }))).toHaveLength(3);
+    expect(ids(filterLibrary(items, filter({ length: "3-5" })))).toEqual(["b"]);
+    expect(ids(filterLibrary(items, filter({ length: "5-10" })))).toEqual([
+      "c",
+    ]);
+    expect(filterLibrary(items, filter({ length: "10-plus" }))).toEqual([]);
+    expect(filterLibrary(items, filter({ length: "all" }))).toHaveLength(3);
+  });
+
+  it("keeps only what the server's search found, once it answers", () => {
+    expect(
+      ids(filterLibrary(items, filter({}), new Set(["a", "c", "zzz"]))),
+    ).toEqual(["c", "a"]);
   });
 
   it("sorts", () => {
@@ -241,14 +224,13 @@ describe("library URL parameters", () => {
       categories: ["travel", "exam"],
       scenarios: ["hotel"],
       levels: ["beginner"],
-      lengths: ["1-2"],
+      length: "5-10",
       accents: ["au"],
-      minutes: 20,
       sort: "newest",
     });
     const params = writeLibraryParams(new URLSearchParams(), chosen);
     expect(params.toString()).toBe(
-      "q=coffee&type=audio&cat=travel%2Cexam&sc=hotel&level=beginner&length=1-2&accent=au&min=20&sort=newest",
+      "q=coffee&type=audio&cat=travel%2Cexam&sc=hotel&level=beginner&len=5-10&accent=au&sort=newest",
     );
     expect(parseLibraryParams(params)).toEqual(chosen);
   });
@@ -264,20 +246,31 @@ describe("library URL parameters", () => {
   it("drops unknown values", () => {
     const parsed = parseLibraryParams(
       new URLSearchParams(
-        "type=film,audio&cat=nope&level=expert&accent=fr&min=25&sort=random",
+        "type=film,audio&cat=nope&level=expert&accent=fr&len=2-4&sort=random",
       ),
     );
     expect(parsed).toEqual(filter({ kinds: ["audio"] }));
   });
 
+  it("keeps at most five categories", () => {
+    const seven = CATEGORY_IDS.slice(0, 7);
+    const parsed = parseLibraryParams(
+      new URLSearchParams(`cat=${seven.join(",")}`),
+    );
+    expect(parsed.categories).toEqual(seven.slice(0, MAX_CATEGORIES));
+  });
+
   it("counts the filters on", () => {
     expect(activeFilterCount(NO_LIBRARY_FILTER)).toBe(0);
-    // The time a day sits above the library, outside the panel (D79).
     expect(
       activeFilterCount(
-        filter({ levels: ["beginner", "advanced"], minutes: 10, query: "x" }),
+        filter({
+          levels: ["beginner", "advanced"],
+          length: "5-10",
+          query: "x",
+        }),
       ),
-    ).toBe(2);
+    ).toBe(3);
     expect(activeFilterCount(filter({ scenarios: ["hotel"] }))).toBe(1);
   });
 });
@@ -292,7 +285,26 @@ describe("presentValues", () => {
     expect(present.levels).toEqual(["beginner"]);
     expect(present.accents).toEqual(["gb"]);
     expect(present.categories).toEqual(["travel"]);
-    expect(present.lengths).toEqual(["0-1", "3-4"]);
+  });
+});
+
+describe("the length ranges and categories (D104)", () => {
+  it("cover every whole second once, from 3, 5, and 10 minutes", () => {
+    for (const seconds of [0, 179, 180, 299, 300, 599, 600, 3600, 179.4]) {
+      const hits = LIBRARY_LENGTHS.filter(
+        (l) => l.id !== "all" && inLength(seconds, l.id),
+      );
+      expect(hits, `${seconds}`).toHaveLength(1);
+    }
+    expect(inLength(179, "under-3")).toBe(true);
+    expect(inLength(180, "3-5")).toBe(true);
+    expect(inLength(600, "10-plus")).toBe(true);
+  });
+
+  it("matches any chosen category (overlaps)", () => {
+    expect(inCategories("travel", [])).toBe(true);
+    expect(inCategories("travel", ["exam", "travel"])).toBe(true);
+    expect(inCategories(null, ["travel"])).toBe(false);
   });
 });
 

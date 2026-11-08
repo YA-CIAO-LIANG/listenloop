@@ -30,6 +30,8 @@ export type PublicPracticeSummary = {
   subtitle: string | null;
   /** Admins' order in the library (official practices). */
   sortOrder: number | null;
+  /** How long its audio runs (D104), or null if not known yet. */
+  durationSec?: number | null;
 };
 
 /** The newest this many public practices are listed. */

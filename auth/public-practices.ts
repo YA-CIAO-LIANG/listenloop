@@ -43,7 +43,7 @@ async function listPractices({
     supabase
       .from("practices")
       .select(
-        "id, title, title_en, title_zh, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, youtube_id, practice_sentences(audio_path)",
+        "id, title, title_en, title_zh, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, youtube_id, duration_sec, practice_sentences(audio_path)",
       )
       .eq("visibility", "public")
       // Authors can still read their own taken-down practices (D31).
@@ -95,6 +95,7 @@ async function listPractices({
         level: row.level,
         subtitle: row.subtitle,
         sortOrder: row.sort_order,
+        durationSec: row.duration_sec,
       },
     ];
   });

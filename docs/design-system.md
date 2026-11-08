@@ -275,7 +275,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 | Divider        | 1px line 細線，水平或垂直。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
 | ButtonLink     | 外觀與 Button 完全相同的連結（例如「開始第 1 天 →」）。按壓效果只回應 Enter。                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | WordDiffView   | 聽寫回饋，兩行對照：「你的答案」中寫錯或多寫的字用 error 色＋刪除線（`<del>`）；「正確答案」中沒寫對的字用 error 色＋2px 底線，並附螢幕閱讀器文字「（沒寫對）」。兩行都顯示原文寫法（不是正規化後的字）。                                                                                                                                                                                                                                                                                                                                                       |
-| FilterChip     | 可複選的切換按鈕（`aria-pressed`，元件 `FilterChip`），用於教材庫的篩選、「我今天有幾分鐘？」與公開教材的篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：1px line 邊框、ink-muted 文字，hover 邊框 ink-muted、文字 ink。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。                                                                                                                                        |
+| FilterChip     | 可複選的切換按鈕（`aria-pressed`，元件 `FilterChip`），用於教材庫與公開教材的篩選。高 32px（觸控至少 44px）、左右 12px、radius 4px、supporting 字級、數字等寬。未選：surface 底（白底）、1px line 邊框（灰框）、ink 文字，hover 邊框 ink-muted。停用（`disabled`，例如分類選滿 5 個）：透明度 40%、游標 not-allowed，不能點。已選：ink 底、ground 文字、1px ink 邊框，文字前加「✓ 」（`aria-hidden`，狀態由 `aria-pressed` 提供，不只靠顏色）。顏色過渡 160ms，focus 用既有焦點外框。                                                                           |
 | CaptionHint    | 播放器正下方一行 supporting 字級、ink-muted 的提示：「如果影片出現字幕，請點播放器右下角的 CC 按鈕關閉」。不可蓋在播放器上（YouTube 條款）。                                                                                                                                                                                                                                                                                                                                                                                                                    |
 
 ## 聲音選單 `VoiceMenu`（e+ 3；2026-11-07 Joe 確認，建立與編輯練習使用）
@@ -373,11 +373,6 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - Card（surface、1px line、4px、內距 24px）：Display h2「怎麼練：七天一個循環」→ 24px → 三個步驟（split 以上三欄、以下堆疊，間距 24px）：Display h3「**1** 第 1 天 聽寫」（數字 accent-ink、等寬）＋ supporting、ink-muted 說明。
 - 24px 後：primary、md「登入」＋同一行 supporting、ink-muted「不用登入也能練習；登入後可以看練習日曆、今日任務和學習分析。」（窄螢幕換行）。
 
-### 我今天有幾分鐘？（D70、D79）
-
-- 在教材庫最上方，所有人都看得到（不需登入）：font-medium「我今天有幾分鐘？」→ 8px → 一排 FilterChip「10 分鐘內（N）」「20 分鐘內（N）」「30 分鐘內（N）」（`role="group"`，一次只選一個，再按一次取消；括號是符合的份數）。
-- 篩選教材庫為「每天預估時間 ≤ N 分鐘」（網址 `?min=10`）。它不在篩選側欄或抽屜裡，所以「篩選（N）」的數字不算它。
-
 ### 教材庫 `MaterialLibrary`（D70，取代原本的「推薦練習」和「官方教材」兩區）
 
 - Display h2「教材庫」＋ ink-muted 說明；section `id="library"`（`scroll-mt-8`）。內建影片和官方音檔教材放在同一個清單（`getLibraryItems`），不再依合集分組。
@@ -390,12 +385,14 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 下方一行 supporting、ink-muted、`aria-live="polite"`：「3 份教材」；有任何條件時旁邊 ghost、sm「清除篩選」。
 - 卡片網格：split 以上兩欄、間距 24px，卡片等高（`h-full`，最下行貼底）。
 - 沒有符合：ink-muted「沒有符合的教材。」＋ secondary「清除所有篩選」。
-- **網址參數**（`router.replace`，不捲動、不加紀錄；不認得的值忽略）：`q`、`type`、`cat`、`level`、`length`、`accent`、`min`、`sort`（推薦是預設，不寫進網址）。伺服器先輸出沒有篩選的列表（Suspense fallback）。
+- **網址參數**（`router.replace`，不捲動、不加紀錄；不認得的值忽略）：`q`、`type`、`cat`（最多 5 個）、`sc`、`level`、`len`（`all` 不寫）、`accent`、`sort`（推薦是預設，不寫進網址）。伺服器先輸出沒有篩選的列表（Suspense fallback）。
 
 ### 篩選群組 `LibraryFilters`（D70）
 
 - 每組：metadata、ink-muted、字距加寬的標籤（`role="group"` 的名稱）→ 8px → FilterChip 一排（換行，間距 8px）。組與組之間 24px。
-- 順序：類型（影片、音檔）→ 分類 → 情境（選了分類後才出現，只列所選分類裡實際有教材的情境，D79）→ 程度（初級、中級、高級）→ 長度（`LENGTH_BUCKETS`，新增「1 分鐘以內」）→ 口音。
+- 順序：類型（影片、音檔）→ 分類 → 情境（選了分類後才出現，只列所選分類裡實際有教材的情境，D79）→ 程度（初級、中級、高級）→ 長度（D104：SegmentedControl 單選「全部長度／3 分鐘以下／3–5 分鐘／5–10 分鐘／10 分鐘以上」，區間在 `lib/library-config.ts` 的 `LIBRARY_LENGTHS`，一律顯示）→ 口音。
+- **分類**（D104）：第一個 chip「全部」，沒有選任何分類時是已選狀態，按下清除所有分類（和底下的情境）。最多選 5 個（`MAX_CATEGORIES`），選滿時其他沒選的 chip 停用；有選分類時，組名同一行右側顯示 metadata、ink-muted「已選 X / 5」（`aria-live="polite"`）。
+- **自動搜尋**（D104）：分類或長度改變後 300ms（`SEARCH_DEBOUNCE_MS`）向伺服器搜尋官方教材庫，不需要按鈕；搜尋中，結果列顯示「搜尋中…」。搜尋失敗時用同樣規則在頁面上篩選。
 - 都可複選；取消一個分類時，它底下已選的情境一起取消。同一組選了幾個就是「其中之一」，不同組之間是「而且」。
 - 每個 chip 後面括號是符合的份數（不受其他條件影響）。教材庫裡某一組只有一種值時，整組不顯示（已經選取時例外）。
 

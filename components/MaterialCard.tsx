@@ -20,13 +20,10 @@ import { VideoProgressLabel } from "./VideoProgressLabel";
 export function MaterialCard({
   item,
   mine = false,
-  pace = 1,
 }: {
   item: LibraryItem;
   /** Made by the viewer (/explore). */
   mine?: boolean;
-  /** The learner's pace (D98): measured time ÷ estimate; 1 until known. */
-  pace?: number;
 }) {
   const t = useTranslations("library.card");
   const tAll = useTranslations();
@@ -72,7 +69,7 @@ export function MaterialCard({
           {t("length", minutesAndSeconds(item.seconds))}
           {item.accent && ` · ${tAll(`voicePicker.accents.${item.accent}`)}`}
           {" · "}
-          {t("perDay", { minutes: dailyMinutes(item, pace) })}
+          {t("perDay", { minutes: dailyMinutes(item) })}
         </span>
         <span aria-hidden="true">→</span>
       </p>

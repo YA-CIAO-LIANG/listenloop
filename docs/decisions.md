@@ -1805,3 +1805,17 @@
 - **Google Play**：自動續訂最長一年，兩年方案只在網站提供。
 - **退款**：長期方案提前取消時，未使用的完整月份按方案自己的每月價格退款。退款政策、服務條款已更新。
 - **要改時**：`lib/plans.ts`、`lib/payments/pricing.ts`、`lib/forecast.ts`。
+
+## D104 官方教材庫的搜尋：分類最多 5 個、聲音長度、自動搜尋（2026-11-08，Joe 指定）
+
+- **移除「我今天有幾分鐘？」**：教材庫上方的時間選項、網址參數 `min`、依個人速度換算（`personalPace`、`useLibraryPace`）都拿掉。卡片上的「每天約 N 分鐘」保留，但只用公式估計，不再依個人速度調整（D98 的公式不變）。
+- **聲音長度**：`practices.duration_sec`（整數秒），由每句音檔的大小換算（MP3 48 kbps；WAV 去掉 44 bytes 檔頭後每秒 48,000 bytes）。觸發器在句子的音檔變更時重算；YouTube 教材用片段長度。migration 已回填既有資料。
+  - 區間（`LIBRARY_LENGTHS`）：全部（預設）、3 分鐘以下（≤ 179 秒）、3–5 分鐘（180–299）、5–10 分鐘（300–599）、10 分鐘以上（≥ 600）。整數秒，所以每個長度剛好落在一個區間。
+  - 單選，用既有的 SegmentedControl；網址參數 `len`，舊的 `length` 不再讀取。
+- **分類**：`practices.categories`（由 `category` 產生的陣列欄位，GIN 索引），查詢用 `overlaps`，日後一份教材有多個分類時不用改查詢。最多 5 個（`MAX_CATEGORIES`），選滿時其他標籤停用，並顯示「已選 X / 5」；「全部」清除所有分類。
+- **自動搜尋**：分類或長度改變 300ms 後（`SEARCH_DEBOUNCE_MS`），呼叫 Server Action `searchOfficialLibrary`。查詢條件是官方、已發布、公開、未下架，分類用 `overlaps`，長度用 `gte`／`lte`。
+  - 內建影片不在資料庫裡，用同樣的規則在伺服器上判斷。
+  - 頁面只顯示伺服器找到的教材；其他條件（搜尋字、類型、程度、口音、情境）仍在頁面上篩選。
+  - 等待結果時，頁面先用同樣的規則篩選，並顯示「搜尋中…」；搜尋失敗時就用頁面上的結果。
+- **標籤樣式**：未選是白底（surface）灰框，已選是黑底（ink）白字加 ✓，沿用 `FilterChip`，新增停用狀態。沒有新增 UI 套件。
+- **要改時**：`lib/library-config.ts`（區間、上限、防抖時間）、`app/library-actions.ts`（查詢）、`components/MaterialLibrary.tsx`（畫面）、`supabase/migrations/20261110050000_library_search.sql`。

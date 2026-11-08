@@ -97,12 +97,8 @@ test("signed in, the home page goes calendar, today's tasks, then library (D79)"
   expect(at("練習日曆")).toBeGreaterThanOrEqual(0);
   expect(at("練習日曆")).toBeLessThan(at("今日任務"));
   expect(at("今日任務")).toBeLessThan(at("官方教材庫"));
-  await page
-    .getByRole("group", { name: "我今天有幾分鐘？" })
-    .getByRole("button", { name: /10 分鐘內/ })
-    .click();
-  await expect(page).toHaveURL(/min=10/);
-  // Sintel takes about 9 minutes a day; the practice's estimate is 1.
+  // No time-a-day choice any more (D104).
+  await expect(page.getByText("我今天有幾分鐘？")).toHaveCount(0);
   await expect(cards(page)).toHaveCount(2);
 });
 
@@ -171,16 +167,40 @@ test("signed out, a saved default filter opens the library with it next time (D9
   await expect(page).not.toHaveURL(/beginner/);
 });
 
-test("the time choices are 5 to 30 minutes, one tap to filter (D98)", async ({
+test("categories and audio length search the library as they change (D104)", async ({
   page,
 }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  const time = page.getByRole("group", { name: "我今天有幾分鐘？" });
-  for (const minutes of [5, 10, 15, 20, 30]) {
-    await expect(
-      time.getByRole("button", { name: new RegExp(`^${minutes} 分鐘內`) }),
-    ).toBeVisible();
-  }
-  await time.getByRole("button", { name: /^5 分鐘內/ }).click();
-  await expect(page).toHaveURL(/min=5/);
+  const sidebar = page.getByRole("complementary", { name: "篩選" });
+  const categories = sidebar.getByRole("group", { name: "分類" });
+  const all = categories.getByRole("button", { name: "全部" });
+  await expect(all).toHaveAttribute("aria-pressed", "true");
+
+  // A tap searches by itself, no button: the travel practice (4 minutes).
+  const travel = categories.getByRole("button", { name: /旅遊/ });
+  await travel.click();
+  await expect(travel).toHaveAttribute("aria-pressed", "true");
+  await expect(travel).toContainText("✓");
+  await expect(categories).toContainText("已選 1 / 5");
+  await expect(page).toHaveURL(/cat=travel/);
+  await expect(cards(page)).toHaveCount(1);
+  await expect(cards(page).first()).toContainText("E2E official practice");
+
+  const lengths = sidebar.getByRole("group", { name: "長度" });
+  await expect(lengths.getByLabel("全部長度")).toBeChecked();
+  await lengths.getByText("3 分鐘以下").click();
+  await expect(page).toHaveURL(/len=under-3/);
+  await expect(cards(page)).toHaveCount(0);
+  await lengths.getByText("3–5 分鐘").click();
+  await expect(page).toHaveURL(/len=3-5/);
+  await expect(cards(page)).toHaveCount(1);
+
+  // 全部 clears every category; Sintel (49 s) is under 3 minutes.
+  await all.click();
+  await expect(page).not.toHaveURL(/cat=/);
+  await lengths.getByText("3 分鐘以下").click();
+  await expect(cards(page)).toHaveCount(1);
+  await expect(cards(page).first()).toContainText("Sintel");
+  await expect(page.getByText("搜尋中…")).toHaveCount(0);
 });

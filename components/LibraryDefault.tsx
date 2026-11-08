@@ -100,7 +100,7 @@ export function LibraryDefaultControls({
   );
   const current = savedFilterString({ ...filter, query: "" });
   const isDefault = saved !== null && saved === current;
-  const empty = activeFilterCount(filter) === 0 && filter.minutes === null;
+  const empty = activeFilterCount(filter) === 0;
 
   return (
     <div className="space-y-2">

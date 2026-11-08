@@ -117,6 +117,7 @@
     "published": true,
     "official": true,
     "category": "travel",
+    "duration_sec": 240,
     "level": "beginner",
     "exam": null,
     "exam_target": null,
