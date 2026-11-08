@@ -18,8 +18,9 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
 import { usePlan } from "./PlanProvider";
 import { useVideoProgress } from "./useVideoProgress";
 
+// Full width of its column, so a long option never pushes past the screen.
 const selectClassName =
-  "h-10 rounded-base border border-line bg-surface px-2 text-body focus-visible:border-accent disabled:opacity-60 pointer-coarse:min-h-11";
+  "h-10 w-full min-w-0 rounded-base border border-line bg-surface px-2 text-body focus-visible:border-accent disabled:opacity-60 pointer-coarse:min-h-11";
 
 /**
  * A practice's pass rules (D92): the lowest dictation accuracy that
@@ -86,7 +87,7 @@ export function PassRulesSettings({
       </p>
 
       <div className="grid gap-4 split:grid-cols-3">
-        <label className="space-y-1">
+        <label className="min-w-0 space-y-1">
           <span className="block text-supporting">{t("dictationMin")}</span>
           <select
             className={selectClassName}
@@ -104,7 +105,7 @@ export function PassRulesSettings({
           </select>
         </label>
 
-        <label className="space-y-1">
+        <label className="min-w-0 space-y-1">
           <span className="block text-supporting">{t("shadowingMin")}</span>
           <select
             className={selectClassName}
@@ -122,7 +123,7 @@ export function PassRulesSettings({
           </select>
         </label>
 
-        <label className="space-y-1">
+        <label className="min-w-0 space-y-1">
           <span className="block text-supporting">{t("day7")}</span>
           <select
             className={selectClassName}
