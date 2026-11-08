@@ -54,6 +54,19 @@ export const fakeLanguage: LanguageProvider = {
       [title, text],
     );
   },
+  // "N 句" or "N sentences" keeps the first N; anything else changes the
+  // last line only, so tests can see what's kept and what's new (D96).
+  async revise({ lines, instruction }) {
+    const count = instruction.match(/(\d+)\s*(句|sentence)/i);
+    const revised = count
+      ? lines.slice(0, Number(count[1]))
+      : lines.map((line, i) =>
+          i === lines.length - 1
+            ? `${line.replace(/[.!?]$/, "")} again.`
+            : line,
+        );
+    return free({ lines: revised }, [...lines, instruction]);
+  },
   // The rule-based split, as if the model agreed with it.
   async segment(lines, language) {
     return free(

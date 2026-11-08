@@ -15,7 +15,11 @@ import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
-import { composeBudget, describeBudget } from "@/lib/ai/budgets";
+import { composeBudget, describeBudget, reviseBudget } from "@/lib/ai/budgets";
+import {
+  checkRevision,
+  parseRevisionRequest,
+} from "@/lib/custom-practice/revise";
 import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
 import {
   checkGeneratedText,
@@ -538,6 +542,37 @@ export async function generatePracticeText(
     subtitle: text.subtitle,
     text: text.text,
   };
+}
+
+export type ReviseDraftResult =
+  | { ok: true; lines: string[] }
+  | ({
+      ok: false;
+      reason: "unavailable" | "invalid" | MeteredFailure;
+    } & LimitDetail);
+
+/**
+ * Rewrites a draft's English by the learner's instruction (D96): one
+ * model call, counted in the daily allowance like any AI step. The
+ * browser then keeps the translations of unchanged sentences and has only
+ * the changed ones translated.
+ */
+export async function reviseDraft(input: unknown): Promise<ReviseDraftResult> {
+  const creator = await getCreator();
+  if (!creator || !(await creationAllowed(creator)).ok) {
+    return { ok: false, reason: "unavailable" };
+  }
+  if (!(await allowAction("ai", creator.user.id))) {
+    return { ok: false, reason: "busy" };
+  }
+  const request = parseRevisionRequest(input);
+  if (!request) return { ok: false, reason: "invalid" };
+  const result = await meteredLanguage(creator, reviseBudget(request), () =>
+    creator.providers.language.revise(request),
+  );
+  if (!result.ok) return result;
+  const lines = checkRevision(result.value);
+  return lines ? { ok: true, lines } : { ok: false, reason: "failed" };
 }
 
 export type DescribeDraftResult =

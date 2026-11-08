@@ -16,6 +16,7 @@ vi.mock("@/app/materials/actions", () => ({
   generatePracticeNotes: vi.fn(),
   generatePracticeText: vi.fn(),
   describeDraft: vi.fn(),
+  reviseDraft: vi.fn(),
 }));
 
 const split = vi.fn();
@@ -144,6 +145,65 @@ describe("CreatePracticeForm", () => {
       JSON.parse(localStorage.getItem("ll-gen-speed:v1") ?? "null"),
     ).toMatchObject({ samples: 1 });
     localStorage.removeItem("ll-gen-speed:v1");
+  });
+
+  it("revises the English by an instruction, translates only what changed, and undoes (D96)", async () => {
+    const revise = vi.fn(async () => ({
+      ok: true as const,
+      lines: ["We moved here.", "Do you love it?"],
+    }));
+    await act(async () => {
+      renderWithIntl(
+        <PlanProvider plan="paid">
+          <CreatePracticeForm
+            split={split}
+            translate={translate}
+            create={create}
+            generate={generate}
+            generateNotes={generateNotes}
+            generateText={generateText}
+            describe={describeTitles}
+            revise={revise}
+          />
+        </PlanProvider>,
+      );
+    });
+    fireEvent.change(textBox(), {
+      target: { value: "We moved here. Do you like it?" },
+    });
+    await click("斷句並翻譯");
+    translate.mockClear();
+    fireEvent.change(screen.getByLabelText("修改指令"), {
+      target: { value: "換成更簡單的單字" },
+    });
+    await click("修改");
+    expect(revise).toHaveBeenCalledWith({
+      lines: ["We moved here.", "Do you like it?"],
+      instruction: "換成更簡單的單字",
+      format: "monologue",
+    });
+    // Only the changed sentence is translated again.
+    expect(translate).toHaveBeenCalledTimes(1);
+    expect(translate).toHaveBeenCalledWith(["Do you love it?"], "en");
+    expect(
+      (screen.getByLabelText("第 2 句英文") as HTMLTextAreaElement).value,
+    ).toBe("Do you love it?");
+    expect(
+      (screen.getByLabelText("第 1 句中文") as HTMLTextAreaElement).value,
+    ).toBe("我們搬來這裡。");
+    expect(
+      screen.getByText("已修改：2 句中有 1 句變動並重新翻譯。"),
+    ).toBeTruthy();
+
+    await click("復原上一步");
+    expect(
+      (screen.getByLabelText("第 2 句英文") as HTMLTextAreaElement).value,
+    ).toBe("Do you like it?");
+    expect(
+      screen
+        .getByRole("button", { name: "復原上一步" })
+        .hasAttribute("disabled"),
+    ).toBe(true);
   });
 
   it("suggests leaving a long job, and the server finishes it if the page closes (D95)", async () => {

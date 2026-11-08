@@ -2,6 +2,7 @@ import {
   annotateBudget,
   composeBudget,
   describeBudget,
+  reviseBudget,
   segmentBudget,
   translateBudget,
   type LanguageBudget,
@@ -12,6 +13,7 @@ import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   composeInstructions,
   DESCRIBE_INSTRUCTIONS,
+  REVISE_INSTRUCTIONS,
   NOTES_INSTRUCTIONS,
   PROMPT_VERSION,
   SEGMENT_INSTRUCTIONS,
@@ -97,6 +99,7 @@ export const AZURE_SCHEMAS = {
     lines: { type: "array", items: STRING },
   }),
   description: object({ titleEn: STRING, titleZh: STRING, subtitle: STRING }),
+  revision: object({ lines: { type: "array", items: STRING } }),
 } as const;
 
 type ChatCompletion = {
@@ -255,6 +258,15 @@ export function azureOpenAiLanguage(
         DESCRIBE_INSTRUCTIONS,
         material,
         describeBudget(material),
+      );
+    },
+    async revise(input) {
+      return generate(
+        "revision",
+        REVISE_INSTRUCTIONS,
+        input,
+        reviseBudget(input),
+        0.5,
       );
     },
     async segment(lines, language) {

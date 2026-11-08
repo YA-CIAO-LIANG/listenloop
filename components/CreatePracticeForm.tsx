@@ -60,7 +60,9 @@ import {
 import { SpeakerToggle } from "./SpeakerToggle";
 import type { MaterialMeta } from "@/lib/custom-practice/generation";
 import { SegmentedControl } from "./SegmentedControl";
+import { RevisePanel, type ReviseText } from "./RevisePanel";
 import { StageProgress } from "./StageProgress";
+import { UNDO_STEPS } from "@/lib/custom-practice/revise";
 import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
 import type { PlanBlock } from "@/lib/plans";
 
@@ -68,6 +70,8 @@ type CreatePracticeFormProps = {
   /** Injected in tests; the Server Actions otherwise. */
   split?: SplitText;
   translate?: TranslateSentences;
+  /** Injected in tests; the Server Action otherwise (D96). */
+  revise?: ReviseText;
   create?: (draft: {
     titleEn: string;
     titleZh: string;
@@ -117,6 +121,7 @@ export const fieldClassName =
 export function CreatePracticeForm({
   split = splitText,
   translate = translateSentences,
+  revise,
   create = createPractice,
   generate = generatePracticeAudio,
   generateNotes = generatePracticeNotes,
@@ -161,6 +166,8 @@ export function CreatePracticeForm({
   // Once the learner picks a language, stop guessing it from the text.
   const [languageChosen, setLanguageChosen] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
+  // Drafts before each "revise with an instruction" (D96), newest last.
+  const [undoStack, setUndoStack] = useState<Row[][]>([]);
   const [voice, setVoice] = useState(DEFAULT_VOICE);
   // Speaker B's voice, used when the sentences have speakers (D57).
   const [voiceB, setVoiceB] = useState("us-male");
@@ -361,6 +368,7 @@ export function CreatePracticeForm({
     setText("");
     setLanguageChosen(false);
     setRows(null);
+    setUndoStack([]);
     router.refresh();
   }
 
@@ -490,6 +498,25 @@ export function CreatePracticeForm({
             {t("sentenceCount", { count: rows.length })}
           </p>
         </div>
+        {/* AI changes the English by an instruction (D96). */}
+        <RevisePanel
+          sentences={rows}
+          dialogue={dialogue}
+          disabled={pending}
+          canUndo={undoStack.length > 0}
+          translate={translate}
+          revise={revise}
+          onRevised={(next) => {
+            setUndoStack((stack) => [...stack, rows].slice(-UNDO_STEPS));
+            setRows(next.map((s) => ({ ...s, key: nextKey.current++ })));
+          }}
+          onUndo={() => {
+            const previous = undoStack.at(-1);
+            if (!previous) return;
+            setUndoStack((stack) => stack.slice(0, -1));
+            setRows(previous);
+          }}
+        />
         <ol className="divide-y divide-line border-y border-line">
           {rows.map((row, index) => (
             <li key={row.key} className="flex gap-4 py-4">
@@ -669,6 +696,7 @@ export function CreatePracticeForm({
             variant="ghost"
             onClick={() => {
               setRows(null);
+              setUndoStack([]);
               setError(null);
             }}
             disabled={pending}
