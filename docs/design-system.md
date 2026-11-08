@@ -115,7 +115,7 @@
 
 - 大量留白，內容寬度上限約 1080px。
 - 練習頁（聽寫、跟讀）的練習區寬度上限 720px（token `--container-practice`），置中，用 `practice-column` 工具類別。
-- 斷點：`split` 47.5rem（760px，長區塊左右排列）、`wide` 64rem（1024px，聽寫頁的講解欄放到練習區右側）。
+- 斷點：`split` 47.5rem（760px，長區塊左右排列）、`wide` 64rem（1024px）。
 - 長區塊：左側標題、右側內容；760px 以下改為上下堆疊。
 - 區塊交替使用 ground 與 band 背景。
 - 多數內容直接放在頁面上，不要每段都包卡片。
@@ -304,7 +304,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 快捷鍵：Ctrl＋空白鍵或 Ctrl＋Enter 重播（Mac 預設用 Ctrl＋空白鍵切換輸入法，所以需要 Ctrl＋Enter 當備用）。快捷鍵不會打字，也不會觸發按鈕。
 - 跳過：第一次點擊變成「確定跳過？」，3 秒內再點一次才跳過，否則恢復。跳過等於送出空白答案，這句 0 分，並顯示對照（「你的答案」顯示「（未作答）」）。
 - 每句第一次送出（或跳過）即算分，之後只能重播、看答案。
-- 每句講解（`SentenceNotes`）：送出或跳過後顯示。寬度 ≥ wide：練習區與講解欄左右並排（外層上限 1080px、間距 2rem），講解欄寬 20rem、`sticky top-0`，練習區寬度改用 `practice-column-notes`（扣掉講解欄，影片高度一樣 ≤ 40svh）；送出前講解欄先顯示 ink-muted 提示「送出後，這裡會顯示這句的翻譯、單字和文法。」，位置預留、不跳動。寬度 < wide：講解在快捷鍵說明下方（不推動「下一句」按鈕），送出或跳過後把對照區塊捲到畫面頂端（`scroll-mt-16` 避開固定進度列），讓對照、按鈕、講解出現在同一個畫面。內容：1px line 分隔線 → 這句的中文（內文字級）→「單字」（每行：單字 `lang="en"` font-medium、詞性 supporting ink-muted、中文）→「文法重點」（重點 `lang="en"` font-medium，下一行說明 supporting ink-muted）。小標題用 metadata、ink-muted、字距加寬。這句沒有單字或文法時省略該段；例句只放在講義。正式與重練都顯示。
+- **翻譯與講解（D78，2026-11-08 起）**：送出或跳過後，對照區塊（`WordDiffView`）正下方是這句的中文（supporting、ink-muted），不放在側邊。講解（`SentenceExplanation`，`showZh={false}` 不重複中文）放在快捷鍵說明下方，1px line 分隔，所有寬度都是同一欄（原本寬螢幕的右側講解欄移除）。窄螢幕送出後把對照區塊捲到頂端（`scroll-mt-16`）。聽寫結果、第 7 天週結果的逐句列表也是英文比對下方接中文；跟讀頁每句英文下方直接顯示中文（不再收起）。
 - 手機與窄畫面（< wide）：點輸入框時，把影片捲到畫面頂端，讓影片、輸入框、按鈕盡量一起出現在鍵盤上方。重播（按鈕或快捷鍵）前先把影片捲回畫面，播放時一定看得到影片（YouTube 條款）。開啟 reduced motion 時直接跳到位置，不平滑捲動。
 - 「完美」彩帶：當句正確率 100% 時，送出後從對照區底部中央噴出 14 片小彩帶（6×10px 直角，accent、ink、success 三色），約 1 秒（`ll-confetti`：只動 transform 與 opacity），範圍限制在對照區內（`overflow-hidden`），不蓋到 YouTube 播放器。`pointer-events: none`、`aria-hidden`，焦點照常在「下一句」，Enter 照常可用。正式作答與重練都會觸發；只在剛送出時出現，中途回來不會重播。`prefers-reduced-motion: reduce` 時不播放，改在「這句正確率 100%」旁顯示 accent-ink、font-medium 的「完美！」。
 - 下方句子清單：已作答的句子顯示原文與分數，未作答的句子隱藏原文。

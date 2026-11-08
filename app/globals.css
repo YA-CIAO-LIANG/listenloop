@@ -299,19 +299,6 @@
 }
 
 /*
- * Practice column with the 20rem notes column (and 2rem gap) beside it, used
- * as wide:practice-column-notes. Same video limits as practice-column.
- */
-@utility practice-column-notes {
-  width: min(
-    100% - 22rem,
-    --theme(--container-practice),
-    max(calc(40svh * 16 / 9), 22.25rem)
-  );
-  margin-inline: 0;
-}
-
-/*
  * Highlighter marks (D66). Never color alone: "missed" has a solid
  * underline, "key" a dotted one, and each carries screen-reader text.
  * They print (light backgrounds, so printer friendly) with their lines.

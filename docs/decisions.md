@@ -1335,3 +1335,14 @@
   - 提示文字依類型（每日、批次、每月、聲音）說明何時重設（台灣時間，24 小時制）；管理員另外看到「查看後台用量 →」。
   - 舊的「每人每天 US$0.50」不再使用。
 - **要改時**：`lib/usage.ts`、`auth/creator.ts`（`supabaseUsageMeter`、`creatorMeter`、`getBatchCreator`）、`auth/usage-settings.ts`、`components/UsageLimitMessage.tsx`、`supabase/migrations/20261108180000_usage_buckets.sql`。
+
+## D78 翻譯直接放在英文句子下方（2026-11-08，第二輪 2）
+
+- **決定**（Joe 指定）：聽寫作答後、聽寫結果、第 7 天週結果、跟讀、講義與 PDF、編輯頁，每句的中文都在該句英文正下方（supporting、ink-muted），單字與文法講解在翻譯下方。
+- **做法**：
+  - 聽寫：移除寬螢幕的右側講解欄（`practice-column-notes`），講解改放在按鈕下方，所有寬度同一欄。
+  - `SentenceExplanation` 新增 `showZh`；中文已經在句子下方的地方傳 `false`，避免同一頁出現兩次。
+  - 跟讀：影片教材的中文原本收在「中文」展開項裡，現在直接顯示（和音檔教材一致）。
+  - 講義、PDF、編輯頁原本就是英文下方中文，不變。
+- **取捨**：寬螢幕少了「影片和講解並排」，講解要往下捲才看得到；換來的是翻譯緊貼句子、閱讀順序一致（英文 → 中文 → 講解）。
+- **要改時**：`components/DictationSession.tsx`、`components/ShadowingSession.tsx`、`components/SentenceExplanation.tsx`、`components/WeekResult.tsx`。

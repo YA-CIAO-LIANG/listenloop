@@ -151,12 +151,18 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
                 <span className="text-metadata text-ink-muted tabular-nums">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <WordDiffView
-                  diff={wordDiff(
-                    sentence.en,
-                    progress.days[7]?.answers?.[index] ?? "",
-                  )}
-                />
+                <div className="space-y-1">
+                  <WordDiffView
+                    diff={wordDiff(
+                      sentence.en,
+                      progress.days[7]?.answers?.[index] ?? "",
+                    )}
+                  />
+                  {/* The meaning right under the sentence (D78). */}
+                  <p className="text-supporting text-ink-muted">
+                    {sentence.zh}
+                  </p>
+                </div>
                 <span className="text-supporting whitespace-nowrap text-ink-muted tabular-nums">
                   {t("sentenceCompare", {
                     day1: percent(scores.day1),

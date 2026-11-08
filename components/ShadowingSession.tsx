@@ -513,15 +513,8 @@ export function ShadowingSession({
                 ))
               : sentence.en}
           </p>
-          {/* A created practice has no video to watch, so its meaning,
-              vocabulary, and grammar show while shadowing; a built-in
-              video keeps the Chinese folded away. */}
-          {!video.audioUrls && (
-            <details className="text-supporting text-ink-muted">
-              <summary className="tap cursor-pointer">{t("chinese")}</summary>
-              <p className="mt-1">{sentence.zh}</p>
-            </details>
-          )}
+          {/* The meaning right under the sentence, for every material (D78). */}
+          <p className="mt-1 text-supporting text-ink-muted">{sentence.zh}</p>
         </div>
 
         {video.audioUrls && (
@@ -530,6 +523,7 @@ export function ShadowingSession({
             <SentenceExplanation
               en={sentence.en}
               zh={sentence.zh}
+              showZh={false}
               rich={video.richNotes?.[current] ?? null}
               legacy={notesForSentence(video, current)}
               missed={
