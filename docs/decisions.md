@@ -1521,3 +1521,11 @@
   - 預算用完時，腳本會停在當下的那一份，仍然印出報告（`break drafts`），不會丟出錯誤。
 - **還沒補到 2 份的類別**（各 1 份）：日常美式、學術寫作、留學生活、校園、商務、新聞、科普、演講與故事。這些下次可以用同一支腳本補：`npm run official:drafts` 會先印出預估，加 `OFFICIAL_YES=1` 才會實際呼叫。
 - **要改時**：`scripts/official-drafts.record.ts` 的 `SPECS`、`BUDGET_USD`。
+
+## D88 手機版練習日曆不重疊（2026-11-08，夜間任務 P0-1）
+
+- **問題**：觸控裝置上每天的方塊固定 44 px（`pointer-coarse:size-11`），加上卡片內距 24 px，360 px 寬時 7 欄只剩約 40 px，方塊互相重疊。
+- **決定**：方塊改成填滿欄寬的正方形（`aspect-square w-full`），上限 36 px，觸控裝置 44 px；手機上卡片內距改 16 px、格子間距 1 px。360 px 時方塊約 39 px，375 px 約 41 px。
+- **理由**：日曆 7 欄是固定的，不能換行。WCAG 2.5.8 要求 24 px，39 px 已足夠；44 px 是 Apple／Material 的建議值，寬度足夠時（≥ 400 px）仍會達到。
+- **測試**：`e2e/calendar.spec.ts` 在 360、375 px（觸控）展開整月，比對 30 個方塊的邊界框，不能重疊、不能超出畫面。
+- **要改時**：`components/PracticeCalendar.tsx` 的方塊 class。
