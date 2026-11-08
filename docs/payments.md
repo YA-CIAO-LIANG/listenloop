@@ -83,3 +83,46 @@
 - [Lemon Squeezy：Supported Countries](https://docs.lemonsqueezy.com/help/getting-started/supported-countries)、[Getting paid](https://docs.lemonsqueezy.com/help/getting-started/getting-paid)
 - [Paddle pricing](https://paddle.com/pricing)
 - [What Google Play's new billing rules mean for subscriptions](https://adapty.io/blog/google-play-billing-changes-subscriptions-fees)
+
+## 方案與定價：Plus、Pro、三種繳費週期（2026-11-09，D102）
+
+目前全部是**假門測試**：定價頁可以選方案與週期、按「訂閱」，但只會說明「即將推出」並提供加入名單，不會收費。D85 的付款介面與假的供應者保留，正式開放時再接上。
+
+### 價格（`lib/payments/pricing.ts` 的 `PLAN_PRICES`）
+
+| 方案 | 月繳   | 年繳（約每月，省）         | 兩年（約每月，省）         |
+| ---- | ------ | -------------------------- | -------------------------- |
+| Plus | NT$149 | NT$1,290（NT$108，省 28%） | NT$2,290（NT$95，省 36%）  |
+| Pro  | NT$299 | NT$2,590（NT$216，省 28%） | NT$4,590（NT$191，省 36%） |
+
+長期方案的額度仍然每月重設，不累積。
+
+### Google Play 支援的訂閱週期（查證）
+
+- 自動續訂的基本方案最長一年（每週、每月、每兩個月、每季、每半年、每年）；
+- 預付方案最長只到幾個月；
+- 「分期付款」方案的承諾期可以到 24 個月，但只在巴西、法國、義大利、西班牙開放，台灣不能用。
+- 結論：**兩年方案只在網站提供**（`WEB_ONLY_PERIODS`），之後的 Android App 內只顯示月繳與年繳。另外，App 內販售數位內容依規定要用 Google Play 結帳，所以網站與 App 的價格可以不同（Google 抽成 15%）。
+- 來源：
+  - [Google Play Console 說明：建立訂閱](https://support.google.com/googleplay/android-developer/answer/12154973)
+  - [Google Play Console 說明：base plan](https://support.google.com/googleplay/android-developer/answer/140504)
+  - [RevenueCat: Google Play subscriptions deep dive](https://www.revenuecat.com/guides/google-play-billing/subscriptions-deep-dive)
+
+### 長期預付方案的退款規則（建議並已寫入退款政策與服務條款）
+
+- 付款後 7 天內：全額退款（沿用 D85）；
+- 之後提前取消年繳或兩年：**未使用的完整月份**，按該方案自己的每月價格（總價 ÷ 月數）比例退款；已開始的月份不退（`prepaidRefund`）。
+  - 用方案自己的每月價格，而不是月繳價格：如果用月繳價重算已用的月份，長期方案的折扣會被收回，對使用者不公平；用折扣後的價格，雙方都公平。
+  - 這也符合消費者保護的「預付型服務應可退還未使用部分」的精神。
+- 透過 Google Play 購買的，依 Google Play 規定辦理。
+
+### 付費漏斗（`intent_events`，後台「付費意願」）
+
+步驟：
+
+1. 看到定價頁；
+2. 切換繳費週期；
+3. 按下訂閱（方案、週期）；
+4. 加入名單。
+
+另外記錄來源頁面：試用用完、Classroom、顏色解鎖、YouTube、語速、學習分析等，以 `?from=` 帶入。同一個人每個步驟只算一次。

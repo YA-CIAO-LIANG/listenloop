@@ -1,210 +1,332 @@
 "use client";
 
 import Link from "next/link";
-import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { startCheckout } from "@/app/billing/actions";
+import { useFormatter, useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
+import { recordIntent } from "@/app/intent-actions";
 import {
   joinWaitlist as joinWaitlistAction,
   type WaitlistResult,
 } from "@/app/plans/actions";
+import type { IntentSource } from "@/lib/intent";
 import {
-  PRICES,
+  BEST_VALUE_PERIOD,
+  BILLING_PERIODS,
+  DEFAULT_PERIOD,
+  formatPrice,
+  PAID_PLANS,
+  PERIOD_MONTHS,
+  periodSaving,
+  PLAN_PRICES,
+  pricePerMonth,
   REFUND_DAYS,
-  yearlyPerMonth,
-  yearlySaving,
-  type BillingInterval,
+  type BillingPeriod,
+  type PaidPlan,
 } from "@/lib/payments/pricing";
 import { PLANS } from "@/lib/plans";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
+import { Dialog } from "./Dialog";
 import { SegmentedControl } from "./SegmentedControl";
 import { Tag } from "./Tag";
 
 const linkClassName =
   "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink";
 
+/** The account plan behind each paid plan ("paid" is Plus, D102). */
+const LIMITS = { plus: PLANS.paid, pro: PLANS.pro } as const;
+
+/** The comparison table's rows: what each plan has (D102). */
+const FEATURES = [
+  "official",
+  "create",
+  "longest",
+  "youtube",
+  "speed",
+  "stats",
+  "rules",
+  "priority",
+  "batchPdf",
+] as const;
+
 /**
- * The free and paid plans side by side (D85), with a monthly / yearly
- * choice. Prices and what's included come from lib/payments/pricing.ts
- * and PLANS. While payments are off, the paid plan says "coming soon"
- * and offers the waiting list instead of a checkout.
+ * Plans and pricing (D102): Free, Plus, and Pro, billed monthly, yearly
+ * (the default, "most popular"), or every two years ("best value"); each
+ * paid plan shows its price per month, the total, and what it saves
+ * against paying monthly. Paying isn't open yet: "Subscribe" says so and
+ * offers the waiting list (a fake door). Every step is recorded
+ * (intent_events) for the admin's interest page.
  */
 export function PricingPlans({
-  payments,
   signedIn,
-  paid,
+  current,
   joined: joinedBefore,
+  source,
+  open: openAtStart = null,
   joinWaitlist = joinWaitlistAction,
+  record = recordIntent,
 }: {
-  /** Off: "coming soon"; test: the fake provider's checkout. */
-  payments: "off" | "test" | "live";
   signedIn: boolean;
-  /** The account is already on the paid plan. */
-  paid: boolean;
+  /** The account's plan, to mark it. */
+  current: "free" | PaidPlan | null;
   joined: boolean;
-  joinWaitlist?: () => Promise<WaitlistResult>;
+  /** Where the visitor came from (?from=). */
+  source: IntentSource;
+  /** Back from signing in to join: the plan and period they chose. */
+  open?: { plan: PaidPlan; period: BillingPeriod } | null;
+  /** Injected in tests; the Server Actions otherwise. */
+  joinWaitlist?: typeof joinWaitlistAction;
+  record?: typeof recordIntent;
 }) {
-  const t = useTranslations("pricing");
-  const tPlans = useTranslations("plans");
-  const [interval, setInterval] = useState<BillingInterval>("year");
+  const t = useTranslations("plansPage");
+  const format = useFormatter();
+  const [period, setPeriod] = useState<BillingPeriod>(
+    openAtStart?.period ?? DEFAULT_PERIOD,
+  );
+  const [offer, setOffer] = useState<PaidPlan | null>(
+    openAtStart?.plan ?? null,
+  );
   const [joined, setJoined] = useState(joinedBefore);
   const [pending, setPending] = useState(false);
   const [failed, setFailed] = useState(false);
-  const limits = PLANS.paid;
+  const viewed = useRef(false);
+  const price = (amount: number) =>
+    formatPrice(amount, "TWD", (value) => format.number(value));
 
-  async function join() {
+  useEffect(() => {
+    if (viewed.current) return;
+    viewed.current = true;
+    void record({ step: "pricing_view", source });
+  }, [record, source]);
+
+  function choosePeriod(next: BillingPeriod) {
+    setPeriod(next);
+    void record({ step: "interval_switch", interval: next, source });
+  }
+
+  function subscribe(plan: PaidPlan) {
+    setOffer(plan);
+    setFailed(false);
+    void record({ step: "subscribe_click", plan, interval: period, source });
+  }
+
+  async function join(plan: PaidPlan) {
     setPending(true);
     setFailed(false);
-    const result = await joinWaitlist().catch((): WaitlistResult => ({
-      ok: false,
-      reason: "failed",
-    }));
+    const result = await joinWaitlist({ plan, period, source }).catch(
+      (): WaitlistResult => ({ ok: false, reason: "failed" }),
+    );
     setPending(false);
     if (result.ok) setJoined(true);
     else setFailed(true);
   }
 
-  const features = {
-    free: [t("free.features.f1"), t("free.features.f2"), t("free.features.f3")],
-    paid: [
-      t("paid.features.f1"),
-      t("paid.features.f2", { max: limits.practicesPerMonth ?? 0 }),
-      t("paid.features.f3", { chars: limits.charsPerPractice ?? 0 }),
-    ],
-  };
-  const checklist = (items: string[]) => (
-    <ul className="space-y-2">
-      {items.map((item) => (
-        <li key={item}>
-          <span aria-hidden="true" className="text-success">
-            ✓{" "}
-          </span>
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
-
-  const paidAction = (() => {
-    if (paid) {
-      return (
-        <div className="space-y-2">
-          <p className="text-success">{t("paid.current")}</p>
-          <ButtonLink href="/account#billing">{t("paid.manage")}</ButtonLink>
-        </div>
-      );
+  const cell = (
+    plan: "free" | PaidPlan,
+    feature: (typeof FEATURES)[number],
+  ): string => {
+    const limits = plan === "free" ? PLANS.free : LIMITS[plan];
+    const yes = t("yes");
+    const no = t("no");
+    switch (feature) {
+      case "official":
+        return yes;
+      case "create":
+        return limits.practicesTotal !== null
+          ? t("trial", { n: limits.practicesTotal })
+          : t("perMonth", { n: limits.minutesPerMonth ?? 0 });
+      case "longest": {
+        const seconds = limits.maxPracticeSeconds;
+        if (seconds === null) return t("noLimit");
+        return seconds < 60
+          ? t("seconds", { n: seconds })
+          : t("minutes", { n: seconds / 60 });
+      }
+      case "youtube":
+        return limits.youtubePractices ? yes : no;
+      case "speed":
+        return limits.playbackSpeed ? yes : no;
+      case "stats":
+        return limits.fullStats ? t("statsFull") : t("statsBasic");
+      case "rules":
+        return limits.customRules ? yes : no;
+      case "priority":
+        return limits.priority ? yes : no;
+      case "batchPdf":
+        return limits.batchPdf ? t("soon") : no;
     }
-    if (payments === "off") {
-      if (!signedIn) return null;
-      return (
-        <div aria-live="polite" className="space-y-2">
+  };
+
+  return (
+    <div className="space-y-10">
+      <div className="space-y-2">
+        <p aria-hidden="true" className="font-medium">
+          {t("periodLegend")}
+        </p>
+        <SegmentedControl
+          legend={t("periodLegend")}
+          value={period}
+          options={BILLING_PERIODS.map((value) => ({
+            value,
+            label:
+              value === DEFAULT_PERIOD
+                ? `${t(`periods.${value}`)} · ${t("popular")}`
+                : value === BEST_VALUE_PERIOD
+                  ? `${t(`periods.${value}`)} · ${t("bestValue")}`
+                  : t(`periods.${value}`),
+          }))}
+          onChange={choosePeriod}
+          optionWidthClassName="min-w-20"
+        />
+        <p className="text-supporting text-ink-muted">{t("monthlyReset")}</p>
+      </div>
+
+      <ul className="grid gap-6 wide:grid-cols-3">
+        <li className="space-y-4 rounded-base border border-line bg-surface p-6">
+          <h2 className="flex flex-wrap items-center gap-2 font-display text-h3">
+            {t("names.free")}
+            {current === "free" && <Tag>{t("current")}</Tag>}
+          </h2>
+          <p className="font-display text-h2 tabular-nums">{price(0)}</p>
+          <p className="text-supporting">{t("summaries.free")}</p>
+        </li>
+        {PAID_PLANS.map((plan) => {
+          const saving = periodSaving(plan, period);
+          const total = PLAN_PRICES[plan][period].amount;
+          return (
+            <li
+              key={plan}
+              className={`space-y-4 rounded-base border bg-surface p-6 ${
+                plan === "plus" ? "border-accent" : "border-line"
+              }`}
+            >
+              <h2 className="flex flex-wrap items-center gap-2 font-display text-h3">
+                {t(`names.${plan}`)}
+                {current === plan && <Tag>{t("current")}</Tag>}
+              </h2>
+              <p>
+                <span className="font-display text-h2 tabular-nums">
+                  {price(pricePerMonth(plan, period))}
+                </span>
+                <span className="text-ink-muted"> {t("perMonthSuffix")}</span>
+              </p>
+              <p className="text-supporting text-ink-muted">
+                {period === "month"
+                  ? t("billedMonthly", { total: price(total) })
+                  : t("billedPeriod", {
+                      months: PERIOD_MONTHS[period],
+                      total: price(total),
+                    })}
+                {saving.amount > 0 && (
+                  <>
+                    <br />
+                    <span className="text-success">
+                      {t("saving", {
+                        amount: price(saving.amount),
+                        percent: saving.percent,
+                      })}
+                    </span>
+                  </>
+                )}
+              </p>
+              <p className="text-supporting">{t(`summaries.${plan}`)}</p>
+              <Button
+                variant={plan === "plus" ? "primary" : "secondary"}
+                onClick={() => subscribe(plan)}
+              >
+                {t("subscribe", { plan: t(`names.${plan}`) })}
+              </Button>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-120 text-left text-supporting">
+          <caption className="mb-3 text-left font-display text-h3">
+            {t("compareTitle")}
+          </caption>
+          <thead>
+            <tr className="border-b border-line">
+              <th scope="col" className="py-2 pr-4 font-normal text-ink-muted">
+                {t("feature")}
+              </th>
+              {(["free", ...PAID_PLANS] as const).map((plan) => (
+                <th key={plan} scope="col" className="px-2 py-2 font-medium">
+                  {t(`names.${plan}`)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {FEATURES.map((feature) => (
+              <tr key={feature} className="border-b border-line">
+                <th scope="row" className="py-2 pr-4 font-normal">
+                  {t(`features.${feature}`)}
+                </th>
+                {(["free", ...PAID_PLANS] as const).map((plan) => (
+                  <td key={plan} className="px-2 py-2">
+                    {cell(plan, feature)}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="space-y-2 text-supporting text-ink-muted">
+        <p>
+          {t("refund", { days: REFUND_DAYS })}{" "}
+          <Link href="/refund" className={linkClassName}>
+            {t("refundLink")}
+          </Link>
+        </p>
+        <p>{t("webOnly")}</p>
+      </div>
+
+      {offer && (
+        <Dialog
+          title={t("offerTitle", {
+            plan: t(`names.${offer}`),
+            period: t(`periods.${period}`),
+          })}
+          onClose={() => setOffer(null)}
+        >
+          <p>{t("comingSoon")}</p>
           {joined ? (
-            <p className="text-success">
+            <p role="status" className="text-success">
               <span aria-hidden="true">✓ </span>
-              {tPlans("paid.joined")}
+              {t("joined")}
             </p>
-          ) : (
-            <Button variant="primary" disabled={pending} onClick={join}>
-              {tPlans("paid.join")}
+          ) : signedIn ? (
+            <Button
+              variant="primary"
+              onClick={() => join(offer)}
+              disabled={pending}
+            >
+              {pending ? t("joining") : t("join")}
             </Button>
+          ) : (
+            <ButtonLink
+              variant="primary"
+              href={`/login?next=${encodeURIComponent(
+                `/pricing?plan=${offer}&period=${period}&from=${source}`,
+              )}`}
+            >
+              {t("signInToJoin")}
+            </ButtonLink>
           )}
           {failed && (
             <p role="alert" className="text-supporting text-error">
-              {tPlans("paid.failed")}
+              {t("joinFailed")}
             </p>
           )}
-        </div>
-      );
-    }
-    if (!signedIn) {
-      return <p className="text-ink-muted">{t("paid.signIn")}</p>;
-    }
-    return (
-      <form action={startCheckout}>
-        <input type="hidden" name="interval" value={interval} />
-        <Button type="submit" variant="primary">
-          {interval === "month"
-            ? t("paid.subscribeMonth", { amount: PRICES.month.amount })
-            : t("paid.subscribeYear", { amount: PRICES.year.amount })}
-        </Button>
-      </form>
-    );
-  })();
-
-  return (
-    <div className="space-y-8">
-      {payments === "test" && (
-        <p
-          role="note"
-          className="rounded-base border border-line bg-surface px-4 py-3 text-supporting"
-        >
-          {t("testMode")}
-        </p>
+          <Button variant="ghost" onClick={() => setOffer(null)}>
+            {t("close")}
+          </Button>
+        </Dialog>
       )}
-      <div className="flex flex-wrap items-center gap-3">
-        <SegmentedControl
-          legend={t("intervalLabel")}
-          value={interval}
-          options={[
-            { value: "month", label: t("monthly") },
-            { value: "year", label: t("yearly") },
-          ]}
-          onChange={setInterval}
-          optionWidthClassName="min-w-16"
-        />
-        <Tag>{t("yearlySave", { percent: yearlySaving() })}</Tag>
-      </div>
-      <div className="grid gap-6 split:grid-cols-2">
-        <section
-          aria-labelledby="plan-free"
-          className="space-y-4 rounded-base border border-line bg-surface p-6"
-        >
-          <h2 id="plan-free" className="font-display text-h2">
-            {t("free.title")}
-          </h2>
-          <p className="font-display text-h3">{t("free.price")}</p>
-          {checklist(features.free)}
-        </section>
-        <section
-          aria-labelledby="plan-paid"
-          className="space-y-4 rounded-base border border-accent bg-surface p-6"
-        >
-          <div className="flex flex-wrap items-center gap-3">
-            <h2 id="plan-paid" className="font-display text-h2">
-              {t("paid.title")}
-            </h2>
-            {payments === "off" && <Tag>{t("comingSoon")}</Tag>}
-          </div>
-          <div>
-            <p className="font-display text-h3">
-              {interval === "month"
-                ? t("paid.perMonth", { amount: PRICES.month.amount })
-                : t("paid.perYear", { amount: PRICES.year.amount })}
-            </p>
-            {interval === "year" && (
-              <p className="mt-1 text-supporting text-ink-muted">
-                {t("paid.yearlyNote", { amount: yearlyPerMonth() })}
-              </p>
-            )}
-          </div>
-          {checklist(features.paid)}
-          {paidAction}
-        </section>
-      </div>
-      <ul className="max-w-reading list-disc space-y-2 pl-5 text-supporting text-ink-muted">
-        <li>{t("notes.renew")}</li>
-        <li>{t("notes.refund", { days: REFUND_DAYS })}</li>
-      </ul>
-      <p className="text-supporting text-ink-muted">
-        <Link href="/refund" className={linkClassName}>
-          {t("refundLink")}
-        </Link>
-        {" · "}
-        <Link href="/terms" className={linkClassName}>
-          {t("termsLink")}
-        </Link>
-      </p>
     </div>
   );
 }

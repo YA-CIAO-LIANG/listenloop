@@ -24,6 +24,7 @@ import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
 import {
   checkGeneratedText,
   compositionPrompt,
+  estimateSeconds,
   lengthSeconds,
   parseGenerationRequest,
   parseMaterialMeta,
@@ -215,10 +216,19 @@ export async function createPractice(
     kind: "practice-chars",
     chars: countChars(cleaned.draft.sentences.map((s) => s.en)),
   });
-  if (!allowed.ok || !length.ok) {
+  // Its length counts toward the month's minutes, within the plan's
+  // longest practice (D94, D102).
+  const seconds = estimateSeconds(cleaned.draft.sentences.map((s) => s.en));
+  const long = can(planFor(creator.user), {
+    kind: "practice-seconds",
+    seconds,
+  });
+  if (!allowed.ok || !length.ok || !long.ok) {
     const block = !allowed.ok
       ? allowed
-      : (length as Extract<PlanCheck, { ok: false }>);
+      : !length.ok
+        ? (length as Extract<PlanCheck, { ok: false }>)
+        : (long as Extract<PlanCheck, { ok: false }>);
     return {
       ok: false,
       reason: "plan",
@@ -252,6 +262,7 @@ export async function createPractice(
     titleEn: titles.en,
     titleZh: titles.zh,
     subtitle,
+    seconds,
   });
   if (!id) return { ok: false, reason: "failed" };
   // A new official material (D80): admins only, an official draft from
@@ -279,7 +290,13 @@ async function savePractice(
   userId: string,
   draft: PracticeDraft,
   meta: MaterialMeta | null,
-  labels: { titleEn: string; titleZh: string; subtitle: string | null },
+  labels: {
+    titleEn: string;
+    titleZh: string;
+    subtitle: string | null;
+    /** Estimated length, for the month's minutes (D102). */
+    seconds: number;
+  },
 ): Promise<string | null> {
   const { data, error } = await supabase
     .from("practices")
@@ -290,6 +307,7 @@ async function savePractice(
       title_en: labels.titleEn || null,
       title_zh: labels.titleZh || null,
       subtitle: labels.subtitle,
+      estimated_seconds: labels.seconds,
       source_language: draft.sourceLanguage,
       voice: draft.voice,
       voice_b: draft.voiceB ?? null,

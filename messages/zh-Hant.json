@@ -1296,19 +1296,24 @@
       "practicesTotal": "免費方案可以試做 {max} 份自己的教材，你已經用完了。",
       "customRules": "自訂通關條件是付費方案的功能。",
       "maxPracticeSeconds": "你的方案每份教材最長 {max, number} 秒。",
-      "youtubePractices": "用 YouTube 影片建立練習是付費方案的功能。"
+      "youtubePractices": "用 YouTube 影片建立練習是付費方案的功能。",
+      "minutesPerMonth": "這個月已經建立 {max} 分鐘的教材，達到方案上限，下個月 1 日重設。",
+      "playbackSpeed": "調整播放速度是 Plus 以上方案的功能。",
+      "fullStats": "完整的學習分析是 Plus 以上方案的功能。",
+      "priority": "優先產生是 Pro 方案的功能。",
+      "batchPdf": "批次 PDF 是 Pro 方案的功能。"
     },
     "seePractices": "查看學習進度",
     "paid": {
-      "title": "付費方案",
+      "title": "Plus 方案",
       "price": "價格：即將推出",
-      "perMonth": "每月建立 {max} 份自己的教材",
-      "chars": "每份最多 {max, number} 字",
+      "perMonth": "每月自建 {max} 分鐘的教材",
       "everything": "所有官方教材與功能",
       "free": "你目前是免費方案：所有官方教材與功能，加上試做 1 份自己的教材。",
       "join": "加入等候名單",
       "joined": "已加入等候名單，付費方案開放時會通知你。",
-      "failed": "加入失敗，請稍後再試。"
+      "failed": "加入失敗，請稍後再試。",
+      "longest": "每份最長 {max} 分鐘，可以用 YouTube 影片建立"
     }
   },
   "admin": {
@@ -1325,7 +1330,9 @@
       "errors": "錯誤紀錄",
       "audit": "管理稽核",
       "official": "官方教材",
-      "revenue": "營收"
+      "revenue": "營收",
+      "interest": "付費意願",
+      "forecast": "收益試算"
     },
     "overview": {
       "title": "後台總覽",
@@ -1419,7 +1426,8 @@
       "planIs": "方案：{plan}",
       "plans": {
         "free": "免費",
-        "paid": "付費"
+        "paid": "Plus",
+        "pro": "Pro"
       },
       "makePaid": "改成付費方案",
       "makeFree": "改回免費方案"
@@ -1594,6 +1602,64 @@
         "expire": "到期",
         "failed": "沒有成功，請再試一次。"
       }
+    },
+    "interest": {
+      "title": "付費意願",
+      "intro": "最近 {days} 天的假門測試：看到定價頁、切換繳費週期、按下訂閱、加入名單。同一個人（帳號或訪客）每個步驟只算一次；轉換率以看到定價頁的人為分母。",
+      "noKey": "沒有設定伺服器金鑰，讀不到資料。",
+      "steps": {
+        "pricing_view": "看到定價頁",
+        "interval_switch": "切換週期",
+        "subscribe_click": "按下訂閱",
+        "waitlist_join": "加入名單",
+        "unlock_click": "按下顏色解鎖"
+      },
+      "base": "基準",
+      "rate": "轉換率 {rate}",
+      "trendTitle": "每週趨勢（人數）",
+      "week": "週（週一）",
+      "plansTitle": "按下訂閱：方案",
+      "periodsTitle": "按下訂閱：繳費週期",
+      "sourcesTitle": "來源頁面",
+      "unlocksTitle": "顏色解鎖：來源",
+      "empty": "還沒有資料。"
+    },
+    "forecast": {
+      "title": "收益試算",
+      "introMeasured": "所有數字都可以改，結果即時重算，不會儲存。AI 成本預設為本月實際花費 ÷ 本月建立的教材分鐘數：每分鐘 NT${perMinute}（匯率 {rate}）。",
+      "introFallback": "所有數字都可以改，結果即時重算，不會儲存。本月還沒有足夠的資料，AI 成本預設用 11 月 8 日官方教材批次的實際花費：每分鐘 NT${perMinute}（匯率 {rate}）。",
+      "revenue": "月營收",
+      "perMonth": "長期方案按月攤提",
+      "cash": "預收現金",
+      "cashNote": "這些人付款當下收到的金額",
+      "grossMargin": "毛利率",
+      "costs": "AI {ai} · 手續費 {fees}",
+      "net": "淨利",
+      "server": "扣除伺服器 {server}",
+      "plansTitle": "方案、繳費週期與人數",
+      "plan": "項目",
+      "periods": {
+        "month": "月繳",
+        "year": "年繳",
+        "twoYear": "兩年"
+      },
+      "names": {
+        "plus": "Plus",
+        "pro": "Pro"
+      },
+      "rows": {
+        "subscribers": "{plan} 人數",
+        "prices": "{plan} 價格（NT$）"
+      },
+      "assumptions": "假設",
+      "usage": "{plan} 額度使用率（%）",
+      "fields": {
+        "aiPerMinute": "AI 成本（NT$／每分鐘教材）",
+        "feeRate": "金流手續費（%）",
+        "feeFixed": "每筆固定手續費（NT$）",
+        "serverMonthly": "伺服器成本（NT$／月）"
+      },
+      "notes": "預設假設：額度使用率 40%（大多數人用不完）；手續費 2.8%（台灣常見的信用卡金流費率，實際依簽約的金流而定）；伺服器 NT$1,500／月（Vercel Pro US$20 加 Supabase Pro US$25，商業使用時需要升級）；聲音目前用 Azure F0 免費額度，超過後的成本已含在每分鐘 AI 成本的估算內。"
     }
   },
   "events": {
@@ -1890,9 +1956,9 @@
       {
         "title": "7. 付費方案與訂閱",
         "paragraphs": [
-          "付費方案以訂閱方式提供（月繳或年繳），價格以「方案與價格」頁為準。付款由第三方付款服務處理。",
+          "付費方案（Plus、Pro）以訂閱方式提供，可以選擇月繳、年繳或兩年，價格以「方案與價格」頁為準。長期方案的額度每月重設，不累積。付款由第三方付款服務處理。",
           "訂閱會自動續訂：每一期結束時，會用你的付款方式扣下一期的費用，直到你取消。你可以隨時在「帳號」頁取消續訂，取消後付費方案用到這一期結束。",
-          "退款依「退款政策」辦理：第一次付款後 7 天內可以全額退款。價格調整時，我們會在下一期開始前通知你，你可以在調整生效前取消。",
+          "退款依「退款政策」辦理：第一次付款後 7 天內可以全額退款；年繳與兩年方案提前取消時，未使用的完整月份按比例退款。價格調整時，我們會在下一期開始前通知你，你可以在調整生效前取消。",
           "訂閱結束或改回免費方案後，你建立的教材與進度都會保留，只是不能再新增教材。"
         ]
       },
@@ -2041,7 +2107,9 @@
     "slow": "慢速完成",
     "fast": "快速完成",
     "raw": "原始正確率 {score}",
-    "weighted": "加權正確率"
+    "weighted": "加權正確率",
+    "locked": "播放速度（0.75×、1.25×）是 Plus 以上方案的功能，目前以 1× 播放。",
+    "seePlans": "看方案"
   },
   "stats": {
     "title": "學習分析",
@@ -2090,7 +2158,10 @@
     "category": "分類",
     "level": "程度",
     "count": "份數",
-    "table": "查看資料表"
+    "table": "查看資料表",
+    "lockedTitle": "完整學習分析",
+    "lockedBody": "正確率趨勢、第 1 天與第 7 天比較、最常聽錯的字、類別與程度分布，是 Plus 以上方案的功能。",
+    "seePlans": "看方案"
   },
   "usageLimit": {
     "daily": "你今天的 AI 用量已達每日上限，{when}（台灣時間）重設。已輸入的內容還在頁面上。",
@@ -2198,7 +2269,8 @@
     "plan": "目前方案",
     "plans": {
       "free": "免費",
-      "paid": "付費"
+      "paid": "Plus",
+      "pro": "Pro"
     },
     "byAdmin": "付費（由管理員設定）",
     "interval": {
@@ -2239,31 +2311,38 @@
       {
         "title": "2. 七天內全額退款",
         "paragraphs": [
-          "第一次訂閱（月繳或年繳）付款後 7 天內，可以申請全額退款，不需要理由。退款後付費方案會立即結束。"
+          "第一次訂閱（月繳、年繳或兩年）付款後 7 天內，可以申請全額退款，不需要理由。退款後付費方案會立即結束。"
         ]
       },
       {
-        "title": "3. 之後的扣款",
+        "title": "3. 年繳與兩年方案提前取消",
+        "paragraphs": [
+          "付款超過 7 天後，年繳或兩年方案仍可以申請提前結束：未使用的完整月份，按這個方案的每月價格比例退款（例如 Plus 年繳 NT$1,290 用了 3 個月又幾天，退 8 個月 × NT$107.5 = NT$860）。已開始的那個月不退。",
+          "長期方案的額度一樣每月重設，沒用完的分鐘數不會累積，也不換算成退款。"
+        ]
+      },
+      {
+        "title": "4. 之後的扣款",
         "paragraphs": [
           "續訂的扣款原則上不退款，但如果你忘了取消、而且這一期還沒有用付費功能建立教材，可以在扣款後 7 天內申請，我們會個別處理。"
         ]
       },
       {
-        "title": "4. 怎麼申請",
+        "title": "5. 怎麼申請",
         "paragraphs": [
           "請透過頁尾的「意見回饋」，寫下你的帳號 Email 與付款日期。我們會在 5 個工作天內回覆。退款會退回原本的付款方式，入帳時間依發卡銀行或付款服務而定。"
         ]
       },
       {
-        "title": "5. 降級後的教材",
+        "title": "6. 降級後的教材",
         "paragraphs": [
           "改回免費方案後，你建立的教材、練習進度都會保留，可以繼續練習，只是不能再新增教材。"
         ]
       },
       {
-        "title": "6. 透過 Google Play 購買",
+        "title": "7. 透過 Google Play 購買",
         "paragraphs": [
-          "如果你是在 Android App 內透過 Google Play 訂閱，取消與退款依 Google Play 的規定辦理。"
+          "如果你是在 Android App 內透過 Google Play 訂閱，取消與退款依 Google Play 的規定辦理。Google Play 只提供月繳與年繳；兩年方案只在網站販售。"
         ]
       }
     ],
@@ -2432,5 +2511,66 @@
     "resetDone": "新密碼已儲存，你已經登入。",
     "resetExpired": "重設連結已失效或已用過，請重新申請。",
     "home": "回首頁"
+  },
+  "plansPage": {
+    "periodLegend": "繳費週期",
+    "periods": {
+      "month": "月繳",
+      "year": "年繳",
+      "twoYear": "兩年"
+    },
+    "popular": "最受歡迎",
+    "bestValue": "最划算",
+    "monthlyReset": "年繳和兩年方案的額度一樣每月重設，不會累積。",
+    "names": {
+      "free": "免費",
+      "plus": "Plus",
+      "pro": "Pro"
+    },
+    "current": "目前方案",
+    "perMonthSuffix": "／月",
+    "billedMonthly": "每月 {total}",
+    "billedPeriod": "{months} 個月共 {total}",
+    "saving": "比月繳省 {amount}（{percent}%）",
+    "summaries": {
+      "free": "所有官方教材與功能、基本學習分析，可以試做 1 份自建教材（最長 30 秒）。",
+      "plus": "每月自建 40 分鐘、YouTube 建立練習、語速、完整學習分析、自訂通關。",
+      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。"
+    },
+    "subscribe": "訂閱 {plan}",
+    "compareTitle": "方案比較",
+    "feature": "功能",
+    "features": {
+      "official": "官方教材與 7 天循環",
+      "create": "自建教材",
+      "longest": "單份最長",
+      "youtube": "YouTube 建立練習",
+      "speed": "播放速度",
+      "stats": "學習分析",
+      "rules": "自訂通關條件",
+      "priority": "優先產生",
+      "batchPdf": "批次 PDF"
+    },
+    "yes": "✓",
+    "no": "—",
+    "noLimit": "不限",
+    "trial": "試做 {n} 份",
+    "perMonth": "每月 {n} 分鐘",
+    "seconds": "{n} 秒",
+    "minutes": "{n} 分鐘",
+    "statsBasic": "基本",
+    "statsFull": "完整",
+    "soon": "✓（即將推出）",
+    "refund": "付款後 {days} 天內可全額退款；長期方案取消後，未使用的完整月份按比例退款。",
+    "refundLink": "退款政策",
+    "webOnly": "兩年方案只在網站提供；Google Play 的訂閱最長一年。",
+    "offerTitle": "{plan} · {period}",
+    "comingSoon": "付費方案即將推出。加入名單，開放時享早鳥優惠。現在不會收費。",
+    "join": "加入名單",
+    "joining": "加入中…",
+    "joined": "已加入名單，開放時會通知你。",
+    "joinFailed": "沒有加入成功，請再試一次。",
+    "signInToJoin": "登入後加入名單",
+    "close": "關閉"
   }
 }

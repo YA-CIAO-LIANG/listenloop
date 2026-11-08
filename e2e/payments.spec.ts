@@ -4,19 +4,49 @@ import { expect, signInAsAdmin, signInAsBuyer, test } from "./fixtures";
  * Payments with the fake provider (D85): no money, no network. The fake
  * checkout's webhooks are signed and go through the real handler.
  */
-test("signed out, the pricing page shows both plans and the test notice", async ({
+test("signed out, pricing shows Free, Plus, and Pro, yearly first, with savings (D102)", async ({
   page,
 }) => {
-  await page.goto("/pricing");
+  await page.goto("/pricing?from=stats");
   await expect(page.getByRole("heading", { name: "方案與價格" })).toBeVisible();
-  await expect(page.getByText("測試模式：付款只是模擬")).toBeVisible();
-  // Yearly first, then monthly.
-  await expect(page.getByText("NT$1,490 / 年")).toBeVisible();
+  const plus = page.getByRole("listitem").filter({ hasText: "訂閱 Plus" });
+  // Yearly is the default ("most popular").
+  await expect(
+    page.getByRole("radio", { name: /年繳 · 最受歡迎/ }),
+  ).toBeChecked();
+  await expect(plus.getByText("NT$108")).toBeVisible();
+  await expect(plus.getByText("12 個月共 NT$1,290")).toBeVisible();
+  await expect(plus.getByText("比月繳省 NT$498（28%）")).toBeVisible();
+  await page.getByText("兩年 · 最划算").click();
+  await expect(plus.getByText("24 個月共 NT$2,290")).toBeVisible();
+  await expect(plus.getByText("比月繳省 NT$1,286（36%）")).toBeVisible();
+  const pro = page.getByRole("listitem").filter({ hasText: "訂閱 Pro" });
+  await expect(pro.getByText("NT$191")).toBeVisible();
   await page.getByText("月繳", { exact: true }).click();
-  await expect(page.getByText("NT$149 / 月")).toBeVisible();
-  await expect(page.getByText("登入後就能訂閱")).toBeVisible();
-  await page.getByRole("link", { name: "退款政策" }).first().click();
-  await expect(page.getByRole("heading", { name: "退款政策" })).toBeVisible();
+  await expect(plus.getByText("每月 NT$149")).toBeVisible();
+  await expect(
+    page.getByRole("table", { name: "方案比較" }).getByRole("row", {
+      name: /單份最長 30 秒 5 分鐘 10 分鐘/,
+    }),
+  ).toBeVisible();
+
+  // Subscribing is a fake door: coming soon, join the list after signing in.
+  await plus.getByRole("button", { name: "訂閱 Plus" }).click();
+  const dialog = page.getByRole("dialog", { name: "Plus · 月繳" });
+  await expect(dialog.getByText(/付費方案即將推出/)).toBeVisible();
+  await expect(
+    dialog.getByRole("link", { name: "登入後加入名單" }),
+  ).toHaveAttribute("href", /plan%3Dplus%26period%3Dmonth%26from%3Dstats/);
+});
+
+test("signed in, the fake door joins the waiting list with the plan and period (D102)", async ({
+  page,
+}) => {
+  await signInAsBuyer(page, "e2e-waitlist");
+  await page.goto("/pricing?plan=pro&period=twoYear&from=youtube");
+  const dialog = page.getByRole("dialog", { name: "Pro · 兩年" });
+  await dialog.getByRole("button", { name: "加入名單" }).click();
+  await expect(dialog.getByText("已加入名單")).toBeVisible();
 });
 
 test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
@@ -24,9 +54,9 @@ test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
   browser,
 }) => {
   await signInAsBuyer(page);
-  await page.goto("/pricing");
-  await page.getByText("月繳", { exact: true }).click();
-  await page.getByRole("button", { name: /^訂閱/ }).click();
+  // Paid plans are a fake door on /pricing (D102); the provider's flow
+  // (D85) is still there for when payments open.
+  await page.goto("/checkout/fake?interval=month");
 
   await expect(page.getByRole("heading", { name: "測試結帳" })).toBeVisible();
   await expect(page.getByText("金額：NT$149")).toBeVisible();
@@ -37,7 +67,7 @@ test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
 
   await page.getByRole("link", { name: "查看訂閱" }).click();
   const billing = page.locator("#billing");
-  await expect(billing.getByText(/^付費.*月繳/)).toBeVisible();
+  await expect(billing.getByText(/^Plus.*月繳/)).toBeVisible();
   await expect(billing.getByText(/下次扣款日/)).toBeVisible();
   await expect(billing.getByRole("cell", { name: /NT\$149/ })).toBeVisible();
 

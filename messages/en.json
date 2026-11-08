@@ -1296,19 +1296,24 @@
       "practicesTotal": "The free plan lets you try {max} practice of your own, and you've made it.",
       "customRules": "Custom pass rules are part of the paid plans.",
       "maxPracticeSeconds": "Your plan allows practices up to {max, number} seconds long.",
-      "youtubePractices": "Making practices from YouTube videos is part of the paid plans."
+      "youtubePractices": "Making practices from YouTube videos is part of the paid plans.",
+      "minutesPerMonth": "You’ve made {max} minutes of practices this month, your plan’s limit. It resets on the 1st.",
+      "playbackSpeed": "Playback speed is part of Plus and Pro.",
+      "fullStats": "The full stats are part of Plus and Pro.",
+      "priority": "Priority generation is part of Pro.",
+      "batchPdf": "Batch PDFs are part of Pro."
     },
     "seePractices": "See your progress",
     "paid": {
-      "title": "Paid plan",
+      "title": "Plus",
       "price": "Price: coming soon",
-      "perMonth": "{max} practices of your own a month",
-      "chars": "Up to {max, number} characters each",
+      "perMonth": "{max} minutes of your own practices a month",
       "everything": "Every official material and feature",
       "free": "You're on the free plan: every official material and feature, plus one practice of your own to try.",
       "join": "Join the waitlist",
       "joined": "You're on the waitlist. We'll let you know when the paid plan opens.",
-      "failed": "Couldn't join. Try again later."
+      "failed": "Couldn't join. Try again later.",
+      "longest": "Up to {max} minutes each, and practices from YouTube"
     }
   },
   "admin": {
@@ -1325,7 +1330,9 @@
       "errors": "Errors",
       "audit": "Admin audit",
       "official": "Official",
-      "revenue": "Revenue"
+      "revenue": "Revenue",
+      "interest": "Interest",
+      "forecast": "Forecast"
     },
     "overview": {
       "title": "Admin overview",
@@ -1419,7 +1426,8 @@
       "planIs": "Plan: {plan}",
       "plans": {
         "free": "Free",
-        "paid": "Paid"
+        "paid": "Plus",
+        "pro": "Pro"
       },
       "makePaid": "Move to the paid plan",
       "makeFree": "Move back to free"
@@ -1594,6 +1602,64 @@
         "expire": "Expire",
         "failed": "That didn't work; try again."
       }
+    },
+    "interest": {
+      "title": "Interest in paying",
+      "intro": "The fake doors over the last {days} days: saw the pricing page, switched the billing period, pressed subscribe, joined the list. Each person (account or visitor) counts once per step; rates are of those who saw the pricing page.",
+      "noKey": "No secret key: nothing to read.",
+      "steps": {
+        "pricing_view": "Saw pricing",
+        "interval_switch": "Switched period",
+        "subscribe_click": "Pressed subscribe",
+        "waitlist_join": "Joined the list",
+        "unlock_click": "Pressed a color unlock"
+      },
+      "base": "Base",
+      "rate": "{rate} of base",
+      "trendTitle": "Week by week (people)",
+      "week": "Week (Monday)",
+      "plansTitle": "Subscribe presses: plan",
+      "periodsTitle": "Subscribe presses: billing period",
+      "sourcesTitle": "Where they came from",
+      "unlocksTitle": "Color unlocks: source",
+      "empty": "Nothing yet."
+    },
+    "forecast": {
+      "title": "Revenue forecast",
+      "introMeasured": "Every number is editable; the result updates as you type and isn’t saved. AI cost starts from this month’s real spend ÷ minutes of practices made: NT${perMinute} a minute (at {rate} to the dollar).",
+      "introFallback": "Every number is editable; the result updates as you type and isn’t saved. Not enough this month to measure, so AI cost starts from the official batch of Nov 8: NT${perMinute} a minute (at {rate} to the dollar).",
+      "revenue": "Monthly revenue",
+      "perMonth": "Prepaid plans spread by month",
+      "cash": "Cash up front",
+      "cashNote": "What these subscribers pay when they sign up",
+      "grossMargin": "Gross margin",
+      "costs": "AI {ai} · fees {fees}",
+      "net": "Net",
+      "server": "After hosting {server}",
+      "plansTitle": "Plans, periods, and subscribers",
+      "plan": "Item",
+      "periods": {
+        "month": "Monthly",
+        "year": "Yearly",
+        "twoYear": "2 years"
+      },
+      "names": {
+        "plus": "Plus",
+        "pro": "Pro"
+      },
+      "rows": {
+        "subscribers": "{plan} subscribers",
+        "prices": "{plan} price (NT$)"
+      },
+      "assumptions": "Assumptions",
+      "usage": "{plan} allowance used (%)",
+      "fields": {
+        "aiPerMinute": "AI cost (NT$ per minute made)",
+        "feeRate": "Payment fee (%)",
+        "feeFixed": "Fixed fee per payment (NT$)",
+        "serverMonthly": "Hosting (NT$ a month)"
+      },
+      "notes": "Default assumptions: 40% of the allowance used (most people don’t use it all); a 2.8% payment fee (a common card rate in Taiwan; it depends on the provider signed); NT$1,500 a month of hosting (Vercel Pro US$20 plus Supabase Pro US$25, needed for commercial use); speech is on Azure’s free tier for now, and its cost beyond that is folded into the AI cost per minute."
     }
   },
   "events": {
@@ -1890,9 +1956,9 @@
       {
         "title": "7. Paid plan and subscriptions",
         "paragraphs": [
-          "The paid plan is a subscription (monthly or yearly) at the price on the Plans and pricing page. Payments are handled by a third-party payment service.",
+          "Paid plans (Plus, Pro) are subscriptions billed monthly, yearly, or every two years, at the prices on the Plans and pricing page. A longer plan’s allowance resets every month and doesn’t carry over. A third-party payment service handles payment.",
           "Subscriptions renew automatically: at the end of each period, your payment method is charged for the next, until you cancel. Cancel any time on the Account page; you keep the paid plan until the period ends.",
-          "Refunds follow the refund policy: a full refund within 7 days of your first payment. If the price changes, we'll tell you before your next period starts, and you can cancel before it applies.",
+          "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly or 2-year plan ended early refunds its unused whole months. If prices change, we’ll tell you before the next period starts, and you can cancel before the change applies.",
           "When a subscription ends or you return to the free plan, your materials and progress are kept; you just can't add new materials."
         ]
       },
@@ -2043,7 +2109,9 @@
     "slow": "Done at slow speed",
     "fast": "Done at fast speed",
     "raw": "Raw accuracy {score}",
-    "weighted": "Weighted accuracy"
+    "weighted": "Weighted accuracy",
+    "locked": "Playback speed (0.75×, 1.25×) is part of Plus and Pro; playing at 1×.",
+    "seePlans": "See plans"
   },
   "stats": {
     "title": "Stats",
@@ -2092,7 +2160,10 @@
     "category": "Category",
     "level": "Level",
     "count": "Materials",
-    "table": "Show the data table"
+    "table": "Show the data table",
+    "lockedTitle": "Full stats",
+    "lockedBody": "Accuracy over time, Day 1 against Day 7, your most misheard words, and categories and levels are part of Plus and Pro.",
+    "seePlans": "See plans"
   },
   "usageLimit": {
     "daily": "You've reached today's AI limit. It resets {when} (Taiwan time). What you've entered is still on the page.",
@@ -2200,7 +2271,8 @@
     "plan": "Current plan",
     "plans": {
       "free": "Free",
-      "paid": "Paid"
+      "paid": "Plus",
+      "pro": "Pro"
     },
     "byAdmin": "Paid (set by an admin)",
     "interval": {
@@ -2241,31 +2313,38 @@
       {
         "title": "2. Full refund within 7 days",
         "paragraphs": [
-          "Within 7 days of your first payment (monthly or yearly), ask for a full refund, no reason needed. The paid plan ends when the refund is made."
+          "Within 7 days of your first payment (monthly, yearly, or 2-year), you can ask for a full refund, no reason needed. The paid plan ends when it’s refunded."
         ]
       },
       {
-        "title": "3. Later payments",
+        "title": "3. Ending a yearly or 2-year plan early",
+        "paragraphs": [
+          "After 7 days, you can still end a yearly or 2-year plan early: the unused whole months are refunded at that plan’s own monthly rate (for example, Plus yearly at NT$1,290 used for 3 months and a few days refunds 8 × NT$107.50 = NT$860). The month already started isn’t refunded.",
+          "A longer plan’s allowance still resets every month; unused minutes don’t carry over or turn into refunds."
+        ]
+      },
+      {
+        "title": "4. Later payments",
         "paragraphs": [
           "Renewal payments generally aren't refunded. If you forgot to cancel and haven't created a material with the paid plan this period, ask within 7 days of the payment and we'll look at it."
         ]
       },
       {
-        "title": "4. How to ask",
+        "title": "5. How to ask",
         "paragraphs": [
           "Use Feedback at the bottom of any page, with your account's email and the payment date. We reply within 5 working days. Refunds go back to the original payment method; how long they take depends on your bank or payment service."
         ]
       },
       {
-        "title": "5. Your materials after a downgrade",
+        "title": "6. Your materials after a downgrade",
         "paragraphs": [
           "Back on the free plan, your materials and progress are kept and you can keep practicing; you just can't add new materials."
         ]
       },
       {
-        "title": "6. Purchases through Google Play",
+        "title": "7. Purchases through Google Play",
         "paragraphs": [
-          "If you subscribed in the Android app through Google Play, cancelling and refunds follow Google Play's rules."
+          "If you subscribed in the Android app through Google Play, cancelling and refunds follow Google Play’s rules. Google Play offers monthly and yearly only; the 2-year plan is sold on the website."
         ]
       }
     ],
@@ -2434,5 +2513,66 @@
     "resetDone": "Your new password is saved, and you’re signed in.",
     "resetExpired": "This reset link has expired or was used. Ask for a new one.",
     "home": "Home"
+  },
+  "plansPage": {
+    "periodLegend": "Billing",
+    "periods": {
+      "month": "Monthly",
+      "year": "Yearly",
+      "twoYear": "2 years"
+    },
+    "popular": "Most popular",
+    "bestValue": "Best value",
+    "monthlyReset": "On yearly and 2-year plans, the allowance still resets every month; it doesn’t carry over.",
+    "names": {
+      "free": "Free",
+      "plus": "Plus",
+      "pro": "Pro"
+    },
+    "current": "Your plan",
+    "perMonthSuffix": "/ month",
+    "billedMonthly": "{total} every month",
+    "billedPeriod": "{total} for {months} months",
+    "saving": "Save {amount} ({percent}%) against monthly",
+    "summaries": {
+      "free": "Every official lesson and feature, basic stats, and one practice of your own to try (up to 30 seconds).",
+      "plus": "40 minutes of your own practices a month, YouTube practices, playback speed, full stats, and custom pass rules.",
+      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus."
+    },
+    "subscribe": "Subscribe to {plan}",
+    "compareTitle": "Compare plans",
+    "feature": "Feature",
+    "features": {
+      "official": "Official lessons and the 7-day loop",
+      "create": "Your own practices",
+      "longest": "Longest practice",
+      "youtube": "Practices from YouTube",
+      "speed": "Playback speed",
+      "stats": "Stats",
+      "rules": "Custom pass rules",
+      "priority": "Priority generation",
+      "batchPdf": "Batch PDFs"
+    },
+    "yes": "✓",
+    "no": "—",
+    "noLimit": "No limit",
+    "trial": "{n} to try",
+    "perMonth": "{n} min a month",
+    "seconds": "{n} s",
+    "minutes": "{n} min",
+    "statsBasic": "Basic",
+    "statsFull": "Full",
+    "soon": "✓ (coming soon)",
+    "refund": "Full refund within {days} days of paying; a longer plan cancelled early refunds its unused whole months.",
+    "refundLink": "Refund policy",
+    "webOnly": "The 2-year plan is on the website only; Google Play subscriptions go up to a year.",
+    "offerTitle": "{plan} · {period}",
+    "comingSoon": "Paid plans are coming soon. Join the list for an early-bird offer when they open. Nothing is charged now.",
+    "join": "Join the list",
+    "joining": "Joining…",
+    "joined": "You’re on the list; we’ll let you know when it opens.",
+    "joinFailed": "Couldn’t join. Please try again.",
+    "signInToJoin": "Sign in to join the list",
+    "close": "Close"
   }
 }
