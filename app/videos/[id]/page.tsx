@@ -67,7 +67,9 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
         zhClassName="mt-2 block font-display text-h2 text-ink-muted"
       />
       {material.subtitle && (
-        <p className="mt-3 max-w-reading text-ink-muted">{material.subtitle}</p>
+        <p lang="zh-Hant" className="mt-3 max-w-reading text-ink-muted">
+          {material.subtitle}
+        </p>
       )}
 
       {video && (

@@ -371,6 +371,11 @@
     font-family: var(--ll-font-reading);
     font-size: 1rem;
     line-height: 1.65;
+    /*
+     * A word longer than the line (a big heading with enlarged text, a
+     * long URL) breaks instead of widening the page (D86).
+     */
+    overflow-wrap: break-word;
   }
 
   /*

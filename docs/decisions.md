@@ -1470,3 +1470,19 @@
   - 結帳與改訂閱有速率限制：每小時 20 次（`RATE_LIMITS.billing`）；
   - 頁尾新增「方案與價格」「退款政策」；服務條款新增第 7 條「付費方案與訂閱」（後面的條號往後移）；隱私權政策新增「付款資料」。
 - **要改時**：`components/PricingPlans.tsx`、`components/BillingSection.tsx`、`app/billing/actions.ts`、`app/admin/revenue/`、`messages/*.json` 的 `pricing`、`checkout`、`billing`、`refund`、`admin.revenue`。
+
+## D86 AI 模擬使用者測試與修正（2026-11-09，夜間任務三）
+
+- **決定**（Joe 指定）：用 Playwright 模擬 7 個角色操作 11 個任務，評 Nielsen 嚴重度並修正。角色見 `docs/personas.md`，結果見 `docs/usability-ai-test.md`；之後用 skill `ai-usability-test` 重跑。
+- **這一輪的修正**：
+  - 手機的主題切換從頁首移到頁尾，頁首少一行；
+  - 「訂閱」按鈕顯示週期與金額；
+  - 中文標題與副標題標上 `lang="zh-Hant"`；
+  - 影片出處的連結點擊範圍至少 32 px；
+  - 字放大時，搜尋欄可以縮小、`SegmentedControl` 會換行、過長的字會斷行（`body` 的 `overflow-wrap: break-word`）；
+  - 觸控裝置不顯示鍵盤快捷鍵提示。
+- **合理的預設**：
+  - 模擬測試的截圖不進 git（`usability-results/`），只留報告；
+  - 量測時，段落裡的文字連結不算點擊目標（依 WCAG 2.5.8 的例外）；
+  - 模擬 SUS 只用來比較前後，不代表真實分數。
+- **要改時**：`usability/tasks.spec.ts`、`usability/playwright.config.ts`、`.claude/skills/ai-usability-test/SKILL.md`。

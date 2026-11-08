@@ -2122,10 +2122,11 @@
         "f2": "每月建立 {max} 份自己的教材",
         "f3": "每份最多 {chars, number} 字"
       },
-      "subscribe": "訂閱",
       "signIn": "登入後就能訂閱。從頁首右上角的「登入」用 Google 帳號登入。",
       "current": "你目前是付費方案。",
-      "manage": "管理訂閱"
+      "manage": "管理訂閱",
+      "subscribeMonth": "訂閱月繳 NT${amount, number}",
+      "subscribeYear": "訂閱年繳 NT${amount, number}"
     },
     "notes": {
       "renew": "自動續訂，可以隨時在「帳號」頁取消，取消後用到這一期結束。",

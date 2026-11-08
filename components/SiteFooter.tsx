@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { ThemeToggle } from "./ThemeToggle";
 
 const linkClassName = "tap underline-offset-4 hover:text-ink hover:underline";
 
@@ -35,6 +36,10 @@ export function SiteFooter() {
           {t("feedback")}
         </Link>
       </nav>
+      {/* Phones only: the header has no room for it (D86). */}
+      <div className="mx-auto max-w-content px-4 pb-6 split:hidden">
+        <ThemeToggle />
+      </div>
     </footer>
   );
 }

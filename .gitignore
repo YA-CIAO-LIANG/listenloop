@@ -49,3 +49,6 @@ next-env.d.ts
 
 # Database backups (personal data; D63)
 backups/
+
+# AI usability test output (usability/)
+/usability-results/
