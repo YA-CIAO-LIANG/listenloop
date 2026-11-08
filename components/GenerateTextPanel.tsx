@@ -40,7 +40,9 @@ export type GenerateText = (
 ) => Promise<GenerateTextResult>;
 
 export type GeneratedPractice = {
-  title: string;
+  titleEn: string;
+  titleZh: string;
+  subtitle: string;
   text: string;
   /** Where it belongs, saved with the practice (D57). */
   meta: MaterialMeta | null;
@@ -50,10 +52,10 @@ export type GeneratedPractice = {
 
 type GenerateTextPanelProps = {
   /**
-   * The title typed at the top of the form (D82): kept exactly when
-   * given (D81), else the model writes one.
+   * The titles typed at the top of the form (D82, D83): each kept
+   * exactly when given, else the model writes it.
    */
-  title: string;
+  titles: { en: string; zh: string };
   /** The written title and text, for the learner to review and edit. */
   onGenerated: (generated: GeneratedPractice) => void;
   /** Injected in tests; the Server Action otherwise. */
@@ -81,7 +83,7 @@ function scenariosOf(category: CategoryId, exam: string): readonly Scenario[] {
  * edit, then goes through the same split, translate, and review steps.
  */
 export function GenerateTextPanel({
-  title,
+  titles,
   onGenerated,
   generate = generatePracticeText,
 }: GenerateTextPanelProps) {
@@ -153,7 +155,8 @@ export function GenerateTextPanel({
       scenario: isOther ? "" : scenario,
       customScenario,
       customCategory: isOther ? customCategory : "",
-      title,
+      titleEn: titles.en,
+      titleZh: titles.zh,
       level,
       length,
       format,
@@ -170,7 +173,9 @@ export function GenerateTextPanel({
       return;
     }
     onGenerated({
-      title: result.title,
+      titleEn: result.titleEn,
+      titleZh: result.titleZh,
+      subtitle: result.subtitle,
       text: format === "dialogue" ? withSpeakers(result.text) : result.text,
       meta: materialMeta(request),
       accent,

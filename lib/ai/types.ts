@@ -104,8 +104,18 @@ export interface LanguageProvider {
   describe(material: DescribeInput): Promise<Billed<unknown>>;
 }
 
-/** What a subtitle is written from: the title and the text's beginning. */
-export type DescribeInput = { title: string; text: string };
+/**
+ * What a subtitle (D71) and the missing title (D83) are written from: the
+ * title, the text's beginning, and the titles the learner typed.
+ */
+export type DescribeInput = {
+  title: string;
+  text: string;
+  /** Typed English title, kept as is; only when given. */
+  titleEn?: string;
+  /** Typed Chinese title, kept as is; only when given. */
+  titleZh?: string;
+};
 
 /**
  * A provider call that failed for a reason worth telling apart: "busy"

@@ -1418,4 +1418,19 @@
 - **合理的預設**：
   - 單行標題後面接其他資訊時改用「 · 」（例如「Sintel｜辛特爾 · 第 1 天 聽寫」），避免兩個「｜」難讀。
   - 舊版本（D44）的練習也顯示目前的雙語標題：標題不跟著版本走。
-- **要改時**：`lib/titles.ts`、`components/MaterialTitle.tsx`、`supabase/migrations/20261109000000_bilingual_titles.sql`；建立與編輯流程見下一節的補充。
+- **要改時**：`lib/titles.ts`、`components/MaterialTitle.tsx`、`supabase/migrations/20261109000000_bilingual_titles.sql`；建立與編輯流程見下面的補充。
+
+### D83 補充：建立與編輯（2026-11-09）
+
+- **不多花一次呼叫**：翻譯併進原本的呼叫。
+  - AI 生成（compose）本來就會寫標題，現在同一次回傳 `title`（英文）、`titleZh`、`subtitle`。
+  - 貼上文字建立時，本來就有 describe 呼叫（只寫副標），現在同一次回傳 `titleEn`、`titleZh`、`subtitle`。
+  - 兩種標題都填了、也有副標時，不呼叫。
+- **使用者打的字由伺服器保證**：`keepTypedTitles` 在 `generatePracticeText`、`describeDraft`、`createPractice` 都會套用。打了的語言只去前後空白，模型的版本只用在空著的語言。提示詞也會告訴模型「這個標題照原樣用」，但不依賴模型遵守。
+- **相容**：舊版用戶端只送 `title` 時，依有沒有漢字判斷是哪一種語言。編輯時沒有送 `titleEn`／`titleZh`，就不改雙語標題。
+- **合理的預設**：
+  - 檔名當成標題時，依有沒有漢字放進中文或英文欄。
+  - 編輯頁不呼叫 AI 補另一種語言：作者可以留空，卡片只顯示有的那一行。
+  - 副標題超過 60 字或空白時存成 null，發布時再由 D80 的流程補上。
+- **fixture**：提示詞和回傳格式改了，`tests/fixtures/ai/` 的 compose、describe 錄製檔在第六項實測時重新錄製。在那之前，比對時略過提示詞（`sameExceptPrompt`）。
+- **要改時**：`lib/ai/prompts.ts`（`composeInstructions`、`DESCRIBE_INSTRUCTIONS`）、`app/materials/actions.ts`（`describeDraft`、`createPractice`）、`app/materials/edit-actions.ts`（`editLabels`）。

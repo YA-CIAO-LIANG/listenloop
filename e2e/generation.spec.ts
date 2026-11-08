@@ -12,7 +12,7 @@ test("a learner's own title is kept exactly, with a scenario of their own", asyn
   await page.getByText("AI 生成").click();
   // The title comes first (D82).
   const title = "  請病假：寫給 Prof. Lee 的訊息  ";
-  await page.getByLabel("標題（選填）").fill(title);
+  await page.getByLabel("中文標題").fill(title);
   await page
     .getByLabel("情境", { exact: true })
     .selectOption({ label: "其他（自己描述）" });
@@ -20,9 +20,10 @@ test("a learner's own title is kept exactly, with a scenario of their own", asyn
     .getByLabel("想練什麼？（必填）")
     .fill("跟教授請病假並詢問補交作業");
   await page.getByRole("button", { name: "生成文字" }).click();
-  // Back on the text form: the title as typed (ends trimmed), editable.
-  const field = page.getByLabel("標題", { exact: true });
-  await expect(field).toHaveValue(title.trim());
+  // Back on the text form: the title as typed (ends trimmed), editable,
+  // and the other language written in the same call (D83).
+  await expect(page.getByLabel("中文標題")).toHaveValue(title.trim());
+  await expect(page.getByLabel("英文標題")).not.toHaveValue("");
   await expect(page.getByLabel("文字內容")).not.toHaveValue("");
 });
 

@@ -12,6 +12,7 @@ const state = vi.hoisted(() => ({
   practice: null as unknown,
   rpc: vi.fn(),
   filters: [] as [string, unknown][],
+  updates: [] as unknown[],
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
@@ -38,6 +39,12 @@ vi.mock("@/auth/creator", () => ({
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
     from: () => ({
+      update: (row: unknown) => {
+        state.updates.push(row);
+        return {
+          eq: () => ({ eq: async () => ({ error: null }) }),
+        };
+      },
       select: () => {
         const query = {
           eq: (column: string, value: unknown) => {
@@ -66,6 +73,7 @@ const edit = (sentences: unknown[], extra: object = {}) => ({
 beforeEach(() => {
   state.creator = true;
   state.filters = [];
+  state.updates = [];
   state.rpc.mockReset().mockResolvedValue({ data: 3, error: null });
   state.practice = {
     voice: "us-female",
@@ -111,6 +119,41 @@ describe("savePracticeEdit", () => {
         },
       ],
     });
+  });
+
+  it("keeps both typed titles and the subtitle (D83)", async () => {
+    const result = await savePracticeEdit(
+      "p1",
+      edit([{ en: "Go home.", zh: "回家。", notes: null }], {
+        titleEn: "  Going  Home ",
+        titleZh: " 回家 ",
+        subtitle: "回家路上的一句話",
+      }),
+    );
+    expect(result).toMatchObject({ ok: true });
+    expect(state.rpc.mock.calls[0][1]).toMatchObject({
+      new_title: "Going Home",
+    });
+    expect(state.updates).toEqual([
+      {
+        title_en: "Going  Home",
+        title_zh: "回家",
+        subtitle: "回家路上的一句話",
+      },
+    ]);
+  });
+
+  it("needs at least one title (D83)", async () => {
+    expect(
+      await savePracticeEdit(
+        "p1",
+        edit([{ en: "Go home.", zh: "回家。", notes: null }], {
+          titleEn: " ",
+          titleZh: "",
+        }),
+      ),
+    ).toEqual({ ok: false, reason: "invalid", problem: "title" });
+    expect(state.rpc).not.toHaveBeenCalled();
   });
 
   it("joins the notes when every sentence has them", async () => {

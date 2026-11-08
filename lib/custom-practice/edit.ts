@@ -28,6 +28,10 @@ export type PracticeEdit = {
   /** The version the editor opened, to catch a save made in between. */
   expectedVersion: number;
   title: string;
+  /** Both titles and the subtitle (D83); the server keeps them as typed. */
+  titleEn?: string;
+  titleZh?: string;
+  subtitle?: string;
   voice: string;
   /** Speaker B's voice, for a dialogue (D57). */
   voiceB?: string;

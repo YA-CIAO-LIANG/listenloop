@@ -124,7 +124,8 @@ describe("parseGenerationRequest", () => {
       topic: "第一次 去超市",
       customScenario: "",
       customCategory: "",
-      title: "",
+      titleEn: "",
+      titleZh: "",
     });
   });
 
@@ -177,8 +178,12 @@ describe("parseGenerationRequest", () => {
 
   it("keeps a title exactly as typed, only its ends trimmed (D81)", () => {
     expect(
-      parseGenerationRequest({ ...request, title: "  My  Sick-Day   Email! " }),
-    ).toMatchObject({ title: "My  Sick-Day   Email!" });
+      parseGenerationRequest({
+        ...request,
+        titleEn: "  My  Sick-Day   Email! ",
+        titleZh: " 請  病假 ",
+      }),
+    ).toMatchObject({ titleEn: "My  Sick-Day   Email!", titleZh: "請  病假" });
   });
 
   it("takes an exam part with one of its exam's targets", () => {
@@ -287,6 +292,8 @@ describe("checkGeneratedText", () => {
   it("joins the lines, one sentence or turn each", () => {
     expect(checkGeneratedText({ title: " At the Store ", lines }, 80)).toEqual({
       title: "At the Store",
+      titleZh: "",
+      subtitle: "",
       text: lines.join("\n"),
     });
   });
@@ -306,21 +313,41 @@ describe("generatePracticeText", () => {
     state.creator = true;
     state.reserve.mockReset().mockResolvedValue(true);
     const result = await generatePracticeText(request);
-    expect(result.ok && result.title).toBe(
+    expect(result.ok && result.titleEn).toBe(
       "Practice: shopping at a supermarket",
     );
+    // The model also writes the Chinese title and the subtitle (D83).
+    expect(result.ok && result.titleZh).toBe("練習（測試）");
+    expect(result.ok && result.subtitle).toBe("測試用的練習內容");
     expect(result.ok && result.text.split("\n").length).toBeGreaterThan(5);
     // The fake is free, so the worst case reserved is 0 (D38).
     expect(state.reserve).toHaveBeenCalledWith("cost", 0);
   });
 
-  it("never changes a title the learner gave (D81)", async () => {
+  it("never changes a title the learner gave, in either language (D81, D83)", async () => {
     state.creator = true;
     state.reserve.mockReset().mockResolvedValue(true);
-    for (const title of ["請病假的 email", "  Asking  for Sick Leave "]) {
-      const result = await generatePracticeText({ ...request, title });
-      expect(result.ok && result.title).toBe(title.trim());
-    }
+    const zhOnly = await generatePracticeText({
+      ...request,
+      titleZh: "  跟教授 請病假 ",
+    });
+    expect(zhOnly.ok && zhOnly.titleZh).toBe("跟教授 請病假");
+    // The English one is written.
+    expect(zhOnly.ok && zhOnly.titleEn).toBe(
+      "Practice: shopping at a supermarket",
+    );
+    const enOnly = await generatePracticeText({
+      ...request,
+      titleEn: "  Asking  for Sick Leave ",
+    });
+    expect(enOnly.ok && enOnly.titleEn).toBe("Asking  for Sick Leave");
+    expect(enOnly.ok && enOnly.titleZh).toBe("練習（測試）");
+    const both = await generatePracticeText({
+      ...request,
+      titleEn: "Mine",
+      titleZh: "我的",
+    });
+    expect(both.ok && [both.titleEn, both.titleZh]).toEqual(["Mine", "我的"]);
     const own = await generatePracticeText({
       ...request,
       scenario: "",
@@ -332,18 +359,19 @@ describe("generatePracticeText", () => {
   it("only asks about a custom scenario or title when there is one", () => {
     expect(
       compositionPrompt(parseGenerationRequest(request)!),
-    ).not.toHaveProperty("title");
+    ).not.toHaveProperty("titleEn");
     expect(composeInstructions({})).toBe(COMPOSE_INSTRUCTIONS);
-    expect(composeInstructions({ title: "T" })).toMatch(/exactly as given/);
+    expect(composeInstructions({ titleEn: "T" })).toMatch(/exactly as given/);
+    expect(composeInstructions({ titleZh: "標" })).toMatch(/titleZh exactly/);
     expect(
       compositionPrompt(
         parseGenerationRequest({
           ...request,
-          title: "T",
+          titleEn: "T",
           customScenario: "x",
         })!,
       ),
-    ).toMatchObject({ title: "T", customScenario: "x" });
+    ).toMatchObject({ titleEn: "T", customScenario: "x" });
   });
 
   it("stops at the daily limit, and for bad requests and non-admins", async () => {

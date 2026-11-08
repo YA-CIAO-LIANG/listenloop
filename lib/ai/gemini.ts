@@ -49,14 +49,19 @@ const SEGMENTS_SCHEMA = {
 
 const COMPOSITION_SCHEMA = {
   type: "OBJECT",
-  properties: { title: STRING, lines: { type: "ARRAY", items: STRING } },
-  required: ["title", "lines"],
+  properties: {
+    title: STRING,
+    titleZh: STRING,
+    subtitle: STRING,
+    lines: { type: "ARRAY", items: STRING },
+  },
+  required: ["title", "titleZh", "subtitle", "lines"],
 } as const;
 
 const DESCRIPTION_SCHEMA = {
   type: "OBJECT",
-  properties: { subtitle: STRING },
-  required: ["subtitle"],
+  properties: { titleEn: STRING, titleZh: STRING, subtitle: STRING },
+  required: ["titleEn", "titleZh", "subtitle"],
 } as const;
 
 const TRANSLATIONS_SCHEMA = {

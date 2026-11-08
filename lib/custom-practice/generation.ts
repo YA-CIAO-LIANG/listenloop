@@ -1,4 +1,5 @@
 import { PRACTICE_LIMITS } from "./draft";
+import { cleanSubtitle } from "./subtitle";
 
 import {
   OTHER_CATEGORY,
@@ -64,10 +65,11 @@ export type GenerationRequest = {
    */
   customCategory?: string;
   /**
-   * The learner's title (D81): kept exactly (ends trimmed), never the
-   * model's; "" lets the model name it.
+   * The learner's titles (D81, D83): each kept exactly (ends trimmed),
+   * never the model's; "" lets the model write that language's.
    */
-  title: string;
+  titleEn: string;
+  titleZh: string;
   /** A general level, or for exam practice the exam's target id. */
   level: string;
   length: GenerationLength;
@@ -83,8 +85,9 @@ export type CompositionPrompt = {
   customScenario?: string;
   /** The learner's own category (D82); only when given. */
   customCategory?: string;
-  /** The learner's title, for the text to match (D81); only when given. */
-  title?: string;
+  /** The learner's titles, for the text to match (D81, D83); only when given. */
+  titleEn?: string;
+  titleZh?: string;
   level: string;
   words: number;
   format: GenerationFormat;
@@ -114,8 +117,11 @@ export function parseGenerationRequest(
   const topic = tidy(raw.topic);
   const customScenario = tidy(raw.customScenario);
   const customCategory = tidy(raw.customCategory);
-  // The title as typed: only its ends are trimmed (D81).
-  const title = typeof raw.title === "string" ? raw.title.trim() : "";
+  // The titles as typed: only their ends are trimmed (D81, D83).
+  const trim = (value: unknown) =>
+    typeof value === "string" ? value.trim() : "";
+  const titleEn = trim(raw.titleEn ?? raw.title);
+  const titleZh = trim(raw.titleZh);
   const place = raw.scenario === "" ? null : findScenario(raw.scenario);
   const levelOk = place?.exam
     ? findTarget(place.exam, raw.level) !== null
@@ -124,7 +130,8 @@ export function parseGenerationRequest(
     [...topic].length > TOPIC_MAX_CHARS ||
     [...customScenario].length > CUSTOM_SCENARIO_MAX_CHARS ||
     [...customCategory].length > CUSTOM_CATEGORY_MAX_CHARS ||
-    [...title].length > PRACTICE_LIMITS.titleChars ||
+    [...titleEn].length > PRACTICE_LIMITS.titleChars ||
+    [...titleZh].length > PRACTICE_LIMITS.titleChars ||
     // A scenario from the list, or something described: a scenario of
     // one's own, or a category of one's own (which has no list, D82).
     (!place && (raw.scenario !== "" || !(customScenario || customCategory))) ||
@@ -141,7 +148,8 @@ export function parseGenerationRequest(
     scenario: place?.scenario.id ?? "",
     customScenario,
     customCategory,
-    title,
+    titleEn,
+    titleZh,
     level: raw.level as string,
     length: raw.length as GenerationLength,
     format: raw.format as GenerationFormat,
@@ -170,7 +178,8 @@ export function compositionPrompt(
     ...(request.customCategory
       ? { customCategory: request.customCategory }
       : {}),
-    ...(request.title ? { title: request.title } : {}),
+    ...(request.titleEn ? { titleEn: request.titleEn } : {}),
+    ...(request.titleZh ? { titleZh: request.titleZh } : {}),
     level: `${level}; ${ACCENT_PROMPTS[request.accent]}`,
     words: lengthWords(request.length),
     format: request.format,
@@ -244,7 +253,13 @@ export function parseMaterialMeta(input: unknown): MaterialMeta | null {
   };
 }
 
-export type GeneratedText = { title: string; text: string };
+export type GeneratedText = {
+  title: string;
+  /** Chinese title and subtitle (D83); "" when the model gave none. */
+  titleZh: string;
+  subtitle: string;
+  text: string;
+};
 
 const wordCount = (text: string) => text.split(/\s+/).filter(Boolean).length;
 
@@ -257,11 +272,16 @@ export function checkGeneratedText(
   raw: unknown,
   words: number,
 ): GeneratedText | null {
-  const value = (raw ?? {}) as { title?: unknown; lines?: unknown };
-  const title =
-    typeof value.title === "string"
-      ? value.title.replace(/\s+/g, " ").trim()
-      : "";
+  const value = (raw ?? {}) as {
+    title?: unknown;
+    titleZh?: unknown;
+    subtitle?: unknown;
+    lines?: unknown;
+  };
+  const tidy = (field: unknown) =>
+    typeof field === "string" ? field.replace(/\s+/g, " ").trim() : "";
+  const title = tidy(value.title);
+  const titleZh = tidy(value.titleZh).slice(0, PRACTICE_LIMITS.titleChars);
   const lines = Array.isArray(value.lines)
     ? value.lines
         .filter((line): line is string => typeof line === "string")
@@ -278,5 +298,10 @@ export function checkGeneratedText(
   ) {
     return null;
   }
-  return { title, text };
+  return {
+    title,
+    titleZh,
+    subtitle: cleanSubtitle(value.subtitle) ?? "",
+    text,
+  };
 }

@@ -92,9 +92,11 @@ export const AZURE_SCHEMAS = {
   }),
   composition: object({
     title: STRING,
+    titleZh: STRING,
+    subtitle: STRING,
     lines: { type: "array", items: STRING },
   }),
-  description: object({ subtitle: STRING }),
+  description: object({ titleEn: STRING, titleZh: STRING, subtitle: STRING }),
 } as const;
 
 type ChatCompletion = {

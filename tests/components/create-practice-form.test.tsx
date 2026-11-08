@@ -13,6 +13,7 @@ vi.mock("@/app/materials/actions", () => ({
   generatePracticeAudio: vi.fn(),
   generatePracticeNotes: vi.fn(),
   generatePracticeText: vi.fn(),
+  describeDraft: vi.fn(),
 }));
 
 const split = vi.fn();
@@ -25,6 +26,7 @@ const create = vi.fn();
 const generate = vi.fn();
 const generateNotes = vi.fn();
 const generateText = vi.fn();
+const describeTitles = vi.fn();
 
 beforeEach(() => {
   router.refresh.mockReset();
@@ -41,6 +43,17 @@ beforeEach(() => {
   generateNotes
     .mockReset()
     .mockResolvedValue({ ok: true, annotated: 1, total: 1 });
+  // Writes what's missing, keeping what was typed (D83).
+  describeTitles
+    .mockReset()
+    .mockImplementation(
+      async (input: { titleEn: string; titleZh: string }) => ({
+        ok: true,
+        titleEn: input.titleEn.trim() || "Written English",
+        titleZh: input.titleZh.trim() || "寫好的中文",
+        subtitle: "寫好的副標題",
+      }),
+    );
 });
 
 async function renderForm() {
@@ -53,6 +66,7 @@ async function renderForm() {
         generate={generate}
         generateNotes={generateNotes}
         generateText={generateText}
+        describe={describeTitles}
       />,
     );
   });
@@ -68,7 +82,7 @@ const click = async (name: string) => {
 describe("CreatePracticeForm", () => {
   it("splits, lets the learner edit and delete, then creates", async () => {
     await renderForm();
-    fireEvent.change(screen.getByLabelText("標題"), {
+    fireEvent.change(screen.getByLabelText("英文標題"), {
       target: { value: "Moving" },
     });
     fireEvent.change(textBox(), {
@@ -95,7 +109,10 @@ describe("CreatePracticeForm", () => {
     );
     await click("建立練習");
     expect(create).toHaveBeenCalledWith({
-      title: "Moving",
+      // Typed English kept; the Chinese title and subtitle written (D83).
+      titleEn: "Moving",
+      titleZh: "寫好的中文",
+      subtitle: "寫好的副標題",
       sourceLanguage: "en",
       voice: "au-male",
       meta: null,
@@ -108,7 +125,7 @@ describe("CreatePracticeForm", () => {
       generate.mock.invocationCallOrder[0],
     );
     expect(screen.getByRole("status").textContent).toContain(
-      "已建立「Moving」，講解和音檔都完成了",
+      "已建立「Moving｜寫好的中文」，講解和音檔都完成了",
     );
     expect(router.refresh).toHaveBeenCalled();
     expect((textBox() as HTMLTextAreaElement).value).toBe("");
@@ -122,7 +139,9 @@ describe("CreatePracticeForm", () => {
       total: 2,
     });
     await renderForm();
-    fireEvent.change(screen.getByLabelText("標題"), { target: { value: "T" } });
+    fireEvent.change(screen.getByLabelText("英文標題"), {
+      target: { value: "T" },
+    });
     fireEvent.change(textBox(), { target: { value: "A. B." } });
     await click("斷句並翻譯");
     await click("建立練習");
@@ -154,7 +173,8 @@ describe("CreatePracticeForm", () => {
       });
     });
     expect((textBox() as HTMLTextAreaElement).value).toBe("你好。");
-    expect((screen.getByLabelText("標題") as HTMLInputElement).value).toBe(
+    // A Chinese file name is a Chinese title (D83).
+    expect((screen.getByLabelText("中文標題") as HTMLInputElement).value).toBe(
       "第一課",
     );
   });
@@ -197,7 +217,9 @@ describe("CreatePracticeForm", () => {
       sentence: 1,
     });
     await renderForm();
-    fireEvent.change(screen.getByLabelText("標題"), { target: { value: "T" } });
+    fireEvent.change(screen.getByLabelText("英文標題"), {
+      target: { value: "T" },
+    });
     fireEvent.change(textBox(), { target: { value: "A. B." } });
     await click("斷句並翻譯");
     await click("建立練習");
@@ -240,7 +262,9 @@ describe("CreatePracticeForm", () => {
 
   it("merges a sentence with the next and splits one at the cursor", async () => {
     await renderForm();
-    fireEvent.change(screen.getByLabelText("標題"), { target: { value: "T" } });
+    fireEvent.change(screen.getByLabelText("英文標題"), {
+      target: { value: "T" },
+    });
     fireEvent.change(textBox(), { target: { value: "x" } });
     await click("斷句並翻譯");
 
@@ -275,13 +299,15 @@ describe("CreatePracticeForm", () => {
   it("writes text with AI into the form to edit", async () => {
     generateText.mockReset().mockResolvedValue({
       ok: true,
-      title: "At the Store",
+      titleEn: "At the Store",
+      titleZh: "在商店",
+      subtitle: "在商店找牛奶的對話",
       text: "Where is the milk?\nIt's in aisle five.",
     });
     await renderForm();
     fireEvent.click(screen.getByLabelText("AI 生成"));
     // The title sits at the top of the form (D82).
-    fireEvent.change(screen.getByLabelText("標題（選填）"), {
+    fireEvent.change(screen.getByLabelText("中文標題"), {
       target: { value: "我的期中報告" },
     });
     fireEvent.change(screen.getByLabelText("類別"), {
@@ -304,7 +330,8 @@ describe("CreatePracticeForm", () => {
       scenario: "office-hours",
       customScenario: "請教授延後期中報告",
       customCategory: "",
-      title: "我的期中報告",
+      titleEn: "",
+      titleZh: "我的期中報告",
       level: "advanced",
       length: "4-5",
       format: "dialogue",
@@ -315,21 +342,26 @@ describe("CreatePracticeForm", () => {
     expect((textBox() as HTMLTextAreaElement).value).toBe(
       "A: Where is the milk?\nB: It's in aisle five.",
     );
-    expect((screen.getByLabelText("標題") as HTMLInputElement).value).toBe(
+    expect((screen.getByLabelText("英文標題") as HTMLInputElement).value).toBe(
       "At the Store",
+    );
+    expect((screen.getByLabelText("中文標題") as HTMLInputElement).value).toBe(
+      "在商店",
     );
     expect((screen.getByLabelText("英文") as HTMLInputElement).checked).toBe(
       true,
     );
     expect(screen.getByRole("status").textContent).toContain(
-      "已生成「At the Store」",
+      "已生成「At the Store｜在商店」",
     );
   });
 
   it("starts with a monologue, and takes a category of one's own (D82)", async () => {
     generateText.mockReset().mockResolvedValue({
       ok: true,
-      title: "Stars at Night",
+      titleEn: "Stars at Night",
+      titleZh: "夜晚的星星",
+      subtitle: "拍攝星空的入門說明",
       text: "Find a dark place.\nWait for your eyes to adjust.",
     });
     await renderForm();

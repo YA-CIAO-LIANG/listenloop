@@ -20,6 +20,8 @@ import {
   translateCached,
   type StoredNotes,
 } from "@/lib/custom-practice/notes";
+import { cleanSubtitle } from "@/lib/custom-practice/subtitle";
+import { PRACTICE_LIMITS } from "@/lib/custom-practice/draft";
 import { customPracticeId } from "@/lib/practice-material";
 
 export type SaveEditResult =
@@ -78,8 +80,14 @@ export async function savePracticeEdit(
 
   const raw = (input ?? {}) as Record<string, unknown>;
   const list = Array.isArray(raw.sentences) ? raw.sentences : [];
+  // Both titles and the subtitle (D83), each kept as typed (ends trimmed);
+  // an older client sends only `title`, and its titles stay as they were.
+  const labels = editLabels(raw);
+  if (labels === "invalid") {
+    return { ok: false, reason: "invalid", problem: "title" };
+  }
   const cleaned = cleanDraft({
-    title: raw.title,
+    title: labels ? labels.title_en || labels.title_zh : raw.title,
     voice: raw.voice,
     voiceB: raw.voiceB,
     sourceLanguage: practice.source_language,
@@ -166,6 +174,14 @@ export async function savePracticeEdit(
         : "failed",
     };
   }
+  if (labels) {
+    const { error: labelError } = await supabase
+      .from("practices")
+      .update(labels)
+      .eq("id", practiceId)
+      .eq("user_id", creator.user.id);
+    if (labelError) return { ok: false, reason: "failed" };
+  }
   revalidatePath("/materials");
   revalidatePath(`/videos/${customPracticeId(practiceId)}`);
   await logEvent(creator.user.id, {
@@ -178,4 +194,28 @@ export async function savePracticeEdit(
     notesReady,
     total: plan.sentences.length,
   };
+}
+
+type EditLabels = {
+  title_en: string | null;
+  title_zh: string | null;
+  subtitle: string | null;
+};
+
+/**
+ * The titles and subtitle from an edit (D83): at least one title, each
+ * within the title limit; null when the client sent neither title field.
+ */
+function editLabels(
+  raw: Record<string, unknown>,
+): EditLabels | "invalid" | null {
+  if (!("titleEn" in raw) && !("titleZh" in raw)) return null;
+  const clean = (value: unknown) =>
+    typeof value === "string" && value.trim() ? value.trim() : null;
+  const en = clean(raw.titleEn);
+  const zh = clean(raw.titleZh);
+  const tooLong = (value: string | null) =>
+    value !== null && [...value].length > PRACTICE_LIMITS.titleChars;
+  if ((!en && !zh) || tooLong(en) || tooLong(zh)) return "invalid";
+  return { title_en: en, title_zh: zh, subtitle: cleanSubtitle(raw.subtitle) };
 }
