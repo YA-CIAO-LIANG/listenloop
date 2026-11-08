@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { oneLineTitle } from "@/lib/titles";
 import { getTranslations } from "next-intl/server";
 import { MyPractices } from "@/components/MyPractices";
 import { PracticeCalendar } from "@/components/PracticeCalendar";
@@ -14,7 +15,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PracticesPage() {
   const t = await getTranslations("practices");
   const titles = Object.fromEntries(
-    getAllVideos().map((video) => [video.id, video.title]),
+    getAllVideos().map((video) => [
+      video.id,
+      oneLineTitle({ en: video.title, zh: video.titleZh ?? null }),
+    ]),
   );
 
   return (

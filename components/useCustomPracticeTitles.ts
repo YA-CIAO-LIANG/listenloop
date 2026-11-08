@@ -1,5 +1,6 @@
 "use client";
 
+import { oneLineTitle, practiceTitles } from "@/lib/titles";
 import { useEffect, useState } from "react";
 import {
   customPracticeId,
@@ -30,13 +31,16 @@ export function useCustomPracticeTitles(
     let cancelled = false;
     supabase
       .from("practices")
-      .select("id, title")
+      .select("id, title, title_en, title_zh")
       .in("id", key.split(","))
       .then(({ data }) => {
         if (cancelled || !data) return;
         setTitles(
           Object.fromEntries(
-            data.map((row) => [customPracticeId(row.id), row.title]),
+            data.map((row) => [
+              customPracticeId(row.id),
+              oneLineTitle(practiceTitles(row)),
+            ]),
           ),
         );
       });

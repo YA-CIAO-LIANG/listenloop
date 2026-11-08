@@ -23,6 +23,7 @@ const item = (over: Partial<LibraryItem>): LibraryItem => ({
   id: "x",
   kind: "audio",
   title: "Title",
+  titleZh: null,
   subtitle: null,
   category: null,
   scenario: null,
@@ -62,6 +63,7 @@ describe("filterLibrary", () => {
       id: "a",
       kind: "video",
       title: "Sintel",
+      titleZh: null,
       subtitle: "少女尋找小龍",
       level: "intermediate",
       category: "talks-stories",
@@ -73,6 +75,7 @@ describe("filterLibrary", () => {
     item({
       id: "b",
       title: "Checking In",
+      titleZh: null,
       level: "beginner",
       category: "travel",
       scenario: null,
@@ -84,6 +87,7 @@ describe("filterLibrary", () => {
     item({
       id: "c",
       title: "Water in Deserts",
+      titleZh: null,
       level: "advanced",
       category: "exam",
       scenario: null,
@@ -255,6 +259,7 @@ describe("library items", () => {
   const practice: PublicPracticeSummary = {
     id: "p-1",
     title: "Checking In",
+    titleZh: null,
     sourceLanguage: "en",
     voice: "gb-female",
     sentenceCount: 13,

@@ -15,7 +15,7 @@ import { heatLevel, tasksByDate } from "@/lib/practice-calendar";
 import { isCustomPracticeId, titleLang } from "@/lib/practice-material";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { RewardStore } from "@/lib/storage/reward-store";
-import { getVideo } from "@/lib/video-library";
+import { videoTitleLine } from "@/lib/video-library";
 import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { Button } from "./Button";
 import { Card } from "./Card";
@@ -62,7 +62,7 @@ function TaskList({
           </span>
           {t.rich("taskLine", {
             title:
-              getVideo(task.videoId)?.title ??
+              videoTitleLine(task.videoId) ??
               customTitles[task.videoId] ??
               (isCustomPracticeId(task.videoId)
                 ? t("customPractice")

@@ -86,6 +86,8 @@ export type Video = {
   collection: VideoCollection;
   /** Rights holder's display name, e.g. "Blender Foundation". */
   source: string;
+  /** The title in Traditional Chinese, shown under the English one (D83). */
+  titleZh?: string;
   /** One sentence on what it's about, for the library card (D71). */
   subtitle?: string;
   /** The speakers' accent, when there is one main one (library filter). */
@@ -212,6 +214,12 @@ export function validateVideo(data: unknown): string[] {
     problems.push(`collection must be one of ${videoCollections.join(", ")}`);
   }
 
+  if (
+    data.titleZh !== undefined &&
+    (!isText(data.titleZh) || [...data.titleZh].length > 200)
+  ) {
+    problems.push("titleZh must be text of at most 200 characters");
+  }
   if (
     data.subtitle !== undefined &&
     (!isText(data.subtitle) || [...data.subtitle].length > SUBTITLE_MAX)

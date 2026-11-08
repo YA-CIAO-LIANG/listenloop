@@ -1,10 +1,10 @@
 "use client";
 
+import { MaterialTitle } from "./MaterialTitle";
 import { useTranslations } from "next-intl";
 import { isExamId, targetMessageKey } from "@/lib/categories";
 import { estimateMinutes, type LibraryItem } from "@/lib/library";
 import { minutesAndSeconds } from "@/lib/excerpt-length";
-import { titleLang } from "@/lib/practice-material";
 import { CardLink } from "./CardLink";
 import { SpeakerIcon, VideoIcon } from "./icons";
 import { Tag } from "./Tag";
@@ -53,9 +53,10 @@ export function MaterialCard({
             })}`}
         </p>
       )}
-      <p lang={titleLang(item.id)} className="mt-4 font-display text-h3">
-        {item.title}
-      </p>
+      <MaterialTitle
+        titles={{ en: item.title, zh: item.titleZh }}
+        className="mt-4 font-display text-h3"
+      />
       {item.subtitle && (
         <p className="mt-1 text-supporting text-ink-muted">{item.subtitle}</p>
       )}

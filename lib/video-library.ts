@@ -1,4 +1,5 @@
 import { videos } from "@/data/videos";
+import { oneLineTitle } from "./titles";
 import { videoCollections, type Video, type VideoCollection } from "./videos";
 
 /** Every published video, in library order (drafts are left out). */
@@ -31,4 +32,12 @@ export function getVideo(id: string): Video | undefined {
 /** Any video, drafts too: only for the timing tool, where drafts get tuned. */
 export function getVideoIncludingDrafts(id: string): Video | undefined {
   return videos.find((video) => video.id === id);
+}
+
+/** A built-in video's titles on one line, "English｜中文" (D83). */
+export function videoTitleLine(id: string): string | undefined {
+  const video = getVideo(id);
+  return video
+    ? oneLineTitle({ en: video.title, zh: video.titleZh ?? null })
+    : undefined;
 }

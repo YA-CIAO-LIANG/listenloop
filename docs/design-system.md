@@ -379,6 +379,13 @@ CardLink，內容由上到下：
 4. 進度（`VideoProgressLabel`：「第 3 天 · 跟讀」等，同之前）。
 5. 最下行（貼卡片底部，上方至少 16px）：supporting、ink-muted「2 分 5 秒 · 英式英語 · 每天約 9 分鐘」＋右側 →。不足 1 分鐘時「49 秒」。
 
+### 教材標題 `MaterialTitle`（D83）
+
+- 所有教材都有英文與中文標題，一律先英文後中文。
+- **兩行**（卡片、練習頁、講義與 PDF）：第一行英文（`lang="en"`，Display 字級依所在位置），第二行中文（卡片是 supporting、ink-muted；練習頁與講義是 Display h2、ink-muted），再下一行是副標題（supporting、ink-muted）。
+- **單行**（`compact`，以及頁首返回連結、今日任務、練習日曆、學習進度、後台清單、頁面 `<title>`）：「English Title｜中文標題」，中文部分 ink-muted，超出時以省略號截斷（`truncate`，完整標題放在 `title`）。單行後面接其他資訊時用「 · 」，例如「Sintel｜辛特爾 · 第 1 天 聽寫」。
+- 還沒有中文標題的舊資料只顯示一行。
+
 ### 標籤 `Tag`（D70）
 
 - 卡片上的資訊標籤，不能點：1px line 邊框、4px 圓角、左右 8px、最小高 24px、metadata 字級、ink-muted；可帶 16px 圖示（間距 4px）。

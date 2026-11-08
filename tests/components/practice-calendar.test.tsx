@@ -128,9 +128,9 @@ describe("PracticeCalendar", () => {
   it("lists today's tasks under the calendar by default", async () => {
     await renderCalendar(practiced);
     const list = screen.getByRole("heading", { level: 3 }).parentElement!;
-    expect(list.textContent).toContain("Sintel｜第 1 天 聽寫");
-    expect(list.textContent).toContain("Sintel｜第 2 天 跟讀");
-    for (const title of within(list).getAllByText("Sintel")) {
+    expect(list.textContent).toContain("Sintel｜辛特爾 · 第 1 天 聽寫");
+    expect(list.textContent).toContain("Sintel｜辛特爾 · 第 2 天 跟讀");
+    for (const title of within(list).getAllByText("Sintel｜辛特爾")) {
       expect(title.getAttribute("lang")).toBe("en");
     }
   });
@@ -141,7 +141,7 @@ describe("PracticeCalendar", () => {
     fireEvent.pointerEnter(button, { pointerType: "mouse" });
     const tip = screen.getByRole("tooltip");
     expect(tip.textContent).toContain("完成 2 個任務");
-    expect(tip.textContent).toContain("Sintel｜第 2 天 跟讀");
+    expect(tip.textContent).toContain("Sintel｜辛特爾 · 第 2 天 跟讀");
     expect(button.getAttribute("aria-describedby")).toBe(tip.id);
     fireEvent.pointerLeave(button);
     expect(screen.queryByRole("tooltip")).toBeNull();

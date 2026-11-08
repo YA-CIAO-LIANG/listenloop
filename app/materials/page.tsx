@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { oneLineTitle, practiceTitles } from "@/lib/titles";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -72,7 +73,7 @@ export default async function MaterialsPage() {
         supabase
           .from("practices")
           .select(
-            "id, title, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, practice_sentences(audio_path)",
+            "id, title, title_en, title_zh, subtitle, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, practice_sentences(audio_path)",
           )
           // Others' public practices are readable too (D30); list only theirs,
           // and not official materials, which live on /admin/official (D80).
@@ -117,7 +118,9 @@ export default async function MaterialsPage() {
       <li key={practice.id} className="space-y-3 py-4">
         <div className="space-y-2">
           <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <span className="font-medium">{practice.title}</span>
+            <span className="font-medium">
+              {oneLineTitle(practiceTitles(practice))}
+            </span>
             {creator && (
               <Link
                 href={`/materials/${practice.id}/edit`}

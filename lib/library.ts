@@ -38,7 +38,10 @@ export type LibraryItem = {
   /** Video id, or "p-<uuid>" for a practice: the id in /videos/<id>. */
   id: string;
   kind: MaterialKind;
+  /** English title (D83). */
   title: string;
+  /** Chinese title, shown under the English one; null until there is one. */
+  titleZh: string | null;
   /** One sentence on what it's about (D71); null until written. */
   subtitle: string | null;
   category: CategoryId | null;
@@ -202,7 +205,10 @@ export function matchesLibraryFilter(
   filter: LibraryFilter,
 ): boolean {
   const words = normalize(filter.query).split(" ").filter(Boolean);
-  const text = normalize(`${item.title} ${item.subtitle ?? ""}`);
+  // Both titles and the subtitle (D83).
+  const text = normalize(
+    `${item.title} ${item.titleZh ?? ""} ${item.subtitle ?? ""}`,
+  );
   if (!words.every((word) => text.includes(word))) return false;
   const within = <T>(chosen: readonly T[], value: T | null) =>
     chosen.length === 0 || (value !== null && chosen.includes(value));
@@ -278,6 +284,7 @@ export function videoLibraryItem(video: Video, learners = 0): LibraryItem {
     id: video.id,
     kind: "video",
     title: video.title,
+    titleZh: video.titleZh ?? null,
     subtitle: video.subtitle ?? null,
     category: VIDEO_CATEGORY_IN_LIBRARY[video.category],
     scenario: null,
@@ -306,6 +313,7 @@ export function practiceLibraryItem(
     id: practice.id,
     kind: "audio",
     title: practice.title,
+    titleZh: practice.titleZh,
     subtitle: practice.subtitle,
     category: isCategoryId(practice.category) ? practice.category : null,
     scenario: practice.scenario,

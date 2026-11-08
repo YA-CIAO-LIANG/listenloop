@@ -293,7 +293,9 @@
       "tagLevel": "Intermediate",
       "openSheet": "Open the bottom drawer",
       "sheetTitle": "Filters",
-      "closeSheet": "Done"
+      "closeSheet": "Done",
+      "titleZh": "Rescheduling the client meeting",
+      "titleZhVideo": "Sintel"
     }
   },
   "library": {

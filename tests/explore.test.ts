@@ -13,6 +13,7 @@ const practice = (
 ): PublicPracticeSummary => ({
   id: `p-${title}`,
   title,
+  titleZh: null,
   sourceLanguage,
   voice: "us-female",
   sentenceCount,

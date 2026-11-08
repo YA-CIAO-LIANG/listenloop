@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { practiceTitles } from "@/lib/titles";
 import {
   customPracticeReadiness,
   materialFromCustomPractice,
@@ -51,7 +52,7 @@ export const getPracticeState = cache(
       supabase
         .from("practices")
         .select(
-          "id, title, version, vocab, grammar, notes_generated_at, practice_sentences(i, en, zh, audio_path, notes)",
+          "id, title, title_en, title_zh, subtitle, version, vocab, grammar, notes_generated_at, practice_sentences(i, en, zh, audio_path, notes)",
         )
         .eq("id", uuid)
         .maybeSingle(),
@@ -77,7 +78,14 @@ export const getPracticeState = cache(
       const earlier =
         snapshot &&
         materialFromSnapshot(snapshot, (path) => speechAudioUrl(path));
-      if (earlier) return { status: "ready", material: { ...earlier, mine } };
+      // An earlier week shows today's titles (D83): titles aren't versioned.
+      const titles = practiceTitles(data);
+      if (earlier) {
+        return {
+          status: "ready",
+          material: { ...earlier, title: titles.en, titleZh: titles.zh, mine },
+        };
+      }
     }
     const material = materialFromCustomPractice(data, (path) =>
       speechAudioUrl(path),
