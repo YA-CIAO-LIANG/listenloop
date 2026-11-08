@@ -51,6 +51,14 @@ export async function signInAsLearner(page: Page) {
   await signInAs(page, { id: "e2e-learner", email: "learner@example.com" });
 }
 
+/**
+ * Signs in as an account of its own for the payment flow (D85), so its
+ * paid plan never changes what other tests see.
+ */
+export async function signInAsBuyer(page: Page, id = "e2e-buyer") {
+  await signInAs(page, { id, email: `${id}@example.com` });
+}
+
 async function signInAs(page: Page, user: { id: string; email: string }) {
   const base64url = (value: unknown) =>
     Buffer.from(JSON.stringify(value)).toString("base64url");

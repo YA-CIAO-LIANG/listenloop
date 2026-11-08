@@ -16,6 +16,8 @@ export const RATE_LIMITS = {
   ai: { windowSeconds: 3600, max: 600 },
   /** Downloading your data. */
   export: { windowSeconds: 3600, max: 10 },
+  /** Starting a checkout or changing a subscription (D85). */
+  billing: { windowSeconds: 3600, max: 20 },
 } as const;
 
 export type RateLimitedAction = keyof typeof RATE_LIMITS;

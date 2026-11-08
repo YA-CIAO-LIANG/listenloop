@@ -16,8 +16,14 @@ export function SiteFooter() {
         aria-label={t("label")}
         className="mx-auto flex max-w-content flex-wrap gap-x-6 gap-y-2 px-4 py-6 text-supporting text-ink-muted split:px-6"
       >
+        <Link href="/pricing" className={linkClassName}>
+          {t("pricing")}
+        </Link>
         <Link href="/terms" className={linkClassName}>
           {t("terms")}
+        </Link>
+        <Link href="/refund" className={linkClassName}>
+          {t("refund")}
         </Link>
         <Link href="/privacy" className={linkClassName}>
           {t("privacy")}

@@ -610,11 +610,13 @@
     "credits": "Credits",
     "label": "Site information",
     "terms": "Terms",
-    "feedback": "Feedback"
+    "feedback": "Feedback",
+    "pricing": "Pricing",
+    "refund": "Refund policy"
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 8, 2026",
+    "updated": "Last updated: November 9, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -656,6 +658,13 @@
           "Microsoft Azure AI services: when you create a practice, its text is sent to Azure OpenAI (the gpt-5-mini model) to split it into sentences, translate it, and write vocabulary and grammar notes, or to write practice text for the situation you pick; its English sentences go to Azure Speech for audio. Under Microsoft's terms, what's sent and what's generated aren't used to train models. Azure OpenAI may keep them for up to 30 days to detect abuse, and may process them in any of Microsoft's regions (a Global Standard deployment); Azure Speech processes them in the United Arab Emirates. Even so, please don't put personal or sensitive information in practice text.",
           "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
           "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard."
+        ]
+      },
+      {
+        "title": "Payment data",
+        "paragraphs": [
+          "When you subscribe to the paid plan, payments are handled by a third-party payment service (not open yet). It collects and keeps your card and payment details; ListenLoop never sees or stores your full card number.",
+          "We keep only what the subscription needs: the plan, billing period, next payment date, and each payment's amount, currency, date, and status (paid or refunded), to provide the paid features, show your payment history, handle refunds, and keep transaction records as the law requires. Deleting your account deletes these too, except records the law requires us to keep."
         ]
       },
       {
@@ -1275,7 +1284,8 @@
       "feedback": "Feedback",
       "errors": "Errors",
       "audit": "Admin audit",
-      "official": "Official"
+      "official": "Official",
+      "revenue": "Revenue"
     },
     "overview": {
       "title": "Admin overview",
@@ -1491,6 +1501,59 @@
       "none": "No recent errors.",
       "digest": "Code {digest}",
       "stack": "Details"
+    },
+    "revenue": {
+      "title": "Revenue",
+      "intro": "Subscribers, monthly recurring revenue, this month's income and refunds, and every subscription and payment.",
+      "off": "No payment service is set up yet, so there are no subscriptions or payments. See docs/payments.md.",
+      "testTag": "Test",
+      "manualPlan": "Change an account's plan by hand (Users)",
+      "waitlistExport": "Download the waiting list (CSV)",
+      "stats": {
+        "subscribers": "Subscribers",
+        "cancelling": "{n} cancelling",
+        "mrr": "Monthly recurring",
+        "net": "Net this month",
+        "refunds": "Refunds this month"
+      },
+      "subscribers": "Subscriptions",
+      "noSubscribers": "No subscriptions yet.",
+      "payments": "Recent payments",
+      "noPayments": "No payments yet.",
+      "columns": {
+        "user": "Account",
+        "interval": "Period",
+        "status": "Status",
+        "periodEnd": "Period ends",
+        "simulate": "Simulate (test)",
+        "time": "Time",
+        "amount": "Amount",
+        "actions": "Actions"
+      },
+      "intervals": {
+        "month": "Monthly",
+        "year": "Yearly"
+      },
+      "statuses": {
+        "active": "Active",
+        "past_due": "Past due",
+        "expired": "Expired"
+      },
+      "paymentStatuses": {
+        "paid": "Paid",
+        "refunded": "Refunded"
+      },
+      "cancelling": "Cancelling",
+      "refund": "Refund…",
+      "refundConfirm": "Refund {amount}",
+      "cancel": "Cancel",
+      "failed": "That didn't work; try again.",
+      "simulate": {
+        "renew": "Renew",
+        "past_due": "Payment fails",
+        "expire": "Expire",
+        "failed": "That didn't work; try again."
+      }
     }
   },
   "events": {
@@ -1737,7 +1800,7 @@
   },
   "terms": {
     "title": "Terms of Service",
-    "updated": "Last updated: November 7, 2026",
+    "updated": "Last updated: November 9, 2026",
     "intro": "Welcome to ListenLoop (the “Service”), a seven-day loop for English listening practice. By using the Service you agree to these terms; if you don’t, please stop using it.",
     "sections": [
       {
@@ -1785,26 +1848,35 @@
         ]
       },
       {
-        "title": "7. Disclaimer",
+        "title": "7. Paid plan and subscriptions",
+        "paragraphs": [
+          "The paid plan is a subscription (monthly or yearly) at the price on the Plans and pricing page. Payments are handled by a third-party payment service.",
+          "Subscriptions renew automatically: at the end of each period, your payment method is charged for the next, until you cancel. Cancel any time on the Account page; you keep the paid plan until the period ends.",
+          "Refunds follow the refund policy: a full refund within 7 days of your first payment. If the price changes, we'll tell you before your next period starts, and you can cancel before it applies.",
+          "When a subscription ends or you return to the free plan, your materials and progress are kept; you just can't add new materials."
+        ]
+      },
+      {
+        "title": "8. Disclaimer",
         "paragraphs": [
           "The Service is provided “as is.” We work to keep it running and its content accurate, but we don’t promise it will be uninterrupted or error-free, or any learning result or test score. Speech recognition depends on your browser and surroundings and is only a practice aid.",
           "As far as the law allows, we aren’t liable for indirect losses from using or being unable to use the Service."
         ]
       },
       {
-        "title": "8. Changes to the Service",
+        "title": "9. Changes to the Service",
         "paragraphs": [
           "We may add, change, or stop features, or change usage limits. If these terms are broken, we may disable accounts or remove content. You can delete your account at any time on the Account page."
         ]
       },
       {
-        "title": "9. Changes to these terms",
+        "title": "10. Changes to these terms",
         "paragraphs": [
           "When these terms change, we update this page and the date above, and announce major changes on the site. Using the Service after a change means you accept the new terms."
         ]
       },
       {
-        "title": "10. Governing law",
+        "title": "11. Governing law",
         "paragraphs": [
           "These terms are governed by the laws of the Republic of China (Taiwan)."
         ]
@@ -2025,5 +2097,138 @@
         "failed": "Couldn't regenerate. Try again later."
       }
     }
+  },
+  "pricing": {
+    "title": "Plans and pricing",
+    "intro": "Every official material and practice feature is free. Choose the paid plan to create more materials of your own with AI and voices.",
+    "comingSoon": "Coming soon",
+    "testMode": "Test mode: payments are simulated, nothing is charged.",
+    "intervalLabel": "Billing period",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "yearlySave": "Save {percent}%",
+    "free": {
+      "title": "Free",
+      "price": "NT$0",
+      "features": {
+        "f1": "Every official material and the 7-day loop",
+        "f2": "Dictation, shadowing, bilingual handouts and PDF",
+        "f3": "Try creating 1 material of your own"
+      }
+    },
+    "paid": {
+      "title": "Paid",
+      "perMonth": "NT${amount, number} / month",
+      "perYear": "NT${amount, number} / year",
+      "yearlyNote": "NT${amount, number} a month on average",
+      "features": {
+        "f1": "Everything in Free",
+        "f2": "Create {max} materials of your own a month",
+        "f3": "Up to {chars, number} characters each"
+      },
+      "subscribe": "Subscribe",
+      "signIn": "Sign in to subscribe: use Sign in at the top right with your Google account.",
+      "current": "You're on the paid plan.",
+      "manage": "Manage subscription"
+    },
+    "notes": {
+      "renew": "Renews automatically. Cancel any time on the Account page; you keep the plan until the period ends.",
+      "refund": "Ask for a full refund within {days} days of your first payment; see the refund policy."
+    },
+    "refundLink": "Refund policy",
+    "termsLink": "Terms"
+  },
+  "checkout": {
+    "fakeTitle": "Test checkout",
+    "fakeIntro": "A pretend checkout for testing the payment flow. Nothing is charged and no card is needed.",
+    "plan": "Plan: Paid ({interval})",
+    "amount": "Amount: NT${amount, number}",
+    "pay": "Simulate a successful payment",
+    "fail": "Simulate a failed payment",
+    "successTitle": "Payment complete",
+    "successIntro": "Thank you! Your paid plan is on: start creating your own materials.",
+    "successPending": "Your payment was sent and is being confirmed. Reload the Account page in a few minutes.",
+    "create": "Create a material",
+    "account": "See your subscription",
+    "failedTitle": "The payment didn't go through",
+    "failedIntro": "Nothing was charged. Go back to the plans and try again; if it keeps happening, tell us through Feedback.",
+    "back": "Back to plans and pricing"
+  },
+  "billing": {
+    "title": "Plan and payments",
+    "plan": "Current plan",
+    "plans": {
+      "free": "Free",
+      "paid": "Paid"
+    },
+    "byAdmin": "Paid (set by an admin)",
+    "interval": {
+      "month": "Monthly",
+      "year": "Yearly"
+    },
+    "renews": "Next payment: {date}",
+    "ends": "Renewal cancelled; your paid plan lasts until {date}.",
+    "pastDue": "A payment failed and will be tried again. Check your payment method, or the plan returns to Free when it ends.",
+    "expired": "Your subscription has ended; you're on the free plan. Your materials are all still here; you just can't add new ones.",
+    "cancel": "Cancel renewal",
+    "cancelHint": "You won't be charged again, and keep the paid plan until this period ends.",
+    "resume": "Renew again",
+    "upgrade": "See the paid plan",
+    "history": "Payment history",
+    "historyEmpty": "No payments yet.",
+    "date": "Date",
+    "amountLabel": "Amount",
+    "status": "Status",
+    "statuses": {
+      "paid": "Paid",
+      "refunded": "Refunded"
+    },
+    "test": "Test",
+    "refundPolicy": "Refund policy"
+  },
+  "refund": {
+    "title": "Refund policy",
+    "updated": "Last updated: November 9, 2026",
+    "intro": "ListenLoop's paid plan is a digital service that renews automatically. This page explains how to cancel and when you can get a refund.",
+    "sections": [
+      {
+        "title": "1. Cancelling renewal",
+        "paragraphs": [
+          "Cancel any time under Plan and payments on the Account page. You won't be charged again; the paid plan lasts until the current period ends, then returns to Free."
+        ]
+      },
+      {
+        "title": "2. Full refund within 7 days",
+        "paragraphs": [
+          "Within 7 days of your first payment (monthly or yearly), ask for a full refund, no reason needed. The paid plan ends when the refund is made."
+        ]
+      },
+      {
+        "title": "3. Later payments",
+        "paragraphs": [
+          "Renewal payments generally aren't refunded. If you forgot to cancel and haven't created a material with the paid plan this period, ask within 7 days of the payment and we'll look at it."
+        ]
+      },
+      {
+        "title": "4. How to ask",
+        "paragraphs": [
+          "Use Feedback at the bottom of any page, with your account's email and the payment date. We reply within 5 working days. Refunds go back to the original payment method; how long they take depends on your bank or payment service."
+        ]
+      },
+      {
+        "title": "5. Your materials after a downgrade",
+        "paragraphs": [
+          "Back on the free plan, your materials and progress are kept and you can keep practicing; you just can't add new materials."
+        ]
+      },
+      {
+        "title": "6. Purchases through Google Play",
+        "paragraphs": [
+          "If you subscribed in the Android app through Google Play, cancelling and refunds follow Google Play's rules."
+        ]
+      }
+    ],
+    "contact": "Questions about refunds? Use",
+    "contactLink": "Feedback"
   }
 }

@@ -11,7 +11,7 @@ type Section = { title: string; paragraphs: string[]; items?: string[] };
 export async function LegalPage({
   namespace,
 }: {
-  namespace: "privacy" | "terms";
+  namespace: "privacy" | "terms" | "refund";
 }) {
   const t = await getTranslations(namespace);
   const sections = t.raw("sections") as Section[];
