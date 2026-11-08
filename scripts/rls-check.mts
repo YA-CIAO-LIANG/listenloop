@@ -35,6 +35,13 @@ const PRIVATE = [
   "error_logs",
   "practice_reports",
   "ai_cache",
+  "usage_settings",
+  "api_batch_cost",
+  "waitlist",
+  // Payments (D85).
+  "subscriptions",
+  "payments",
+  "payment_events",
 ];
 const failures: string[] = [];
 
@@ -68,6 +75,30 @@ for (const [table, row] of [
     "profiles",
     { user_id: "00000000-0000-0000-0000-000000000000", role: "admin" },
   ],
+  // Nobody but the webhook (secret key) records a payment (D85).
+  [
+    "subscriptions",
+    {
+      user_id: "00000000-0000-0000-0000-000000000000",
+      provider: "rls-check",
+      provider_subscription_id: "rls-check",
+      status: "active",
+      billing_interval: "month",
+      current_period_end: "2030-01-01T00:00:00Z",
+    },
+  ],
+  [
+    "payments",
+    {
+      user_id: "00000000-0000-0000-0000-000000000000",
+      provider: "rls-check",
+      provider_payment_id: "rls-check",
+      amount: 0,
+      currency: "TWD",
+      status: "paid",
+    },
+  ],
+  ["payment_events", { provider: "rls-check", event_id: "x", type: "x" }],
 ] as const) {
   const { error } = await anon.from(table).insert(row as never);
   console.log(
