@@ -1409,3 +1409,13 @@
   - **伺服器端**：`topic` 欄位保留（批次腳本仍會用），畫面送出空字串；自訂類別和自訂情境一樣，只在有填時加進 AI 的指示，沒填時請求和以前相同，已錄製的 fixture 仍可使用，這次沒有真實呼叫。
   - 額度設定不變。
 - **要改時**：`components/GenerateTextPanel.tsx`、`components/CreatePracticeForm.tsx`、`lib/custom-practice/generation.ts`、`lib/categories.ts`（`OTHER_CATEGORY`）、`lib/ai/prompts.ts`。
+
+## D83 雙語標題（2026-11-08，夜間任務二）
+
+- **決定**（Joe 指定）：每份教材（官方、使用者自建、影片）都有英文與中文標題，一律先英文後中文；每份都有一句中文副標題。使用者輸入的語言原樣保留（只去前後空白），由伺服器保證；另一種語言自動產生，可在預覽與編輯頁修改。卡片第一行英文、第二行中文、第三行副標題；空間不夠時用「English Title｜中文標題」單行並截斷。搜尋同時比對雙語標題與副標題。
+- **資料**：`practices` 新增 `title_en`、`title_zh`（只新增的 migration），保留原本的 `title` 當作相容欄位（等於英文標題，沒有英文時是中文）。內建影片的 JSON 新增 `titleZh`。舊資料只有 `title` 時，依有沒有漢字判斷它是哪種語言（`lib/titles.ts` 的 `practiceTitles`）。
+- **現有資料**：17 份教材的雙語標題、3 份個人練習缺少的副標題由 Claude 撰寫寫入資料庫，沒有呼叫 Azure。使用者原本打的標題（例如「張多啦」、「With Stephen Miller pick, …」）原樣保留在原本的語言欄位，只補另一種語言。
+- **合理的預設**：
+  - 單行標題後面接其他資訊時改用「 · 」（例如「Sintel｜辛特爾 · 第 1 天 聽寫」），避免兩個「｜」難讀。
+  - 舊版本（D44）的練習也顯示目前的雙語標題：標題不跟著版本走。
+- **要改時**：`lib/titles.ts`、`components/MaterialTitle.tsx`、`supabase/migrations/20261109000000_bilingual_titles.sql`；建立與編輯流程見下一節的補充。

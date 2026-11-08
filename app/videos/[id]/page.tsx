@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { oneLineTitle } from "@/lib/titles";
+import { MaterialTitle } from "@/components/MaterialTitle";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -8,11 +10,7 @@ import { getPracticeState } from "@/auth/practice-material";
 import { getSignedInUser } from "@/auth/session";
 import { PracticePreparing } from "@/components/PracticePreparing";
 import { ReportPractice } from "@/components/ReportPractice";
-import {
-  practiceRobots,
-  preparingMetadata,
-  titleLang,
-} from "@/lib/practice-material";
+import { practiceRobots, preparingMetadata } from "@/lib/practice-material";
 import { getVideo } from "@/lib/video-library";
 import { VideoPlayerPanel } from "./VideoPlayerPanel";
 
@@ -22,7 +20,13 @@ export async function generateMetadata({
   const state = await getPracticeState((await params).id);
   if (state?.status === "preparing") return preparingMetadata(state);
   return state
-    ? { title: state.material.title, ...practiceRobots(state.material) }
+    ? {
+        title: oneLineTitle({
+          en: state.material.title,
+          zh: state.material.titleZh ?? null,
+        }),
+        ...practiceRobots(state.material),
+      }
     : {};
 }
 
@@ -56,9 +60,15 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
           ? `${t(`levels.${video.level}`)} · ${t(`categories.${video.category}`)}`
           : t(material.mine ? "custom" : "shared")}
       </p>
-      <h1 lang={titleLang(material.id)} className="mt-2 font-display text-h1">
-        {material.title}
-      </h1>
+      <MaterialTitle
+        as="h1"
+        titles={{ en: material.title, zh: material.titleZh ?? null }}
+        className="mt-2 font-display text-h1"
+        zhClassName="mt-2 block font-display text-h2 text-ink-muted"
+      />
+      {material.subtitle && (
+        <p className="mt-3 max-w-reading text-ink-muted">{material.subtitle}</p>
+      )}
 
       {video && (
         <div className="mt-8">

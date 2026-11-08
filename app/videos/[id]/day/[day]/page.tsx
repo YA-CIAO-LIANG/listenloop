@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { oneLineTitle } from "@/lib/titles";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { DayGate } from "@/components/DayGate";
@@ -47,7 +48,7 @@ export async function generateMetadata({
   if (state?.status === "preparing") return preparingMetadata(state);
   return state && n
     ? {
-        title: `${await dayTitle(n)} · ${state.material.title}`,
+        title: `${await dayTitle(n)} · ${oneLineTitle({ en: state.material.title, zh: state.material.titleZh ?? null })}`,
         ...practiceRobots(state.material),
       }
     : {};
@@ -95,7 +96,14 @@ export default async function DayPage({
   return (
     <main className="w-full flex-1 px-4 py-6 split:px-6">
       <VersionGate videoId={video.id} version={video.version}>
-        <DayGate videoId={video.id} videoTitle={video.title} day={n}>
+        <DayGate
+          videoId={video.id}
+          videoTitle={oneLineTitle({
+            en: video.title,
+            zh: video.titleZh ?? null,
+          })}
+          day={n}
+        >
           {isShadowingDay(n) ? (
             <ShadowingSession
               video={video}

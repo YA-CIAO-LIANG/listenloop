@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { oneLineTitle, practiceTitles } from "@/lib/titles";
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
@@ -64,7 +65,7 @@ export default async function AdminMaterialsPage({
   let request = admin
     ?.from("practices")
     .select(
-      "id, title, subtitle, user_id, visibility, official, published, sort_order, removed_at, removed_reason, category, scenario, level, exam, exam_target, created_at, notes_generated_at, practice_sentences(audio_path)",
+      "id, title, title_en, title_zh, subtitle, user_id, visibility, official, published, sort_order, removed_at, removed_reason, category, scenario, level, exam, exam_target, created_at, notes_generated_at, practice_sentences(audio_path)",
     )
     // Official materials are managed on /admin/official (D80).
     .eq("official", false)
@@ -190,7 +191,7 @@ export default async function AdminMaterialsPage({
                     href={`/videos/${customPracticeId(practice.id)}`}
                     className="font-medium underline-offset-4 hover:underline"
                   >
-                    {practice.title}
+                    {oneLineTitle(practiceTitles(practice))}
                   </Link>
                   <span className="text-supporting text-ink-muted">
                     {[

@@ -455,6 +455,8 @@ export type Database = {
           source_language: string;
           subtitle: string | null;
           title: string;
+          title_en: string | null;
+          title_zh: string | null;
           updated_at: string;
           user_id: string;
           version: number;
@@ -482,6 +484,8 @@ export type Database = {
           source_language: string;
           subtitle?: string | null;
           title: string;
+          title_en?: string | null;
+          title_zh?: string | null;
           updated_at?: string;
           user_id?: string;
           version?: number;
@@ -509,6 +513,8 @@ export type Database = {
           source_language?: string;
           subtitle?: string | null;
           title?: string;
+          title_en?: string | null;
+          title_zh?: string | null;
           updated_at?: string;
           user_id?: string;
           version?: number;

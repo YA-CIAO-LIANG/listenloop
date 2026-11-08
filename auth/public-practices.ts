@@ -4,6 +4,7 @@ import {
   type PublicPracticeSummary,
 } from "@/lib/custom-practice/explore";
 import { customPracticeId } from "@/lib/practice-material";
+import { practiceTitles } from "@/lib/titles";
 import { getServerSupabase } from "./server";
 import { getSignedInUser } from "./session";
 
@@ -42,7 +43,7 @@ async function listPractices({
     supabase
       .from("practices")
       .select(
-        "id, title, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, practice_sentences(audio_path)",
+        "id, title, title_en, title_zh, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, practice_sentences(audio_path)",
       )
       .eq("visibility", "public")
       // Authors can still read their own taken-down practices (D31).
@@ -76,7 +77,9 @@ async function listPractices({
     return [
       {
         id: customPracticeId(row.id),
-        title: row.title,
+        ...((titles) => ({ title: titles.en, titleZh: titles.zh }))(
+          practiceTitles(row),
+        ),
         sourceLanguage: row.source_language,
         voice: row.voice,
         sentenceCount: sentences.length,

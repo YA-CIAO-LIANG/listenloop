@@ -78,7 +78,9 @@
         }
       }
     ],
-    "official": false
+    "official": false,
+    "title_en": "E2E practice",
+    "title_zh": "問路練習"
   },
   "unfinished": {
     "id": "9a1f3c7e-2b4d-4e6f-8a0b-c1d2e3f4a5b6",
@@ -137,6 +139,8 @@
         "audio_path": "3333333333333333333333333333333333333333333333333333333333333333.wav"
       }
     ],
-    "scenario": "airport-check-in"
+    "scenario": "airport-check-in",
+    "title_en": "E2E official practice",
+    "title_zh": "官方測試練習"
   }
 }

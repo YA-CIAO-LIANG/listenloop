@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { oneLineTitle, practiceTitles } from "@/lib/titles";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
@@ -49,7 +50,7 @@ export default async function OfficialMaterialsPage({
   const { data: rows } = await admin
     .from("practices")
     .select(
-      "id, title, subtitle, user_id, official, published, sort_order, category, scenario, level, exam, exam_target, created_at, version, practice_sentences(audio_path, notes)",
+      "id, title, title_en, title_zh, subtitle, user_id, official, published, sort_order, category, scenario, level, exam, exam_target, created_at, version, practice_sentences(audio_path, notes)",
     )
     .eq("official", true)
     .is("removed_at", null)
@@ -95,7 +96,7 @@ export default async function OfficialMaterialsPage({
                       href={`/videos/${customPracticeId(practice.id)}`}
                       className="tap font-medium underline-offset-4 hover:underline"
                     >
-                      {practice.title}
+                      {oneLineTitle(practiceTitles(practice))}
                     </Link>
                     <span className="text-supporting text-ink-muted">
                       {[

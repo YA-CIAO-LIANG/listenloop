@@ -108,7 +108,10 @@ describe("materialFromCustomPractice", () => {
   it("orders sentences and pairs each with its audio", () => {
     expect(materialFromCustomPractice(row, url)).toEqual({
       id: `p-${uuid}`,
+      // An older practice's only title, Chinese here: no second one (D83).
       title: "第一課",
+      titleZh: null,
+      subtitle: null,
       // Rows read before versions existed are version 1 (D44).
       version: 1,
       sentences: [

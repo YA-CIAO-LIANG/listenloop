@@ -1,5 +1,6 @@
 "use client";
 
+import { oneLineTitle } from "@/lib/titles";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import {
@@ -32,7 +33,7 @@ import type { Progress } from "@/lib/progress";
 import { scoreDictation } from "@/lib/scoring/dictation";
 import { wordDiff } from "@/lib/scoring/word-diff";
 import type { ProgressStore } from "@/lib/storage/progress-store";
-import { titleLang, type PracticeMaterial } from "@/lib/practice-material";
+import { type PracticeMaterial } from "@/lib/practice-material";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { PracticeSkeleton } from "./Skeleton";
@@ -391,7 +392,9 @@ export function DictationSession({
         className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
-        <span lang={titleLang(video.id)}>{video.title}</span>
+        <span>
+          {oneLineTitle({ en: video.title, zh: video.titleZh ?? null })}
+        </span>
       </Link>
       <h1 className="font-display text-h3">{title}</h1>
     </div>

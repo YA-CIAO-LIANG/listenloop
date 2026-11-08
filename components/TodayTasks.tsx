@@ -9,7 +9,7 @@ import { titleLang } from "@/lib/practice-material";
 import type { Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { todayTasks, type TodayTask } from "@/lib/today-tasks";
-import { getVideo } from "@/lib/video-library";
+import { videoTitleLine } from "@/lib/video-library";
 import { ButtonLink } from "./ButtonLink";
 import { Card } from "./Card";
 import { StartNextWeekButton } from "./StartNextWeekButton";
@@ -55,7 +55,7 @@ export function TodayTasks({ store }: TodayTasksProps) {
   const tasks = progresses
     ? todayTasks(progresses, toLocalDate(new Date()), {
         ignoreDates: isDevTestMode(),
-        titleOf: (videoId) => getVideo(videoId)?.title ?? customTitles[videoId],
+        titleOf: (videoId) => videoTitleLine(videoId) ?? customTitles[videoId],
       })
     : null;
 

@@ -110,6 +110,7 @@ const sampleItems: LibraryItem[] = [
     id: "p-styleguide-1",
     kind: "audio",
     title: "Rescheduling the Client Meeting",
+    titleZh: null,
     subtitle: null,
     category: "exam",
     scenario: null,
@@ -127,6 +128,7 @@ const sampleItems: LibraryItem[] = [
     id: "sintel",
     kind: "video",
     title: "Sintel",
+    titleZh: null,
     subtitle: null,
     category: "talks-stories",
     scenario: null,
@@ -154,7 +156,14 @@ export function MaterialCardDemo() {
       <ul className="grid gap-6 split:grid-cols-2">
         {sampleItems.map((item) => (
           <li key={item.id}>
-            <MaterialCard item={{ ...item, subtitle: t("subtitle") }} />
+            <MaterialCard
+              item={{
+                ...item,
+                // Sample Chinese titles from the message files (D83).
+                titleZh: t(item.kind === "video" ? "titleZhVideo" : "titleZh"),
+                subtitle: t("subtitle"),
+              }}
+            />
           </li>
         ))}
       </ul>

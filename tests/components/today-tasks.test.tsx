@@ -70,9 +70,11 @@ describe("TodayTasks", () => {
   it("offers today's day with a start button", async () => {
     await renderTasks([sintelWith({ 1: YESTERDAY })]);
     const item = screen.getByRole("listitem");
-    expect(item.textContent).toContain("Sintel｜第 2 天 跟讀");
+    expect(item.textContent).toContain("Sintel｜辛特爾 · 第 2 天 跟讀");
     expect(item.textContent).toContain("可以做");
-    expect(item.querySelector('[lang="en"]')!.textContent).toBe("Sintel");
+    expect(item.querySelector('[lang="en"]')!.textContent).toBe(
+      "Sintel｜辛特爾",
+    );
     expect(
       screen.getByRole("link", { name: /開始/ }).getAttribute("href"),
     ).toBe("/videos/sintel/day/2");
@@ -100,7 +102,7 @@ describe("TodayTasks", () => {
     };
     const store = await renderTasks([settleWeek(sintelWith(days))]);
     expect(screen.getByRole("listitem").textContent).toContain(
-      "Sintel｜第 2 週重新開始",
+      "Sintel｜辛特爾 · 第 2 週重新開始",
     );
     fireEvent.click(screen.getByRole("button", { name: /開始第 2 週/ }));
     await act(async () => {});

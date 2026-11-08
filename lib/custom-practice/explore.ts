@@ -8,7 +8,10 @@ import type { TextSourceLanguage } from "./split";
 export type PublicPracticeSummary = {
   /** "p-<uuid>", the id in practice links. */
   id: string;
+  /** English title (or an older practice's only title, D83). */
   title: string;
+  /** Chinese title; null until there is one. */
+  titleZh: string | null;
   sourceLanguage: TextSourceLanguage;
   /** Voice id, e.g. "us-female", or null if it couldn't be read. */
   voice: string | null;
@@ -80,7 +83,9 @@ export function filterPublicPractices(
 ): PublicPracticeSummary[] {
   const words = normalize(query).split(" ").filter(Boolean);
   return practices.filter((practice) => {
-    const title = normalize(practice.title);
+    const title = normalize(
+      `${practice.title} ${practice.titleZh ?? ""} ${practice.subtitle ?? ""}`,
+    );
     if (!words.every((word) => title.includes(word))) return false;
     if (languages.length > 0 && !languages.includes(practice.sourceLanguage)) {
       return false;

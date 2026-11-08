@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { oneLineTitle } from "@/lib/titles";
+import { MaterialTitle } from "@/components/MaterialTitle";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -11,7 +13,6 @@ import {
   parseVersionParam,
   practiceRobots,
   preparingMetadata,
-  titleLang,
 } from "@/lib/practice-material";
 
 export async function generateMetadata({
@@ -26,7 +27,7 @@ export async function generateMetadata({
   const t = await getTranslations("handout");
   return state
     ? {
-        title: `${state.material.title} · ${t("title")}`,
+        title: `${oneLineTitle({ en: state.material.title, zh: state.material.titleZh ?? null })} · ${t("title")}`,
         ...practiceRobots(state.material),
       }
     : {};
@@ -61,11 +62,18 @@ export default async function HandoutPage({
         className="tap text-supporting text-ink-muted hover:text-ink print:hidden"
       >
         <span aria-hidden="true">← </span>
-        <span lang={titleLang(video.id)}>{video.title}</span>
+        {oneLineTitle({ en: video.title, zh: video.titleZh ?? null })}
       </Link>
-      <h1 className="mt-6 font-display text-h1 print:mt-0">
-        <span lang={titleLang(video.id)}>{video.title}</span> · {t("title")}
-      </h1>
+      <p className="mt-6 text-metadata tracking-widest text-ink-muted uppercase print:mt-0">
+        {t("title")}
+      </p>
+      {/* English, then Chinese, in print too (D83). */}
+      <MaterialTitle
+        as="h1"
+        titles={{ en: video.title, zh: video.titleZh ?? null }}
+        className="mt-2 font-display text-h1"
+        zhClassName="mt-2 block font-display text-h2 text-ink-muted"
+      />
       <div className="mt-6">
         <VersionGate videoId={video.id} version={video.version}>
           <HandoutGate videoId={video.id}>

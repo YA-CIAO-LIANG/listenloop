@@ -1,6 +1,7 @@
 import { storedNotes } from "./custom-practice/notes";
 import { parseRichNotes, type RichNotes } from "./custom-practice/rich-notes";
 import { isUuid } from "./custom-practice/organize";
+import { practiceTitles } from "./titles";
 import type { Attribution, Video } from "./videos";
 
 /**
@@ -12,6 +13,10 @@ export type PracticeMaterial = Pick<
   Video,
   "id" | "title" | "sentences" | "vocab" | "grammar"
 > & {
+  /** The Chinese title under the English one (D83); null if none yet. */
+  titleZh?: string | null;
+  /** One line on what it practices (D71, D83). */
+  subtitle?: string | null;
   /** Built-in videos credit their source; created practices have none. */
   attribution?: Attribution;
   /** A created practice the viewer made (others' are public ones, D30). */
@@ -59,6 +64,9 @@ export const isCustomPracticeId = (id: string) =>
 export type CustomPracticeRow = {
   id: string;
   title: string;
+  title_en?: string | null;
+  title_zh?: string | null;
+  subtitle?: string | null;
   /** Missing on rows read before versions existed: version 1. */
   version?: number;
   vocab: unknown;
@@ -93,7 +101,9 @@ export function materialFromCustomPractice(
   const notes = storedNotes(row.vocab, row.grammar, rows.length);
   return {
     id: customPracticeId(row.id),
-    title: row.title,
+    title: practiceTitles(row).en,
+    titleZh: practiceTitles(row).zh,
+    subtitle: row.subtitle ?? null,
     version: row.version ?? 1,
     // Each sentence is its own file, so there are no timestamps to keep.
     sentences: rows.map((s, i) => ({

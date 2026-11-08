@@ -12,6 +12,7 @@ const item = (over: Partial<LibraryItem>): LibraryItem => ({
   id: "x",
   kind: "audio",
   title: "Title",
+  titleZh: null,
   subtitle: null,
   category: null,
   scenario: null,
@@ -32,6 +33,7 @@ const items = [
     id: "sintel",
     kind: "video",
     title: "Sintel",
+    titleZh: null,
     subtitle: "少女尋找小龍",
     category: "talks-stories",
     scenario: null,
@@ -41,6 +43,7 @@ const items = [
   item({
     id: "p-1",
     title: "Rescheduling the Client Meeting",
+    titleZh: null,
     category: "exam",
     scenario: null,
     exam: "toeic",
@@ -53,6 +56,7 @@ const items = [
   item({
     id: "p-2",
     title: "Checking In for a Flight Home",
+    titleZh: null,
     category: "travel",
     scenario: "airport-check-in",
     level: "beginner",

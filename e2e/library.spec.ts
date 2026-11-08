@@ -19,6 +19,8 @@ test("the library lists videos and official practices, filtered by the URL", asy
   await expect(official).toContainText("旅遊");
   await expect(official).toContainText("初級");
   await expect(official).toContainText("在機場報到的簡短對話。");
+  // English title first, the Chinese one under it (D83).
+  await expect(official).toContainText("E2E official practice官方測試練習");
   await expect(official).toContainText("英式英語");
 
   const sidebar = page.getByRole("complementary", { name: "篩選" });
@@ -45,6 +47,10 @@ test("the library lists videos and official practices, filtered by the URL", asy
   await expect(cards(page)).toHaveCount(0);
   await page.getByLabel("搜尋").fill("機場");
   await expect(cards(page)).toHaveCount(1);
+  // The Chinese title is searched too (D83).
+  await page.getByLabel("搜尋").fill("辛特爾");
+  await expect(cards(page)).toHaveCount(1);
+  await expect(cards(page).first()).toContainText("Sintel");
   await expect(page).toHaveURL(/q=/);
 });
 
