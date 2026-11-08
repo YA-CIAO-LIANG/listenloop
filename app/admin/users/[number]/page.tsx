@@ -8,6 +8,7 @@ import { EventTable } from "@/components/EventTable";
 import { UserControls } from "@/components/UserControls";
 import { isAccountStatus, isRole, userNumberLabel } from "@/lib/accounts";
 import { isAccountPlan } from "@/lib/plans";
+import { ClassroomSeatsControl } from "@/components/ClassroomSeatsControl";
 import { ADMIN_PAGE_ROWS } from "@/lib/admin-dashboard";
 
 export async function generateMetadata({
@@ -36,7 +37,9 @@ export default async function AdminUserPage({
   ]);
   const { data: profile } = await admin
     .from("profiles")
-    .select("user_id, number, role, status, plan, created_at, last_seen_at")
+    .select(
+      "user_id, number, role, status, plan, classroom_seats, created_at, last_seen_at",
+    )
     .eq("number", number)
     .maybeSingle();
   if (!profile) notFound();
@@ -81,6 +84,10 @@ export default async function AdminUserPage({
             plan: isAccountPlan(profile.plan) ? profile.plan : "free",
           }}
           self={actor?.id === profile.user_id}
+        />
+        <ClassroomSeatsControl
+          userId={profile.user_id}
+          seats={profile.classroom_seats}
         />
       </section>
       <section className="mt-12">

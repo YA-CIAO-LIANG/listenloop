@@ -16,6 +16,8 @@ export type SignedInUser = {
   plan: AccountPlan;
   /** Practices this account has ever created (the free trial, D72). */
   practicesCreated: number;
+  /** A teacher's class plan: its seats (D103), or null without one. */
+  classroomSeats: number | null;
 };
 
 /**
@@ -35,7 +37,7 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
   const email = claims.email ?? "";
   const { data: profile } = await supabase
     .from("profiles")
-    .select("number, role, status, plan, practices_created")
+    .select("number, role, status, plan, practices_created, classroom_seats")
     .eq("user_id", id)
     .maybeSingle();
   if (profile?.status === "disabled") return null;
@@ -58,5 +60,6 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
     role,
     plan: isAccountPlan(profile?.plan) ? profile.plan : "free",
     practicesCreated: profile?.practices_created ?? 0,
+    classroomSeats: profile?.classroom_seats ?? null,
   };
 });
