@@ -1,7 +1,7 @@
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 import { tokenCost, type TokenPrice } from "./pricing";
-import type { DescribeInput } from "./types";
+import type { DescribeInput, RevisionInput } from "./types";
 
 /**
  * How big each language-model call may get (D38). The cap on output
@@ -10,7 +10,7 @@ import type { DescribeInput } from "./types";
  * is reserved against the daily cost limit before the call.
  */
 export type LanguageOperation =
-  "translate" | "annotate" | "segment" | "compose" | "describe";
+  "translate" | "annotate" | "segment" | "compose" | "describe" | "revise";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -73,6 +73,19 @@ export function describeBudget(material: DescribeInput): LanguageBudget {
     operation: "describe",
     inputChars: countChars([material.title, material.text]),
     maxOutputTokens: 300,
+  };
+}
+
+/**
+ * The text back, changed (D96): about a token for every 4 characters,
+ * with room for a longer version, at most 4,000.
+ */
+export function reviseBudget(input: RevisionInput): LanguageBudget {
+  const chars = countChars([...input.lines, input.instruction]);
+  return {
+    operation: "revise",
+    inputChars: chars,
+    maxOutputTokens: capped(chars / 2 + 400, 4_000),
   };
 }
 

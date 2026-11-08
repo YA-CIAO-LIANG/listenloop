@@ -54,3 +54,26 @@ test("on a phone, the form reads top to bottom: title, source, what, how", async
     ),
   ).toBe(false);
 });
+
+test("after AI writes and translates, an instruction revises it and undo brings it back (D96)", async ({
+  page,
+}) => {
+  await signInAsLearner(page);
+  await page.goto("/materials/new");
+  await page.getByText("AI 生成").click();
+  await page.getByRole("button", { name: "生成文字" }).click();
+  await expect(page.getByLabel("文字內容")).not.toHaveValue("");
+  await page.getByRole("button", { name: "斷句並翻譯" }).click();
+  await expect(page.getByLabel("第 1 句英文")).toBeVisible();
+  const before = await page.getByLabel(/第 \d+ 句英文/).count();
+  expect(before).toBeGreaterThan(2);
+
+  // The fake provider keeps the first N for "N 句".
+  await page.getByLabel("修改指令").fill("縮短成 2 句");
+  await page.getByRole("button", { name: "修改", exact: true }).click();
+  await expect(page.getByText(/已修改：2 句中有 0 句變動/)).toBeVisible();
+  await expect(page.getByLabel(/第 \d+ 句英文/)).toHaveCount(2);
+
+  await page.getByRole("button", { name: "復原上一步" }).click();
+  await expect(page.getByLabel(/第 \d+ 句英文/)).toHaveCount(before);
+});

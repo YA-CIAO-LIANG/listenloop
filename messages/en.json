@@ -2302,5 +2302,23 @@
       "green": "Green",
       "gold": "Gold"
     }
+  },
+  "revise": {
+    "title": "Revise with an instruction",
+    "hint": "Tell the AI how to change the English, like “use simpler words”, “more past tense”, or “shorten to 5 sentences”. Only the changed sentences are translated again; each revision counts toward your daily AI use.",
+    "label": "Instruction",
+    "placeholder": "e.g. use simpler words",
+    "revise": "Revise",
+    "revising": "Revising…",
+    "undo": "Undo",
+    "undone": "Undone.",
+    "working": "The AI is revising the English…",
+    "translating": "Translating the {count, plural, one {# changed sentence} other {# changed sentences}}…",
+    "done": "Revised: {changed} of {total} sentences changed and translated again.",
+    "errors": {
+      "limit": "Today’s AI allowance is used up. Try again tomorrow (after midnight Taiwan time).",
+      "busy": "Too many tries. Please wait a moment.",
+      "failed": "That didn’t work. Try wording it differently; your text is unchanged."
+    }
   }
 }

@@ -71,6 +71,14 @@ export const DESCRIBE_INSTRUCTIONS = [
   "Also return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation.",
 ].join("\n");
 
+export const REVISE_INSTRUCTIONS = [
+  "You edit an English listening practice text for Taiwanese students. You get its sentences as lines, an instruction from the learner (in any language), and whether it's a monologue or a dialogue.",
+  "Follow the instruction: for example simpler words, more past tense, or fewer sentences. Change only what the instruction needs.",
+  "Return lines: the whole text after the change, one sentence per line (for a dialogue, one speaker's turn per line, still alternating between two people, with no speaker names or labels).",
+  "Copy every sentence you don't need to change exactly, character for character, so it can be matched to its translation.",
+  "Keep each sentence about 5 to 25 words. Do not write about real people, real brands, or real current events. If the instruction asks for anything unsafe or unrelated to the text, return the lines unchanged.",
+].join("\n");
+
 /**
  * The composition instructions for `prompt` (D81): a custom scenario or a
  * title adds what to do with it; a plain request gets exactly

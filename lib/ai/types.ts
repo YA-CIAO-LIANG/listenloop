@@ -102,7 +102,23 @@ export interface LanguageProvider {
    * `{ subtitle }`. Unchecked: lib/custom-practice/subtitle.ts checks it.
    */
   describe(material: DescribeInput): Promise<Billed<unknown>>;
+  /**
+   * The practice text rewritten by the learner's instruction (D96):
+   * `{ lines }`, unchanged sentences kept exactly. Unchecked:
+   * lib/custom-practice/revise.ts checks it.
+   */
+  revise(input: RevisionInput): Promise<Billed<unknown>>;
 }
+
+/** What a revision (D96) works from. */
+export type RevisionInput = {
+  /** The English sentences now, in order. */
+  lines: string[];
+  /** What to change, in the learner's words (any language). */
+  instruction: string;
+  /** A dialogue keeps alternating turns. */
+  format: "dialogue" | "monologue";
+};
 
 /**
  * What a subtitle (D71) and the missing title (D83) are written from: the
