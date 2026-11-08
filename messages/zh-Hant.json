@@ -142,7 +142,8 @@
     "declined": "比第 1 天低 {points} 個百分點",
     "same": "和第 1 天一樣",
     "passedMessage": "通過！這支影片的七天循環完成了。",
-    "repeatMessage": "還差一點：第 7 天要達到 80% 才通過。同一支影片再練一週。",
+    "repeatImprove": "還差一點：第 7 天要比第 1 天進步才通過。同一支影片再練一週。",
+    "repeatScore": "還差一點：第 7 天要達到 {min} 才通過。同一支影片再練一週。",
     "startNext": "開始第 {week} 週",
     "nextTomorrow": "第 {week} 週明天開始",
     "canStartNext": "可以開始第 {week} 週",
@@ -471,11 +472,14 @@
     "thisAttempt": "這次的成績",
     "todayDone": "今日任務完成",
     "retryComplete": "練習完成！",
-    "notesLabel": "這句的講解"
+    "notesLabel": "這句的講解",
+    "belowMinimum": "這次正確率 {score}，低於這份練習設定的 {min}，這次不算完成。再聽寫一次吧！",
+    "dictateAgain": "再聽寫一次",
+    "changeRules": "調整通關條件"
   },
   "redictation": {
     "title": "第 7 天：重新聽寫",
-    "intro": "再聽寫一次整支影片。完成後會和第 1 天比較；正確率達 80% 就通過這一週。"
+    "intro": "再聽寫一次整支影片。完成後會和第 1 天比較，達到這份練習的通關條件（預設：比第 1 天進步）就通過這一週。"
   },
   "handout": {
     "title": "雙語講義",
@@ -1256,7 +1260,8 @@
       "practicesPerMonth": "這個月已經建立 {max} 份練習，達到方案上限，下個月再試。",
       "activePractices": "你同時在練的練習已經有 {max} 份，達到方案上限。先完成或移除一份，再開始新的。",
       "charsPerPractice": "文字超過方案上限，每份練習最多 {max, number} 字元。",
-      "practicesTotal": "免費方案可以試做 {max} 份自己的教材，你已經用完了。"
+      "practicesTotal": "免費方案可以試做 {max} 份自己的教材，你已經用完了。",
+      "customRules": "自訂通關條件是付費方案的功能。"
     },
     "seePractices": "查看學習進度",
     "paid": {
@@ -1942,7 +1947,7 @@
       "day7": {
         "label": "第 7 天",
         "title": "再聽寫一次",
-        "body": "和第 1 天比較，看見進步。80% 以上就過關。"
+        "body": "和第 1 天比較，看見進步。比第 1 天進步就過關。"
       }
     },
     "note": "一天練一次，每份大約 10～20 分鐘。不用登入就能開始；登入後可以在不同裝置同步進度。",
@@ -2032,7 +2037,7 @@
     "dayColumn": "天",
     "weighted": "加權正確率",
     "raw": "原始正確率",
-    "passMark": "通過 80%",
+    "passMark": "參考線 80%",
     "compareTitle": "第 1 天與第 7 天",
     "compareSummary": "{count} 份教材有第 1 天和第 7 天的成績，其中 {improved} 份進步。",
     "compareEmpty": "完成一份教材的第 7 天後，這裡會比較第 1 天和第 7 天。",
@@ -2229,5 +2234,20 @@
     ],
     "contact": "對退款有疑問，請透過",
     "contactLink": "意見回饋"
+  },
+  "passRules": {
+    "title": "通關條件",
+    "intro": "決定每天怎樣算完成、這一週怎樣算通過。改了之後，還沒完成的天數和這週的結算都會照新的條件。",
+    "dictationMin": "聽寫最低正確率（第 1、7 天）",
+    "anyScore": "不限：每句都作答就完成",
+    "shadowingMin": "跟讀每句最低涵蓋率（第 2～6 天）",
+    "day7": "第 7 天通過條件",
+    "improve": "比第 1 天進步",
+    "reach": "正確率達到 {score}",
+    "paidOnly": "目前使用預設條件。自訂通關條件是付費方案的功能。",
+    "seePlans": "看方案",
+    "startFirst": "開始第 1 天之後就可以調整。",
+    "saved": "已儲存。",
+    "failed": "無法儲存，請稍後再試。"
   }
 }

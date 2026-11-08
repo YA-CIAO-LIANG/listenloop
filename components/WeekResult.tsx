@@ -4,6 +4,7 @@ import { useFormatter, useTranslations } from "next-intl";
 import { isDevTestMode } from "@/lib/config";
 import { canStartNextWeek, weekComparison } from "@/lib/cycle";
 import { toLocalDate } from "@/lib/dates";
+import { passRulesOf } from "@/lib/pass-rules";
 import type { Progress } from "@/lib/progress";
 import { wordDiff } from "@/lib/scoring/word-diff";
 import type { ProgressStore } from "@/lib/storage/progress-store";
@@ -45,6 +46,7 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
     Math.round(to * 100) - Math.round(from * 100);
   const change = points(comparison.day1, comparison.day7);
   const passed = progress.status === "passed";
+  const rules = passRulesOf(progress);
   const canStart = canStartNextWeek(progress, toLocalDate(new Date()), {
     ignoreDates: isDevTestMode(),
   });
@@ -87,7 +89,7 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
             <p className="text-metadata tracking-widest text-ink-muted uppercase">
               {t("day7")}
             </p>
-            <ScoreBadge score={comparison.day7} />
+            <ScoreBadge score={comparison.day7} passed={passed} />
           </div>
         </div>
         {day7Pace && (
@@ -109,7 +111,11 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
         </p>
 
         <p className="font-display text-h3">
-          {passed ? t("passedMessage") : t("repeatMessage")}
+          {passed
+            ? t("passedMessage")
+            : rules.day7.kind === "score"
+              ? t("repeatScore", { min: percent(rules.day7.min) })
+              : t("repeatImprove")}
         </p>
         <div className="flex flex-wrap items-center gap-3">
           {passed ? (

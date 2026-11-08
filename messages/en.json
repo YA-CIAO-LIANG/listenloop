@@ -142,7 +142,8 @@
     "declined": "{points} percentage points below Day 1",
     "same": "Same as Day 1",
     "passedMessage": "Passed! You’ve finished the 7-day cycle for this video.",
-    "repeatMessage": "Almost there: Day 7 needs 80% to pass. Practice the same video for another week.",
+    "repeatImprove": "Almost there: Day 7 needs to beat Day 1 to pass. Practice the same video for another week.",
+    "repeatScore": "Almost there: Day 7 needs {min} to pass. Practice the same video for another week.",
     "startNext": "Start week {week}",
     "nextTomorrow": "Week {week} starts tomorrow",
     "canStartNext": "Week {week} can start",
@@ -471,11 +472,14 @@
     "thisAttempt": "This attempt",
     "todayDone": "Today’s task done",
     "retryComplete": "Practice done!",
-    "notesLabel": "Notes on this sentence"
+    "notesLabel": "Notes on this sentence",
+    "belowMinimum": "This attempt scored {score}, below this practice’s minimum of {min}, so it doesn’t count yet. Try the dictation again!",
+    "dictateAgain": "Dictate again",
+    "changeRules": "Change the pass rules"
   },
   "redictation": {
     "title": "Day 7: Re-dictation",
-    "intro": "Dictate the whole video once more. You’ll compare with Day 1; 80% accuracy or more passes the week."
+    "intro": "Dictate the whole video once more. You’ll compare with Day 1; meeting this practice’s pass rule (by default, beating Day 1) passes the week."
   },
   "handout": {
     "title": "Bilingual handout",
@@ -1258,7 +1262,8 @@
       "practicesPerMonth": "You’ve created {max} practices this month, your plan’s limit. Try again next month.",
       "activePractices": "You already have {max} practices in progress, your plan’s limit. Finish or remove one before starting another.",
       "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice.",
-      "practicesTotal": "The free plan lets you try {max} practice of your own, and you've made it."
+      "practicesTotal": "The free plan lets you try {max} practice of your own, and you've made it.",
+      "customRules": "Custom pass rules are part of the paid plans."
     },
     "seePractices": "See your progress",
     "paid": {
@@ -1946,7 +1951,7 @@
       "day7": {
         "label": "Day 7",
         "title": "Dictation again",
-        "body": "Compare with Day 1 and see your progress. 80% or more passes."
+        "body": "Compare with Day 1 and see your progress. Beat Day 1 to pass."
       }
     },
     "note": "One session a day, about 10–20 minutes. Start without signing in; sign in to sync across devices.",
@@ -2036,7 +2041,7 @@
     "dayColumn": "Day",
     "weighted": "Weighted accuracy",
     "raw": "Raw accuracy",
-    "passMark": "Pass: 80%",
+    "passMark": "Reference: 80%",
     "compareTitle": "Day 1 and Day 7",
     "compareSummary": "{count} materials have Day 1 and Day 7 scores; {improved} improved.",
     "compareEmpty": "Finish Day 7 of a material to compare it with Day 1 here.",
@@ -2233,5 +2238,20 @@
     ],
     "contact": "Questions about refunds? Use",
     "contactLink": "Feedback"
+  },
+  "passRules": {
+    "title": "Pass rules",
+    "intro": "Decide what finishes each day and what passes the week. Changes apply to the days you haven’t finished and to this week’s result.",
+    "dictationMin": "Lowest dictation accuracy (Days 1 and 7)",
+    "anyScore": "Any: answering every sentence finishes the day",
+    "shadowingMin": "Lowest coverage per shadowed sentence (Days 2–6)",
+    "day7": "To pass on Day 7",
+    "improve": "Beat Day 1",
+    "reach": "Reach {score} accuracy",
+    "paidOnly": "Using the default rules. Custom pass rules are part of the paid plans.",
+    "seePlans": "See plans",
+    "startFirst": "You can change them once you’ve started Day 1.",
+    "saved": "Saved.",
+    "failed": "Couldn’t save. Please try again later."
   }
 }

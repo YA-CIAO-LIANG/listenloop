@@ -1,10 +1,8 @@
 import { isLaterDay, type LocalDate } from "./dates";
+import { passesWeek, passRulesOf } from "./pass-rules";
 import type { Progress } from "./progress";
 import { scoreDictation } from "./scoring/dictation";
 import type { Sentence } from "./videos";
-
-/** Day 7 accuracy at or above this passes the week (see CLAUDE.md 週結算). */
-export const PASS_THRESHOLD = 0.8;
 
 export const DAYS_PER_CYCLE = 7;
 
@@ -25,11 +23,6 @@ export function officialScore(record: {
   weightedScore?: number;
 }): number | undefined {
   return record.weightedScore ?? record.score;
-}
-
-/** Score is a ratio between 0 and 1. */
-export function isPassingScore(score: number): boolean {
-  return score >= PASS_THRESHOLD;
 }
 
 /** Day 1 is dictation, Days 2–6 are shadowing, Day 7 is re-dictation. */
@@ -119,8 +112,9 @@ export function canOpenDay(
 }
 
 /**
- * Closes the week after Day 7: passed at PASS_THRESHOLD or above, otherwise
- * "repeat". The week's scores are appended to history.
+ * Closes the week after Day 7 by the practice's pass rules (D92; by
+ * default, Day 7 beats Day 1), otherwise "repeat". The week's scores are
+ * appended to history.
  */
 export function settleWeek(progress: Progress): Progress {
   if (progress.status !== "in-progress") return progress;
@@ -132,8 +126,12 @@ export function settleWeek(progress: Progress): Progress {
     throw new Error("Cannot settle a week before Day 1 and Day 7 are scored");
   }
 
-  // The weighted score passes or fails the week (D73).
-  const passed = isPassingScore(officialScore(day7) ?? day7.score);
+  // The weighted scores pass or fail the week (D73).
+  const passed = passesWeek(
+    officialScore(day1!) ?? day1Score,
+    officialScore(day7) ?? day7.score,
+    passRulesOf(progress),
+  );
   return {
     ...progress,
     status: passed ? "passed" : "repeat",

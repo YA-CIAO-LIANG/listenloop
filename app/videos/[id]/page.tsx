@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { CycleStatus } from "@/components/CycleStatus";
+import { PassRulesSettings } from "@/components/PassRulesSettings";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import { getPracticeState } from "@/auth/practice-material";
 import { getSignedInUser } from "@/auth/session";
@@ -86,6 +87,9 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
 
       <div className="mt-8">
         <CycleStatus videoId={material.id} />
+      </div>
+      <div className="mt-12 border-t border-line pt-6">
+        <PassRulesSettings videoId={material.id} />
       </div>
 
       {video && (

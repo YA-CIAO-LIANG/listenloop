@@ -1,4 +1,5 @@
 import { settleWeek } from "./cycle";
+import { meetsDictationMin, passRulesOf } from "./pass-rules";
 import type { LocalDate } from "./dates";
 import { createProgress, pinVersion, withDay, type Progress } from "./progress";
 import { scoreDictation, totalAccuracy } from "./scoring/dictation";
@@ -143,15 +144,56 @@ export function submitAnswer(
     });
   }
 
+  const score = attemptScore(sentences, next);
+  const weightedScore = attemptWeightedScore(sentences, next, speeds);
+  // Below the practice's minimum (D92): every answer is in, but the day
+  // isn't done; the learner dictates it again (restartDictation).
+  if (!meetsDictationMin(weightedScore, passRulesOf(progress))) {
+    return withDay(progress, day, {
+      done: false,
+      score,
+      weightedScore,
+      answers: [...next],
+      speeds: [...speeds],
+    });
+  }
   const finished = withDay(progress, day, {
     done: true,
     date: today,
-    score: attemptScore(sentences, next),
-    weightedScore: attemptWeightedScore(sentences, next, speeds),
+    score,
+    weightedScore,
     answers: [...next],
     speeds: [...speeds],
   });
   return day === 7 && finished.days[1]?.score !== undefined
     ? settleWeek(finished)
     : finished;
+}
+
+/**
+ * Whether the official attempt has every answer but fell short of the
+ * practice's minimum accuracy (D92), so it has to be done again.
+ */
+export function isBelowMinimum(progress: Progress | null, day: DictationDay) {
+  const record = progress?.days[day];
+  return Boolean(
+    record &&
+    !record.done &&
+    record.answers &&
+    record.answers.length > 0 &&
+    nextUnanswered(record.answers) === -1,
+  );
+}
+
+/** Clears a short-of-the-minimum attempt so the day starts over (D92). */
+export function restartDictation(
+  progress: Progress,
+  day: DictationDay,
+): Progress {
+  const record = progress.days[day];
+  if (!record?.answers || !isBelowMinimum(progress, day)) return progress;
+  return withDay(progress, day, {
+    done: false,
+    answers: emptyAnswers(record.answers.length),
+  });
 }

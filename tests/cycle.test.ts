@@ -1,20 +1,26 @@
 import { describe, expect, it } from "vitest";
 import {
-  PASS_THRESHOLD,
   canOpenDay,
   canStartNextWeek,
   currentDay,
   dayStatuses,
   lastDoneDay,
   lockReason,
-  isPassingScore,
   settleWeek,
   startNextWeek,
   taskForDay,
   weekComparison,
   type CycleDay,
 } from "@/lib/cycle";
+import type { PassRules } from "@/lib/pass-rules";
 import { createProgress, withDay, type Progress } from "@/lib/progress";
+
+/** The original rule (D92: now one of the choices): Day 7 at 80%. */
+const EIGHTY: PassRules = {
+  dictationMin: 0,
+  shadowingMin: 0.6,
+  day7: { kind: "score", min: 0.8 },
+};
 
 const START = "2026-10-24";
 
@@ -31,22 +37,6 @@ function doneThrough(n: number): Progress {
   }
   return progress;
 }
-
-describe("isPassingScore", () => {
-  it("passes at exactly the threshold", () => {
-    expect(PASS_THRESHOLD).toBe(0.8);
-    expect(isPassingScore(0.8)).toBe(true);
-  });
-
-  it.each([
-    [1, true],
-    [0.86, true],
-    [0.79, false],
-    [0, false],
-  ])("%s → %s", (score, expected) => {
-    expect(isPassingScore(score)).toBe(expected);
-  });
-});
 
 describe("taskForDay", () => {
   it.each<[CycleDay, string]>([
@@ -133,11 +123,11 @@ describe("canOpenDay", () => {
 });
 
 describe("settleWeek", () => {
-  it("passes at 80% on Day 7 and records the week", () => {
+  it("passes by default when Day 7 beats Day 1, and records the week (D92)", () => {
     const progress = withDay(doneThrough(7), 7, {
       done: true,
       date: "2026-10-30",
-      score: 0.8,
+      score: 0.72,
     });
     const settled = settleWeek(progress);
     expect(settled.status).toBe("passed");
@@ -146,17 +136,38 @@ describe("settleWeek", () => {
         week: 1,
         startedAt: START,
         day1Score: 0.7,
-        day7Score: 0.8,
+        day7Score: 0.72,
         day1Weighted: 0.7,
-        day7Weighted: 0.8,
+        day7Weighted: 0.72,
         passed: true,
       },
     ]);
   });
 
+  it("asks to repeat by default when Day 7 doesn't beat Day 1", () => {
+    const settled = settleWeek(doneThrough(7)); // 0.7 → 0.7
+    expect(settled.status).toBe("repeat");
+    expect(settled.history[0].passed).toBe(false);
+  });
+
+  it("with the 80% rule, passes at exactly 80% and repeats below", () => {
+    const at = withDay({ ...doneThrough(7), rules: EIGHTY }, 7, {
+      done: true,
+      date: "2026-10-30",
+      score: 0.8,
+    });
+    expect(settleWeek(at).status).toBe("passed");
+    const below = withDay({ ...doneThrough(7), rules: EIGHTY }, 7, {
+      done: true,
+      date: "2026-10-30",
+      score: 0.79,
+    });
+    expect(settleWeek(below).status).toBe("repeat");
+  });
+
   it("passes or fails on the speed-weighted score (D73)", () => {
     const slow = settleWeek(
-      withDay(doneThrough(7), 7, {
+      withDay({ ...doneThrough(7), rules: EIGHTY }, 7, {
         done: true,
         date: "2026-10-30",
         score: 0.85,
@@ -170,7 +181,7 @@ describe("settleWeek", () => {
       passed: false,
     });
     const fast = settleWeek(
-      withDay(doneThrough(7), 7, {
+      withDay({ ...doneThrough(7), rules: EIGHTY }, 7, {
         done: true,
         date: "2026-10-30",
         score: 0.78,
@@ -178,12 +189,6 @@ describe("settleWeek", () => {
       }),
     );
     expect(fast.status).toBe("passed");
-  });
-
-  it("asks to repeat below 80%", () => {
-    const settled = settleWeek(doneThrough(7)); // Day 7 score 0.7
-    expect(settled.status).toBe("repeat");
-    expect(settled.history[0].passed).toBe(false);
   });
 
   it("does nothing to an already settled week", () => {

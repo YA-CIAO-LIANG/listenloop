@@ -1,5 +1,6 @@
 import type { CycleDay } from "./cycle";
 import { isLocalDate, type LocalDate } from "./dates";
+import { isPassRules, type PassRules } from "./pass-rules";
 
 /** Shape saved per video (see CLAUDE.md 資料格式 → 進度). */
 
@@ -17,7 +18,11 @@ export type DayRecord = {
   done: boolean;
   /** Local date the day was completed. */
   date?: LocalDate;
-  /** Dictation accuracy for Day 1 and Day 7, between 0 and 1. */
+  /**
+   * Dictation accuracy for Day 1 and Day 7, between 0 and 1. On a day that
+   * isn't done but has every answer, the attempt fell short of the
+   * practice's minimum (D92) and is waiting to be done again.
+   */
   score?: number;
   /**
    * Day 1 and Day 7 accuracy weighted by playback speed (D73); what Day 7
@@ -61,6 +66,12 @@ export type Progress = {
    * all used version 1.
    */
   materialVersion?: number;
+  /**
+   * This practice's own pass rules (D92), set in its settings; missing
+   * means DEFAULT_PASS_RULES. Changing them applies to the days not yet
+   * finished and to the week's result.
+   */
+  rules?: PassRules;
 };
 
 export function createProgress(videoId: string, today: LocalDate): Progress {
@@ -172,6 +183,7 @@ export function parseProgress(data: unknown): Progress | null {
   ) {
     return null;
   }
+  if (data.rules !== undefined && !isPassRules(data.rules)) return null;
   return data as Progress;
 }
 

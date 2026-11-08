@@ -1,8 +1,13 @@
 import { alignWords, countMatches, type AlignOp } from "./align";
 import { normalizeWords } from "./normalize";
 
-/** A sentence counts as read aloud when at least this share of words is heard. */
-export const COVERAGE_THRESHOLD = 0.7;
+import { DEFAULT_PASS_RULES } from "../pass-rules";
+
+/**
+ * By default a sentence counts as read aloud when at least this share of
+ * words is heard; each practice can set its own (D92).
+ */
+export const COVERAGE_THRESHOLD = DEFAULT_PASS_RULES.shadowingMin;
 
 export type ShadowingResult = {
   ops: AlignOp[];
@@ -17,6 +22,8 @@ export type ShadowingResult = {
 export function scoreShadowing(
   reference: string,
   transcript: string,
+  /** The practice's threshold (D92). */
+  threshold: number = COVERAGE_THRESHOLD,
 ): ShadowingResult {
   const ops = alignWords(normalizeWords(reference), normalizeWords(transcript));
   const refOps = ops.filter((op) => op.type !== "insert");
@@ -29,7 +36,8 @@ export function scoreShadowing(
   return {
     ops,
     coverage,
-    complete: coverage >= COVERAGE_THRESHOLD,
+    // Scores are sums of fractions; 0.6 can arrive as 0.5999999999999999.
+    complete: coverage + 1e-9 >= threshold,
     missedIndexes,
   };
 }

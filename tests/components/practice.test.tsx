@@ -68,10 +68,15 @@ describe("ScoreBadge", () => {
     expect(screen.queryByText("通過")).toBeNull();
   });
 
-  it("adds a text label (not only color) at 80% and above", () => {
-    renderWithIntl(<ScoreBadge score={0.8} />, "en");
+  it("adds a text label (not only color) when the week passed", () => {
+    renderWithIntl(<ScoreBadge score={0.8} passed />, "en");
     expect(screen.getByText("80%")).toBeDefined();
     expect(screen.getByText("Passed")).toBeDefined();
+  });
+
+  it("says nothing about passing on its own (D92)", () => {
+    renderWithIntl(<ScoreBadge score={0.95} />, "en");
+    expect(screen.queryByText("Passed")).toBeNull();
   });
 });
 

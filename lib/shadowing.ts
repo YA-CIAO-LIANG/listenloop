@@ -6,7 +6,12 @@ import {
   type Progress,
   type ShadowingSentenceRecord,
 } from "./progress";
-import { COVERAGE_THRESHOLD } from "./scoring/shadowing";
+import {
+  DEFAULT_PASS_RULES,
+  meetsShadowingMin,
+  passRulesOf,
+  type PassRules,
+} from "./pass-rules";
 
 /** Shadowing happens on Days 2–6. */
 export type ShadowingDay = 2 | 3 | 4 | 5 | 6;
@@ -38,8 +43,9 @@ export function nextUnfinished(records: SentenceRecords): number {
 }
 
 /**
- * Records an attempt. A sentence is done once any attempt reaches
- * COVERAGE_THRESHOLD (70%) or the learner marks it done by hand (when speech
+ * Records an attempt. A sentence is done once any attempt reaches the
+ * practice's coverage minimum (D92; 60% by default) or the learner marks
+ * it done by hand (when speech
  * recognition isn't available). The best coverage is kept; a done sentence
  * never becomes undone.
  */
@@ -47,6 +53,7 @@ export function recordAttempt(
   records: SentenceRecords,
   index: number,
   attempt: ShadowingAttempt,
+  rules: PassRules = DEFAULT_PASS_RULES,
 ): SentenceRecords {
   const previous = records[index];
   if (!previous) return records;
@@ -63,7 +70,7 @@ export function recordAttempt(
   }
 
   const coverage = Math.max(previous.coverage ?? 0, attempt.coverage);
-  const done = previous.done || attempt.coverage >= COVERAGE_THRESHOLD;
+  const done = previous.done || meetsShadowingMin(attempt.coverage, rules);
   if (done === previous.done && coverage === previous.coverage) return records;
   return records.map((r, i) => (i === index ? { ...r, done, coverage } : r));
 }
@@ -117,7 +124,7 @@ export function submitShadowing(
   const sentences = record?.sentences;
   if (!record || !sentences || record.done) return progress;
 
-  const next = recordAttempt(sentences, index, attempt);
+  const next = recordAttempt(sentences, index, attempt, passRulesOf(progress));
   if (next === sentences) return progress;
   const done = nextUnfinished(next) === -1;
   return withDay(progress, day, {
