@@ -1,10 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const state = vi.hoisted(() => ({
-  user: { id: "admin-1", email: "joe@example.com" } as { id: string } | null,
+  user: { id: "admin-1" } as { id: string } | null,
   admin: true,
-  updates: [] as { row: unknown; filters: [string, string, unknown][] }[],
-  rows: [{ id: "p1" }] as unknown[],
+  own: { id: "p1" } as unknown,
+  copy: "copy-1" as string | null,
+  rpc: vi.fn(),
+  filters: [] as [string, string, unknown][],
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
@@ -15,76 +17,75 @@ vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () =>
     state.admin
       ? {
-          from: () => ({
-            update: (row: unknown) => {
-              const filters: [string, string, unknown][] = [];
-              const chain = {
-                eq: (c: string, v: unknown) => (
-                  filters.push(["eq", c, v]),
-                  chain
-                ),
-                is: (c: string, v: unknown) => (
-                  filters.push(["is", c, v]),
-                  chain
-                ),
-                select: async () => {
-                  state.updates.push({ row, filters });
-                  return { data: state.rows, error: null };
-                },
-              };
-              return chain;
-            },
-          }),
+          from: () => {
+            const chain = {
+              select: () => chain,
+              eq: (c: string, v: unknown) => (
+                state.filters.push(["eq", c, v]),
+                chain
+              ),
+              is: (c: string, v: unknown) => (
+                state.filters.push(["is", c, v]),
+                chain
+              ),
+              maybeSingle: async () => ({ data: state.own, error: null }),
+            };
+            return chain;
+          },
+          rpc: async (name: string, args: unknown) => (
+            state.rpc(name, args),
+            { data: state.copy, error: null }
+          ),
         }
       : null,
 }));
 
-const { setOfficial } = await import("@/app/materials/organize-actions");
+const { copyAsOfficial } = await import("@/app/materials/organize-actions");
 const id = "00000000-0000-4000-8000-000000000001";
 
 beforeEach(() => {
   state.user = { id: "admin-1" };
   state.admin = true;
-  state.updates = [];
-  state.rows = [{ id }];
+  state.own = { id };
+  state.copy = "copy-1";
+  state.rpc.mockReset();
+  state.filters = [];
+  logAudit.mockReset();
 });
 
-describe("setOfficial", () => {
-  it("marks the admin's own practice an official draft, with the secret key (D58)", async () => {
-    expect(await setOfficial(id, true)).toEqual({ ok: true });
-    expect(state.updates).toEqual([
-      {
-        row: { official: true, published: false, visibility: "private" },
-        filters: [
-          ["eq", "id", id],
-          ["eq", "user_id", "admin-1"],
-          ["is", "removed_at", null],
-        ],
-      },
+describe("copyAsOfficial (D80)", () => {
+  it("copies the admin's own practice to an official draft, keeping it", async () => {
+    expect(await copyAsOfficial(id)).toEqual({ ok: true, id: "copy-1" });
+    expect(state.filters).toEqual([
+      ["eq", "id", id],
+      ["eq", "user_id", "admin-1"],
+      ["is", "removed_at", null],
     ]);
-  });
-
-  it("unmarks without changing visibility", async () => {
-    await setOfficial(id, false);
-    expect(state.updates[0].row).toEqual({ official: false, published: true });
+    expect(state.rpc).toHaveBeenCalledWith("copy_practice_as_official", {
+      source: id,
+      actor: "admin-1",
+    });
+    expect(logAudit).toHaveBeenCalledWith(
+      "admin-1",
+      "practice.copy-official",
+      { type: "practice", id: "copy-1" },
+      { from: id },
+    );
   });
 
   it("says when it isn't theirs, is invalid, or isn't available", async () => {
-    state.rows = [];
-    expect(await setOfficial(id, true)).toEqual({
+    state.own = null;
+    expect(await copyAsOfficial(id)).toEqual({
       ok: false,
       reason: "not-found",
     });
-    expect(await setOfficial("x", true)).toEqual({
-      ok: false,
-      reason: "invalid",
-    });
-    expect(await setOfficial(id, "yes")).toEqual({
+    expect(state.rpc).not.toHaveBeenCalled();
+    expect(await copyAsOfficial("x")).toEqual({
       ok: false,
       reason: "invalid",
     });
     state.user = null;
-    expect(await setOfficial(id, true)).toEqual({
+    expect(await copyAsOfficial(id)).toEqual({
       ok: false,
       reason: "unavailable",
     });

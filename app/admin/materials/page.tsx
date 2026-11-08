@@ -66,19 +66,18 @@ export default async function AdminMaterialsPage({
     .select(
       "id, title, subtitle, user_id, visibility, official, published, sort_order, removed_at, removed_reason, category, scenario, level, exam, exam_target, created_at, notes_generated_at, practice_sentences(audio_path)",
     )
-    .or("official.eq.true,visibility.eq.public,removed_at.not.is.null")
+    // Official materials are managed on /admin/official (D80).
+    .eq("official", false)
+    .or("visibility.eq.public,removed_at.not.is.null")
     .order("created_at", { ascending: false })
     .limit(200);
   if (request && category) request = request.eq("category", category);
   if (request && exam) request = request.eq("exam", exam);
-  if (request && status === "draft") {
-    request = request.eq("official", true).eq("published", false);
-  }
-  if (request && status === "published") {
-    request = request.eq("official", true).eq("published", true);
-  }
   if (request && status === "public") {
-    request = request.eq("official", false).eq("visibility", "public");
+    request = request.eq("visibility", "public").is("removed_at", null);
+  }
+  if (request && status === "removed") {
+    request = request.not("removed_at", "is", null);
   }
   const { data: rows } = request ? await request : { data: null };
   const practices = rows ?? [];
@@ -243,6 +242,7 @@ export default async function AdminMaterialsPage({
                 </p>
                 {!practice.removed_at && (
                   <MaterialControls
+                    manageOfficial={false}
                     practice={{
                       id: practice.id,
                       title: practice.title,

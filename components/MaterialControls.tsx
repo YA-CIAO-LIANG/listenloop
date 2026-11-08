@@ -44,6 +44,11 @@ type MaterialControlsProps = {
     /** The viewer made it, so its edit page opens. */
     editable: boolean;
   };
+  /**
+   * Official state, order, and summary (on /admin/official, D80); off on
+   * the public-material list, which keeps the category only.
+   */
+  manageOfficial?: boolean;
   /** Injected in tests; the Server Actions otherwise. */
   setOfficialState?: typeof setOfficialStateAction;
   moveOfficial?: typeof moveOfficialAction;
@@ -59,6 +64,7 @@ type MaterialControlsProps = {
  */
 export function MaterialControls({
   practice,
+  manageOfficial = true,
   setOfficialState = setOfficialStateAction,
   moveOfficial = moveOfficialAction,
   setMaterialCategory = setMaterialCategoryAction,
@@ -132,51 +138,57 @@ export function MaterialControls({
   return (
     <div className="space-y-3 text-supporting">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <label htmlFor={ids.state} className="text-ink-muted">
-          {t("stateLabel")}
-        </label>
-        <select
-          id={ids.state}
-          value={practice.state}
-          disabled={pending}
-          onChange={(event) =>
-            run(() => setOfficialState(practice.id, event.target.value))
-          }
-          className={selectClass}
-        >
-          {(["none", "draft", "published"] as const).map((state) => (
-            <option key={state} value={state}>
-              {t(`states.${state}`)}
-            </option>
-          ))}
-        </select>
-        {practice.position !== null && (
-          <span className="flex items-center gap-1">
-            <span className="text-ink-muted tabular-nums">
-              {t("position", {
-                n: practice.position + 1,
-                total: practice.published,
-              })}
-            </span>
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label={t("moveUpLabel", { title: practice.title })}
-              disabled={pending || practice.position === 0}
-              onClick={() => run(() => moveOfficial(practice.id, -1))}
+        {manageOfficial && (
+          <>
+            <label htmlFor={ids.state} className="text-ink-muted">
+              {t("stateLabel")}
+            </label>
+            <select
+              id={ids.state}
+              value={practice.state}
+              disabled={pending}
+              onChange={(event) =>
+                run(() => setOfficialState(practice.id, event.target.value))
+              }
+              className={selectClass}
             >
-              ↑
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label={t("moveDownLabel", { title: practice.title })}
-              disabled={pending || practice.position === practice.published - 1}
-              onClick={() => run(() => moveOfficial(practice.id, 1))}
-            >
-              ↓
-            </Button>
-          </span>
+              {(["none", "draft", "published"] as const).map((state) => (
+                <option key={state} value={state}>
+                  {t(`states.${state}`)}
+                </option>
+              ))}
+            </select>
+            {practice.position !== null && (
+              <span className="flex items-center gap-1">
+                <span className="text-ink-muted tabular-nums">
+                  {t("position", {
+                    n: practice.position + 1,
+                    total: practice.published,
+                  })}
+                </span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  aria-label={t("moveUpLabel", { title: practice.title })}
+                  disabled={pending || practice.position === 0}
+                  onClick={() => run(() => moveOfficial(practice.id, -1))}
+                >
+                  ↑
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  aria-label={t("moveDownLabel", { title: practice.title })}
+                  disabled={
+                    pending || practice.position === practice.published - 1
+                  }
+                  onClick={() => run(() => moveOfficial(practice.id, 1))}
+                >
+                  ↓
+                </Button>
+              </span>
+            )}
+          </>
         )}
         {practice.editable && (
           <Link
@@ -268,43 +280,45 @@ export function MaterialControls({
           {t("saveCategory")}
         </Button>
       </div>
-      <div className="flex flex-wrap items-end gap-2">
-        <div className="min-w-60 flex-1 space-y-1">
-          <label htmlFor={ids.subtitle} className="block text-ink-muted">
-            {t("subtitleLabel")}
-          </label>
-          <input
-            id={ids.subtitle}
-            value={subtitle}
-            maxLength={60}
+      {manageOfficial && (
+        <div className="flex flex-wrap items-end gap-2">
+          <div className="min-w-60 flex-1 space-y-1">
+            <label htmlFor={ids.subtitle} className="block text-ink-muted">
+              {t("subtitleLabel")}
+            </label>
+            <input
+              id={ids.subtitle}
+              value={subtitle}
+              maxLength={60}
+              disabled={pending}
+              aria-describedby={ids.subtitleHint}
+              onChange={(event) => setSubtitle(event.target.value)}
+              className="h-8 w-full rounded-base border border-line bg-surface px-2 focus-visible:border-accent pointer-coarse:min-h-11"
+            />
+            <p id={ids.subtitleHint} className="text-metadata text-ink-muted">
+              {t("subtitleHint")}
+            </p>
+          </div>
+          <Button
+            variant="secondary"
+            size="sm"
+            disabled={pending || subtitle === (practice.subtitle ?? "")}
+            onClick={() =>
+              run(() => setMaterialSubtitle(practice.id, subtitle.trim()))
+            }
+          >
+            {t("saveSubtitle")}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
             disabled={pending}
-            aria-describedby={ids.subtitleHint}
-            onChange={(event) => setSubtitle(event.target.value)}
-            className="h-8 w-full rounded-base border border-line bg-surface px-2 focus-visible:border-accent pointer-coarse:min-h-11"
-          />
-          <p id={ids.subtitleHint} className="text-metadata text-ink-muted">
-            {t("subtitleHint")}
-          </p>
+            onClick={() => run(() => generateMaterialSubtitle(practice.id))}
+          >
+            {t("generateSubtitle")}
+          </Button>
         </div>
-        <Button
-          variant="secondary"
-          size="sm"
-          disabled={pending || subtitle === (practice.subtitle ?? "")}
-          onClick={() =>
-            run(() => setMaterialSubtitle(practice.id, subtitle.trim()))
-          }
-        >
-          {t("saveSubtitle")}
-        </Button>
-        <Button
-          variant="ghost"
-          size="sm"
-          disabled={pending}
-          onClick={() => run(() => generateMaterialSubtitle(practice.id))}
-        >
-          {t("generateSubtitle")}
-        </Button>
-      </div>
+      )}
       <div aria-live="polite">
         {result &&
           (result.ok ? (

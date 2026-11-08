@@ -51,11 +51,9 @@ export function moveInOrder(
   return next;
 }
 
-/** Statuses the material list can be filtered by. */
-export const MATERIAL_FILTERS = [
-  "all",
-  "draft",
-  "published",
-  "public",
-] as const;
+/**
+ * Statuses the public-material list can be filtered by; official
+ * materials have their own page, /admin/official (D80).
+ */
+export const MATERIAL_FILTERS = ["all", "public", "removed"] as const;
 export type MaterialFilter = (typeof MATERIAL_FILTERS)[number];

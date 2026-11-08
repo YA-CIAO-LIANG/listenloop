@@ -74,8 +74,10 @@ export default async function MaterialsPage() {
           .select(
             "id, title, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, practice_sentences(audio_path)",
           )
-          // Others' public practices are readable too (D30); list only theirs.
+          // Others' public practices are readable too (D30); list only theirs,
+          // and not official materials, which live on /admin/official (D80).
           .eq("user_id", user.id)
+          .eq("official", false)
           .order("created_at", { ascending: false }),
         supabase
           .from("collections")
@@ -162,13 +164,9 @@ export default async function MaterialsPage() {
             })}
           </p>
         )}
-        {!practice.removed_at && (
+        {!practice.removed_at && user.role === "admin" && (
           <OfficialToggle
-            practice={{
-              id: practice.id,
-              title: practice.title,
-              official: practice.official,
-            }}
+            practice={{ id: practice.id, title: practice.title }}
           />
         )}
         <PracticeControls

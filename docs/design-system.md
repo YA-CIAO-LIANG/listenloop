@@ -541,6 +541,18 @@ CardLink，內容由上到下：
 - 預覽和編輯的句子清單中，對話的每句在編號下方有一個 secondary、sm、固定寬度的按鈕，顯示「A」或「B」，按一下切換；螢幕閱讀器讀作「第 N 句由 A 念，按一下切換」。
 - 聲音區塊：font-medium 的「A 的聲音」→ VoiceMenu →「B 的聲音」→ VoiceMenu → supporting、ink-muted 的說明。不是對話時只有一個 VoiceMenu，和原本相同。
 
+## 官方教材 `/admin/official`（D80）
+
+- 入口：管理員的頁首導覽（「後台」左邊的「官方教材」，一般使用者看不到），以及後台導覽第二項。
+- 頁面：h1「官方教材」＋右側 primary「＋ 建立新官方教材」（`/materials/new?official=1`）→ 說明 → 類別篩選（連結樣式同 FilterChip，`aria-current` 標示目前的類別，網址 `?cat=`）→「批次重新產生講解」Card → 「草稿（N）」「已發布（N）」兩區。
+- 每份教材：標題連結＋ supporting、ink-muted 的「分類 · 情境 · N 句 · 講解：最新版／舊版 · 音檔 3 / 12」→ 副標 → `MaterialControls`（狀態、推薦順序、分類、簡介）；不是自己建立的，加一行 metadata 說明「編輯要由建立者進行」。
+- **批次重新產生講解**：列出講解不是最新版的教材（checkbox，預設全選）→ 說明使用批次額度 → primary「重新產生講解（N 份）」→ 進行中顯示 ProgressBar「正在處理『標題』」；停止時 error 文字說明哪一份、為什麼（額度用 `UsageLimitMessage`）。全部是最新版時只顯示一行 ink-muted 說明。
+- **我的教材的「複製為官方教材」**（管理員才有）：ghost、sm 按鈕；完成後 success「已複製到官方教材（草稿），這份練習保留不變。」＋「前往官方教材 →」。
+
+## 後台公開教材（D58、D80）
+
+- 原本的「教材管理」改名「公開教材」，只列一般公開與已下架的練習（官方教材移到上一節的頁面），篩選狀態是全部／公開中／已下架；控制列只保留分類（`MaterialControls` 的 `manageOfficial={false}`）與下架、恢復。
+
 ## 後台教材管理（D58）
 
 - 篩選列同操作紀錄。清單每項依序是：

@@ -62,10 +62,13 @@ type CreatePracticeFormProps = {
     voiceB?: string;
     sentences: DraftSentence[];
     meta?: MaterialMeta | null;
+    official?: boolean;
   }) => Promise<CreatePracticeResult>;
   generate?: GenerateAudio;
   generateNotes?: GenerateNotes;
   generateText?: GenerateText;
+  /** An admin making an official material (D80): saved as its draft. */
+  official?: boolean;
 };
 
 type FormError =
@@ -101,6 +104,7 @@ export function CreatePracticeForm({
   generate = generatePracticeAudio,
   generateNotes = generatePracticeNotes,
   generateText,
+  official = false,
 }: CreatePracticeFormProps) {
   const tPlans = useTranslations("plans");
   const tSpeakers = useTranslations("speakers");
@@ -233,6 +237,7 @@ export function CreatePracticeForm({
         dialogue ? { en, zh, speaker: speaker ?? 0 } : { en, zh },
       ),
       meta,
+      ...(official ? { official: true } : {}),
     }).catch((): CreatePracticeResult => ({ ok: false, reason: "failed" }));
     if (!result.ok) {
       setPending(false);
@@ -659,10 +664,10 @@ export function CreatePracticeForm({
       )}
       {notice?.created && (
         <Link
-          href="/materials"
+          href={official ? "/admin/official" : "/materials"}
           className="inline-block text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
         >
-          {t("backToMaterials")}
+          {official ? t("backToOfficial") : t("backToMaterials")}
         </Link>
       )}
     </div>

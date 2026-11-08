@@ -1,43 +1,70 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { setOfficial as setOfficialAction } from "@/app/materials/organize-actions";
+import { useState } from "react";
+import {
+  copyAsOfficial as copyAsOfficialAction,
+  type CopyOfficialResult,
+} from "@/app/materials/organize-actions";
 import { Button } from "./Button";
-import { useOrganizeAction } from "./useOrganizeAction";
 
 /**
- * Marks an admin's practice official (listed in the library for
- * everyone, always public) or not (D46).
+ * "Copy to official materials" on an admin's own practice (D80): the copy
+ * becomes an official draft on /admin/official; this practice stays.
  */
 export function OfficialToggle({
   practice,
-  setOfficial = setOfficialAction,
+  copyAsOfficial = copyAsOfficialAction,
 }: {
-  practice: { id: string; title: string; official: boolean };
+  practice: { id: string; title: string };
   /** Injected in tests; the Server Action otherwise. */
-  setOfficial?: typeof setOfficialAction;
+  copyAsOfficial?: typeof copyAsOfficialAction;
 }) {
   const t = useTranslations("organize");
-  const action = useOrganizeAction();
+  const [pending, setPending] = useState(false);
+  const [result, setResult] = useState<CopyOfficialResult | null>(null);
+
+  async function copy() {
+    setPending(true);
+    setResult(
+      await copyAsOfficial(practice.id).catch((): CopyOfficialResult => ({
+        ok: false,
+        reason: "failed",
+      })),
+    );
+    setPending(false);
+  }
+
   return (
     <div className="space-y-1">
       <Button
-        variant={practice.official ? "secondary" : "ghost"}
+        variant="ghost"
         size="sm"
-        aria-pressed={practice.official}
-        aria-label={t("officialLabel", { title: practice.title })}
-        onClick={() =>
-          action.run(() => setOfficial(practice.id, !practice.official))
-        }
-        disabled={action.pending}
+        aria-label={t("copyOfficialLabel", { title: practice.title })}
+        onClick={copy}
+        disabled={pending}
       >
-        {practice.official ? t("officialOn") : t("officialOff")}
+        {t("copyOfficial")}
       </Button>
-      {action.error && (
-        <p role="alert" className="text-supporting text-error">
-          {t(`errors.${action.error}`)}
-        </p>
-      )}
+      <div aria-live="polite">
+        {result &&
+          (result.ok ? (
+            <p className="text-supporting text-success">
+              {t("copiedOfficial")}{" "}
+              <Link
+                href="/admin/official"
+                className="text-accent-ink underline underline-offset-4"
+              >
+                {t("openOfficial")}
+              </Link>
+            </p>
+          ) : (
+            <p role="alert" className="text-supporting text-error">
+              {t(`errors.${result.reason}`)}
+            </p>
+          ))}
+      </div>
     </div>
   );
 }

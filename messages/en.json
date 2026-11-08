@@ -9,7 +9,8 @@
     "createPractice": "Create a practice",
     "admin": "Admin",
     "skipToContent": "Skip to main content",
-    "stats": "Stats"
+    "stats": "Stats",
+    "official": "Official materials"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -833,7 +834,10 @@
     "mergeSentence": "Merge with next",
     "mergeSentenceLabel": "Merge sentence {n} with the next one",
     "splitHint": "To split a sentence, click where it should break in the English box, then press “Split at cursor”. The new sentence's Chinese is translated when you create the practice.",
-    "zhPlaceholder": "Left empty, it's translated when you create the practice"
+    "zhPlaceholder": "Left empty, it's translated when you create the practice",
+    "officialTitle": "New official material",
+    "officialBack": "Official materials",
+    "backToOfficial": "Go to official materials →"
   },
   "editPractice": {
     "title": "Edit practice",
@@ -926,10 +930,11 @@
       "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
       "failed": "Couldn't save. Please try again."
     },
-    "officialOff": "Make official",
-    "officialOn": "✓ Official",
-    "officialLabel": "Whether \"{title}\" is official",
-    "officialPublic": "A practice made official starts as a private draft; publish it from Admin → Materials to list it in the library."
+    "officialPublic": "A practice made official starts as a private draft; publish it from Admin → Materials to list it in the library.",
+    "copyOfficial": "Copy to official materials",
+    "copyOfficialLabel": "Copy “{title}” to the official materials",
+    "copiedOfficial": "Copied to the official materials as a draft; this practice stays as it is.",
+    "openOfficial": "Go to official materials →"
   },
   "voicePicker": {
     "legend": "Choose a voice",
@@ -1243,14 +1248,15 @@
       "label": "Admin sections",
       "overview": "Overview",
       "users": "Users",
-      "materials": "Materials",
+      "materials": "Public materials",
       "reports": "Reports",
       "sentences": "Hard sentences",
       "usage": "API usage",
       "events": "Activity",
       "feedback": "Feedback",
       "errors": "Errors",
-      "audit": "Admin audit"
+      "audit": "Admin audit",
+      "official": "Official"
     },
     "overview": {
       "title": "Admin overview",
@@ -1395,8 +1401,8 @@
       "open": "Open the video page →"
     },
     "materials": {
-      "title": "Materials",
-      "intro": "Official and public materials. Official practices must be made by an admin; they start as private drafts and can be published to the library once their notes and audio are done. Published ones can be reordered in the library's recommended order.",
+      "title": "Public materials",
+      "intro": "Practices people shared publicly, and taken-down ones: set categories, review, and take down. Official materials are managed under Official materials.",
       "none": "No materials match.",
       "author": "User {number}",
       "sentences": "{count} sentences",
@@ -1430,9 +1436,8 @@
         "apply": "Filter",
         "statuses": {
           "all": "All",
-          "draft": "Official drafts",
-          "published": "Official, published",
-          "public": "Other public"
+          "public": "Public",
+          "removed": "Taken down"
         }
       },
       "errors": {
@@ -1875,5 +1880,42 @@
     "monthly": "The site's AI allowance for this month is used up, so new practices are paused until {when} (Taiwan time).",
     "speech": "Today's speech allowance is used up. It resets {when} (Taiwan time); audio already made is kept.",
     "adminLink": "See usage on the dashboard →"
+  },
+  "adminOfficial": {
+    "title": "Official materials",
+    "intro": "Materials everyone can practice from the home page's library. Drafts are for admins only; published ones are always public. Set their order, category, and summary, or regenerate their notes in a batch.",
+    "create": "+ New official material",
+    "filterLabel": "Filter by category",
+    "allCategories": "All",
+    "sections": {
+      "draft": "Drafts ({count})",
+      "published": "Published ({count})"
+    },
+    "empty": {
+      "draft": "No drafts.",
+      "published": "No official materials published yet."
+    },
+    "noCategory": "No category",
+    "sentences": "{count} sentences",
+    "notesCurrent": "Notes: current",
+    "notesOld": "Notes: older version",
+    "audio": "Audio {voiced} / {total}",
+    "otherAuthor": "Made by another admin: you can publish and reorder it; its author edits it.",
+    "upgrade": {
+      "title": "Regenerate notes in a batch",
+      "allCurrent": "Every official material has current notes.",
+      "legend": "Materials with older notes ({count})",
+      "note": "Uses the admins' batch allowance, not the one for creating by hand. The old notes stay in the version history, and weeks in progress aren't affected.",
+      "run": "Regenerate notes ({count})",
+      "working": "Working on “{title}”",
+      "done": "Done: {count}.",
+      "stopped": "Stopped at “{title}”:",
+      "errors": {
+        "limit": "The batch allowance is used up.",
+        "busy": "The AI service is busy. Try again later.",
+        "unavailable": "Not available (check the AI service setup).",
+        "failed": "Couldn't regenerate. Try again later."
+      }
+    }
   }
 }
