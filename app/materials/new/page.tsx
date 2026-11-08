@@ -6,6 +6,7 @@ import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
 import { onWaitlist } from "@/app/plans/actions";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
+import { youtubeEnabled } from "@/auth/youtube";
 import { PaidPlanCard } from "@/components/PaidPlanCard";
 
 /**
@@ -68,7 +69,10 @@ export default async function NewMaterialPage({
       </p>
       <div className="mt-12 max-w-practice">
         {allowed.ok ? (
-          <CreatePracticeForm official={official} />
+          <CreatePracticeForm
+            official={official}
+            youtube={!official && youtubeEnabled()}
+          />
         ) : (
           <PaidPlanCard
             block={{ limit: allowed.limit, max: allowed.max }}

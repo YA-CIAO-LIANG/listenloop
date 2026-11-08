@@ -161,6 +161,8 @@ export async function copyAsOfficial(id: unknown): Promise<CopyOfficialResult> {
     .eq("id", id)
     .eq("user_id", user.id)
     .is("removed_at", null)
+    // A YouTube practice (D97) isn't copied: the copy has no video times.
+    .is("youtube_id", null)
     .maybeSingle();
   if (!own) return { ok: false, reason: "not-found" };
   const { data: copy, error } = await admin.rpc("copy_practice_as_official", {

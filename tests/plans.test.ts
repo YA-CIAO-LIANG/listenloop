@@ -22,6 +22,7 @@ const limited: Record<PlanId, PlanLimits> = {
     charsPerPractice: 2000,
     customRules: false,
     maxPracticeSeconds: 30,
+    youtubePractices: false,
   },
 };
 

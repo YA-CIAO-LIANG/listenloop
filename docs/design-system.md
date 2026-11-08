@@ -333,6 +333,14 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 分數紀錄：最近 14 天，每天一列（日期、success 色 +N），下面是 supporting、ink-muted 的明細。
 - 強調色（`data-accent` on `<html>`）：橘（預設）、青綠、藍、紫、玫瑰紅、綠、金。只改 `--ll-accent`、`--ll-accent-ink`、`--ll-focus`；熱度圖與螢光筆不變。
 
+## 用 YouTube 建立練習 `YouTubeCreate`（D97）
+
+- 建立教材的「文字來源」多一個選項「YouTube 連結」（只在設定了 YouTube API 時出現）。
+- 由上到下：網址欄＋「讀取影片」（secondary）→ 影片卡（surface、1px line：標題 `lang="en"`、「頻道 · 長度」、Tag「CC BY」或「標準授權」＋一句能不能公開）→ 字幕記錄 textarea（說明怎麼從 YouTube 複製）→ 片段（從／到，分:秒）→「斷句並翻譯 →」（primary）。
+- 檢查步驟：英文／中文標題兩欄 → 每句一列：metadata 時間「0:01–0:04」、英文（sentence 字級）、可編輯的中文 → 「建立練習」「上一步」→ 出處說明。
+- 免費方案：只顯示一段說明和「看方案 →」。
+- 「我的教材」：YouTube 練習沒有「編輯」；標準授權的不顯示公開開關，改成說明只能私人使用。
+
 ## 跟讀畫面
 
 第 2～6 天共用同一個畫面（`ShadowingSession`），版面比照聽寫畫面。

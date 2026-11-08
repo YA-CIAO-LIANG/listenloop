@@ -73,7 +73,7 @@ export default async function MaterialsPage() {
         supabase
           .from("practices")
           .select(
-            "id, title, title_en, title_zh, subtitle, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, practice_sentences(audio_path)",
+            "id, title, title_en, title_zh, subtitle, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, youtube_id, youtube_license, practice_sentences(audio_path)",
           )
           // Others' public practices are readable too (D30); list only theirs,
           // and not official materials, which live on /admin/official (D80).
@@ -121,7 +121,8 @@ export default async function MaterialsPage() {
             <span className="font-medium">
               {oneLineTitle(practiceTitles(practice))}
             </span>
-            {creator && (
+            {/* A YouTube practice's sentences follow the video (D97). */}
+            {creator && !practice.youtube_id && (
               <Link
                 href={`/materials/${practice.id}/edit`}
                 className="text-supporting text-accent-ink underline underline-offset-4"
@@ -148,12 +149,16 @@ export default async function MaterialsPage() {
                 : "none",
             })}
           </p>
-          {voice && (
+          {(voice || practice.youtube_id) && (
             <PracticeReadiness
               practiceId={practice.id}
               practiceHref={`/videos/${customPracticeId(practice.id)}`}
               notesReady={practice.notes_generated_at !== null}
-              voiced={sentences.filter((s) => s.audio_path).length}
+              voiced={
+                practice.youtube_id
+                  ? sentences.length
+                  : sentences.filter((s) => s.audio_path).length
+              }
               total={sentences.length}
             />
           )}
@@ -178,6 +183,7 @@ export default async function MaterialsPage() {
             title: practice.title,
             removed: practice.removed_at !== null,
             official: practice.official,
+            privateOnly: practice.youtube_license === "youtube",
             collectionId: practice.collection_id,
             visibility: isVisibility(practice.visibility)
               ? practice.visibility

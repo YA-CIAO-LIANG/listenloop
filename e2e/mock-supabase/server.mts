@@ -46,7 +46,8 @@ const conflictKeys: Record<string, string[]> = {
   payments: ["provider_payment_id"],
   payment_events: ["provider", "event_id"],
 };
-const plans = new Map<string, string>();
+// e2e-paid is on the paid plan from the start (paid features, D97).
+const plans = new Map<string, string>([["e2e-paid", "paid"]]);
 
 /** The `column=eq.value` filters of a PostgREST request. */
 function eqFilters(params: URLSearchParams): [string, string][] {

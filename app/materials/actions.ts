@@ -356,11 +356,18 @@ export async function generatePracticeAudio(
   // Only their own: others' public practices are readable too (D30).
   const { data: practice, error } = await supabase
     .from("practices")
-    .select("voice, voice_b, practice_sentences(i, en, audio_path, speaker)")
+    .select(
+      "voice, voice_b, youtube_id, practice_sentences(i, en, audio_path, speaker)",
+    )
     .eq("id", practiceId)
     .eq("user_id", creator.user.id)
     .maybeSingle();
   if (error) return { ok: false, reason: "failed" };
+  // A YouTube practice plays the video itself: no audio to make (D97).
+  if (practice?.youtube_id) {
+    const count = practice.practice_sentences.length;
+    return { ok: true, voiced: count, total: count };
+  }
   const voice = practice?.voice ? parseVoiceId(practice.voice) : null;
   if (!practice || !voice) return { ok: false, reason: "not-found" };
 

@@ -1,6 +1,7 @@
 import { storedNotes } from "./custom-practice/notes";
 import { parseRichNotes, type RichNotes } from "./custom-practice/rich-notes";
 import { isUuid } from "./custom-practice/organize";
+import { youtubeAttribution } from "./youtube";
 import { practiceTitles } from "./titles";
 import type { Attribution, Video } from "./videos";
 
@@ -72,6 +73,10 @@ export type CustomPracticeRow = {
   vocab: unknown;
   grammar: unknown;
   notes_generated_at: string | null;
+  /** A practice from a YouTube video (D97): played there, no audio files. */
+  youtube_id?: string | null;
+  youtube_channel?: string | null;
+  youtube_license?: string | null;
   practice_sentences: {
     i: number;
     en: string;
@@ -79,6 +84,9 @@ export type CustomPracticeRow = {
     audio_path: string | null;
     /** The sentence's own notes (D43), either format. */
     notes?: unknown;
+    /** Where it plays in the YouTube video (D97). */
+    start_sec?: number | null;
+    end_sec?: number | null;
   }[];
 };
 
@@ -91,6 +99,40 @@ export function materialFromCustomPractice(
   audioUrl: (path: string) => string | null,
 ): PracticeMaterial | null {
   const rows = [...row.practice_sentences].sort((a, b) => a.i - b.i);
+  // A YouTube practice (D97): the video plays each sentence's times.
+  if (row.youtube_id) {
+    if (rows.length === 0 || !row.notes_generated_at) return null;
+    if (rows.some((s) => s.start_sec == null || s.end_sec == null)) {
+      return null;
+    }
+    const notes = storedNotes(row.vocab, row.grammar, rows.length);
+    return {
+      id: customPracticeId(row.id),
+      title: practiceTitles(row).en,
+      titleZh: practiceTitles(row).zh,
+      subtitle: row.subtitle ?? null,
+      version: row.version ?? 1,
+      sentences: rows.map((s, i) => ({
+        i,
+        start: Number(s.start_sec),
+        end: Number(s.end_sec),
+        en: s.en,
+        zh: s.zh,
+      })),
+      vocab: notes.vocab,
+      grammar: notes.grammar,
+      richNotes: rows.map((s) => parseRichNotes(s.notes, s.en)),
+      youtubeId: row.youtube_id,
+      attribution: youtubeAttribution({
+        id: row.youtube_id,
+        channel: row.youtube_channel ?? "",
+        license:
+          row.youtube_license === "creativeCommon"
+            ? "creativeCommon"
+            : "youtube",
+      }),
+    };
+  }
   const audioUrls: string[] = [];
   for (const sentence of rows) {
     const url = sentence.audio_path && audioUrl(sentence.audio_path);
@@ -129,11 +171,17 @@ export type CustomPracticeReadiness = {
 };
 
 export function customPracticeReadiness(
-  row: Pick<CustomPracticeRow, "notes_generated_at" | "practice_sentences">,
+  row: Pick<
+    CustomPracticeRow,
+    "notes_generated_at" | "practice_sentences" | "youtube_id"
+  >,
 ): CustomPracticeReadiness {
   return {
     notesReady: row.notes_generated_at !== null,
-    voiced: row.practice_sentences.filter((s) => s.audio_path).length,
+    // A YouTube practice has no audio to make (D97).
+    voiced: row.youtube_id
+      ? row.practice_sentences.length
+      : row.practice_sentences.filter((s) => s.audio_path).length,
     total: row.practice_sentences.length,
   };
 }

@@ -42,6 +42,9 @@ export default defineConfig({
         AZURE_OPENAI_API_KEY: "",
         GEMINI_API_KEY: "",
         GOOGLE_CLOUD_API_KEY: "",
+        // YouTube practices (D97) read videos from a fake: no network.
+        YOUTUBE_PROVIDER: "fake",
+        YOUTUBE_API_KEY: "",
         // The fake payment provider only (D85): no money, no network.
         PAYMENTS_PROVIDER: "fake",
         PAYMENTS_WEBHOOK_SECRET: "e2e-payments-secret",

@@ -1687,3 +1687,32 @@
 - **安全**：指令和英文一起送出；提示詞要求遇到不安全或和文本無關的指令時原樣回傳。回傳的內容和其他 AI 文字一樣檢查長度與句數。
 - **測試**：只用假的供應者（「N 句」留下前 N 句，其他指令改最後一句），沒有呼叫真的 API；這個操作還沒有錄製 fixture，第一次實際使用時再錄。
 - **要改時**：`lib/custom-practice/revise.ts`、`lib/ai/prompts.ts` 的 `REVISE_INSTRUCTIONS`、`components/RevisePanel.tsx`。
+
+## D97 貼 YouTube 連結建立練習（2026-11-08，夜間任務 P1 建立教材 4）
+
+- **流程**（建立教材的第三種來源「YouTube 連結」）：
+  1. 貼上影片網址：支援 watch、youtu.be、shorts、embed、行動版，也可以只貼 id。
+  2. 用 YouTube Data API v3 讀取影片資訊：標題、頻道、授權、長度、能否嵌入。不能嵌入的影片會擋下。
+  3. 使用者貼上從 YouTube「顯示字幕記錄」複製的文字（含時間）。不下載影片的聲音或字幕。
+  4. 字幕合併成句子：遇到句號、問號、驚嘆號，停頓超過 2 秒，或超過 30 個字時切開。
+     - 每句從第一則字幕開始、到最後一則結束，不會在字幕中間切開；
+     - `[Music]` 這類標記會去掉；
+     - 可以選擇片段（從 分:秒 到 分:秒）。
+  5. 翻譯（沿用翻譯動作）→ 檢查（可改中文、英文與中文標題，預設英文標題是影片標題）→ 建立 → 產生講解。不需要音檔。
+- **練習**：用 YouTube 嵌入播放器依每句的起訖時間播放，和內建影片相同（含前後緩衝）。練習頁顯示出處：頻道、授權、影片連結，以及修改說明。
+- **授權**：
+  - Creative Commons（YouTube 的 CC 選項是 CC BY 3.0）可以設為公開；
+  - 標準授權只能私人使用：介面不顯示公開開關，資料庫也有限制（`practices_youtube_public`），從程式繞過也會被擋。
+  - 授權與頻道由伺服器重新向 YouTube 查詢，不採用瀏覽器傳來的值。
+- **方案**：付費方案功能（Joe 在 P2 列為 Plus 以上，`lib/plans.ts` 的 `youtubePractices`）。
+  - 長度受 `maxPracticeSeconds` 限制（付費 5 分鐘）；
+  - 免費方案看得到選項，點進去是說明與「看方案」（`/pricing?from=youtube`）。
+- **未設定時隱藏**：沒有 `YOUTUBE_API_KEY` 時不顯示這個來源。測試與 E2E 用假的查詢（`YOUTUBE_PROVIDER=fake`），不連網。API 只用免費配額（每次查詢 1 單位），不需要帳單。
+- **資料**（migration 只新增）：
+  - `practices.youtube_id`、`youtube_channel`、`youtube_license`；
+  - `practice_sentences.start_sec`、`end_sec`。
+- **不支援的**：
+  - YouTube 練習不能編輯句子（時間跟著影片），編輯頁回 404；
+  - 不能複製成官方教材（複製程序不帶影片時間）；
+  - 之後如果要做，需要另外設計時間點的編輯。
+- **要改時**：`lib/youtube.ts`（切句規則）、`auth/youtube.ts`、`app/materials/youtube-actions.ts`、`components/YouTubeCreate.tsx`。
