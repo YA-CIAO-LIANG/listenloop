@@ -1434,3 +1434,19 @@
   - 副標題超過 60 字或空白時存成 null，發布時再由 D80 的流程補上。
 - **fixture**：提示詞和回傳格式改了，`tests/fixtures/ai/` 的 compose、describe 錄製檔在第六項實測時重新錄製。在那之前，比對時略過提示詞（`sameExceptPrompt`）。
 - **要改時**：`lib/ai/prompts.ts`（`composeInstructions`、`DESCRIBE_INSTRUCTIONS`）、`app/materials/actions.ts`（`describeDraft`、`createPractice`）、`app/materials/edit-actions.ts`（`editLabels`）。
+
+## D85 金流準備：供應者介面、假的供應者、webhook（2026-11-09，夜間任務四）
+
+- **決定**（Joe 指定只用假的供應者）：金流透過 `PaymentProvider` 介面接上，用環境變數切換供應者。目前只有假的供應者，正式站不開放結帳。供應商比較與建議見 `docs/payments.md`。
+- **業界做法**：
+  - webhook 用 HMAC-SHA256 驗章並檢查時間戳記（5 分鐘），防止偽造與重放；
+  - 以事件 ID 做冪等（`payment_events`），同一事件只套用一次；
+  - 訂閱事件依發生時間排序，舊的不覆蓋新的；
+  - 套用失敗會回 500 並釋放事件，讓供應者重試。
+- **合理的預設**：
+  - 價格暫定 NT$149／月、NT$1,490／年（年繳 = 10 個月），集中在 `lib/payments/pricing.ts`；全額退款期限 7 天（`REFUND_DAYS`）；沒有免費試用（`TRIAL_DAYS = 0`）。
+  - `profiles.plan` 仍是唯一的權限依據：訂閱 active 或 past_due 是付費，expired 是免費。管理員手動改的方案照舊有效，下一個訂閱事件會再依訂閱狀態更新。
+  - 降級不刪任何教材，只是不能新增（`PLANS.free`）。
+  - 金額存成幣別的最小單位（新台幣沒有小數，所以 NT$149 存 149）。
+  - 假的供應者在 `VERCEL_ENV=production` 一律停用，避免正式站出現測試付款。
+- **要改時**：`lib/payments/`、`auth/payments.ts`、`app/payments/webhook/route.ts`、`supabase/migrations/20261109010000_payments.sql`。
