@@ -475,5 +475,8 @@ export async function generatePracticeText(
   );
   if (!result.ok) return result;
   const text = checkGeneratedText(result.value, prompt.words);
-  return text ? { ok: true, ...text } : { ok: false, reason: "failed" };
+  if (!text) return { ok: false, reason: "failed" };
+  // The learner's title is kept exactly; the model's is used only when
+  // there isn't one (D81).
+  return { ok: true, ...text, title: request.title || text.title };
 }

@@ -36,6 +36,9 @@ export type GenerationFormat = (typeof GENERATION_FORMATS)[number];
 
 export const TOPIC_MAX_CHARS = 200;
 
+/** A situation the learner describes in their own words (D81). */
+export const CUSTOM_SCENARIO_MAX_CHARS = 200;
+
 /** How each accent's English is asked for. */
 const ACCENT_PROMPTS: Readonly<Record<VoiceAccent, string>> = {
   us: "American English spelling and expressions",
@@ -47,7 +50,15 @@ const ACCENT_PROMPTS: Readonly<Record<VoiceAccent, string>> = {
 export type GenerationRequest = {
   /** Optional topic or keywords, in any language. */
   topic: string;
+  /** A scenario id (lib/categories.ts), or "" with a custom scenario. */
   scenario: string;
+  /** The situation in the learner's words (D81), in any language; may be "". */
+  customScenario: string;
+  /**
+   * The learner's title (D81): kept exactly (ends trimmed), never the
+   * model's; "" lets the model name it.
+   */
+  title: string;
   /** A general level, or for exam practice the exam's target id. */
   level: string;
   length: GenerationLength;
@@ -59,6 +70,10 @@ export type GenerationRequest = {
 export type CompositionPrompt = {
   topic: string;
   scenario: string;
+  /** The learner's own situation, the main one (D81); only when given. */
+  customScenario?: string;
+  /** The learner's title, for the text to match (D81); only when given. */
+  title?: string;
   level: string;
   words: number;
   format: GenerationFormat;
@@ -82,15 +97,22 @@ export function parseGenerationRequest(
   input: unknown,
 ): GenerationRequest | null {
   const raw = (input ?? {}) as Record<string, unknown>;
-  const topic =
-    typeof raw.topic === "string" ? raw.topic.replace(/\s+/g, " ").trim() : "";
-  const place = findScenario(raw.scenario);
+  const tidy = (value: unknown) =>
+    typeof value === "string" ? value.replace(/\s+/g, " ").trim() : "";
+  const topic = tidy(raw.topic);
+  const customScenario = tidy(raw.customScenario);
+  // The title as typed: only its ends are trimmed (D81).
+  const title = typeof raw.title === "string" ? raw.title.trim() : "";
+  const place = raw.scenario === "" ? null : findScenario(raw.scenario);
   const levelOk = place?.exam
     ? findTarget(place.exam, raw.level) !== null
     : isLevel(raw.level);
   if (
     [...topic].length > TOPIC_MAX_CHARS ||
-    !place ||
+    [...customScenario].length > CUSTOM_SCENARIO_MAX_CHARS ||
+    [...title].length > PRACTICE_LIMITS.titleChars ||
+    // A scenario from the list, or one described: at least one of them.
+    (!place && (raw.scenario !== "" || !customScenario)) ||
     !levelOk ||
     !(GENERATION_LENGTHS as readonly unknown[]).includes(raw.length) ||
     !(GENERATION_FORMATS as readonly unknown[]).includes(raw.format) ||
@@ -100,7 +122,9 @@ export function parseGenerationRequest(
   }
   return {
     topic,
-    scenario: place.scenario.id,
+    scenario: place?.scenario.id ?? "",
+    customScenario,
+    title,
     level: raw.level as string,
     length: raw.length as GenerationLength,
     format: raw.format as GenerationFormat,
@@ -122,6 +146,11 @@ export function compositionPrompt(
   return {
     topic: request.topic,
     scenario,
+    // Only when given, so a plain request reads exactly as before.
+    ...(request.customScenario
+      ? { customScenario: request.customScenario }
+      : {}),
+    ...(request.title ? { title: request.title } : {}),
     level: `${level}; ${ACCENT_PROMPTS[request.accent]}`,
     words: lengthWords(request.length),
     format: request.format,

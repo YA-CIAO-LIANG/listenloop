@@ -1376,3 +1376,18 @@
   - 編輯頁仍然只有建立者能開（擁有者檢查不變）；其他管理員可以發布、排序、改分類與簡介。
   - 官方教材的狀態選單保留「不是官方」，選了會變回那位管理員的個人練習（出現在他的「我的教材」）。
 - **要改時**：`app/admin/official/`、`components/OfficialNotesUpgrade.tsx`、`components/OfficialToggle.tsx`、`app/materials/organize-actions.ts`（`copyAsOfficial`）、`supabase/migrations/20261108200000_official_copy.sql`。
+
+## D81 AI 生成：更多類別與情境、自訂情境、標題規則（2026-11-08，第二輪 5；擴充 D57）
+
+- **決定**（Joe 指定）：
+  - 新增 8 類：健康與醫療、家庭與人際、科技與網路、理財與行政、求職與職涯、運動與休閒、美食與烹飪、文化與節慶，包含 Joe 列的情境；
+  - 每一類（新舊都算）至少 8 個情境，集中在 `lib/categories.ts`；
+  - 新增「自訂情境」：可以和類別一起用，也可以單獨用；
+  - 標題：有填就原樣保留，AI 不能改；沒填由 AI 依內容取。預覽時都可以修改。
+- **合理的預設**：
+  - 舊類別補的情境：旅遊（火車站、預訂一日遊）、校園學術（實驗室安全、校園導覽）、學術寫作（研究計畫、同儕互評、論文口試）、新聞（體育、藝文、科學，內容一律虛構）、科普（太空、氣候、營養）、演講與故事（Podcast 訪談、書評、旅行故事）。情境 id 全站唯一，測試會檢查。
+  - 新類別排在原本 10 類之後、考試之前，避免改變既有的順序。
+  - 自訂情境最多 200 字；不選情境時一定要填。考試類不提供「只用自訂情境」，因為題型是固定的。
+  - **標題保留**：伺服器端把結果的標題換回使用者填的（只去掉前後空白），不依賴模型照做；提示詞也會要求內容配合標題。
+  - **不重錄 fixture**：自訂情境和標題只在有填時才加進提示，沒填時送出的請求和原本完全一樣，所以已錄製的真實回答仍然可用，這次沒有任何真實呼叫。
+- **要改時**：`lib/categories.ts`、`lib/custom-practice/generation.ts`、`lib/ai/prompts.ts`（`composeInstructions`）、`components/GenerateTextPanel.tsx`、`app/materials/actions.ts`（`generatePracticeText`）。

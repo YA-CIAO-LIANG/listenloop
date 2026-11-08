@@ -10,7 +10,7 @@ import { postToProvider, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
-  COMPOSE_INSTRUCTIONS,
+  composeInstructions,
   DESCRIBE_INSTRUCTIONS,
   NOTES_INSTRUCTIONS,
   PROMPT_VERSION,
@@ -241,7 +241,7 @@ export function azureOpenAiLanguage(
       // More varied than translation where the model takes a temperature.
       return generate(
         "composition",
-        COMPOSE_INSTRUCTIONS,
+        composeInstructions(prompt),
         prompt,
         composeBudget(prompt),
         0.9,

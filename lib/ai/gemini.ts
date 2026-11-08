@@ -10,7 +10,7 @@ import { postGoogleJson, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA, toGeminiSchema } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
-  COMPOSE_INSTRUCTIONS,
+  composeInstructions,
   DESCRIBE_INSTRUCTIONS,
   NOTES_INSTRUCTIONS,
   PROMPT_VERSION,
@@ -195,7 +195,7 @@ export function geminiLanguage(
     async compose(prompt) {
       // More varied than translation: every request should read fresh.
       return generate(
-        COMPOSE_INSTRUCTIONS,
+        composeInstructions(prompt),
         prompt,
         COMPOSITION_SCHEMA,
         composeBudget(prompt),
