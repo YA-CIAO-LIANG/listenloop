@@ -1,6 +1,8 @@
 import { act, fireEvent, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
+import { PlanProvider } from "@/components/PlanProvider";
+import type { PlanId } from "@/lib/plans";
 import { renderWithIntl } from "../render";
 
 const router = vi.hoisted(() => ({ refresh: vi.fn() }));
@@ -56,18 +58,21 @@ beforeEach(() => {
     );
 });
 
-async function renderForm() {
+/** On the paid plan by default: every length is offered (D94). */
+async function renderForm(plan: PlanId = "paid") {
   await act(async () => {
     renderWithIntl(
-      <CreatePracticeForm
-        split={split}
-        translate={translate}
-        create={create}
-        generate={generate}
-        generateNotes={generateNotes}
-        generateText={generateText}
-        describe={describeTitles}
-      />,
+      <PlanProvider plan={plan}>
+        <CreatePracticeForm
+          split={split}
+          translate={translate}
+          create={create}
+          generate={generate}
+          generateNotes={generateNotes}
+          generateText={generateText}
+          describe={describeTitles}
+        />
+      </PlanProvider>,
     );
   });
 }
@@ -353,6 +358,36 @@ describe("CreatePracticeForm", () => {
     );
     expect(screen.getByRole("status").textContent).toContain(
       "已生成「At the Store｜在商店」",
+    );
+  });
+
+  it("offers 30 seconds and a length of one's own, up to the plan's limit (D94)", async () => {
+    generateText.mockReset().mockResolvedValue({
+      ok: true,
+      titleEn: "Hi",
+      titleZh: "嗨",
+      subtitle: "打招呼",
+      text: "Hi there.",
+    });
+    await renderForm("free");
+    fireEvent.click(screen.getByLabelText("AI 生成"));
+    // The free plan allows 30 seconds: no minute-long choices.
+    expect(screen.queryByLabelText("1–2 分鐘")).toBeNull();
+    expect((screen.getByLabelText("30 秒") as HTMLInputElement).checked).toBe(
+      true,
+    );
+    expect(screen.getByText(/你的方案每份最長 30 秒/)).toBeDefined();
+    fireEvent.click(screen.getByLabelText("自訂"));
+    fireEvent.change(screen.getByLabelText("分"), { target: { value: "0" } });
+    fireEvent.change(screen.getByLabelText("秒"), { target: { value: "45" } });
+    // Over the plan's 30 seconds: can't generate.
+    expect(
+      screen.getByRole("button", { name: /生成文字/ }).hasAttribute("disabled"),
+    ).toBe(true);
+    fireEvent.change(screen.getByLabelText("秒"), { target: { value: "20" } });
+    await click("生成文字");
+    expect(generateText).toHaveBeenCalledWith(
+      expect.objectContaining({ length: "custom", seconds: 20 }),
     );
   });
 

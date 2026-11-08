@@ -37,6 +37,8 @@ export type PlanLimits = {
   charsPerPractice: number | null;
   /** May set each practice's own pass rules (D92); otherwise the defaults. */
   customRules: boolean;
+  /** The longest practice the AI may write, in seconds (D94). */
+  maxPracticeSeconds: number | null;
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
@@ -47,6 +49,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesPerMonth: null,
     charsPerPractice: 2_000,
     customRules: false,
+    maxPracticeSeconds: 30,
   },
   paid: {
     createPractices: true,
@@ -55,6 +58,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesPerMonth: 30,
     charsPerPractice: 2_000,
     customRules: true,
+    maxPracticeSeconds: 300,
   },
   admin: {
     createPractices: true,
@@ -63,6 +67,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesPerMonth: null,
     charsPerPractice: null,
     customRules: true,
+    maxPracticeSeconds: null,
   },
 };
 
@@ -83,7 +88,8 @@ export type PlanAction =
     }
   | { kind: "start-practice"; active?: number }
   | { kind: "practice-chars"; chars: number }
-  | { kind: "custom-rules" };
+  | { kind: "custom-rules" }
+  | { kind: "practice-seconds"; seconds: number };
 
 /** Why an action isn't allowed: a translation key under plans.limits. */
 export type PlanBlock = {
@@ -135,6 +141,15 @@ export function can(
         limits.activePractices,
         action.active ?? 0,
       );
+    case "practice-seconds":
+      return limits.maxPracticeSeconds !== null &&
+        action.seconds > limits.maxPracticeSeconds
+        ? {
+            ok: false,
+            limit: "maxPracticeSeconds",
+            max: limits.maxPracticeSeconds,
+          }
+        : { ok: true };
     case "custom-rules":
       return limits.customRules
         ? { ok: true }

@@ -1223,7 +1223,8 @@
       "limit": "今天的 AI 用量已經用完，明天（台灣時間 0 點後）再試。",
       "busy": "AI 服務目前忙碌中，請過一分鐘再試。",
       "failed": "生成的內容無法使用，請再試一次。",
-      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤，或免費額度、預付額度用完）。詳細原因在伺服器紀錄。"
+      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤，或免費額度、預付額度用完）。詳細原因在伺服器紀錄。",
+      "tooLong": "這個長度超過你的方案上限（每份最長 {max, number} 秒）。"
     },
     "categoryLabel": "類別",
     "scenarioLabel": "情境",
@@ -1249,7 +1250,18 @@
     "customCategoryPlaceholder": "例如：天文攝影、桌遊",
     "customCategoryHint": "AI 會依這個類別生成；在教材庫的篩選中歸類為「其他」。",
     "needCategory": "請先填寫類別名稱。",
-    "needScenario": "請描述想練的情境，或從上方選一個情境。"
+    "needScenario": "請描述想練的情境，或從上方選一個情境。",
+    "lengthOptions": {
+      "30s": "30 秒",
+      "custom": "自訂"
+    },
+    "customLength": "自訂長度",
+    "customMinutes": "分",
+    "customSeconds": "秒",
+    "customLengthHint": "15 秒到 {max}。",
+    "planLength": "你的方案每份最長 {max}。",
+    "seePlans": "看方案",
+    "duration": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}"
   },
   "celebration": {
     "perfect": "完美！"
@@ -1261,7 +1273,8 @@
       "activePractices": "你同時在練的練習已經有 {max} 份，達到方案上限。先完成或移除一份，再開始新的。",
       "charsPerPractice": "文字超過方案上限，每份練習最多 {max, number} 字元。",
       "practicesTotal": "免費方案可以試做 {max} 份自己的教材，你已經用完了。",
-      "customRules": "自訂通關條件是付費方案的功能。"
+      "customRules": "自訂通關條件是付費方案的功能。",
+      "maxPracticeSeconds": "你的方案每份教材最長 {max, number} 秒。"
     },
     "seePractices": "查看學習進度",
     "paid": {

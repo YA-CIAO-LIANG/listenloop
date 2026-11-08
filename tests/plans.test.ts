@@ -21,6 +21,7 @@ const limited: Record<PlanId, PlanLimits> = {
     practicesPerMonth: 5,
     charsPerPractice: 2000,
     customRules: false,
+    maxPracticeSeconds: 30,
   },
 };
 
@@ -98,5 +99,27 @@ describe("plans (D54, D72)", () => {
         expect(messages.plans.limits).toHaveProperty([limit]);
       }
     }
+  });
+});
+
+describe("practice length by plan (D94)", () => {
+  it("free allows 30 seconds, paid 5 minutes, admin anything", () => {
+    expect(can("free", { kind: "practice-seconds", seconds: 30 }).ok).toBe(
+      true,
+    );
+    expect(can("free", { kind: "practice-seconds", seconds: 31 })).toEqual({
+      ok: false,
+      limit: "maxPracticeSeconds",
+      max: 30,
+    });
+    expect(can("paid", { kind: "practice-seconds", seconds: 300 }).ok).toBe(
+      true,
+    );
+    expect(can("paid", { kind: "practice-seconds", seconds: 301 }).ok).toBe(
+      false,
+    );
+    expect(can("admin", { kind: "practice-seconds", seconds: 600 }).ok).toBe(
+      true,
+    );
   });
 });

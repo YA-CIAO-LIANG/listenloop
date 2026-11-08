@@ -20,6 +20,7 @@ import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
 import {
   checkGeneratedText,
   compositionPrompt,
+  lengthSeconds,
   parseGenerationRequest,
   parseMaterialMeta,
   type MaterialMeta,
@@ -487,6 +488,7 @@ export type GenerateTextResult =
       subtitle: string;
       text: string;
     }
+  | { ok: false; reason: "tooLong"; max?: number }
   | ({
       ok: false;
       reason: "unavailable" | "invalid" | MeteredFailure;
@@ -510,6 +512,12 @@ export async function generatePracticeText(
   }
   const request = parseGenerationRequest(input);
   if (!request) return { ok: false, reason: "invalid" };
+  // The plan's longest practice (D94).
+  const long = can(planFor(creator.user), {
+    kind: "practice-seconds",
+    seconds: lengthSeconds(request.length, request.seconds),
+  });
+  if (!long.ok) return { ok: false, reason: "tooLong", max: long.max };
   const prompt = compositionPrompt(request);
   const result = await meteredLanguage(creator, composeBudget(prompt), () =>
     creator.providers.language.compose(prompt),

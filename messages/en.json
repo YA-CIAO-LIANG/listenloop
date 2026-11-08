@@ -1225,7 +1225,8 @@
       "limit": "Today's AI allowance is used up. Try again tomorrow (after midnight, Taiwan time).",
       "busy": "The AI service is busy. Try again in a minute.",
       "failed": "The written text couldn't be used. Please try again.",
-      "config": "There's a problem with the AI service's setup or allowance (for example a wrong key, or a used-up free tier or prepaid credit). The server log has details."
+      "config": "There's a problem with the AI service's setup or allowance (for example a wrong key, or a used-up free tier or prepaid credit). The server log has details.",
+      "tooLong": "That’s longer than your plan allows ({max, number} seconds per practice)."
     },
     "categoryLabel": "Category",
     "scenarioLabel": "Scenario",
@@ -1251,7 +1252,18 @@
     "customCategoryPlaceholder": "e.g. astrophotography, board games",
     "customCategoryHint": "AI writes within this category; the library's filters list it under Other.",
     "needCategory": "Name the category first.",
-    "needScenario": "Describe what you want to practice, or choose a scenario above."
+    "needScenario": "Describe what you want to practice, or choose a scenario above.",
+    "lengthOptions": {
+      "30s": "30 sec",
+      "custom": "Custom"
+    },
+    "customLength": "Custom length",
+    "customMinutes": "min",
+    "customSeconds": "sec",
+    "customLengthHint": "15 seconds to {max}.",
+    "planLength": "Your plan allows up to {max} per practice.",
+    "seePlans": "See plans",
+    "duration": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}"
   },
   "celebration": {
     "perfect": "Perfect!"
@@ -1263,7 +1275,8 @@
       "activePractices": "You already have {max} practices in progress, your plan’s limit. Finish or remove one before starting another.",
       "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice.",
       "practicesTotal": "The free plan lets you try {max} practice of your own, and you've made it.",
-      "customRules": "Custom pass rules are part of the paid plans."
+      "customRules": "Custom pass rules are part of the paid plans.",
+      "maxPracticeSeconds": "Your plan allows practices up to {max, number} seconds long."
     },
     "seePractices": "See your progress",
     "paid": {
