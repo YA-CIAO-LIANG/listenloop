@@ -89,6 +89,16 @@ export const CATEGORIES = [
       ),
       s("car-rental", "dialogue", "renting a car and getting gas"),
       s("lost", "dialogue", "being lost in a new city and asking for help"),
+      s(
+        "train-station",
+        "dialogue",
+        "buying train tickets and asking about platforms at a train station",
+      ),
+      s(
+        "tour-booking",
+        "dialogue",
+        "booking a local day tour and asking what it includes",
+      ),
     ],
   },
   {
@@ -213,6 +223,16 @@ export const CATEGORIES = [
         "monologue",
         "an instructor explaining academic integrity rules (citations, collaboration, AI tools)",
       ),
+      s(
+        "lab-safety",
+        "monologue",
+        "a teaching assistant explaining lab safety rules before a class",
+      ),
+      s(
+        "campus-tour",
+        "monologue",
+        "a student guide giving new students a campus tour",
+      ),
     ],
   },
   {
@@ -242,6 +262,21 @@ export const CATEGORIES = [
         "conference-talk",
         "monologue",
         "a short conference presentation followed by one audience question and the answer",
+      ),
+      s(
+        "research-proposal",
+        "monologue",
+        "presenting a short research proposal: question, method, and plan",
+      ),
+      s(
+        "peer-review-feedback",
+        "dialogue",
+        "two students giving each other feedback on paper drafts",
+      ),
+      s(
+        "thesis-defense",
+        "dialogue",
+        "answering a committee's questions at a short thesis defense",
       ),
     ],
   },
@@ -304,6 +339,21 @@ export const CATEGORIES = [
         "monologue",
         "an original news-style report about education (invented, not about real events)",
       ),
+      s(
+        "news-sports",
+        "monologue",
+        "an original news-style report about sports (invented, not about real events or teams)",
+      ),
+      s(
+        "news-culture",
+        "monologue",
+        "an original news-style report about arts and culture (invented, not about real events)",
+      ),
+      s(
+        "news-science",
+        "monologue",
+        "an original news-style report about a science discovery (invented, not about real events)",
+      ),
     ],
   },
   {
@@ -330,6 +380,21 @@ export const CATEGORIES = [
         "monologue",
         "explaining how an everyday technology works",
       ),
+      s(
+        "space",
+        "monologue",
+        "explaining a topic about space and the planets for a general audience",
+      ),
+      s(
+        "climate",
+        "monologue",
+        "explaining how the climate and weather work for a general audience",
+      ),
+      s(
+        "nutrition-science",
+        "monologue",
+        "explaining the science of nutrition and healthy eating",
+      ),
     ],
   },
   {
@@ -344,6 +409,349 @@ export const CATEGORIES = [
       ),
       s("inspirational", "monologue", "an inspirational speech"),
       s("product-launch", "monologue", "a (fictional) product launch event"),
+      s(
+        "podcast-interview",
+        "dialogue",
+        "a relaxed podcast interview about someone's interesting job",
+      ),
+      s(
+        "book-review",
+        "monologue",
+        "a short spoken review of a (fictional) book",
+      ),
+      s(
+        "travel-story",
+        "monologue",
+        "a personal story about something unexpected on a trip",
+      ),
+    ],
+  },
+  {
+    id: "health",
+    scenarios: [
+      s(
+        "symptoms",
+        "dialogue",
+        "describing symptoms to a doctor during a check-up",
+      ),
+      s(
+        "dentist",
+        "dialogue",
+        "a visit to the dentist for a toothache or a cleaning",
+      ),
+      s(
+        "appointment-booking",
+        "dialogue",
+        "calling a clinic to book or change a doctor's appointment",
+      ),
+      s(
+        "insurance-claim",
+        "dialogue",
+        "asking an insurance company how to claim medical costs",
+      ),
+      s(
+        "counseling-booking",
+        "dialogue",
+        "calling to book a first session with a counselor",
+      ),
+      s(
+        "eye-exam",
+        "dialogue",
+        "an eye exam and choosing glasses at an optician",
+      ),
+      s(
+        "physical-therapy",
+        "dialogue",
+        "a physical therapist explaining exercises for a sports injury",
+      ),
+      s(
+        "vaccination",
+        "dialogue",
+        "getting a vaccine and asking about side effects",
+      ),
+    ],
+  },
+  {
+    id: "relationships",
+    scenarios: [
+      s(
+        "family-gathering",
+        "dialogue",
+        "chatting with relatives at a family gathering",
+      ),
+      s(
+        "roommate-conflict",
+        "dialogue",
+        "talking through a conflict with a roommate calmly",
+      ),
+      s("dating", "dialogue", "getting to know someone on a first date"),
+      s("apologizing", "dialogue", "apologizing to a friend and making up"),
+      s(
+        "declining-invitation",
+        "dialogue",
+        "politely turning down an invitation",
+      ),
+      s(
+        "neighbors",
+        "dialogue",
+        "meeting a new neighbor and asking a small favor",
+      ),
+      s(
+        "comforting-friend",
+        "dialogue",
+        "comforting a friend who is having a hard week",
+      ),
+      s("family-video-call", "dialogue", "a video call with family back home"),
+    ],
+  },
+  {
+    id: "tech",
+    scenarios: [
+      s(
+        "tech-support",
+        "dialogue",
+        "calling customer support to fix a laptop or internet problem",
+      ),
+      s(
+        "online-shopping-refund",
+        "dialogue",
+        "asking an online shop for a refund on a wrong order",
+      ),
+      s(
+        "account-security",
+        "dialogue",
+        "recovering a hacked account and setting up two-step login",
+      ),
+      s(
+        "ai-tools",
+        "dialogue",
+        "friends talking about how they use AI tools for study and work, and their limits",
+      ),
+      s(
+        "remote-work",
+        "dialogue",
+        "teammates planning how to work well remotely",
+      ),
+      s(
+        "smartphone-setup",
+        "dialogue",
+        "helping a family member set up a new smartphone",
+      ),
+      s(
+        "video-call-issues",
+        "dialogue",
+        "fixing audio and video problems at the start of an online meeting",
+      ),
+      s(
+        "subscriptions",
+        "dialogue",
+        "comparing and cancelling streaming subscriptions",
+      ),
+    ],
+  },
+  {
+    id: "money-admin",
+    scenarios: [
+      s(
+        "bank-transfer",
+        "dialogue",
+        "making a bank transfer and asking about fees",
+      ),
+      s(
+        "tax-filing",
+        "dialogue",
+        "asking how to file taxes for the first time",
+      ),
+      s(
+        "paying-bills",
+        "dialogue",
+        "sorting out a wrong utility bill with customer service",
+      ),
+      s(
+        "lease-terms",
+        "dialogue",
+        "going over the terms of an apartment lease before signing",
+      ),
+      s(
+        "government-office",
+        "dialogue",
+        "getting a document at a government office",
+      ),
+      s(
+        "budgeting",
+        "dialogue",
+        "two friends making a monthly budget together",
+      ),
+      s(
+        "card-dispute",
+        "dialogue",
+        "disputing a charge on a credit card statement",
+      ),
+      s(
+        "scholarship-application",
+        "dialogue",
+        "asking an office about applying for a scholarship",
+      ),
+    ],
+  },
+  {
+    id: "career",
+    scenarios: [
+      s(
+        "resume-walkthrough",
+        "dialogue",
+        "walking an interviewer through one's resume",
+      ),
+      s(
+        "salary-negotiation",
+        "dialogue",
+        "negotiating salary and benefits after a job offer",
+      ),
+      s(
+        "internship-interview",
+        "dialogue",
+        "an interview for a summer internship",
+      ),
+      s(
+        "networking-event",
+        "dialogue",
+        "meeting people and exchanging contacts at a networking event",
+      ),
+      s("exit-interview", "dialogue", "an exit interview when leaving a job"),
+      s("career-advice", "dialogue", "asking a mentor for career advice"),
+      s(
+        "first-day",
+        "dialogue",
+        "the first day at a new job: introductions and a tour",
+      ),
+      s(
+        "career-fair",
+        "dialogue",
+        "talking to recruiters at a university career fair",
+      ),
+    ],
+  },
+  {
+    id: "leisure",
+    scenarios: [
+      s(
+        "gym-signup",
+        "dialogue",
+        "signing up for a gym membership and asking about classes",
+      ),
+      s(
+        "sports-chat",
+        "dialogue",
+        "friends chatting about a game they watched",
+      ),
+      s("outdoor-activity", "dialogue", "planning a hike or a bike ride"),
+      s("trip-planning", "dialogue", "planning a weekend trip together"),
+      s(
+        "music-exhibition",
+        "dialogue",
+        "talking about a concert or an art exhibition",
+      ),
+      s(
+        "movie-night",
+        "dialogue",
+        "choosing a movie and talking about it afterwards",
+      ),
+      s(
+        "hobby-class",
+        "dialogue",
+        "joining a pottery, dance, or photography class",
+      ),
+      s(
+        "ticket-booking",
+        "dialogue",
+        "booking tickets for a show or a game by phone",
+      ),
+    ],
+  },
+  {
+    id: "food",
+    scenarios: [
+      s(
+        "restaurant-booking",
+        "dialogue",
+        "calling a restaurant to book a table",
+      ),
+      s(
+        "recipe",
+        "monologue",
+        "explaining how to cook a simple dish step by step",
+      ),
+      s(
+        "dietary-needs",
+        "dialogue",
+        "explaining allergies or dietary needs when ordering",
+      ),
+      s(
+        "farmers-market",
+        "dialogue",
+        "buying vegetables and fruit at a market",
+      ),
+      s(
+        "cooking-class",
+        "dialogue",
+        "a cooking class with an instructor's tips",
+      ),
+      s(
+        "food-delivery",
+        "dialogue",
+        "sorting out a problem with a food delivery order",
+      ),
+      s(
+        "potluck",
+        "dialogue",
+        "planning what everyone brings to a potluck party",
+      ),
+      s(
+        "food-culture",
+        "monologue",
+        "introducing a local dish and the story behind it",
+      ),
+    ],
+  },
+  {
+    id: "culture",
+    scenarios: [
+      s(
+        "us-holidays",
+        "monologue",
+        "explaining how Americans celebrate a holiday like Thanksgiving or the Fourth of July",
+      ),
+      s(
+        "taiwan-culture",
+        "monologue",
+        "introducing a part of Taiwanese culture to international friends",
+      ),
+      s(
+        "culture-shock",
+        "dialogue",
+        "talking through a cross-cultural misunderstanding",
+      ),
+      s(
+        "religion-etiquette",
+        "monologue",
+        "explaining polite behavior when visiting a temple, church, or other place of worship",
+      ),
+      s(
+        "holiday-dinner",
+        "dialogue",
+        "being a guest at a friend's family holiday dinner",
+      ),
+      s("lunar-new-year", "monologue", "explaining Lunar New Year traditions"),
+      s(
+        "gift-giving",
+        "dialogue",
+        "asking what's polite when giving and receiving gifts",
+      ),
+      s(
+        "tipping",
+        "dialogue",
+        "asking a friend how tipping works in the United States",
+      ),
     ],
   },
 ] as const satisfies readonly { id: string; scenarios: readonly Scenario[] }[];

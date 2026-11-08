@@ -1,8 +1,10 @@
 import { describe, expect, it, vi } from "vitest";
 import { composeBudget } from "@/lib/ai/budgets";
+import { COMPOSE_INSTRUCTIONS, composeInstructions } from "@/lib/ai/prompts";
 import { fakeLanguage, fakeSpeech } from "@/lib/ai/fake";
 import {
   allScenarioIds,
+  CATEGORIES,
   CATEGORY_IDS,
   EXAMS,
   findScenario,
@@ -56,7 +58,7 @@ const request = {
 };
 
 describe("categories (D57)", () => {
-  it("lists Joe's eleven categories, exam last, with unique scenario ids", () => {
+  it("lists Joe's categories, exam last, with unique scenario ids (D57, D81)", () => {
     expect(CATEGORY_IDS).toEqual([
       "daily-life",
       "travel",
@@ -68,11 +70,25 @@ describe("categories (D57)", () => {
       "news",
       "science",
       "talks-stories",
+      "health",
+      "relationships",
+      "tech",
+      "money-admin",
+      "career",
+      "leisure",
+      "food",
+      "culture",
       "exam",
     ]);
     const ids = allScenarioIds();
     expect(new Set(ids).size).toBe(ids.length);
     expect(EXAMS.map((e) => e.id)).toEqual(["toefl", "ielts", "toeic", "gept"]);
+  });
+
+  it("gives every category at least 8 scenarios (D81)", () => {
+    for (const category of CATEGORIES) {
+      expect(category.scenarios.length, category.id).toBeGreaterThanOrEqual(8);
+    }
   });
 
   it("names every category, scenario, exam, and target in both languages", () => {
@@ -105,7 +121,30 @@ describe("parseGenerationRequest", () => {
     expect(parseGenerationRequest(request)).toEqual({
       ...request,
       topic: "第一次 去超市",
+      customScenario: "",
+      title: "",
     });
+  });
+
+  it("takes a scenario of one's own, with a category's or on its own (D81)", () => {
+    const own = "跟教授請病假並詢問補交作業";
+    expect(
+      parseGenerationRequest({ ...request, customScenario: ` ${own} ` }),
+    ).toMatchObject({ scenario: "supermarket", customScenario: own });
+    expect(
+      parseGenerationRequest({ ...request, scenario: "", customScenario: own }),
+    ).toMatchObject({ scenario: "", customScenario: own });
+    // Neither a scenario nor a description: nothing to write about.
+    expect(parseGenerationRequest({ ...request, scenario: "" })).toBeNull();
+    expect(
+      parseGenerationRequest({ ...request, customScenario: "長".repeat(201) }),
+    ).toBeNull();
+  });
+
+  it("keeps a title exactly as typed, only its ends trimmed (D81)", () => {
+    expect(
+      parseGenerationRequest({ ...request, title: "  My  Sick-Day   Email! " }),
+    ).toMatchObject({ title: "My  Sick-Day   Email!" });
   });
 
   it("takes an exam part with one of its exam's targets", () => {
@@ -239,6 +278,38 @@ describe("generatePracticeText", () => {
     expect(result.ok && result.text.split("\n").length).toBeGreaterThan(5);
     // The fake is free, so the worst case reserved is 0 (D38).
     expect(state.reserve).toHaveBeenCalledWith("cost", 0);
+  });
+
+  it("never changes a title the learner gave (D81)", async () => {
+    state.creator = true;
+    state.reserve.mockReset().mockResolvedValue(true);
+    for (const title of ["請病假的 email", "  Asking  for Sick Leave "]) {
+      const result = await generatePracticeText({ ...request, title });
+      expect(result.ok && result.title).toBe(title.trim());
+    }
+    const own = await generatePracticeText({
+      ...request,
+      scenario: "",
+      customScenario: "asking a professor for sick leave",
+    });
+    expect(own.ok).toBe(true);
+  });
+
+  it("only asks about a custom scenario or title when there is one", () => {
+    expect(
+      compositionPrompt(parseGenerationRequest(request)!),
+    ).not.toHaveProperty("title");
+    expect(composeInstructions({})).toBe(COMPOSE_INSTRUCTIONS);
+    expect(composeInstructions({ title: "T" })).toMatch(/exactly as given/);
+    expect(
+      compositionPrompt(
+        parseGenerationRequest({
+          ...request,
+          title: "T",
+          customScenario: "x",
+        })!,
+      ),
+    ).toMatchObject({ title: "T", customScenario: "x" });
   });
 
   it("stops at the daily limit, and for bad requests and non-admins", async () => {

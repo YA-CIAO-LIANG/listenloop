@@ -43,6 +43,14 @@ export async function signInAsAdmin(page: Page) {
   await signInAs(page, { id: "e2e-admin", email: "admin@example.com" });
 }
 
+/**
+ * Signs in as a learner on the free plan who hasn't made a practice yet
+ * (D72): the one-practice trial is still open.
+ */
+export async function signInAsLearner(page: Page) {
+  await signInAs(page, { id: "e2e-learner", email: "learner@example.com" });
+}
+
 async function signInAs(page: Page, user: { id: string; email: string }) {
   const base64url = (value: unknown) =>
     Buffer.from(JSON.stringify(value)).toString("base64url");

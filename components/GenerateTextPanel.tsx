@@ -1,5 +1,6 @@
 "use client";
 
+import { PRACTICE_LIMITS } from "@/lib/custom-practice/draft";
 import { UsageLimitMessage } from "./UsageLimitMessage";
 import type { UsageBlock } from "@/lib/usage";
 import { useTranslations } from "next-intl";
@@ -22,6 +23,7 @@ import {
 import {
   GENERATION_FORMATS,
   GENERATION_LENGTHS,
+  CUSTOM_SCENARIO_MAX_CHARS,
   TOPIC_MAX_CHARS,
   materialMeta,
   type GenerationFormat,
@@ -84,8 +86,14 @@ export function GenerateTextPanel({
     exam: useId(),
     scenario: useId(),
     hint: useId(),
+    custom: useId(),
+    customHint: useId(),
+    title: useId(),
+    titleHint: useId(),
   };
   const [topic, setTopic] = useState("");
+  const [customScenario, setCustomScenario] = useState("");
+  const [title, setTitle] = useState("");
   const [category, setCategory] = useState<CategoryId>(CATEGORY_IDS[0]);
   const [exam, setExam] = useState<string>(EXAMS[0].id);
   const [scenario, setScenario] = useState<string>(
@@ -137,6 +145,8 @@ export function GenerateTextPanel({
     const request: GenerationRequest = {
       topic,
       scenario,
+      customScenario,
+      title,
       level,
       length,
       format,
@@ -221,12 +231,18 @@ export function GenerateTextPanel({
             id={ids.scenario}
             value={scenario}
             onChange={(event) => {
+              if (event.target.value === "") {
+                setScenario("");
+                return;
+              }
               const next = scenarios.find((x) => x.id === event.target.value);
               if (next) chooseScenario(next);
             }}
             disabled={pending}
             className={fieldClass}
           >
+            {/* Exam parts are fixed formats; elsewhere a described one will do (D81). */}
+            {!isExam && <option value="">{t("customOnly")}</option>}
             {scenarios.map((option) => (
               <option key={option.id} value={option.id}>
                 {tc(`scenarios.${option.id}` as "scenarios.restaurant")}
@@ -238,6 +254,43 @@ export function GenerateTextPanel({
       {isExam && (
         <p className="text-supporting text-ink-muted">{tc("examNote")}</p>
       )}
+      <div className="space-y-2">
+        <label htmlFor={ids.custom} className="block font-medium">
+          {scenario === "" ? t("customRequired") : t("customLabel")}
+        </label>
+        <p id={ids.customHint} className="text-supporting text-ink-muted">
+          {t("customHint")}
+        </p>
+        <textarea
+          id={ids.custom}
+          rows={2}
+          value={customScenario}
+          maxLength={CUSTOM_SCENARIO_MAX_CHARS}
+          aria-describedby={ids.customHint}
+          aria-required={scenario === ""}
+          onChange={(event) => setCustomScenario(event.target.value)}
+          disabled={pending}
+          className="block w-full resize-y rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent"
+        />
+      </div>
+      <div className="space-y-2">
+        <label htmlFor={ids.title} className="block font-medium">
+          {t("titleLabel")}
+        </label>
+        <p id={ids.titleHint} className="text-supporting text-ink-muted">
+          {t("titleHint")}
+        </p>
+        <input
+          id={ids.title}
+          type="text"
+          value={title}
+          maxLength={PRACTICE_LIMITS.titleChars}
+          aria-describedby={ids.titleHint}
+          onChange={(event) => setTitle(event.target.value)}
+          disabled={pending}
+          className="block w-full rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent"
+        />
+      </div>
       <div className="space-y-2">
         <label htmlFor={ids.topic} className="block font-medium">
           {t("topicLabel")}

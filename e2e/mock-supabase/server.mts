@@ -70,6 +70,15 @@ function matching(params: URLSearchParams): Row[] {
   return rows;
 }
 
+/** A request's body as text. */
+function readBody(request: import("node:http").IncomingMessage) {
+  return new Promise<string>((resolve) => {
+    let body = "";
+    request.on("data", (chunk) => (body += chunk));
+    request.on("end", () => resolve(body));
+  });
+}
+
 /** The `sub` of a "Bearer <jwt>" header, unverified (it's a stand-in). */
 function tokenSubject(header: string | undefined): string | null {
   const payload = header?.replace(/^Bearer /, "").split(".")[1];
@@ -88,7 +97,7 @@ const cors = {
   "access-control-allow-methods": "GET, POST, PATCH, DELETE, OPTIONS",
 };
 
-createServer((request, response) => {
+createServer(async (request, response) => {
   const url = new URL(request.url ?? "/", `http://localhost:${PORT}`);
   if (request.method === "OPTIONS") {
     response.writeHead(204, cors).end();
@@ -118,8 +127,9 @@ createServer((request, response) => {
         status: "active",
         plan: "free",
         // The author made both practices in practices.json: the free
-        // plan's one-practice trial is used up (D72).
-        practices_created: sub === "e2e-admin" ? 0 : 2,
+        // plan's one-practice trial is used up (D72). The learner hasn't
+        // made one yet.
+        practices_created: sub === "e2e-author" ? 2 : 0,
       },
     ]);
     return;
@@ -139,13 +149,20 @@ createServer((request, response) => {
     json(200, sub && waitlist.has(sub) ? [{ user_id: sub }] : []);
     return;
   }
-  // Every daily AI allowance is used up (D77), so a paid call is refused
-  // before anything runs, and the page says which limit and when it resets.
+  // The admin's daily AI allowances are used up (D77), so their paid
+  // calls are refused and the page says which limit and when it resets;
+  // the learner still has today's (the fakes cost nothing anyway).
   if (
     url.pathname === "/rest/v1/rpc/reserve_api_cost" ||
     url.pathname === "/rest/v1/rpc/reserve_api_batch_cost"
   ) {
-    json(200, false);
+    const args = JSON.parse((await readBody(request)) || "{}");
+    json(200, args.target_user !== "e2e-admin");
+    return;
+  }
+  // Nothing spent this month, site-wide (D77).
+  if (url.pathname === "/rest/v1/rpc/month_api_cost") {
+    json(200, 0);
     return;
   }
   // The library's totals (D70): one learner on Sintel, no audio lengths.

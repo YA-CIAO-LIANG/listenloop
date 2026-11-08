@@ -68,3 +68,25 @@ export const DESCRIBE_INSTRUCTIONS = [
   "Read the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.",
   "Write it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.",
 ].join("\n");
+
+/**
+ * The composition instructions for `prompt` (D81): a custom scenario or a
+ * title adds what to do with it; a plain request gets exactly
+ * COMPOSE_INSTRUCTIONS, as recorded in the fixtures.
+ */
+export function composeInstructions(prompt: {
+  customScenario?: string;
+  title?: string;
+}): string {
+  const extra = [
+    prompt.customScenario
+      ? "customScenario (in any language) is the main situation: write that situation, using the scenario, if any, only as its setting."
+      : null,
+    prompt.title
+      ? "The text must fit the given title. Return that title exactly as given, unchanged."
+      : null,
+  ].filter(Boolean);
+  return extra.length
+    ? [COMPOSE_INSTRUCTIONS, ...extra].join("\n")
+    : COMPOSE_INSTRUCTIONS;
+}

@@ -289,6 +289,12 @@ describe("CreatePracticeForm", () => {
     fireEvent.change(screen.getByLabelText("主題或關鍵字（選填）"), {
       target: { value: "期中考" },
     });
+    fireEvent.change(screen.getByLabelText("自訂情境（選填）"), {
+      target: { value: "請教授延後期中報告" },
+    });
+    fireEvent.change(screen.getByLabelText("標題（選填）"), {
+      target: { value: "我的期中報告" },
+    });
     fireEvent.click(screen.getByLabelText("高級"));
     fireEvent.click(screen.getByLabelText("4–5 分鐘"));
     fireEvent.click(screen.getByLabelText("英式"));
@@ -296,6 +302,8 @@ describe("CreatePracticeForm", () => {
     expect(generateText).toHaveBeenCalledWith({
       topic: "期中考",
       scenario: "office-hours",
+      customScenario: "請教授延後期中報告",
+      title: "我的期中報告",
       level: "advanced",
       length: "4-5",
       format: "dialogue",
