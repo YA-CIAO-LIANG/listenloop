@@ -1651,8 +1651,7 @@
       "plan": "Item",
       "periods": {
         "month": "Monthly",
-        "year": "Yearly",
-        "twoYear": "2 years"
+        "year": "Yearly"
       },
       "names": {
         "plus": "Plus",
@@ -1967,9 +1966,9 @@
       {
         "title": "7. Paid plan and subscriptions",
         "paragraphs": [
-          "Paid plans (Plus, Pro) are subscriptions billed monthly, yearly, or every two years, at the prices on the Plans and pricing page. A longer plan’s allowance resets every month and doesn’t carry over. A third-party payment service handles payment.",
+          "Paid plans (Plus, Pro) are subscriptions billed monthly or yearly, at the prices on the Plans and pricing page. A yearly plan’s allowance resets every month and doesn’t carry over. A third-party payment service handles payment.",
           "Subscriptions renew automatically: at the end of each period, your payment method is charged for the next, until you cancel. Cancel any time on the Account page; you keep the paid plan until the period ends.",
-          "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly or 2-year plan ended early refunds its unused whole months. If prices change, we’ll tell you before the next period starts, and you can cancel before the change applies.",
+          "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly plan ended early refunds its unused whole months. If prices change, we’ll tell you before the next period starts, and you can cancel before the change applies.",
           "When a subscription ends or you return to the free plan, your materials and progress are kept; you just can't add new materials."
         ]
       },
@@ -2228,7 +2227,6 @@
     "intervalLabel": "Billing period",
     "monthly": "Monthly",
     "yearly": "Yearly",
-    "yearlySave": "Save {percent}%",
     "free": {
       "title": "Free",
       "price": "NT$0",
@@ -2324,14 +2322,14 @@
       {
         "title": "2. Full refund within 7 days",
         "paragraphs": [
-          "Within 7 days of your first payment (monthly, yearly, or 2-year), you can ask for a full refund, no reason needed. The paid plan ends when it’s refunded."
+          "Within 7 days of your first payment (monthly or yearly), you can ask for a full refund, no reason needed. The paid plan ends when it’s refunded."
         ]
       },
       {
-        "title": "3. Ending a yearly or 2-year plan early",
+        "title": "3. Ending a yearly plan early",
         "paragraphs": [
-          "After 7 days, you can still end a yearly or 2-year plan early: the unused whole months are refunded at that plan’s own monthly rate (for example, Plus yearly at NT$1,290 used for 3 months and a few days refunds 8 × NT$107.50 = NT$860). The month already started isn’t refunded.",
-          "A longer plan’s allowance still resets every month; unused minutes don’t carry over or turn into refunds."
+          "After 7 days, you can still end a yearly plan early: the unused whole months are refunded at that plan’s own monthly rate (for example, Plus yearly at NT$1,490 used for 3 months and a few days refunds 8 × NT$1,490 ÷ 12 ≈ NT$993). The month already started isn’t refunded.",
+          "A yearly plan’s allowance still resets every month; unused minutes don’t carry over or turn into refunds."
         ]
       },
       {
@@ -2355,7 +2353,7 @@
       {
         "title": "7. Purchases through Google Play",
         "paragraphs": [
-          "If you subscribed in the Android app through Google Play, cancelling and refunds follow Google Play’s rules. Google Play offers monthly and yearly only; the 2-year plan is sold on the website."
+          "If you subscribed in the Android app through Google Play, cancelling and refunds follow Google Play’s rules. Google Play offers monthly and yearly too."
         ]
       }
     ],
@@ -2529,12 +2527,9 @@
     "periodLegend": "Billing",
     "periods": {
       "month": "Monthly",
-      "year": "Yearly",
-      "twoYear": "2 years"
+      "year": "Yearly"
     },
-    "popular": "Most popular",
-    "bestValue": "Best value",
-    "monthlyReset": "On yearly and 2-year plans, the allowance still resets every month; it doesn’t carry over.",
+    "monthlyReset": "On a yearly plan, the allowance still resets every month; it doesn’t carry over.",
     "names": {
       "free": "Free",
       "plus": "Plus",
@@ -2542,9 +2537,6 @@
     },
     "current": "Your plan",
     "perMonthSuffix": "/ month",
-    "billedMonthly": "{total} every month",
-    "billedPeriod": "{total} for {months} months",
-    "saving": "Save {amount} ({percent}%) against monthly",
     "summaries": {
       "free": "Every official lesson and feature, basic stats, and one practice of your own to try (up to 30 seconds).",
       "plus": "40 minutes of your own practices a month, YouTube practices, playback speed, full stats, and custom pass rules.",
@@ -2574,9 +2566,8 @@
     "statsBasic": "Basic",
     "statsFull": "Full",
     "soon": "✓ (coming soon)",
-    "refund": "Full refund within {days} days of paying; a longer plan cancelled early refunds its unused whole months.",
+    "refund": "Full refund within {days} days of paying; a yearly plan ended early refunds its unused whole months.",
     "refundLink": "Refund policy",
-    "webOnly": "The 2-year plan is on the website only; Google Play subscriptions go up to a year.",
     "offerTitle": "{plan} · {period}",
     "comingSoon": "Paid plans are coming soon. Join the list for an early-bird offer when they open. Nothing is charged now.",
     "join": "Join the list",
@@ -2584,7 +2575,10 @@
     "joined": "You’re on the list; we’ll let you know when it opens.",
     "joinFailed": "Couldn’t join. Please try again.",
     "signInToJoin": "Sign in to join the list",
-    "close": "Close"
+    "close": "Close",
+    "monthsFree": "{months} months free",
+    "averagePerMonth": "Averages {amount} a month",
+    "perYearSuffix": "/ year"
   },
   "classroom": {
     "title": "My classes",
@@ -2680,19 +2674,17 @@
   },
   "classPricing": {
     "title": "Class plans",
-    "intro": "For teachers: make classes, assign lessons, see each student’s progress and improvement, and export a CSV. Priced by students; teachers also get monthly minutes for their own practices.",
-    "periodSaving": "{months} months for the price of {paid}: save {percent}%.",
-    "students": "Students",
-    "perMonth": "About a month",
-    "total": "Total",
-    "teacherMinutes": "Teacher minutes a month",
-    "subscribeColumn": "Subscribe",
-    "seats": "{seats} students",
-    "minutes": "{minutes} min",
+    "intro": "For teachers: make classes, assign lessons, see each student’s progress and improvement, and export a CSV. One plan; teachers also get monthly minutes for their own practices.",
+    "seats": "Up to {seats} students a class",
+    "minutes": "{minutes} minutes a month of the teacher’s own practices",
     "subscribe": "Subscribe",
-    "note": "Before class plans open, an admin can turn one on for a trial. The 2-year plan is on the website only.",
-    "offerTitle": "{seats}-student class · {period}",
+    "note": "Before class plans open, an admin can turn one on for a trial.",
+    "offerTitle": "Class plan · {period}",
     "comingSoon": "Class plans are coming soon; nothing is charged now. Press “Tell me when it opens” and we’ll note your interest.",
-    "notify": "Tell me when it opens"
+    "notify": "Tell me when it opens",
+    "planName": "Classroom",
+    "priority": "Priority list price",
+    "priorityNote": "Teachers on the priority list subscribe at this price when it opens.",
+    "features": "Classes, assignments, a progress dashboard, CSV export, and announcements"
   }
 }

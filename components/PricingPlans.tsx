@@ -11,16 +11,14 @@ import {
 } from "@/app/plans/actions";
 import type { IntentSource } from "@/lib/intent";
 import {
-  BEST_VALUE_PERIOD,
+  averagePerMonth,
   BILLING_PERIODS,
   DEFAULT_PERIOD,
   formatPrice,
   PAID_PLANS,
-  PERIOD_MONTHS,
-  periodSaving,
   PLAN_PRICES,
-  pricePerMonth,
   REFUND_DAYS,
+  YEARLY_MONTHS_FREE,
   type BillingPeriod,
   type PaidPlan,
 } from "@/lib/payments/pricing";
@@ -51,12 +49,12 @@ const FEATURES = [
 ] as const;
 
 /**
- * Plans and pricing (D102): Free, Plus, and Pro, billed monthly, yearly
- * (the default, "most popular"), or every two years ("best value"); each
- * paid plan shows its price per month, the total, and what it saves
- * against paying monthly. Paying isn't open yet: "Subscribe" says so and
- * offers the waiting list (a fake door). Every step is recorded
- * (intent_events) for the admin's interest page.
+ * Plans and pricing (D102, D105): Free, Plus, and Pro, billed monthly or
+ * yearly (the default). A yearly price is 10 × the monthly one, shown
+ * with "2 months free" and its average a month, never as a percentage.
+ * Paying isn't open yet: "Subscribe" says so and offers the waiting list
+ * (a fake door). Every step is recorded (intent_events) for the admin's
+ * interest page.
  */
 export function PricingPlans({
   signedIn,
@@ -170,11 +168,9 @@ export function PricingPlans({
           options={BILLING_PERIODS.map((value) => ({
             value,
             label:
-              value === DEFAULT_PERIOD
-                ? `${t(`periods.${value}`)} · ${t("popular")}`
-                : value === BEST_VALUE_PERIOD
-                  ? `${t(`periods.${value}`)} · ${t("bestValue")}`
-                  : t(`periods.${value}`),
+              value === "year"
+                ? `${t("periods.year")} · ${t("monthsFree", { months: YEARLY_MONTHS_FREE })}`
+                : t(`periods.${value}`),
           }))}
           onChange={choosePeriod}
           optionWidthClassName="min-w-20"
@@ -192,7 +188,6 @@ export function PricingPlans({
           <p className="text-supporting">{t("summaries.free")}</p>
         </li>
         {PAID_PLANS.map((plan) => {
-          const saving = periodSaving(plan, period);
           const total = PLAN_PRICES[plan][period].amount;
           return (
             <li
@@ -207,29 +202,26 @@ export function PricingPlans({
               </h2>
               <p>
                 <span className="font-display text-h2 tabular-nums">
-                  {price(pricePerMonth(plan, period))}
+                  {price(total)}
                 </span>
-                <span className="text-ink-muted"> {t("perMonthSuffix")}</span>
+                <span className="text-ink-muted">
+                  {" "}
+                  {period === "year" ? t("perYearSuffix") : t("perMonthSuffix")}
+                </span>
               </p>
-              <p className="text-supporting text-ink-muted">
-                {period === "month"
-                  ? t("billedMonthly", { total: price(total) })
-                  : t("billedPeriod", {
-                      months: PERIOD_MONTHS[period],
-                      total: price(total),
+              {period === "year" && (
+                <p className="text-supporting tabular-nums">
+                  <span className="text-success">
+                    {t("monthsFree", { months: YEARLY_MONTHS_FREE })}
+                  </span>
+                  <span className="text-ink-muted">
+                    {" · "}
+                    {t("averagePerMonth", {
+                      amount: price(averagePerMonth(total)),
                     })}
-                {saving.amount > 0 && (
-                  <>
-                    <br />
-                    <span className="text-success">
-                      {t("saving", {
-                        amount: price(saving.amount),
-                        percent: saving.percent,
-                      })}
-                    </span>
-                  </>
-                )}
-              </p>
+                  </span>
+                </p>
+              )}
               <p className="text-supporting">{t(`summaries.${plan}`)}</p>
               <Button
                 variant={plan === "plus" ? "primary" : "secondary"}
@@ -283,7 +275,6 @@ export function PricingPlans({
             {t("refundLink")}
           </Link>
         </p>
-        <p>{t("webOnly")}</p>
       </div>
 
       {offer && (

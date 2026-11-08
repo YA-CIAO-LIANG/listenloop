@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
 import { setClassroomSeats } from "@/app/admin/users/actions";
-import { CLASS_TIERS } from "@/lib/classroom";
+import { CLASS_PLAN } from "@/lib/classroom";
 
-/** An admin turns a teacher's class plan on or off by hand (D103). */
+/**
+ * An admin turns a teacher's class plan on or off by hand (D103, D105).
+ * A grant from before the single plan keeps showing its seats.
+ */
 export function ClassroomSeatsControl({
   userId,
   seats,
@@ -40,11 +43,14 @@ export function ClassroomSeatsControl({
         className="h-10 rounded-base border border-line bg-surface px-2 pointer-coarse:min-h-11"
       >
         <option value="">{t("classroomNone")}</option>
-        {CLASS_TIERS.map((tier) => (
-          <option key={tier.seats} value={tier.seats}>
-            {t("classroomSeats", { seats: tier.seats })}
+        <option value={CLASS_PLAN.seats}>
+          {t("classroomSeats", { seats: CLASS_PLAN.seats })}
+        </option>
+        {seats !== null && seats !== CLASS_PLAN.seats && (
+          <option value={seats} disabled>
+            {t("classroomSeats", { seats })}
           </option>
-        ))}
+        )}
       </select>
       {failed && (
         <span className="text-supporting text-error">

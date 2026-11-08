@@ -7,41 +7,27 @@ import {
   weeklyTrend,
   type IntentRow,
 } from "@/lib/interest";
-import {
-  PLAN_PRICES,
-  periodSaving,
-  prepaidRefund,
-  pricePerMonth,
-  WEB_ONLY_PERIODS,
-} from "@/lib/payments/pricing";
+import { PLAN_PRICES, prepaidRefund } from "@/lib/payments/pricing";
 import { can, planFor, PLANS } from "@/lib/plans";
 
 describe("prices (D102)", () => {
-  it("are Joe's, with the per-month prices and savings he listed", () => {
+  it("are Joe's monthly prices; a year is ten of them (D105)", () => {
     expect(PLAN_PRICES.plus).toMatchObject({
       month: { amount: 149 },
-      year: { amount: 1290 },
-      twoYear: { amount: 2290 },
+      year: { amount: 1490 },
     });
-    expect(pricePerMonth("plus", "year")).toBe(108);
-    expect(pricePerMonth("plus", "twoYear")).toBe(95);
-    expect(pricePerMonth("pro", "year")).toBe(216);
-    expect(pricePerMonth("pro", "twoYear")).toBe(191);
-    expect(periodSaving("plus", "year")).toEqual({ amount: 498, percent: 28 });
-    expect(periodSaving("plus", "twoYear")).toEqual({
-      amount: 1286,
-      percent: 36,
+    expect(PLAN_PRICES.pro).toMatchObject({
+      month: { amount: 299 },
+      year: { amount: 2990 },
     });
-    expect(periodSaving("pro", "year").percent).toBe(28);
-    expect(periodSaving("pro", "twoYear").percent).toBe(36);
-    expect(periodSaving("plus", "month")).toEqual({ amount: 0, percent: 0 });
-    expect(WEB_ONLY_PERIODS).toEqual(["twoYear"]);
+    expect(Object.keys(PLAN_PRICES.plus)).toEqual(["month", "year"]);
   });
 
   it("refunds all within 7 days, then the unused whole months at the plan's rate", () => {
-    expect(prepaidRefund("plus", "year", 3, 0)).toBe(1290);
-    expect(prepaidRefund("plus", "year", 100, 3.2)).toBe(860);
-    expect(prepaidRefund("pro", "twoYear", 400, 13.5)).toBe(1913);
+    expect(prepaidRefund("plus", "year", 3, 0)).toBe(1490);
+    // 8 unused months × 1,490 ÷ 12.
+    expect(prepaidRefund("plus", "year", 100, 3.2)).toBe(993);
+    expect(prepaidRefund("pro", "year", 200, 6.5)).toBe(1246);
     expect(prepaidRefund("plus", "month", 20, 0.7)).toBe(0);
   });
 });
@@ -153,7 +139,7 @@ describe("revenue forecast (D102)", () => {
   it("spreads prepaid plans by month and takes their cash up front", () => {
     const input = defaultForecastInput(0.6);
     for (const plan of ["plus", "pro"] as const) {
-      for (const period of ["month", "year", "twoYear"] as const) {
+      for (const period of ["month", "year"] as const) {
         input.subscribers[plan][period] = 0;
       }
     }
@@ -162,10 +148,10 @@ describe("revenue forecast (D102)", () => {
     input.serverMonthly = 0;
     input.usage.plus = 0.5;
     const result = forecast(input);
-    expect(result.revenue).toBe(1290); // 12 × 1,290 ÷ 12
-    expect(result.cash).toBe(15480);
+    expect(result.revenue).toBe(1490); // 12 × 1,490 ÷ 12
+    expect(result.cash).toBe(17880);
     expect(result.aiCost).toBeCloseTo(12 * 40 * 0.5 * 0.6);
-    expect(result.net).toBeCloseTo(1290 - 144);
-    expect(result.grossMargin).toBeCloseTo((1290 - 144) / 1290);
+    expect(result.net).toBeCloseTo(1490 - 144);
+    expect(result.grossMargin).toBeCloseTo((1490 - 144) / 1490);
   });
 });

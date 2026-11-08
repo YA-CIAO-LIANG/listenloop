@@ -4,26 +4,28 @@ import { expect, signInAsAdmin, signInAsBuyer, test } from "./fixtures";
  * Payments with the fake provider (D85): no money, no network. The fake
  * checkout's webhooks are signed and go through the real handler.
  */
-test("signed out, pricing shows Free, Plus, and Pro, yearly first, with savings (D102)", async ({
+test("signed out, pricing shows Free, Plus, and Pro, yearly first at ten months (D102, D105)", async ({
   page,
 }) => {
   await page.goto("/pricing?from=stats");
   await expect(page.getByRole("heading", { name: "方案與價格" })).toBeVisible();
   const plus = page.getByRole("listitem").filter({ hasText: "訂閱 Plus" });
-  // Yearly is the default ("most popular").
+  // Yearly is the default: 10 × monthly, "2 months free" and the average
+  // a month beside it, no percentages (D105).
   await expect(
-    page.getByRole("radio", { name: /年繳 · 最受歡迎/ }),
+    page.getByRole("radio", { name: "年繳 · 省 2 個月" }),
   ).toBeChecked();
-  await expect(plus.getByText("NT$108")).toBeVisible();
-  await expect(plus.getByText("12 個月共 NT$1,290")).toBeVisible();
-  await expect(plus.getByText("比月繳省 NT$498（28%）")).toBeVisible();
-  await page.getByText("兩年 · 最划算").click();
-  await expect(plus.getByText("24 個月共 NT$2,290")).toBeVisible();
-  await expect(plus.getByText("比月繳省 NT$1,286（36%）")).toBeVisible();
+  await expect(plus.getByText("NT$1,490")).toBeVisible();
+  await expect(plus.getByText("省 2 個月")).toBeVisible();
+  await expect(plus.getByText("每月平均 NT$124")).toBeVisible();
   const pro = page.getByRole("listitem").filter({ hasText: "訂閱 Pro" });
-  await expect(pro.getByText("NT$191")).toBeVisible();
+  await expect(pro.getByText("NT$2,990")).toBeVisible();
+  await expect(pro.getByText("每月平均 NT$249")).toBeVisible();
+  await expect(page.getByText("兩年")).toHaveCount(0);
+  await expect(page.locator("main")).not.toContainText("%");
   await page.getByText("月繳", { exact: true }).click();
-  await expect(plus.getByText("每月 NT$149")).toBeVisible();
+  await expect(plus.getByText("NT$149")).toBeVisible();
+  await expect(plus.getByText("每月平均")).toHaveCount(0);
   await expect(
     page.getByRole("table", { name: "方案比較" }).getByRole("row", {
       name: /單份最長 30 秒 5 分鐘 10 分鐘/,
@@ -43,8 +45,8 @@ test("signed in, the fake door joins the waiting list with the plan and period (
   page,
 }) => {
   await signInAsBuyer(page, "e2e-waitlist");
-  await page.goto("/pricing?plan=pro&period=twoYear&from=youtube");
-  const dialog = page.getByRole("dialog", { name: "Pro · 兩年" });
+  await page.goto("/pricing?plan=pro&period=year&from=youtube");
+  const dialog = page.getByRole("dialog", { name: "Pro · 年繳" });
   await dialog.getByRole("button", { name: "加入名單" }).click();
   await expect(dialog.getByText("已加入名單")).toBeVisible();
 });

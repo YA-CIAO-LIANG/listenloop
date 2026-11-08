@@ -7,7 +7,7 @@ import { getAdminUser } from "@/auth/creator";
 import { isAccountStatus, isRole } from "@/lib/accounts";
 import { isAdminEmail } from "@/lib/admin";
 import { isUuid } from "@/lib/custom-practice/organize";
-import { isClassSeats } from "@/lib/classroom";
+import { CLASS_PLAN } from "@/lib/classroom";
 import { isAccountPlan } from "@/lib/plans";
 
 export type UserChangeResult =
@@ -93,8 +93,9 @@ export async function changeUser(
 }
 
 /**
- * Turns a teacher's class plan on (its seats) or off (null) by hand, for
- * trying Classroom before payments open (D103); audited.
+ * Turns a teacher's class plan on (its seats, CLASS_PLAN.seats) or off
+ * (null) by hand, for trying Classroom before payments open (D103, D105);
+ * audited.
  */
 export async function setClassroomSeats(
   userId: unknown,
@@ -102,7 +103,7 @@ export async function setClassroomSeats(
 ): Promise<UserChangeResult> {
   const [actor, admin] = [await getAdminUser(), getAdminSupabase()];
   if (!actor || !admin) return { ok: false, reason: "unavailable" };
-  if (!isUuid(userId) || (seats !== null && !isClassSeats(seats))) {
+  if (!isUuid(userId) || (seats !== null && seats !== CLASS_PLAN.seats)) {
     return { ok: false, reason: "invalid" };
   }
   const { data: profile } = await admin

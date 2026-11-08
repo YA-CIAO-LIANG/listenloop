@@ -1,6 +1,6 @@
 import { topMissedWords, type MaterialInfo } from "./analytics";
 import { lastDoneDay, officialScore } from "./cycle";
-import type { BillingPeriod } from "./payments/pricing";
+import { yearlyFromMonthly, type BillingPeriod } from "./payments/pricing";
 import { parseProgress, type Progress } from "./progress";
 
 /**
@@ -8,45 +8,38 @@ import { parseProgress, type Progress } from "./progress";
  * their students. Numbers and prices live here only.
  */
 
-/** Class plans by seats (Joe's prices, NT$ a month) and teacher minutes. */
-export const CLASS_TIERS = [
-  { seats: 10, monthly: 590, minutes: 60 },
-  { seats: 20, monthly: 990, minutes: 100 },
-  { seats: 40, monthly: 1790, minutes: 160 },
-  { seats: 80, monthly: 3290, minutes: 240 },
-  { seats: 100, monthly: 3990, minutes: 300 },
-] as const;
-export type ClassSeats = (typeof CLASS_TIERS)[number]["seats"];
+/**
+ * The class plan (D105): one plan, NT$499 a month; the waiting list's
+ * priority price NT$349. Yearly prices are 10 × monthly, like every plan
+ * (lib/payments/pricing.ts). `seats` is the class size the plan allows;
+ * `minutes` the teacher's own monthly minutes.
+ */
+export const CLASS_PLAN = {
+  monthly: 499,
+  priorityMonthly: 349,
+  seats: 40,
+  minutes: 160,
+} as const;
+
+/** Seat counts a class plan may hold: today's, and earlier grants (D103). */
+export const CLASS_SEAT_OPTIONS = [10, 20, 40, 80, 100] as const;
+export type ClassSeats = (typeof CLASS_SEAT_OPTIONS)[number];
 
 export const isClassSeats = (value: unknown): value is ClassSeats =>
-  CLASS_TIERS.some((tier) => tier.seats === value);
+  (CLASS_SEAT_OPTIONS as readonly unknown[]).includes(value);
 
-/** Months paid for each period: a year is 9 months, two years 16 (D103). */
-export const CLASS_PERIOD_MONTHS: Readonly<Record<BillingPeriod, number>> = {
-  month: 1,
-  year: 9,
-  twoYear: 16,
-};
-export const CLASS_PERIOD_LENGTH: Readonly<Record<BillingPeriod, number>> = {
-  month: 1,
-  year: 12,
-  twoYear: 24,
-};
-
-export function classPrice(seats: ClassSeats, period: BillingPeriod): number {
-  const tier = CLASS_TIERS.find((t) => t.seats === seats)!;
-  return tier.monthly * CLASS_PERIOD_MONTHS[period];
+/** The class plan's price for a period; `priority` for the waiting list. */
+export function classPrice(
+  period: BillingPeriod,
+  { priority = false }: { priority?: boolean } = {},
+): number {
+  const monthly = priority ? CLASS_PLAN.priorityMonthly : CLASS_PLAN.monthly;
+  return period === "year" ? yearlyFromMonthly(monthly) : monthly;
 }
 
-export function classSaving(period: BillingPeriod): number {
-  return Math.round(
-    (1 - CLASS_PERIOD_MONTHS[period] / CLASS_PERIOD_LENGTH[period]) * 100,
-  );
-}
-
-/** A teacher's monthly minutes of their own practices (D103). */
+/** A teacher's monthly minutes of their own practices (D103, D105). */
 export function classMinutes(seats: ClassSeats | null): number | null {
-  return CLASS_TIERS.find((t) => t.seats === seats)?.minutes ?? null;
+  return seats === null ? null : CLASS_PLAN.minutes;
 }
 
 /** Invite codes: 8 letters and digits, no 0/O or 1/I to misread. */
