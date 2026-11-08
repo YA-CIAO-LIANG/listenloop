@@ -1,5 +1,7 @@
 "use server";
 
+import { officialColumns } from "@/lib/material-admin";
+import { getAdminSupabase } from "@/auth/admin";
 import type { UsageBlock } from "@/lib/usage";
 import { revalidatePath } from "next/cache";
 import { creationAllowed } from "@/auth/creation-quota";
@@ -218,6 +220,18 @@ export async function createPractice(
   const meta = parseMaterialMeta((input as { meta?: unknown } | null)?.meta);
   const id = await savePractice(supabase, creator.user.id, draft, meta);
   if (!id) return { ok: false, reason: "failed" };
+  // A new official material (D80): admins only, an official draft from
+  // the start, marked with the secret key (users can't mark official).
+  if (
+    (input as { official?: unknown } | null)?.official === true &&
+    creator.user.role === "admin"
+  ) {
+    await getAdminSupabase()
+      ?.from("practices")
+      .update(officialColumns("draft"))
+      .eq("id", id);
+    revalidatePath("/admin/official");
+  }
   await logEvent(creator.user.id, {
     type: "practice_create",
     videoId: customPracticeId(id),

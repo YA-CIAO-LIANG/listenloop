@@ -71,6 +71,14 @@ export function SiteHeader({
           )}
           {showAdmin && (
             <Link
+              href="/admin/official"
+              className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
+            >
+              {t("official")}
+            </Link>
+          )}
+          {showAdmin && (
+            <Link
               href="/admin"
               className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"
             >

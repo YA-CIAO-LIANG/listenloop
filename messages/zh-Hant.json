@@ -9,7 +9,8 @@
     "createPractice": "建立練習",
     "admin": "後台",
     "skipToContent": "跳到主要內容",
-    "stats": "學習分析"
+    "stats": "學習分析",
+    "official": "官方教材"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -831,7 +832,10 @@
     "mergeSentence": "與下一句合併",
     "mergeSentenceLabel": "第 {n} 句與下一句合併",
     "splitHint": "要拆開一句時，先在英文框點一下要拆開的位置，再按「從游標處拆分」；拆出來的句子中文會在建立時自動翻譯。",
-    "zhPlaceholder": "留空會在建立時自動翻譯"
+    "zhPlaceholder": "留空會在建立時自動翻譯",
+    "officialTitle": "建立新官方教材",
+    "officialBack": "官方教材",
+    "backToOfficial": "前往官方教材 →"
   },
   "editPractice": {
     "title": "編輯練習",
@@ -924,10 +928,11 @@
       "not-found": "找不到這個項目，可能已經刪除。請重新整理頁面。",
       "failed": "儲存失敗，請稍後再試一次。"
     },
-    "officialOff": "設為官方教材",
-    "officialOn": "✓ 官方教材",
-    "officialLabel": "「{title}」是否為官方教材",
-    "officialPublic": "設為官方教材後會先存成草稿（私人），到「後台 → 教材」發布後才會出現在教材庫。"
+    "officialPublic": "設為官方教材後會先存成草稿（私人），到「後台 → 教材」發布後才會出現在教材庫。",
+    "copyOfficial": "複製為官方教材",
+    "copyOfficialLabel": "把「{title}」複製為官方教材",
+    "copiedOfficial": "已複製到官方教材（草稿），這份練習保留不變。",
+    "openOfficial": "前往官方教材 →"
   },
   "voicePicker": {
     "legend": "選擇聲音",
@@ -1241,14 +1246,15 @@
       "label": "後台導覽",
       "overview": "總覽",
       "users": "使用者",
-      "materials": "教材",
+      "materials": "公開教材",
       "reports": "檢舉審查",
       "sentences": "容易出錯的句子",
       "usage": "API 用量",
       "events": "操作紀錄",
       "feedback": "意見回饋",
       "errors": "錯誤紀錄",
-      "audit": "管理稽核"
+      "audit": "管理稽核",
+      "official": "官方教材"
     },
     "overview": {
       "title": "後台總覽",
@@ -1393,8 +1399,8 @@
       "open": "打開影片頁 →"
     },
     "materials": {
-      "title": "教材管理",
-      "intro": "官方教材和公開教材。官方教材只能是管理員建立的；先存成草稿（私人），講解和音檔都完成後才能發布到教材庫。已發布的官方教材可以調整在教材庫的推薦順序。",
+      "title": "公開教材",
+      "intro": "使用者公開分享的練習與已下架的練習：調整分類、審查與下架。官方教材在「官方教材」管理。",
       "none": "沒有符合條件的教材。",
       "author": "使用者 {number}",
       "sentences": "{count} 句",
@@ -1428,9 +1434,8 @@
         "apply": "篩選",
         "statuses": {
           "all": "全部",
-          "draft": "官方草稿",
-          "published": "官方已發布",
-          "public": "一般公開"
+          "public": "公開中",
+          "removed": "已下架"
         }
       },
       "errors": {
@@ -1871,5 +1876,42 @@
     "monthly": "本月全站的 AI 額度已用完，暫停建立新練習，{when}（台灣時間）恢復。",
     "speech": "今天的聲音用量已用完，{when}（台灣時間）重設。已產生的音檔會保留。",
     "adminLink": "查看後台用量 →"
+  },
+  "adminOfficial": {
+    "title": "官方教材",
+    "intro": "所有人都能在首頁教材庫練習的教材。草稿只有管理員看得到；發布後一律公開。可以調整推薦順序、分類與簡介，或批次重新產生講解。",
+    "create": "＋ 建立新官方教材",
+    "filterLabel": "依類別篩選",
+    "allCategories": "全部",
+    "sections": {
+      "draft": "草稿（{count}）",
+      "published": "已發布（{count}）"
+    },
+    "empty": {
+      "draft": "沒有草稿。",
+      "published": "還沒有發布的官方教材。"
+    },
+    "noCategory": "未分類",
+    "sentences": "{count} 句",
+    "notesCurrent": "講解：最新版",
+    "notesOld": "講解：舊版",
+    "audio": "音檔 {voiced} / {total}",
+    "otherAuthor": "由其他管理員建立：可以發布與排序，編輯要由建立者進行。",
+    "upgrade": {
+      "title": "批次重新產生講解",
+      "allCurrent": "所有官方教材的講解都是最新版。",
+      "legend": "講解不是最新版的教材（{count}）",
+      "note": "使用管理員的批次額度，不會占用手動建立的額度。舊講解會保留在版本紀錄，進行中的七天循環不受影響。",
+      "run": "重新產生講解（{count} 份）",
+      "working": "正在處理「{title}」",
+      "done": "已完成 {count} 份。",
+      "stopped": "處理「{title}」時停止：",
+      "errors": {
+        "limit": "批次額度已用完。",
+        "busy": "AI 服務忙碌，請稍後再試。",
+        "unavailable": "目前無法使用（請確認 AI 服務設定）。",
+        "failed": "產生失敗，請稍後再試。"
+      }
+    }
   }
 }

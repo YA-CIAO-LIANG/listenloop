@@ -26,9 +26,14 @@ export async function generateMetadata(): Promise<Metadata> {
  * plan's limit (the free trial, D72), the paid plan and its waiting list
  * show instead of the form.
  */
-export default async function NewMaterialPage() {
+export default async function NewMaterialPage({
+  searchParams,
+}: PageProps<"/materials/new">) {
   const creator = await getCreator();
   if (!creator) notFound();
+  // ?official=1: an admin making an official material (D80).
+  const official =
+    (await searchParams).official === "1" && creator.user.role === "admin";
   const allowed = await creationAllowed(creator);
   const joined = allowed.ok ? false : await onWaitlist();
   const [t, tMaterials] = await Promise.all([
@@ -39,13 +44,15 @@ export default async function NewMaterialPage() {
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <Link
-        href="/materials"
+        href={official ? "/admin/official" : "/materials"}
         className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
-        {tMaterials("title")}
+        {official ? t("officialBack") : tMaterials("title")}
       </Link>
-      <h1 className="mt-6 font-display text-h1">{t("title")}</h1>
+      <h1 className="mt-6 font-display text-h1">
+        {official ? t("officialTitle") : t("title")}
+      </h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
       <p className="mt-4 max-w-reading text-supporting text-ink-muted">
         {t.rich("privacyNote", {
@@ -61,7 +68,7 @@ export default async function NewMaterialPage() {
       </p>
       <div className="mt-12 max-w-practice">
         {allowed.ok ? (
-          <CreatePracticeForm />
+          <CreatePracticeForm official={official} />
         ) : (
           <PaidPlanCard
             block={{ limit: allowed.limit, max: allowed.max }}

@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
-import { officialColumns } from "@/lib/material-admin";
 import {
   writeAsAdmin,
   writeOutcome,
@@ -141,42 +140,40 @@ export async function deletePractice(id: unknown): Promise<OrganizeResult> {
   });
 }
 
+export type CopyOfficialResult =
+  | { ok: true; id: string }
+  | { ok: false; reason: "unavailable" | "invalid" | "not-found" | "failed" };
+
 /**
- * Marks one of the admin's own practices official, or not (D46). An
- * official practice is public (it's listed for everyone), so marking
- * makes it public too. Written with the secret key: the database lets
- * only that change the mark, so users can't mark their own.
+ * Copies one of the admin's own practices to the official materials
+ * (D80): the copy is an official draft, published from /admin/official;
+ * the practice itself stays in My materials, unchanged. Written with
+ * the secret key (copy_practice_as_official), so users can't.
  */
-export async function setOfficial(
-  id: unknown,
-  official: unknown,
-): Promise<OrganizeResult> {
-  if (!isUuid(id) || typeof official !== "boolean") {
-    return { ok: false, reason: "invalid" };
-  }
+export async function copyAsOfficial(id: unknown): Promise<CopyOfficialResult> {
+  if (!isUuid(id)) return { ok: false, reason: "invalid" };
   const user = await getAdminUser();
   const admin = user && getAdminSupabase();
   if (!user || !admin) return { ok: false, reason: "unavailable" };
-  const result = outcome(
-    await admin
-      .from("practices")
-      // A new official practice starts as a draft, published from the
-      // admin dashboard (D58).
-      .update(officialColumns(official ? "draft" : "none"))
-      .eq("id", id)
-      .eq("user_id", user.id)
-      .is("removed_at", null)
-      .select("id"),
+  const { data: own } = await admin
+    .from("practices")
+    .select("id")
+    .eq("id", id)
+    .eq("user_id", user.id)
+    .is("removed_at", null)
+    .maybeSingle();
+  if (!own) return { ok: false, reason: "not-found" };
+  const { data: copy, error } = await admin.rpc("copy_practice_as_official", {
+    source: id,
+    actor: user.id,
+  });
+  if (error || !copy) return { ok: false, reason: "failed" };
+  await logAudit(
+    user.id,
+    "practice.copy-official",
+    { type: "practice", id: copy },
+    { from: id },
   );
-  // The home page's library lists official practices.
-  if (result.ok) {
-    await logAudit(
-      user.id,
-      "practice.official",
-      { type: "practice", id },
-      { to: official },
-    );
-    revalidatePath("/", "layout");
-  }
-  return result;
+  revalidatePath("/admin/official");
+  return { ok: true, id: copy };
 }

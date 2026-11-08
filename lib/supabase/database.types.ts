@@ -769,6 +769,10 @@ export type Database = {
           today_micros: number;
         }[];
       };
+      copy_practice_as_official: {
+        Args: { actor: string; source: string };
+        Returns: string;
+      };
       hit_rate_limit: {
         Args: { limit_key: string; max_hits: number; window_seconds: number };
         Returns: boolean;
