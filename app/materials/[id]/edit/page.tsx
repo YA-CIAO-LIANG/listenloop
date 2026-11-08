@@ -37,12 +37,13 @@ export default async function EditPracticePage({
   const { data: practice } = await supabase
     .from("practices")
     .select(
-      "id, title, title_en, title_zh, subtitle, voice, voice_b, version, practice_sentences(i, en, zh, notes, speaker)",
+      "id, title, title_en, title_zh, subtitle, voice, voice_b, version, youtube_id, practice_sentences(i, en, zh, notes, speaker)",
     )
     .eq("id", id)
     .eq("user_id", creator.user.id)
     .maybeSingle();
-  if (!practice) notFound();
+  // A YouTube practice's sentences follow the video's times (D97).
+  if (!practice || practice.youtube_id) notFound();
   // Older practices have one title; it fills the field of its language.
   const legacyHan = /\p{Script=Han}/u.test(practice.title);
   const titleEn = practice.title_en ?? (legacyHan ? "" : practice.title);

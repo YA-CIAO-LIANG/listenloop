@@ -19,6 +19,11 @@ type PracticeControlsProps = {
     removed?: boolean;
     /** Official (D46): always public, so there's no private switch. */
     official?: boolean;
+    /**
+     * A YouTube video under the standard license (D97): the uploader
+     * didn't allow reuse, so it stays private.
+     */
+    privateOnly?: boolean;
     collectionId: string | null;
     visibility: Visibility;
   };
@@ -70,6 +75,10 @@ export function PracticeControls({
         {practice.official ? (
           <p className="text-supporting text-ink-muted">
             {t("officialPublic")}
+          </p>
+        ) : practice.privateOnly ? (
+          <p className="text-supporting text-ink-muted">
+            {t("youtubePrivateOnly")}
           </p>
         ) : (
           !practice.removed && (

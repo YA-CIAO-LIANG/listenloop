@@ -60,6 +60,7 @@ describe("copyAsOfficial (D80)", () => {
       ["eq", "id", id],
       ["eq", "user_id", "admin-1"],
       ["is", "removed_at", null],
+      ["is", "youtube_id", null],
     ]);
     expect(state.rpc).toHaveBeenCalledWith("copy_practice_as_official", {
       source: id,

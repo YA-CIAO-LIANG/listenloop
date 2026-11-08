@@ -962,7 +962,8 @@
     "copyOfficial": "Copy to official materials",
     "copyOfficialLabel": "Copy “{title}” to the official materials",
     "copiedOfficial": "Copied to the official materials as a draft; this practice stays as it is.",
-    "openOfficial": "Go to official materials →"
+    "openOfficial": "Go to official materials →",
+    "youtubePrivateOnly": "This video uses the standard YouTube license, so it stays private (only Creative Commons videos can be shared)."
   },
   "voicePicker": {
     "legend": "Choose a voice",
@@ -1211,7 +1212,8 @@
     "sourceLegend": "Text source",
     "sources": {
       "text": "Paste or upload",
-      "ai": "Write with AI"
+      "ai": "Write with AI",
+      "youtube": "YouTube link"
     },
     "levelLegend": "Level",
     "lengthLegend": "Length",
@@ -1281,7 +1283,8 @@
       "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice.",
       "practicesTotal": "The free plan lets you try {max} practice of your own, and you've made it.",
       "customRules": "Custom pass rules are part of the paid plans.",
-      "maxPracticeSeconds": "Your plan allows practices up to {max, number} seconds long."
+      "maxPracticeSeconds": "Your plan allows practices up to {max, number} seconds long.",
+      "youtubePractices": "Making practices from YouTube videos is part of the paid plans."
     },
     "seePractices": "See your progress",
     "paid": {
@@ -2319,6 +2322,50 @@
       "limit": "Today’s AI allowance is used up. Try again tomorrow (after midnight Taiwan time).",
       "busy": "Too many tries. Please wait a moment.",
       "failed": "That didn’t work. Try wording it differently; your text is unchanged."
+    }
+  },
+  "youtube": {
+    "paidOnly": "Making practices from YouTube videos is part of the paid plans: paste a video's link and transcript, and practice with the video itself for 7 days.",
+    "seePlans": "See plans",
+    "urlLabel": "YouTube video link",
+    "read": "Read the video",
+    "videoMeta": "{channel} · {length}",
+    "standard": "Standard license",
+    "ccNote": "Creative Commons: you can share it, and the credit is added automatically.",
+    "standardNote": "Standard YouTube license: for your own practice only; it can't be shared.",
+    "transcriptLabel": "Transcript (with times)",
+    "transcriptHint": "Under the video on YouTube, open the description and press “Show transcript”, select all, copy, and paste it here. We never download the video’s sound or captions.",
+    "rangeLegend": "Part to practice (optional)",
+    "rangeHint": "Leave empty to use the whole transcript. Times as min:sec, like 1:05.",
+    "rangeHintMax": "Your plan allows up to {max} per practice; pick a part of a longer video. Times as min:sec, like 1:05.",
+    "from": "From",
+    "to": "to",
+    "prepare": "Split and translate",
+    "reviewIntro": "{count} sentences, {length}. Sentences follow the transcript’s times; you can edit the Chinese.",
+    "titleEn": "English title",
+    "titleZh": "Chinese title (optional)",
+    "zhLabel": "Sentence {n} in Chinese",
+    "create": "Create the practice",
+    "creating": "Creating…",
+    "back": "Back",
+    "attribution": "The practice page credits the video’s channel, license, and link automatically.",
+    "credits": "Credits",
+    "created": "Created “{title}”.",
+    "open": "Start practicing",
+    "duration": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",
+    "errors": {
+      "unavailable": "This isn’t available right now.",
+      "plan": "Making practices from YouTube videos is part of the paid plans.",
+      "busy": "Too many tries. Please wait a moment.",
+      "invalid": "That doesn’t look like a YouTube video link.",
+      "not-found": "We couldn’t find that video. It may be private or removed.",
+      "not-embeddable": "This video can’t be played on other sites, so it can’t be practiced here.",
+      "failed": "That didn’t work. Please try again.",
+      "limit": "Today’s AI allowance is used up. Try again tomorrow (after midnight Taiwan time).",
+      "transcript": "We couldn’t read the transcript: copy it from YouTube’s “Show transcript”, with the time before each line.",
+      "range": "Write times as min:sec, like 1:05.",
+      "tooLong": "This part is {length}, over your plan’s {max}. Pick a shorter part.",
+      "notes": "The practice is saved, but its notes aren’t done; continue in My materials."
     }
   }
 }

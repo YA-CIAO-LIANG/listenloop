@@ -51,6 +51,11 @@ export async function signInAsLearner(page: Page) {
   await signInAs(page, { id: "e2e-learner", email: "learner@example.com" });
 }
 
+/** Signs in as an account on the paid plan (paid features such as D97). */
+export async function signInAsPaid(page: Page) {
+  await signInAs(page, { id: "e2e-paid", email: "paid@example.com" });
+}
+
 /**
  * Signs in as an account of its own for the payment flow (D85), so its
  * paid plan never changes what other tests see.

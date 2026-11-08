@@ -462,28 +462,34 @@ export type Database = {
         Row: {
           audio_path: string | null;
           en: string;
+          end_sec: number | null;
           i: number;
           notes: Json | null;
           practice_id: string;
           speaker: number | null;
+          start_sec: number | null;
           zh: string;
         };
         Insert: {
           audio_path?: string | null;
           en: string;
+          end_sec?: number | null;
           i: number;
           notes?: Json | null;
           practice_id: string;
           speaker?: number | null;
+          start_sec?: number | null;
           zh?: string;
         };
         Update: {
           audio_path?: string | null;
           en?: string;
+          end_sec?: number | null;
           i?: number;
           notes?: Json | null;
           practice_id?: string;
           speaker?: number | null;
+          start_sec?: number | null;
           zh?: string;
         };
         Relationships: [
@@ -563,6 +569,9 @@ export type Database = {
           vocab: Json;
           voice: string | null;
           voice_b: string | null;
+          youtube_channel: string | null;
+          youtube_id: string | null;
+          youtube_license: string | null;
         };
         Insert: {
           category?: string | null;
@@ -592,6 +601,9 @@ export type Database = {
           vocab?: Json;
           voice?: string | null;
           voice_b?: string | null;
+          youtube_channel?: string | null;
+          youtube_id?: string | null;
+          youtube_license?: string | null;
         };
         Update: {
           category?: string | null;
@@ -621,6 +633,9 @@ export type Database = {
           vocab?: Json;
           voice?: string | null;
           voice_b?: string | null;
+          youtube_channel?: string | null;
+          youtube_id?: string | null;
+          youtube_license?: string | null;
         };
         Relationships: [
           {

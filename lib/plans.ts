@@ -39,6 +39,8 @@ export type PlanLimits = {
   customRules: boolean;
   /** The longest practice the AI may write, in seconds (D94). */
   maxPracticeSeconds: number | null;
+  /** May make practices from YouTube videos (D97). */
+  youtubePractices: boolean;
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
@@ -50,6 +52,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     charsPerPractice: 2_000,
     customRules: false,
     maxPracticeSeconds: 30,
+    youtubePractices: false,
   },
   paid: {
     createPractices: true,
@@ -59,6 +62,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     charsPerPractice: 2_000,
     customRules: true,
     maxPracticeSeconds: 300,
+    youtubePractices: true,
   },
   admin: {
     createPractices: true,
@@ -68,6 +72,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     charsPerPractice: null,
     customRules: true,
     maxPracticeSeconds: null,
+    youtubePractices: true,
   },
 };
 
@@ -89,6 +94,7 @@ export type PlanAction =
   | { kind: "start-practice"; active?: number }
   | { kind: "practice-chars"; chars: number }
   | { kind: "custom-rules" }
+  | { kind: "youtube-practice" }
   | { kind: "practice-seconds"; seconds: number };
 
 /** Why an action isn't allowed: a translation key under plans.limits. */
@@ -150,6 +156,10 @@ export function can(
             max: limits.maxPracticeSeconds,
           }
         : { ok: true };
+    case "youtube-practice":
+      return limits.youtubePractices
+        ? { ok: true }
+        : { ok: false, limit: "youtubePractices" };
     case "custom-rules":
       return limits.customRules
         ? { ok: true }

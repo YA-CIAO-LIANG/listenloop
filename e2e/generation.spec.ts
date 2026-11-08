@@ -1,4 +1,4 @@
-import { expect, signInAsLearner, test } from "./fixtures";
+import { expect, signInAsLearner, signInAsPaid, test } from "./fixtures";
 
 /**
  * Writing practice text with AI (D81), with the fake provider: a
@@ -76,4 +76,40 @@ test("after AI writes and translates, an instruction revises it and undo brings 
 
   await page.getByRole("button", { name: "復原上一步" }).click();
   await expect(page.getByLabel(/第 \d+ 句英文/)).toHaveCount(before);
+});
+
+test("a YouTube link and its transcript become timed sentences to review (D97)", async ({
+  page,
+}) => {
+  await signInAsPaid(page);
+  await page.goto("/materials/new");
+  await page.getByText("YouTube 連結").click();
+  await page
+    .getByLabel("YouTube 影片連結")
+    .fill("https://www.youtube.com/watch?v=ccVideo0001");
+  await page.getByRole("button", { name: "讀取影片" }).click();
+  await expect(page.getByText("Open Lecture: How Sleep Works")).toBeVisible();
+  await expect(page.getByText(/可以設為公開/)).toBeVisible();
+  await page
+    .getByLabel("字幕記錄（含時間）")
+    .fill("0:01\nso how does\n0:03\nsleep work?\n0:05\nLet's find out.");
+  await page.getByRole("button", { name: /斷句並翻譯/ }).click();
+  await expect(
+    page.getByText("so how does sleep work?", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("0:01–0:04")).toBeVisible();
+  await expect(page.getByLabel("第 2 句中文")).not.toHaveValue("");
+});
+
+test("on the free plan, YouTube practices are a paid feature (D97)", async ({
+  page,
+}) => {
+  await signInAsLearner(page);
+  await page.goto("/materials/new");
+  await page.getByText("YouTube 連結").click();
+  await expect(page.getByLabel("YouTube 影片連結")).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /看方案/ })).toHaveAttribute(
+    "href",
+    "/pricing?from=youtube",
+  );
 });

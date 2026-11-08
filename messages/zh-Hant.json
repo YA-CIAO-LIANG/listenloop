@@ -960,7 +960,8 @@
     "copyOfficial": "複製為官方教材",
     "copyOfficialLabel": "把「{title}」複製為官方教材",
     "copiedOfficial": "已複製到官方教材（草稿），這份練習保留不變。",
-    "openOfficial": "前往官方教材 →"
+    "openOfficial": "前往官方教材 →",
+    "youtubePrivateOnly": "這部影片是 YouTube 標準授權，只能私人使用（Creative Commons 授權的影片才能公開）。"
   },
   "voicePicker": {
     "legend": "選擇聲音",
@@ -1209,7 +1210,8 @@
     "sourceLegend": "文字來源",
     "sources": {
       "text": "貼上或上傳文字",
-      "ai": "AI 生成"
+      "ai": "AI 生成",
+      "youtube": "YouTube 連結"
     },
     "levelLegend": "程度",
     "lengthLegend": "長度",
@@ -1279,7 +1281,8 @@
       "charsPerPractice": "文字超過方案上限，每份練習最多 {max, number} 字元。",
       "practicesTotal": "免費方案可以試做 {max} 份自己的教材，你已經用完了。",
       "customRules": "自訂通關條件是付費方案的功能。",
-      "maxPracticeSeconds": "你的方案每份教材最長 {max, number} 秒。"
+      "maxPracticeSeconds": "你的方案每份教材最長 {max, number} 秒。",
+      "youtubePractices": "用 YouTube 影片建立練習是付費方案的功能。"
     },
     "seePractices": "查看學習進度",
     "paid": {
@@ -2315,6 +2318,50 @@
       "limit": "今天的 AI 用量已經用完，明天（台灣時間 0 點後）再試。",
       "busy": "太多次了，請稍後再試。",
       "failed": "這次沒有修改成功，請換個說法再試一次。原本的內容沒有變。"
+    }
+  },
+  "youtube": {
+    "paidOnly": "用 YouTube 影片建立練習是付費方案的功能：貼上影片連結和字幕記錄，就能用原影片練習 7 天。",
+    "seePlans": "看方案",
+    "urlLabel": "YouTube 影片連結",
+    "read": "讀取影片",
+    "videoMeta": "{channel} · {length}",
+    "standard": "標準授權",
+    "ccNote": "Creative Commons 授權：可以設為公開，會自動標示出處。",
+    "standardNote": "YouTube 標準授權：只能私人使用，不能公開。",
+    "transcriptLabel": "字幕記錄（含時間）",
+    "transcriptHint": "在 YouTube 影片下方的說明欄按「顯示字幕記錄」，全選後複製，貼到這裡。我們不會下載影片的聲音或字幕。",
+    "rangeLegend": "要練習的片段（選填）",
+    "rangeHint": "不填就用整份字幕記錄。時間寫成 分:秒，例如 1:05。",
+    "rangeHintMax": "你的方案每份最長 {max}；較長的影片請選一段。時間寫成 分:秒，例如 1:05。",
+    "from": "從",
+    "to": "到",
+    "prepare": "斷句並翻譯",
+    "reviewIntro": "共 {count} 句、{length}。句子依字幕的時間切分；可以修改中文。",
+    "titleEn": "英文標題",
+    "titleZh": "中文標題（選填）",
+    "zhLabel": "第 {n} 句中文",
+    "create": "建立練習",
+    "creating": "建立中…",
+    "back": "上一步",
+    "attribution": "練習頁會自動標示影片的頻道、授權與連結。",
+    "credits": "素材出處",
+    "created": "已建立「{title}」。",
+    "open": "開始練習",
+    "duration": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}",
+    "errors": {
+      "unavailable": "目前無法使用這個功能。",
+      "plan": "用 YouTube 影片建立練習是付費方案的功能。",
+      "busy": "太多次了，請稍後再試。",
+      "invalid": "看不懂這個連結，請貼上 YouTube 影片的網址。",
+      "not-found": "找不到這部影片，可能是私人影片或已刪除。",
+      "not-embeddable": "這部影片不允許在其他網站播放，無法用來練習。",
+      "failed": "沒有成功，請再試一次。",
+      "limit": "今天的 AI 用量已經用完，明天（台灣時間 0 點後）再試。",
+      "transcript": "看不懂字幕記錄：請從 YouTube 的「顯示字幕記錄」複製，要包含每行前面的時間。",
+      "range": "時間請寫成 分:秒，例如 1:05。",
+      "tooLong": "這一段有 {length}，超過你的方案上限 {max}。請選短一點的片段。",
+      "notes": "練習已建立，但講解還沒做完；可以在「我的教材」繼續。"
     }
   }
 }

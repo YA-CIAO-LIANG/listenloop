@@ -61,6 +61,7 @@ import { SpeakerToggle } from "./SpeakerToggle";
 import type { MaterialMeta } from "@/lib/custom-practice/generation";
 import { SegmentedControl } from "./SegmentedControl";
 import { RevisePanel, type ReviseText } from "./RevisePanel";
+import { YouTubeCreate } from "./YouTubeCreate";
 import { StageProgress } from "./StageProgress";
 import { UNDO_STEPS } from "@/lib/custom-practice/revise";
 import { VoiceMenu, voiceSampleUrl } from "./VoiceMenu";
@@ -72,6 +73,8 @@ type CreatePracticeFormProps = {
   translate?: TranslateSentences;
   /** Injected in tests; the Server Action otherwise (D96). */
   revise?: ReviseText;
+  /** Offer making a practice from a YouTube video (D97). */
+  youtube?: boolean;
   create?: (draft: {
     titleEn: string;
     titleZh: string;
@@ -128,6 +131,7 @@ export function CreatePracticeForm({
   generateText,
   describe = describeDraft,
   official = false,
+  youtube = false,
 }: CreatePracticeFormProps) {
   const tPlans = useTranslations("plans");
   const tSpeakers = useTranslations("speakers");
@@ -137,7 +141,7 @@ export function CreatePracticeForm({
 
   const tGenerate = useTranslations("generate");
   // Paste or upload text, or have it written (e+ 5).
-  const [source, setSource] = useState<"text" | "ai">("text");
+  const [source, setSource] = useState<"text" | "ai" | "youtube">("text");
   // Both titles and the subtitle (D83): typed ones are kept exactly.
   const [titleEn, setTitleEn] = useState("");
   const [titleZh, setTitleZh] = useState("");
@@ -750,6 +754,15 @@ export function CreatePracticeForm({
           options={[
             { value: "text", label: tGenerate("sources.text") },
             { value: "ai", label: tGenerate("sources.ai") },
+            // From a YouTube video (D97), when it's set up.
+            ...(youtube
+              ? [
+                  {
+                    value: "youtube" as const,
+                    label: tGenerate("sources.youtube"),
+                  },
+                ]
+              : []),
           ]}
           onChange={(value) => {
             setSource(value);
@@ -758,7 +771,9 @@ export function CreatePracticeForm({
           optionWidthClassName="min-w-16"
         />
       </div>
-      {source === "ai" ? (
+      {source === "youtube" ? (
+        <YouTubeCreate />
+      ) : source === "ai" ? (
         <GenerateTextPanel
           titles={{ en: titleEn, zh: titleZh }}
           generate={generateText}
