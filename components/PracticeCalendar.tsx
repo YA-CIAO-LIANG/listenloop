@@ -96,7 +96,9 @@ const utcNoon = (year: number, month: number, day: number) =>
  * it; clicking or tapping a day lists them under the calendar (today by
  * default), which is how phones see them. Phones (below `split`) show only
  * this week until "show the month" is pressed; the rows are hidden with CSS
- * so the server and the browser render the same markup.
+ * so the server and the browser render the same markup. Day buttons fill
+ * their column up to 36 px (44 px on touch screens) and shrink with it, so
+ * seven of them fit side by side at 360 px without overlapping.
  */
 export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   const t = useTranslations("calendar");
@@ -173,7 +175,7 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
   };
 
   return (
-    <Card className="space-y-4">
+    <Card className="space-y-4 max-split:p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-display text-h3">
           {t("title")}
@@ -236,7 +238,7 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
                 const isToday = date === today;
                 const tipId = `practice-tip-${date}`;
                 return (
-                  <td key={d} className="relative p-0.5">
+                  <td key={d} className="relative p-px split:p-0.5">
                     <button
                       type="button"
                       data-level={level}
@@ -252,7 +254,7 @@ export function PracticeCalendar({ progress, rewards }: PracticeCalendarProps) {
                       onPointerLeave={() => setHovered(null)}
                       onFocus={onFocus(date)}
                       onBlur={() => setHovered(null)}
-                      className={`mx-auto flex size-9 items-center justify-center rounded-base pointer-coarse:size-11 ${
+                      className={`mx-auto flex aspect-square w-full max-w-9 items-center justify-center rounded-base pointer-coarse:max-w-11 ${
                         HEAT_BACKGROUND[level]
                       } ${HEAT_TEXT[level]} ${
                         selected === date
