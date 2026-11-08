@@ -331,11 +331,17 @@
       "clear": "Clear filters",
       "clearAll": "Clear all filters",
       "empty": "Nothing matches.",
-      "scenario": "Scenario"
-    },
-    "time": {
-      "title": "How many minutes do you have today?",
-      "option": "Up to {minutes} min ({count})"
+      "scenario": "Scenario",
+      "allCategories": "All",
+      "categoriesChosen": "{count} / {max} chosen",
+      "searching": "Searching…",
+      "lengths": {
+        "all": "All lengths",
+        "under-3": "Under 3 min",
+        "3-5": "3–5 min",
+        "5-10": "5–10 min",
+        "10-plus": "10 min or more"
+      }
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",

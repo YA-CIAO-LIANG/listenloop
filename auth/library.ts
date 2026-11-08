@@ -54,11 +54,14 @@ export async function getLibraryItems(): Promise<LibraryItem[]> {
     listOfficialPractices(),
     learnerCounts(),
   ]);
-  const seconds = await practiceSeconds(official.map((p) => p.id));
+  // The length the search filters on (duration_sec, D104); measured from
+  // the audio only for any not stored yet.
+  const unknown = official.filter((p) => p.durationSec == null);
+  const seconds = await practiceSeconds(unknown.map((p) => p.id));
   return [
     ...official.map((practice) =>
       practiceLibraryItem(practice, {
-        seconds: seconds.get(practice.id),
+        seconds: practice.durationSec ?? seconds.get(practice.id),
         learners: learners.get(practice.id),
       }),
     ),

@@ -90,6 +90,35 @@ export type Database = {
         };
         Relationships: [];
       };
+      announcements: {
+        Row: {
+          body: string;
+          class_id: string;
+          created_at: string;
+          id: string;
+        };
+        Insert: {
+          body: string;
+          class_id: string;
+          created_at?: string;
+          id?: string;
+        };
+        Update: {
+          body?: string;
+          class_id?: string;
+          created_at?: string;
+          id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "announcements_class_id_fkey";
+            columns: ["class_id"];
+            isOneToOne: false;
+            referencedRelation: "classes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       api_batch_cost: {
         Row: {
           day: string;
@@ -189,6 +218,106 @@ export type Database = {
           day?: string;
           kind?: string;
           user_id?: string;
+        };
+        Relationships: [];
+      };
+      assignments: {
+        Row: {
+          class_id: string;
+          created_at: string;
+          due_on: string;
+          id: string;
+          rules: Json | null;
+          starts_on: string;
+          title: string;
+          video_id: string;
+        };
+        Insert: {
+          class_id: string;
+          created_at?: string;
+          due_on: string;
+          id?: string;
+          rules?: Json | null;
+          starts_on: string;
+          title: string;
+          video_id: string;
+        };
+        Update: {
+          class_id?: string;
+          created_at?: string;
+          due_on?: string;
+          id?: string;
+          rules?: Json | null;
+          starts_on?: string;
+          title?: string;
+          video_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "assignments_class_id_fkey";
+            columns: ["class_id"];
+            isOneToOne: false;
+            referencedRelation: "classes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      class_members: {
+        Row: {
+          class_id: string;
+          display_name: string;
+          joined_at: string;
+          minor_consent: boolean;
+          user_id: string;
+        };
+        Insert: {
+          class_id: string;
+          display_name: string;
+          joined_at?: string;
+          minor_consent?: boolean;
+          user_id: string;
+        };
+        Update: {
+          class_id?: string;
+          display_name?: string;
+          joined_at?: string;
+          minor_consent?: boolean;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "class_members_class_id_fkey";
+            columns: ["class_id"];
+            isOneToOne: false;
+            referencedRelation: "classes";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      classes: {
+        Row: {
+          archived_at: string | null;
+          created_at: string;
+          id: string;
+          invite_code: string;
+          name: string;
+          teacher_id: string;
+        };
+        Insert: {
+          archived_at?: string | null;
+          created_at?: string;
+          id?: string;
+          invite_code: string;
+          name: string;
+          teacher_id: string;
+        };
+        Update: {
+          archived_at?: string | null;
+          created_at?: string;
+          id?: string;
+          invite_code?: string;
+          name?: string;
+          teacher_id?: string;
         };
         Relationships: [];
       };
@@ -542,9 +671,11 @@ export type Database = {
       };
       practices: {
         Row: {
+          categories: string[] | null;
           category: string | null;
           collection_id: string | null;
           created_at: string;
+          duration_sec: number | null;
           estimated_seconds: number | null;
           exam: string | null;
           exam_target: string | null;
@@ -578,9 +709,11 @@ export type Database = {
           youtube_license: string | null;
         };
         Insert: {
+          categories?: string[] | null;
           category?: string | null;
           collection_id?: string | null;
           created_at?: string;
+          duration_sec?: number | null;
           estimated_seconds?: number | null;
           exam?: string | null;
           exam_target?: string | null;
@@ -614,9 +747,11 @@ export type Database = {
           youtube_license?: string | null;
         };
         Update: {
+          categories?: string[] | null;
           category?: string | null;
           collection_id?: string | null;
           created_at?: string;
+          duration_sec?: number | null;
           estimated_seconds?: number | null;
           exam?: string | null;
           exam_target?: string | null;
@@ -661,6 +796,7 @@ export type Database = {
       };
       profiles: {
         Row: {
+          classroom_seats: number | null;
           created_at: string;
           last_seen_at: string | null;
           number: number;
@@ -671,6 +807,7 @@ export type Database = {
           user_id: string;
         };
         Insert: {
+          classroom_seats?: number | null;
           created_at?: string;
           last_seen_at?: string | null;
           number?: number;
@@ -681,6 +818,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          classroom_seats?: number | null;
           created_at?: string;
           last_seen_at?: string | null;
           number?: number;
@@ -949,6 +1087,14 @@ export type Database = {
           today_micros: number;
         }[];
       };
+      class_progress: {
+        Args: { target: string };
+        Returns: {
+          data: Json;
+          user_id: string;
+          video_id: string;
+        }[];
+      };
       copy_practice_as_official: {
         Args: { actor: string; source: string };
         Returns: string;
@@ -958,6 +1104,12 @@ export type Database = {
         Returns: boolean;
       };
       is_admin: { Args: never; Returns: boolean };
+      is_class_member: { Args: { target: string }; Returns: boolean };
+      is_class_teacher: { Args: { target: string }; Returns: boolean };
+      join_class: {
+        Args: { code: string; consent: boolean; name: string };
+        Returns: string;
+      };
       material_learner_counts: {
         Args: never;
         Returns: {
@@ -974,6 +1126,7 @@ export type Database = {
           practice_id: string;
         }[];
       };
+      practice_audio_seconds: { Args: { target: string }; Returns: number };
       prune_logs: { Args: never; Returns: undefined };
       reserve_api_batch_cost: {
         Args: {

@@ -131,7 +131,8 @@ function silentWav(): Buffer {
 
 /**
  * Rows matching PostgREST filters on the columns the app uses: `eq.<x>`,
- * or `in.(<x>,<y>)`. Unknown columns are ignored.
+ * or `in.(<x>,<y>)`, and the library search's ranges. Unknown columns are
+ * ignored.
  */
 function matching(params: URLSearchParams): Row[] {
   let rows = practices;
@@ -146,6 +147,23 @@ function matching(params: URLSearchParams): Row[] {
         ? list[1].split(",").map((value) => value.replace(/"/g, ""))
         : [];
     rows = rows.filter((row) => values.includes(String(row[column])));
+  }
+  // The library's search (D104): `categories=ov.{a,b}` (the generated
+  // column is the category as a list) and `duration_sec=gte.N` / `lte.N`.
+  const overlaps = /^ov\.\{(.*)\}$/.exec(params.get("categories") ?? "");
+  if (overlaps) {
+    const wanted = overlaps[1].split(",").map((v) => v.replace(/"/g, ""));
+    rows = rows.filter((row) => wanted.includes(String(row.category)));
+  }
+  for (const filter of params.getAll("duration_sec")) {
+    const bound = /^(gte|lte)\.(\d+)$/.exec(filter);
+    if (!bound) continue;
+    const limit = Number(bound[2]);
+    rows = rows.filter((row) => {
+      const seconds = row.duration_sec;
+      if (typeof seconds !== "number") return false;
+      return bound[1] === "gte" ? seconds >= limit : seconds <= limit;
+    });
   }
   return rows;
 }

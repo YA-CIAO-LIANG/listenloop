@@ -331,11 +331,17 @@
       "clear": "清除篩選",
       "clearAll": "清除所有篩選",
       "empty": "沒有符合的教材。",
-      "scenario": "情境"
-    },
-    "time": {
-      "title": "我今天有幾分鐘？",
-      "option": "{minutes} 分鐘內（{count}）"
+      "scenario": "情境",
+      "allCategories": "全部",
+      "categoriesChosen": "已選 {count} / {max}",
+      "searching": "搜尋中…",
+      "lengths": {
+        "all": "全部長度",
+        "under-3": "3 分鐘以下",
+        "3-5": "3–5 分鐘",
+        "5-10": "5–10 分鐘",
+        "10-plus": "10 分鐘以上"
+      }
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}",

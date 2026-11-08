@@ -1,8 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useId, useState, type ReactNode } from "react";
-import { LENGTH_BUCKETS, lengthBucket } from "@/lib/excerpt-length";
+import { useEffect, useId, useState, type ReactNode } from "react";
+import { searchOfficialLibrary } from "@/app/library-actions";
 import {
   activeFilterCount,
   filterLibrary,
@@ -11,26 +11,25 @@ import {
   type LibraryFilter,
   type LibraryItem,
 } from "@/lib/library";
-import { dailyMinutes } from "@/lib/library-time";
 import {
+  LIBRARY_LENGTHS,
   LIBRARY_SORTS,
-  TIME_BUDGETS,
+  MAX_CATEGORIES,
+  SEARCH_DEBOUNCE_MS,
   type LibrarySort,
 } from "@/lib/library-config";
 import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 import { FilterChip } from "./FilterChip";
 import { MaterialCard } from "./MaterialCard";
+import { SegmentedControl } from "./SegmentedControl";
 import { toggled, useLibraryFilter } from "./useLibraryFilter";
 import { LibraryDefaultControls, useLibraryDefault } from "./LibraryDefault";
-import { useLibraryPace } from "./useLibraryPace";
 
 type ViewProps = {
   items: readonly LibraryItem[];
   filter: LibraryFilter;
   onChange: (next: LibraryFilter) => void;
-  /** The learner's pace (D98); 1 until measured. */
-  pace?: number;
 };
 
 const groupLabel = "text-metadata tracking-widest text-ink-muted uppercase";
@@ -38,16 +37,24 @@ const groupLabel = "text-metadata tracking-widest text-ink-muted uppercase";
 /** One row of filter chips with a label, as a named group. */
 function FilterGroup({
   label,
+  note,
   children,
 }: {
   label: string;
+  /** Beside the label, e.g. "3 of 5 chosen"; read out when it changes. */
+  note?: string;
   children: ReactNode;
 }) {
   const id = useId();
   return (
     <div role="group" aria-labelledby={id} className="space-y-2">
-      <p id={id} className={groupLabel}>
-        {label}
+      <p className="flex flex-wrap items-baseline justify-between gap-2">
+        <span id={id} className={groupLabel}>
+          {label}
+        </span>
+        <span aria-live="polite" className="text-metadata text-ink-muted">
+          {note}
+        </span>
       </p>
       <div className="flex flex-wrap gap-2">{children}</div>
     </div>
@@ -103,40 +110,64 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
         </FilterGroup>
       )}
       {shows(present.categories, filter.categories) && (
-        <FilterGroup label={t("category")}>
-          {present.categories.map((category) => (
-            <FilterChip
-              key={category}
-              on={filter.categories.includes(category)}
-              onToggle={() =>
-                onChange({
-                  ...filter,
-                  categories: toggled(
-                    filter.categories,
-                    category,
-                    present.categories,
-                  ),
-                  // A category turned off takes its scenarios with it.
-                  scenarios: filter.categories.includes(category)
-                    ? filter.scenarios.filter((sc) =>
-                        items.some(
-                          (i) =>
-                            i.scenario === sc &&
-                            i.category !== category &&
-                            i.category !== null &&
-                            filter.categories.includes(i.category),
-                        ),
-                      )
-                    : filter.scenarios,
+        <FilterGroup
+          label={t("category")}
+          note={
+            filter.categories.length > 0
+              ? t("categoriesChosen", {
+                  count: filter.categories.length,
+                  max: MAX_CATEGORIES,
                 })
-              }
-            >
-              {t("option", {
-                label: tAll(`categories.names.${category}`),
-                count: count((i) => i.category === category),
-              })}
-            </FilterChip>
-          ))}
+              : undefined
+          }
+        >
+          {/* "All" clears every category (D104). */}
+          <FilterChip
+            on={filter.categories.length === 0}
+            onToggle={() =>
+              onChange({ ...filter, categories: [], scenarios: [] })
+            }
+          >
+            {t("allCategories")}
+          </FilterChip>
+          {present.categories.map((category) => {
+            const on = filter.categories.includes(category);
+            return (
+              <FilterChip
+                key={category}
+                on={on}
+                // Up to MAX_CATEGORIES; the rest wait until one is off.
+                disabled={!on && filter.categories.length >= MAX_CATEGORIES}
+                onToggle={() =>
+                  onChange({
+                    ...filter,
+                    categories: toggled(
+                      filter.categories,
+                      category,
+                      present.categories,
+                    ),
+                    // A category turned off takes its scenarios with it.
+                    scenarios: on
+                      ? filter.scenarios.filter((sc) =>
+                          items.some(
+                            (i) =>
+                              i.scenario === sc &&
+                              i.category !== category &&
+                              i.category !== null &&
+                              filter.categories.includes(i.category),
+                          ),
+                        )
+                      : filter.scenarios,
+                  })
+                }
+              >
+                {t("option", {
+                  label: tAll(`categories.names.${category}`),
+                  count: count((i) => i.category === category),
+                })}
+              </FilterChip>
+            );
+          })}
         </FilterGroup>
       )}
       {scenarios.length > 0 && (
@@ -183,31 +214,22 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
           ))}
         </FilterGroup>
       )}
-      {shows(present.lengths, filter.lengths) && (
-        <FilterGroup label={t("length")}>
-          {present.lengths.map((length) => (
-            <FilterChip
-              key={length}
-              on={filter.lengths.includes(length)}
-              onToggle={() =>
-                onChange({
-                  ...filter,
-                  lengths: toggled(
-                    filter.lengths,
-                    length,
-                    LENGTH_BUCKETS.map((b) => b.id),
-                  ),
-                })
-              }
-            >
-              {t("option", {
-                label: tAll(`library.length.buckets.${length}`),
-                count: count((i) => lengthBucket(i.seconds) === length),
-              })}
-            </FilterChip>
-          ))}
-        </FilterGroup>
-      )}
+      {/* Audio length, one range (D104). */}
+      <div className="space-y-2">
+        <p aria-hidden="true" className={groupLabel}>
+          {t("length")}
+        </p>
+        <SegmentedControl
+          legend={t("length")}
+          value={filter.length}
+          options={LIBRARY_LENGTHS.map((length) => ({
+            value: length.id,
+            label: t(`lengths.${length.id}`),
+          }))}
+          onChange={(length) => onChange({ ...filter, length })}
+          optionWidthClassName="min-w-16"
+        />
+      </div>
       {shows(present.accents, filter.accents) && (
         <FilterGroup label={t("accent")}>
           {present.accents.map((accent) => (
@@ -242,9 +264,14 @@ export function MaterialLibraryView({
   items,
   filter,
   onChange,
-  pace = 1,
+  found = null,
+  searching = false,
   defaults,
 }: ViewProps & {
+  /** The ids the official search found (D104); null until it answers. */
+  found?: ReadonlySet<string> | null;
+  /** The search is waiting or running. */
+  searching?: boolean;
   /** "Save as my default filter" (D98), under the filters. */
   defaults?: ReactNode;
 }) {
@@ -252,7 +279,7 @@ export function MaterialLibraryView({
   const ids = useId();
   const [drawer, setDrawer] = useState(false);
   const [query, setQuery] = useState(filter.query);
-  const shown = filterLibrary(items, filter, pace);
+  const shown = filterLibrary(items, filter, found);
   const active = activeFilterCount(filter);
   const filtering = active > 0 || filter.query.trim() !== "";
   const clear = () => {
@@ -268,13 +295,7 @@ export function MaterialLibraryView({
       </aside>
 
       <div>
-        <TimeBudget
-          items={items}
-          filter={filter}
-          onChange={onChange}
-          pace={pace}
-        />
-        <div className="mt-6 flex flex-wrap items-end gap-3">
+        <div className="flex flex-wrap items-end gap-3">
           <div className="min-w-0 flex-1 basis-48 space-y-2">
             <label htmlFor={`${ids}-search`} className={`block ${groupLabel}`}>
               {t("search")}
@@ -324,7 +345,9 @@ export function MaterialLibraryView({
           aria-live="polite"
           className="mt-4 flex flex-wrap items-center gap-x-3 text-supporting text-ink-muted"
         >
-          <span>{t("results", { count: shown.length })}</span>
+          <span>
+            {searching ? t("searching") : t("results", { count: shown.length })}
+          </span>
           {filtering && shown.length > 0 && (
             <Button variant="ghost" size="sm" onClick={clear}>
               {t("clear")}
@@ -343,7 +366,7 @@ export function MaterialLibraryView({
           <ul className="mt-6 grid gap-6 split:grid-cols-2">
             {shown.map((item) => (
               <li key={item.id}>
-                <MaterialCard item={item} pace={pace} />
+                <MaterialCard item={item} />
               </li>
             ))}
           </ul>
@@ -388,14 +411,15 @@ export function MaterialLibrary({
   savedDefault?: string | null;
 }) {
   const [filter, setFilter] = useLibraryFilter();
-  const pace = useLibraryPace(items);
   const defaults = useLibraryDefault(savedDefault, setFilter);
+  const { found, searching } = useOfficialSearch(filter);
   return (
     <MaterialLibraryView
       items={items}
       filter={filter}
       onChange={setFilter}
-      pace={pace}
+      found={found}
+      searching={searching}
       defaults={<LibraryDefaultControls filter={filter} {...defaults} />}
     />
   );
@@ -417,37 +441,42 @@ export function UnfilteredMaterialLibrary({
 }
 
 /**
- * "我今天有幾分鐘？" (D70, D79): above the library for everyone, one tap
- * keeps what a day's practice fits in; tapping it again shows all.
+ * Searches the official library on the server by category (overlaps) and
+ * audio length (gte / lte) as they change, SEARCH_DEBOUNCE_MS after the
+ * last tap (D104). With neither set, nothing is asked: every item counts.
+ * If the search fails, the same rules apply on this page instead.
  */
-function TimeBudget({ items, filter, onChange, pace = 1 }: ViewProps) {
-  const t = useTranslations("library.time");
-  const id = useId();
-  return (
-    <div className="space-y-2">
-      <p id={id} className="font-medium">
-        {t("title")}
-      </p>
-      <div role="group" aria-labelledby={id} className="flex flex-wrap gap-2">
-        {TIME_BUDGETS.map((minutes) => (
-          <FilterChip
-            key={minutes}
-            on={filter.minutes === minutes}
-            onToggle={() =>
-              onChange({
-                ...filter,
-                minutes: filter.minutes === minutes ? null : minutes,
-              })
-            }
-          >
-            {t("option", {
-              minutes,
-              count: items.filter((i) => dailyMinutes(i, pace) <= minutes)
-                .length,
-            })}
-          </FilterChip>
-        ))}
-      </div>
-    </div>
-  );
+function useOfficialSearch(filter: LibraryFilter): {
+  found: ReadonlySet<string> | null;
+  searching: boolean;
+} {
+  const categories = filter.categories.join(",");
+  const { length } = filter;
+  const idle = categories === "" && length === "all";
+  const [result, setResult] = useState<{
+    key: string;
+    ids: ReadonlySet<string> | null;
+  } | null>(null);
+  const key = `${categories}|${length}`;
+
+  useEffect(() => {
+    if (idle) return;
+    let current = true;
+    const timer = setTimeout(async () => {
+      const answer = await searchOfficialLibrary({
+        categories: categories.split(","),
+        length,
+      }).catch(() => null);
+      if (!current) return;
+      setResult({ key, ids: answer?.ok ? new Set(answer.ids) : null });
+    }, SEARCH_DEBOUNCE_MS);
+    return () => {
+      current = false;
+      clearTimeout(timer);
+    };
+  }, [idle, categories, length, key]);
+
+  if (idle) return { found: null, searching: false };
+  if (result?.key !== key) return { found: null, searching: true };
+  return { found: result.ids, searching: false };
 }
