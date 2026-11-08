@@ -2243,7 +2243,7 @@
     "title": "Pass rules",
     "intro": "Decide what finishes each day and what passes the week. Changes apply to the days you haven’t finished and to this week’s result.",
     "dictationMin": "Lowest dictation accuracy (Days 1 and 7)",
-    "anyScore": "Any: answering every sentence finishes the day",
+    "anyScore": "Any (answer every sentence)",
     "shadowingMin": "Lowest coverage per shadowed sentence (Days 2–6)",
     "day7": "To pass on Day 7",
     "improve": "Beat Day 1",
