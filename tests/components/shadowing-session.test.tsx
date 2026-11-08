@@ -179,6 +179,15 @@ describe("ShadowingSession", () => {
     });
   });
 
+  it("plays the first sentence by itself, without listening (D90)", async () => {
+    playSegment.mockClear();
+    FakeRecognition.last = undefined;
+    await renderSession();
+    expect(playSegment).toHaveBeenCalledTimes(1);
+    expect(playSegment).toHaveBeenLastCalledWith(0.85, 2.25, undefined);
+    expect(FakeRecognition.last).toBeUndefined();
+  });
+
   it("plays the sentence, listens after it ends, and passes at 70%+", async () => {
     const store = await renderSession();
     fireEvent.click(button("播放並跟讀"));

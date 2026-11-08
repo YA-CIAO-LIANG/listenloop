@@ -458,6 +458,7 @@
     "backToVideo": "回影片頁",
     "play": "播放",
     "replay": "重播",
+    "loop": "循環播放",
     "skip": "跳過",
     "confirmSkip": "確定跳過？",
     "shortcuts": "Enter 送出 · Ctrl＋空白 或 Ctrl＋Enter 重播",

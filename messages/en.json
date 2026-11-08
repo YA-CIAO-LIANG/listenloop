@@ -458,6 +458,7 @@
     "backToVideo": "Back to video",
     "play": "Play",
     "replay": "Replay",
+    "loop": "Loop",
     "skip": "Skip",
     "confirmSkip": "Skip this one?",
     "shortcuts": "Enter to submit · Ctrl+Space or Ctrl+Enter to replay",

@@ -4,6 +4,7 @@ import { oneLineTitle } from "@/lib/titles";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import {
+  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -51,6 +52,8 @@ import { notesForSentence } from "@/lib/videos";
 import { SentenceRow } from "./SentenceRow";
 import { SpeedControl } from "./SpeedControl";
 import { claimAndAnnounce } from "./useRewards";
+import { FilterChip } from "./FilterChip";
+import { useLoopingPlayback } from "./useLoopingPlayback";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { usePracticeTimer } from "./usePracticeTimer";
 import { useSentencePlayer } from "./useSentencePlayer";
@@ -159,6 +162,12 @@ export function DictationSession({
   const attemptDone = answers.length > 0 && nextUnanswered(answers) === -1;
   const showing = feedbackIndex ?? current;
   const playback = useSentencePlayback(player, showing);
+  // Loop (D90): the current sentence again and again until it's answered.
+  const looping = useLoopingPlayback(
+    playback.playAt,
+    showing,
+    progress !== null && feedbackIndex === null && !attemptDone,
+  );
   const practicing =
     progress !== null && (feedbackIndex !== null || !attemptDone);
   const percent = (value: number) =>
@@ -286,7 +295,11 @@ export function DictationSession({
 
   // Replay shortcut works anywhere on the page while practicing. Capture
   // phase + preventDefault so it never types a space or clicks a button.
-  const { play } = playback;
+  const { start: startPlaying } = looping;
+  const play = useCallback(
+    () => startPlaying(showing),
+    [startPlaying, showing],
+  );
   useEffect(() => {
     if (!practicing) return;
     function onKeyDown(event: globalThis.KeyboardEvent) {
@@ -297,6 +310,18 @@ export function DictationSession({
     window.addEventListener("keydown", onKeyDown, true);
     return () => window.removeEventListener("keydown", onKeyDown, true);
   }, [practicing, play]);
+
+  // The first sentence plays by itself once the player is ready (D90). The
+  // browser may block sound before any tap on the page; then the Play
+  // button is there as before.
+  const autoPlayed = useRef(false);
+  const ready = player.status === "ready";
+  useEffect(() => {
+    if (autoPlayed.current || !ready || !practicing) return;
+    if (feedbackIndex !== null) return;
+    autoPlayed.current = true;
+    play();
+  }, [ready, practicing, feedbackIndex, play]);
 
   // A pending skip confirmation never outlives the page.
   useEffect(() => {
@@ -368,7 +393,7 @@ export function DictationSession({
     setFeedbackIndex(null);
     if (nextIndex === -1) return; // all answered → results view
     setCurrent(nextIndex);
-    playback.playAt(nextIndex);
+    looping.start(nextIndex);
   }
 
   // Phones and narrow windows: keep video, input, and buttons together
@@ -573,10 +598,19 @@ export function DictationSession({
             <Button
               variant="secondary"
               disabled={player.status !== "ready"}
-              onClick={() => replay(() => playback.play())}
+              onClick={() => replay(play)}
             >
               {playback.played ? t("replay") : t("play")}
             </Button>
+            <FilterChip
+              on={looping.loop}
+              onToggle={() => {
+                looping.setLoop(!looping.loop);
+                if (!looping.loop && feedbackIndex === null) replay(play);
+              }}
+            >
+              {t("loop")}
+            </FilterChip>
             {feedbackIndex === null ? (
               <>
                 <Button variant="ghost" onClick={skip} aria-live="polite">

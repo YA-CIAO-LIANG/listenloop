@@ -265,6 +265,17 @@ export function ShadowingSession({
     return () => window.removeEventListener("keydown", onKeyDown, true);
   }, [practicing, phase, play]);
 
+  // The first sentence plays by itself once (D90), without the microphone:
+  // listening starts only when the learner presses the shadow button, so
+  // the permission prompt never appears on its own.
+  const autoPlayed = useRef(false);
+  const ready = player.status === "ready";
+  useEffect(() => {
+    if (autoPlayed.current || !ready || !practicing || showingResult) return;
+    autoPlayed.current = true;
+    play();
+  }, [ready, practicing, showingResult, play]);
+
   function record(index: number, attempt: ShadowingAttempt) {
     if (!progress) return;
     if (mode === "retry") {

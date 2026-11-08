@@ -1549,3 +1549,16 @@
 - **測試**：`tests/speech-transcript.test.ts`（桌機與 Android 的結果序列、大小寫與標點、真的重複的單字）；`tests/components/speech-recognition.test.tsx`（Android 的使用者代理字串：非連續模式、只評分一次、重複的結果不會重複出現）。
 - **限制**：模擬的測試無法取代真機。上線後請在 Android Chrome 實際跟讀一次確認。
 - **要改時**：`lib/speech-transcript.ts`、`components/speech/useSpeechRecognition.ts`。
+
+## D90 自動播放第一句與「循環播放」（2026-11-08，夜間任務 P1-1）
+
+- **自動播放**：進入聽寫（第 1、7 天）或跟讀（第 2～6 天）時，播放器準備好後自動播放目前這一句一次。
+  - 跟讀只播放，不會自動開始收音：麥克風要等使用者按「播放並跟讀」才開，避免一進頁面就跳出權限詢問。
+  - 瀏覽器可能擋下沒有點擊過頁面的聲音（直接開網址時）。這時沒有聲音，「重播」按鈕照常可用；從網站內點進來時通常會播放。
+- **循環播放**（只有聽寫）：「重播」旁的切換按鈕（`FilterChip`，有 ✓ 與 `aria-pressed`）。
+  - 開啟時，每句播完間隔 1.5 秒再播一次，直到送出答案或跳過；換到下一句時，下一句也會循環。
+  - 打開開關時如果還沒作答，會立刻播放。
+  - 間隔集中在 `lib/player/loop.ts` 的 `LOOP_GAP_MS`。
+  - 開關狀態記在這個瀏覽器（`ll-loop:v1`），是個人偏好，不同步到帳號。
+  - 跟讀不提供循環：念完就會自動評分，循環播放會和收音衝突。
+- **要改時**：`components/useLoopingPlayback.ts`、`components/DictationSession.tsx`、`components/ShadowingSession.tsx`。
