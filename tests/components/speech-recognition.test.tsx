@@ -32,6 +32,14 @@ class FakeRecognition {
   abort() {
     this.aborted = true;
   }
+  /** Emit final results, each repeated as Android Chrome may send them. */
+  hearFinal(...phrases: string[]) {
+    this.onresult?.({
+      results: phrases.map((transcript) =>
+        Object.assign([{ transcript }], { isFinal: true }),
+      ),
+    });
+  }
   /** Emit results as the browser does: a list of [{ transcript }] entries. */
   hear(...phrases: string[]) {
     this.onresult?.({
@@ -132,6 +140,50 @@ describe("useSpeechRecognition", () => {
     act(() => FakeRecognition.last.hear("we moved"));
     act(() => FakeRecognition.last.onend?.());
     expect(onFinish).toHaveBeenCalledWith("we moved");
+  });
+
+  it("doesn't repeat words when results repeat (D89)", () => {
+    const onFinish = vi.fn();
+    const { result } = renderHook(() => useSpeechRecognition());
+    act(() => result.current.start(onFinish));
+    act(() => FakeRecognition.last.hear("I", "I am", "I am going"));
+    expect(result.current.transcript).toBe("I am going");
+    act(() => vi.advanceTimersByTime(SILENCE_MS));
+    expect(onFinish).toHaveBeenCalledWith("I am going");
+  });
+
+  describe("on Android Chrome (D89)", () => {
+    const userAgent = navigator.userAgent;
+    beforeEach(() => {
+      Object.defineProperty(navigator, "userAgent", {
+        value: "Mozilla/5.0 (Linux; Android 14; Pixel 8) Chrome/130.0 Mobile",
+        configurable: true,
+      });
+    });
+    afterEach(() => {
+      Object.defineProperty(navigator, "userAgent", {
+        value: userAgent,
+        configurable: true,
+      });
+    });
+
+    it("listens once instead of continuously", () => {
+      const { result } = renderHook(() => useSpeechRecognition());
+      act(() => result.current.start(() => {}));
+      expect(FakeRecognition.last.continuous).toBe(false);
+    });
+
+    it("scores the first final result, once", () => {
+      const onFinish = vi.fn();
+      const { result } = renderHook(() => useSpeechRecognition());
+      act(() => result.current.start(onFinish));
+      act(() => FakeRecognition.last.hear("we"));
+      expect(onFinish).not.toHaveBeenCalled();
+      act(() => FakeRecognition.last.hearFinal("we moved", "we moved"));
+      expect(onFinish).toHaveBeenCalledTimes(1);
+      expect(onFinish).toHaveBeenCalledWith("we moved");
+      expect(result.current.status).toBe("done");
+    });
   });
 
   it("reports unsupported browsers instead of throwing", () => {

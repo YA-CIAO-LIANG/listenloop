@@ -7,6 +7,7 @@ import {
   useState,
   useSyncExternalStore,
 } from "react";
+import { isAndroid, mergeTranscript } from "@/lib/speech-transcript";
 
 /** After the last recognized speech, this much silence ends the attempt. */
 export const SILENCE_MS = 1500;
@@ -139,7 +140,11 @@ export function useSpeechRecognition() {
       const recognition = new Recognition();
       recognition.lang = "en-US";
       recognition.interimResults = true;
-      recognition.continuous = true;
+      // Android Chrome repeats earlier results in continuous mode (D89), so
+      // there it listens for one utterance; elsewhere it keeps listening
+      // through short pauses until SILENCE_MS.
+      const android = isAndroid(navigator.userAgent);
+      recognition.continuous = !android;
       recognition.maxAlternatives = 1;
       recognitionRef.current = recognition;
 
@@ -193,12 +198,20 @@ export function useSpeechRecognition() {
       finishRef.current = () => (heard ? finish() : fail("noSpeech"));
 
       recognition.onresult = (event) => {
-        heard = Array.from(event.results, (result) => result[0].transcript)
-          .join(" ")
-          .replace(/\s+/g, " ")
-          .trim();
+        heard = mergeTranscript(
+          Array.from(event.results, (result) => ({
+            transcript: result[0].transcript,
+            isFinal: result.isFinal,
+          })),
+        );
         setTranscript(heard);
         window.clearTimeout(silenceTimer);
+        // On Android the first final result is the answer: score it now
+        // rather than wait for more (repeated) results.
+        if (android && Array.from(event.results).some((r) => r.isFinal)) {
+          finish();
+          return;
+        }
         silenceTimer = window.setTimeout(finish, SILENCE_MS);
       };
       recognition.onerror = (event) => {
