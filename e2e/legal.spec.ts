@@ -14,12 +14,20 @@ test("the footer reaches the terms, privacy policy, and feedback", async ({
   await expect(
     page.getByRole("heading", { level: 1, name: "服務條款" }),
   ).toBeVisible();
-  await expect(page.getByRole("heading", { name: "10. 準據法" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "11. 準據法" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "7. 付費方案與訂閱" }),
+  ).toBeVisible();
+  await footer.getByRole("link", { name: "退款政策" }).click();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "退款政策" }),
+  ).toBeVisible();
   await footer.getByRole("link", { name: "隱私權政策" }).click();
   await expect(
     page.getByRole("heading", { level: 1, name: "隱私權政策" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: "未成年人" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "付款資料" })).toBeVisible();
   await footer.getByRole("link", { name: "意見回饋" }).click();
   await expect(
     page.getByRole("heading", { level: 1, name: "意見回饋" }),
