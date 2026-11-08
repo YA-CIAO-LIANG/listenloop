@@ -256,7 +256,7 @@ export function MaterialLibraryView({ items, filter, onChange }: ViewProps) {
       <div>
         <TimeBudget items={items} filter={filter} onChange={onChange} />
         <div className="mt-6 flex flex-wrap items-end gap-3">
-          <div className="min-w-48 flex-1 space-y-2">
+          <div className="min-w-0 flex-1 basis-48 space-y-2">
             <label htmlFor={`${ids}-search`} className={`block ${groupLabel}`}>
               {t("search")}
             </label>

@@ -124,7 +124,9 @@ export function PricingPlans({
       <form action={startCheckout}>
         <input type="hidden" name="interval" value={interval} />
         <Button type="submit" variant="primary">
-          {t("paid.subscribe")}
+          {interval === "month"
+            ? t("paid.subscribeMonth", { amount: PRICES.month.amount })
+            : t("paid.subscribeYear", { amount: PRICES.year.amount })}
         </Button>
       </form>
     );

@@ -58,7 +58,9 @@ export function MaterialCard({
         className="mt-4 font-display text-h3"
       />
       {item.subtitle && (
-        <p className="mt-1 text-supporting text-ink-muted">{item.subtitle}</p>
+        <p lang="zh-Hant" className="mt-1 text-supporting text-ink-muted">
+          {item.subtitle}
+        </p>
       )}
       <VideoProgressLabel videoId={item.id} />
       <p className="mt-auto flex items-end justify-between gap-4 pt-4 text-supporting text-ink-muted">

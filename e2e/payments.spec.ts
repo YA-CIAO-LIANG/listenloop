@@ -26,7 +26,7 @@ test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
   await signInAsBuyer(page);
   await page.goto("/pricing");
   await page.getByText("月繳", { exact: true }).click();
-  await page.getByRole("button", { name: "訂閱" }).click();
+  await page.getByRole("button", { name: /^訂閱/ }).click();
 
   await expect(page.getByRole("heading", { name: "測試結帳" })).toBeVisible();
   await expect(page.getByText("金額：NT$149")).toBeVisible();

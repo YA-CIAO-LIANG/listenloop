@@ -611,7 +611,9 @@ export function ShadowingSession({
             </Button>
           )}
         </div>
-        <p className="text-metadata text-ink-muted">{t("shortcuts")}</p>
+        <p className="text-metadata text-ink-muted pointer-coarse:hidden">
+          {t("shortcuts")}
+        </p>
         {saveError}
         {troubleOpen && (
           <Dialog

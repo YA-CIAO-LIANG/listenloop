@@ -2,7 +2,7 @@ import { useTranslations } from "next-intl";
 import type { Attribution } from "@/lib/videos";
 
 const linkClassName =
-  "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink";
+  "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink inline-block py-1";
 
 /**
  * Credit for the video, shown on every page that plays it. CC BY requires
@@ -25,7 +25,7 @@ export function VideoAttribution({
       <p lang="en" className="text-ink">
         {attribution.credit}
       </p>
-      <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1">
+      <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2">
         <dt>{t("license")}</dt>
         <dd>
           <a

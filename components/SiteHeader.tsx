@@ -13,7 +13,8 @@ import { ThemeToggle } from "./ThemeToggle";
  * left; "+ Create a practice" (admins who can create), rewards, language,
  * and theme toggles on the right, then the account control when accounts
  * are on (passed in by the layout, which reads the session on the server).
- * Both groups wrap on narrow screens, so every link stays visible (D48).
+ * Both groups wrap on narrow screens, so every link stays visible (D48);
+ * there, the theme toggle is in the footer instead (D86).
  */
 export function SiteHeader({
   account,
@@ -104,8 +105,11 @@ export function SiteHeader({
             </>
           )}
           <LanguageToggle />
-          <Divider orientation="vertical" className="my-2 hidden split:block" />
-          <ThemeToggle />
+          {/* Phones: the theme moves to the footer, saving a row (D86). */}
+          <div className="hidden items-center gap-x-3 split:flex">
+            <Divider orientation="vertical" className="my-2" />
+            <ThemeToggle />
+          </div>
           {account && (
             <>
               <Divider

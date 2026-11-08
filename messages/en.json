@@ -2126,10 +2126,11 @@
         "f2": "Create {max} materials of your own a month",
         "f3": "Up to {chars, number} characters each"
       },
-      "subscribe": "Subscribe",
       "signIn": "Sign in to subscribe: use Sign in at the top right with your Google account.",
       "current": "You're on the paid plan.",
-      "manage": "Manage subscription"
+      "manage": "Manage subscription",
+      "subscribeMonth": "Subscribe monthly, NT${amount, number}",
+      "subscribeYear": "Subscribe yearly, NT${amount, number}"
     },
     "notes": {
       "renew": "Renews automatically. Cancel any time on the Account page; you keep the plan until the period ends.",

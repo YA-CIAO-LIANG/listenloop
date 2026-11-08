@@ -36,7 +36,10 @@ export function SegmentedControl<V extends string>({
   const name = useId();
 
   return (
-    <fieldset className="flex items-center" aria-busy={busy || undefined}>
+    <fieldset
+      className="flex flex-wrap items-center"
+      aria-busy={busy || undefined}
+    >
       <legend className="sr-only">{legend}</legend>
       {options.map((option, index) => (
         <Fragment key={option.value}>

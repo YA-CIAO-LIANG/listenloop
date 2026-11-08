@@ -27,7 +27,9 @@ export function MaterialTitle({
       <Tag className={`truncate ${className}`} title={oneLineTitle(titles)}>
         <span lang="en">{titles.en}</span>
         {titles.zh && titles.zh !== titles.en && (
-          <span className="text-ink-muted">｜{titles.zh}</span>
+          <span lang="zh-Hant" className="text-ink-muted">
+            ｜{titles.zh}
+          </span>
         )}
       </Tag>
     );
@@ -38,7 +40,9 @@ export function MaterialTitle({
         {titles.en}
       </span>
       {titles.zh && titles.zh !== titles.en && (
-        <span className={zhClassName}>{titles.zh}</span>
+        <span lang="zh-Hant" className={zhClassName}>
+          {titles.zh}
+        </span>
       )}
     </Tag>
   );

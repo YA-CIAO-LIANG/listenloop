@@ -25,7 +25,8 @@
     "rls:check": "node --env-file=.env.local scripts/rls-check.mts",
     "db:backup": "node --env-file=.env.local scripts/backup-db.mts",
     "notes:upgrade": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.upgrade.config.mts --silent=false",
-    "subtitles:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.subtitles.config.mts --silent=false"
+    "subtitles:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.subtitles.config.mts --silent=false",
+    "usability": "playwright test --config usability/playwright.config.ts"
   },
   "dependencies": {
     "@supabase/ssr": "0.12.7",
