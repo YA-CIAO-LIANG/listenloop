@@ -427,6 +427,136 @@
   margin: 16mm;
 }
 
+/*
+ * Accent colors (D93), unlocked by practice score (lib/accents.ts). On
+ * <html> they color the whole site; on any element (the color swatches)
+ * just that element. Only the accent, its text color, and the focus ring
+ * change; the heat map and highlighter keep their own tuned colors. Each
+ * text color passes AA on the ground, the surface, and a primary button's
+ * tint (tests/accents.test.ts).
+ */
+[data-accent="orange"] {
+  --ll-accent: #e8590c;
+  --ll-accent-ink: #a63d09;
+  --ll-focus: #e8590c;
+}
+[data-accent="teal"] {
+  --ll-accent: #0d9488;
+  --ll-accent-ink: #0b6b62;
+  --ll-focus: #0d9488;
+}
+[data-accent="blue"] {
+  --ll-accent: #2563eb;
+  --ll-accent-ink: #1d4ed8;
+  --ll-focus: #2563eb;
+}
+[data-accent="violet"] {
+  --ll-accent: #7c3aed;
+  --ll-accent-ink: #6d28d9;
+  --ll-focus: #7c3aed;
+}
+[data-accent="rose"] {
+  --ll-accent: #e11d48;
+  --ll-accent-ink: #be123c;
+  --ll-focus: #e11d48;
+}
+[data-accent="green"] {
+  --ll-accent: #16a34a;
+  --ll-accent-ink: #166534;
+  --ll-focus: #16a34a;
+}
+[data-accent="gold"] {
+  --ll-accent: #a16207;
+  --ll-accent-ink: #854d0e;
+  --ll-focus: #a16207;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-accent="orange"],
+  :root:not([data-theme="light"]) [data-accent="orange"] {
+    --ll-accent: #ff7a33;
+    --ll-accent-ink: #ff8f52;
+    --ll-focus: #ff7a33;
+  }
+  :root:not([data-theme="light"])[data-accent="teal"],
+  :root:not([data-theme="light"]) [data-accent="teal"] {
+    --ll-accent: #2dd4bf;
+    --ll-accent-ink: #5eead4;
+    --ll-focus: #2dd4bf;
+  }
+  :root:not([data-theme="light"])[data-accent="blue"],
+  :root:not([data-theme="light"]) [data-accent="blue"] {
+    --ll-accent: #60a5fa;
+    --ll-accent-ink: #93c5fd;
+    --ll-focus: #60a5fa;
+  }
+  :root:not([data-theme="light"])[data-accent="violet"],
+  :root:not([data-theme="light"]) [data-accent="violet"] {
+    --ll-accent: #a78bfa;
+    --ll-accent-ink: #c4b5fd;
+    --ll-focus: #a78bfa;
+  }
+  :root:not([data-theme="light"])[data-accent="rose"],
+  :root:not([data-theme="light"]) [data-accent="rose"] {
+    --ll-accent: #fb7185;
+    --ll-accent-ink: #fda4af;
+    --ll-focus: #fb7185;
+  }
+  :root:not([data-theme="light"])[data-accent="green"],
+  :root:not([data-theme="light"]) [data-accent="green"] {
+    --ll-accent: #4ade80;
+    --ll-accent-ink: #86efac;
+    --ll-focus: #4ade80;
+  }
+  :root:not([data-theme="light"])[data-accent="gold"],
+  :root:not([data-theme="light"]) [data-accent="gold"] {
+    --ll-accent: #facc15;
+    --ll-accent-ink: #fde047;
+    --ll-focus: #facc15;
+  }
+}
+[data-theme="dark"][data-accent="orange"],
+[data-theme="dark"] [data-accent="orange"] {
+  --ll-accent: #ff7a33;
+  --ll-accent-ink: #ff8f52;
+  --ll-focus: #ff7a33;
+}
+[data-theme="dark"][data-accent="teal"],
+[data-theme="dark"] [data-accent="teal"] {
+  --ll-accent: #2dd4bf;
+  --ll-accent-ink: #5eead4;
+  --ll-focus: #2dd4bf;
+}
+[data-theme="dark"][data-accent="blue"],
+[data-theme="dark"] [data-accent="blue"] {
+  --ll-accent: #60a5fa;
+  --ll-accent-ink: #93c5fd;
+  --ll-focus: #60a5fa;
+}
+[data-theme="dark"][data-accent="violet"],
+[data-theme="dark"] [data-accent="violet"] {
+  --ll-accent: #a78bfa;
+  --ll-accent-ink: #c4b5fd;
+  --ll-focus: #a78bfa;
+}
+[data-theme="dark"][data-accent="rose"],
+[data-theme="dark"] [data-accent="rose"] {
+  --ll-accent: #fb7185;
+  --ll-accent-ink: #fda4af;
+  --ll-focus: #fb7185;
+}
+[data-theme="dark"][data-accent="green"],
+[data-theme="dark"] [data-accent="green"] {
+  --ll-accent: #4ade80;
+  --ll-accent-ink: #86efac;
+  --ll-focus: #4ade80;
+}
+[data-theme="dark"][data-accent="gold"],
+[data-theme="dark"] [data-accent="gold"] {
+  --ll-accent: #facc15;
+  --ll-accent-ink: #fde047;
+  --ll-focus: #facc15;
+}
+
 @media print {
   :root,
   [data-theme] {

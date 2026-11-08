@@ -2253,5 +2253,36 @@
     "startFirst": "You can change them once you’ve started Day 1.",
     "saved": "Saved.",
     "failed": "Couldn’t save. Please try again later."
+  },
+  "score": {
+    "title": "Score",
+    "rules": "Each finished day +10; each sentence at 100% +2 more; from the 2nd day in a row, +5 a day. Your score only goes up, and unlocks the site’s accent colors.",
+    "total": "Score",
+    "next": "{needed} more to unlock {color}",
+    "allOpen": "Every color is unlocked",
+    "colorsTitle": "Accent color",
+    "colorsIntro": "Pick the site’s highlight color. It applies to this browser only.",
+    "open": "Unlocked",
+    "needs": "{points} points to go",
+    "unlockForever": "Unlock forever for {price}",
+    "historyTitle": "Score history",
+    "historyEmpty": "Finish your first day’s task to start earning points.",
+    "entryDay": "Finished {title}, {day}",
+    "entryPerfect": "{count, plural, one {# sentence} other {# sentences}} at 100%",
+    "entryStreak": "{days} days in a row",
+    "offerTitle": "Unlock {color} forever",
+    "offerBody": "Paid unlocks ({price}) are coming soon; nothing is charged now. Join the list to hear when they open, with an early-bird offer. Or keep practicing and unlock it free with points.",
+    "offerJoin": "Join the list",
+    "offerJoined": "You’re on the list. Thank you!",
+    "offerClose": "Close",
+    "colors": {
+      "orange": "Orange",
+      "teal": "Teal",
+      "blue": "Blue",
+      "violet": "Violet",
+      "rose": "Rose",
+      "green": "Green",
+      "gold": "Gold"
+    }
   }
 }

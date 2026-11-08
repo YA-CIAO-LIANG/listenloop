@@ -88,3 +88,42 @@ test("signed in, stats show time, streak, and a data table", async ({
     ).toEqual([]);
   }
 });
+
+test("score unlocks an accent color that stays after a reload, and paid unlocks are a fake door (D93)", async ({
+  page,
+}) => {
+  // Six days in a row, each with 5 sentences at 100% (6 × 20 + 5 × 5),
+  // plus Day 1 from the progress above on its own day: 155.
+  const days = Object.fromEntries(
+    Array.from({ length: 6 }, (_, i) => [
+      `2026-10-${String(25 + i).padStart(2, "0")}`,
+      {
+        official: true,
+        retries: [],
+        tasks: [{ videoId: "sintel", week: 1, day: i + 1, perfect: 5 }],
+      },
+    ]),
+  );
+  await page.addInitScript((a) => {
+    localStorage.setItem("ll-activity:v1", a);
+  }, JSON.stringify({ days }));
+  await signInAsAuthor(page);
+  await page.goto("/stats");
+
+  const score = page.getByRole("region", { name: "分數" });
+  await expect(score.getByText("再 95 分解鎖「藍」")).toBeVisible();
+  await score.getByRole("radio", { name: /青綠/ }).check();
+  await expect(page.locator("html")).toHaveAttribute("data-accent", "teal");
+  await page.reload();
+  await expect(page.locator("html")).toHaveAttribute("data-accent", "teal");
+
+  await page
+    .getByRole("region", { name: "分數" })
+    .getByRole("button", { name: "NT$30 永久解鎖" })
+    .first()
+    .click();
+  const dialog = page.getByRole("dialog", { name: "永久解鎖「藍」" });
+  await expect(dialog.getByText(/現在不會收費/)).toBeVisible();
+  await dialog.getByRole("button", { name: "加入名單" }).click();
+  await expect(dialog.getByText("已加入名單，謝謝！")).toBeVisible();
+});

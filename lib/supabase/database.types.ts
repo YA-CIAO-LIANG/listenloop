@@ -318,6 +318,42 @@ export type Database = {
         };
         Relationships: [];
       };
+      intent_events: {
+        Row: {
+          billing_interval: string | null;
+          created_at: string;
+          id: number;
+          item: string | null;
+          plan: string | null;
+          source: string | null;
+          step: string;
+          user_id: string | null;
+          visitor_id: string;
+        };
+        Insert: {
+          billing_interval?: string | null;
+          created_at?: string;
+          id?: never;
+          item?: string | null;
+          plan?: string | null;
+          source?: string | null;
+          step: string;
+          user_id?: string | null;
+          visitor_id: string;
+        };
+        Update: {
+          billing_interval?: string | null;
+          created_at?: string;
+          id?: never;
+          item?: string | null;
+          plan?: string | null;
+          source?: string | null;
+          step?: string;
+          user_id?: string | null;
+          visitor_id?: string;
+        };
+        Relationships: [];
+      };
       payment_events: {
         Row: {
           event_id: string;

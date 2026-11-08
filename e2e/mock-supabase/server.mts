@@ -29,6 +29,7 @@ const practices: Row[] = Object.values(
 
 /** Accounts on the paid plan's waiting list. */
 const waitlist = new Set<string>();
+const intents: Record<string, unknown>[] = [];
 
 /**
  * Payments (D85), kept while the server runs: what the fake provider's
@@ -235,6 +236,20 @@ createServer(async (request, response) => {
   }
   if (url.pathname === "/rest/v1/practices" && request.method === "GET") {
     json(200, matching(url.searchParams));
+    return;
+  }
+  // Steps toward paying (D93), kept while the server runs; the admin's
+  // interest page reads them back.
+  if (url.pathname === "/rest/v1/intent_events") {
+    if (request.method === "POST") {
+      const rows = JSON.parse((await readBody(request)) || "[]");
+      for (const row of [rows].flat()) {
+        intents.push({ ...row, created_at: new Date().toISOString() });
+      }
+      response.writeHead(201, cors).end();
+      return;
+    }
+    json(200, intents);
     return;
   }
   // The paid plan's waiting list (D72), kept while the server runs.

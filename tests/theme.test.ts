@@ -31,11 +31,15 @@ describe("themeAttribute", () => {
 });
 
 describe("themeInitScript", () => {
-  function run(stored: string | null, { throws = false } = {}) {
+  function run(
+    stored: string | null,
+    { throws = false, accent = null as string | null } = {},
+  ) {
     const attributes: Record<string, string> = {};
     const localStorage = {
       getItem: (key: string) => {
         if (throws) throw new Error("blocked");
+        if (key === "ll-accent") return accent;
         return key === THEME_STORAGE_KEY ? stored : null;
       },
     };
@@ -62,6 +66,16 @@ describe("themeInitScript", () => {
     expect(run("system")).toEqual({});
     expect(run(null)).toEqual({});
     expect(run("<script>")).toEqual({});
+  });
+
+  it("applies a saved accent color, but only a known one (D93)", () => {
+    expect(run(null, { accent: "teal" })).toEqual({ "data-accent": "teal" });
+    expect(run("dark", { accent: "gold" })).toEqual({
+      "data-theme": "dark",
+      "data-accent": "gold",
+    });
+    expect(run(null, { accent: "orange" })).toEqual({});
+    expect(run(null, { accent: '"><script>' })).toEqual({});
   });
 
   it("does not throw when storage is unavailable", () => {

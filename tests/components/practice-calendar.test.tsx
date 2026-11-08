@@ -211,7 +211,7 @@ describe("practice log", () => {
     await act(async () => {});
     const saved = JSON.parse(localStorage.getItem(ACTIVITY_KEY) ?? "null");
     expect(saved.days[today].tasks).toEqual([
-      { videoId: "test-video", week: 1, day: 1 },
+      { videoId: "test-video", week: 1, day: 1, perfect: expect.any(Number) },
     ]);
   });
 });

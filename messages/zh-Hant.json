@@ -2249,5 +2249,36 @@
     "startFirst": "開始第 1 天之後就可以調整。",
     "saved": "已儲存。",
     "failed": "無法儲存，請稍後再試。"
+  },
+  "score": {
+    "title": "分數",
+    "rules": "每完成一天的任務 +10；每句 100% 再 +2；連續練習第 2 天起每天 +5。分數只會增加，用來解鎖網站的主題顏色。",
+    "total": "目前分數",
+    "next": "再 {needed} 分解鎖「{color}」",
+    "allOpen": "所有顏色都解鎖了",
+    "colorsTitle": "主題顏色",
+    "colorsIntro": "選一個顏色當作網站的強調色，只影響這個瀏覽器。",
+    "open": "已解鎖",
+    "needs": "還差 {points} 分",
+    "unlockForever": "{price} 永久解鎖",
+    "historyTitle": "分數紀錄",
+    "historyEmpty": "完成第一天的任務後，這裡會列出獲得的分數。",
+    "entryDay": "完成「{title}」{day}",
+    "entryPerfect": "{count} 句 100%",
+    "entryStreak": "連續練習 {days} 天",
+    "offerTitle": "永久解鎖「{color}」",
+    "offerBody": "付費解鎖（{price}）即將推出，現在不會收費。加入名單，開放時通知你，並享早鳥優惠。也可以繼續練習，用分數免費解鎖。",
+    "offerJoin": "加入名單",
+    "offerJoined": "已加入名單，謝謝！",
+    "offerClose": "關閉",
+    "colors": {
+      "orange": "橘",
+      "teal": "青綠",
+      "blue": "藍",
+      "violet": "紫",
+      "rose": "玫瑰紅",
+      "green": "綠",
+      "gold": "金"
+    }
   }
 }

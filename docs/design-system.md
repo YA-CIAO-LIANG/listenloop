@@ -325,6 +325,14 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 還沒開始第 1 天：選單停用，提示「開始第 1 天之後就可以調整。」
 - 聽寫未達最低正確率時，完成畫面改成 ScoreBadge（不顯示「通過」）＋ h3 說明＋「再聽寫一次 →」（primary）＋「調整通關條件」（ghost）。
 
+## 分數與主題顏色 `ScoreSection`（D93）
+
+- 放在學習分析頁最下方，1px line 分隔。h2「分數」→ supporting 說明規則 → StatTile「目前分數」（note：「再 N 分解鎖『藍』」）。
+- 「主題顏色」是 fieldset：每個顏色一張 surface 卡片（1px line 邊框），裡面是原生 radio＋24px 色塊（色塊用 `data-accent` 在元素上換色）＋名稱＋「已解鎖／還差 N 分」（metadata、ink-muted）。未解鎖的 radio 停用，旁邊有 secondary sm 按鈕「NT$30 永久解鎖」。
+- 按「永久解鎖」開啟 Dialog：說明即將推出、現在不收費；「加入名單」（primary）、「關閉」（ghost）；加入後顯示 success 色「✓ 已加入名單」。
+- 分數紀錄：最近 14 天，每天一列（日期、success 色 +N），下面是 supporting、ink-muted 的明細。
+- 強調色（`data-accent` on `<html>`）：橘（預設）、青綠、藍、紫、玫瑰紅、綠、金。只改 `--ll-accent`、`--ll-accent-ink`、`--ll-focus`；熱度圖與螢光筆不變。
+
 ## 跟讀畫面
 
 第 2～6 天共用同一個畫面（`ShadowingSession`），版面比照聽寫畫面。

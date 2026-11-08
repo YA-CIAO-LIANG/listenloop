@@ -18,6 +18,8 @@ export const RATE_LIMITS = {
   export: { windowSeconds: 3600, max: 10 },
   /** Starting a checkout or changing a subscription (D85). */
   billing: { windowSeconds: 3600, max: 20 },
+  /** Steps toward paying, from the fake doors (D93). */
+  intent: { windowSeconds: 3600, max: 120 },
 } as const;
 
 export type RateLimitedAction = keyof typeof RATE_LIMITS;

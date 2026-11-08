@@ -2,8 +2,16 @@ import { isLocalDate, type LocalDate } from "./dates";
 import { isDayTime, type DayTime } from "./practice-time";
 import type { Progress } from "./progress";
 
-/** One finished official task: which video, which week, which day. */
-export type PracticeTask = { videoId: string; week: number; day: number };
+/**
+ * One finished official task: which video, which week, which day, and how
+ * many sentences were at 100% (D93; older logs lack it).
+ */
+export type PracticeTask = {
+  videoId: string;
+  week: number;
+  day: number;
+  perfect?: number;
+};
 
 /**
  * What happened on one calendar day. Retries aren't saved in progress (they
@@ -102,8 +110,10 @@ export function officialDates(
 
 function isTask(value: unknown): value is PracticeTask {
   if (typeof value !== "object" || value === null) return false;
-  const { videoId, week, day } = value as Record<string, unknown>;
+  const { videoId, week, day, perfect } = value as Record<string, unknown>;
   return (
+    (perfect === undefined ||
+      (Number.isInteger(perfect) && (perfect as number) >= 0)) &&
     typeof videoId === "string" &&
     Number.isInteger(week) &&
     (week as number) >= 1 &&

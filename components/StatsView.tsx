@@ -19,6 +19,7 @@ import { ChartFrame } from "./charts/ChartFrame";
 import { ColumnChart } from "./charts/ColumnChart";
 import { PairedBars } from "./charts/PairedBars";
 import { TrendChart } from "./charts/TrendChart";
+import { ScoreSection } from "./ScoreSection";
 import { SegmentedControl } from "./SegmentedControl";
 import { StatTile } from "./StatTile";
 import { useStores } from "./StoresProvider";
@@ -306,6 +307,14 @@ export function StatsView({
             }))}
           />
         </ChartFrame>
+      </div>
+
+      <div className="border-t border-line pt-8">
+        <ScoreSection
+          progresses={progresses}
+          activity={activity}
+          titleOf={titleOf}
+        />
       </div>
     </div>
   );

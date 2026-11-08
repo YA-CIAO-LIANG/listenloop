@@ -6,6 +6,7 @@ import { useFormatter, useTranslations } from "next-intl";
 import { Fragment, useEffect, useRef, useState, type ReactNode } from "react";
 import { toLocalDate } from "@/lib/dates";
 import { recordTask } from "@/lib/activity";
+import { perfectSentences } from "@/lib/score-points";
 import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
 import { passRulesOf } from "@/lib/pass-rules";
 import type { Progress } from "@/lib/progress";
@@ -181,6 +182,7 @@ export function ShadowingSession({
           videoId: video.id,
           week: next.week,
           day,
+          perfect: perfectSentences(next.days[day], sentences),
         }),
       ).catch(() => {});
       // A finished official day earns points and today's feed.
