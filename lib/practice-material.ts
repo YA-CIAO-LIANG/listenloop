@@ -39,6 +39,8 @@ export type PracticeMaterial = Pick<
    * sentence with first-format notes. Absent for built-in videos.
    */
   richNotes?: (RichNotes | null)[];
+  /** An official material (D46): ours, so search engines may index it. */
+  official?: boolean;
   /** A news material (D100): the release its facts came from. */
   rewrittenFrom?: { name: string; title: string; url: string };
 } & (
@@ -217,11 +219,13 @@ export function titleLang(id: string): "en" | undefined {
 }
 
 /**
- * Search engines index built-in videos but not practices people made
- * (D30): spread into a practice page's metadata.
+ * Search engines index built-in videos and official materials, but not
+ * the practices people made (D30, D116): spread into a practice page's
+ * metadata.
  */
 export function practiceRobots(material: PracticeMaterial) {
-  return material.youtubeId
+  // Built-in videos and official materials are ours to index (D116).
+  return material.youtubeId || material.official
     ? {}
     : { robots: { index: false, follow: false } as const };
 }

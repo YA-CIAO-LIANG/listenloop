@@ -640,7 +640,8 @@
     "terms": "Terms",
     "feedback": "Feedback",
     "pricing": "Pricing",
-    "refund": "Refund policy"
+    "refund": "Refund policy",
+    "learn": "Practice by topic"
   },
   "privacy": {
     "title": "Privacy policy",
@@ -2863,5 +2864,53 @@
     "fixedTitle": "Your reports were fixed",
     "fixedLine": "{title}, sentence {n} ({kind})",
     "fixedOk": "Got it"
+  },
+  "learn": {
+    "indexTitle": "English listening practice by topic",
+    "indexIntro": "Choose a topic. Every material follows the 7-day loop: dictation on Day 1, shadowing on Days 2–6, dictation again on Day 7 to see your progress. Official materials are free.",
+    "pageTitle": "English listening practice: {name}",
+    "count": "{count, plural, one {# material} other {# materials}}",
+    "back": "All topics",
+    "intros": {
+      "daily-life": "Ordering food, shopping, asking the way, booking a doctor: everyday English for home and abroad. Each material is a short, realistic dialogue or talk; spend 7 days hearing every word.",
+      "travel": "Checking in at the airport and hotel, taking trains, asking the way, ordering: the English you meet most when traveling. Hear it first, then say it, and speak up with confidence.",
+      "study-abroad": "Housing, bank accounts, roommates, talking to professors: the English international students meet in their first year. Practice before you go.",
+      "casual-american": "How Americans really talk, with linking and dropped sounds: spoken English you hear in films but rarely in textbooks. Catch every word of fast conversation.",
+      "campus": "Choosing courses, class discussions, the library, office hours: English on a university campus, for students heading abroad or in English-taught classes.",
+      "academic-writing": "Research proposals, abstracts, peer review, presentations: academic English to listen to. Get used to formal wording and long sentences.",
+      "business": "Meetings, calls, emails, and presentations: the English used most at work. Short materials to catch every word from colleagues and clients.",
+      "news": "Short news rewritten from public-domain releases and original news-style stories: science, environment, health, and life. Get used to news pace and wording.",
+      "science": "Space, climate, psychology, nutrition: science explained in plain English. Practice listening while learning something new.",
+      "talks-stories": "Talks, stories, podcast interviews, and book reviews: longer English with more rise and fall. Keep up with the speaker's rhythm and points.",
+      "health": "Doctor's visits, pharmacies, describing symptoms, appointments: health English, the kind you most need to hear clearly abroad.",
+      "relationships": "Family, friends, roommates: invitations, apologies, comfort, and discussions. Hear the tone and the details of how people talk.",
+      "tech": "Phones, the internet, account settings, and tech news: the technology English that's everywhere now.",
+      "money-admin": "Bank accounts, bills, leases, and paperwork: English where numbers and details are easy to miss. Hear every word and get things done.",
+      "career": "Job interviews, internships, salary talks, and career plans: the English you most need to understand when looking for work.",
+      "leisure": "Sports, the gym, signing up for classes, weekend plans: relaxed English for free time.",
+      "food": "Ordering, recipes, markets, and table manners: English about food.",
+      "culture": "Festivals, traditions, and cultures around the world: learn about the English-speaking world while you practice.",
+      "exam": "Original practice in the style of the TOEFL, IELTS, TOEIC, and GEPT (not real test questions). Seven days with one material to hear every word of each task type."
+    },
+    "howTitle": "How it works: a 7-day loop",
+    "steps": {
+      "day1": {
+        "title": "Dictation",
+        "body": "Day 1: listen sentence by sentence and type what you hear; every word is checked."
+      },
+      "days2to6": {
+        "title": "Shadowing",
+        "body": "Days 2–6: repeat each sentence; speech recognition shows which words you said."
+      },
+      "day7": {
+        "title": "Dictation again",
+        "body": "Day 7: dictate it again and compare with Day 1."
+      }
+    },
+    "materialsTitle": "{name} materials ({count})",
+    "none": "Materials for this topic are on their way; try another topic.",
+    "startFirst": "Start with the first one",
+    "levelTest": "Take the 2-minute level test",
+    "library": "More in the library"
   }
 }

@@ -42,6 +42,8 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
     "/",
     "/explore",
     "/level-test",
+    "/learn",
+    "/learn/study-abroad",
     "/pricing",
     "/refund",
     "/terms",

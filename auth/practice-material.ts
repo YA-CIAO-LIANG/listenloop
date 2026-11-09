@@ -122,7 +122,12 @@ export const getPracticeState = cache(
       },
       (path) => speechAudioUrl(path),
     );
-    if (material) return { status: "ready", material: { ...material, mine } };
+    if (material) {
+      return {
+        status: "ready",
+        material: { ...material, mine, official: !!data.official },
+      };
+    }
     return mine
       ? {
           status: "preparing",

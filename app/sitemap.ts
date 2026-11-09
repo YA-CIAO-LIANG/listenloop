@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getVideosByCollection } from "@/lib/video-library";
+import { LEARN_CATEGORIES, learnPath } from "@/lib/learn";
 import { PUBLIC_PATHS, SITE_URL } from "@/lib/site";
 
 /**
@@ -17,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
           ? ("weekly" as const)
           : ("monthly" as const),
       priority: path === "/" ? 1 : 0.5,
+    })),
+    // Topic landing pages (D116).
+    ...["/learn", ...LEARN_CATEGORIES.map(learnPath)].map((path) => ({
+      url: `${SITE_URL}${path}`,
+      changeFrequency: "weekly" as const,
+      priority: 0.8,
     })),
     ...videos.map((video) => ({
       url: `${SITE_URL}/videos/${video.id}`,
