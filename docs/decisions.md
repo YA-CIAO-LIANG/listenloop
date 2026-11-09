@@ -2031,3 +2031,15 @@
   2. 產生 VAPID 金鑰（`npx web-push generate-vapid-keys`），公開金鑰設成 Vercel 的 `NEXT_PUBLIC_VAPID_PUBLIC_KEY`（沒有它時帳號頁不顯示提醒）；
   3. GitHub Actions 的 secrets：`NEXT_PUBLIC_SUPABASE_URL`、`SUPABASE_SERVICE_ROLE_KEY`、`NEXT_PUBLIC_VAPID_PUBLIC_KEY`、`VAPID_PRIVATE_KEY`；變數 `REMINDERS_SCHEDULE=on`（`VAPID_SUBJECT` 選填，例如 `mailto:` 加聯絡信箱）。
 - **要改時**：`lib/reminders.ts`（文字、時間窗）、`scripts/send-reminders.mts`、`components/ReminderSettings.tsx`、`public/sw.js`。
+
+## D112 離線與載入速度：快取練習音檔、預先載入下一句（2026-11-11，Joe 指定）
+
+- **預先載入下一句**：播放第 N 句時，背景載入第 N+1 句的音檔（`useAudioPlayer` 的第二個 `<audio>`，`preload="auto"`），按「下一句」時不用等下載。
+- **快取目前練習的音檔**（`public/sw.js`）：
+  - 打開音檔教材的練習頁時，頁面請 service worker 把這份教材每一句的音檔先存起來（`cache-audio` 訊息）；
+  - 之後播放一律先用快取（cache first），網路不穩或斷線時仍能播放；
+  - 播放器常用的分段請求（`Range`）由快取裡的完整檔案切出來回應（206），Safari、Chrome 都能播放；
+  - 音檔以內容雜湊命名、永遠不變（D22），所以快取不會過期；最多 400 個檔（約 2 小時、約 40 MB），超過時刪最舊的。
+- **只快取練習音檔**：Supabase 的資料、登入、YouTube 一律不經過快取，和 D64 的原則相同。YouTube 影片無法離線（條款不允許下載）。
+- **頁面本身**：導覽仍然先走網路（頁面永遠最新）；斷線時打開新頁面會顯示離線頁。已經打開的練習頁可以繼續播放。
+- **要改時**：`public/sw.js`（`AUDIO_CACHE`、`AUDIO_LIMIT`；改快取格式時改快取名稱）、`components/audio/useAudioPlayer.ts`。

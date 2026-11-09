@@ -18,6 +18,10 @@ export type AudioPlayerApi = {
  * single <audio> element. Ready once the first file's metadata loads;
  * a file that can't load turns the player to "error". `rate` is the
  * playback speed (D73), kept at the same pitch.
+ *
+ * Loading (D112): the next sentence's file is fetched while this one
+ * plays, and the service worker is asked to keep every sentence of this
+ * practice, so a shaky connection doesn't stop it.
  */
 export function useAudioPlayer(
   urls: readonly string[],
@@ -65,6 +69,35 @@ export function useAudioPlayer(
     };
   }, [first]);
 
+  // Every sentence, cached ahead by the service worker (production only).
+  useEffect(() => {
+    if (urls.length === 0 || !("serviceWorker" in navigator)) return;
+    const absolute = urls.map((url) => new URL(url, window.location.href).href);
+    navigator.serviceWorker.ready
+      .then((registration) =>
+        registration.active?.postMessage({
+          type: "cache-audio",
+          urls: absolute,
+        }),
+      )
+      .catch(() => {});
+  }, [urls]);
+
+  // The next sentence's file, loaded in the background.
+  const preloader = useRef<HTMLAudioElement | null>(null);
+  const preload = useCallback(
+    (index: number) => {
+      const next = urls[index + 1];
+      if (!next) return;
+      const audio = (preloader.current ??= new Audio());
+      if (audio.src !== new URL(next, window.location.href).href) {
+        audio.preload = "auto";
+        audio.src = next;
+      }
+    },
+    [urls],
+  );
+
   const stop = useCallback(() => {
     playToken.current++;
     audioRef.current?.pause();
@@ -92,6 +125,7 @@ export function useAudioPlayer(
         },
         { once: true },
       );
+      preload(index);
       audio.play().catch((error: unknown) => {
         // A newer play() or stop() interrupts this one: not an error.
         if (error instanceof DOMException && error.name === "AbortError") {
@@ -100,7 +134,7 @@ export function useAudioPlayer(
         console.error("[Audio] play failed", error);
       });
     },
-    [urls, rate],
+    [urls, rate, preload],
   );
 
   return {
