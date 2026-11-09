@@ -91,6 +91,8 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           "/admin/sentences",
           "/admin/interest",
           "/admin/forecast",
+          "/admin/docs",
+          "/admin/docs?doc=user&lang=en",
           "/classroom",
         ].map((path) => ({ path, role: "admin" as const })),
         // States behind a click: forms past their first step.
