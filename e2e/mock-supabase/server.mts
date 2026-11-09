@@ -317,6 +317,13 @@ createServer(async (request, response) => {
     });
     return;
   }
+  if (url.pathname === "/rest/v1/rpc/can_practice") {
+    const { target } = JSON.parse((await readBody(request)) || "{}");
+    const row = practices.find((p) => p.id === target);
+    const sub = tokenSubject(request.headers.authorization);
+    json(200, !!row && mayPractice(row, sub));
+    return;
+  }
   if (url.pathname === "/rest/v1/rpc/practice_notes") {
     const { target } = JSON.parse((await readBody(request)) || "{}");
     const row = practices.find((p) => p.id === target);
