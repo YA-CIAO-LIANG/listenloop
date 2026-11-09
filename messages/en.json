@@ -1346,7 +1346,8 @@
       "revenue": "Revenue",
       "interest": "Interest",
       "forecast": "Forecast",
-      "docs": "System docs"
+      "docs": "System docs",
+      "retention": "Retention"
     },
     "overview": {
       "title": "Admin overview",
@@ -1711,6 +1712,26 @@
       "dismissed": "Won't fix",
       "failed": "That didn't save; please try again.",
       "shadowingTitle": "Sentences shadowing keeps failing on"
+    },
+    "retention": {
+      "title": "Retention",
+      "intro": "How many come back on day 1, 7, and 30 after signing up, active learners each week, and how many started materials reach the end of the 7-day loop. Totals only, from the event log (kept {days} days).",
+      "noKey": "No secret key: the data can't be read.",
+      "retention": "Day {day} retention",
+      "retentionNote": "{retained} of {eligible}",
+      "loops": "Finished a 7-day loop",
+      "loopsNote": "{finished} of {started}",
+      "weeklyTitle": "Active learners each week",
+      "weekOf": "Week starting",
+      "activeUsers": "Active learners",
+      "byCategoryTitle": "Completion by category",
+      "category": "Category",
+      "started": "Started",
+      "finished": "Finished Day 7",
+      "rate": "Rate",
+      "noCategory": "Uncategorized",
+      "empty": "No data yet.",
+      "how": "How: day-N retention is, of users who signed up at least N days ago, the share with any event on day N after signing up (Taiwan dates); users whose day N is older than the event log aren't counted. Weekly active is people with an event in the 7 days. Completion counts each learner and material once; finishing Day 7 once counts."
     }
   },
   "events": {

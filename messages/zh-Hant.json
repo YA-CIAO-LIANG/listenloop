@@ -1346,7 +1346,8 @@
       "revenue": "營收",
       "interest": "付費意願",
       "forecast": "收益試算",
-      "docs": "系統文件"
+      "docs": "系統文件",
+      "retention": "留存分析"
     },
     "overview": {
       "title": "後台總覽",
@@ -1711,6 +1712,26 @@
       "dismissed": "不處理",
       "failed": "沒有儲存成功，請再試一次。",
       "shadowingTitle": "跟讀常出錯的句子"
+    },
+    "retention": {
+      "title": "留存分析",
+      "intro": "註冊後第 1、7、30 天還回來的比例、每週活躍人數，以及開始練的教材有多少完成 7 天循環。只顯示總數，依操作紀錄計算（保留 {days} 天）。",
+      "noKey": "沒有設定秘密金鑰，無法讀取資料。",
+      "retention": "第 {day} 天留存",
+      "retentionNote": "{retained} / {eligible} 人",
+      "loops": "完成 7 天循環",
+      "loopsNote": "{finished} / {started} 份",
+      "weeklyTitle": "每週活躍人數",
+      "weekOf": "週（起始日）",
+      "activeUsers": "活躍人數",
+      "byCategoryTitle": "各類別的完成率",
+      "category": "類別",
+      "started": "開始",
+      "finished": "完成第 7 天",
+      "rate": "完成率",
+      "noCategory": "未分類",
+      "empty": "還沒有資料。",
+      "how": "算法：第 N 天留存＝註冊至少 N 天的使用者中，在註冊後第 N 天（台灣日期）有任何操作紀錄的比例；註冊太早、那天已超出紀錄保留期的不計入。每週活躍是 7 天內有操作的人數。完成率以「一個人、一份教材」為單位，有完成過第 7 天就算完成。"
     }
   },
   "events": {
