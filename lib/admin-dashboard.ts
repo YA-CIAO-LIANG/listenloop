@@ -20,6 +20,7 @@ export const ADMIN_SECTIONS = [
   { id: "feedback", href: "/admin/feedback" },
   { id: "errors", href: "/admin/errors" },
   { id: "audit", href: "/admin/audit" },
+  { id: "docs", href: "/admin/docs" },
 ] as const;
 export type AdminSection = (typeof ADMIN_SECTIONS)[number]["id"];
 

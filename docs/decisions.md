@@ -1938,3 +1938,25 @@
   - `lib/practice-material.ts` 的 `PREVIEW_SENTENCES`（資料庫函式裡的 3 要一起改）；
   - 畫面：`components/SharedPreviewPage.tsx`。
 - **注意**：之後在 `practices` 新增欄位時，要另外 `grant select (<欄位>) on public.practices to authenticated`（需要未登入可讀時也給 anon）。`tests/rls-coverage.test.ts` 會檢查。
+
+## D107 系統文件與後台「系統文件」頁（2026-11-11，Joe 指定）
+
+- **文件**：`docs/system/zh-Hant/`、`docs/system/en/`，各三份：
+  - `system.md` 系統說明書（技術）；
+  - `admin.md` 管理員手冊；
+  - `user.md` 使用者手冊。
+  - 開頭是目錄，最後一行是更新日期。圖表用 Mermaid，GitHub 會直接畫出來。
+- **兩種語言一致**：測試（`tests/system-docs.test.ts`）檢查兩種語言的標題層級順序、Mermaid 圖數、表格數都相同；目錄的每個連結都對得到標題；最後一行是更新日期。
+- **後台頁 `/admin/docs`**：
+  - 在後台導覽最後面；
+  - 選文件、選語言（預設跟介面語言）；
+  - 只有管理員看得到（`app/admin/layout.tsx` 對其他人回 404）。
+- **怎麼顯示**：伺服器讀 Markdown 檔，用 `react-markdown`＋`remark-gfm`（表格）轉成 React 元素，套用設計系統的字級與顏色。
+  - 不用 `dangerouslySetInnerHTML`，所以不會插入任意 HTML，CSP 也不用放寬。
+  - 標題的錨點用和 GitHub 一樣的規則（`headingSlug`），目錄在 GitHub 和後台都能點。
+  - Mermaid 圖表在後台顯示原始碼，並標示「圖表（Mermaid）」；在 GitHub 上看得到畫好的圖。後台不加 mermaid 套件，原因：約 1 MB 的 JavaScript，而且要在瀏覽器執行產生的 SVG，與嚴格的 CSP 不合。
+  - 部署時用 `outputFileTracingIncludes` 把 `docs/system/**/*.md` 帶進 `/admin/docs` 的函式。
+- **新套件**（D9）：`react-markdown` 10.1.0、`remark-gfm` 4.0.1。都是 unified／remark 官方組織維護，下載量大；只在伺服器端用，不增加瀏覽器的 JavaScript。
+- **要改時**：
+  - 文件內容：`docs/system/`，兩種語言一起改，並更新最後一行的日期；
+  - 頁面：`app/admin/docs/page.tsx`、`lib/system-docs.ts`。

@@ -1341,7 +1341,8 @@
       "official": "Official",
       "revenue": "Revenue",
       "interest": "Interest",
-      "forecast": "Forecast"
+      "forecast": "Forecast",
+      "docs": "System docs"
     },
     "overview": {
       "title": "Admin overview",
@@ -1672,6 +1673,25 @@
         "serverMonthly": "Hosting (NT$ a month)"
       },
       "notes": "Default assumptions: 40% of the allowance used (most people don’t use it all); a 2.8% payment fee (a common card rate in Taiwan; it depends on the provider signed); NT$1,500 a month of hosting (Vercel Pro US$20 plus Supabase Pro US$25, needed for commercial use); speech is on Azure’s free tier for now, and its cost beyond that is folded into the AI cost per minute."
+    },
+    "docs": {
+      "title": "System docs",
+      "intro": "The system manual, the admin manual, and the user manual, the same as docs/system/ in the repository. GitHub draws the diagrams; here they show their Mermaid source.",
+      "choose": "Choose a document",
+      "language": "Document language",
+      "docs": {
+        "system": "System manual",
+        "admin": "Admin manual",
+        "user": "User manual"
+      },
+      "languages": {
+        "zh-Hant": "繁體中文",
+        "en": "English"
+      },
+      "diagram": "Diagram (Mermaid)",
+      "table": "Table",
+      "missing": "This document couldn't be found.",
+      "code": "Code or diagram"
     }
   },
   "events": {
