@@ -109,10 +109,18 @@ test("signed out, the library and its filters are open to everyone", async ({
   await page.goto("/");
   await expect(page.getByRole("heading", { name: "官方教材庫" })).toBeVisible();
   const sidebar = page.getByRole("complementary", { name: "篩選" });
-  await sidebar
+  // A click before the library hydrates does nothing (slow CI machines):
+  // click again until the filter is in the address.
+  const travel = sidebar
     .getByRole("group", { name: "分類" })
-    .getByRole("button", { name: /旅遊/ })
-    .click();
+    .getByRole("button", { name: /旅遊/ });
+  await expect(async () => {
+    // Never a second click once it's on (that would turn it off).
+    if ((await travel.getAttribute("aria-pressed")) !== "true") {
+      await travel.click();
+    }
+    await expect(page).toHaveURL(/cat=travel/, { timeout: 2_000 });
+  }).toPass();
   await sidebar
     .getByRole("group", { name: "情境" })
     .getByRole("button", { name: /機場報到與登機/ })
@@ -128,8 +136,13 @@ for (const scheme of ["light", "dark"] as const) {
     await page.emulateMedia({ colorScheme: scheme });
     await page.setViewportSize({ width: 375, height: 740 });
     await page.goto("/?type=audio");
-    await page.getByRole("button", { name: /^篩選/ }).click();
-    await expect(page.getByRole("dialog")).toBeVisible();
+    // As above: retry the drawer's button until the page has hydrated.
+    await expect(async () => {
+      if (!(await page.getByRole("dialog").isVisible())) {
+        await page.getByRole("button", { name: /^篩選/ }).click();
+      }
+      await expect(page.getByRole("dialog")).toBeVisible({ timeout: 2_000 });
+    }).toPass();
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
       .exclude("iframe")

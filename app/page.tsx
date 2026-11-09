@@ -7,11 +7,10 @@ import {
 } from "@/components/MaterialLibrary";
 import { FixedReportsNotice } from "@/components/FixedReportsNotice";
 import { OnboardingStart } from "@/components/OnboardingStart";
-import { PracticeCalendar } from "@/components/PracticeCalendar";
 import { ProductIntro } from "@/components/ProductIntro";
 import { ProgressGate } from "@/components/ProgressGate";
 import { LibrarySkeleton } from "@/components/Skeleton";
-import { TodayTasks } from "@/components/TodayTasks";
+import { HomeProgress } from "@/components/HomeProgress";
 import type { LibraryItem } from "@/lib/library";
 
 /**
@@ -34,8 +33,7 @@ export default function Home() {
         <OnboardingStart />
         <ProgressGate place="home" signedOut={<ProductIntro />}>
           <FixedReportsNotice />
-          <PracticeCalendar />
-          <TodayTasks />
+          <HomeProgress />
         </ProgressGate>
       </div>
 

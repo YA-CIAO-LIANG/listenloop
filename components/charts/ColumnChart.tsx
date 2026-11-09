@@ -74,9 +74,12 @@ export function ColumnChart({
   );
 }
 
-/** A round number at or above `max` for the axis (1, 2, 5, 10, 20…). */
+/** A round number at or above `max` for the axis (2, 4, 6, 8, 10, 20, 50…). */
 export function niceMax(max: number): number {
   const step = 10 ** Math.floor(Math.log10(max));
-  for (const m of [1, 2, 5, 10]) if (m * step >= max) return m * step;
+  // Below 10, only even tops: the middle line's label is then a whole
+  // number (a top of 1 or 5 would label it "1" or "3" after rounding).
+  const multiples = step === 1 ? [2, 4, 6, 8, 10] : [1, 2, 5, 10];
+  for (const m of multiples) if (m * step >= max) return m * step;
   return 10 * step;
 }

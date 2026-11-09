@@ -28,9 +28,6 @@ export function oneLineTitle({ en, zh }: Titles): string {
   return zh && zh !== en ? `${en}｜${zh}` : en;
 }
 
-/** Letters of the Latin alphabet: an English title has some. */
-export const looksEnglish = (text: string) => /[A-Za-z]/.test(text);
-
 /**
  * The titles to save (D83): what the learner typed in each language is
  * kept exactly (its ends trimmed); a language left empty takes the

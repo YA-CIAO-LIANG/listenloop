@@ -6,7 +6,7 @@ import {
   customPracticeId,
   parseCustomPracticeId,
 } from "@/lib/practice-material";
-import { getBrowserSupabase, type Supabase } from "@/lib/supabase/browser";
+import { loadBrowserSupabase } from "@/lib/supabase/browser";
 
 /**
  * Titles of the created practices among `ids`, by practice id
@@ -16,7 +16,7 @@ import { getBrowserSupabase, type Supabase } from "@/lib/supabase/browser";
  */
 export function useCustomPracticeTitles(
   ids: readonly string[] | null | undefined,
-  supabase: Supabase | null = getBrowserSupabase(),
+  load: typeof loadBrowserSupabase = loadBrowserSupabase,
 ): Record<string, string> {
   const [titles, setTitles] = useState<Record<string, string>>({});
   const uuids = [...new Set(ids ?? [])]
@@ -27,13 +27,17 @@ export function useCustomPracticeTitles(
   const key = uuids.join(",");
 
   useEffect(() => {
-    if (!key || !supabase) return;
+    if (!key) return;
     let cancelled = false;
-    supabase
-      .from("practices")
-      .select("id, title, title_en, title_zh")
-      .in("id", key.split(","))
-      .then(({ data }) => {
+    load()
+      .then((supabase) =>
+        supabase
+          ?.from("practices")
+          .select("id, title, title_en, title_zh")
+          .in("id", key.split(",")),
+      )
+      .then((result) => {
+        const data = result?.data;
         if (cancelled || !data) return;
         setTitles(
           Object.fromEntries(
@@ -43,11 +47,12 @@ export function useCustomPracticeTitles(
             ]),
           ),
         );
-      });
+      })
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
-  }, [key, supabase]);
+  }, [key, load]);
 
   return titles;
 }

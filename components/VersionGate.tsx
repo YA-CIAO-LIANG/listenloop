@@ -46,8 +46,10 @@ export function VersionGate({
 
   if (version === undefined) return children;
   if (!loaded || target !== null) {
+    // A screen tall, like DayGate's: the footer stays below the first
+    // screen until the practice is in place (CLS, D120).
     return (
-      <p role="status" className="practice-column text-ink-muted">
+      <p role="status" className="practice-column min-h-svh text-ink-muted">
         {t("loading")}
       </p>
     );

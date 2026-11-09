@@ -247,7 +247,6 @@
     "states": {
       "segmented": "Segmented (30 or fewer)",
       "continuous": "Continuous (over 30)",
-      "belowPass": "Below pass",
       "pass": "Pass",
       "percent": "Percent (waiting while creating a practice)"
     },
@@ -286,7 +285,6 @@
       "whaleSharkNote": "The biggest and slowest: a broad flat head with a wide front mouth, white spots and faint stripes, white belly."
     },
     "heatScale": "Practice calendar steps: 0, 1, 2, 3, and 4+ official tasks finished that day",
-    "voicePickerNote": "For choosing the voice when creating a practice. Listen plays a sample made in advance with an Azure Speech neural voice, kept in public/voices/, so it costs no usage.",
     "voiceMenuNote": "The new voice menu (e+ 3; replaces the voice cards below once approved): grouped by accent, with a line on how each accent sounds and a listen button for each voice. Arrow keys move, Enter chooses, Escape closes.",
     "marks": {
       "before": "I was",
@@ -354,19 +352,6 @@
       "perDay": "About {minutes} min a day",
       "target": "Target: {target}",
       "mine": "Yours"
-    },
-    "length": {
-      "buckets": {
-        "0-1": "Under 1 min",
-        "1-2": "1–2 min",
-        "2-3": "2–3 min",
-        "3-4": "3–4 min",
-        "4-5": "4–5 min",
-        "5-6": "5–6 min",
-        "6-7": "6–7 min",
-        "7-8": "7–8 min",
-        "8-plus": "8 min or more"
-      }
     },
     "defaults": {
       "save": "Save as my default",
@@ -468,7 +453,6 @@
     "inputLabel": "What you heard",
     "placeholder": "Type the sentence you hear…",
     "submit": "Submit",
-    "enterHint": "Press Enter to submit",
     "yourAnswer": "Your answer",
     "correctAnswer": "Correct",
     "noAnswer": "(no answer)",
@@ -766,7 +750,6 @@
   "create": {
     "title": "Create a practice",
     "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. The free plan lets you try one.",
-    "titleLabel": "Title",
     "textLabel": "Text",
     "textHint": "Paste it here or choose a .txt file. Each line is split separately.",
     "chooseFile": "Choose a .txt file",
@@ -1124,7 +1107,6 @@
     "today": "Today (all accounts)",
     "todayNote": "{calls} calls; limit {limit} per person a day",
     "month": "This month (estimated)",
-    "monthNote": "All providers; resets on the 1st, Taiwan time",
     "credit": "Student credit left (estimated)",
     "creditNote": "Azure so far {spent} of US${total}, ends {endsOn}",
     "speech": "Azure speech characters this month",
@@ -1277,7 +1259,6 @@
     "customLabel": "What do you want to practice? (optional)",
     "customRequired": "What do you want to practice? (required)",
     "customHint": "Describe the situation, topic, or keywords in your own words, in Chinese or English. With a scenario chosen above, add details here.",
-    "titleLabel": "Title (optional)",
     "titleHint": "Fill in Chinese, English, or both: what you type is kept exactly and AI writes the other; leave both empty and AI names it in both. You can change them after writing or splitting.",
     "customPlaceholder": "e.g. asking a professor for sick leave and a later deadline",
     "customCategoryOption": "My own category…",
@@ -2332,42 +2313,9 @@
   "pricing": {
     "title": "Plans and pricing",
     "intro": "Official lessons and the 7-day practice are free. Choose a paid plan to turn your own texts, topics, or videos into lessons with AI, or to fully practice lessons other learners share.",
-    "comingSoon": "Coming soon",
-    "testMode": "Test mode: payments are simulated, nothing is charged.",
     "intervalLabel": "Billing period",
     "monthly": "Monthly",
-    "yearly": "Yearly",
-    "free": {
-      "title": "Free",
-      "price": "NT$0",
-      "features": {
-        "f1": "Every official material and the 7-day loop",
-        "f2": "Dictation, shadowing, bilingual handouts and PDF",
-        "f3": "Try creating 1 material of your own"
-      }
-    },
-    "paid": {
-      "title": "Paid",
-      "perMonth": "NT${amount, number} / month",
-      "perYear": "NT${amount, number} / year",
-      "yearlyNote": "NT${amount, number} a month on average",
-      "features": {
-        "f1": "Everything in Free",
-        "f2": "Create {max} materials of your own a month",
-        "f3": "Up to {chars, number} characters each"
-      },
-      "signIn": "Sign in to subscribe: use Sign in at the top right with your Google account.",
-      "current": "You're on the paid plan.",
-      "manage": "Manage subscription",
-      "subscribeMonth": "Subscribe monthly, NT${amount, number}",
-      "subscribeYear": "Subscribe yearly, NT${amount, number}"
-    },
-    "notes": {
-      "renew": "Renews automatically. Cancel any time on the Account page; you keep the plan until the period ends.",
-      "refund": "Ask for a full refund within {days} days of your first payment; see the refund policy."
-    },
-    "refundLink": "Refund policy",
-    "termsLink": "Terms"
+    "yearly": "Yearly"
   },
   "checkout": {
     "fakeTitle": "Test checkout",

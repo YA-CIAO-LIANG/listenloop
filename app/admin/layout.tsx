@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { getAdminUser } from "@/auth/creator";
 import { AdminNav } from "@/components/AdminNav";
+import { AreaMessages } from "@/components/AreaMessages";
 
 export const metadata: Metadata = { robots: { index: false, follow: false } };
 
@@ -18,11 +19,11 @@ export default async function AdminLayout({
 }) {
   if (!(await getAdminUser())) notFound();
   return (
-    <>
+    <AreaMessages area="admin">
       <div className="mx-auto w-full max-w-content px-4 pt-6 split:px-6">
         <AdminNav />
       </div>
       {children}
-    </>
+    </AreaMessages>
   );
 }

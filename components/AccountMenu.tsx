@@ -5,7 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 import { withSignInResult } from "@/lib/auth/redirect";
-import { getBrowserSupabase } from "@/lib/supabase/browser";
+import { loadBrowserSupabase } from "@/lib/supabase/browser";
 import { Button, type ButtonSize, type ButtonVariant } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 
@@ -75,9 +75,12 @@ export function SignInButton({
   const [pending, setPending] = useState(false);
 
   async function signIn() {
-    const supabase = getBrowserSupabase();
-    if (!supabase) return;
     setPending(true);
+    const supabase = await loadBrowserSupabase();
+    if (!supabase) {
+      setPending(false);
+      return;
+    }
     const callback = new URL("/auth/callback", window.location.origin);
     callback.searchParams.set("next", here);
     const { error } = await supabase.auth.signInWithOAuth({
@@ -127,9 +130,12 @@ function AccountPanel({ email }: { email: string }) {
   }, [open]);
 
   async function signOut() {
-    const supabase = getBrowserSupabase();
-    if (!supabase) return;
     setPending(true);
+    const supabase = await loadBrowserSupabase();
+    if (!supabase) {
+      setPending(false);
+      return;
+    }
     setFailed(false);
     const { error } = await supabase.auth.signOut();
     setPending(false);

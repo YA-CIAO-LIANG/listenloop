@@ -40,8 +40,10 @@ export function DayGate({
 
   if (!loaded) {
     // As tall as the practice to come, so nothing jumps (D62).
+    // At least a screen tall: the practice that replaces it is taller, so
+    // the footer stays below the first screen instead of jumping (CLS, D120).
     return (
-      <div className="practice-column space-y-4">
+      <div className="practice-column min-h-svh space-y-4">
         <p role="status" className="text-ink-muted">
           {t("loading")}
         </p>
