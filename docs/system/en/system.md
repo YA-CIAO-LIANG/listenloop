@@ -44,17 +44,19 @@ Every material (built-in videos, official materials, your own, shared ones) foll
 
 ### 1.3 Features
 
-| Area             | Features                                                                                                                                                            | Where                                              |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- |
-| Practice         | Dictation, shadowing, re-dictation, replay, loop (D90), audio speed (D73), notes (D67, D68), bilingual handout and PDF                                              | `/videos/<id>`, `/videos/<id>/day/<n>`, `/handout` |
-| Library          | Built-in videos and official materials; search, categories (up to 5), length, level, accent, scenario; searches as you tap (D104); saved default filter (D98)       | Home `/`                                           |
-| Shared materials | What people share; free plan previews, paid plans practice (D106)                                                                                                   | `/explore`                                         |
-| Creating         | Pasted text, AI writing, YouTube links (D97); splitting, translation, notes, voices; revise by instruction (D96); editing and versions (D44, D45)                   | `/materials`, `/materials/new`                     |
-| Progress         | Practice calendar, today's tasks, progress, stats, points and accent colors (D75, D93)                                                                              | `/`, `/practices`, `/stats`                        |
-| Account          | Google, LINE, email and password (D101); data download, account deletion (D60)                                                                                      | `/login`, `/account`                               |
-| Plans            | Free, Plus, Pro, class plan (fake door, D102, D105); waiting list                                                                                                   | `/pricing`, `/pricing/classroom`                   |
-| Classroom        | Classes, invites, assignments, progress dashboard, CSV, announcements (D103)                                                                                        | `/classroom`                                       |
-| Admin            | Overview, users, official materials, shared materials, reports, usage and limits, events, errors, feedback, paying interest, revenue forecast, revenue, system docs | `/admin/*`                                         |
+| Area                 | Features                                                                                                                                                                       | Where                                              |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------- |
+| Practice             | Dictation, shadowing, re-dictation, replay, loop (D90), audio speed (D73), notes (D67, D68), bilingual handout and PDF                                                         | `/videos/<id>`, `/videos/<id>/day/<n>`, `/handout` |
+| Library              | Built-in videos and official materials; search, categories (up to 5), length, level, accent, scenario; searches as you tap (D104); saved default filter (D98)                  | Home `/`                                           |
+| Shared materials     | What people share; free plan previews, paid plans practice (D106)                                                                                                              | `/explore`                                         |
+| Creating             | Pasted text, AI writing, YouTube links (D97); splitting, translation, notes, voices; revise by instruction (D96); editing and versions (D44, D45)                              | `/materials`, `/materials/new`                     |
+| Progress             | Practice calendar, today's tasks, progress, stats, points and accent colors (D75, D93)                                                                                         | `/`, `/practices`, `/stats`                        |
+| Review and reminders | My misheard words (spaced review, D108), level test (D109), progress share card (D110), practice reminders (PWA push, D111), offline audio (D112), reporting a sentence (D113) | `/review`, `/level-test`, account page             |
+| By topic             | Public topic pages (SEO, D116)                                                                                                                                                 | `/learn`, `/learn/<category>`                      |
+| Account              | Google, LINE, email and password (D101); data download, account deletion (D60)                                                                                                 | `/login`, `/account`                               |
+| Plans                | Free, Plus, Pro, class plan (fake door, D102, D105); waiting list                                                                                                              | `/pricing`, `/pricing/classroom`                   |
+| Classroom            | Classes, invites, assignments, progress dashboard, CSV, announcements (D103)                                                                                                   | `/classroom`                                       |
+| Admin                | Overview, users, official materials, shared materials, reports, usage and limits, events, errors, feedback, paying interest, revenue forecast, revenue, retention, system docs | `/admin/*`                                         |
 
 ---
 
@@ -246,17 +248,19 @@ All tables are in the `public` schema with RLS on (`tests/rls-coverage.test.ts` 
 
 #### Logs and operations
 
-| Table                                         | Purpose                                                             | Kept                    |
-| --------------------------------------------- | ------------------------------------------------------------------- | ----------------------- |
-| `events`                                      | Events (sign-in, start, done, practice again, create, report…, D55) | 180 days                |
-| `shadowing_issues`                            | Hard shadowing sentences reported (D52)                             | 365 days                |
-| `admin_audit`                                 | Admin audit: who, when, on what, before → after (D56)               | 2 years                 |
-| `error_logs`                                  | Server errors (D63)                                                 | 90 days                 |
-| `feedback`                                    | Feedback (D60)                                                      | Not deleted             |
-| `rate_limits`                                 | Fixed-window counters (D63)                                         | Overwritten each window |
-| `intent_events`                               | Paying-interest funnel (D93, D102)                                  | Not deleted             |
-| `waitlist`                                    | Waiting list (plan, period, source)                                 | Not deleted             |
-| `subscriptions`, `payments`, `payment_events` | Subscriptions, payments, webhook idempotency (D85)                  | Not deleted             |
+| Table                                         | Purpose                                                                                                                  | Kept                                              |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
+| `events`                                      | Events (sign-in, start, done, practice again, create, report…, D55)                                                      | 180 days                                          |
+| `shadowing_issues`                            | Hard shadowing sentences reported (D52)                                                                                  | 365 days                                          |
+| `admin_audit`                                 | Admin audit: who, when, on what, before → after (D56)                                                                    | 2 years                                           |
+| `error_logs`                                  | Server errors (D63)                                                                                                      | 90 days                                           |
+| `feedback`                                    | Feedback (D60)                                                                                                           | Not deleted                                       |
+| `sentence_reports`                            | Learners report a problem with a sentence (translation, notes, audio); admins resolve it and the reporter is told (D113) | Not deleted                                       |
+| `reminders`                                   | Each browser's push subscription, reminder time, and time zone (D111)                                                    | Deleted when turned off or the account is deleted |
+| `rate_limits`                                 | Fixed-window counters (D63)                                                                                              | Overwritten each window                           |
+| `intent_events`                               | Paying-interest funnel (D93, D102)                                                                                       | Not deleted                                       |
+| `waitlist`                                    | Waiting list (plan, period, source)                                                                                      | Not deleted                                       |
+| `subscriptions`, `payments`, `payment_events` | Subscriptions, payments, webhook idempotency (D85)                                                                       | Not deleted                                       |
 
 #### Classroom (D103)
 
@@ -636,16 +640,17 @@ Changing a model, prompt, or voice means raising its version (`PROMPT_VERSION`, 
 
 ### 6.6 Actual costs
 
-| Item                                     | Size                          | Cost            | Source    |
-| ---------------------------------------- | ----------------------------- | --------------- | --------- |
-| First live test (one of each of 5 calls) | 1,177 in / 249 out tokens     | US$0.0008       | D41       |
-| 14 official drafts                       | 121 calls                     | US$0.1026       | D59       |
-| Notes upgraded to version 2 (13)         | 70 calls                      | US$0.3875       | D69       |
-| 14 subtitles                             | 14 calls                      | US$0.0019       | D71       |
-| 18 official drafts (2 per category)      | —                             | US$0.4795       | D84       |
-| 34 official materials + 3 news           | —                             | US$0.7455       | D99, D100 |
-| Notes per sentence (version 2), average  | about 210 in / 380 out tokens | about US$0.0008 | D67       |
-| Notes for a 30-sentence material         | —                             | about US$0.025  | D67       |
+| Item                                                | Size                          | Cost            | Source    |
+| --------------------------------------------------- | ----------------------------- | --------------- | --------- |
+| First live test (one of each of 5 calls)            | 1,177 in / 249 out tokens     | US$0.0008       | D41       |
+| 14 official drafts                                  | 121 calls                     | US$0.1026       | D59       |
+| Notes upgraded to version 2 (13)                    | 70 calls                      | US$0.3875       | D69       |
+| 14 subtitles                                        | 14 calls                      | US$0.0019       | D71       |
+| 18 official drafts (2 per category)                 | —                             | US$0.4795       | D84       |
+| 34 official materials + 3 news                      | —                             | US$0.7455       | D99, D100 |
+| Official quality audit (AI sample of 139 sentences) | 12 calls                      | US$0.0122       | D115      |
+| Notes per sentence (version 2), average             | about 210 in / 380 out tokens | about US$0.0008 | D67       |
+| Notes for a 30-sentence material                    | —                             | about US$0.025  | D67       |
 
 All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` or the `cost-report` skill.
 
@@ -802,16 +807,17 @@ flowchart LR
 
 ## 11. Testing strategy
 
-| Level             | Tools and scope                                                                                                                                | Command                                 |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
-| Unit              | Vitest: scoring, the loop, sync, plans, prices (yearly = 10 × monthly), AI answer checks, static RLS checks, matching message keys, components | `npm test`                              |
-| AI fixtures       | Real answers recorded in `tests/fixtures/ai/` and replayed; recording prints an estimate by default (D41)                                      | `npm run ai:record`                     |
-| End to end        | Playwright on the production build; YouTube blocked; dates via `page.clock`; stand-in Supabase (`e2e/mock-supabase/`); fake AI and payments    | `npm run build:e2e && npm run test:e2e` |
-| Accessibility     | axe (WCAG 2.1 A / AA) on main pages, light and dark, signed in and out                                                                         | Inside E2E                              |
-| QA sweep          | 5 widths × light and dark × two languages: overlap, truncation, overflow, targets, axe, errors, broken links, slow pages (D91)                 | `npm run qa`, `qa-sweep` skill          |
-| AI usability test | 7 personas, 11 tasks, Nielsen severity (D86)                                                                                                   | `ai-usability-test` skill               |
-| Live RLS check    | With the public key against production: private reads, writes, and admin functions must all be refused                                         | `npm run rls:check`                     |
-| Production check  | Pages, headers, CSP, YouTube, manifest, RLS                                                                                                    | `verify-prod` skill                     |
+| Level                  | Tools and scope                                                                                                                                | Command                                 |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| Unit                   | Vitest: scoring, the loop, sync, plans, prices (yearly = 10 × monthly), AI answer checks, static RLS checks, matching message keys, components | `npm test`                              |
+| AI fixtures            | Real answers recorded in `tests/fixtures/ai/` and replayed; recording prints an estimate by default (D41)                                      | `npm run ai:record`                     |
+| End to end             | Playwright on the production build; YouTube blocked; dates via `page.clock`; stand-in Supabase (`e2e/mock-supabase/`); fake AI and payments    | `npm run build:e2e && npm run test:e2e` |
+| Accessibility          | axe (WCAG 2.1 A / AA) on main pages, light and dark, signed in and out                                                                         | Inside E2E                              |
+| QA sweep               | 5 widths × light and dark × two languages: overlap, truncation, overflow, targets, axe, errors, broken links, slow pages (D91)                 | `npm run qa`, `qa-sweep` skill          |
+| AI usability test      | 7 personas, 11 tasks, Nielsen severity (D86)                                                                                                   | `ai-usability-test` skill               |
+| Live RLS check         | With the public key against production: private reads, writes, and admin functions must all be refused                                         | `npm run rls:check`                     |
+| Production check       | Pages, headers, CSP, YouTube, manifest, RLS                                                                                                    | `verify-prod` skill                     |
+| Official quality audit | Rules on every published official material, an AI sample of translations (D115)                                                                | `npm run official:audit`                |
 
 **Cost rule**: development and every automatic test use fake providers or fixtures only; `tests/setup-network.ts` blocks Azure and Google; Playwright forces `AI_PROVIDERS=fake` and clears keys.
 
@@ -830,13 +836,14 @@ flowchart LR
 - **Payments**: only the fake provider; plans are set by admins.
 - **Priority** is a label for now; **batch PDF** isn't built yet.
 - **News schedule** is off by default.
-- **Shared materials' read policies** (`20261111000100_shared_practice_lock.sql`) wait for Joe's approval; until then the server's `can_practice` check enforces the rule (D106).
+- **Migrations waiting for Joe's approval**: shared materials' read policies (`20261111000100_shared_practice_lock.sql`; until then the server's `can_practice` check enforces the rule, D106), reminders (`20261111010000_reminders.sql`), sentence reports (`20261111020000_sentence_reports.sql`).
+- **Practice reminders** appear once the VAPID keys and the GitHub schedule are set (D111).
 - **Sync**: restarting offline a material removed on another device deletes it at the next sync (D15).
 
 ### 12.2 Roadmap
 
 - A real payment provider (`docs/payments.md`) and Google Play (`docs/play-store.md`, `docs/twa.md`).
-- Misheard-word review, a level test, progress share cards, reminders, offline audio, error reports on materials, retention analytics, SEO landing pages (roadmap part three).
+- The Product Hunt launch (`docs/launch/product-hunt.md`); fixing the translations the quality audit flagged.
 - Classroom: reminders, gradebook, co-teachers, school plans (`docs/classroom.md`).
 - Content: subtitles and timing for the Blender open movies (the rest of M3).
 
