@@ -630,7 +630,8 @@
     "feedback": "Feedback",
     "pricing": "Pricing",
     "refund": "Refund policy",
-    "learn": "Practice by topic"
+    "learn": "Practice by topic",
+    "blog": "Articles"
   },
   "privacy": {
     "title": "Privacy policy",
@@ -2964,5 +2965,14 @@
       "pastel": "Soft pastels",
       "high-contrast": "High contrast"
     }
+  },
+  "blog": {
+    "title": "English listening articles",
+    "intro": "Practical guides to English listening: linking, dictation, shadowing, TOEIC, and everyday English for studying abroad. The articles are in Chinese; each links to official lessons you can practice right away.",
+    "back": "All articles",
+    "related": "Practice with these lessons",
+    "none": "No lessons on this topic yet.",
+    "topic": "More “{name}” lessons",
+    "levelTest": "Take the 2-minute level test"
   }
 }
