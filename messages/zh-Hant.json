@@ -1696,6 +1696,21 @@
       "table": "表格",
       "missing": "找不到這份文件。",
       "code": "程式碼或圖表"
+    },
+    "sentenceReports": {
+      "title": "學習者回報的問題（{count}）",
+      "intro": "依句子分組，最早回報的在前。修正教材後按「已修正」，回報的人下次打開首頁會看到通知。",
+      "none": "目前沒有待處理的回報。",
+      "kinds": {
+        "translation": "翻譯錯誤",
+        "notes": "講解錯誤",
+        "audio": "音檔有問題"
+      },
+      "noteLabel": "處理說明（選填）",
+      "fixed": "已修正",
+      "dismissed": "不處理",
+      "failed": "沒有儲存成功，請再試一次。",
+      "shadowingTitle": "跟讀常出錯的句子"
     }
   },
   "events": {
@@ -2799,5 +2814,31 @@
     "turnOff": "關閉提醒",
     "saved": "已儲存。",
     "failed": "沒有開啟成功，請再試一次。"
+  },
+  "sentenceReport": {
+    "open": "回報這句的問題",
+    "title": "回報第 {n} 句的問題",
+    "kindLabel": "哪裡有問題？",
+    "kinds": {
+      "translation": "翻譯錯誤",
+      "notes": "講解錯誤",
+      "audio": "音檔有問題"
+    },
+    "noteLabel": "補充說明（選填）",
+    "noteHint": "最多 {max} 字。修正後會在首頁通知你。",
+    "send": "送出回報",
+    "sending": "送出中…",
+    "cancel": "取消",
+    "sent": "已收到你的回報，謝謝！修正後會通知你。",
+    "signIn": "登入後才能回報，這樣修正後才能通知你。",
+    "problems": {
+      "signedOut": "請先登入。",
+      "invalid": "回報的內容有問題，請重新選擇。",
+      "busy": "回報太多次了，請稍後再試。",
+      "failed": "沒有送出成功，請再試一次。"
+    },
+    "fixedTitle": "你回報的問題已修正",
+    "fixedLine": "{title} 第 {n} 句（{kind}）",
+    "fixedOk": "知道了"
   }
 }

@@ -22,6 +22,8 @@ export const RATE_LIMITS = {
   classroom: { windowSeconds: 3600, max: 60 },
   /** Email sign-up, sign-in, and reset requests, per IP (D101). */
   auth: { windowSeconds: 3600, max: 20 },
+  /** Reporting a problem with a sentence (D113). */
+  sentenceReport: { windowSeconds: 3600, max: 20 },
   /** Steps toward paying, from the fake doors (D93). */
   intent: { windowSeconds: 3600, max: 120 },
 } as const;

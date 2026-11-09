@@ -908,6 +908,51 @@ export type Database = {
         };
         Relationships: [];
       };
+      sentence_reports: {
+        Row: {
+          created_at: string;
+          id: string;
+          kind: string;
+          material_version: number | null;
+          note: string | null;
+          notified_at: string | null;
+          resolution_note: string | null;
+          resolved_at: string | null;
+          sentence_index: number;
+          status: string;
+          user_id: string;
+          video_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          kind: string;
+          material_version?: number | null;
+          note?: string | null;
+          notified_at?: string | null;
+          resolution_note?: string | null;
+          resolved_at?: string | null;
+          sentence_index: number;
+          status?: string;
+          user_id?: string;
+          video_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          kind?: string;
+          material_version?: number | null;
+          note?: string | null;
+          notified_at?: string | null;
+          resolution_note?: string | null;
+          resolved_at?: string | null;
+          sentence_index?: number;
+          status?: string;
+          user_id?: string;
+          video_id?: string;
+        };
+        Relationships: [];
+      };
       shadowing_issues: {
         Row: {
           browser: string;

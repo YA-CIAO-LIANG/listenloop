@@ -1696,6 +1696,21 @@
       "table": "Table",
       "missing": "This document couldn't be found.",
       "code": "Code or diagram"
+    },
+    "sentenceReports": {
+      "title": "Problems learners reported ({count})",
+      "intro": "Grouped by sentence, oldest first. After fixing the material, mark it fixed; the reporters see a notice on their next visit.",
+      "none": "No open reports.",
+      "kinds": {
+        "translation": "Wrong translation",
+        "notes": "Wrong notes",
+        "audio": "Audio problem"
+      },
+      "noteLabel": "Note (optional)",
+      "fixed": "Fixed",
+      "dismissed": "Won't fix",
+      "failed": "That didn't save; please try again.",
+      "shadowingTitle": "Sentences shadowing keeps failing on"
     }
   },
   "events": {
@@ -2801,5 +2816,31 @@
     "turnOff": "Turn off",
     "saved": "Saved.",
     "failed": "That didn't work; please try again."
+  },
+  "sentenceReport": {
+    "open": "Report a problem with this sentence",
+    "title": "Report a problem with sentence {n}",
+    "kindLabel": "What's wrong?",
+    "kinds": {
+      "translation": "Wrong translation",
+      "notes": "Wrong notes",
+      "audio": "Problem with the audio"
+    },
+    "noteLabel": "Details (optional)",
+    "noteHint": "Up to {max} characters. You'll be told on the home page when it's fixed.",
+    "send": "Send",
+    "sending": "Sending…",
+    "cancel": "Cancel",
+    "sent": "Thanks! We'll let you know when it's fixed.",
+    "signIn": "Sign in to report, so we can tell you when it's fixed.",
+    "problems": {
+      "signedOut": "Please sign in first.",
+      "invalid": "Something's off with the report; please choose again.",
+      "busy": "Too many reports; please try later.",
+      "failed": "That didn't go through; please try again."
+    },
+    "fixedTitle": "Your reports were fixed",
+    "fixedLine": "{title}, sentence {n} ({kind})",
+    "fixedOk": "Got it"
   }
 }

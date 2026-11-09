@@ -5,6 +5,7 @@ import {
   MaterialLibrary,
   UnfilteredMaterialLibrary,
 } from "@/components/MaterialLibrary";
+import { FixedReportsNotice } from "@/components/FixedReportsNotice";
 import { OnboardingStart } from "@/components/OnboardingStart";
 import { PracticeCalendar } from "@/components/PracticeCalendar";
 import { ProductIntro } from "@/components/ProductIntro";
@@ -30,6 +31,7 @@ export default function Home() {
         {/* Not in Suspense: it's in the first HTML, so nothing shifts (D62). */}
         <OnboardingStart />
         <ProgressGate place="home" signedOut={<ProductIntro />}>
+          <FixedReportsNotice />
           <PracticeCalendar />
           <TodayTasks />
         </ProgressGate>

@@ -51,6 +51,7 @@ import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
 import { Tag } from "./Tag";
+import { ReportSentence } from "./ReportSentence";
 import { SentenceExplanation } from "./SentenceExplanation";
 import { missedPieces } from "@/lib/custom-practice/marks";
 import { notesForSentence } from "@/lib/videos";
@@ -717,6 +718,12 @@ export function DictationSession({
                 rich={video.richNotes?.[feedbackIndex] ?? null}
                 legacy={notesForSentence(video, feedbackIndex)}
                 missed={missedPieces(sentences[feedbackIndex].en, shownAnswer)}
+              />
+              <ReportSentence
+                key={feedbackIndex}
+                videoId={video.id}
+                version={video.version}
+                index={feedbackIndex}
               />
             </div>
           )}

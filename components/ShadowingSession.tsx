@@ -39,6 +39,7 @@ import { PracticeSkeleton } from "./Skeleton";
 import { Dialog } from "./Dialog";
 import { PerfectCelebration } from "./PerfectCelebration";
 import { NextDayNote } from "./NextDayNote";
+import { ReportSentence } from "./ReportSentence";
 import { SentenceExplanation } from "./SentenceExplanation";
 import { missedPieces } from "@/lib/custom-practice/marks";
 import { notesForSentence } from "@/lib/videos";
@@ -562,6 +563,12 @@ export function ShadowingSession({
             />
           </div>
         )}
+        <ReportSentence
+          key={current}
+          videoId={video.id}
+          version={video.version}
+          index={current}
+        />
 
         <div aria-live="polite" className="relative space-y-1">
           {phase === "listening" && (
