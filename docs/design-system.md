@@ -363,6 +363,8 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 （D79，2026-11-08 起）由上到下：標題與標語 →
 
+- **標題區**（D119）：h1 產品名稱（hero）→ 16px → 標語（display、h3 字級）→ 12px → 一行 ink-muted 說明（閱讀寬度內）：適合誰、三個步驟、官方教材免費。
+
 - **登入**：練習日曆（Card）→ 24px → 今日任務（Card）→ 64px → 官方教材庫；
 - **未登入**：產品介紹（`ProductIntro`）→ 64px → 官方教材庫。
 

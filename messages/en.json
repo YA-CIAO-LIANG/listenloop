@@ -15,11 +15,11 @@
   },
   "metadata": {
     "title": "ListenLoop",
-    "description": "A 7-day English listening loop. Hear every word.",
+    "description": "English listening practice: master one clip a week. Dictate on Day 1, shadow on Days 2–6, and see your progress on Day 7. Official lessons are free.",
     "siteName": "ListenLoop"
   },
   "home": {
-    "tagline": "Seven days. One video. Hear every word.",
+    "tagline": "Master one English clip a week. Hear every word.",
     "intro": {
       "title": "How it works: a seven-day loop",
       "steps": {
@@ -38,7 +38,8 @@
       },
       "noAccount": "You can practice without an account; sign in for the calendar, today's tasks, and your stats.",
       "levelTest": "Not sure where to start? Take the 2-minute level test"
-    }
+    },
+    "audience": "For students and professionals who want solid English listening: dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, and see the difference. Every official lesson is free."
   },
   "settings": {
     "theme": {
@@ -2330,7 +2331,7 @@
   },
   "pricing": {
     "title": "Plans and pricing",
-    "intro": "Every official material and practice feature is free. Choose the paid plan to create more materials of your own with AI and voices.",
+    "intro": "Official lessons and the 7-day practice are free. Choose a paid plan to turn your own texts, topics, or videos into lessons with AI, or to fully practice lessons other learners share.",
     "comingSoon": "Coming soon",
     "testMode": "Test mode: payments are simulated, nothing is charged.",
     "intervalLabel": "Billing period",
