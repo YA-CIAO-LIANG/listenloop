@@ -908,6 +908,38 @@ export type Database = {
         };
         Relationships: [];
       };
+      shared_practice_grants: {
+        Row: {
+          created_at: string;
+          practice_id: string;
+          started_at: string;
+          user_id: string;
+          week: number;
+        };
+        Insert: {
+          created_at?: string;
+          practice_id: string;
+          started_at: string;
+          user_id: string;
+          week: number;
+        };
+        Update: {
+          created_at?: string;
+          practice_id?: string;
+          started_at?: string;
+          user_id?: string;
+          week?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "shared_practice_grants_practice_id_fkey";
+            columns: ["practice_id"];
+            isOneToOne: false;
+            referencedRelation: "practices";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       speech_audio: {
         Row: {
           bytes: number;
@@ -1087,6 +1119,7 @@ export type Database = {
           today_micros: number;
         }[];
       };
+      can_practice: { Args: { target: string }; Returns: boolean };
       class_progress: {
         Args: { target: string };
         Returns: {
@@ -1127,7 +1160,23 @@ export type Database = {
         }[];
       };
       practice_audio_seconds: { Args: { target: string }; Returns: number };
+      practice_notes: {
+        Args: { target: string };
+        Returns: {
+          grammar: Json;
+          vocab: Json;
+        }[];
+      };
+      practice_preview: { Args: { target: string }; Returns: Json };
       prune_logs: { Args: never; Returns: undefined };
+      public_practice_readiness: {
+        Args: { targets: string[] };
+        Returns: {
+          practice_id: string;
+          sentences: number;
+          voiced: number;
+        }[];
+      };
       reserve_api_batch_cost: {
         Args: {
           amount: number;

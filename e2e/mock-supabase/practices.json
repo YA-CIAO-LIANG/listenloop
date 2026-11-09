@@ -143,5 +143,70 @@
     "scenario": "airport-check-in",
     "title_en": "E2E official practice",
     "title_zh": "官方測試練習"
+  },
+  "shared": {
+    "id": "5c3e7a91-8b2d-4f6a-9c1e-3d4f5a6b7c8d",
+    "user_id": "e2e-other",
+    "title": "E2E shared practice",
+    "title_en": "E2E shared practice",
+    "title_zh": "餐廳點餐",
+    "subtitle": "在餐廳帶位和點餐。",
+    "source_language": "en",
+    "voice": "au-female",
+    "visibility": "public",
+    "published": true,
+    "official": false,
+    "category": "food",
+    "level": "beginner",
+    "duration_sec": 20,
+    "created_at": "2026-11-09T00:00:00Z",
+    "vocab": [
+      {
+        "sentence": 4,
+        "word": "soup",
+        "pos": "n.",
+        "zh": "湯",
+        "example": "The soup is hot."
+      }
+    ],
+    "grammar": [],
+    "notes_generated_at": "2026-11-09T00:00:00Z",
+    "practice_sentences": [
+      {
+        "i": 0,
+        "en": "Could I get a table for two?",
+        "zh": "可以給我們兩人的位子嗎？",
+        "audio_path": "2222222222222222222222222222222222222222222222222222222222222222.wav",
+        "notes": null
+      },
+      {
+        "i": 1,
+        "en": "Sure, follow me, please.",
+        "zh": "好的，請跟我來。",
+        "audio_path": "3333333333333333333333333333333333333333333333333333333333333333.wav",
+        "notes": null
+      },
+      {
+        "i": 2,
+        "en": "Here are your menus.",
+        "zh": "這是你們的菜單。",
+        "audio_path": "4444444444444444444444444444444444444444444444444444444444444444.wav",
+        "notes": null
+      },
+      {
+        "i": 3,
+        "en": "Are you ready to order?",
+        "zh": "準備好點餐了嗎？",
+        "audio_path": "5555555555555555555555555555555555555555555555555555555555555555.wav",
+        "notes": null
+      },
+      {
+        "i": 4,
+        "en": "I'd like the soup, please.",
+        "zh": "我想要湯，謝謝。",
+        "audio_path": "6666666666666666666666666666666666666666666666666666666666666666.wav",
+        "notes": null
+      }
+    ]
   }
 }

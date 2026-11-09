@@ -5,8 +5,8 @@ import type { Role } from "./accounts";
  * The code asks `can(plan, action)` and never checks a role or a number
  * itself, so changing what a plan includes means editing PLANS only.
  *
- * - free: every official material and feature, and one practice of
- *   their own to try creating;
+ * - free: every official material and feature, a preview of shared
+ *   materials (D106), and one practice of their own to try creating;
  * - paid: 30 practices a month of up to 2,000 characters (set by an
  *   admin until payments exist; the price shows "coming soon");
  * - admin: no limits.
@@ -30,6 +30,11 @@ export const isAccountPlan = (value: unknown): value is AccountPlan =>
 export type PlanLimits = {
   /** May create practices with the paid voice and AI APIs. */
   createPractices: boolean;
+  /**
+   * May practice the materials others shared (D106); otherwise only a
+   * preview. The database decides too (can_practice): keep both alike.
+   */
+  sharedPractices: boolean;
   /** Practices in progress at once (built-in videos and created ones). */
   activePractices: number | null;
   /** Practices ever created (deleting one doesn't give it back): a trial. */
@@ -62,6 +67,7 @@ export type PlanLimits = {
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
   free: {
     createPractices: true,
+    sharedPractices: false,
     activePractices: null,
     practicesTotal: 1,
     practicesPerMonth: null,
@@ -78,6 +84,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
   // Plus (D102): 40 minutes a month.
   paid: {
     createPractices: true,
+    sharedPractices: true,
     activePractices: null,
     practicesTotal: null,
     practicesPerMonth: null,
@@ -94,6 +101,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
   // Pro (D102): 120 minutes a month, up to 10 minutes each, and Plus.
   pro: {
     createPractices: true,
+    sharedPractices: true,
     activePractices: null,
     practicesTotal: null,
     practicesPerMonth: null,
@@ -109,6 +117,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
   },
   admin: {
     createPractices: true,
+    sharedPractices: true,
     activePractices: null,
     practicesTotal: null,
     practicesPerMonth: null,

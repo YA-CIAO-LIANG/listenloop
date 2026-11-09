@@ -1,5 +1,11 @@
 import mock from "./mock-supabase/practices.json";
-import { expect, setToday, signInAsPaid, test } from "./fixtures";
+import {
+  expect,
+  setToday,
+  signInAsAuthor,
+  signInAsPaid,
+  test,
+} from "./fixtures";
 
 /**
  * Playback speed (D73): audio practices offer 0.75×, 1×, 1.25×; answers
@@ -45,6 +51,8 @@ test("videos have no speed control", async ({ page }) => {
 });
 
 test("on the free plan, speed is a paid feature (D102)", async ({ page }) => {
+  // The author, on the free plan, practicing their own (D106).
+  await signInAsAuthor(page);
   await setToday(page, "2026-11-01");
   await page.goto(`/videos/p-${practice.id}/day/1`);
   await expect(

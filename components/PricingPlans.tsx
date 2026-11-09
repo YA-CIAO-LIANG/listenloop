@@ -38,6 +38,7 @@ const LIMITS = { plus: PLANS.paid, pro: PLANS.pro } as const;
 /** The comparison table's rows: what each plan has (D102). */
 const FEATURES = [
   "official",
+  "shared",
   "create",
   "longest",
   "youtube",
@@ -130,6 +131,8 @@ export function PricingPlans({
     switch (feature) {
       case "official":
         return yes;
+      case "shared":
+        return limits.sharedPractices ? yes : t("previewOnly");
       case "create":
         return limits.practicesTotal !== null
           ? t("trial", { n: limits.practicesTotal })

@@ -35,6 +35,8 @@ type Role = "none" | "author" | "admin" | "paid";
 /** Something to do on the page before checking it (an open panel, a step). */
 type Step = (page: Page) => Promise<void>;
 const ready = mock.ready.id;
+/** Someone else's shared practice: a preview when signed out (D106). */
+const shared = mock.shared.id;
 const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
   ...[
     "/",
@@ -55,6 +57,7 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
     "/login",
     "/pricing/classroom",
     "/classroom/join/ABCD2345",
+    ...(LIVE ? [] : [`/videos/p-${shared}`]),
     "/no-such-page",
   ].map((path) => ({ path, role: "none" as const })),
   ...(LIVE

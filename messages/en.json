@@ -1026,7 +1026,7 @@
   },
   "explore": {
     "title": "Shared materials",
-    "intro": "Practices people have shared. Each one follows the same seven-day loop as the library's materials, and you can practice without signing in.",
+    "intro": "Practices people have shared, each with the same seven-day loop. Anyone can preview the first three sentences; Plus, Pro, and class plans can practice them in full. Official materials are in the library on the home page.",
     "none": "No shared practices yet.",
     "searchLabel": "Search titles",
     "searchPlaceholder": "For example: interview",
@@ -1309,7 +1309,8 @@
       "playbackSpeed": "Playback speed is part of Plus and Pro.",
       "fullStats": "The full stats are part of Plus and Pro.",
       "priority": "Priority generation is part of Pro.",
-      "batchPdf": "Batch PDFs are part of Pro."
+      "batchPdf": "Batch PDFs are part of Pro.",
+      "sharedPractices": "Practicing shared materials in full is part of Plus, Pro, and class plans."
     },
     "seePractices": "See your progress",
     "paid": {
@@ -1917,13 +1918,13 @@
   },
   "terms": {
     "title": "Terms of Service",
-    "updated": "Last updated: November 9, 2026",
+    "updated": "Last updated: November 11, 2026",
     "intro": "Welcome to ListenLoop (the “Service”), a seven-day loop for English listening practice. By using the Service you agree to these terms; if you don’t, please stop using it.",
     "sections": [
       {
         "title": "1. What the Service is",
         "paragraphs": [
-          "The Service offers dictation, shadowing, and bilingual handouts, with built-in public-domain or Creative Commons material, ListenLoop’s official materials, and practices that users share publicly. You can practice without signing in; signing in syncs your progress across devices.",
+          "The Service offers dictation, shadowing, and bilingual handouts, with built-in public-domain or Creative Commons material, ListenLoop’s official materials, and practices that users share publicly (shared materials). You can practice built-in and official materials without signing in; signing in syncs your progress across devices.",
           "Some content (such as the English text, translations, vocabulary and grammar notes, and voices of official materials) is made by AI and may contain mistakes; treat it as a learning aid."
         ]
       },
@@ -1968,6 +1969,7 @@
         "title": "7. Paid plan and subscriptions",
         "paragraphs": [
           "Paid plans (Plus, Pro) are subscriptions billed monthly or yearly, at the prices on the Plans and pricing page. A yearly plan’s allowance resets every month and doesn’t carry over. A third-party payment service handles payment.",
+          "Shared materials (practices other users share) can be practiced in full on Plus, Pro, and class plans; on the free plan or signed out, you can preview the first three sentences and listen to the first. You can always practice the materials you share yourself. A shared material you were already practicing when this rule began can be finished for that week.",
           "Subscriptions renew automatically: at the end of each period, your payment method is charged for the next, until you cancel. Cancel any time on the Account page; you keep the paid plan until the period ends.",
           "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly plan ended early refunds its unused whole months. If prices change, we’ll tell you before the next period starts, and you can cancel before the change applies.",
           "When a subscription ends or you return to the free plan, your materials and progress are kept; you just can't add new materials."
@@ -2548,6 +2550,7 @@
     "feature": "Feature",
     "features": {
       "official": "Official lessons and the 7-day loop",
+      "shared": "Practice shared materials in full",
       "create": "Your own practices",
       "longest": "Longest practice",
       "youtube": "Practices from YouTube",
@@ -2579,7 +2582,8 @@
     "close": "Close",
     "monthsFree": "{months} months free",
     "averagePerMonth": "Averages {amount} a month",
-    "perYearSuffix": "/ year"
+    "perYearSuffix": "/ year",
+    "previewOnly": "Preview only"
   },
   "classroom": {
     "title": "My classes",
@@ -2686,6 +2690,16 @@
     "planName": "Classroom",
     "priority": "Priority list price",
     "priorityNote": "Teachers on the priority list subscribe at this price when it opens.",
-    "features": "Classes, assignments, a progress dashboard, CSV export, and announcements"
+    "features": "Classes, assignments, a progress dashboard, CSV export, announcements, and shared materials in full"
+  },
+  "sharedPreview": {
+    "label": "Shared material preview",
+    "sentenceCount": "{count, plural, one {# sentence} other {# sentences}}",
+    "sentencesTitle": "The first {shown} of {count} sentences",
+    "listen": "Listen to sentence 1",
+    "stop": "Stop",
+    "locked": "The rest of the sentences, the notes, the handout, and the 7-day practice open when you upgrade.",
+    "plans": "Plus, Pro, and class plans can practice every shared material in full; official materials are always free.",
+    "upgrade": "Upgrade to practice this material"
   }
 }

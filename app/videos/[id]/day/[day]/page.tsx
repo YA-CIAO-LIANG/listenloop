@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { oneLineTitle } from "@/lib/titles";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { DayGate } from "@/components/DayGate";
 import { DictationSession } from "@/components/DictationSession";
@@ -46,6 +46,7 @@ export async function generateMetadata({
   const version = parseVersionParam((await searchParams).v);
   const state = n ? await getPracticeState(id, version) : null;
   if (state?.status === "preparing") return preparingMetadata(state);
+  if (state?.status === "preview") return {};
   return state && n
     ? {
         title: `${await dayTitle(n)} · ${oneLineTitle({ en: state.material.title, zh: state.material.titleZh ?? null })}`,
@@ -74,6 +75,8 @@ export default async function DayPage({
       />
     );
   }
+  // Not theirs to practice (D106): the preview, with what it'd take.
+  if (state?.status === "preview") redirect(`/videos/${id}`);
   if (!state || !n) notFound();
   const video = state.material;
   const t = await getTranslations(dayMessages(n));

@@ -14,9 +14,23 @@ const state = vi.hoisted(() => ({
   eq: vi.fn(),
   user: null as { id: string; email: string } | null,
   ownerId: "owner",
+  preview: null as unknown,
 }));
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
+    // The notes and the preview are read through functions (D106).
+    rpc: async (name: string) => {
+      const row = state.row as { vocab?: unknown; grammar?: unknown } | null;
+      return {
+        data:
+          name === "practice_notes"
+            ? row
+              ? [{ vocab: row.vocab, grammar: row.grammar }]
+              : []
+            : state.preview,
+        error: null,
+      };
+    },
     from: () => ({
       select: () => {
         const filters: Record<string, string> = {};
@@ -75,6 +89,7 @@ beforeEach(() => {
   state.row = row;
   state.eq.mockClear();
   state.user = null;
+  state.preview = null;
 });
 
 describe("created practice ids", () => {
@@ -227,6 +242,26 @@ describe("getPracticeState", () => {
     state.row = unfinished;
     expect(await getPracticeState(`p-${uuid}`)).toBeNull();
     state.user = { id: "someone-else", email: "b@example.com" };
+    expect(await getPracticeState(`p-${uuid}`)).toBeNull();
+  });
+
+  // Shared materials are for paying plans (D106): row level security
+  // hides the sentences, and the database gives a preview instead.
+  it("gives others a preview when the sentences are hidden", async () => {
+    state.row = { ...row, practice_sentences: [] };
+    state.user = { id: "someone-else", email: "b@example.com" };
+    state.preview = {
+      sentence_count: 2,
+      sentences: [{ i: 0, en: "Hello.", zh: "你好。" }],
+      audio_path: "a.mp3",
+    };
+    const result = await getPracticeState(`p-${uuid}`);
+    expect(result?.status).toBe("preview");
+    expect(await getPracticeMaterial(`p-${uuid}`)).toBeNull();
+  });
+
+  it("is a 404 when there's no preview either", async () => {
+    state.row = { ...row, practice_sentences: [] };
     expect(await getPracticeState(`p-${uuid}`)).toBeNull();
   });
 });
