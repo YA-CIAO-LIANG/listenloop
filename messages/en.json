@@ -2325,7 +2325,8 @@
         "unavailable": "Not available (check the AI service setup).",
         "failed": "Couldn't regenerate. Try again later."
       }
-    }
+    },
+    "youtube": "YouTube video"
   },
   "pricing": {
     "title": "Plans and pricing",

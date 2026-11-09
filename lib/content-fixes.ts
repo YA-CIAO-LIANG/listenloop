@@ -178,6 +178,33 @@ const NOT_NAMES = new Set(
 );
 
 /**
+ * The names in a material's English: capitalized words not at a
+ * sentence's start (which is capitalized anyway), and not days, months,
+ * or the like.
+ */
+export function materialNames(
+  sentences: readonly { en: string }[],
+): Set<string> {
+  return new Set(
+    sentences.flatMap((s) =>
+      [...s.en.matchAll(NAME)]
+        .filter((m) => m.index !== s.en.search(/[A-Za-z]/))
+        .map((m) => m[0])
+        .filter((w) => !NOT_NAMES.has(w)),
+    ),
+  );
+}
+
+/**
+ * Whether a line is only names ("Emo?"), so its translation is the
+ * names themselves, with no Chinese characters (D118).
+ */
+export function onlyNames(en: string, names: ReadonlySet<string>): boolean {
+  const words = en.match(/[A-Za-z']+/g) ?? [];
+  return words.length > 0 && words.every((w) => names.has(w));
+}
+
+/**
  * Names a material writes two ways in Chinese (D117): a name kept in
  * English in one sentence's translation and translated in another
  * ("Alex" here, 「亞歷克斯」 there). Only names that appear in English in
@@ -188,14 +215,12 @@ const NOT_NAMES = new Set(
 export function inconsistentNames(
   sentences: readonly { en: string; zh: string | null }[],
 ): { name: string; sentences: number[] }[] {
+  const names = materialNames(sentences);
+  // Then every sentence that says one, at its start too ("Emo?").
   const seen = new Map<string, { kept: number; missing: number[] }>();
   sentences.forEach((s, i) => {
-    // The first word of a sentence is capitalized anyway.
     const words = new Set(
-      [...s.en.matchAll(NAME)]
-        .filter((m) => m.index !== s.en.search(/[A-Za-z]/))
-        .map((m) => m[0])
-        .filter((w) => !NOT_NAMES.has(w)),
+      [...s.en.matchAll(NAME)].map((m) => m[0]).filter((w) => names.has(w)),
     );
     for (const name of words) {
       const entry = seen.get(name) ?? { kept: 0, missing: [] };

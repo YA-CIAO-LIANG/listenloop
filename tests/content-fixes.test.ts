@@ -137,6 +137,15 @@ describe("inconsistentNames (D117)", () => {
     ]);
   });
 
+  it("counts a name at a sentence's start once it's known as a name", () => {
+    expect(
+      inconsistentNames([
+        { en: "Emo?", zh: "情緒搖滾？" },
+        { en: "Get up, Emo!", zh: "起來，Emo！" },
+      ]),
+    ).toEqual([{ name: "Emo", sentences: [0] }]);
+  });
+
   it("ignores names translated the same way everywhere, days, and sentence starts", () => {
     expect(
       inconsistentNames([

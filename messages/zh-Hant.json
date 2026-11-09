@@ -2323,7 +2323,8 @@
         "unavailable": "目前無法使用（請確認 AI 服務設定）。",
         "failed": "產生失敗，請稍後再試。"
       }
-    }
+    },
+    "youtube": "YouTube 影片"
   },
   "pricing": {
     "title": "方案與價格",

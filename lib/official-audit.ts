@@ -1,4 +1,10 @@
-import { hasFullWidth, inconsistentNames, textLength } from "./content-fixes";
+import {
+  hasFullWidth,
+  inconsistentNames,
+  materialNames,
+  onlyNames,
+  textLength,
+} from "./content-fixes";
 import { parseRichNotes } from "./custom-practice/rich-notes";
 import { normalizeWords } from "./scoring/normalize";
 import { SUBTITLE_MAX } from "./videos";
@@ -65,8 +71,13 @@ export function ruleIssues(material: AuditMaterial): AuditIssue[] {
   ) {
     issues.push({ kind: "subtitle" });
   }
+  const names = materialNames(material.sentences);
   material.sentences.forEach((s, sentence) => {
-    if (!filled(s.zh) || !hasHan(s.zh) || s.zh.trim() === s.en.trim()) {
+    if (
+      !filled(s.zh) ||
+      (!onlyNames(s.en, names) &&
+        (!hasHan(s.zh) || s.zh.trim() === s.en.trim()))
+    ) {
       issues.push({ kind: "translation", sentence });
     }
     if (!filled(s.audioPath)) issues.push({ kind: "audio", sentence });

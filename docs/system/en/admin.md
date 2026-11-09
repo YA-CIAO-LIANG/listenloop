@@ -124,7 +124,13 @@ flowchart TD
 - On `/admin/fixes`, accept or reject each one. If the sentence changed after the suggestion, accepting skips it and marks it out of date, so newer text is never overwritten.
 - New materials: the translation and notes prompts carry these rules, new output is made half-width and shortened automatically, and the pre-publish check blocks full-width letters and digits, names written two ways, and long notes.
 
-### 3.5 Many at once with a script (needs Joe's approval of the cost)
+### 3.5 Video materials from Blender's open movies (D118)
+
+- Excerpts are set in `lib/blender-films.ts`; subtitles are in `data/subtitles/`.
+- `npm run blender:drafts` prints the plan and the worst-case cost; `BLENDER_YES=1` calls the AI for translations and notes and saves official drafts (YouTube materials, no audio). Existing excerpts are skipped; `BLENDER_ONLY=<key>` makes just that one.
+- When reviewing, look at names (kept in English), one- or two-word lines, and slang or rude words. Then publish them on the official materials page.
+
+### 3.6 Many at once with a script (needs Joe's approval of the cost)
 
 - `npm run official:drafts`: prints the plan and the worst-case cost only.
 - `OFFICIAL_YES=1 npm run official:drafts`: runs it. The budget (`OFFICIAL_BUDGET_USD`) is checked before every call and it stops when reached.

@@ -730,6 +730,7 @@ export type Database = {
       };
       practices: {
         Row: {
+          attribution: Json | null;
           categories: string[] | null;
           category: string | null;
           collection_id: string | null;
@@ -768,6 +769,7 @@ export type Database = {
           youtube_license: string | null;
         };
         Insert: {
+          attribution?: Json | null;
           categories?: string[] | null;
           category?: string | null;
           collection_id?: string | null;
@@ -806,6 +808,7 @@ export type Database = {
           youtube_license?: string | null;
         };
         Update: {
+          attribution?: Json | null;
           categories?: string[] | null;
           category?: string | null;
           collection_id?: string | null;
