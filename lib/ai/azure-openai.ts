@@ -1,5 +1,6 @@
 import {
   annotateBudget,
+  auditBudget,
   composeBudget,
   describeBudget,
   newsBudget,
@@ -12,6 +13,7 @@ import { postToProvider, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
+  AUDIT_INSTRUCTIONS,
   composeInstructions,
   DESCRIBE_INSTRUCTIONS,
   NEWS_INSTRUCTIONS,
@@ -102,6 +104,16 @@ export const AZURE_SCHEMAS = {
   }),
   description: object({ titleEn: STRING, titleZh: STRING, subtitle: STRING }),
   revision: object({ lines: { type: "array", items: STRING } }),
+  audit: object({
+    items: {
+      type: "array",
+      items: object({
+        i: { type: "integer" },
+        ok: { type: "boolean" },
+        issue: STRING,
+      }),
+    },
+  }),
 } as const;
 
 type ChatCompletion = {
@@ -261,6 +273,9 @@ export function azureOpenAiLanguage(
         material,
         describeBudget(material),
       );
+    },
+    async auditTranslations(input) {
+      return generate("audit", AUDIT_INSTRUCTIONS, input, auditBudget(input));
     },
     async rewriteNews(input) {
       return generate(

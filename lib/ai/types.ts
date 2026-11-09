@@ -114,7 +114,17 @@ export interface LanguageProvider {
    * checkGeneratedText checks it like composed text.
    */
   rewriteNews(input: NewsInput): Promise<Billed<unknown>>;
+  /**
+   * A second look at sentence translations (D115): for each English and
+   * Chinese pair, whether the Chinese is right, and if not, what's wrong:
+   * `{ items: [{ i, ok, issue }] }`, i being the pair's index. Unchecked: parseAudit in
+   * lib/official-audit.ts checks it. Only the quality audit uses it.
+   */
+  auditTranslations(input: AuditInput): Promise<Billed<unknown>>;
 }
+
+/** Sentence pairs to check (D115). */
+export type AuditInput = { pairs: { en: string; zh: string }[] };
 
 /** The facts a news material is rewritten from (D100). */
 export type NewsInput = {
