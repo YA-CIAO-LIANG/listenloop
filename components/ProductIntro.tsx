@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { Suspense } from "react";
 import { SignInLink } from "./AccountMenu";
 
@@ -41,6 +42,15 @@ export function ProductIntro() {
         </Suspense>
         <p className="text-supporting text-ink-muted">{t("noAccount")}</p>
       </div>
+      <p className="mt-4">
+        <Link
+          href="/level-test"
+          className="tap text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+        >
+          {t("levelTest")}
+          <span aria-hidden="true"> →</span>
+        </Link>
+      </p>
     </section>
   );
 }

@@ -25,6 +25,7 @@ export const PRIVATE_PATHS = [
 export const PUBLIC_PATHS = [
   "/",
   "/explore",
+  "/level-test",
   "/terms",
   "/privacy",
   "/credits",

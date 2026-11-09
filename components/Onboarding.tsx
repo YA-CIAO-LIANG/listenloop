@@ -42,6 +42,9 @@ export function Onboarding({ startHref }: { startHref: string }) {
         <ButtonLink href={startHref} variant="primary" arrow>
           {t("start")}
         </ButtonLink>
+        <ButtonLink href="/level-test" variant="secondary">
+          {t("levelTest")}
+        </ButtonLink>
         <Button
           variant="ghost"
           onClick={() => {

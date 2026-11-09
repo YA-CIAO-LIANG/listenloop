@@ -36,7 +36,8 @@
           "body": "Take the same dictation again and compare it with Day 1 to see your progress."
         }
       },
-      "noAccount": "You can practice without an account; sign in for the calendar, today's tasks, and your stats."
+      "noAccount": "You can practice without an account; sign in for the calendar, today's tasks, and your stats.",
+      "levelTest": "Not sure where to start? Take the 2-minute level test"
     }
   },
   "settings": {
@@ -2091,7 +2092,8 @@
     },
     "note": "One session a day, about 10–20 minutes. Start without signing in; sign in to sync across devices.",
     "start": "Start with the first recommended one",
-    "skip": "Skip"
+    "skip": "Skip",
+    "levelTest": "Take the 2-minute level test"
   },
   "offline": {
     "title": "You’re offline",
@@ -2749,5 +2751,27 @@
     "listIntro": "In order of their next review; learned ones last.",
     "learned": "Learned",
     "due": "Next review: {date}"
+  },
+  "levelTest": {
+    "title": "Level test",
+    "intro": "A 2–3 minute dictation: a few English sentences from easy to hard. Type what you hear and find your level and a first material. No sign-in needed.",
+    "unavailable": "The test isn't ready yet; start with a beginner material from the library.",
+    "ruleCount": "{count} sentences, from easy to hard.",
+    "ruleReplay": "Each one plays once by itself, and you can replay it.",
+    "ruleSound": "Turn your sound on; if you can't catch it all, type what you heard.",
+    "previous": "Last time: {level}",
+    "start": "Start the test",
+    "progress": "Sentence {n} of {total}",
+    "replay": "Replay",
+    "stop": "Stop",
+    "answerLabel": "What you heard",
+    "next": "Next",
+    "finish": "See my result",
+    "resultLabel": "Your suggested level",
+    "resultLevel": "{level}",
+    "how": "A level counts as passed at {pass}% or more; the suggestion is the highest one passed.",
+    "startMaterial": "Start the recommended material",
+    "browseLevel": "Browse {level} materials",
+    "again": "Take it again"
   }
 }
