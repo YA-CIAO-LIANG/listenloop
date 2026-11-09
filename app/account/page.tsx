@@ -7,12 +7,16 @@ import { getOwnBilling } from "@/auth/billing";
 import { getPaymentProvider } from "@/auth/payments";
 import { BillingSection } from "@/components/BillingSection";
 import { DeleteAccount } from "@/components/DeleteAccount";
+import { ReminderSettings } from "@/components/ReminderSettings";
 import { accountsEnabled } from "@/lib/supabase/config";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("accountPage");
   return { title: t("title"), robots: { index: false, follow: false } };
 }
+
+/** Web push's public key (D111); reminders are off without it. */
+const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY?.trim() ?? "";
 
 const linkClassName =
   "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink";
@@ -52,6 +56,10 @@ export default async function AccountPage({
             payments={billing.payments}
             canManage={getPaymentProvider() !== null}
           />
+          {/* Reminders need the push keys (D111); hidden until they're set. */}
+          {VAPID_PUBLIC_KEY && (
+            <ReminderSettings publicKey={VAPID_PUBLIC_KEY} />
+          )}
           <section className="mt-16 max-w-reading border-t border-line pt-8">
             <h2 className="font-display text-h2">{t("export.title")}</h2>
             <p className="mt-4 text-ink-muted">{t("export.intro")}</p>

@@ -869,6 +869,45 @@ export type Database = {
         };
         Relationships: [];
       };
+      reminders: {
+        Row: {
+          auth: string;
+          created_at: string;
+          endpoint: string;
+          last_sent_on: string | null;
+          locale: string;
+          p256dh: string;
+          remind_at: string;
+          time_zone: string;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          auth: string;
+          created_at?: string;
+          endpoint: string;
+          last_sent_on?: string | null;
+          locale?: string;
+          p256dh: string;
+          remind_at: string;
+          time_zone: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          auth?: string;
+          created_at?: string;
+          endpoint?: string;
+          last_sent_on?: string | null;
+          locale?: string;
+          p256dh?: string;
+          remind_at?: string;
+          time_zone?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       shadowing_issues: {
         Row: {
           browser: string;
