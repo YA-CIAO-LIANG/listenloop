@@ -1338,6 +1338,7 @@
       "materials": "Public materials",
       "reports": "Reports",
       "sentences": "Hard sentences",
+      "fixes": "Fixes to review",
       "usage": "API usage",
       "events": "Activity",
       "feedback": "Feedback",
@@ -1733,6 +1734,48 @@
       "noCategory": "Uncategorized",
       "empty": "No data yet.",
       "how": "How: day-N retention is, of users who signed up at least N days ago, the share with any event on day N after signing up (Taiwan dates); users whose day N is older than the event log aren't counted. Weekly active is people with an event in the 7 days. Completion counts each learner and material once; finishing Day 7 once counts."
+    },
+    "fixes": {
+      "title": "Fixes to review",
+      "intro": "Fixes suggested by the quality audit and its rules. Each shows the current text, the suggestion, and why; nothing is written into a material until you accept it, and every decision is recorded in the admin audit. If a sentence changed after the suggestion, accepting skips it and marks it out of date.",
+      "filter": "Filter by type",
+      "all": "All",
+      "none": "No fixes are waiting for review.",
+      "where": "Sentence {n} · {kind}",
+      "current": "Now",
+      "suggested": "Suggested",
+      "notesLength": "Notes: {before} → {after} characters",
+      "compare": "Compare the notes before and after",
+      "accept": "Accept",
+      "reject": "Reject",
+      "failed": "Couldn't save. Please try again.",
+      "done": {
+        "accepted": "Accepted and written into the material.",
+        "rejected": "Rejected.",
+        "stale": "This sentence changed after the suggestion, so it was skipped (marked out of date)."
+      },
+      "kinds": {
+        "full-width": "Full-width digits",
+        "name": "Names",
+        "translation": "Translation",
+        "long-notes": "Shorter notes"
+      },
+      "reasons": {
+        "full-width": "Latin letters and digits in Chinese are always half-width (for example 「4號月台」).",
+        "name": "People's names stay in English, written the same way throughout.",
+        "translation": "A translation fix.",
+        "long-notes": "The notes are over 1,100 characters, too long to read after one sentence; shortened by rule, keeping the key words, chunks, and first examples."
+      },
+      "steps": {
+        "oneExample": "One example per word and grammar point",
+        "twoCollocations": "At most 2 collocations",
+        "twoConnected": "At most 2 connected-speech notes",
+        "noPitfalls": "Grammar's common mistakes removed",
+        "twoVocab": "At most 2 words (those in the sentence first)",
+        "oneGrammar": "At most 1 grammar point",
+        "noCollocations": "Collocations removed",
+        "oneConnected": "At most 1 connected-speech note"
+      }
     }
   },
   "events": {

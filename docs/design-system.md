@@ -565,6 +565,7 @@ CardLink，內容由上到下：
 - **篩選列**：label 在上的欄位（surface 底、1px line 邊框），手機一欄、split 兩欄、wide 一排；secondary「篩選」按鈕。
 - **使用者個人頁**：← 使用者 → h1「使用者 001」→ 日期清單（ink-muted 標籤＋值）→ 角色與狀態（停用時用 error 色）→ secondary 小按鈕「設為管理員」／「改為一般使用者」，ghost「停用帳號…」按下後變成 primary「確定停用」＋ ghost「取消」，並顯示說明 → h2「最近的操作」與紀錄表格。
 - **容易出錯的句子**：清單，每項依序是 ink-muted 的出處（練習名稱・第 N 句）、sentence 字級的英文、supporting 的統計數字、accent-ink 連結（編輯或打開影片頁）。
+- **待審修正**（`/admin/fixes`，D117）：h1 → 說明 → 類型篩選（圓角膠囊連結，高 44px，1px line 邊框；目前的用 accent 邊框、accent 14% 底、accent-ink 字，`aria-current`；名稱後面是 tabular-nums 數量）→ 依教材分組（h2 是教材英文標題連結，下一行 ink-muted 中文標題）。每筆：ink-muted「第 N 句 · 類型」→ sentence 字級英文 → 翻譯修正用兩欄定義清單（ink-muted「現在」／「建議」，建議用 font-medium；手機一欄）；講解精簡顯示「講解 X 字 → Y 字」、精簡步驟清單、`<details>`「比較修改前後的講解」（split 以上左右兩欄，用講解元件呈現）→ ink-muted 理由 → primary 小按鈕「接受」、ghost「拒絕」。決定後按鈕換成 ink-muted 的結果文字（`role="status"`），下次打開才從清單消失。
 
 ## AI 生成練習的選項（D57、D81、D82）
 

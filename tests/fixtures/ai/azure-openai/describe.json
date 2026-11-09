@@ -4,7 +4,7 @@
     "messages": [
       {
         "role": "system",
-        "content": "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.\nRead the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.\nWrite it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.\nAlso return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation."
+        "content": "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.\nRead the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.\nWrite it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.\nAlso return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width."
       },
       {
         "role": "user",

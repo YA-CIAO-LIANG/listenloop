@@ -21,8 +21,14 @@ export const TRANSLATE_INSTRUCTIONS = (from: TextLanguage, to: TextLanguage) =>
     "Keep the meaning and tone. Write natural, everyday language, not word-for-word.",
     to === "en"
       ? "Use simple, clear English a learner can dictate: common words, standard spelling, no abbreviations."
-      : "Use Taiwanese usage and full-width punctuation.",
-  ].join("\n");
+      : "Use Taiwanese usage and full-width punctuation, but half-width digits and Latin letters (4號月台, B車廂), never full-width ones.",
+    // D117: names written two ways in one material confuse listeners.
+    to === "en"
+      ? null
+      : "Keep people's names in English exactly as in the original (Alex, Mei, Jamie Lin), the same way in every line; a well-known place keeps its usual Chinese name (Taipei → 台北).",
+  ]
+    .filter(Boolean)
+    .join("\n");
 
 /**
  * Version 2 notes (D67): as detailed as each sentence needs. Only the
@@ -39,7 +45,8 @@ export const NOTES_INSTRUCTIONS = [
   'grammar: none for easy; medium 0-1, hard 0-2, only patterns worth teaching. For each: point (short English form, e.g. "would rather + V"), quote (the words in the sentence that show it, copied exactly), explanation (1-2 Chinese sentences), examples (1 NEW sentence with zh), pitfall (one common mistake learners make, in Chinese).',
   "chunks: only for hard sentences, else empty. Split the sentence into 2-6 meaning groups in order, covering every word exactly once, copied exactly; role is main (main clause), subordinate (subordinate clause), modifier (phrase that modifies), or connector (linking word); zh translates that group alone.",
   'connected: none for easy; for medium and hard, 0-3 places hard to catch by ear (e.g. want to → wanna and going to → gonna only before a verb, never before a place or noun such as "going to the library"; did you → didja; a final consonant linked to the next vowel; weak forms of and/to/of/the). Describe only what really happens in this sentence. text is copied exactly from the sentence, soundsLike shows how it sounds (e.g. "wanna", "tur-nit-off"), note explains in Chinese.',
-  "Do not repeat a word or grammar point across sentences. Keep notes short.",
+  "Do not repeat a word or grammar point across sentences. Keep notes short: about 900 characters at most for one sentence's notes in total, so prefer one example and two collocations.",
+  "In Chinese text, write digits and Latin letters half-width (4號月台), never full-width, and keep people's names in English as in the sentence.",
 ].join("\n");
 
 export const SEGMENT_INSTRUCTIONS = (language: "en" | "zh") =>
@@ -62,6 +69,7 @@ export const COMPOSE_INSTRUCTIONS = [
   "Do not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.",
   "Match the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.",
   "Also give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.",
+  "In any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.",
 ].join("\n");
 
 export const DESCRIBE_INSTRUCTIONS = [
@@ -69,6 +77,7 @@ export const DESCRIBE_INSTRUCTIONS = [
   "Read the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.",
   "Write it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.",
   "Also return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation.",
+  "In any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.",
 ].join("\n");
 
 export const NEWS_INSTRUCTIONS = [
@@ -77,12 +86,13 @@ export const NEWS_INSTRUCTIONS = [
   "Write it like a calm radio news item: who did what, where, when, and why it matters, in the past tense where it fits. Neutral; no opinions, no promotion.",
   "Return the story as lines, one sentence per line, each about 8 to 25 words. Match the requested level and length (in words).",
   "Also give title (a short English headline in your own words, at most 10 words), titleZh (the headline in Traditional Chinese, Taiwan usage), and subtitle (one Traditional Chinese sentence of at most 30 characters saying what the listener will hear).",
+  "In any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.",
 ].join("\n");
 
 export const AUDIT_INSTRUCTIONS = [
   "You check the Traditional Chinese (Taiwan usage) translations in an English listening course for Taiwanese students. You get pairs of an English sentence and its Chinese translation.",
   "For each pair, in order, say ok: true if the Chinese is a faithful, natural translation a Taiwanese learner would understand; small style differences are fine.",
-  "Say ok: false only for a real problem: wrong or missing meaning, a mistranslated word, simplified characters, mainland China usage where Taiwan says it differently, or unnatural Chinese. Then give issue: one short Traditional Chinese sentence saying what's wrong and the better wording. When ok is true, issue is an empty string.",
+  "Say ok: false only for a real problem: wrong or missing meaning, a mistranslated word, simplified characters, mainland China usage where Taiwan says it differently, full-width digits or letters (４ instead of 4), a person's name translated instead of kept in English, or unnatural Chinese. Then give issue: one short Traditional Chinese sentence saying what's wrong and the better wording. When ok is true, issue is an empty string.",
   "Pairs are numbered from 0 in the order given. Return one item per pair, with i set to its number.",
 ].join("\n");
 

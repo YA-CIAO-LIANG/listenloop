@@ -1,0 +1,177 @@
+[
+  {
+    "practiceId": "d8f90c9f-c6f0-4265-977d-e910ddbff79b",
+    "sentence": 10,
+    "kind": "translation",
+    "zh": "研究者把這個方法稱為「執行意圖」（implementation intentions）或「習慣疊加」，研究顯示它能提高任務完成率。",
+    "reason": "AI 抽查：「實作意圖」在台灣少用，心理學常譯「執行意圖」；附上英文術語方便查詢。"
+  },
+  {
+    "practiceId": "c0002540-bce3-471c-a672-a70ee49749ff",
+    "sentence": 10,
+    "kind": "translation",
+    "zh": "我會先擬好郵件，寄出前把你加進副本（cc）。",
+    "reason": "AI 抽查：「把你放在副本」不自然，email 的 copy you in 是「加進副本（cc）」。"
+  },
+  {
+    "practiceId": "0ef050f7-30bd-4e49-9789-ddfdd02fb6c8",
+    "sentence": 0,
+    "kind": "name",
+    "zh": "嗨，我是 Mei，我這星期剛從台灣來。",
+    "reason": "人名統一：同一份教材把 Mei 譯成「美」和「梅」兩種；依規則人名保留英文。"
+  },
+  {
+    "practiceId": "0ef050f7-30bd-4e49-9789-ddfdd02fb6c8",
+    "sentence": 1,
+    "kind": "name",
+    "zh": "歡迎妳，Mei，我是大學分行的 Alex；",
+    "reason": "人名統一：Mei、Alex 保留英文；也刪掉「，」後多出的空格。"
+  },
+  {
+    "practiceId": "0ef050f7-30bd-4e49-9789-ddfdd02fb6c8",
+    "sentence": 41,
+    "kind": "name",
+    "zh": "太好了，Mei，我會把表格填好，再印一份給妳簽名。",
+    "reason": "AI 抽查＋人名統一：前文是「美」、這裡是「梅」；人名保留英文，句子也更順。"
+  },
+  {
+    "practiceId": "6402cf6e-6f59-46fd-a6d5-984572ac2923",
+    "sentence": 0,
+    "kind": "translation",
+    "zh": "你好，我是 Jamie，想請問你們開的初學者游泳課程。",
+    "reason": "AI 抽查：原文沒有「成人」，翻譯多加了。"
+  },
+  {
+    "practiceId": "6402cf6e-6f59-46fd-a6d5-984572ac2923",
+    "sentence": 18,
+    "kind": "name",
+    "zh": "我叫 Jamie Lin，電話是0912-345-678，緊急聯絡人需要什麼資料？",
+    "reason": "人名統一：「林Jamie」中英混排，改成和英文相同的 Jamie Lin。"
+  },
+  {
+    "practiceId": "bea5f4da-9182-45ad-9c46-3a6832250332",
+    "sentence": 0,
+    "kind": "name",
+    "zh": "早安，我想買兩張到 Hillview 的車票。",
+    "reason": "AI 抽查：Hillview 音譯成「希爾維」不常見，地名保留英文，聽的時候也對得上。"
+  },
+  {
+    "practiceId": "bea5f4da-9182-45ad-9c46-3a6832250332",
+    "sentence": 14,
+    "kind": "translation",
+    "zh": "請問4號月台是從那邊的樓梯下去嗎？",
+    "reason": "AI 抽查：全形數字「４」改半形，句子也改得更自然。"
+  },
+  {
+    "practiceId": "c9a6a167-e844-463a-9bf2-d178df89f7a0",
+    "sentence": 24,
+    "kind": "name",
+    "zh": "非常感謝你的幫忙，Sam，我真的很感激。",
+    "reason": "人名統一：同一份教材其他句子都寫 Sam，這句寫「山姆」。"
+  },
+  {
+    "practiceId": "c9a6a167-e844-463a-9bf2-d178df89f7a0",
+    "sentence": 25,
+    "kind": "name",
+    "zh": "不客氣，Alex，如果連線又中斷就再打來，祝你有美好的一天。",
+    "reason": "AI 抽查＋人名統一：其他句子都寫 Alex，這句寫「亞歷克斯」。"
+  },
+  {
+    "practiceId": "0470e1b8-842b-4bfa-a65d-b940be4311f0",
+    "sentence": 17,
+    "kind": "translation",
+    "zh": "不客氣，我們會盡力幫你。",
+    "reason": "AI 抽查：分號在中文對話裡不自然，改成逗號，語氣更口語。"
+  },
+  {
+    "practiceId": "92a6361b-0563-4f3c-b3f7-791f66cb5479",
+    "sentence": 13,
+    "kind": "translation",
+    "zh": "唉呀，孩子，我們會打包一些醃菜和印度烙餅，下週寄給你。",
+    "reason": "AI 抽查：parathas 只寫「烙餅」，台灣讀者容易想成蔥油餅；加上「印度」。"
+  },
+  {
+    "practiceId": "92a6361b-0563-4f3c-b3f7-791f66cb5479",
+    "sentence": 14,
+    "kind": "translation",
+    "zh": "真的嗎？太棒了，我等不及要吃妳做的印度烙餅了。",
+    "reason": "和上一句一致：parathas 譯「印度烙餅」。"
+  },
+  {
+    "practiceId": "bb77268f-118f-4057-8c1a-bb5fb2fbc6c8",
+    "sentence": 3,
+    "kind": "translation",
+    "zh": "在我們村子裡，有一道特別的菜叫做 dal-pulao（扁豆香料飯），節慶和婚禮時大家都會上這道菜。",
+    "reason": "AI 抽查：dal-pulao 沒有說明是什麼菜，第一次出現時加註。"
+  },
+  {
+    "practiceId": "bb77268f-118f-4057-8c1a-bb5fb2fbc6c8",
+    "sentence": 8,
+    "kind": "translation",
+    "zh": "今天端出 dal-pulao 時，通常會請大家從同一鍋裡自己盛來吃。",
+    "reason": "AI 抽查：「從同一個鍋子自取」不自然；英文名前後加空格，和前文一致。"
+  },
+  {
+    "practiceId": "4aa8ac18-4f67-42da-ae6c-52d338e058e8",
+    "sentence": 2,
+    "kind": "name",
+    "zh": "我是 Mira Kim，我是國際學生。",
+    "reason": "人名統一：Mira 在這份教材有「美拉」「米拉」兩種譯法；人名保留英文。"
+  },
+  {
+    "practiceId": "4aa8ac18-4f67-42da-ae6c-52d338e058e8",
+    "sentence": 3,
+    "kind": "name",
+    "zh": "很高興認識你，Mira。我可以看你的護照和入境表嗎？",
+    "reason": "人名統一：Mira 保留英文。"
+  },
+  {
+    "practiceId": "4aa8ac18-4f67-42da-ae6c-52d338e058e8",
+    "sentence": 27,
+    "kind": "name",
+    "zh": "不客氣，Mira。祝你住宿愉快，9:30見，記得來參加迎新說明會。",
+    "reason": "人名統一：這句寫「米拉」，前面寫「美拉」；人名保留英文。"
+  },
+  {
+    "practiceId": "92f7178b-7258-4f7c-a8e9-dc1ddd68cdf1",
+    "sentence": 0,
+    "kind": "name",
+    "zh": "早安，我是實習生 Sam。",
+    "reason": "人名統一：最後一句寫 Sam，前面寫「山姆」；人名保留英文。"
+  },
+  {
+    "practiceId": "92f7178b-7258-4f7c-a8e9-dc1ddd68cdf1",
+    "sentence": 1,
+    "kind": "name",
+    "zh": "你好 Sam，我是辦公室經理 Claire。",
+    "reason": "人名統一：Sam、Claire 保留英文。"
+  },
+  {
+    "practiceId": "92f7178b-7258-4f7c-a8e9-dc1ddd68cdf1",
+    "sentence": 2,
+    "kind": "name",
+    "zh": "很高興認識你，Claire。",
+    "reason": "人名統一：Claire 保留英文。"
+  },
+  {
+    "practiceId": "92f7178b-7258-4f7c-a8e9-dc1ddd68cdf1",
+    "sentence": 3,
+    "kind": "name",
+    "zh": "我也很高興認識你，Sam。",
+    "reason": "人名統一：Sam 保留英文。"
+  },
+  {
+    "practiceId": "27ad4fb1-3596-4cfd-919c-bb45c9dc9bb6",
+    "sentence": 0,
+    "kind": "name",
+    "zh": "嗨，我是 Anna，我在一家小型新創公司做產品設計。",
+    "reason": "人名統一：後面寫 Anna，這句寫「安娜」；人名保留英文。"
+  },
+  {
+    "practiceId": "27ad4fb1-3596-4cfd-919c-bb45c9dc9bb6",
+    "sentence": 1,
+    "kind": "name",
+    "zh": "很高興認識你，Anna，我是 Mark，我是網路工程師。",
+    "reason": "人名統一：Anna、Mark 在後面的句子都保留英文。"
+  }
+]

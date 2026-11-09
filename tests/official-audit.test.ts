@@ -123,3 +123,32 @@ describe("the AI sample", () => {
     expect(parseAudit(null, 1).size).toBe(0);
   });
 });
+
+describe("ruleIssues: full-width and names (D117)", () => {
+  it("flags full-width digits and a name translated where it's kept elsewhere", () => {
+    const issues = ruleIssues({
+      id: "m",
+      titleEn: "Trains",
+      titleZh: "火車",
+      subtitle: "買車票",
+      sentences: [
+        {
+          en: "Hi, I'm Alex.",
+          zh: "嗨，我是 Alex。",
+          audioPath: "a",
+          notes: null,
+        },
+        {
+          en: "Thanks, Alex.",
+          zh: "謝謝，亞歷克斯，４號月台。",
+          audioPath: "a",
+          notes: null,
+        },
+      ],
+    }).filter((i) => i.kind === "fullWidth" || i.kind === "name");
+    expect(issues).toEqual([
+      { kind: "fullWidth", sentence: 1 },
+      { kind: "name", sentence: 1 },
+    ]);
+  });
+});

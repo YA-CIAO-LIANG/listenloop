@@ -42,11 +42,42 @@ const tables: Record<string, Row[]> = {
   subscriptions: [],
   payments: [],
   payment_events: [],
+  // Two suggested fixes to the official practice (D117), for the admin's
+  // review page: accepting one writes its sentence below.
+  content_fixes: [
+    {
+      id: "0f1e2d3c-4b5a-4987-8a6b-5c4d3e2f1a00",
+      practice_id: "7b2d4f60-1a3c-4e5b-8d9f-0a1b2c3d4e5f",
+      sentence_index: 0,
+      field: "zh",
+      kind: "translation",
+      current: "可以看一下你的護照嗎？",
+      suggested: "可以讓我看一下你的護照嗎？",
+      reason: "E2E：語氣更有禮貌。",
+      detail: {},
+      status: "pending",
+      created_at: "2026-11-12T00:00:00Z",
+    },
+    {
+      id: "0f1e2d3c-4b5a-4987-8a6b-5c4d3e2f1a01",
+      practice_id: "7b2d4f60-1a3c-4e5b-8d9f-0a1b2c3d4e5f",
+      sentence_index: 1,
+      field: "zh",
+      kind: "full-width",
+      current: "x",
+      suggested: "y",
+      reason: null,
+      detail: {},
+      status: "pending",
+      created_at: "2026-11-12T00:00:01Z",
+    },
+  ],
 };
 const conflictKeys: Record<string, string[]> = {
   subscriptions: ["user_id"],
   payments: ["provider_payment_id"],
   payment_events: ["provider", "event_id"],
+  content_fixes: ["id"],
 };
 // e2e-paid is on the paid plan from the start (paid features, D97).
 const plans = new Map<string, string>([["e2e-paid", "paid"]]);
@@ -250,9 +281,10 @@ createServer(async (request, response) => {
     json(200, []);
     return;
   }
-  const table = /^\/rest\/v1\/(subscriptions|payments|payment_events)$/.exec(
-    url.pathname,
-  );
+  const table =
+    /^\/rest\/v1\/(subscriptions|payments|payment_events|content_fixes)$/.exec(
+      url.pathname,
+    );
   if (table) {
     const [status, rows] = await paymentTable(
       table[1],
@@ -335,6 +367,27 @@ createServer(async (request, response) => {
         ? [{ vocab: row.vocab, grammar: row.grammar }]
         : [],
     );
+    return;
+  }
+  // A practice's sentences, read and written with the secret key (an
+  // admin accepting a suggested fix, D117).
+  if (url.pathname === "/rest/v1/practice_sentences") {
+    const filters = eqFilters(url.searchParams);
+    const value = (column: string) => filters.find(([c]) => c === column)?.[1];
+    const row = practices.find((p) => p.id === value("practice_id"));
+    const sentences = (row?.practice_sentences ?? []) as Row[];
+    const hits = sentences.filter(
+      (s) => value("i") === undefined || String(s.i) === value("i"),
+    );
+    if (request.method === "PATCH") {
+      if (tokenSubject(request.headers.authorization) !== null) {
+        json(401, []);
+        return;
+      }
+      const body = JSON.parse((await readBody(request)) || "{}");
+      for (const sentence of hits) Object.assign(sentence, body);
+    }
+    json(200, hits);
     return;
   }
   // Sentence reports (D113): learners' inserts are kept while the server
