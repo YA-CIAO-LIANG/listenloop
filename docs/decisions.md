@@ -1900,3 +1900,39 @@
   - 移除所有折扣百分比（原本的「省 28%」「省 25%」等）。測試會檢查定價相關的翻譯文字裡沒有「%」或「折」。
 - **收益試算**：預設訂閱人數把原本的兩年人數併進年繳（Plus 60、Pro 12）。
 - **要改時**：`lib/payments/pricing.ts`（`PLAN_MONTHLY`、`YEARLY_MONTHS_CHARGED`）、`lib/classroom.ts`（`CLASS_PLAN`）、`tests/yearly-pricing.test.ts`。
+
+## D106 公開教材改為付費才能練習；官方教材只在首頁教材庫（2026-11-11，Joe 指定）
+
+- **分類**：「公開教材」（`/explore`）只列使用者分享的教材（`official = false`）；官方教材只在首頁的官方教材庫（含搜尋、篩選）。檢查過所有列出教材的地方：
+  - 首頁教材庫、教材庫搜尋（`searchOfficialLibrary`）、新使用者的第一份教材都只用官方；
+  - 班級作業可選官方與老師自己的；
+  - 學習進度、學習分析只列自己練過的。
+- **誰可以完整練習**（資料庫函式 `can_practice`，`lib/plans.ts` 的 `sharedPractices` 和它一致）：
+  - 作者本人；
+  - Plus、Pro、班級方案（`classroom_seats` 有值）、管理員；
+  - 被指派這份教材的班級學生（老師指派時學生不必付費）；
+  - 規則上線前已經在練的人，可以完成當週。
+  - 官方教材一律開放。
+- **預覽**（免費方案與未登入的訪客）：
+  - 看得到雙語標題、副標題、類別、程度、長度、口音、總句數；
+  - 看得到前 3 句的英文與中文（`PREVIEW_SENTENCES`），可以試聽第 1 句；YouTube 教材改成顯示影片；
+  - 看不到其餘句子、講解、講義，也不能開始練習。
+  - 頁面顯示「升級即可練習這份教材」，連到 `/pricing?from=shared-preview`。按下時記錄 `unlock_click`，定價頁記錄 `pricing_view`，來源都是 `shared-preview`。
+- **權限在資料庫層級**（不只是畫面）：
+  - `practice_sentences`、`practice_versions` 的讀取規則改成 `can_practice(practice_id)`；
+  - 整份的單字與文法（`practices.vocab`、`grammar`）不再能直接讀取，改由 `practice_notes()` 經過同樣的檢查；
+  - 預覽由 `practice_preview()` 提供，只回傳前 3 句（沒有講解）與第 1 句的音檔路徑；
+  - 清單用 `public_practice_readiness()` 計算句數與音檔數，不需要讀句子本身。
+  - 免費使用者直接打開練習或講義網址（`/videos/<id>/day/<n>`、`/handout`）時，伺服器導回預覽頁。
+- **已經在練的**：上線時把「進行中」的進度（`progress.data.status = in-progress`）記進 `shared_practice_grants`（週次與起始日）。同一週還在進行中時可以練；這週結算（通過或沒通過）之後就套用新規則。最多 60 天，避免一直不結算。只記得到雲端有進度的帳號；未登入的訪客只有本機進度，無法辨識。
+- **上線順序**：migration 拆成兩個：
+  - 第 1 個（函式、表、未登入可讀的欄位）先套用；
+  - 第 2 個（改讀取規則、收回 `vocab`／`grammar` 的讀取權）在程式部署後才套用，避免舊程式在中間的空檔讀不到資料。
+- **順帶修正**：未登入的訪客原本讀不到 `practices` 的 `duration_sec`、`youtube_id` 等欄位（D97、D104 新增時漏給 anon 權限），所以正式站未登入時，首頁教材庫沒有官方教材。第 1 個 migration 補上，已經恢復（51 份）。
+- **服務條款**第 1、7 節、定價頁比較表（新增「完整練習公開教材」：免費「只能預覽」）、班級方案的功能說明一併更新。
+- **要改時**：
+  - `supabase/migrations/20261111000000_shared_practice_access.sql` 的 `can_practice`；
+  - `lib/plans.ts` 的 `sharedPractices`；
+  - `lib/practice-material.ts` 的 `PREVIEW_SENTENCES`（資料庫函式裡的 3 要一起改）；
+  - 畫面：`components/SharedPreviewPage.tsx`。
+- **注意**：之後在 `practices` 新增欄位時，要另外 `grant select (<欄位>) on public.practices to authenticated`（需要未登入可讀時也給 anon）。`tests/rls-coverage.test.ts` 會檢查。

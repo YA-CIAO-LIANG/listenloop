@@ -9,10 +9,13 @@ import { getServerSupabase } from "./server";
 import { getSignedInUser } from "./session";
 
 /**
- * The newest public practices that can be practiced (notes made, every
- * sentence voiced), for /explore (D30). Readable by anyone through row
- * level security; signed-out visitors can't read author ids, so which
- * ones are the viewer's comes from a second query of their own.
+ * The newest practices people shared that are ready (notes made, every
+ * sentence voiced), for /explore (D30). Only shared ones: official
+ * materials are in the home page's library, never here (D106). Anyone can
+ * list and preview them through row level security; practicing them is
+ * for paying plans (can_practice). Signed-out visitors can't read author
+ * ids, so which ones are the viewer's comes from a second query of their
+ * own.
  */
 export async function listPublicPractices(): Promise<PublicPracticeSummary[]> {
   return listPractices({ onlyOfficial: false });
@@ -43,7 +46,7 @@ async function listPractices({
     supabase
       .from("practices")
       .select(
-        "id, title, title_en, title_zh, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, youtube_id, duration_sec, practice_sentences(audio_path)",
+        "id, title, title_en, title_zh, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, youtube_id, duration_sec",
       )
       .eq("visibility", "public")
       // Authors can still read their own taken-down practices (D31).
@@ -51,8 +54,8 @@ async function listPractices({
       .not("notes_generated_at", "is", null)
       // Drafts wait in the admin dashboard (D57).
       .eq("published", true)
-      // /explore lists every public practice; the library only official ones.
-      .in("official", onlyOfficial ? [true] : [true, false])
+      // The library lists official ones; /explore only shared ones (D106).
+      .eq("official", onlyOfficial)
       // The library in the admins' order (D57), then oldest first.
       .order(onlyOfficial ? "sort_order" : "created_at", {
         ascending: onlyOfficial,
@@ -70,12 +73,22 @@ async function listPractices({
       : null,
   ]);
   const mine = new Set((own?.data ?? []).map((row) => row.id));
+  // Counted by the database: free accounts may not read the sentences of
+  // shared practices (D106), but every list needs to know they're ready.
+  const ids = (data ?? []).map((row) => row.id);
+  const { data: counts } = ids.length
+    ? await supabase.rpc("public_practice_readiness", { targets: ids })
+    : { data: [] };
+  const readiness = new Map(
+    (counts ?? []).map((c) => [c.practice_id, c] as const),
+  );
   return (data ?? []).flatMap((row) => {
-    const sentences = row.practice_sentences;
+    const count = readiness.get(row.id);
+    const sentenceCount = count?.sentences ?? 0;
     // A YouTube practice (D97) plays the video: no audio files to wait for.
     const ready =
-      sentences.length > 0 &&
-      (row.youtube_id !== null || sentences.every((s) => s.audio_path));
+      sentenceCount > 0 &&
+      (row.youtube_id !== null || count?.voiced === sentenceCount);
     if (!ready || !isTextSourceLanguage(row.source_language)) return [];
     return [
       {
@@ -85,7 +98,7 @@ async function listPractices({
         ),
         sourceLanguage: row.source_language,
         voice: row.voice,
-        sentenceCount: sentences.length,
+        sentenceCount,
         createdAt: row.created_at,
         mine: mine.has(row.id),
         category: row.category,

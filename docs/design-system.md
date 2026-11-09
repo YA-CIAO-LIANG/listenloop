@@ -753,3 +753,10 @@ CardLink，內容由上到下：
 - 手機（`split` 以下）的頁首只有導覽連結、「建立練習」、語言切換和帳號。主題切換（跟隨系統／淺色／深色）放到頁尾連結下面，寬螢幕仍在頁首。
 - 觸控裝置（`pointer-coarse`）不顯示鍵盤快捷鍵提示。
 - 文字連結如果不在段落裡（例如影片出處的 `dl`），點擊範圍至少 24 px（`inline-block py-1`）。
+
+## 公開教材預覽 `SharedPreviewPage`（D106）
+
+- 版面和影片頁相同（`max-w-content`）：返回「公開教材」、標籤「公開教材預覽」、雙語標題（`MaterialTitle`）、副標題、類別與程度（`Tag`），下一行是長度 · 口音 · 句數（supporting、ink-muted）。
+- 「前 N 句（共 M 句）」是 h2，每句英文（body，`lang="en"`）下面是中文（supporting、ink-muted），句子之間用 `border-line` 分隔，寬度 `max-w-reading`。
+- 升級區塊是一張 surface 卡片（`rounded-base border border-line p-6`）：說明哪些內容要升級後才開放，下面是「試聽第 1 句」（secondary，`aria-pressed`）和「升級即可練習這份教材 →」（primary 的 `ButtonLink`）。
+- YouTube 教材顯示影片播放器（`VideoPlayerPanel`），不另外提供試聽按鈕。

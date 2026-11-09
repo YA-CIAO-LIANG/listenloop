@@ -1,10 +1,11 @@
 /**
  * A stand-in for Supabase in the end-to-end tests (D32): just the calls
- * practice pages make, signed out or signed in as the practices' author
- * (any access token is accepted as AUTHOR; the browser's cloud sync
- * finds nothing and its writes are refused). The E2E build points
- * NEXT_PUBLIC_SUPABASE_URL here (npm run build:e2e), and Playwright starts
- * it next to the app (playwright.config.ts). Practices come from
+ * practice pages make, signed out or signed in (any access token is
+ * accepted, as the account it names; the browser's cloud sync finds
+ * nothing and its writes are refused). Shared practices' sentences follow
+ * can_practice (D106): their author, paid plans, and admins. The E2E
+ * build points NEXT_PUBLIC_SUPABASE_URL here (npm run build:e2e), and
+ * Playwright starts it next to the app (playwright.config.ts). Practices come from
  * practices.json; every audio file is a second of silence.
  */
 import { readFileSync } from "node:fs";
@@ -168,6 +169,14 @@ function matching(params: URLSearchParams): Row[] {
   return rows;
 }
 
+/** can_practice (D106): official, the author's, a paying plan's, an admin's. */
+function mayPractice(row: Row, sub: string | null): boolean {
+  if (row.official || (sub && row.user_id === sub)) return true;
+  if (sub === "e2e-admin") return true;
+  const plan = sub ? plans.get(sub) : undefined;
+  return plan === "paid" || plan === "pro";
+}
+
 /** A request's body as text. */
 function readBody(request: import("node:http").IncomingMessage) {
   return new Promise<string>((resolve) => {
@@ -254,7 +263,70 @@ createServer(async (request, response) => {
     return;
   }
   if (url.pathname === "/rest/v1/practices" && request.method === "GET") {
-    json(200, matching(url.searchParams));
+    // Row level security on sentences and notes (D106): shared practices
+    // only for their author, paying plans, and admins.
+    const sub = tokenSubject(request.headers.authorization);
+    json(
+      200,
+      matching(url.searchParams).map((row) =>
+        mayPractice(row, sub)
+          ? row
+          : { ...row, practice_sentences: [], vocab: [], grammar: [] },
+      ),
+    );
+    return;
+  }
+  // Which public practices are ready, counted without reading them.
+  if (url.pathname === "/rest/v1/rpc/public_practice_readiness") {
+    const { targets = [] } = JSON.parse((await readBody(request)) || "{}");
+    json(
+      200,
+      practices
+        .filter((row) => targets.includes(row.id))
+        .map((row) => {
+          const sentences = row.practice_sentences as { audio_path: unknown }[];
+          return {
+            practice_id: row.id,
+            sentences: sentences.length,
+            voiced: sentences.filter((s) => s.audio_path).length,
+          };
+        }),
+    );
+    return;
+  }
+  // A shared practice's preview (D106): three sentences, no notes.
+  if (url.pathname === "/rest/v1/rpc/practice_preview") {
+    const { target } = JSON.parse((await readBody(request)) || "{}");
+    const row = practices.find((p) => p.id === target);
+    if (!row || row.official || row.visibility !== "public") {
+      json(200, null);
+      return;
+    }
+    const sentences = row.practice_sentences as {
+      i: number;
+      en: string;
+      zh: string;
+      audio_path: string | null;
+    }[];
+    json(200, {
+      sentence_count: sentences.length,
+      sentences: sentences
+        .filter((s) => s.i < 3)
+        .map(({ i, en, zh }) => ({ i, en, zh })),
+      audio_path: sentences.find((s) => s.i === 0)?.audio_path ?? null,
+    });
+    return;
+  }
+  if (url.pathname === "/rest/v1/rpc/practice_notes") {
+    const { target } = JSON.parse((await readBody(request)) || "{}");
+    const row = practices.find((p) => p.id === target);
+    const sub = tokenSubject(request.headers.authorization);
+    json(
+      200,
+      row && mayPractice(row, sub)
+        ? [{ vocab: row.vocab, grammar: row.grammar }]
+        : [],
+    );
     return;
   }
   // Steps toward paying (D93), kept while the server runs; the admin's
@@ -313,7 +385,7 @@ createServer(async (request, response) => {
   }
   if (url.pathname === "/auth/v1/user") {
     const sub = tokenSubject(request.headers.authorization);
-    json(200, sub === "e2e-admin" ? { ...AUTHOR, id: sub } : AUTHOR);
+    json(200, sub ? { ...AUTHOR, id: sub } : AUTHOR);
     return;
   }
   // Anything else finds nothing (reads) or isn't allowed (writes).

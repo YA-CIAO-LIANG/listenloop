@@ -16,6 +16,7 @@ const limited: Record<PlanId, PlanLimits> = {
   ...PLANS,
   free: {
     createPractices: true,
+    sharedPractices: false,
     activePractices: 3,
     practicesTotal: null,
     practicesPerMonth: 5,
@@ -32,6 +33,13 @@ const limited: Record<PlanId, PlanLimits> = {
 };
 
 describe("plans (D54, D72)", () => {
+  it("only paying plans practice shared materials in full (D106)", () => {
+    expect(PLANS.free.sharedPractices).toBe(false);
+    expect(PLANS.paid.sharedPractices).toBe(true);
+    expect(PLANS.pro.sharedPractices).toBe(true);
+    expect(PLANS.admin.sharedPractices).toBe(true);
+  });
+
   it("free accounts try one practice of their own, up to 2,000 characters", () => {
     expect(can("free", { kind: "create-practice", createdTotal: 0 })).toEqual({
       ok: true,

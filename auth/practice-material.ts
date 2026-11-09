@@ -5,6 +5,8 @@ import {
   materialFromCustomPractice,
   materialFromSnapshot,
   parseCustomPracticeId,
+  sharedPreview,
+  type SharedPreview,
   type CustomPracticeReadiness,
   type PracticeMaterial,
 } from "@/lib/practice-material";
@@ -21,6 +23,8 @@ import { getSignedInUser } from "./session";
  * - preparing: the viewer's own practice whose notes or audio aren't done
  *   yet (made before notes existed, or cut off while generating), so the
  *   page can offer to finish it instead of answering 404 (D32);
+ * - preview: someone's shared practice the viewer may not practice (free
+ *   plan or signed out, D106): its details and first three sentences;
  * - null: nothing to show (404), including others' unfinished practices.
  * `version` (from ?v=, D44) asks for an earlier version of a created
  * practice, for a week that started on it; the latest is shown when it's
@@ -35,7 +39,8 @@ export type PracticeState =
       practiceId: string;
       title: string;
       readiness: CustomPracticeReadiness;
-    };
+    }
+  | { status: "preview"; preview: SharedPreview };
 
 export const getPracticeState = cache(
   async (id: string, version?: number): Promise<PracticeState | null> => {
@@ -52,7 +57,7 @@ export const getPracticeState = cache(
       supabase
         .from("practices")
         .select(
-          "id, title, title_en, title_zh, subtitle, version, vocab, grammar, notes_generated_at, youtube_id, youtube_channel, youtube_license, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
+          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
         )
         .eq("id", uuid)
         .maybeSingle(),
@@ -68,6 +73,17 @@ export const getPracticeState = cache(
     ]);
     if (!data) return null;
     const mine = !!own?.data;
+    // Row level security shows the sentences only to those who may
+    // practice it (can_practice, D106); others get the preview, if any.
+    if (!mine && data.practice_sentences.length === 0) {
+      const { data: preview } = await supabase.rpc("practice_preview", {
+        target: uuid,
+      });
+      const shared = sharedPreview(data, preview, (path) =>
+        speechAudioUrl(path),
+      );
+      return shared ? { status: "preview", preview: shared } : null;
+    }
     if (version !== undefined && version !== data.version) {
       const { data: snapshot } = await supabase
         .from("practice_versions")
@@ -87,8 +103,17 @@ export const getPracticeState = cache(
         };
       }
     }
-    const material = materialFromCustomPractice(data, (path) =>
-      speechAudioUrl(path),
+    // The practice-wide notes are read through can_practice too (D106).
+    const { data: notes } = await supabase.rpc("practice_notes", {
+      target: uuid,
+    });
+    const material = materialFromCustomPractice(
+      {
+        ...data,
+        vocab: notes?.[0]?.vocab ?? [],
+        grammar: notes?.[0]?.grammar ?? [],
+      },
+      (path) => speechAudioUrl(path),
     );
     if (material) return { status: "ready", material: { ...material, mine } };
     return mine

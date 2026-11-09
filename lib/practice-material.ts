@@ -1,6 +1,13 @@
 import { storedNotes } from "./custom-practice/notes";
 import { parseRichNotes, type RichNotes } from "./custom-practice/rich-notes";
 import { isUuid } from "./custom-practice/organize";
+import { parseVoiceId, type VoiceAccent } from "./ai/types";
+import {
+  isCategoryId,
+  isLevel,
+  type CategoryId,
+  type Level,
+} from "./categories";
 import { youtubeAttribution } from "./youtube";
 import { practiceTitles } from "./titles";
 import type { Attribution, Video } from "./videos";
@@ -299,4 +306,96 @@ export function versionToShow(
     return null;
   }
   return asked === String(pinned) ? null : pinned;
+}
+
+/**
+ * What a free account or a signed-out visitor sees of a practice someone
+ * shared (D106): its details, its first sentences in English and Chinese
+ * (PREVIEW_SENTENCES), and the first one's audio, but no notes, handout,
+ * or practice. A YouTube practice previews with its video instead.
+ */
+export const PREVIEW_SENTENCES = 3;
+
+export type SharedPreview = {
+  id: string;
+  title: string;
+  titleZh: string | null;
+  subtitle: string | null;
+  category: CategoryId | null;
+  scenario: string | null;
+  level: Level | null;
+  accent: VoiceAccent | null;
+  durationSec: number | null;
+  sentenceCount: number;
+  sentences: { en: string; zh: string }[];
+  audioUrl: string | null;
+  youtubeId: string | null;
+  attribution?: Attribution;
+};
+
+/** The preview from practice_preview's answer, or null if there's none. */
+export function sharedPreview(
+  row: Pick<
+    CustomPracticeRow,
+    | "id"
+    | "title"
+    | "title_en"
+    | "title_zh"
+    | "subtitle"
+    | "youtube_id"
+    | "youtube_channel"
+    | "youtube_license"
+  > & {
+    category?: string | null;
+    scenario?: string | null;
+    level?: string | null;
+    voice?: string | null;
+    duration_sec?: number | null;
+  },
+  preview: unknown,
+  audioUrl: (path: string) => string | null,
+): SharedPreview | null {
+  if (typeof preview !== "object" || preview === null) return null;
+  const data = preview as Record<string, unknown>;
+  const sentences = Array.isArray(data.sentences)
+    ? data.sentences.flatMap((raw) => {
+        const s = (raw ?? {}) as Record<string, unknown>;
+        return typeof s.en === "string" && typeof s.zh === "string"
+          ? [{ en: s.en, zh: s.zh }]
+          : [];
+      })
+    : [];
+  if (sentences.length === 0) return null;
+  const titles = practiceTitles(row);
+  return {
+    id: customPracticeId(row.id),
+    title: titles.en,
+    titleZh: titles.zh,
+    subtitle: row.subtitle ?? null,
+    category: isCategoryId(row.category) ? row.category : null,
+    scenario: row.scenario ?? null,
+    level: isLevel(row.level) ? row.level : null,
+    accent: (row.voice ? parseVoiceId(row.voice)?.accent : null) ?? null,
+    durationSec: row.duration_sec ?? null,
+    sentenceCount:
+      typeof data.sentence_count === "number"
+        ? data.sentence_count
+        : sentences.length,
+    sentences: sentences.slice(0, PREVIEW_SENTENCES),
+    audioUrl:
+      typeof data.audio_path === "string" ? audioUrl(data.audio_path) : null,
+    youtubeId: row.youtube_id ?? null,
+    ...(row.youtube_id
+      ? {
+          attribution: youtubeAttribution({
+            id: row.youtube_id,
+            channel: row.youtube_channel ?? "",
+            license:
+              row.youtube_license === "creativeCommon"
+                ? "creativeCommon"
+                : "youtube",
+          }),
+        }
+      : {}),
+  };
 }

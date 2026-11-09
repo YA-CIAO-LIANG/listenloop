@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import type { Page } from "@playwright/test";
 import mock from "./mock-supabase/practices.json";
-import { expect, test } from "./fixtures";
+import { expect, signInAsAuthor, test } from "./fixtures";
 
 /**
  * Version 2 notes and the highlighter (D67, D68), on a created practice
@@ -11,6 +11,8 @@ const id = `p-${mock.ready.id}`;
 
 /** Answers sentence 1 right and sentence 2 with "bank" misheard. */
 async function mishearSentence2(page: Page) {
+  // The author's own shared practice (others need a paid plan, D106).
+  await signInAsAuthor(page);
   await page.goto(`/videos/${id}/day/1`);
   const input = page.getByRole("textbox");
   await input.fill("The station is on the left.");

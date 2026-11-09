@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { oneLineTitle } from "@/lib/titles";
 import { MaterialTitle } from "@/components/MaterialTitle";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { Handout } from "@/components/Handout";
 import { HandoutGate } from "@/components/HandoutGate";
@@ -24,6 +24,7 @@ export async function generateMetadata({
     parseVersionParam((await searchParams).v),
   );
   if (state?.status === "preparing") return preparingMetadata(state);
+  if (state?.status === "preview") return {};
   const t = await getTranslations("handout");
   return state
     ? {
@@ -51,6 +52,8 @@ export default async function HandoutPage({
       />
     );
   }
+  // Not theirs to practice (D106): the preview, with what it'd take.
+  if (state?.status === "preview") redirect(`/videos/${id}`);
   if (!state) notFound();
   const video = state.material;
   const t = await getTranslations("handout");

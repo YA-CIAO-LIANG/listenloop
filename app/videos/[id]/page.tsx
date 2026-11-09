@@ -10,6 +10,7 @@ import { VideoAttribution } from "@/components/VideoAttribution";
 import { getPracticeState } from "@/auth/practice-material";
 import { getSignedInUser } from "@/auth/session";
 import { PracticePreparing } from "@/components/PracticePreparing";
+import { SharedPreviewPage } from "@/components/SharedPreviewPage";
 import { ReportPractice } from "@/components/ReportPractice";
 import { practiceRobots, preparingMetadata } from "@/lib/practice-material";
 import { getVideo } from "@/lib/video-library";
@@ -20,6 +21,15 @@ export async function generateMetadata({
 }: PageProps<"/videos/[id]">): Promise<Metadata> {
   const state = await getPracticeState((await params).id);
   if (state?.status === "preparing") return preparingMetadata(state);
+  if (state?.status === "preview") {
+    return {
+      title: oneLineTitle({
+        en: state.preview.title,
+        zh: state.preview.titleZh,
+      }),
+      robots: { index: false, follow: false },
+    };
+  }
   return state
     ? {
         title: oneLineTitle({
@@ -38,6 +48,9 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
     return (
       <PracticePreparing practice={state} practiceHref={`/videos/${id}`} />
     );
+  }
+  if (state?.status === "preview") {
+    return <SharedPreviewPage preview={state.preview} />;
   }
   if (!state) notFound();
   const material = state.material;
