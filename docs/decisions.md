@@ -2010,3 +2010,24 @@
   - 「分享」：瀏覽器支援分享檔案時（多數手機）開系統的分享選單，附上圖片、一句文字與網址；不支援時改成「複製分享文字」。
 - **無障礙**：預覽圖片有替代文字（兩天的分數與教材標題）。
 - **要改時**：`lib/share-card.ts`（版面、顏色、尺寸）、`components/ShareCard.tsx`、翻譯檔 `shareCard`。
+
+## D111 練習提醒：PWA 推播通知（2026-11-11，Joe 指定）
+
+- **使用者端**（帳號頁「練習提醒」，`components/ReminderSettings.tsx`）：
+  - 預設關閉；按「開啟提醒」時才詢問通知權限（瀏覽器的建議做法，不在進站時就跳出）；
+  - 選提醒時間（24 小時制），存下瀏覽器的時區與介面語言；可以改時間或關閉；
+  - 每個瀏覽器各自設定（推播訂閱綁在瀏覽器上）；
+  - 瀏覽器不支援或權限被封鎖時，說明怎麼處理（iPhone 要先加入主畫面）。
+- **送出**（`scripts/send-reminders.mts`，GitHub Actions 每 15 分鐘，`.github/workflows/reminders.yml`）：
+  - 到了使用者時區的提醒時間後 60 分鐘內（`REMINDER_WINDOW_MINUTES`，排程可能延遲），每天最多一次；
+  - **當天已經完成正式任務就不提醒**（讀活動紀錄）；
+  - 推播服務回 404／410（訂閱已失效）時刪掉那筆。
+- **技術**：Web Push（VAPID），免費、不需要第三方推播服務。
+  - 新套件（D9）：`web-push` 3.6.7（Node 生態系最常用的 Web Push 實作），只在排程腳本用，列為開發依賴。沒有用 2026-11-06 剛發布的 4.0.0 主版本，等穩定後再升。
+  - Service worker 新增 `push`（顯示通知）與 `notificationclick`（打開網站）。
+- **資料**：新資料表 `reminders`（endpoint、user_id、金鑰、時間、時區、語言、上次送出的日期），使用者只能管理自己的；刪除帳號時一起刪除。
+- **預設關閉，需要 Joe 設定**：
+  1. 套用 migration `20261111010000_reminders.sql`（自動執行時被權限檢查擋下）；
+  2. 產生 VAPID 金鑰（`npx web-push generate-vapid-keys`），公開金鑰設成 Vercel 的 `NEXT_PUBLIC_VAPID_PUBLIC_KEY`（沒有它時帳號頁不顯示提醒）；
+  3. GitHub Actions 的 secrets：`NEXT_PUBLIC_SUPABASE_URL`、`SUPABASE_SERVICE_ROLE_KEY`、`NEXT_PUBLIC_VAPID_PUBLIC_KEY`、`VAPID_PRIVATE_KEY`；變數 `REMINDERS_SCHEDULE=on`（`VAPID_SUBJECT` 選填，例如 `mailto:` 加聯絡信箱）。
+- **要改時**：`lib/reminders.ts`（文字、時間窗）、`scripts/send-reminders.mts`、`components/ReminderSettings.tsx`、`public/sw.js`。

@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:e2e": "NEXT_PUBLIC_SUPABASE_URL=http://localhost:54329 NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-publishable-key next build",
+    "build:e2e": "NEXT_PUBLIC_SUPABASE_URL=http://localhost:54329 NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-publishable-key NEXT_PUBLIC_VAPID_PUBLIC_KEY=BLsUJzGppWi2Z5kjA6ZBOSimvBNrePc2_PaS5rCsLXIXFLVCGWkZx4dxxDCMQrj3d6mOCkl1txnEM3oogAIUCgU next build",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
@@ -52,6 +52,7 @@
     "@types/node": "^24.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/web-push": "3.6.4",
     "@types/youtube": "^0.3.0",
     "@vitejs/plugin-react": "^6.2.1",
     "eslint": "^9",
@@ -64,7 +65,8 @@
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.0",
+    "web-push": "3.6.7"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mjs,mts}": [

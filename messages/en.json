@@ -2787,5 +2787,19 @@
     "shareText": "I practiced English listening for 7 days with ListenLoop:",
     "copied": "Copied the text and link.",
     "failed": "Sharing didn't work; try Download image."
+  },
+  "reminders": {
+    "title": "Practice reminders",
+    "intro": "A notification at the time you choose each day, unless you've already practiced. It's for this browser, and asks for permission only when you turn it on.",
+    "unsupported": "This browser doesn't support notifications. On iPhone, add ListenLoop to your Home Screen first.",
+    "blocked": "Notifications are blocked. Allow them in your browser's site settings, then come back.",
+    "off": "Reminders are off.",
+    "on": "You'll be reminded every day at {time}.",
+    "timeLabel": "Reminder time",
+    "turnOn": "Turn on reminders",
+    "saveTime": "Save the time",
+    "turnOff": "Turn off",
+    "saved": "Saved.",
+    "failed": "That didn't work; please try again."
   }
 }

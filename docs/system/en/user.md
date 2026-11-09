@@ -203,6 +203,7 @@ flowchart LR
 
 ## 12. Account and privacy
 
+- **Practice reminders**: turn on a daily reminder on the account page and pick a time; no reminder once you have practiced that day.
 - **Account page**: sign out, download my data (JSON), delete my account (tick to confirm; permanent).
 - We keep only what's needed (progress, events, what you choose to report); no recordings.
 - Text you use to create materials goes to an AI service (Azure) for translations, notes, and voices, and isn't used to train models.
