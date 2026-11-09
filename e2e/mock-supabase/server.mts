@@ -31,6 +31,7 @@ const practices: Row[] = Object.values(
 /** Accounts on the paid plan's waiting list. */
 const waitlist = new Set<string>();
 const intents: Record<string, unknown>[] = [];
+const sentenceReports: Record<string, unknown>[] = [];
 
 /**
  * Payments (D85), kept while the server runs: what the fake provider's
@@ -334,6 +335,22 @@ createServer(async (request, response) => {
         ? [{ vocab: row.vocab, grammar: row.grammar }]
         : [],
     );
+    return;
+  }
+  // Sentence reports (D113): learners' inserts are kept while the server
+  // runs; none is fixed yet, so the home page has no notice.
+  if (url.pathname === "/rest/v1/sentence_reports") {
+    if (request.method === "POST") {
+      const sub = tokenSubject(request.headers.authorization);
+      if (!sub) {
+        json(401, []);
+        return;
+      }
+      sentenceReports.push(JSON.parse((await readBody(request)) || "{}"));
+      response.writeHead(201, cors).end();
+      return;
+    }
+    json(200, []);
     return;
   }
   // Steps toward paying (D93), kept while the server runs; the admin's

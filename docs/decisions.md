@@ -2043,3 +2043,17 @@
 - **只快取練習音檔**：Supabase 的資料、登入、YouTube 一律不經過快取，和 D64 的原則相同。YouTube 影片無法離線（條款不允許下載）。
 - **頁面本身**：導覽仍然先走網路（頁面永遠最新）；斷線時打開新頁面會顯示離線頁。已經打開的練習頁可以繼續播放。
 - **要改時**：`public/sw.js`（`AUDIO_CACHE`、`AUDIO_LIMIT`；改快取格式時改快取名稱）、`components/audio/useAudioPlayer.ts`。
+
+## D113 回報教材錯誤（2026-11-11，Joe 指定）
+
+- **學習者**：聽寫每句作答後、跟讀每句下方，有「回報這句的問題」：
+  - 選一種：翻譯錯誤、講解錯誤、音檔有問題；可以補充說明（500 字內）；
+  - 要登入，修正後才能通知；每小時最多 20 則（`RATE_LIMITS.sentenceReport`）；
+  - 記下教材 id、當時的版本與第幾句，所以管理員看得到是哪一版的哪一句。
+- **管理員**（後台「容易出錯的句子」最上方「學習者回報的問題」）：
+  - 依句子分組，最早回報的在前，顯示原句、問題種類、日期、說明；連到編輯頁（自建與官方教材）或影片頁；
+  - 修正教材後按「已修正」或「不處理」，可以寫處理說明；每筆寫進管理稽核。
+- **通知回報者**：回報被標為「已修正」後，回報的人下次打開首頁（登入）會看到「你回報的問題已修正」，列出教材、第幾句、種類與處理說明，按「知道了」後不再顯示。這是站內通知；不寄 Email（還沒有寄信服務）。
+- **資料**：新資料表 `sentence_reports`。學習者只能新增自己的、讀自己的；處理與已讀由伺服器寫入。刪除帳號時一起刪除。
+- **等 Joe 同意**：migration `20261111020000_sentence_reports.sql` 自動執行時被權限檢查擋下。在套用之前，回報會顯示「沒有送出成功」，後台的清單是空的，其他功能不受影響。
+- **要改時**：`lib/sentence-reports.ts`、`app/reports/sentence-actions.ts`、`components/ReportSentence.tsx`、`components/SentenceReportActions.tsx`、`components/FixedReportsNotice.tsx`、`app/admin/sentences/page.tsx`。
