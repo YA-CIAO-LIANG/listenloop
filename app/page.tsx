@@ -26,6 +26,8 @@ export default function Home() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
       <h1 className="font-display text-hero">{t("common.appName")}</h1>
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
+      {/* Who it's for and how, readable in five seconds (D119). */}
+      <p className="mt-3 max-w-reading text-ink-muted">{t("home.audience")}</p>
 
       <div className="mt-12 space-y-6">
         {/* Not in Suspense: it's in the first HTML, so nothing shifts (D62). */}
