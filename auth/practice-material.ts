@@ -57,7 +57,7 @@ export const getPracticeState = cache(
       supabase
         .from("practices")
         .select(
-          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
+          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, official, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
         )
         .eq("id", uuid)
         .maybeSingle(),
@@ -73,9 +73,16 @@ export const getPracticeState = cache(
     ]);
     if (!data) return null;
     const mine = !!own?.data;
-    // Row level security shows the sentences only to those who may
-    // practice it (can_practice, D106); others get the preview, if any.
-    if (!mine && data.practice_sentences.length === 0) {
+    // Only those who may practice it get the sentences (D106): checked
+    // here with can_practice, and by row level security, which hides the
+    // sentences from everyone else. Others get the preview, if any.
+    const locked =
+      !mine &&
+      (data.practice_sentences.length === 0 ||
+        (!data.official &&
+          (await supabase.rpc("can_practice", { target: uuid })).data ===
+            false));
+    if (locked) {
       const { data: preview } = await supabase.rpc("practice_preview", {
         target: uuid,
       });

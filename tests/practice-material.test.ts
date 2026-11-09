@@ -15,6 +15,7 @@ const state = vi.hoisted(() => ({
   user: null as { id: string; email: string } | null,
   ownerId: "owner",
   preview: null as unknown,
+  allowed: true,
 }));
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
@@ -27,7 +28,9 @@ vi.mock("@/auth/server", () => ({
             ? row
               ? [{ vocab: row.vocab, grammar: row.grammar }]
               : []
-            : state.preview,
+            : name === "can_practice"
+              ? state.allowed
+              : state.preview,
         error: null,
       };
     },
@@ -90,6 +93,7 @@ beforeEach(() => {
   state.eq.mockClear();
   state.user = null;
   state.preview = null;
+  state.allowed = true;
 });
 
 describe("created practice ids", () => {
@@ -263,5 +267,19 @@ describe("getPracticeState", () => {
   it("is a 404 when there's no preview either", async () => {
     state.row = { ...row, practice_sentences: [] };
     expect(await getPracticeState(`p-${uuid}`)).toBeNull();
+  });
+
+  it("checks can_practice on the server too, before the sentences are hidden", async () => {
+    state.user = { id: "someone-else", email: "b@example.com" };
+    state.allowed = false;
+    state.preview = {
+      sentence_count: 2,
+      sentences: [{ i: 0, en: "Hello.", zh: "你好。" }],
+      audio_path: null,
+    };
+    expect((await getPracticeState(`p-${uuid}`))?.status).toBe("preview");
+    // The author is never sent to the preview.
+    state.user = { id: "owner", email: "a@example.com" };
+    expect((await getPracticeState(`p-${uuid}`))?.status).toBe("ready");
   });
 });
