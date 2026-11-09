@@ -98,9 +98,11 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           "/classroom",
         ].map((path) => ({ path, role: "admin" as const })),
         // States behind a click: forms past their first step.
+        // An admin: the author's one-practice trial is used up (D72), so
+        // their create page has no form to open.
         {
           path: "/materials/new",
-          role: "author" as const,
+          role: "admin" as const,
           state: "ai-panel",
           then: async (page: Page) => {
             await page.getByText(/^(AI 生成|Write with AI)$/).click();

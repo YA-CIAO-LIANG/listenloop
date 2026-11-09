@@ -2771,5 +2771,19 @@
     "startMaterial": "從推薦的第一份開始",
     "browseLevel": "看所有「{level}」教材",
     "again": "再測一次"
+  },
+  "shareCard": {
+    "title": "進步分享卡",
+    "intro": "把這週的進步存成圖片，或分享給朋友。圖片只有分數和教材標題，沒有你的名字或帳號。",
+    "heading": "我的 7 天英文聽力進步",
+    "day1": "第 1 天",
+    "day7": "第 7 天",
+    "alt": "進步分享卡：第 1 天 {day1}，第 7 天 {day7}，教材「{title}」",
+    "download": "下載圖片",
+    "share": "分享",
+    "copyLink": "複製分享文字",
+    "shareText": "我用 ListenLoop 練了 7 天英文聽力：",
+    "copied": "已複製分享文字和網址。",
+    "failed": "沒有分享成功，可以改用「下載圖片」。"
   }
 }

@@ -2773,5 +2773,19 @@
     "startMaterial": "Start the recommended material",
     "browseLevel": "Browse {level} materials",
     "again": "Take it again"
+  },
+  "shareCard": {
+    "title": "Share your progress",
+    "intro": "Save this week's progress as an image or share it. It shows only the scores and the material's title, never your name or account.",
+    "heading": "My 7-day English listening progress",
+    "day1": "Day 1",
+    "day7": "Day 7",
+    "alt": "Progress card: Day 1 {day1}, Day 7 {day7}, “{title}”",
+    "download": "Download image",
+    "share": "Share",
+    "copyLink": "Copy share text",
+    "shareText": "I practiced English listening for 7 days with ListenLoop:",
+    "copied": "Copied the text and link.",
+    "failed": "Sharing didn't work; try Download image."
   }
 }

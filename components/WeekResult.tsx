@@ -14,6 +14,7 @@ import { RewardGainedNote } from "./RewardBadge";
 import { scoreDictation } from "@/lib/scoring/dictation";
 import { pace } from "@/lib/speed";
 import { ScoreBadge } from "./ScoreBadge";
+import { ShareCard } from "./ShareCard";
 import { Tag } from "./Tag";
 import { StartNextWeekButton } from "./StartNextWeekButton";
 import { WordDiffView } from "./WordDiffView";
@@ -109,6 +110,22 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
               ? t("declined", { points: -change })
               : t("same")}
         </p>
+
+        <ShareCard
+          text={{
+            day1: percent(comparison.day1),
+            day7: percent(comparison.day7),
+            change:
+              change > 0
+                ? t("improved", { points: change })
+                : change < 0
+                  ? t("declined", { points: -change })
+                  : t("same"),
+            improved: change > 0,
+            title: video.title,
+            titleZh: video.titleZh ?? null,
+          }}
+        />
 
         <p className="font-display text-h3">
           {passed
