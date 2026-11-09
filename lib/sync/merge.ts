@@ -1,3 +1,4 @@
+import { mergeReview } from "../review";
 import { mergeDayTime } from "../practice-time";
 import type { Activity, DayActivity, PracticeTask } from "../activity";
 import type { LocalDate } from "../dates";
@@ -115,7 +116,10 @@ export function mergeActivity(a: Activity, b: Activity): Activity {
     const mine = days[date];
     days[date] = mine ? mergeDay(mine, day) : day;
   }
-  return { days };
+  // Misheard words to review (D108): the latest change of each word.
+  const review =
+    a.review || b.review ? mergeReview(a.review ?? {}, b.review ?? {}) : null;
+  return review ? { days, review } : { days };
 }
 
 export { same as sameData };

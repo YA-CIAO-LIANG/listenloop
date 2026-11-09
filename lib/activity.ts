@@ -1,6 +1,7 @@
 import { isLocalDate, type LocalDate } from "./dates";
 import { isDayTime, type DayTime } from "./practice-time";
 import type { Progress } from "./progress";
+import { parseReview, type ReviewState } from "./review";
 
 /**
  * One finished official task: which video, which week, which day, and how
@@ -31,8 +32,15 @@ export type DayActivity = {
   time?: DayTime;
 };
 
-/** Saved as ll-activity:v1 (see CLAUDE.md 資料格式). */
-export type Activity = { days: Partial<Record<LocalDate, DayActivity>> };
+/**
+ * Saved as ll-activity:v1 (see CLAUDE.md 資料格式). `review` is the list
+ * of misheard words to review (D108; lib/review.ts), absent until the
+ * first one.
+ */
+export type Activity = {
+  days: Partial<Record<LocalDate, DayActivity>>;
+  review?: ReviewState;
+};
 
 export function emptyActivity(): Activity {
   return { days: {} };
@@ -45,7 +53,7 @@ const withDayActivity = (
   activity: Activity,
   date: LocalDate,
   day: DayActivity,
-): Activity => ({ days: { ...activity.days, [date]: day } });
+): Activity => ({ ...activity, days: { ...activity.days, [date]: day } });
 
 /** Notes an official task finished on `date` (same object if already noted). */
 export function recordOfficial(activity: Activity, date: LocalDate): Activity {
@@ -147,5 +155,9 @@ export function parseActivity(data: unknown): Activity | null {
     }
     if (time !== undefined && !isDayTime(time)) return null;
   }
-  return data as Activity;
+  const review = parseReview((data as { review?: unknown }).review);
+  return {
+    days: days as Activity["days"],
+    ...(review ? { review } : {}),
+  };
 }

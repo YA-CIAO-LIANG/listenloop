@@ -133,7 +133,10 @@
     "tomorrowDay": "Day {day} opens tomorrow",
     "tomorrowWeek": "Week {week} starts tomorrow",
     "start": "Start",
-    "retry": "Practice again"
+    "retry": "Practice again",
+    "reviewLine": "Misheard words: {count, plural, one {# word} other {# words}} to review",
+    "reviewStart": "Review",
+    "reviewNote": "Words you misheard, spaced out"
   },
   "week": {
     "resultTitle": "Week {week} result",
@@ -2721,5 +2724,30 @@
     "locked": "The rest of the sentences, the notes, the handout, and the 7-day practice open when you upgrade.",
     "plans": "Plus, Pro, and class plans can practice every shared material in full; official materials are always free.",
     "upgrade": "Upgrade to practice this material"
+  },
+  "review": {
+    "title": "My misheard words",
+    "intro": "Words you mishear in dictation land here and come back in today's tasks the next day, then 3 days later, then 7: a short review each time. Three right answers in a row and it's learned.",
+    "loading": "Loading…",
+    "todayTitle": "Today's review",
+    "emptyList": "No misheard words yet. After a Day 1 or Day 7 dictation, the words you missed show up here.",
+    "noneToday": "Nothing to review today.",
+    "count": "{n} of {total}",
+    "listen": "Play the sentence",
+    "stop": "Stop",
+    "answerLabel": "Which word goes in the blank?",
+    "check": "Check",
+    "right": "Right",
+    "wrong": "It's {word}",
+    "rightNext": "It comes back a little later next time.",
+    "wrongNext": "It comes back tomorrow.",
+    "next": "Next",
+    "finish": "Finish",
+    "done": "Today's review is done: {right} of {total} right.",
+    "home": "Back home",
+    "listTitle": "My misheard words ({count})",
+    "listIntro": "In order of their next review; learned ones last.",
+    "learned": "Learned",
+    "due": "Next review: {date}"
   }
 }

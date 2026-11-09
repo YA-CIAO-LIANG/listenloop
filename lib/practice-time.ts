@@ -40,6 +40,7 @@ export function addPracticeTime(
   const time = day.time ?? {};
   const mine = time[device] ?? {};
   return {
+    ...activity,
     days: {
       ...activity.days,
       [date]: {

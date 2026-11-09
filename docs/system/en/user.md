@@ -141,6 +141,7 @@ Shown after a dictation answer or a shadowed sentence:
 ## 8. Progress and stats
 
 - **Home** (signed in): practice calendar → today's tasks → official library.
+- **My misheard words** (`/review`): words you mishear in dictation are listed automatically and come back in today's tasks the next day, 3 days later, and 7 days later; fill the word back into its sentence (with the Chinese and, for audio materials, the sound). Three right in a row and it's learned.
 - **Progress** (header): every material you're practicing, which day, the full calendar; remove ones you don't want (removed on your other devices too).
 - **Stats** (header):
   - Streak and practice time a day (only while the page is in front and you're active);
