@@ -8,7 +8,7 @@ import {
   type CategoryId,
   type Level,
 } from "./categories";
-import { youtubeAttribution } from "./youtube";
+import { storedAttribution, youtubeAttribution } from "./youtube";
 import { practiceTitles } from "./titles";
 import type { Attribution, Video } from "./videos";
 
@@ -88,6 +88,8 @@ export type CustomPracticeRow = {
   youtube_id?: string | null;
   youtube_channel?: string | null;
   youtube_license?: string | null;
+  /** The material's own credit (D118), e.g. a Blender open movie's. */
+  attribution?: unknown;
   /** A news material's source (D100). */
   source_name?: string | null;
   source_title?: string | null;
@@ -138,14 +140,16 @@ export function materialFromCustomPractice(
       grammar: notes.grammar,
       richNotes: rows.map((s) => parseRichNotes(s.notes, s.en)),
       youtubeId: row.youtube_id,
-      attribution: youtubeAttribution({
-        id: row.youtube_id,
-        channel: row.youtube_channel ?? "",
-        license:
-          row.youtube_license === "creativeCommon"
-            ? "creativeCommon"
-            : "youtube",
-      }),
+      attribution:
+        storedAttribution(row.attribution) ??
+        youtubeAttribution({
+          id: row.youtube_id,
+          channel: row.youtube_channel ?? "",
+          license:
+            row.youtube_license === "creativeCommon"
+              ? "creativeCommon"
+              : "youtube",
+        }),
     };
   }
   const audioUrls: string[] = [];

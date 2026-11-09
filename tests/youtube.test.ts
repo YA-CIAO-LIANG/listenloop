@@ -168,4 +168,46 @@ describe("YouTube practices (D97)", () => {
     });
     expect(material?.audioUrls).toBeUndefined();
   });
+
+  it("shows a material's own stored credit instead of the channel's (D118)", () => {
+    const own = {
+      credit: "© copyright Blender Foundation | orange.blender.org",
+      license: "CC BY 2.5",
+      licenseUrl: "https://creativecommons.org/licenses/by/2.5/",
+      sourceUrl: "https://orange.blender.org/",
+      transcriptUrl: "https://commons.wikimedia.org/wiki/TimedText:x",
+      changes: "Excerpt (0:15–3:14)",
+    };
+    const row = {
+      id: "4d8e0a52-6c1b-4f3e-9a7d-2b5c8e1f0a93",
+      title: "Elephants Dream (1)",
+      vocab: [],
+      grammar: [],
+      notes_generated_at: "2026-11-12",
+      youtube_id: "TLkA0RELQ1g",
+      youtube_channel: "Blender",
+      youtube_license: "creativeCommon",
+      practice_sentences: [
+        {
+          i: 0,
+          en: "Emo?",
+          zh: "Emo？",
+          audio_path: null,
+          start_sec: 24.5,
+          end_sec: 25.8,
+        },
+      ],
+    };
+    expect(
+      materialFromCustomPractice({ ...row, attribution: own }, () => null)
+        ?.attribution,
+    ).toEqual(own);
+    // An incomplete one falls back to the channel's.
+    expect(
+      materialFromCustomPractice(
+        { ...row, attribution: { ...own, license: "" } },
+        () => null,
+      )?.attribution?.credit,
+    ).toBe("© Blender (YouTube)");
+  });
 });

@@ -105,3 +105,25 @@ describe("officialProblems: the quality audit's problems (D117)", () => {
     ).toEqual(["fullWidth", "names", "longNotes"]);
   });
 });
+
+describe("officialProblems: a line that's only a name (D118)", () => {
+  it("accepts the name as its translation", async () => {
+    const base = await candidate();
+    const sentences = [
+      { ...base.sentences[0], en: "Emo?", zh: "Emo？" },
+      { ...base.sentences[1], en: "Get up, Emo!", zh: "起來，Emo！" },
+      base.sentences[2],
+    ];
+    expect(officialProblems({ ...base, sentences })).toEqual([]);
+    // Any other line still needs Chinese.
+    expect(
+      officialProblems({
+        ...base,
+        sentences: [
+          { ...sentences[0], en: "Hello?", zh: "Hello？" },
+          ...sentences.slice(1),
+        ],
+      }),
+    ).toEqual(["translation"]);
+  });
+});

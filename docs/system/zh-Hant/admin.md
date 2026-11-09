@@ -124,7 +124,13 @@ flowchart TD
 - 在 `/admin/fixes` 逐筆「接受」或「拒絕」。接受時如果那句在建議之後被改過，會略過並標成「已過期」，不會蓋掉新內容。
 - 之後新產生的教材：翻譯與講解的提示詞已加上這些規則，產生後也會自動轉半形、精簡講解；發布前檢查會擋全形英數字、人名寫法不一致、講解過長。
 
-### 3.5 用腳本大量建立（需要 Joe 同意費用）
+### 3.5 Blender 開放電影的影片教材（D118）
+
+- 片段設定在 `lib/blender-films.ts`，字幕在 `data/subtitles/`。
+- `npm run blender:drafts` 先印出計畫與最壞費用；`BLENDER_YES=1` 才呼叫 AI 翻譯與講解，存成官方草稿（YouTube 影片教材，沒有音檔）。已存在的片段會略過；`BLENDER_ONLY=<key>` 只做指定片段。
+- 審核時特別看：人名（應保留英文）、只有一兩個字的短句翻譯、俚語與不雅用語。看完在「官方教材」頁發布。
+
+### 3.6 用腳本大量建立（需要 Joe 同意費用）
 
 - `npm run official:drafts`：預設只印計畫與最壞情況的費用。
 - `OFFICIAL_YES=1 npm run official:drafts`：真的執行。每次呼叫前檢查預算（`OFFICIAL_BUDGET_USD`），超過就停。

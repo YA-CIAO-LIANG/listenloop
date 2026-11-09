@@ -50,7 +50,7 @@ export default async function OfficialMaterialsPage({
   const { data: rows } = await admin
     .from("practices")
     .select(
-      "id, title, title_en, title_zh, subtitle, user_id, official, published, sort_order, category, scenario, level, exam, exam_target, created_at, version, practice_sentences(audio_path, notes)",
+      "id, title, title_en, title_zh, subtitle, user_id, official, published, sort_order, category, scenario, level, exam, exam_target, created_at, version, youtube_id, practice_sentences(audio_path, notes)",
     )
     .eq("official", true)
     .is("removed_at", null)
@@ -114,9 +114,12 @@ export default async function OfficialMaterialsPage({
                           : t("noCategory"),
                         t("sentences", { count: sentences.length }),
                         current ? t("notesCurrent") : t("notesOld"),
-                        voiced < sentences.length
-                          ? t("audio", { voiced, total: sentences.length })
-                          : null,
+                        // A YouTube material plays the video (D118).
+                        practice.youtube_id
+                          ? t("youtube")
+                          : voiced < sentences.length
+                            ? t("audio", { voiced, total: sentences.length })
+                            : null,
                       ]
                         .filter(Boolean)
                         .join(" · ")}

@@ -119,7 +119,7 @@ export default async function AdminFixesPage({
                 <h2 id={`fix-${id}`} className="font-display text-h2">
                   <Link
                     href={`/videos/${customPracticeId(id)}`}
-                    className="underline-offset-4 hover:underline"
+                    className="inline-flex min-h-11 items-center underline-offset-4 hover:underline"
                   >
                     {titles?.en || practice?.title || id}
                   </Link>

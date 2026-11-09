@@ -1,4 +1,10 @@
-import { hasFullWidth, inconsistentNames, textLength } from "./content-fixes";
+import {
+  hasFullWidth,
+  inconsistentNames,
+  materialNames,
+  onlyNames,
+  textLength,
+} from "./content-fixes";
 import { parseRichNotes } from "./custom-practice/rich-notes";
 import { LONG_NOTES_CHARS } from "./official-audit";
 import { SUBTITLE_MAX } from "./videos";
@@ -20,6 +26,8 @@ export type OfficialCandidate = {
     zh: string | null;
     audioPath: string | null;
     notes: unknown;
+    /** Played from a YouTube video at its own times (D118): no audio. */
+    timed?: boolean;
   }[];
 };
 
@@ -65,17 +73,21 @@ export function officialProblems(
   const { sentences } = candidate;
   if (sentences.length < MIN_OFFICIAL_SENTENCES)
     problems.push("tooFewSentences");
+  // A line that's only a name ("Emo?") is translated as the name (D118).
+  const names = materialNames(sentences);
   if (
     sentences.some(
       (s) =>
         !filled(s.zh) ||
-        !/\p{Script=Han}/u.test(s.zh!) ||
-        s.zh!.trim() === s.en.trim(),
+        (!onlyNames(s.en, names) &&
+          (!/\p{Script=Han}/u.test(s.zh!) || s.zh!.trim() === s.en.trim())),
     )
   ) {
     problems.push("translation");
   }
-  if (sentences.some((s) => !filled(s.audioPath))) problems.push("audio");
+  if (sentences.some((s) => !s.timed && !filled(s.audioPath))) {
+    problems.push("audio");
+  }
   const notes = sentences.map((s) => parseRichNotes(s.notes, s.en));
   if (notes.some((n) => n === null)) problems.push("notes");
   else if (notes.every((n) => n!.vocab.length === 0)) {

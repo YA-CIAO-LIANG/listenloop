@@ -63,7 +63,7 @@ export async function setOfficialState(
     const { data: practice } = await admin
       .from("practices")
       .select(
-        "user_id, official, published, notes_generated_at, removed_at, practice_sentences(audio_path)",
+        "user_id, official, published, notes_generated_at, removed_at, youtube_id, practice_sentences(audio_path, start_sec, end_sec)",
       )
       .eq("id", practiceId)
       .maybeSingle();
@@ -79,11 +79,16 @@ export async function setOfficialState(
         return { ok: false, reason: "not-admin-made" };
     }
     if (state === "published") {
+      // Each sentence voiced, or for a YouTube material (D118) timed.
       const sentences = practice.practice_sentences;
       const ready =
         practice.notes_generated_at !== null &&
         sentences.length > 0 &&
-        sentences.every((s) => s.audio_path);
+        sentences.every((s) =>
+          practice.youtube_id
+            ? s.start_sec !== null && s.end_sec !== null
+            : s.audio_path,
+        );
       if (!ready) return { ok: false, reason: "not-ready" };
     }
     const { error } = await admin

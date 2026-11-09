@@ -57,7 +57,7 @@ export const getPracticeState = cache(
       supabase
         .from("practices")
         .select(
-          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, official, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
+          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, official, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, attribution, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
         )
         .eq("id", uuid)
         .maybeSingle(),

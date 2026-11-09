@@ -1,5 +1,5 @@
 import type { SrtCue } from "./draft-video";
-import type { Attribution } from "./videos";
+import { ALLOWED_LICENSE, type Attribution } from "./videos";
 
 /**
  * Practices from a YouTube video (D97): what's read from the YouTube Data
@@ -135,4 +135,29 @@ export function youtubeAttribution(video: {
     changes:
       "Excerpt played through YouTube's player; sentence breaks, Chinese translation, vocabulary, and grammar notes added by a ListenLoop learner",
   };
+}
+
+/**
+ * A material's own stored credit (D118), or null when it's missing or
+ * not complete: every field a non-empty string and an allowed license
+ * (no NC or ND), like a built-in video's.
+ */
+export function storedAttribution(value: unknown): Attribution | null {
+  if (typeof value !== "object" || value === null) return null;
+  const raw = value as Record<string, unknown>;
+  const keys = [
+    "credit",
+    "license",
+    "licenseUrl",
+    "sourceUrl",
+    "transcriptUrl",
+    "changes",
+  ] as const;
+  if (!keys.every((k) => typeof raw[k] === "string" && raw[k].trim())) {
+    return null;
+  }
+  if (!ALLOWED_LICENSE.test(raw.license as string)) return null;
+  return Object.fromEntries(
+    keys.map((k) => [k, (raw[k] as string).trim()]),
+  ) as Attribution;
 }

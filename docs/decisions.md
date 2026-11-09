@@ -2126,3 +2126,21 @@
   - 發布前檢查（`lib/official-check.ts`）新增 `fullWidth`、`names`、`longNotes`；品質稽核（`lib/official-audit.ts`）新增 `fullWidth`、`name`。
   - 錄好的 AI fixture 只更新了請求裡的提示詞文字（回應不變），不重新呼叫 API。
 - **要改時**：`lib/content-fixes.ts`（規則、精簡步驟、人名判斷）、`scripts/content-fixes/`（人工建議）、`app/admin/fixes/`、`lib/ai/prompts.ts`。
+
+## D118 Blender 開放電影的影片教材草稿（2026-11-12，Joe 指定，真實 API 額度 US$0.50）
+
+- **選片與字幕**：
+  - Elephants Dream（CC BY 2.5）、Sprite Fright（官方頁寫 CC BY 1.0）：英文字幕取自 Wikimedia Commons 的字幕頁（文字以 CC BY-SA 4.0 釋出），放在 `data/subtitles/`。兩部片字幕對應的影片長度和 Blender 在 YouTube 的官方上傳**秒數完全相同**（654 秒、630 秒），所以時間點可以直接用。
+  - **Cosmos Laundromat**：Blender 與 Commons 都沒有字幕檔，沒有做；需要 Joe 從 YouTube「顯示字幕記錄」複製（D97 的流程）。
+  - 出處欄位記錄電影的授權與署名、字幕來源與授權、片段時間、我們加了什麼（`practices.attribution`，新增欄位；有設定時取代用 YouTube 頻道產生的出處）。
+- **片段**（`lib/blender-films.ts`，每段 1～3 分鐘，標題與副標手寫）：
+  - Elephants Dream（1）學會傾聽 0:15–3:14、（2）閉上眼睛 4:26–6:20、（3）它就在那裡 6:40–9:00；
+  - Sprite Fright（2）遇見小精靈 2:36–4:09。
+  - **沒做的**：Sprite Fright 開頭（0:17–2:03）的講解被 Azure 的內容過濾擋下（片中有「我要殺了她」「喝掛」等台詞），沒有存任何東西；後半段對白少、髒話多，不適合學生，沒有收。
+- **形式**：YouTube 影片教材（D97）：依每句時間播放官方影片，不產生音檔（不花聲音額度）。存成**官方草稿**（私人、未發布），類別「演講與故事」，Elephants Dream 中級、Sprite Fright 高級（英式俚語、語速快）。管理員在「官方教材」頁看過後發布。
+  - 讓 YouTube 官方教材可以發布：發布檢查改成「每句有音檔，或 YouTube 教材每句有時間」；後台清單顯示「YouTube 影片」而不是音檔進度。
+- **翻譯與講解**：真實 API（Azure gpt-5-mini），`npm run blender:drafts` 先印出計畫與最壞情況（US$0.30），加 `BLENDER_YES=1` 才執行；每次呼叫前檢查剩餘額度。**實際花費 US$0.0896**（35 次呼叫，含被內容過濾擋下的一次 US$0.0077）。
+- **人工修正草稿**（草稿未發布，直接修改）：
+  - 單獨一句「Emo?」被譯成「情緒搖滾？」（只看到一個字，模型當成音樂類型），改成「Emo？」並把講解換成人名說明；「起床，Emo」→「起來，Emo」；「真他媽的超可愛」→「真的超級可愛」。
+  - 規則跟著改：人名檢查原本略過句首的字，現在只要那個字在別句被當成名字，句首也算；整句只有人名時，翻譯可以只有人名（發布前檢查與品質稽核都適用）。
+- **要改時**：`lib/blender-films.ts`（片段、標題）、`scripts/blender-drafts.record.ts`、`data/subtitles/`、`lib/youtube.ts` 的 `storedAttribution`。
