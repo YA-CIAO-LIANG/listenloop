@@ -32,6 +32,7 @@
     "subtitles:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.subtitles.config.mts --silent=false",
     "usability": "playwright test --config usability/playwright.config.ts",
     "qa": "playwright test --config qa/playwright.config.ts",
+    "portfolio:screenshots": "node --env-file=.env.local scripts/portfolio-screenshots.mts",
     "qa:summary": "node qa/summary.mts"
   },
   "dependencies": {
