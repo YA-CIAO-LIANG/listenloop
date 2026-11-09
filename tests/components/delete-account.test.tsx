@@ -88,12 +88,13 @@ describe("DeleteAccount", () => {
 });
 
 describe("SiteFooter", () => {
-  it("links pricing, the terms, refund and privacy policies, credits, and feedback (D60, D85)", () => {
+  it("links topics, pricing, the terms, refund and privacy policies, credits, and feedback (D60, D85, D116)", () => {
     renderWithIntl(<SiteFooter />, "en");
     const nav = screen.getByRole("navigation", { name: "Site information" });
     expect(
       [...nav.querySelectorAll("a")].map((a) => a.getAttribute("href")),
     ).toEqual([
+      "/learn",
       "/pricing",
       "/terms",
       "/refund",
