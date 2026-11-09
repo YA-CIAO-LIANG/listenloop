@@ -149,7 +149,7 @@ Shown after a dictation answer or a shadowed sentence:
   - Streak and practice time a day (only while the page is in front and you're active);
   - Accuracy over time (weighted and raw), each material's Day 1 and Day 7;
   - Your 10 most-misheard words, categories and levels you practice (full charts on Plus and above);
-  - **Points**: +10 for each day, +2 for each perfect sentence, +5 for streaks; points unlock accent colors.
+  - **Points**: +10 for each day, +2 for each perfect sentence, +5 for streaks; points unlock accent colors and background themes.
 
 ---
 
@@ -203,6 +203,7 @@ flowchart LR
 
 ## 12. Account and privacy
 
+- **Background themes**: on the account page, change the page background (19, each with a light and a dark version) and preview any of them on the whole page first; some are free, some open with points. Animated ones (stars, rain) stand still when your device asks for reduced motion.
 - **Practice reminders**: turn on a daily reminder on the account page and pick a time; no reminder once you have practiced that day.
 - **Account page**: sign out, download my data (JSON), delete my account (tick to confirm; permanent).
 - We keep only what's needed (progress, events, what you choose to report); no recordings.
@@ -212,6 +213,8 @@ flowchart LR
 ---
 
 ## 13. Questions
+
+- **Are there guides?** The footer's "Articles" link has guides (in Chinese) on linking, dictation, TOEIC, and everyday English for studying abroad, each with lessons to practice.
 
 | Question                                 | Answer                                                                                                                                                    |
 | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -238,4 +241,4 @@ flowchart LR
 
 ---
 
-Last updated: 2026-11-11
+Last updated: 2026-11-12
