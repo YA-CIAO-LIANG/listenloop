@@ -13,7 +13,11 @@ import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { RewardStore } from "@/lib/storage/reward-store";
 import { createSyncedStores } from "@/lib/storage/synced-stores";
-import { getBrowserSupabase } from "@/lib/supabase/browser";
+import {
+  accountsConfigured,
+  loadBrowserSupabase,
+  type Supabase,
+} from "@/lib/supabase/browser";
 import { syncWithCloud } from "@/lib/sync/sync";
 
 export type Stores = { progress: ProgressStore; rewards: RewardStore };
@@ -62,8 +66,12 @@ export function StoresProvider({
   children: ReactNode;
 }) {
   const [cloud] = useState(() => {
-    const supabase = userId ? getBrowserSupabase() : null;
-    return supabase && userId ? createCloudData(supabase, userId) : null;
+    if (!userId || !accountsConfigured) return null;
+    // Configured, so never null; loaded in the background (D120).
+    return createCloudData(
+      () => loadBrowserSupabase() as Promise<Supabase>,
+      userId,
+    );
   });
   const [stores, setStores] = useState<Stores>(() =>
     cloud

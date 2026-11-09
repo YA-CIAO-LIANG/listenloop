@@ -25,7 +25,7 @@ const auth = vi.hoisted(() => ({
   signOut: vi.fn(),
 }));
 vi.mock("@/lib/supabase/browser", () => ({
-  getBrowserSupabase: () => ({ auth }),
+  loadBrowserSupabase: async () => ({ auth }),
 }));
 
 beforeEach(() => {

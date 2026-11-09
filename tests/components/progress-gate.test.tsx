@@ -10,7 +10,10 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => new URLSearchParams(),
 }));
 // No cloud in these tests: the provider keeps to this device.
-vi.mock("@/lib/supabase/browser", () => ({ getBrowserSupabase: () => null }));
+vi.mock("@/lib/supabase/browser", () => ({
+  loadBrowserSupabase: async () => null,
+  accountsConfigured: false,
+}));
 
 function renderGate(props: { userId: string | null; accounts: boolean }) {
   renderWithIntl(

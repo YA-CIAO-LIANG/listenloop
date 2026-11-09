@@ -33,7 +33,7 @@ import {
   SentenceRowDemo,
   VoiceMenuDemo,
 } from "./InteractiveDemos";
-import { PixelFishSection } from "./PixelFishSection";
+import { PixelFishLazy } from "./PixelFishLazy";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("styleguide");
@@ -184,7 +184,7 @@ export default function StyleguidePage() {
 
       {AQUARIUM_ENABLED && (
         <Section title={t("sections.pixelFish")}>
-          <PixelFishSection />
+          <PixelFishLazy />
         </Section>
       )}
 

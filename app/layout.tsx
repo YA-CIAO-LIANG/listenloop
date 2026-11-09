@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { canCreatePractices } from "@/auth/creator";
 import { getSignedInUser } from "@/auth/session";
@@ -14,6 +14,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
 import { StoresProvider } from "@/components/StoresProvider";
+import { clientMessages } from "@/lib/i18n/client-messages";
 import { planFor } from "@/lib/plans";
 import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "./fonts";
@@ -73,8 +74,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="flex min-h-full flex-col">
-        {/* Inherits locale and messages from i18n/request.ts. */}
-        <NextIntlClientProvider>
+        {/* The locale from i18n/request.ts; only the messages Client
+            Components use everywhere (D120). */}
+        <NextIntlClientProvider messages={clientMessages(await getMessages())}>
           <PlanProvider plan={planFor(user)}>
             {/* Signed in: progress syncs with the account (b3). */}
             <StoresProvider

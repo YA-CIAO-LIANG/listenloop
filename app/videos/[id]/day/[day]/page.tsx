@@ -3,8 +3,7 @@ import { oneLineTitle } from "@/lib/titles";
 import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { DayGate } from "@/components/DayGate";
-import { DictationSession } from "@/components/DictationSession";
-import { ShadowingSession } from "@/components/ShadowingSession";
+import { DaySession } from "@/components/DaySession";
 import { VersionGate } from "@/components/VersionGate";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import type { CycleDay } from "@/lib/cycle";
@@ -107,25 +106,14 @@ export default async function DayPage({
           })}
           day={n}
         >
-          {isShadowingDay(n) ? (
-            <ShadowingSession
-              video={video}
-              day={n}
-              title={title}
-              startInRetry={startInRetry}
-            >
-              {below}
-            </ShadowingSession>
-          ) : (
-            <DictationSession
-              video={video}
-              day={n === 7 ? 7 : 1}
-              title={title}
-              startInRetry={startInRetry}
-            >
-              {below}
-            </DictationSession>
-          )}
+          <DaySession
+            video={video}
+            day={n}
+            title={title}
+            startInRetry={startInRetry}
+          >
+            {below}
+          </DaySession>
         </DayGate>
       </VersionGate>
     </main>

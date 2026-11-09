@@ -24,7 +24,6 @@ export const ADMIN_SECTIONS = [
   { id: "audit", href: "/admin/audit" },
   { id: "docs", href: "/admin/docs" },
 ] as const;
-export type AdminSection = (typeof ADMIN_SECTIONS)[number]["id"];
 
 /** Supabase Free (checked 2026-11-06, D46): database and file storage. */
 export const SUPABASE_FREE = {

@@ -47,8 +47,3 @@ export function loadYouTubeApi(timeoutMs = 15_000): Promise<typeof YT> {
   });
   return pending;
 }
-
-/** Test-only: forget a cached load between tests. */
-export function resetYouTubeApiForTests() {
-  pending = null;
-}

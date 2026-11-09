@@ -247,7 +247,6 @@
     "states": {
       "segmented": "分段（30 句以內）",
       "continuous": "連續（超過 30 句）",
-      "belowPass": "未達標",
       "pass": "通過",
       "percent": "百分比（建立練習的等待）"
     },
@@ -286,7 +285,6 @@
       "whaleSharkNote": "最大、游得最慢：扁寬的頭與前端寬嘴、白色斑點與淡條紋、白腹。"
     },
     "heatScale": "練習日曆色階：當天完成 0、1、2、3、4 個以上的正式任務",
-    "voicePickerNote": "建立練習時選擇聲音用。試聽播放的是 Azure Speech 神經語音預先產生的範例句，放在 public/voices/，不花用量。",
     "voiceMenuNote": "新的聲音選單（e+ 3，取代下方的聲音卡片，確認後才換到建立練習）：依口音分組，每組附一句口音特色，每個聲音可以試聽。方向鍵移動、Enter 選定，Esc 關閉。",
     "marks": {
       "before": "I was",
@@ -354,19 +352,6 @@
       "perDay": "每天約 {minutes} 分鐘",
       "target": "目標 {target}",
       "mine": "你建立的"
-    },
-    "length": {
-      "buckets": {
-        "0-1": "1 分鐘以內",
-        "1-2": "1～2 分鐘",
-        "2-3": "2～3 分鐘",
-        "3-4": "3～4 分鐘",
-        "4-5": "4～5 分鐘",
-        "5-6": "5～6 分鐘",
-        "6-7": "6～7 分鐘",
-        "7-8": "7～8 分鐘",
-        "8-plus": "8 分鐘以上"
-      }
     },
     "defaults": {
       "save": "存為我的預設篩選",
@@ -468,7 +453,6 @@
     "inputLabel": "你聽到的句子",
     "placeholder": "在這裡輸入你聽到的句子…",
     "submit": "送出",
-    "enterHint": "按 Enter 送出",
     "yourAnswer": "你的答案",
     "correctAnswer": "正確答案",
     "noAnswer": "（未作答）",
@@ -766,7 +750,6 @@
   "create": {
     "title": "建立練習",
     "intro": "上傳一份中文或英文的文字檔，或讓 AI 依情境生成英文文字，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。免費方案可以試做 1 份。",
-    "titleLabel": "標題",
     "textLabel": "文字內容",
     "textHint": "可以直接貼上，或選擇 .txt 檔。每一行會分開斷句。",
     "chooseFile": "選擇 .txt 檔",
@@ -1124,7 +1107,6 @@
     "today": "今天（所有帳號）",
     "todayNote": "{calls} 次呼叫；每人每天上限 {limit}",
     "month": "本月估算費用",
-    "monthNote": "所有供應者，台灣時間每月 1 日重新計算",
     "credit": "學生額度估計剩餘",
     "creditNote": "Azure 累計 {spent}／US${total}，{endsOn} 到期",
     "speech": "本月 Azure 聲音字元",
@@ -1277,7 +1259,6 @@
     "customLabel": "想練什麼？（選填）",
     "customRequired": "想練什麼？（必填）",
     "customHint": "用自己的話描述情境、主題或關鍵字，中文或英文都可以。選了上方的情境也可以在這裡補充細節。",
-    "titleLabel": "標題（選填）",
     "titleHint": "只填中文或英文都可以：填了的會原樣保留，另一種語言由 AI 產生；都沒填的話由 AI 依內容取雙語標題。生成或斷句後都可以修改。",
     "customPlaceholder": "例如：跟教授請病假並詢問補交作業",
     "customCategoryOption": "自訂類別…",
@@ -2330,42 +2311,9 @@
   "pricing": {
     "title": "方案與價格",
     "intro": "官方教材和 7 天循環的練習都免費。想用 AI 把自己的文章、主題或影片變成教材，或完整練習其他人分享的教材，再選付費方案。",
-    "comingSoon": "即將推出",
-    "testMode": "測試模式：付款只是模擬，不會真的扣款。",
     "intervalLabel": "付款週期",
     "monthly": "月繳",
-    "yearly": "年繳",
-    "free": {
-      "title": "免費",
-      "price": "NT$0",
-      "features": {
-        "f1": "所有官方教材與 7 天循環練習",
-        "f2": "聽寫、跟讀、雙語講義與 PDF",
-        "f3": "試做 1 份自己的教材"
-      }
-    },
-    "paid": {
-      "title": "付費",
-      "perMonth": "NT${amount, number} / 月",
-      "perYear": "NT${amount, number} / 年",
-      "yearlyNote": "平均每月 NT${amount, number}",
-      "features": {
-        "f1": "免費方案的全部內容",
-        "f2": "每月建立 {max} 份自己的教材",
-        "f3": "每份最多 {chars, number} 字"
-      },
-      "signIn": "登入後就能訂閱。從頁首右上角的「登入」用 Google 帳號登入。",
-      "current": "你目前是付費方案。",
-      "manage": "管理訂閱",
-      "subscribeMonth": "訂閱月繳 NT${amount, number}",
-      "subscribeYear": "訂閱年繳 NT${amount, number}"
-    },
-    "notes": {
-      "renew": "自動續訂，可以隨時在「帳號」頁取消，取消後用到這一期結束。",
-      "refund": "第一次付款後 {days} 天內可以申請全額退款，詳見退款政策。"
-    },
-    "refundLink": "退款政策",
-    "termsLink": "服務條款"
+    "yearly": "年繳"
   },
   "checkout": {
     "fakeTitle": "測試結帳",

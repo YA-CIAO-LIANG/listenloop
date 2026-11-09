@@ -19,14 +19,6 @@ export const FIX_KINDS = [
 ] as const;
 export type FixKind = (typeof FIX_KINDS)[number];
 
-export const FIX_STATUSES = [
-  "pending",
-  "accepted",
-  "rejected",
-  "stale",
-] as const;
-export type FixStatus = (typeof FIX_STATUSES)[number];
-
 /** Full-width Latin letters and digits (Ａ–Ｚ, ａ–ｚ, ０–９). */
 const FULL_WIDTH = /[０-９Ａ-Ｚａ-ｚ]/g;
 

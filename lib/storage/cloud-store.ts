@@ -23,14 +23,20 @@ export type CloudData = {
 
 const asJson = (value: unknown) => value as Json;
 
-export function createCloudData(supabase: Supabase, userId: string): CloudData {
+/** `client` gives the Supabase client, loaded on first use (D120). */
+export function createCloudData(
+  client: () => Promise<Supabase>,
+  userId: string,
+): CloudData {
   const fail = (error: { message: string } | null) => {
     if (error) throw new Error(`Cloud sync failed: ${error.message}`);
   };
 
   return {
     async listProgress() {
-      const { data, error } = await supabase
+      const { data, error } = await (
+        await client()
+      )
         .from("progress")
         .select("video_id, data")
         .eq("user_id", userId);
@@ -45,7 +51,7 @@ export function createCloudData(supabase: Supabase, userId: string): CloudData {
 
     async saveProgress(progress) {
       if (progress.length === 0) return;
-      const { error } = await supabase.from("progress").upsert(
+      const { error } = await (await client()).from("progress").upsert(
         progress.map((p) => ({
           user_id: userId,
           video_id: p.videoId,
@@ -56,7 +62,9 @@ export function createCloudData(supabase: Supabase, userId: string): CloudData {
     },
 
     async removeProgress(videoId) {
-      const { error } = await supabase
+      const { error } = await (
+        await client()
+      )
         .from("progress")
         .delete()
         .eq("user_id", userId)
@@ -65,7 +73,9 @@ export function createCloudData(supabase: Supabase, userId: string): CloudData {
     },
 
     async getActivity() {
-      const { data, error } = await supabase
+      const { data, error } = await (
+        await client()
+      )
         .from("user_documents")
         .select("data")
         .eq("user_id", userId)
@@ -76,7 +86,7 @@ export function createCloudData(supabase: Supabase, userId: string): CloudData {
     },
 
     async saveActivity(activity) {
-      const { error } = await supabase.from("user_documents").upsert({
+      const { error } = await (await client()).from("user_documents").upsert({
         user_id: userId,
         key: ACTIVITY_DOCUMENT,
         data: asJson(activity),

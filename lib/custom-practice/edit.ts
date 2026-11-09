@@ -136,15 +136,6 @@ export function planEdit(
   return { sentences, translate };
 }
 
-export type EditProblem =
-  | "title"
-  | "voice"
-  | "no-sentences"
-  | "too-many"
-  | "sentence-empty"
-  | "sentence-too-long"
-  | "notes";
-
 /**
  * Checks each sentence's notes as the browser sent them: null, or notes
  * that keep every item once checked (none dropped as malformed). The
