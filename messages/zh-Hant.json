@@ -1338,6 +1338,7 @@
       "materials": "公開教材",
       "reports": "檢舉審查",
       "sentences": "容易出錯的句子",
+      "fixes": "待審修正",
       "usage": "API 用量",
       "events": "操作紀錄",
       "feedback": "意見回饋",
@@ -1733,6 +1734,48 @@
       "noCategory": "未分類",
       "empty": "還沒有資料。",
       "how": "算法：第 N 天留存＝註冊至少 N 天的使用者中，在註冊後第 N 天（台灣日期）有任何操作紀錄的比例；註冊太早、那天已超出紀錄保留期的不計入。每週活躍是 7 天內有操作的人數。完成率以「一個人、一份教材」為單位，有完成過第 7 天就算完成。"
+    },
+    "fixes": {
+      "title": "待審修正",
+      "intro": "品質稽核與規則找到的修正建議。每筆顯示原文、建議與理由；按「接受」才會寫入教材，並記錄在管理稽核。教材在建議之後被改過的，接受時會略過並標成「已過期」。",
+      "filter": "依類型篩選",
+      "all": "全部",
+      "none": "目前沒有待審的修正。",
+      "where": "第 {n} 句 · {kind}",
+      "current": "現在",
+      "suggested": "建議",
+      "notesLength": "講解 {before} 字 → {after} 字",
+      "compare": "比較修改前後的講解",
+      "accept": "接受",
+      "reject": "拒絕",
+      "failed": "沒有儲存成功，請再試一次。",
+      "done": {
+        "accepted": "已接受，已寫入教材。",
+        "rejected": "已拒絕。",
+        "stale": "這句在建議之後被改過，已略過（標成已過期）。"
+      },
+      "kinds": {
+        "full-width": "全形數字",
+        "name": "人名統一",
+        "translation": "翻譯",
+        "long-notes": "講解精簡"
+      },
+      "reasons": {
+        "full-width": "中文裡的英文字母與數字一律用半形（例如「4號月台」）。",
+        "name": "人名保留英文，整份教材寫法一致。",
+        "translation": "翻譯修正。",
+        "long-notes": "講解超過 1,100 字，一句聽完要讀太久；依規則精簡，重點、意群與第一個例句都保留。"
+      },
+      "steps": {
+        "oneExample": "每個單字與文法只留 1 個例句",
+        "twoCollocations": "常見搭配最多 2 個",
+        "twoConnected": "連音說明最多 2 個",
+        "noPitfalls": "拿掉文法的「常見錯誤」",
+        "twoVocab": "單字最多 2 個（句子裡出現的優先）",
+        "oneGrammar": "文法最多 1 個",
+        "noCollocations": "拿掉常見搭配",
+        "oneConnected": "連音說明最多 1 個"
+      }
     }
   },
   "events": {

@@ -1,10 +1,14 @@
+import { hasFullWidth, inconsistentNames, textLength } from "./content-fixes";
 import { parseRichNotes } from "./custom-practice/rich-notes";
+import { LONG_NOTES_CHARS } from "./official-audit";
 import { SUBTITLE_MAX } from "./videos";
 
 /**
  * Checks an official material before it's published by a batch (D99):
  * both titles, a subtitle, every sentence translated and voiced, and
- * notes in the current format within their limits. Anything missing
+ * notes in the current format within their limits; since the quality
+ * audit (D117), also half-width digits and letters in the Chinese, names
+ * written one way, and notes short enough to read. Anything missing
  * keeps it a draft for Joe to look at; the problems say what.
  */
 export type OfficialCandidate = {
@@ -27,7 +31,10 @@ export type OfficialProblem =
   | "translation"
   | "audio"
   | "notes"
-  | "noVocabulary";
+  | "noVocabulary"
+  | "fullWidth"
+  | "names"
+  | "longNotes";
 
 /** At least this many sentences make a lesson. */
 export const MIN_OFFICIAL_SENTENCES = 3;
@@ -73,6 +80,17 @@ export function officialProblems(
   if (notes.some((n) => n === null)) problems.push("notes");
   else if (notes.every((n) => n!.vocab.length === 0)) {
     problems.push("noVocabulary");
+  }
+  if (
+    [candidate.titleZh, candidate.subtitle, ...sentences.map((s) => s.zh)].some(
+      (text) => !!text && hasFullWidth(text),
+    )
+  ) {
+    problems.push("fullWidth");
+  }
+  if (inconsistentNames(sentences).length > 0) problems.push("names");
+  if (sentences.some((s) => textLength(s.notes) > LONG_NOTES_CHARS)) {
+    problems.push("longNotes");
   }
   return problems;
 }

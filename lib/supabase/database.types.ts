@@ -351,6 +351,65 @@ export type Database = {
         };
         Relationships: [];
       };
+      content_fixes: {
+        Row: {
+          created_at: string;
+          current: Json;
+          detail: Json;
+          field: string;
+          id: string;
+          kind: string;
+          practice_id: string;
+          reason: string | null;
+          resolved_at: string | null;
+          resolved_by: string | null;
+          sentence_index: number;
+          source: string;
+          status: string;
+          suggested: Json;
+        };
+        Insert: {
+          created_at?: string;
+          current: Json;
+          detail?: Json;
+          field: string;
+          id?: string;
+          kind: string;
+          practice_id: string;
+          reason?: string | null;
+          resolved_at?: string | null;
+          resolved_by?: string | null;
+          sentence_index: number;
+          source: string;
+          status?: string;
+          suggested: Json;
+        };
+        Update: {
+          created_at?: string;
+          current?: Json;
+          detail?: Json;
+          field?: string;
+          id?: string;
+          kind?: string;
+          practice_id?: string;
+          reason?: string | null;
+          resolved_at?: string | null;
+          resolved_by?: string | null;
+          sentence_index?: number;
+          source?: string;
+          status?: string;
+          suggested?: Json;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "content_fixes_practice_id_fkey";
+            columns: ["practice_id"];
+            isOneToOne: false;
+            referencedRelation: "practices";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       error_logs: {
         Row: {
           created_at: string;

@@ -11,6 +11,7 @@ import {
 } from "@/lib/ai/budgets";
 import type { Billed, TextLanguage } from "@/lib/ai/types";
 import type { GrammarPoint, VocabItem } from "@/lib/videos";
+import { halfWidth, halfWidthDeep, shortenNotes } from "@/lib/content-fixes";
 import { sha256Hex } from "./hash";
 import {
   cleanRichNotes,
@@ -356,8 +357,13 @@ export async function translateCached(
   languages: { from: TextLanguage; to: TextLanguage },
 ): Promise<MeteredResult<string[]>> {
   const keyOf = (text: string) => JSON.stringify({ ...languages, text });
+  // Chinese gets half-width digits and letters (D117), cached or new.
   const checkLine = (value: unknown) =>
-    typeof value === "string" && value.trim() ? value.trim() : null;
+    typeof value === "string" && value.trim()
+      ? languages.to === "zh-Hant"
+        ? halfWidth(value.trim())
+        : value.trim()
+      : null;
   const hashes = await Promise.all(
     texts.map((text) => cacheHash(deps, "translation", keyOf(text))),
   );
@@ -406,8 +412,12 @@ export function richNotesFromModel(
       byIndex.set(index as number, item);
     }
   }
+  // Half-width digits and letters, and short enough to read (D117).
   return sentences.map(
-    (en, i) => cleanRichNotes(byIndex.get(i), en) ?? emptyRichNotes(en),
+    (en, i) =>
+      shortenNotes(
+        halfWidthDeep(cleanRichNotes(byIndex.get(i), en) ?? emptyRichNotes(en)),
+      ).notes,
   );
 }
 

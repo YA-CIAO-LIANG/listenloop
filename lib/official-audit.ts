@@ -1,3 +1,4 @@
+import { hasFullWidth, inconsistentNames, textLength } from "./content-fixes";
 import { parseRichNotes } from "./custom-practice/rich-notes";
 import { normalizeWords } from "./scoring/normalize";
 import { SUBTITLE_MAX } from "./videos";
@@ -15,6 +16,8 @@ export const LONG_SENTENCE_WORDS = 30;
  * longest 3%) are too much to read after one sentence. */
 export const LONG_NOTES_CHARS = 1_100;
 
+export { textLength };
+
 export type AuditMaterial = {
   id: string;
   titleEn: string | null;
@@ -31,7 +34,14 @@ export type AuditMaterial = {
 export type AuditIssue =
   | { kind: "titleEn" | "titleZh" | "subtitle" }
   | {
-      kind: "translation" | "audio" | "longSentence" | "longNotes" | "noNotes";
+      kind:
+        | "translation"
+        | "audio"
+        | "longSentence"
+        | "longNotes"
+        | "noNotes"
+        | "fullWidth"
+        | "name";
       sentence: number;
       detail?: number;
     };
@@ -39,16 +49,6 @@ export type AuditIssue =
 const hasHan = (text: string) => /\p{Script=Han}/u.test(text);
 const filled = (text: string | null): text is string =>
   !!text && text.trim() !== "";
-
-/** Characters of text in stored notes (every string, no field names). */
-export function textLength(value: unknown): number {
-  if (typeof value === "string") return [...value].length;
-  if (Array.isArray(value)) return value.reduce((n, v) => n + textLength(v), 0);
-  if (typeof value === "object" && value !== null) {
-    return Object.values(value).reduce((n: number, v) => n + textLength(v), 0);
-  }
-  return 0;
-}
 
 /** The rules: what's missing, too long, or not translated. */
 export function ruleIssues(material: AuditMaterial): AuditIssue[] {
@@ -70,6 +70,10 @@ export function ruleIssues(material: AuditMaterial): AuditIssue[] {
       issues.push({ kind: "translation", sentence });
     }
     if (!filled(s.audioPath)) issues.push({ kind: "audio", sentence });
+    // D117: full-width digits or letters in the Chinese.
+    if (filled(s.zh) && hasFullWidth(s.zh)) {
+      issues.push({ kind: "fullWidth", sentence });
+    }
     const words = normalizeWords(s.en).length;
     if (words > LONG_SENTENCE_WORDS) {
       issues.push({ kind: "longSentence", sentence, detail: words });
@@ -86,6 +90,10 @@ export function ruleIssues(material: AuditMaterial): AuditIssue[] {
       }
     }
   });
+  // D117: a name kept in English in one translation, translated in another.
+  for (const { sentences } of inconsistentNames(material.sentences)) {
+    for (const sentence of sentences) issues.push({ kind: "name", sentence });
+  }
   return issues;
 }
 

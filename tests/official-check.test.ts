@@ -79,3 +79,29 @@ describe("officialProblems (D99)", () => {
     ).toEqual(["titleEn", "tooFewSentences"]);
   });
 });
+
+describe("officialProblems: the quality audit's problems (D117)", () => {
+  it("finds full-width digits, names written two ways, and long notes", async () => {
+    const base = await candidate();
+    const long = {
+      ...notesFor("Long"),
+      vocab: [
+        {
+          ...notesFor("Long").vocab[0],
+          zh: "很長的說明".repeat(300),
+        },
+      ],
+    };
+    expect(
+      officialProblems({
+        ...base,
+        subtitle: "４號月台",
+        sentences: [
+          { ...base.sentences[0], en: "Hi, I'm Alex.", zh: "嗨，我是 Alex。" },
+          { ...base.sentences[1], en: "Thanks, Alex.", zh: "謝了，亞歷克斯。" },
+          { ...base.sentences[2], notes: long },
+        ],
+      }),
+    ).toEqual(["fullWidth", "names", "longNotes"]);
+  });
+});
