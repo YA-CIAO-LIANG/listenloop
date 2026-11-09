@@ -1,5 +1,6 @@
 import {
   annotateBudget,
+  auditBudget,
   composeBudget,
   describeBudget,
   newsBudget,
@@ -12,6 +13,7 @@ import { postGoogleJson, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA, toGeminiSchema } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
+  AUDIT_INSTRUCTIONS,
   composeInstructions,
   DESCRIBE_INSTRUCTIONS,
   NEWS_INSTRUCTIONS,
@@ -72,6 +74,25 @@ const REVISION_SCHEMA = {
   type: "OBJECT",
   properties: { lines: { type: "ARRAY", items: STRING } },
   required: ["lines"],
+} as const;
+
+const AUDIT_SCHEMA = {
+  type: "OBJECT",
+  properties: {
+    items: {
+      type: "ARRAY",
+      items: {
+        type: "OBJECT",
+        properties: {
+          i: { type: "INTEGER" },
+          ok: { type: "BOOLEAN" },
+          issue: STRING,
+        },
+        required: ["i", "ok", "issue"],
+      },
+    },
+  },
+  required: ["items"],
 } as const;
 
 const TRANSLATIONS_SCHEMA = {
@@ -223,6 +244,14 @@ export function geminiLanguage(
         material,
         DESCRIPTION_SCHEMA,
         describeBudget(material),
+      );
+    },
+    async auditTranslations(input) {
+      return generate(
+        AUDIT_INSTRUCTIONS,
+        input,
+        AUDIT_SCHEMA,
+        auditBudget(input),
       );
     },
     async rewriteNews(input) {

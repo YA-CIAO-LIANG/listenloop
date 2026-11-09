@@ -54,6 +54,13 @@ export const fakeLanguage: LanguageProvider = {
       [title, text],
     );
   },
+  // Every translation passes (D115).
+  async auditTranslations({ pairs }) {
+    return free(
+      { items: pairs.map((_, i) => ({ i, ok: true, issue: "" })) },
+      pairs.flatMap((p) => [p.en, p.zh]),
+    );
+  },
   // A fixed story from the headline, about as long as asked (D100).
   async rewriteNews({ headline, words }) {
     const line = "Scientists shared new results with the public this week.";

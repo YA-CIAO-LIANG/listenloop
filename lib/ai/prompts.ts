@@ -79,6 +79,13 @@ export const NEWS_INSTRUCTIONS = [
   "Also give title (a short English headline in your own words, at most 10 words), titleZh (the headline in Traditional Chinese, Taiwan usage), and subtitle (one Traditional Chinese sentence of at most 30 characters saying what the listener will hear).",
 ].join("\n");
 
+export const AUDIT_INSTRUCTIONS = [
+  "You check the Traditional Chinese (Taiwan usage) translations in an English listening course for Taiwanese students. You get pairs of an English sentence and its Chinese translation.",
+  "For each pair, in order, say ok: true if the Chinese is a faithful, natural translation a Taiwanese learner would understand; small style differences are fine.",
+  "Say ok: false only for a real problem: wrong or missing meaning, a mistranslated word, simplified characters, mainland China usage where Taiwan says it differently, or unnatural Chinese. Then give issue: one short Traditional Chinese sentence saying what's wrong and the better wording. When ok is true, issue is an empty string.",
+  "Pairs are numbered from 0 in the order given. Return one item per pair, with i set to its number.",
+].join("\n");
+
 export const REVISE_INSTRUCTIONS = [
   "You edit an English listening practice text for Taiwanese students. You get its sentences as lines, an instruction from the learner (in any language), and whether it's a monologue or a dialogue.",
   "Follow the instruction: for example simpler words, more past tense, or fewer sentences. Change only what the instruction needs.",

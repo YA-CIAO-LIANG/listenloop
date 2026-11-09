@@ -1,7 +1,12 @@
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 import { tokenCost, type TokenPrice } from "./pricing";
-import type { DescribeInput, NewsInput, RevisionInput } from "./types";
+import type {
+  AuditInput,
+  DescribeInput,
+  NewsInput,
+  RevisionInput,
+} from "./types";
 
 /**
  * How big each language-model call may get (D38). The cap on output
@@ -16,7 +21,8 @@ export type LanguageOperation =
   | "compose"
   | "describe"
   | "revise"
-  | "news";
+  | "news"
+  | "audit";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -101,6 +107,15 @@ export function newsBudget(input: NewsInput): LanguageBudget {
     operation: "news",
     inputChars: countChars([input.headline, input.summary, input.level]),
     maxOutputTokens: capped(input.words * 2 + 300, 3_000),
+  };
+}
+
+/** Checking translations (D115): a short verdict for each pair. */
+export function auditBudget(input: AuditInput): LanguageBudget {
+  return {
+    operation: "audit",
+    inputChars: countChars(input.pairs.flatMap((p) => [p.en, p.zh])),
+    maxOutputTokens: capped(input.pairs.length * 80 + 200, 4_000),
   };
 }
 
