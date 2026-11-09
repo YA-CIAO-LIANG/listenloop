@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getVideosByCollection } from "@/lib/video-library";
+import { BLOG_POSTS, blogPath } from "@/lib/blog";
 import { LEARN_CATEGORIES, learnPath } from "@/lib/learn";
 import { PUBLIC_PATHS, SITE_URL } from "@/lib/site";
 
@@ -25,6 +26,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.8,
     })),
+    // Articles (D122).
+    ...["/blog", ...BLOG_POSTS.map((post) => blogPath(post.slug))].map(
+      (path) => ({
+        url: `${SITE_URL}${path}`,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+      }),
+    ),
     ...videos.map((video) => ({
       url: `${SITE_URL}/videos/${video.id}`,
       changeFrequency: "monthly" as const,

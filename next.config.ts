@@ -10,7 +10,10 @@ const withNextIntl = createNextIntlPlugin();
 // becomes the default (see docs: migrating-to-cache-components).
 const nextConfig: NextConfig = {
   // The admin's system documents are read from docs/system/ at request time.
-  outputFileTracingIncludes: { "/admin/docs": ["./docs/system/**/*.md"] },
+  outputFileTracingIncludes: {
+    "/admin/docs": ["./docs/system/**/*.md"],
+    "/blog/[slug]": ["./content/blog/*.md"],
+  },
   // On every response, pages and files alike (D63).
   async headers() {
     return [

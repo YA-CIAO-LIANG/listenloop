@@ -2195,3 +2195,17 @@
   - 所有背景都能「預覽」整個頁面，未解鎖的也可以，但只能套用已解鎖的。
 - **設定頁**：放在「帳號設定」（`/account`）。分數來自這台裝置與帳號同步的練習紀錄，所以要登入。
 - **要改時**：`lib/backgrounds.ts`（改完執行 `npm run backgrounds:css`）、`lib/background-ids.ts`、`components/BackgroundPicker.tsx`、翻譯檔 `backgrounds`。
+
+## D122 行銷素材第二部分與 SEO 文章（2026-11-12，Joe 指定）
+
+- **文件**（`docs/marketing/`，繁體中文為主）：短影音腳本 10 支（`short-videos.md`）、論壇分享文與發文注意（`forum-posts.md`）、合作邀請信 4 種對象（`partnership-letters.md`，中英文）、等候名單早鳥與歡迎信（`emails.md`，中英文）、推薦好友計畫規劃（`referral-program.md`，只規劃不實作）、媒體資料包（`press-kit.md`，中英文）、ASO 關鍵字（`aso.md`，中英文各 20 個）、上線第一個月行銷計畫（`launch-month-plan.md`）。
+  - **哪些附英文版**：需要對外國人或海外使用的——合作信（海外同學會、外籍老師）、Email（英文介面使用者）、媒體資料包、ASO。短影音、論壇、行銷計畫以台灣市場為主，只有中文。
+  - **商店資料**：`docs/play-store.md` 依 ASO 關鍵字改寫，並更新已改變的規則（通關條件、公開教材付費）；英文簡短說明控制在 80 字元內。
+  - 早鳥優惠的數字、創辦人介紹、聯絡方式是建議或空欄，由 Joe 決定與填寫。
+- **SEO 文章**放進網站（`/blog`、`/blog/<slug>`，公開、可被搜尋）：
+  - 5 篇：英文聽力聽不清楚的 5 個原因、連音規則、多益聽力怎麼練、留學前必練的生活英文、聽寫練習法。
+  - 文章內容是**內容**而不是介面文字，所以放在 `content/blog/*.md`（繁體中文，搜尋的人是台灣學生）；標題、摘要、日期、相關主題在 `lib/blog.ts`；頁面上的標籤（返回、相關教材等）照規則放在翻譯檔 `blog`。英文介面的說明會提到文章是中文。
+  - 每篇內文連到實際的官方教材（`/videos/p-…`），文末列出相關主題的官方教材（最多 6 份）與主題頁連結；測試檢查每個內部連結的格式、文章互連存在、全形英數字（D117 的規則）。
+  - SEO：每篇有自己的標題、描述、canonical、Open Graph（article）；加入 `sitemap.xml`；頁尾新增「學習文章」。沒有 JSON-LD（同 D116，CSP 的 nonce 要另外處理）。
+  - 翻譯檔 `blog` 只在伺服器使用，不送到瀏覽器（D120）。
+- **要改時**：`lib/blog.ts`、`content/blog/`、`app/blog/`。新增文章：寫一個 `.md`、在 `BLOG_POSTS` 加一筆。

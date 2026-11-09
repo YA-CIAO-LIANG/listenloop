@@ -20,6 +20,9 @@ export function SiteFooter() {
         <Link href="/learn" className={linkClassName}>
           {t("learn")}
         </Link>
+        <Link href="/blog" className={linkClassName}>
+          {t("blog")}
+        </Link>
         <Link href="/pricing" className={linkClassName}>
           {t("pricing")}
         </Link>

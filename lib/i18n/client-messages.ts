@@ -13,6 +13,7 @@ export const SERVER_ONLY_NAMESPACES = [
   "terms",
   "refund",
   "learn",
+  "blog",
   "metadata",
   "checkout",
   "collections",

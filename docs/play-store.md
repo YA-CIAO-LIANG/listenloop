@@ -6,26 +6,30 @@
 
 ### 繁體中文（預設語言）
 
-- **App 名稱**（30 字以內）：ListenLoop：7 天英語聽力循環
-- **簡短說明**（80 字以內）：一份素材練 7 天：聽寫、跟讀、再聽寫，親眼看見自己聽懂更多。
+> 2026-11-12 依 ASO 關鍵字（`docs/marketing/aso.md`）改寫，並更新已改變的規則：通關條件改為「比第 1 天進步」、公開教材的完整練習是付費功能（D92、D106）。
+
+- **App 名稱**（30 字以內）：ListenLoop：英文聽力練習｜7 天聽寫跟讀
+- **簡短說明**（80 字以內）：英文聽力 7 天循環：聽寫找出漏聽的字、跟讀練語速，第 7 天看見自己聽懂多少。
 - **完整說明**（4000 字以內）：
 
-  ListenLoop 是給台灣學生的英語聽力課程。不是一次聽很多，而是把同一份素材練 7 天，練到每個字都聽得清楚。
+  ListenLoop 是給台灣學生的英文聽力練習。不是一次聽很多，而是把同一段英文練 7 天，練到每個字都聽得清楚——每天 10 分鐘的每日英文習慣。
 
   【7 天循環】
-  ・第 1 天精聽聽寫：逐句播放、打字，逐字比對正確率，完成後看雙語講義（中英對照、單字、文法）。
-  ・第 2～6 天跟讀：聽一句、念一句，語音辨識告訴你漏了哪些字。
-  ・第 7 天再聽寫一次，和第 1 天比較，看見自己的進步。正確率 80% 以上就過關。
+  ・第 1 天英文聽寫：逐句播放、打字，逐字對答案；聽錯的字用螢光筆標出，並說明為什麼難聽懂（連音、弱讀）。完成後看雙語講義：中英對照、英文單字、文法。
+  ・第 2～6 天跟讀：聽一句、念一句，語音辨識告訴你漏念哪些字，順便練英文發音。
+  ・第 7 天再聽寫一次，和第 1 天逐句比較，進步變成數字。
+  ・聽錯的字會在 1、3、7 天後回來複習。
 
-  【素材】
+  【英聽教材】
+  ・官方教材免費：生活英文、旅遊、留學英文、校園、職場、新聞、科普、演講，以及多益聽力、托福聽力、雅思聽力、全民英檢、學測英文風格的原創練習（模仿題型與難度，非真實考題，與考試主辦單位無關）。
+  ・英文會話與獨白，有美式、英式、澳洲、印度口音。
   ・Blender 開放電影等創用 CC 授權影片，一律標示出處。
-  ・ListenLoop 官方教材：生活、旅遊、留學、校園、職場、新聞、科普、演講，以及托福、雅思、多益、全民英檢風格的原創聽力練習（模仿題型與難度，非真實考題，與考試主辦單位無關）。
-  ・其他使用者公開分享的練習。
+  ・付費方案：把自己的文章或影片變成教材、完整練習其他學習者分享的教材（目前尚未開放收費）。
 
   【其他】
-  ・不用登入就能練；用 Google 帳號登入可以在手機和電腦同步進度。
-  ・支援深色模式、中英文介面。
-  ・不放廣告，不販售資料。
+  ・不用登入也能學英文；登入後手機和電腦同步進度、看學習分析。
+  ・深色模式、背景主題、中英文介面。
+  ・不放廣告，不販售資料；錄音不會上傳。
 
 - **應用程式類別**：教育（Education）
 - **標記**：語言學習
@@ -34,26 +38,28 @@
 
 ### English
 
-- **App name**: ListenLoop: 7-Day English Listening
-- **Short description**: One recording, seven days: dictate, shadow, dictate again, and see how much more you hear.
+- **App name**: ListenLoop: English Listening Practice
+- **Short description** (80 characters max): English listening in 7 days: dictate, shadow, and see how much more you hear.
 - **Full description**:
 
-  ListenLoop is an English listening course for learners in Taiwan. Instead of listening to a lot once, you practice one recording for seven days until you can hear every word.
+  ListenLoop is English listening practice for learners in Taiwan. Instead of listening to a lot once, you practice one clip for seven days until you can hear every word: a daily English practice habit of about ten minutes.
 
   Seven-day loop
-  • Day 1, dictation: play each sentence, type what you hear, and see word-by-word accuracy; then read the bilingual handout (English and Chinese, vocabulary, grammar).
-  • Days 2–6, shadowing: hear a sentence, say it back, and speech recognition shows which words you missed.
-  • Day 7, dictation again: compare with Day 1 and see your progress. 80% or more passes the week.
+  • Day 1, dictation: type each sentence and check every word; missed words are highlighted with why they're hard to hear (connected speech, weak forms). Then read the bilingual handout with vocabulary and grammar.
+  • Days 2–6, shadowing: say each sentence back; speech recognition shows which words you missed, which also helps pronunciation.
+  • Day 7, dictation again: compare with Day 1, sentence by sentence.
+  • Missed words come back 1, 3, and 7 days later (spaced repetition).
 
-  Material
+  Lessons
+  • Free official lessons: everyday English, travel, study abroad English, campus, work, news, science, talks, and original TOEIC-, TOEFL-, IELTS-, and GEPT-style listening (format and difficulty only; not real test items, not affiliated with the test makers).
+  • English conversation and monologues with US, UK, Australian, and Indian accents for accent training.
   • Creative Commons films such as Blender's open movies, always credited.
-  • ListenLoop's official materials: daily life, travel, studying abroad, campus, work, news, science, talks, and original TOEFL-, IELTS-, TOEIC-, and GEPT-style listening (format and difficulty only; not real test items, not affiliated with the test makers).
-  • Practices other learners share.
+  • Paid plans: turn your own texts or videos into lessons, and fully practice lessons other learners share (not charged yet).
 
   Also
-  • Practice without signing in; sign in with Google to sync between phone and computer.
-  • Dark mode, Chinese and English interface.
-  • No ads; we don't sell data.
+  • Learn English without signing in; sign in to sync between phone and computer and see your analytics.
+  • Dark mode, background themes, Chinese and English interface. ESL-friendly.
+  • No ads; we don't sell data; recordings never leave your device.
 
 ## 2. 內容分級問卷（IARC）建議答案
 
