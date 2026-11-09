@@ -27,3 +27,10 @@ export function isLaterDay(later: LocalDate, earlier: LocalDate): boolean {
   // Zero-padded YYYY-MM-DD strings sort chronologically.
   return later > earlier;
 }
+
+/** The calendar day `days` after `date` (negative goes back). */
+export function addDays(date: LocalDate, days: number): LocalDate {
+  const [year, month, day] = date.split("-").map(Number);
+  // Noon, so a daylight-saving change never moves it to another day.
+  return toLocalDate(new Date(year, month - 1, day + days, 12));
+}

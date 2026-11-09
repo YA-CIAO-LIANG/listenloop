@@ -8,6 +8,7 @@ import { toLocalDate } from "@/lib/dates";
 import { titleLang } from "@/lib/practice-material";
 import type { Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
+import { dueReviews } from "@/lib/review";
 import { todayTasks, type TodayTask } from "@/lib/today-tasks";
 import { videoTitleLine } from "@/lib/video-library";
 import { ButtonLink } from "./ButtonLink";
@@ -35,6 +36,8 @@ export function TodayTasks({ store }: TodayTasksProps) {
   const stores = useStores();
   const progressStore = store ?? stores.progress;
   const [progresses, setProgresses] = useState<Progress[] | null>(null);
+  // Misheard words due today (D108), from the activity log.
+  const [reviews, setReviews] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -44,10 +47,19 @@ export function TodayTasks({ store }: TodayTasksProps) {
       .then((list) => {
         if (!cancelled) setProgresses(list);
       });
+    stores.rewards
+      .getActivity()
+      .then((activity) => {
+        if (cancelled) return;
+        setReviews(
+          dueReviews(activity.review ?? {}, toLocalDate(new Date())).length,
+        );
+      })
+      .catch(() => {});
     return () => {
       cancelled = true;
     };
-  }, [progressStore]);
+  }, [progressStore, stores.rewards]);
 
   const customTitles = useCustomPracticeTitles(
     progresses?.map((p) => p.videoId),
@@ -102,7 +114,7 @@ export function TodayTasks({ store }: TodayTasksProps) {
     <Card className="space-y-4">
       <h2 className="font-display text-h3">{t("title")}</h2>
       {tasks &&
-        (tasks.length === 0 ? (
+        (tasks.length === 0 && reviews === 0 ? (
           <p className="text-supporting text-ink-muted">
             {t("empty")}{" "}
             <a
@@ -115,6 +127,19 @@ export function TodayTasks({ store }: TodayTasksProps) {
           </p>
         ) : (
           <ul className="divide-y divide-line">
+            {reviews > 0 && (
+              <li className="flex flex-wrap items-center justify-between gap-3 py-3 first:pt-0 last:pb-0">
+                <div className="space-y-1">
+                  <p>{t("reviewLine", { count: reviews })}</p>
+                  <p className="text-supporting text-ink-muted">
+                    {t("reviewNote")}
+                  </p>
+                </div>
+                <ButtonLink href="/review" variant="primary" size="sm" arrow>
+                  {t("reviewStart")}
+                </ButtonLink>
+              </li>
+            )}
             {tasks.map((task) => (
               <li
                 key={task.videoId}

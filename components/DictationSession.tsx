@@ -32,6 +32,7 @@ import {
 import { passRulesOf } from "@/lib/pass-rules";
 import { DEFAULT_SPEED, pace, type Pace, type Speed } from "@/lib/speed";
 import { recordTask } from "@/lib/activity";
+import { addMisses, sentenceMisses } from "@/lib/review";
 import { perfectSentences } from "@/lib/score-points";
 import { logOfficial, logRetry, updateActivity } from "@/lib/claim-rewards";
 import type { Progress } from "@/lib/progress";
@@ -198,15 +199,40 @@ export function DictationSession({
     }
     if (next.days[day]?.done) {
       const today = toLocalDate(new Date());
+      // The words misheard today go on the review list (D108), once.
+      const misses = justFinished
+        ? (next.days[day]?.answers ?? []).flatMap((answer, i) =>
+            typeof answer === "string" && sentences[i]
+              ? sentenceMisses(
+                  {
+                    en: sentences[i].en,
+                    zh: sentences[i].zh,
+                    videoId: video.id,
+                    i,
+                    ...(video.audioUrls?.[i]
+                      ? { audio: video.audioUrls[i] }
+                      : {}),
+                  },
+                  answer,
+                )
+              : [],
+          )
+        : [];
       // Practice history for the home calendar (kept even with rewards off).
-      void updateActivity(stores.rewards, (activity) =>
-        recordTask(activity, today, {
+      void updateActivity(stores.rewards, (activity) => {
+        const logged = recordTask(activity, today, {
           videoId: video.id,
           week: next.week,
           day,
           perfect: perfectSentences(next.days[day], sentences),
-        }),
-      ).catch(() => {});
+        });
+        return misses.length
+          ? {
+              ...logged,
+              review: addMisses(logged.review ?? {}, misses, today, new Date()),
+            }
+          : logged;
+      }).catch(() => {});
       // A finished official day earns points and today's feed.
       void claimAndAnnounce({ progress: progressStore }, logOfficial(today));
     }

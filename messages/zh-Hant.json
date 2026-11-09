@@ -133,7 +133,10 @@
     "tomorrowDay": "第 {day} 天明天開放",
     "tomorrowWeek": "第 {week} 週明天開始",
     "start": "開始",
-    "retry": "再練一次"
+    "retry": "再練一次",
+    "reviewLine": "錯字複習：{count} 個字",
+    "reviewStart": "開始複習",
+    "reviewNote": "聽寫時聽錯的字，間隔複習"
   },
   "week": {
     "resultTitle": "第 {week} 週結果",
@@ -2719,5 +2722,30 @@
     "locked": "其餘句子、講解與講義，以及 7 天練習，升級後開放。",
     "plans": "Plus、Pro 與班級方案都可以完整練習大家分享的公開教材；官方教材一律免費。",
     "upgrade": "升級即可練習這份教材"
+  },
+  "review": {
+    "title": "我的錯字",
+    "intro": "聽寫時聽錯的字會自動收進這裡，在聽錯的隔天、再 3 天、再 7 天出現在今日任務做簡短複習；連續答對 3 次就學會了。",
+    "loading": "載入中…",
+    "todayTitle": "今天的複習",
+    "emptyList": "還沒有聽錯的字。完成第 1 天或第 7 天的聽寫後，聽錯的字會出現在這裡。",
+    "noneToday": "今天沒有要複習的字。",
+    "count": "第 {n} 個，共 {total} 個",
+    "listen": "播放這句",
+    "stop": "停止",
+    "answerLabel": "空格裡是哪個字？",
+    "check": "檢查",
+    "right": "答對了",
+    "wrong": "正確答案是 {word}",
+    "rightNext": "下次會隔久一點再出現。",
+    "wrongNext": "明天會再出現一次。",
+    "next": "下一個",
+    "finish": "完成",
+    "done": "今天的複習完成：答對 {right} 個，共 {total} 個。",
+    "home": "回首頁",
+    "listTitle": "我的錯字（{count}）",
+    "listIntro": "依下次複習的日期排列；學會的排在最後。",
+    "learned": "已學會",
+    "due": "下次複習：{date}"
   }
 }
