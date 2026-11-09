@@ -2057,3 +2057,18 @@
 - **資料**：新資料表 `sentence_reports`。學習者只能新增自己的、讀自己的；處理與已讀由伺服器寫入。刪除帳號時一起刪除。
 - **等 Joe 同意**：migration `20261111020000_sentence_reports.sql` 自動執行時被權限檢查擋下。在套用之前，回報會顯示「沒有送出成功」，後台的清單是空的，其他功能不受影響。
 - **要改時**：`lib/sentence-reports.ts`、`app/reports/sentence-actions.ts`、`components/ReportSentence.tsx`、`components/SentenceReportActions.tsx`、`components/FixedReportsNotice.tsx`、`app/admin/sentences/page.tsx`。
+
+## D114 留存分析（2026-11-11，Joe 指定）
+
+- **頁面** `/admin/retention`（後台導覽「留存分析」）：
+  - 第 1、7、30 天留存率；
+  - 最近 8 週每週活躍人數；
+  - 完成 7 天循環的比例（全部，以及各類別）。
+  - 只顯示總數，不列出任何人。
+- **算法**（`lib/retention.ts`，台灣日期）：
+  - **第 N 天留存**：註冊至少 N 天的使用者中，在註冊後第 N 天有任何操作紀錄（`events`，D55）的比例。這是業界常用的「Day N retention」（當天回訪），不是「N 天內」。第 N 天已經超出操作紀錄保留期（180 天）的使用者不列入分母；
+  - **每週活躍**：每個 7 天區間（到今天為止）有操作紀錄的人數；
+  - **完成 7 天循環**：以「一個人、一份教材」（`progress` 一列）為單位，第 7 天完成過（或已經結算過一週）就算完成；類別依教材分類，內建影片依 `VIDEO_CATEGORY_IN_LIBRARY`。
+- **合理的預設**：用既有的資料計算，不新增資料表或資料庫函式；每次打開頁面才讀（分頁讀取，每表最多 10 萬列）。使用者多了以後，改成資料庫端的彙總函式。
+- **只記得到雲端的**：未登入的練習只在使用者裝置上，不會出現在這些數字裡。
+- **要改時**：`lib/retention.ts`（`RETENTION_DAYS`、`ACTIVE_WEEKS`）、`app/admin/retention/page.tsx`。
