@@ -1,0 +1,49 @@
+name: News materials
+
+# Weekly news materials (D100): every Monday 09:00 Taiwan time, the newest
+# NASA, NOAA, and CDC releases are retold for learners and published.
+# OFF until the repository variable NEWS_SCHEDULE is set to "on"
+# (Settings → Secrets and variables → Actions → Variables); see
+# docs/roadmap.md for the secrets it needs. It can also be run by hand
+# (Actions → News materials → Run workflow).
+on:
+  schedule:
+    - cron: "0 1 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: news
+  cancel-in-progress: false
+
+jobs:
+  news:
+    if: vars.NEWS_SCHEDULE == 'on'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Paid calls: each run is capped by NEWS_RUN_BUDGET_USD and the
+      # site's batch and monthly limits (D77); speech is Azure F0 (free).
+      - name: Make the week's news materials
+        run: npm run news:make
+        env:
+          NEWS_YES: "1"
+          AI_PROVIDERS: ${{ vars.AI_PROVIDERS }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+          AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_DEPLOYMENT: ${{ secrets.AZURE_OPENAI_DEPLOYMENT }}
+          AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
+          AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}

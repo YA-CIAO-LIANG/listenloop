@@ -54,6 +54,20 @@ export const fakeLanguage: LanguageProvider = {
       [title, text],
     );
   },
+  // A fixed story from the headline, about as long as asked (D100).
+  async rewriteNews({ headline, words }) {
+    const line = "Scientists shared new results with the public this week.";
+    const count = Math.max(3, Math.ceil(words / line.split(" ").length));
+    return free(
+      {
+        title: `News: ${headline}`.slice(0, 100),
+        titleZh: "新聞（測試）",
+        subtitle: "測試用的新聞內容",
+        lines: Array.from({ length: count }, () => line),
+      },
+      [headline],
+    );
+  },
   // "N 句" or "N sentences" keeps the first N; anything else changes the
   // last line only, so tests can see what's kept and what's new (D96).
   async revise({ lines, instruction }) {

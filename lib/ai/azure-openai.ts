@@ -2,6 +2,7 @@ import {
   annotateBudget,
   composeBudget,
   describeBudget,
+  newsBudget,
   reviseBudget,
   segmentBudget,
   translateBudget,
@@ -13,6 +14,7 @@ import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
   composeInstructions,
   DESCRIBE_INSTRUCTIONS,
+  NEWS_INSTRUCTIONS,
   REVISE_INSTRUCTIONS,
   NOTES_INSTRUCTIONS,
   PROMPT_VERSION,
@@ -258,6 +260,15 @@ export function azureOpenAiLanguage(
         DESCRIBE_INSTRUCTIONS,
         material,
         describeBudget(material),
+      );
+    },
+    async rewriteNews(input) {
+      return generate(
+        "composition",
+        NEWS_INSTRUCTIONS,
+        input,
+        newsBudget(input),
+        0.5,
       );
     },
     async revise(input) {

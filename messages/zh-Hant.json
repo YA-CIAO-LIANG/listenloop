@@ -405,7 +405,8 @@
     "backToCreate": "我的教材",
     "customSentences": "共 {count} 句，每一句都有音檔。",
     "shared": "公開練習",
-    "backToExplore": "公開教材"
+    "backToExplore": "公開教材",
+    "rewrittenFrom": "改寫自 {source} 的新聞稿〈<link>{title}</link>〉，由 ListenLoop 依事實以自己的話重寫成學習用短文。"
   },
   "player": {
     "loading": "影片載入中…",

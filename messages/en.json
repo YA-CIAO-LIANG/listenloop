@@ -405,7 +405,8 @@
     "backToCreate": "My materials",
     "customSentences": "{count, plural, one {# sentence} other {# sentences}}, each with its own audio.",
     "shared": "Shared practice",
-    "backToExplore": "Shared materials"
+    "backToExplore": "Shared materials",
+    "rewrittenFrom": "Rewritten from {source}'s release “<link>{title}</link>”: ListenLoop retold its facts in its own words for learners."
   },
   "player": {
     "loading": "Loading video…",

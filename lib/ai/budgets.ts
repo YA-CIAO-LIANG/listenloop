@@ -1,7 +1,7 @@
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 import { tokenCost, type TokenPrice } from "./pricing";
-import type { DescribeInput, RevisionInput } from "./types";
+import type { DescribeInput, NewsInput, RevisionInput } from "./types";
 
 /**
  * How big each language-model call may get (D38). The cap on output
@@ -10,7 +10,13 @@ import type { DescribeInput, RevisionInput } from "./types";
  * is reserved against the daily cost limit before the call.
  */
 export type LanguageOperation =
-  "translate" | "annotate" | "segment" | "compose" | "describe" | "revise";
+  | "translate"
+  | "annotate"
+  | "segment"
+  | "compose"
+  | "describe"
+  | "revise"
+  | "news";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -86,6 +92,15 @@ export function reviseBudget(input: RevisionInput): LanguageBudget {
     operation: "revise",
     inputChars: chars,
     maxOutputTokens: capped(chars / 2 + 400, 4_000),
+  };
+}
+
+/** A news story of about `words` words (D100), like composing one. */
+export function newsBudget(input: NewsInput): LanguageBudget {
+  return {
+    operation: "news",
+    inputChars: countChars([input.headline, input.summary, input.level]),
+    maxOutputTokens: capped(input.words * 2 + 300, 3_000),
   };
 }
 
