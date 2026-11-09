@@ -68,6 +68,7 @@ flowchart LR
 
 - One day at a time; **the next day opens tomorrow** (each material counts its own).
 - You can practice several materials at once, each with its own progress.
+- **Share card**: after Day 7, the result page makes an image (Day 1 and Day 7 accuracy, the change, the title, the site address; nothing personal) to download or share.
 - After finishing a day, "Practice again" shows a score but doesn't change the official one.
 - **Pass rules** ("Pass rules" on the material's page): by default "answer every sentence on Day 1", "say 60% of each sentence when shadowing", "Day 7 better than Day 1". Plus and above can change them, for example requiring 70% in dictation.
 
