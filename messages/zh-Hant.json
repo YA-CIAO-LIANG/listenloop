@@ -230,7 +230,8 @@
       "buttons": "按鈕",
       "components": "核心元件",
       "toggles": "切換",
-      "pixelFish": "像素魚"
+      "pixelFish": "像素魚",
+      "backgrounds": "背景主題"
     },
     "specimen": {
       "display": "聽清楚每一個字",
@@ -302,7 +303,10 @@
       "closeSheet": "完成",
       "titleZh": "改期客戶會議",
       "titleZhVideo": "辛特爾"
-    }
+    },
+    "backgroundsNote": "每個背景的淺色（左）與深色（右）版本，以及三種文字顏色。對比由 tests/backgrounds.test.ts 自動檢查。",
+    "backgroundsMuted": "次要文字",
+    "backgroundsAccent": "強調文字"
   },
   "library": {
     "title": "官方教材庫",
@@ -2903,5 +2907,60 @@
     "startFirst": "從第一份開始",
     "levelTest": "先做 2 分鐘程度測驗",
     "library": "在教材庫看更多"
+  },
+  "backgrounds": {
+    "title": "背景主題",
+    "intro": "換一個你喜歡的頁面背景。每個背景都有淺色與深色版本，文字和按鈕在任何背景上都清楚可讀。選擇記在這個瀏覽器。",
+    "loading": "計算練習分數中…",
+    "next": "目前練習分數 {score}，再 {needed} 分解鎖「{name}」。",
+    "allOpen": "目前練習分數 {score}，用分數能解鎖的背景都已解鎖。",
+    "groups": {
+      "minimal": "極簡",
+      "paper": "紙張",
+      "nature": "自然",
+      "city": "城市與氛圍",
+      "culture": "文化",
+      "other": "其他"
+    },
+    "light": "淺色",
+    "dark": "深色",
+    "free": "免費",
+    "open": "已解鎖",
+    "needs": "還差 {points} 分",
+    "paidOnly": "永久解鎖（即將推出）",
+    "animated": "動態",
+    "preview": "預覽",
+    "previewLabel": "在整個頁面預覽「{name}」",
+    "previewing": "正在預覽「{name}」，還沒有套用。",
+    "apply": "套用",
+    "endPreview": "結束預覽",
+    "unlockForever": "{price} 永久解鎖",
+    "motionNote": "動態背景（星空、雨天）在系統開啟「減少動態效果」時會保持靜止。",
+    "offerTitle": "永久解鎖「{name}」",
+    "offerBody": "永久解鎖即將推出，屆時價格是 {price}。現在不會收費；想在推出時收到通知，可以加入名單。",
+    "offerJoin": "加入名單",
+    "offerJoined": "已加入名單，推出時會通知你。",
+    "offerClose": "關閉",
+    "names": {
+      "default": "預設",
+      "pure": "純白／純黑",
+      "warm-gray": "暖灰",
+      "paper": "米色紙張",
+      "notebook": "筆記本格線",
+      "kraft": "牛皮紙",
+      "forest": "森林",
+      "ocean": "海洋",
+      "mountain": "山景",
+      "sunset": "日落漸層",
+      "cafe": "深夜咖啡廳",
+      "city": "城市夜景",
+      "rain": "雨天窗邊",
+      "washi": "和風青海波",
+      "retro": "復古圓點",
+      "nordic": "北歐",
+      "stars": "太空星空",
+      "pastel": "柔和粉彩",
+      "high-contrast": "高對比"
+    }
   }
 }

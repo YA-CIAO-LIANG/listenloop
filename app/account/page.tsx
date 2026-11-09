@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { getSignedInUser } from "@/auth/session";
 import { getOwnBilling } from "@/auth/billing";
 import { getPaymentProvider } from "@/auth/payments";
+import { BackgroundPicker } from "@/components/BackgroundPicker";
 import { BillingSection } from "@/components/BillingSection";
 import { DeleteAccount } from "@/components/DeleteAccount";
 import { ReminderSettings } from "@/components/ReminderSettings";
@@ -56,6 +57,7 @@ export default async function AccountPage({
             payments={billing.payments}
             canManage={getPaymentProvider() !== null}
           />
+          <BackgroundPicker />
           {/* Reminders need the push keys (D111); hidden until they're set. */}
           {VAPID_PUBLIC_KEY && (
             <ReminderSettings publicKey={VAPID_PUBLIC_KEY} />

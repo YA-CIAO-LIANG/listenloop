@@ -20,6 +20,7 @@ import {
   VideoIcon,
 } from "@/components/icons";
 import { AQUARIUM_ENABLED } from "@/lib/features";
+import { BACKGROUNDS } from "@/lib/backgrounds";
 import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
 import { StageProgress } from "@/components/StageProgress";
@@ -79,6 +80,7 @@ export default function StyleguidePage() {
   const t = useTranslations("styleguide");
   const tTheme = useTranslations("settings.theme");
   const tProgress = useTranslations("practice.progress");
+  const tBackgrounds = useTranslations("backgrounds");
 
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
@@ -124,6 +126,45 @@ export default function StyleguidePage() {
             </div>
           ))}
         </div>
+      </Section>
+
+      {/* Background themes (D121): every one, light and dark, with a
+          line of text in each text color to see contrast at a glance. */}
+      <Section title={t("sections.backgrounds")}>
+        <p className="max-w-reading text-ink-muted">{t("backgroundsNote")}</p>
+        <ul className="mt-6 grid gap-4 split:grid-cols-2 wide:grid-cols-3">
+          {BACKGROUNDS.map((b) => (
+            <li key={b.id} className="space-y-2">
+              <p className="text-supporting">
+                {tBackgrounds(`names.${b.id}`)}
+                <span className="ml-2 text-metadata text-ink-muted">
+                  {b.unlock.kind === "free"
+                    ? tBackgrounds("free")
+                    : b.unlock.kind === "paid"
+                      ? tBackgrounds("paidOnly")
+                      : tBackgrounds("needs", { points: b.unlock.at })}
+                  {b.motion ? ` · ${tBackgrounds("animated")}` : ""}
+                </span>
+              </p>
+              <div className="grid grid-cols-2 overflow-hidden rounded-base border border-line">
+                {(["light", "dark"] as const).map((mode) => (
+                  <div key={mode} data-theme={mode}>
+                    <div
+                      data-bg={b.id}
+                      className="bg-swatch h-32 space-y-1 p-3 text-supporting"
+                    >
+                      <p className="text-ink">{tBackgrounds(mode)}</p>
+                      <p className="text-ink-muted">{t("backgroundsMuted")}</p>
+                      <p className="text-accent-ink">
+                        {t("backgroundsAccent")}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
       </Section>
 
       <Section title={t("sections.typography")}>

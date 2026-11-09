@@ -27,6 +27,7 @@ export const INTENT_SOURCES = [
   "account",
   "pricing",
   "shared-preview",
+  "background-unlock",
 ] as const;
 export type IntentSource = (typeof INTENT_SOURCES)[number];
 

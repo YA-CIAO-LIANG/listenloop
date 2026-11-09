@@ -2179,3 +2179,19 @@
 - **版面位移（CLS）**：音檔教材的練習頁在讀取進度時只顯示一行「載入進度中…」，練習出現時把頁尾往下推（Lighthouse 手機 CLS 0.195）。讀取中的區塊改成至少一個螢幕高（`VersionGate`、`DayGate`），本機 Lighthouse：效能 85 → 94、CLS 0.195 → 0.015。Sintel 等 YouTube 影片頁剩下的 0.26 來自 YouTube 播放器 iframe 內部的變動，頁面本身的元素沒有移動，無法由我們修正。
 - **學習分析圖表**：一週都沒練習時縱軸顯示「1、1、0」（中間 0.5 被四捨五入）；10 以下的上限改用偶數（2、4、6、8、10），中間刻度一定是整數。
 - **要改時**：`lib/supabase/browser.ts`、`lib/i18n/client-messages.ts`（新增用戶端翻譯的命名空間時，若只在某區使用，加進對應區域）、`components/DaySession.tsx`、`components/HomeProgress.tsx`。
+
+## D121 背景主題（2026-11-12，Joe 指定）
+
+- **19 種背景，6 組**（名稱與畫法見 `docs/design-system.md`「背景主題」）：每種都有淺色與深色版本。Joe 列的例子都做了；「純白、純黑」合成一種（淺色是純白、深色是純黑），另外保留「預設」。
+- **只用 CSS 與內嵌 SVG**：漸層、圓點、格線用 CSS；樹、海浪、山、城市、咖啡豆、青海波、星星、雨絲是幾十個字的 SVG（`data:` URI），紙張紋理用 SVG 的 `feTurbulence`。沒有圖片檔、沒有外部素材、沒有版權問題。整份 CSS gzip 後約 4 KB；預設背景不載入任何圖案，首頁 Lighthouse 效能 95、其餘 100。
+- **定義集中在 `lib/backgrounds.ts`**：顏色、圖案、解鎖方式都在這裡；`app/backgrounds.css` 由 `npm run backgrounds:css` 產生，測試逐字比對，避免兩邊不一致。`<head>` 的主題 script 只用 `lib/background-ids.ts` 的 id 清單，維持很小。
+- **對比自動檢查**（`tests/backgrounds.test.ts`）：計算每個背景在淺色、深色下，文字可能落在的所有顏色——底色、漸層每一段、圖案最濃處（動態背景兩層疊加）——對 ink、ink-muted、success、error、7 種強調色的 accent-ink 都要 ≥ 4.5；強調色本身（焦點框、按鈕邊框）對底色與漸層 ≥ 3（圖案是細線裝飾，不列入非文字對比）。E2E 再用 axe 檢查套用背景後的帳號頁。
+  - 為了讓有色背景也通過：淺色 `--ll-success` 由 #2D784C 改為 #256B40；綠色強調色由 #16A34A 改為 #15803D（原本在預設底色只有 3.02，任何有色底都會低於 3）。
+- **動態**：太空星空閃爍（opacity）、雨天窗邊雨絲落下（transform），都在 `body::after`、只動合成層屬性；`prefers-reduced-motion: reduce` 時 `animation: none`（E2E 檢查）。
+- **解鎖**：
+  - 免費：預設、純白／純黑、暖灰、米色紙張、柔和粉彩、高對比（無障礙相關的不收費）；
+  - 練習分數（和強調色同一套分數，D93）：筆記本格線 100、牛皮紙 200、森林 300、海洋 400、和風 500、北歐 700、復古 900、山景 1,100、日落 1,400；
+  - 永久解鎖（假門）：深夜咖啡廳、城市夜景、雨天窗邊、太空星空，NT$60（`BACKGROUND_UNLOCK_PRICE`）。按下記錄 `unlock_click`、加入名單記錄 `waitlist_join`（來源 `background-unlock`，項目 `bg-<id>`），不收費。
+  - 所有背景都能「預覽」整個頁面，未解鎖的也可以，但只能套用已解鎖的。
+- **設定頁**：放在「帳號設定」（`/account`）。分數來自這台裝置與帳號同步的練習紀錄，所以要登入。
+- **要改時**：`lib/backgrounds.ts`（改完執行 `npm run backgrounds:css`）、`lib/background-ids.ts`、`components/BackgroundPicker.tsx`、翻譯檔 `backgrounds`。

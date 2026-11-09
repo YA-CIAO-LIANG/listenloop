@@ -21,6 +21,7 @@ import { fontVariables } from "./fonts";
 import { themeInitScript } from "@/lib/theme";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
+import "./backgrounds.css";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [t, locale] = await Promise.all([

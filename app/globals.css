@@ -21,7 +21,7 @@
   --ll-accent: #e8590c;
   --ll-accent-ink: #a63d09;
   --ll-line: #e5e3de;
-  --ll-success: #2d784c;
+  --ll-success: #256b40;
   --ll-error: #b3302a;
   --ll-focus: #e8590c;
 
@@ -461,9 +461,9 @@
   --ll-focus: #e11d48;
 }
 [data-accent="green"] {
-  --ll-accent: #16a34a;
+  --ll-accent: #15803d;
   --ll-accent-ink: #166534;
-  --ll-focus: #16a34a;
+  --ll-focus: #15803d;
 }
 [data-accent="gold"] {
   --ll-accent: #a16207;

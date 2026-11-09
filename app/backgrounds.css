@@ -1,0 +1,722 @@
+/*
+ * Background themes (D121). Written by `npm run backgrounds:css` from
+ * lib/backgrounds.ts: change that file, not this one. On <html> a
+ * background covers the page; on any element (the picker's swatches) just
+ * that element. Cards, inputs, and buttons keep their own surface colors.
+ */
+
+[data-bg="default"] {
+  --ll-ground: #fafaf8;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="pure"] {
+  --ll-ground: #ffffff;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="warm-gray"] {
+  --ll-ground: #f3f1ec;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="paper"] {
+  --ll-ground: #f8f3e6;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.478%200%200%200%200%200.361%200%200%200%200%200.18%200%200%200%200.06%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 160px 160px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="notebook"] {
+  --ll-ground: #fbfcfe;
+  --ll-bg-image: linear-gradient(to right, rgba(91, 127, 181, 0.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(91, 127, 181, 0.14) 1px, transparent 1px);
+  --ll-bg-size: 28px 28px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="kraft"] {
+  --ll-ground: #f5ecdb;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.42%200%200%200%200%200.29%200%200%200%200%200.122%200%200%200%200.07%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 160px 160px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="forest"] {
+  --ll-ground: #f1f6ef;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2796%27%20height%3D%2796%27%3E%3Cg%20fill%3D%27%232f6b3c%27%20fill-opacity%3D%270.07%27%3E%3Cpath%20d%3D%27M20%2070%20L32%2040%20L44%2070%20Z%20M24%2052%20L32%2030%20L40%2052%20Z%27%2F%3E%3Crect%20x%3D%2730%27%20y%3D%2770%27%20width%3D%274%27%20height%3D%278%27%2F%3E%3Cpath%20d%3D%27M64%2086%20L74%2060%20L84%2086%20Z%20M67%2070%20L74%2050%20L81%2070%20Z%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%2786%27%20width%3D%274%27%20height%3D%276%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 96px 96px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="ocean"] {
+  --ll-ground: #eff6fa;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%2740%27%3E%3Cpath%20d%3D%27M0%2020%20Q15%208%2030%2020%20T60%2020%20T90%2020%20T120%2020%27%20fill%3D%27none%27%20stroke%3D%27%232a6f97%27%20stroke-opacity%3D%270.1%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 120px 40px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="mountain"] {
+  --ll-ground: #f2f4f7;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27240%27%20viewBox%3D%270%200%201200%20240%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20240%20L0%20150%20L140%2070%20L260%20140%20L380%2040%20L520%20150%20L640%2090%20L780%20160%20L900%2060%20L1040%20140%20L1200%2080%20L1200%20240%20Z%27%20fill%3D%27%234a5d78%27%20fill-opacity%3D%270.08%27%2F%3E%3Cpath%20d%3D%27M0%20240%20L0%20190%20L180%20130%20L320%20190%20L470%20120%20L620%20200%20L760%20140%20L920%20200%20L1080%20130%20L1200%20180%20L1200%20240%20Z%27%20fill%3D%27%234a5d78%27%20fill-opacity%3D%270.08%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 100% 240px;
+  --ll-bg-position: bottom;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-bg="sunset"] {
+  --ll-ground: #fdf1e7;
+  --ll-bg-image: linear-gradient(to bottom, #fdf1e7, #fbe9ec, #f1ecf8);
+  --ll-bg-size: 100% 100%;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-bg="cafe"] {
+  --ll-ground: #f6efe6;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2780%27%20height%3D%2780%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%236f4e37%27%20stroke-opacity%3D%270.08%27%20stroke-width%3D%272%27%3E%3Cellipse%20cx%3D%2722%27%20cy%3D%2724%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(-30%2022%2024)%27%2F%3E%3Cpath%20d%3D%27M17%2015%20Q24%2024%2027%2033%27%2F%3E%3Cellipse%20cx%3D%2760%27%20cy%3D%2758%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(25%2060%2058)%27%2F%3E%3Cpath%20d%3D%27M56%2048%20Q61%2058%2064%2068%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 80px 80px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="city"] {
+  --ll-ground: #f0f2f6;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27200%27%20viewBox%3D%270%200%201200%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200%20V120%20H60%20V80%20H110%20V130%20H160%20V60%20H220%20V110%20H260%20V40%20H320%20V120%20H370%20V90%20H430%20V140%20H480%20V70%20H540%20V100%20H600%20V30%20H650%20V120%20H700%20V80%20H770%20V130%20H820%20V50%20H880%20V110%20H930%20V90%20H990%20V140%20H1040%20V60%20H1100%20V120%20H1150%20V100%20H1200%20V200%20Z%27%20fill%3D%27%233d4a63%27%20fill-opacity%3D%270.08%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 100% 200px;
+  --ll-bg-position: bottom;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-bg="rain"] {
+  --ll-ground: #eef1f4;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2790%27%20height%3D%27120%27%3E%3Cg%20stroke%3D%27%234f6b85%27%20stroke-opacity%3D%270.07%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M10%200%20L4%2018%27%2F%3E%3Cpath%20d%3D%27M50%2040%20L44%2058%27%2F%3E%3Cpath%20d%3D%27M80%2010%20L74%2028%27%2F%3E%3Cpath%20d%3D%27M30%2080%20L24%2098%27%2F%3E%3Cpath%20d%3D%27M70%2090%20L64%20108%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 90px 120px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="washi"] {
+  --ll-ground: #f7f4ec;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2730%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%232b4a7a%27%20stroke-opacity%3D%270.07%27%20stroke-width%3D%271.5%27%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2712%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 60px 30px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="retro"] {
+  --ll-ground: #f8f1e3;
+  --ll-bg-image: radial-gradient(circle, rgba(192, 138, 30, 0.14) 4px, transparent 4.5px);
+  --ll-bg-size: 32px 32px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="nordic"] {
+  --ll-ground: #f4f6f5;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2772%27%20height%3D%2772%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%233e6b6a%27%20stroke-opacity%3D%270.09%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M18%2012%20V24%20M12%2018%20H24%27%2F%3E%3Cpath%20d%3D%27M48%2042%20L60%2054%20M60%2042%20L48%2054%27%2F%3E%3Cpath%20d%3D%27M14%2056%20L22%2048%20L30%2056%27%2F%3E%3Ccircle%20cx%3D%2754%27%20cy%3D%2718%27%20r%3D%275%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 72px 72px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="stars"] {
+  --ll-ground: #f5f5fb;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27220%27%20height%3D%27220%27%3E%3Cg%20fill%3D%27%233d3f7a%27%20fill-opacity%3D%270.06%27%3E%3Ccircle%20cx%3D%2720%27%20cy%3D%2730%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2770%27%20cy%3D%2712%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%27120%27%20cy%3D%2760%27%20r%3D%271.4%27%2F%3E%3Ccircle%20cx%3D%27190%27%20cy%3D%2724%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%2740%27%20cy%3D%27110%27%20r%3D%270.9%27%2F%3E%3Ccircle%20cx%3D%27160%27%20cy%3D%27120%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2795%27%20cy%3D%27160%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27190%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%2715%27%20cy%3D%27190%27%20r%3D%271.3%27%2F%3E%3Ccircle%20cx%3D%27130%27%20cy%3D%27205%27%20r%3D%270.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 220px 220px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-bg="pastel"] {
+  --ll-ground: #fbf7fb;
+  --ll-bg-image: radial-gradient(circle at 15% 20%, rgba(247, 183, 207, 0.18), transparent 45%), radial-gradient(circle at 85% 30%, rgba(169, 227, 207, 0.18), transparent 45%), radial-gradient(circle at 50% 90%, rgba(199, 195, 242, 0.18), transparent 45%);
+  --ll-bg-size: 100% 100%;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-bg="high-contrast"] {
+  --ll-ground: #ffffff;
+  --ll-ink: #000000;
+  --ll-ink-muted: #333333;
+  --ll-line: #767676;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"])[data-bg="default"],
+  :root:not([data-theme="light"]) [data-bg="default"] {
+    --ll-ground: #121212;
+    --ll-bg-image: none;
+    --ll-bg-size: auto;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="pure"],
+  :root:not([data-theme="light"]) [data-bg="pure"] {
+    --ll-ground: #000000;
+    --ll-bg-image: none;
+    --ll-bg-size: auto;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="warm-gray"],
+  :root:not([data-theme="light"]) [data-bg="warm-gray"] {
+    --ll-ground: #1b1a18;
+    --ll-bg-image: none;
+    --ll-bg-size: auto;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="paper"],
+  :root:not([data-theme="light"]) [data-bg="paper"] {
+    --ll-ground: #1a1813;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.949%200%200%200%200%200.902%200%200%200%200%200.784%200%200%200%200.04%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 160px 160px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="notebook"],
+  :root:not([data-theme="light"]) [data-bg="notebook"] {
+    --ll-ground: #11141a;
+    --ll-bg-image: linear-gradient(to right, rgba(143, 176, 224, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(143, 176, 224, 0.08) 1px, transparent 1px);
+    --ll-bg-size: 28px 28px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="kraft"],
+  :root:not([data-theme="light"]) [data-bg="kraft"] {
+    --ll-ground: #1d1711;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.91%200%200%200%200%200.812%200%200%200%200%200.643%200%200%200%200.04%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 160px 160px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="forest"],
+  :root:not([data-theme="light"]) [data-bg="forest"] {
+    --ll-ground: #0e1610;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2796%27%20height%3D%2796%27%3E%3Cg%20fill%3D%27%238fd19e%27%20fill-opacity%3D%270.05%27%3E%3Cpath%20d%3D%27M20%2070%20L32%2040%20L44%2070%20Z%20M24%2052%20L32%2030%20L40%2052%20Z%27%2F%3E%3Crect%20x%3D%2730%27%20y%3D%2770%27%20width%3D%274%27%20height%3D%278%27%2F%3E%3Cpath%20d%3D%27M64%2086%20L74%2060%20L84%2086%20Z%20M67%2070%20L74%2050%20L81%2070%20Z%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%2786%27%20width%3D%274%27%20height%3D%276%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 96px 96px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="ocean"],
+  :root:not([data-theme="light"]) [data-bg="ocean"] {
+    --ll-ground: #0b141b;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%2740%27%3E%3Cpath%20d%3D%27M0%2020%20Q15%208%2030%2020%20T60%2020%20T90%2020%20T120%2020%27%20fill%3D%27none%27%20stroke%3D%27%237ec3e6%27%20stroke-opacity%3D%270.07%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 120px 40px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="mountain"],
+  :root:not([data-theme="light"]) [data-bg="mountain"] {
+    --ll-ground: #0f1218;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27240%27%20viewBox%3D%270%200%201200%20240%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20240%20L0%20150%20L140%2070%20L260%20140%20L380%2040%20L520%20150%20L640%2090%20L780%20160%20L900%2060%20L1040%20140%20L1200%2080%20L1200%20240%20Z%27%20fill%3D%27%239fb3d1%27%20fill-opacity%3D%270.05%27%2F%3E%3Cpath%20d%3D%27M0%20240%20L0%20190%20L180%20130%20L320%20190%20L470%20120%20L620%20200%20L760%20140%20L920%20200%20L1080%20130%20L1200%20180%20L1200%20240%20Z%27%20fill%3D%27%239fb3d1%27%20fill-opacity%3D%270.05%27%2F%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 100% 240px;
+    --ll-bg-position: bottom;
+    --ll-bg-repeat: no-repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="sunset"],
+  :root:not([data-theme="light"]) [data-bg="sunset"] {
+    --ll-ground: #1a1018;
+    --ll-bg-image: linear-gradient(to bottom, #1c1220, #1d1014, #120f1c);
+    --ll-bg-size: 100% 100%;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: no-repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="cafe"],
+  :root:not([data-theme="light"]) [data-bg="cafe"] {
+    --ll-ground: #17110d;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2780%27%20height%3D%2780%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23d9a77c%27%20stroke-opacity%3D%270.06%27%20stroke-width%3D%272%27%3E%3Cellipse%20cx%3D%2722%27%20cy%3D%2724%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(-30%2022%2024)%27%2F%3E%3Cpath%20d%3D%27M17%2015%20Q24%2024%2027%2033%27%2F%3E%3Cellipse%20cx%3D%2760%27%20cy%3D%2758%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(25%2060%2058)%27%2F%3E%3Cpath%20d%3D%27M56%2048%20Q61%2058%2064%2068%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 80px 80px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="city"],
+  :root:not([data-theme="light"]) [data-bg="city"] {
+    --ll-ground: #0c0f17;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27200%27%20viewBox%3D%270%200%201200%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200%20V120%20H60%20V80%20H110%20V130%20H160%20V60%20H220%20V110%20H260%20V40%20H320%20V120%20H370%20V90%20H430%20V140%20H480%20V70%20H540%20V100%20H600%20V30%20H650%20V120%20H700%20V80%20H770%20V130%20H820%20V50%20H880%20V110%20H930%20V90%20H990%20V140%20H1040%20V60%20H1100%20V120%20H1150%20V100%20H1200%20V200%20Z%27%20fill%3D%27%238aa0c8%27%20fill-opacity%3D%270.06%27%2F%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 100% 200px;
+    --ll-bg-position: bottom;
+    --ll-bg-repeat: no-repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="rain"],
+  :root:not([data-theme="light"]) [data-bg="rain"] {
+    --ll-ground: #0d1117;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2790%27%20height%3D%27120%27%3E%3Cg%20stroke%3D%27%239db7d1%27%20stroke-opacity%3D%270.08%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M10%200%20L4%2018%27%2F%3E%3Cpath%20d%3D%27M50%2040%20L44%2058%27%2F%3E%3Cpath%20d%3D%27M80%2010%20L74%2028%27%2F%3E%3Cpath%20d%3D%27M30%2080%20L24%2098%27%2F%3E%3Cpath%20d%3D%27M70%2090%20L64%20108%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 90px 120px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="washi"],
+  :root:not([data-theme="light"]) [data-bg="washi"] {
+    --ll-ground: #0f1320;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2730%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%239fb6e0%27%20stroke-opacity%3D%270.05%27%20stroke-width%3D%271.5%27%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2712%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 60px 30px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="retro"],
+  :root:not([data-theme="light"]) [data-bg="retro"] {
+    --ll-ground: #1a1611;
+    --ll-bg-image: radial-gradient(circle, rgba(224, 180, 90, 0.07) 4px, transparent 4.5px);
+    --ll-bg-size: 32px 32px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="nordic"],
+  :root:not([data-theme="light"]) [data-bg="nordic"] {
+    --ll-ground: #121716;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2772%27%20height%3D%2772%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%239cc8c6%27%20stroke-opacity%3D%270.06%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M18%2012%20V24%20M12%2018%20H24%27%2F%3E%3Cpath%20d%3D%27M48%2042%20L60%2054%20M60%2042%20L48%2054%27%2F%3E%3Cpath%20d%3D%27M14%2056%20L22%2048%20L30%2056%27%2F%3E%3Ccircle%20cx%3D%2754%27%20cy%3D%2718%27%20r%3D%275%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 72px 72px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="stars"],
+  :root:not([data-theme="light"]) [data-bg="stars"] {
+    --ll-ground: #090a16;
+    --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27220%27%20height%3D%27220%27%3E%3Cg%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.07%27%3E%3Ccircle%20cx%3D%2720%27%20cy%3D%2730%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2770%27%20cy%3D%2712%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%27120%27%20cy%3D%2760%27%20r%3D%271.4%27%2F%3E%3Ccircle%20cx%3D%27190%27%20cy%3D%2724%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%2740%27%20cy%3D%27110%27%20r%3D%270.9%27%2F%3E%3Ccircle%20cx%3D%27160%27%20cy%3D%27120%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2795%27%20cy%3D%27160%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27190%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%2715%27%20cy%3D%27190%27%20r%3D%271.3%27%2F%3E%3Ccircle%20cx%3D%27130%27%20cy%3D%27205%27%20r%3D%270.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --ll-bg-size: 220px 220px;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="pastel"],
+  :root:not([data-theme="light"]) [data-bg="pastel"] {
+    --ll-ground: #141217;
+    --ll-bg-image: radial-gradient(circle at 15% 20%, rgba(90, 42, 61, 0.25), transparent 45%), radial-gradient(circle at 85% 30%, rgba(31, 74, 61, 0.25), transparent 45%), radial-gradient(circle at 50% 90%, rgba(51, 48, 90, 0.25), transparent 45%);
+    --ll-bg-size: 100% 100%;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: no-repeat;
+  }
+  :root:not([data-theme="light"])[data-bg="high-contrast"],
+  :root:not([data-theme="light"]) [data-bg="high-contrast"] {
+    --ll-ground: #000000;
+    --ll-ink: #ffffff;
+    --ll-ink-muted: #d6d6d6;
+    --ll-line: #8a8a8a;
+    --ll-bg-image: none;
+    --ll-bg-size: auto;
+    --ll-bg-position: 0 0;
+    --ll-bg-repeat: repeat;
+  }
+}
+
+[data-theme="dark"][data-bg="default"],
+[data-theme="dark"] [data-bg="default"] {
+  --ll-ground: #121212;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="pure"],
+[data-theme="dark"] [data-bg="pure"] {
+  --ll-ground: #000000;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="warm-gray"],
+[data-theme="dark"] [data-bg="warm-gray"] {
+  --ll-ground: #1b1a18;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="paper"],
+[data-theme="dark"] [data-bg="paper"] {
+  --ll-ground: #1a1813;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.949%200%200%200%200%200.902%200%200%200%200%200.784%200%200%200%200.04%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 160px 160px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="notebook"],
+[data-theme="dark"] [data-bg="notebook"] {
+  --ll-ground: #11141a;
+  --ll-bg-image: linear-gradient(to right, rgba(143, 176, 224, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(143, 176, 224, 0.08) 1px, transparent 1px);
+  --ll-bg-size: 28px 28px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="kraft"],
+[data-theme="dark"] [data-bg="kraft"] {
+  --ll-ground: #1d1711;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.91%200%200%200%200%200.812%200%200%200%200%200.643%200%200%200%200.04%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 160px 160px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="forest"],
+[data-theme="dark"] [data-bg="forest"] {
+  --ll-ground: #0e1610;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2796%27%20height%3D%2796%27%3E%3Cg%20fill%3D%27%238fd19e%27%20fill-opacity%3D%270.05%27%3E%3Cpath%20d%3D%27M20%2070%20L32%2040%20L44%2070%20Z%20M24%2052%20L32%2030%20L40%2052%20Z%27%2F%3E%3Crect%20x%3D%2730%27%20y%3D%2770%27%20width%3D%274%27%20height%3D%278%27%2F%3E%3Cpath%20d%3D%27M64%2086%20L74%2060%20L84%2086%20Z%20M67%2070%20L74%2050%20L81%2070%20Z%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%2786%27%20width%3D%274%27%20height%3D%276%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 96px 96px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="ocean"],
+[data-theme="dark"] [data-bg="ocean"] {
+  --ll-ground: #0b141b;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%2740%27%3E%3Cpath%20d%3D%27M0%2020%20Q15%208%2030%2020%20T60%2020%20T90%2020%20T120%2020%27%20fill%3D%27none%27%20stroke%3D%27%237ec3e6%27%20stroke-opacity%3D%270.07%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 120px 40px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="mountain"],
+[data-theme="dark"] [data-bg="mountain"] {
+  --ll-ground: #0f1218;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27240%27%20viewBox%3D%270%200%201200%20240%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20240%20L0%20150%20L140%2070%20L260%20140%20L380%2040%20L520%20150%20L640%2090%20L780%20160%20L900%2060%20L1040%20140%20L1200%2080%20L1200%20240%20Z%27%20fill%3D%27%239fb3d1%27%20fill-opacity%3D%270.05%27%2F%3E%3Cpath%20d%3D%27M0%20240%20L0%20190%20L180%20130%20L320%20190%20L470%20120%20L620%20200%20L760%20140%20L920%20200%20L1080%20130%20L1200%20180%20L1200%20240%20Z%27%20fill%3D%27%239fb3d1%27%20fill-opacity%3D%270.05%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 100% 240px;
+  --ll-bg-position: bottom;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-theme="dark"][data-bg="sunset"],
+[data-theme="dark"] [data-bg="sunset"] {
+  --ll-ground: #1a1018;
+  --ll-bg-image: linear-gradient(to bottom, #1c1220, #1d1014, #120f1c);
+  --ll-bg-size: 100% 100%;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-theme="dark"][data-bg="cafe"],
+[data-theme="dark"] [data-bg="cafe"] {
+  --ll-ground: #17110d;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2780%27%20height%3D%2780%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%23d9a77c%27%20stroke-opacity%3D%270.06%27%20stroke-width%3D%272%27%3E%3Cellipse%20cx%3D%2722%27%20cy%3D%2724%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(-30%2022%2024)%27%2F%3E%3Cpath%20d%3D%27M17%2015%20Q24%2024%2027%2033%27%2F%3E%3Cellipse%20cx%3D%2760%27%20cy%3D%2758%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(25%2060%2058)%27%2F%3E%3Cpath%20d%3D%27M56%2048%20Q61%2058%2064%2068%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 80px 80px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="city"],
+[data-theme="dark"] [data-bg="city"] {
+  --ll-ground: #0c0f17;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27200%27%20viewBox%3D%270%200%201200%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200%20V120%20H60%20V80%20H110%20V130%20H160%20V60%20H220%20V110%20H260%20V40%20H320%20V120%20H370%20V90%20H430%20V140%20H480%20V70%20H540%20V100%20H600%20V30%20H650%20V120%20H700%20V80%20H770%20V130%20H820%20V50%20H880%20V110%20H930%20V90%20H990%20V140%20H1040%20V60%20H1100%20V120%20H1150%20V100%20H1200%20V200%20Z%27%20fill%3D%27%238aa0c8%27%20fill-opacity%3D%270.06%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 100% 200px;
+  --ll-bg-position: bottom;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-theme="dark"][data-bg="rain"],
+[data-theme="dark"] [data-bg="rain"] {
+  --ll-ground: #0d1117;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2790%27%20height%3D%27120%27%3E%3Cg%20stroke%3D%27%239db7d1%27%20stroke-opacity%3D%270.08%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M10%200%20L4%2018%27%2F%3E%3Cpath%20d%3D%27M50%2040%20L44%2058%27%2F%3E%3Cpath%20d%3D%27M80%2010%20L74%2028%27%2F%3E%3Cpath%20d%3D%27M30%2080%20L24%2098%27%2F%3E%3Cpath%20d%3D%27M70%2090%20L64%20108%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 90px 120px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="washi"],
+[data-theme="dark"] [data-bg="washi"] {
+  --ll-ground: #0f1320;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2730%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%239fb6e0%27%20stroke-opacity%3D%270.05%27%20stroke-width%3D%271.5%27%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2712%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 60px 30px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="retro"],
+[data-theme="dark"] [data-bg="retro"] {
+  --ll-ground: #1a1611;
+  --ll-bg-image: radial-gradient(circle, rgba(224, 180, 90, 0.07) 4px, transparent 4.5px);
+  --ll-bg-size: 32px 32px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="nordic"],
+[data-theme="dark"] [data-bg="nordic"] {
+  --ll-ground: #121716;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2772%27%20height%3D%2772%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%239cc8c6%27%20stroke-opacity%3D%270.06%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M18%2012%20V24%20M12%2018%20H24%27%2F%3E%3Cpath%20d%3D%27M48%2042%20L60%2054%20M60%2042%20L48%2054%27%2F%3E%3Cpath%20d%3D%27M14%2056%20L22%2048%20L30%2056%27%2F%3E%3Ccircle%20cx%3D%2754%27%20cy%3D%2718%27%20r%3D%275%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 72px 72px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="stars"],
+[data-theme="dark"] [data-bg="stars"] {
+  --ll-ground: #090a16;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27220%27%20height%3D%27220%27%3E%3Cg%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.07%27%3E%3Ccircle%20cx%3D%2720%27%20cy%3D%2730%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2770%27%20cy%3D%2712%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%27120%27%20cy%3D%2760%27%20r%3D%271.4%27%2F%3E%3Ccircle%20cx%3D%27190%27%20cy%3D%2724%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%2740%27%20cy%3D%27110%27%20r%3D%270.9%27%2F%3E%3Ccircle%20cx%3D%27160%27%20cy%3D%27120%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2795%27%20cy%3D%27160%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27190%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%2715%27%20cy%3D%27190%27%20r%3D%271.3%27%2F%3E%3Ccircle%20cx%3D%27130%27%20cy%3D%27205%27%20r%3D%270.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 220px 220px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+[data-theme="dark"][data-bg="pastel"],
+[data-theme="dark"] [data-bg="pastel"] {
+  --ll-ground: #141217;
+  --ll-bg-image: radial-gradient(circle at 15% 20%, rgba(90, 42, 61, 0.25), transparent 45%), radial-gradient(circle at 85% 30%, rgba(31, 74, 61, 0.25), transparent 45%), radial-gradient(circle at 50% 90%, rgba(51, 48, 90, 0.25), transparent 45%);
+  --ll-bg-size: 100% 100%;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: no-repeat;
+}
+
+[data-theme="dark"][data-bg="high-contrast"],
+[data-theme="dark"] [data-bg="high-contrast"] {
+  --ll-ground: #000000;
+  --ll-ink: #ffffff;
+  --ll-ink-muted: #d6d6d6;
+  --ll-line: #8a8a8a;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="default"] {
+  --ll-ground: #fafaf8;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="pure"] {
+  --ll-ground: #ffffff;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="warm-gray"] {
+  --ll-ground: #f3f1ec;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="paper"] {
+  --ll-ground: #f8f3e6;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.478%200%200%200%200%200.361%200%200%200%200%200.18%200%200%200%200.06%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 160px 160px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="notebook"] {
+  --ll-ground: #fbfcfe;
+  --ll-bg-image: linear-gradient(to right, rgba(91, 127, 181, 0.14) 1px, transparent 1px), linear-gradient(to bottom, rgba(91, 127, 181, 0.14) 1px, transparent 1px);
+  --ll-bg-size: 28px 28px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="kraft"] {
+  --ll-ground: #f5ecdb;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27160%27%20height%3D%27160%27%3E%3Cfilter%20id%3D%27g%27%3E%3CfeTurbulence%20type%3D%27fractalNoise%27%20baseFrequency%3D%270.85%27%20numOctaves%3D%272%27%20stitchTiles%3D%27stitch%27%2F%3E%3CfeColorMatrix%20values%3D%270%200%200%200%200.42%200%200%200%200%200.29%200%200%200%200%200.122%200%200%200%200.07%200%27%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D%27100%25%27%20height%3D%27100%25%27%20filter%3D%27url(%23g)%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 160px 160px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="forest"] {
+  --ll-ground: #f1f6ef;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2796%27%20height%3D%2796%27%3E%3Cg%20fill%3D%27%232f6b3c%27%20fill-opacity%3D%270.07%27%3E%3Cpath%20d%3D%27M20%2070%20L32%2040%20L44%2070%20Z%20M24%2052%20L32%2030%20L40%2052%20Z%27%2F%3E%3Crect%20x%3D%2730%27%20y%3D%2770%27%20width%3D%274%27%20height%3D%278%27%2F%3E%3Cpath%20d%3D%27M64%2086%20L74%2060%20L84%2086%20Z%20M67%2070%20L74%2050%20L81%2070%20Z%27%2F%3E%3Crect%20x%3D%2772%27%20y%3D%2786%27%20width%3D%274%27%20height%3D%276%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 96px 96px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="ocean"] {
+  --ll-ground: #eff6fa;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27120%27%20height%3D%2740%27%3E%3Cpath%20d%3D%27M0%2020%20Q15%208%2030%2020%20T60%2020%20T90%2020%20T120%2020%27%20fill%3D%27none%27%20stroke%3D%27%232a6f97%27%20stroke-opacity%3D%270.1%27%20stroke-width%3D%272%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 120px 40px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="mountain"] {
+  --ll-ground: #f2f4f7;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27240%27%20viewBox%3D%270%200%201200%20240%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20240%20L0%20150%20L140%2070%20L260%20140%20L380%2040%20L520%20150%20L640%2090%20L780%20160%20L900%2060%20L1040%20140%20L1200%2080%20L1200%20240%20Z%27%20fill%3D%27%234a5d78%27%20fill-opacity%3D%270.08%27%2F%3E%3Cpath%20d%3D%27M0%20240%20L0%20190%20L180%20130%20L320%20190%20L470%20120%20L620%20200%20L760%20140%20L920%20200%20L1080%20130%20L1200%20180%20L1200%20240%20Z%27%20fill%3D%27%234a5d78%27%20fill-opacity%3D%270.08%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 100% 240px;
+  --ll-bg-position: bottom;
+  --ll-bg-repeat: no-repeat;
+}
+
+:root [data-theme="light"] [data-bg="sunset"] {
+  --ll-ground: #fdf1e7;
+  --ll-bg-image: linear-gradient(to bottom, #fdf1e7, #fbe9ec, #f1ecf8);
+  --ll-bg-size: 100% 100%;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: no-repeat;
+}
+
+:root [data-theme="light"] [data-bg="cafe"] {
+  --ll-ground: #f6efe6;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2780%27%20height%3D%2780%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%236f4e37%27%20stroke-opacity%3D%270.08%27%20stroke-width%3D%272%27%3E%3Cellipse%20cx%3D%2722%27%20cy%3D%2724%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(-30%2022%2024)%27%2F%3E%3Cpath%20d%3D%27M17%2015%20Q24%2024%2027%2033%27%2F%3E%3Cellipse%20cx%3D%2760%27%20cy%3D%2758%27%20rx%3D%279%27%20ry%3D%2713%27%20transform%3D%27rotate(25%2060%2058)%27%2F%3E%3Cpath%20d%3D%27M56%2048%20Q61%2058%2064%2068%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 80px 80px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="city"] {
+  --ll-ground: #f0f2f6;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271200%27%20height%3D%27200%27%20viewBox%3D%270%200%201200%20200%27%20preserveAspectRatio%3D%27none%27%3E%3Cpath%20d%3D%27M0%20200%20V120%20H60%20V80%20H110%20V130%20H160%20V60%20H220%20V110%20H260%20V40%20H320%20V120%20H370%20V90%20H430%20V140%20H480%20V70%20H540%20V100%20H600%20V30%20H650%20V120%20H700%20V80%20H770%20V130%20H820%20V50%20H880%20V110%20H930%20V90%20H990%20V140%20H1040%20V60%20H1100%20V120%20H1150%20V100%20H1200%20V200%20Z%27%20fill%3D%27%233d4a63%27%20fill-opacity%3D%270.08%27%2F%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 100% 200px;
+  --ll-bg-position: bottom;
+  --ll-bg-repeat: no-repeat;
+}
+
+:root [data-theme="light"] [data-bg="rain"] {
+  --ll-ground: #eef1f4;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2790%27%20height%3D%27120%27%3E%3Cg%20stroke%3D%27%234f6b85%27%20stroke-opacity%3D%270.07%27%20stroke-width%3D%271.2%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M10%200%20L4%2018%27%2F%3E%3Cpath%20d%3D%27M50%2040%20L44%2058%27%2F%3E%3Cpath%20d%3D%27M80%2010%20L74%2028%27%2F%3E%3Cpath%20d%3D%27M30%2080%20L24%2098%27%2F%3E%3Cpath%20d%3D%27M70%2090%20L64%20108%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 90px 120px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="washi"] {
+  --ll-ground: #f7f4ec;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2760%27%20height%3D%2730%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%232b4a7a%27%20stroke-opacity%3D%270.07%27%20stroke-width%3D%271.5%27%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2730%27%20cy%3D%2730%27%20r%3D%2712%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%270%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2728%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2715%27%20r%3D%2720%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 60px 30px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="retro"] {
+  --ll-ground: #f8f1e3;
+  --ll-bg-image: radial-gradient(circle, rgba(192, 138, 30, 0.14) 4px, transparent 4.5px);
+  --ll-bg-size: 32px 32px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="nordic"] {
+  --ll-ground: #f4f6f5;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%2772%27%20height%3D%2772%27%3E%3Cg%20fill%3D%27none%27%20stroke%3D%27%233e6b6a%27%20stroke-opacity%3D%270.09%27%20stroke-width%3D%272%27%20stroke-linecap%3D%27round%27%3E%3Cpath%20d%3D%27M18%2012%20V24%20M12%2018%20H24%27%2F%3E%3Cpath%20d%3D%27M48%2042%20L60%2054%20M60%2042%20L48%2054%27%2F%3E%3Cpath%20d%3D%27M14%2056%20L22%2048%20L30%2056%27%2F%3E%3Ccircle%20cx%3D%2754%27%20cy%3D%2718%27%20r%3D%275%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 72px 72px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="stars"] {
+  --ll-ground: #f5f5fb;
+  --ll-bg-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27220%27%20height%3D%27220%27%3E%3Cg%20fill%3D%27%233d3f7a%27%20fill-opacity%3D%270.06%27%3E%3Ccircle%20cx%3D%2720%27%20cy%3D%2730%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2770%27%20cy%3D%2712%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%27120%27%20cy%3D%2760%27%20r%3D%271.4%27%2F%3E%3Ccircle%20cx%3D%27190%27%20cy%3D%2724%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%2740%27%20cy%3D%27110%27%20r%3D%270.9%27%2F%3E%3Ccircle%20cx%3D%27160%27%20cy%3D%27120%27%20r%3D%271.2%27%2F%3E%3Ccircle%20cx%3D%2795%27%20cy%3D%27160%27%20r%3D%271%27%2F%3E%3Ccircle%20cx%3D%27200%27%20cy%3D%27190%27%20r%3D%270.8%27%2F%3E%3Ccircle%20cx%3D%2715%27%20cy%3D%27190%27%20r%3D%271.3%27%2F%3E%3Ccircle%20cx%3D%27130%27%20cy%3D%27205%27%20r%3D%270.7%27%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  --ll-bg-size: 220px 220px;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+:root [data-theme="light"] [data-bg="pastel"] {
+  --ll-ground: #fbf7fb;
+  --ll-bg-image: radial-gradient(circle at 15% 20%, rgba(247, 183, 207, 0.18), transparent 45%), radial-gradient(circle at 85% 30%, rgba(169, 227, 207, 0.18), transparent 45%), radial-gradient(circle at 50% 90%, rgba(199, 195, 242, 0.18), transparent 45%);
+  --ll-bg-size: 100% 100%;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: no-repeat;
+}
+
+:root [data-theme="light"] [data-bg="high-contrast"] {
+  --ll-ground: #ffffff;
+  --ll-ink: #000000;
+  --ll-ink-muted: #333333;
+  --ll-line: #767676;
+  --ll-bg-image: none;
+  --ll-bg-size: auto;
+  --ll-bg-position: 0 0;
+  --ll-bg-repeat: repeat;
+}
+
+/* The page: the pattern sits behind everything, fixed. */
+html[data-bg] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--ll-bg-image);
+  background-size: var(--ll-bg-size);
+  background-position: var(--ll-bg-position);
+  background-repeat: var(--ll-bg-repeat);
+}
+
+/* A swatch in the picker shows the same ground and pattern. */
+.bg-swatch {
+  background-color: var(--ll-ground);
+  background-image: var(--ll-bg-image, none);
+  background-size: var(--ll-bg-size, auto);
+  background-position: var(--ll-bg-position, 0 0);
+  background-repeat: var(--ll-bg-repeat, repeat);
+}
+
+/*
+ * Motion: a second layer moves (transform and opacity only, so it runs
+ * on the compositor). Still for anyone who asks for less motion.
+ */
+html[data-bg="rain"] body::after,
+html[data-bg="stars"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--ll-bg-image);
+  background-size: var(--ll-bg-size);
+  will-change: transform, opacity;
+}
+html[data-bg="stars"] body::after {
+  background-position: 110px 70px;
+  animation: ll-twinkle 4s ease-in-out infinite alternate;
+}
+html[data-bg="rain"] body::after {
+  inset: -120px 0 0 0;
+  background-position: 45px 0;
+  animation: ll-rain 1.2s linear infinite;
+}
+@keyframes ll-twinkle {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes ll-rain {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-20px, 120px, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-bg] body::after {
+    animation: none;
+  }
+}
+@media print {
+  html[data-bg] body::before,
+  html[data-bg] body::after {
+    display: none;
+  }
+}

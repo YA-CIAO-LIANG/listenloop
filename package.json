@@ -22,6 +22,7 @@
     "voices:samples": "node --env-file=.env.local scripts/voice-samples.mts",
     "ai:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.record.config.mts --silent=false",
     "official:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.official.config.mts --silent=false",
+    "backgrounds:css": "node --no-warnings scripts/backgrounds-css.mts",
     "blender:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.blender.config.mts --silent=false",
     "content:fixes": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.fixes.config.mts --silent=false",
     "official:audit": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.audit.config.mts --silent=false",

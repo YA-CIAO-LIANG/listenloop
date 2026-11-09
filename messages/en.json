@@ -230,7 +230,8 @@
       "buttons": "Buttons",
       "components": "Core components",
       "toggles": "Toggles",
-      "pixelFish": "Pixel fish"
+      "pixelFish": "Pixel fish",
+      "backgrounds": "Background themes"
     },
     "specimen": {
       "display": "Hear every word",
@@ -302,7 +303,10 @@
       "closeSheet": "Done",
       "titleZh": "Rescheduling the client meeting",
       "titleZhVideo": "Sintel"
-    }
+    },
+    "backgroundsNote": "Each background's light (left) and dark (right) versions, with three text colors. tests/backgrounds.test.ts checks their contrast.",
+    "backgroundsMuted": "Muted text",
+    "backgroundsAccent": "Accent text"
   },
   "library": {
     "title": "Official library",
@@ -2905,5 +2909,60 @@
     "startFirst": "Start with the first one",
     "levelTest": "Take the 2-minute level test",
     "library": "More in the library"
+  },
+  "backgrounds": {
+    "title": "Background themes",
+    "intro": "Pick a page background you like. Each has a light and a dark version, and text and buttons stay easy to read on all of them. Your choice is saved in this browser.",
+    "loading": "Working out your practice score…",
+    "next": "Practice score {score}: {needed} more points open “{name}”.",
+    "allOpen": "Practice score {score}: every background practice opens is open.",
+    "groups": {
+      "minimal": "Minimal",
+      "paper": "Paper",
+      "nature": "Nature",
+      "city": "City and mood",
+      "culture": "Culture",
+      "other": "Other"
+    },
+    "light": "Light",
+    "dark": "Dark",
+    "free": "Free",
+    "open": "Open",
+    "needs": "{points} more points",
+    "paidOnly": "Unlock forever (coming soon)",
+    "animated": "Animated",
+    "preview": "Preview",
+    "previewLabel": "Preview “{name}” on the whole page",
+    "previewing": "Previewing “{name}”. It isn't applied yet.",
+    "apply": "Apply",
+    "endPreview": "End preview",
+    "unlockForever": "Unlock forever for {price}",
+    "motionNote": "Animated backgrounds (stars, rain) stay still when your device asks for reduced motion.",
+    "offerTitle": "Unlock “{name}” forever",
+    "offerBody": "Unlocking forever is coming soon, for {price}. Nothing is charged now; join the list to hear when it opens.",
+    "offerJoin": "Join the list",
+    "offerJoined": "You're on the list. We'll tell you when it opens.",
+    "offerClose": "Close",
+    "names": {
+      "default": "Default",
+      "pure": "Pure white / black",
+      "warm-gray": "Warm gray",
+      "paper": "Cream paper",
+      "notebook": "Notebook grid",
+      "kraft": "Kraft paper",
+      "forest": "Forest",
+      "ocean": "Ocean",
+      "mountain": "Mountains",
+      "sunset": "Sunset",
+      "cafe": "Late-night café",
+      "city": "City at night",
+      "rain": "Rainy window",
+      "washi": "Seigaiha waves",
+      "retro": "Retro dots",
+      "nordic": "Nordic",
+      "stars": "Starry sky",
+      "pastel": "Soft pastels",
+      "high-contrast": "High contrast"
+    }
   }
 }
