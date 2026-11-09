@@ -17,7 +17,7 @@
 | `--ll-accent`          | #E8590C                                         | #FF7A33                                         | 橘：細線、進度條、按鈕底色、小點綴                                                            |
 | `--ll-accent-ink`      | #A63D09（2026-11-07 前是 #B8440A，D61）         | #FF8F52                                         | 橘色文字（符合 AA 對比）                                                                      |
 | `--ll-line`            | #E5E3DE                                         | #2E2E2E                                         | 細分隔線、邊框                                                                                |
-| `--ll-success`         | #2D784C                                         | #5CC28A                                         | 聽寫答對的字                                                                                  |
+| `--ll-success`         | #256B40（2026-11-12 前是 #2D784C，D121）        | #5CC28A                                         | 聽寫答對的字                                                                                  |
 | `--ll-error`           | #B3302A（2026-11-07 前是 #C2362B，D61）         | #FF6B5E                                         | 聽寫答錯、漏字                                                                                |
 | `--ll-focus`           | #E8590C                                         | #FF7A33                                         | 鍵盤焦點外框                                                                                  |
 | `--ll-heat-0`～`4`     | #EBE9E4 / #F6D2BD / #F1AA82 / #EC8147 / #E8590C | #262626 / #4D2C1A / #884622 / #C4602B / #FF7A33 | 練習日曆熱度圖：當天完成 0、1、2、3、4 個以上的正式任務（橘色與背景混合 25%／50%／75%／100%） |
@@ -332,6 +332,19 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 按「永久解鎖」開啟 Dialog：說明即將推出、現在不收費；「加入名單」（primary）、「關閉」（ghost）；加入後顯示 success 色「✓ 已加入名單」。
 - 分數紀錄：最近 14 天，每天一列（日期、success 色 +N），下面是 supporting、ink-muted 的明細。
 - 強調色（`data-accent` on `<html>`）：橘（預設）、青綠、藍、紫、玫瑰紅、綠、金。只改 `--ll-accent`、`--ll-accent-ink`、`--ll-focus`；熱度圖與螢光筆不變。
+
+## 背景主題 `BackgroundPicker`（D121）
+
+- **是什麼**：頁面底色（`--ll-ground`）與底色上的圖案，19 種，分 6 組：極簡（預設、純白／純黑、暖灰）、紙張（米色紙張、筆記本格線、牛皮紙）、自然（森林、海洋、山景、日落漸層）、城市與氛圍（深夜咖啡廳、城市夜景、雨天窗邊）、文化（和風青海波、復古圓點、北歐）、其他（太空星空、柔和粉彩、高對比）。
+- **只換底色**：卡片、輸入框、按鈕仍用 `--ll-surface` 等原本的 token；高對比背景另外加深 `--ll-ink`、`--ll-ink-muted`、`--ll-line`。
+- **怎麼畫**：只用 CSS 漸層與內嵌 SVG（`data:` URI），沒有圖片檔。圖案放在 `body::before`（`position: fixed`、`z-index: -1`），不參與排版；列印時不顯示。
+- **動態**：太空星空（閃爍，opacity）與雨天窗邊（雨絲往下，transform），只用合成層屬性；系統開啟「減少動態效果」時靜止。
+- **對比**：每個背景、淺色與深色、底色加上圖案最濃的顏色（動態背景以兩層疊加計算），ink、ink-muted、success、error、所有強調色的 accent-ink 都 ≥ 4.5；所有強調色本身（焦點框、按鈕邊框）對底色與漸層的每一段 ≥ 3（`tests/backgrounds.test.ts`）。為此 2026-11-12 調整兩個 token：淺色 `--ll-success` #2D784C → #256B40、綠色強調色 `--ll-accent` #16A34A → #15803D。
+- **設定頁**（`/account`，帳號設定）：h2「背景主題」→ 說明 → 目前分數與下一個解鎖的背景 → 依組別的 h3 與卡片格狀清單（手機一欄、split 兩欄、wide 三欄）。每張 surface 卡片：上方 80px 高的預覽，左半淺色、右半深色（各自 `data-theme`，標示「淺色」「深色」）→ 原生 radio＋名稱（動態的加 metadata「動態」）＋狀態（免費／已解鎖／還差 N 分／永久解鎖即將推出）→ ghost sm「預覽」，付費的再加 secondary sm「NT$60 永久解鎖」。
+- **預覽**：按「預覽」把背景套在整個頁面，上方出現 sticky 的提示列（surface 底、accent 1px 邊框、`role="status"`）：「正在預覽……」＋可以選的有 primary sm「套用」＋ghost sm「結束預覽」。離開頁面自動回到已儲存的背景。
+- **解鎖**：免費 6 種；練習分數（D93）100、200、300、400、500、700、900、1,100、1,400 分各解鎖一種；動態與城市夜景、咖啡廳 4 種是「永久解鎖」假門（價格在 `BACKGROUND_UNLOCK_PRICE`），對話框同強調色。
+- **儲存**：這個瀏覽器的 `ll-background`；`<head>` 的主題 script 在畫面出現前套用（`data-bg` on `<html>`），不會閃一下預設底色。
+- **styleguide**：「背景主題」區塊列出全部背景的淺色與深色，各有一般、次要、強調三種文字。
 
 ## 用 YouTube 建立練習 `YouTubeCreate`（D97）
 

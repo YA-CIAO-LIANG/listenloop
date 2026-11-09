@@ -1,4 +1,9 @@
 import { ACCENT_STORAGE_KEY, ACCENTS, DEFAULT_ACCENT } from "./accents";
+import {
+  BACKGROUND_IDS,
+  BACKGROUND_STORAGE_KEY,
+  DEFAULT_BACKGROUND,
+} from "./background-ids";
 
 export const THEME_STORAGE_KEY = "ll-theme";
 
@@ -25,7 +30,8 @@ export function themeAttribute(
 
 /**
  * Inline script for <head>. Runs before first paint so a saved light/dark
- * choice (or accent color, D93) never flashes the default. Kept
+ * choice (or accent color, D93, or background, D121) never flashes the
+ * default. Kept
  * dependency-free because it is serialized into HTML.
  */
 export const themeInitScript = `(function(){try{var d=document.documentElement,t=localStorage.getItem(${JSON.stringify(
@@ -34,4 +40,8 @@ export const themeInitScript = `(function(){try{var d=document.documentElement,t
   ACCENT_STORAGE_KEY,
 )});if(${JSON.stringify(
   ACCENTS.map((accent) => accent.id).filter((id) => id !== DEFAULT_ACCENT),
-)}.indexOf(a)>=0)d.setAttribute("data-accent",a)}catch(e){}})()`;
+)}.indexOf(a)>=0)d.setAttribute("data-accent",a);var b=localStorage.getItem(${JSON.stringify(
+  BACKGROUND_STORAGE_KEY,
+)});if(${JSON.stringify(
+  BACKGROUND_IDS.filter((id) => id !== DEFAULT_BACKGROUND),
+)}.indexOf(b)>=0)d.setAttribute("data-bg",b)}catch(e){}})()`;
