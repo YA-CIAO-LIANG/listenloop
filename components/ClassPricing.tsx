@@ -1,19 +1,18 @@
 "use client";
 
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 import { recordIntent } from "@/app/intent-actions";
 import { CLASS_PLAN, classPrice } from "@/lib/classroom";
 import type { IntentSource } from "@/lib/intent";
 import {
-  averagePerMonth,
   BILLING_PERIODS,
   DEFAULT_PERIOD,
-  formatPrice,
   YEARLY_MONTHS_FREE,
   type BillingPeriod,
 } from "@/lib/payments/pricing";
 import { Button } from "./Button";
+import { PlanPrice } from "./PlanPrice";
 import { Dialog } from "./Dialog";
 import { SegmentedControl } from "./SegmentedControl";
 
@@ -32,15 +31,10 @@ export function ClassPricing({
 }) {
   const t = useTranslations("classPricing");
   const tPlans = useTranslations("plansPage");
-  const format = useFormatter();
   const [period, setPeriod] = useState<BillingPeriod>(DEFAULT_PERIOD);
   const [offer, setOffer] = useState(false);
   const viewed = useRef(false);
   const heading = useId();
-  const price = (amount: number) =>
-    formatPrice(amount, "TWD", (value) => format.number(value));
-  const suffix =
-    period === "year" ? tPlans("perYearSuffix") : tPlans("perMonthSuffix");
   const full = classPrice(period);
   const priority = classPrice(period, { priority: true });
 
@@ -86,39 +80,11 @@ export function ClassPricing({
         <h2 id={heading} className="font-display text-h3">
           {t("planName")}
         </h2>
-        <p>
-          <span className="font-display text-h2 tabular-nums">
-            {price(full)}
-          </span>
-          <span className="text-ink-muted"> {suffix}</span>
-        </p>
-        {period === "year" && (
-          <p className="text-supporting tabular-nums">
-            <span className="text-success">
-              {tPlans("monthsFree", { months: YEARLY_MONTHS_FREE })}
-            </span>
-            <span className="text-ink-muted">
-              {" · "}
-              {tPlans("averagePerMonth", {
-                amount: price(averagePerMonth(full)),
-              })}
-            </span>
-          </p>
-        )}
+        {/* The price a month is always the big number (D128). */}
+        <PlanPrice total={full} period={period} />
         <div className="space-y-1 border-t border-line pt-4">
           <p className="font-medium">{t("priority")}</p>
-          <p className="tabular-nums">
-            <span className="font-display text-h3">{price(priority)}</span>
-            <span className="text-ink-muted"> {suffix}</span>
-            {period === "year" && (
-              <span className="text-supporting text-ink-muted">
-                {" · "}
-                {tPlans("averagePerMonth", {
-                  amount: price(averagePerMonth(priority)),
-                })}
-              </span>
-            )}
-          </p>
+          <PlanPrice total={priority} period={period} size="md" />
           <p className="text-supporting text-ink-muted">{t("priorityNote")}</p>
         </div>
         <ul className="list-disc space-y-1 pl-5 text-supporting">

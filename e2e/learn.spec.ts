@@ -16,7 +16,9 @@ test("a topic page lists its official materials", async ({ page }) => {
   await expect(
     page.getByRole("heading", { level: 1, name: "旅遊英文英文聽力練習" }),
   ).toBeVisible();
-  await expect(page.getByText("官方測試練習")).toBeVisible();
+  // Other tests may publish more official practices into the shared
+  // stand-in database while this one runs; the first is enough.
+  await expect(page.getByText("官方測試練習").first()).toBeVisible();
   await expect(
     page.getByRole("link", { name: "從第一份開始" }),
   ).toHaveAttribute("href", `/videos/p-${mock.official.id}`);

@@ -8,6 +8,8 @@ import {
 } from "@/app/plans/actions";
 import { PLANS, type PlanBlock } from "@/lib/plans";
 import { Button } from "./Button";
+import { PLAN_PRICES } from "@/lib/payments/pricing";
+import { PlanPrice } from "./PlanPrice";
 
 /**
  * What the paid plan will include, for an account past its free trial
@@ -78,7 +80,8 @@ export function PaidPlanCard({
           {t("paid.everything")}
         </li>
       </ul>
-      <p className="font-display text-h3">{t("paid.price")}</p>
+      {/* Plus billed yearly, a month first like everywhere (D128). */}
+      <PlanPrice total={PLAN_PRICES.plus.year.amount} period="year" size="md" />
       <div aria-live="polite" className="space-y-2">
         {joined ? (
           <p className="text-success">

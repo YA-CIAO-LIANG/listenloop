@@ -2268,3 +2268,12 @@
 - **分類先顯示 6 個**：依目前教材數由多到少選 6 個（Joe 說 6～8 個，取 6 個在手機上約兩三行），已選的一定顯示，其餘收在「更多類別（N）」。
 - **手機版預設展開**：原本的「篩選」按鈕與底部抽屜移除，改成搜尋列下方的篩選區塊，預設展開、可以收合（每次進頁面都是展開）。寬螢幕仍是左側欄，本來就展開。
 - **要改時**：`lib/library-config.ts`（`LIBRARY_MINUTES`、`MAIN_CATEGORY_COUNT`）、`lib/library.ts`、`components/MaterialLibrary.tsx`；翻譯 `library.filters`。
+
+## D128 價格一律以每月價格為主（2026-11-13，Joe 指定）
+
+- **規則**：每個方案最大的數字是每月價格。月繳顯示 NT$149／月；年繳顯示 NT$124／月（年繳總價 ÷ 12 四捨五入，`averagePerMonth`），下方小字「年繳 NT$1,490，一次付清，省 2 個月」。班級方案相同（NT$416／月、等候名單價 NT$291／月）。
+- **一個元件**：`components/PlanPrice.tsx`，伺服器與瀏覽器元件都能用；定價頁方案卡、訂閱對話框、方案比較表（新增「價格」列）、班級方案、帳號頁目前方案、假結帳頁、建立教材頁的升級卡（`PaidPlanCard`，原本寫「價格：即將推出」，改成 Plus 年繳價）都改用它。
+- **付款紀錄不變**：帳號頁與後台的付款紀錄顯示實際扣款金額（例如 NT$1,490），那是紀錄，不是方案價格。
+- **一次性解鎖**（背景、強調色的 NT$30／NT$60 假門）不是訂閱，不適用。
+- 移除不再使用的翻譯：`plansPage.averagePerMonth`、`plansPage.perYearSuffix`、`checkout.amount`、`plans.paid.price`。
+- **要改時**：`components/PlanPrice.tsx`；價格本身仍只改 `lib/payments/pricing.ts`、`lib/classroom.ts`。

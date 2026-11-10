@@ -10,22 +10,33 @@ test("signed out, pricing shows Free, Plus, and Pro, yearly first at ten months 
   await page.goto("/pricing?from=stats");
   await expect(page.getByRole("heading", { name: "方案與價格" })).toBeVisible();
   const plus = page.getByRole("listitem").filter({ hasText: "訂閱 Plus" });
-  // Yearly is the default: 10 × monthly, "2 months free" and the average
-  // a month beside it, no percentages (D105).
+  // Yearly is the default: 10 × monthly, no percentages (D105). The big
+  // number is always a month's price; the yearly total is under it (D128).
   await expect(
     page.getByRole("radio", { name: "年繳 · 省 2 個月" }),
   ).toBeChecked();
-  await expect(plus.getByText("NT$1,490")).toBeVisible();
-  await expect(plus.getByText("省 2 個月")).toBeVisible();
-  await expect(plus.getByText("每月平均 NT$124")).toBeVisible();
+  await expect(plus.getByText("NT$124", { exact: true })).toHaveClass(
+    /text-h2/,
+  );
+  await expect(
+    plus.getByText("年繳 NT$1,490，一次付清，省 2 個月"),
+  ).toBeVisible();
   const pro = page.getByRole("listitem").filter({ hasText: "訂閱 Pro" });
-  await expect(pro.getByText("NT$2,990")).toBeVisible();
-  await expect(pro.getByText("每月平均 NT$249")).toBeVisible();
+  await expect(pro.getByText("NT$249", { exact: true })).toHaveClass(/text-h2/);
+  await expect(pro.getByText(/年繳 NT\$2,990，一次付清/)).toBeVisible();
+  // The comparison table has the same prices a month.
+  await expect(
+    page.getByRole("table", { name: "方案比較" }).getByRole("row", {
+      name: /^價格 NT\$0／月 NT\$124／月.*NT\$1,490.*NT\$249／月/,
+    }),
+  ).toBeVisible();
   await expect(page.getByText("兩年")).toHaveCount(0);
   await expect(page.locator("main")).not.toContainText("%");
   await page.getByText("月繳", { exact: true }).click();
-  await expect(plus.getByText("NT$149")).toBeVisible();
-  await expect(plus.getByText("每月平均")).toHaveCount(0);
+  await expect(plus.getByText("NT$149", { exact: true })).toHaveClass(
+    /text-h2/,
+  );
+  await expect(plus.getByText(/一次付清/)).toHaveCount(0);
   await expect(
     page.getByRole("table", { name: "方案比較" }).getByRole("row", {
       name: /單份最長 30 秒 5 分鐘 10 分鐘/,
@@ -61,7 +72,7 @@ test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
   await page.goto("/checkout/fake?interval=month");
 
   await expect(page.getByRole("heading", { name: "測試結帳" })).toBeVisible();
-  await expect(page.getByText("金額：NT$149")).toBeVisible();
+  await expect(page.getByText("NT$149", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "模擬付款成功" }).click();
 
   await expect(page.getByRole("heading", { name: "付款完成" })).toBeVisible();
@@ -71,6 +82,7 @@ test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
   const billing = page.locator("#billing");
   await expect(billing.getByText(/^Plus.*月繳/)).toBeVisible();
   await expect(billing.getByText(/下次扣款日/)).toBeVisible();
+  await expect(billing.getByText("NT$149／月")).toBeVisible();
   await expect(billing.getByRole("cell", { name: /NT\$149/ })).toBeVisible();
 
   await billing.getByRole("button", { name: "取消續訂" }).click();

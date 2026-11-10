@@ -37,14 +37,19 @@ test("the class plan: NT$4,990 a year, NT$3,490 on the priority list, a fake doo
     page.getByRole("radio", { name: "年繳 · 省 2 個月" }),
   ).toBeChecked();
   const plan = page.getByRole("region", { name: "班級版" });
-  await expect(plan.getByText("NT$4,990")).toBeVisible();
-  await expect(plan.getByText("每月平均 NT$416")).toBeVisible();
-  await expect(plan.getByText("NT$3,490")).toBeVisible();
-  await expect(plan.getByText("每月平均 NT$291")).toBeVisible();
+  // A month's price is the big number; the yearly total under it (D128).
+  await expect(plan.getByText("NT$416", { exact: true })).toHaveClass(
+    /text-h2/,
+  );
+  await expect(
+    plan.getByText("年繳 NT$4,990，一次付清，省 2 個月"),
+  ).toBeVisible();
+  await expect(plan.getByText("NT$291", { exact: true })).toBeVisible();
+  await expect(plan.getByText(/年繳 NT\$3,490，一次付清/)).toBeVisible();
   await expect(page.locator("main")).not.toContainText("%");
   await page.getByText("月繳", { exact: true }).click();
-  await expect(plan.getByText("NT$499")).toBeVisible();
-  await expect(plan.getByText("NT$349")).toBeVisible();
+  await expect(plan.getByText("NT$499", { exact: true })).toBeVisible();
+  await expect(plan.getByText("NT$349", { exact: true })).toBeVisible();
   await plan.getByRole("button", { name: "訂閱" }).click();
   await expect(
     page
