@@ -145,18 +145,92 @@ describe("MaterialLibraryView", () => {
     expect(onChange).toHaveBeenCalledWith(NO_LIBRARY_FILTER);
   });
 
-  it("opens the filters in a drawer on phones, counting the ones on", () => {
+  it("shows the filters open in the page on phones, counting the ones on, and folds them (D127)", () => {
     show({ accents: ["gb"] });
-    fireEvent.click(screen.getByRole("button", { name: "篩選（1）" }));
-    const drawer = screen.getByRole("dialog", { name: "篩選" });
+    const panel = screen.getByRole("region", { name: "篩選（1）" });
+    const fold = within(panel).getByRole("button", { name: "收合篩選" });
+    expect(fold.getAttribute("aria-expanded")).toBe("true");
     expect(
-      within(drawer).getByRole("button", { name: "顯示 1 份教材" }),
+      within(panel).getByRole("group", { name: "我今天有幾分鐘" }),
     ).toBeTruthy();
+    fireEvent.click(fold);
+    expect(
+      within(panel)
+        .getByRole("button", { name: "展開篩選" })
+        .getAttribute("aria-expanded"),
+    ).toBe("false");
+    expect(
+      within(panel).queryByRole("group", { name: "我今天有幾分鐘" }),
+    ).toBeNull();
   });
 
-  it("has no time-a-day choice any more (D104)", () => {
+  it("puts the minutes I have first, then level, then category (D127)", () => {
     show();
-    expect(screen.queryByText("我今天有幾分鐘？")).toBeNull();
+    const sidebar = screen.getByRole("complementary", { name: "篩選" });
+    const names = within(sidebar)
+      .getAllByRole("group")
+      .map((group) => group.getAttribute("aria-labelledby"))
+      .map((id) => document.getElementById(id!)?.textContent);
+    expect(names.slice(0, 3)).toEqual(["我今天有幾分鐘", "程度", "分類"]);
+  });
+
+  it("chooses the minutes a day may take, one at a time (D127)", () => {
+    const onChange = show();
+    const sidebar = screen.getByRole("complementary", { name: "篩選" });
+    const minutes = within(sidebar).getByRole("group", {
+      name: "我今天有幾分鐘",
+    });
+    expect(
+      within(minutes)
+        .getByRole("button", { name: "不限" })
+        .getAttribute("aria-pressed"),
+    ).toBe("true");
+    fireEvent.click(
+      within(minutes).getByRole("button", { name: /^10 分鐘內/ }),
+    );
+    expect(onChange).toHaveBeenCalledWith(
+      expect.objectContaining({ minutes: 10 }),
+    );
+  });
+
+  it("shows the six most common categories and the rest behind 更多類別 (D127)", () => {
+    const categories = [
+      "travel",
+      "exam",
+      "talks-stories",
+      "food",
+      "health",
+      "tech",
+      "campus",
+      "business",
+    ] as const;
+    // Earlier ones have more materials.
+    const many = categories.flatMap((category, n) =>
+      Array.from({ length: categories.length - n }, (_, k) =>
+        item({ id: `m-${n}-${k}`, category }),
+      ),
+    );
+    renderWithIntl(
+      <MaterialLibraryView
+        items={many}
+        filter={{ ...NO_LIBRARY_FILTER, categories: ["business"] }}
+        onChange={vi.fn()}
+      />,
+    );
+    const sidebar = screen.getByRole("complementary", { name: "篩選" });
+    const group = within(sidebar).getByRole("group", { name: "分類" });
+    // 全部, the six most common, and the chosen one (business).
+    expect(
+      within(group).getAllByRole("button", { pressed: false }).length + 1,
+    ).toBe(8);
+    expect(within(group).queryByRole("button", { name: /^校園/ })).toBeNull();
+    fireEvent.click(
+      within(group).getByRole("button", { name: "更多類別（1）" }),
+    );
+    expect(within(group).getByRole("button", { name: /^校園/ })).toBeTruthy();
+    expect(
+      within(group).getByRole("button", { name: "收起類別" }),
+    ).toBeTruthy();
   });
 
   it("clears every category with 全部 (D104)", () => {
@@ -200,14 +274,16 @@ describe("MaterialLibraryView", () => {
     ).toHaveLength(5);
   });
 
-  it("chooses one audio length, all by default (D104)", () => {
+  it("chooses one audio length with chips, all by default (D104, D127)", () => {
     const onChange = show();
     const sidebar = screen.getByRole("complementary", { name: "篩選" });
     const lengths = within(sidebar).getByRole("group", { name: "長度" });
     expect(
-      (within(lengths).getByLabelText("全部長度") as HTMLInputElement).checked,
-    ).toBe(true);
-    fireEvent.click(within(lengths).getByLabelText("5–10 分鐘"));
+      within(lengths)
+        .getByRole("button", { name: "全部長度" })
+        .getAttribute("aria-pressed"),
+    ).toBe("true");
+    fireEvent.click(within(lengths).getByRole("button", { name: "5–10 分鐘" }));
     expect(onChange).toHaveBeenCalledWith(
       expect.objectContaining({ length: "5-10" }),
     );

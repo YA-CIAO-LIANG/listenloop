@@ -216,6 +216,23 @@ describe("filterLibrary", () => {
   });
 });
 
+describe("the minutes I have today (D127)", () => {
+  it("keeps materials whose average day fits, and counts as a filter", () => {
+    // 90 s, 10 sentences: (2 × (360 + 100) + 5 × 270) / 7 ≈ 5.4 → 6 min;
+    // 300 s, 30 sentences: (2 × 1,500 + 5 × 900) / 7 ≈ 17.9 → 18 min.
+    const short = item({ id: "short" });
+    const long = item({ id: "long", seconds: 300, sentenceCount: 30 });
+    expect(ids(filterLibrary([short, long], filter({ minutes: 10 })))).toEqual([
+      "short",
+    ]);
+    expect(ids(filterLibrary([short, long], filter({ minutes: 30 })))).toEqual([
+      "short",
+      "long",
+    ]);
+    expect(activeFilterCount(filter({ minutes: 10 }))).toBe(1);
+  });
+});
+
 describe("library URL parameters", () => {
   it("round-trips a filter", () => {
     const chosen = filter({
@@ -226,11 +243,12 @@ describe("library URL parameters", () => {
       levels: ["beginner"],
       length: "5-10",
       accents: ["au"],
+      minutes: 15,
       sort: "newest",
     });
     const params = writeLibraryParams(new URLSearchParams(), chosen);
     expect(params.toString()).toBe(
-      "q=coffee&type=audio&cat=travel%2Cexam&sc=hotel&level=beginner&len=5-10&accent=au&sort=newest",
+      "q=coffee&type=audio&cat=travel%2Cexam&sc=hotel&level=beginner&len=5-10&accent=au&min=15&sort=newest",
     );
     expect(parseLibraryParams(params)).toEqual(chosen);
   });
@@ -246,7 +264,7 @@ describe("library URL parameters", () => {
   it("drops unknown values", () => {
     const parsed = parseLibraryParams(
       new URLSearchParams(
-        "type=film,audio&cat=nope&level=expert&accent=fr&len=2-4&sort=random",
+        "type=film,audio&cat=nope&level=expert&accent=fr&len=2-4&min=7&sort=random",
       ),
     );
     expect(parsed).toEqual(filter({ kinds: ["audio"] }));

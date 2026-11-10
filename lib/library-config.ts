@@ -34,6 +34,23 @@ export type LibraryLengthId = (typeof LIBRARY_LENGTHS)[number]["id"];
 export const isLibraryLengthId = (value: unknown): value is LibraryLengthId =>
   LIBRARY_LENGTHS.some((length) => length.id === value);
 
+/**
+ * "How many minutes do I have today" (D127): the library shows materials
+ * whose average practice day (lib/library-time.ts) fits. The first filter
+ * on the home page.
+ */
+export const LIBRARY_MINUTES = [5, 10, 15, 20, 30] as const;
+export type LibraryMinutes = (typeof LIBRARY_MINUTES)[number];
+
+export const isLibraryMinutes = (value: unknown): value is LibraryMinutes =>
+  LIBRARY_MINUTES.includes(value as LibraryMinutes);
+
+/**
+ * Categories shown before "More categories" (D127): the ones with the
+ * most materials. Chosen ones always show.
+ */
+export const MAIN_CATEGORY_COUNT = 6;
+
 /** Categories one search may pick (D104). */
 export const MAX_CATEGORIES = 5;
 

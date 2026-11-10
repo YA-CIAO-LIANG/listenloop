@@ -317,7 +317,6 @@
     },
     "filters": {
       "title": "Filters",
-      "open": "Filters",
       "openCount": "Filters ({count})",
       "kind": "Type",
       "category": "Category",
@@ -335,7 +334,6 @@
         "popular": "Most practiced"
       },
       "results": "{count, plural, one {# material} other {# materials}}",
-      "show": "Show {count, plural, one {# material} other {# materials}}",
       "clear": "Clear filters",
       "clearAll": "Clear all filters",
       "empty": "Nothing matches.",
@@ -349,7 +347,14 @@
         "3-5": "3–5 min",
         "5-10": "5–10 min",
         "10-plus": "10 min or more"
-      }
+      },
+      "minutes": "Minutes I have today",
+      "anyMinutes": "Any",
+      "minutesOption": "Up to {minutes} min",
+      "moreCategories": "More categories ({count})",
+      "fewerCategories": "Fewer categories",
+      "collapse": "Hide filters",
+      "expand": "Show filters"
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",

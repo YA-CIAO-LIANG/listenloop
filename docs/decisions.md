@@ -2259,3 +2259,12 @@
 - **螢光筆**：每個記號記下它來自原文的哪幾個字（`normalizeTokens` 的 `owners`），寫錯的數字整組標示（six hundred fifty 對 600 → 三個字都標）。
 - **沒有支援**（之後需要再加）：分數（one half）、`half past ten`、`three fifty`（省略 dollars 的金額）、羅馬數字。
 - **要改時**：`lib/scoring/normalize.ts`；測試 `tests/scoring/number-forms.test.ts`。
+
+## D127 首頁教材庫的篩選：預設展開、「我今天有幾分鐘」放第一（2026-11-13，Joe 指定）
+
+- **「我今天有幾分鐘」加回來**（D104 曾移除，這次 Joe 明確要求）：5、10、15、20、30 分鐘，單選；依教材卡片上的「每天約 N 分鐘」（`dailyMinutes`，D98 的公式）篩選，小於等於所選分鐘數。網址參數 `min`，所以「存為我的預設篩選」也會一起存。只在瀏覽器端篩選（伺服器搜尋仍只用分類與長度，D104）。
+- **順序**：分鐘 → 程度 → 分類（＋情境）→ 類型 → 長度 → 口音（依 Joe 的「其他」排在最後）。
+- **全部用標籤按鈕**：長度從分段控制改成和其他群組一樣的 `FilterChip`（單選，第一個「全部長度」）。
+- **分類先顯示 6 個**：依目前教材數由多到少選 6 個（Joe 說 6～8 個，取 6 個在手機上約兩三行），已選的一定顯示，其餘收在「更多類別（N）」。
+- **手機版預設展開**：原本的「篩選」按鈕與底部抽屜移除，改成搜尋列下方的篩選區塊，預設展開、可以收合（每次進頁面都是展開）。寬螢幕仍是左側欄，本來就展開。
+- **要改時**：`lib/library-config.ts`（`LIBRARY_MINUTES`、`MAIN_CATEGORY_COUNT`）、`lib/library.ts`、`components/MaterialLibrary.tsx`；翻譯 `library.filters`。

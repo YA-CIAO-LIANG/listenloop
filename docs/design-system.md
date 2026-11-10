@@ -407,7 +407,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - Display h2「教材庫」＋ ink-muted 說明；section `id="library"`（`scroll-mt-8`）。內建影片和官方音檔教材放在同一個清單（`getLibraryItems`），不再依合集分組。
 - **版面**：
   - wide（1024px）以上：左側 15rem 篩選側欄（`<aside>`，名稱「篩選」）＋ 48px ＋ 右側結果；
-  - 以下：沒有側欄，搜尋列最後多一個 secondary、md「篩選」按鈕（有條件時「篩選（2）」，`aria-haspopup="dialog"`），打開底部抽屜（`Dialog variant="sheet"`）。
+  - 以下（D127）：沒有側欄；搜尋列下方是**預設展開**的篩選區塊（1px line 邊框、4px 圓角、內距 16px），標題列左邊 metadata 大寫「篩選」（有條件時「篩選（2）」），右邊 ghost、sm「收合篩選／展開篩選」（`aria-expanded`）。原本的底部抽屜移除。
 - **搜尋列**（結果欄最上方，`flex-wrap`、間距 12px）：
   - 「搜尋」欄位（metadata 大寫標籤在上，`type="search"`，高 40px、觸控 44px，表單欄位樣式，最小寬 12rem 並佔滿剩餘空間）：標題＋副標包含每個詞就符合；
   - 「排序」原生 `<select>`（同高）：推薦、最新、最短、最多人練。
@@ -424,6 +424,9 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - **自動搜尋**（D104）：分類或長度改變後 300ms（`SEARCH_DEBOUNCE_MS`）向伺服器搜尋官方教材庫，不需要按鈕；搜尋中，結果列顯示「搜尋中…」。搜尋失敗時用同樣規則在頁面上篩選。
 - 都可複選；取消一個分類時，它底下已選的情境一起取消。同一組選了幾個就是「其中之一」，不同組之間是「而且」。
 - 每個 chip 後面括號是符合的份數（不受其他條件影響）。教材庫裡某一組只有一種值時，整組不顯示（已經選取時例外）。
+
+- **順序與形式（D127）**：由上到下「我今天有幾分鐘」（不限、5、10、15、20、30 分鐘內，依每份教材的平均每天練習時間）→ 程度 → 分類（＋情境）→ 類型 → 長度 → 口音。全部是 `FilterChip`，按下立即篩選；單選的群組（分鐘、長度）第一個是「不限／全部長度」。
+- **分類**：先顯示教材數最多的 6 個（`MAIN_CATEGORY_COUNT`）與已選的，其餘收在 ghost、sm「更多類別（N）」後面，打開後變成「收起類別」（`aria-expanded`）。
 
 ### 教材卡片 `MaterialCard`（D70）
 
