@@ -1,3 +1,6 @@
+import { probeProvider } from "@/lib/ai/http";
+import { readEnv } from "@/lib/ai/providers";
+import type { ConnectionCheck } from "@/lib/ai/types";
 import {
   parseIsoDuration,
   type YouTubeLicense,
@@ -41,8 +44,37 @@ export const FAKE_VIDEOS: Record<string, YouTubeVideoInfo> = {
 };
 
 export function youtubeEnabled(): boolean {
-  return (
-    process.env.YOUTUBE_PROVIDER === "fake" || !!process.env.YOUTUBE_API_KEY
+  return process.env.YOUTUBE_PROVIDER === "fake" || !!youtubeKey();
+}
+
+/** The key, tidied like the AI keys (full-width, quotes, D47). */
+const youtubeKey = () => readEnv(process.env, "YOUTUBE_API_KEY");
+
+const VIDEOS_URL = "https://www.googleapis.com/youtube/v3/videos";
+
+/** A public video every check can ask about: Sintel (Blender, CC BY). */
+export const PROBE_VIDEO_ID = "eRsGyueVLvQ";
+
+/**
+ * "Test connection" for YouTube on /admin/usage (D129): one videos.list
+ * call for a public video, 1 unit of the free daily quota, no charge.
+ * Null when there's no key (the setup check says so); the fake always
+ * passes, without the network.
+ */
+export async function checkYouTubeConnection(
+  fetchImpl: typeof fetch = fetch,
+): Promise<ConnectionCheck | null> {
+  if (process.env.YOUTUBE_PROVIDER === "fake") return { ok: true };
+  const key = youtubeKey();
+  if (!key) return null;
+  const url = new URL(VIDEOS_URL);
+  url.searchParams.set("part", "id");
+  url.searchParams.set("id", PROBE_VIDEO_ID);
+  return probeProvider(
+    url.toString(),
+    { method: "GET", headers: { "x-goog-api-key": key } },
+    fetchImpl,
+    (status) => status === 200,
   );
 }
 
@@ -79,14 +111,17 @@ export function getYouTubeLookup(
   if (process.env.YOUTUBE_PROVIDER === "fake") {
     return async (id) => FAKE_VIDEOS[id] ?? null;
   }
-  const key = process.env.YOUTUBE_API_KEY;
+  const key = youtubeKey();
   if (!key) return null;
   return async (id) => {
-    const url = new URL("https://www.googleapis.com/youtube/v3/videos");
+    const url = new URL(VIDEOS_URL);
     url.searchParams.set("part", "snippet,status,contentDetails");
     url.searchParams.set("id", id);
-    url.searchParams.set("key", key);
-    const response = await fetchImpl(url, { cache: "no-store" });
+    // The key in a header, never the URL, so it stays out of logs (D129).
+    const response = await fetchImpl(url, {
+      cache: "no-store",
+      headers: { "x-goog-api-key": key },
+    });
     if (!response.ok) {
       throw new Error(`YouTube Data API: ${response.status}`);
     }

@@ -27,7 +27,10 @@ const video = {
   embeddable: true,
 };
 
+const record = vi.fn(async () => ({ ok: true }));
+
 function setup(plan: PlanId = "paid") {
+  record.mockClear();
   const lookup = vi.fn(async () => ({ ok: true as const, video }));
   const translate = vi.fn(async (lines: string[]) => ({
     ok: true as const,
@@ -52,6 +55,7 @@ function setup(plan: PlanId = "paid") {
         create={create}
         generateNotes={generateNotes}
         generate={generate}
+        record={record}
       />
     </PlanProvider>,
   );
@@ -139,5 +143,17 @@ describe("YouTubeCreate (D97)", () => {
     expect(
       screen.getByRole("link", { name: /看方案/ }).getAttribute("href"),
     ).toBe("/pricing?from=youtube");
+    // Opening it is interest in paying, recorded once (D129).
+    expect(record).toHaveBeenCalledTimes(1);
+    expect(record).toHaveBeenCalledWith({
+      step: "unlock_click",
+      item: "youtube-practice",
+      source: "youtube",
+    });
+  });
+
+  it("records nothing for plans that can use it", () => {
+    setup("paid");
+    expect(record).not.toHaveBeenCalled();
   });
 });

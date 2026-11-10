@@ -2277,3 +2277,15 @@
 - **一次性解鎖**（背景、強調色的 NT$30／NT$60 假門）不是訂閱，不適用。
 - 移除不再使用的翻譯：`plansPage.averagePerMonth`、`plansPage.perYearSuffix`、`checkout.amount`、`plans.paid.price`。
 - **要改時**：`components/PlanPrice.tsx`；價格本身仍只改 `lib/payments/pricing.ts`、`lib/classroom.ts`。
+
+## D129 YouTube 貼連結建立練習：設定方式、管理員提示、連線測試（2026-11-13，Joe 指定）
+
+- **環境變數**：只有一個 `YOUTUBE_API_KEY`（YouTube Data API v3 的金鑰）。放在 Vercel 的 **Production**；如果要在預覽網址測試，也加到 **Preview**。本機開發與 E2E 用假的查詢（`YOUTUBE_PROVIDER=fake`），不需要放 Development。值會像 AI 金鑰一樣整理（全形字、前後空白、引號，D47）。
+- **沒有金鑰時**：
+  - 一般使用者看不到「YouTube 連結」（和 D97 相同）；
+  - 管理員在建立教材頁看得到「YouTube 連結」，點進去顯示「尚未設定 YouTube API 金鑰」與「前往設定診斷」（`/admin/usage`）；
+  - 設定診斷新增「YouTube 連結建立練習（選用）」一組，檢查 `YOUTUBE_API_KEY` 是否設定；它是選用的，不影響「可以建立練習」的判斷。
+- **測試連線**：`/admin/usage` 的「測試連線（免費）」多一列 YouTube Data API：查詢一支公開影片（Sintel，`part=id`），用掉每日免費配額 1 單位，不收費、不記入 AI 用量。沒有金鑰顯示「未設定金鑰」；失敗時顯示 HTTP 狀態與「確認金鑰、啟用 YouTube Data API v3」的提示。
+- **金鑰改放 header**：查詢影片與測試連線都用 `x-goog-api-key` header，不放在網址，避免金鑰出現在記錄裡（和 Gemini 相同）。
+- **設定金鑰後**：Plus 以上方案與管理員可以使用（D97 的 `youtubePractices`）；免費方案看得到入口，點進去是說明與「看方案」，同時記錄到付費意願漏斗（`unlock_click`、項目 `youtube-practice`、來源 `youtube`，和分享教材的升級按鈕同一種，不需要改資料表）。每次打開只記一次。
+- **要改時**：`auth/youtube.ts`、`auth/creator.ts`（`diagnoseCreator`）、`app/admin/usage/actions.ts`、`components/ConnectionTest.tsx`、`components/CreatePracticeForm.tsx`、`components/YouTubeCreate.tsx`。

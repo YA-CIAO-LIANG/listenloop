@@ -55,7 +55,10 @@ export function ConnectionTest({
     setPending(false);
   }
 
-  const row = (kind: "language" | "speech", check: ConnectionCheck | null) => {
+  const row = (
+    kind: "language" | "speech" | "youtube",
+    check: ConnectionCheck | null,
+  ) => {
     const detail = [check?.status && `HTTP ${check.status}`, check?.code]
       .filter(Boolean)
       .join(" ");
@@ -68,7 +71,9 @@ export function ConnectionTest({
           >
             <span aria-hidden="true">{check?.ok ? "✓ " : "✗ "}</span>
             {!check
-              ? t("noCheck")
+              ? kind === "youtube"
+                ? t("noYouTubeKey")
+                : t("noCheck")
               : check.ok
                 ? t("ok")
                 : detail
@@ -78,7 +83,9 @@ export function ConnectionTest({
         </p>
         {check && !check.ok && (
           <p className="text-ink-muted">
-            {t(`hints.${hintFor(check)}` as "hints.other")}
+            {kind === "youtube"
+              ? t("hints.youtube")
+              : t(`hints.${hintFor(check)}` as "hints.other")}
           </p>
         )}
       </li>
@@ -97,6 +104,7 @@ export function ConnectionTest({
             <ul className="divide-y divide-line border-y border-line text-supporting">
               {row("language", result.language)}
               {row("speech", result.speech)}
+              {row("youtube", result.youtube)}
             </ul>
           ) : (
             <p role="alert" className="text-supporting text-error">

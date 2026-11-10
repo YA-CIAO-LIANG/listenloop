@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
+import { recordIntent } from "@/app/intent-actions";
 import {
   generatePracticeAudio,
   generatePracticeNotes,
@@ -65,6 +66,7 @@ export function YouTubeCreate({
   translate = translateSentences,
   generateNotes = generatePracticeNotes,
   generate = generatePracticeAudio,
+  record = recordIntent,
 }: {
   /** Injected in tests; the Server Actions otherwise. */
   lookup?: (url: string) => Promise<LookupYouTubeResult>;
@@ -72,6 +74,7 @@ export function YouTubeCreate({
   translate?: (s: string[], l: "en") => Promise<TranslateResult>;
   generateNotes?: typeof generatePracticeNotes;
   generate?: typeof generatePracticeAudio;
+  record?: typeof recordIntent;
 }) {
   const t = useTranslations("youtube");
   const router = useRouter();
@@ -90,8 +93,21 @@ export function YouTubeCreate({
   const [error, setError] = useState<string | null>(null);
   const [createdId, setCreatedId] = useState<string | null>(null);
   const maxSeconds = PLANS[plan].maxPracticeSeconds;
+  const allowed = can(plan, { kind: "youtube-practice" }).ok;
+  // A free plan opening this is interest in paying (D129), recorded once
+  // like the other paid-feature doors.
+  const recorded = useRef(false);
+  useEffect(() => {
+    if (allowed || recorded.current) return;
+    recorded.current = true;
+    void record({
+      step: "unlock_click",
+      item: "youtube-practice",
+      source: "youtube",
+    }).catch(() => {});
+  }, [allowed, record]);
 
-  if (!can(plan, { kind: "youtube-practice" }).ok) {
+  if (!allowed) {
     return (
       <div className="space-y-3 rounded-base border border-line bg-surface p-4">
         <p>{t("paidOnly")}</p>

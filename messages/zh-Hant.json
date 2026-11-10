@@ -1147,7 +1147,8 @@
       "groups": {
         "account": "帳號與資料庫",
         "language": "AI 文字：{vendor}",
-        "speech": "聲音：{vendor}"
+        "speech": "聲音：{vendor}",
+        "youtube": "YouTube 連結建立練習（選用）"
       },
       "vendors": {
         "azure": "Azure",
@@ -1173,7 +1174,8 @@
         "AZURE_SPEECH_REGION": "已設定 AZURE_SPEECH_REGION",
         "regionValid": "AZURE_SPEECH_REGION 是區域代碼（例如 uaenorth）",
         "GOOGLE_CLOUD_API_KEY": "已設定 GOOGLE_CLOUD_API_KEY",
-        "fakeInUse": "使用假的供應者（AI_PROVIDERS=fake，只用在本機和預覽）"
+        "fakeInUse": "使用假的供應者（AI_PROVIDERS=fake，只用在本機和預覽）",
+        "youtubeKey": "已設定 YOUTUBE_API_KEY（沒有設定時，一般使用者看不到這個功能）"
       }
     },
     "failedWith": "失敗（{reason}；{detail}）",
@@ -1197,13 +1199,16 @@
         "429": "服務忙碌或超過每分鐘上限，過一分鐘再試。",
         "timeout": "等太久沒有回應：再試一次；一直逾時的話，確認端點網址。",
         "network": "連不到服務：確認端點網址或區域是否正確。",
-        "other": "其他錯誤：狀態碼和錯誤代碼可以用來查 Azure 文件。"
+        "other": "其他錯誤：狀態碼和錯誤代碼可以用來查 Azure 文件。",
+        "youtube": "確認 YOUTUBE_API_KEY 正確，並在 Google Cloud 專案啟用「YouTube Data API v3」；金鑰如果有限制，要允許這個 API。"
       },
       "errors": {
         "unavailable": "只有管理員可以測試連線。",
         "not-configured": "設定不完整，無法測試：請先看上方「設定診斷」哪一項不成立。",
         "network": "連不上伺服器，可能是網站剛更新。請重新整理頁面後再試。"
-      }
+      },
+      "youtube": "YouTube Data API",
+      "noYouTubeKey": "未設定金鑰"
     },
     "settings": {
       "title": "AI 額度設定",
@@ -1288,7 +1293,12 @@
     "customLengthHint": "15 秒到 {max}。",
     "planLength": "你的方案每份最長 {max}。",
     "seePlans": "看方案",
-    "duration": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}"
+    "duration": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}",
+    "youtubeNoKey": {
+      "title": "尚未設定 YouTube API 金鑰",
+      "body": "只有管理員看得到這個說明；一般使用者在設定之前看不到「YouTube 連結」。設定 YOUTUBE_API_KEY 並重新部署後，Plus 以上方案與管理員就能使用。可以到「API 用量」的設定診斷與測試連線確認。",
+      "link": "前往設定診斷"
+    }
   },
   "celebration": {
     "perfect": "完美！"
