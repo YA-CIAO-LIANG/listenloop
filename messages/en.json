@@ -2988,5 +2988,21 @@
     "none": "No lessons on this topic yet.",
     "topic": "More “{name}” lessons",
     "levelTest": "Take the 2-minute level test"
+  },
+  "handsFree": {
+    "label": "Hands-free practice (plays and listens by itself)",
+    "hint": "After one tap on “Start practice”, sentences play by themselves. In shadowing, listening starts when a sentence ends, your try is checked when you pause, and it moves on when you pass or plays again when you don’t. Saved on this device only.",
+    "start": "Start practice",
+    "pause": "Pause",
+    "resume": "Resume",
+    "status": {
+      "start": "Tap “Start practice” to begin (browsers need one tap before playing sound or using the microphone).",
+      "playing": "Playing",
+      "listen": "Say it after me",
+      "recognizing": "Recognizing…",
+      "type": "Type what you heard",
+      "paused": "Paused. Tap “Resume” to go on."
+    },
+    "settingsTitle": "How you practice"
   }
 }

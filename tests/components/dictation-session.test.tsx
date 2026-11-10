@@ -5,6 +5,7 @@ import {
   DictationSession,
   SKIP_CONFIRM_MS,
 } from "@/components/DictationSession";
+import { HANDS_FREE_KEY } from "@/lib/hands-free";
 import { startDictation, submitAnswer } from "@/lib/dictation";
 import { LOOP_GAP_MS, LOOP_STORAGE_KEY } from "@/lib/player/loop";
 import type { Progress } from "@/lib/progress";
@@ -108,6 +109,9 @@ async function renderSession(store = memoryStore()) {
 }
 
 const input = () => screen.getByRole("textbox", { name: "你聽到的句子" });
+
+// These tests use the buttons as before; hands-free has its own (D125).
+beforeEach(() => localStorage.setItem(HANDS_FREE_KEY, "off"));
 
 describe("DictationSession", () => {
   beforeEach(() => playSegment.mockClear());
@@ -607,5 +611,53 @@ describe("DictationSession with a created practice", () => {
 
     await userEvent.type(input(), "go home{Enter}");
     expect(store.saved()?.days[1]?.answers).toEqual(["go home", null]);
+  });
+});
+
+describe("DictationSession hands-free (D125)", () => {
+  beforeEach(() => {
+    localStorage.removeItem(HANDS_FREE_KEY);
+    playSegment.mockClear();
+  });
+
+  it("waits for “Start practice”, then plays each sentence by itself", async () => {
+    renderWithIntl(
+      <DictationSession
+        video={video}
+        day={1}
+        title="第 1 天：精聽聽寫"
+        store={memoryStore()}
+      />,
+    );
+    await act(async () => {});
+    expect(playSegment).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "開始練習" }));
+    expect(playSegment).toHaveBeenCalledTimes(1);
+    await userEvent.type(input(), "go home{Enter}");
+    fireEvent.click(screen.getByRole("button", { name: "下一句" }));
+    expect(playSegment).toHaveBeenCalledTimes(2);
+    expect(screen.getByText("第 2 / 2 句")).toBeDefined();
+  });
+
+  it("typing first counts as starting; pause keeps the next sentence quiet", async () => {
+    renderWithIntl(
+      <DictationSession
+        video={video}
+        day={1}
+        title="第 1 天：精聽聽寫"
+        store={memoryStore()}
+      />,
+    );
+    await act(async () => {});
+    await userEvent.type(input(), "go");
+    // A typed answer shows Submit instead of Start.
+    expect(screen.getByRole("button", { name: "送出" })).toBeDefined();
+    await userEvent.type(input(), " home{Enter}");
+    fireEvent.click(screen.getByRole("button", { name: "暫停" }));
+    playSegment.mockClear();
+    fireEvent.click(screen.getByRole("button", { name: "下一句" }));
+    expect(playSegment).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: "繼續" }));
+    expect(playSegment).toHaveBeenCalledTimes(1);
   });
 });

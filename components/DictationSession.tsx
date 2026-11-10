@@ -48,6 +48,9 @@ import { usePlan } from "./PlanProvider";
 import { can, needsCount, type PlanBlock } from "@/lib/plans";
 import { PracticeActions, PracticeActionsSpacer } from "./PracticeActions";
 import { PracticeFrame } from "./PracticeFrame";
+import { HandsFreeSetting } from "./HandsFreeSetting";
+import { HandsFreeStatus } from "./HandsFreeStatus";
+import { useHandsFree } from "./useHandsFree";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
@@ -130,6 +133,7 @@ export function DictationSession({
   store,
 }: DictationSessionProps) {
   const t = useTranslations("dictation");
+  const tHands = useTranslations("handsFree");
   const format = useFormatter();
   // Audio practices only (D73); YouTube videos always play at 1×.
   const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
@@ -147,6 +151,10 @@ export function DictationSession({
   const [feedbackIndex, setFeedbackIndex] = useState<number | null>(null);
   const [input, setInput] = useState("");
   const [skipArmed, setSkipArmed] = useState(false);
+  // Hands-free (D125): one tap on "Start practice" lets the sound play.
+  const [handsFree] = useHandsFree();
+  const [started, setStarted] = useState(false);
+  const [paused, setPaused] = useState(false);
   const plan = usePlan();
   const tPlans = useTranslations("plans");
   const [blocked, setBlocked] = useState<PlanBlock | null>(null);
@@ -350,11 +358,31 @@ export function DictationSession({
   const autoPlayed = useRef(false);
   const ready = player.status === "ready";
   useEffect(() => {
-    if (autoPlayed.current || !ready || !practicing) return;
+    if (autoPlayed.current || !ready || !practicing || handsFree) return;
     if (feedbackIndex !== null) return;
     autoPlayed.current = true;
     play();
-  }, [ready, practicing, feedbackIndex, play]);
+  }, [ready, practicing, feedbackIndex, play, handsFree]);
+
+  /** Hands-free (D125): the tap the browser needs before any sound. */
+  function startPractice() {
+    autoPlayed.current = true;
+    setStarted(true);
+    setPaused(false);
+    replay(play);
+    inputRef.current?.focus();
+  }
+
+  function togglePause() {
+    if (paused) {
+      setPaused(false);
+      if (feedbackIndex === null) replay(play);
+      return;
+    }
+    setPaused(true);
+    looping.setLoop(false);
+    player.stop();
+  }
 
   // A pending skip confirmation never outlives the page.
   useEffect(() => {
@@ -387,6 +415,8 @@ export function DictationSession({
     }
     setFeedbackIndex(current);
     setInput("");
+    // Answering counts as starting (the learner may type before tapping).
+    setStarted(true);
   }
 
   function submitTyped() {
@@ -426,7 +456,8 @@ export function DictationSession({
     setFeedbackIndex(null);
     if (nextIndex === -1) return; // all answered → results view
     setCurrent(nextIndex);
-    looping.start(nextIndex);
+    // Paused hands-free practice waits for "Play" (D125).
+    if (!(handsFree && paused)) looping.start(nextIndex);
   }
 
   // Phones and narrow windows: keep video, input, and buttons together
@@ -618,6 +649,21 @@ export function DictationSession({
             <SpeedControl value={speed} onChange={setSpeed} />
           )}
 
+          {handsFree && (
+            <HandsFreeStatus
+              state={
+                !started
+                  ? "start"
+                  : paused
+                    ? "paused"
+                    : player.isPlaying
+                      ? "playing"
+                      : feedbackIndex === null
+                        ? "type"
+                        : null
+              }
+            />
+          )}
           {/* The answer area keeps one height, so the buttons below stay
               put from sentence to sentence (D124). */}
           {feedbackIndex === null ? (
@@ -667,7 +713,19 @@ export function DictationSession({
 
           <PracticeActions
             primary={
-              feedbackIndex === null ? (
+              feedbackIndex === null &&
+              handsFree &&
+              !started &&
+              input.trim() === "" ? (
+                <Button
+                  variant="primary"
+                  arrow
+                  disabled={player.status !== "ready"}
+                  onClick={startPractice}
+                >
+                  {tHands("start")}
+                </Button>
+              ) : feedbackIndex === null ? (
                 <Button
                   variant="primary"
                   arrow
@@ -704,10 +762,16 @@ export function DictationSession({
                 {skipArmed ? t("confirmSkip") : t("skip")}
               </Button>
             )}
+            {handsFree && started && (
+              <Button variant="ghost" onClick={togglePause}>
+                {paused ? tHands("resume") : tHands("pause")}
+              </Button>
+            )}
           </PracticeActions>
           <p className="text-metadata text-ink-muted pointer-coarse:hidden">
             {t("shortcuts")}
           </p>
+          <HandsFreeSetting compact />
           {saveError}
           {feedbackIndex !== null && (
             <div
