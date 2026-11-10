@@ -17,19 +17,31 @@ import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import { expect, it } from "vitest";
-import { azureOpenAiLanguage } from "@/lib/ai/azure-openai";
+import {
+  azureEndpoint,
+  azureModelPrice,
+  azureOpenAiLanguage,
+  azureUsage,
+} from "@/lib/ai/azure-openai";
 import { azureSpeech } from "@/lib/ai/azure-speech";
 import {
   annotateBudget,
   composeBudget,
   describeBudget,
   maxCost,
+  reviseBudget,
   segmentBudget,
   translateBudget,
   type LanguageBudget,
 } from "@/lib/ai/budgets";
 import { toMicros } from "@/lib/ai/pricing";
-import type { Billed, CallUsage, DescribeInput, Voice } from "@/lib/ai/types";
+import type {
+  Billed,
+  CallUsage,
+  DescribeInput,
+  RevisionInput,
+  Voice,
+} from "@/lib/ai/types";
 import { type CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 
@@ -51,6 +63,33 @@ const describeInput: DescribeInput = {
   title: "",
   text: "Hi, can I help you? Yes, please. I'd like a latte. What size would you like? A small one, please.",
 };
+/**
+ * The case behind D123: a 7-sentence text and "改成恐怖風", which the D96
+ * prompt answered with the text unchanged ("0 of 7 changed").
+ */
+const reviseInput: RevisionInput = {
+  lines: [
+    "After school, I walked home through the park.",
+    "The sun was going down, and the air was cool.",
+    "I stopped at a small shop to buy a hot drink.",
+    "The owner smiled and asked about my day.",
+    "I told her I had a big test tomorrow.",
+    "She said I would do fine if I got some sleep.",
+    "I went home, studied a little, and went to bed early.",
+  ],
+  instruction: "改成恐怖風",
+  format: "monologue",
+};
+
+/** The D96 prompt and answer shape, kept to replay what went wrong. */
+const REVISE_INSTRUCTIONS_D96 = [
+  "You edit an English listening practice text for Taiwanese students. You get its sentences as lines, an instruction from the learner (in any language), and whether it's a monologue or a dialogue.",
+  "Follow the instruction: for example simpler words, more past tense, or fewer sentences. Change only what the instruction needs.",
+  "Return lines: the whole text after the change, one sentence per line (for a dialogue, one speaker's turn per line, still alternating between two people, with no speaker names or labels).",
+  "Copy every sentence you don't need to change exactly, character for character, so it can be matched to its translation.",
+  "Keep each sentence about 5 to 25 words. Do not write about real people, real brands, or real current events. If the instruction asks for anything unsafe or unrelated to the text, return the lines unchanged.",
+].join("\n");
+
 const speechInput = "Nice to meet you.";
 const speechVoice: Voice = { accent: "us", gender: "female" };
 
@@ -139,6 +178,63 @@ it("records the Azure fixtures", async () => {
       budget: describeBudget(describeInput),
       chars: 0,
       run: () => language.describe(describeInput),
+    },
+    {
+      // D123: the old prompt, to show it left the text unchanged.
+      file: "azure-openai/revise-d96.json",
+      budget: reviseBudget(reviseInput),
+      chars: 0,
+      run: async () => {
+        const response = await recorder.impl(
+          `${azureEndpoint(env("AZURE_OPENAI_ENDPOINT"))}/openai/v1/chat/completions`,
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "api-key": env("AZURE_OPENAI_API_KEY"),
+            },
+            body: JSON.stringify({
+              model: env("AZURE_OPENAI_DEPLOYMENT"),
+              messages: [
+                { role: "system", content: REVISE_INSTRUCTIONS_D96 },
+                { role: "user", content: JSON.stringify(reviseInput) },
+              ],
+              response_format: {
+                type: "json_schema",
+                json_schema: {
+                  name: "revision",
+                  strict: true,
+                  schema: {
+                    type: "object",
+                    properties: {
+                      lines: { type: "array", items: { type: "string" } },
+                    },
+                    required: ["lines"],
+                    additionalProperties: false,
+                  },
+                },
+              },
+              max_completion_tokens: reviseBudget(reviseInput).maxOutputTokens,
+              reasoning_effort: "minimal",
+            }),
+          },
+        );
+        const data = await response.json();
+        return {
+          value: data,
+          usage: azureUsage(
+            data,
+            azureModelPrice(model)!,
+            reviseBudget(reviseInput).inputChars,
+          ),
+        };
+      },
+    },
+    {
+      file: "azure-openai/revise.json",
+      budget: reviseBudget(reviseInput),
+      chars: 0,
+      run: () => language.revise(reviseInput),
     },
     {
       file: "azure-speech/us-female.json",

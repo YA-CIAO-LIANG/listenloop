@@ -113,6 +113,7 @@ export function supabaseUsageMeter(
         error: entry.error,
         http_status: entry.httpStatus,
         error_code: entry.errorCode,
+        outcome: entry.outcome ?? null,
         input_tokens: entry.inputTokens,
         output_tokens: entry.outputTokens,
         chars: entry.chars,

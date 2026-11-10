@@ -2,6 +2,7 @@ import { act, fireEvent, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
 import { PlanProvider } from "@/components/PlanProvider";
+import type { ReviseText } from "@/components/RevisePanel";
 import type { PlanId } from "@/lib/plans";
 import { renderWithIntl } from "../render";
 
@@ -147,11 +148,7 @@ describe("CreatePracticeForm", () => {
     localStorage.removeItem("ll-gen-speed:v1");
   });
 
-  it("revises the English by an instruction, translates only what changed, and undoes (D96)", async () => {
-    const revise = vi.fn(async () => ({
-      ok: true as const,
-      lines: ["We moved here.", "Do you love it?"],
-    }));
+  async function renderWithRevise(revise: ReviseText) {
     await act(async () => {
       renderWithIntl(
         <PlanProvider plan="paid">
@@ -168,43 +165,135 @@ describe("CreatePracticeForm", () => {
         </PlanProvider>,
       );
     });
+    fireEvent.change(screen.getByLabelText(/^英文標題/), {
+      target: { value: "My Move" },
+    });
     fireEvent.change(textBox(), {
       target: { value: "We moved here. Do you like it?" },
     });
     await click("斷句並翻譯");
     translate.mockClear();
+  }
+
+  async function instruct(instruction: string) {
     fireEvent.change(screen.getByLabelText("修改指令"), {
-      target: { value: "換成更簡單的單字" },
+      target: { value: instruction },
     });
     await click("修改");
+  }
+
+  const english = (n: number) =>
+    (screen.getByLabelText(`第 ${n} 句英文`) as HTMLTextAreaElement).value;
+
+  it("previews a revision, applies it translating only what changed, and undoes (D96, D123)", async () => {
+    const revise = vi.fn<ReviseText>(async () => ({
+      ok: true,
+      status: "changed",
+      lines: ["We moved here.", "Do you love it?"],
+    }));
+    await renderWithRevise(revise);
+    await instruct("換成更簡單的單字");
     expect(revise).toHaveBeenCalledWith({
       lines: ["We moved here.", "Do you like it?"],
       instruction: "換成更簡單的單字",
       format: "monologue",
     });
+    // Nothing is written or translated before "apply".
+    expect(screen.getByText("預覽修改")).toBeTruthy();
+    expect(screen.getByText(/預覽好了：修改後共 2 句，其中 1 句/)).toBeTruthy();
+    expect(translate).not.toHaveBeenCalled();
+    expect(english(2)).toBe("Do you like it?");
+
+    await click("套用");
     // Only the changed sentence is translated again.
     expect(translate).toHaveBeenCalledTimes(1);
     expect(translate).toHaveBeenCalledWith(["Do you love it?"], "en");
-    expect(
-      (screen.getByLabelText("第 2 句英文") as HTMLTextAreaElement).value,
-    ).toBe("Do you love it?");
+    expect(english(2)).toBe("Do you love it?");
     expect(
       (screen.getByLabelText("第 1 句中文") as HTMLTextAreaElement).value,
     ).toBe("我們搬來這裡。");
     expect(
-      screen.getByText("已修改：2 句中有 1 句變動並重新翻譯。"),
+      screen.getByText(/已套用：2 句中有 1 句是新的或改過的/),
     ).toBeTruthy();
 
     await click("復原上一步");
-    expect(
-      (screen.getByLabelText("第 2 句英文") as HTMLTextAreaElement).value,
-    ).toBe("Do you like it?");
+    expect(english(2)).toBe("Do you like it?");
     expect(
       screen
         .getByRole("button", { name: "復原上一步" })
         .hasAttribute("disabled"),
     ).toBe(true);
   });
+
+  it("rewrites the style into more sentences and keeps the title (D123)", async () => {
+    const revise = vi.fn<ReviseText>(async () => ({
+      ok: true,
+      status: "changed",
+      lines: [
+        "We moved here, in the dark.",
+        "Do you like it, in the dark?",
+        "Then the lights went out.",
+      ],
+    }));
+    await renderWithRevise(revise);
+    await instruct("改成恐怖風");
+    expect(screen.getAllByText("改過")).toHaveLength(3);
+    await click("套用");
+    expect(english(3)).toBe("Then the lights went out.");
+    expect((screen.getByLabelText(/^英文標題/) as HTMLInputElement).value).toBe(
+      "My Move",
+    );
+  });
+
+  it("discards a preview without changing anything", async () => {
+    await renderWithRevise(async () => ({
+      ok: true,
+      status: "changed",
+      lines: ["We moved here.", "Do you love it?"],
+    }));
+    await instruct("換成更簡單的單字");
+    await click("不要這個修改");
+    expect(english(2)).toBe("Do you like it?");
+    expect(translate).not.toHaveBeenCalled();
+    expect(screen.getByText("沒有套用，原本的內容沒有變。")).toBeTruthy();
+  });
+
+  it.each([
+    [
+      { ok: false, reason: "failed" } as const,
+      "修改失敗，請稍後再試。原本的內容沒有變。",
+    ],
+    [
+      { ok: false, reason: "filtered" } as const,
+      /這個指令的內容無法產生，請換個說法/,
+    ],
+    [
+      {
+        ok: false,
+        reason: "filtered",
+        detail: "可以改成輕微懸疑。",
+      } as const,
+      /請換個說法.*可以改成輕微懸疑。/,
+    ],
+    [
+      { ok: true, status: "unchanged", reason: "已經很簡單了。" } as const,
+      "AI 判斷不需要修改：已經很簡單了。",
+    ],
+    [
+      { ok: true, status: "unchanged", reason: "" } as const,
+      /AI 沒有改動任何句子/,
+    ],
+  ])(
+    "says why when nothing changes, never '0 sentences changed' (%j)",
+    async (answer, message) => {
+      await renderWithRevise(async () => answer);
+      await instruct("改成恐怖風");
+      expect(screen.getByText(message)).toBeTruthy();
+      expect(screen.queryByText(/有 0 句/)).toBeNull();
+      expect(screen.queryByText("預覽修改")).toBeNull();
+      expect(english(2)).toBe("Do you like it?");
+    },
+  );
 
   it("suggests leaving a long job, and the server finishes it if the page closes (D95)", async () => {
     const sentences = Array.from({ length: 30 }, (_, i) => `Line ${i}.`);

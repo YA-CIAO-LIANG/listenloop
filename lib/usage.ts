@@ -159,10 +159,12 @@ export type UsageLogEntry = {
   operation: string;
   /** null when it worked, else why not (MeteredFailure). */
   error: string | null;
-  /** A failure's HTTP status from the provider, when it answered (D49). */
+  /** The provider's HTTP status, when it answered (D49; successes too, D123). */
   httpStatus: number | null;
   /** A failure's short code: the provider's, or "timeout", "network" (D49). */
   errorCode: string | null;
+  /** What a successful call's answer amounted to, e.g. "changed 5/7" (D123). */
+  outcome?: string | null;
   inputTokens: number;
   outputTokens: number;
   chars: number;

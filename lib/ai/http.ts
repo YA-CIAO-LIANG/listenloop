@@ -27,9 +27,10 @@ export function errorCode(value: unknown): string | undefined {
  * - config: 400–404 (bad key, API not enabled, unknown model or
  *   deployment, 402 for used-up Gemini prepaid credits, 403 for a used-up
  *   Azure free tier or credit);
- * - failed: anything else, and content the provider refused to handle
- *   (Azure's content filter answers 400 with code "content_filter"),
- *   since that's the text, not the setup.
+ * - filtered: content the provider refused to handle (Azure's content
+ *   filter answers 400 with code "content_filter"), since that's the
+ *   text, not the setup (D123);
+ * - failed: anything else.
  * Returns the response when it's OK.
  */
 export async function postToProvider(
@@ -75,7 +76,7 @@ export async function postToProvider(
   const fail = (code: ProviderError["code"]) =>
     new ProviderError(code, message, undefined, logged);
   if (response.status === 429 || response.status === 503) throw fail("busy");
-  if (detail.code === "content_filter") throw fail("failed");
+  if (detail.code === "content_filter") throw fail("filtered");
   if (response.status >= 400 && response.status <= 404) throw fail("config");
   throw fail("failed");
 }

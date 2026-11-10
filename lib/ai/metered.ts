@@ -30,6 +30,11 @@ export type MeteredResult<T> =
       reason: MeteredFailure;
       /** For "limit": which allowance ran out, and when it resets (D77). */
       limit?: UsageBlock;
+      /**
+       * With "failed": a safety filter or the model refused the content,
+       * so asking differently may work (D123).
+       */
+      filtered?: true;
     };
 
 /**
@@ -69,8 +74,9 @@ async function finish(
   meter: UsageMeter,
   charge: Charge,
   usage: CallUsage | undefined,
-  error: MeteredFailure | null,
+  error: MeteredFailure | "filtered" | null,
   detail: ProviderErrorDetail = {},
+  outcome: string | null = null,
 ) {
   // Without a usage report, a language call keeps its whole reservation.
   const spent = usage
@@ -88,6 +94,7 @@ async function finish(
       error,
       httpStatus: detail.status ?? null,
       errorCode: detail.code ?? null,
+      outcome,
       inputTokens: usage?.inputTokens ?? 0,
       outputTokens: usage?.outputTokens ?? 0,
       chars: usage?.chars || charge.chars,
@@ -102,6 +109,7 @@ async function metered<T>(
   reserve: () => Promise<boolean>,
   charge: Charge,
   call: () => Promise<Billed<T>>,
+  describe?: (value: T) => string,
 ): Promise<MeteredResult<T>> {
   try {
     if (!(await reserve())) {
@@ -115,20 +123,40 @@ async function metered<T>(
   }
   try {
     const { value, usage } = await call();
-    await finish(meter, charge, usage, null);
+    // A provider that answered did so with HTTP 200 (D123); the fakes
+    // make no request.
+    await finish(
+      meter,
+      charge,
+      usage,
+      null,
+      charge.provider.startsWith("fake") ? {} : { status: 200 },
+      describe ? outcomeCode(describe, value) : null,
+    );
     return { ok: true, value };
   } catch (error) {
-    const reason = error instanceof ProviderError ? error.code : "failed";
+    const code = error instanceof ProviderError ? error.code : "failed";
     // The details (status, the provider's message) go to the server log only.
     if (error instanceof ProviderError) console.error(`[AI] ${error.message}`);
     await finish(
       meter,
       charge,
       error instanceof ProviderError ? error.usage : undefined,
-      reason,
+      code,
       error instanceof ProviderError ? error.detail : { code: "exception" },
     );
-    return { ok: false, reason };
+    return code === "filtered"
+      ? { ok: false, reason: "failed", filtered: true }
+      : { ok: false, reason: code };
+  }
+}
+
+/** What a call's answer amounted to, as logged: short, never throws. */
+function outcomeCode<T>(describe: (value: T) => string, value: T): string {
+  try {
+    return describe(value).slice(0, 40);
+  } catch {
+    return "unreadable";
   }
 }
 
@@ -141,6 +169,8 @@ export function meteredLanguage<T>(
   { providers, meter }: MeteredDeps,
   budget: LanguageBudget,
   call: () => Promise<Billed<T>>,
+  /** What the answer amounted to, for the usage log ("changed 5/7"). */
+  describe?: (value: T) => string,
 ): Promise<MeteredResult<T>> {
   const reservedMicros = toMicros(maxCost(budget, providers.language.price));
   return metered(
@@ -154,6 +184,7 @@ export function meteredLanguage<T>(
       reservedMicros,
     },
     call,
+    describe,
   );
 }
 

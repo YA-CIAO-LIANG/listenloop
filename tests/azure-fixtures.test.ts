@@ -8,6 +8,7 @@ import { ProviderError } from "@/lib/ai/types";
 import { checkGeneratedText } from "@/lib/custom-practice/generation";
 import { LEVEL_PROMPTS } from "@/lib/categories";
 import { richNotesFromModel } from "@/lib/custom-practice/notes";
+import { checkRevision } from "@/lib/custom-practice/revise";
 import { checkedSegments } from "@/lib/custom-practice/split";
 
 /**
@@ -194,6 +195,50 @@ describe("Azure OpenAI failures in the usage log (D49)", () => {
     expect(error).toMatchObject({
       code: "failed",
       detail: { code: "timeout" },
+    });
+  });
+});
+
+describe("revise with an instruction, recorded (D123)", () => {
+  // The 7 sentences and "改成恐怖風" sent in both recordings.
+  const sentInput = (name: string) => {
+    const messages = fixture(name).request.messages as { content: string }[];
+    return JSON.parse(messages[1].content) as {
+      lines: string[];
+      instruction: string;
+      format: "monologue" | "dialogue";
+    };
+  };
+
+  it("rewrites the whole text in a horror style from a Chinese instruction, with one more sentence", async () => {
+    const input = sentInput("azure-openai/revise.json");
+    expect(input.instruction).toBe("改成恐怖風");
+    const { recorded, fetchImpl, sent } = replay("azure-openai/revise.json");
+    const { value, usage } = await azureOpenAiLanguage(
+      config,
+      fetchImpl,
+    ).revise(input);
+    expect(sent()).toEqual(recorded.request);
+    const revision = checkRevision(value, input.lines);
+    expect(revision?.status).toBe("changed");
+    const lines = revision?.status === "changed" ? revision.lines : [];
+    // A style changes every sentence, and may change how many there are.
+    expect(lines).toHaveLength(input.lines.length + 1);
+    expect(lines.filter((line) => input.lines.includes(line))).toEqual([]);
+    expect(usage.costUsd).toBeGreaterThan(0);
+  });
+
+  it("parses the D96 answer, which had no status, by its lines", () => {
+    const input = sentInput("azure-openai/revise-d96.json");
+    const response = fixture("azure-openai/revise-d96.json").response as {
+      choices: { message: { content: string } }[];
+    };
+    const answer = JSON.parse(response.choices[0].message.content);
+    expect(checkRevision(answer, input.lines)?.status).toBe("changed");
+    // The production calls answered with the lines unchanged.
+    expect(checkRevision({ lines: input.lines }, input.lines)).toEqual({
+      status: "unchanged",
+      reason: "",
     });
   });
 });

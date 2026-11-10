@@ -19,6 +19,7 @@ import { composeBudget, describeBudget, reviseBudget } from "@/lib/ai/budgets";
 import {
   checkRevision,
   parseRevisionRequest,
+  revisionOutcome,
 } from "@/lib/custom-practice/revise";
 import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
 import {
@@ -570,17 +571,21 @@ export async function generatePracticeText(
 }
 
 export type ReviseDraftResult =
-  | { ok: true; lines: string[] }
+  | { ok: true; status: "changed"; lines: string[] }
+  /** The model saw nothing to change; reason is its words, maybe empty. */
+  | { ok: true; status: "unchanged"; reason: string }
   | ({
       ok: false;
-      reason: "unavailable" | "invalid" | MeteredFailure;
+      reason: "unavailable" | "invalid" | "filtered" | MeteredFailure;
+      /** For "filtered": the model's own words, when it refused. */
+      detail?: string;
     } & LimitDetail);
 
 /**
- * Rewrites a draft's English by the learner's instruction (D96): one
- * model call, counted in the daily allowance like any AI step. The
- * browser then keeps the translations of unchanged sentences and has only
- * the changed ones translated.
+ * Rewrites a draft's English by the learner's instruction (D96, D123): one
+ * model call, counted in the daily allowance like any AI step, and logged
+ * with what it amounted to. The browser previews the change; translating
+ * the changed sentences waits until the learner applies it.
  */
 export async function reviseDraft(input: unknown): Promise<ReviseDraftResult> {
   const creator = await getCreator();
@@ -592,12 +597,23 @@ export async function reviseDraft(input: unknown): Promise<ReviseDraftResult> {
   }
   const request = parseRevisionRequest(input);
   if (!request) return { ok: false, reason: "invalid" };
-  const result = await meteredLanguage(creator, reviseBudget(request), () =>
-    creator.providers.language.revise(request),
+  const result = await meteredLanguage(
+    creator,
+    reviseBudget(request),
+    () => creator.providers.language.revise(request),
+    (value) => revisionOutcome(value, request.lines),
   );
-  if (!result.ok) return result;
-  const lines = checkRevision(result.value);
-  return lines ? { ok: true, lines } : { ok: false, reason: "failed" };
+  if (!result.ok) {
+    return result.filtered ? { ok: false, reason: "filtered" } : result;
+  }
+  const revision = checkRevision(result.value, request.lines);
+  if (!revision) return { ok: false, reason: "failed" };
+  if (revision.status === "refused") {
+    return { ok: false, reason: "filtered", detail: revision.reason };
+  }
+  return revision.status === "changed"
+    ? { ok: true, status: "changed", lines: revision.lines }
+    : { ok: true, status: "unchanged", reason: revision.reason };
 }
 
 export type DescribeDraftResult =

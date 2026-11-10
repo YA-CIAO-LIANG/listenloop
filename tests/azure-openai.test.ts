@@ -148,11 +148,11 @@ describe("Azure OpenAI", () => {
   });
 
   it.each([
-    ["length", "cut off"],
-    ["content_filter", "content filter"],
+    ["length", "cut off", "failed"],
+    ["content_filter", "content filter", "filtered"],
   ])(
     "fails on finish reason %s, still reporting the tokens",
-    async (finish, why) => {
+    async (finish, why, code) => {
       const azure = azureOpenAiLanguage(
         config,
         vi.fn(async () => completion({}, { finish, completion: 900 })),
@@ -160,14 +160,14 @@ describe("Azure OpenAI", () => {
       const error = await azure.annotate(["Hi."]).catch((e: unknown) => e);
       expect(error).toBeInstanceOf(ProviderError);
       expect(error).toMatchObject({
-        code: "failed",
+        code,
         usage: { inputTokens: 100, outputTokens: 900 },
       });
       expect((error as Error).message).toContain(why);
     },
   );
 
-  it("fails on a refusal or an answer that isn't JSON", async () => {
+  it("tells a refusal (filtered, D123) from an answer that isn't JSON", async () => {
     const refusal = azureOpenAiLanguage(
       config,
       vi.fn(async () =>
@@ -182,7 +182,7 @@ describe("Azure OpenAI", () => {
       ),
     );
     await expect(refusal.annotate(["Hi."])).rejects.toMatchObject({
-      code: "failed",
+      code: "filtered",
     });
     const prose = azureOpenAiLanguage(
       config,
@@ -200,7 +200,11 @@ describe("Azure OpenAI", () => {
   it.each([
     [401, {}, "config"],
     [404, { error: { code: "DeploymentNotFound" } }, "config"],
-    [400, { error: { code: "content_filter", message: "filtered" } }, "failed"],
+    [
+      400,
+      { error: { code: "content_filter", message: "filtered" } },
+      "filtered",
+    ],
     [429, {}, "busy"],
     [500, {}, "failed"],
   ] as const)("maps HTTP %i %j to %s", async (status, body, code) => {

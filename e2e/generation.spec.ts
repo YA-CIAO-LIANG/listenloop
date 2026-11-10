@@ -55,7 +55,7 @@ test("on a phone, the form reads top to bottom: title, source, what, how", async
   ).toBe(false);
 });
 
-test("after AI writes and translates, an instruction revises it and undo brings it back (D96)", async ({
+test("after AI writes and translates, an instruction revises it after a preview, and undo brings it back (D96, D123)", async ({
   page,
 }) => {
   await signInAsLearner(page);
@@ -67,12 +67,29 @@ test("after AI writes and translates, an instruction revises it and undo brings 
   await expect(page.getByLabel("第 1 句英文")).toBeVisible();
   const before = await page.getByLabel(/第 \d+ 句英文/).count();
   expect(before).toBeGreaterThan(2);
+  const revise = async (instruction: string) => {
+    await page.getByLabel("修改指令").fill(instruction);
+    await page.getByRole("button", { name: "修改", exact: true }).click();
+  };
 
-  // The fake provider keeps the first N for "N 句".
-  await page.getByLabel("修改指令").fill("縮短成 2 句");
-  await page.getByRole("button", { name: "修改", exact: true }).click();
-  await expect(page.getByText(/已修改：2 句中有 0 句變動/)).toBeVisible();
-  await expect(page.getByLabel(/第 \d+ 句英文/)).toHaveCount(2);
+  // A style rewrites every sentence and, with the fake, adds one; it's
+  // only a preview until "apply".
+  await revise("改成恐怖風");
+  await expect(page.getByText("預覽修改")).toBeVisible();
+  await expect(page.getByLabel(/第 \d+ 句英文/)).toHaveCount(before);
+  await page.getByRole("button", { name: "套用" }).click();
+  await expect(page.getByText(/已套用/)).toBeVisible();
+  await expect(page.getByLabel(/第 \d+ 句英文/)).toHaveCount(before + 1);
+  await expect(page.getByLabel("第 1 句英文")).toHaveValue(/in the dark\.$/);
+
+  // Nothing to change, or a blocked instruction, says why.
+  await revise("不用改");
+  await expect(page.getByText(/AI 判斷不需要修改/)).toBeVisible();
+  await revise("過濾");
+  await expect(
+    page.getByText(/這個指令的內容無法產生，請換個說法/),
+  ).toBeVisible();
+  await expect(page.getByText(/有 0 句/)).toHaveCount(0);
 
   await page.getByRole("button", { name: "復原上一步" }).click();
   await expect(page.getByLabel(/第 \d+ 句英文/)).toHaveCount(before);

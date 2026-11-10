@@ -147,6 +147,7 @@ describe("supabaseUsageMeter", () => {
       error: "config",
       http_status: 404,
       error_code: "DeploymentNotFound",
+      outcome: null,
       input_tokens: 10,
       output_tokens: 20,
       chars: 5,

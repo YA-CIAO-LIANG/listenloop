@@ -9,7 +9,7 @@ import {
   translateBudget,
   type LanguageBudget,
 } from "./budgets";
-import { postGoogleJson, probeProvider } from "./http";
+import { errorCode, postGoogleJson, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA, toGeminiSchema } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
@@ -72,9 +72,22 @@ const DESCRIPTION_SCHEMA = {
 
 const REVISION_SCHEMA = {
   type: "OBJECT",
-  properties: { lines: { type: "ARRAY", items: STRING } },
-  required: ["lines"],
+  properties: {
+    status: { type: "STRING", enum: ["changed", "unchanged", "refused"] },
+    reason: STRING,
+    lines: { type: "ARRAY", items: STRING },
+  },
+  required: ["status", "reason", "lines"],
 } as const;
+
+/** Gemini's reasons for a blocked prompt or answer (D123). */
+const SAFETY_REASONS = new Set([
+  "SAFETY",
+  "PROHIBITED_CONTENT",
+  "BLOCKLIST",
+  "SPII",
+  "IMAGE_SAFETY",
+]);
 
 const AUDIT_SCHEMA = {
   type: "OBJECT",
@@ -103,14 +116,27 @@ const TRANSLATIONS_SCHEMA = {
 
 /** The JSON a structured-output response carries in its text parts. */
 export function responseJson(response: unknown): unknown {
-  const candidate = (
-    response as {
-      candidates?: {
-        content?: { parts?: { text?: string }[] };
-        finishReason?: string;
-      }[];
-    }
-  ).candidates?.[0];
+  const answer = response as {
+    candidates?: {
+      content?: { parts?: { text?: string }[] };
+      finishReason?: string;
+    }[];
+    promptFeedback?: { blockReason?: string };
+  };
+  const candidate = answer.candidates?.[0];
+  const blocked =
+    answer.promptFeedback?.blockReason ??
+    (candidate?.finishReason && SAFETY_REASONS.has(candidate.finishReason)
+      ? candidate.finishReason
+      : undefined);
+  if (blocked) {
+    throw new ProviderError(
+      "filtered",
+      `Gemini: blocked (${blocked})`,
+      undefined,
+      { status: 200, code: errorCode(blocked) },
+    );
+  }
   const text =
     candidate?.content?.parts?.map((part) => part.text ?? "").join("") ?? "";
   if (!text) {

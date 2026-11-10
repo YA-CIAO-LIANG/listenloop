@@ -12,3 +12,6 @@ supabase/.branches
 
 # Written by npm run backgrounds:css (D121); its test compares it byte for byte
 app/backgrounds.css
+
+# Local logs and QA output (git-ignored on this machine)
+.local/

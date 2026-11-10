@@ -153,6 +153,31 @@ describe("Gemini", () => {
       ),
     );
     await expect(empty.annotate(["Hi."])).rejects.toThrow(/SAFETY/);
+    // Blocked content is "filtered", so the learner is asked to reword (D123).
+    await expect(empty.annotate(["Hi."])).rejects.toMatchObject({
+      code: "filtered",
+    });
+    const prompt = geminiLanguage(
+      "k",
+      vi.fn(async () =>
+        json(200, { promptFeedback: { blockReason: "PROHIBITED_CONTENT" } }),
+      ),
+    );
+    await expect(
+      prompt.revise({ lines: ["Hi."], instruction: "x", format: "monologue" }),
+    ).rejects.toMatchObject({
+      code: "filtered",
+      detail: { code: "PROHIBITED_CONTENT" },
+    });
+    const cut = geminiLanguage(
+      "k",
+      vi.fn(async () =>
+        json(200, { candidates: [{ finishReason: "MAX_TOKENS" }] }),
+      ),
+    );
+    await expect(cut.annotate(["Hi."])).rejects.toMatchObject({
+      code: "failed",
+    });
     const prose = geminiLanguage(
       "k",
       vi.fn(async () =>

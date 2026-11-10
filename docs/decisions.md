@@ -2209,3 +2209,22 @@
   - SEO：每篇有自己的標題、描述、canonical、Open Graph（article）；加入 `sitemap.xml`；頁尾新增「學習文章」。沒有 JSON-LD（同 D116，CSP 的 nonce 要另外處理）。
   - 翻譯檔 `blog` 只在伺服器使用，不送到瀏覽器（D120）。
 - **要改時**：`lib/blog.ts`、`content/blog/`、`app/blog/`。新增文章：寫一個 `.md`、在 `BLOG_POSTS` 加一筆。
+
+## D123 「用指令修改」：風格改寫、先預覽、說明為什麼沒改（2026-11-13，Joe 回報）
+
+- **問題**：正式站一份 7 句的練習輸入「改成恐怖風」，顯示「7 句中有 0 句變動並重新翻譯」。`api_calls` 那 4 次 `revise` 都是成功（沒有錯誤、輸出都是 123 tokens，等於原文照抄）。
+- **原因**：
+  - D96 的提示詞要模型「只改指令需要的部分」，而且「指令不安全或和內容無關時原樣回傳」。模型把整體風格（恐怖）當成不安全或不需要改，就把原文照抄回來；它沒有辦法說明為什麼。
+  - 程式把「回傳的句子和原本一樣」當成成功，顯示「0 句變動」，使用者不知道發生什麼事。
+  - 內容過濾（Azure 的 `content_filter`、模型拒絕、Gemini 的 SAFETY）和一般失敗一樣顯示「沒有修改成功」，無法分辨。
+  - 重現：用 2 次真實呼叫（US$0.000873，fixture 在 `tests/fixtures/ai/azure-openai/revise-d96.json`、`revise.json`）。用另一段 7 句的文字，舊提示詞這次有改，所以舊行為不是每次都會出現；正式站那段文字連續 4 次都照抄。新提示詞把同一段改成懸疑風格、7 句變 8 句。
+- **決定**：
+  - 回傳格式改為 `{ status, reason, lines }`：`changed`（已修改）、`unchanged`（不需要修改，附原因）、`refused`（內容不適合，附原因與建議說法）。提示詞明確支援整體風格與語氣（恐怖、幽默、正式、口語、童話、新聞），可以增減句數；恐怖、驚悚寫成適合青少年的輕微懸疑，不寫血腥暴力。中文指令的原因用繁體中文回答，其他用英文。
+  - 伺服器再檢查一次：模型說 `changed` 但句子完全一樣時，視為 `unchanged`，顯示「AI 沒有改動任何句子」並建議更具體的說法。**不再出現「0 句變動」**。
+  - 失敗訊息分開：AI 呼叫失敗 →「修改失敗，請稍後再試」；內容過濾或模型拒絕 →「這個指令的內容無法產生，請換個說法」（加上模型的建議）；不需要修改 → 說明原因。
+  - `ProviderError` 新增 `filtered`（Azure 400 `content_filter`、`finish_reason: content_filter`、`refusal`，Gemini `promptFeedback.blockReason`、SAFETY 等）。對其他功能仍然是 `failed`（`MeteredResult` 多一個 `filtered: true`），只有修改功能另外顯示。
+  - **先預覽再套用**：修改後顯示「修改前／修改後」兩欄，改過的句子標「改過」、刪掉的劃線。按「套用」才翻譯有變動的句子並寫入（不套用就不花翻譯的費用）；套用後可以「復原上一步」。
+  - **標題不變**：修改只送出句子，不送標題，標題維持使用者原本的內容（測試確認）。
+  - **用量頁記錄結果**：`api_calls` 新增 `outcome` 欄位（只新增的 migration），修改呼叫記 `changed 5/8`、`unchanged`、`refused`、`invalid`；成功的呼叫也記 HTTP 200（假的供應者沒有 HTTP，不記）。用量頁顯示「成功（HTTP 200 · changed 5/8）」。被過濾的呼叫記 `error: filtered` 與供應者的狀態碼。
+  - `PROMPT_VERSION` 不變：修改結果不快取，換提示詞不影響其他快取。
+- **要改時**：提示詞 `lib/ai/prompts.ts` 的 `REVISE_INSTRUCTIONS`；檢查 `lib/custom-practice/revise.ts`；面板 `components/RevisePanel.tsx`；Server Action `reviseDraft`（`app/materials/actions.ts`）；翻譯檔 `revise`。
