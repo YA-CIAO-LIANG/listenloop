@@ -54,6 +54,7 @@ import { claimAndAnnounce } from "./useRewards";
 import { useSentencePlayback } from "./useSentencePlayback";
 import { usePracticeTimer } from "./usePracticeTimer";
 import { useSentencePlayer } from "./useSentencePlayer";
+import { PracticeActions, PracticeActionsSpacer } from "./PracticeActions";
 import { PracticeFrame } from "./PracticeFrame";
 import { SpeedControl } from "./SpeedControl";
 import { DEFAULT_SPEED, type Speed } from "@/lib/speed";
@@ -523,6 +524,45 @@ export function ShadowingSession({
           <SpeedControl value={speed} onChange={setSpeed} showWeights={false} />
         )}
 
+        {/* What was heard and the result sit right above the sentence, the
+            first thing to read after an attempt (D124); the height is kept
+            so the sentence doesn't jump. */}
+        <div aria-live="polite" className="relative min-h-16 space-y-1">
+          {phase === "listening" && (
+            <p className="text-supporting text-accent-ink">
+              <span aria-hidden="true">● </span>
+              {t("listening")}
+            </p>
+          )}
+          {(phase === "listening" || showingResult) &&
+            (speech.transcript || lastResult?.heard) && (
+              <p className="text-ink-muted">
+                {t("heard")}{" "}
+                <span lang="en">{lastResult?.heard ?? speech.transcript}</span>
+              </p>
+            )}
+          {showingResult && lastResult && (
+            <p
+              className={`font-medium ${
+                lastResult.complete ? "text-success" : "text-ink"
+              }`}
+            >
+              {lastResult.complete && <span aria-hidden="true">✓ </span>}
+              {lastResult.complete ? `${t("passed")} · ` : ""}
+              {t("coverage", { score: percent(lastResult.coverage) })}
+              {!lastResult.complete && <> · {t("notYet")}</>}
+              {lastResult.coverage === 1 && (
+                <PerfectCelebration key={resultCount} />
+              )}
+            </p>
+          )}
+          {transientError && (
+            <p className="text-supporting text-error">
+              {t(`errors.${transientError}`)}
+            </p>
+          )}
+        </div>
+
         <div className="space-y-2">
           <p lang="en" className="text-sentence">
             {diff
@@ -545,107 +585,79 @@ export function ShadowingSession({
           <p className="mt-1 text-supporting text-ink-muted">{sentence.zh}</p>
         </div>
 
-        {video.audioUrls && (
-          <div className="border-t border-line pt-6">
-            {/* After an attempt, the words not said are highlighted (D68). */}
-            <SentenceExplanation
-              en={sentence.en}
-              zh={sentence.zh}
-              showZh={false}
-              rich={video.richNotes?.[current] ?? null}
-              legacy={notesForSentence(video, current)}
-              missed={
-                showingResult && lastResult
-                  ? missedPieces(sentence.en, lastResult.heard)
-                  : null
-              }
-              showSentence={!!video.richNotes?.[current]?.highlights.length}
-            />
-          </div>
-        )}
-        <ReportSentence
-          key={current}
-          videoId={video.id}
-          version={video.version}
-          index={current}
-        />
-
-        <div aria-live="polite" className="relative space-y-1">
-          {phase === "listening" && (
-            <p className="text-supporting text-accent-ink">
-              <span aria-hidden="true">● </span>
-              {t("listening")}
-            </p>
-          )}
-          {(phase === "listening" || showingResult) &&
-            (speech.transcript || lastResult?.heard) && (
-              <p className="text-supporting text-ink-muted">
-                {t("heard")}{" "}
-                <span lang="en">{lastResult?.heard ?? speech.transcript}</span>
-              </p>
-            )}
-          {showingResult && lastResult && (
-            <p
-              className={`text-supporting ${
-                lastResult.complete ? "text-success" : "text-ink"
-              }`}
-            >
-              {lastResult.complete && <span aria-hidden="true">✓ </span>}
-              {lastResult.complete ? `${t("passed")} · ` : ""}
-              {t("coverage", { score: percent(lastResult.coverage) })}
-              {!lastResult.complete && <> · {t("notYet")}</>}
-              {lastResult.coverage === 1 && (
-                <PerfectCelebration key={resultCount} />
-              )}
-            </p>
-          )}
-          {transientError && (
-            <p className="text-supporting text-error">
-              {t(`errors.${transientError}`)}
-            </p>
-          )}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          {manual ? (
-            <>
-              <Button
-                variant="secondary"
-                disabled={player.status !== "ready"}
-                onClick={() => playback.play()}
-              >
-                {t("play")}
-              </Button>
+        <PracticeActions
+          primary={
+            manual ? (
               <Button variant="primary" onClick={markSaidIt}>
                 {t("iSaidIt")}
               </Button>
-            </>
-          ) : phase === "playing" ? (
-            <Button variant="primary" disabled>
-              {t("playing")}
-            </Button>
-          ) : phase === "listening" ? (
-            <Button variant="secondary" onClick={speech.stop}>
-              {t("stop")}
-            </Button>
-          ) : showingResult && lastResult?.complete ? (
-            <Button ref={nextRef} variant="primary" arrow onClick={goNext}>
-              {isLast ? t("seeResult") : t("next")}
-            </Button>
-          ) : (
+            ) : phase === "playing" ? (
+              <Button variant="primary" disabled>
+                {t("playing")}
+              </Button>
+            ) : phase === "listening" ? (
+              <Button variant="secondary" onClick={speech.stop}>
+                {t("stop")}
+              </Button>
+            ) : showingResult && lastResult?.complete ? (
+              <Button ref={nextRef} variant="primary" arrow onClick={goNext}>
+                {isLast ? t("seeResult") : t("next")}
+              </Button>
+            ) : (
+              <Button
+                variant="primary"
+                disabled={player.status !== "ready"}
+                onClick={() => attempt(current)}
+              >
+                {showingResult ? t("tryAgain") : t("playAndShadow")}
+              </Button>
+            )
+          }
+        >
+          {manual && (
             <Button
-              variant="primary"
+              variant="secondary"
               disabled={player.status !== "ready"}
-              onClick={() => attempt(current)}
+              onClick={() => playback.play()}
             >
-              {showingResult ? t("tryAgain") : t("playAndShadow")}
+              {t("play")}
             </Button>
           )}
-        </div>
+        </PracticeActions>
         <p className="text-metadata text-ink-muted pointer-coarse:hidden">
           {t("shortcuts")}
         </p>
         {saveError}
+        <div className="space-y-4 border-t border-line pt-6">
+          {/* Reporting sits at the top of every sentence's notes, in the
+              same place each time (D124). */}
+          <div className="flex justify-end">
+            <ReportSentence
+              key={current}
+              videoId={video.id}
+              version={video.version}
+              index={current}
+            />
+          </div>
+          {video.audioUrls && (
+            <div>
+              {/* After an attempt, the words not said are highlighted (D68). */}
+              <SentenceExplanation
+                en={sentence.en}
+                zh={sentence.zh}
+                showZh={false}
+                rich={video.richNotes?.[current] ?? null}
+                legacy={notesForSentence(video, current)}
+                missed={
+                  showingResult && lastResult
+                    ? missedPieces(sentence.en, lastResult.heard)
+                    : null
+                }
+                showSentence={!!video.richNotes?.[current]?.highlights.length}
+              />
+            </div>
+          )}
+        </div>
         {troubleOpen && (
           <Dialog
             title={t("trouble.title")}
@@ -677,6 +689,7 @@ export function ShadowingSession({
       <section className="practice-column mt-12">
         <RecordList video={video} records={records} current={current} />
       </section>
+      <PracticeActionsSpacer />
     </>
   );
 }

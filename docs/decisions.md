@@ -2228,3 +2228,12 @@
   - **用量頁記錄結果**：`api_calls` 新增 `outcome` 欄位（只新增的 migration），修改呼叫記 `changed 5/8`、`unchanged`、`refused`、`invalid`；成功的呼叫也記 HTTP 200（假的供應者沒有 HTTP，不記）。用量頁顯示「成功（HTTP 200 · changed 5/8）」。被過濾的呼叫記 `error: filtered` 與供應者的狀態碼。
   - `PROMPT_VERSION` 不變：修改結果不快取，換提示詞不影響其他快取。
 - **要改時**：提示詞 `lib/ai/prompts.ts` 的 `REVISE_INSTRUCTIONS`；檢查 `lib/custom-practice/revise.ts`；面板 `components/RevisePanel.tsx`；Server Action `reviseDraft`（`app/materials/actions.ts`）；翻譯檔 `revise`。
+
+## D124 練習頁的按鈕位置、跟讀結果位置、回報按鈕（2026-11-13，Joe 指定）
+
+- **主要按鈕固定在右邊**：聽寫的「送出／下一句」、跟讀的「播放並跟讀／下一句／再試一次／我念完了」都由 `components/PracticeActions.tsx` 排版：其他控制在左，主要按鈕在右（`ml-auto`）。聽寫的作答區保留 `min-h-36`，送出前後與每一句的按鈕列都在同一個高度（E2E 量位置）。
+- **手機底部列**：小於 `sm`（640px）時，主要按鈕放在固定在畫面底部的列，靠右、至少 160px 寬。用 Visual Viewport API 算出鍵盤（或縮放）遮住的高度，整列移到鍵盤上方；iOS Safari 和 Android Chrome 預設都不會因為鍵盤縮小版面，只靠 `bottom: 0` 會被鍵盤蓋住，這是業界常用的做法。頁面最後加 96px 空白，底部列不擋頁尾。
+  - YouTube 條款不允許在播放器上加覆蓋元素：底部列只在畫面最下方，播放時影片會被捲到畫面上方（既有規則），和固定進度列一樣不會刻意蓋住播放器。
+- **跟讀結果在句子正上方**：「你念的」「✓ 念完了 · 涵蓋率」放大一級並移到句子上方，保留高度避免句子跳動；講解移到按鈕列下方。
+- **回報按鈕**：從 ghost 文字按鈕改成 secondary 小按鈕加旗子圖示，放在每句講解區最上方靠右的固定位置（聽寫、跟讀都一樣）。
+- **要改時**：`components/PracticeActions.tsx`、`components/DictationSession.tsx`、`components/ShadowingSession.tsx`、`components/ReportSentence.tsx`；E2E 在 `e2e/practice-layout.spec.ts`。
