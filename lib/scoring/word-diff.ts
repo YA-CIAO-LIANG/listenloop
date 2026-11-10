@@ -1,5 +1,5 @@
 import { alignWords } from "./align";
-import { normalizeWords } from "./normalize";
+import { normalizeTokens } from "./normalize";
 
 /** A word as the user typed it or as written in the reference. */
 export type DisplayWord = { text: string; ok: boolean };
@@ -11,54 +11,43 @@ export type WordDiff = {
   reference: DisplayWord[];
 };
 
-type Piece = { text: string; tokens: string[] };
-
-/** Splits on whitespace, keeping punctuation, with each piece's normalized tokens. */
-function pieces(text: string): Piece[] {
-  return text
-    .split(/\s+/)
-    .filter(Boolean)
-    .map((piece) => ({ text: piece, tokens: normalizeWords(piece) }));
-}
-
 /**
  * Maps the scoring alignment back onto the words as written, for the
  * two-line dictation feedback. Scoring compares normalized tokens
- * ("don't" → "do not"), but learners should see their own spelling and the
- * original sentence. A written word is ok only if all of its tokens matched.
- * Pure punctuation (e.g. "—") has no tokens and is always ok.
+ * ("don't" → "do not", "six hundred" → "600", D126), but learners should
+ * see their own spelling and the original sentence. A written word is ok
+ * only if every token made from it matched; a token made from several
+ * words ("six hundred") marks all of them. Pure punctuation (e.g. "—")
+ * has no tokens and is always ok.
  */
 export function wordDiff(reference: string, answer: string): WordDiff {
-  const refPieces = pieces(reference);
-  const ansPieces = pieces(answer);
-
-  // Owner piece of every normalized token, in order.
-  const refOwner = refPieces.flatMap((p, i) => p.tokens.map(() => i));
-  const ansOwner = ansPieces.flatMap((p, i) => p.tokens.map(() => i));
+  const refPieces = reference.split(/\s+/).filter(Boolean);
+  const ansPieces = answer.split(/\s+/).filter(Boolean);
+  const ref = normalizeTokens(reference);
+  const ans = normalizeTokens(answer);
   const refOk = refPieces.map(() => true);
   const ansOk = ansPieces.map(() => true);
+  const miss = (ok: boolean[], owners: number[]) =>
+    owners.forEach((owner) => (ok[owner] = false));
 
   let r = 0;
   let a = 0;
-  for (const op of alignWords(
-    refPieces.flatMap((p) => p.tokens),
-    ansPieces.flatMap((p) => p.tokens),
-  )) {
+  for (const op of alignWords(ref.words, ans.words)) {
     if (op.type === "match") {
       r++;
       a++;
     } else if (op.type === "substitute") {
-      refOk[refOwner[r++]] = false;
-      ansOk[ansOwner[a++]] = false;
+      miss(refOk, ref.owners[r++]);
+      miss(ansOk, ans.owners[a++]);
     } else if (op.type === "delete") {
-      refOk[refOwner[r++]] = false;
+      miss(refOk, ref.owners[r++]);
     } else {
-      ansOk[ansOwner[a++]] = false;
+      miss(ansOk, ans.owners[a++]);
     }
   }
 
   return {
-    answer: ansPieces.map((p, i) => ({ text: p.text, ok: ansOk[i] })),
-    reference: refPieces.map((p, i) => ({ text: p.text, ok: refOk[i] })),
+    answer: ansPieces.map((text, i) => ({ text, ok: ansOk[i] })),
+    reference: refPieces.map((text, i) => ({ text, ok: refOk[i] })),
   };
 }
