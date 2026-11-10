@@ -48,30 +48,31 @@ describe("normalizeWords", () => {
       "known",
       "fact",
     ]);
-    expect(normalizeWords("twenty-one")).toEqual(["twenty", "one"]);
   });
 
   it.each([
-    ["0", ["zero"]],
-    ["5", ["five"]],
-    ["13", ["thirteen"]],
-    ["20", ["twenty"]],
-    ["21", ["twenty", "one"]],
-    ["99", ["ninety", "nine"]],
-  ])("spells out %s", (input, expected) => {
+    ["0", ["0"]],
+    ["5", ["5"]],
+    ["five", ["5"]],
+    ["13", ["13"]],
+    ["twenty-one", ["21"]],
+    ["ninety nine", ["99"]],
+  ])("reads a number as one token: %s (D126)", (input, expected) => {
     expect(normalizeWords(input)).toEqual(expected);
   });
 
   it("reads % as percent, so digits and words match either way", () => {
-    const words = ["memory", "overwrite", "ninety", "percent"];
+    const words = ["memory", "overwrite", "90", "percent"];
     expect(normalizeWords("Memory overwrite, 90%.")).toEqual(words);
     expect(normalizeWords("memory overwrite 90 percent")).toEqual(words);
     expect(normalizeWords("Memory overwrite, ninety percent")).toEqual(words);
-    expect(normalizeWords("ninety %")).toEqual(["ninety", "percent"]);
+    expect(normalizeWords("ninety %")).toEqual(["90", "percent"]);
   });
 
-  it("leaves larger numbers as digits", () => {
+  it("keeps sentence punctuation off numbers", () => {
+    expect(normalizeWords("It costs 5.")).toEqual(["it", "costs", "5"]);
     expect(normalizeWords("in 2026")).toEqual(["in", "2026"]);
+    expect(normalizeWords("1, 2, 3")).toEqual(["1", "2", "3"]);
   });
 
   it("keeps accented letters", () => {

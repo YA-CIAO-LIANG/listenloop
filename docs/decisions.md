@@ -2248,3 +2248,14 @@
 - **狀態顯示**：播放中、請跟著念（收音中、還沒聽到字）、辨識中…（已經聽到字），放在句子上方的狀態區（D124），螢幕閱讀器會念出變化。
 - **測試**：元件測試涵蓋開始前不出聲、自動進下一句、沒過自動重播、暫停與繼續、錯誤時停止、麥克風被拒時改為「我念完了」、頁面上關閉；原本的元件測試在關閉免手動的狀態下照常執行。E2E 檢查開始、暫停、關閉後重新整理仍記得。
 - **要改時**：`lib/hands-free.ts`（時間）、`components/useHandsFree.ts`、`components/HandsFreeSetting.tsx`、`components/HandsFreeStatus.tsx`、`DictationSession`、`ShadowingSession`；翻譯檔 `handsFree`。
+
+## D126 評分時數字的各種寫法視為相同（2026-11-13，Joe 指定）
+
+- **做法**：正規化時把每個數字讀成一個記號（`600`、`1.5`、序數 `21th`），不論寫成阿拉伯數字、英文、千分位或混合（`6 million`）。聽寫、跟讀、螢光筆標示、我的錯字都用同一個正規化，所以規則一致。
+  - 支援：0 到兆（hundred、thousand、million、billion、trillion，含 `a hundred`、英式 `one hundred and five`）、小數（`one point five`、`2.75 million`）、千分位逗號（只認三位一組，`1, 2, 3` 仍是三個數字）、序數、金額（`$` 後的數字讀成「N dollars」，有分就接分：`$3.50` = three dollars fifty；`$1` = one dollar）、百分比、時間（`9:30` 讀成 9 30，`9:05` 讀成 9 oh 5；`a.m.`、`am`、`7am` 相同）、年份（`twenty twenty-five`、`nineteen oh five`）。
+  - **怎麼分辨「nine thirty」和「39」**：英文數字依文法讀，個位數後面不能接十位數，所以 nine thirty 是兩個數字（9 30），twenty five 才是 25。
+  - **年份與時間**：兩個 10～99 的數字相鄰時合成一個（20 25 → 2025，10 30 → 1030），兩邊都套用，所以 `10:30` 和 `ten thirty` 仍然相同。代價是極少見的「兩個兩位數相鄰」（例如「page 12 13」）會被當成一個數字，兩邊一致，不影響對錯。
+- **一個數字算一個字**：原本 0～99 轉成英文單字（42 → forty two 算兩個字），現在 42 算一個字，和 600、six hundred 一致。已存的正式成績不變（存的是當時的分數）；結果頁逐句回顧用新規則重算，含 21～99 非整十數字的句子可能差一點點。
+- **螢光筆**：每個記號記下它來自原文的哪幾個字（`normalizeTokens` 的 `owners`），寫錯的數字整組標示（six hundred fifty 對 600 → 三個字都標）。
+- **沒有支援**（之後需要再加）：分數（one half）、`half past ten`、`three fifty`（省略 dollars 的金額）、羅馬數字。
+- **要改時**：`lib/scoring/normalize.ts`；測試 `tests/scoring/number-forms.test.ts`。

@@ -213,7 +213,8 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
 
 ## 評分邏輯
 
-- 正規化：小寫、去標點、展開常見縮寫（don't → do not）、0～99 的數字轉成英文單字（5 → five，所以 90 = ninety）、% 讀成 percent（90% = 90 percent = ninety percent；字幕保留原本的寫法）。所有格與 'd 因有歧義不展開。
+- 正規化：小寫、去標點、展開常見縮寫（don't → do not）。所有格與 'd 因有歧義不展開。
+- 數字的各種寫法視為相同（D126，`lib/scoring/normalize.ts`）：每個數字不論怎麼寫都變成同一個記號、算一個字。600 = six hundred；6 million = 6,000,000 = six million；1.5 = one point five；1st = first、21st = twenty-first；$5 = five dollars = 5 dollars、$3.50 = three dollars fifty；90% = ninety percent；9:30 = nine thirty；7 a.m. = seven am = 7 am；2025 = twenty twenty-five = two thousand twenty-five。字幕保留原本的寫法，螢光筆只標真正寫錯的數字（多字的數字整組標示）。
 - 對齊：逐字對齊，優先讓對到的字最多（依序寫對的每個字都得分），平手時才選編輯次數最少。
 - 聽寫：正確率 = 對到字數 ÷ max(原句字數, 使用者輸入字數)。多寫的字會降低分數，避免亂打一長串常見字矇分；什麼都沒寫是 0。對錯字以顏色＋底線/刪除線標示。每句第一次送出即算分，不能重答。一天的正確率依字數加權：所有句子對到的字數 ÷ 每句 max(原句字數, 輸入字數) 的總和。
 - **播放速度與加權**（只有音檔教材，D73）：0.75×／1×／1.25×，不改變音調。每句對到的字數乘上權重（0.75× → 90%、1× → 100%、1.25× → 105%）再除以同樣的分母，最高 100%；數字集中在 `lib/speed.ts`。結果顯示加權分數，並標示「慢速完成」或「快速完成」與原始正確率。
