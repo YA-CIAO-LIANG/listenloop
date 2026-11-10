@@ -11,7 +11,9 @@ test("past the free trial, the create page offers the paid plan's waitlist", asy
   await expect(card).toContainText("免費方案可以試做 1 份自己的教材");
   await expect(card).toContainText("每月自建 40 分鐘的教材");
   await expect(card).toContainText("每份最長 5 分鐘");
-  await expect(card).toContainText("價格：即將推出");
+  await expect(card).toContainText(
+    "NT$124／月年繳 NT$1,490，一次付清，省 2 個月",
+  );
   // No creating form, so no paid call can start.
   await expect(page.getByRole("button", { name: /斷句/ })).toHaveCount(0);
 

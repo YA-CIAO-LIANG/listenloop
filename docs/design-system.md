@@ -757,7 +757,7 @@ CardLink，內容由上到下：
   - 「退款政策 · 服務條款」連結。
 - 卡片內容：
   - 標題：Display h2；
-  - 價格：Display h3；年繳時下一行用 supporting、ink-muted 顯示「平均每月」；
+  - 價格（`PlanPrice`，D128，所有顯示訂閱價格的地方都用它）：**最大的數字一律是每月價格**，Display h2「NT$124」＋ ink-muted「／月」；年繳時下一行 supporting、ink-muted「年繳 NT$1,490，一次付清，」＋ success 色「省 2 個月」。第二個價格（班級方案的等候名單價、對話框）用 `size="md"`（Display h3）；表格與帳號頁用 `size="inline"`：「NT$124／月（年繳 NT$1,490）」；
   - 功能清單：✓ 用 success 色；
   - 動作：「訂閱」是 primary 按鈕；未登入時顯示文字說明；已是付費方案時顯示「管理訂閱」。
 
@@ -765,7 +765,7 @@ CardLink，內容由上到下：
 
 - 位置在「帳號」頁的同步說明之後，章節樣式和其他區塊相同（上方 line 分隔線、h2）。
 - **方案**：
-  - 「目前方案」用 supporting、ink-muted，下一行是方案名稱與付款週期；
+  - 「目前方案」用 supporting、ink-muted，下一行是方案名稱與付款週期，再下一行是價格（`PlanPrice` inline，D128）；
   - 測試付款加上 `Tag`「測試」。
 - **狀態說明**：
   - 有效：「下次扣款日：…」；

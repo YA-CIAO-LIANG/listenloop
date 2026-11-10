@@ -1313,7 +1313,6 @@
     "seePractices": "See your progress",
     "paid": {
       "title": "Plus",
-      "price": "Price: coming soon",
       "perMonth": "{max} minutes of your own practices a month",
       "everything": "Every official material and feature",
       "free": "You're on the free plan: every official material and feature, plus one practice of your own to try.",
@@ -2332,7 +2331,6 @@
     "fakeTitle": "Test checkout",
     "fakeIntro": "A pretend checkout for testing the payment flow. Nothing is charged and no card is needed.",
     "plan": "Plan: Paid ({interval})",
-    "amount": "Amount: NT${amount, number}",
     "pay": "Simulate a successful payment",
     "fail": "Simulate a failed payment",
     "successTitle": "Payment complete",
@@ -2618,7 +2616,7 @@
       "pro": "Pro"
     },
     "current": "Your plan",
-    "perMonthSuffix": "/ month",
+    "perMonthSuffix": " / month",
     "summaries": {
       "free": "Every official lesson and feature, basic stats, and one practice of your own to try (up to 30 seconds).",
       "plus": "40 minutes of your own practices a month, YouTube practices, playback speed, full stats, and custom pass rules.",
@@ -2660,9 +2658,10 @@
     "signInToJoin": "Sign in to join the list",
     "close": "Close",
     "monthsFree": "{months} months free",
-    "averagePerMonth": "Averages {amount} a month",
-    "perYearSuffix": "/ year",
-    "previewOnly": "Preview only"
+    "previewOnly": "Preview only",
+    "yearlyBilled": "{total} billed yearly, paid once: ",
+    "yearlyShort": "({total} billed yearly)",
+    "priceRow": "Price"
   },
   "classroom": {
     "title": "My classes",

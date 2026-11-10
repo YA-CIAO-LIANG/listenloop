@@ -2,7 +2,7 @@
 
 import { ScrollRegion } from "./ScrollRegion";
 import Link from "next/link";
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { recordIntent } from "@/app/intent-actions";
 import {
@@ -11,10 +11,8 @@ import {
 } from "@/app/plans/actions";
 import type { IntentSource } from "@/lib/intent";
 import {
-  averagePerMonth,
   BILLING_PERIODS,
   DEFAULT_PERIOD,
-  formatPrice,
   PAID_PLANS,
   PLAN_PRICES,
   REFUND_DAYS,
@@ -24,6 +22,7 @@ import {
 } from "@/lib/payments/pricing";
 import { PLANS } from "@/lib/plans";
 import { Button } from "./Button";
+import { PlanPrice } from "./PlanPrice";
 import { ButtonLink } from "./ButtonLink";
 import { Dialog } from "./Dialog";
 import { SegmentedControl } from "./SegmentedControl";
@@ -79,7 +78,6 @@ export function PricingPlans({
   record?: typeof recordIntent;
 }) {
   const t = useTranslations("plansPage");
-  const format = useFormatter();
   const [period, setPeriod] = useState<BillingPeriod>(
     openAtStart?.period ?? DEFAULT_PERIOD,
   );
@@ -90,8 +88,6 @@ export function PricingPlans({
   const [pending, setPending] = useState(false);
   const [failed, setFailed] = useState(false);
   const viewed = useRef(false);
-  const price = (amount: number) =>
-    formatPrice(amount, "TWD", (value) => format.number(value));
 
   useEffect(() => {
     if (viewed.current) return;
@@ -187,7 +183,7 @@ export function PricingPlans({
             {t("names.free")}
             {current === "free" && <Tag>{t("current")}</Tag>}
           </h2>
-          <p className="font-display text-h2 tabular-nums">{price(0)}</p>
+          <PlanPrice total={0} period="month" />
           <p className="text-supporting">{t("summaries.free")}</p>
         </li>
         {PAID_PLANS.map((plan) => {
@@ -203,28 +199,8 @@ export function PricingPlans({
                 {t(`names.${plan}`)}
                 {current === plan && <Tag>{t("current")}</Tag>}
               </h2>
-              <p>
-                <span className="font-display text-h2 tabular-nums">
-                  {price(total)}
-                </span>
-                <span className="text-ink-muted">
-                  {" "}
-                  {period === "year" ? t("perYearSuffix") : t("perMonthSuffix")}
-                </span>
-              </p>
-              {period === "year" && (
-                <p className="text-supporting tabular-nums">
-                  <span className="text-success">
-                    {t("monthsFree", { months: YEARLY_MONTHS_FREE })}
-                  </span>
-                  <span className="text-ink-muted">
-                    {" · "}
-                    {t("averagePerMonth", {
-                      amount: price(averagePerMonth(total)),
-                    })}
-                  </span>
-                </p>
-              )}
+              {/* The price a month is always the big number (D128). */}
+              <PlanPrice total={total} period={period} />
               <p className="text-supporting">{t(`summaries.${plan}`)}</p>
               <Button
                 variant={plan === "plus" ? "primary" : "secondary"}
@@ -255,6 +231,22 @@ export function PricingPlans({
             </tr>
           </thead>
           <tbody>
+            <tr className="border-b border-line">
+              <th scope="row" className="py-2 pr-4 font-normal">
+                {t("priceRow")}
+              </th>
+              {(["free", ...PAID_PLANS] as const).map((plan) => (
+                <td key={plan} className="px-2 py-2">
+                  <PlanPrice
+                    total={
+                      plan === "free" ? 0 : PLAN_PRICES[plan][period].amount
+                    }
+                    period={plan === "free" ? "month" : period}
+                    size="inline"
+                  />
+                </td>
+              ))}
+            </tr>
             {FEATURES.map((feature) => (
               <tr key={feature} className="border-b border-line">
                 <th scope="row" className="py-2 pr-4 font-normal">
@@ -288,6 +280,11 @@ export function PricingPlans({
           })}
           onClose={() => setOffer(null)}
         >
+          <PlanPrice
+            total={PLAN_PRICES[offer][period].amount}
+            period={period}
+            size="md"
+          />
           <p>{t("comingSoon")}</p>
           {joined ? (
             <p role="status" className="text-success">

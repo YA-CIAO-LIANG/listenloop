@@ -2,10 +2,11 @@ import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { setCancelAtPeriodEnd } from "@/app/billing/actions";
 import type { Payment, Subscription } from "@/auth/billing";
-import { formatPrice, PRICES } from "@/lib/payments/pricing";
+import { formatPrice, PLAN_PRICES, PRICES } from "@/lib/payments/pricing";
 import type { AccountPlan } from "@/lib/plans";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
+import { PlanPrice } from "./PlanPrice";
 import { Tag } from "./Tag";
 
 const linkClassName =
@@ -63,6 +64,20 @@ export async function BillingSection({
         {live && <span>· {t(`interval.${subscription.interval}`)}</span>}
         {subscription?.test && <Tag>{t("test")}</Tag>}
       </p>
+      {/* What the plan costs, a month first like everywhere (D128). */}
+      {live && (plan === "paid" || plan === "pro") && (
+        <p className="mt-1 text-supporting">
+          <PlanPrice
+            total={
+              PLAN_PRICES[plan === "pro" ? "pro" : "plus"][
+                subscription.interval
+              ].amount
+            }
+            period={subscription.interval}
+            size="inline"
+          />
+        </p>
+      )}
       {subscription && (
         <div className="mt-4 space-y-4">
           {subscription.status === "past_due" && (

@@ -6,6 +6,7 @@ import { getPaymentProvider, isFakeProvider } from "@/auth/payments";
 import { getSignedInUser } from "@/auth/session";
 import { Button } from "@/components/Button";
 import { isBillingInterval, PRICES } from "@/lib/payments/pricing";
+import { PlanPrice } from "@/components/PlanPrice";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("checkout");
@@ -38,7 +39,10 @@ export default async function FakeCheckoutPage({
             interval: tPricing(interval === "month" ? "monthly" : "yearly"),
           })}
         </dd>
-        <dd>{t("amount", { amount: PRICES[interval].amount })}</dd>
+        <dd>
+          {/* A month first, then what's charged now (D128). */}
+          <PlanPrice total={PRICES[interval].amount} period={interval} />
+        </dd>
       </dl>
       <form action={completeFakeCheckout} className="mt-8 flex flex-wrap gap-3">
         <input type="hidden" name="interval" value={interval} />

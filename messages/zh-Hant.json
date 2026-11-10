@@ -1313,7 +1313,6 @@
     "seePractices": "查看學習進度",
     "paid": {
       "title": "Plus 方案",
-      "price": "價格：即將推出",
       "perMonth": "每月自建 {max} 分鐘的教材",
       "everything": "所有官方教材與功能",
       "free": "你目前是免費方案：所有官方教材與功能，加上試做 1 份自己的教材。",
@@ -2330,7 +2329,6 @@
     "fakeTitle": "測試結帳",
     "fakeIntro": "這是假的結帳頁，用來測試付款流程。不會扣款，也不需要輸入卡號。",
     "plan": "方案：付費（{interval}）",
-    "amount": "金額：NT${amount, number}",
     "pay": "模擬付款成功",
     "fail": "模擬付款失敗",
     "successTitle": "付款完成",
@@ -2658,9 +2656,10 @@
     "signInToJoin": "登入後加入名單",
     "close": "關閉",
     "monthsFree": "省 {months} 個月",
-    "averagePerMonth": "每月平均 {amount}",
-    "perYearSuffix": "／年",
-    "previewOnly": "只能預覽"
+    "previewOnly": "只能預覽",
+    "yearlyBilled": "年繳 {total}，一次付清，",
+    "yearlyShort": "（年繳 {total}）",
+    "priceRow": "價格"
   },
   "classroom": {
     "title": "我的班級",
