@@ -8,12 +8,15 @@ import {
 } from "@/lib/categories";
 import {
   isLibraryLengthId,
+  isLibraryMinutes,
   LIBRARY_LENGTHS,
   LIBRARY_SORTS,
   MAX_CATEGORIES,
   type LibraryLengthId,
+  type LibraryMinutes,
   type LibrarySort,
 } from "./library-config";
+import { dailyMinutes } from "./library-time";
 import { parseVoiceId } from "@/lib/ai/types";
 import { isCategoryId, isLevel } from "@/lib/categories";
 import type { PublicPracticeSummary } from "@/lib/custom-practice/explore";
@@ -83,6 +86,8 @@ export type LibraryFilter = {
   /** Audio length (D104): one range, "all" by default. */
   length: LibraryLengthId;
   accents: readonly VoiceAccent[];
+  /** Minutes a practice day may take (D127); null: any. */
+  minutes: LibraryMinutes | null;
   sort: LibrarySort;
 };
 
@@ -94,6 +99,7 @@ export const NO_LIBRARY_FILTER: LibraryFilter = {
   levels: [],
   length: "all",
   accents: [],
+  minutes: null,
   sort: LIBRARY_SORTS[0],
 };
 
@@ -106,6 +112,7 @@ export const LIBRARY_PARAMS = {
   levels: "level",
   length: "len",
   accents: "accent",
+  minutes: "min",
   sort: "sort",
 } as const;
 
@@ -137,6 +144,10 @@ export function parseLibraryParams(params: {
     levels: pick(LEVELS, params.get(LIBRARY_PARAMS.levels)),
     length: isLibraryLengthId(length) ? length : "all",
     accents: pick(VOICE_ACCENTS, params.get(LIBRARY_PARAMS.accents)),
+    minutes: (() => {
+      const minutes = Number(params.get(LIBRARY_PARAMS.minutes));
+      return isLibraryMinutes(minutes) ? minutes : null;
+    })(),
     sort: (LIBRARY_SORTS as readonly (string | null)[]).includes(sort)
       ? (sort as LibrarySort)
       : LIBRARY_SORTS[0],
@@ -161,6 +172,10 @@ export function writeLibraryParams(
   set(LIBRARY_PARAMS.levels, filter.levels.join(","));
   set(LIBRARY_PARAMS.length, filter.length === "all" ? "" : filter.length);
   set(LIBRARY_PARAMS.accents, filter.accents.join(","));
+  set(
+    LIBRARY_PARAMS.minutes,
+    filter.minutes === null ? "" : String(filter.minutes),
+  );
   set(LIBRARY_PARAMS.sort, filter.sort === LIBRARY_SORTS[0] ? "" : filter.sort);
   return next;
 }
@@ -173,7 +188,8 @@ export function activeFilterCount(filter: LibraryFilter): number {
     filter.scenarios.length +
     filter.levels.length +
     (filter.length === "all" ? 0 : 1) +
-    filter.accents.length
+    filter.accents.length +
+    (filter.minutes === null ? 0 : 1)
   );
 }
 
@@ -222,7 +238,8 @@ export function matchesLibraryFilter(
     within(filter.scenarios, item.scenario) &&
     within(filter.levels, item.level) &&
     inLength(item.seconds, filter.length) &&
-    within(filter.accents, item.accent)
+    within(filter.accents, item.accent) &&
+    (filter.minutes === null || dailyMinutes(item) <= filter.minutes)
   );
 }
 

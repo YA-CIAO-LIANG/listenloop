@@ -13,17 +13,19 @@ import {
 } from "@/lib/library";
 import {
   LIBRARY_LENGTHS,
+  LIBRARY_MINUTES,
   LIBRARY_SORTS,
+  MAIN_CATEGORY_COUNT,
   MAX_CATEGORIES,
   SEARCH_DEBOUNCE_MS,
   type LibrarySort,
 } from "@/lib/library-config";
 import { Button } from "./Button";
-import { Dialog } from "./Dialog";
 import { FilterChip } from "./FilterChip";
 import { MaterialCard } from "./MaterialCard";
-import { SegmentedControl } from "./SegmentedControl";
 import { toggled, useLibraryFilter } from "./useLibraryFilter";
+import { dailyMinutes } from "@/lib/library-time";
+import type { CategoryId } from "@/lib/categories";
 import { LibraryDefaultControls, useLibraryDefault } from "./LibraryDefault";
 
 type ViewProps = {
@@ -61,15 +63,52 @@ function FilterGroup({
   );
 }
 
+/** Single-choice chips: one value or none ("any"). */
+function SingleChoice<T extends string | number>({
+  label,
+  anyLabel,
+  value,
+  options,
+  onChange,
+}: {
+  label: string;
+  anyLabel: string;
+  value: T | null;
+  options: readonly { value: T; label: string }[];
+  onChange: (next: T | null) => void;
+}) {
+  return (
+    <FilterGroup label={label}>
+      <FilterChip on={value === null} onToggle={() => onChange(null)}>
+        {anyLabel}
+      </FilterChip>
+      {options.map((option) => (
+        <FilterChip
+          key={option.value}
+          on={value === option.value}
+          onToggle={() =>
+            onChange(value === option.value ? null : option.value)
+          }
+        >
+          {option.label}
+        </FilterChip>
+      ))}
+    </FilterGroup>
+  );
+}
+
 /**
- * Every filter (D70): type, category, level, length, accent, and the time
- * a day takes. A group shows only when the library has more than one
- * value for it (or one is chosen); each chip counts the materials with
- * that value.
+ * Every filter (D70, D127), most used first: the minutes I have today,
+ * level, category (the most common ones, the rest behind "More
+ * categories"), then type, audio length, and accent. All chips, applied
+ * at once. A group shows only when the library has more than one value
+ * for it (or one is chosen); each chip counts the materials with that
+ * value.
  */
 export function LibraryFilters({ items, filter, onChange }: ViewProps) {
   const t = useTranslations("library.filters");
   const tAll = useTranslations();
+  const [moreCategories, setMoreCategories] = useState(false);
   const present = presentValues(items);
   const count = (match: (item: LibraryItem) => boolean) =>
     items.filter(match).length;
@@ -85,25 +124,90 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
         filter.categories.includes(i.category),
     ),
   );
+  // The most common categories first (D127); chosen ones always show.
+  const byCount = [...present.categories].sort(
+    (a, b) => count((i) => i.category === b) - count((i) => i.category === a),
+  );
+  const main = new Set(byCount.slice(0, MAIN_CATEGORY_COUNT));
+  const shownCategories = present.categories.filter(
+    (category) =>
+      moreCategories ||
+      main.has(category) ||
+      filter.categories.includes(category),
+  );
+  const hiddenCategories = present.categories.length - shownCategories.length;
+
+  const categoryChip = (category: CategoryId) => {
+    const on = filter.categories.includes(category);
+    return (
+      <FilterChip
+        key={category}
+        on={on}
+        // Up to MAX_CATEGORIES; the rest wait until one is off.
+        disabled={!on && filter.categories.length >= MAX_CATEGORIES}
+        onToggle={() =>
+          onChange({
+            ...filter,
+            categories: toggled(
+              filter.categories,
+              category,
+              present.categories,
+            ),
+            // A category turned off takes its scenarios with it.
+            scenarios: on
+              ? filter.scenarios.filter((sc) =>
+                  items.some(
+                    (i) =>
+                      i.scenario === sc &&
+                      i.category !== category &&
+                      i.category !== null &&
+                      filter.categories.includes(i.category),
+                  ),
+                )
+              : filter.scenarios,
+          })
+        }
+      >
+        {t("option", {
+          label: tAll(`categories.names.${category}`),
+          count: count((i) => i.category === category),
+        })}
+      </FilterChip>
+    );
+  };
 
   return (
     <div className="space-y-6">
-      {shows(present.kinds, filter.kinds) && (
-        <FilterGroup label={t("kind")}>
-          {present.kinds.map((kind) => (
+      {/* "How many minutes do I have today" comes first (D127). */}
+      <SingleChoice
+        label={t("minutes")}
+        anyLabel={t("anyMinutes")}
+        value={filter.minutes}
+        options={LIBRARY_MINUTES.map((minutes) => ({
+          value: minutes,
+          label: t("option", {
+            label: t("minutesOption", { minutes }),
+            count: count((i) => dailyMinutes(i) <= minutes),
+          }),
+        }))}
+        onChange={(minutes) => onChange({ ...filter, minutes })}
+      />
+      {shows(present.levels, filter.levels) && (
+        <FilterGroup label={t("level")}>
+          {present.levels.map((level) => (
             <FilterChip
-              key={kind}
-              on={filter.kinds.includes(kind)}
+              key={level}
+              on={filter.levels.includes(level)}
               onToggle={() =>
                 onChange({
                   ...filter,
-                  kinds: toggled(filter.kinds, kind, present.kinds),
+                  levels: toggled(filter.levels, level, present.levels),
                 })
               }
             >
               {t("option", {
-                label: tAll(`library.kinds.${kind}`),
-                count: count((i) => i.kind === kind),
+                label: tAll(`video.levels.${level}`),
+                count: count((i) => i.level === level),
               })}
             </FilterChip>
           ))}
@@ -130,44 +234,20 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
           >
             {t("allCategories")}
           </FilterChip>
-          {present.categories.map((category) => {
-            const on = filter.categories.includes(category);
-            return (
-              <FilterChip
-                key={category}
-                on={on}
-                // Up to MAX_CATEGORIES; the rest wait until one is off.
-                disabled={!on && filter.categories.length >= MAX_CATEGORIES}
-                onToggle={() =>
-                  onChange({
-                    ...filter,
-                    categories: toggled(
-                      filter.categories,
-                      category,
-                      present.categories,
-                    ),
-                    // A category turned off takes its scenarios with it.
-                    scenarios: on
-                      ? filter.scenarios.filter((sc) =>
-                          items.some(
-                            (i) =>
-                              i.scenario === sc &&
-                              i.category !== category &&
-                              i.category !== null &&
-                              filter.categories.includes(i.category),
-                          ),
-                        )
-                      : filter.scenarios,
-                  })
-                }
+          {shownCategories.map(categoryChip)}
+          {(hiddenCategories > 0 || moreCategories) &&
+            present.categories.length > MAIN_CATEGORY_COUNT && (
+              <Button
+                variant="ghost"
+                size="sm"
+                aria-expanded={moreCategories}
+                onClick={() => setMoreCategories(!moreCategories)}
               >
-                {t("option", {
-                  label: tAll(`categories.names.${category}`),
-                  count: count((i) => i.category === category),
-                })}
-              </FilterChip>
-            );
-          })}
+                {moreCategories
+                  ? t("fewerCategories")
+                  : t("moreCategories", { count: hiddenCategories })}
+              </Button>
+            )}
         </FilterGroup>
       )}
       {scenarios.length > 0 && (
@@ -193,43 +273,37 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
           ))}
         </FilterGroup>
       )}
-      {shows(present.levels, filter.levels) && (
-        <FilterGroup label={t("level")}>
-          {present.levels.map((level) => (
+      {shows(present.kinds, filter.kinds) && (
+        <FilterGroup label={t("kind")}>
+          {present.kinds.map((kind) => (
             <FilterChip
-              key={level}
-              on={filter.levels.includes(level)}
+              key={kind}
+              on={filter.kinds.includes(kind)}
               onToggle={() =>
                 onChange({
                   ...filter,
-                  levels: toggled(filter.levels, level, present.levels),
+                  kinds: toggled(filter.kinds, kind, present.kinds),
                 })
               }
             >
               {t("option", {
-                label: tAll(`video.levels.${level}`),
-                count: count((i) => i.level === level),
+                label: tAll(`library.kinds.${kind}`),
+                count: count((i) => i.kind === kind),
               })}
             </FilterChip>
           ))}
         </FilterGroup>
       )}
-      {/* Audio length, one range (D104). */}
-      <div className="space-y-2">
-        <p aria-hidden="true" className={groupLabel}>
-          {t("length")}
-        </p>
-        <SegmentedControl
-          legend={t("length")}
-          value={filter.length}
-          options={LIBRARY_LENGTHS.map((length) => ({
-            value: length.id,
-            label: t(`lengths.${length.id}`),
-          }))}
-          onChange={(length) => onChange({ ...filter, length })}
-          optionWidthClassName="min-w-16"
-        />
-      </div>
+      {/* Audio length, one range (D104), as chips like the rest (D127). */}
+      <SingleChoice
+        label={t("length")}
+        anyLabel={t("lengths.all")}
+        value={filter.length === "all" ? null : filter.length}
+        options={LIBRARY_LENGTHS.filter((length) => length.id !== "all").map(
+          (length) => ({ value: length.id, label: t(`lengths.${length.id}`) }),
+        )}
+        onChange={(length) => onChange({ ...filter, length: length ?? "all" })}
+      />
       {shows(present.accents, filter.accents) && (
         <FilterGroup label={t("accent")}>
           {present.accents.map((accent) => (
@@ -256,9 +330,9 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
 }
 
 /**
- * The library (D70): search and sort above the cards; the filters in a
- * sidebar on wide screens, and in a bottom drawer behind "篩選（N）" on
- * phones. The match count is announced as it changes.
+ * The library (D70, D127): search and sort above the cards; the filters
+ * in a sidebar on wide screens, and open in the page below the search on
+ * narrower ones (foldable). The match count is announced as it changes.
  */
 export function MaterialLibraryView({
   items,
@@ -277,7 +351,8 @@ export function MaterialLibraryView({
 }) {
   const t = useTranslations("library.filters");
   const ids = useId();
-  const [drawer, setDrawer] = useState(false);
+  // Phones show the filters open too (D127), and can fold them away.
+  const [open, setOpen] = useState(true);
   const [query, setQuery] = useState(filter.query);
   const shown = filterLibrary(items, filter, found);
   const active = activeFilterCount(filter);
@@ -331,15 +406,32 @@ export function MaterialLibraryView({
               ))}
             </select>
           </div>
-          <Button
-            variant="secondary"
-            className="wide:hidden"
-            aria-haspopup="dialog"
-            onClick={() => setDrawer(true)}
-          >
-            {active > 0 ? t("openCount", { count: active }) : t("open")}
-          </Button>
         </div>
+
+        {/* Below wide: the filters in the page, open by default (D127). */}
+        <section
+          aria-labelledby={`${ids}-filters`}
+          className="mt-6 rounded-base border border-line p-4 wide:hidden"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <h3 id={`${ids}-filters`} className={groupLabel}>
+              {active > 0 ? t("openCount", { count: active }) : t("title")}
+            </h3>
+            <Button
+              variant="ghost"
+              size="sm"
+              aria-expanded={open}
+              aria-controls={`${ids}-panel`}
+              onClick={() => setOpen(!open)}
+            >
+              {open ? t("collapse") : t("expand")}
+            </Button>
+          </div>
+          <div id={`${ids}-panel`} hidden={!open} className="mt-4 space-y-6">
+            <LibraryFilters items={items} filter={filter} onChange={onChange} />
+            {defaults}
+          </div>
+        </section>
 
         <p
           aria-live="polite"
@@ -372,27 +464,6 @@ export function MaterialLibraryView({
           </ul>
         )}
       </div>
-
-      {drawer && (
-        <Dialog
-          title={t("title")}
-          variant="sheet"
-          onClose={() => setDrawer(false)}
-        >
-          <LibraryFilters items={items} filter={filter} onChange={onChange} />
-          {defaults}
-          <div className="flex flex-wrap gap-3 border-t border-line pt-4">
-            <Button variant="primary" onClick={() => setDrawer(false)}>
-              {t("show", { count: shown.length })}
-            </Button>
-            {active > 0 && (
-              <Button variant="secondary" onClick={clear}>
-                {t("clearAll")}
-              </Button>
-            )}
-          </div>
-        </Dialog>
-      )}
     </div>
   );
 }

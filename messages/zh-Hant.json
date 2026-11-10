@@ -317,7 +317,6 @@
     },
     "filters": {
       "title": "篩選",
-      "open": "篩選",
       "openCount": "篩選（{count}）",
       "kind": "類型",
       "category": "分類",
@@ -335,7 +334,6 @@
         "popular": "最多人練"
       },
       "results": "{count} 份教材",
-      "show": "顯示 {count} 份教材",
       "clear": "清除篩選",
       "clearAll": "清除所有篩選",
       "empty": "沒有符合的教材。",
@@ -349,7 +347,14 @@
         "3-5": "3–5 分鐘",
         "5-10": "5–10 分鐘",
         "10-plus": "10 分鐘以上"
-      }
+      },
+      "minutes": "我今天有幾分鐘",
+      "anyMinutes": "不限",
+      "minutesOption": "{minutes} 分鐘內",
+      "moreCategories": "更多類別（{count}）",
+      "fewerCategories": "收起類別",
+      "collapse": "收合篩選",
+      "expand": "展開篩選"
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}",
