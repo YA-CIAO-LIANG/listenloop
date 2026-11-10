@@ -87,6 +87,31 @@ const click = async (name: string) => {
 };
 
 describe("CreatePracticeForm", () => {
+  it.each([
+    [false, false],
+    ["no-key" as const, true],
+  ])(
+    "shows the YouTube source only when set up, or to an admin with a note (D129): %s",
+    async (youtube, shown) => {
+      await act(async () => {
+        renderWithIntl(
+          <PlanProvider plan="admin">
+            <CreatePracticeForm youtube={youtube} />
+          </PlanProvider>,
+        );
+      });
+      const option = screen.queryByRole("radio", { name: "YouTube 連結" });
+      expect(option !== null).toBe(shown);
+      if (!option) return;
+      await act(async () => fireEvent.click(option));
+      expect(screen.getByText("尚未設定 YouTube API 金鑰")).toBeTruthy();
+      expect(
+        screen.getByRole("link", { name: /前往設定診斷/ }).getAttribute("href"),
+      ).toBe("/admin/usage");
+      expect(screen.queryByLabelText("YouTube 影片連結")).toBeNull();
+    },
+  );
+
   it("splits, lets the learner edit and delete, then creates", async () => {
     await renderForm();
     fireEvent.change(screen.getByLabelText("英文標題"), {

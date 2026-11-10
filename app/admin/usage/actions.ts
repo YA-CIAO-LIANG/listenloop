@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
 import { getAdminUser } from "@/auth/creator";
+import { checkYouTubeConnection } from "@/auth/youtube";
 import { getUsageSettings } from "@/auth/usage-settings";
 import { parseUsageSettings } from "@/lib/usage";
 import { getAiProviders } from "@/lib/ai/providers";
@@ -14,6 +15,8 @@ export type ConnectionTestResult =
       ok: true;
       language: ConnectionCheck | null;
       speech: ConnectionCheck | null;
+      /** Null without YOUTUBE_API_KEY (D129). */
+      youtube: ConnectionCheck | null;
     }
   | { ok: false; reason: "unavailable" | "not-configured" };
 
@@ -26,11 +29,12 @@ export async function testConnections(): Promise<ConnectionTestResult> {
   if (!(await getAdminUser())) return { ok: false, reason: "unavailable" };
   const providers = getAiProviders();
   if (!providers) return { ok: false, reason: "not-configured" };
-  const [language, speech] = await Promise.all([
+  const [language, speech, youtube] = await Promise.all([
     providers.language.checkConnection?.() ?? null,
     providers.speech.checkConnection?.() ?? null,
+    checkYouTubeConnection(),
   ]);
-  return { ok: true, language, speech };
+  return { ok: true, language, speech, youtube };
 }
 
 export type UsageSettingsResult =

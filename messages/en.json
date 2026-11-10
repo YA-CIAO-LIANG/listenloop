@@ -1147,7 +1147,8 @@
       "groups": {
         "account": "Account and database",
         "language": "AI text: {vendor}",
-        "speech": "Speech: {vendor}"
+        "speech": "Speech: {vendor}",
+        "youtube": "Practices from YouTube links (optional)"
       },
       "vendors": {
         "azure": "Azure",
@@ -1173,7 +1174,8 @@
         "AZURE_SPEECH_REGION": "AZURE_SPEECH_REGION is set",
         "regionValid": "AZURE_SPEECH_REGION is a region code (such as uaenorth)",
         "GOOGLE_CLOUD_API_KEY": "GOOGLE_CLOUD_API_KEY is set",
-        "fakeInUse": "Using the fake providers (AI_PROVIDERS=fake, local and preview only)"
+        "fakeInUse": "Using the fake providers (AI_PROVIDERS=fake, local and preview only)",
+        "youtubeKey": "YOUTUBE_API_KEY is set (without it, learners don’t see this feature)"
       }
     },
     "failedWith": "Failed ({reason}; {detail})",
@@ -1197,13 +1199,16 @@
         "429": "Busy or over the per-minute limit; try again in a minute.",
         "timeout": "No answer in time: try again; if it keeps timing out, check the endpoint URL.",
         "network": "Couldn’t reach the service: check the endpoint URL or region.",
-        "other": "Another error: look up the status and error code in Azure’s docs."
+        "other": "Another error: look up the status and error code in Azure’s docs.",
+        "youtube": "Check YOUTUBE_API_KEY and turn on “YouTube Data API v3” in the Google Cloud project; a restricted key must allow this API."
       },
       "errors": {
         "unavailable": "Only admins can test the connection.",
         "not-configured": "The setup is incomplete, so there’s nothing to test: see which condition fails in “Setup check” above.",
         "network": "Couldn’t reach the server; the site may have just been updated. Reload the page and try again."
-      }
+      },
+      "youtube": "YouTube Data API",
+      "noYouTubeKey": "No key set"
     },
     "settings": {
       "title": "AI limits",
@@ -1288,7 +1293,12 @@
     "customLengthHint": "15 seconds to {max}.",
     "planLength": "Your plan allows up to {max} per practice.",
     "seePlans": "See plans",
-    "duration": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}"
+    "duration": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",
+    "youtubeNoKey": {
+      "title": "No YouTube API key yet",
+      "body": "Only admins see this note; learners don’t see “YouTube link” until it’s set up. Once YOUTUBE_API_KEY is set and the site is redeployed, Plus and higher plans and admins can use it. Check it with the setup check and connection test on “API usage”.",
+      "link": "Go to the setup check"
+    }
   },
   "celebration": {
     "perfect": "Perfect!"

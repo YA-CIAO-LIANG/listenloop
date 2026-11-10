@@ -1,5 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
-import { FAKE_VIDEOS, getYouTubeLookup, videoFromApi } from "@/auth/youtube";
+import {
+  checkYouTubeConnection,
+  FAKE_VIDEOS,
+  getYouTubeLookup,
+  PROBE_VIDEO_ID,
+  videoFromApi,
+  youtubeEnabled,
+} from "@/auth/youtube";
 import { parseYouTubeTranscript } from "@/lib/draft-video";
 import { materialFromCustomPractice } from "@/lib/practice-material";
 import {
@@ -127,13 +134,58 @@ describe("YouTube practices (D97)", () => {
     );
     const lookup = getYouTubeLookup(fetchImpl as unknown as typeof fetch)!;
     expect((await lookup("abcdefghijk"))?.license).toBe("youtube");
-    const asked = new URL(String((fetchImpl.mock.calls[0] as unknown[])[0]));
-    expect(asked.searchParams.get("key")).toBe("test-key");
+    const [askedUrl, init] = fetchImpl.mock.calls[0] as unknown as [
+      URL,
+      RequestInit,
+    ];
+    const asked = new URL(String(askedUrl));
+    // The key goes in a header, never the URL (D129).
+    expect(asked.searchParams.get("key")).toBeNull();
+    expect((init.headers as Record<string, string>)["x-goog-api-key"]).toBe(
+      "test-key",
+    );
     expect(asked.searchParams.get("part")).toBe(
       "snippet,status,contentDetails",
     );
     vi.stubEnv("YOUTUBE_API_KEY", "");
     expect(getYouTubeLookup()).toBeNull();
+    vi.unstubAllEnvs();
+  });
+
+  it("tests the connection with a free query, and knows when there's no key (D129)", async () => {
+    vi.stubEnv("YOUTUBE_PROVIDER", "");
+    vi.stubEnv("YOUTUBE_API_KEY", "");
+    expect(youtubeEnabled()).toBe(false);
+    expect(await checkYouTubeConnection(vi.fn())).toBeNull();
+
+    vi.stubEnv("YOUTUBE_API_KEY", ' "good-key" ');
+    expect(youtubeEnabled()).toBe(true);
+    const ok = vi.fn(async () => new Response("{}", { status: 200 }));
+    expect(await checkYouTubeConnection(ok as unknown as typeof fetch)).toEqual(
+      { ok: true, status: 200 },
+    );
+    const [url, init] = ok.mock.calls[0] as unknown as [string, RequestInit];
+    expect(url).toBe(
+      `https://www.googleapis.com/youtube/v3/videos?part=id&id=${PROBE_VIDEO_ID}`,
+    );
+    expect((init.headers as Record<string, string>)["x-goog-api-key"]).toBe(
+      "good-key",
+    );
+
+    // An API that isn't enabled answers 403 with Google's reason.
+    const off = vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({ error: { code: 403, status: "PERMISSION_DENIED" } }),
+          { status: 403 },
+        ),
+    );
+    expect(
+      await checkYouTubeConnection(off as unknown as typeof fetch),
+    ).toEqual({ ok: false, status: 403, code: "403" });
+
+    vi.stubEnv("YOUTUBE_PROVIDER", "fake");
+    expect(await checkYouTubeConnection(vi.fn())).toEqual({ ok: true });
     vi.unstubAllEnvs();
   });
 

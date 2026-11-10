@@ -71,7 +71,14 @@ export default async function NewMaterialPage({
         {allowed.ok ? (
           <CreatePracticeForm
             official={official}
-            youtube={!official && youtubeEnabled()}
+            youtube={
+              official
+                ? false
+                : youtubeEnabled()
+                  ? true
+                  : // Admins see where it would be and how to set it up (D129).
+                    creator.user.role === "admin" && "no-key"
+            }
           />
         ) : (
           <PaidPlanCard

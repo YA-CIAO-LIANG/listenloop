@@ -52,6 +52,7 @@ import {
   type TranslateSentences,
 } from "./practice-generation";
 import { Button, buttonClassName } from "./Button";
+import { ButtonLink } from "./ButtonLink";
 import {
   GenerateTextPanel,
   type GeneratedPractice,
@@ -73,8 +74,12 @@ type CreatePracticeFormProps = {
   translate?: TranslateSentences;
   /** Injected in tests; the Server Action otherwise (D96). */
   revise?: ReviseText;
-  /** Offer making a practice from a YouTube video (D97). */
-  youtube?: boolean;
+  /**
+   * Offer making a practice from a YouTube video (D97). "no-key": an
+   * admin, before YOUTUBE_API_KEY is set, sees the option and a note on
+   * setting it up (D129); learners don't see it at all.
+   */
+  youtube?: boolean | "no-key";
   create?: (draft: {
     titleEn: string;
     titleZh: string;
@@ -772,7 +777,22 @@ export function CreatePracticeForm({
         />
       </div>
       {source === "youtube" ? (
-        <YouTubeCreate />
+        youtube === "no-key" ? (
+          <div
+            role="note"
+            className="space-y-3 rounded-base border border-line bg-surface p-4"
+          >
+            <p className="font-medium">{tGenerate("youtubeNoKey.title")}</p>
+            <p className="text-supporting text-ink-muted">
+              {tGenerate("youtubeNoKey.body")}
+            </p>
+            <ButtonLink href="/admin/usage" variant="secondary" arrow>
+              {tGenerate("youtubeNoKey.link")}
+            </ButtonLink>
+          </div>
+        ) : (
+          <YouTubeCreate />
+        )
       ) : source === "ai" ? (
         <GenerateTextPanel
           titles={{ en: titleEn, zh: titleZh }}

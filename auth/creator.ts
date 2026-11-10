@@ -25,6 +25,7 @@ import { getAdminSupabase, hasAdminSupabase } from "./admin";
 import { supabaseAiCache } from "./ai-cache";
 import { supabaseAudioStore } from "./audio-store";
 import { getSignedInUser, type SignedInUser } from "./session";
+import { youtubeEnabled } from "./youtube";
 
 /**
  * Usage recorded with the secret-key client (users can't write it):
@@ -176,6 +177,13 @@ export function diagnoseCreator(user: SignedInUser | null) {
       { id: "account" as const, vendor: null, checks: account },
       { id: "language" as const, ...withChoice("languageChoice", ai.language) },
       { id: "speech" as const, ...withChoice("speechChoice", ai.speech) },
+      // Optional (D129): only YouTube practices need it, so it doesn't
+      // decide `ready`.
+      {
+        id: "youtube" as const,
+        vendor: null,
+        checks: [{ id: "youtubeKey", ok: youtubeEnabled() }],
+      },
     ],
   };
 }

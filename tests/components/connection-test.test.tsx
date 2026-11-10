@@ -40,6 +40,32 @@ describe("ConnectionTest (D49)", () => {
     expect(screen.getByText("這個供應者沒有測試方式")).toBeTruthy();
   });
 
+  it("checks YouTube too, saying when there's no key (D129)", async () => {
+    await press(
+      vi.fn().mockResolvedValue({
+        ok: true,
+        language: { ok: true, status: 200 },
+        speech: { ok: true, status: 200 },
+        youtube: null,
+      }),
+    );
+    expect(screen.getByText("YouTube Data API")).toBeTruthy();
+    expect(screen.getByText("未設定金鑰")).toBeTruthy();
+  });
+
+  it("says how to fix a YouTube key that doesn't work (D129)", async () => {
+    await press(
+      vi.fn().mockResolvedValue({
+        ok: true,
+        language: { ok: true, status: 200 },
+        speech: { ok: true, status: 200 },
+        youtube: { ok: false, status: 403, code: "403" },
+      }),
+    );
+    expect(screen.getByText("失敗（HTTP 403 403）")).toBeTruthy();
+    expect(screen.getByText(/啟用「YouTube Data API v3」/)).toBeTruthy();
+  });
+
   it("says when the server can't be reached", async () => {
     await press(vi.fn().mockRejectedValue(new Error("offline")));
     expect(screen.getByRole("alert").textContent).toMatch(/連不上伺服器/);
