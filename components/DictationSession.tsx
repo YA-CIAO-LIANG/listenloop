@@ -46,6 +46,7 @@ import { PracticeSkeleton } from "./Skeleton";
 import { PerfectCelebration } from "./PerfectCelebration";
 import { usePlan } from "./PlanProvider";
 import { can, needsCount, type PlanBlock } from "@/lib/plans";
+import { PracticeActions, PracticeActionsSpacer } from "./PracticeActions";
 import { PracticeFrame } from "./PracticeFrame";
 import { ProgressBar } from "./ProgressBar";
 import { RewardGainedNote } from "./RewardBadge";
@@ -617,8 +618,10 @@ export function DictationSession({
             <SpeedControl value={speed} onChange={setSpeed} />
           )}
 
+          {/* The answer area keeps one height, so the buttons below stay
+              put from sentence to sentence (D124). */}
           {feedbackIndex === null ? (
-            <div>
+            <div className="min-h-36">
               <label htmlFor="dictation-input" className="sr-only">
                 {t("inputLabel")}
               </label>
@@ -643,7 +646,7 @@ export function DictationSession({
             <div
               ref={feedbackRef}
               role="status"
-              className="relative scroll-mt-16 space-y-2"
+              className="relative min-h-36 scroll-mt-16 space-y-2"
             >
               <WordDiffView
                 diff={wordDiff(sentences[feedbackIndex].en, shownAnswer)}
@@ -662,7 +665,24 @@ export function DictationSession({
             </div>
           )}
 
-          <div className="flex flex-wrap items-center gap-3">
+          <PracticeActions
+            primary={
+              feedbackIndex === null ? (
+                <Button
+                  variant="primary"
+                  arrow
+                  disabled={input.trim() === ""}
+                  onClick={submitTyped}
+                >
+                  {t("submit")}
+                </Button>
+              ) : (
+                <Button ref={nextRef} variant="primary" arrow onClick={goNext}>
+                  {isLast ? t("seeResult") : t("next")}
+                </Button>
+              )
+            }
+          >
             <Button
               variant="secondary"
               disabled={player.status !== "ready"}
@@ -679,26 +699,12 @@ export function DictationSession({
             >
               {t("loop")}
             </FilterChip>
-            {feedbackIndex === null ? (
-              <>
-                <Button variant="ghost" onClick={skip} aria-live="polite">
-                  {skipArmed ? t("confirmSkip") : t("skip")}
-                </Button>
-                <Button
-                  variant="primary"
-                  arrow
-                  disabled={input.trim() === ""}
-                  onClick={submitTyped}
-                >
-                  {t("submit")}
-                </Button>
-              </>
-            ) : (
-              <Button ref={nextRef} variant="primary" arrow onClick={goNext}>
-                {isLast ? t("seeResult") : t("next")}
+            {feedbackIndex === null && (
+              <Button variant="ghost" onClick={skip} aria-live="polite">
+                {skipArmed ? t("confirmSkip") : t("skip")}
               </Button>
             )}
-          </div>
+          </PracticeActions>
           <p className="text-metadata text-ink-muted pointer-coarse:hidden">
             {t("shortcuts")}
           </p>
@@ -707,8 +713,18 @@ export function DictationSession({
             <div
               role="region"
               aria-label={t("notesLabel")}
-              className="border-t border-line pt-6"
+              className="space-y-4 border-t border-line pt-6"
             >
+              {/* Reporting sits at the top of every sentence's notes, in
+                  the same place each time (D124). */}
+              <div className="flex justify-end">
+                <ReportSentence
+                  key={feedbackIndex}
+                  videoId={video.id}
+                  version={video.version}
+                  index={feedbackIndex}
+                />
+              </div>
               {/* What was misheard first, highlighted (D68); the meaning is
                   already under the sentence above (D78). */}
               <SentenceExplanation
@@ -718,12 +734,6 @@ export function DictationSession({
                 rich={video.richNotes?.[feedbackIndex] ?? null}
                 legacy={notesForSentence(video, feedbackIndex)}
                 missed={missedPieces(sentences[feedbackIndex].en, shownAnswer)}
-              />
-              <ReportSentence
-                key={feedbackIndex}
-                videoId={video.id}
-                version={video.version}
-                index={feedbackIndex}
               />
             </div>
           )}
@@ -761,6 +771,7 @@ export function DictationSession({
           })}
         </ol>
       </section>
+      <PracticeActionsSpacer />
     </>
   );
 }

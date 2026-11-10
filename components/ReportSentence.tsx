@@ -13,6 +13,7 @@ import {
 } from "@/lib/sentence-reports";
 import { Button } from "./Button";
 import { Dialog } from "./Dialog";
+import { FlagIcon } from "./icons";
 import { useProgressVisible } from "./StoresProvider";
 
 type Problem = Exclude<SentenceReportResult, { ok: true }>["reason"];
@@ -76,7 +77,9 @@ export function ReportSentence({
 
   return (
     <>
-      <Button variant="ghost" size="sm" onClick={() => setOpen(true)}>
+      {/* A visible secondary button with a flag (D124), not a quiet link. */}
+      <Button variant="secondary" size="sm" onClick={() => setOpen(true)}>
+        <FlagIcon className="size-4 shrink-0" />
         {t("open")}
       </Button>
       {open && (
