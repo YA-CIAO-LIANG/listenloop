@@ -2,6 +2,11 @@ import { act, fireEvent, screen, within } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ShadowingSession } from "@/components/ShadowingSession";
 import { toLocalDate } from "@/lib/dates";
+import {
+  HANDS_FREE_KEY,
+  HANDS_FREE_NEXT_MS,
+  HANDS_FREE_RETRY_MS,
+} from "@/lib/hands-free";
 import { SILENCE_MS } from "@/components/speech/useSpeechRecognition";
 import type { Progress } from "@/lib/progress";
 import { startShadowing, submitShadowing } from "@/lib/shadowing";
@@ -148,6 +153,8 @@ function shadowFails(code: string) {
 }
 
 beforeEach(() => {
+  // These tests drive each step by hand; hands-free has its own (D125).
+  localStorage.setItem(HANDS_FREE_KEY, "off");
   vi.useFakeTimers({ toFake: ["setTimeout", "clearTimeout"] });
   playSegment.mockClear();
   FakeRecognition.last = undefined;
@@ -501,5 +508,101 @@ describe("ShadowingSession with a created practice", () => {
     expect(screen.queryByRole("dialog")).toBeNull();
     for (let i = 0; i < 4; i++) shadow("nothing");
     expect(screen.queryByRole("dialog")).toBeNull();
+  });
+});
+
+describe("ShadowingSession hands-free (D125)", () => {
+  beforeEach(() => localStorage.removeItem(HANDS_FREE_KEY));
+
+  it("waits for one tap, then plays, listens, and moves on by itself", async () => {
+    const store = await renderSession();
+    // Nothing plays, and no microphone, before "Start practice".
+    expect(playSegment).not.toHaveBeenCalled();
+    expect(screen.getByText(/按「開始練習」後自動播放/)).toBeDefined();
+    fireEvent.click(button("開始練習"));
+    expect(screen.getByText("播放中")).toBeDefined();
+    finishPlaying();
+    // Listening starts on its own after the sentence.
+    expect(screen.getByText("請跟著念")).toBeDefined();
+    act(() =>
+      FakeRecognition.last?.onresult?.({
+        results: [[{ transcript: "go home" }]],
+      }),
+    );
+    expect(screen.getByText("辨識中…")).toBeDefined();
+    act(() => vi.advanceTimersByTime(SILENCE_MS));
+    expect(screen.getByText(/念完了 · 涵蓋率 100%/)).toBeDefined();
+    expect(store.saved()?.days[2]?.sentences?.[0]?.done).toBe(true);
+
+    // Passed: the next sentence plays by itself.
+    act(() => vi.advanceTimersByTime(HANDS_FREE_NEXT_MS));
+    expect(screen.getByText("第 2 / 2 句")).toBeDefined();
+    expect(playSegment).toHaveBeenLastCalledWith(
+      2.85,
+      5.25,
+      expect.any(Function),
+    );
+  });
+
+  it("plays the sentence again and listens when the try didn't pass", async () => {
+    await renderSession();
+    fireEvent.click(button("開始練習"));
+    finishPlaying();
+    say("go");
+    expect(screen.getByText(/涵蓋率 50%/)).toBeDefined();
+    playSegment.mockClear();
+    act(() => vi.advanceTimersByTime(HANDS_FREE_RETRY_MS));
+    expect(screen.getByText("第 1 / 2 句")).toBeDefined();
+    expect(playSegment).toHaveBeenLastCalledWith(
+      0.85,
+      2.25,
+      expect.any(Function),
+    );
+    finishPlaying();
+    expect(screen.getByText("請跟著念")).toBeDefined();
+  });
+
+  it("pauses at any time and resumes the same sentence", async () => {
+    await renderSession();
+    fireEvent.click(button("開始練習"));
+    finishPlaying();
+    say("go home");
+    fireEvent.click(button("暫停"));
+    expect(screen.getByText(/已暫停/)).toBeDefined();
+    act(() => vi.advanceTimersByTime(HANDS_FREE_NEXT_MS * 3));
+    // Still on sentence 1: nothing moved on while paused.
+    expect(screen.getByText("第 1 / 2 句")).toBeDefined();
+    fireEvent.click(button("繼續"));
+    expect(screen.getByText("第 2 / 2 句")).toBeDefined();
+  });
+
+  it("stops after a recognition error instead of looping", async () => {
+    await renderSession();
+    fireEvent.click(button("開始練習"));
+    finishPlaying();
+    act(() => FakeRecognition.last?.onerror?.({ error: "no-speech" }));
+    playSegment.mockClear();
+    act(() => vi.advanceTimersByTime(HANDS_FREE_RETRY_MS * 3));
+    expect(playSegment).not.toHaveBeenCalled();
+    expect(button("播放並跟讀")).toBeDefined();
+  });
+
+  it("with the microphone blocked, falls back to “I said it” and still plays the next one", async () => {
+    await renderSession();
+    fireEvent.click(button("開始練習"));
+    finishPlaying();
+    act(() => FakeRecognition.last?.onerror?.({ error: "not-allowed" }));
+    expect(screen.getByRole("alert").textContent).toMatch(/麥克風/);
+    playSegment.mockClear();
+    fireEvent.click(button("我念完了"));
+    expect(screen.getByText("第 2 / 2 句")).toBeDefined();
+    expect(playSegment).toHaveBeenCalledTimes(1);
+  });
+
+  it("can be turned off on the page, back to the buttons", async () => {
+    await renderSession();
+    fireEvent.click(screen.getByRole("checkbox", { name: /免手動練習/ }));
+    expect(localStorage.getItem(HANDS_FREE_KEY)).toBe("off");
+    expect(button("播放並跟讀")).toBeDefined();
   });
 });

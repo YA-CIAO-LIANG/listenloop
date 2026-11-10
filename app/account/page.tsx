@@ -6,6 +6,7 @@ import { getSignedInUser } from "@/auth/session";
 import { getOwnBilling } from "@/auth/billing";
 import { getPaymentProvider } from "@/auth/payments";
 import { BackgroundPicker } from "@/components/BackgroundPicker";
+import { HandsFreeSetting } from "@/components/HandsFreeSetting";
 import { BillingSection } from "@/components/BillingSection";
 import { DeleteAccount } from "@/components/DeleteAccount";
 import { ReminderSettings } from "@/components/ReminderSettings";
@@ -30,8 +31,9 @@ export default async function AccountPage({
   searchParams,
 }: PageProps<"/account">) {
   if (!accountsEnabled) notFound();
-  const [t, user, { deleted }] = await Promise.all([
+  const [t, tHands, user, { deleted }] = await Promise.all([
     getTranslations("accountPage"),
+    getTranslations("handsFree"),
     getSignedInUser(),
     searchParams,
   ]);
@@ -58,6 +60,12 @@ export default async function AccountPage({
             canManage={getPaymentProvider() !== null}
           />
           <BackgroundPicker />
+          <section className="mt-16 max-w-reading border-t border-line pt-8">
+            <h2 className="font-display text-h2">{tHands("settingsTitle")}</h2>
+            <div className="mt-4">
+              <HandsFreeSetting />
+            </div>
+          </section>
           {/* Reminders need the push keys (D111); hidden until they're set. */}
           {VAPID_PUBLIC_KEY && (
             <ReminderSettings publicKey={VAPID_PUBLIC_KEY} />

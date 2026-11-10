@@ -56,6 +56,10 @@ import { usePracticeTimer } from "./usePracticeTimer";
 import { useSentencePlayer } from "./useSentencePlayer";
 import { PracticeActions, PracticeActionsSpacer } from "./PracticeActions";
 import { PracticeFrame } from "./PracticeFrame";
+import { HandsFreeSetting } from "./HandsFreeSetting";
+import { HandsFreeStatus } from "./HandsFreeStatus";
+import { useHandsFree } from "./useHandsFree";
+import { HANDS_FREE_NEXT_MS, HANDS_FREE_RETRY_MS } from "@/lib/hands-free";
 import { SpeedControl } from "./SpeedControl";
 import { DEFAULT_SPEED, type Speed } from "@/lib/speed";
 import { useStores } from "./StoresProvider";
@@ -107,6 +111,7 @@ export function ShadowingSession({
   reportTrouble = reportShadowingTrouble,
 }: ShadowingSessionProps) {
   const t = useTranslations("shadowing");
+  const tHands = useTranslations("handsFree");
   const tHandout = useTranslations("handout");
   const format = useFormatter();
   // Audio practices can slow down or speed up (D73); videos stay at 1×.
@@ -129,6 +134,10 @@ export function ShadowingSession({
   // Each result plays its own celebration.
   const [resultCount, setResultCount] = useState(0);
   const nextRef = useRef<HTMLButtonElement>(null);
+  // Hands-free (D125): after one tap, play → listen → next or again.
+  const [handsFree] = useHandsFree();
+  const [started, setStarted] = useState(false);
+  const [paused, setPaused] = useState(false);
 
   const { sentences } = video;
   const official = progress?.days[day];
@@ -278,9 +287,31 @@ export function ShadowingSession({
   const ready = player.status === "ready";
   useEffect(() => {
     if (autoPlayed.current || !ready || !practicing || showingResult) return;
+    if (handsFree) return; // waits for "Start practice" (D125)
     autoPlayed.current = true;
     play();
-  }, [ready, practicing, showingResult, play]);
+  }, [ready, practicing, showingResult, play, handsFree]);
+
+  // Hands-free (D125): a result moves on by itself, to the next sentence
+  // when it passed or the same one again when it didn't. Stops while
+  // paused, while the trouble dialog is open, and after an error (the
+  // phase is back to "ready" then).
+  const advance = useRef({ goNext: () => {}, retry: () => {} });
+  useEffect(() => {
+    advance.current = { goNext, retry: () => attempt(current) };
+  });
+  const autoResult = showingResult ? lastResult : null;
+  useEffect(() => {
+    if (!handsFree || !started || paused || troubleOpen || !autoResult) return;
+    const timer = window.setTimeout(
+      () =>
+        autoResult.complete
+          ? advance.current.goNext()
+          : advance.current.retry(),
+      autoResult.complete ? HANDS_FREE_NEXT_MS : HANDS_FREE_RETRY_MS,
+    );
+    return () => window.clearTimeout(timer);
+  }, [handsFree, started, paused, troubleOpen, autoResult]);
 
   function record(index: number, attempt: ShadowingAttempt) {
     if (!progress) return;
@@ -382,7 +413,33 @@ export function ShadowingSession({
     const nextIndex = nextUnfinished(after);
     setLastResult(null);
     setPhase("ready");
-    if (nextIndex !== -1) setCurrent(nextIndex);
+    if (nextIndex === -1) return;
+    setCurrent(nextIndex);
+    // Hands-free without a microphone still plays the next one (D125).
+    if (handsFree && started && !paused) playback.playAt(nextIndex);
+  }
+
+  /** Hands-free (D125): the one tap the browser needs for sound and mic. */
+  function startPractice() {
+    autoPlayed.current = true;
+    setStarted(true);
+    setPaused(false);
+    if (manual) playback.play();
+    else attempt(current);
+  }
+
+  function togglePause() {
+    if (!paused) {
+      setPaused(true);
+      speech.reset();
+      player.stop();
+      if (phase === "playing" || phase === "listening") setPhase("ready");
+      return;
+    }
+    setPaused(false);
+    if (manual) playback.play();
+    else if (showingResult && lastResult?.complete) goNext();
+    else attempt(current);
   }
 
   const header = (
@@ -528,11 +585,29 @@ export function ShadowingSession({
             first thing to read after an attempt (D124); the height is kept
             so the sentence doesn't jump. */}
         <div aria-live="polite" className="relative min-h-16 space-y-1">
-          {phase === "listening" && (
-            <p className="text-supporting text-accent-ink">
-              <span aria-hidden="true">● </span>
-              {t("listening")}
-            </p>
+          {handsFree ? (
+            <HandsFreeStatus
+              state={
+                !started
+                  ? "start"
+                  : paused
+                    ? "paused"
+                    : phase === "playing"
+                      ? "playing"
+                      : phase === "listening"
+                        ? speech.transcript
+                          ? "recognizing"
+                          : "listen"
+                        : null
+              }
+            />
+          ) : (
+            phase === "listening" && (
+              <p className="text-supporting text-accent-ink">
+                <span aria-hidden="true">● </span>
+                {t("listening")}
+              </p>
+            )
           )}
           {(phase === "listening" || showingResult) &&
             (speech.transcript || lastResult?.heard) && (
@@ -587,7 +662,16 @@ export function ShadowingSession({
 
         <PracticeActions
           primary={
-            manual ? (
+            handsFree && !started ? (
+              <Button
+                variant="primary"
+                arrow
+                disabled={player.status !== "ready"}
+                onClick={startPractice}
+              >
+                {tHands("start")}
+              </Button>
+            ) : manual ? (
               <Button variant="primary" onClick={markSaidIt}>
                 {t("iSaidIt")}
               </Button>
@@ -623,10 +707,16 @@ export function ShadowingSession({
               {t("play")}
             </Button>
           )}
+          {handsFree && started && (
+            <Button variant="ghost" onClick={togglePause}>
+              {paused ? tHands("resume") : tHands("pause")}
+            </Button>
+          )}
         </PracticeActions>
         <p className="text-metadata text-ink-muted pointer-coarse:hidden">
           {t("shortcuts")}
         </p>
+        <HandsFreeSetting compact />
         {saveError}
         <div className="space-y-4 border-t border-line pt-6">
           {/* Reporting sits at the top of every sentence's notes, in the
