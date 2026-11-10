@@ -89,14 +89,61 @@ describe("meteredLanguage", () => {
         provider: "test/model",
         operation: "translate",
         error: null,
-        httpStatus: null,
+        httpStatus: 200,
         errorCode: null,
+        outcome: null,
         inputTokens: 400,
         outputTokens: 100,
         chars: 12,
         costMicros: real,
       },
     ]);
+  });
+
+  it("logs what the answer amounted to, and no HTTP status for the fakes (D123)", async () => {
+    const meter = memoryMeter({ cost: 1_000_000 });
+    await meteredLanguage(
+      { providers, meter },
+      budget,
+      async () => ({ value: { n: 3 }, usage: usage(10, 10) }),
+      (value) => `changed ${value.n}/7`,
+    );
+    expect(meter.logs[0]).toMatchObject({
+      httpStatus: 200,
+      outcome: "changed 3/7",
+    });
+    const fakes = memoryMeter({ cost: 1_000_000 });
+    await meteredLanguage(
+      { providers: { ...providers, language: fakeLanguage }, meter: fakes },
+      budget,
+      async () => ({ value: 1, usage: usage(0, 0) }),
+      () => {
+        throw new Error("unreadable answer");
+      },
+    );
+    expect(fakes.logs[0]).toMatchObject({
+      httpStatus: null,
+      outcome: "unreadable",
+    });
+  });
+
+  it("reports content a safety filter blocked as filtered, logged as such (D123)", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    const meter = memoryMeter();
+    const result = await meteredLanguage({ providers, meter }, budget, () =>
+      Promise.reject(
+        new ProviderError("filtered", "400", undefined, {
+          status: 400,
+          code: "content_filter",
+        }),
+      ),
+    );
+    expect(result).toEqual({ ok: false, reason: "failed", filtered: true });
+    expect(meter.logs[0]).toMatchObject({
+      error: "filtered",
+      httpStatus: 400,
+      errorCode: "content_filter",
+    });
   });
 
   it("stops before the call when the worst case would pass the limit", async () => {
@@ -173,6 +220,7 @@ describe("meteredSpeech", () => {
         error: null,
         httpStatus: null,
         errorCode: null,
+        outcome: null,
         inputTokens: 0,
         outputTokens: 0,
         chars: 6,

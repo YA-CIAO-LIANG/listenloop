@@ -1,10 +1,11 @@
 import { splitLine } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
-import type {
-  Billed,
-  LanguageProvider,
-  SpeechAudio,
-  SpeechProvider,
+import {
+  ProviderError,
+  type Billed,
+  type LanguageProvider,
+  type SpeechAudio,
+  type SpeechProvider,
 } from "./types";
 
 /** Free: no tokens, no cost; only the characters sent are counted. */
@@ -75,18 +76,59 @@ export const fakeLanguage: LanguageProvider = {
       [headline],
     );
   },
-  // "N 句" or "N sentences" keeps the first N; anything else changes the
-  // last line only, so tests can see what's kept and what's new (D96).
+  // Fixed answers so tests can see each case (D96, D123): "N 句" or
+  // "N sentences" keeps the first N; a style ("風", "style") rewrites
+  // every line and adds one; "不用改"/"no change" changes nothing;
+  // "危險"/"unsafe" is refused; "過濾"/"filter" is blocked by the safety
+  // filter and "壞掉"/"broken" fails like a provider error. Anything else
+  // changes the last line only.
   async revise({ lines, instruction }) {
+    if (/過濾|filter/i.test(instruction)) {
+      throw new ProviderError("filtered", "fake: content filter", undefined, {
+        status: 400,
+        code: "content_filter",
+      });
+    }
+    if (/壞掉|broken/i.test(instruction)) {
+      throw new ProviderError("failed", "fake: server error", undefined, {
+        status: 500,
+      });
+    }
+    if (/危險|unsafe/i.test(instruction)) {
+      return free(
+        {
+          status: "refused",
+          reason: "這個內容不適合學生，可以改成輕微懸疑。",
+          lines,
+        },
+        [...lines, instruction],
+      );
+    }
+    if (/不用改|no change/i.test(instruction)) {
+      return free(
+        { status: "unchanged", reason: "這段文字已經符合指令。", lines },
+        [...lines, instruction],
+      );
+    }
     const count = instruction.match(/(\d+)\s*(句|sentence)/i);
     const revised = count
       ? lines.slice(0, Number(count[1]))
-      : lines.map((line, i) =>
-          i === lines.length - 1
-            ? `${line.replace(/[.!?]$/, "")} again.`
-            : line,
-        );
-    return free({ lines: revised }, [...lines, instruction]);
+      : /風|style/i.test(instruction)
+        ? [
+            ...lines.map(
+              (line) => `${line.replace(/[.!?]$/, "")}, in the dark.`,
+            ),
+            "Then the lights went out.",
+          ]
+        : lines.map((line, i) =>
+            i === lines.length - 1
+              ? `${line.replace(/[.!?]$/, "")} again.`
+              : line,
+          );
+    return free({ status: "changed", reason: "", lines: revised }, [
+      ...lines,
+      instruction,
+    ]);
   },
   // The rule-based split, as if the model agreed with it.
   async segment(lines, language) {

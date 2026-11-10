@@ -148,6 +148,7 @@ export type Database = {
           id: number;
           input_tokens: number;
           operation: string;
+          outcome: string | null;
           output_tokens: number;
           provider: string;
           user_id: string | null;
@@ -162,6 +163,7 @@ export type Database = {
           id?: never;
           input_tokens?: number;
           operation: string;
+          outcome?: string | null;
           output_tokens?: number;
           provider: string;
           user_id?: string | null;
@@ -176,6 +178,7 @@ export type Database = {
           id?: never;
           input_tokens?: number;
           operation?: string;
+          outcome?: string | null;
           output_tokens?: number;
           provider?: string;
           user_id?: string | null;

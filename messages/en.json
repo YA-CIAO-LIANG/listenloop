@@ -1130,6 +1130,7 @@
     },
     "tokens": "{input} / {output}",
     "ok": "OK",
+    "okWith": "OK ({detail})",
     "failed": "Failed ({reason})",
     "diagnosis": {
       "title": "Setup check",
@@ -2471,21 +2472,34 @@
   },
   "revise": {
     "title": "Revise with an instruction",
-    "hint": "Tell the AI how to change the English, like “use simpler words”, “more past tense”, or “shorten to 5 sentences”. Only the changed sentences are translated again; each revision counts toward your daily AI use.",
+    "hint": "Tell the AI how to change the English, for example “use simpler words”, “shorten to 5 sentences”, “make it a horror story”, or “make it sound like a news report”. You see a preview first; nothing changes until you choose Apply. Each revision counts toward your daily AI use.",
     "label": "Instruction",
-    "placeholder": "e.g. use simpler words",
+    "placeholder": "For example: make it funny",
     "revise": "Revise",
     "revising": "Revising…",
     "undo": "Undo",
     "undone": "Undone.",
     "working": "The AI is revising the English…",
     "translating": "Translating the {count, plural, one {# changed sentence} other {# changed sentences}}…",
-    "done": "Revised: {changed} of {total} sentences changed and translated again.",
+    "done": "Applied: {changed} of {total} sentences are new or changed and were translated again. Use Undo to go back.",
     "errors": {
       "limit": "Today’s AI allowance is used up. Try again tomorrow (after midnight Taiwan time).",
       "busy": "Too many tries. Please wait a moment.",
-      "failed": "That didn’t work. Try wording it differently; your text is unchanged."
-    }
+      "failed": "The revision failed. Please try again later. Your text is unchanged.",
+      "filtered": "This instruction can't be written. Try saying it another way (for example, mild suspense instead of horror, with no blood or violence)."
+    },
+    "previewReady": "Preview ready: {total} sentences after the change, {changed} of them new or changed. Choose Apply to use it.",
+    "previewTitle": "Preview the change",
+    "before": "Before",
+    "after": "After",
+    "changedMark": "Changed",
+    "removed": "(removed)",
+    "apply": "Apply",
+    "applying": "Applying…",
+    "discard": "Discard",
+    "discarded": "Not applied. Your text is unchanged.",
+    "unchanged": "The AI found nothing to change: {reason}",
+    "unchangedGeneric": "The AI didn't change any sentence. Try a more specific instruction, such as “give every sentence a horror-movie mood”."
   },
   "youtube": {
     "paidOnly": "Making practices from YouTube videos is part of the paid plans: paste a video's link and transcript, and practice with the video itself for 7 days.",

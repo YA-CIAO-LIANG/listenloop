@@ -103,8 +103,9 @@ export interface LanguageProvider {
    */
   describe(material: DescribeInput): Promise<Billed<unknown>>;
   /**
-   * The practice text rewritten by the learner's instruction (D96):
-   * `{ lines }`, unchanged sentences kept exactly. Unchecked:
+   * The practice text rewritten by the learner's instruction (D96, D123):
+   * `{ status, reason, lines }`, status being "changed", "unchanged", or
+   * "refused"; unchanged sentences kept exactly. Unchecked:
    * lib/custom-practice/revise.ts checks it.
    */
   revise(input: RevisionInput): Promise<Billed<unknown>>;
@@ -175,7 +176,8 @@ export type ProviderErrorDetail = { status?: number; code?: string };
 
 export class ProviderError extends Error {
   constructor(
-    readonly code: "busy" | "config" | "failed",
+    /** filtered: a safety filter or the model refused the content (D123). */
+    readonly code: "busy" | "config" | "failed" | "filtered",
     message: string,
     readonly usage?: CallUsage,
     readonly detail: ProviderErrorDetail = {},

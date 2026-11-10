@@ -103,7 +103,11 @@ export const AZURE_SCHEMAS = {
     lines: { type: "array", items: STRING },
   }),
   description: object({ titleEn: STRING, titleZh: STRING, subtitle: STRING }),
-  revision: object({ lines: { type: "array", items: STRING } }),
+  revision: object({
+    status: { type: "string", enum: ["changed", "unchanged", "refused"] },
+    reason: STRING,
+    lines: { type: "array", items: STRING },
+  }),
   audit: object({
     items: {
       type: "array",
@@ -153,9 +157,15 @@ export function completionJson(
     });
   if (choice?.finish_reason === "length")
     throw fail("cut off at the token cap", "length");
+  // What the provider's safety system or the model wouldn't write (D123).
+  const filtered = (why: string, code: string) =>
+    new ProviderError("filtered", `Azure OpenAI: ${why}`, usage, {
+      status: 200,
+      code,
+    });
   if (choice?.finish_reason === "content_filter")
-    throw fail("content filter", "content_filter");
-  if (choice?.message?.refusal) throw fail("the model refused", "refusal");
+    throw filtered("content filter", "content_filter");
+  if (choice?.message?.refusal) throw filtered("the model refused", "refusal");
   const text = choice?.message?.content;
   if (!text)
     throw fail(`empty answer (${choice?.finish_reason ?? "none"})`, "empty");

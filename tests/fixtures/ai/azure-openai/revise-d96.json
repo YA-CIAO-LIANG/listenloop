@@ -1,0 +1,139 @@
+{
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You edit an English listening practice text for Taiwanese students. You get its sentences as lines, an instruction from the learner (in any language), and whether it's a monologue or a dialogue.\nFollow the instruction: for example simpler words, more past tense, or fewer sentences. Change only what the instruction needs.\nReturn lines: the whole text after the change, one sentence per line (for a dialogue, one speaker's turn per line, still alternating between two people, with no speaker names or labels).\nCopy every sentence you don't need to change exactly, character for character, so it can be matched to its translation.\nKeep each sentence about 5 to 25 words. Do not write about real people, real brands, or real current events. If the instruction asks for anything unsafe or unrelated to the text, return the lines unchanged."
+      },
+      {
+        "role": "user",
+        "content": "{\"lines\":[\"After school, I walked home through the park.\",\"The sun was going down, and the air was cool.\",\"I stopped at a small shop to buy a hot drink.\",\"The owner smiled and asked about my day.\",\"I told her I had a big test tomorrow.\",\"She said I would do fine if I got some sleep.\",\"I went home, studied a little, and went to bed early.\"],\"instruction\":\"改成恐怖風\",\"format\":\"monologue\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "revision",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "lines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": ["lines"],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 558,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"lines\":[\"After school, I walked home through the park and the trees seemed to watch me.\",\"The sun sank like a bruised eye and the air tasted of metal.\",\"I stopped at a small shop for a hot drink, though the bell sounded wrong.\",\"The owner smiled, but her teeth were too many and did not match her face.\",\"I told her I had a big test tomorrow, and my voice sounded thin in the dark room.\",\"She said I would do fine if I got some sleep, and her eyes did not blink.\",\"I went home, tried to study a little, but the shadows at the window learned my name and I went to bed early.\"]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794330280,
+    "id": "chatcmpl-EijYuBp5aK1u3skY7b90HbIzz3hvm",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261106051851-4e06a509-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 148,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 35,
+        "engine_ttlt_ms": 1211,
+        "pre_inference_ms": 91,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 993,
+        "service_ttlt_ms": 2156,
+        "user_visible_ttft_ms": 902
+      },
+      "prompt_tokens": 304,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 452
+    }
+  }
+}

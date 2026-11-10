@@ -54,7 +54,7 @@ export default async function UsagePage() {
         admin
           .from("api_calls")
           .select(
-            "id, created_at, provider, operation, error, http_status, error_code, input_tokens, output_tokens, chars, cost_micros",
+            "id, created_at, provider, operation, error, http_status, error_code, outcome, input_tokens, output_tokens, chars, cost_micros",
           )
           .order("created_at", { ascending: false })
           .limit(RECENT_CALLS),
@@ -283,7 +283,17 @@ export default async function UsagePage() {
                                 .join(" "),
                             })
                           : t("failed", { reason: call.error })
-                        : t("ok")}
+                        : call.http_status || call.outcome
+                          ? t("okWith", {
+                              // e.g. "HTTP 200 · changed 5/7" (D123)
+                              detail: [
+                                call.http_status && `HTTP ${call.http_status}`,
+                                call.outcome,
+                              ]
+                                .filter(Boolean)
+                                .join(" · "),
+                            })
+                          : t("ok")}
                     </td>
                   </tr>
                 ))}

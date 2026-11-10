@@ -2,10 +2,11 @@ import type { RevisionInput } from "@/lib/ai/types";
 import { PRACTICE_LIMITS, type DraftSentence } from "./draft";
 
 /**
- * "Revise with an instruction" (D96): the learner tells the model what to
- * change in a draft ("simpler words", "shorten to 5 sentences"); the
- * model rewrites the English, sentences it didn't touch come back exactly,
- * and only the changed ones are translated again.
+ * "Revise with an instruction" (D96, D123): the learner tells the model
+ * what to change in a draft ("simpler words", "shorten to 5 sentences",
+ * "改成恐怖風"); the model rewrites the English, sentences it didn't touch
+ * come back exactly, the learner previews the change, and only the
+ * changed sentences are translated when it's applied.
  */
 export const INSTRUCTION_MAX_CHARS = 200;
 
@@ -39,9 +40,40 @@ export function parseRevisionRequest(input: unknown): RevisionInput | null {
   return { lines, instruction, format: raw.format };
 }
 
-/** The model's answer: English lines within the practice limits, or null. */
-export function checkRevision(raw: unknown): string[] | null {
-  const value = (raw ?? {}) as { lines?: unknown };
+/**
+ * What the model answered (D123): the text changed, nothing to change (and
+ * why), or refused (why, with a safer wording). Only "changed" carries
+ * new lines.
+ */
+export type Revision =
+  | { status: "changed"; lines: string[] }
+  | { status: "unchanged" | "refused"; reason: string };
+
+/** A reason the model gave: one tidy line, at most 200 characters. */
+function tidyReason(value: unknown): string {
+  return typeof value === "string"
+    ? [...value.replace(/\s+/g, " ").trim()].slice(0, 200).join("")
+    : "";
+}
+
+/**
+ * The model's answer checked against the lines sent, or null when it's
+ * unusable. "changed" with the same lines as before counts as
+ * "unchanged" (with no reason): the bug behind D123 was showing that as
+ * "0 sentences changed".
+ */
+export function checkRevision(
+  raw: unknown,
+  before: readonly string[],
+): Revision | null {
+  const value = (raw ?? {}) as {
+    status?: unknown;
+    reason?: unknown;
+    lines?: unknown;
+  };
+  if (value.status === "refused" || value.status === "unchanged") {
+    return { status: value.status, reason: tidyReason(value.reason) };
+  }
   if (!Array.isArray(value.lines)) return null;
   const lines = value.lines
     .filter((line): line is string => typeof line === "string")
@@ -54,7 +86,25 @@ export function checkRevision(raw: unknown): string[] | null {
   ) {
     return null;
   }
-  return lines;
+  const same =
+    lines.length === before.length &&
+    lines.every((line, i) => line === before[i].replace(/\s+/g, " ").trim());
+  return same
+    ? { status: "unchanged", reason: tidyReason(value.reason) }
+    : { status: "changed", lines };
+}
+
+/** The answer for the usage log (D123): "changed 5/7", "unchanged", … */
+export function revisionOutcome(
+  raw: unknown,
+  before: readonly string[],
+): string {
+  const revision = checkRevision(raw, before);
+  if (!revision) return "invalid";
+  if (revision.status !== "changed") return revision.status;
+  const kept = new Set(before);
+  const changed = revision.lines.filter((line) => !kept.has(line)).length;
+  return `changed ${changed}/${revision.lines.length}`;
 }
 
 /**
