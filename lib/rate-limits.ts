@@ -24,6 +24,8 @@ export const RATE_LIMITS = {
   auth: { windowSeconds: 3600, max: 20 },
   /** Reporting a problem with a sentence (D113). */
   sentenceReport: { windowSeconds: 3600, max: 20 },
+  /** Joining the Beta waiting list, per IP (D132). */
+  betaWaitlist: { windowSeconds: 3600, max: 5 },
   /** Steps toward paying, from the fake doors (D93). */
   intent: { windowSeconds: 3600, max: 120 },
 } as const;

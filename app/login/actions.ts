@@ -2,6 +2,7 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { getBetaStatus, inviteFromCookie } from "@/auth/beta";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
@@ -30,7 +31,8 @@ export type EmailAuthResult =
         | "short"
         | "long"
         | "common"
-        | "emailPassword";
+        | "emailPassword"
+        | "full";
     };
 
 /** A password problem as a reason ("email" is the address field's). */
@@ -62,6 +64,12 @@ export async function signUpWithEmail(
   const problem = passwordProblem(password, email);
   if (problem) return { ok: false, reason: passwordReason(problem) };
   if (!(await allowAction("auth", null))) return { ok: false, reason: "busy" };
+  // The Beta is full and there's no invite (D132): say so before any
+  // email goes out. (Someone who already has an account can sign in.)
+  const beta = await getBetaStatus();
+  if (beta?.full && !(await inviteFromCookie())) {
+    return { ok: false, reason: "full" };
+  }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
   const next = safeNextPath(field(form, "next"));

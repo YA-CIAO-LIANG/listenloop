@@ -1,5 +1,6 @@
 import type { EmailOtpType } from "@supabase/supabase-js";
 import { NextResponse, type NextRequest } from "next/server";
+import { admitAfterSignIn } from "@/auth/beta";
 import { logEvent } from "@/auth/events";
 import { getServerSupabase } from "@/auth/server";
 import { safeNextPath, withSignInResult } from "@/lib/auth/redirect";
@@ -32,6 +33,9 @@ export async function GET(request: NextRequest) {
   });
   if (error) return back(withSignInResult(next, "failed"));
   if (data.user && type !== "recovery") {
+    // A confirmed new address is let in or not (D132).
+    const gate = await admitAfterSignIn(data.user);
+    if (gate !== "ok") return back(`/beta?reason=${gate}`);
     await logEvent(data.user.id, { type: "sign_in" });
   }
   return back(next);

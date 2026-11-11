@@ -23,7 +23,7 @@ export const SERVER_ONLY_NAMESPACES = [
 /** Used by Client Components in one part of the site only. */
 export const AREA_NAMESPACES = {
   admin: ["admin", "adminUsage", "adminOfficial"],
-  materials: ["editPractice", "generate", "youtube"],
+  materials: ["editPractice", "generate", "youtube", "upload"],
   classroom: ["classroom"],
   styleguide: ["styleguide"],
 } as const;

@@ -5,6 +5,7 @@ import {
   MaterialLibrary,
   UnfilteredMaterialLibrary,
 } from "@/components/MaterialLibrary";
+import { BetaNote } from "@/components/BetaNote";
 import { FixedReportsNotice } from "@/components/FixedReportsNotice";
 import { OnboardingStart } from "@/components/OnboardingStart";
 import { ProductIntro } from "@/components/ProductIntro";
@@ -27,6 +28,8 @@ export default function Home() {
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
       {/* Who it's for and how, readable in five seconds (D119). */}
       <p className="mt-3 max-w-reading text-ink-muted">{t("home.audience")}</p>
+      {/* In Beta, with a way to tell us what to fix (D132). */}
+      <BetaNote className="mt-6" />
 
       <div className="mt-12 space-y-6">
         {/* Not in Suspense: it's in the first HTML, so nothing shifts (D62). */}

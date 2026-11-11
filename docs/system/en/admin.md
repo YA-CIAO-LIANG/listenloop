@@ -197,6 +197,20 @@ flowchart LR
 | See activity        | Bottom of the user's page, or Events by number | Only the needed fields, no text                                                                               |
 | Delete an account   | The user does it on their account page         | Admins don't delete for them; if they can't sign in, ask them to use the feedback page                        |
 
+### 6.1 Sign-ups and invites (`/admin/beta`, D132)
+
+| Task                         | How                                                                                                     | Note                                                                                                     |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| See the places               | "Accounts / cap" at the top: accounts in (admins not counted) against the cap                           | At the cap or when closed, a new person is stopped after their first sign-in and sees "The Beta is full" |
+| Open or close sign-ups, cap  | Choose Open or Closed, enter the cap, Save                                                              | Only new people are affected; existing accounts can always sign in. Audited                              |
+| Make an invite link          | Uses (1–10,000), valid days (empty = never expires), a note → "Make an invite link"; copy and send it   | People with an invite skip the cap and the switch; each uses it once at their first sign-in              |
+| See how invites are used     | The invites table: used / allowed, expiry, state (usable, used up, expired, withdrawn)                  | The latest 100                                                                                           |
+| Withdraw an invite           | "Withdraw" in the table                                                                                 | The link stops working; people who already used it stay                                                  |
+| Invite from the waiting list | Choose people (or "Choose the N not invited yet") → "Invite the N chosen" → copy each link and email it | One single-use link each, valid 30 days; send them yourself until an email service is set up             |
+
+- A new account that's stopped is deleted at once (nothing kept), so it doesn't take a place; they can join the waiting list at `/beta`.
+- Email sign-ups are stopped before the confirmation email when the Beta is full.
+
 ---
 
 ## 7. Turning on class plans
@@ -286,4 +300,4 @@ With it, a teacher gets 40 students a class, 160 minutes of their own materials 
 
 ---
 
-Last updated: 2026-11-12
+Last updated: 2026-11-11

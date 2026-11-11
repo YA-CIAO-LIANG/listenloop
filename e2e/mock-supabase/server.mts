@@ -269,6 +269,21 @@ createServer(async (request, response) => {
     );
     return;
   }
+  // Sign-ups in stages (D132): open, 3 of 50 places taken; the waiting
+  // list takes anyone (nothing is kept).
+  if (url.pathname === "/rest/v1/signup_settings" && request.method === "GET") {
+    json(200, { open: true, cap: 50 });
+    return;
+  }
+  if (url.pathname === "/rest/v1/rpc/beta_admitted_count") {
+    json(200, 3);
+    return;
+  }
+  if (url.pathname === "/rest/v1/beta_waitlist" && request.method === "POST") {
+    await readBody(request);
+    response.writeHead(201, cors).end();
+    return;
+  }
   // No speech to text used this month (D130).
   if (url.pathname === "/rest/v1/rpc/month_audio_ms") {
     json(200, [{ site: 0, mine: 0 }]);
