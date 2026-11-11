@@ -205,7 +205,29 @@ export interface SpeechProvider {
   checkConnection?(): Promise<ConnectionCheck>;
 }
 
+/** What speech to text heard in one piece of a recording (D130). */
+export type Heard = {
+  /** With punctuation; "" when nothing was said (silence, noise). */
+  text: string;
+  /** Where the speech starts in the piece, in seconds. */
+  offset: number;
+  /** How long it lasts, in seconds. */
+  duration: number;
+};
+
+/** Speech to text for uploaded recordings (D130). */
+export interface TranscribeProvider {
+  /** Logged as the provider. */
+  readonly id: string;
+  /** What's said in `wav` (16 kHz mono PCM), `seconds` long. */
+  transcribe(wav: Uint8Array, seconds: number): Promise<Billed<Heard>>;
+  /** A free connection check (D49). */
+  checkConnection?(): Promise<ConnectionCheck>;
+}
+
 export type AiProviders = {
   language: LanguageProvider;
   speech: SpeechProvider;
+  /** Absent when speech to text isn't set up (D130). */
+  transcribe?: TranscribeProvider;
 };

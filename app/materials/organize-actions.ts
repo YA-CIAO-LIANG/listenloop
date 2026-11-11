@@ -17,6 +17,7 @@ import {
 import { getAdminUser } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
 import { customPracticeId } from "@/lib/practice-material";
+import { UPLOADS_BUCKET } from "@/lib/supabase/config";
 
 /**
  * Organizing created practices (roadmap d5): collections, public or
@@ -70,10 +71,17 @@ export async function deleteCollection(id: unknown): Promise<OrganizeResult> {
   );
 }
 
+/**
+ * Public or private. A practice made from the author's own recording
+ * (D130) goes public only with `rightsConfirmed` true: the author
+ * confirmed they own it or may share it, recorded once with the time
+ * (the database refuses it otherwise).
+ */
 export async function setVisibility(
   kind: unknown,
   id: unknown,
   visibility: unknown,
+  rightsConfirmed?: unknown,
 ): Promise<OrganizeResult> {
   if (
     (kind !== "practice" && kind !== "collection") ||
@@ -84,11 +92,21 @@ export async function setVisibility(
   }
   return asAdmin(async (supabase, userId) => {
     const result = outcome(
-      await supabase
-        .from(kind === "practice" ? "practices" : "collections")
-        .update({ visibility })
-        .eq("id", id)
-        .select("id"),
+      kind === "practice"
+        ? await supabase
+            .from("practices")
+            .update(
+              visibility === "public" && rightsConfirmed === true
+                ? { visibility, rights_confirmed_at: new Date().toISOString() }
+                : { visibility },
+            )
+            .eq("id", id)
+            .select("id")
+        : await supabase
+            .from("collections")
+            .update({ visibility })
+            .eq("id", id)
+            .select("id"),
     );
     if (result.ok && kind === "practice" && visibility === "public") {
       await logEvent(userId, {
@@ -127,9 +145,20 @@ export async function movePractice(
 export async function deletePractice(id: unknown): Promise<OrganizeResult> {
   if (!isUuid(id)) return { ok: false, reason: "invalid" };
   return asAdmin(async (supabase, userId) => {
-    const result = outcome(
-      await supabase.from("practices").delete().eq("id", id).select("id"),
-    );
+    const { data: deleted, error } = await supabase
+      .from("practices")
+      .delete()
+      .eq("id", id)
+      .select("id, source_audio_path");
+    const result = outcome({ data: deleted, error });
+    // The author's own recording (D130) is theirs alone: it goes too.
+    const recording = deleted?.[0]?.source_audio_path;
+    if (result.ok && recording) {
+      await getAdminSupabase()
+        ?.storage.from(UPLOADS_BUCKET)
+        .remove([recording])
+        .catch(() => undefined);
+    }
     if (result.ok) {
       await logEvent(userId, {
         type: "practice_delete",
@@ -161,8 +190,10 @@ export async function copyAsOfficial(id: unknown): Promise<CopyOfficialResult> {
     .eq("id", id)
     .eq("user_id", user.id)
     .is("removed_at", null)
-    // A YouTube practice (D97) isn't copied: the copy has no video times.
+    // A YouTube practice (D97) or a recording (D130) isn't copied: the
+    // copy would have no audio of its own.
     .is("youtube_id", null)
+    .is("source_audio_path", null)
     .maybeSingle();
   if (!own) return { ok: false, reason: "not-found" };
   const { data: copy, error } = await admin.rpc("copy_practice_as_official", {

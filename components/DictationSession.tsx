@@ -219,7 +219,8 @@ export function DictationSession({
                     zh: sentences[i].zh,
                     videoId: video.id,
                     i,
-                    ...(video.audioUrls?.[i]
+                    // A recording's URL is signed and short-lived (D130).
+                    ...(video.audioUrls?.[i] && !video.audioClips
                       ? { audio: video.audioUrls[i] }
                       : {}),
                   },

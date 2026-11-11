@@ -2289,3 +2289,22 @@
 - **金鑰改放 header**：查詢影片與測試連線都用 `x-goog-api-key` header，不放在網址，避免金鑰出現在記錄裡（和 Gemini 相同）。
 - **設定金鑰後**：Plus 以上方案與管理員可以使用（D97 的 `youtubePractices`）；免費方案看得到入口，點進去是說明與「看方案」，同時記錄到付費意願漏斗（`unlock_click`、項目 `youtube-practice`、來源 `youtube`，和分享教材的升級按鈕同一種，不需要改資料表）。每次打開只記一次。
 - **要改時**：`auth/youtube.ts`、`auth/creator.ts`（`diagnoseCreator`）、`app/admin/usage/actions.ts`、`components/ConnectionTest.tsx`、`components/CreatePracticeForm.tsx`、`components/YouTubeCreate.tsx`。
+
+## D130 上傳自己的音檔（MP3、MP4）建立教材（2026-11-11，Joe 指定）
+
+- **流程**：選檔 → 瀏覽器取出聲音並壓縮 → 直接上傳 → 語音轉文字 → 逐句預覽（可播放、修正英文與時間、合併、刪除）→ 翻譯 → 建立 → 產生講解。練習時播放使用者原本的錄音，依每句的時間點播放，不重新產生語音。
+- **在瀏覽器處理聲音**：用 Web Audio 解碼（MP4 只解碼聲音軌，畫面不處理也不上傳），混成單聲道、重新取樣成 16 kHz，再壓成 32 kbps MP3（約每分鐘 240 KB）。檔案比原始 MP3 小很多，Supabase 的儲存與流量都省。
+  - MP3 編碼用 `@breezystack/lamejs`（LAME 的純 JS 版本，有在維護的 lamejs 分支）。瀏覽器的 WebCodecs 不支援 MP3，Opus 要另外處理容器、Safari 支援度也不一致，所以選 MP3。它是 LGPL 授權，只在使用者按下「讀取」時動態載入成獨立檔案、不修改原始碼，符合 LGPL 對函式庫連結的要求；授權記在這裡。
+- **直接上傳**：伺服器用 secret key 建立一次性的簽名上傳網址（`createSignedUploadUrl`），瀏覽器直接上傳到 Supabase Storage，不經過 Vercel 函式（沒有 4.5 MB 請求大小與 60 秒的限制）。
+  - 私人 bucket `uploads`，檔名 `<使用者 id>/<隨機 uuid>.mp3`，單檔上限 50 MB（Supabase 免費方案的單檔上限）。練習時伺服器先確認讀者可以練習這份教材，再產生 6 小時有效的簽名網址；網址每次載入都不同，所以不交給 service worker 離線快取。
+  - 資料庫限制：教材只能指向作者自己資料夾的檔案；公開前必須有 `rights_confirmed_at`（見下方版權）。
+- **語音轉文字**：Azure Speech 的 short audio REST API（每次最多 60 秒的 16 kHz WAV，有標點）。
+  - **查證（2026-11-11）**：F0 免費方案的語音轉文字是每月 5 小時（Standard 即時轉錄），不包含 batch；fast transcription 在價格頁的 F0 沒有列出，而且我們的資源在 uaenorth，那個區域不支援 fast transcription。short audio 在所有區域都能用，所以選它，不用另外建資源或換區域。超過 5 小時 Azure 會回 403，不會收費。
+  - 瀏覽器先依停頓把錄音切成小段（每 20 毫秒算音量，停頓 0.35 秒以上就切開，單段最長 15 秒；太長就在後半段最安靜的地方切），每批最多 25 秒、12 段送到伺服器（WAV 約 800 KB，所以 Server Action 的請求上限調成 2 MB）。伺服器檢查 WAV 格式與長度後依序送給 Azure（F0 一次只能一個請求），忙碌時等 1.5 秒重試一次。
+  - 每段的時間點來自我們切段的位置，加上 Azure 回報的語音起點與長度；一段裡有好幾句時依字數分配時間，沒有句點的片段和下一段合併（沿用 YouTube 字幕的斷句規則）。使用者可以在預覽逐句播放、修改時間。
+  - **用量**：每次呼叫記在 `api_calls`，新增 `audio_ms` 欄位（秒數）。全站每月上限 4.5 小時（`TRANSCRIBE_MONTHLY_SECONDS`，留半小時給測試連線），每個使用者每月最多轉錄方案的每月分鐘數（Plus 40 分鐘、Pro 120 分鐘，管理員不限）；建立後的教材也照教材長度計入方案的每月分鐘數（和其他教材一樣）。
+  - 本機、測試、E2E 用假的語音轉文字（`fakeTranscriber`）。真實呼叫只做了 1 次（6.53 秒的 macOS `say` 合成英文，F0 免費，US$0），結果存成 `tests/fixtures/ai/azure-speech/transcribe.json`。
+- **方案**（`lib/plans.ts`）：`uploadAudio` 只有 Plus、Pro、管理員；`uploadMegabytes` 是選檔的上限（Plus 100 MB、Pro 200 MB、管理員不限，技術上限 500 MB）；長度沿用每份最長（Plus 5 分鐘、Pro 10 分鐘，管理員最多 30 分鐘）。免費方案看得到「上傳音檔」，點進去是說明與「看方案」，並記錄付費意願（`unlock_click`、項目 `upload-practice`、來源 `upload`）。
+- **版權**：上傳的教材一律先存成私人。要設為公開時，必須勾選「我擁有此內容的權利或已取得授權」，伺服器記下時間（`rights_confirmed_at`），沒有勾選資料庫會拒絕。檢舉與下架沿用 D31。服務條款第 4 條、隱私權政策（資料、處理者、保存期間）同步更新。刪除教材或帳號時，錄音檔一起刪除。
+- **目前不支援**：上傳的教材不能用編輯器修改（和 YouTube 教材相同，時間點來自錄音；要改就刪除重做）、不能複製成官方教材、不出現在程度測驗。MP4 裡的 AAC 要瀏覽器能解碼（Chrome、Safari、Edge 可以；少數 Linux 上的 Chromium 不行，會顯示「無法讀取」）。
+- **要改時**：`lib/upload-audio.ts`（限制、切段、組句）、`components/UploadCreate.tsx`、`components/upload/browser-audio.ts`、`app/materials/upload-actions.ts`、`lib/ai/azure-stt.ts`、`lib/ai/metered.ts`（`meteredTranscribe`）、`components/audio/useAudioPlayer.ts`（依時間點播放）；資料表 `supabase/migrations/20261114000000_uploaded_audio.sql`。

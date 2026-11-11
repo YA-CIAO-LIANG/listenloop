@@ -152,6 +152,7 @@ describe("supabaseUsageMeter", () => {
       output_tokens: 20,
       chars: 5,
       cost_micros: 3,
+      audio_ms: 0,
     });
   });
 

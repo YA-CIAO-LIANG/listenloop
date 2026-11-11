@@ -1,5 +1,5 @@
 import type { Supabase } from "@/lib/supabase/browser";
-import { SPEECH_BUCKET } from "@/lib/supabase/config";
+import { SPEECH_BUCKET, UPLOADS_BUCKET } from "@/lib/supabase/config";
 
 /**
  * Everything ListenLoop keeps about one account (D60), for "Download my
@@ -112,4 +112,20 @@ export async function removeAudio(admin: Supabase, paths: readonly string[]) {
     .from("speech_audio")
     .delete()
     .in("path", [...paths]);
+}
+
+/** Removes every recording the user uploaded (D130): their folder. */
+export async function removeUploads(admin: Supabase, userId: string) {
+  for (;;) {
+    const { data, error } = await admin.storage
+      .from(UPLOADS_BUCKET)
+      .list(userId, { limit: 100 });
+    if (error) throw new Error(error.message);
+    if (!data || data.length === 0) return;
+    const { error: removeError } = await admin.storage
+      .from(UPLOADS_BUCKET)
+      .remove(data.map((file) => `${userId}/${file.name}`));
+    if (removeError) throw new Error(removeError.message);
+    if (data.length < 100) return;
+  }
 }

@@ -376,14 +376,15 @@ export async function generatePracticeAudio(
   const { data: practice, error } = await supabase
     .from("practices")
     .select(
-      "voice, voice_b, youtube_id, practice_sentences(i, en, audio_path, speaker)",
+      "voice, voice_b, youtube_id, source_audio_path, practice_sentences(i, en, audio_path, speaker)",
     )
     .eq("id", practiceId)
     .eq("user_id", creator.user.id)
     .maybeSingle();
   if (error) return { ok: false, reason: "failed" };
-  // A YouTube practice plays the video itself: no audio to make (D97).
-  if (practice?.youtube_id) {
+  // A YouTube practice plays the video itself, a recording itself: no
+  // audio to make (D97, D130).
+  if (practice?.youtube_id || practice?.source_audio_path) {
     const count = practice.practice_sentences.length;
     return { ok: true, voiced: count, total: count };
   }

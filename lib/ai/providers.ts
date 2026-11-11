@@ -4,10 +4,16 @@ import {
   azureOpenAiLanguage,
 } from "./azure-openai";
 import { azureSpeech, isAzureRegion } from "./azure-speech";
-import { fakeLanguage, fakeSpeech } from "./fake";
+import { azureTranscriber } from "./azure-stt";
+import { fakeLanguage, fakeSpeech, fakeTranscriber } from "./fake";
 import { geminiLanguage } from "./gemini";
 import { googleSpeech } from "./google-tts";
-import type { AiProviders, LanguageProvider, SpeechProvider } from "./types";
+import type {
+  AiProviders,
+  LanguageProvider,
+  SpeechProvider,
+  TranscribeProvider,
+} from "./types";
 
 type Env = Record<string, string | undefined>;
 
@@ -19,7 +25,7 @@ export type ProviderChoice = (typeof PROVIDER_CHOICES)[number];
 export const DEFAULT_PROVIDERS = {
   language: "azure",
   speech: "azure",
-} as const satisfies Record<keyof AiProviders, ProviderChoice>;
+} as const satisfies Record<"language" | "speech", ProviderChoice>;
 
 /**
  * A variable's value, tidied the way hosting dashboards get it wrong
@@ -138,6 +144,25 @@ export function speechSetup(env: Env): ProviderSetup<SpeechProvider> {
   );
 }
 
+/**
+ * Speech to text for uploaded recordings (D130): Azure Speech's short
+ * audio API with the same key and region as text to speech, whichever
+ * vendor reads the practices aloud.
+ */
+export function transcribeSetup(env: Env): ProviderSetup<TranscribeProvider> {
+  const key = readEnv(env, "AZURE_SPEECH_KEY") ?? "";
+  const region = normalizeRegion(readEnv(env, "AZURE_SPEECH_REGION") ?? "");
+  return setup(
+    "azure",
+    [
+      isSet(env, "AZURE_SPEECH_KEY"),
+      isSet(env, "AZURE_SPEECH_REGION"),
+      { id: "regionValid", ok: isAzureRegion(region) },
+    ],
+    () => azureTranscriber(key, region),
+  );
+}
+
 /** AI_PROVIDERS=fake: the fakes, except on the production site. */
 function fakeMode(env: Env): "off" | "on" | "blocked" {
   if (readEnv(env, "AI_PROVIDERS") !== "fake") return "off";
@@ -153,6 +178,7 @@ export function diagnoseAiProviders(env: Env = process.env) {
     fake: fakeMode(env),
     language: languageSetup(env),
     speech: speechSetup(env),
+    transcribe: transcribeSetup(env),
   };
 }
 
@@ -168,9 +194,18 @@ export function diagnoseAiProviders(env: Env = process.env) {
  */
 export function getAiProviders(env: Env = process.env): AiProviders | null {
   const fake = fakeMode(env);
-  if (fake === "on") return { language: fakeLanguage, speech: fakeSpeech };
+  if (fake === "on") {
+    return {
+      language: fakeLanguage,
+      speech: fakeSpeech,
+      transcribe: fakeTranscriber,
+    };
+  }
   if (fake === "blocked") return null;
   const language = languageSetup(env).provider;
   const speech = speechSetup(env).provider;
-  return language && speech ? { language, speech } : null;
+  const transcribe = transcribeSetup(env).provider;
+  return language && speech
+    ? { language, speech, ...(transcribe ? { transcribe } : {}) }
+    : null;
 }

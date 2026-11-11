@@ -36,6 +36,22 @@ export const SPEECH_PRICES_PER_M_CHARS = {
 } as const;
 
 /**
+ * US$ per hour of speech to text (D130). The free F0 tier includes 5
+ * hours a month of real-time (short audio) transcription, then answers
+ * 403 instead of charging; the paid S0 rate is listed for reference.
+ */
+export const TRANSCRIBE_PRICES_PER_HOUR = {
+  azureF0: 0,
+  azureS0: 1,
+} as const;
+
+/**
+ * Speech to text the whole site may use a month (D130): under F0's 5
+ * free hours, so the last half hour is left for checking the setup.
+ */
+export const TRANSCRIBE_MONTHLY_SECONDS = 4.5 * 3600;
+
+/**
  * Costs are counted in whole micro-dollars (US$0.000001), rounded up so
  * the estimate errs high (the tolerance absorbs floating-point noise).
  */

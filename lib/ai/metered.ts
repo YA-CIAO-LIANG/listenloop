@@ -11,6 +11,7 @@ import {
   type AiProviders,
   type Billed,
   type CallUsage,
+  type Heard,
   type ProviderErrorDetail,
   type SpeechAudio,
   type Voice,
@@ -77,6 +78,7 @@ async function finish(
   error: MeteredFailure | "filtered" | null,
   detail: ProviderErrorDetail = {},
   outcome: string | null = null,
+  audioMs = 0,
 ) {
   // Without a usage report, a language call keeps its whole reservation.
   const spent = usage
@@ -99,6 +101,7 @@ async function finish(
       outputTokens: usage?.outputTokens ?? 0,
       chars: usage?.chars || charge.chars,
       costMicros: spent,
+      ...(audioMs > 0 ? { audioMs } : {}),
     }),
   );
 }
@@ -206,4 +209,66 @@ export async function meteredSpeech(
     },
     () => providers.speech.synthesize(text, voice),
   );
+}
+
+/**
+ * Speech to text for one piece of an uploaded recording (D130), `seconds`
+ * long. Before the call, the month's speech to text must fit both the
+ * site's free hours and the user's own allowance (`userMaxSeconds`, null
+ * for none); every call is logged with its audio length, since that's
+ * what the free tier counts, even when it fails.
+ */
+export async function meteredTranscribe(
+  { providers, meter }: MeteredDeps,
+  wav: Uint8Array,
+  seconds: number,
+  userMaxSeconds: number | null,
+): Promise<MeteredResult<Heard>> {
+  const transcriber = providers.transcribe;
+  if (!transcriber) return { ok: false, reason: "config" };
+  const audioMs = Math.max(1, Math.round(seconds * 1000));
+  try {
+    const allowed = meter.allowAudio
+      ? await meter.allowAudio(
+          audioMs,
+          userMaxSeconds === null ? null : userMaxSeconds * 1000,
+        )
+      : false;
+    if (!allowed) return { ok: false, reason: "limit" };
+  } catch {
+    return { ok: false, reason: "failed" };
+  }
+  const charge: Charge = {
+    kind: "cost",
+    provider: transcriber.id,
+    operation: "transcribe",
+    chars: 0,
+    reservedMicros: 0,
+  };
+  try {
+    const { value, usage } = await transcriber.transcribe(wav, seconds);
+    await finish(
+      meter,
+      charge,
+      usage,
+      null,
+      transcriber.id.startsWith("fake") ? {} : { status: 200 },
+      value.text ? "heard" : "silence",
+      audioMs,
+    );
+    return { ok: true, value };
+  } catch (error) {
+    const code = error instanceof ProviderError ? error.code : "failed";
+    if (error instanceof ProviderError) console.error(`[AI] ${error.message}`);
+    await finish(
+      meter,
+      charge,
+      error instanceof ProviderError ? error.usage : undefined,
+      code,
+      error instanceof ProviderError ? error.detail : { code: "exception" },
+      null,
+      audioMs,
+    );
+    return { ok: false, reason: code === "filtered" ? "failed" : code };
+  }
 }

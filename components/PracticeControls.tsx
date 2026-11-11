@@ -24,6 +24,8 @@ type PracticeControlsProps = {
      * didn't allow reuse, so it stays private.
      */
     privateOnly?: boolean;
+    /** From the author's own recording (D130): public needs the rights. */
+    needsRights?: boolean;
     collectionId: string | null;
     visibility: Visibility;
   };
@@ -87,6 +89,7 @@ export function PracticeControls({
               id={practice.id}
               name={practice.title}
               visibility={practice.visibility}
+              needsRights={practice.needsRights}
             />
           )
         )}

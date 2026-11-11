@@ -40,6 +40,10 @@ const nextConfig: NextConfig = {
       { source: "/create", destination: "/materials/new", permanent: true },
     ];
   },
+  experimental: {
+    // Speech to text gets ~25 s of 16 kHz WAV per request (~800 KB, D130).
+    serverActions: { bodySizeLimit: "2mb" },
+  },
   turbopack: {
     rules: {
       "*.css": {

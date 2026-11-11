@@ -71,6 +71,8 @@ export default async function NewMaterialPage({
         {allowed.ok ? (
           <CreatePracticeForm
             official={official}
+            // Speech to text set up (D130); the plan is checked inside.
+            upload={!official && !!creator.providers.transcribe}
             youtube={
               official
                 ? false

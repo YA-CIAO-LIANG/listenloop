@@ -130,3 +130,40 @@ test("on the free plan, YouTube practices are a paid feature (D97)", async ({
     "/pricing?from=youtube",
   );
 });
+
+test("an MP3 becomes timed sentences to check, its sound made in the browser (D130)", async ({
+  page,
+}) => {
+  await signInAsPaid(page);
+  await page.goto("/materials/new");
+  await page.getByText("上傳音檔").click();
+  // A real MP3 ("Nice to meet you."): decoded, compressed, and uploaded by
+  // the browser; written down by the fake speech to text.
+  await page
+    .getByLabel("選擇 MP3 或 MP4 檔案")
+    .setInputFiles("tests/fixtures/ai/azure-speech/us-female.mp3");
+  await page.getByRole("button", { name: /讀取並轉成文字/ }).click();
+  const first = page.getByLabel("第 1 句英文");
+  await expect(first).toHaveValue(
+    /Thanks for joining|how sleep works|seven to nine|in the brain/,
+    { timeout: 20_000 },
+  );
+  await expect(page.getByLabel("第 1 句開始時間")).toHaveValue(/^0:0\d\.\d$/);
+  await page.getByRole("button", { name: "翻譯" }).click();
+  await expect(page.getByLabel("第 1 句中文")).not.toHaveValue("");
+  await expect(page.getByRole("button", { name: "建立練習" })).toBeEnabled();
+  await expect(page.getByText(/建立後預設為私人/)).toBeVisible();
+});
+
+test("on the free plan, uploading recordings is a Plus feature (D130)", async ({
+  page,
+}) => {
+  await signInAsLearner(page);
+  await page.goto("/materials/new");
+  await page.getByText("上傳音檔").click();
+  await expect(page.getByLabel("選擇 MP3 或 MP4 檔案")).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /看方案/ })).toHaveAttribute(
+    "href",
+    "/pricing?from=upload",
+  );
+});

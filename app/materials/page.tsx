@@ -73,7 +73,7 @@ export default async function MaterialsPage() {
         supabase
           .from("practices")
           .select(
-            "id, title, title_en, title_zh, subtitle, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, youtube_id, youtube_license, practice_sentences(audio_path)",
+            "id, title, title_en, title_zh, subtitle, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, youtube_id, youtube_license, source_audio_path, rights_confirmed_at, practice_sentences(audio_path)",
           )
           // Others' public practices are readable too (D30); list only theirs,
           // and not official materials, which live on /admin/official (D80).
@@ -121,8 +121,9 @@ export default async function MaterialsPage() {
             <span className="font-medium">
               {oneLineTitle(practiceTitles(practice))}
             </span>
-            {/* A YouTube practice's sentences follow the video (D97). */}
-            {creator && !practice.youtube_id && (
+            {/* A YouTube practice's sentences follow the video (D97), a
+                recording's follow the recording (D130). */}
+            {creator && !practice.youtube_id && !practice.source_audio_path && (
               <Link
                 href={`/materials/${practice.id}/edit`}
                 className="text-supporting text-accent-ink underline underline-offset-4"
@@ -141,21 +142,23 @@ export default async function MaterialsPage() {
               date: format.dateTime(new Date(practice.created_at), {
                 dateStyle: "medium",
               }),
-              voice: voice
-                ? t("voiceName", {
-                    accent: t(`accents.${voice.accent}`),
-                    gender: t(`genders.${voice.gender}`),
-                  })
-                : "none",
+              voice: practice.source_audio_path
+                ? t("ownRecording")
+                : voice
+                  ? t("voiceName", {
+                      accent: t(`accents.${voice.accent}`),
+                      gender: t(`genders.${voice.gender}`),
+                    })
+                  : "none",
             })}
           </p>
-          {(voice || practice.youtube_id) && (
+          {(voice || practice.youtube_id || practice.source_audio_path) && (
             <PracticeReadiness
               practiceId={practice.id}
               practiceHref={`/videos/${customPracticeId(practice.id)}`}
               notesReady={practice.notes_generated_at !== null}
               voiced={
-                practice.youtube_id
+                practice.youtube_id || practice.source_audio_path
                   ? sentences.length
                   : sentences.filter((s) => s.audio_path).length
               }
@@ -184,6 +187,8 @@ export default async function MaterialsPage() {
             removed: practice.removed_at !== null,
             official: practice.official,
             privateOnly: practice.youtube_license === "youtube",
+            needsRights:
+              !!practice.source_audio_path && !practice.rights_confirmed_at,
             collectionId: practice.collection_id,
             visibility: isVisibility(practice.visibility)
               ? practice.visibility

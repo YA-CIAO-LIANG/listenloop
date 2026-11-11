@@ -21,6 +21,7 @@ export const INTENT_SOURCES = [
   "color-unlock",
   "classroom",
   "youtube",
+  "upload",
   "speed",
   "length",
   "stats",

@@ -10,8 +10,9 @@ import {
   type CustomPracticeReadiness,
   type PracticeMaterial,
 } from "@/lib/practice-material";
-import { speechAudioUrl } from "@/lib/supabase/config";
+import { speechAudioUrl, UPLOADS_BUCKET } from "@/lib/supabase/config";
 import { getVideo } from "@/lib/video-library";
+import { getAdminSupabase } from "./admin";
 import { getServerSupabase } from "./server";
 import { getSignedInUser } from "./session";
 
@@ -57,7 +58,7 @@ export const getPracticeState = cache(
       supabase
         .from("practices")
         .select(
-          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, official, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, attribution, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
+          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, official, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, source_audio_path, attribution, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
         )
         .eq("id", uuid)
         .maybeSingle(),
@@ -121,6 +122,9 @@ export const getPracticeState = cache(
         grammar: notes?.[0]?.grammar ?? [],
       },
       (path) => speechAudioUrl(path),
+      data.source_audio_path
+        ? await recordingUrl(data.source_audio_path)
+        : null,
     );
     if (material) {
       return {
@@ -138,6 +142,26 @@ export const getPracticeState = cache(
       : null;
   },
 );
+
+/**
+ * How long a recording's signed URL works (D130): a long practice
+ * session, with the page open; a new one comes with each page load.
+ */
+export const RECORDING_URL_SECONDS = 6 * 3600;
+
+/**
+ * A signed URL for a learner's recording (D130), made with the secret
+ * key once the reader has passed the checks above (row level security
+ * showed them the practice and can_practice let them practice it).
+ */
+async function recordingUrl(path: string): Promise<string | null> {
+  const admin = getAdminSupabase();
+  if (!admin) return null;
+  const { data } = await admin.storage
+    .from(UPLOADS_BUCKET)
+    .createSignedUrl(path, RECORDING_URL_SECONDS);
+  return data?.signedUrl ?? null;
+}
 
 /** The practicable material behind /videos/<id>, or null. */
 export const getPracticeMaterial = cache(

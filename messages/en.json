@@ -640,7 +640,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 9, 2026",
+    "updated": "Last updated: November 11, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -652,7 +652,7 @@
           "Account details from how you sign in: from Google, your email, name, picture URL, and account ID; from LINE, your email, display name, and LINE user ID; with email sign-up, your email and password. Supabase stores the password hashed, so we never see it. Only the email is shown on screen.",
           "One account: whichever way you sign in, one email is one account, and your progress is combined.",
           "Practice data: your progress on each video (which days are done, dictation answers and accuracy, shadowing status) and a daily practice log.",
-          "Created practices: the text you type or upload when creating a practice, its sentences and translations, the vocabulary and grammar notes, and the generated audio.",
+          "Created practices: the text you type or upload when creating a practice, its sentences and translations, the vocabulary and grammar notes, and the generated audio; for a practice from your own recording, the recording you upload (your browser first turns it into a smaller MP3; for a video, only the sound is uploaded, never the picture).",
           "Sharing and reports: anyone can see a public practice's title, sentences, translations, notes, and audio, but not its author's account details. When you report a practice, we keep the reason, your details, and your account ID only to review it; the author isn't told who reported it.",
           "Sign-in state: a sign-in token in a browser cookie.",
           "Account data: the user number the system gives you, your role (user or admin), account status, and when you joined and were last active. The admin pages identify users by number and don’t show emails.",
@@ -677,10 +677,10 @@
         "title": "Where it's kept and who processes it",
         "paragraphs": [],
         "items": [
-          "Supabase: the database for accounts and cloud practice data, in the United States (us-east-1).",
+          "Supabase: the database for accounts and cloud practice data, in the United States (us-east-1). Recordings you upload are kept in Supabase's private storage and can only be read through links that expire.",
           "Vercel: the web host, which handles the technical data a connection needs (such as IP addresses) to serve and protect the site.",
           "Google: Google sign-in.",
-          "Microsoft Azure AI services: when you create a practice, its text is sent to Azure OpenAI (the gpt-5-mini model) to split it into sentences, translate it, and write vocabulary and grammar notes, or to write practice text for the situation you pick; its English sentences go to Azure Speech for audio. Under Microsoft's terms, what's sent and what's generated aren't used to train models. Azure OpenAI may keep them for up to 30 days to detect abuse, and may process them in any of Microsoft's regions (a Global Standard deployment); Azure Speech processes them in the United Arab Emirates. Even so, please don't put personal or sensitive information in practice text.",
+          "Microsoft Azure AI services: when you create a practice, its text is sent to Azure OpenAI (the gpt-5-mini model) to split it into sentences, translate it, and write vocabulary and grammar notes, or to write practice text for the situation you pick; its English sentences go to Azure Speech for audio; for a practice from your own recording, the recording is sent in short pieces to Azure Speech's speech to text, which writes it down with each sentence's times. Under Microsoft's terms, what's sent and what's generated aren't used to train models. Azure OpenAI may keep them for up to 30 days to detect abuse, and may process them in any of Microsoft's regions (a Global Standard deployment); Azure Speech processes them in the United Arab Emirates. Even so, please don't put personal or sensitive information in practice text.",
           "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
           "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard.",
           "LINE (LY Corporation): when you sign in with LINE, it handles the sign-in and gives us your account details."
@@ -696,7 +696,7 @@
       {
         "title": "How long we keep it",
         "paragraphs": [
-          "Your account and practice data are kept while your account exists. The activity log is kept 180 days and hard-sentence reports 365 days, then deleted automatically. The API usage log (number of calls, tokens, characters, estimated cost — no text) is kept to account for service costs; deleting your account removes its link to you. When you delete your account, your account, practices, activity, reports, and feedback are deleted from the database right away; audio files of your practices are deleted too, unless another practice shares them. Service providers’ system backups are cleared when their retention ends."
+          "Your account and practice data are kept while your account exists. The activity log is kept 180 days and hard-sentence reports 365 days, then deleted automatically. The API usage log (number of calls, tokens, characters, estimated cost — no text) is kept to account for service costs; deleting your account removes its link to you. When you delete your account, your account, practices, activity, reports, and feedback are deleted from the database right away; audio files of your practices are deleted too, unless another practice shares them; recordings you uploaded are deleted with their practice or your account. Service providers’ system backups are cleared when their retention ends."
         ]
       },
       {
@@ -882,7 +882,8 @@
     "remaining": "About {time} left.",
     "longJob": "This takes a while: you can leave this page and we’ll keep going in the background; it’ll be ready in My materials.",
     "toMaterials": "Go to My materials",
-    "duration": "{minutes, plural, =0 {{seconds} seconds} one {# minute} other {# minutes}}"
+    "duration": "{minutes, plural, =0 {{seconds} seconds} one {# minute} other {# minutes}}",
+    "ownRecording": "your recording"
   },
   "editPractice": {
     "titlesLegend": "Titles",
@@ -982,7 +983,13 @@
     "copyOfficialLabel": "Copy “{title}” to the official materials",
     "copiedOfficial": "Copied to the official materials as a draft; this practice stays as it is.",
     "openOfficial": "Go to official materials →",
-    "youtubePrivateOnly": "This video uses the standard YouTube license, so it stays private (only Creative Commons videos can be shared)."
+    "youtubePrivateOnly": "This video uses the standard YouTube license, so it stays private (only Creative Commons videos can be shared).",
+    "rights": {
+      "confirm": "I own the rights to this content or have permission to share it",
+      "hint": "Once public, other people can listen to this recording and practice with it. Only share what you recorded yourself or have permission for; infringing content is taken down.",
+      "makePublic": "Make public",
+      "cancel": "Cancel"
+    }
   },
   "voicePicker": {
     "legend": "Choose a voice",
@@ -1148,6 +1155,7 @@
         "account": "Account and database",
         "language": "AI text: {vendor}",
         "speech": "Speech: {vendor}",
+        "transcribe": "Speech to text for uploaded recordings: {vendor} (optional)",
         "youtube": "Practices from YouTube links (optional)"
       },
       "vendors": {
@@ -1237,7 +1245,8 @@
     "sources": {
       "text": "Paste or upload",
       "ai": "Write with AI",
-      "youtube": "YouTube link"
+      "youtube": "YouTube link",
+      "upload": "Upload audio"
     },
     "levelLegend": "Level",
     "lengthLegend": "Length",
@@ -1318,7 +1327,9 @@
       "fullStats": "The full stats are part of Plus and Pro.",
       "priority": "Priority generation is part of Pro.",
       "batchPdf": "Batch PDFs are part of Pro.",
-      "sharedPractices": "Practicing shared materials in full is part of Plus, Pro, and class plans."
+      "sharedPractices": "Practicing shared materials in full is part of Plus, Pro, and class plans.",
+      "uploadAudio": "Making practices from your own recordings is a Plus feature.",
+      "uploadMegabytes": "The file is too big: your plan allows up to {max, number} MB a file."
     },
     "seePractices": "See your progress",
     "paid": {
@@ -2054,8 +2065,9 @@
       {
         "title": "4. Content you upload",
         "paragraphs": [
-          "Text you type or upload to make a practice stays yours or its rights holder’s. You must have the right to use it and are responsible for it.",
-          "To run the Service, you let ListenLoop store, process (including sending it to AI services for translations, notes, and voices), and display it; when you make a practice public, you also let other users view and practice it. You can make it private again or delete it at any time, after which we stop offering it."
+          "Text and recordings (the sound of an MP3 or MP4) you type or upload to make a practice stay yours or their rights holder’s. You must have the right to use them and are responsible for them.",
+          "To run the Service, you let ListenLoop store, process (including sending them to AI services for transcripts, translations, notes, and voices), and display them; when you make a practice public, you also let other users view, listen to, and practice it. You can make it private again or delete it at any time, after which we stop offering it.",
+          "A practice from a recording you upload starts private. Before making it public, you must confirm that you own the recording or have permission to share it (for example, you recorded it yourself, or the rights holder allows sharing); we record when you confirmed. Making someone else’s recording public without permission (such as a film, podcast, radio, or news program) may infringe copyright and is taken down under section 5."
         ]
       },
       {
@@ -2629,7 +2641,7 @@
     "perMonthSuffix": " / month",
     "summaries": {
       "free": "Every official lesson and feature, basic stats, and one practice of your own to try (up to 30 seconds).",
-      "plus": "40 minutes of your own practices a month, YouTube practices, playback speed, full stats, and custom pass rules.",
+      "plus": "40 minutes of your own practices a month, practices from your own recordings, YouTube practices, playback speed, full stats, and custom pass rules.",
       "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus."
     },
     "subscribe": "Subscribe to {plan}",
@@ -2640,6 +2652,7 @@
       "shared": "Practice shared materials in full",
       "create": "Your own practices",
       "longest": "Longest practice",
+      "upload": "Practices from your recordings (MP3, MP4)",
       "youtube": "Practices from YouTube",
       "speed": "Playback speed",
       "stats": "Stats",
@@ -2671,7 +2684,8 @@
     "previewOnly": "Preview only",
     "yearlyBilled": "{total} billed yearly, paid once: ",
     "yearlyShort": "({total} billed yearly)",
-    "priceRow": "Price"
+    "priceRow": "Price",
+    "uploadSize": "✓ ({mb} MB a file)"
   },
   "classroom": {
     "title": "My classes",
@@ -3018,5 +3032,61 @@
       "paused": "Paused. Tap “Resume” to go on."
     },
     "settingsTitle": "How you practice"
+  },
+  "upload": {
+    "paidOnly": "Making practices from your own MP3 or MP4 is a Plus feature: AI writes down the recording with each sentence's times, then translates and explains it; you practice with your original recording.",
+    "seePlans": "See plans",
+    "fileLabel": "Choose an MP3 or MP4 file",
+    "fileHint": "Up to {mb} MB and {length}, in English. For a video, only the sound is taken out in your browser; the picture is never uploaded.",
+    "read": "Read and write it down",
+    "phases": {
+      "decode": "Reading the sound…",
+      "encode": "Compressing the sound ({percent}%)…",
+      "upload": "Uploading…",
+      "transcribe": "Writing it down (batch {done} / {total})"
+    },
+    "reviewIntro": "{count} sentences, {length}. Play each one, fix the words and times, then choose Translate.",
+    "translatedIntro": "{count} sentences, {length}. Edit the Chinese and the titles, then create the practice.",
+    "timeHint": "Write times as minutes:seconds, e.g. 1:05.3.",
+    "play": "Play",
+    "stop": "Stop",
+    "playN": "Play sentence {n}",
+    "stopN": "Stop sentence {n}",
+    "startLabel": "Sentence {n} start",
+    "endLabel": "Sentence {n} end",
+    "enLabel": "Sentence {n} English",
+    "zhLabel": "Sentence {n} Chinese",
+    "merge": "Join with next",
+    "mergeN": "Join sentence {n} with the next",
+    "remove": "Remove",
+    "removeN": "Remove sentence {n}",
+    "translate": "Translate",
+    "titleEn": "English title",
+    "titleZh": "Chinese title (optional)",
+    "create": "Create practice",
+    "creating": "Creating…",
+    "back": "Choose another file",
+    "created": "Created “{title}”.",
+    "open": "Start practicing",
+    "privateNote": "It starts private. To share it, you'll confirm you own the recording or have permission.",
+    "duration": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",
+    "errors": {
+      "type": "Only MP3 and MP4 files can be uploaded.",
+      "too-big": "The file is too big: your plan allows up to {max} MB a file.",
+      "too-long": "The recording is {length}, longer than your plan's {max}. Please trim it first.",
+      "decode": "This file can't be read. Make sure it's an MP3 or MP4 with sound.",
+      "silent": "No speech can be heard in this recording.",
+      "nothingHeard": "No English sentences were recognized. Make sure the recording is in English and clear.",
+      "upload": "The upload didn't work. Check your connection and try again.",
+      "limit": "This month's speech-to-text allowance is used up. It resets on the 1st.",
+      "aiLimit": "Today's AI allowance is used up. Try again tomorrow (after midnight Taiwan time).",
+      "busy": "The speech service is busy. Try again in a minute.",
+      "config": "Speech to text isn't set up correctly. Please tell an admin.",
+      "unavailable": "Uploading audio isn't available right now.",
+      "invalid": "Something was missing. Choose the file again and retry.",
+      "failed": "That didn't work. Please try again.",
+      "row": "Sentence {n} needs a fix: the English can't be empty, it must start before it ends, and not before the previous one starts.",
+      "notes": "The practice was created, but its notes aren't finished; continue from My materials."
+    }
   }
 }

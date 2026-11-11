@@ -170,6 +170,8 @@ export type UsageLogEntry = {
   chars: number;
   /** What was charged against the daily cost limit. */
   costMicros: number;
+  /** Milliseconds of audio sent to speech to text (D130). */
+  audioMs?: number;
 };
 
 /** Records usage for one user; the server implements it with Supabase. */
@@ -187,4 +189,10 @@ export interface UsageMeter {
   log(entry: UsageLogEntry): Promise<void>;
   /** After reserve returned false: which allowance ran out (D77). */
   lastBlock?(): UsageBlock | null;
+  /**
+   * Whether `ms` more of speech to text fits this month (D130): the
+   * site's free hours, and the user's own allowance (null: no cap).
+   * Meters without it allow none.
+   */
+  allowAudio?(ms: number, userMaxMs: number | null): Promise<boolean>;
 }

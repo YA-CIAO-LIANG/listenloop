@@ -24,6 +24,8 @@ const limited: Record<PlanId, PlanLimits> = {
     customRules: false,
     maxPracticeSeconds: 30,
     youtubePractices: false,
+    uploadAudio: false,
+    uploadMegabytes: null,
     minutesPerMonth: null,
     playbackSpeed: false,
     fullStats: false,

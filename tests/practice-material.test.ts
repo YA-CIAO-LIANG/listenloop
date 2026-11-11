@@ -172,6 +172,75 @@ describe("materialFromCustomPractice", () => {
   });
 });
 
+describe("a practice from the author's own recording (D130)", () => {
+  const url = (path: string) => `https://cdn.test/${path}`;
+  const recording = {
+    ...row,
+    source_audio_path: `${uuid}/${uuid}.mp3`,
+    practice_sentences: [
+      {
+        i: 1,
+        en: "Bye.",
+        zh: "再見。",
+        audio_path: null,
+        start_sec: 2.5,
+        end_sec: 3.4,
+      },
+      {
+        i: 0,
+        en: "Hi.",
+        zh: "嗨。",
+        audio_path: null,
+        start_sec: 0.2,
+        end_sec: 1.1,
+      },
+    ],
+  };
+
+  it("plays each sentence's times in the one recording", () => {
+    const material = materialFromCustomPractice(
+      recording,
+      url,
+      "https://signed.test/rec.mp3?token=x",
+    );
+    expect(material).toMatchObject({
+      sentences: [
+        { i: 0, start: 0.2, end: 1.1, en: "Hi." },
+        { i: 1, start: 2.5, end: 3.4, en: "Bye." },
+      ],
+      audioUrls: [
+        "https://signed.test/rec.mp3?token=x",
+        "https://signed.test/rec.mp3?token=x",
+      ],
+      audioClips: true,
+    });
+  });
+
+  it("isn't practicable without its signed URL or its times", () => {
+    expect(materialFromCustomPractice(recording, url)).toBeNull();
+    expect(
+      materialFromCustomPractice(
+        {
+          ...recording,
+          practice_sentences: [
+            { ...recording.practice_sentences[0], start_sec: null },
+          ],
+        },
+        url,
+        "https://signed.test/rec.mp3",
+      ),
+    ).toBeNull();
+  });
+
+  it("has nothing to voice", () => {
+    expect(customPracticeReadiness(recording)).toEqual({
+      notesReady: true,
+      voiced: 2,
+      total: 2,
+    });
+  });
+});
+
 describe("getPracticeMaterial", () => {
   it("returns built-in videos without touching the database", async () => {
     expect((await getPracticeMaterial("sintel"))?.title).toBe("Sintel");

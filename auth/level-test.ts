@@ -17,7 +17,9 @@ export async function levelTestSources(): Promise<LevelTestSource[]> {
   if (!supabase) return [];
   const { data } = await supabase
     .from("practices")
-    .select("id, level, youtube_id, practice_sentences(i, en, zh, audio_path)")
+    .select(
+      "id, level, youtube_id, source_audio_path, practice_sentences(i, en, zh, audio_path)",
+    )
     .eq("official", true)
     .eq("published", true)
     .eq("visibility", "public")
@@ -27,7 +29,7 @@ export async function levelTestSources(): Promise<LevelTestSource[]> {
     .order("created_at", { ascending: true })
     .limit(SOURCES);
   return (data ?? []).flatMap((row) =>
-    isLevel(row.level) && !row.youtube_id
+    isLevel(row.level) && !row.youtube_id && !row.source_audio_path
       ? [
           {
             id: customPracticeId(row.id),

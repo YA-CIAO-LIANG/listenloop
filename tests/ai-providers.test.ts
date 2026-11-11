@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { fakeSpeech, fakeLanguage } from "@/lib/ai/fake";
+import { fakeSpeech, fakeLanguage, fakeTranscriber } from "@/lib/ai/fake";
 import { meteredSpeech } from "@/lib/ai/metered";
 import { diagnoseAiProviders, getAiProviders } from "@/lib/ai/providers";
 import en from "@/messages/en.json";
@@ -15,7 +15,11 @@ import { memoryMeter } from "./memory-meter";
 
 const voice = { accent: "gb", gender: "female" } as const;
 
-const fakes: AiProviders = { language: fakeLanguage, speech: fakeSpeech };
+const fakes: AiProviders = {
+  language: fakeLanguage,
+  speech: fakeSpeech,
+  transcribe: fakeTranscriber,
+};
 
 describe("voices", () => {
   it("round-trips voice ids", () => {

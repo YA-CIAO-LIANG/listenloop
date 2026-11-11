@@ -233,7 +233,7 @@ function tokenSubject(header: string | undefined): string | null {
 const cors = {
   "access-control-allow-origin": "*",
   "access-control-allow-headers": "*",
-  "access-control-allow-methods": "GET, POST, PATCH, DELETE, OPTIONS",
+  "access-control-allow-methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
 };
 
 createServer(async (request, response) => {
@@ -256,6 +256,24 @@ createServer(async (request, response) => {
     response
       .writeHead(status, { ...cors, "content-type": "application/json" })
       .end(JSON.stringify(body));
+  // A learner's recording (D130): the server asks for a signed upload URL
+  // (POST), and the browser uploads to it (PUT). Nothing is kept.
+  if (url.pathname.startsWith("/storage/v1/object/upload/sign/uploads/")) {
+    const path = url.pathname.slice("/storage/v1/object/upload/sign/".length);
+    await readBody(request);
+    json(
+      200,
+      request.method === "PUT"
+        ? { Key: path }
+        : { url: `/object/upload/sign/${path}?token=e2e-upload` },
+    );
+    return;
+  }
+  // No speech to text used this month (D130).
+  if (url.pathname === "/rest/v1/rpc/month_audio_ms") {
+    json(200, [{ site: 0, mine: 0 }]);
+    return;
+  }
   // Profiles (D50): the admin account's says so; everyone else is a user.
   if (url.pathname === "/rest/v1/profiles" && request.method === "GET") {
     const sub = tokenSubject(request.headers.authorization);
