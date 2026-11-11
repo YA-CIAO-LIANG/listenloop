@@ -1340,7 +1340,7 @@
       "join": "Join the waitlist",
       "joined": "You're on the waitlist. We'll let you know when the paid plan opens.",
       "failed": "Couldn't join. Try again later.",
-      "longest": "Up to {max} minutes each, and practices from YouTube"
+      "longest": "Up to {max} minutes each, and practices from your own recordings"
     }
   },
   "admin": {
@@ -2641,7 +2641,7 @@
     "perMonthSuffix": " / month",
     "summaries": {
       "free": "Every official lesson and feature, basic stats, and one practice of your own to try (up to 30 seconds).",
-      "plus": "40 minutes of your own practices a month, practices from your own recordings, YouTube practices, playback speed, full stats, and custom pass rules.",
+      "plus": "40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules.",
       "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus."
     },
     "subscribe": "Subscribe to {plan}",

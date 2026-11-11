@@ -104,7 +104,7 @@ export function ConnectionTest({
             <ul className="divide-y divide-line border-y border-line text-supporting">
               {row("language", result.language)}
               {row("speech", result.speech)}
-              {row("youtube", result.youtube)}
+              {result.youtube !== undefined && row("youtube", result.youtube)}
             </ul>
           ) : (
             <p role="alert" className="text-supporting text-error">

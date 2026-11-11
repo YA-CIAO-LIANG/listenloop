@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { recordIntent } from "@/app/intent-actions";
+import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import {
   joinWaitlist as joinWaitlistAction,
   type WaitlistResult,
@@ -35,7 +36,7 @@ const linkClassName =
 const LIMITS = { plus: PLANS.paid, pro: PLANS.pro } as const;
 
 /** The comparison table's rows: what each plan has (D102). */
-const FEATURES = [
+const ALL_FEATURES = [
   "official",
   "shared",
   "create",
@@ -48,6 +49,10 @@ const FEATURES = [
   "priority",
   "batchPdf",
 ] as const;
+/** YouTube links are paused (D131): no row for them. */
+const FEATURES = ALL_FEATURES.filter(
+  (feature) => YOUTUBE_LINK_PRACTICES_ENABLED || feature !== "youtube",
+);
 
 /**
  * Plans and pricing (D102, D105): Free, Plus, and Pro, billed monthly or
@@ -120,7 +125,7 @@ export function PricingPlans({
 
   const cell = (
     plan: "free" | PaidPlan,
-    feature: (typeof FEATURES)[number],
+    feature: (typeof ALL_FEATURES)[number],
   ): string => {
     const limits = plan === "free" ? PLANS.free : LIMITS[plan];
     const yes = t("yes");

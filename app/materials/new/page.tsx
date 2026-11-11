@@ -7,6 +7,7 @@ import { getCreator } from "@/auth/creator";
 import { onWaitlist } from "@/app/plans/actions";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
 import { youtubeEnabled } from "@/auth/youtube";
+import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { PaidPlanCard } from "@/components/PaidPlanCard";
 
 /**
@@ -74,7 +75,8 @@ export default async function NewMaterialPage({
             // Speech to text set up (D130); the plan is checked inside.
             upload={!official && !!creator.providers.transcribe}
             youtube={
-              official
+              // Paused (D131): not even admins see it.
+              official || !YOUTUBE_LINK_PRACTICES_ENABLED
                 ? false
                 : youtubeEnabled()
                   ? true

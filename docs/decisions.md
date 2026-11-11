@@ -2308,3 +2308,17 @@
 - **版權**：上傳的教材一律先存成私人。要設為公開時，必須勾選「我擁有此內容的權利或已取得授權」，伺服器記下時間（`rights_confirmed_at`），沒有勾選資料庫會拒絕。檢舉與下架沿用 D31。服務條款第 4 條、隱私權政策（資料、處理者、保存期間）同步更新。刪除教材或帳號時，錄音檔一起刪除。
 - **目前不支援**：上傳的教材不能用編輯器修改（和 YouTube 教材相同，時間點來自錄音；要改就刪除重做）、不能複製成官方教材、不出現在程度測驗。MP4 裡的 AAC 要瀏覽器能解碼（Chrome、Safari、Edge 可以；少數 Linux 上的 Chromium 不行，會顯示「無法讀取」）。
 - **要改時**：`lib/upload-audio.ts`（限制、切段、組句）、`components/UploadCreate.tsx`、`components/upload/browser-audio.ts`、`app/materials/upload-actions.ts`、`lib/ai/azure-stt.ts`、`lib/ai/metered.ts`（`meteredTranscribe`）、`components/audio/useAudioPlayer.ts`（依時間點播放）；資料表 `supabase/migrations/20261114000000_uploaded_audio.sql`。
+
+## D131 暫停「YouTube 貼連結建立練習」（2026-11-11，Joe 指定）
+
+- **功能開關**：`lib/features.ts` 的 `YOUTUBE_LINK_PRACTICES_ENABLED = false`。程式碼保留，改成 `true` 就恢復（和魚缸的 `AQUARIUM_ENABLED` 同一種做法）。
+- **關閉時**：
+  - 建立教材頁沒有「YouTube 連結」選項，一般使用者與管理員都一樣（D129 的「尚未設定金鑰」提示也不顯示）；
+  - 伺服器端：`getYouTubeLookup` 回傳 null，`lookupYouTube`、`createYouTubePractice` 一律回「無法使用」，就算有人直接呼叫 Server Action 也不能建立；
+  - 定價頁方案比較表沒有「YouTube 建立練習」那一列，Plus 的摘要與升級卡的文字改成「上傳自己的音檔建立」（恢復時要把文字改回來：`plansPage.summaries.plus`、`plans.paid.longest`）；
+  - 後台「付費意願」的來源表不列 `youtube`（資料仍在資料庫，恢復後會再出現）；
+  - 設定診斷不顯示「YouTube 連結建立練習（選用）」，測試連線不測 YouTube Data API；
+  - 使用者手冊拿掉「YouTube 連結」的說明。
+- **不受影響**：已經用 YouTube 連結建立的練習照常練習（播放用 IFrame Player，不需要 YouTube Data API 金鑰）；內建的 YouTube 影片教材（Blender 開放電影）本來就不用這個功能。
+- **`YOUTUBE_API_KEY`**：暫時不需要設定；設了也不會用到。
+- **要改時**：`lib/features.ts`；受影響的地方在 `auth/youtube.ts`、`auth/creator.ts`、`app/admin/usage/actions.ts`、`components/ConnectionTest.tsx`、`app/materials/new/page.tsx`、`components/PricingPlans.tsx`、`app/admin/interest/page.tsx`。

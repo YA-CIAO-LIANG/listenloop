@@ -5,6 +5,7 @@ import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
 import { getAdminUser } from "@/auth/creator";
 import { checkYouTubeConnection } from "@/auth/youtube";
+import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { getUsageSettings } from "@/auth/usage-settings";
 import { parseUsageSettings } from "@/lib/usage";
 import { getAiProviders } from "@/lib/ai/providers";
@@ -15,8 +16,11 @@ export type ConnectionTestResult =
       ok: true;
       language: ConnectionCheck | null;
       speech: ConnectionCheck | null;
-      /** Null without YOUTUBE_API_KEY (D129). */
-      youtube: ConnectionCheck | null;
+      /**
+       * Null without YOUTUBE_API_KEY (D129); absent while YouTube links
+       * are paused (D131).
+       */
+      youtube?: ConnectionCheck | null;
     }
   | { ok: false; reason: "unavailable" | "not-configured" };
 
@@ -34,7 +38,9 @@ export async function testConnections(): Promise<ConnectionTestResult> {
     providers.speech.checkConnection?.() ?? null,
     checkYouTubeConnection(),
   ]);
-  return { ok: true, language, speech, youtube };
+  return YOUTUBE_LINK_PRACTICES_ENABLED
+    ? { ok: true, language, speech, youtube }
+    : { ok: true, language, speech };
 }
 
 export type UsageSettingsResult =

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { ScrollRegion } from "@/components/ScrollRegion";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
@@ -43,7 +44,11 @@ export default async function AdminInterestPage() {
         .order("created_at")
         .limit(20_000)
     : { data: [] };
-  const rows = (data ?? []) as IntentRow[];
+  // While YouTube links are paused (D131), their clicks aren't listed;
+  // the rows stay in the database.
+  const rows = ((data ?? []) as IntentRow[]).filter(
+    (row) => YOUTUBE_LINK_PRACTICES_ENABLED || row.source !== "youtube",
+  );
   const steps = funnel(rows);
   const trend = weeklyTrend(rows, new Date());
   const percent = (n: number) =>
