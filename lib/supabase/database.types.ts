@@ -139,6 +139,7 @@ export type Database = {
       };
       api_calls: {
         Row: {
+          audio_ms: number;
           chars: number;
           cost_micros: number;
           created_at: string;
@@ -154,6 +155,7 @@ export type Database = {
           user_id: string | null;
         };
         Insert: {
+          audio_ms?: number;
           chars?: number;
           cost_micros?: number;
           created_at?: string;
@@ -169,6 +171,7 @@ export type Database = {
           user_id?: string | null;
         };
         Update: {
+          audio_ms?: number;
           chars?: number;
           cost_micros?: number;
           created_at?: string;
@@ -750,8 +753,11 @@ export type Database = {
           published: boolean;
           removed_at: string | null;
           removed_reason: string | null;
+          rights_confirmed_at: string | null;
           scenario: string | null;
           sort_order: number | null;
+          source_audio_path: string | null;
+          source_audio_seconds: number | null;
           source_language: string;
           source_name: string | null;
           source_title: string | null;
@@ -789,8 +795,11 @@ export type Database = {
           published?: boolean;
           removed_at?: string | null;
           removed_reason?: string | null;
+          rights_confirmed_at?: string | null;
           scenario?: string | null;
           sort_order?: number | null;
+          source_audio_path?: string | null;
+          source_audio_seconds?: number | null;
           source_language: string;
           source_name?: string | null;
           source_title?: string | null;
@@ -828,8 +837,11 @@ export type Database = {
           published?: boolean;
           removed_at?: string | null;
           removed_reason?: string | null;
+          rights_confirmed_at?: string | null;
           scenario?: string | null;
           sort_order?: number | null;
+          source_audio_path?: string | null;
+          source_audio_seconds?: number | null;
           source_language?: string;
           source_name?: string | null;
           source_title?: string | null;
@@ -1300,6 +1312,13 @@ export type Database = {
         }[];
       };
       month_api_cost: { Args: { month_start: string }; Returns: number };
+      month_audio_ms: {
+        Args: { month_start: string; target_user: string };
+        Returns: {
+          mine: number;
+          site: number;
+        }[];
+      };
       practice_audio_bytes: {
         Args: { ids: string[] };
         Returns: {

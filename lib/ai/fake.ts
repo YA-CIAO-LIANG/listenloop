@@ -3,9 +3,11 @@ import { countChars } from "@/lib/usage";
 import {
   ProviderError,
   type Billed,
+  type Heard,
   type LanguageProvider,
   type SpeechAudio,
   type SpeechProvider,
+  type TranscribeProvider,
 } from "./types";
 
 /** Free: no tokens, no cost; only the characters sent are counted. */
@@ -277,5 +279,34 @@ export const fakeSpeech: SpeechProvider = {
       },
       [text],
     );
+  },
+};
+
+/** What the fake speech to text "hears", picked by the piece's length. */
+export const FAKE_HEARD = [
+  "Thanks for joining us today.",
+  "We are going to talk about how sleep works.",
+  "Most adults need seven to nine hours a night.",
+  "Let's look at what happens in the brain.",
+] as const;
+
+/**
+ * Speech to text without a network (D130): a sentence from FAKE_HEARD by
+ * the length of the audio (so the same piece gives the same text), heard
+ * across the whole piece; nothing for pieces under a quarter second.
+ */
+export const fakeTranscriber: TranscribeProvider = {
+  id: "fake-stt",
+  checkConnection: async () => ({ ok: true }),
+  async transcribe(_wav, seconds) {
+    const heard: Heard =
+      seconds < 0.25
+        ? { text: "", offset: 0, duration: 0 }
+        : {
+            text: FAKE_HEARD[Math.round(seconds * 10) % FAKE_HEARD.length],
+            offset: 0,
+            duration: seconds,
+          };
+    return free(heard, []);
   },
 };

@@ -44,11 +44,16 @@ export type PracticeMaterial = Pick<
   /** A news material (D100): the release its facts came from. */
   rewrittenFrom?: { name: string; title: string; url: string };
 } & (
-    | { youtubeId: string; audioUrls?: undefined }
+    | { youtubeId: string; audioUrls?: undefined; audioClips?: undefined }
     | {
         youtubeId?: undefined;
         /** One file per sentence, in sentence order. */
         audioUrls: string[];
+        /**
+         * The learner's own recording (D130): every sentence's file is the
+         * same recording, and each plays its start–end in it.
+         */
+        audioClips?: true;
       }
   );
 
@@ -88,6 +93,8 @@ export type CustomPracticeRow = {
   youtube_id?: string | null;
   youtube_channel?: string | null;
   youtube_license?: string | null;
+  /** A practice from the learner's own recording (D130). */
+  source_audio_path?: string | null;
   /** The material's own credit (D118), e.g. a Blender open movie's. */
   attribution?: unknown;
   /** A news material's source (D100). */
@@ -114,8 +121,39 @@ export type CustomPracticeRow = {
 export function materialFromCustomPractice(
   row: CustomPracticeRow,
   audioUrl: (path: string) => string | null,
+  /** The recording's signed URL, for a practice made from one (D130). */
+  recordingUrl: string | null = null,
 ): PracticeMaterial | null {
   const rows = [...row.practice_sentences].sort((a, b) => a.i - b.i);
+  // The learner's own recording (D130): each sentence plays its times.
+  if (row.source_audio_path) {
+    if (rows.length === 0 || !row.notes_generated_at || !recordingUrl) {
+      return null;
+    }
+    if (rows.some((s) => s.start_sec == null || s.end_sec == null)) {
+      return null;
+    }
+    const notes = storedNotes(row.vocab, row.grammar, rows.length);
+    return {
+      id: customPracticeId(row.id),
+      title: practiceTitles(row).en,
+      titleZh: practiceTitles(row).zh,
+      subtitle: row.subtitle ?? null,
+      version: row.version ?? 1,
+      sentences: rows.map((s, i) => ({
+        i,
+        start: Number(s.start_sec),
+        end: Number(s.end_sec),
+        en: s.en,
+        zh: s.zh,
+      })),
+      vocab: notes.vocab,
+      grammar: notes.grammar,
+      richNotes: rows.map((s) => parseRichNotes(s.notes, s.en)),
+      audioUrls: rows.map(() => recordingUrl),
+      audioClips: true,
+    };
+  }
   // A YouTube practice (D97): the video plays each sentence's times.
   if (row.youtube_id) {
     if (rows.length === 0 || !row.notes_generated_at) return null;
@@ -202,14 +240,16 @@ export function customPracticeReadiness(
   row: Pick<
     CustomPracticeRow,
     "notes_generated_at" | "practice_sentences" | "youtube_id"
-  >,
+  > &
+    Pick<CustomPracticeRow, "source_audio_path">,
 ): CustomPracticeReadiness {
   return {
     notesReady: row.notes_generated_at !== null,
-    // A YouTube practice has no audio to make (D97).
-    voiced: row.youtube_id
-      ? row.practice_sentences.length
-      : row.practice_sentences.filter((s) => s.audio_path).length,
+    // A YouTube practice or a recording has no audio to make (D97, D130).
+    voiced:
+      row.youtube_id || row.source_audio_path
+        ? row.practice_sentences.length
+        : row.practice_sentences.filter((s) => s.audio_path).length,
     total: row.practice_sentences.length,
   };
 }

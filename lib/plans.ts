@@ -54,6 +54,14 @@ export type PlanLimits = {
   maxPracticeSeconds: number | null;
   /** May make practices from YouTube videos (D97). */
   youtubePractices: boolean;
+  /** May make practices from their own MP3 or MP4 recording (D130). */
+  uploadAudio: boolean;
+  /**
+   * The largest recording file that may be picked, in MB (D130); the
+   * stored audio is much smaller (lib/upload-audio.ts). null: the
+   * technical cap only.
+   */
+  uploadMegabytes: number | null;
   /** Slower and faster playback of audio practices (D73, D102). */
   playbackSpeed: boolean;
   /** Every chart on the stats page; otherwise the basics (D102). */
@@ -76,6 +84,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     customRules: false,
     maxPracticeSeconds: 30,
     youtubePractices: false,
+    uploadAudio: false,
+    uploadMegabytes: null,
     playbackSpeed: false,
     fullStats: false,
     priority: false,
@@ -93,6 +103,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     customRules: true,
     maxPracticeSeconds: 300,
     youtubePractices: true,
+    uploadAudio: true,
+    uploadMegabytes: 100,
     playbackSpeed: true,
     fullStats: true,
     priority: false,
@@ -110,6 +122,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     customRules: true,
     maxPracticeSeconds: 600,
     youtubePractices: true,
+    uploadAudio: true,
+    uploadMegabytes: 200,
     playbackSpeed: true,
     fullStats: true,
     priority: true,
@@ -126,6 +140,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     customRules: true,
     maxPracticeSeconds: null,
     youtubePractices: true,
+    uploadAudio: true,
+    uploadMegabytes: null,
     playbackSpeed: true,
     fullStats: true,
     priority: true,
@@ -155,6 +171,7 @@ export type PlanAction =
   | { kind: "custom-rules" }
   | { kind: "feature"; feature: "playbackSpeed" | "fullStats" | "batchPdf" }
   | { kind: "youtube-practice" }
+  | { kind: "upload-audio"; bytes?: number }
   | { kind: "practice-seconds"; seconds: number };
 
 /** Why an action isn't allowed: a translation key under plans.limits. */
@@ -230,6 +247,16 @@ export function can(
       return limits.youtubePractices
         ? { ok: true }
         : { ok: false, limit: "youtubePractices" };
+    case "upload-audio":
+      if (!limits.uploadAudio) return { ok: false, limit: "uploadAudio" };
+      return limits.uploadMegabytes !== null &&
+        (action.bytes ?? 0) > limits.uploadMegabytes * 1024 * 1024
+        ? {
+            ok: false,
+            limit: "uploadMegabytes",
+            max: limits.uploadMegabytes,
+          }
+        : { ok: true };
     case "feature":
       return limits[action.feature]
         ? { ok: true }

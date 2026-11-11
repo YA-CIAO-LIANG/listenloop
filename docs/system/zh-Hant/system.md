@@ -49,7 +49,7 @@
 | 練習       | 聽寫、跟讀、重新聽寫、單句重播、循環播放（D90）、音檔調速（D73）、講解（D67、D68）、雙語講義與 PDF                                   | `/videos/<id>`、`/videos/<id>/day/<n>`、`/handout` |
 | 教材庫     | 內建影片＋官方教材，搜尋、分類（最多 5 個）、長度、程度、口音、情境篩選，自動搜尋（D104）、我的預設篩選（D98）                       | 首頁 `/`                                           |
 | 公開教材   | 使用者分享的教材；免費方案只能預覽，付費方案完整練習（D106）                                                                         | `/explore`                                         |
-| 建立教材   | 貼上文字、AI 生成、YouTube 連結（D97）；斷句、翻譯、講解、配音；用指令修改（D96）；編輯與版本（D44、D45）                            | `/materials`、`/materials/new`                     |
+| 建立教材   | 貼上文字、AI 生成、上傳音檔（D130）、YouTube 連結（D97）；斷句、翻譯、講解、配音；用指令修改（D96）；編輯與版本（D44、D45）          | `/materials`、`/materials/new`                     |
 | 進度與分析 | 練習日曆、今日任務、學習進度、學習分析、分數與主題顏色（D75、D93）                                                                   | `/`、`/practices`、`/stats`                        |
 | 複習與提醒 | 我的錯字（間隔複習，D108）、程度測驗（D109）、進步分享卡（D110）、練習提醒（PWA 推播，D111）、離線音檔（D112）、回報教材錯誤（D113） | `/review`、`/level-test`、帳號頁                   |
 | 依主題     | 各類別的公開介紹頁（SEO，D116）                                                                                                      | `/learn`、`/learn/<類別>`                          |
@@ -165,6 +165,7 @@ flowchart LR
 | 跟讀辨識     | Web Speech API（en-US）                                           | 免費、不需錄音上傳；Android 的重複結果另外處理（D89）                                            |
 | 語言模型     | Azure OpenAI gpt-5-mini（Global Standard，UAE North）             | Azure for Students 額度、區域限制下唯一可部署的新模型（D37、D40）；Gemini 保留為備用（D28、D29） |
 | 語音合成     | Azure Speech 神經語音，F0 免費                                    | 每月 50 萬字元免費（D39）；Google TTS 保留為備用                                                 |
+| 語音轉文字   | Azure Speech short audio REST，F0 免費                            | 上傳音檔建立教材（D130）；每月 5 小時免費，全站上限 4.5 小時；uaenorth 沒有 fast transcription   |
 | 結構化輸出   | strict JSON schema                                                | 模型一定照格式回答，程式再逐筆檢查（D40）                                                        |
 | 金流         | `PaymentProvider` 介面＋假的供應者                                | 先驗證付費意願（假門測試），之後換真的供應者不改功能程式（D85、D102）                            |
 | 部署         | Vercel Hobby                                                      | 與 Next.js 整合；函式上限 60 秒，所以長工作拆小批次（D22、D33、D95）                             |

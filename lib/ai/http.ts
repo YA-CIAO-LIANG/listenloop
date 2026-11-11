@@ -35,7 +35,7 @@ export function errorCode(value: unknown): string | undefined {
  */
 export async function postToProvider(
   url: string,
-  init: { headers: Record<string, string>; body: string },
+  init: { headers: Record<string, string>; body: string | Uint8Array },
   fetchImpl: typeof fetch,
   service: string,
 ): Promise<Response> {
@@ -44,7 +44,7 @@ export async function postToProvider(
     response = await fetchImpl(url, {
       method: "POST",
       headers: init.headers,
-      body: init.body,
+      body: init.body as BodyInit,
       signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
     });
   } catch (error) {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { DEFAULT_PADDING, paddedSegment } from "@/lib/player/padding";
 import type { PracticeMaterial } from "@/lib/practice-material";
 import { useAudioPlayer } from "./audio/useAudioPlayer";
@@ -26,7 +26,7 @@ export type SentencePlayer = {
 /**
  * A YouTube video plays each sentence's padded time range
  * (lib/player/padding.ts); a created practice plays each sentence's own
- * audio file. Both hooks are always called (hooks can't be conditional);
+ * audio file, or its times in the learner's recording. Both hooks are always called (hooks can't be conditional);
  * the unused one stays idle: YouTube loads nothing until its frame mounts,
  * and audio has no files.
  */
@@ -35,9 +35,17 @@ export function useSentencePlayer(
   /** Playback speed for audio (D73); YouTube always plays at 1×. */
   rate = 1,
 ): SentencePlayer {
-  const youtube = useYouTubePlayer(material.youtubeId ?? "");
-  const audio = useAudioPlayer(material.audioUrls ?? NO_URLS, rate);
   const { sentences } = material;
+  // A learner's recording plays each sentence's padded times (D130).
+  const clips = useMemo(
+    () =>
+      material.audioClips
+        ? sentences.map((_, i) => paddedSegment(sentences, i, DEFAULT_PADDING))
+        : null,
+    [material.audioClips, sentences],
+  );
+  const youtube = useYouTubePlayer(material.youtubeId ?? "");
+  const audio = useAudioPlayer(material.audioUrls ?? NO_URLS, rate, clips);
   const { playSegment } = youtube;
 
   const playYouTubeSentence = useCallback(

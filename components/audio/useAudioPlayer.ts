@@ -26,6 +26,11 @@ export type AudioPlayerApi = {
 export function useAudioPlayer(
   urls: readonly string[],
   rate = 1,
+  /**
+   * A learner's recording (D130): every url is the same file, and
+   * sentence i plays clips[i] in it instead of the whole file.
+   */
+  clips: readonly { start: number; end: number }[] | null = null,
 ): AudioPlayerApi {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   // Bumped by every play or stop, so a stale "ended" never fires onEnd.
@@ -71,7 +76,8 @@ export function useAudioPlayer(
 
   // Every sentence, cached ahead by the service worker (production only).
   useEffect(() => {
-    if (urls.length === 0 || !("serviceWorker" in navigator)) return;
+    // A recording's signed URL changes every page load (D130): not kept.
+    if (clips || urls.length === 0 || !("serviceWorker" in navigator)) return;
     const absolute = urls.map((url) => new URL(url, window.location.href).href);
     navigator.serviceWorker.ready
       .then((registration) =>
@@ -81,7 +87,7 @@ export function useAudioPlayer(
         }),
       )
       .catch(() => {});
-  }, [urls]);
+  }, [urls, clips]);
 
   // The next sentence's file, loaded in the background.
   const preloader = useRef<HTMLAudioElement | null>(null);
@@ -98,10 +104,14 @@ export function useAudioPlayer(
     [urls],
   );
 
+  // Watches a clip's end while it plays (timeupdate is too coarse).
+  const clipWatch = useRef(0);
   const stop = useCallback(() => {
     playToken.current++;
+    cancelAnimationFrame(clipWatch.current);
     audioRef.current?.pause();
   }, []);
+  useEffect(() => () => cancelAnimationFrame(clipWatch.current), []);
 
   const playSentence = useCallback(
     (index: number, onEnd?: () => void) => {
@@ -113,19 +123,34 @@ export function useAudioPlayer(
       if (audio.src !== new URL(url, window.location.href).href) {
         audio.src = url;
       }
-      audio.currentTime = 0;
+      const clip = clips?.[index] ?? null;
+      audio.currentTime = clip ? clip.start : 0;
       // Set on every play: a new source resets the rate in some browsers.
       audio.preservesPitch = true;
       audio.defaultPlaybackRate = rate;
       audio.playbackRate = rate;
-      audio.addEventListener(
-        "ended",
-        () => {
-          if (playToken.current === token) onEnd?.();
-        },
-        { once: true },
-      );
-      preload(index);
+      cancelAnimationFrame(clipWatch.current);
+      if (clip) {
+        const watch = () => {
+          if (playToken.current !== token) return;
+          if (audio.currentTime >= clip.end || audio.ended) {
+            audio.pause();
+            onEnd?.();
+            return;
+          }
+          clipWatch.current = requestAnimationFrame(watch);
+        };
+        clipWatch.current = requestAnimationFrame(watch);
+      } else {
+        audio.addEventListener(
+          "ended",
+          () => {
+            if (playToken.current === token) onEnd?.();
+          },
+          { once: true },
+        );
+        preload(index);
+      }
       audio.play().catch((error: unknown) => {
         // A newer play() or stop() interrupts this one: not an error.
         if (error instanceof DOMException && error.name === "AbortError") {
@@ -134,7 +159,7 @@ export function useAudioPlayer(
         console.error("[Audio] play failed", error);
       });
     },
-    [urls, rate, preload],
+    [urls, rate, preload, clips],
   );
 
   return {

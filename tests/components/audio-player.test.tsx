@@ -58,6 +58,40 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
+describe("useAudioPlayer with a recording's clips (D130)", () => {
+  it("plays a sentence from its start and stops at its end", async () => {
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal("requestAnimationFrame", (cb: FrameRequestCallback) => {
+      frames.push(cb);
+      return frames.length;
+    });
+    vi.stubGlobal("cancelAnimationFrame", () => {});
+    const recording = "https://signed.test/rec.mp3";
+    const clips = [
+      { start: 0.1, end: 1.4 },
+      { start: 2.35, end: 3.65 },
+    ];
+    const { result } = renderHook(() =>
+      useAudioPlayer([recording, recording], 1, clips),
+    );
+    const audio = FakeAudio.last;
+    const pause = vi.spyOn(audio, "pause");
+    const onEnd = vi.fn();
+    act(() => result.current.playSentence(1, onEnd));
+    expect(audio.currentTime).toBe(2.35);
+    expect(audio.plays).toEqual([recording]);
+    // Still inside the clip: keeps playing.
+    audio.currentTime = 3;
+    act(() => frames.shift()!(0));
+    expect(onEnd).not.toHaveBeenCalled();
+    // Past its end: stops there.
+    audio.currentTime = 3.7;
+    act(() => frames.shift()!(0));
+    expect(pause).toHaveBeenCalled();
+    expect(onEnd).toHaveBeenCalledTimes(1);
+  });
+});
+
 describe("useAudioPlayer", () => {
   it("is ready once the first file's metadata loads", () => {
     const { result } = renderHook(() => useAudioPlayer(urls));

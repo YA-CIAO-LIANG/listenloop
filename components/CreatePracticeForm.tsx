@@ -62,6 +62,7 @@ import { SpeakerToggle } from "./SpeakerToggle";
 import type { MaterialMeta } from "@/lib/custom-practice/generation";
 import { SegmentedControl } from "./SegmentedControl";
 import { RevisePanel, type ReviseText } from "./RevisePanel";
+import { UploadCreate } from "./UploadCreate";
 import { YouTubeCreate } from "./YouTubeCreate";
 import { StageProgress } from "./StageProgress";
 import { UNDO_STEPS } from "@/lib/custom-practice/revise";
@@ -80,6 +81,11 @@ type CreatePracticeFormProps = {
    * setting it up (D129); learners don't see it at all.
    */
   youtube?: boolean | "no-key";
+  /**
+   * Offer making a practice from the learner's own recording (D130),
+   * when speech to text is set up.
+   */
+  upload?: boolean;
   create?: (draft: {
     titleEn: string;
     titleZh: string;
@@ -137,6 +143,7 @@ export function CreatePracticeForm({
   describe = describeDraft,
   official = false,
   youtube = false,
+  upload = false,
 }: CreatePracticeFormProps) {
   const tPlans = useTranslations("plans");
   const tSpeakers = useTranslations("speakers");
@@ -146,7 +153,9 @@ export function CreatePracticeForm({
 
   const tGenerate = useTranslations("generate");
   // Paste or upload text, or have it written (e+ 5).
-  const [source, setSource] = useState<"text" | "ai" | "youtube">("text");
+  const [source, setSource] = useState<"text" | "ai" | "youtube" | "upload">(
+    "text",
+  );
   // Both titles and the subtitle (D83): typed ones are kept exactly.
   const [titleEn, setTitleEn] = useState("");
   const [titleZh, setTitleZh] = useState("");
@@ -747,8 +756,9 @@ export function CreatePracticeForm({
 
   return (
     <div className="space-y-6">
-      {/* The title first (D82), then where the text comes from. */}
-      {titleField}
+      {/* The title first (D82), then where the text comes from; a video
+          or a recording has its titles with its sentences. */}
+      {source !== "youtube" && source !== "upload" && titleField}
       <div className="space-y-2">
         <p aria-hidden="true" className="font-medium">
           {tGenerate("sourceLegend")}
@@ -759,6 +769,15 @@ export function CreatePracticeForm({
           options={[
             { value: "text", label: tGenerate("sources.text") },
             { value: "ai", label: tGenerate("sources.ai") },
+            // From the learner's own recording (D130), when it's set up.
+            ...(upload
+              ? [
+                  {
+                    value: "upload" as const,
+                    label: tGenerate("sources.upload"),
+                  },
+                ]
+              : []),
             // From a YouTube video (D97), when it's set up.
             ...(youtube
               ? [
@@ -776,7 +795,9 @@ export function CreatePracticeForm({
           optionWidthClassName="min-w-16"
         />
       </div>
-      {source === "youtube" ? (
+      {source === "upload" ? (
+        <UploadCreate />
+      ) : source === "youtube" ? (
         youtube === "no-key" ? (
           <div
             role="note"

@@ -46,7 +46,7 @@ async function listPractices({
     supabase
       .from("practices")
       .select(
-        "id, title, title_en, title_zh, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, youtube_id, duration_sec",
+        "id, title, title_en, title_zh, subtitle, source_language, voice, created_at, category, scenario, exam, exam_target, level, sort_order, youtube_id, source_audio_path, duration_sec",
       )
       .eq("visibility", "public")
       // Authors can still read their own taken-down practices (D31).
@@ -88,7 +88,9 @@ async function listPractices({
     // A YouTube practice (D97) plays the video: no audio files to wait for.
     const ready =
       sentenceCount > 0 &&
-      (row.youtube_id !== null || count?.voiced === sentenceCount);
+      (row.youtube_id !== null ||
+        Boolean(row.source_audio_path) ||
+        count?.voiced === sentenceCount);
     if (!ready || !isTextSourceLanguage(row.source_language)) return [];
     return [
       {

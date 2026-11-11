@@ -40,6 +40,7 @@ const FEATURES = [
   "shared",
   "create",
   "longest",
+  "upload",
   "youtube",
   "speed",
   "stats",
@@ -140,6 +141,10 @@ export function PricingPlans({
           ? t("seconds", { n: seconds })
           : t("minutes", { n: seconds / 60 });
       }
+      case "upload":
+        return limits.uploadAudio
+          ? t("uploadSize", { mb: limits.uploadMegabytes ?? 0 })
+          : no;
       case "youtube":
         return limits.youtubePractices ? yes : no;
       case "speed":

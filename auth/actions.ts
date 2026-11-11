@@ -1,6 +1,6 @@
 "use server";
 
-import { audioOnlyFor, removeAudio } from "./account-data";
+import { audioOnlyFor, removeAudio, removeUploads } from "./account-data";
 import { getAdminSupabase } from "./admin";
 import { logEvent } from "./events";
 import { userNumberLabel } from "@/lib/accounts";
@@ -29,6 +29,10 @@ export async function deleteAccount(): Promise<DeleteAccountResult> {
   if (error) return { ok: false, reason: "failed" };
   await removeAudio(admin, audio).catch((e: unknown) =>
     console.error(`[account] audio not removed: ${String(e)}`),
+  );
+  // Their own recordings (D130), all in their folder.
+  await removeUploads(admin, user.id).catch((e: unknown) =>
+    console.error(`[account] recordings not removed: ${String(e)}`),
   );
   // The account's own events went with it; this one keeps only its number.
   await logEvent(null, {

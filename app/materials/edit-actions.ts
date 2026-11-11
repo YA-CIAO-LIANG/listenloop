@@ -70,14 +70,15 @@ export async function savePracticeEdit(
   const { data: practice, error } = await supabase
     .from("practices")
     .select(
-      "voice, voice_b, version, source_language, youtube_id, practice_sentences(i, en, audio_path, notes, speaker)",
+      "voice, voice_b, version, source_language, youtube_id, source_audio_path, practice_sentences(i, en, audio_path, notes, speaker)",
     )
     .eq("id", practiceId)
     .eq("user_id", creator.user.id)
     .maybeSingle();
   if (error) return { ok: false, reason: "failed" };
-  // A YouTube practice can't be edited (D97): its times come from the video.
-  if (!practice || practice.youtube_id) {
+  // A YouTube practice or a recording can't be edited (D97, D130): its
+  // times come from the video or the recording.
+  if (!practice || practice.youtube_id || practice.source_audio_path) {
     return { ok: false, reason: "not-found" };
   }
 

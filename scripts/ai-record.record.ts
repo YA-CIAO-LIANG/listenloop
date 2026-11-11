@@ -13,7 +13,7 @@
  * set, so /admin/usage counts it against the credit.
  */
 import { LEVEL_PROMPTS } from "@/lib/categories";
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import { expect, it } from "vitest";
@@ -24,6 +24,7 @@ import {
   azureUsage,
 } from "@/lib/ai/azure-openai";
 import { azureSpeech } from "@/lib/ai/azure-speech";
+import { azureTranscriber } from "@/lib/ai/azure-stt";
 import {
   annotateBudget,
   composeBudget,
@@ -46,6 +47,9 @@ import { type CompositionPrompt } from "@/lib/custom-practice/generation";
 import { countChars } from "@/lib/usage";
 
 export const FIXTURE_DIR = join(process.cwd(), "tests", "fixtures", "ai");
+
+/** How long tests/fixtures/ai/azure-speech/transcribe-sample.wav is. */
+export const TRANSCRIBE_SAMPLE_SECONDS = 6.53;
 
 const translateInput = ["你好，很高興認識你。"];
 const annotateInput = [
@@ -102,7 +106,12 @@ function recordingFetch() {
   const impl: typeof fetch = async (input, init) => {
     const response = await fetch(input, init);
     const copy = response.clone();
-    const body = typeof init?.body === "string" ? init.body : "";
+    const body =
+      typeof init?.body === "string"
+        ? init.body
+        : init?.body instanceof Uint8Array
+          ? `<audio, ${init.body.byteLength} bytes>`
+          : "";
     const type = response.headers.get("content-type") ?? "";
     if (type.includes("json")) {
       exchanges.push({
@@ -142,8 +151,22 @@ it("records the Azure fixtures", async () => {
     recorder.impl,
   );
 
+  // D130: a 6.5-second clip made with macOS `say` (our own voice sample).
+  const transcriber = azureTranscriber(
+    env("AZURE_SPEECH_KEY"),
+    env("AZURE_SPEECH_REGION"),
+    recorder.impl,
+  );
+  const transcribeSample = join(
+    FIXTURE_DIR,
+    "azure-speech",
+    "transcribe-sample.wav",
+  );
+
   const calls: {
     file: string;
+    /** Speech to text: seconds of audio (free on F0, D130). */
+    audioSeconds?: number;
     budget?: LanguageBudget;
     chars: number;
     run: () => Promise<Billed<unknown>>;
@@ -241,6 +264,16 @@ it("records the Azure fixtures", async () => {
       chars: countChars([speechInput]),
       run: () => speech.synthesize(speechInput, speechVoice),
     },
+    {
+      file: "azure-speech/transcribe.json",
+      chars: 0,
+      audioSeconds: TRANSCRIBE_SAMPLE_SECONDS,
+      run: () =>
+        transcriber.transcribe(
+          new Uint8Array(readFileSync(transcribeSample)),
+          TRANSCRIBE_SAMPLE_SECONDS,
+        ),
+    },
   ];
 
   const force = env("AI_RECORD_FORCE") === "1";
@@ -258,9 +291,10 @@ it("records the Azure fixtures", async () => {
   console.log(
     `${todo.length} calls to make (${calls.length - todo.length} already recorded): ` +
       `${todo.filter((c) => c.budget).length} Azure OpenAI (${model}), worst case US$${(worst / 1e6).toFixed(4)}; ` +
-      `${todo.filter((c) => !c.budget).length} Azure Speech, ${todo
+      `${todo.filter((c) => !c.budget && !c.audioSeconds).length} Azure Speech, ${todo
         .filter((c) => !c.budget)
-        .reduce((sum, c) => sum + c.chars, 0)} characters (free on F0).`,
+        .reduce((sum, c) => sum + c.chars, 0)} characters (free on F0); ` +
+      `${todo.filter((c) => c.audioSeconds).length} speech to text, ${todo.reduce((sum, c) => sum + (c.audioSeconds ?? 0), 0)} s (free on F0).`,
   );
   if (env("AI_RECORD_YES") !== "1") {
     console.log("Dry run: nothing called. Set AI_RECORD_YES=1 to record.");
@@ -284,13 +318,20 @@ it("records the Azure fixtures", async () => {
     const path = join(FIXTURE_DIR, call.file);
     mkdirSync(join(path, ".."), { recursive: true });
     writeFileSync(path, JSON.stringify(exchange, null, 2) + "\n");
-    if (!call.budget) {
+    if (!call.budget && !call.audioSeconds) {
       writeFileSync(path.replace(/\.json$/, ".mp3"), recorder.audio.at(-1)!);
     }
     await supabase?.from("api_calls").insert({
       user_id: null,
-      provider: call.budget ? language.id : speech.id,
-      operation: call.budget?.operation ?? "speech",
+      provider: call.budget
+        ? language.id
+        : call.audioSeconds
+          ? transcriber.id
+          : speech.id,
+      operation:
+        call.budget?.operation ?? (call.audioSeconds ? "transcribe" : "speech"),
+      http_status: 200,
+      audio_ms: Math.round((call.audioSeconds ?? 0) * 1000),
       error: null,
       input_tokens: usage.inputTokens,
       output_tokens: usage.outputTokens,

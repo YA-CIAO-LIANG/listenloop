@@ -63,7 +63,7 @@ export async function setOfficialState(
     const { data: practice } = await admin
       .from("practices")
       .select(
-        "user_id, official, published, notes_generated_at, removed_at, youtube_id, practice_sentences(audio_path, start_sec, end_sec)",
+        "user_id, official, published, notes_generated_at, removed_at, youtube_id, source_audio_path, practice_sentences(audio_path, start_sec, end_sec)",
       )
       .eq("id", practiceId)
       .maybeSingle();
@@ -85,7 +85,7 @@ export async function setOfficialState(
         practice.notes_generated_at !== null &&
         sentences.length > 0 &&
         sentences.every((s) =>
-          practice.youtube_id
+          practice.youtube_id || practice.source_audio_path
             ? s.start_sec !== null && s.end_sec !== null
             : s.audio_path,
         );

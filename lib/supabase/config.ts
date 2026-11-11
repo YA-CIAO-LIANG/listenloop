@@ -48,6 +48,12 @@ export const accountsEnabled = supabaseConfig !== null;
 /** The Storage bucket with generated speech (docs/decisions.md D22). */
 export const SPEECH_BUCKET = "speech";
 
+/**
+ * The private bucket with learners' own recordings (D130): read through
+ * signed URLs only.
+ */
+export const UPLOADS_BUCKET = "uploads";
+
 /** The public URL of a generated audio file, or null without Supabase. */
 export function speechAudioUrl(
   path: string,

@@ -4,6 +4,7 @@ import {
   type ConfigCheck,
 } from "@/lib/ai/providers";
 import type { MeteredDeps } from "@/lib/ai/metered";
+import { TRANSCRIBE_MONTHLY_SECONDS } from "@/lib/ai/pricing";
 import { can, planFor } from "@/lib/plans";
 import { supabaseConfig } from "@/lib/supabase/config";
 import {
@@ -106,6 +107,22 @@ export function supabaseUsageMeter(
       if (error) throw new Error(error.message);
     },
     lastBlock: () => block,
+    async allowAudio(ms, userMaxMs) {
+      const month = usageMonth(started);
+      const { data, error } = await admin.rpc("month_audio_ms", {
+        month_start: month.start.toISOString(),
+        target_user: userId,
+      });
+      if (error) throw new Error(error.message);
+      const used = data?.[0] ?? { site: 0, mine: 0 };
+      if (used.site + ms > TRANSCRIBE_MONTHLY_SECONDS * 1000) {
+        return blocked("monthly", month.next);
+      }
+      if (userMaxMs !== null && used.mine + ms > userMaxMs) {
+        return blocked("monthly", month.next);
+      }
+      return true;
+    },
     async log(entry) {
       const { error } = await admin.from("api_calls").insert({
         user_id: userId,
@@ -119,6 +136,7 @@ export function supabaseUsageMeter(
         output_tokens: entry.outputTokens,
         chars: entry.chars,
         cost_micros: entry.costMicros,
+        audio_ms: entry.audioMs ?? 0,
       });
       if (error) throw new Error(error.message);
     },
@@ -177,6 +195,14 @@ export function diagnoseCreator(user: SignedInUser | null) {
       { id: "account" as const, vendor: null, checks: account },
       { id: "language" as const, ...withChoice("languageChoice", ai.language) },
       { id: "speech" as const, ...withChoice("speechChoice", ai.speech) },
+      // Optional (D130): uploaded recordings need speech to text, with
+      // Azure Speech's key and region; it doesn't decide `ready`.
+      {
+        id: "transcribe" as const,
+        ...(ai.fake === "on"
+          ? { vendor: "fake" as const, checks: [{ id: "fakeInUse", ok: true }] }
+          : { vendor: "azure" as const, checks: ai.transcribe.checks }),
+      },
       // Optional (D129): only YouTube practices need it, so it doesn't
       // decide `ready`.
       {
