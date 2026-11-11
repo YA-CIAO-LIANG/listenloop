@@ -8,6 +8,13 @@ import {
   youtubeEnabled,
 } from "@/auth/youtube";
 import { parseYouTubeTranscript } from "@/lib/draft-video";
+
+// These tests are about the feature itself, so it's on here; it's paused
+// on the site (D131, tests/youtube-paused.test.ts).
+vi.mock("@/lib/features", async (original) => ({
+  ...(await original<typeof import("@/lib/features")>()),
+  YOUTUBE_LINK_PRACTICES_ENABLED: true,
+}));
 import { materialFromCustomPractice } from "@/lib/practice-material";
 import {
   excerptSeconds,

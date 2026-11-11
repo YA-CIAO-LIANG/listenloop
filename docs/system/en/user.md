@@ -159,7 +159,7 @@ Header "My materials" → "Create". The free plan tries one (up to 30 seconds); 
 
 ```mermaid
 flowchart LR
-  A["Source\npasted text / AI writing / audio upload / YouTube link"] --> B["Split and translate"]
+  A["Source\npasted text / AI writing / audio upload"] --> B["Split and translate"]
   B --> C["Review sentences\nedit, merge, split, revise by instruction"]
   C --> D["Choose voices → Create"]
   D --> E["Notes and audio finish\n(you can leave the page)"]
@@ -169,11 +169,10 @@ flowchart LR
 1. **Pasted text**: English or Chinese (Chinese is translated into English to practice). Start dialogue lines with "A:" and "B:" for two voices.
 2. **AI writing**: title (optional; used as is), category, scenario, level, length, accent, and "What do you want to practice?".
 3. **Upload audio** (Plus and above): choose your own English MP3 or MP4 (Plus: up to 100 MB and 5 minutes a file; Pro: 200 MB and 10 minutes). For a video, only the sound is taken out, in your browser; the picture is never uploaded. AI writes it down with each sentence's times; you can play each sentence, fix its words and times, join or remove sentences, then translate and create. Practicing plays your original recording. It starts private; to share it, you must confirm you own the recording or have permission.
-4. **YouTube link** (Plus and above): paste the address, then the text copied from YouTube's "Show transcript". Only Creative Commons videos can be shared publicly.
-5. **Review sentences**: edit English and Chinese, merge, split; or type an instruction like "use simpler words" and "Undo" if you don't like it.
-6. **Voices**: American, British, Australian, Indian; female and male; try each one.
-7. **After creating**: you see an estimate; if it's over a minute you can leave and find it in My materials later. If it stopped, "Finish preparing".
-8. **Later**: edit (only changed sentences are redone), group, share publicly, delete. A week in progress keeps the version it started with.
+4. **Review sentences**: edit English and Chinese, merge, split; or type an instruction like "use simpler words" and "Undo" if you don't like it.
+5. **Voices**: American, British, Australian, Indian; female and male; try each one.
+6. **After creating**: you see an estimate; if it's over a minute you can leave and find it in My materials later. If it stopped, "Finish preparing".
+7. **Later**: edit (only changed sentences are redone), group, share publicly, delete. A week in progress keeps the version it started with.
 
 ---
 
@@ -192,7 +191,7 @@ flowchart LR
 | Plan  | Price (monthly / yearly)                            | What's included                                                                                                                                   |
 | ----- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Free  | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, one material of your own (30 seconds), basic stats |
-| Plus  | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, YouTube, speed, full stats, custom pass rules           |
+| Plus  | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                    |
 | Pro   | NT$299 / NT$2,990                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                           |
 | Class | NT$499 / NT$4,990 (priority list NT$349 / NT$3,490) | 40 students a class, assignments and progress, CSV, announcements, 160 minutes a month for the teacher                                            |
 

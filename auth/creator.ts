@@ -5,6 +5,7 @@ import {
 } from "@/lib/ai/providers";
 import type { MeteredDeps } from "@/lib/ai/metered";
 import { TRANSCRIBE_MONTHLY_SECONDS } from "@/lib/ai/pricing";
+import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { can, planFor } from "@/lib/plans";
 import { supabaseConfig } from "@/lib/supabase/config";
 import {
@@ -203,13 +204,16 @@ export function diagnoseCreator(user: SignedInUser | null) {
           ? { vendor: "fake" as const, checks: [{ id: "fakeInUse", ok: true }] }
           : { vendor: "azure" as const, checks: ai.transcribe.checks }),
       },
-      // Optional (D129): only YouTube practices need it, so it doesn't
-      // decide `ready`.
-      {
-        id: "youtube" as const,
-        vendor: null,
-        checks: [{ id: "youtubeKey", ok: youtubeEnabled() }],
-      },
+      // Optional (D129), and hidden while YouTube links are paused (D131).
+      ...(YOUTUBE_LINK_PRACTICES_ENABLED
+        ? [
+            {
+              id: "youtube" as const,
+              vendor: null,
+              checks: [{ id: "youtubeKey", ok: youtubeEnabled() }],
+            },
+          ]
+        : []),
     ],
   };
 }

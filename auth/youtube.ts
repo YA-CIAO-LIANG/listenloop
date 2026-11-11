@@ -1,4 +1,5 @@
 import { probeProvider } from "@/lib/ai/http";
+import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { readEnv } from "@/lib/ai/providers";
 import type { ConnectionCheck } from "@/lib/ai/types";
 import {
@@ -43,8 +44,15 @@ export const FAKE_VIDEOS: Record<string, YouTubeVideoInfo> = {
   },
 };
 
+/**
+ * Whether YouTube link practices can be made: the feature is on (D131)
+ * and there's a key (or the fake).
+ */
 export function youtubeEnabled(): boolean {
-  return process.env.YOUTUBE_PROVIDER === "fake" || !!youtubeKey();
+  return (
+    YOUTUBE_LINK_PRACTICES_ENABLED &&
+    (process.env.YOUTUBE_PROVIDER === "fake" || !!youtubeKey())
+  );
 }
 
 /** The key, tidied like the AI keys (full-width, quotes, D47). */
@@ -64,6 +72,7 @@ export const PROBE_VIDEO_ID = "eRsGyueVLvQ";
 export async function checkYouTubeConnection(
   fetchImpl: typeof fetch = fetch,
 ): Promise<ConnectionCheck | null> {
+  if (!YOUTUBE_LINK_PRACTICES_ENABLED) return null;
   if (process.env.YOUTUBE_PROVIDER === "fake") return { ok: true };
   const key = youtubeKey();
   if (!key) return null;
@@ -108,6 +117,8 @@ export function videoFromApi(
 export function getYouTubeLookup(
   fetchImpl: typeof fetch = fetch,
 ): YouTubeLookup | null {
+  // Paused (D131): the server actions answer "unavailable".
+  if (!YOUTUBE_LINK_PRACTICES_ENABLED) return null;
   if (process.env.YOUTUBE_PROVIDER === "fake") {
     return async (id) => FAKE_VIDEOS[id] ?? null;
   }
