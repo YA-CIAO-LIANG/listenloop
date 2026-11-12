@@ -1342,6 +1342,45 @@ export type Database = {
         };
         Relationships: [];
       };
+      vocab_quiz_attempts: {
+        Row: {
+          day: number;
+          hints_used: number;
+          id: string;
+          spelling_correct: number;
+          taken_at: string;
+          total: number;
+          translation_correct: number;
+          user_id: string;
+          video_id: string;
+          words: Json;
+        };
+        Insert: {
+          day: number;
+          hints_used: number;
+          id?: string;
+          spelling_correct: number;
+          taken_at?: string;
+          total: number;
+          translation_correct: number;
+          user_id?: string;
+          video_id: string;
+          words: Json;
+        };
+        Update: {
+          day?: number;
+          hints_used?: number;
+          id?: string;
+          spelling_correct?: number;
+          taken_at?: string;
+          total?: number;
+          translation_correct?: number;
+          user_id?: string;
+          video_id?: string;
+          words?: Json;
+        };
+        Relationships: [];
+      };
       waitlist: {
         Row: {
           billing_period: string | null;

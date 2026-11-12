@@ -1,3 +1,5 @@
+import { reviewKey } from "./review";
+import { quizAccuracy } from "./vocab-quiz";
 import type { Activity } from "./activity";
 import { missedPieces, missedWords } from "./custom-practice/marks";
 import { officialScore } from "./cycle";
@@ -244,4 +246,62 @@ export function siteActivity(
     averageMinutes: learnerDays === 0 ? 0 : minutes / learnerDays,
     accuracy: n === 0 ? null : { raw: raw / n, weighted: weighted / n, n },
   };
+}
+
+/** One vocabulary quiz on the stats trend (D136). */
+export type QuizPoint = {
+  takenAt: string;
+  videoId: string;
+  day: 1 | 7;
+  accuracy: number;
+};
+
+/** Each quiz's accuracy (both steps of every word), oldest first. */
+export function quizTrend(
+  attempts: readonly {
+    takenAt: string;
+    videoId: string;
+    day: 1 | 7;
+    total: number;
+    spelled: number;
+    translated: number;
+  }[],
+): QuizPoint[] {
+  return [...attempts]
+    .sort((a, b) => a.takenAt.localeCompare(b.takenAt))
+    .map((a) => ({
+      takenAt: a.takenAt,
+      videoId: a.videoId,
+      day: a.day,
+      accuracy: quizAccuracy(a),
+    }));
+}
+
+/**
+ * Words mastered (D136): those whose latest quiz had both steps right
+ * with no hint.
+ */
+export function wordsMastered(
+  attempts: readonly {
+    takenAt: string;
+    words: readonly {
+      word: string;
+      spelled: boolean;
+      translated: boolean;
+      hints: number;
+    }[];
+  }[],
+): number {
+  const latest = new Map<string, boolean>();
+  for (const attempt of [...attempts].sort((a, b) =>
+    a.takenAt.localeCompare(b.takenAt),
+  )) {
+    for (const word of attempt.words) {
+      latest.set(
+        reviewKey(word.word),
+        word.spelled && word.translated && word.hints === 0,
+      );
+    }
+  }
+  return [...latest.values()].filter(Boolean).length;
 }

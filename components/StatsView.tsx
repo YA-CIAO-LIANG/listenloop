@@ -21,6 +21,7 @@ import { PairedBars } from "./charts/PairedBars";
 import { TrendChart } from "./charts/TrendChart";
 import { ButtonLink } from "./ButtonLink";
 import { usePlan } from "./PlanProvider";
+import { QuizStats } from "./QuizStats";
 import { ScoreSection } from "./ScoreSection";
 import { can } from "@/lib/plans";
 import { SegmentedControl } from "./SegmentedControl";
@@ -153,6 +154,9 @@ export function StatsView({
           tickEvery={range === "week" ? 1 : 5}
         />
       </ChartFrame>
+
+      {/* The vocabulary quiz (D136). */}
+      <QuizStats full={full} titleOf={titleOf} />
 
       {full ? (
         <>

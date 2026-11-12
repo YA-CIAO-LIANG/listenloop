@@ -43,6 +43,10 @@ export type PracticeMaterial = Pick<
   official?: boolean;
   /** A news material (D100): the release its facts came from. */
   rewrittenFrom?: { name: string; title: string; url: string };
+  /** A created practice's voice, e.g. "us-female" (word audio, D136). */
+  voice?: string | null;
+  /** A built-in video's main accent (D71). */
+  accent?: string;
 } & (
     | { youtubeId: string; audioUrls?: undefined; audioClips?: undefined }
     | {
@@ -95,6 +99,8 @@ export type CustomPracticeRow = {
   youtube_license?: string | null;
   /** A practice from the learner's own recording (D130). */
   source_audio_path?: string | null;
+  /** The voice it was read in (D25); none for videos and recordings. */
+  voice?: string | null;
   /** The material's own credit (D118), e.g. a Blender open movie's. */
   attribution?: unknown;
   /** A news material's source (D100). */
@@ -216,6 +222,7 @@ export function materialFromCustomPractice(
     grammar: notes.grammar,
     richNotes: rows.map((s) => parseRichNotes(s.notes, s.en)),
     audioUrls,
+    voice: row.voice ?? null,
     ...(row.source_name && row.source_title && row.source_url
       ? {
           rewrittenFrom: {

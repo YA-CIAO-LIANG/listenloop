@@ -24,6 +24,7 @@ export async function exportAccountData(admin: Supabase, userId: string) {
     feedback,
     reports,
     calls,
+    quizzes,
   ] = await Promise.all([
     own("profiles"),
     own("progress"),
@@ -43,6 +44,7 @@ export async function exportAccountData(admin: Supabase, userId: string) {
         "created_at, provider, operation, input_tokens, output_tokens, chars, cost_micros, error",
       )
       .eq("user_id", userId),
+    own("vocab_quiz_attempts"),
   ]);
   return {
     exportedAt: new Date().toISOString(),
@@ -56,6 +58,7 @@ export async function exportAccountData(admin: Supabase, userId: string) {
     feedback: feedback.data ?? [],
     reportsYouMade: reports.data ?? [],
     apiUsage: calls.data ?? [],
+    vocabQuizzes: quizzes.data ?? [],
   };
 }
 

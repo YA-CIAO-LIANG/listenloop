@@ -297,6 +297,13 @@ createServer(async (request, response) => {
     response.writeHead(201, cors).end();
     return;
   }
+  // Vocabulary quizzes (D136): saved, nothing kept; none to list.
+  if (url.pathname === "/rest/v1/vocab_quiz_attempts") {
+    await readBody(request);
+    if (request.method === "POST") response.writeHead(201, cors).end();
+    else json(200, []);
+    return;
+  }
   // No speech to text used this month (D130).
   if (url.pathname === "/rest/v1/rpc/month_audio_ms") {
     json(200, [{ site: 0, mine: 0 }]);

@@ -24,7 +24,7 @@ export const REVIEW_PER_DAY = 10;
 export const REVIEW_MIN_LETTERS = 3;
 
 /** Common words a blank can't test: almost any sentence would fit them. */
-const SKIP_WORDS = new Set([
+export const REVIEW_SKIP_WORDS: readonly string[] = [
   "the",
   "and",
   "but",
@@ -37,7 +37,8 @@ const SKIP_WORDS = new Set([
   "its",
   "our",
   "not",
-]);
+];
+const SKIP_WORDS = new Set(REVIEW_SKIP_WORDS);
 
 /** Where the word was misheard: enough to review it later. */
 export type ReviewSource = {

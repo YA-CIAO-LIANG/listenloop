@@ -39,6 +39,8 @@ const db = vi.hoisted(() => ({
   reserve: true,
 }));
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn(), updateTag: vi.fn() }));
+const pregenerate = vi.hoisted(() => vi.fn(async () => ({ made: 0 })));
+vi.mock("@/auth/word-audio", () => ({ pregenerateWordAudio: pregenerate }));
 const logAudit = vi.hoisted(() => vi.fn());
 vi.mock("@/auth/audit", () => ({ logAudit }));
 vi.mock("@/auth/creator", async () => {
@@ -120,6 +122,8 @@ describe("setOfficialState", () => {
       { type: "practice", id },
       { from: "draft", to: "published" },
     );
+    // The quiz's word audio is made ahead (D136).
+    expect(pregenerate).toHaveBeenCalledWith(id);
   });
 
   it("won't publish without notes and audio, or a learner's practice", async () => {

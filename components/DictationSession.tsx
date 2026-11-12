@@ -52,6 +52,7 @@ import { HandsFreeSetting } from "./HandsFreeSetting";
 import { HandsFreeStatus } from "./HandsFreeStatus";
 import { useHandsFree } from "./useHandsFree";
 import { ProgressBar } from "./ProgressBar";
+import { QuizInvite } from "./QuizInvite";
 import { RewardGainedNote } from "./RewardBadge";
 import { ScoreBadge } from "./ScoreBadge";
 import { Tag } from "./Tag";
@@ -588,6 +589,7 @@ export function DictationSession({
         <div className="practice-column space-y-4">{header}</div>
         <DictationResult
           video={video}
+          day={day}
           mode={mode}
           answers={answers}
           score={
@@ -843,6 +845,7 @@ export function DictationSession({
 
 function DictationResult({
   video,
+  day,
   mode,
   answers,
   score,
@@ -853,6 +856,8 @@ function DictationResult({
   saveError,
 }: {
   video: PracticeMaterial;
+  /** Day 1 or Day 7: which day's quiz to offer (D136). */
+  day: number;
   mode: Mode;
   answers: Answers;
   /**
@@ -905,6 +910,8 @@ function DictationResult({
             {t("officialUnchanged", { score: percent(officialScore) })}
           </p>
         )}
+        {/* The vocabulary quiz, which can be skipped (D136). */}
+        <QuizInvite videoId={video.id} day={day === 7 ? 7 : 1} />
         <div className="flex flex-wrap items-center gap-3">
           <Button variant="primary" arrow onClick={onRetry}>
             {t("retry")}
