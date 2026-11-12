@@ -1,0 +1,150 @@
+{
+  "requestHash": "71b3f8bfe45020ca",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"annotate\",\"input\":{\"sentences\":[\"Although the professor had explained the assignment twice, several students who had missed the first lecture still weren't sure whether they were supposed to submit a draft by Friday.\"]},\"output\":{\"notes\":[{\"v\":2,\"difficulty\":\"hard\",\"highlights\":[{\"text\":\"had missed the first lecture\",\"note\":\"過去完成表示在另一事件（解釋）之前就已經發生的動作\"},{\"text\":\"weren't sure whether they were supposed to submit a draft by Friday\",\"note\":\"表示不確定（被期待要做的事）和截止時間\"}],\"vocab\":[{\"term\":\"assignment\",\"inSentence\":\"assignment\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"作業；指定的任務\",\"ipa\":\"/əˈsaɪnmənt/\",\"collocations\":[\"homework assignment\",\"complete an assignment\"],\"examples\":[{\"en\":\"She turned in the assignment on time.\",\"zh\":\"她準時交了作業。\"}]},{\"term\":\"draft\",\"inSentence\":\"draft\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"草稿、初稿\",\"ipa\":\"/dræft/\",\"collocations\":[\"first draft\",\"revise a draft\"],\"examples\":[{\"en\":\"Please send me the draft before we meet.\",\"zh\":\"請在開會前把草稿寄給我。\"}]}],\"grammar\":[{\"point\":\"past perfect\",\"quote\":\"\",\"explanation\":\"past perfect 用來表示在過去另一個時間或事件之前已經發生的動作，這句表示教授在講座前已經解釋過，學生在更早之前就錯過了第一堂課。\",\"examples\":[{\"en\":\"She had left before I arrived.\",\"zh\":\"我到之前她已經離開了。\"}],\"pitfall\":\"\"}],\"chunks\":[{\"text\":\"Although the professor\",\"role\":\"connector\",\"zh\":\"雖然教授\"},{\"text\":\"had explained the assignment twice,\",\"role\":\"main\",\"zh\":\"已經解釋過那份作業兩次，\"},{\"text\":\"several students\",\"role\":\"main\",\"zh\":\"幾位學生\"},{\"text\":\"who had missed the first lecture\",\"role\":\"subordinate\",\"zh\":\"（那些）錯過第一堂課的\"},{\"text\":\"still weren't sure\",\"role\":\"main\",\"zh\":\"仍然不確定\"},{\"text\":\"whether they were supposed to submit a draft by Friday.\",\"role\":\"subordinate\",\"zh\":\"是否應該在星期五之前提交一份草稿。\"}],\"connected\":[{\"text\":\"had explained the\",\"soundsLike\":\"hæd ɪkˈspleɪnd ðə\",\"note\":\"'the' 在連讀中常弱讀為 /ðə/，且 past tense 'explained' 的 /d/ 與下一個 /ð/ 幾乎連在一起，聽起來像一段連續音。\"},{\"text\":\"were supposed to submit\",\"soundsLike\":\"wər səˈpoʊzd tə səbˈmɪt\",\"note\":\"'to' 在口語中常弱讀為 /tə/，連在 submit 前使得整片段快而緊湊，容易聽成 'səˈpoʊzdə'.\"}]}],\"rawChars\":[1563]},\"criteria\":\"單字的詞性、中文意思、音標正確；文法說明正確且適合 B1 學生；例句自然；中文解釋清楚、不冗長。有任何錯誤的講解最多 2 分。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":4,\"reason\":\"單字解釋、詞性、音標與例句都正確且自然；文法（past perfect）說明大致正確且適合 B1 學生，但該說明中把時間順序寫反誤導：應是學生先錯過，教授後解釋，原稿說法有些混淆，應修正敘述順序。其他中文解釋清楚、不冗長。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497126,
+    "id": "chatcmpl-EjQxyM3m1cDvi5Qu4mRGlXnYujOk4",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261108081702-b6bbe11a-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 120,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 9,
+        "engine_ttft_ms": 45,
+        "engine_ttlt_ms": 1146,
+        "pre_inference_ms": 81,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 682,
+        "service_ttlt_ms": 1756,
+        "user_visible_ttft_ms": 601
+      },
+      "prompt_tokens": 987,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 1107
+    }
+  }
+}

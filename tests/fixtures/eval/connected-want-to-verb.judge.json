@@ -1,0 +1,150 @@
+{
+  "requestHash": "f31529bd7516b3b0",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"annotate\",\"input\":{\"sentences\":[\"Do you want to grab some lunch with us?\"]},\"output\":{\"notes\":[{\"v\":2,\"difficulty\":\"easy\",\"highlights\":[{\"text\":\"grab some lunch\",\"note\":\"常用口語說法，表示去吃東西，聽力中很自然。\"},{\"text\":\"with us\",\"note\":\"表邀請，注意語氣放在句尾。\"}],\"vocab\":[{\"term\":\"grab\",\"inSentence\":\"grab\",\"kind\":\"word\",\"pos\":\"v.\",\"zh\":\"快速拿取；口語去吃、買（食物）\",\"ipa\":\"/ɡræb/\",\"collocations\":[\"grab a bite\",\"grab lunch\",\"grab a coffee\"],\"examples\":[{\"en\":\"Let's grab a coffee before class.\",\"zh\":\"上課前去買杯咖啡吧。\"}]},{\"term\":\"lunch\",\"inSentence\":\"lunch\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"午餐\",\"ipa\":\"/lʌntʃ/\",\"collocations\":[\"have lunch\",\"lunch break\",\"school lunch\"],\"examples\":[{\"en\":\"I usually have lunch at 12:30.\",\"zh\":\"我通常在12:30吃午餐。\"}]}],\"grammar\":[],\"chunks\":[],\"connected\":[]}],\"rawChars\":[273]},\"criteria\":\"want to grab 唸成 wanna 是合理的；do you 的弱讀等說明要正確。描述不會發生的連音最多 2 分。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":5,\"reason\":\"說明把“grab some lunch”標示為口語用法很貼切，對“with us”說明正確；沒誇大或提出不會發生的連音，符合給分標準。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497194,
+    "id": "chatcmpl-EjQz4ETeT9BIvAUV7EC9LuiqTVwMF",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261106080815-120ca4d6-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 69,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 5,
+        "engine_ttft_ms": 27,
+        "engine_ttlt_ms": 437,
+        "pre_inference_ms": 76,
+        "service_tbt_ms": 5,
+        "service_ttft_ms": 433,
+        "service_ttlt_ms": 853,
+        "user_visible_ttft_ms": 357
+      },
+      "prompt_tokens": 544,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 613
+    }
+  }
+}

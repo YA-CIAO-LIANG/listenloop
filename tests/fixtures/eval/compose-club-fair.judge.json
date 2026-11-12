@@ -1,0 +1,150 @@
+{
+  "requestHash": "9a30f97a626694ab",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"a student describing a club fair on campus\",\"level\":\"CEFR B1: everyday vocabulary, some longer sentences\",\"words\":150,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"Campus Club Fair\",\"titleZh\":\"校園社團展覽會\",\"subtitle\":\"你會聽到學生描述社團展覽會的經過。\",\"text\":\"Last Saturday I spent the afternoon walking around the club fair on campus.\\nThe weather was warm and there was a light breeze that made the tents feel comfortable.\\nMany student groups set up colorful booths along the main walkway near the library.\\nFirst I stopped at the photography club booth because I like taking pictures in my free time.\\nThey showed some large prints and explained how they organize photo walks every weekend.\\nNext I visited the environmental club and signed up for a tree planting event next month.\\nA few music clubs played live songs, and small crowds gathered to listen and clap.\\nI chatted with members of the debate team who invited me to watch a practice session.\\nThey also offered tips on public speaking and critical thinking for beginners.\\nAround mid-afternoon a food stall sold homemade cookies and lemonade for only $2 each.\\nI met some new friends from the art club and we swapped contact information.\\nBefore leaving I picked up a flyer about volunteer tutoring for local children.\\nEveryone seemed friendly and excited to welcome new members to their activities.\\nThe club fair was a great way to learn about campus life and meet people with similar interests.\\nI plan to attend two club meetings next week to see which one fits me best.\"}},\"criteria\":\"內容符合情境（學生介紹校園社團博覽會），程度符合 中級 B1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":5,\"reason\":\"內容與情境完全相符、語言自然且符合 B1 程度，句子結構與用詞都正確；中文標題與副標清晰通順，可直接給學生使用。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497213,
+    "id": "chatcmpl-EjQzNcOANTB3Yg1wGoxZJLr7RGJyx",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261108081702-b6bbe11a-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 66,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 40,
+        "engine_ttlt_ms": 650,
+        "pre_inference_ms": 97,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 698,
+        "service_ttlt_ms": 1284,
+        "user_visible_ttft_ms": 600
+      },
+      "prompt_tokens": 616,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 682
+    }
+  }
+}

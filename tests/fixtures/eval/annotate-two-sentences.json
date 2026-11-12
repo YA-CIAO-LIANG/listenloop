@@ -1,0 +1,350 @@
+{
+  "requestHash": "c5ee90baa0dfffbf",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences. Write every Chinese text in Traditional Chinese as used in Taiwan.\nReturn one entry per sentence, with its 0-based index.\ndifficulty: easy, medium, or hard, judged for a B1 listener by length, number of clauses, vocabulary level, and connected speech (linking, weak forms, reductions).\nhighlights: 1 or 2 key words or phrases most worth learning, copied exactly as they appear in the sentence, each with a short Chinese note on why.\nvocab: easy 1-2 items, medium or hard up to 3 (words, phrasal verbs, phrases, or idioms worth learning; skip very basic words). For each: term as best learned (base form for verbs), inSentence (the words exactly as in the sentence), kind (word, phrase, idiom), pos (n., v., adj., adv., prep., phr., idiom…), zh (short meaning), ipa (American IPA in slashes, e.g. /ˈɡɑːrdn/; empty for long idioms), collocations (0-3 common collocations), examples (1 NEW short sentence, not the original, each with zh).\ngrammar: none for easy; medium 0-1, hard 0-2, only patterns worth teaching. For each: point (short English form, e.g. \"would rather + V\"), quote (the words in the sentence that show it, copied exactly), explanation (1-2 Chinese sentences), examples (1 NEW sentence with zh), pitfall (one common mistake learners make, in Chinese).\nchunks: only for hard sentences, else empty. Split the sentence into 2-6 meaning groups in order, covering every word exactly once, copied exactly; role is main (main clause), subordinate (subordinate clause), modifier (phrase that modifies), or connector (linking word); zh translates that group alone.\nconnected: none for easy; for medium and hard, 0-3 places hard to catch by ear (e.g. want to → wanna and going to → gonna only before a verb, never before a place or noun such as \"going to the library\"; did you → didja; a final consonant linked to the next vowel; weak forms of and/to/of/the). Describe only what really happens in this sentence. text is copied exactly from the sentence, soundsLike shows how it sounds (e.g. \"wanna\", \"tur-nit-off\"), note explains in Chinese.\nDo not repeat a word or grammar point across sentences. Keep notes short: about 900 characters at most for one sentence's notes in total, so prefer one example and two collocations.\nIn Chinese text, write digits and Latin letters half-width (4號月台), never full-width, and keep people's names in English as in the sentence."
+      },
+      {
+        "role": "user",
+        "content": "{\"sentences\":[{\"index\":0,\"en\":\"Let me know if you need any help.\"},{\"index\":1,\"en\":\"She's been working here since 2019.\"}]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "notes",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sentences": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "index": {
+                    "type": "integer"
+                  },
+                  "difficulty": {
+                    "type": "string",
+                    "enum": [
+                      "easy",
+                      "medium",
+                      "hard"
+                    ]
+                  },
+                  "highlights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "vocab": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "term": {
+                          "type": "string"
+                        },
+                        "inSentence": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "word",
+                            "phrase",
+                            "idiom"
+                          ]
+                        },
+                        "pos": {
+                          "type": "string"
+                        },
+                        "zh": {
+                          "type": "string"
+                        },
+                        "ipa": {
+                          "type": "string"
+                        },
+                        "collocations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "term",
+                        "inSentence",
+                        "kind",
+                        "pos",
+                        "zh",
+                        "ipa",
+                        "collocations",
+                        "examples"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "grammar": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "point": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        },
+                        "explanation": {
+                          "type": "string"
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pitfall": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "point",
+                        "quote",
+                        "explanation",
+                        "examples",
+                        "pitfall"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "chunks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "main",
+                            "subordinate",
+                            "modifier",
+                            "connector"
+                          ]
+                        },
+                        "zh": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "role",
+                        "zh"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "connected": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "soundsLike": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "soundsLike",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "index",
+                  "difficulty",
+                  "highlights",
+                  "vocab",
+                  "grammar",
+                  "chunks",
+                  "connected"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "sentences"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 2600,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\n  \"sentences\": [\n    {\n      \"index\": 0,\n      \"difficulty\": \"easy\",\n      \"highlights\": [\n        {\n          \"text\": \"Let me know\",\n          \"note\": \"常用口語說法，表示「告訴我」或請對方回覆。\"\n        }\n      ],\n      \"vocab\": [\n        {\n          \"term\": \"help\",\n          \"inSentence\": \"help\",\n          \"kind\": \"word\",\n          \"pos\": \"n.\",\n          \"zh\": \"幫助；協助\",\n          \"ipa\": \"/hɛlp/\",\n          \"collocations\": [\n            \"ask for help\",\n            \"offer help\",\n            \"need help\"\n          ]\n       \n        ,\n              \n        \n       \n        \n       \n        \n       \n        \n       \n        \n       \n        \n       \n        \n       \n        \n        \n        \n        \n       \n        \n       \n        \n       \n        \n       \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n     \n    \n     \n    \n     \n    \n     \n    \n     \n    \n     \n    \n     \n    \n     \n    \n      \n     \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n   \n\n\n\n\n\n\n\n\n\n\n     \n    \n     \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n        \n     \n    \n     \n    \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n    \"examples\": [\n          {\n            \"en\": \"I can give you some help with your homework.\",\n            \"zh\": \"我可以幫你做作業。\"\n          }\n        ]\n      }\n      ],\n      \"grammar\": [],\n      \"chunks\": [],\n      \"connected\": []\n    },\n    {\n      \"index\": 1,\n      \"difficulty\": \"medium\",\n      \"highlights\": [\n        {\n          \"text\": \"since 2019\",\n          \"note\": \"用於現在完成式，表示從2019年開始到現在仍然持續。\"\n        },\n        {\n          \"text\": \"She's been working here\",\n          \"note\": \"整句展示現在完成進行式，表示從過去持續到現在的動作。\"\n        }\n      ],\n      \"vocab\": [\n        {\n          \"term\": \"since\",\n          \"inSentence\": \"since 2019\",\n          \"kind\": \"word\",\n          \"pos\": \"prep.\",\n          \"zh\": \"自從（表示起點，和現在完成式常一起用）\",\n          \"ipa\": \"/sɪns/\",\n          \"collocations\": [\n            \"since then\",\n            \"since 2010\",\n            \"since childhood\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"I've lived here since 2015.\",\n              \"zh\": \"我從2015年起就住在這裡。\"\n            }\n          ]\n        },\n        {\n          \"term\": \"work\",\n          \"inSentence\": \"working\",\n          \"kind\": \"word\",\n          \"pos\": \"v.\",\n          \"zh\": \"工作；上班（進行式動詞）\",\n          \"ipa\": \"/wɝːk/\",\n          \"collocations\": [\n            \"work hard\",\n            \"work full-time\",\n            \"start work\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"He works at a bank.\",\n              \"zh\": \"他在銀行工作。\"\n            }\n          ]\n        }\n      ],\n      \"grammar\": [\n        {\n          \"point\": \"present perfect continuous\",\n          \"quote\": \"She's been working here since 2019\",\n          \"explanation\": \"現在完成進行式表示從過去開始並持續到現在的動作或狀態，常與 since 或 for 一起使用。\",\n          \"examples\": [\n            {\n              \"en\": \"I've been studying English for three years.\",\n              \"zh\": \"我已經學了三年英文。\"\n            }\n          ],\n          \"pitfall\": \"不要把 since 和 for 互換：since 後接時間起點（like 2019、Monday），for 後接持續時間（like three years）。\"\n        }\n      ],\n      \"chunks\": [\n        {\n          \"text\": \"She's\",\n          \"role\": \"main\",\n          \"zh\": \"她是／她已經（縮寫 she has 或 she is）\"\n        },\n        {\n          \"text\": \"been working\",\n          \"role\": \"main\",\n          \"zh\": \"一直在工作（現在完成進行式的動詞部分）\"\n        },\n        {\n          \"text\": \"here\",\n          \"role\": \"modifier\",\n          \"zh\": \"在這裡\"\n        },\n        {\n          \"text\": \"since 2019\",\n          \"role\": \"modifier\",\n          \"zh\": \"自2019年起\"\n        }\n      ],\n      \"connected\": [\n        {\n          \"text\": \"She's been\",\n          \"soundsLike\": \"shez been\",\n          \"note\": \"縮短連讀，'she's' 常聽起來像 /ʃiz/，連接後面 /b/ 聲，整片聽起來快速像 shez been。\"\n        }\n      ]\n    }\n  ]\n}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497164,
+    "id": "chatcmpl-EjQyaYt2kzp5JeHGVJiwtwmo1Jfpv",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261107062543-fb071683-default-r2-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 1237,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 47,
+        "engine_ttlt_ms": 9567,
+        "pre_inference_ms": 115,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 680,
+        "service_ttlt_ms": 10195,
+        "user_visible_ttft_ms": 565
+      },
+      "prompt_tokens": 950,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 2187
+    }
+  }
+}

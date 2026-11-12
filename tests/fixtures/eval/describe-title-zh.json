@@ -1,0 +1,147 @@
+{
+  "requestHash": "9fc30877dcae8c96",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write the one-line summary shown under the title of an English listening practice in a library, for Taiwanese students.\nRead the title and the beginning of the text, then write ONE sentence in Traditional Chinese (Taiwan usage) of at most 30 characters that says what the listener will hear: the situation or topic, and who is talking if it's a conversation.\nWrite it plainly, like a course catalog. No quotation marks, no emoji, no English unless it's a name or a term the text uses, and don't start with 「這篇」 or 「本文」.\nAlso return titleEn, a short English title (at most 8 words), and titleZh, the same title in Traditional Chinese (Taiwan usage). If titleEn or titleZh is given, return it exactly as given and write the other as its translation.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width."
+      },
+      {
+        "role": "user",
+        "content": "{\"title\":\"期末報告\",\"titleZh\":\"期末報告\",\"text\":\"Our group still hasn't finished the final report. Let's meet in the library at 7 tonight and divide the work.\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "description",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "titleEn": {
+              "type": "string"
+            },
+            "titleZh": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "titleEn",
+            "titleZh",
+            "subtitle"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 300,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"titleEn\":\"Final Report\",\"titleZh\":\"期末報告\",\"subtitle\":\"在圖書館討論期末報告並分配工作\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497257,
+    "id": "chatcmpl-EjR05CHXj1bNm58dlM82comuJ7isT",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261107062353-d3c72568-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 44,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 32,
+        "engine_ttlt_ms": 415,
+        "pre_inference_ms": 165,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 696,
+        "service_ttlt_ms": 1067,
+        "user_visible_ttft_ms": 532
+      },
+      "prompt_tokens": 282,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 326
+    }
+  }
+}

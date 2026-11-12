@@ -1,0 +1,350 @@
+{
+  "requestHash": "a1dbb30bd0debf0a",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences. Write every Chinese text in Traditional Chinese as used in Taiwan.\nReturn one entry per sentence, with its 0-based index.\ndifficulty: easy, medium, or hard, judged for a B1 listener by length, number of clauses, vocabulary level, and connected speech (linking, weak forms, reductions).\nhighlights: 1 or 2 key words or phrases most worth learning, copied exactly as they appear in the sentence, each with a short Chinese note on why.\nvocab: easy 1-2 items, medium or hard up to 3 (words, phrasal verbs, phrases, or idioms worth learning; skip very basic words). For each: term as best learned (base form for verbs), inSentence (the words exactly as in the sentence), kind (word, phrase, idiom), pos (n., v., adj., adv., prep., phr., idiom…), zh (short meaning), ipa (American IPA in slashes, e.g. /ˈɡɑːrdn/; empty for long idioms), collocations (0-3 common collocations), examples (1 NEW short sentence, not the original, each with zh).\ngrammar: none for easy; medium 0-1, hard 0-2, only patterns worth teaching. For each: point (short English form, e.g. \"would rather + V\"), quote (the words in the sentence that show it, copied exactly), explanation (1-2 Chinese sentences), examples (1 NEW sentence with zh), pitfall (one common mistake learners make, in Chinese).\nchunks: only for hard sentences, else empty. Split the sentence into 2-6 meaning groups in order, covering every word exactly once, copied exactly; role is main (main clause), subordinate (subordinate clause), modifier (phrase that modifies), or connector (linking word); zh translates that group alone.\nconnected: none for easy; for medium and hard, 0-3 places hard to catch by ear (e.g. want to → wanna and going to → gonna only before a verb, never before a place or noun such as \"going to the library\"; did you → didja; a final consonant linked to the next vowel; weak forms of and/to/of/the). Describe only what really happens in this sentence. text is copied exactly from the sentence, soundsLike shows how it sounds (e.g. \"wanna\", \"tur-nit-off\"), note explains in Chinese.\nDo not repeat a word or grammar point across sentences. Keep notes short: about 900 characters at most for one sentence's notes in total, so prefer one example and two collocations.\nIn Chinese text, write digits and Latin letters half-width (4號月台), never full-width, and keep people's names in English as in the sentence."
+      },
+      {
+        "role": "user",
+        "content": "{\"sentences\":[{\"index\":0,\"en\":\"I was so nervous before the interview, but it turned out to be a piece of cake.\"}]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "notes",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sentences": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "index": {
+                    "type": "integer"
+                  },
+                  "difficulty": {
+                    "type": "string",
+                    "enum": [
+                      "easy",
+                      "medium",
+                      "hard"
+                    ]
+                  },
+                  "highlights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "vocab": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "term": {
+                          "type": "string"
+                        },
+                        "inSentence": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "word",
+                            "phrase",
+                            "idiom"
+                          ]
+                        },
+                        "pos": {
+                          "type": "string"
+                        },
+                        "zh": {
+                          "type": "string"
+                        },
+                        "ipa": {
+                          "type": "string"
+                        },
+                        "collocations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "term",
+                        "inSentence",
+                        "kind",
+                        "pos",
+                        "zh",
+                        "ipa",
+                        "collocations",
+                        "examples"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "grammar": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "point": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        },
+                        "explanation": {
+                          "type": "string"
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pitfall": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "point",
+                        "quote",
+                        "explanation",
+                        "examples",
+                        "pitfall"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "chunks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "main",
+                            "subordinate",
+                            "modifier",
+                            "connector"
+                          ]
+                        },
+                        "zh": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "role",
+                        "zh"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "connected": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "soundsLike": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "soundsLike",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "index",
+                  "difficulty",
+                  "highlights",
+                  "vocab",
+                  "grammar",
+                  "chunks",
+                  "connected"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "sentences"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 1600,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\n  \"sentences\": [\n    {\n      \"index\": 0,\n      \"difficulty\": \"medium\",\n      \"highlights\": [\n        {\n          \"text\": \"so nervous\",\n          \"note\": \"常用的情緒描述，口語裡會弱讀 so\"\n        },\n        {\n          \"text\": \"piece of cake\",\n          \"note\": \"常用片語，表示「非常容易」\"\n        }\n      ],\n      \"vocab\": [\n        {\n          \"term\": \"nervous\",\n          \"inSentence\": \"nervous\",\n          \"kind\": \"word\",\n          \"pos\": \"adj.\",\n          \"zh\": \"緊張、不安\",\n          \"ipa\": \"/ˈnɜːrvəs/\",\n          \"collocations\": [\n            \"feel nervous\",\n            \"get nervous\",\n            \"nervous about\"\n          ]\n        ,\n          \"examples\": [\n            {\n              \"en\": \"She gets nervous before exams.\",\n              \"zh\": \"她考試前會緊張。\"\n            }\n          ]\n        },\n        {\n          \"term\": \"turn out to be\",\n          \"inSentence\": \"turned out to be\",\n          \"kind\": \"phrase\",\n          \"pos\": \"phr.\",\n          \"zh\": \"結果證明是\",\n          \"ipa\": \"/tɜrn aʊt tu bi/\",\n          \"collocations\": [\n            \"turn out to be true\",\n            \"turn out to be helpful\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"The mystery turned out to be simple.\",\n              \"zh\": \"那個謎題結果很簡單。\"\n            }\n          ]\n        },\n        {\n          \"term\": \"piece of cake\",\n          \"inSentence\": \"piece of cake\",\n          \"kind\": \"idiom\",\n          \"pos\": \"idiom\",\n          \"zh\": \"非常容易的事\",\n          \"ipa\": \"\",\n          \"collocations\": [\n            \"it's a piece of cake\",\n            \"make it a piece of cake\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"The math problem was a piece of cake.\",\n              \"zh\": \"那道數學題很簡單。\"\n            }\n          ]\n        }\n      ],\n      \"grammar\": [\n        {\n          \"point\": \"contrast with but\",\n          \"quote\": \"but it turned out to be a piece of cake\",\n          \"explanation\": \"用 but 連接兩個相反或出乎意料的事實；前半句說緊張，but 後半句給出結果。這是常見的轉折句型。\",\n          \"examples\": [\n            {\n              \"en\": \"I practiced a lot, but I still made mistakes.\",\n              \"zh\": \"我練習很多，但仍然犯錯。\"\n            }\n          ],\n          \"pitfall\": \"有些學生會在 but 前加逗號錯放或連接兩完整句忘記 but 的轉折意思；注意 but 直接表示對比，不等於 and。\"\n        }\n      ],\n      \"chunks\": [],\n      \"connected\": [\n        {\n          \"text\": \"I was so\",\n          \"soundsLike\": \"I was so /aɪ wəz soʊ/\",\n          \"note\": \"so 常被弱讀，但在這裡為強調會發完整音；was 與 so 間連讀聽起來像一個小片段\"\n        },\n        {\n          \"text\": \"turned out to be\",\n          \"soundsLike\": \"turn'd out tuh be /tɜrnd aʊt tə bi/\",\n          \"note\": \"turned out to be 常快速讀成 /tɜrnd aʊt tə/，to 類似弱讀 /tə/\"\n        },\n        {\n          \"text\": \"piece of cake\",\n          \"soundsLike\": \"piece of cake /pis əv keɪk/\",\n          \"note\": \"of 常弱讀成 /əv/，連續讀時像 'piece-a-cake'，容易聽成一個片語\"\n        }\n      ]\n    }\n  ]\n}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497134,
+    "id": "chatcmpl-EjQy6N4VrQLvXQnusZVuAnXrjcrgF",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261107062543-e4f71741-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 894,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 29,
+        "engine_ttlt_ms": 6050,
+        "pre_inference_ms": 103,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 761,
+        "service_ttlt_ms": 6778,
+        "user_visible_ttft_ms": 659
+      },
+      "prompt_tokens": 944,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 1838
+    }
+  }
+}

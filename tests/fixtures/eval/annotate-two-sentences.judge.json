@@ -1,0 +1,150 @@
+{
+  "requestHash": "1c5b8aac91c22ec9",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"annotate\",\"input\":{\"sentences\":[\"Let me know if you need any help.\",\"She's been working here since 2019.\"]},\"output\":{\"notes\":[{\"v\":2,\"difficulty\":\"easy\",\"highlights\":[{\"text\":\"Let me know\",\"note\":\"常用口語說法，表示「告訴我」或請對方回覆。\"}],\"vocab\":[{\"term\":\"help\",\"inSentence\":\"help\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"幫助；協助\",\"ipa\":\"/hɛlp/\",\"collocations\":[\"ask for help\",\"offer help\",\"need help\"],\"examples\":[{\"en\":\"I can give you some help with your homework.\",\"zh\":\"我可以幫你做作業。\"}]}],\"grammar\":[],\"chunks\":[],\"connected\":[]},{\"v\":2,\"difficulty\":\"medium\",\"highlights\":[{\"text\":\"since 2019\",\"note\":\"用於現在完成式，表示從2019年開始到現在仍然持續。\"},{\"text\":\"She's been working here\",\"note\":\"整句展示現在完成進行式，表示從過去持續到現在的動作。\"}],\"vocab\":[{\"term\":\"since\",\"inSentence\":\"since 2019\",\"kind\":\"word\",\"pos\":\"prep.\",\"zh\":\"自從（表示起點，和現在完成式常一起用）\",\"ipa\":\"/sɪns/\",\"collocations\":[\"since then\",\"since 2010\",\"since childhood\"],\"examples\":[{\"en\":\"I've lived here since 2015.\",\"zh\":\"我從2015年起就住在這裡。\"}]},{\"term\":\"work\",\"inSentence\":\"working\",\"kind\":\"word\",\"pos\":\"v.\",\"zh\":\"工作；上班（進行式動詞）\",\"ipa\":\"/wɝːk/\",\"collocations\":[\"work hard\",\"work full-time\",\"start work\"],\"examples\":[{\"en\":\"He works at a bank.\",\"zh\":\"他在銀行工作。\"}]}],\"grammar\":[{\"point\":\"present perfect continuous\",\"quote\":\"She's been working here since 2019\",\"explanation\":\"現在完成進行式表示從過去開始並持續到現在的動作或狀態，常與 since 或 for 一起使用。\",\"examples\":[{\"en\":\"I've been studying English for three years.\",\"zh\":\"我已經學了三年英文。\"}],\"pitfall\":\"不要把 since 和 for 互換：since 後接時間起點（like 2019、Monday），for 後接持續時間（like three years）。\"}],\"chunks\":[],\"connected\":[{\"text\":\"She's been\",\"soundsLike\":\"shez been\",\"note\":\"縮短連讀，'she's' 常聽起來像 /ʃiz/，連接後面 /b/ 聲，整片聽起來快速像 shez been。\"}]}],\"rawChars\":[145,734]},\"criteria\":\"單字的詞性、中文意思、音標正確；文法說明正確且適合 B1 學生；例句自然；中文解釋清楚、不冗長。有任何錯誤的講解最多 2 分。第二句的現在完成進行式與 since 的說明要正確；兩句不重複講同一個點。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":5,\"reason\":\"單字詞性、中文意思與音標正確；文法說明（現在完成進行式與 since 的用法）清楚且適合 B1，例句自然；中文解釋簡潔不冗長，兩句說明沒有重複。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497175,
+    "id": "chatcmpl-EjQylIV79mJwjeevHy86KXEGRTSmt",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261106080815-120ca4d6-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 81,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 27,
+        "engine_ttlt_ms": 533,
+        "pre_inference_ms": 116,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 906,
+        "service_ttlt_ms": 1408,
+        "user_visible_ttft_ms": 789
+      },
+      "prompt_tokens": 931,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 1012
+    }
+  }
+}

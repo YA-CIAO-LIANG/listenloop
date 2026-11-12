@@ -81,6 +81,16 @@ jobs:
           done
           exit $status
 
+      # The AI eval (D150): from recordings only, a few seconds. Fails when
+      # a prompt or model changed without a new recording, when
+      # evals/baseline.json is stale, or when the score is below the base
+      # commit's without an exception in evals/exceptions.json.
+      - name: AI eval
+        if: steps.scope.outputs.code == 'true'
+        env:
+          EVAL_BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: npm run eval:check
+
       - name: Cache Next.js build
         if: steps.scope.outputs.e2e == 'true'
         uses: actions/cache@v6

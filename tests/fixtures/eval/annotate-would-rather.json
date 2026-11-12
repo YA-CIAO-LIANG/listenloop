@@ -1,0 +1,350 @@
+{
+  "requestHash": "5937b604741ecb0e",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences. Write every Chinese text in Traditional Chinese as used in Taiwan.\nReturn one entry per sentence, with its 0-based index.\ndifficulty: easy, medium, or hard, judged for a B1 listener by length, number of clauses, vocabulary level, and connected speech (linking, weak forms, reductions).\nhighlights: 1 or 2 key words or phrases most worth learning, copied exactly as they appear in the sentence, each with a short Chinese note on why.\nvocab: easy 1-2 items, medium or hard up to 3 (words, phrasal verbs, phrases, or idioms worth learning; skip very basic words). For each: term as best learned (base form for verbs), inSentence (the words exactly as in the sentence), kind (word, phrase, idiom), pos (n., v., adj., adv., prep., phr., idiom…), zh (short meaning), ipa (American IPA in slashes, e.g. /ˈɡɑːrdn/; empty for long idioms), collocations (0-3 common collocations), examples (1 NEW short sentence, not the original, each with zh).\ngrammar: none for easy; medium 0-1, hard 0-2, only patterns worth teaching. For each: point (short English form, e.g. \"would rather + V\"), quote (the words in the sentence that show it, copied exactly), explanation (1-2 Chinese sentences), examples (1 NEW sentence with zh), pitfall (one common mistake learners make, in Chinese).\nchunks: only for hard sentences, else empty. Split the sentence into 2-6 meaning groups in order, covering every word exactly once, copied exactly; role is main (main clause), subordinate (subordinate clause), modifier (phrase that modifies), or connector (linking word); zh translates that group alone.\nconnected: none for easy; for medium and hard, 0-3 places hard to catch by ear (e.g. want to → wanna and going to → gonna only before a verb, never before a place or noun such as \"going to the library\"; did you → didja; a final consonant linked to the next vowel; weak forms of and/to/of/the). Describe only what really happens in this sentence. text is copied exactly from the sentence, soundsLike shows how it sounds (e.g. \"wanna\", \"tur-nit-off\"), note explains in Chinese.\nDo not repeat a word or grammar point across sentences. Keep notes short: about 900 characters at most for one sentence's notes in total, so prefer one example and two collocations.\nIn Chinese text, write digits and Latin letters half-width (4號月台), never full-width, and keep people's names in English as in the sentence."
+      },
+      {
+        "role": "user",
+        "content": "{\"sentences\":[{\"index\":0,\"en\":\"I would rather stay home than go out in this rain.\"}]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "notes",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sentences": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "index": {
+                    "type": "integer"
+                  },
+                  "difficulty": {
+                    "type": "string",
+                    "enum": [
+                      "easy",
+                      "medium",
+                      "hard"
+                    ]
+                  },
+                  "highlights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "vocab": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "term": {
+                          "type": "string"
+                        },
+                        "inSentence": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "word",
+                            "phrase",
+                            "idiom"
+                          ]
+                        },
+                        "pos": {
+                          "type": "string"
+                        },
+                        "zh": {
+                          "type": "string"
+                        },
+                        "ipa": {
+                          "type": "string"
+                        },
+                        "collocations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "term",
+                        "inSentence",
+                        "kind",
+                        "pos",
+                        "zh",
+                        "ipa",
+                        "collocations",
+                        "examples"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "grammar": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "point": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        },
+                        "explanation": {
+                          "type": "string"
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pitfall": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "point",
+                        "quote",
+                        "explanation",
+                        "examples",
+                        "pitfall"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "chunks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "main",
+                            "subordinate",
+                            "modifier",
+                            "connector"
+                          ]
+                        },
+                        "zh": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "role",
+                        "zh"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "connected": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "soundsLike": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "soundsLike",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "index",
+                  "difficulty",
+                  "highlights",
+                  "vocab",
+                  "grammar",
+                  "chunks",
+                  "connected"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "sentences"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 1600,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\n  \"sentences\": [\n    {\n      \"index\": 0,\n      \"difficulty\": \"medium\",\n      \"highlights\": [\n        {\n          \"text\": \"would rather\",\n          \"note\": \"表示偏好，比 would like 更強烈，常用於比較兩個選擇。\"\n        },\n        {\n          \"text\": \"than\",\n          \"note\": \"在比較句中連接兩個選項，注意和比較級搭配或與 would rather 一起用。\"\n        }\n      ],\n      \"vocab\": [\n        {\n          \"term\": \"would rather\",\n          \"inSentence\": \"would rather\",\n          \"kind\": \"phrase\",\n          \"pos\": \"phr.\",\n          \"zh\": \"寧願；更想要\",\n          \"ipa\": \"/ˈwʊd ˈræðər/\",\n          \"collocations\": [\n            \"would rather do\",\n            \"would rather than\"\n          ]\n        ,\n          \"examples\": [\n            {\n              \"en\": \"I would rather walk than take the bus.\",\n              \"zh\": \"我寧願走路也不想搭公車。\"\n            }\n          ]\n        },\n        {\n          \"term\": \"stay\",\n          \"inSentence\": \"stay home\",\n          \"kind\": \"word\",\n          \"pos\": \"v.\",\n          \"zh\": \"待著；停留\",\n          \"ipa\": \"/steɪ/\",\n          \"collocations\": [\n            \"stay home\",\n            \"stay overnight\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"She decided to stay home and study.\",\n              \"zh\": \"她決定待在家裡讀書。\"\n            }\n          ]\n        },\n        {\n          \"term\": \"rain\",\n          \"inSentence\": \"rain\",\n          \"kind\": \"word\",\n          \"pos\": \"n.\",\n          \"zh\": \"雨\",\n          \"ipa\": \"/reɪn/\",\n          \"collocations\": [\n            \"heavy rain\",\n            \"light rain\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"The rain started suddenly.\",\n              \"zh\": \"雨突然開始下。\"\n            }\n          ]\n        }\n      ],\n      \"grammar\": [\n        {\n          \"point\": \"would rather + V (base form)\",\n          \"quote\": \"would rather stay home than go out\",\n          \"explanation\": \"表示偏好，用原形動詞 (stay, go)。當兩個行為比較時，用 than 連接第二個選項。\",\n          \"examples\": [\n            {\n              \"en\": \"He would rather eat at home than at a restaurant.\",\n              \"zh\": \"他寧願在家吃飯也不想去餐廳。\"\n            }\n          ],\n          \"pitfall\": \"不要把第二個動詞變成 to + V（錯：would rather to go）。\"\n        }\n      ],\n      \"chunks\": [],\n      \"connected\": [\n        {\n          \"text\": \"would rather\",\n          \"soundsLike\": \"wʊd ræðər → wuhd-rather (r not fully trilled)\",\n          \"note\": \"口語中 would 常弱讀成 /wəd/，rather 的 r 與前面連在一起，聽起來像一段連續詞。\"\n        },\n        {\n          \"text\": \"go out in this rain\",\n          \"soundsLike\": \"goʊ aʊt ɪn ðɪs reɪn → go-out in this rain (out-in linked)\",\n          \"note\": \"out 的 /t/ 常不清或被連到下一個元音，out in 聽起來像一個片段。\"\n        }\n      ]\n    }\n  ]\n}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497148,
+    "id": "chatcmpl-EjQyKvIGB5YmgyaYuVwHG1ZyPrDFo",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261107062543-e4f71741-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 807,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 35,
+        "engine_ttlt_ms": 6093,
+        "pre_inference_ms": 110,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 527,
+        "service_ttlt_ms": 6575,
+        "user_visible_ttft_ms": 416
+      },
+      "prompt_tokens": 937,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 1744
+    }
+  }
+}

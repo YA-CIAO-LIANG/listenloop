@@ -1,0 +1,150 @@
+{
+  "requestHash": "6fdd588ce1b4b6d6",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"asking for directions at a train station\",\"titleEn\":\"Lost at Taipei Main Station\",\"level\":\"CEFR A2: short sentences, the most common words\",\"words\":100,\"format\":\"dialogue\"},\"output\":{\"text\":{\"title\":\"Lost at Taipei Main Station\",\"titleZh\":\"在台北車站迷路\",\"subtitle\":\"你會聽到兩人互問路的對話。\",\"text\":\"Excuse me, can you help me?\\nYes, of course, where do you want to go?\\nI need to find platform 4 for the train to Taoyuan.\\nYou are in the main concourse now, right?\\nYes, I see the big clock and the information desk.\\nWalk straight ahead past the ticket counters for two minutes.\\nDo I need to go down any stairs?\\nNo, stay on this level and follow the signs for platforms.\\nI see a sign that says platforms 1 to 6, is that right?\\nYes, turn left under that sign and keep walking.\\nIs platform 4 on the left or the right?\\nPlatform 4 will be on the right after the escalator.\\nThank you, do I need to buy a ticket first?\\nYes, you can buy a ticket at the machines or the counter.\\nAre the machines easy to use for a contactless card?\\nYes, the machines accept contactless cards and easy cards.\\nHow long is the walk to the platform from here?\\nIt takes about five minutes if you walk quickly.\\nGreat, and where is the rest room on this level?\\nThe rest room is near the elevators on the left side.\\nThank you so much for your help.\\nNo problem, have a safe trip to Taoyuan.\"}},\"criteria\":\"內容符合情境（在台北車站問路，內容要符合標題），程度符合 初級 A2，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":4,\"reason\":\"對話內容符合在台北車站問路的情境，句子簡短、語言自然，適合 A2 學生；中文標題、副標也通順。小扣分在於部分指示（如「走兩分鐘」與「過手扶梯後右邊」）可更具體或與實際車站配置核對，但不影響教學使用。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497226,
+    "id": "chatcmpl-EjQzaZRtKAirMDgzkwf58yXne4QXG",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261106080815-120ca4d6-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 109,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 34,
+        "engine_ttlt_ms": 798,
+        "pre_inference_ms": 82,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 907,
+        "service_ttlt_ms": 1646,
+        "user_visible_ttft_ms": 826
+      },
+      "prompt_tokens": 656,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 765
+    }
+  }
+}
