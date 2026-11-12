@@ -18,6 +18,9 @@ vi.mock("@/auth/beta", () => ({ admitAfterSignIn: gate }));
 const logEvent = vi.hoisted(() => vi.fn());
 vi.mock("@/auth/events", () => ({ logEvent }));
 
+const verifyStudent = vi.hoisted(() => vi.fn(async () => false));
+vi.mock("@/auth/student", () => ({ verifyStudentOnSignIn: verifyStudent }));
+
 const { GET } = await import("@/app/auth/callback/route");
 
 const callback = async (query: string) => {
@@ -45,6 +48,8 @@ describe("/auth/callback", () => {
     expect(supabase.exchangeCodeForSession).toHaveBeenCalledWith("abc");
     // Signing in is logged (D55).
     expect(logEvent).toHaveBeenCalledWith("u1", { type: "sign_in" });
+    // A school account is checked for the student plan (D144).
+    expect(verifyStudent).toHaveBeenCalledWith({ id: "u1" });
   });
 
   it("sends a new account the Beta can't take to the Beta page (D132)", async () => {

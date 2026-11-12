@@ -18,6 +18,8 @@ export type SignedInUser = {
   practicesCreated: number;
   /** A teacher's class plan: its seats (D103), or null without one. */
   classroomSeats: number | null;
+  /** Last sign-in with a school email (D144), or null; good for a year. */
+  studentVerifiedAt?: string | null;
 };
 
 /**
@@ -38,7 +40,7 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
   const { data: profile } = await supabase
     .from("profiles")
     .select(
-      "number, role, status, plan, practices_created, classroom_seats, beta_admitted_at",
+      "number, role, status, plan, practices_created, classroom_seats, beta_admitted_at, student_verified_at",
     )
     .eq("user_id", id)
     .maybeSingle();
@@ -73,5 +75,6 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
     plan: isAccountPlan(profile?.plan) ? profile.plan : "free",
     practicesCreated: profile?.practices_created ?? 0,
     classroomSeats: profile?.classroom_seats ?? null,
+    studentVerifiedAt: profile?.student_verified_at ?? null,
   };
 });

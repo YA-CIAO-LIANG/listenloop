@@ -1007,6 +1007,7 @@ export type Database = {
           practices_created: number;
           role: string;
           status: string;
+          student_verified_at: string | null;
           time_zone: string | null;
           user_id: string;
         };
@@ -1021,6 +1022,7 @@ export type Database = {
           practices_created?: number;
           role?: string;
           status?: string;
+          student_verified_at?: string | null;
           time_zone?: string | null;
           user_id: string;
         };
@@ -1035,6 +1037,7 @@ export type Database = {
           practices_created?: number;
           role?: string;
           status?: string;
+          student_verified_at?: string | null;
           time_zone?: string | null;
           user_id?: string;
         };

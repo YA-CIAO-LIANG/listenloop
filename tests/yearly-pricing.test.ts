@@ -3,6 +3,7 @@ import { CLASS_PLAN, classPrice } from "@/lib/classroom";
 import {
   averagePerMonth,
   BILLING_PERIODS,
+  monthsSaved,
   PAID_PLANS,
   PLAN_PRICES,
   PRICES,
@@ -16,7 +17,8 @@ import zh from "@/messages/zh-Hant.json";
  * × 10, so a year is cheaper than 12 months and saves exactly two.
  */
 const plans: { name: string; monthly: number; yearly: number }[] = [
-  ...PAID_PLANS.map((plan) => ({
+  // The student plan is the one exception (D144), checked below.
+  ...PAID_PLANS.filter((plan) => plan !== "student").map((plan) => ({
     name: plan,
     monthly: PLAN_PRICES[plan].month.amount,
     yearly: PLAN_PRICES[plan].year.amount,
@@ -48,6 +50,18 @@ describe("yearly prices (D105)", () => {
 
   it("saves two months", () => {
     expect(YEARLY_MONTHS_FREE).toBe(2);
+    expect(monthsSaved("plus")).toBe(2);
+    expect(monthsSaved("pro")).toBe(2);
+  });
+
+  it("except the student plan: NT$90 a month, NT$990 a year, one month saved (D144)", () => {
+    expect(PLAN_PRICES.student).toEqual({
+      month: { amount: 90, currency: "TWD" },
+      year: { amount: 990, currency: "TWD" },
+    });
+    expect(PLAN_PRICES.student.year.amount).toBeLessThan(90 * 12);
+    expect(monthsSaved("student")).toBe(1);
+    expect(averagePerMonth(990)).toBe(83); // 82.5
   });
 
   it("are Joe's class prices: NT$4,990, and NT$3,490 for the priority list", () => {

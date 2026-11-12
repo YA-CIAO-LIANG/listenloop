@@ -17,12 +17,15 @@ export function PlanPrice({
   total,
   period,
   size = "lg",
+  monthsFree = YEARLY_MONTHS_FREE,
 }: {
   /** What one period costs: a month's price, or a year's. */
   total: number;
   period: BillingPeriod;
   /** lg: a plan card; md: a second price; inline: one line in a table. */
   size?: "lg" | "md" | "inline";
+  /** Months a year saves (D144: the student plan saves one). */
+  monthsFree?: number;
 }) {
   const t = useTranslations("plansPage");
   const format = useFormatter();
@@ -59,7 +62,7 @@ export function PlanPrice({
         <p className="text-supporting text-ink-muted tabular-nums">
           {t("yearlyBilled", { total: price(total) })}
           <span className="text-success">
-            {t("monthsFree", { months: YEARLY_MONTHS_FREE })}
+            {t("monthsFree", { months: monthsFree })}
           </span>
         </p>
       )}

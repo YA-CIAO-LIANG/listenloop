@@ -2,7 +2,7 @@
 
 import { ScrollRegion } from "./ScrollRegion";
 import Link from "next/link";
-import { useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { recordIntent } from "@/app/intent-actions";
 import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
@@ -14,6 +14,7 @@ import type { IntentSource } from "@/lib/intent";
 import {
   BILLING_PERIODS,
   DEFAULT_PERIOD,
+  monthsSaved,
   PAID_PLANS,
   PLAN_PRICES,
   REFUND_DAYS,
@@ -22,6 +23,7 @@ import {
   type PaidPlan,
 } from "@/lib/payments/pricing";
 import { PLANS } from "@/lib/plans";
+import type { StudentStatus } from "@/lib/student";
 import { Button } from "./Button";
 import { PlanPrice } from "./PlanPrice";
 import { ButtonLink } from "./ButtonLink";
@@ -33,7 +35,12 @@ const linkClassName =
   "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink";
 
 /** The account plan behind each paid plan ("paid" is Plus, D102). */
-const LIMITS = { plus: PLANS.paid, pro: PLANS.pro } as const;
+const LIMITS = {
+  plus: PLANS.paid,
+  pro: PLANS.pro,
+  // Plus at a student price (D144).
+  student: PLANS.paid,
+} as const;
 
 /** The comparison table's rows: what each plan has (D102). */
 const ALL_FEATURES = [
@@ -68,6 +75,7 @@ export function PricingPlans({
   joined: joinedBefore,
   source,
   open: openAtStart = null,
+  student = null,
   joinWaitlist = joinWaitlistAction,
   record = recordIntent,
 }: {
@@ -79,11 +87,28 @@ export function PricingPlans({
   source: IntentSource;
   /** Back from signing in to join: the plan and period they chose. */
   open?: { plan: PaidPlan; period: BillingPeriod } | null;
+  /** The signed-in account's student verification (D144); null signed out. */
+  student?: StudentStatus | null;
   /** Injected in tests; the Server Actions otherwise. */
   joinWaitlist?: typeof joinWaitlistAction;
   record?: typeof recordIntent;
 }) {
   const t = useTranslations("plansPage");
+  const format = useFormatter();
+  const verified = student?.state === "verified";
+  const studentUntil =
+    student && student.state !== "none"
+      ? format.dateTime(new Date(student.until), {
+          year: "numeric",
+          month: "numeric",
+          day: "numeric",
+        })
+      : "";
+  const studentLine = !student
+    ? t("student.signedOut")
+    : student.state === "none"
+      ? t("student.none")
+      : t(`student.${student.state}`, { until: studentUntil });
   const [period, setPeriod] = useState<BillingPeriod>(
     openAtStart?.period ?? DEFAULT_PERIOD,
   );
@@ -189,7 +214,7 @@ export function PricingPlans({
         <p className="text-supporting text-ink-muted">{t("monthlyReset")}</p>
       </div>
 
-      <ul className="grid gap-6 wide:grid-cols-3">
+      <ul className="grid gap-6 wide:grid-cols-2">
         <li className="space-y-4 rounded-base border border-line bg-surface p-6">
           <h2 className="flex flex-wrap items-center gap-2 font-display text-h3">
             {t("names.free")}
@@ -212,8 +237,22 @@ export function PricingPlans({
                 {current === plan && <Tag>{t("current")}</Tag>}
               </h2>
               {/* The price a month is always the big number (D128). */}
-              <PlanPrice total={total} period={period} />
+              <PlanPrice
+                total={total}
+                period={period}
+                monthsFree={monthsSaved(plan)}
+              />
               <p className="text-supporting">{t(`summaries.${plan}`)}</p>
+              {/* Who can have it, and where this account stands (D144). */}
+              {plan === "student" && (
+                <p
+                  data-testid="student-status"
+                  className={`text-supporting ${verified ? "text-success" : "text-ink-muted"}`}
+                >
+                  {verified && <span aria-hidden="true">✓ </span>}
+                  {studentLine}
+                </p>
+              )}
               <Button
                 variant={plan === "plus" ? "primary" : "secondary"}
                 onClick={() => subscribe(plan)}
@@ -296,9 +335,24 @@ export function PricingPlans({
             total={PLAN_PRICES[offer][period].amount}
             period={period}
             size="md"
+            monthsFree={monthsSaved(offer)}
           />
           <p>{t("comingSoon")}</p>
-          {joined ? (
+          {offer === "student" && !verified ? (
+            // Verified by signing in with a school account (D144).
+            <>
+              <p>{t("student.needVerified")}</p>
+              {student && <p className="text-ink-muted">{studentLine}</p>}
+              <ButtonLink
+                variant="primary"
+                href={`/login?next=${encodeURIComponent(
+                  `/pricing?plan=student&period=${period}&from=${source}`,
+                )}`}
+              >
+                {t("student.signInSchool")}
+              </ButtonLink>
+            </>
+          ) : joined ? (
             <p role="status" className="text-success">
               <span aria-hidden="true">✓ </span>
               {t("joined")}

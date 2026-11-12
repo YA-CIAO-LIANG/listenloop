@@ -1703,7 +1703,8 @@
       },
       "names": {
         "plus": "Plus",
-        "pro": "Pro"
+        "pro": "Pro",
+        "student": "Student"
       },
       "rows": {
         "subscribers": "{plan} subscribers",
@@ -2740,14 +2741,24 @@
     "names": {
       "free": "Free",
       "plus": "Plus",
-      "pro": "Pro"
+      "pro": "Pro",
+      "student": "Student"
     },
     "current": "Your plan",
     "perMonthSuffix": " / month",
     "summaries": {
       "free": "Every official lesson and feature, basic stats, and 2 minutes of your own materials a week (two of a minute, or one of two).",
       "plus": "40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules.",
-      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus."
+      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus.",
+      "student": "Everything in Plus at a student price. Sign in with a school (.edu, .edu.tw …) Google account to be verified automatically, for a year."
+    },
+    "student": {
+      "verified": "Verified as a student until {until}.",
+      "expired": "Your student verification ended on {until}. Sign in again with your school Google account to confirm you're still a student.",
+      "none": "You're not signed in with a school email. The student plan needs a Google account with a school email (such as .edu or .edu.tw).",
+      "signedOut": "The student plan needs a Google account with a school email (such as .edu or .edu.tw); signing in verifies you automatically.",
+      "signInSchool": "Sign in with a school account",
+      "needVerified": "Before subscribing to the student plan, sign in with a school Google account to be verified."
     },
     "subscribe": "Subscribe to {plan}",
     "compareTitle": "Compare plans",
