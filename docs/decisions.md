@@ -2464,3 +2464,20 @@
   - **換帳號但沒有登出**（例如 session 過期後用別的帳號登入）：同步時發現帳號不同，除了原本就會清除的進度與活動紀錄，也清掉錢包和程度測驗結果，並換成新帳號的設定。
   - **不清除**：裝置自己的東西，包括裝置 id（練習時間）、這台裝置量到的產生速度、介面語言 cookie。
 - **要改時**：`lib/personal-settings.ts`（要跟著帳號的設定清單）、`lib/sync/sync.ts`、`lib/storage/cloud-store.ts`（`getSettings`、`saveSettings`）、`components/StoresProvider.tsx`、`components/AccountMenu.tsx`（登出）。新增個人化設定時，加進 `PERSONAL_SETTING_KEYS`，並在儲存處呼叫 `settingsChanged()`。
+
+## D139 日期一律以使用者裝置的時區計算（2026-11-12，Joe 回報）
+
+- **規則**：
+  - 「今天」、每日任務、7 天循環的解鎖（不同日曆日才開下一天）、錯字複習的到期日、練習日曆、連續天數，都用**使用者裝置的時區**計算，在瀏覽器端進行（`toLocalDate(new Date())`、`useToday`）。
+  - 伺服器寫進頁面的日期（例如「我的教材」的建立日期、班級頁的日期）也用使用者的時區：瀏覽器把時區存在 cookie `ll-tz`，`i18n/request.ts` 用它設定 next-intl 的 `timeZone`。沒有 cookie 時（第一次造訪）用台灣時間。
+  - 登入時，時區也存在 `profiles.time_zone`，並同步到提醒的訂閱（`reminders.time_zone`），讓提醒在使用者的時間送出。裝置時區改變時（旅行、換裝置），下次開頁面就會更新，並重新產生頁面。
+  - **不變的部分**：AI 與聲音的每日、每月額度仍在台灣時間 0 點重設（`lib/usage.ts` 的 `USAGE_TIME_ZONE`）；管理員後台的統計也用台灣時間。這兩個是全站的帳務規則，不是個人的日曆。
+- **檢查結果**：
+  - 瀏覽器端的日期本來就用裝置時區。
+  - 會受時區影響的是伺服器產生的頁面：Vercel 在 UTC 執行，next-intl 又沒有設定時區，日期會用 UTC 顯示，例如台灣早上建立的教材顯示成前一天。
+  - 從另一台不同時區的裝置同步過來的紀錄，日期是那台裝置的日期，這是預期行為。
+- **測試**：E2E 在台灣、美國中部、美國西岸三個時區，用同一個時間點（UTC 11/12 02:00）檢查：
+  - 只有台灣已經是 11/12，所以到期日 11/12 的錯字只在台灣出現在今日任務；
+  - 第 1 天 11/11 完成，第 2 天只在台灣開放；
+  - 時區 cookie 和裝置一致。
+- **要改時**：`lib/time-zone.ts`、`components/TimeZoneSync.tsx`、`app/time-zone-actions.ts`、`i18n/request.ts`；日期工具在 `lib/dates.ts`。
