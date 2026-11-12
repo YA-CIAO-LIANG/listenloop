@@ -139,7 +139,7 @@ describe("interest funnel (D102)", () => {
 describe("revenue forecast (D102)", () => {
   it("spreads prepaid plans by month and takes their cash up front", () => {
     const input = defaultForecastInput(0.6);
-    for (const plan of ["plus", "pro"] as const) {
+    for (const plan of ["plus", "pro", "student"] as const) {
       for (const period of ["month", "year"] as const) {
         input.subscribers[plan][period] = 0;
       }

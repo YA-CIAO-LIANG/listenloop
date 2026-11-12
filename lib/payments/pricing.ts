@@ -63,8 +63,11 @@ export function formatPrice(
 
 // --- Plans and pricing (D102, D105): Plus and Pro, monthly or yearly. ----
 
-/** The paid plans on the pricing page. "plus" is the account plan "paid". */
-export const PAID_PLANS = ["plus", "pro"] as const;
+/**
+ * The paid plans on the pricing page. "plus" is the account plan "paid";
+ * "student" is Plus at a student price (D144).
+ */
+export const PAID_PLANS = ["plus", "pro", "student"] as const;
 export type PaidPlan = (typeof PAID_PLANS)[number];
 
 export const isPaidPlan = (value: unknown): value is PaidPlan =>
@@ -89,14 +92,34 @@ export const PERIOD_MONTHS: Readonly<Record<BillingPeriod, number>> = {
 export const PLAN_MONTHLY: Readonly<Record<PaidPlan, number>> = {
   plus: PRICES.month.amount,
   pro: 299,
+  student: 90,
 };
+
+/**
+ * The student plan's year (D144): NT$990, Joe's price, an exception to
+ * the ten-months rule (D105), which would make it NT$900.
+ */
+export const STUDENT_YEARLY = 990;
 
 export const PLAN_PRICES: Readonly<
   Record<PaidPlan, Readonly<Record<BillingPeriod, Price>>>
 > = {
   plus: monthlyAndYearly(PLAN_MONTHLY.plus),
   pro: monthlyAndYearly(PLAN_MONTHLY.pro),
+  student: {
+    month: { amount: PLAN_MONTHLY.student, currency: "TWD" },
+    year: { amount: STUDENT_YEARLY, currency: "TWD" },
+  },
 };
+
+/**
+ * Whole months a year saves against paying monthly: 2 under the
+ * ten-months rule; 1 for the student plan (NT$1,080 − NT$990 = NT$90).
+ */
+export function monthsSaved(plan: PaidPlan): number {
+  const { month, year } = PLAN_PRICES[plan];
+  return Math.floor((month.amount * 12 - year.amount) / month.amount);
+}
 
 /** Shown first, and marked "most popular". */
 export const DEFAULT_PERIOD: BillingPeriod = "year";

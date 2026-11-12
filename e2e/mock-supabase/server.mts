@@ -341,6 +341,9 @@ createServer(async (request, response) => {
         // plan's one-practice trial is used up (D72). The learner hasn't
         // made one yet.
         practices_created: sub === "e2e-author" ? 2 : 0,
+        // Signed in with a school email this month (D144).
+        student_verified_at:
+          sub === "e2e-student" ? new Date().toISOString() : null,
       },
     ]);
     return;

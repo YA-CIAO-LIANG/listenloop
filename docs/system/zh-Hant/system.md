@@ -674,6 +674,7 @@ sequenceDiagram
 | 班級（建立、作業、報表）     | 加入班級                       | 加入班級                      | 加入班級                        | 40 位學生                 | 100 位   |
 
 - 帳號方案存在 `profiles.plan`（`free`／`paid`／`pro`）；班級方案是 `profiles.classroom_seats`。
+- 學生方案（D144）：內容等於 Plus，價格 NT$90／NT$990（`lib/payments/pricing.ts`）。學校信箱網域集中在 `lib/student.ts`；用學校信箱登入時 `/auth/callback` 寫入 `profiles.student_verified_at`，一年內有效。目前是假門，訂閱只記錄意願（`intent_events`、`waitlist.plan = 'student'`）。
 - 程式只透過 `can(plan, action)` 判斷；改方案內容只改 `PLANS`（D54）。
 
 ### 7.2 額度計算
