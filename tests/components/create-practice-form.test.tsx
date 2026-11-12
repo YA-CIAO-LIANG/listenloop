@@ -61,14 +61,19 @@ beforeEach(() => {
 });
 
 /** On the paid plan by default: every length is offered (D94). */
-async function renderForm(plan: PlanId = "paid") {
+async function renderForm(
+  planOrProps: PlanId | { create: typeof create } = "paid",
+) {
+  const plan = typeof planOrProps === "string" ? planOrProps : "paid";
+  const createAction =
+    typeof planOrProps === "string" ? create : planOrProps.create;
   await act(async () => {
     renderWithIntl(
       <PlanProvider plan={plan}>
         <CreatePracticeForm
           split={split}
           translate={translate}
-          create={create}
+          create={createAction}
           generate={generate}
           generateNotes={generateNotes}
           generateText={generateText}
@@ -164,7 +169,12 @@ describe("CreatePracticeForm", () => {
     expect(screen.getByRole("status").textContent).toContain(
       "已建立「Moving｜寫好的中文」，講解和音檔都完成了",
     );
-    expect(router.refresh).toHaveBeenCalled();
+    // No refresh: on the free plan it would swap the form (and this
+    // message) for the plan card (D137). The result offers the practice.
+    expect(router.refresh).not.toHaveBeenCalled();
+    expect(
+      screen.getByRole("link", { name: /開始練習/ }).getAttribute("href"),
+    ).toBe("/videos/p-p1");
     expect((textBox() as HTMLTextAreaElement).value).toBe("");
     // This device's pace is remembered for the next estimate (D95).
     expect(
@@ -368,7 +378,43 @@ describe("CreatePracticeForm", () => {
     const status = screen.getByRole("status").textContent;
     expect(status).toContain("講解或音檔還沒有全部完成");
     expect(status).toContain("今天的聲音用量已經用完");
-    expect(router.refresh).toHaveBeenCalled();
+    expect(router.refresh).not.toHaveBeenCalled();
+    expect(screen.getByRole("link", { name: /到我的教材/ })).toBeDefined();
+  });
+
+  it("shows why creating failed, next to the button, every time (D137)", async () => {
+    await renderForm({
+      create: vi.fn(async () => ({
+        ok: false as const,
+        reason: "plan" as const,
+        limit: "maxPracticeSeconds" as const,
+        max: 30,
+      })),
+    });
+    fireEvent.change(screen.getByLabelText("英文標題"), {
+      target: { value: "T" },
+    });
+    fireEvent.change(textBox(), { target: { value: "A. B." } });
+    await click("斷句並翻譯");
+    await click("建立練習");
+    const alert = screen.getByRole("alert");
+    expect(alert.textContent).toContain("最長 30 秒");
+    expect(document.activeElement).toBe(alert);
+  });
+
+  it("says so when the create request itself fails (D137)", async () => {
+    await renderForm({
+      create: vi.fn(async () => {
+        throw new Error("network");
+      }),
+    });
+    fireEvent.change(screen.getByLabelText("英文標題"), {
+      target: { value: "T" },
+    });
+    fireEvent.change(textBox(), { target: { value: "A. B." } });
+    await click("斷句並翻譯");
+    await click("建立練習");
+    expect(screen.getByRole("alert").textContent).toContain("發生錯誤");
   });
 
   it("guesses Chinese from the text until the learner picks a language", async () => {

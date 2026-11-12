@@ -5,7 +5,7 @@ import { oneLineTitle } from "@/lib/titles";
 import type { UsageBlock } from "@/lib/usage";
 import { UsageLimitMessage } from "./UsageLimitMessage";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { customPracticeId } from "@/lib/practice-material";
 import { useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState, type ChangeEvent } from "react";
 import {
@@ -148,7 +148,6 @@ export function CreatePracticeForm({
   const tPlans = useTranslations("plans");
   const tSpeakers = useTranslations("speakers");
   const t = useTranslations("create");
-  const router = useRouter();
   const ids = { title: useId(), text: useId(), hint: useId(), file: useId() };
 
   const tGenerate = useTranslations("generate");
@@ -197,14 +196,30 @@ export function CreatePracticeForm({
   const [carets, setCarets] = useState<Record<number, number>>({});
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<FormError | null>(null);
+  // Every failure is shown where it can't be missed: next to the button,
+  // scrolled into view and focused (D137).
+  const errorRef = useRef<HTMLParagraphElement>(null);
+  const noticeRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const element = error ? errorRef.current : null;
+    element?.scrollIntoView?.({ block: "center" });
+    element?.focus({ preventScroll: true });
+  }, [error]);
   const [notice, setNotice] = useState<{
     message: string;
     success: boolean;
     /** A practice was saved: offer the way to My materials. */
     created?: boolean;
+    /** Its id, to start practicing when it's ready. */
+    practiceId?: string;
     /** Notes or audio stopped at a limit: which one (D77). */
     usage?: UsageBlock;
   } | null>(null);
+  useEffect(() => {
+    const element = notice ? noticeRef.current : null;
+    element?.scrollIntoView?.({ block: "center" });
+    element?.focus({ preventScroll: true });
+  }, [notice]);
 
   const chars = countChars([text]);
   // Sentences with speakers make a two-voice dialogue (D57).
@@ -351,7 +366,11 @@ export function CreatePracticeForm({
       { generate, generateNotes },
       { id: result.id, notesReady: false, total: rows.length },
       setProgress,
-    );
+    ).catch((): Awaited<ReturnType<typeof prepareForPractice>> => ({
+      ok: false,
+      stage: "audio",
+      reason: "failed",
+    }));
     preparing.current = null;
     if (ready.ok) {
       saveSpeed(
@@ -368,6 +387,7 @@ export function CreatePracticeForm({
             message: t("created", { title: createdTitle }),
             success: true,
             created: true,
+            practiceId: result.id,
           }
         : {
             // With a limit's details, the reason is UsageLimitMessage's.
@@ -378,6 +398,7 @@ export function CreatePracticeForm({
             usage: ready.reason === "limit" ? ready.limit : undefined,
             success: false,
             created: true,
+            practiceId: result.id,
           },
     );
     setTitleEn("");
@@ -387,7 +408,9 @@ export function CreatePracticeForm({
     setLanguageChosen(false);
     setRows(null);
     setUndoStack([]);
-    router.refresh();
+    // No router.refresh() here: on the free plan this practice used the
+    // trial, and a refresh would swap the whole form for the plan card,
+    // taking this message with it (the "nothing happened" bug, D137).
   }
 
   function editRow(key: number, field: keyof DraftSentence, value: string) {
@@ -400,7 +423,12 @@ export function CreatePracticeForm({
   }
 
   const errorMessage = error && (
-    <p role="alert" className="text-supporting text-error">
+    <p
+      ref={errorRef}
+      tabIndex={-1}
+      role="alert"
+      className="text-supporting text-error"
+    >
       {error.key === "plan" ? (
         tPlans(`limits.${error.limit}`, { max: error.max ?? 0 })
       ) : error.key === "limit" && "usage" in error && error.usage ? (
@@ -722,6 +750,7 @@ export function CreatePracticeForm({
             {t("back")}
           </Button>
         </div>
+        {errorMessage}
         {/* The time it should take (D95): before, then what's left. */}
         <p className="text-supporting text-ink-muted">
           {startedAt !== null && progress && progress.stage !== "split"
@@ -749,13 +778,52 @@ export function CreatePracticeForm({
           )}
         </p>
         {progress && <StageProgress stage={progress} className="max-w-sm" />}
-        {errorMessage}
       </section>
     );
   }
 
   return (
     <div className="space-y-6">
+      {/* What happened to the practice just saved (D137). */}
+      {notice && (
+        <div
+          ref={noticeRef}
+          tabIndex={-1}
+          role="status"
+          className={`space-y-3 rounded-base border p-4 ${notice.success ? "border-success" : "border-error"}`}
+        >
+          <p className={notice.success ? "text-success" : "text-ink"}>
+            {notice.message}
+            {notice.usage && (
+              <>
+                {" "}
+                <UsageLimitMessage block={notice.usage} fallback="" />
+              </>
+            )}
+          </p>
+          {notice.created && (
+            <div className="flex flex-wrap gap-3">
+              {notice.success && notice.practiceId && !official && (
+                <ButtonLink
+                  href={`/videos/${customPracticeId(notice.practiceId)}`}
+                  variant="primary"
+                  size="sm"
+                  arrow
+                >
+                  {t("startPractice")}
+                </ButtonLink>
+              )}
+              <ButtonLink
+                href={official ? "/admin/official" : "/materials"}
+                variant="secondary"
+                size="sm"
+              >
+                {official ? t("backToOfficial") : t("backToMaterials")}
+              </ButtonLink>
+            </div>
+          )}
+        </div>
+      )}
       {/* The title first (D82), then where the text comes from; a video
           or a recording has its titles with its sentences. */}
       {source !== "youtube" && source !== "upload" && titleField}
@@ -893,28 +961,6 @@ export function CreatePracticeForm({
         </>
       )}
       {errorMessage}
-      {notice && (
-        <p
-          role="status"
-          className={`text-supporting ${notice.success ? "text-success" : "text-ink-muted"}`}
-        >
-          {notice.message}
-          {notice.usage && (
-            <>
-              {" "}
-              <UsageLimitMessage block={notice.usage} fallback="" />
-            </>
-          )}
-        </p>
-      )}
-      {notice?.created && (
-        <Link
-          href={official ? "/admin/official" : "/materials"}
-          className="inline-block text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
-        >
-          {official ? t("backToOfficial") : t("backToMaterials")}
-        </Link>
-      )}
     </div>
   );
 }
