@@ -40,10 +40,27 @@ test("a misheard word comes back the next day as a short review", async ({
   await expect(page.getByText("第 1 個，共 1 個")).toBeVisible();
   await expect(page.getByText("車站在左邊。")).toBeVisible();
   await expect(page.getByRole("button", { name: "播放這句" })).toBeVisible();
+  // The word's own sound (D145): replay and loop.
+  const sound = page.getByRole("group", { name: "單字發音" });
+  await expect(sound.getByRole("button", { name: "重播" })).toBeEnabled();
+  const loop = sound.getByRole("button", { name: "循環播放" });
+  await loop.click();
+  await expect(sound.getByRole("button", { name: "停止循環" })).toHaveAttribute(
+    "aria-pressed",
+    "true",
+  );
   const field = page.getByLabel("空格裡是哪個字？");
   await field.fill("Station");
   await field.press("Enter");
   await expect(page.getByText("答對了")).toBeVisible();
+  // Then where it's from, and a way to hear the sentence (D145).
+  const notes = page.getByTestId("review-notes");
+  await expect(notes).toContainText("station");
+  await expect(notes).toContainText("出自《E2E practice》第 1 句。");
+  await expect(notes.getByRole("link", { name: "去聽原句" })).toHaveAttribute(
+    "href",
+    `/videos/${videoId}/listen?s=0`,
+  );
   await page.getByRole("button", { name: "完成" }).click();
   await expect(
     page.getByText("今天的複習完成：答對 1 個，共 1 個。"),

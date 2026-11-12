@@ -113,6 +113,14 @@ describe("ListenSession (D135)", () => {
     expect(screen.getByText("第 3 句／共 3 句")).toBeDefined();
   });
 
+  it("begins at the sentence asked for (?s=, from the review, D145)", async () => {
+    localStorage.setItem(`ll-progress:v1:${material.id}`, progress(true));
+    renderWithIntl(<ListenSession video={material} start={2} />);
+    expect(await screen.findByText("第 3 句／共 3 句")).toBeDefined();
+    renderWithIntl(<ListenSession video={material} start={99} />);
+    expect(await screen.findByText("第 1 句／共 3 句")).toBeDefined();
+  });
+
   it("switches subtitles and remembers the choice", async () => {
     await open();
     expect(screen.getByText("早安。")).toBeDefined();

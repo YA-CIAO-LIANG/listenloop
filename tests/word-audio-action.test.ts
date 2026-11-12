@@ -16,6 +16,13 @@ vi.mock("@/auth/practice-material", () => ({
           title: "Sintel",
           sentences: [
             { i: 0, start: 0, end: 1, en: "A dragon.", zh: "一條龍。" },
+            {
+              i: 1,
+              start: 1,
+              end: 2,
+              en: "It flew away quickly.",
+              zh: "牠很快飛走了。",
+            },
           ],
           vocab: [
             { sentence: 0, word: "dragon", pos: "n.", zh: "龍", example: "" },
@@ -89,5 +96,20 @@ describe("wordAudioUrl (D136)", () => {
       reason: "unavailable",
     });
     expect(state.synthesize).toBe(0);
+  });
+
+  it("also voices a misheard word that's in the sentences (D145), nothing else", async () => {
+    state.user = { id: "u1" };
+    expect(await wordAudioUrl("sintel", "Quickly")).toMatchObject({
+      ok: true,
+    });
+    // Too short or too common to review, or not in the material.
+    for (const word of ["it", "away quickly", "castle"]) {
+      expect(await wordAudioUrl("sintel", word)).toEqual({
+        ok: false,
+        reason: "unavailable",
+      });
+    }
+    expect(state.synthesize).toBe(1);
   });
 });

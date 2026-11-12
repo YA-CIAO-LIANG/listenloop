@@ -49,7 +49,14 @@ function saveSettings(settings: ListenSettings) {
  * Listening mode (D135), open once Day 1 is done (like the handout):
  * listen to the whole text without a test, with or without subtitles.
  */
-export function ListenSession({ video }: { video: PracticeMaterial }) {
+export function ListenSession({
+  video,
+  start = 0,
+}: {
+  video: PracticeMaterial;
+  /** The sentence to begin at (?s=, from the misheard-word review, D145). */
+  start?: number;
+}) {
   const t = useTranslations("listen");
   const { progress: progressStore } = useStores();
   const [state, setState] = useState<"loading" | "locked" | "open">("loading");
@@ -89,15 +96,17 @@ export function ListenSession({ video }: { video: PracticeMaterial }) {
       </div>
     );
   }
-  return <Listening video={video} answers={answers} />;
+  return <Listening video={video} answers={answers} start={start} />;
 }
 
 function Listening({
   video,
   answers,
+  start,
 }: {
   video: PracticeMaterial;
   answers: readonly (string | null)[];
+  start: number;
 }) {
   const t = useTranslations("listen");
   const reduceMotion = usePrefersReducedMotion();
@@ -108,6 +117,7 @@ function Listening({
     rate: speed,
     loop: settings.loop,
     title,
+    start,
   });
   const { player, current, playing, pass } = listen;
   usePracticeTimer(video.id, player.isPlaying, { background: true });

@@ -1,8 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { loadReviewMaterials } from "@/app/review/actions";
+import {
+  loadReviewDetails,
+  loadReviewMaterials,
+  type ReviewDetails,
+} from "@/app/review/actions";
 import { updateActivity } from "@/lib/claim-rewards";
 import { toLocalDate } from "@/lib/dates";
 import {
@@ -13,6 +18,7 @@ import {
   isRightAnswer,
   missesFromProgress,
   recordReview,
+  REVIEW_LOOP_GAP_MS,
   type ReviewState,
   type ReviewWord,
 } from "@/lib/review";
@@ -21,6 +27,7 @@ import { ButtonLink } from "./ButtonLink";
 import { Card } from "./Card";
 import { useStores } from "./StoresProvider";
 import { useSamplePlayer } from "./useSamplePlayer";
+import { useWordSound } from "./useWordSound";
 
 type Answer = { key: string; typed: string; correct: boolean };
 
@@ -33,8 +40,13 @@ type Answer = { key: string; typed: string; correct: boolean };
  */
 export function MisheardReview({
   load = loadReviewMaterials,
+  details: loadDetails = loadReviewDetails,
+  audioUrl,
 }: {
   load?: typeof loadReviewMaterials;
+  /** Injected in tests; the Server Actions otherwise. */
+  details?: typeof loadReviewDetails;
+  audioUrl?: Parameters<typeof useWordSound>[2]["audioUrl"];
 }) {
   const t = useTranslations("review");
   const stores = useStores();
@@ -49,6 +61,21 @@ export function MisheardReview({
   const nextRef = useRef<HTMLButtonElement>(null);
   const current = queue[index];
   const { playing, toggle } = useSamplePlayer(() => current?.[1].audio ?? null);
+  // The word's own sound (D145): played on arrival, replayed, looped.
+  const [loop, setLoop] = useState(false);
+  const blankWord = current
+    ? (blankOut(current[1].en, current[0])?.word ?? current[0])
+    : null;
+  const word = useWordSound(current?.[1].videoId ?? null, blankWord, {
+    loop,
+    gapMs: REVIEW_LOOP_GAP_MS,
+    audioUrl,
+  });
+  // After answering: the word's notes and where it's from (D145).
+  const [details, setDetails] = useState<{
+    key: string;
+    value: ReviewDetails | null;
+  } | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -97,6 +124,9 @@ export function MisheardReview({
     const correct = isRightAnswer(typed, word);
     setAnswer({ key, typed, correct });
     if (correct) setRight((n) => n + 1);
+    void loadDetails(review.videoId, key, review.i)
+      .catch(() => null)
+      .then((value) => setDetails({ key, value }));
     const now = new Date();
     void updateActivity(stores.rewards, (activity) => ({
       ...activity,
@@ -115,6 +145,8 @@ export function MisheardReview({
   function next() {
     setAnswer(null);
     setTyped("");
+    setDetails(null);
+    setLoop(false);
     setIndex((i) => i + 1);
   }
 
@@ -157,16 +189,39 @@ export function MisheardReview({
             <p lang="zh-Hant" className="text-supporting text-ink-muted">
               {current[1].zh}
             </p>
-            {current[1].audio && (
+            <div
+              role="group"
+              aria-label={t("soundLabel")}
+              className="flex flex-wrap items-center gap-3"
+            >
               <Button
                 variant="secondary"
                 size="sm"
-                aria-pressed={playing !== null}
-                onClick={() => toggle(current[0])}
+                disabled={!word.ready}
+                onClick={word.play}
               >
-                {playing ? t("stop") : t("listen")}
+                {t("replay")}
               </Button>
-            )}
+              <Button
+                variant="ghost"
+                size="sm"
+                aria-pressed={loop}
+                disabled={!word.ready}
+                onClick={() => setLoop((on) => !on)}
+              >
+                {loop ? t("loopOn") : t("loop")}
+              </Button>
+              {current[1].audio && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  aria-pressed={playing !== null}
+                  onClick={() => toggle(current[0])}
+                >
+                  {playing ? t("stop") : t("listen")}
+                </Button>
+              )}
+            </div>
             <form onSubmit={submit} className="space-y-3">
               <label htmlFor="review-answer" className="block font-medium">
                 {t("answerLabel")}
@@ -204,6 +259,14 @@ export function MisheardReview({
                 <p className="text-supporting text-ink-muted">
                   {answer.correct ? t("rightNext") : t("wrongNext")}
                 </p>
+                <WordNotes
+                  details={
+                    details?.key === answer.key ? details.value : undefined
+                  }
+                  word={blank?.word ?? answer.key}
+                  videoId={current[1].videoId}
+                  sentence={current[1].i}
+                />
                 <Button ref={nextRef} variant="primary" onClick={next}>
                   {index + 1 < queue.length ? t("next") : t("finish")}
                 </Button>
@@ -248,6 +311,78 @@ export function MisheardReview({
             ))}
           </ul>
         </section>
+      )}
+    </div>
+  );
+}
+
+/**
+ * What a misheard word means and where it's from, after answering (D145):
+ * its sound (IPA), part of speech, Chinese, an example with its Chinese,
+ * and a link to hear the sentence in listening mode.
+ */
+function WordNotes({
+  details,
+  word,
+  videoId,
+  sentence,
+}: {
+  /** undefined: still loading; null: the material can't be read. */
+  details: ReviewDetails | null | undefined;
+  word: string;
+  videoId: string;
+  sentence: number;
+}) {
+  const t = useTranslations("review");
+  if (details === undefined) {
+    return <p className="text-supporting text-ink-muted">{t("loading")}</p>;
+  }
+  const note = details?.note ?? null;
+  return (
+    <div
+      data-testid="review-notes"
+      className="space-y-2 rounded-base border border-line p-4"
+    >
+      <p className="flex flex-wrap items-baseline gap-x-3">
+        <span lang="en" className="text-h3 font-medium">
+          {note?.term ?? word}
+        </span>
+        {note?.ipa && (
+          <span lang="en" className="text-ink-muted">
+            {note.ipa}
+          </span>
+        )}
+      </p>
+      {note ? (
+        <>
+          <p>
+            <span className="text-ink-muted">{note.pos}</span> {note.zh}
+          </p>
+          {note.example && (
+            <div className="space-y-1">
+              <p className="text-supporting text-ink-muted">{t("example")}</p>
+              <p lang="en">{note.example.en}</p>
+              {note.example.zh && (
+                <p className="text-supporting text-ink-muted">
+                  {note.example.zh}
+                </p>
+              )}
+            </div>
+          )}
+        </>
+      ) : (
+        <p className="text-supporting text-ink-muted">{t("noNotes")}</p>
+      )}
+      {details && (
+        <p className="text-supporting">
+          {t("from", { title: details.title, n: sentence + 1 })}{" "}
+          <Link
+            href={`/videos/${videoId}/listen?s=${sentence}`}
+            className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+          >
+            {t("hearIt")}
+          </Link>
+        </p>
       )}
     </div>
   );

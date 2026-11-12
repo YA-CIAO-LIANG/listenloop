@@ -832,3 +832,8 @@ CardLink，內容由上到下：
 - 「前 N 句（共 M 句）」是 h2，每句英文（body，`lang="en"`）下面是中文（supporting、ink-muted），句子之間用 `border-line` 分隔，寬度 `max-w-reading`。
 - 升級區塊是一張 surface 卡片（`rounded-base border border-line p-6`）：說明哪些內容要升級後才開放，下面是「試聽第 1 句」（secondary，`aria-pressed`）和「升級即可練習這份教材 →」（primary 的 `ButtonLink`）。
 - YouTube 教材顯示影片播放器（`VideoPlayerPanel`），不另外提供試聽按鈕。
+
+### 我的錯字（`/review`，D108、D145）
+
+- 每個字的卡片：計數 → 挖空的原句（`text-h3`，空格用 `mark-key`）→ 中文（supporting、ink-muted）→ 發音按鈕列（`role="group"`、`aria-label="單字發音"`）：「重播」（secondary、sm）、「循環播放」（ghost、sm、`aria-pressed`，開啟時文字改成「停止循環」）、「播放這句」（ghost、sm，只有音檔教材）→ 作答欄。
+- 作答後：對錯（success／error 色加 ✓／✗）、下次出現的說明、單字講解框（`border-line` 圓角框）：單字（`lang="en"`、font-medium、`text-h3`）＋音標（ink-muted）、詞性（ink-muted）＋中文、「例句」小標與英中例句、「出自《教材》第 N 句。」＋「去聽原句」連結（accent-ink 底線）。

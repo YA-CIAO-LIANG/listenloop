@@ -2529,3 +2529,11 @@
 - **長度**：以字數估算，每分鐘 150 字（D142）。
 - **不變**：每份 2,000 字的上限；舊的 `practices_created` 計數保留（不再用來擋免費方案）。
 - **要改時**：`lib/plans.ts`（`minutesPerWeek`、`maxPracticeSeconds`、`weekSecondsLeft`）、`lib/usage-report.ts`（`usageWeek`）、`auth/creation-quota.ts`（`creationAllowance`）、`components/WeekAllowanceNote.tsx`、`supabase/migrations/20261120000000_practice_creations.sql`。
+
+## D145 我的錯字：單字發音、重播與循環、作答後的單字講解（2026-11-12，Joe 指定）
+
+- **發音**：每個字出現時自動播放一次單字發音。用單字測驗（D136）的共用發音快取：每個「單字＋聲音」只產生一次（Azure F0），之後所有人共用；沒有錄音時（未登入、額度用完）改用瀏覽器內建語音。伺服器只為「這份教材句子裡出現的字」產生發音（`wordAudioUrl` 多接受出現在句子裡、值得複習的字），不能拿來產生任意文字。瀏覽器若擋下自動播放（還沒點過頁面），就等使用者按「重播」。
+- **重播與循環**：「重播」再播一次；「循環播放」（`aria-pressed`）每次播完隔 `REVIEW_LOOP_GAP_MS`（1.5 秒，`lib/review.ts`）再播，直到關掉或換下一個字。原本的「播放這句」（原句音檔）保留。
+- **作答後的講解**：從教材自己的講解找這個字（`lib/review-notes.ts`，不呼叫 AI）：先找聽錯那一句的講解，再找整份教材；依序比對「句子裡的形式」（moved）、「原形」（move）、片語裡的單字。顯示詞性、中文、音標（只有第 2 版講解有）、例句與例句翻譯；講解裡沒有這個字時說明「講解裡沒有這個字」。下方顯示「出自《教材》第 N 句」與「去聽原句」連結。
+- **去聽原句**：連到聆聽模式並從那一句開始（`/videos/<id>/listen?s=N`，`ListenSession` 的 `start`）。聆聽模式需要第 1 天完成；錯字都來自已完成的聽寫，所以一定打得開。
+- **要改時**：`components/MisheardReview.tsx`、`components/useWordSound.ts`、`lib/review-notes.ts`、`lib/review.ts`（`REVIEW_LOOP_GAP_MS`）、`app/review/actions.ts`（`loadReviewDetails`）、`app/videos/[id]/quiz/actions.ts`。

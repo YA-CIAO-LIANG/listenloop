@@ -37,11 +37,19 @@ export type ListenPlayer = {
  */
 export function useListenPlayer(
   material: PracticeMaterial,
-  { rate, loop, title }: { rate: number; loop: LoopMode; title: string },
+  {
+    rate,
+    loop,
+    title,
+    start = 0,
+  }: { rate: number; loop: LoopMode; title: string; start?: number },
 ): ListenPlayer {
   const player = useSentencePlayer(material, rate);
   const count = material.sentences.length;
-  const [current, setCurrent] = useState(0);
+  // Begins at `start` when it's a sentence of this material.
+  const [current, setCurrent] = useState(() =>
+    Number.isInteger(start) && start >= 0 && start < count ? start : 0,
+  );
   const [playing, setPlaying] = useState(false);
   const [pass, setPass] = useState<number | null>(null);
   // Read by callbacks that outlive a render.
