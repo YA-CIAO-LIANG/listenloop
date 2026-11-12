@@ -2541,3 +2541,11 @@
 - **假門**：按「訂閱 學生方案」和 Plus 一樣記錄 `subscribe_click`（`plan: student`）。已認證的可以加入等候名單（`waitlist.plan = 'student'`，資料庫限制已放寬）；沒認證的看到「請先用學校帳號登入」與登入按鈕，登入後回到這個方案。
 - **之後收費時**：結帳前要再檢查 `student_verified_at` 仍有效；到期時降回免費或改收 Plus 價，屆時再決定。
 - **要改時**：`lib/student.ts`（網域、有效天數）、`lib/payments/pricing.ts`（價格）、`auth/student.ts`、`app/auth/callback/route.ts`、`components/PricingPlans.tsx`。
+
+## D146 程度測驗：某一級正確率達 60% 就判定為該程度，並作為教材庫的初始程度（2026-11-12，Joe 指定）
+
+- **規則**：每個程度（初級、中級、高級）各聽寫幾句，依字數加權算正確率；**達到 60%**（`LEVEL_PASS`，原本 70%）就算達到那一級。結果是從初級往上**連續**達到的最高一級：中級沒到 60% 時，即使高級到了也判定為初級（跳級多半是猜中，不採用）。一級都沒到時是初級。
+- **說明給使用者**：測驗開始前的規則清單多一行「分級規則」；結果頁列出每一級的正確率（達到的打 ✓）和規則說明。
+- **作為初始分級與推薦**：結果存在這台裝置（`ll-level-test:v1`，登入後跟著帳號，D138）。推薦的第一份教材照舊是該程度的第一份官方教材。**教材庫第一次打開時**，如果使用者沒有存自己的預設篩選、網址也沒有篩選，就先篩選測驗的程度；自己存的預設篩選優先。
+- **Joe 的「集數」**：理解為「級數」（程度的級別），依此實作；若指的是別的（例如每級題數），改 `LEVEL_TEST_PER_LEVEL`。
+- **要改時**：`lib/level-test.ts`（`LEVEL_PASS`、`LEVEL_TEST_PER_LEVEL`）、`components/LevelTest.tsx`、`components/LibraryDefault.tsx`。

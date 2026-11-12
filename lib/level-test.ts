@@ -5,15 +5,17 @@ import { scoreDictation, totalAccuracy } from "./scoring/dictation";
 /**
  * The level test (D109): a 2–3 minute dictation of LEVEL_TEST_PER_LEVEL
  * sentences at each level, easiest first, taken from published official
- * materials. Scored like dictation; the recommended level is the hardest
- * one passed (LEVEL_PASS), and the first material is the library's first
- * official material at that level. No AI, nothing sent anywhere: the
- * result stays on this device.
+ * materials. Scored like dictation; a level is reached at LEVEL_PASS
+ * (60%, D146) and the result is the hardest level reached in a row from
+ * the easiest. It's the starting level: the library opens filtered to it
+ * (unless the learner saved a default of their own), and the first
+ * material is the library's first official material at that level. No
+ * AI, nothing sent anywhere: the result stays on this device.
  */
 export const LEVEL_TEST_PER_LEVEL = 2;
 
-/** A level is passed at this weighted accuracy or more. */
-export const LEVEL_PASS = 0.7;
+/** A level is reached at this weighted accuracy or more (D146). */
+export const LEVEL_PASS = 0.6;
 
 /** Sentence lengths (words) that suit a test sentence at each level. */
 export const LEVEL_TEST_WORDS: Readonly<Record<Level, [number, number]>> = {

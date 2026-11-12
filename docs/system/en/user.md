@@ -45,7 +45,7 @@ ListenLoop is an English listening practice site: pick one material and spend 7 
   - **Length**: all, under 3 minutes, 3–5, 5–10, over 10.
   - **Level, accent, scenario, type**, and a title search.
   - "Save as my default filter": applied next time you open the home page.
-- **Not sure where to start?** Take the 2-minute level test (`/level-test`) for a suggested level and a first material.
+- **Not sure where to start?** Take the 2-minute level test (`/level-test`) for a suggested level and a first material. How it's scored: a few dictation sentences at beginner, intermediate, and advanced; **you reach a level at 60% or more**, and the result is the highest level reached in a row from beginner up. Afterwards the library opens filtered to that level (unless you saved a default filter of your own).
 - Cards show the English and Chinese titles, a subtitle, length, accent, and about how many minutes a day it takes.
 
 ### 2.2 Shared materials
