@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 /**
  * A stand-in for Supabase in the end-to-end tests (D32): just the calls
  * practice pages make, signed out or signed in (any access token is
@@ -22,11 +23,19 @@ const AUTHOR = {
 };
 
 type Row = { id: string; [key: string]: unknown };
+const folders: {
+  id: string;
+  user_id: string;
+  title: string;
+  visibility: string;
+  created_at: string;
+}[] = [];
+
 const practices: Row[] = Object.values(
   JSON.parse(
     readFileSync(new URL("./practices.json", import.meta.url), "utf8"),
   ) as Record<string, Row>,
-);
+).map((row) => ({ created_at: "2026-11-01T02:00:00Z", ...row }));
 
 /** Accounts on the paid plan's waiting list. */
 const waitlist = new Set<string>();
@@ -321,6 +330,49 @@ createServer(async (request, response) => {
           ]
         : [],
     );
+    return;
+  }
+  // My materials' folders (D147): each account's own, kept in memory.
+  if (url.pathname === "/rest/v1/collections") {
+    const sub = tokenSubject(request.headers.authorization);
+    const body = JSON.parse((await readBody(request)) || "{}");
+    const id = /^eq\.(.+)$/.exec(url.searchParams.get("id") ?? "")?.[1];
+    const mine = folders.filter((folder) => folder.user_id === sub);
+    if (!sub) {
+      json(request.method === "GET" ? 200 : 401, []);
+    } else if (request.method === "GET") {
+      json(200, mine);
+    } else if (request.method === "POST") {
+      const folder = {
+        id: randomUUID(),
+        user_id: sub,
+        title: String(body.title ?? ""),
+        visibility: "private",
+        created_at: new Date().toISOString(),
+      };
+      folders.push(folder);
+      json(201, [{ id: folder.id }]);
+    } else {
+      const folder = mine.find((f) => f.id === id);
+      if (folder && request.method === "PATCH") Object.assign(folder, body);
+      if (folder && request.method === "DELETE") {
+        folders.splice(folders.indexOf(folder), 1);
+        for (const row of practices) {
+          if (row.collection_id === folder.id) row.collection_id = null;
+        }
+      }
+      json(200, folder ? [{ id: folder.id }] : []);
+    }
+    return;
+  }
+  // Moving one's own practice into a folder or out (D147).
+  if (url.pathname === "/rest/v1/practices" && request.method === "PATCH") {
+    const sub = tokenSubject(request.headers.authorization);
+    const body = JSON.parse((await readBody(request)) || "{}");
+    const id = /^eq\.(.+)$/.exec(url.searchParams.get("id") ?? "")?.[1];
+    const row = practices.find((p) => p.id === id && p.user_id === sub);
+    if (row && "collection_id" in body) row.collection_id = body.collection_id;
+    json(200, row ? [{ id: row.id }] : []);
     return;
   }
   // No speech to text used this month (D130).

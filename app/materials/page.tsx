@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { oneLineTitle, practiceTitles } from "@/lib/titles";
+import { practiceTitles } from "@/lib/titles";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import Link from "next/link";
@@ -7,8 +7,8 @@ import { getAdminSupabase } from "@/auth/admin";
 import { getCreator } from "@/auth/creator";
 import { getServerSupabase } from "@/auth/server";
 import { getSignedInUser } from "@/auth/session";
-import { ButtonLink } from "@/components/ButtonLink";
 import { CollectionManager } from "@/components/CollectionManager";
+import { MaterialsBrowser } from "@/components/MaterialsBrowser";
 import { PracticeReadiness } from "@/components/PracticeReadiness";
 import { OfficialToggle } from "@/components/OfficialToggle";
 import { PracticeControls } from "@/components/PracticeControls";
@@ -31,26 +31,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 /**
- * "My materials" (D26, D48): the practices the user created and their
- * collections. Linked in the header for everyone signed in; until paid
- * plans launch only admins can create, so others see that it isn't open
- * yet. Signed out: 404. Creating needs the providers too.
+ * "My materials" (D26, D48, D147): the practices the user created, as
+ * folders (their collections and the categories). For everyone signed
+ * in (D72 opened creating to every plan); admins also get the links to
+ * reports and usage, and the official switch. Signed out: 404. Creating
+ * needs the providers too.
  */
-export default async function MaterialsPage() {
+export default async function MaterialsPage({
+  searchParams,
+}: PageProps<"/materials">) {
+  // Inside a folder (D147), its own rename and delete are on the page.
+  const inFolder = Boolean((await searchParams).folder);
   const [user, creator] = await Promise.all([getSignedInUser(), getCreator()]);
   if (!user) notFound();
-  if (user.role !== "admin") {
-    const tMaterials = await getTranslations("materials");
-    return (
-      <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
-        <h1 className="font-display text-h1">{tMaterials("title")}</h1>
-        <section className="rounded mt-8 max-w-reading border border-line bg-surface p-6">
-          <h2 className="font-display text-h3">{tMaterials("notOpenTitle")}</h2>
-          <p className="mt-2 text-ink-muted">{tMaterials("notOpen")}</p>
-        </section>
-      </main>
-    );
-  }
   const [t, tMaterials, tOrganize, tReasons, format, supabase] =
     await Promise.all([
       getTranslations("create"),
@@ -60,20 +53,22 @@ export default async function MaterialsPage() {
       getFormatter(),
       getServerSupabase(),
     ]);
+  const admin = user.role === "admin";
   // Open reports to review (D31), counted with the secret key.
-  const openReports =
-    (
-      await getAdminSupabase()
-        ?.from("practice_reports")
-        .select("id", { count: "exact", head: true })
-        .eq("status", "open")
-    )?.count ?? 0;
+  const openReports = !admin
+    ? 0
+    : ((
+        await getAdminSupabase()
+          ?.from("practice_reports")
+          .select("id", { count: "exact", head: true })
+          .eq("status", "open")
+      )?.count ?? 0);
   const [{ data: practices }, { data: collections }] = supabase
     ? await Promise.all([
         supabase
           .from("practices")
           .select(
-            "id, title, title_en, title_zh, subtitle, source_language, voice, visibility, official, collection_id, created_at, notes_generated_at, removed_at, removed_reason, youtube_id, youtube_license, source_audio_path, rights_confirmed_at, practice_sentences(audio_path)",
+            "id, title, title_en, title_zh, subtitle, source_language, voice, visibility, official, collection_id, category, estimated_seconds, duration_sec, created_at, notes_generated_at, removed_at, removed_reason, youtube_id, youtube_license, source_audio_path, rights_confirmed_at, practice_sentences(audio_path)",
           )
           // Others' public practices are readable too (D30); list only theirs,
           // and not official materials, which live on /admin/official (D80).
@@ -92,35 +87,15 @@ export default async function MaterialsPage() {
     id,
     title,
   }));
-  // Collections in creation order, then the ungrouped practices.
-  const groups = [
-    ...allCollections.map((collection) => ({
-      key: collection.id,
-      title: collection.title,
-      practices: allPractices.filter((p) => p.collection_id === collection.id),
-    })),
-    {
-      key: "ungrouped",
-      title: t("ungrouped"),
-      practices: allPractices.filter(
-        (p) =>
-          !p.collection_id ||
-          !allCollections.some((c) => c.id === p.collection_id),
-      ),
-    },
-  ].filter((group) => group.practices.length > 0);
-
   type PracticeRow = (typeof allPractices)[number];
-  const row = (practice: PracticeRow) => {
+  // What "Manage" opens under each material (D147).
+  const details = (practice: PracticeRow) => {
     const sentences = practice.practice_sentences;
     const voice = practice.voice ? parseVoiceId(practice.voice) : null;
     return (
-      <li key={practice.id} className="space-y-3 py-4">
+      <div className="space-y-3">
         <div className="space-y-2">
           <p className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-            <span className="font-medium">
-              {oneLineTitle(practiceTitles(practice))}
-            </span>
             {/* A YouTube practice's sentences follow the video (D97), a
                 recording's follow the recording (D130). */}
             {creator && !practice.youtube_id && !practice.source_audio_path && (
@@ -139,9 +114,11 @@ export default async function MaterialsPage() {
               language: t(
                 `listLanguages.${isTextSourceLanguage(practice.source_language) ? practice.source_language : "en"}`,
               ),
-              date: format.dateTime(new Date(practice.created_at), {
-                dateStyle: "medium",
-              }),
+              date: Number.isNaN(Date.parse(practice.created_at))
+                ? ""
+                : format.dateTime(new Date(practice.created_at), {
+                    dateStyle: "medium",
+                  }),
               voice: practice.source_audio_path
                 ? t("ownRecording")
                 : voice
@@ -175,7 +152,7 @@ export default async function MaterialsPage() {
             })}
           </p>
         )}
-        {!practice.removed_at && user.role === "admin" && (
+        {!practice.removed_at && admin && (
           <OfficialToggle
             practice={{ id: practice.id, title: practice.title }}
           />
@@ -195,8 +172,9 @@ export default async function MaterialsPage() {
               : "private",
           }}
           collections={collectionChoices}
+          hideCollection
         />
-      </li>
+      </div>
     );
   };
 
@@ -204,74 +182,72 @@ export default async function MaterialsPage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{tMaterials("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{tMaterials("intro")}</p>
-      <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-        <Link
-          href="/admin/reports"
-          className="text-supporting text-accent-ink underline underline-offset-4"
-        >
-          {tMaterials("reviewReports", { count: openReports })}
-        </Link>
-        <Link
-          href="/admin/usage"
-          className="text-supporting text-accent-ink underline underline-offset-4"
-        >
-          {tMaterials("usageLink")}
-        </Link>
-      </p>
-      <div className="mt-8">
-        {creator ? (
-          <ButtonLink href="/materials/new" variant="primary" arrow>
-            {tMaterials("create")}
-          </ButtonLink>
-        ) : (
-          <p className="text-supporting text-ink-muted">
-            {tMaterials("createUnavailable")}
-          </p>
-        )}
+      {admin && (
+        <p className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+          <Link
+            href="/admin/reports"
+            className="text-supporting text-accent-ink underline underline-offset-4"
+          >
+            {tMaterials("reviewReports", { count: openReports })}
+          </Link>
+          <Link
+            href="/admin/usage"
+            className="text-supporting text-accent-ink underline underline-offset-4"
+          >
+            {tMaterials("usageLink")}
+          </Link>
+        </p>
+      )}
+      {!creator && (
+        <p className="mt-6 text-supporting text-ink-muted">
+          {tMaterials("createUnavailable")}
+        </p>
+      )}
+      <div className="mt-8 max-w-content">
+        <MaterialsBrowser
+          canCreate={creator !== null}
+          folders={collectionChoices}
+          materials={allPractices.map((practice) => ({
+            id: practice.id,
+            videoId: customPracticeId(practice.id),
+            titles: {
+              en: practiceTitles(practice).en,
+              zh: practiceTitles(practice).zh,
+            },
+            subtitle: practice.subtitle,
+            seconds: practice.duration_sec ?? practice.estimated_seconds,
+            collectionId: practice.collection_id,
+            category: practice.category,
+            details: details(practice),
+          }))}
+        />
       </div>
-      <section className="mt-12 max-w-practice border-t border-line pt-8">
-        <h2 className="font-display text-h2">{t("listTitle")}</h2>
-        {groups.length > 0 ? (
-          <>
-            <p className="mt-2 text-supporting text-ink-muted">
-              {tOrganize("visibilityNote")}
-            </p>
-            <div className="mt-6 space-y-10">
-              {groups.map((group) => (
-                <section key={group.key} aria-label={group.title}>
-                  {allCollections.length > 0 && (
-                    <h3 className="font-display text-h3">{group.title}</h3>
-                  )}
-                  <ul className="mt-4 divide-y divide-line border-y border-line">
-                    {group.practices.map(row)}
-                  </ul>
-                </section>
-              ))}
-            </div>
-          </>
-        ) : (
-          <p className="mt-4 text-ink-muted">{t("listEmpty")}</p>
-        )}
-      </section>
-      <section className="mt-16 max-w-practice border-t border-line pt-8">
-        <h2 className="font-display text-h2">
-          {tOrganize("collectionsTitle")}
-        </h2>
-        <div className="mt-4">
-          <CollectionManager
-            collections={allCollections.map((collection) => ({
-              id: collection.id,
-              title: collection.title,
-              visibility: isVisibility(collection.visibility)
-                ? collection.visibility
-                : "private",
-              practiceCount: allPractices.filter(
-                (p) => p.collection_id === collection.id,
-              ).length,
-            }))}
-          />
-        </div>
-      </section>
+      {allPractices.length > 0 && (
+        <p className="mt-6 max-w-reading text-supporting text-ink-muted">
+          {tOrganize("visibilityNote")}
+        </p>
+      )}
+      {allCollections.length > 0 && !inFolder && (
+        <section className="mt-16 max-w-practice border-t border-line pt-8">
+          <h2 className="font-display text-h2">
+            {tOrganize("collectionsTitle")}
+          </h2>
+          <div className="mt-4">
+            <CollectionManager
+              collections={allCollections.map((collection) => ({
+                id: collection.id,
+                title: collection.title,
+                visibility: isVisibility(collection.visibility)
+                  ? collection.visibility
+                  : "private",
+                practiceCount: allPractices.filter(
+                  (p) => p.collection_id === collection.id,
+                ).length,
+              }))}
+            />
+          </div>
+        </section>
+      )}
     </main>
   );
 }
