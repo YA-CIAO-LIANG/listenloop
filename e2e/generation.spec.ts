@@ -19,6 +19,8 @@ test("a learner's own title is kept exactly, with a scenario of their own", asyn
   // The title comes first (D82).
   const title = "  請病假：寫給 Prof. Lee 的訊息  ";
   await page.getByLabel("中文標題").fill(title);
+  // A category from the list (one's own is the default, D154).
+  await page.getByLabel("類別", { exact: true }).selectOption("campus");
   await page
     .getByLabel("情境", { exact: true })
     .selectOption({ label: "其他（自己描述）" });
@@ -67,10 +69,17 @@ test("after AI writes and translates, an instruction revises it after a preview,
   await signInAsLearner(page);
   await page.goto("/materials/new");
   await page.getByText("AI 生成").click();
+  // A category of one's own first, with the cursor in it; left empty,
+  // AI files the text and the review step shows where (D154).
+  await expect(page.getByLabel("類別名稱（選填）")).toBeFocused();
   await page.getByRole("button", { name: "生成文字" }).click();
   await expect(page.getByLabel("文字內容")).not.toHaveValue("");
   await page.getByRole("button", { name: "斷句並翻譯" }).click();
   await expect(page.getByLabel("第 1 句英文")).toBeVisible();
+  await expect(page.getByLabel("類別", { exact: true })).toHaveValue(
+    "daily-life",
+  );
+  await expect(page.getByText("AI 依內容判斷的類別，可以修改。")).toBeVisible();
   const before = await page.getByLabel(/第 \d+ 句英文/).count();
   expect(before).toBeGreaterThan(2);
   const revise = async (instruction: string) => {

@@ -2737,3 +2737,27 @@
   - 精簡：`lib/custom-practice/shorten.ts`、`LENGTH_TOLERANCE`。
   - 斷句檢查：`lib/custom-practice/split.ts`（`modelSegments`、`segmentsPerLine`）。
   - 類別：`lib/categories.ts`（`GUESSABLE_CATEGORIES`）、`guessedMeta`。
+
+## D154 AI 生成的類別預設「自訂類別」，留空時由 AI 判斷（2026-11-13，Joe 指定）
+
+- **為什麼**：多數使用者想練的主題不一定在既有清單中，從清單一層層挑反而費時。預設讓使用者直接打一個類別名稱，或什麼都不填，交給 AI 判斷。
+- **做法**：
+  - 「AI 生成」打開時，類別預設是「自訂類別…」，游標自動放在類別名稱欄位（`GenerateTextPanel`，掛載時 `focus()`）。
+  - 類別名稱改成選填：
+    - 有填：和原本一樣（D82、D147），AI 依這個類別生成，教材歸在「其他」，並放進同名資料夾。
+    - 留空：用 D153 生成時一起回傳的 `category`，在一般類別中選最接近的，判斷不出來時是「其他」（`guessedMeta`）。考試類別需要考試與目標，所以不讓 AI 判斷。
+  - 類別名稱和「想練什麼？」都留空也可以生成：AI 自選日常主題（`FREE_TOPIC`）。理由：預設狀態就能直接按「生成文字」，不必先想主題，也不會因為改了預設而擋住原本快速生成的流程。
+  - **預覽頁可修改**：斷句翻譯後的檢查畫面，在標題下方顯示「類別」下拉選單與說明「AI 依內容判斷的類別，可以修改。」，只有 AI 判斷時才顯示。改了就用新的類別建立教材。
+  - 從下拉選單選既有類別時和原本一樣。選了類別但情境選「其他（自己描述）」時，現在會存成那個類別（沒有情境），原本會什麼都不存。
+  - 類別可以沒有情境（`scenario: null`），D153 已經讓 `parseMaterialMeta` 接受。
+- **沒有新增元件**：沿用既有的下拉選單與說明文字樣式。
+- **測試**：
+  - 元件測試：預設值與游標位置、留空時預覽頁顯示 AI 的類別並可以修改、建立時存修改後的類別、AI 判斷不出來時是「其他」。
+  - 單元測試：什麼都沒填的請求可以通過，提示詞是自選主題。
+  - E2E（`e2e/generation.spec.ts`）：游標位置、預覽頁的類別。
+  - 使用者手冊：`docs/system/*/user.md`。
+- **要改時**：
+  - 預設與表單：`components/GenerateTextPanel.tsx`。
+  - 預覽頁的類別：`components/CreatePracticeForm.tsx`。
+  - 自選主題的提示：`FREE_TOPIC`（`lib/custom-practice/generation.ts`）。
+  - 可判斷的類別：`GUESSABLE_CATEGORIES`（`lib/categories.ts`）。

@@ -1342,9 +1342,11 @@
     "titleHint": "只填中文或英文都可以：填了的會原樣保留，另一種語言由 AI 產生；都沒填的話由 AI 依內容取雙語標題。生成或斷句後都可以修改。",
     "customPlaceholder": "例如：跟教授請病假並詢問補交作業",
     "customCategoryOption": "自訂類別…",
-    "customCategoryLabel": "類別名稱（必填）",
+    "customCategoryLabel": "類別名稱（選填）",
     "customCategoryPlaceholder": "例如：天文攝影、桌遊",
-    "customCategoryHint": "AI 會依這個類別生成；在教材庫的篩選中歸類為「其他」。",
+    "customCategoryHint": "留空時由 AI 依內容判斷最接近的類別（判斷不出來就歸為「其他」），生成後可以修改。填了名稱，AI 會依這個類別生成，教材會放進同名資料夾。",
+    "guessedCategoryLabel": "類別",
+    "guessedCategoryHint": "AI 依內容判斷的類別，可以修改。",
     "needCategory": "請先填寫類別名稱。",
     "needScenario": "請描述想練的情境，或從上方選一個情境。",
     "lengthOptions": {

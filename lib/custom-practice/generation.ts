@@ -187,9 +187,10 @@ export function parseGenerationRequest(
     [...customCategory].length > CUSTOM_CATEGORY_MAX_CHARS ||
     [...titleEn].length > PRACTICE_LIMITS.titleChars ||
     [...titleZh].length > PRACTICE_LIMITS.titleChars ||
-    // A scenario from the list, or something described: a scenario of
-    // one's own, or a category of one's own (which has no list, D82).
-    (!place && (raw.scenario !== "" || !(customScenario || customCategory))) ||
+    // A scenario from the list, or none ("" ): then the learner's own
+    // situation or category (D81, D82), or with neither, a topic AI
+    // chooses and files (D154).
+    (!place && raw.scenario !== "") ||
     (customCategory !== "" && place !== null) ||
     !levelOk ||
     !(GENERATION_LENGTHS as readonly unknown[]).includes(raw.length) ||
@@ -219,6 +220,10 @@ export function parseGenerationRequest(
   };
 }
 
+/** What's asked for when the learner leaves everything open (D154). */
+export const FREE_TOPIC =
+  "an everyday situation a student would find useful, of your choice";
+
 export function compositionPrompt(
   request: GenerationRequest,
 ): CompositionPrompt {
@@ -226,7 +231,9 @@ export function compositionPrompt(
   const target = place?.exam ? findTarget(place.exam, request.level) : null;
   const scenario = place?.exam
     ? `${place.scenario.prompt}, ${place.exam.style}`
-    : (place?.scenario.prompt ?? "");
+    : (place?.scenario.prompt ??
+      // Nothing chosen or described (D154): AI picks the topic.
+      (request.customScenario || request.customCategory ? "" : FREE_TOPIC));
   const level = target
     ? target.prompt
     : LEVEL_PROMPTS[isLevel(request.level) ? request.level : "intermediate"];
@@ -382,8 +389,9 @@ export function shortenedText(
 }
 
 /**
- * The meta of a text the learner didn't file (D153): the category the
- * model chose, with no scenario, or "other" when it chose none.
+ * A meta with a category and no scenario (D153, D154): where the model
+ * filed a text the learner left open, or a category the learner chose
+ * with a situation of their own. "other" when there's no general one.
  */
 export function guessedMeta(
   request: GenerationRequest,
