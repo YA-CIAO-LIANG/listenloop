@@ -3,7 +3,7 @@
 import { UsageLimitMessage } from "./UsageLimitMessage";
 import type { UsageBlock } from "@/lib/usage";
 import { useTranslations } from "next-intl";
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import {
   generatePracticeText,
   type GenerateTextResult,
@@ -14,6 +14,7 @@ import {
   CATEGORY_IDS,
   EXAM_CATEGORY,
   EXAMS,
+  isGeneralCategory,
   LEVELS,
   OTHER_CATEGORY,
   type CategoryId,
@@ -27,6 +28,7 @@ import {
   lengthSeconds,
   CUSTOM_CATEGORY_MAX_CHARS,
   CUSTOM_SCENARIO_MAX_CHARS,
+  guessedMeta,
   materialMeta,
   type GenerationFormat,
   type GenerationLength,
@@ -51,6 +53,11 @@ export type GeneratedPractice = {
   text: string;
   /** Where it belongs, saved with the practice (D57). */
   meta: MaterialMeta | null;
+  /**
+   * The category is AI's guess (D154): the learner left it open, so the
+   * review step shows it to change.
+   */
+  categoryGuessed: boolean;
   accent: VoiceAccent;
   format: GenerationFormat;
 };
@@ -104,12 +111,16 @@ export function GenerateTextPanel({
     customHint: useId(),
     lengthHint: useId(),
   };
-  const [category, setCategory] = useState<CategoryId>(CATEGORY_IDS[0]);
+  // A category of one's own first (D154), with the cursor in its name;
+  // left empty, AI files the text and the review step shows where.
+  const [category, setCategory] = useState<CategoryId>(OTHER_CATEGORY);
   const [customCategory, setCustomCategory] = useState("");
+  const customCategoryRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    customCategoryRef.current?.focus();
+  }, []);
   const [exam, setExam] = useState<string>(EXAMS[0].id);
-  const [scenario, setScenario] = useState<string>(
-    CATEGORIES[0].scenarios[0].id,
-  );
+  const [scenario, setScenario] = useState<string>("");
   const [customScenario, setCustomScenario] = useState("");
   const [level, setLevel] = useState<string>("intermediate");
   // The plan's longest practice (D94): longer choices aren't offered.
@@ -153,7 +164,6 @@ export function GenerateTextPanel({
   // What's required: a scenario from the list, or something described.
   const needsOwnScenario = !isOther && scenario === "";
   const missing =
-    (isOther && !customCategory.trim()) ||
     (needsOwnScenario && !customScenario.trim()) ||
     (length === "custom" && !customOk);
 
@@ -206,12 +216,24 @@ export function GenerateTextPanel({
       } else if ("limit" in result) setUsage(result.limit);
       return;
     }
+    // Filed by the learner (D57, D82); a chosen category with a situation
+    // of one's own (D154); or, left open, where AI filed it (D154).
+    const chosen = materialMeta(request);
+    const guessed = !chosen && isOther;
+    const meta: MaterialMeta | null =
+      chosen ??
+      (guessed
+        ? guessedMeta(request, result.category)
+        : isGeneralCategory(category)
+          ? guessedMeta(request, category)
+          : null);
     onGenerated({
       titleEn: result.titleEn,
       titleZh: result.titleZh,
       subtitle: result.subtitle,
       text: format === "dialogue" ? withSpeakers(result.text) : result.text,
-      meta: materialMeta(request),
+      meta,
+      categoryGuessed: guessed,
       accent,
       format,
     });
@@ -338,13 +360,13 @@ export function GenerateTextPanel({
               {t("customCategoryLabel")}
             </label>
             <input
+              ref={customCategoryRef}
               id={ids.customCategory}
               type="text"
               value={customCategory}
               maxLength={CUSTOM_CATEGORY_MAX_CHARS}
               placeholder={t("customCategoryPlaceholder")}
               aria-describedby={ids.customCategoryHint}
-              aria-required
               onChange={(event) => setCustomCategory(event.target.value)}
               disabled={pending}
               className={fieldClass}

@@ -1342,9 +1342,11 @@
     "titleHint": "Fill in Chinese, English, or both: what you type is kept exactly and AI writes the other; leave both empty and AI names it in both. You can change them after writing or splitting.",
     "customPlaceholder": "e.g. asking a professor for sick leave and a later deadline",
     "customCategoryOption": "My own category…",
-    "customCategoryLabel": "Category name (required)",
+    "customCategoryLabel": "Category name (optional)",
     "customCategoryPlaceholder": "e.g. astrophotography, board games",
-    "customCategoryHint": "AI writes within this category; the library's filters list it under Other.",
+    "customCategoryHint": "Leave it empty and AI files the text under the closest category (or Other if none fits); you can change it after. With a name, AI writes within that category and the material goes into a folder of that name.",
+    "guessedCategoryLabel": "Category",
+    "guessedCategoryHint": "AI chose this category from the text. You can change it.",
     "needCategory": "Name the category first.",
     "needScenario": "Describe what you want to practice, or choose a scenario above.",
     "lengthOptions": {

@@ -702,16 +702,12 @@ describe("CreatePracticeForm", () => {
     expect((screen.getByLabelText("獨白") as HTMLInputElement).checked).toBe(
       true,
     );
-    fireEvent.change(screen.getByLabelText("類別"), {
-      target: { value: "other" },
-    });
-    // No scenario list for one's own category; its name is required.
+    // One's own category is the default (D154): no scenario list.
+    expect((screen.getByLabelText("類別") as HTMLSelectElement).value).toBe(
+      "other",
+    );
     expect(screen.queryByLabelText("情境")).toBeNull();
-    expect(
-      (screen.getByRole("button", { name: /生成文字/ }) as HTMLButtonElement)
-        .disabled,
-    ).toBe(true);
-    fireEvent.change(screen.getByLabelText("類別名稱（必填）"), {
+    fireEvent.change(screen.getByLabelText("類別名稱（選填）"), {
       target: { value: "天文攝影" },
     });
     await click("生成文字");
@@ -721,6 +717,72 @@ describe("CreatePracticeForm", () => {
         customCategory: "天文攝影",
         format: "monologue",
       }),
+    );
+  });
+
+  it("starts on a category of one's own with the cursor in it; left empty, AI's category shows in the review to change (D154)", async () => {
+    generateText.mockReset().mockResolvedValue({
+      ok: true,
+      titleEn: "Splitting the Power Bill",
+      titleZh: "分攤電費",
+      subtitle: "室友討論電費怎麼分",
+      text: "The bill came today.\nLet's split it by use.",
+      category: "money-admin",
+    });
+    await renderForm();
+    fireEvent.click(screen.getByLabelText("AI 生成"));
+    const name = screen.getByLabelText("類別名稱（選填）");
+    expect(document.activeElement).toBe(name);
+    // Nothing typed at all still writes: AI picks the topic.
+    expect(
+      (screen.getByRole("button", { name: /生成文字/ }) as HTMLButtonElement)
+        .disabled,
+    ).toBe(false);
+    fireEvent.change(screen.getByLabelText("想練什麼？（選填）"), {
+      target: { value: "跟室友討論怎麼分攤電費" },
+    });
+    await click("生成文字");
+    expect(generateText).toHaveBeenCalledWith(
+      expect.objectContaining({
+        scenario: "",
+        customCategory: "",
+        customScenario: "跟室友討論怎麼分攤電費",
+      }),
+    );
+    await click("斷句並翻譯");
+    const guessed = screen.getByLabelText("類別") as HTMLSelectElement;
+    expect(guessed.value).toBe("money-admin");
+    expect(screen.getByText("AI 依內容判斷的類別，可以修改。")).toBeTruthy();
+    fireEvent.change(guessed, { target: { value: "relationships" } });
+    await click("建立練習");
+    expect(create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        meta: {
+          category: "relationships",
+          scenario: null,
+          level: "intermediate",
+          exam: null,
+          examTarget: null,
+        },
+      }),
+    );
+  });
+
+  it("files a text as Other when AI can't tell (D154)", async () => {
+    generateText.mockReset().mockResolvedValue({
+      ok: true,
+      titleEn: "A Walk",
+      titleZh: "散步",
+      subtitle: "散步",
+      text: "We walked.\nIt was nice.",
+      category: null,
+    });
+    await renderForm();
+    fireEvent.click(screen.getByLabelText("AI 生成"));
+    await click("生成文字");
+    await click("斷句並翻譯");
+    expect((screen.getByLabelText("類別") as HTMLSelectElement).value).toBe(
+      "other",
     );
   });
 

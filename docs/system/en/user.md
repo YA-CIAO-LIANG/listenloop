@@ -189,6 +189,10 @@ flowchart LR
 
 1. **Pasted text**: English or Chinese (Chinese is translated into English to practice). Start dialogue lines with "A:" and "B:" for two voices.
 2. **AI writing**: title (optional; used as is), category, scenario, level, length, accent, and "What do you want to practice?".
+   - The category starts on "My own category", with the cursor in its name. With a name, AI writes within that category and the material goes into a folder of that name.
+   - The name can stay empty: AI files the text under the closest category, or Other when none fits. The review step after splitting shows its choice, and you can change it from the menu.
+   - With both the name and "What do you want to practice?" empty, AI picks an everyday topic itself.
+   - You can still pick one of the categories and scenarios from the category menu.
 3. **Upload audio** (Plus and above): choose your own English MP3 or MP4 (Plus: up to 100 MB and 5 minutes a file; Pro: 200 MB and 10 minutes). For a video, only the sound is taken out, in your browser; the picture is never uploaded. AI writes it down with each sentence's times; you can play each sentence, fix its words and times, join or remove sentences, then translate and create. Practicing plays your original recording. It starts private; to share it, you must confirm you own the recording or have permission.
 4. **Review sentences**: you see the sentence count and the estimated length (from the actual words, at about 150 words a minute). Edit English and Chinese, merge, split; or type an instruction like "use simpler words" and "Undo" if you don't like it.
 5. **Voices**: American, British, Australian, Indian; female and male; try each one.

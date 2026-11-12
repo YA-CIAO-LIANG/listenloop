@@ -14,6 +14,7 @@ import {
 import {
   checkGeneratedText,
   compositionPrompt,
+  FREE_TOPIC,
   lengthSeconds,
   lengthWords,
   materialMeta,
@@ -193,7 +194,13 @@ describe("parseGenerationRequest", () => {
       parseGenerationRequest({ ...request, scenario: "", customScenario: own }),
     ).toMatchObject({ scenario: "", customScenario: own });
     // Neither a scenario nor a description: nothing to write about.
-    expect(parseGenerationRequest({ ...request, scenario: "" })).toBeNull();
+    // Nothing chosen or described: AI picks the topic and files it (D154).
+    const open = parseGenerationRequest({ ...request, scenario: "" });
+    expect(open).toMatchObject({ scenario: "", customScenario: "" });
+    expect(compositionPrompt(open!).scenario).toBe(FREE_TOPIC);
+    expect(materialMeta(open!)).toBeNull();
+    // A scenario that isn't on the list is still refused.
+    expect(parseGenerationRequest({ ...request, scenario: "moon" })).toBeNull();
     expect(
       parseGenerationRequest({ ...request, customScenario: "長".repeat(201) }),
     ).toBeNull();

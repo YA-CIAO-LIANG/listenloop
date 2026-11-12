@@ -66,6 +66,7 @@ import {
 } from "./GenerateTextPanel";
 import { SpeakerToggle } from "./SpeakerToggle";
 import type { MaterialMeta } from "@/lib/custom-practice/generation";
+import { GUESSABLE_CATEGORIES, type CategoryId } from "@/lib/categories";
 import { SegmentedControl } from "./SegmentedControl";
 import { RevisePanel, type ReviseText } from "./RevisePanel";
 import { UploadCreate } from "./UploadCreate";
@@ -163,6 +164,7 @@ export function CreatePracticeForm({
   const ids = { title: useId(), text: useId(), hint: useId(), file: useId() };
 
   const tGenerate = useTranslations("generate");
+  const tCategories = useTranslations("categories");
   // Paste or upload text, or have it written (e+ 5).
   const [source, setSource] = useState<"text" | "ai" | "youtube" | "upload">(
     "text",
@@ -202,6 +204,8 @@ export function CreatePracticeForm({
   const [voiceB, setVoiceB] = useState("us-male");
   // Where AI-written text belongs, saved with the practice (D57).
   const [meta, setMeta] = useState<MaterialMeta | null>(null);
+  // AI chose the category (D154): the review step shows it to change.
+  const [categoryGuessed, setCategoryGuessed] = useState(false);
   const [progress, setProgress] = useState<Stage | null>(null);
   const nextKey = useRef(0);
   // Each row's cursor in its English box, for "Split at cursor".
@@ -250,6 +254,7 @@ export function CreatePracticeForm({
     setSubtitle(generated.subtitle);
     setText(generated.text);
     setMeta(generated.meta);
+    setCategoryGuessed(generated.categoryGuessed);
     // The accent asked for: A a female voice, B a male one (D57).
     setVoice(`${generated.accent}-female`);
     setVoiceB(`${generated.accent}-male`);
@@ -286,6 +291,7 @@ export function CreatePracticeForm({
       }
       setError(null);
       setMeta(null);
+      setCategoryGuessed(false);
       changeText(content);
       // A file's name is a title in its own language (D83).
       if (!titleEn.trim() && !titleZh.trim()) {
@@ -547,6 +553,44 @@ export function CreatePracticeForm({
     return (
       <section aria-labelledby={`${ids.title}-review`} className="space-y-6">
         {titleField}
+        {meta && categoryGuessed && (
+          <div className="space-y-1">
+            <label
+              htmlFor={`${ids.title}-category`}
+              className="block font-medium"
+            >
+              {tGenerate("guessedCategoryLabel")}
+            </label>
+            <p
+              id={`${ids.title}-category-hint`}
+              className="text-supporting text-ink-muted"
+            >
+              {tGenerate("guessedCategoryHint")}
+            </p>
+            <select
+              id={`${ids.title}-category`}
+              value={meta.category}
+              aria-describedby={`${ids.title}-category-hint`}
+              onChange={(event) =>
+                setMeta({
+                  ...meta,
+                  category: event.target.value as CategoryId,
+                  scenario: null,
+                  exam: null,
+                  examTarget: null,
+                })
+              }
+              disabled={pending}
+              className={`${fieldClassName} max-w-md`}
+            >
+              {GUESSABLE_CATEGORIES.map((id) => (
+                <option key={id} value={id}>
+                  {tCategories(`names.${id}`)}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
         <div className="pt-6">
           <h2 id={`${ids.title}-review`} className="font-display text-h2">
             {t("reviewTitle")}
