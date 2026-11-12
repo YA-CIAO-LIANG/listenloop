@@ -9,6 +9,7 @@ const state = vi.hoisted(() => ({
   inserts: [] as Insert[],
   deletes: [] as string[],
   failSentences: false,
+  folders: [] as { id: string; title: string }[],
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
@@ -44,10 +45,20 @@ vi.mock("@/auth/server", () => ({
         return {
           ...result,
           select: () => ({
-            single: async () => ({ data: { id: "p1" }, error: null }),
+            single: async () => ({
+              data: { id: table === "collections" ? "f-new" : "p1" },
+              error: null,
+            }),
           }),
         };
       },
+      // The learner's folders (D147).
+      select: () => ({
+        eq: async () => ({
+          data: table === "collections" ? state.folders : [],
+          error: null,
+        }),
+      }),
       delete: () => ({
         eq: async (_: string, id: string) => {
           state.deletes.push(id);
@@ -67,6 +78,7 @@ beforeEach(() => {
   state.inserts = [];
   state.deletes = [];
   state.failSentences = false;
+  state.folders = [];
 });
 
 describe("splitText", () => {
@@ -260,6 +272,32 @@ describe("createPractice", () => {
     expect(
       (state.inserts[1].rows as { speaker: number }[]).map((r) => r.speaker),
     ).toEqual([0, 1]);
+  });
+
+  it("puts a category of one's own into a folder of that name (D147)", async () => {
+    const meta = {
+      category: "other",
+      scenario: null,
+      level: "beginner",
+      exam: null,
+      examTarget: null,
+      folder: "天文攝影",
+    };
+    expect(await createPractice({ ...draft, meta })).toEqual({
+      ok: true,
+      id: "p1",
+    });
+    expect(state.inserts[0]).toEqual({
+      table: "collections",
+      rows: { user_id: "user-1", title: "天文攝影" },
+    });
+    expect(state.inserts[1].rows).toMatchObject({ collection_id: "f-new" });
+
+    // The folder already there (any case) is used.
+    state.inserts = [];
+    state.folders = [{ id: "f-old", title: "Astro" }];
+    await createPractice({ ...draft, meta: { ...meta, folder: "astro" } });
+    expect(state.inserts[0].rows).toMatchObject({ collection_id: "f-old" });
   });
 
   it("saves nothing when the missing Chinese can't be translated", async () => {

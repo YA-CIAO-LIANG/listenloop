@@ -838,6 +838,15 @@ CardLink，內容由上到下：
 - 每個字的卡片：計數 → 挖空的原句（`text-h3`，空格用 `mark-key`）→ 中文（supporting、ink-muted）→ 發音按鈕列（`role="group"`、`aria-label="單字發音"`）：「重播」（secondary、sm）、「循環播放」（ghost、sm、`aria-pressed`，開啟時文字改成「停止循環」）、「播放這句」（ghost、sm，只有音檔教材）→ 作答欄。
 - 作答後：對錯（success／error 色加 ✓／✗）、下次出現的說明、單字講解框（`border-line` 圓角框）：單字（`lang="en"`、font-medium、`text-h3`）＋音標（ink-muted）、詞性（ink-muted）＋中文、「例句」小標與英中例句、「出自《教材》第 N 句。」＋「去聽原句」連結（accent-ink 底線）。
 
+### 我的教材：資料夾檢視（`/materials`，D147）
+
+- 上方：麵包屑（`nav`、`aria-label="目前位置"`，目前位置 `aria-current="page"`，上一層是 accent-ink 底線連結，中間用 ›）。
+- 工具列：左邊「顯示方式」SegmentedControl（格狀／清單），右邊主要按鈕「建立教材 →」。
+- 資料夾磚：`border-line` 圓角卡片，至少 44px 高；圖示（我的資料夾 ▤、類別 ◇，`aria-hidden`）＋名稱＋「N 份」（supporting、ink-muted、tabular-nums）。拖曳教材時，我的資料夾的邊框變成 accent 虛線。
+- 教材卡片：格狀時是 `border-line` 圓角卡片（sm 兩欄、wide 三欄），清單時是上下分隔線。內容：標題（MaterialTitle compact，可點）、副標題、長度與進度（supporting、ink-muted）、「移動到」下拉、「管理」展開（`details`）。
+- 空狀態：虛線框、說明文字（ink-muted）、secondary「建立教材」。
+- 刪除資料夾：`role="alertdialog"` 的確認框，說明教材會回到「我的教材」。
+
 ### Cookie 提示（D148）
 
 - 只在設定 Clarity 且還沒選擇時出現。畫面底部固定的一條（`fixed`、`bg-surface`、上方 `border-line`），不遮住整個畫面、不擋操作；手機上文字在上、按鈕在下。

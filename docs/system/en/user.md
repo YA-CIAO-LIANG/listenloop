@@ -193,7 +193,8 @@ flowchart LR
 4. **Review sentences**: you see the sentence count and the estimated length (from the actual words, at about 150 words a minute). Edit English and Chinese, merge, split; or type an instruction like "use simpler words" and "Undo" if you don't like it.
 5. **Voices**: American, British, Australian, Indian; female and male; try each one.
 6. **After creating**: you see an estimate (calibrated from the site's recent real times); if it's over a minute you can leave and find it in My materials later. If it stopped, "Finish preparing".
-7. **Later**: edit (only changed sentences are redone), group, share publicly, delete. A week in progress keeps the version it started with.
+7. **Later**: edit (only changed sentences are redone), share publicly, delete. A week in progress keeps the version it started with.
+8. **Folders in My materials**: "My folders" can be created, renamed, and deleted (their materials go back to the top); "By category" sorts itself; a category of your own (when AI writes the text) becomes a folder of that name. Open a folder to see its materials (both titles, subtitle, length, progress); "My materials › folder" at the top goes back. Switch between grid and list. To move a material, drag its card onto a folder on a computer, or use its "Move to" (on phones too). Each card's "Manage" has edit, sharing, and delete.
 
 ---
 

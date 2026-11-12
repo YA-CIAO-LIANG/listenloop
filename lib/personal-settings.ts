@@ -2,6 +2,7 @@ import { ACCENT_STORAGE_KEY, DEFAULT_ACCENT } from "./accents";
 import { BACKGROUND_STORAGE_KEY, DEFAULT_BACKGROUND } from "./background-ids";
 import { HANDS_FREE_KEY } from "./hands-free";
 import { LEVEL_TEST_KEY } from "./level-test";
+import { MATERIALS_VIEW_KEY } from "./material-folders";
 import { LIBRARY_DEFAULT_STORAGE_KEY } from "./library-config";
 import { LISTEN_STORAGE_KEY } from "./listen";
 import { LOOP_STORAGE_KEY } from "./player/loop";
@@ -22,6 +23,8 @@ export const PERSONAL_SETTING_KEYS = [
   LISTEN_STORAGE_KEY,
   HANDS_FREE_KEY,
   LOOP_STORAGE_KEY,
+  // My materials' grid or list (D147).
+  MATERIALS_VIEW_KEY,
 ] as const;
 
 /** When this device's settings last changed (ms), to merge with the account's. */

@@ -149,6 +149,11 @@ export type MaterialMeta = {
   level: Level;
   exam: string | null;
   examTarget: string | null;
+  /**
+   * The name of a category of one's own (D82): the material goes into a
+   * folder of that name in My materials (D147).
+   */
+  folder?: string;
 };
 
 /**
@@ -251,6 +256,7 @@ export function materialMeta(request: GenerationRequest): MaterialMeta | null {
       level: isLevel(request.level) ? request.level : "intermediate",
       exam: null,
       examTarget: null,
+      folder: request.customCategory,
     };
   }
   const place = findScenario(request.scenario);
@@ -284,6 +290,11 @@ export function parseMaterialMeta(input: unknown): MaterialMeta | null {
           level: raw.level,
           exam: null,
           examTarget: null,
+          ...(typeof raw.folder === "string" &&
+          raw.folder.trim() &&
+          [...raw.folder.trim()].length <= CUSTOM_CATEGORY_MAX_CHARS
+            ? { folder: raw.folder.trim() }
+            : {}),
         }
       : null;
   }
