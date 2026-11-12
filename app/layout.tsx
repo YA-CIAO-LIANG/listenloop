@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
@@ -22,6 +22,16 @@ import { themeInitScript } from "@/lib/theme";
 import { SITE_URL } from "@/lib/site";
 import "./globals.css";
 import "./backgrounds.css";
+
+/**
+ * Every page is laid out at the phone's own width (D140), stated here
+ * rather than left to the framework's default.
+ */
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const [t, locale] = await Promise.all([

@@ -64,6 +64,11 @@ export async function signInAsBuyer(page: Page, id = "e2e-buyer") {
   await signInAs(page, { id, email: `${id}@example.com` });
 }
 
+/** Signs in as any account (e.g. one with a long Gmail address). */
+export async function signInWithEmail(page: Page, id: string, email: string) {
+  await signInAs(page, { id, email });
+}
+
 async function signInAs(page: Page, user: { id: string; email: string }) {
   const base64url = (value: unknown) =>
     Buffer.from(JSON.stringify(value)).toString("base64url");
