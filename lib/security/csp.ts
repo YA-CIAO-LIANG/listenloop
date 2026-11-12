@@ -1,3 +1,6 @@
+// Relative: next.config.ts imports this file, without the @/ alias.
+import { CLARITY_HOSTS } from "../analytics-consent";
+
 /**
  * The Content Security Policy (P1, D63): what a page may load and run.
  * Scripts need this request's nonce (Next.js adds it to its own; the
@@ -14,11 +17,15 @@ export function contentSecurityPolicy({
   nonce,
   supabaseUrl,
   development = false,
+  clarity = false,
 }: {
   nonce: string;
   supabaseUrl: string | null;
   development?: boolean;
+  /** Microsoft Clarity is set up (D148): its hosts are allowed. */
+  clarity?: boolean;
 }): string {
+  const analytics = (hosts: readonly string[]) => (clarity ? hosts : []);
   const supabase = supabaseUrl ? new URL(supabaseUrl).origin : null;
   const supabaseSocket = supabase?.replace(/^http/, "ws") ?? null;
   const directives: Record<string, (string | null)[]> = {
@@ -29,15 +36,28 @@ export function contentSecurityPolicy({
       "'strict-dynamic'",
       "https://www.youtube.com",
       "https://s.ytimg.com",
+      ...analytics(CLARITY_HOSTS.script),
       // React's dev tools evaluate code; never in production.
       development ? "'unsafe-eval'" : null,
     ],
     // Inline style attributes (custom properties for animations).
     "style-src": ["'self'", "'unsafe-inline'"],
-    "img-src": ["'self'", "data:", "blob:", "https://i.ytimg.com", supabase],
+    "img-src": [
+      "'self'",
+      "data:",
+      "blob:",
+      "https://i.ytimg.com",
+      supabase,
+      ...analytics(CLARITY_HOSTS.img),
+    ],
     "font-src": ["'self'", "data:"],
     "media-src": ["'self'", "blob:", supabase],
-    "connect-src": ["'self'", supabase, supabaseSocket],
+    "connect-src": [
+      "'self'",
+      supabase,
+      supabaseSocket,
+      ...analytics(CLARITY_HOSTS.connect),
+    ],
     "frame-src": [
       "https://www.youtube-nocookie.com",
       "https://www.youtube.com",

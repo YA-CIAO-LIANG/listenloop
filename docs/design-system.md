@@ -837,3 +837,9 @@ CardLink，內容由上到下：
 
 - 每個字的卡片：計數 → 挖空的原句（`text-h3`，空格用 `mark-key`）→ 中文（supporting、ink-muted）→ 發音按鈕列（`role="group"`、`aria-label="單字發音"`）：「重播」（secondary、sm）、「循環播放」（ghost、sm、`aria-pressed`，開啟時文字改成「停止循環」）、「播放這句」（ghost、sm，只有音檔教材）→ 作答欄。
 - 作答後：對錯（success／error 色加 ✓／✗）、下次出現的說明、單字講解框（`border-line` 圓角框）：單字（`lang="en"`、font-medium、`text-h3`）＋音標（ink-muted）、詞性（ink-muted）＋中文、「例句」小標與英中例句、「出自《教材》第 N 句。」＋「去聽原句」連結（accent-ink 底線）。
+
+### Cookie 提示（D148）
+
+- 只在設定 Clarity 且還沒選擇時出現。畫面底部固定的一條（`fixed`、`bg-surface`、上方 `border-line`），不遮住整個畫面、不擋操作；手機上文字在上、按鈕在下。
+- 文字（supporting）＋「隱私權政策」連結；按鈕「接受分析 Cookie」（primary）與「只用必要的 Cookie」（secondary），兩個一樣容易按，不做誘導。
+- 頁尾的「Cookie 設定」是和其他頁尾連結同樣樣式的按鈕，按了再顯示這條提示。

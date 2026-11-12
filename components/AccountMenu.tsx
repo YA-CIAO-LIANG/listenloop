@@ -178,7 +178,13 @@ function AccountPanel({ email }: { email: string }) {
         >
           <p className="text-supporting text-ink-muted">
             {t("signedInAs")}
-            <span className="block text-body break-all text-ink">{email}</span>
+            {/* Never in analytics recordings (D148). */}
+            <span
+              data-clarity-mask="True"
+              className="block text-body break-all text-ink"
+            >
+              {email}
+            </span>
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <Button

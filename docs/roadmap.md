@@ -929,6 +929,18 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.listenloop.auto-cont
 
 一律在自己的瀏覽器或終端機操作。**秘密金鑰不要貼進對話**，直接填到 Vercel 和 `.env.local`。
 
+### 0000. 2026-11-12 晚間新增（D140、D148）
+
+1. **Microsoft Clarity（免費，不需要信用卡）**：
+   1. 到 https://clarity.microsoft.com ，用 Microsoft 或 Google 帳號登入。
+   2. 按「+ New project」：Name 填 `ListenLoop`，Website URL 填 `https://listenloop-three.vercel.app`，Category 選 Education。
+   3. 建立後到「Settings → Setup」，複製 **Project ID**（10 個左右的英數字，例如 `abc123xyz`）。不需要複製整段程式碼，網站已經內建載入方式。
+   4. 「Settings → Masking」：選 **Balanced**（預設，會遮蔽所有輸入框與敏感資料）。如果想更保守，可以選 Strict（所有文字都遮蔽，熱點圖仍可用）。
+   5. 「Settings → Setup → Advanced settings」：打開 **Cookie consent**（要求網站送出同意訊號才設 cookie），關閉 **Microsoft Advertising / ad storage** 相關選項。
+   6. 到 Vercel → 專案 → Settings → Environment Variables，新增 `NEXT_PUBLIC_CLARITY_PROJECT_ID` = 你的 Project ID（Production），然後 Deployments → 最新一筆 → Redeploy。
+   7. 打開正式站：底部會出現 Cookie 提示，按「接受分析 Cookie」後到 Clarity 的 Dashboard，約 30 分鐘到 2 小時內會出現第一筆錄影。
+2. **手機重新測試 Google 登入**（D140）：用手機登出再用 Google 登入，回到網站後應該是手機版。若仍是電腦版，請截圖並告訴我網址列的網址。
+
 ### 000. 2026-11-13 新增（詳細見最上方「進度報告（2026-11-13）」第 4、5 點）
 
 1. 要開放 YouTube 建立練習時：Google Cloud 啟用 YouTube Data API v3、建立並限制 API 金鑰，在 Vercel Production 設定 `YOUTUBE_API_KEY` 後 Redeploy，再到後台「API 用量」測試連線。

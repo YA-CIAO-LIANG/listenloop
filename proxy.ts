@@ -1,5 +1,6 @@
 import type { NextRequest } from "next/server";
 import { updateSession } from "@/auth/proxy-session";
+import { clarityProjectId } from "@/lib/analytics-consent";
 import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
 import { supabaseConfig } from "@/lib/supabase/config";
 
@@ -14,6 +15,7 @@ export async function proxy(request: NextRequest) {
     nonce,
     supabaseUrl: supabaseConfig?.url ?? null,
     development: process.env.NODE_ENV === "development",
+    clarity: clarityProjectId() !== null,
   });
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
