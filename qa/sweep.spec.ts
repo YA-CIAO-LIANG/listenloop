@@ -116,27 +116,25 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
             await page.getByText(/^(AI 生成|Write with AI)$/).click();
           },
         },
+        // YouTube links are paused (D131); the upload panel took its
+        // place (D130): a real MP3 through to the sentences to check.
         {
           path: "/materials/new",
           role: "paid" as const,
-          state: "youtube-review",
+          state: "upload-review",
           then: async (page: Page) => {
-            await page.getByText(/^(YouTube 連結|YouTube link)$/).click();
+            await page.getByText(/^(上傳音檔|Upload audio)$/).click();
             await page
-              .getByLabel(/YouTube 影片連結|YouTube video link/)
-              .fill("ccVideo0001");
+              .getByLabel(/選擇 MP3 或 MP4 檔案|Choose an MP3 or MP4 file/)
+              .setInputFiles("tests/fixtures/ai/azure-speech/us-female.mp3");
             await page
-              .getByRole("button", { name: /讀取影片|Read the video/ })
+              .getByRole("button", {
+                name: /讀取並轉成文字|Read and write it down/,
+              })
               .click();
             await page
-              .getByLabel(/字幕記錄|Transcript/)
-              .fill(
-                "0:01\nso how does\n0:03\nsleep work?\n0:05\nLet's find out.",
-              );
-            await page
-              .getByRole("button", { name: /斷句並翻譯|Split and translate/ })
-              .click();
-            await page.getByText("0:01–0:04").waitFor();
+              .getByLabel(/第 1 句英文|Sentence 1 English/)
+              .waitFor({ timeout: 20_000 });
           },
         },
         { path: "/videos/sintel", role: "paid" as const },
