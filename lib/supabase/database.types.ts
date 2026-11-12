@@ -1366,6 +1366,33 @@ export type Database = {
         };
         Relationships: [];
       };
+      work_queue: {
+        Row: {
+          enqueued_at: string;
+          priority: number;
+          resource: string;
+          seen_at: string;
+          ticket: string;
+          user_id: string | null;
+        };
+        Insert: {
+          enqueued_at?: string;
+          priority?: number;
+          resource: string;
+          seen_at?: string;
+          ticket: string;
+          user_id?: string | null;
+        };
+        Update: {
+          enqueued_at?: string;
+          priority?: number;
+          resource?: string;
+          seen_at?: string;
+          ticket?: string;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -1476,6 +1503,17 @@ export type Database = {
           sentences: number;
           voiced: number;
         }[];
+      };
+      queue_leave: { Args: { target_ticket: string }; Returns: undefined };
+      queue_position: {
+        Args: {
+          stale_seconds: number;
+          target_priority: number;
+          target_resource: string;
+          target_ticket: string;
+          target_user: string;
+        };
+        Returns: number;
       };
       reserve_api_batch_cost: {
         Args: {

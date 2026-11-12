@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { cache } from "react";
 import { practiceTitles } from "@/lib/titles";
 import {
@@ -12,7 +13,9 @@ import {
 } from "@/lib/practice-material";
 import { speechAudioUrl, UPLOADS_BUCKET } from "@/lib/supabase/config";
 import { getVideo } from "@/lib/video-library";
+import { LIBRARY_CACHE_SECONDS, LIBRARY_TAG } from "@/lib/library-config";
 import { getAdminSupabase } from "./admin";
+import { getPublicSupabase } from "./public-supabase";
 import { getServerSupabase } from "./server";
 import { getSignedInUser } from "./session";
 
@@ -49,99 +52,114 @@ export const getPracticeState = cache(
     if (video) return { status: "ready", material: video };
     const uuid = parseCustomPracticeId(id);
     if (!uuid) return null;
-    const [supabase, user] = await Promise.all([
-      getServerSupabase(),
-      getSignedInUser(),
-    ]);
-    if (!supabase) return null;
-    const [{ data }, own] = await Promise.all([
-      supabase
-        .from("practices")
-        .select(
-          "id, title, title_en, title_zh, subtitle, version, notes_generated_at, official, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, source_audio_path, attribution, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
-        )
-        .eq("id", uuid)
-        .maybeSingle(),
-      // Signed-out visitors can't read author ids, so ask only when signed in.
-      user
-        ? supabase
-            .from("practices")
-            .select("id")
-            .eq("id", uuid)
-            .eq("user_id", user.id)
-            .maybeSingle()
-        : null,
-    ]);
-    if (!data) return null;
-    const mine = !!own?.data;
-    // Only those who may practice it get the sentences (D106): checked
-    // here with can_practice, and by row level security, which hides the
-    // sentences from everyone else. Others get the preview, if any.
-    const locked =
-      !mine &&
-      (data.practice_sentences.length === 0 ||
-        (!data.official &&
-          (await supabase.rpc("can_practice", { target: uuid })).data ===
-            false));
-    if (locked) {
-      const { data: preview } = await supabase.rpc("practice_preview", {
-        target: uuid,
-      });
-      const shared = sharedPreview(data, preview, (path) =>
-        speechAudioUrl(path),
-      );
-      return shared ? { status: "preview", preview: shared } : null;
-    }
-    if (version !== undefined && version !== data.version) {
-      const { data: snapshot } = await supabase
-        .from("practice_versions")
-        .select("practice_id, version, title, sentences, vocab, grammar")
-        .eq("practice_id", uuid)
-        .eq("version", version)
-        .maybeSingle();
-      const earlier =
-        snapshot &&
-        materialFromSnapshot(snapshot, (path) => speechAudioUrl(path));
-      // An earlier week shows today's titles (D83): titles aren't versioned.
-      const titles = practiceTitles(data);
-      if (earlier) {
-        return {
-          status: "ready",
-          material: { ...earlier, title: titles.en, titleZh: titles.zh, mine },
-        };
-      }
-    }
-    // The practice-wide notes are read through can_practice too (D106).
-    const { data: notes } = await supabase.rpc("practice_notes", {
-      target: uuid,
-    });
-    const material = materialFromCustomPractice(
-      {
-        ...data,
-        vocab: notes?.[0]?.vocab ?? [],
-        grammar: notes?.[0]?.grammar ?? [],
-      },
-      (path) => speechAudioUrl(path),
-      data.source_audio_path
-        ? await recordingUrl(data.source_audio_path)
-        : null,
-    );
-    if (material) {
-      return {
-        status: "ready",
-        material: { ...material, mine, official: !!data.official },
-      };
-    }
-    return mine
-      ? {
-          status: "preparing",
-          practiceId: data.id,
-          title: data.title,
-          readiness: customPracticeReadiness(data),
-        }
-      : null;
+    const user = await getSignedInUser();
+    // Signed out, everyone sees the same thing: cached (D133).
+    if (!user && version === undefined) return stateForEveryone(uuid);
+    return readPracticeState(await getServerSupabase(), user, uuid, version);
   },
 );
+
+/**
+ * What a signed-out visitor sees of a created practice (D133): read with
+ * the public key and cached for 5 minutes (refreshed at once when an
+ * admin publishes), since search engines and shared links bring most of
+ * these visits.
+ */
+const stateForEveryone = unstable_cache(
+  (uuid: string) => readPracticeState(getPublicSupabase(), null, uuid),
+  ["practice-state:v1"],
+  { revalidate: LIBRARY_CACHE_SECONDS, tags: [LIBRARY_TAG] },
+);
+
+async function readPracticeState(
+  supabase: Awaited<ReturnType<typeof getServerSupabase>>,
+  user: { id: string } | null,
+  uuid: string,
+  version?: number,
+): Promise<PracticeState | null> {
+  if (!supabase) return null;
+  const [{ data }, own] = await Promise.all([
+    supabase
+      .from("practices")
+      .select(
+        "id, title, title_en, title_zh, subtitle, version, notes_generated_at, official, category, scenario, level, voice, duration_sec, youtube_id, youtube_channel, youtube_license, source_audio_path, attribution, source_name, source_title, source_url, practice_sentences(i, en, zh, audio_path, notes, start_sec, end_sec)",
+      )
+      .eq("id", uuid)
+      .maybeSingle(),
+    // Signed-out visitors can't read author ids, so ask only when signed in.
+    user
+      ? supabase
+          .from("practices")
+          .select("id")
+          .eq("id", uuid)
+          .eq("user_id", user.id)
+          .maybeSingle()
+      : null,
+  ]);
+  if (!data) return null;
+  const mine = !!own?.data;
+  // Only those who may practice it get the sentences (D106): checked
+  // here with can_practice, and by row level security, which hides the
+  // sentences from everyone else. Others get the preview, if any.
+  const locked =
+    !mine &&
+    (data.practice_sentences.length === 0 ||
+      (!data.official &&
+        (await supabase.rpc("can_practice", { target: uuid })).data === false));
+  if (locked) {
+    const { data: preview } = await supabase.rpc("practice_preview", {
+      target: uuid,
+    });
+    const shared = sharedPreview(data, preview, (path) => speechAudioUrl(path));
+    return shared ? { status: "preview", preview: shared } : null;
+  }
+  if (version !== undefined && version !== data.version) {
+    const { data: snapshot } = await supabase
+      .from("practice_versions")
+      .select("practice_id, version, title, sentences, vocab, grammar")
+      .eq("practice_id", uuid)
+      .eq("version", version)
+      .maybeSingle();
+    const earlier =
+      snapshot &&
+      materialFromSnapshot(snapshot, (path) => speechAudioUrl(path));
+    // An earlier week shows today's titles (D83): titles aren't versioned.
+    const titles = practiceTitles(data);
+    if (earlier) {
+      return {
+        status: "ready",
+        material: { ...earlier, title: titles.en, titleZh: titles.zh, mine },
+      };
+    }
+  }
+  // The practice-wide notes are read through can_practice too (D106).
+  const { data: notes } = await supabase.rpc("practice_notes", {
+    target: uuid,
+  });
+  const material = materialFromCustomPractice(
+    {
+      ...data,
+      vocab: notes?.[0]?.vocab ?? [],
+      grammar: notes?.[0]?.grammar ?? [],
+    },
+    (path) => speechAudioUrl(path),
+    data.source_audio_path ? await recordingUrl(data.source_audio_path) : null,
+  );
+  if (material) {
+    return {
+      status: "ready",
+      material: { ...material, mine, official: !!data.official },
+    };
+  }
+  return mine
+    ? {
+        status: "preparing",
+        practiceId: data.id,
+        title: data.title,
+        readiness: customPracticeReadiness(data),
+      }
+    : null;
+}
 
 /**
  * How long a recording's signed URL works (D130): a long practice

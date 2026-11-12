@@ -1,6 +1,7 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
+import { LIBRARY_TAG } from "@/lib/library-config";
 import { logAudit } from "@/auth/audit";
 import { getBatchCreator } from "@/auth/creator";
 import { getAdminSupabase } from "@/auth/admin";
@@ -84,5 +85,7 @@ export async function upgradeOfficialNotes(
   );
   revalidatePath("/admin/official");
   revalidatePath("/", "layout");
+  // The cached library (D133) shows the change at once.
+  updateTag(LIBRARY_TAG);
   return { ok: true, done, total, version };
 }

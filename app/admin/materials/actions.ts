@@ -1,7 +1,8 @@
 "use server";
 
 import type { UsageBlock } from "@/lib/usage";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, updateTag } from "next/cache";
+import { LIBRARY_TAG } from "@/lib/library-config";
 import { getAdminSupabase } from "@/auth/admin";
 import type { WriteResult } from "@/auth/admin-writes";
 import { logAudit } from "@/auth/audit";
@@ -47,6 +48,8 @@ async function asAdmin(
   if (result.ok) {
     revalidatePath("/admin/materials");
     revalidatePath("/", "layout");
+    // The cached library (D133) shows the change at once.
+    updateTag(LIBRARY_TAG);
   }
   return result;
 }

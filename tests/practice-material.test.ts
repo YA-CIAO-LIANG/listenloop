@@ -17,45 +17,54 @@ const state = vi.hoisted(() => ({
   preview: null as unknown,
   allowed: true,
 }));
-vi.mock("@/auth/server", () => ({
-  getServerSupabase: async () => ({
-    // The notes and the preview are read through functions (D106).
-    rpc: async (name: string) => {
-      const row = state.row as { vocab?: unknown; grammar?: unknown } | null;
-      return {
-        data:
-          name === "practice_notes"
-            ? row
-              ? [{ vocab: row.vocab, grammar: row.grammar }]
-              : []
-            : name === "can_practice"
-              ? state.allowed
-              : state.preview,
-        error: null,
+// Signed out reads with the public key, cached (D133): the same stand-in
+// here, and the cache passes straight through.
+vi.mock("next/cache", () => ({
+  unstable_cache: <A extends unknown[], R>(fn: (...args: A) => R) => fn,
+}));
+vi.mock("@/auth/public-supabase", async () => ({
+  getPublicSupabase: () => standIn(),
+}));
+const standIn = vi.hoisted(() => () => ({
+  // The notes and the preview are read through functions (D106).
+  rpc: async (name: string) => {
+    const row = state.row as { vocab?: unknown; grammar?: unknown } | null;
+    return {
+      data:
+        name === "practice_notes"
+          ? row
+            ? [{ vocab: row.vocab, grammar: row.grammar }]
+            : []
+          : name === "can_practice"
+            ? state.allowed
+            : state.preview,
+      error: null,
+    };
+  },
+  from: () => ({
+    select: () => {
+      const filters: Record<string, string> = {};
+      const query = {
+        eq: (column: string, value: string) => {
+          state.eq(column, value);
+          filters[column] = value;
+          return query;
+        },
+        // The ownership query matches only the owner's id.
+        maybeSingle: async () => ({
+          data:
+            "user_id" in filters && filters.user_id !== state.ownerId
+              ? null
+              : state.row,
+          error: null,
+        }),
       };
+      return query;
     },
-    from: () => ({
-      select: () => {
-        const filters: Record<string, string> = {};
-        const query = {
-          eq: (column: string, value: string) => {
-            state.eq(column, value);
-            filters[column] = value;
-            return query;
-          },
-          // The ownership query matches only the owner's id.
-          maybeSingle: async () => ({
-            data:
-              "user_id" in filters && filters.user_id !== state.ownerId
-                ? null
-                : state.row,
-            error: null,
-          }),
-        };
-        return query;
-      },
-    }),
   }),
+}));
+vi.mock("@/auth/server", () => ({
+  getServerSupabase: async () => standIn(),
 }));
 vi.mock("@/auth/session", () => ({
   getSignedInUser: async () => state.user,

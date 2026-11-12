@@ -13,9 +13,16 @@ import { userNumberLabel } from "@/lib/accounts";
 import {
   taiwanToday,
   adminPeriods,
+  FREE_LIMITS,
+  nearLimits,
   shareOf,
   SUPABASE_FREE,
+  type CapacityUse,
 } from "@/lib/admin-dashboard";
+import { getBetaStatus } from "@/auth/beta";
+
+/** month_audio_ms wants a user; this one is nobody (the site total only). */
+const NO_USER = "00000000-0000-0000-0000-000000000000";
 import {
   AZURE_CREDIT,
   AZURE_SPEECH_FREE_CHARS,
@@ -57,6 +64,9 @@ export default async function AdminOverviewPage() {
     { count: paidAccounts },
     { data: activityRows },
     { data: progressRows },
+    beta,
+    { count: betaWaiting },
+    { data: audioRows },
   ] = await Promise.all([
     admin.rpc("admin_overview", { day_start: dayStart, week_start: weekStart }),
     admin.rpc("api_usage_totals", {
@@ -80,6 +90,16 @@ export default async function AdminOverviewPage() {
       .eq("key", "activity")
       .limit(2000),
     admin.from("progress").select("data").limit(5000),
+    // Sign-ups in stages and the free tiers' use (D132, D133).
+    getBetaStatus(),
+    admin
+      .from("beta_waitlist")
+      .select("id", { count: "exact", head: true })
+      .is("invited_at", null),
+    admin.rpc("month_audio_ms", {
+      month_start: monthStart,
+      target_user: NO_USER,
+    }),
     // Retention (D55); its result doesn't matter here.
     admin.rpc("prune_logs").then(
       () => null,
@@ -125,7 +145,103 @@ export default async function AdminOverviewPage() {
   const percent = (share: number) =>
     format.number(share, { style: "percent", maximumFractionDigits: 0 });
 
+  // Each free tier's use against its limit (D133), warned from 80%.
+  const capacity: (CapacityUse & { label: string; note: string })[] = [
+    ...(beta
+      ? [
+          {
+            id: "signups",
+            label: t("signups"),
+            used: beta.admitted,
+            limit: beta.cap,
+            note: t(beta.open ? "signupsNote" : "signupsClosed", {
+              used: count(beta.admitted),
+              cap: count(beta.cap),
+            }),
+          },
+        ]
+      : []),
+    {
+      id: "monthlyUsers",
+      label: t("monthlyUsers"),
+      used: o?.users ?? 0,
+      limit: FREE_LIMITS.supabaseMonthlyUsers,
+      note: t("monthlyUsersNote", {
+        used: count(o?.users),
+        limit: count(FREE_LIMITS.supabaseMonthlyUsers),
+      }),
+    },
+    {
+      id: "speech",
+      label: t("speech"),
+      used: u?.month_azure_speech_chars ?? 0,
+      limit: AZURE_SPEECH_FREE_CHARS,
+      note: t("speechNote", {
+        used: count(u?.month_azure_speech_chars),
+        free: count(AZURE_SPEECH_FREE_CHARS),
+      }),
+    },
+    {
+      id: "transcribe",
+      label: t("transcribe"),
+      used: Number(audioRows?.[0]?.site ?? 0) / 1000,
+      limit: FREE_LIMITS.transcribeSeconds,
+      note: t("transcribeNote", {
+        used: format.number(Number(audioRows?.[0]?.site ?? 0) / 60_000, {
+          maximumFractionDigits: 1,
+        }),
+        limit: FREE_LIMITS.transcribeSeconds / 60,
+      }),
+    },
+    {
+      id: "aiCost",
+      label: t("aiCost"),
+      used: u?.month_micros ?? 0,
+      limit: settings.siteMonthlyMicros,
+      note: t("aiCostNote", {
+        used: usd(u?.month_micros ?? 0),
+        cap: usd(settings.siteMonthlyMicros),
+      }),
+    },
+    {
+      id: "database",
+      label: t("database"),
+      used: o?.database_bytes ?? 0,
+      limit: SUPABASE_FREE.databaseBytes,
+      note: t("bytesNote", {
+        used: mb(o?.database_bytes ?? 0),
+        limit: mb(SUPABASE_FREE.databaseBytes),
+      }),
+    },
+    {
+      id: "files",
+      label: t("files"),
+      used: o?.storage_bytes ?? 0,
+      limit: SUPABASE_FREE.storageBytes,
+      note: t("bytesNote", {
+        used: mb(o?.storage_bytes ?? 0),
+        limit: mb(SUPABASE_FREE.storageBytes),
+      }),
+    },
+  ];
+  const near = nearLimits(capacity);
+
   const groups = [
+    {
+      id: "capacity",
+      stats: [
+        ...capacity.map((use) => ({
+          label: use.label,
+          value: percent(shareOf(use.used, use.limit)),
+          note: use.note,
+        })),
+        {
+          label: t("betaWaitlist"),
+          value: count(betaWaiting ?? 0),
+          note: t("betaWaitlistNote"),
+        },
+      ],
+    },
     {
       id: "learners",
       stats: [
@@ -206,41 +322,6 @@ export default async function AdminOverviewPage() {
             ),
           }),
         },
-        {
-          label: t("speech"),
-          value: percent(
-            shareOf(u?.month_azure_speech_chars ?? 0, AZURE_SPEECH_FREE_CHARS),
-          ),
-          note: t("speechNote", {
-            used: count(u?.month_azure_speech_chars),
-            free: count(AZURE_SPEECH_FREE_CHARS),
-          }),
-        },
-      ],
-    },
-    {
-      id: "storage",
-      stats: [
-        {
-          label: t("database"),
-          value: percent(
-            shareOf(o?.database_bytes ?? 0, SUPABASE_FREE.databaseBytes),
-          ),
-          note: t("bytesNote", {
-            used: mb(o?.database_bytes ?? 0),
-            limit: mb(SUPABASE_FREE.databaseBytes),
-          }),
-        },
-        {
-          label: t("files"),
-          value: percent(
-            shareOf(o?.storage_bytes ?? 0, SUPABASE_FREE.storageBytes),
-          ),
-          note: t("bytesNote", {
-            used: mb(o?.storage_bytes ?? 0),
-            limit: mb(SUPABASE_FREE.storageBytes),
-          }),
-        },
       ],
     },
   ] as const;
@@ -249,6 +330,28 @@ export default async function AdminOverviewPage() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
+      {near.length > 0 && (
+        <div
+          role="alert"
+          className="mt-6 max-w-reading rounded-base border border-error p-4 text-error"
+        >
+          <p className="font-medium">{t("nearTitle")}</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5">
+            {near.map((use) => {
+              const item = capacity.find((c) => c.id === use.id)!;
+              return (
+                <li key={use.id}>
+                  {t("nearItem", {
+                    label: item.label,
+                    share: percent(Math.min(use.used / use.limit, 1)),
+                  })}
+                </li>
+              );
+            })}
+          </ul>
+          <p className="mt-2 text-supporting">{t("nearHint")}</p>
+        </div>
+      )}
       {monthShare >= MONTHLY_WARNING_SHARE && (
         <p
           role="alert"

@@ -835,7 +835,8 @@
       "limit": "Today's speech allowance is used up. The audio made so far is kept; continue tomorrow (after midnight, Taiwan time).",
       "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again.",
       "busy": "The speech service is busy. Wait a minute and try again; the audio made so far is kept.",
-      "config": "The AI service's setup or allowance has a problem (for example, a wrong key, a model that isn't deployed, or a used-up free tier or prepaid credit). Check the AI variables listed in .env.example; the server log has the details."
+      "config": "The AI service's setup or allowance has a problem (for example, a wrong key, a model that isn't deployed, or a used-up free tier or prepaid credit). Check the AI variables listed in .env.example; the server log has the details.",
+      "queued": "Lots of people are in line, and after 30 minutes it still isn't this one's turn. What's done is kept; later, choose “Finish preparing” in My materials."
     },
     "startPractice": "Start practicing",
     "ungrouped": "Ungrouped",
@@ -852,7 +853,8 @@
       "limit": "Today's translation and notes allowance is used up. Continue tomorrow (after midnight, Taiwan time).",
       "busy": "The AI service is busy. Wait a minute, then press Continue.",
       "failed": "Something went wrong while making the notes. Please try again.",
-      "config": "The AI service's setup or allowance has a problem (for example, a wrong key, a model that isn't deployed, or a used-up free tier or prepaid credit). Check the AI variables listed in .env.example; the server log has the details."
+      "config": "The AI service's setup or allowance has a problem (for example, a wrong key, a model that isn't deployed, or a used-up free tier or prepaid credit). Check the AI variables listed in .env.example; the server log has the details.",
+      "queued": "Lots of people are in line; later, choose “Finish preparing” in My materials."
     },
     "privacyNote": "When you create a practice, its text is sent to Microsoft Azure's AI services (Azure OpenAI, Azure Speech). It isn't used to train models, but may be kept for up to 30 days to detect abuse. Please don't include personal or sensitive information. See the <link>privacy policy</link>.",
     "notReadyBack": "My materials",
@@ -863,7 +865,8 @@
       "translate": "Translating {done}/{total} sentences",
       "notes": "Writing notes {done}/{total} sentences",
       "audio": "Making audio {done}/{total} sentences",
-      "busy": "The speech service is busy; continuing in {seconds} s ({done}/{total} sentences)"
+      "busy": "The speech service is busy; continuing in {seconds} s ({done}/{total} sentences)",
+      "queued": "In line: {ahead} ahead, it starts on its own when it's this one's turn (audio {done} / {total})"
     },
     "splitSentence": "Split at cursor",
     "splitSentenceLabel": "Split sentence {n} at the cursor",
@@ -1375,7 +1378,8 @@
         "costs": "Spending and credit",
         "storage": "Supabase storage",
         "plans": "Plans",
-        "study": "Study"
+        "study": "Study",
+        "capacity": "Capacity and free tiers"
       },
       "users": "Total users",
       "activeToday": "Active today",
@@ -1411,7 +1415,21 @@
       "minutesCount": "{n} min",
       "capWarning": "This month's AI spend is at {share} of the site cap ({cap}); at the cap, regular users can't create.",
       "capReached": "This month's AI spend has reached the site cap ({cap}): regular users can't create; admins still can by hand.",
-      "capLink": "Change the limits →"
+      "capLink": "Change the limits →",
+      "signups": "Accounts / cap",
+      "signupsNote": "{used} / {cap}, public sign-ups open",
+      "signupsClosed": "{used} / {cap}, public sign-ups closed",
+      "monthlyUsers": "Supabase monthly active users",
+      "monthlyUsersNote": "All {used} accounts (an upper bound); the free plan allows {limit}",
+      "transcribe": "Azure speech to text (this month)",
+      "transcribeNote": "{used} / {limit} minutes (F0: 5 hours a month free)",
+      "aiCost": "AI spend (this month)",
+      "aiCostNote": "{used} of the site cap {cap}",
+      "betaWaitlist": "Beta waiting list",
+      "betaWaitlistNote": "Not invited yet; invite them in batches under Sign-ups",
+      "nearTitle": "Close to a free-tier limit (80% or more):",
+      "nearItem": "{label}: {share} used",
+      "nearHint": "Vercel's traffic and function use are under Usage in the Vercel dashboard. What happens when each fills up, and which plan to move to, is in docs/capacity.md."
     },
     "users": {
       "title": "Users",
@@ -3114,7 +3132,8 @@
       "decode": "Reading the sound…",
       "encode": "Compressing the sound ({percent}%)…",
       "upload": "Uploading…",
-      "transcribe": "Writing it down (batch {done} / {total})"
+      "transcribe": "Writing it down (batch {done} / {total})",
+      "queued": "In line: {ahead} recordings ahead; it starts on its own when it's this one's turn"
     },
     "reviewIntro": "{count} sentences, {length}. Play each one, fix the words and times, then choose Translate.",
     "translatedIntro": "{count} sentences, {length}. Edit the Chinese and the titles, then create the practice.",
@@ -3157,7 +3176,8 @@
       "invalid": "Something was missing. Choose the file again and retry.",
       "failed": "That didn't work. Please try again.",
       "row": "Sentence {n} needs a fix: the English can't be empty, it must start before it ends, and not before the previous one starts.",
-      "notes": "The practice was created, but its notes aren't finished; continue from My materials."
+      "notes": "The practice was created, but its notes aren't finished; continue from My materials.",
+      "queued": "Lots of people are in line, and after 30 minutes it still isn't this one's turn. Please try again later."
     }
   },
   "beta": {

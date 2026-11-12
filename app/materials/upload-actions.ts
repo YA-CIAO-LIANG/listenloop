@@ -5,6 +5,7 @@ import { getAdminSupabase } from "@/auth/admin";
 import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
+import { leaveQueue, takeTurn } from "@/auth/queue";
 import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
 import { meteredTranscribe } from "@/lib/ai/metered";
@@ -103,6 +104,8 @@ export async function startAudioUpload(
 
 export type TranscribeResult =
   | { ok: true; heard: HeardSegment[] }
+  /** Waiting in line (D133): `ahead` recordings go first. */
+  | { ok: false; reason: "queued"; ahead: number }
   | ({ ok: false } & (
       | Refusal
       | { reason: "limit"; usage?: UsageBlock }
@@ -165,6 +168,10 @@ export async function transcribeAudio(
     return { ok: false, reason: "invalid" };
   }
   const plan = planFor(creator.user);
+  const path = String(form.get("path"));
+  // One recording at a time through the free speech to text (D133).
+  const turn = await takeTurn("transcribe", path, creator.user, plan);
+  if (!turn.turn) return { ok: false, reason: "queued", ahead: turn.ahead };
   const minutes = PLANS[plan].minutesPerMonth;
   const userMaxSeconds = minutes === null ? null : minutes * 60;
   const heard: HeardSegment[] = [];
@@ -192,6 +199,7 @@ export async function transcribeAudio(
       result = await meteredTranscribe(creator, wav, seconds, userMaxSeconds);
     }
     if (!result.ok) {
+      if (result.reason !== "busy") await leaveQueue("transcribe", path);
       return result.reason === "limit"
         ? { ok: false, reason: "limit", usage: result.limit }
         : { ok: false, reason: result.reason };
@@ -207,6 +215,8 @@ export async function transcribeAudio(
       text: value.text,
     });
   }
+  // The page says which batch is its last: the next recording goes.
+  if (form.get("last") === "1") await leaveQueue("transcribe", path);
   return { ok: true, heard };
 }
 

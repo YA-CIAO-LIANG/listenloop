@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { listOfficialPractices } from "@/auth/public-practices";
+import { getOfficialPractices } from "@/auth/library";
 import { getServerSupabase } from "@/auth/server";
 import { getSignedInUser } from "@/auth/session";
 import { ONBOARDING_COOKIE } from "@/lib/notices";
@@ -25,7 +25,7 @@ export async function OnboardingStart() {
         .eq("user_id", user.id)
     : { count: 0 };
   if ((count ?? 0) > 0) return null;
-  const official = await listOfficialPractices().catch(() => []);
+  const official = await getOfficialPractices().catch(() => []);
   const videos = getVideosByCollection().flatMap(({ videos }) => videos);
   const start =
     official[0]?.id ??
