@@ -7,7 +7,7 @@ import { getPracticeMaterial } from "@/auth/practice-material";
 import { allowAction } from "@/auth/rate-limit";
 import { getSignedInUser } from "@/auth/session";
 import { getAiProviders } from "@/lib/ai/providers";
-import { reviewKey } from "@/lib/review";
+import { reviewable, reviewKey } from "@/lib/review";
 import { speechAudioUrl } from "@/lib/supabase/config";
 import { quizCandidates } from "@/lib/vocab-quiz";
 import { wordAudio, wordVoice } from "@/lib/word-audio";
@@ -17,7 +17,8 @@ export type WordAudioUrlResult =
   | { ok: false; reason: "missing" | "unavailable" | "busy" | "failed" };
 
 /**
- * The pronunciation of one quiz word (D136): from the shared cache, or
+ * The pronunciation of one quiz word (D136), or of a misheard word under
+ * review (D145): from the shared cache, or
  * made now (Azure F0) for a signed-in learner and kept for everyone. Only
  * the words this material's quiz can ask are made, so this can't be used
  * to voice anything else. Signed out with nothing cached: "missing", and
@@ -36,9 +37,21 @@ export async function wordAudioUrl(
   if (!providers || !admin || !material) {
     return { ok: false, reason: "unavailable" };
   }
-  const asked = quizCandidates(material).find(
-    (candidate) => reviewKey(candidate.word) === reviewKey(word),
-  );
+  // A quiz word, or a misheard word under review (D145): a word that's
+  // in this material's sentences, so nothing else can be voiced.
+  const key = reviewKey(word);
+  const asked =
+    quizCandidates(material).find(
+      (candidate) => reviewKey(candidate.word) === key,
+    ) ??
+    (reviewable(key) &&
+    material.sentences.some((sentence) =>
+      reviewKey(sentence.en)
+        .split(/[^\p{L}'-]+/u)
+        .includes(key),
+    )
+      ? { word: key }
+      : null);
   if (!asked) return { ok: false, reason: "unavailable" };
   const user = await getSignedInUser();
   const maker =

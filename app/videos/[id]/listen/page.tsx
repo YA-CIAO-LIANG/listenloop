@@ -42,11 +42,9 @@ export default async function ListenPage({
   searchParams,
 }: PageProps<"/videos/[id]/listen">) {
   const { id } = await params;
+  const query = await searchParams;
   // ?v= shows the version the learner's week uses (D44, VersionGate).
-  const state = await getPracticeState(
-    id,
-    parseVersionParam((await searchParams).v),
-  );
+  const state = await getPracticeState(id, parseVersionParam(query.v));
   if (state?.status === "preparing") {
     return (
       <PracticePreparing
@@ -82,7 +80,10 @@ export default async function ListenPage({
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
       <div className="mt-8 max-w-practice">
         <VersionGate videoId={video.id} version={video.version}>
-          <ListenSession video={video} />
+          <ListenSession
+            video={video}
+            start={Number((Array.isArray(query.s) ? query.s[0] : query.s) ?? 0)}
+          />
         </VersionGate>
       </div>
     </main>

@@ -2944,7 +2944,15 @@
     "listTitle": "My misheard words ({count})",
     "listIntro": "In order of their next review; learned ones last.",
     "learned": "Learned",
-    "due": "Next review: {date}"
+    "due": "Next review: {date}",
+    "soundLabel": "The word's sound",
+    "replay": "Replay",
+    "loop": "Loop",
+    "loopOn": "Stop looping",
+    "example": "Example",
+    "noNotes": "This material's notes don't cover this word.",
+    "from": "From “{title}”, sentence {n}.",
+    "hearIt": "Hear the sentence"
   },
   "levelTest": {
     "title": "Level test",
