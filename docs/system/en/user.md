@@ -138,6 +138,26 @@ Shown after a dictation answer or a shadowed sentence:
 - It has every sentence in English and Chinese, this week's Day 1 misheard words (orange), key points (yellow), the vocabulary list, grammar, and hard sentences' structure and linking.
 - "Print / Save as PDF" → choose "Save as PDF" in the print dialog. Colors print lighter; the underlines still tell the two marks apart.
 
+### 7.1 Listening mode (D135)
+
+- **Opens after Day 1** (like the handout). Find it next to the handout on the material's page, on each day's result, and as "Listen" in today's tasks.
+- No test, just listening: the whole text plays through, the current sentence highlighted; select any sentence to play from there.
+- **Subtitles**: none, English, both, or Chinese; your choice is remembered.
+- **Three passes**: one button plays the whole text three times: first with nothing, then the English, then both languages.
+- **Repeat**: one sentence or the whole text. Audio materials can change speed (Plus and above).
+- **Lock screen**: audio materials keep playing with the phone locked or in another app, with pause and previous/next on the lock screen. YouTube videos can't play in the background (YouTube's terms).
+- Day 1's misheard words are highlighted. Listening counts toward practice time in your stats, but doesn't finish the day's task.
+- Keyboard: Space plays or pauses; the arrow keys go to the previous or next sentence.
+
+### 7.2 Vocabulary quiz (D136)
+
+- After Day 1's and Day 7's dictation, the result offers "Vocabulary quiz (about 3 minutes)"; you can skip it, find it on the material's page, and take it again.
+- 5–10 words each time: the ones you misheard first, then the material's key words.
+- **Step 1, spell what you hear**: the word plays by itself; replay it or play it slowly; type it, and the check marks wrong, missing, and extra letters. Two hints (the number of letters, then the first letter) are noted in the result.
+- **Step 2, choose the meaning**: four choices; then the part of speech, Chinese, and an example with its translation.
+- **Result**: spellings right, meanings right, hints used. Missed words go on "My misheard words" and come back in today's tasks after 1, 3, and 7 days.
+- Quiz scores never change your dictation score or pass rules. Signed in, they're kept and shown in your stats.
+
 ---
 
 ## 8. Progress and stats
@@ -149,6 +169,7 @@ Shown after a dictation answer or a shadowed sentence:
   - Streak and practice time a day (only while the page is in front and you're active);
   - Accuracy over time (weighted and raw), each material's Day 1 and Day 7;
   - Your 10 most-misheard words, categories and levels you practice (full charts on Plus and above);
+  - **Vocabulary quiz**: quizzes taken, average accuracy, words mastered (both steps right last time, no hint); the trend on Plus and above;
   - **Points**: +10 for each day, +2 for each perfect sentence, +5 for streaks; points unlock accent colors and background themes.
 
 ---

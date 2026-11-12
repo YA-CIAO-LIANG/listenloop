@@ -366,6 +366,42 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 - 跟讀：開始後播放 → 自動收音 → 停頓後判斷；過了 1.2 秒後自動進下一句，沒過 1.8 秒後自動重播並收音。辨識錯誤（沒聽到聲音、網路）時停下來，按鈕回到「播放並跟讀」；排查對話框開著時也不自動繼續。麥克風被拒或不支援時改為「我念完了」，按下後仍自動播放下一句。
 - 關閉時與原本相同：第一句自動播放一次（D90），跟讀每句按「播放並跟讀」。
 
+## 聆聽模式 `ListenSession`（D135）
+
+- **版面**：播放器（`PracticeFrame`）→ 控制列 → 句子列表。字幕和列表一律在播放器**下方**，不覆蓋 YouTube 播放器。
+- **控制列**：
+  - 上一句（←）、主要按鈕「播放／暫停」（primary）、下一句（→）、「三遍聽法」（secondary）；
+  - 兩個 `SegmentedControl`：字幕（盲聽、只有英文、英中對照、只有中文）與循環（不循環、單句循環、整篇循環）；
+  - 音檔教材多一個 `SpeedControl`。
+  - 狀態列（`role="status"`）顯示「第 N 句／共 M 句」，三遍聽法時顯示「第 N 遍／共 3 遍：字幕」。
+- **句子列表**：
+  - 每句是整列的按鈕：`rounded-base`、`border-line`、`bg-surface`，手機至少 44px 高。
+  - 目前的句子用 `border-accent` + `bg-band`，並加 `aria-current`。
+  - 盲聽時只顯示「第 N 句」（`text-ink-muted`）。
+  - 英中對照時，中文用 `text-supporting text-ink-muted` 排在英文下方；只有中文時中文用 `text-sentence`。
+  - 第 1 天聽錯的字用螢光筆 `Mark kind="miss"`（D66）。
+- **動態**：目前的句子平滑捲到畫面中央；reduced motion 時直接跳過去，邊框顏色也不做過渡。
+
+## 單字測驗 `VocabQuiz`（D136）
+
+- **進度列**：「第 N 個／共 M 個 · 第 1 關：聽音拼字」，`text-supporting text-ink-muted`，用 `aria-live` 唸出。
+- **第 1 關**：
+  - 「重播」「慢速播放」是 secondary 按鈕，提示是 ghost 按鈕。
+  - 提示文字用等寬字型、`text-h3`、加寬字距（`_ _ _ _ _`）。
+  - 輸入框和聽寫一樣大（`text-sentence`），關閉自動大寫、自動修正、拼字檢查。
+- **逐字母標示**：
+  - 對的字母用一般文字色；
+  - 拼錯或漏掉的字母用 `text-error`、`bg-error/15`、粗底線；
+  - 多打的字母用 `text-error` 加刪除線。
+  - 下方有一行文字說明三種標示，所以不只靠顏色區分；整個字另外提供 `aria-label`「正確拼法是 …」。
+- **第 2 關**：
+  - 四個選項是整列的 `label`，裡面是原生 radio，手機至少 44px 高。
+  - 答完後正確選項用 `border-success` 並標「正確答案」，選錯的用 `border-error`。
+  - 說明卡用 `bg-band`，內容是詞性、中文、例句與翻譯。
+- **主要按鈕**：用 `PracticeActions`（D124），在右邊；手機固定在畫面底部、鍵盤上方。頁尾放 `PracticeActionsSpacer`。
+- **結果頁**：三個數字卡（拼字正確、翻譯正確、使用提示），加上每個字的結果清單；拼字和翻譯各用 ✓／✗ 加文字。
+- **入口卡 `QuizInvite`**：`border-accent` + `bg-band`，按鈕是「開始測驗」（primary、small）與「跳過」（ghost）。
+
 ## 跟讀畫面
 
 第 2～6 天共用同一個畫面（`ShadowingSession`），版面比照聽寫畫面。
@@ -659,6 +695,8 @@ CardLink，內容由上到下：
   - `PairedBars`：每份教材兩條（第 1 天、第 7 天），右側寫出百分比，80% 虛線。
   - `BarList`：最常聽錯的字（`lang="en"`）、分類、程度；左側標籤、中間長條（band 底軌）、右側數字。
 - 後台總覽 `/admin` 也用 `ColumnChart` 顯示近 30 天活躍人數，另有「學習」數字組：平均每日練習分鐘、平均正確率（加權／原始）。
+
+- **單字測驗（D136）**：三個 `StatTile`（測驗次數、平均正確率、已掌握單字）所有方案都看得到；正確率趨勢沿用 `TrendChart`，只有一條線（兩條線相同時圖例只顯示一條），虛線是 80%，屬於完整分析。
 
 ## 付費方案卡片 `PaidPlanCard`（D72）
 
