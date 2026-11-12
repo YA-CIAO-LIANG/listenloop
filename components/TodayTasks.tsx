@@ -1,5 +1,6 @@
 "use client";
 
+import { isHandoutUnlocked } from "@/lib/cycle";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, type ReactNode } from "react";
 import { isDevTestMode } from "@/lib/config";
@@ -30,6 +31,7 @@ type TodayTasksProps = {
  */
 export function TodayTasks({ store }: TodayTasksProps) {
   const t = useTranslations("today");
+  const tListen = useTranslations("listen");
   const tCalendar = useTranslations("calendar");
   const tCycle = useTranslations("cycle");
   const tDay = useTranslations("practice.day");
@@ -171,7 +173,24 @@ export function TodayTasks({ store }: TodayTasksProps) {
                     )}
                   </p>
                 </div>
-                {action(task)}
+                <div className="flex flex-wrap items-center gap-2">
+                  {/* Listening mode, once Day 1 is done (D135). */}
+                  {isHandoutUnlocked(
+                    progresses?.find((p) => p.videoId === task.videoId) ?? null,
+                  ) && (
+                    <ButtonLink
+                      href={`/videos/${task.videoId}/listen`}
+                      variant="ghost"
+                      size="sm"
+                      aria-label={tListen("openFor", {
+                        title: task.title,
+                      })}
+                    >
+                      {tListen("short")}
+                    </ButtonLink>
+                  )}
+                  {action(task)}
+                </div>
               </li>
             ))}
           </ul>

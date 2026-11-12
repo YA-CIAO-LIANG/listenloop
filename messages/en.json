@@ -3212,5 +3212,41 @@
         "failed": "That didn't work. Please try again later."
       }
     }
+  },
+  "listen": {
+    "title": "Listening mode",
+    "intro": "No test, just listening: the whole text plays through, with the subtitles you choose. Try the three-pass method: first with nothing, then with the English, then with both languages.",
+    "open": "Listening mode",
+    "loading": "Loading your progress…",
+    "locked": "Once you've done Day 1's dictation, listening mode lets you play the whole text again and again. Dictate it yourself first, so you know what you couldn't hear.",
+    "goDay1": "Go to Day 1's dictation",
+    "play": "Play",
+    "pause": "Pause",
+    "previous": "Previous sentence",
+    "next": "Next sentence",
+    "threePasses": "Three passes",
+    "passStatus": "Pass {pass} of {total}: {mode}",
+    "position": "Sentence {n} of {total}",
+    "keysHint": "Keyboard: Space plays or pauses; the arrow keys go to the previous or next sentence. Select any sentence to play from there.",
+    "subtitlesLegend": "Subtitles",
+    "subtitles": {
+      "blind": "None",
+      "en": "English",
+      "both": "Both",
+      "zh": "Chinese"
+    },
+    "loopLegend": "Repeat",
+    "loops": {
+      "off": "Off",
+      "one": "This sentence",
+      "all": "Whole text"
+    },
+    "background": "It keeps playing with the phone locked or in another app; pause or change sentence from the lock screen.",
+    "sentencesLabel": "Sentences",
+    "sentenceN": "Sentence {n}",
+    "playSentence": "Play from sentence {n}",
+    "marksNote": "Highlighted words are the ones you misheard in Day 1's dictation.",
+    "short": "Listen",
+    "openFor": "Listening mode: {title}"
   }
 }

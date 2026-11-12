@@ -113,6 +113,7 @@ export function ShadowingSession({
   const t = useTranslations("shadowing");
   const tHands = useTranslations("handsFree");
   const tHandout = useTranslations("handout");
+  const tListen = useTranslations("listen");
   const format = useFormatter();
   // Audio practices can slow down or speed up (D73); videos stay at 1×.
   const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
@@ -521,6 +522,12 @@ export function ShadowingSession({
                 variant="secondary"
               >
                 {tHandout("open")}
+              </ButtonLink>
+              <ButtonLink
+                href={`/videos/${video.id}/listen`}
+                variant="secondary"
+              >
+                {tListen("open")}
               </ButtonLink>
               <ButtonLink href={`/videos/${video.id}`} variant="ghost">
                 {t("backToVideo")}

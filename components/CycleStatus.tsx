@@ -36,6 +36,7 @@ export function CycleStatus({ videoId, store }: CycleStatusProps) {
   const t = useTranslations("cycle");
   const tDay = useTranslations("practice.day");
   const tHandout = useTranslations("handout");
+  const tListen = useTranslations("listen");
   const router = useRouter();
   const tWeek = useTranslations("week");
   const format = useFormatter();
@@ -53,9 +54,15 @@ export function CycleStatus({ videoId, store }: CycleStatusProps) {
   const day7Score = progress?.days[7]?.score ?? 0;
 
   const handout = isHandoutUnlocked(progress) ? (
-    <ButtonLink href={`/videos/${videoId}/handout`} variant="secondary">
-      {tHandout("open")}
-    </ButtonLink>
+    <div className="flex flex-wrap gap-3">
+      <ButtonLink href={`/videos/${videoId}/handout`} variant="secondary">
+        {tHandout("open")}
+      </ButtonLink>
+      {/* Listening mode opens with the handout (D135). */}
+      <ButtonLink href={`/videos/${videoId}/listen`} variant="secondary">
+        {tListen("open")}
+      </ButtonLink>
+    </div>
   ) : (
     <p className="text-supporting text-ink-muted">{tHandout("lockedShort")}</p>
   );
