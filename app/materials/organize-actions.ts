@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
 import {
-  writeAsAdmin,
+  writeAsOwner,
   writeOutcome,
   type WriteResult,
 } from "@/auth/admin-writes";
@@ -20,13 +20,15 @@ import { customPracticeId } from "@/lib/practice-material";
 import { UPLOADS_BUCKET } from "@/lib/supabase/config";
 
 /**
- * Organizing created practices (roadmap d5): collections, public or
- * private, and deleting. Admin-only like creating (D24).
+ * Organizing created practices (roadmap d5): folders (collections),
+ * public or private, and deleting. Each author organizes their own
+ * (D147; row level security keeps it to their rows); copying to the
+ * official materials stays admin-only.
  */
 export type OrganizeResult = WriteResult;
 
-const asAdmin = (write: Parameters<typeof writeAsAdmin>[1]) =>
-  writeAsAdmin("/materials", write);
+const asOwner = (write: Parameters<typeof writeAsOwner>[1]) =>
+  writeAsOwner("/materials", write);
 const outcome = writeOutcome;
 
 export async function createCollection(
@@ -34,7 +36,7 @@ export async function createCollection(
 ): Promise<OrganizeResult> {
   const name = cleanName(title, COLLECTION_TITLE_MAX);
   if (!name) return { ok: false, reason: "invalid" };
-  return asAdmin(async (supabase, userId) =>
+  return asOwner(async (supabase, userId) =>
     outcome(
       await supabase
         .from("collections")
@@ -50,7 +52,7 @@ export async function renameCollection(
 ): Promise<OrganizeResult> {
   const name = cleanName(title, COLLECTION_TITLE_MAX);
   if (!isUuid(id) || !name) return { ok: false, reason: "invalid" };
-  return asAdmin(async (supabase) =>
+  return asOwner(async (supabase) =>
     outcome(
       await supabase
         .from("collections")
@@ -64,7 +66,7 @@ export async function renameCollection(
 /** Its practices stay, just ungrouped (on delete set null). */
 export async function deleteCollection(id: unknown): Promise<OrganizeResult> {
   if (!isUuid(id)) return { ok: false, reason: "invalid" };
-  return asAdmin(async (supabase) =>
+  return asOwner(async (supabase) =>
     outcome(
       await supabase.from("collections").delete().eq("id", id).select("id"),
     ),
@@ -90,7 +92,7 @@ export async function setVisibility(
   ) {
     return { ok: false, reason: "invalid" };
   }
-  return asAdmin(async (supabase, userId) => {
+  return asOwner(async (supabase, userId) => {
     const result = outcome(
       kind === "practice"
         ? await supabase
@@ -126,7 +128,7 @@ export async function movePractice(
   if (!isUuid(practiceId) || (collectionId !== null && !isUuid(collectionId))) {
     return { ok: false, reason: "invalid" };
   }
-  return asAdmin(async (supabase) =>
+  return asOwner(async (supabase) =>
     outcome(
       await supabase
         .from("practices")
@@ -144,7 +146,7 @@ export async function movePractice(
  */
 export async function deletePractice(id: unknown): Promise<OrganizeResult> {
   if (!isUuid(id)) return { ok: false, reason: "invalid" };
-  return asAdmin(async (supabase, userId) => {
+  return asOwner(async (supabase, userId) => {
     const { data: deleted, error } = await supabase
       .from("practices")
       .delete()

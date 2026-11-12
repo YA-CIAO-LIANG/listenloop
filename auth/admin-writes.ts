@@ -1,5 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { getAdminUser } from "./creator";
+import { getSignedInUser } from "./session";
 import { getServerSupabase } from "./server";
 
 /**
@@ -20,6 +21,25 @@ export async function writeAsAdmin(
   write: (supabase: Supabase, userId: string) => Promise<WriteResult>,
 ): Promise<WriteResult> {
   const user = await getAdminUser();
+  const supabase = user && (await getServerSupabase());
+  if (!user || !supabase) return { ok: false, reason: "unavailable" };
+  const result = await write(supabase, user.id).catch((): WriteResult => ({
+    ok: false,
+    reason: "failed",
+  }));
+  if (result.ok) revalidatePath(path, "layout");
+  return result;
+}
+
+/**
+ * Runs `write` as the signed-in user on their own rows (D147: anyone who
+ * made materials organizes them); row level security limits it to theirs.
+ */
+export async function writeAsOwner(
+  path: string,
+  write: (supabase: Supabase, userId: string) => Promise<WriteResult>,
+): Promise<WriteResult> {
+  const user = await getSignedInUser();
   const supabase = user && (await getServerSupabase());
   if (!user || !supabase) return { ok: false, reason: "unavailable" };
   const result = await write(supabase, user.id).catch((): WriteResult => ({

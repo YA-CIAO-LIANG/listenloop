@@ -33,6 +33,10 @@ import {
   type MaterialMeta,
 } from "@/lib/custom-practice/generation";
 import { parseVoiceId } from "@/lib/ai/types";
+import {
+  cleanName,
+  COLLECTION_TITLE_MAX,
+} from "@/lib/custom-practice/organize";
 import { AUDIO_BATCH_SIZE, voiceSentences } from "@/lib/custom-practice/audio";
 import {
   cleanDraft,
@@ -289,6 +293,33 @@ export async function createPractice(
   return { ok: true, id };
 }
 
+/**
+ * The learner's folder with this name (case aside), made if missing.
+ * Null when it can't be: the material is then made outside a folder.
+ */
+async function folderNamed(
+  supabase: NonNullable<Awaited<ReturnType<typeof getServerSupabase>>>,
+  userId: string,
+  name: string,
+): Promise<string | null> {
+  const title = cleanName(name, COLLECTION_TITLE_MAX);
+  if (!title) return null;
+  const { data: existing } = await supabase
+    .from("collections")
+    .select("id, title")
+    .eq("user_id", userId);
+  const found = existing?.find(
+    (folder) => folder.title.toLowerCase() === title.toLowerCase(),
+  );
+  if (found) return found.id;
+  const { data: made } = await supabase
+    .from("collections")
+    .insert({ user_id: userId, title })
+    .select("id")
+    .single();
+  return made?.id ?? null;
+}
+
 async function savePractice(
   supabase: NonNullable<Awaited<ReturnType<typeof getServerSupabase>>>,
   userId: string,
@@ -302,10 +333,15 @@ async function savePractice(
     seconds: number;
   },
 ): Promise<string | null> {
+  // A category of one's own is a folder of that name (D147).
+  const collectionId = meta?.folder
+    ? await folderNamed(supabase, userId, meta.folder)
+    : null;
   const { data, error } = await supabase
     .from("practices")
     .insert({
       user_id: userId,
+      ...(collectionId ? { collection_id: collectionId } : {}),
       title: draft.title,
       // Both titles (D83), each as typed or written; null when empty.
       title_en: labels.titleEn || null,

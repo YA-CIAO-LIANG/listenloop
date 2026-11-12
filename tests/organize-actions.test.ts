@@ -12,17 +12,21 @@ type Call = {
   eq?: [string, unknown];
 };
 const state = vi.hoisted(() => ({
-  admin: true,
+  signedIn: true,
   calls: [] as Call[],
   rows: [{ id: "x" }] as unknown[] | null,
   error: null as unknown,
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
-vi.mock("@/auth/creator", () => ({
-  getAdminUser: async () =>
-    state.admin ? { id: "user-1", email: "joe@example.com" } : null,
+// Each author organizes their own materials (D147), admin or not.
+vi.mock("@/auth/session", () => ({
+  getSignedInUser: async () =>
+    state.signedIn
+      ? { id: "user-1", email: "joe@example.com", role: "user" }
+      : null,
 }));
+vi.mock("@/auth/creator", () => ({ getAdminUser: async () => null }));
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({
     from: (table: string) => {
@@ -59,7 +63,7 @@ const id = "0b1d2c3e-4f50-4a6b-8c7d-9e0f1a2b3c4d";
 const other = "1b1d2c3e-4f50-4a6b-8c7d-9e0f1a2b3c4d";
 
 beforeEach(() => {
-  state.admin = true;
+  state.signedIn = true;
   state.calls = [];
   state.rows = [{ id: "x" }];
   state.error = null;
@@ -82,7 +86,7 @@ describe("organize checks", () => {
 });
 
 describe("organize actions", () => {
-  it("creates a collection for the signed-in admin", async () => {
+  it("creates a collection for the signed-in author", async () => {
     expect(await actions.createCollection(" Week 1 ")).toEqual({ ok: true });
     expect(state.calls).toEqual([
       {
@@ -167,8 +171,8 @@ describe("organize actions", () => {
     });
   });
 
-  it("is unavailable to non-admins", async () => {
-    state.admin = false;
+  it("is unavailable signed out", async () => {
+    state.signedIn = false;
     expect(await actions.createCollection("Week 1")).toEqual({
       ok: false,
       reason: "unavailable",

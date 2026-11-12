@@ -143,6 +143,8 @@ describe("parseGenerationRequest", () => {
       level: "beginner",
       exam: null,
       examTarget: null,
+      // It becomes a folder of that name in My materials (D147).
+      folder: "天文攝影",
     });
     // One's own category has no scenarios from the list.
     expect(
@@ -157,6 +159,26 @@ describe("parseGenerationRequest", () => {
         examTarget: null,
       }),
     ).toMatchObject({ category: "other", level: "advanced" });
+    expect(
+      parseMaterialMeta({
+        category: "other",
+        scenario: null,
+        level: "advanced",
+        exam: null,
+        examTarget: null,
+        folder: " 天文攝影 ",
+      })?.folder,
+    ).toBe("天文攝影");
+    expect(
+      parseMaterialMeta({
+        category: "other",
+        scenario: null,
+        level: "advanced",
+        exam: null,
+        examTarget: null,
+        folder: "長".repeat(200),
+      })?.folder,
+    ).toBeUndefined();
     expect(composeInstructions({ customCategory: "x" })).toMatch(
       /subject area/,
     );

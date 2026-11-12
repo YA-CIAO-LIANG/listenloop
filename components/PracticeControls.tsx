@@ -30,6 +30,8 @@ type PracticeControlsProps = {
     visibility: Visibility;
   };
   collections: { id: string; title: string }[];
+  /** The folder is chosen elsewhere ("Move to" in My materials, D147). */
+  hideCollection?: boolean;
   /** Injected in tests; the Server Actions otherwise. */
   movePractice?: typeof movePracticeAction;
   deletePractice?: typeof deletePracticeAction;
@@ -39,6 +41,7 @@ type PracticeControlsProps = {
 export function PracticeControls({
   practice,
   collections,
+  hideCollection = false,
   movePractice = movePracticeAction,
   deletePractice = deletePracticeAction,
 }: PracticeControlsProps) {
@@ -51,7 +54,7 @@ export function PracticeControls({
   return (
     <div className="space-y-3">
       <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <div className="flex items-center gap-2">
+        <div className={hideCollection ? "hidden" : "flex items-center gap-2"}>
           <label htmlFor={selectId} className="text-supporting text-ink-muted">
             {t("collectionLabel")}
           </label>
