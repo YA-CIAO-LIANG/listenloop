@@ -1,5 +1,6 @@
 "use server";
 
+import { pregenerateWordAudio } from "@/auth/word-audio";
 import type { UsageBlock } from "@/lib/usage";
 import { revalidatePath, updateTag } from "next/cache";
 import { LIBRARY_TAG } from "@/lib/library-config";
@@ -105,6 +106,8 @@ export async function setOfficialState(
       await writeSubtitle(admin, practiceId, { onlyIfMissing: true }).catch(
         () => null,
       );
+      // The vocabulary quiz's word audio, made ahead (D136).
+      await pregenerateWordAudio(practiceId).catch(() => null);
     }
     await logAudit(
       actorId,

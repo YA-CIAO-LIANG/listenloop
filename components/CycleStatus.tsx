@@ -37,6 +37,7 @@ export function CycleStatus({ videoId, store }: CycleStatusProps) {
   const tDay = useTranslations("practice.day");
   const tHandout = useTranslations("handout");
   const tListen = useTranslations("listen");
+  const tQuiz = useTranslations("quiz");
   const router = useRouter();
   const tWeek = useTranslations("week");
   const format = useFormatter();
@@ -61,6 +62,10 @@ export function CycleStatus({ videoId, store }: CycleStatusProps) {
       {/* Listening mode opens with the handout (D135). */}
       <ButtonLink href={`/videos/${videoId}/listen`} variant="secondary">
         {tListen("open")}
+      </ButtonLink>
+      {/* The vocabulary quiz, any time after Day 1 (D136). */}
+      <ButtonLink href={`/videos/${videoId}/quiz`} variant="secondary">
+        {tQuiz("open")}
       </ButtonLink>
     </div>
   ) : (

@@ -160,6 +160,8 @@ describe("materialFromCustomPractice", () => {
       // No version 2 notes on these rows (D67).
       richNotes: [null, null],
       audioUrls: ["https://cdn.test/a.wav", "https://cdn.test/b.wav"],
+      // The voice its words are said in (D136); none on this row.
+      voice: null,
     });
   });
 

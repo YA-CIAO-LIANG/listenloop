@@ -16,6 +16,7 @@ import { pace } from "@/lib/speed";
 import { ScoreBadge } from "./ScoreBadge";
 import { ShareCard } from "./ShareCard";
 import { Tag } from "./Tag";
+import { QuizInvite } from "./QuizInvite";
 import { StartNextWeekButton } from "./StartNextWeekButton";
 import { WordDiffView } from "./WordDiffView";
 
@@ -135,6 +136,8 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
               ? t("repeatScore", { min: percent(rules.day7.min) })
               : t("repeatImprove")}
         </p>
+        {/* Did the words stick? The Day 7 quiz (D136). */}
+        <QuizInvite videoId={video.id} day={7} />
         <div className="flex flex-wrap items-center gap-3">
           {passed ? (
             <>
