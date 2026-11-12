@@ -11,7 +11,7 @@ const state = vi.hoisted(() => ({
   meter: null as unknown,
 }));
 
-vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
+vi.mock("next/cache", () => ({ revalidatePath: vi.fn(), updateTag: vi.fn() }));
 vi.mock("@/auth/audit", () => ({ logAudit: vi.fn() }));
 vi.mock("@/auth/creator", () => ({
   getBatchCreator: async () => ({

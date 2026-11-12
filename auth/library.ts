@@ -4,19 +4,33 @@ import {
   videoLibraryItem,
   type LibraryItem,
 } from "@/lib/library";
-import { audioSeconds, LIBRARY_DEFAULT_DOCUMENT } from "@/lib/library-config";
+import {
+  audioSeconds,
+  LIBRARY_CACHE_SECONDS,
+  LIBRARY_DEFAULT_DOCUMENT,
+  LIBRARY_TAG,
+} from "@/lib/library-config";
 import {
   customPracticeId,
   parseCustomPracticeId,
 } from "@/lib/practice-material";
 import { getAllVideos } from "@/lib/video-library";
-import { listOfficialPractices } from "./public-practices";
+import { unstable_cache } from "next/cache";
+import {
+  listOfficialPracticesForEveryone,
+  listPublicPracticesForEveryone,
+} from "./public-practices";
+import { getPublicSupabase } from "./public-supabase";
 import { getServerSupabase } from "./server";
 import { getSignedInUser } from "./session";
 
+type Client = Awaited<ReturnType<typeof getServerSupabase>>;
+
 /** How many people practice each material, by its id in links. */
-export async function learnerCounts(): Promise<Map<string, number>> {
-  const supabase = await getServerSupabase();
+export async function learnerCounts(
+  client?: Client,
+): Promise<Map<string, number>> {
+  const supabase = client === undefined ? await getServerSupabase() : client;
   if (!supabase) return new Map();
   const { data, error } = await supabase.rpc("material_learner_counts");
   if (error) return new Map();
@@ -26,9 +40,10 @@ export async function learnerCounts(): Promise<Map<string, number>> {
 /** Seconds of audio per practice ("p-<uuid>" ids); unknown ones are left out. */
 export async function practiceSeconds(
   ids: readonly string[],
+  client?: Client,
 ): Promise<Map<string, number>> {
   const uuids = ids.flatMap((id) => parseCustomPracticeId(id) ?? []);
-  const supabase = await getServerSupabase();
+  const supabase = client === undefined ? await getServerSupabase() : client;
   if (!supabase || uuids.length === 0) return new Map();
   const { data, error } = await supabase.rpc("practice_audio_bytes", {
     ids: uuids,
@@ -48,16 +63,36 @@ export async function practiceSeconds(
 /**
  * The whole library (D70): published built-in videos and official
  * practices, with how long each runs and how many people practice it.
+ * It's the same for everyone, so it's read with the public key and
+ * cached (D133): at most one set of database reads every 5 minutes,
+ * however many people open the home page; publishing or reordering
+ * refreshes it at once.
  */
-export async function getLibraryItems(): Promise<LibraryItem[]> {
+export const getLibraryItems = unstable_cache(
+  () => readLibraryItems(getPublicSupabase()),
+  ["library-items:v1"],
+  { revalidate: LIBRARY_CACHE_SECONDS, tags: [LIBRARY_TAG] },
+);
+
+/** The official practices as everyone sees them, cached with the library. */
+export const getOfficialPractices = unstable_cache(
+  () => listOfficialPracticesForEveryone(getPublicSupabase()),
+  ["official-practices:v1"],
+  { revalidate: LIBRARY_CACHE_SECONDS, tags: [LIBRARY_TAG] },
+);
+
+async function readLibraryItems(supabase: Client): Promise<LibraryItem[]> {
   const [official, learners] = await Promise.all([
-    listOfficialPractices(),
-    learnerCounts(),
+    listOfficialPracticesForEveryone(supabase),
+    learnerCounts(supabase),
   ]);
   // The length the search filters on (duration_sec, D104); measured from
   // the audio only for any not stored yet.
   const unknown = official.filter((p) => p.durationSec == null);
-  const seconds = await practiceSeconds(unknown.map((p) => p.id));
+  const seconds = await practiceSeconds(
+    unknown.map((p) => p.id),
+    supabase,
+  );
   return [
     ...official.map((practice) =>
       practiceLibraryItem(practice, {
@@ -91,3 +126,21 @@ export async function getSavedLibraryDefault(): Promise<
   const filter = (data?.data as { filter?: unknown } | null)?.filter;
   return parseSavedFilter(filter) ? (filter as string) : null;
 }
+
+/**
+ * /explore as a signed-out visitor sees it (D133): the shared practices
+ * and their lengths, cached like the library.
+ */
+export const getSharedForEveryone = unstable_cache(
+  async () => {
+    const supabase = getPublicSupabase();
+    const practices = await listPublicPracticesForEveryone(supabase);
+    const seconds = await practiceSeconds(
+      practices.map((p) => p.id),
+      supabase,
+    );
+    return { practices, seconds: Object.fromEntries(seconds) };
+  },
+  ["shared-practices:v1"],
+  { revalidate: LIBRARY_CACHE_SECONDS, tags: [LIBRARY_TAG] },
+);

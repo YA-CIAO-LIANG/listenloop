@@ -2341,3 +2341,18 @@
 - **新手引導**：第一次造訪的七天循環說明（`OnboardingStart`）不受影響，E2E 照常檢查。
 - **寄信**：Supabase 內建的寄信服務每小時只能寄很少封（確認信、重設密碼），Beta 期間用 Email 註冊的人多時會寄不出去。這是 Joe 待辦清單上的「自訂 SMTP」。
 - **要改時**：`lib/beta.ts`、`auth/beta.ts`、`app/beta/`、`app/invite/[code]/route.ts`、`app/admin/beta/`、`components/BetaAdmin.tsx`、`components/BetaWaitlistForm.tsx`、`components/BetaNote.tsx`；資料表 `supabase/migrations/20261115000000_beta_signups.sql`。
+
+## D133 容量與穩定性：公開資料快取、排隊處理、索引、壓力測試（2026-11-11，Joe 指定）
+
+- **音檔快取**：查過正式站，音檔已經是 `public, max-age=31536000`，經過 Supabase CDN（第二次請求 `HIT`），檔名就是內容雜湊，所以不需要改。上傳的錄音也一樣。搬到零出口流量儲存（Cloudflare R2）的成本與步驟寫在 `docs/capacity.md` 第 5 節，先不實作。
+- **公開資料快取**：首頁教材庫、官方教材清單（新手引導）、學習中心、SEO 文章、未登入的 `/explore` 和教材頁，用公開金鑰、不帶 cookie 的用戶端讀取（`auth/public-supabase.ts`），透過 `unstable_cache` 快取 5 分鐘（`LIBRARY_CACHE_SECONDS`，tag `library`）。管理員發布、下架、排序時用 `updateTag("library")` 立刻更新。登入後的教材頁仍然每次讀取，因為要判斷權限與「我的」。
+  - 實測：首頁每次瀏覽查資料庫的次數從 3 降到 0（每 5 分鐘只查一次），`/explore` 從 3 降到 0，未登入的教材頁從 2 降到 0（`loadtest/db-reads.sh`）。
+  - 為什麼不用 `cacheComponents`／`"use cache"`：介面語言存在 cookie，每頁本來就要依請求產生（見 `next.config.ts` 的註解）。快取資料層是不影響頁面的做法。
+- **連線池**：App 只用 Supabase 的 HTTP API，不直接連 Postgres，資料庫連線由 Supabase 管理。之後加直連程式時，要用 Supavisor transaction 模式（port 6543）。
+- **索引**：用 `supabase inspect db table-stats`、`index-stats` 檢查，新增 `speech_audio(path)`、`practice_sentences(audio_path)`（`supabase/migrations/20261116000000_work_queue.sql`）。
+- **排隊處理**：新表 `work_queue` 加 `queue_position`、`queue_leave` 函式。建立教材的語音（`speech`）和上傳錄音的轉文字（`transcribe`）各一個隊伍，一次處理一份（`lib/queue.ts` 的 `slots`），Pro 方案優先（D102 的「優先產生」從這裡開始生效）。
+  - 沒輪到時，伺服器回 `queued` 和前面還有幾份；頁面每 5 秒再問一次，顯示「排隊中：前面還有 N 份」，最多等 30 分鐘。
+  - 90 秒沒問的人（關掉頁面）自動移出隊伍。資料庫連不上時直接執行（和以前一樣），不會因為排隊機制本身而無法建立。
+- **壓力測試**：`npm run loadtest`（k6，本機 production build＋假的 Supabase＋假的 AI，不碰正式資料庫）。結果與解讀見 `docs/capacity.md` 第 2 節；k6 用 Homebrew 安裝（`brew install k6`），只在本機使用。
+- **後台總覽**：新增「容量與免費額度」：註冊人數／上限、Supabase 每月活躍使用者、Azure 語音合成與語音轉文字、AI 費用、資料庫、檔案儲存，加上 Beta 等候名單人數。任一項達 80% 時，頁首顯示紅色警示。Vercel 的用量沒有免費 API，提示到 Vercel 後台查看。
+- **要改時**：`lib/queue.ts`、`auth/queue.ts`、`auth/library.ts`、`auth/practice-material.ts`、`auth/public-supabase.ts`、`app/admin/page.tsx`、`lib/admin-dashboard.ts`（`FREE_LIMITS`、`NEAR_LIMIT_SHARE`）、`loadtest/`、`docs/capacity.md`。

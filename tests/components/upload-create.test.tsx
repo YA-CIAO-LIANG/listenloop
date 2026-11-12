@@ -97,6 +97,7 @@ function setup(plan: PlanId = "paid") {
         generateNotes={generateNotes}
         generate={generate}
         record={record}
+        wait={async () => {}}
       />
     </PlanProvider>,
   );
@@ -219,6 +220,20 @@ describe("UploadCreate (D130)", () => {
     await click(/讀取並轉成文字/);
     expect(screen.getByRole("alert").textContent).toContain("聽不到說話");
     expect(start).not.toHaveBeenCalled();
+  });
+
+  it("waits in line for speech to text, then goes on (D133)", async () => {
+    const { transcribe } = setup();
+    transcribe.mockResolvedValueOnce({
+      ok: false,
+      reason: "queued",
+      ahead: 2,
+    } as never);
+    pick(new File(["x"], "talk.mp3", { type: "audio/mpeg" }));
+    await click(/讀取並轉成文字/);
+    // Asked again after the wait, and the preview appears.
+    expect(transcribe.mock.calls.length).toBeGreaterThanOrEqual(2);
+    expect(screen.getByLabelText("第 1 句英文")).toBeDefined();
   });
 
   it("explains a used-up month", async () => {

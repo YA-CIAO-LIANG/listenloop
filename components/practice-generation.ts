@@ -10,6 +10,7 @@ import {
   type DraftSentence,
 } from "@/lib/custom-practice/draft";
 import { TRANSLATE_BATCH } from "@/lib/custom-practice/notes";
+import { QUEUE } from "@/lib/queue";
 import { isDialogue, speakerLines } from "@/lib/custom-practice/speakers";
 import {
   splitLine,
@@ -48,6 +49,8 @@ export type Stage =
       done: number;
       total: number;
       waitSeconds?: number;
+      /** Waiting in line (D133): how many practices go first. */
+      queued?: number;
     };
 
 /**
@@ -206,14 +209,18 @@ export async function generateAllAudio(
   onProgress: (voiced: number, total: number) => void,
   {
     onWait = () => {},
+    onQueue = () => {},
     wait = sleep,
   }: {
     onWait?: (seconds: number) => void;
+    /** Waiting in line (D133): how many go first. */
+    onQueue?: (ahead: number) => void;
     wait?: (seconds: number) => Promise<void>;
   } = {},
 ): Promise<GenerateAudioResult> {
   let retries = 0;
   let best = -1;
+  let waited = 0;
   for (;;) {
     const result = await runBatches(
       () => generate(practiceId),
@@ -223,6 +230,14 @@ export async function generateAllAudio(
           : null,
       onProgress,
     );
+    // In line (D133): ask again every few seconds, up to a limit.
+    if (!result.ok && result.reason === "queued") {
+      if (waited >= QUEUE.maxWaitSeconds) return result;
+      onQueue(result.ahead);
+      await wait(QUEUE.pollSeconds);
+      waited += QUEUE.pollSeconds;
+      continue;
+    }
     if (result.ok || result.reason !== "busy") return result;
     const voiced = "voiced" in result ? (result.voiced ?? -1) : -1;
     if (voiced > best) {
@@ -301,6 +316,7 @@ export async function prepareForPractice(
     {
       onWait: (waitSeconds) =>
         onStage({ stage: "audio", ...voiced, waitSeconds }),
+      onQueue: (queued) => onStage({ stage: "audio", ...voiced, queued }),
     },
   );
   return audio.ok

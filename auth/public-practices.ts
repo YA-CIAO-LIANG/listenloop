@@ -41,6 +41,35 @@ async function listPractices({
     getServerSupabase(),
     getSignedInUser(),
   ]);
+  return listPracticesWith(supabase, user?.id ?? null, onlyOfficial);
+}
+
+/**
+ * The shared practices as everyone sees them (D133): read with the
+ * public key, for signed-out visitors' cached /explore.
+ */
+export function listPublicPracticesForEveryone(
+  supabase: Awaited<ReturnType<typeof getServerSupabase>>,
+): Promise<PublicPracticeSummary[]> {
+  return listPracticesWith(supabase, null, false);
+}
+
+/**
+ * The official practices as everyone sees them (D133): read with the
+ * public key, so the library can cache them for every visitor ("mine" is
+ * always false; the library doesn't use it).
+ */
+export function listOfficialPracticesForEveryone(
+  supabase: Awaited<ReturnType<typeof getServerSupabase>>,
+): Promise<PublicPracticeSummary[]> {
+  return listPracticesWith(supabase, null, true);
+}
+
+async function listPracticesWith(
+  supabase: Awaited<ReturnType<typeof getServerSupabase>>,
+  userId: string | null,
+  onlyOfficial: boolean,
+): Promise<PublicPracticeSummary[]> {
   if (!supabase) return [];
   const [{ data }, own] = await Promise.all([
     supabase
@@ -63,13 +92,13 @@ async function listPractices({
       })
       .order("created_at", { ascending: onlyOfficial })
       .limit(PUBLIC_PRACTICES_LIMIT),
-    user
+    userId
       ? supabase
           .from("practices")
           .select("id")
           .eq("visibility", "public")
           .is("removed_at", null)
-          .eq("user_id", user.id)
+          .eq("user_id", userId)
       : null,
   ]);
   const mine = new Set((own?.data ?? []).map((row) => row.id));

@@ -21,6 +21,7 @@ import {
 import { TRANSLATE_BATCH } from "@/lib/custom-practice/notes";
 import { can, PLANS } from "@/lib/plans";
 import { customPracticeId } from "@/lib/practice-material";
+import { QUEUE } from "@/lib/queue";
 import { loadBrowserSupabase } from "@/lib/supabase/browser";
 import { UPLOADS_BUCKET } from "@/lib/supabase/config";
 import {
@@ -89,7 +90,8 @@ type Phase =
   | { step: "decode" }
   | { step: "encode"; share: number }
   | { step: "upload" }
-  | { step: "transcribe"; done: number; total: number };
+  | { step: "transcribe"; done: number; total: number }
+  | { step: "queued"; ahead: number };
 
 /**
  * A practice from the learner's own MP3 or MP4 (D130): the browser takes
@@ -108,6 +110,8 @@ export function UploadCreate({
   generate = generatePracticeAudio,
   record = recordIntent,
   browser = BROWSER_AUDIO,
+  wait = (seconds: number) =>
+    new Promise<void>((resolve) => setTimeout(resolve, seconds * 1000)),
 }: {
   /** Injected in tests; the Server Actions and browser APIs otherwise. */
   start?: (input: unknown) => Promise<StartUploadResult>;
@@ -118,6 +122,8 @@ export function UploadCreate({
   generate?: typeof generatePracticeAudio;
   record?: typeof recordIntent;
   browser?: BrowserAudio;
+  /** Waits between asks while in line; injected in tests. */
+  wait?: (seconds: number) => Promise<void>;
 }) {
   const t = useTranslations("upload");
   const tPlans = useTranslations("plans");
@@ -208,6 +214,7 @@ export function UploadCreate({
                 "too-long",
                 "invalid",
                 "config",
+                "queued",
               ] as const
             ).find((reason) => reason === result.reason) ?? "failed"
           }`,
@@ -275,6 +282,7 @@ export function UploadCreate({
       const form = new FormData();
       form.set("path", started.path);
       form.set("pieces", JSON.stringify(batch));
+      if (n === batches.length - 1) form.set("last", "1");
       batch.forEach((piece, i) => {
         const wav = encodeWav(sliceSamples(samples, rate, piece), rate);
         form.set(
@@ -283,10 +291,25 @@ export function UploadCreate({
           `piece-${i}.wav`,
         );
       });
-      const result = await transcribe(form).catch((): TranscribeResult => ({
-        ok: false,
-        reason: "failed",
-      }));
+      const ask = () =>
+        transcribe(form).catch((): TranscribeResult => ({
+          ok: false,
+          reason: "failed",
+        }));
+      let result = await ask();
+      // In line (D133): ask again every few seconds, up to a limit.
+      for (
+        let waited = 0;
+        !result.ok &&
+        result.reason === "queued" &&
+        waited < QUEUE.maxWaitSeconds;
+        waited += QUEUE.pollSeconds
+      ) {
+        setPhase({ step: "queued", ahead: result.ahead });
+        await wait(QUEUE.pollSeconds);
+        setPhase({ step: "transcribe", done: n, total: batches.length });
+        result = await ask();
+      }
       if (!result.ok) return fail(refusal(result));
       heard.push(...result.heard);
     }
@@ -470,9 +493,11 @@ export function UploadCreate({
       ? t("phases.encode", { percent: Math.round(phase.share * 100) })
       : phase?.step === "transcribe"
         ? t("phases.transcribe", { done: phase.done, total: phase.total })
-        : phase
-          ? t(`phases.${phase.step}`)
-          : "";
+        : phase?.step === "queued"
+          ? t("phases.queued", { ahead: phase.ahead })
+          : phase
+            ? t(`phases.${phase.step}`)
+            : "";
 
   return (
     <div className="space-y-6">

@@ -84,3 +84,9 @@ export function audioSeconds(bytes: number, mimeType: string): number {
  */
 export const LIBRARY_DEFAULT_DOCUMENT = "library-default";
 export const LIBRARY_DEFAULT_STORAGE_KEY = "ll-library-default:v1";
+
+/** The library's cache tag (D133): admins' publishing changes refresh it. */
+export const LIBRARY_TAG = "library";
+
+/** How long the library may be served from the cache: 5 minutes. */
+export const LIBRARY_CACHE_SECONDS = 300;

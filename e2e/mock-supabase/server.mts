@@ -236,11 +236,24 @@ const cors = {
   "access-control-allow-methods": "GET, POST, PUT, PATCH, DELETE, OPTIONS",
 };
 
+const requestCounts = new Map<string, number>();
+
 createServer(async (request, response) => {
   const url = new URL(request.url ?? "/", `http://localhost:${PORT}`);
   if (request.method === "OPTIONS") {
     response.writeHead(204, cors).end();
     return;
+  }
+  // How many requests each path got (the load test counts database
+  // reads per page view, D133); /__stats?reset=1 starts over.
+  if (url.pathname === "/__stats") {
+    const body = JSON.stringify(Object.fromEntries(requestCounts));
+    if (url.searchParams.get("reset") === "1") requestCounts.clear();
+    response.writeHead(200, { "content-type": "application/json" }).end(body);
+    return;
+  }
+  if (url.pathname !== "/health") {
+    requestCounts.set(url.pathname, (requestCounts.get(url.pathname) ?? 0) + 1);
   }
   if (url.pathname === "/health") {
     response.writeHead(200, cors).end("ok");

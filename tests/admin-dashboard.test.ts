@@ -180,3 +180,17 @@ describe("changeUser (D50, D56)", () => {
     expect(db.update).not.toHaveBeenCalled();
   });
 });
+
+describe("nearLimits (D133)", () => {
+  it("lists the uses at 80% or more of their limit, fullest first", async () => {
+    const { nearLimits } = await import("@/lib/admin-dashboard");
+    expect(
+      nearLimits([
+        { id: "a", used: 79, limit: 100 },
+        { id: "b", used: 80, limit: 100 },
+        { id: "c", used: 120, limit: 100 },
+        { id: "d", used: 5, limit: 0 },
+      ]).map((use) => use.id),
+    ).toEqual(["c", "b"]);
+  });
+});

@@ -34,7 +34,8 @@
     "usability": "playwright test --config usability/playwright.config.ts",
     "qa": "playwright test --config qa/playwright.config.ts",
     "portfolio:screenshots": "node --env-file=.env.local scripts/portfolio-screenshots.mts",
-    "qa:summary": "node qa/summary.mts"
+    "qa:summary": "node qa/summary.mts",
+    "loadtest": "bash loadtest/run.sh"
   },
   "dependencies": {
     "@breezystack/lamejs": "1.2.7",

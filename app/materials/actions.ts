@@ -1,5 +1,6 @@
 "use server";
 
+import { leaveQueue, takeTurn } from "@/auth/queue";
 import {
   cleanSubtitle,
   describeInput,
@@ -347,6 +348,14 @@ async function savePractice(
 
 export type GenerateAudioResult =
   | { ok: true; voiced: number; total: number }
+  /** Waiting in line (D133): `ahead` jobs go first. */
+  | {
+      ok: false;
+      reason: "queued";
+      ahead: number;
+      voiced: number;
+      total: number;
+    }
   | ({
       ok: false;
       reason: "unavailable" | "not-found" | MeteredFailure;
@@ -394,6 +403,26 @@ export async function generatePracticeAudio(
   const sentences = [...practice.practice_sentences].sort((a, b) => a.i - b.i);
   const total = sentences.length;
   const missing = sentences.filter((s) => !s.audio_path);
+  if (missing.length === 0) {
+    await leaveQueue("speech", practiceId);
+    return { ok: true, voiced: total, total };
+  }
+  // One practice at a time through the free speech tier (D133).
+  const turn = await takeTurn(
+    "speech",
+    practiceId,
+    creator.user,
+    planFor(creator.user),
+  );
+  if (!turn.turn) {
+    return {
+      ok: false,
+      reason: "queued",
+      ahead: turn.ahead,
+      voiced: total - missing.length,
+      total,
+    };
+  }
   // In a dialogue, speaker B's sentences use the second voice (D57).
   const voiceB = practice.voice_b ? parseVoiceId(practice.voice_b) : null;
   const batch = await voiceSentences(
@@ -416,6 +445,10 @@ export async function generatePracticeAudio(
   }
   const voiced = total - missing.length + batch.done.length;
   if (voiced === total) revalidatePath("/materials");
+  // Done, or stopped for a reason waiting won't fix: the next one goes.
+  if (voiced === total || (batch.stopped && batch.stopped !== "busy")) {
+    await leaveQueue("speech", practiceId);
+  }
   if (batch.stopped) {
     return {
       ok: false,

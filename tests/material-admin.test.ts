@@ -38,7 +38,7 @@ const db = vi.hoisted(() => ({
   updates: [] as unknown[],
   reserve: true,
 }));
-vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
+vi.mock("next/cache", () => ({ revalidatePath: vi.fn(), updateTag: vi.fn() }));
 const logAudit = vi.hoisted(() => vi.fn());
 vi.mock("@/auth/audit", () => ({ logAudit }));
 vi.mock("@/auth/creator", async () => {

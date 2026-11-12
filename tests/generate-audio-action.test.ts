@@ -15,6 +15,16 @@ const state = vi.hoisted(() => ({
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
+const queue = vi.hoisted(() => ({
+  turn: { turn: true } as { turn: true } | { turn: false; ahead: number },
+  left: [] as string[],
+}));
+vi.mock("@/auth/queue", () => ({
+  takeTurn: async () => queue.turn,
+  leaveQueue: async (_: string, id: string) => {
+    queue.left.push(id);
+  },
+}));
 vi.mock("@/auth/creator", () => ({
   getCreator: async () =>
     state.creator
@@ -86,6 +96,29 @@ beforeEach(() => {
 });
 
 describe("generatePracticeAudio", () => {
+  it("waits in line for the free speech tier (D133)", async () => {
+    queue.turn = { turn: false, ahead: 2 };
+    expect(await generatePracticeAudio("p1")).toEqual({
+      ok: false,
+      reason: "queued",
+      ahead: 2,
+      voiced: 0,
+      total: 10,
+    });
+    expect(state.updates).toEqual([]);
+    queue.turn = { turn: true };
+  });
+
+  it("leaves the line once every sentence is voiced (D133)", async () => {
+    queue.left = [];
+    state.practice = {
+      voice: "us-female",
+      practice_sentences: sentences(10, 8),
+    };
+    await generatePracticeAudio("p1");
+    expect(queue.left).toEqual(["p1"]);
+  });
+
   it("voices the next batch of sentences without audio", async () => {
     expect(await generatePracticeAudio("p1")).toEqual({
       ok: true,

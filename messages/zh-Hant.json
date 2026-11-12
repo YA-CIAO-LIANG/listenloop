@@ -835,7 +835,8 @@
       "limit": "今天的聲音用量已經用完。已產生的音檔會保留，明天（台灣時間 0 點後）可以繼續。",
       "failed": "產生音檔時發生錯誤。已產生的音檔會保留，請再試一次。",
       "busy": "聲音服務目前忙碌中，請過一分鐘再試。已產生的音檔會保留。",
-      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤、模型還沒有部署，或免費額度、預付額度用完）。請對照 .env.example 檢查 AI 相關的環境變數，詳細原因在伺服器紀錄。"
+      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤、模型還沒有部署，或免費額度、預付額度用完）。請對照 .env.example 檢查 AI 相關的環境變數，詳細原因在伺服器紀錄。",
+      "queued": "現在排隊的人很多，等了 30 分鐘還沒輪到。已經做好的部分會保留，請稍後在「我的教材」按「繼續準備」。"
     },
     "startPractice": "開始練習",
     "ungrouped": "未分組",
@@ -852,7 +853,8 @@
       "limit": "今天的翻譯與講解用量已經用完，明天（台灣時間 0 點後）可以繼續。",
       "busy": "AI 服務目前忙碌中，請過一分鐘再按「繼續產生」。",
       "failed": "產生講解時發生錯誤，請再試一次。",
-      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤、模型還沒有部署，或免費額度、預付額度用完）。請對照 .env.example 檢查 AI 相關的環境變數，詳細原因在伺服器紀錄。"
+      "config": "AI 服務的設定或額度有問題（例如金鑰錯誤、模型還沒有部署，或免費額度、預付額度用完）。請對照 .env.example 檢查 AI 相關的環境變數，詳細原因在伺服器紀錄。",
+      "queued": "現在排隊的人很多，請稍後在「我的教材」按「繼續準備」。"
     },
     "privacyNote": "建立練習時，文字會送到 Microsoft Azure 的 AI 服務（Azure OpenAI、Azure Speech）處理，不會被用來訓練模型，但可能保留最多 30 天以偵測濫用。請不要輸入個人或敏感資料。詳見<link>隱私權政策</link>。",
     "notReadyBack": "我的教材",
@@ -863,7 +865,8 @@
       "translate": "翻譯中 {done}/{total} 句",
       "notes": "產生講解 {done}/{total} 句",
       "audio": "產生音檔 {done}/{total} 句",
-      "busy": "語音服務忙碌，{seconds} 秒後自動繼續（{done}/{total} 句）"
+      "busy": "語音服務忙碌，{seconds} 秒後自動繼續（{done}/{total} 句）",
+      "queued": "排隊中：前面還有 {ahead} 份教材，輪到時會自動開始（音檔 {done} / {total}）"
     },
     "splitSentence": "從游標處拆分",
     "splitSentenceLabel": "從游標處拆分第 {n} 句",
@@ -1375,7 +1378,8 @@
         "costs": "費用與額度",
         "storage": "Supabase 儲存空間",
         "plans": "方案",
-        "study": "學習"
+        "study": "學習",
+        "capacity": "容量與免費額度"
       },
       "users": "使用者總數",
       "activeToday": "今日活躍",
@@ -1411,7 +1415,21 @@
       "minutesCount": "{n} 分鐘",
       "capWarning": "本月 AI 花費已達全站上限 {cap} 的 {share}，接近上限時一般使用者會暫停建立。",
       "capReached": "本月 AI 花費已達全站上限 {cap}，一般使用者已暫停建立；管理員仍可手動建立。",
-      "capLink": "調整額度 →"
+      "capLink": "調整額度 →",
+      "signups": "註冊人數／上限",
+      "signupsNote": "{used} / {cap} 人，公開註冊開放中",
+      "signupsClosed": "{used} / {cap} 人，公開註冊已關閉",
+      "monthlyUsers": "Supabase 每月活躍使用者",
+      "monthlyUsersNote": "全部帳號 {used} 人（上限估算），免費方案 {limit}",
+      "transcribe": "Azure 語音轉文字（本月）",
+      "transcribeNote": "{used} / {limit} 分鐘（F0 每月 5 小時免費）",
+      "aiCost": "AI 費用（本月）",
+      "aiCostNote": "{used} / 全站上限 {cap}",
+      "betaWaitlist": "Beta 等候名單",
+      "betaWaitlistNote": "還沒邀請的人；到「註冊與邀請」分批邀請",
+      "nearTitle": "接近免費額度上限（80% 以上）：",
+      "nearItem": "{label}：已用 {share}",
+      "nearHint": "Vercel 的流量與函式用量要到 Vercel 後台的 Usage 查看。各服務滿了會怎樣、要升級哪個方案，見 docs/capacity.md。"
     },
     "users": {
       "title": "使用者",
@@ -3112,7 +3130,8 @@
       "decode": "正在讀取聲音…",
       "encode": "正在壓縮聲音（{percent}%）…",
       "upload": "正在上傳…",
-      "transcribe": "正在轉成文字（第 {done} / {total} 批）"
+      "transcribe": "正在轉成文字（第 {done} / {total} 批）",
+      "queued": "排隊中：前面還有 {ahead} 份錄音，輪到時會自動開始"
     },
     "reviewIntro": "辨識出 {count} 句、共 {length}。請逐句播放，修正英文和時間點，再按「翻譯」。",
     "translatedIntro": "共 {count} 句、{length}。可以修改中文和標題，再建立練習。",
@@ -3155,7 +3174,8 @@
       "invalid": "資料不完整，請重新選擇檔案再試一次。",
       "failed": "沒有成功，請再試一次。",
       "row": "第 {n} 句需要修正：英文不能空白，開始時間要早於結束時間，而且不能早於上一句的開始。",
-      "notes": "練習已建立，但講解還沒做完；可以在「我的教材」繼續。"
+      "notes": "練習已建立，但講解還沒做完；可以在「我的教材」繼續。",
+      "queued": "現在排隊的人很多，等了 30 分鐘還沒輪到，請稍後再試。"
     }
   },
   "beta": {

@@ -48,6 +48,28 @@ export function adminPeriods(now: Date): {
   return { dayStart, weekStart, monthStart };
 }
 
+/**
+ * Free-tier limits the overview compares usage with (D133; checked
+ * 2026-11-11): Supabase Free's monthly active users, and Azure Speech
+ * F0's 5 hours of speech to text a month.
+ */
+export const FREE_LIMITS = {
+  supabaseMonthlyUsers: 50_000,
+  transcribeSeconds: 5 * 3600,
+} as const;
+
+/** From this share of a limit on, the overview warns (D133). */
+export const NEAR_LIMIT_SHARE = 0.8;
+
+export type CapacityUse = { id: string; used: number; limit: number };
+
+/** The uses at or past NEAR_LIMIT_SHARE of their limit, fullest first. */
+export function nearLimits(uses: readonly CapacityUse[]): CapacityUse[] {
+  return uses
+    .filter((use) => use.limit > 0 && use.used / use.limit >= NEAR_LIMIT_SHARE)
+    .sort((a, b) => b.used / b.limit - a.used / a.limit);
+}
+
 /** A share of a limit, 0–1, for "12% of 500 MB". */
 export const shareOf = (used: number, limit: number) =>
   limit > 0 ? Math.min(1, used / limit) : 0;
