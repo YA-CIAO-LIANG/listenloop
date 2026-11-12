@@ -1,3 +1,4 @@
+import AxeBuilder from "@axe-core/playwright";
 import {
   expect,
   signInAsAdmin,
@@ -5,6 +6,13 @@ import {
   signInAsPaid,
   test,
 } from "./fixtures";
+
+const axe = async (page: import("@playwright/test").Page) =>
+  (
+    await new AxeBuilder({ page })
+      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+      .analyze()
+  ).violations.map((v) => v.id);
 
 /**
  * Writing practice text with AI (D81), with the fake provider: a
@@ -80,6 +88,18 @@ test("after AI writes and translates, an instruction revises it after a preview,
     "daily-life",
   );
   await expect(page.getByText("AI 依內容判斷的類別，可以修改。")).toBeVisible();
+  // The review step with AI's category passes WCAG 2.1 AA, on a phone
+  // too (the QA sweep can't repeat generation in every combination: the
+  // stand-in's daily allowance runs out).
+  expect(await axe(page)).toEqual([]);
+  await page.setViewportSize({ width: 375, height: 740 });
+  expect(await axe(page)).toEqual([]);
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > window.innerWidth,
+    ),
+  ).toBe(false);
+  await page.setViewportSize({ width: 1280, height: 800 });
   const before = await page.getByLabel(/第 \d+ 句英文/).count();
   expect(before).toBeGreaterThan(2);
   const revise = async (instruction: string) => {
