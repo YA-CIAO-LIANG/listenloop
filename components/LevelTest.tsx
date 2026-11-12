@@ -155,6 +155,7 @@ export function LevelTest({
           <li>{t("ruleCount", { count: sentences.length })}</li>
           <li>{t("ruleReplay")}</li>
           <li>{t("ruleSound")}</li>
+          <li>{t("ruleLevel", { pass: Math.round(LEVEL_PASS * 100) })}</li>
         </ul>
         {previous && (
           <p className="text-supporting text-ink-muted">

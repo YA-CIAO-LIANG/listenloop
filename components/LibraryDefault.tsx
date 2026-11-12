@@ -8,11 +8,13 @@ import { saveLibraryDefault } from "@/app/library-actions";
 import {
   activeFilterCount,
   hasLibraryParams,
+  NO_LIBRARY_FILTER,
   parseSavedFilter,
   savedFilterString,
   type LibraryFilter,
 } from "@/lib/library";
 import { LIBRARY_DEFAULT_STORAGE_KEY } from "@/lib/library-config";
+import { LEVEL_TEST_KEY, parseSavedLevelTest } from "@/lib/level-test";
 import { Button } from "./Button";
 
 type Save = (value: string | null) => Promise<{ ok: boolean }>;
@@ -23,6 +25,15 @@ const listeners = new Set<() => void>();
 function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => listeners.delete(listener);
+}
+
+/** The level from this device's level test (D109, D146), if any. */
+function readLevelTest() {
+  try {
+    return parseSavedLevelTest(localStorage.getItem(LEVEL_TEST_KEY))?.level;
+  } catch {
+    return undefined;
+  }
 }
 
 function readLocal(): string | null {
@@ -67,8 +78,16 @@ export function useLibraryDefault(
   useEffect(() => {
     if (applied.current) return;
     applied.current = true;
+    if (hasLibraryParams(searchParams)) return;
     const filter = parseSavedFilter(signedIn ? fromAccount : readLocal());
-    if (filter && !hasLibraryParams(searchParams)) apply(filter);
+    if (filter) {
+      apply(filter);
+      return;
+    }
+    // No default of one's own: the level test's result is the starting
+    // level (D146).
+    const level = readLevelTest();
+    if (level) apply({ ...NO_LIBRARY_FILTER, levels: [level] });
   }, [signedIn, fromAccount, searchParams, apply]);
 
   async function store(value: string | null): Promise<boolean> {
