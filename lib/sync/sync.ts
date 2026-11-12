@@ -6,6 +6,7 @@ import {
 } from "@/lib/personal-settings";
 import { WALLET_KEY } from "@/lib/storage/local-reward-store";
 import { emptyActivity } from "../activity";
+import { updateActivity } from "../claim-rewards";
 import type { CloudData } from "../storage/cloud-store";
 import type { ProgressStore } from "../storage/progress-store";
 import type { RewardStore } from "../storage/reward-store";
@@ -111,14 +112,21 @@ export async function syncWithCloud({
   for (const videoId of removeLocal) await local.progress.remove(videoId);
   changedLocal ||= toLocal.length > 0 || removeLocal.length > 0;
 
-  const activity = mergeActivity(
-    localActivity,
-    cloudActivity ?? emptyActivity(),
-  );
-  if (!sameData(activity, await local.rewards.getActivity())) {
-    await local.rewards.saveActivity(activity);
-    changedLocal = true;
-  }
+  // Merged with this device's activity as it is now, in the same queue
+  // as the page's own writes: an answer given while the sync was reading
+  // the cloud isn't overwritten by the older copy read at the start.
+  const switched = account !== null && !sameAccount;
+  let activityChanged = false;
+  const activity = await updateActivity(local.rewards, (current) => {
+    const merged = mergeActivity(
+      switched ? localActivity : current,
+      cloudActivity ?? emptyActivity(),
+    );
+    if (sameData(merged, current)) return current;
+    activityChanged = true;
+    return merged;
+  });
+  changedLocal ||= activityChanged;
 
   await Promise.all([
     settings?.toCloud && cloud.saveSettings

@@ -77,7 +77,11 @@ export function MisheardReview({
     value: ReviewDetails | null;
   } | null>(null);
 
+  // Once answering starts, a later re-read (the cloud sync handing out
+  // new stores) doesn't reshuffle today's words under the learner.
+  const answering = useRef(false);
   useEffect(() => {
+    if (answering.current) return;
     let cancelled = false;
     (async () => {
       const progresses = await stores.progress.list().catch(() => []);
@@ -119,6 +123,7 @@ export function MisheardReview({
   function submit(event: FormEvent) {
     event.preventDefault();
     if (!current || answer || typed.trim() === "") return;
+    answering.current = true;
     const [key, review] = current;
     const word = blankOut(review.en, key)?.word ?? key;
     const correct = isRightAnswer(typed, word);

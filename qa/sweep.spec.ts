@@ -8,6 +8,7 @@ import {
   setToday,
   signInAsAdmin,
   signInAsAuthor,
+  signInAsLearner,
   signInAsPaid,
   test,
 } from "../e2e/fixtures";
@@ -31,7 +32,12 @@ const PHONE_MAX = 414;
 /** Slower than this to load (the E2E build on this machine) is a finding. */
 const SLOW_MS = 3000;
 
-type Role = "none" | "author" | "admin" | "paid";
+/**
+ * Who looks (four kinds of visitor): signed out, a free learner with no
+ * materials yet, the author (free, with materials), a paying learner,
+ * and an admin.
+ */
+type Role = "none" | "learner" | "author" | "admin" | "paid";
 /** Something to do on the page before checking it (an open panel, a step). */
 type Step = (page: Page) => Promise<void>;
 const ready = mock.ready.id;
@@ -85,6 +91,19 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           `/materials/${ready}/edit`,
           "/classroom",
         ].map((path) => ({ path, role: "author" as const })),
+        ...[
+          "/",
+          "/materials",
+          "/materials/new",
+          "/pricing",
+          "/review",
+          "/stats",
+          "/account",
+        ].map((path) => ({ path, role: "learner" as const })),
+        ...["/", "/materials/new", "/pricing", "/stats"].map((path) => ({
+          path,
+          role: "paid" as const,
+        })),
         ...[
           "/admin",
           "/admin/usage",
@@ -312,6 +331,7 @@ function inspect(minTarget: number) {
 
 async function signIn(page: Page, role: Role) {
   if (role === "author") await signInAsAuthor(page);
+  if (role === "learner") await signInAsLearner(page);
   if (role === "admin") await signInAsAdmin(page);
   if (role === "paid") await signInAsPaid(page);
 }

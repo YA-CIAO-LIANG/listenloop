@@ -11,11 +11,14 @@ Never calls a paid API: it uses the E2E build (stand-in Supabase, fake AI and pa
 
 ```sh
 npm run build:e2e                 # after any code change
-QA_ROUND=1 npm run qa             # ~5 minutes, 38 pages × 20 combinations
+QA_ROUND=1 npm run qa             # ~6 minutes, 74 pages × 20 combinations
 QA_ROUND=1 npm run qa:summary     # grouped findings
 ```
 
-- Findings land in `qa-results/round-N/findings.jsonl` (git-ignored), one line per finding with the page, role (signed out, author, admin), width, scheme, locale, kind, and detail.
+- Findings land in `qa-results/round-N/findings.jsonl` (git-ignored), one line per finding with the page, role, width, scheme, locale, kind, and detail.
+- **Four kinds of visitor**, each its own role: `none` (signed out), `learner` (free plan, no materials yet), `author` (free plan with materials), `paid` (Plus), `admin`. Add a page under every role that sees it differently.
+- **Only one round at a time.** Two rounds (or a round and `npm run test:e2e`) share port 3200; when one ends it stops the server and the other reports pages without `lang`, tiny targets, and refused connections (round 48). Check the port is free first: `lsof -ti:3200`.
+- A change that only shows with a setting (for example the cookie notice with `NEXT_PUBLIC_CLARITY_PROJECT_ID`): build with it set (`NEXT_PUBLIC_CLARITY_PROJECT_ID=abc123xyz npm run build:e2e`) for one round, then rebuild without it.
 - The live site, signed-out pages only: `QA_BASE_URL=https://listenloop-three.vercel.app QA_ROUND=live1 npm run qa` (read-only; no clock override).
 - Pages and checks are in `qa/sweep.spec.ts`; add a page there when a route is added.
 
@@ -41,6 +44,23 @@ QA_ROUND=1 npm run qa:summary     # grouped findings
    - the practice calendar's day buttons are 40–42 px at 360–375 px by design (D88).
 3. Fix real ones on a `fix/qa-round-N` branch, following CLAUDE.md (design tokens, text from `messages/`, tests, decisions).
 4. Rebuild, run the next round, and repeat until a round finds nothing new or the time box ends.
+
+## After every change: the flows
+
+The sweep looks at pages; these E2E files walk the flows that broke before. Run them with the sweep after every change (all of `npm run test:e2e` does), and add to them when a flow changes:
+
+| File                                            | What it walks                                                                                     |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `e2e/roles.spec.ts`                             | each kind of visitor's main path: signed out, free, paid, admin                                   |
+| `e2e/account-switch.spec.ts`                    | sign out, sign in as someone else: nothing of the first account stays (D138)                      |
+| `e2e/time-zones.spec.ts`                        | Taipei, US Central, US Pacific at the same instant: today, unlocking, reviews (D139)              |
+| `e2e/mobile-devices.spec.ts`                    | iPhone 15 and Pixel 7 (touch, phone UA) for each role, and coming back from Google sign-in (D140) |
+| `e2e/shadowing-phone.spec.ts`                   | the phone's bottom bar: Next, I said it, Play in the same place every sentence (D141)             |
+| `e2e/full-week.spec.ts`                         | one material from Day 1 to Day 7 and the week's result, on a desktop and a phone                  |
+| `e2e/level-test.spec.ts`                        | the level test, its rule, and the library's starting level (D146)                                 |
+| `e2e/review.spec.ts`                            | a misheard word the next day: sound, loop, notes, where it's from (D145)                          |
+| `e2e/materials-folders.spec.ts`                 | My materials: folders, move by menu and by drag, grid and list (D147)                             |
+| `e2e/plans.spec.ts`, `e2e/student-plan.spec.ts` | the free plan's week, the student plan (D143, D144)                                               |
 
 ## Log
 
