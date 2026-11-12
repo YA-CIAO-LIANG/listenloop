@@ -759,7 +759,7 @@
   },
   "create": {
     "title": "Create a practice",
-    "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. The free plan lets you try one.",
+    "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. The free plan makes 2 minutes a week.",
     "textLabel": "Text",
     "textHint": "Paste it here or choose a .txt file. Each line is split separately.",
     "chooseFile": "Choose a .txt file",
@@ -1270,7 +1270,8 @@
       "busy": "The AI service is busy. Try again in a minute.",
       "failed": "The written text couldn't be used. Please try again.",
       "config": "There's a problem with the AI service's setup or allowance (for example a wrong key, or a used-up free tier or prepaid credit). The server log has details.",
-      "tooLong": "That’s longer than your plan allows ({max, number} seconds per practice)."
+      "tooLong": "That’s longer than your plan allows ({max, number} seconds per practice).",
+      "weekLeft": "Only {max, number} seconds are left this week: pick a shorter length, or wait for the weekly reset."
     },
     "categoryLabel": "Category",
     "scenarioLabel": "Scenario",
@@ -1327,6 +1328,8 @@
       "maxPracticeSeconds": "Your plan allows practices up to {max, number} seconds long.",
       "youtubePractices": "Making practices from YouTube videos is part of the paid plans.",
       "minutesPerMonth": "You’ve made {max} minutes of practices this month, your plan’s limit. It resets on the 1st.",
+      "minutesPerWeek": "The free plan makes {max} minutes of materials a week, and this week's are used up.",
+      "weekSecondsLeft": "Only {max, number} seconds are left this week, and this material is longer. Delete some sentences, pick a shorter length, or wait for the weekly reset.",
       "playbackSpeed": "Playback speed is part of Plus and Pro.",
       "fullStats": "The full stats are part of Plus and Pro.",
       "priority": "Priority generation is part of Pro.",
@@ -1335,12 +1338,14 @@
       "uploadAudio": "Making practices from your own recordings is a Plus feature.",
       "uploadMegabytes": "The file is too big: your plan allows up to {max, number} MB a file."
     },
+    "week": "The free plan makes {total} minutes of materials a week (up to {total} minutes each). Left this week: {minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}; resets {reset}.",
+    "weekUsed": "The free plan makes {total} minutes of materials a week. This week's are used up; they reset {reset}.",
     "seePractices": "See your progress",
     "paid": {
       "title": "Plus",
       "perMonth": "{max} minutes of your own practices a month",
       "everything": "Every official material and feature",
-      "free": "You're on the free plan: every official material and feature, plus one practice of your own to try.",
+      "free": "You're on the free plan: every official material and feature, plus 2 minutes of your own materials a week.",
       "join": "Join the waitlist",
       "joined": "You're on the waitlist. We'll let you know when the paid plan opens.",
       "failed": "Couldn't join. Try again later.",
@@ -2740,7 +2745,7 @@
     "current": "Your plan",
     "perMonthSuffix": " / month",
     "summaries": {
-      "free": "Every official lesson and feature, basic stats, and one practice of your own to try (up to 30 seconds).",
+      "free": "Every official lesson and feature, basic stats, and 2 minutes of your own materials a week (two of a minute, or one of two).",
       "plus": "40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules.",
       "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus."
     },
@@ -2765,6 +2770,7 @@
     "noLimit": "No limit",
     "trial": "{n} to try",
     "perMonth": "{n} min a month",
+    "perWeek": "{n} min a week",
     "seconds": "{n} s",
     "minutes": "{n} min",
     "statsBasic": "Basic",

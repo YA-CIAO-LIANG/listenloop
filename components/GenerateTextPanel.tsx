@@ -201,8 +201,9 @@ export function GenerateTextPanel({
     setPending(false);
     if (!result.ok) {
       setError(result.reason);
-      if (result.reason === "tooLong") setTooLongMax(result.max ?? 0);
-      else setUsage(result.limit);
+      if (result.reason === "tooLong" || result.reason === "weekLeft") {
+        setTooLongMax(result.max ?? 0);
+      } else if ("limit" in result) setUsage(result.limit);
       return;
     }
     onGenerated({
@@ -473,8 +474,8 @@ export function GenerateTextPanel({
         <p role="alert" className="text-supporting text-error">
           {error === "limit" ? (
             <UsageLimitMessage block={usage} fallback={t("errors.limit")} />
-          ) : error === "tooLong" ? (
-            t("errors.tooLong", { max: tooLongMax })
+          ) : error === "tooLong" || error === "weekLeft" ? (
+            t(`errors.${error}`, { max: tooLongMax })
           ) : (
             t(`errors.${error}`)
           )}

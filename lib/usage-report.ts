@@ -36,6 +36,26 @@ export function usagePeriodStarts(now: Date): {
   };
 }
 
+/**
+ * The week of `now` for the free plan's minutes (D143): from Monday 00:00
+ * Taiwan time, like every other allowance (D139 keeps them on Taiwan
+ * time), to the next Monday 00:00, as ISO instants.
+ */
+export function usageWeek(now: Date): { start: string; end: string } {
+  const day = usageDay(now);
+  const date = new Date(`${day}T00:00:00Z`);
+  // Monday is 0 … Sunday is 6.
+  const sinceMonday = (date.getUTCDay() + 6) % 7;
+  const monday = new Date(date.getTime() - sinceMonday * 86_400_000)
+    .toISOString()
+    .slice(0, 10);
+  const start = new Date(`${monday}T00:00:00${TAIPEI_OFFSET}`);
+  return {
+    start: start.toISOString(),
+    end: new Date(start.getTime() + 7 * 86_400_000).toISOString(),
+  };
+}
+
 export const microsToUsd = (micros: number) => micros / 1_000_000;
 
 /** The credit left after the estimated Azure spend so far; never negative. */

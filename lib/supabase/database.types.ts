@@ -708,6 +708,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      practice_creations: {
+        Row: {
+          created_at: string;
+          id: number;
+          practice_id: string | null;
+          seconds: number;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: never;
+          practice_id?: string | null;
+          seconds: number;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: never;
+          practice_id?: string | null;
+          seconds?: number;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       practice_reports: {
         Row: {
           created_at: string;

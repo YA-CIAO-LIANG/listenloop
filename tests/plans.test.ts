@@ -7,6 +7,7 @@ import {
   planFor,
   type PlanId,
   type PlanLimits,
+  weekSecondsLeft,
 } from "@/lib/plans";
 import en from "@/messages/en.json";
 import zh from "@/messages/zh-Hant.json";
@@ -27,6 +28,7 @@ const limited: Record<PlanId, PlanLimits> = {
     uploadAudio: false,
     uploadMegabytes: null,
     minutesPerMonth: null,
+    minutesPerWeek: null,
     playbackSpeed: false,
     fullStats: false,
     priority: false,
@@ -42,15 +44,19 @@ describe("plans (D54, D72)", () => {
     expect(PLANS.admin.sharedPractices).toBe(true);
   });
 
-  it("free accounts try one practice of their own, up to 2,000 characters", () => {
-    expect(can("free", { kind: "create-practice", createdTotal: 0 })).toEqual({
-      ok: true,
-    });
-    expect(can("free", { kind: "create-practice", createdTotal: 1 })).toEqual({
-      ok: false,
-      limit: "practicesTotal",
-      max: 1,
-    });
+  it("free accounts make 2 minutes a week, up to 2,000 characters each (D143)", () => {
+    // However many they made before: the old one-practice trial is gone.
+    expect(
+      can("free", {
+        kind: "create-practice",
+        createdTotal: 5,
+        secondsThisWeek: 119,
+      }),
+    ).toEqual({ ok: true });
+    expect(
+      can("free", { kind: "create-practice", secondsThisWeek: 120 }),
+    ).toEqual({ ok: false, limit: "minutesPerWeek", max: 2 });
+    expect(needsCount("free", "create-practice")).toBe(true);
     expect(can("free", { kind: "practice-chars", chars: 2000 })).toEqual({
       ok: true,
     });
@@ -120,15 +126,40 @@ describe("plans (D54, D72)", () => {
 });
 
 describe("practice length by plan (D94)", () => {
-  it("free allows 30 seconds, paid 5 minutes, admin anything", () => {
-    expect(can("free", { kind: "practice-seconds", seconds: 30 }).ok).toBe(
+  it("free allows 2 minutes, within what's left of the week (D143)", () => {
+    // Two of a minute, or one of two.
+    expect(can("free", { kind: "practice-seconds", seconds: 120 }).ok).toBe(
       true,
     );
-    expect(can("free", { kind: "practice-seconds", seconds: 31 })).toEqual({
+    expect(can("free", { kind: "practice-seconds", seconds: 121 })).toEqual({
       ok: false,
       limit: "maxPracticeSeconds",
-      max: 30,
+      max: 120,
     });
+    expect(
+      can("free", {
+        kind: "practice-seconds",
+        seconds: 60,
+        secondsThisWeek: 60,
+      }).ok,
+    ).toBe(true);
+    expect(
+      can("free", {
+        kind: "practice-seconds",
+        seconds: 61,
+        secondsThisWeek: 60,
+      }),
+    ).toEqual({ ok: false, limit: "weekSecondsLeft", max: 60 });
+    expect(weekSecondsLeft(PLANS.free, 150)).toBe(0);
+    expect(weekSecondsLeft(PLANS.paid, 150)).toBeNull();
+    // Paid plans count by the month, not the week.
+    expect(
+      can("paid", {
+        kind: "practice-seconds",
+        seconds: 300,
+        secondsThisWeek: 999,
+      }).ok,
+    ).toBe(true);
     expect(can("paid", { kind: "practice-seconds", seconds: 300 }).ok).toBe(
       true,
     );

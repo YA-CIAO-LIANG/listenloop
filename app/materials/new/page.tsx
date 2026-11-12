@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
-import { creationAllowed } from "@/auth/creation-quota";
+import { creationAllowance } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
 import { getGenerationPace } from "@/auth/generation-pace";
 import { onWaitlist } from "@/app/plans/actions";
@@ -10,6 +10,7 @@ import { CreatePracticeForm } from "@/components/CreatePracticeForm";
 import { youtubeEnabled } from "@/auth/youtube";
 import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { PaidPlanCard } from "@/components/PaidPlanCard";
+import { WeekAllowanceNote } from "@/components/WeekAllowanceNote";
 
 /**
  * The server actions on this page call the AI providers: up to 60 s
@@ -37,7 +38,7 @@ export default async function NewMaterialPage({
   // ?official=1: an admin making an official material (D80).
   const official =
     (await searchParams).official === "1" && creator.user.role === "admin";
-  const allowed = await creationAllowed(creator);
+  const { check: allowed, week } = await creationAllowance(creator);
   const joined = allowed.ok ? false : await onWaitlist();
   const [t, tMaterials] = await Promise.all([
     getTranslations("create"),
@@ -69,7 +70,9 @@ export default async function NewMaterialPage({
           ),
         })}
       </p>
-      <div className="mt-12 max-w-practice">
+      <div className="mt-12 max-w-practice space-y-6">
+        {/* The free plan's minutes this week (D143). */}
+        {week && !official && <WeekAllowanceNote week={week} />}
         {allowed.ok ? (
           <CreatePracticeForm
             official={official}

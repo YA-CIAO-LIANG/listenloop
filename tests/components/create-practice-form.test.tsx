@@ -645,7 +645,7 @@ describe("CreatePracticeForm", () => {
     );
   });
 
-  it("offers 30 seconds and a length of one's own, up to the plan's limit (D94)", async () => {
+  it("offers the lengths up to the plan's limit and a length of one's own (D94, D143)", async () => {
     generateText.mockReset().mockResolvedValue({
       ok: true,
       titleEn: "Hi",
@@ -655,23 +655,37 @@ describe("CreatePracticeForm", () => {
     });
     await renderForm("free");
     fireEvent.click(screen.getByLabelText("AI 生成"));
-    // The free plan allows 30 seconds: no minute-long choices.
-    expect(screen.queryByLabelText("1–2 分鐘")).toBeNull();
-    expect((screen.getByLabelText("30 秒") as HTMLInputElement).checked).toBe(
-      true,
-    );
-    expect(screen.getByText(/你的方案每份最長 30 秒/)).toBeDefined();
+    // The free plan allows 2 minutes: nothing longer.
+    expect(screen.getByLabelText("30 秒")).toBeDefined();
+    expect(screen.getByLabelText("1–2 分鐘")).toBeDefined();
+    expect(screen.queryByLabelText("2–3 分鐘")).toBeNull();
+    expect(screen.getByText(/你的方案每份最長 2 分鐘/)).toBeDefined();
     fireEvent.click(screen.getByLabelText("自訂"));
-    fireEvent.change(screen.getByLabelText("分"), { target: { value: "0" } });
-    fireEvent.change(screen.getByLabelText("秒"), { target: { value: "45" } });
-    // Over the plan's 30 seconds: can't generate.
+    fireEvent.change(screen.getByLabelText("分"), { target: { value: "2" } });
+    fireEvent.change(screen.getByLabelText("秒"), { target: { value: "30" } });
+    // Over the plan's 2 minutes: can't generate.
     expect(
       screen.getByRole("button", { name: /生成文字/ }).hasAttribute("disabled"),
     ).toBe(true);
+    fireEvent.change(screen.getByLabelText("分"), { target: { value: "1" } });
     fireEvent.change(screen.getByLabelText("秒"), { target: { value: "20" } });
     await click("生成文字");
     expect(generateText).toHaveBeenCalledWith(
-      expect.objectContaining({ length: "custom", seconds: 20 }),
+      expect.objectContaining({ length: "custom", seconds: 80 }),
+    );
+  });
+
+  it("says how much of the week is left when the length doesn't fit (D143)", async () => {
+    generateText.mockReset().mockResolvedValue({
+      ok: false,
+      reason: "weekLeft",
+      max: 40,
+    });
+    await renderForm("free");
+    fireEvent.click(screen.getByLabelText("AI 生成"));
+    await click("生成文字");
+    expect(screen.getByRole("alert").textContent).toContain(
+      "本週只剩 40 秒可以建立",
     );
   });
 
