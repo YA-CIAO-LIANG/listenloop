@@ -2356,3 +2356,17 @@
 - **壓力測試**：`npm run loadtest`（k6，本機 production build＋假的 Supabase＋假的 AI，不碰正式資料庫）。結果與解讀見 `docs/capacity.md` 第 2 節；k6 用 Homebrew 安裝（`brew install k6`），只在本機使用。
 - **後台總覽**：新增「容量與免費額度」：註冊人數／上限、Supabase 每月活躍使用者、Azure 語音合成與語音轉文字、AI 費用、資料庫、檔案儲存，加上 Beta 等候名單人數。任一項達 80% 時，頁首顯示紅色警示。Vercel 的用量沒有免費 API，提示到 Vercel 後台查看。
 - **要改時**：`lib/queue.ts`、`auth/queue.ts`、`auth/library.ts`、`auth/practice-material.ts`、`auth/public-supabase.ts`、`app/admin/page.tsx`、`lib/admin-dashboard.ts`（`FREE_LIMITS`、`NEAR_LIMIT_SHARE`）、`loadtest/`、`docs/capacity.md`。
+
+## D134 減少 GitHub Actions 分鐘數，準備改成私人 repo（2026-11-11，Joe 指定）
+
+- **現況**：最近 19 天 CI 跑了 360 次、約 971 分鐘（計費進位後約 1,150 分鐘），換算每月約 1,800 分鐘。私人 repo 的免費額度大約 2,000 分鐘（GitHub Free 每月 US$12 的運算額度）。
+- **做法**：維持一個名叫 `check` 的 job（分支保護依這個名字；拆成多個 job 每個都要裝套件、各自進位，反而更花分鐘數），依變更內容決定要跑什麼：
+  - 只改 `docs/` 或 Markdown：只做格式檢查；
+  - PR 改到程式：lint、型別檢查、單元測試在同一台機器上同時跑，再 build 和 E2E；
+  - 合併到 main：不跑 build 和 E2E（PR 已經對同一份程式跑過）；
+  - 手動執行（workflow_dispatch）：全部。
+  - 新增 Playwright 瀏覽器快取；npm 和 Next.js build 快取原本就有。加 20 分鐘逾時，避免卡住的 job 一直計費。
+- **取捨**：合併到 main 時不跑 E2E，如果 PR 落後 main 很多，合併後的組合要到下一個 PR 才會被 E2E 檢查；需要時可以手動執行完整的 CI。
+- **預估**：每月約 1,100 分鐘，少約 40%。
+- **改成私人時要注意的事**（分支保護需要 GitHub Pro、練習提醒排程的分鐘數、Vercel 連動、安全功能）寫在 `docs/github-private.md`。
+- **要改時**：`.github/workflows/ci.yml` 的「What changed」步驟（哪些路徑算文件）。

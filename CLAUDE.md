@@ -109,7 +109,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - E2E 測試時會擋掉 YouTube，日期用 `page.clock` 設定（D18）；Supabase 換成 `e2e/mock-supabase/` 的假伺服器（D32）。
   - 主要流程有改動時，要補上或更新 E2E 測試。
 - **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。所有 PR 在 CI 通過後直接合併（2026-10-30 起，見工作規則）。
-- **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改），執行 lint、format:check、typecheck、test、build。
+- **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改）。PR 改到程式時執行 format:check、lint、typecheck、test（後三項同時跑）、build:e2e、E2E；只改文件時只做 format:check；合併到 main 時不跑 build 與 E2E（D134，分鐘數見 `docs/github-private.md`）。
 - **秘密資訊**：API key 只放 `.env.local`，必須在 `.gitignore`；`.env.example` 提供範本。
 - **無障礙與錯誤處理**：見 `docs/design-system.md`；麥克風權限被拒、瀏覽器不支援語音辨識、影片無法載入，都要有友善提示。
 
