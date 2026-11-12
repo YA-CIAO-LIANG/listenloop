@@ -704,16 +704,20 @@ export function ShadowingSession({
               </Button>
             )
           }
+          secondary={
+            // Without a microphone, "Play" then "I said it": both in the
+            // phone's bottom bar, in the same place every sentence (D141).
+            manual && !(handsFree && !started) ? (
+              <Button
+                variant="secondary"
+                disabled={player.status !== "ready"}
+                onClick={() => playback.play()}
+              >
+                {t("play")}
+              </Button>
+            ) : null
+          }
         >
-          {manual && (
-            <Button
-              variant="secondary"
-              disabled={player.status !== "ready"}
-              onClick={() => playback.play()}
-            >
-              {t("play")}
-            </Button>
-          )}
           {handsFree && started && (
             <Button variant="ghost" onClick={togglePause}>
               {paused ? tHands("resume") : tHands("pause")}
