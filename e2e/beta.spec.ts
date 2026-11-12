@@ -41,6 +41,16 @@ test("a full Beta offers the waiting list, which takes an email and a purpose", 
   await expect(page.getByText(/已加入等候名單/)).toBeVisible();
 });
 
+test("with places left, the Beta page says sign-ups are open", async ({
+  page,
+}) => {
+  await page.goto("/beta");
+  await expect(
+    page.getByRole("heading", { name: "ListenLoop Beta 測試", level: 1 }),
+  ).toBeVisible();
+  await expect(page.getByText("目前 Beta 名額已滿")).toHaveCount(0);
+});
+
 test("an invite link that doesn't work says so", async ({ page }) => {
   await page.goto("/invite/ZZZZ2222");
   await expect(page).toHaveURL(/\/beta\?reason=invite$/);
