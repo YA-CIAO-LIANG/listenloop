@@ -1,56 +1,56 @@
 {
-  "version": "d91cfb0f7c89",
+  "version": "1ff1f11f3e4a",
   "judgeVersion": 1,
   "model": "gpt-5-mini",
-  "total": 92.06,
+  "total": 96.31,
   "byOperation": {
-    "segment": 79.17,
+    "segment": 100,
     "translate": 97.5,
-    "annotate": 92.62,
-    "compose": 90.4,
+    "annotate": 94.17,
+    "compose": 92.99,
     "describe": 100,
-    "revise": 93.33
+    "revise": 95.67
   },
   "cases": [
     {
       "id": "segment-abbreviations",
       "score": 100,
-      "requestHash": "acc886492599e032"
+      "requestHash": "1af2713e9085558b"
     },
     {
       "id": "segment-numbers",
       "score": 100,
-      "requestHash": "1d4929d0e4af2948"
+      "requestHash": "7c6fc388606f0beb"
     },
     {
       "id": "segment-quote",
       "score": 100,
-      "requestHash": "a8432d06c1e999d2"
+      "requestHash": "97613666bd3e5514"
     },
     {
       "id": "segment-long",
-      "score": 33.33,
-      "requestHash": "376140897e3713b3"
+      "score": 100,
+      "requestHash": "2f355138caaa5e36"
     },
     {
       "id": "segment-lines",
       "score": 100,
-      "requestHash": "62d43c0c24d3b57d"
+      "requestHash": "f397e0d26fa586f6"
     },
     {
       "id": "segment-percent",
       "score": 100,
-      "requestHash": "ddcf7bcfab521277"
+      "requestHash": "7e5572bcf69c88fa"
     },
     {
       "id": "segment-zh",
-      "score": 50,
-      "requestHash": "4e34ef6d4a056497"
+      "score": 100,
+      "requestHash": "76e15d618390d679"
     },
     {
       "id": "segment-zh-long",
-      "score": 50,
-      "requestHash": "fc465b3091124389"
+      "score": 100,
+      "requestHash": "0f720c4067c19c83"
     },
     {
       "id": "translate-platform",
@@ -114,8 +114,8 @@
     },
     {
       "id": "annotate-long",
-      "score": 81.43,
-      "requestHash": "a52d2672e7499e80:71b3f8bfe45020ca"
+      "score": 100,
+      "requestHash": "abfd371a895a20d6:cdcac3926aefdb5b"
     },
     {
       "id": "annotate-phrasal-verb",
@@ -174,43 +174,43 @@
     },
     {
       "id": "compose-coffee-beginner",
-      "score": 100,
-      "requestHash": "9680bb90d6fb22ca:4856f8db4ebaf9c8"
+      "score": 81.43,
+      "requestHash": "79a66fa1d38f0c66:a23fe8b7cb63cff7"
     },
     {
       "id": "compose-club-fair",
-      "score": 91.43,
-      "requestHash": "3a735cef16b98004:9a30f97a626694ab"
+      "score": 100,
+      "requestHash": "6534980d23039ddf:d08100e23c4edfad"
     },
     {
       "id": "compose-schedule-advanced",
-      "score": 91.43,
-      "requestHash": "038ec83e78e25ddc:a502f75fedf3c516"
+      "score": 100,
+      "requestHash": "786ea6871397b9bc:3253790d59e29d72:7e7b6583fd3b4c58"
     },
     {
       "id": "compose-title-en",
-      "score": 75,
-      "requestHash": "2cddea746a722f2c:6fdd588ce1b4b6d6"
+      "score": 82.5,
+      "requestHash": "479a2db45c3584c1:4e0584125a0d6ed0"
     },
     {
       "id": "compose-title-zh",
       "score": 100,
-      "requestHash": "ae8c61989697d321:42f32eaf467562fc"
+      "requestHash": "299690f40b669597:dcd6c3c386a789b3"
     },
     {
       "id": "compose-custom-scenario",
-      "score": 91.43,
-      "requestHash": "121de2d2b0d9407f:0a94389a116af78a"
+      "score": 90,
+      "requestHash": "3f703c648ca1257f:17b1e72fa42266df"
     },
     {
       "id": "compose-custom-category",
-      "score": 81.43,
-      "requestHash": "4578d29e717b9aff:ac2906ff6de03aa3"
+      "score": 90,
+      "requestHash": "a8785a0947e5fa22:b34493c5b6bf419e"
     },
     {
       "id": "compose-keywords",
-      "score": 92.5,
-      "requestHash": "0d249033267797a1:4eccedc9a06df6f2"
+      "score": 100,
+      "requestHash": "b8d7af56d506d29c:7c94c4e89b1ab66c"
     },
     {
       "id": "describe-coffee",
@@ -235,52 +235,52 @@
     {
       "id": "revise-horror",
       "score": 100,
-      "requestHash": "fec7c6a0912cc86c:ddcea860672dfbca"
+      "requestHash": "391977acde47453f:d3651b434ada8a75"
     },
     {
       "id": "revise-funny",
       "score": 100,
-      "requestHash": "6dedc3fa4e813f81:48fa4391c2b2ab80"
+      "requestHash": "267dac7efc776ebe:ef01640ffddf2c29"
     },
     {
       "id": "revise-formal",
       "score": 100,
-      "requestHash": "41ec87efc69a0744:661c973986d59745"
+      "requestHash": "a4589dd02c3eab85:3eeeec21d87ed274"
     },
     {
       "id": "revise-fewer",
       "score": 100,
-      "requestHash": "04b748108297ed4f"
+      "requestHash": "fa9bfd474cc003dd"
     },
     {
       "id": "revise-more",
       "score": 100,
-      "requestHash": "1ef133fee8b5214d:717d8bb710415be5"
+      "requestHash": "911d19d4435b05cf:51f16b365203762c"
     },
     {
       "id": "revise-simpler",
-      "score": 100,
-      "requestHash": "37b957c76f073dfa:d43c673151e092c3"
+      "score": 90,
+      "requestHash": "fd882b16e0f7946f:7b694215d95f6bd9"
     },
     {
       "id": "revise-past-tense",
       "score": 100,
-      "requestHash": "74828688b35b790f:976daa161d231fca"
+      "requestHash": "d30d0200d0e77c7e:976daa161d231fca"
     },
     {
       "id": "revise-refuse-real-person",
       "score": 100,
-      "requestHash": "e321f1240195b36f"
+      "requestHash": "5ff72a9f06935298"
     },
     {
       "id": "revise-refuse-unrelated",
-      "score": 33.33,
-      "requestHash": "30530743645989ca"
+      "score": 100,
+      "requestHash": "67c60433c8a2caae"
     },
     {
       "id": "revise-unchanged",
-      "score": 100,
-      "requestHash": "150dbca066ec6ecf"
+      "score": 66.67,
+      "requestHash": "5a2ba052a472e9d1"
     }
   ]
 }

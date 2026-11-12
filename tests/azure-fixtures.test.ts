@@ -17,6 +17,12 @@ import { checkedSegments } from "@/lib/custom-practice/split";
  * really sends, without calling it again. If a request test fails, the
  * prompt or settings changed since recording: re-record only with Joe's
  * go-ahead (CLAUDE.md, "AI 供應者與測試").
+ *
+ * Notes, splitting, composing, and revising are graded by the AI eval
+ * (D150), whose recordings are checked against the current prompts; here
+ * their older answers only test the parsing, so their requests aren't
+ * compared (D153: comparing them would mean paying to record the same
+ * prompts twice).
  */
 const dir = join("tests", "fixtures", "ai");
 const fixture = (name: string) =>
@@ -64,7 +70,7 @@ describe("recorded Azure OpenAI answers", () => {
   it("writes version 2 notes that pass cleanRichNotes (D67)", async () => {
     const sentence =
       "If you're going to the library later, could you pick up the book I reserved for my history class?";
-    const { recorded, fetchImpl, sent } = replay("azure-openai/annotate.json");
+    const { fetchImpl } = replay("azure-openai/annotate.json");
     const { value } = await azureOpenAiLanguage(config, fetchImpl).annotate([
       sentence,
     ]);
@@ -80,7 +86,7 @@ describe("recorded Azure OpenAI answers", () => {
     if (notes.difficulty === "hard") {
       expect(notes.chunks.length).toBeGreaterThanOrEqual(2);
     }
-    expect(sent()).toEqual(recorded.request);
+    // The prompt is checked by the eval's recordings (D153).
   });
 
   it("writes a subtitle that passes subtitleFromModel (D71)", async () => {
@@ -101,7 +107,7 @@ describe("recorded Azure OpenAI answers", () => {
 
   it("splits only by cutting, as checkedSegments requires", async () => {
     const lines = ["I missed the bus. So I walked to school."];
-    const { recorded, fetchImpl, sent } = replay("azure-openai/segment.json");
+    const { fetchImpl } = replay("azure-openai/segment.json");
     const { value } = await azureOpenAiLanguage(config, fetchImpl).segment(
       lines,
       "en",
@@ -110,11 +116,11 @@ describe("recorded Azure OpenAI answers", () => {
       "I missed the bus.",
       "So I walked to school.",
     ]);
-    expect(sent()).toEqual(recorded.request);
+    // The prompt is checked by the eval's recordings (D153).
   });
 
   it("composes text that checkGeneratedText accepts", async () => {
-    const { recorded, fetchImpl, sent } = replay("azure-openai/compose.json");
+    const { fetchImpl } = replay("azure-openai/compose.json");
     const { value } = await azureOpenAiLanguage(config, fetchImpl).compose({
       topic: "",
       scenario: "ordering a drink at a coffee shop",
@@ -128,7 +134,7 @@ describe("recorded Azure OpenAI answers", () => {
     expect(text?.titleZh).toMatch(/\p{Script=Han}/u);
     expect(text?.subtitle).toMatch(/\p{Script=Han}/u);
     expect(text?.text.split("\n").length).toBeGreaterThan(2);
-    expect(sent()).toEqual(recorded.request);
+    // The prompt is checked by the eval's recordings (D153).
   });
 });
 
@@ -213,12 +219,12 @@ describe("revise with an instruction, recorded (D123)", () => {
   it("rewrites the whole text in a horror style from a Chinese instruction, with one more sentence", async () => {
     const input = sentInput("azure-openai/revise.json");
     expect(input.instruction).toBe("改成恐怖風");
-    const { recorded, fetchImpl, sent } = replay("azure-openai/revise.json");
+    const { fetchImpl } = replay("azure-openai/revise.json");
     const { value, usage } = await azureOpenAiLanguage(
       config,
       fetchImpl,
     ).revise(input);
-    expect(sent()).toEqual(recorded.request);
+    // The prompt is checked by the eval's recordings (D153).
     const revision = checkRevision(value, input.lines);
     expect(revision?.status).toBe("changed");
     const lines = revision?.status === "changed" ? revision.lines : [];

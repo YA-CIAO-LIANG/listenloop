@@ -1,11 +1,11 @@
 {
-  "requestHash": "3a735cef16b98004",
+  "requestHash": "6534980d23039ddf",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width."
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nThe length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nAlso give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.\nFor this request: about 150 words in total (never more than 180), which is about 13 sentences of about 12 words."
       },
       {
         "role": "user",
@@ -29,6 +29,30 @@
             "subtitle": {
               "type": "string"
             },
+            "category": {
+              "type": "string",
+              "enum": [
+                "daily-life",
+                "travel",
+                "study-abroad",
+                "casual-american",
+                "campus",
+                "academic-writing",
+                "business",
+                "news",
+                "science",
+                "talks-stories",
+                "health",
+                "relationships",
+                "tech",
+                "money-admin",
+                "career",
+                "leisure",
+                "food",
+                "culture",
+                "other"
+              ]
+            },
             "lines": {
               "type": "array",
               "items": {
@@ -40,6 +64,7 @@
             "title",
             "titleZh",
             "subtitle",
+            "category",
             "lines"
           ],
           "additionalProperties": false
@@ -83,14 +108,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"title\":\"Campus Club Fair\",\"titleZh\":\"校園社團展覽會\",\"subtitle\":\"你會聽到學生描述社團展覽會的經過。\",\"lines\":[\"Last Saturday I spent the afternoon walking around the club fair on campus.\",\"The weather was warm and there was a light breeze that made the tents feel comfortable.\",\"Many student groups set up colorful booths along the main walkway near the library.\",\"First I stopped at the photography club booth because I like taking pictures in my free time.\",\"They showed some large prints and explained how they organize photo walks every weekend.\",\"Next I visited the environmental club and signed up for a tree planting event next month.\",\"A few music clubs played live songs, and small crowds gathered to listen and clap.\",\"I chatted with members of the debate team who invited me to watch a practice session.\",\"They also offered tips on public speaking and critical thinking for beginners.\",\"Around mid-afternoon a food stall sold homemade cookies and lemonade for only $2 each.\",\"I met some new friends from the art club and we swapped contact information.\",\"Before leaving I picked up a flyer about volunteer tutoring for local children.\",\"Everyone seemed friendly and excited to welcome new members to their activities.\",\"The club fair was a great way to learn about campus life and meet people with similar interests.\",\"I plan to attend two club meetings next week to see which one fits me best.\"]}",
+          "content": "{\"title\":\"Club Fair Afternoon\",\"titleZh\":\"社團博覽會午後\",\"subtitle\":\"聽一位學生描述校園社團博覽會的經過。\",\"category\":\"campus\",\"lines\":[\"Yesterday afternoon our campus held a big club fair on the main lawn.\",\"I arrived around 2:00 and the sun was warm but a light wind blew.\",\"Tables and colorful posters lined the walkways, each one hoping to attract new members.\",\"I first stopped at the photography club because I like taking pictures on weekends.\",\"They showed a slideshow of travel photos and explained their weekly meetups.\",\"Next I visited the debate club, where two students practiced arguing about a movie.\",\"The baking club offered free cookies, and the aroma made many students stop by.\",\"I talked with a volunteer from the environmental club about a river cleanup event.\",\"She said they meet every Saturday at 9:30 and provide gloves and bags.\",\"A music group played live acoustic songs, creating a friendly, relaxed atmosphere.\",\"I signed up for three clubs and promised to try their activities next month.\",\"By 4:30 the fair was winding down, and coordinators were packing materials away.\",\"I left feeling excited and a little tired, ready to try something new.\"]}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497210,
-    "id": "chatcmpl-EjQzKIqdi84eCs7VyoCLflwggyuXe",
+    "created": 1794504722,
+    "id": "chatcmpl-EjSwUAsFfIWhhRZbV3nkluzdlW8x3",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -121,12 +146,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261107070554-b7bd1393-default-r2-dp0-default"
+      "serving_pipereplica": "d20261107070554-b7bd1393-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 292,
+      "completion_tokens": 264,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -134,21 +159,21 @@
         "rejected_prediction_tokens": 0
       },
       "latency_checkpoint": {
-        "engine_tbt_ms": 8,
-        "engine_ttft_ms": 34,
-        "engine_ttlt_ms": 2293,
-        "pre_inference_ms": 73,
-        "service_tbt_ms": 8,
-        "service_ttft_ms": 555,
-        "service_ttlt_ms": 2809,
-        "user_visible_ttft_ms": 482
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 33,
+        "engine_ttlt_ms": 1934,
+        "pre_inference_ms": 81,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 634,
+        "service_ttlt_ms": 2531,
+        "user_visible_ttft_ms": 553
       },
-      "prompt_tokens": 346,
+      "prompt_tokens": 541,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 638
+      "total_tokens": 805
     }
   }
 }

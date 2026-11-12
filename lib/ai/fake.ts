@@ -41,6 +41,8 @@ export const fakeLanguage: LanguageProvider = {
         title: `Practice: ${scenario}`.slice(0, 100),
         titleZh: "練習（測試）",
         subtitle: "測試用的練習內容",
+        // The first general category, as a guess the learner can change (D153).
+        category: "daily-life",
         lines: Array.from({ length: count }, () => line),
       },
       [scenario],

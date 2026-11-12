@@ -1,11 +1,11 @@
 {
-  "requestHash": "2cddea746a722f2c",
+  "requestHash": "479a2db45c3584c1",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nThe text must fit titleEn. Return titleEn exactly as given, unchanged, as the title."
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nThe length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nAlso give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.\nFor this request: about 100 words in total (never more than 120), which is about 8 sentences of about 12 words.\nThe text must fit titleEn. Return titleEn exactly as given, unchanged, as the title."
       },
       {
         "role": "user",
@@ -29,6 +29,30 @@
             "subtitle": {
               "type": "string"
             },
+            "category": {
+              "type": "string",
+              "enum": [
+                "daily-life",
+                "travel",
+                "study-abroad",
+                "casual-american",
+                "campus",
+                "academic-writing",
+                "business",
+                "news",
+                "science",
+                "talks-stories",
+                "health",
+                "relationships",
+                "tech",
+                "money-admin",
+                "career",
+                "leisure",
+                "food",
+                "culture",
+                "other"
+              ]
+            },
             "lines": {
               "type": "array",
               "items": {
@@ -40,6 +64,7 @@
             "title",
             "titleZh",
             "subtitle",
+            "category",
             "lines"
           ],
           "additionalProperties": false
@@ -83,14 +108,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"title\":\"Lost at Taipei Main Station\",\"titleZh\":\"在台北車站迷路\",\"subtitle\":\"你會聽到兩人互問路的對話。\",\"lines\":[\"Excuse me, can you help me?\",\"Yes, of course, where do you want to go?\",\"I need to find platform 4 for the train to Taoyuan.\",\"You are in the main concourse now, right?\",\"Yes, I see the big clock and the information desk.\",\"Walk straight ahead past the ticket counters for two minutes.\",\"Do I need to go down any stairs?\",\"No, stay on this level and follow the signs for platforms.\",\"I see a sign that says platforms 1 to 6, is that right?\",\"Yes, turn left under that sign and keep walking.\",\"Is platform 4 on the left or the right?\",\"Platform 4 will be on the right after the escalator.\",\"Thank you, do I need to buy a ticket first?\",\"Yes, you can buy a ticket at the machines or the counter.\",\"Are the machines easy to use for a contactless card?\",\"Yes, the machines accept contactless cards and easy cards.\",\"How long is the walk to the platform from here?\",\"It takes about five minutes if you walk quickly.\",\"Great, and where is the rest room on this level?\",\"The rest room is near the elevators on the left side.\",\"Thank you so much for your help.\",\"No problem, have a safe trip to Taoyuan.\"]}",
+          "content": "{\"title\":\"Lost at Taipei Main Station\",\"titleZh\":\"在台北車站迷路\",\"subtitle\":\"你會聽到兩人互問路的對話。\",\"category\":\"travel\",\"lines\":[\"Excuse me, can you help me find Platform 4?\",\"Sure, do you need the high speed rail or a local train?\",\"I need the local train to Taoyuan, not the high speed one.\",\"Okay, from here go straight and take the stairs down.\",\"Are there signs in English for Platform 4?\",\"Yes, follow the blue signs that say TRA and Platform 4.\",\"How long will it take to walk there from here?\",\"About five minutes if you walk quickly and do not stop.\"]}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497222,
-    "id": "chatcmpl-EjQzWeWE8d54lKaw9rFebHHcO4ArC",
+    "created": 1794504737,
+    "id": "chatcmpl-EjSwjM9goBlkMyHwRq8RyelLVpHB1",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -121,12 +146,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261103051020-05b5f4fd-default-r2-dp0-default"
+      "serving_pipereplica": "d20261107070554-b7bd1393-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 322,
+      "completion_tokens": 163,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -135,20 +160,20 @@
       },
       "latency_checkpoint": {
         "engine_tbt_ms": 7,
-        "engine_ttft_ms": 24,
-        "engine_ttlt_ms": 2279,
-        "pre_inference_ms": 116,
+        "engine_ttft_ms": 38,
+        "engine_ttlt_ms": 1273,
+        "pre_inference_ms": 135,
         "service_tbt_ms": 7,
-        "service_ttft_ms": 599,
-        "service_ttlt_ms": 2850,
-        "user_visible_ttft_ms": 483
+        "service_ttft_ms": 701,
+        "service_ttlt_ms": 1931,
+        "user_visible_ttft_ms": 567
       },
-      "prompt_tokens": 375,
+      "prompt_tokens": 570,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 697
+      "total_tokens": 733
     }
   }
 }

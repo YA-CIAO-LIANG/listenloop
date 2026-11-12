@@ -52,6 +52,7 @@ export const RULES_FOR: Record<EvalCase["operation"], readonly Rule["kind"][]> =
       "titleExact",
       "subtitleMax",
       "mentions",
+      "categoryIn",
     ],
     describe: ["subtitleMax", "noOpening", "titleExact"],
     revise: ["status", "changedShare", "lineCount", "hasReason"],
@@ -300,6 +301,12 @@ export function checkRule(
           rule,
           text.subtitle !== "" && [...text.subtitle].length <= rule.max,
           `副標「${text.subtitle}」不是 1～${rule.max} 字`,
+        );
+      case "categoryIn":
+        return check(
+          rule,
+          text.category !== null && rule.anyOf.includes(text.category),
+          `類別判斷為「${text.category ?? "（沒有）"}」，應為 ${rule.anyOf.join("／")}`,
         );
       case "mentions": {
         const lower = text.text.toLowerCase();

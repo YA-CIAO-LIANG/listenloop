@@ -148,33 +148,83 @@ export function splitSentences(
 
 const squeeze = (text: string) => text.replace(/\s+/g, "");
 
+const isPieces = (value: unknown): value is string[] =>
+  Array.isArray(value) &&
+  value.length > 0 &&
+  value.every((piece) => typeof piece === "string");
+
 /**
- * The sentences of `lines` from a language model's split (one list of
- * pieces per line), checked line by line: the model may only cut, never
- * change, add, drop, or reorder text, so a line's pieces joined must be
- * the line itself (ignoring spaces). A line whose pieces don't pass is
- * split by the rules instead. Pieces without letters or digits go.
+ * Each line's pieces as the model cut them, or null for a line it didn't
+ * cut cleanly: the model may only cut, never change, add, drop, or
+ * reorder text, so a line's pieces joined must be the line itself
+ * (ignoring spaces). With one list per line, each line is checked on its
+ * own. With a different number of lists (D153: it once gave one list per
+ * sentence), the pieces are matched to the lines in order, and used only
+ * if every line is made of whole pieces.
  */
+export function modelSegments(
+  lines: readonly string[],
+  segmented: unknown,
+): (string[] | null)[] {
+  const perLine = Array.isArray(segmented) ? segmented : [];
+  if (perLine.length === lines.length) {
+    return lines.map((line, i) => {
+      const pieces: unknown = perLine[i];
+      return isPieces(pieces) && squeeze(pieces.join("")) === squeeze(line)
+        ? pieces
+        : null;
+    });
+  }
+  const none = lines.map(() => null);
+  if (!perLine.every(isPieces)) return none;
+  const pieces = (perLine as string[][]).flat();
+  let next = 0;
+  const result: string[][] = [];
+  for (const line of lines) {
+    const target = squeeze(line);
+    const own: string[] = [];
+    let joined = "";
+    while (next < pieces.length && joined.length < target.length) {
+      own.push(pieces[next]);
+      joined += squeeze(pieces[next]);
+      next += 1;
+    }
+    if (joined !== target) return none;
+    result.push(own);
+  }
+  return next === pieces.length ? result : none;
+}
+
+/**
+ * Each line's sentences from a language model's split (one list of
+ * pieces per line, see modelSegments). A line the model didn't cut
+ * cleanly is split by the rules instead. English pieces still longer
+ * than SENTENCE_WORDS.max break at a clause (D153: the model left a
+ * 40-word sentence whole). Pieces without letters or digits go.
+ */
+export function segmentsPerLine(
+  lines: readonly string[],
+  segmented: unknown,
+  language: TextSourceLanguage,
+): string[][] {
+  const model = modelSegments(lines, segmented);
+  return lines.map((line, index) => {
+    const pieces = model[index];
+    if (!pieces) return splitLine(line, language);
+    const tidy = pieces
+      .map((piece) => piece.replace(/\s+/g, " ").trim())
+      .filter(hasContent);
+    return language === "en" ? tidy.flatMap(splitLong) : tidy;
+  });
+}
+
+/** The sentences of `lines` from a language model's split, in order. */
 export function checkedSegments(
   lines: readonly string[],
   segmented: unknown,
   language: TextSourceLanguage,
 ): string[] {
-  const perLine = Array.isArray(segmented) ? segmented : [];
-  return lines.flatMap((line, index) => {
-    const pieces: unknown = perLine[index];
-    const valid =
-      perLine.length === lines.length &&
-      Array.isArray(pieces) &&
-      pieces.length > 0 &&
-      pieces.every((piece) => typeof piece === "string") &&
-      squeeze(pieces.join("")) === squeeze(line);
-    return valid
-      ? (pieces as string[])
-          .map((piece) => piece.replace(/\s+/g, " ").trim())
-          .filter(hasContent)
-      : splitLine(line, language);
-  });
+  return segmentsPerLine(lines, segmented, language).flat();
 }
 
 /**

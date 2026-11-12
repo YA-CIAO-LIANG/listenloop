@@ -16,7 +16,7 @@ export function fixturePath(caseId: string, step: EvalStep): string {
   return join(
     root,
     EVAL_PATHS.fixtures,
-    step === "answer" ? `${caseId}.json` : `${caseId}.judge.json`,
+    step === "answer" ? `${caseId}.json` : `${caseId}.${step}.json`,
   );
 }
 

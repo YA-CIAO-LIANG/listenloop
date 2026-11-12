@@ -1,5 +1,5 @@
 {
-  "requestHash": "9a30f97a626694ab",
+  "requestHash": "d08100e23c4edfad",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
@@ -9,7 +9,7 @@
       },
       {
         "role": "user",
-        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"a student describing a club fair on campus\",\"level\":\"CEFR B1: everyday vocabulary, some longer sentences\",\"words\":150,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"Campus Club Fair\",\"titleZh\":\"校園社團展覽會\",\"subtitle\":\"你會聽到學生描述社團展覽會的經過。\",\"text\":\"Last Saturday I spent the afternoon walking around the club fair on campus.\\nThe weather was warm and there was a light breeze that made the tents feel comfortable.\\nMany student groups set up colorful booths along the main walkway near the library.\\nFirst I stopped at the photography club booth because I like taking pictures in my free time.\\nThey showed some large prints and explained how they organize photo walks every weekend.\\nNext I visited the environmental club and signed up for a tree planting event next month.\\nA few music clubs played live songs, and small crowds gathered to listen and clap.\\nI chatted with members of the debate team who invited me to watch a practice session.\\nThey also offered tips on public speaking and critical thinking for beginners.\\nAround mid-afternoon a food stall sold homemade cookies and lemonade for only $2 each.\\nI met some new friends from the art club and we swapped contact information.\\nBefore leaving I picked up a flyer about volunteer tutoring for local children.\\nEveryone seemed friendly and excited to welcome new members to their activities.\\nThe club fair was a great way to learn about campus life and meet people with similar interests.\\nI plan to attend two club meetings next week to see which one fits me best.\"}},\"criteria\":\"內容符合情境（學生介紹校園社團博覽會），程度符合 中級 B1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
+        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"a student describing a club fair on campus\",\"level\":\"CEFR B1: everyday vocabulary, some longer sentences\",\"words\":150,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"Club Fair Afternoon\",\"titleZh\":\"社團博覽會午後\",\"subtitle\":\"聽一位學生描述校園社團博覽會的經過。\",\"text\":\"Yesterday afternoon our campus held a big club fair on the main lawn.\\nI arrived around 2:00 and the sun was warm but a light wind blew.\\nTables and colorful posters lined the walkways, each one hoping to attract new members.\\nI first stopped at the photography club because I like taking pictures on weekends.\\nThey showed a slideshow of travel photos and explained their weekly meetups.\\nNext I visited the debate club, where two students practiced arguing about a movie.\\nThe baking club offered free cookies, and the aroma made many students stop by.\\nI talked with a volunteer from the environmental club about a river cleanup event.\\nShe said they meet every Saturday at 9:30 and provide gloves and bags.\\nA music group played live acoustic songs, creating a friendly, relaxed atmosphere.\\nI signed up for three clubs and promised to try their activities next month.\\nBy 4:30 the fair was winding down, and coordinators were packing materials away.\\nI left feeling excited and a little tired, ready to try something new.\",\"category\":\"campus\"}},\"criteria\":\"內容符合情境（學生介紹校園社團博覽會），程度符合 中級 B1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
       }
     ],
     "response_format": {
@@ -79,14 +79,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"score\":5,\"reason\":\"內容與情境完全相符、語言自然且符合 B1 程度，句子結構與用詞都正確；中文標題與副標清晰通順，可直接給學生使用。\"}",
+          "content": "{\"score\":5,\"reason\":\"內容完整符合情境，語言自然、文法正確，程度適合 B1 學生；中文標題與副標也通順恰當。\"}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497213,
-    "id": "chatcmpl-EjQzNcOANTB3Yg1wGoxZJLr7RGJyx",
+    "created": 1794504725,
+    "id": "chatcmpl-EjSwXBXb6fbdXAsKH27vR7EI8RIkK",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -122,7 +122,7 @@
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 66,
+      "completion_tokens": 57,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -131,20 +131,20 @@
       },
       "latency_checkpoint": {
         "engine_tbt_ms": 8,
-        "engine_ttft_ms": 40,
-        "engine_ttlt_ms": 650,
-        "pre_inference_ms": 97,
+        "engine_ttft_ms": 41,
+        "engine_ttlt_ms": 544,
+        "pre_inference_ms": 86,
         "service_tbt_ms": 8,
-        "service_ttft_ms": 698,
-        "service_ttlt_ms": 1284,
-        "user_visible_ttft_ms": 600
+        "service_ttft_ms": 775,
+        "service_ttlt_ms": 1275,
+        "user_visible_ttft_ms": 690
       },
-      "prompt_tokens": 616,
+      "prompt_tokens": 585,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 682
+      "total_tokens": 642
     }
   }
 }

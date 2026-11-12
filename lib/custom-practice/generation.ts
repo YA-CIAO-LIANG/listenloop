@@ -2,8 +2,10 @@ import { PRACTICE_LIMITS } from "./draft";
 import { cleanSubtitle } from "./subtitle";
 
 import {
+  GUESSABLE_CATEGORIES,
   OTHER_CATEGORY,
   findExam,
+  isGeneralCategory,
   findScenario,
   findTarget,
   isLevel,
@@ -298,6 +300,23 @@ export function parseMaterialMeta(input: unknown): MaterialMeta | null {
         }
       : null;
   }
+  // A category without a scenario (D153): what AI guessed, or the
+  // learner picked, for a text of their own situation.
+  if (
+    isGeneralCategory(raw.category) &&
+    (raw.scenario ?? null) === null &&
+    isLevel(raw.level) &&
+    (raw.exam ?? null) === null &&
+    (raw.examTarget ?? null) === null
+  ) {
+    return {
+      category: raw.category,
+      scenario: null,
+      level: raw.level,
+      exam: null,
+      examTarget: null,
+    };
+  }
   const place = findScenario(raw.scenario);
   if (!place || place.category !== raw.category || !isLevel(raw.level)) {
     return null;
@@ -325,7 +344,60 @@ export type GeneratedText = {
   titleZh: string;
   subtitle: string;
   text: string;
+  /**
+   * The category the model filed the text under (D153), for a request
+   * the learner didn't file; null when it gave none we know.
+   */
+  category: CategoryId | null;
 };
+
+/**
+ * How far a written text may run past the words asked for (D153): past
+ * this, it's sent back once to be shortened.
+ */
+export const LENGTH_TOLERANCE = 0.2;
+
+/** Whether a written text is too long for the words asked for (D153). */
+export function needsShortening(text: string, words: number): boolean {
+  return wordCount(text) > words * (1 + LENGTH_TOLERANCE);
+}
+
+/**
+ * The shortened text if it's better (D153): usable, and shorter than the
+ * first one. Otherwise the first text stays.
+ */
+export function shortenedText(
+  first: GeneratedText,
+  revised: readonly string[] | null,
+  words: number,
+): GeneratedText {
+  if (!revised) return first;
+  const checked = checkGeneratedText(
+    { title: first.title, lines: revised },
+    words,
+  );
+  return checked && wordCount(checked.text) < wordCount(first.text)
+    ? { ...first, text: checked.text }
+    : first;
+}
+
+/**
+ * The meta of a text the learner didn't file (D153): the category the
+ * model chose, with no scenario, or "other" when it chose none.
+ */
+export function guessedMeta(
+  request: GenerationRequest,
+  category: CategoryId | null,
+): MaterialMeta {
+  return {
+    category:
+      category && isGeneralCategory(category) ? category : OTHER_CATEGORY,
+    scenario: null,
+    level: isLevel(request.level) ? request.level : "intermediate",
+    exam: null,
+    examTarget: null,
+  };
+}
 
 const wordCount = (text: string) => text.split(/\s+/).filter(Boolean).length;
 
@@ -342,6 +414,7 @@ export function checkGeneratedText(
     title?: unknown;
     titleZh?: unknown;
     subtitle?: unknown;
+    category?: unknown;
     lines?: unknown;
   };
   const tidy = (field: unknown) =>
@@ -369,5 +442,10 @@ export function checkGeneratedText(
     titleZh,
     subtitle: cleanSubtitle(value.subtitle) ?? "",
     text,
+    category: (GUESSABLE_CATEGORIES as readonly unknown[]).includes(
+      value.category,
+    )
+      ? (value.category as CategoryId)
+      : null,
   };
 }

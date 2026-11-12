@@ -1,11 +1,11 @@
 {
-  "requestHash": "0d249033267797a1",
+  "requestHash": "b8d7af56d506d29c",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width."
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nThe length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nAlso give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.\nFor this request: about 150 words in total (never more than 180), which is about 13 sentences of about 12 words."
       },
       {
         "role": "user",
@@ -29,6 +29,30 @@
             "subtitle": {
               "type": "string"
             },
+            "category": {
+              "type": "string",
+              "enum": [
+                "daily-life",
+                "travel",
+                "study-abroad",
+                "casual-american",
+                "campus",
+                "academic-writing",
+                "business",
+                "news",
+                "science",
+                "talks-stories",
+                "health",
+                "relationships",
+                "tech",
+                "money-admin",
+                "career",
+                "leisure",
+                "food",
+                "culture",
+                "other"
+              ]
+            },
             "lines": {
               "type": "array",
               "items": {
@@ -40,6 +64,7 @@
             "title",
             "titleZh",
             "subtitle",
+            "category",
             "lines"
           ],
           "additionalProperties": false
@@ -83,14 +108,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"title\":\"Our Plastic, Our Future\",\"titleZh\":\"我们的塑膠，我們的未來\",\"subtitle\":\"你將聽到一個關於社區回收的短講。\",\"lines\":[\"Good morning everyone, and thank you for coming to this assembly.\",\"My name is Alex Park, and I am here to talk about recycling plastic in our community.\",\"Every day our school produces many plastic bottles, bags, and food containers.\",\"If we do not recycle, these items can stay in the environment for hundreds of years.\",\"Recycling plastic helps reduce pollution and saves energy compared with making new plastic from oil.\",\"Last month our class started a simple project to collect used plastic around the school.\",\"We separated bottles, trays, and soft plastics into different bins and marked them clearly.\",\"Volunteers visited each classroom twice a week to empty the small bins into larger boxes.\",\"Then we took the boxes to the community recycling center on weekends.\",\"The center sorts the plastic and sends it to local factories that turn it into new products.\",\"This process creates jobs and keeps our neighborhood cleaner and healthier.\",\"I encourage every student to join our recycling team or to bring a reusable bottle to school.\",\"Small actions by many people can make a big difference for our planet.\",\"Thank you for listening, and please think about recycling plastic every day.\"]}",
+          "content": "{\"title\":\"Recycle for Our Community\",\"titleZh\":\"為社區回收\",\"subtitle\":\"在校會議上聽一段關於塑膠回收的短講。\",\"category\":\"campus\",\"lines\":[\"Good morning, everyone, and thank you for joining our assembly today.\",\"My name is Jason Lee and I am the head of the green club this year.\",\"I want to talk about plastic use and how we can recycle more in our community.\",\"Every day we see many plastic bottles, bags, and food containers on campus.\",\"Most plastic takes hundreds of years to break down in the environment.\",\"Recycling helps reduce waste and saves energy used to make new plastic items.\",\"Right now, our school recycles bottles but not all plastic types are accepted.\",\"We plan to add more labeled bins for soft plastic and mixed plastics next month.\",\"Volunteers will help students learn which items go in each bin.\",\"If everyone does a little, our campus waste could drop by 20% or more.\",\"Please check the labels before you throw something away during lunch.\",\"Join the green club this Friday to help set up the new bins.\",\"Together we can make our community cleaner and more sustainable.\"]}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497245,
-    "id": "chatcmpl-EjQztZrDsEgHD0kjveUth0s6or5Yq",
+    "created": 1794504756,
+    "id": "chatcmpl-EjSx2ksN2secbO2HyUu8SYDgLWD4x",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -121,12 +146,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261103051020-05b5f4fd-default-r0-dp0-default"
+      "serving_pipereplica": "d20261107070554-b7bd1393-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 279,
+      "completion_tokens": 253,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -134,21 +159,21 @@
         "rejected_prediction_tokens": 0
       },
       "latency_checkpoint": {
-        "engine_tbt_ms": 6,
-        "engine_ttft_ms": 29,
-        "engine_ttlt_ms": 1656,
-        "pre_inference_ms": 78,
-        "service_tbt_ms": 6,
-        "service_ttft_ms": 563,
-        "service_ttlt_ms": 2186,
-        "user_visible_ttft_ms": 485
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 31,
+        "engine_ttlt_ms": 1761,
+        "pre_inference_ms": 87,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 653,
+        "service_ttlt_ms": 2379,
+        "user_visible_ttft_ms": 566
       },
-      "prompt_tokens": 353,
+      "prompt_tokens": 548,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 632
+      "total_tokens": 801
     }
   }
 }

@@ -10,6 +10,7 @@ import {
   type LanguageBudget,
 } from "./budgets";
 import { errorCode, postGoogleJson, probeProvider } from "./http";
+import { GUESSABLE_CATEGORIES } from "@/lib/categories";
 import { RICH_NOTES_SCHEMA, toGeminiSchema } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
 import {
@@ -18,7 +19,7 @@ import {
   DESCRIBE_INSTRUCTIONS,
   NEWS_INSTRUCTIONS,
   REVISE_INSTRUCTIONS,
-  NOTES_INSTRUCTIONS,
+  notesInstructions,
   PROMPT_VERSION,
   SEGMENT_INSTRUCTIONS,
   TRANSLATE_INSTRUCTIONS,
@@ -53,7 +54,7 @@ const SEGMENTS_SCHEMA = {
   required: ["lines"],
 } as const;
 
-const COMPOSITION_SCHEMA = {
+const NEWS_SCHEMA = {
   type: "OBJECT",
   properties: {
     title: STRING,
@@ -62,6 +63,19 @@ const COMPOSITION_SCHEMA = {
     lines: { type: "ARRAY", items: STRING },
   },
   required: ["title", "titleZh", "subtitle", "lines"],
+} as const;
+
+// D153: the closest category, for a text the learner didn't file.
+const COMPOSITION_SCHEMA = {
+  type: "OBJECT",
+  properties: {
+    title: STRING,
+    titleZh: STRING,
+    subtitle: STRING,
+    category: { type: "STRING", enum: [...GUESSABLE_CATEGORIES] },
+    lines: { type: "ARRAY", items: STRING },
+  },
+  required: ["title", "titleZh", "subtitle", "category", "lines"],
 } as const;
 
 const DESCRIPTION_SCHEMA = {
@@ -284,7 +298,7 @@ export function geminiLanguage(
       return generate(
         NEWS_INSTRUCTIONS,
         input,
-        COMPOSITION_SCHEMA,
+        NEWS_SCHEMA,
         newsBudget(input),
         0.5,
       );
@@ -309,7 +323,7 @@ export function geminiLanguage(
     },
     async annotate(sentences) {
       return generate(
-        NOTES_INSTRUCTIONS,
+        notesInstructions(sentences),
         { sentences: sentences.map((en, index) => ({ index, en })) },
         NOTES_SCHEMA,
         annotateBudget(sentences),

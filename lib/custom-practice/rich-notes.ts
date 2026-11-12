@@ -128,6 +128,21 @@ const str = (value: unknown, max: number): string | null => {
   return tidy && [...tidy].length <= max ? tidy : null;
 };
 
+/**
+ * A quote from the sentence as written in it (D153): the model sometimes
+ * spaces punctuation off ("twice ,"), which doesn't match the sentence.
+ */
+export function asInSentence(text: string | null, en: string): string | null {
+  if (text === null || en.includes(text)) return text;
+  return text.replace(/\s+([,.;:!?…])/g, "$1");
+}
+
+/** IPA in slashes (D153): the model sometimes leaves one off. */
+export function slashed(ipa: string): string {
+  if (!ipa || /^\/.+\/$/.test(ipa)) return ipa;
+  return `/${ipa.replace(/^\/|\/$/g, "")}/`;
+}
+
 const list = (value: unknown): unknown[] => (Array.isArray(value) ? value : []);
 const field = (item: unknown, key: string): unknown =>
   typeof item === "object" && item !== null
@@ -221,7 +236,7 @@ export function cleanRichNotes(raw: unknown, en: string): RichNotes | null {
           : "word",
         pos,
         zh,
-        ipa: str(field(item, "ipa"), MAX.ipa) ?? "",
+        ipa: slashed(str(field(item, "ipa"), MAX.ipa) ?? ""),
         collocations: list(field(item, "collocations"))
           .flatMap((c) => str(c, MAX.short) ?? [])
           .slice(0, NOTES_LIMITS.collocations),
@@ -272,7 +287,7 @@ export function cleanRichNotes(raw: unknown, en: string): RichNotes | null {
 
   // Chunks must be the sentence, in order, nothing added or left out.
   let chunks = list(field(raw, "chunks")).flatMap((item): Chunk[] => {
-    const text = str(field(item, "text"), MAX.text);
+    const text = asInSentence(str(field(item, "text"), MAX.text), en);
     const role = field(item, "role");
     const zh = str(field(item, "zh"), MAX.zh);
     // A chunk is words: punctuation alone ("?") isn't a meaning group.
