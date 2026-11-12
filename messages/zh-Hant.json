@@ -3180,6 +3180,7 @@
   },
   "beta": {
     "title": "目前 Beta 名額已滿",
+    "openTitle": "ListenLoop Beta 測試",
     "inviteTitle": "這個邀請連結無法使用",
     "open": "ListenLoop 正在 Beta 測試，現在可以直接建立帳號。",
     "signIn": "前往登入 →",

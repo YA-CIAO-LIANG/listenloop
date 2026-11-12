@@ -3182,6 +3182,7 @@
   },
   "beta": {
     "title": "The Beta is full",
+    "openTitle": "The ListenLoop Beta",
     "inviteTitle": "This invite link doesn't work",
     "open": "ListenLoop is in Beta, and you can make an account now.",
     "signIn": "Go to sign in →",
