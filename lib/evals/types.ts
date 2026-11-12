@@ -39,6 +39,7 @@ export type Rule =
   | { kind: "titleExact"; en?: string; zh?: string }
   | { kind: "subtitleMax"; max: number }
   | { kind: "mentions"; anyOf: string[] }
+  | { kind: "categoryIn"; anyOf: string[] }
   // describe
   | { kind: "noOpening"; words: string[] }
   // revise

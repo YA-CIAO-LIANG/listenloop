@@ -23,6 +23,8 @@ import {
   revisionOutcome,
 } from "@/lib/custom-practice/revise";
 import { meteredLanguage, type MeteredFailure } from "@/lib/ai/metered";
+import type { CategoryId } from "@/lib/categories";
+import { shortenIfLong } from "@/lib/custom-practice/shorten";
 import {
   checkGeneratedText,
   compositionPrompt,
@@ -589,6 +591,11 @@ export type GenerateTextResult =
       titleZh: string;
       subtitle: string;
       text: string;
+      /**
+       * The category the model filed it under (D153): used when the
+       * learner didn't choose one; null when it gave none we know.
+       */
+      category: CategoryId | null;
     }
   | { ok: false; reason: "tooLong" | "weekLeft"; max?: number }
   | ({
@@ -633,8 +640,19 @@ export async function generatePracticeText(
     creator.providers.language.compose(prompt),
   );
   if (!result.ok) return result;
-  const text = checkGeneratedText(result.value, prompt.words);
-  if (!text) return { ok: false, reason: "failed" };
+  const first = checkGeneratedText(result.value, prompt.words);
+  if (!first) return { ok: false, reason: "failed" };
+  // Too long: shortened once (D153), counted like any AI step; if that
+  // can't be done, the first text stays.
+  const text = await shortenIfLong(first, prompt, async (revision) => {
+    const shortened = await meteredLanguage(
+      creator,
+      reviseBudget(revision),
+      () => creator.providers.language.revise(revision),
+      (value) => `shorten ${revisionOutcome(value, revision.lines)}`,
+    );
+    return shortened.ok ? shortened.value : null;
+  });
   // The learner's titles are kept exactly; the model's fill only the
   // language left empty (D81, D83).
   const titles = keepTypedTitles(
@@ -647,6 +665,7 @@ export async function generatePracticeText(
     titleZh: titles.zh,
     subtitle: text.subtitle,
     text: text.text,
+    category: text.category,
   };
 }
 

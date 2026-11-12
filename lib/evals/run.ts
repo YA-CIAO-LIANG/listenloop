@@ -8,6 +8,7 @@ import {
 import { ProviderError, type CallUsage } from "@/lib/ai/types";
 import { EVAL_MODEL, EVAL_WEIGHTS, JUDGE_VERSION } from "./config";
 import { judgeRequestBody, parseGrade } from "./judge";
+import { shortenIfLong } from "@/lib/custom-practice/shorten";
 import { processAnswer, shownAnswer, type Processed } from "./pipeline";
 import { checkRules } from "./rules";
 import type {
@@ -27,8 +28,11 @@ import type {
 /** Where requests go; the replay never reaches it. */
 export const EVAL_ENDPOINT = "https://listenloop-eval.openai.azure.com";
 
-/** Which recording of a case: its answer, or the judge's grade of it. */
-export type EvalStep = "answer" | "judge";
+/**
+ * Which recording of a case: its answer, the shortening of a written
+ * text that came out too long (D153), or the judge's grade.
+ */
+export type EvalStep = "answer" | "shorten" | "judge";
 
 /**
  * A request's fingerprint: everything sent except the key and the
@@ -121,6 +125,19 @@ async function callProvider(
   }
 }
 
+const words = (text: string) => text.split(/\s+/).filter(Boolean).length;
+
+/** Two calls' usage together. */
+function addUsage(a: CallUsage | null, b: CallUsage | null): CallUsage | null {
+  if (!a || !b) return a ?? b;
+  return {
+    inputTokens: a.inputTokens + b.inputTokens,
+    outputTokens: a.outputTokens + b.outputTokens,
+    chars: a.chars + b.chars,
+    costUsd: a.costUsd + b.costUsd,
+  };
+}
+
 /** A refusal by the provider's safety system counts as "refused" (D123). */
 function filtered(error: unknown): boolean {
   return (
@@ -141,7 +158,40 @@ async function answer(
       fetchFor(transport, evalCase.id, "answer"),
       deployment,
     );
-    return { processed: processAnswer(evalCase, value), usage };
+    const processed = processAnswer(evalCase, value);
+    if (
+      evalCase.operation === "compose" &&
+      processed.operation === "compose" &&
+      processed.text
+    ) {
+      // As production does (app/materials/actions.ts, D153).
+      const first = processed.text;
+      let extra: CallUsage | null = null;
+      const text = await shortenIfLong(first, evalCase.input, async (input) => {
+        const language = provider(
+          fetchFor(transport, evalCase.id, "shorten"),
+          deployment,
+        );
+        try {
+          const result = await language.revise(input);
+          extra = result.usage;
+          return result.value;
+        } catch (error) {
+          if (error instanceof ProviderError) extra = error.usage ?? null;
+          throw error;
+        }
+      });
+      const shortened = text !== first || extra !== null;
+      return {
+        processed: {
+          ...processed,
+          text,
+          ...(shortened ? { firstWords: words(first.text) } : {}),
+        },
+        usage: addUsage(usage, extra),
+      };
+    }
+    return { processed, usage };
   } catch (error) {
     const usage = error instanceof ProviderError ? (error.usage ?? null) : null;
     if (evalCase.operation === "revise" && filtered(error)) {
@@ -233,7 +283,9 @@ export async function runCase(
     rules,
     judge: judged.grade,
     score: caseScore(rules, judged.grade, Boolean(evalCase.judge)),
-    requestHash: [seen.answer, seen.judge].filter(Boolean).join(":"),
+    requestHash: [seen.answer, seen.shorten, seen.judge]
+      .filter(Boolean)
+      .join(":"),
     costUsd: (usage?.costUsd ?? 0) + (judged.usage?.costUsd ?? 0),
   };
 }

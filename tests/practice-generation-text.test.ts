@@ -179,7 +179,7 @@ describe("parseGenerationRequest", () => {
         folder: "長".repeat(200),
       })?.folder,
     ).toBeUndefined();
-    expect(composeInstructions({ customCategory: "x" })).toMatch(
+    expect(composeInstructions({ words: 150, customCategory: "x" })).toMatch(
       /subject area/,
     );
   });
@@ -318,7 +318,26 @@ describe("checkGeneratedText", () => {
       titleZh: "",
       subtitle: "",
       text: lines.join("\n"),
+      category: null,
     });
+  });
+
+  it("keeps a category the model chose from the list, and only those (D153)", () => {
+    expect(
+      checkGeneratedText({ title: "T", lines, category: "health" }, 80)
+        ?.category,
+    ).toBe("health");
+    expect(
+      checkGeneratedText({ title: "T", lines, category: "other" }, 80)
+        ?.category,
+    ).toBe("other");
+    expect(
+      checkGeneratedText({ title: "T", lines, category: "exam" }, 80)?.category,
+    ).toBeNull();
+    expect(
+      checkGeneratedText({ title: "T", lines, category: "cooking" }, 80)
+        ?.category,
+    ).toBeNull();
   });
 
   it.each([
@@ -383,9 +402,17 @@ describe("generatePracticeText", () => {
     expect(
       compositionPrompt(parseGenerationRequest(request)!),
     ).not.toHaveProperty("titleEn");
-    expect(composeInstructions({})).toBe(COMPOSE_INSTRUCTIONS);
-    expect(composeInstructions({ titleEn: "T" })).toMatch(/exactly as given/);
-    expect(composeInstructions({ titleZh: "標" })).toMatch(/titleZh exactly/);
+    const plain = composeInstructions({ words: 150 });
+    expect(plain.startsWith(COMPOSE_INSTRUCTIONS)).toBe(true);
+    expect(plain).not.toMatch(
+      /exactly as given|titleZh exactly|customScenario/,
+    );
+    expect(composeInstructions({ words: 150, titleEn: "T" })).toMatch(
+      /exactly as given/,
+    );
+    expect(composeInstructions({ words: 150, titleZh: "標" })).toMatch(
+      /titleZh exactly/,
+    );
     expect(
       compositionPrompt(
         parseGenerationRequest({

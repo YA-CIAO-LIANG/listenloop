@@ -1,11 +1,11 @@
 {
-  "requestHash": "121de2d2b0d9407f",
+  "requestHash": "3f703c648ca1257f",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\ncustomScenario (in any language) is the main situation: write that situation, using the scenario, if any, only as its setting."
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nThe length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nAlso give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.\nFor this request: about 120 words in total (never more than 144), which is about 10 sentences of about 12 words.\ncustomScenario (in any language) is the main situation: write that situation, using the scenario, if any, only as its setting."
       },
       {
         "role": "user",
@@ -29,6 +29,30 @@
             "subtitle": {
               "type": "string"
             },
+            "category": {
+              "type": "string",
+              "enum": [
+                "daily-life",
+                "travel",
+                "study-abroad",
+                "casual-american",
+                "campus",
+                "academic-writing",
+                "business",
+                "news",
+                "science",
+                "talks-stories",
+                "health",
+                "relationships",
+                "tech",
+                "money-admin",
+                "career",
+                "leisure",
+                "food",
+                "culture",
+                "other"
+              ]
+            },
             "lines": {
               "type": "array",
               "items": {
@@ -40,6 +64,7 @@
             "title",
             "titleZh",
             "subtitle",
+            "category",
             "lines"
           ],
           "additionalProperties": false
@@ -83,14 +108,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"title\":\"Splitting the Electricity Bill\",\"titleZh\":\"分攤電費\",\"subtitle\":\"你會聽到跟室友討論怎麼分攤電費。\",\"lines\":[\"I think we should talk about how to split the electricity bill this month.\",\"Sure, I agree, because the bill is higher than usual and we need a fair plan.\",\"Do you remember how much the bill was last month and this month combined?\",\"Last month was $45 and this month is $68, so the total is $113.\",\"How many days did each of us stay at the apartment this month?\",\"I was away for ten days because I visited my family, but you stayed here the whole month.\",\"That seems important, but I also used the air conditioner more when it was hot.\",\"Right, the air conditioner uses a lot of power, and we should consider usage, not just days at home.\",\"Maybe we can split the basic charge equally and then divide the extra by usage estimates.\",\"What if we split $50 equally for the basics and divide the remaining $63 by estimated use?\",\"That could work; so each of us pays $25 for the basic part.\",\"Then the $63 left could be split with 60% for me and 40% for you because I used the AC more.\",\"If you take 60%, that is $37.80, and 40% is $25.20 for the rest.\",\"Adding the basic $25, you would pay $62.80 and I would pay $50.20, is that what you mean?\",\"Yes, that adds up to $113, so the math is correct.\",\"I think that is fair, but can we agree to track usage next month with a simple meter?\",\"A small plug-in energy meter would help us see which devices use the most electricity.\",\"Also, we could set some rules like turning off lights in empty rooms and lowering the AC one degree.\",\"I like those ideas, and we can review the bill together each month to avoid arguments.\",\"Okay, so for this month I will transfer $62.80 to you by Friday.\",\"Thanks, and I will order a meter online so we can start tracking next month.\"]}",
+          "content": "{\"title\":\"Splitting the Electricity Bill\",\"titleZh\":\"分攤電費\",\"subtitle\":\"你會聽到兩位室友商量怎麼分攤電費。\",\"category\":\"daily-life\",\"lines\":[\"Hey, can we talk about the electricity bill for last month?\",\"Sure, I was meaning to bring it up tonight after dinner.\",\"The total was $ ninety two and we had the air conditioner on a lot.\",\"Right, I think we used it more than usual because it was so hot.\",\"How about we split it by how many nights each of us slept here?\",\"That sounds fair, but I stayed here ten nights and you stayed twenty.\",\"Okay, so you pay two thirds and I pay one third of the bill.\",\"Do you want to transfer the money by app or pay in cash?\",\"An app is fine, I can send you my account number after dinner.\",\"Great, let’s try to check the meter more often next month to avoid surprises.\"]}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497234,
-    "id": "chatcmpl-EjQziMY8WNSRW7FS2Vnxsxh3rmmVi",
+    "created": 1794504746,
+    "id": "chatcmpl-EjSwsACY9dofSxgYMCwOhi0TJA81k",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -121,12 +146,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261103051020-05b5f4fd-default-r2-dp0-default"
+      "serving_pipereplica": "d20261107070554-b7bd1393-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 462,
+      "completion_tokens": 214,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -135,20 +160,20 @@
       },
       "latency_checkpoint": {
         "engine_tbt_ms": 7,
-        "engine_ttft_ms": 24,
-        "engine_ttlt_ms": 3167,
-        "pre_inference_ms": 93,
+        "engine_ttft_ms": 37,
+        "engine_ttlt_ms": 1612,
+        "pre_inference_ms": 72,
         "service_tbt_ms": 7,
-        "service_ttft_ms": 577,
-        "service_ttlt_ms": 3734,
-        "user_visible_ttft_ms": 484
+        "service_ttft_ms": 645,
+        "service_ttlt_ms": 2216,
+        "user_visible_ttft_ms": 573
       },
-      "prompt_tokens": 387,
+      "prompt_tokens": 582,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 849
+      "total_tokens": 796
     }
   }
 }

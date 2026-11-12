@@ -6,7 +6,7 @@ import {
 import { richNotesFromModel } from "@/lib/custom-practice/notes";
 import { checkRevision, type Revision } from "@/lib/custom-practice/revise";
 import type { RichNotes } from "@/lib/custom-practice/rich-notes";
-import { checkedSegments } from "@/lib/custom-practice/split";
+import { checkedSegments, modelSegments } from "@/lib/custom-practice/split";
 import { subtitleFromModel } from "@/lib/custom-practice/subtitle";
 import { keepTypedTitles } from "@/lib/titles";
 import type { EvalCase } from "./types";
@@ -30,7 +30,12 @@ export type Processed =
       /** Characters of each sentence's notes as the model wrote them. */
       rawChars: number[];
     }
-  | { operation: "compose"; text: GeneratedText | null }
+  | {
+      operation: "compose";
+      text: GeneratedText | null;
+      /** Words of the first text, when it was sent back to shorten (D153). */
+      firstWords?: number;
+    }
   | {
       operation: "describe";
       titleEn: string;
@@ -38,8 +43,6 @@ export type Processed =
       subtitle: string | null;
     }
   | { operation: "revise"; revision: Revision | null };
-
-const squeeze = (text: string) => text.replace(/\s+/g, "");
 
 /** What `raw` (the provider's value) becomes in production. */
 export function processAnswer(evalCase: EvalCase, raw: unknown): Processed {
@@ -63,22 +66,10 @@ export function processAnswer(evalCase: EvalCase, raw: unknown): Processed {
     }
     case "segment": {
       const { lines, language } = evalCase.input;
-      const perLine = Array.isArray(raw) ? raw : [];
-      const modelKept =
-        perLine.length === lines.length &&
-        lines.every((line, i) => {
-          const pieces: unknown = perLine[i];
-          return (
-            Array.isArray(pieces) &&
-            pieces.length > 0 &&
-            pieces.every((p) => typeof p === "string") &&
-            squeeze(pieces.join("")) === squeeze(line)
-          );
-        });
       return {
         operation: "segment",
         pieces: checkedSegments(lines, raw, language),
-        modelKept,
+        modelKept: modelSegments(lines, raw).every(Boolean),
       };
     }
     case "annotate": {

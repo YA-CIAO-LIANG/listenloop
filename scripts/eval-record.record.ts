@@ -66,6 +66,14 @@ const price = azureModelPrice(EVAL_MODEL)!;
 function worstCase(evalCase: EvalCase, step: string, body: unknown): number {
   if (step === "answer")
     return toMicros(maxCost(answerBudget(evalCase), price));
+  if (step === "shorten") {
+    // Every character sent counted as a token, plus the request's cap.
+    const cap = (body as { max_completion_tokens?: number })
+      .max_completion_tokens;
+    return toMicros(
+      tokenCost(price, JSON.stringify(body).length, cap ?? 4_000),
+    );
+  }
   // The judge: every character sent counted as a token, plus the cap.
   return toMicros(
     tokenCost(price, JSON.stringify(body).length, JUDGE_MAX_OUTPUT_TOKENS),
@@ -85,7 +93,11 @@ it("records the golden set", async () => {
   const deployment = env("AZURE_OPENAI_DEPLOYMENT");
   const apiKey = env("AZURE_OPENAI_API_KEY");
   const yes = env("AI_RECORD_YES") === "1";
-  const cap = toMicros(EVAL_BUDGET_USD);
+  // A lower limit Joe approved for this run (D153); never a higher one.
+  const asked = Number(env("EVAL_LIMIT_USD"));
+  const limitUsd =
+    asked > 0 ? Math.min(asked, EVAL_BUDGET_USD) : EVAL_BUDGET_USD;
+  const cap = toMicros(limitUsd);
 
   const supabase =
     yes && env("NEXT_PUBLIC_SUPABASE_URL") && env("SUPABASE_SERVICE_ROLE_KEY")
@@ -132,7 +144,7 @@ it("records the golden set", async () => {
       ...(response.status === 200 ? {} : { status: response.status }),
       response: data,
     });
-    const operation = `eval:${step === "judge" ? "judge" : current.operation}`;
+    const operation = `eval:${step === "answer" ? current.operation : step}`;
     await supabase?.from("api_calls").insert({
       user_id: null,
       provider: `azure-openai/${EVAL_MODEL}`,
@@ -171,14 +183,14 @@ it("records the golden set", async () => {
   if (!yes) {
     console.log(
       `${calls} answers to record (judging follows each), worst case US$${(worstPlanned / 1e6).toFixed(4)} ` +
-        `for the answers; one run spends at most US$${EVAL_BUDGET_USD.toFixed(2)}. ` +
+        `for the answers; one run spends at most US$${limitUsd.toFixed(2)}. ` +
         "Dry run: nothing called. Set AI_RECORD_YES=1 to record.",
     );
     return;
   }
   console.log(
     `Recorded ${calls} calls: ${usage.inputTokens} in / ${usage.outputTokens} out tokens, ` +
-      `US$${(spent / 1e6).toFixed(6)} (limit US$${EVAL_BUDGET_USD.toFixed(2)}).` +
+      `US$${(spent / 1e6).toFixed(6)} (limit US$${limitUsd.toFixed(2)}).` +
       (stoppedAt
         ? ` Stopped before ${stoppedAt} to stay within the limit: run again to go on.`
         : " Done: now run `npm run eval`."),

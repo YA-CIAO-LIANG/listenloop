@@ -1,5 +1,5 @@
 {
-  "requestHash": "42f32eaf467562fc",
+  "requestHash": "dcd6c3c386a789b3",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
@@ -9,7 +9,7 @@
       },
       {
         "role": "user",
-        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"visiting a night market for the first time\",\"titleZh\":\"第一次去夜市\",\"level\":\"CEFR B1: everyday vocabulary, some longer sentences\",\"words\":120,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"First Night Market Visit\",\"titleZh\":\"第一次去夜市\",\"subtitle\":\"你會聽到一個人描述第一次逛夜市的經驗。\",\"text\":\"I went to a night market for the first time last weekend.\\nThe place was crowded but full of friendly energy.\\nBright lanterns and colorful banners hung above the stalls.\\nVendors shouted about snacks and games, which sounded exciting.\\nI tried a famous grilled squid that smelled smoky and sweet.\\nThe vendor gave me a small plate and a wooden fork to eat with.\\nNearby, a stall sold fried chicken with a spicy sauce and crispy skin.\\nI also bought a handmade bracelet from a young seller who smiled a lot.\\nThere was a small game where I could throw rings to win a toy.\\nI spent about $10 on food and a small souvenir.\\nAt the end, I walked along a path lined with dessert stalls.\\nI felt happy and tired, but I promised to return soon.\"}},\"criteria\":\"內容符合情境（第一次逛夜市），程度符合 中級 B1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
+        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"visiting a night market for the first time\",\"titleZh\":\"第一次去夜市\",\"level\":\"CEFR B1: everyday vocabulary, some longer sentences\",\"words\":120,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"First Night at the Market\",\"titleZh\":\"第一次去夜市\",\"subtitle\":\"你會聽到一個學生描述第一次逛夜市的經驗。\",\"text\":\"I arrived at the night market with my friend around 7:30 pm.\\nThe place was crowded, colorful, and full of tempting smells.\\nWe started by walking past stalls selling grilled squid and fried chicken.\\nA vendor offered us a sample of spicy tofu and we said yes.\\nI bought a paper cone of sweet potato fries for 80 dollars.\\nWe played a game booth and I won a small plush toy for my sister.\\nMy friend recommended a bubble drink that tasted like brown sugar milk.\\nWe sat on a low bench and watched people enjoy street performances.\\nBefore leaving, we walked through a lane of lanterns and took photos.\\nI left feeling happy and wanting to visit again next weekend.\",\"category\":\"daily-life\"}},\"criteria\":\"內容符合情境（第一次逛夜市），程度符合 中級 B1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
       }
     ],
     "response_format": {
@@ -79,14 +79,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"score\":5,\"reason\":\"內容完整符合「第一次逛夜市」情境，語言自然、句型與詞彙適合 B1 程度；中文標題與副標清楚通順，可直接給學生聽讀練習。\"}",
+          "content": "{\"score\":5,\"reason\":\"內容符合「第一次逛夜市」情境，語言自然、文法正確且符合 B1 程度；中文標題與副標也通順、貼切。\"}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497232,
-    "id": "chatcmpl-EjQzgesURD0Q3B3GoWJfW3yPfX6bq",
+    "created": 1794504744,
+    "id": "chatcmpl-EjSwq0nlNBMaX1ortI0qGitqQGYBl",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -117,12 +117,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261106080815-120ca4d6-default-r0-dp0-default"
+      "serving_pipereplica": "d20261108081702-b6bbe11a-default-r1-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 72,
+      "completion_tokens": 61,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -130,21 +130,21 @@
         "rejected_prediction_tokens": 0
       },
       "latency_checkpoint": {
-        "engine_tbt_ms": 6,
-        "engine_ttft_ms": 27,
-        "engine_ttlt_ms": 483,
-        "pre_inference_ms": 98,
-        "service_tbt_ms": 6,
-        "service_ttft_ms": 873,
-        "service_ttlt_ms": 1323,
-        "user_visible_ttft_ms": 775
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 35,
+        "engine_ttlt_ms": 550,
+        "pre_inference_ms": 103,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 665,
+        "service_ttlt_ms": 1173,
+        "user_visible_ttft_ms": 562
       },
-      "prompt_tokens": 536,
+      "prompt_tokens": 521,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 608
+      "total_tokens": 582
     }
   }
 }

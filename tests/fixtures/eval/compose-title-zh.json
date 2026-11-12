@@ -1,11 +1,11 @@
 {
-  "requestHash": "ae8c61989697d321",
+  "requestHash": "299690f40b669597",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nThe text must fit titleZh. Return titleZh exactly as given, unchanged."
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nThe length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nAlso give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.\nFor this request: about 120 words in total (never more than 144), which is about 10 sentences of about 12 words.\nThe text must fit titleZh. Return titleZh exactly as given, unchanged."
       },
       {
         "role": "user",
@@ -29,6 +29,30 @@
             "subtitle": {
               "type": "string"
             },
+            "category": {
+              "type": "string",
+              "enum": [
+                "daily-life",
+                "travel",
+                "study-abroad",
+                "casual-american",
+                "campus",
+                "academic-writing",
+                "business",
+                "news",
+                "science",
+                "talks-stories",
+                "health",
+                "relationships",
+                "tech",
+                "money-admin",
+                "career",
+                "leisure",
+                "food",
+                "culture",
+                "other"
+              ]
+            },
             "lines": {
               "type": "array",
               "items": {
@@ -40,6 +64,7 @@
             "title",
             "titleZh",
             "subtitle",
+            "category",
             "lines"
           ],
           "additionalProperties": false
@@ -83,14 +108,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"title\":\"First Night Market Visit\",\"titleZh\":\"第一次去夜市\",\"subtitle\":\"你會聽到一個人描述第一次逛夜市的經驗。\",\"lines\":[\"I went to a night market for the first time last weekend.\",\"The place was crowded but full of friendly energy.\",\"Bright lanterns and colorful banners hung above the stalls.\",\"Vendors shouted about snacks and games, which sounded exciting.\",\"I tried a famous grilled squid that smelled smoky and sweet.\",\"The vendor gave me a small plate and a wooden fork to eat with.\",\"Nearby, a stall sold fried chicken with a spicy sauce and crispy skin.\",\"I also bought a handmade bracelet from a young seller who smiled a lot.\",\"There was a small game where I could throw rings to win a toy.\",\"I spent about $10 on food and a small souvenir.\",\"At the end, I walked along a path lined with dessert stalls.\",\"I felt happy and tired, but I promised to return soon.\"]}",
+          "content": "{\"title\":\"First Night at the Market\",\"titleZh\":\"第一次去夜市\",\"subtitle\":\"你會聽到一個學生描述第一次逛夜市的經驗。\",\"category\":\"daily-life\",\"lines\":[\"I arrived at the night market with my friend around 7:30 pm.\",\"The place was crowded, colorful, and full of tempting smells.\",\"We started by walking past stalls selling grilled squid and fried chicken.\",\"A vendor offered us a sample of spicy tofu and we said yes.\",\"I bought a paper cone of sweet potato fries for 80 dollars.\",\"We played a game booth and I won a small plush toy for my sister.\",\"My friend recommended a bubble drink that tasted like brown sugar milk.\",\"We sat on a low bench and watched people enjoy street performances.\",\"Before leaving, we walked through a lane of lanterns and took photos.\",\"I left feeling happy and wanting to visit again next weekend.\"]}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497228,
-    "id": "chatcmpl-EjQzcDVY0ldcLY4zF2ksbS5Jail2J",
+    "created": 1794504742,
+    "id": "chatcmpl-EjSwo1irubMNbQZB1HdahLYZK15w7",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -121,12 +146,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261107070554-b7bd1393-default-r2-dp0-default"
+      "serving_pipereplica": "d20261107070554-b7bd1393-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 210,
+      "completion_tokens": 198,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -134,21 +159,21 @@
         "rejected_prediction_tokens": 0
       },
       "latency_checkpoint": {
-        "engine_tbt_ms": 8,
-        "engine_ttft_ms": 33,
-        "engine_ttlt_ms": 1894,
-        "pre_inference_ms": 165,
-        "service_tbt_ms": 8,
-        "service_ttft_ms": 809,
-        "service_ttlt_ms": 2633,
-        "user_visible_ttft_ms": 644
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 37,
+        "engine_ttlt_ms": 1497,
+        "pre_inference_ms": 79,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 365,
+        "service_ttlt_ms": 1807,
+        "user_visible_ttft_ms": 286
       },
-      "prompt_tokens": 371,
+      "prompt_tokens": 566,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 581
+      "total_tokens": 764
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "requestHash": "71b3f8bfe45020ca",
+  "requestHash": "cdcac3926aefdb5b",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
@@ -9,7 +9,7 @@
       },
       {
         "role": "user",
-        "content": "{\"operation\":\"annotate\",\"input\":{\"sentences\":[\"Although the professor had explained the assignment twice, several students who had missed the first lecture still weren't sure whether they were supposed to submit a draft by Friday.\"]},\"output\":{\"notes\":[{\"v\":2,\"difficulty\":\"hard\",\"highlights\":[{\"text\":\"had missed the first lecture\",\"note\":\"過去完成表示在另一事件（解釋）之前就已經發生的動作\"},{\"text\":\"weren't sure whether they were supposed to submit a draft by Friday\",\"note\":\"表示不確定（被期待要做的事）和截止時間\"}],\"vocab\":[{\"term\":\"assignment\",\"inSentence\":\"assignment\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"作業；指定的任務\",\"ipa\":\"/əˈsaɪnmənt/\",\"collocations\":[\"homework assignment\",\"complete an assignment\"],\"examples\":[{\"en\":\"She turned in the assignment on time.\",\"zh\":\"她準時交了作業。\"}]},{\"term\":\"draft\",\"inSentence\":\"draft\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"草稿、初稿\",\"ipa\":\"/dræft/\",\"collocations\":[\"first draft\",\"revise a draft\"],\"examples\":[{\"en\":\"Please send me the draft before we meet.\",\"zh\":\"請在開會前把草稿寄給我。\"}]}],\"grammar\":[{\"point\":\"past perfect\",\"quote\":\"\",\"explanation\":\"past perfect 用來表示在過去另一個時間或事件之前已經發生的動作，這句表示教授在講座前已經解釋過，學生在更早之前就錯過了第一堂課。\",\"examples\":[{\"en\":\"She had left before I arrived.\",\"zh\":\"我到之前她已經離開了。\"}],\"pitfall\":\"\"}],\"chunks\":[{\"text\":\"Although the professor\",\"role\":\"connector\",\"zh\":\"雖然教授\"},{\"text\":\"had explained the assignment twice,\",\"role\":\"main\",\"zh\":\"已經解釋過那份作業兩次，\"},{\"text\":\"several students\",\"role\":\"main\",\"zh\":\"幾位學生\"},{\"text\":\"who had missed the first lecture\",\"role\":\"subordinate\",\"zh\":\"（那些）錯過第一堂課的\"},{\"text\":\"still weren't sure\",\"role\":\"main\",\"zh\":\"仍然不確定\"},{\"text\":\"whether they were supposed to submit a draft by Friday.\",\"role\":\"subordinate\",\"zh\":\"是否應該在星期五之前提交一份草稿。\"}],\"connected\":[{\"text\":\"had explained the\",\"soundsLike\":\"hæd ɪkˈspleɪnd ðə\",\"note\":\"'the' 在連讀中常弱讀為 /ðə/，且 past tense 'explained' 的 /d/ 與下一個 /ð/ 幾乎連在一起，聽起來像一段連續音。\"},{\"text\":\"were supposed to submit\",\"soundsLike\":\"wər səˈpoʊzd tə səbˈmɪt\",\"note\":\"'to' 在口語中常弱讀為 /tə/，連在 submit 前使得整片段快而緊湊，容易聽成 'səˈpoʊzdə'.\"}]}],\"rawChars\":[1563]},\"criteria\":\"單字的詞性、中文意思、音標正確；文法說明正確且適合 B1 學生；例句自然；中文解釋清楚、不冗長。有任何錯誤的講解最多 2 分。\"}"
+        "content": "{\"operation\":\"annotate\",\"input\":{\"sentences\":[\"Although the professor had explained the assignment twice, several students who had missed the first lecture still weren't sure whether they were supposed to submit a draft by Friday.\"]},\"output\":{\"notes\":[{\"v\":2,\"difficulty\":\"hard\",\"highlights\":[{\"text\":\"submit a draft\",\"note\":\"常見的學術用語，表示要交草稿或初稿，聽到時常與 deadline 一起出現。\"}],\"vocab\":[{\"term\":\"assignment\",\"inSentence\":\"assignment\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"作業，任務\",\"ipa\":\"/əˈsaɪnmənt/\",\"collocations\":[\"homework assignment\",\"complete an assignment\"],\"examples\":[{\"en\":\"She finished the assignment before dinner.\",\"zh\":\"她在晚餐前完成了作業。\"}]},{\"term\":\"draft\",\"inSentence\":\"draft\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"草稿，初稿\",\"ipa\":\"/dræft/\",\"collocations\":[\"first draft\",\"submit a draft\"],\"examples\":[{\"en\":\"I saved the first draft on my computer.\",\"zh\":\"我把第一版草稿存到電腦。\"}]}],\"grammar\":[{\"point\":\"past perfect + past simple for sequence\",\"quote\":\"\",\"explanation\":\"用 past perfect 表示在過去某個時間之前已經完成的動作（had explained、had missed），接著用過去式描述當時的狀態或結果（weren't sure）。\",\"examples\":[{\"en\":\"She had left when I arrived.\",\"zh\":\"我到的時候她已經離開了。\"}],\"pitfall\":\"學生常把所有動詞都用過去式，不用 past perfect 區別先後順序。\"}],\"chunks\":[{\"text\":\"Although the professor had explained the assignment twice,\",\"role\":\"subordinate\",\"zh\":\"雖然教授已經解釋過作業兩次，\"},{\"text\":\"several students who had missed the first lecture\",\"role\":\"modifier\",\"zh\":\"有幾位錯過第一堂課的學生\"},{\"text\":\"still weren't sure\",\"role\":\"main\",\"zh\":\"仍然不確定\"},{\"text\":\"whether they were supposed to submit a draft by Friday.\",\"role\":\"main\",\"zh\":\"是否應該在星期五之前提交草稿。\"}],\"connected\":[{\"text\":\"supposed to\",\"soundsLike\":\"s'posed to\",\"note\":\"在口語中 often reduced 為 'sposed to 或 supposedta，讓聽者難辨。\"}]}],\"rawChars\":[875]},\"criteria\":\"單字的詞性、中文意思、音標正確；文法說明正確且適合 B1 學生；例句自然；中文解釋清楚、不冗長。有任何錯誤的講解最多 2 分。\"}"
       }
     ],
     "response_format": {
@@ -79,14 +79,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"score\":4,\"reason\":\"單字解釋、詞性、音標與例句都正確且自然；文法（past perfect）說明大致正確且適合 B1 學生，但該說明中把時間順序寫反誤導：應是學生先錯過，教授後解釋，原稿說法有些混淆，應修正敘述順序。其他中文解釋清楚、不冗長。\"}",
+          "content": "{\"score\":5,\"reason\":\"單字詞性、中文意思與音標正確；文法說明（past perfect + past simple）清楚且適合 B1 學生；例句自然，中文解釋簡潔明瞭。沒有事實或說法錯誤。\"}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497126,
-    "id": "chatcmpl-EjQxyM3m1cDvi5Qu4mRGlXnYujOk4",
+    "created": 1794505045,
+    "id": "chatcmpl-EjT1hzwdvwWzxoz1kWXOvjxgnD4Sg",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -122,7 +122,7 @@
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 120,
+      "completion_tokens": 79,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -130,21 +130,21 @@
         "rejected_prediction_tokens": 0
       },
       "latency_checkpoint": {
-        "engine_tbt_ms": 9,
-        "engine_ttft_ms": 45,
-        "engine_ttlt_ms": 1146,
-        "pre_inference_ms": 81,
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 99,
+        "engine_ttlt_ms": 819,
+        "pre_inference_ms": 73,
         "service_tbt_ms": 8,
-        "service_ttft_ms": 682,
-        "service_ttlt_ms": 1756,
-        "user_visible_ttft_ms": 601
+        "service_ttft_ms": 700,
+        "service_ttlt_ms": 1415,
+        "user_visible_ttft_ms": 627
       },
-      "prompt_tokens": 987,
+      "prompt_tokens": 836,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 1107
+      "total_tokens": 915
     }
   }
 }

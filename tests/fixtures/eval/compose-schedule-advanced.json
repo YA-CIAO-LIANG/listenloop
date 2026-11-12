@@ -1,11 +1,11 @@
 {
-  "requestHash": "038ec83e78e25ddc",
+  "requestHash": "786ea6871397b9bc",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width."
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nThe length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nAlso give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.\nFor this request: about 200 words in total (never more than 240), which is about 17 sentences of about 12 words."
       },
       {
         "role": "user",
@@ -29,6 +29,30 @@
             "subtitle": {
               "type": "string"
             },
+            "category": {
+              "type": "string",
+              "enum": [
+                "daily-life",
+                "travel",
+                "study-abroad",
+                "casual-american",
+                "campus",
+                "academic-writing",
+                "business",
+                "news",
+                "science",
+                "talks-stories",
+                "health",
+                "relationships",
+                "tech",
+                "money-admin",
+                "career",
+                "leisure",
+                "food",
+                "culture",
+                "other"
+              ]
+            },
             "lines": {
               "type": "array",
               "items": {
@@ -40,6 +64,7 @@
             "title",
             "titleZh",
             "subtitle",
+            "category",
             "lines"
           ],
           "additionalProperties": false
@@ -83,14 +108,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"title\":\"Schedule Update for the Team\",\"titleZh\":\"團隊排班調整說明\",\"subtitle\":\"聽一位經理說明工作時間調整細節。\",\"lines\":[\"Good morning everyone, I have a few important updates about our work schedule.\",\"Starting next Monday, we will adopt a staggered start time to reduce peak congestion in the office.\",\"Most team members will begin between 8:00 and 9:30, depending on their role and daily tasks.\",\"Please check the new rota on the shared drive to see your assigned start time.\",\"We know this change may affect commute plans, so we asked the HR team to coordinate with local transit options.\",\"Each person will still work their full contracted hours, and lunch breaks remain unchanged.\",\"On Wednesdays only, the office will close at 3:00 for team briefings and training sessions.\",\"If you cannot attend a Wednesday session, notify your manager in advance so we can arrange a make-up or provide materials.\",\"Overtime will be paid or taken as time off in line with existing company policy.\",\"We are introducing one floating work-from-home day per week for eligible staff to improve flexibility.\",\"Eligibility details and the application process are explained in the memo attached to the rota.\",\"Please note that critical client meetings will require in-person attendance regardless of your floating day.\",\"Team leaders will revise project timelines to reflect the new schedule and ensure deliverables remain on track.\",\"If a scheduling conflict arises, discuss alternatives with your supervisor as early as possible.\",\"We will review the impact of these changes after eight weeks and welcome your feedback.\",\"Send any questions or concerns to the scheduling inbox so we can address them efficiently.\",\"Thank you for your cooperation as we try to create a more balanced and productive work environment.\",\"I appreciate your patience while we implement these adjustments and ensure a smooth transition.\"]}",
+          "content": "{\"title\":\"Adjusting the Work Schedule\",\"titleZh\":\"调整工作時程\",\"subtitle\":\"經理說明工作時程的變動和原因。\",\"category\":\"business\",\"lines\":[\"Good morning everyone, I want to explain a change to our work schedule starting next month.\",\"We have reviewed project timelines and staffing levels, and we need to improve coverage during peak hours.\",\"Beginning the first Monday of the month, the office will open at 8:00 instead of 9:00 on weekdays.\",\"This shift means some teams will start earlier while others will keep their current times.\",\"We will introduce staggered lunch breaks to avoid crowding and to maintain productivity across departments.\",\"Each department head will propose a rotation pattern by Friday so we can finalize the schedule.\",\"If you are scheduled for an earlier start, you will finish earlier in the day on most days.\",\"Overtime will be assigned only when necessary and paid according to our existing policy.\",\"Please let your manager know any constraints, such as childcare or commuting issues, by Wednesday.\",\"We will consider reasonable accommodations and try to minimize disruptions to your routines.\",\"To support the change, the company will provide a commuter subsidy for eligible employees for three months.\",\"We will also offer an information session next Tuesday to address questions and explain the rotation tool.\",\"I understand adjustments can be inconvenient, but this change will help balance workloads and meet deadlines.\",\"Better coverage during peak hours should reduce stress and improve response times to clients.\",\"I appreciate your flexibility and willingness to cooperate during this transition period.\",\"Please check the shared calendar for the proposed shifts and submit feedback as soon as possible.\",\"Thank you for your attention and for helping us make this schedule work for everyone.\"]}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497215,
-    "id": "chatcmpl-EjQzPENOYkezUjkTO8V1I3sUOdsV6",
+    "created": 1794504727,
+    "id": "chatcmpl-EjSwZsemtaRhgzWroDvMufF3OHtq5",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -121,12 +146,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261107070554-b7bd1393-default-r2-dp0-default"
+      "serving_pipereplica": "d20261103051020-05b5f4fd-default-r1-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 381,
+      "completion_tokens": 351,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -134,21 +159,21 @@
         "rejected_prediction_tokens": 0
       },
       "latency_checkpoint": {
-        "engine_tbt_ms": 9,
-        "engine_ttft_ms": 29,
-        "engine_ttlt_ms": 3580,
-        "pre_inference_ms": 106,
-        "service_tbt_ms": 9,
-        "service_ttft_ms": 709,
-        "service_ttlt_ms": 4206,
-        "user_visible_ttft_ms": 604
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 28,
+        "engine_ttlt_ms": 2601,
+        "pre_inference_ms": 89,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 591,
+        "service_ttlt_ms": 3144,
+        "user_visible_ttft_ms": 502
       },
-      "prompt_tokens": 351,
+      "prompt_tokens": 546,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 732
+      "total_tokens": 897
     }
   }
 }

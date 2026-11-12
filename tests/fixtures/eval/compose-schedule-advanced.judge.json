@@ -1,5 +1,5 @@
 {
-  "requestHash": "a502f75fedf3c516",
+  "requestHash": "7e7b6583fd3b4c58",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
@@ -9,7 +9,7 @@
       },
       {
         "role": "user",
-        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"a manager explaining a change in the work schedule\",\"level\":\"CEFR B2 to C1: natural, varied vocabulary and sentence structure\",\"words\":200,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"Schedule Update for the Team\",\"titleZh\":\"團隊排班調整說明\",\"subtitle\":\"聽一位經理說明工作時間調整細節。\",\"text\":\"Good morning everyone, I have a few important updates about our work schedule.\\nStarting next Monday, we will adopt a staggered start time to reduce peak congestion in the office.\\nMost team members will begin between 8:00 and 9:30, depending on their role and daily tasks.\\nPlease check the new rota on the shared drive to see your assigned start time.\\nWe know this change may affect commute plans, so we asked the HR team to coordinate with local transit options.\\nEach person will still work their full contracted hours, and lunch breaks remain unchanged.\\nOn Wednesdays only, the office will close at 3:00 for team briefings and training sessions.\\nIf you cannot attend a Wednesday session, notify your manager in advance so we can arrange a make-up or provide materials.\\nOvertime will be paid or taken as time off in line with existing company policy.\\nWe are introducing one floating work-from-home day per week for eligible staff to improve flexibility.\\nEligibility details and the application process are explained in the memo attached to the rota.\\nPlease note that critical client meetings will require in-person attendance regardless of your floating day.\\nTeam leaders will revise project timelines to reflect the new schedule and ensure deliverables remain on track.\\nIf a scheduling conflict arises, discuss alternatives with your supervisor as early as possible.\\nWe will review the impact of these changes after eight weeks and welcome your feedback.\\nSend any questions or concerns to the scheduling inbox so we can address them efficiently.\\nThank you for your cooperation as we try to create a more balanced and productive work environment.\\nI appreciate your patience while we implement these adjustments and ensure a smooth transition.\"}},\"criteria\":\"內容符合情境（主管說明班表變動），程度符合 高級 B2～C1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
+        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"a manager explaining a change in the work schedule\",\"level\":\"CEFR B2 to C1: natural, varied vocabulary and sentence structure\",\"words\":200,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"Adjusting the Work Schedule\",\"titleZh\":\"调整工作時程\",\"subtitle\":\"經理說明工作時程的變動和原因。\",\"text\":\"Good morning everyone, I want to explain a change to our work schedule starting next month.\\nWe have reviewed project timelines and staffing and need better coverage during peak hours.\\nBeginning the first Monday of the month, the office will open at 8:00 instead of 9:00 on weekdays.\\nThis shift means some teams will start earlier while others keep their current times.\\nWe will introduce staggered lunch breaks to avoid crowding and maintain productivity.\\nEach department head will propose a rotation pattern by Friday so we can finalize the schedule.\\nIf you are scheduled for an earlier start, you will finish earlier on most days.\\nOvertime will be assigned only when necessary and paid according to our existing policy.\\nPlease tell your manager any constraints, such as childcare or commuting issues, by Wednesday.\\nWe will consider reasonable accommodations to minimize disruptions to your routines.\\nTo support the change, the company will provide a commuter subsidy for eligible employees for three months.\\nWe will also offer an information session next Tuesday to answer questions and explain the rotation tool.\\nI understand adjustments can be inconvenient, but this change will help balance workloads and meet deadlines.\\nBetter coverage during peak hours should reduce stress and improve response times to clients.\\nPlease check the shared calendar for proposed shifts and submit feedback as soon as possible.\\nThank you for your attention and for helping us make this schedule work for everyone.\",\"category\":\"business\"},\"firstWords\":264},\"criteria\":\"內容符合情境（主管說明班表變動），程度符合 高級 B2～C1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
       }
     ],
     "response_format": {
@@ -79,14 +79,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"score\":5,\"reason\":\"內容完整、符合主管說明班表變動的情境；語言達到 B2–C1 水準，句型自然多樣且文法正確；中文標題與副標也通順恰當，可直接給學生使用。\"}",
+          "content": "{\"score\":5,\"reason\":\"內容清楚完整，語氣適合主管宣布變動，英文語法與用字自然，符合 B2–C1 程度；中文標題與副標也正確通順，可直接使用。\"}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497220,
-    "id": "chatcmpl-EjQzUyPzju4Kd0FwX5bS9A6bJJz7j",
+    "created": 1794504735,
+    "id": "chatcmpl-EjSwh4rzeSaegiRUK6S68fLVek421",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -122,7 +122,7 @@
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 76,
+      "completion_tokens": 67,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -131,20 +131,20 @@
       },
       "latency_checkpoint": {
         "engine_tbt_ms": 6,
-        "engine_ttft_ms": 27,
-        "engine_ttlt_ms": 509,
-        "pre_inference_ms": 84,
+        "engine_ttft_ms": 26,
+        "engine_ttlt_ms": 484,
+        "pre_inference_ms": 69,
         "service_tbt_ms": 6,
-        "service_ttft_ms": 893,
-        "service_ttlt_ms": 1369,
-        "user_visible_ttft_ms": 809
+        "service_ttft_ms": 868,
+        "service_ttlt_ms": 1320,
+        "user_visible_ttft_ms": 799
       },
-      "prompt_tokens": 714,
+      "prompt_tokens": 658,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 790
+      "total_tokens": 725
     }
   }
 }

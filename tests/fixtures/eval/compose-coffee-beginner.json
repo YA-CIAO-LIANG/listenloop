@@ -1,11 +1,11 @@
 {
-  "requestHash": "9680bb90d6fb22ca",
+  "requestHash": "79a66fa1d38f0c66",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width."
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nThe length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\nAlso give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.\nFor this request: about 80 words in total (never more than 96), which is about 7 sentences of about 12 words."
       },
       {
         "role": "user",
@@ -29,6 +29,30 @@
             "subtitle": {
               "type": "string"
             },
+            "category": {
+              "type": "string",
+              "enum": [
+                "daily-life",
+                "travel",
+                "study-abroad",
+                "casual-american",
+                "campus",
+                "academic-writing",
+                "business",
+                "news",
+                "science",
+                "talks-stories",
+                "health",
+                "relationships",
+                "tech",
+                "money-admin",
+                "career",
+                "leisure",
+                "food",
+                "culture",
+                "other"
+              ]
+            },
             "lines": {
               "type": "array",
               "items": {
@@ -40,6 +64,7 @@
             "title",
             "titleZh",
             "subtitle",
+            "category",
             "lines"
           ],
           "additionalProperties": false
@@ -83,14 +108,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"title\":\"Ordering a Drink\",\"titleZh\":\"點飲料\",\"subtitle\":\"你將聽到在咖啡店點飲料的對話。\",\"lines\":[\"Hi, can I get a coffee please?\",\"Sure, what size would you like?\",\"Small, please.\",\"Would you like milk or sugar?\",\"Yes, one sugar and a little milk.\",\"Do you want anything to eat with that?\",\"No, just the coffee today.\",\"Okay, that will be $2.50.\",\"Here you go.\",\"Thank you. Your order will be ready soon.\",\"Great, thank you very much.\"]}",
+          "content": "{\"title\":\"Ordering a Drink\",\"titleZh\":\"點飲料\",\"subtitle\":\"你會聽到在咖啡店點飲料的對話。\",\"category\":\"daily-life\",\"lines\":[\"Hi, can I get a small latte, please?\",\"Sure, would you like hot or iced?\",\"I would like it hot, please.\",\"Do you want whole milk or soy milk?\",\"Soy milk, please, and no sugar.\",\"Any pastries today?\",\"Yes, we have banana bread and blueberry muffin.\"]}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497205,
-    "id": "chatcmpl-EjQzFj8nc2Y1P3bMtZtmVyiRuZtz3",
+    "created": 1794504718,
+    "id": "chatcmpl-EjSwQ0bdGhVEhZKhQNpKEa8tnMhOX",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -121,12 +146,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261107070554-b7bd1393-default-r2-dp0-default"
+      "serving_pipereplica": "d20261107070554-b7bd1393-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 138,
+      "completion_tokens": 119,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -135,20 +160,20 @@
       },
       "latency_checkpoint": {
         "engine_tbt_ms": 8,
-        "engine_ttft_ms": 34,
-        "engine_ttlt_ms": 1183,
-        "pre_inference_ms": 151,
+        "engine_ttft_ms": 38,
+        "engine_ttlt_ms": 1073,
+        "pre_inference_ms": 82,
         "service_tbt_ms": 8,
-        "service_ttft_ms": 699,
-        "service_ttlt_ms": 1843,
-        "user_visible_ttft_ms": 548
+        "service_ttft_ms": 685,
+        "service_ttlt_ms": 1703,
+        "user_visible_ttft_ms": 603
       },
-      "prompt_tokens": 346,
+      "prompt_tokens": 541,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 484
+      "total_tokens": 660
     }
   }
 }

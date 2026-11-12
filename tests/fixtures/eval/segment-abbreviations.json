@@ -1,11 +1,11 @@
 {
-  "requestHash": "acc886492599e032",
+  "requestHash": "1af2713e9085558b",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
       {
         "role": "system",
-        "content": "You split English text into sentences for dictation practice: a Taiwanese student hears each one, then types it.\nThe input is a list of lines. For each line, in order, return the list of pieces it splits into. Never join text from different lines.\nOnly cut: every piece is an exact, consecutive part of its line. Never change, add, remove, fix, or reorder any character; the pieces of a line joined together must be that line.\nCut where a sentence ends by meaning. Never cut inside an abbreviation (Dr., Mr., U.S., a.m., e.g., i.e., Ph.D., No. 5), a number, time, or amount (9:30, 3.5, $1,000, 90%), a quotation (keep a quote with the words that introduce it, like: He said, \"Stop!\"), or a name.\nAim for pieces of about 5 to 25 words. Cut a sentence longer than 25 words at a natural clause boundary (; or a comma before and, but, so, because, which…) so each part still reads as a complete thought. A short sentence may stay short; you may keep a very short sentence together with the next one in the same line when they belong together.\nExample: [\"Dr. Smith arrived at 9:30 a.m. in the U.S. He said, \"It's 90% done.\" Then he left.\"] → [[\"Dr. Smith arrived at 9:30 a.m. in the U.S.\", \"He said, \"It's 90% done.\" Then he left.\"]]"
+        "content": "You split English text into sentences for dictation practice: a Taiwanese student hears each one, then types it.\nThe input is a list of lines. For each line, in order, return the list of pieces it splits into. Never join text from different lines.\nReturn exactly one list per input line, so the answer has as many lists as the input has lines: a line with two sentences is ONE list holding two pieces, never two lists.\nOnly cut: every piece is an exact, consecutive part of its line. Never change, add, remove, fix, or reorder any character; the pieces of a line joined together must be that line.\nCut where a sentence ends by meaning. Never cut inside an abbreviation (Dr., Mr., U.S., a.m., e.g., i.e., Ph.D., No. 5), a number, time, or amount (9:30, 3.5, $1,000, 90%), a quotation (keep a quote with the words that introduce it, like: He said, \"Stop!\"), or a name.\nAim for pieces of about 5 to 25 words. No piece may be longer than 25 words: cut every longer sentence at a natural clause boundary (; or a comma before and, but, so, because, which…) so each part still reads as a complete thought. A short sentence may stay short; you may keep a very short sentence together with the next one in the same line when they belong together.\nExample: [\"Dr. Smith arrived at 9:30 a.m. in the U.S. He said, \"It's 90% done.\" Then he left.\"] → [[\"Dr. Smith arrived at 9:30 a.m. in the U.S.\", \"He said, \"It's 90% done.\" Then he left.\"]]\nExample: [\"Our teacher told us that the final project would be due next Friday, and that every group had to present its results to the whole class for ten minutes.\"] → [[\"Our teacher told us that the final project would be due next Friday,\", \"and that every group had to present its results to the whole class for ten minutes.\"]]"
       },
       {
         "role": "user",
@@ -80,8 +80,8 @@
         }
       }
     ],
-    "created": 1794497056,
-    "id": "chatcmpl-EjQwqUez1dRcolecizUVpLVlgrVSg",
+    "created": 1794504622,
+    "id": "chatcmpl-EjSusopsIWyNfbtTB0hFDWrZwMDyq",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -112,7 +112,7 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261104090558-e30d7f8d-default-r1-dp0-default"
+      "serving_pipereplica": "d20261105053235-84b73edd-default-r0-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
@@ -126,20 +126,20 @@
       },
       "latency_checkpoint": {
         "engine_tbt_ms": 7,
-        "engine_ttft_ms": 35,
-        "engine_ttlt_ms": 403,
-        "pre_inference_ms": 95,
+        "engine_ttft_ms": 39,
+        "engine_ttlt_ms": 445,
+        "pre_inference_ms": 93,
         "service_tbt_ms": 7,
-        "service_ttft_ms": 661,
-        "service_ttlt_ms": 1023,
-        "user_visible_ttft_ms": 566
+        "service_ttft_ms": 1083,
+        "service_ttlt_ms": 1485,
+        "user_visible_ttft_ms": 990
       },
-      "prompt_tokens": 413,
+      "prompt_tokens": 527,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 460
+      "total_tokens": 574
     }
   }
 }

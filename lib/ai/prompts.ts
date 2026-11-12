@@ -49,16 +49,48 @@ export const NOTES_INSTRUCTIONS = [
   "In Chinese text, write digits and Latin letters half-width (4號月台), never full-width, and keep people's names in English as in the sentence.",
 ].join("\n");
 
+/** A sentence this long gets the stricter limit below (D153). */
+export const LONG_SENTENCE_WORDS = 25;
+
+/**
+ * The notes instructions for `sentences` (D153): a long sentence's notes
+ * ran to 1,500+ characters and were cut by the program, so when one is
+ * in the batch, a hard limit for long sentences follows the length rule.
+ * Only then: the same limit on every sentence made ordinary notes too
+ * thin (the eval's first recording).
+ */
+export function notesInstructions(sentences: readonly string[]): string {
+  const long = sentences.flatMap((sentence, index) =>
+    sentence.split(/\s+/).filter(Boolean).length > LONG_SENTENCE_WORDS
+      ? [index]
+      : [],
+  );
+  if (long.length === 0) return NOTES_INSTRUCTIONS;
+  const lines = NOTES_INSTRUCTIONS.split("\n");
+  const at = lines.findIndex((line) => line.includes("Keep notes short"));
+  lines.splice(at + 1, 0, longNotesRule(long));
+  return lines.join("\n");
+}
+
+/** The limit for the long sentences at `indexes` (D153), by number. */
+const longNotesRule = (indexes: number[]) =>
+  `Sentence ${indexes.join(", ")} ${indexes.length === 1 ? "is" : "are"} longer than ${LONG_SENTENCE_WORDS} words. For ${indexes.length === 1 ? "it" : "each of them"}, these counts replace the ones above: at most 2 vocab, at most 1 grammar point, at most 1 connected-speech place, 2 to 4 chunks, and 1 highlight; each Chinese note, meaning, explanation, and pitfall one short sentence; 1 collocation and 1 example per item. Its notes must stay under 800 characters in total, English and Chinese together.`;
+
 export const SEGMENT_INSTRUCTIONS = (language: "en" | "zh") =>
   [
     `You split ${language === "zh" ? "Chinese" : "English"} text into sentences for dictation practice: a Taiwanese student hears each one, then types it.`,
     "The input is a list of lines. For each line, in order, return the list of pieces it splits into. Never join text from different lines.",
+    // D153: the model returned one list per sentence instead of per line.
+    "Return exactly one list per input line, so the answer has as many lists as the input has lines: a line with two sentences is ONE list holding two pieces, never two lists.",
     "Only cut: every piece is an exact, consecutive part of its line. Never change, add, remove, fix, or reorder any character; the pieces of a line joined together must be that line.",
     'Cut where a sentence ends by meaning. Never cut inside an abbreviation (Dr., Mr., U.S., a.m., e.g., i.e., Ph.D., No. 5), a number, time, or amount (9:30, 3.5, $1,000, 90%), a quotation (keep a quote with the words that introduce it, like: He said, "Stop!"), or a name.',
     language === "zh"
-      ? "Aim for pieces whose English translation would be about 5 to 25 words. Cut a long sentence at a natural clause boundary (，；：) only when each part is a complete thought."
-      : "Aim for pieces of about 5 to 25 words. Cut a sentence longer than 25 words at a natural clause boundary (; or a comma before and, but, so, because, which…) so each part still reads as a complete thought. A short sentence may stay short; you may keep a very short sentence together with the next one in the same line when they belong together.",
+      ? "Cut after 。！？. Keep a sentence of up to about 40 characters whole, commas and all. Cut a longer sentence at ，；： into 2 or 3 pieces only, each a complete thought of at least about 12 characters; never leave a short clause (like 然後回家，) as a piece of its own."
+      : "Aim for pieces of about 5 to 25 words. No piece may be longer than 25 words: cut every longer sentence at a natural clause boundary (; or a comma before and, but, so, because, which…) so each part still reads as a complete thought. A short sentence may stay short; you may keep a very short sentence together with the next one in the same line when they belong together.",
     'Example: ["Dr. Smith arrived at 9:30 a.m. in the U.S. He said, \"It\'s 90% done.\" Then he left."] → [["Dr. Smith arrived at 9:30 a.m. in the U.S.", "He said, \"It\'s 90% done.\" Then he left."]]',
+    language === "zh"
+      ? 'Example: ["今天早上下大雨。我忘了帶傘，只好在便利商店買一把。", "好的。"] → [["今天早上下大雨。", "我忘了帶傘，只好在便利商店買一把。"], ["好的。"]]'
+      : 'Example: ["Our teacher told us that the final project would be due next Friday, and that every group had to present its results to the whole class for ten minutes."] → [["Our teacher told us that the final project would be due next Friday,", "and that every group had to present its results to the whole class for ten minutes."]]',
   ].join("\n");
 
 export const COMPOSE_INSTRUCTIONS = [
@@ -68,8 +100,11 @@ export const COMPOSE_INSTRUCTIONS = [
   "Keep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).",
   "Do not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.",
   "Match the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.",
+  "The length is a hard limit: the whole text must be within 20% of the requested words. Count the words of your lines before answering, and cut sentences if there are too many.",
   "Also give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.",
   "In any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.",
+  // D153: where a text the learner didn't file goes.
+  "Also give category: the id of the category this text fits best (daily-life, travel, study-abroad, casual-american, campus, academic-writing, business, news, science, talks-stories, health, relationships, tech, money-admin, career, leisure, food, culture), or other when none of them fits.",
 ].join("\n");
 
 export const DESCRIBE_INSTRUCTIONS = [
@@ -98,6 +133,8 @@ export const AUDIT_INSTRUCTIONS = [
 
 export const REVISE_INSTRUCTIONS = [
   "You edit an English listening practice text for Taiwanese students. You get its sentences as lines, an instruction from the learner (in any language, often Traditional Chinese), and whether it's a monologue or a dialogue.",
+  // D153: "幫我寫請假信" came back as a leave letter instead of a refusal.
+  'First decide whether the instruction is about changing THIS text. An instruction that asks for a different piece of writing or a different task (write a letter, an email, an essay, homework, a speech about something else; answer a question; translate or summarize something else) is not about editing this text: return status "refused", even if it sounds harmless. Retelling this same text in another style, tone, or genre (a news report, a fairy tale, a diary) IS editing it.',
   "The instruction may ask for a small edit (simpler words, more past tense, fewer sentences) or for a different style, tone, or genre for the whole text: for example horror, humorous, formal, casual, fairy tale, or news report. For a style or tone, rewrite the text so every part of it clearly reads in that style; you may add, merge, or remove sentences when the style needs it. Keep the same basic situation and a similar level of English.",
   "Write dark styles (horror, thriller, crime) as mild suspense a teenager can read: an eerie mood, strange sounds, tension, a twist. No blood, gore, graphic violence, or detailed death.",
   "Return lines: the whole text after the change, one sentence per line (for a dialogue, one speaker's turn per line, still alternating between two people, with no speaker names or labels). Copy every sentence you don't change exactly, character for character, so it can be matched to its translation.",
@@ -108,18 +145,28 @@ export const REVISE_INSTRUCTIONS = [
   "Write reason in Traditional Chinese as written in Taiwan when the instruction is in Chinese, otherwise in English.",
 ].join("\n");
 
+/** Words per sentence the length line plans with (D153). */
+const PLANNED_SENTENCE_WORDS = 12;
+
 /**
  * The composition instructions for `prompt` (D81): a custom scenario or a
- * title adds what to do with it; a plain request gets exactly
- * COMPOSE_INSTRUCTIONS, as recorded in the fixtures.
+ * title adds what to do with it. Every request also gets its length in
+ * sentences (D153): the model wrote about twice the words asked for when
+ * it only had the word count.
  */
 export function composeInstructions(prompt: {
+  words: number;
   customScenario?: string;
   customCategory?: string;
   titleEn?: string;
   titleZh?: string;
 }): string {
+  const sentences = Math.max(
+    2,
+    Math.round(prompt.words / PLANNED_SENTENCE_WORDS),
+  );
   const extra = [
+    `For this request: about ${prompt.words} words in total (never more than ${Math.round(prompt.words * 1.2)}), which is about ${sentences} sentences of about ${PLANNED_SENTENCE_WORDS} words.`,
     prompt.customCategory
       ? "customCategory (in any language) is the subject area the learner chose; keep the text within it."
       : null,
@@ -133,7 +180,12 @@ export function composeInstructions(prompt: {
       ? "The text must fit titleZh. Return titleZh exactly as given, unchanged."
       : null,
   ].filter(Boolean);
-  return extra.length
-    ? [COMPOSE_INSTRUCTIONS, ...extra].join("\n")
-    : COMPOSE_INSTRUCTIONS;
+  return [COMPOSE_INSTRUCTIONS, ...extra].join("\n");
 }
+
+/**
+ * The instruction that shortens a written text that came out too long
+ * (D153), sent through "revise with an instruction".
+ */
+export const shortenInstruction = (words: number) =>
+  `Shorten the text to about ${words} words in total (never more than ${Math.round(words * 1.2)}): remove or merge the least important sentences, and keep the situation, the level, and the format. This is an edit of this text: return status "changed".`;

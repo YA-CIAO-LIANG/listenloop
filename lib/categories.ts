@@ -959,6 +959,20 @@ export const CATEGORY_IDS: readonly CategoryId[] = [
   OTHER_CATEGORY,
 ];
 
+/**
+ * The categories AI may file a text under when the learner didn't name
+ * one (D153): the general categories, or "other" when none fits. Exam
+ * listening needs an exam and a target, so it's chosen, never guessed.
+ */
+export const GUESSABLE_CATEGORIES: readonly CategoryId[] = [
+  ...CATEGORIES.map((category) => category.id),
+  OTHER_CATEGORY,
+];
+
+/** A general category (one from CATEGORIES, not exam or other). */
+export const isGeneralCategory = (value: unknown): value is CategoryId =>
+  CATEGORIES.some((category) => category.id === value);
+
 export const LEVELS = ["beginner", "intermediate", "advanced"] as const;
 export type Level = (typeof LEVELS)[number];
 

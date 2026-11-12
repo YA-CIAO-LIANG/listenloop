@@ -22,7 +22,7 @@ import {
   type RichNotes,
 } from "./rich-notes";
 import {
-  checkedSegments,
+  segmentsPerLine,
   splitLine,
   textLines,
   type TextSourceLanguage,
@@ -238,11 +238,7 @@ export async function segmentLines(
         () => deps.providers.language.segment([...lines], language),
         // Keep the checked sentences per line, so the cache holds clean data.
         (raw) =>
-          Array.isArray(raw) && raw.length === lines.length
-            ? lines.map((line, i) =>
-                checkedSegments([line], [raw[i]], language),
-              )
-            : null,
+          Array.isArray(raw) ? segmentsPerLine(lines, raw, language) : null,
       ),
       waitMs,
     );

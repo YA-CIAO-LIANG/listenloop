@@ -1,5 +1,5 @@
 {
-  "requestHash": "d43c673151e092c3",
+  "requestHash": "7b694215d95f6bd9",
   "request": {
     "model": "gpt-5-mini",
     "messages": [
@@ -9,7 +9,7 @@
       },
       {
         "role": "user",
-        "content": "{\"operation\":\"revise\",\"input\":{\"lines\":[\"The committee postponed the ceremony due to unfavorable weather conditions.\",\"Attendees were notified immediately and offered alternative arrangements.\",\"Nevertheless, several participants expressed considerable dissatisfaction.\"],\"instruction\":\"用更簡單的單字\",\"format\":\"monologue\"},\"output\":{\"revision\":{\"status\":\"changed\",\"lines\":[\"The committee delayed the ceremony because of bad weather.\",\"Attendees were told right away and given other options.\",\"Still, some people were very unhappy.\"]}},\"criteria\":\"單字明顯變簡單（約 A2～B1），意思不變，英文自然正確。\"}"
+        "content": "{\"operation\":\"revise\",\"input\":{\"lines\":[\"The committee postponed the ceremony due to unfavorable weather conditions.\",\"Attendees were notified immediately and offered alternative arrangements.\",\"Nevertheless, several participants expressed considerable dissatisfaction.\"],\"instruction\":\"用更簡單的單字\",\"format\":\"monologue\"},\"output\":{\"revision\":{\"status\":\"changed\",\"lines\":[\"The committee delayed the ceremony because of bad weather.\",\"Attendees were told right away and given other options.\",\"Still, several people showed strong unhappiness.\"]}},\"criteria\":\"單字明顯變簡單（約 A2～B1），意思不變，英文自然正確。\"}"
       }
     ],
     "response_format": {
@@ -79,14 +79,14 @@
         "logprobs": null,
         "message": {
           "annotations": [],
-          "content": "{\"score\":5,\"reason\":\"單字確實簡單到 A2–B1 水準，三句意思保持相同且英文自然正確，無語法或用法問題。\"}",
+          "content": "{\"score\":4,\"reason\":\"整體用字明顯簡化，句意保留且句子自然正確。唯一小問題是第三句的 \\\"strong unhappiness\\\" 稍不自然，可改為更常用的 \\\"were very unhappy\\\"。\"}",
           "refusal": null,
           "role": "assistant"
         }
       }
     ],
-    "created": 1794497284,
-    "id": "chatcmpl-EjR0W4OpUmyj3C5Q8uD1EC8r9otPa",
+    "created": 1794504784,
+    "id": "chatcmpl-EjSxUcIdyg0YOdVDvUCPvBKLqr9ig",
     "model": "gpt-5-mini-2025-08-07",
     "object": "chat.completion",
     "prompt_filter_results": [
@@ -117,12 +117,12 @@
       }
     ],
     "routing": {
-      "serving_pipereplica": "d20261108081702-b6bbe11a-default-r1-dp0-default"
+      "serving_pipereplica": "d20261108081702-b6bbe11a-default-r2-dp0-default"
     },
     "service_tier": "default",
     "system_fingerprint": null,
     "usage": {
-      "completion_tokens": 55,
+      "completion_tokens": 70,
       "completion_tokens_details": {
         "accepted_prediction_tokens": 0,
         "audio_tokens": 0,
@@ -131,20 +131,20 @@
       },
       "latency_checkpoint": {
         "engine_tbt_ms": 7,
-        "engine_ttft_ms": 31,
-        "engine_ttlt_ms": 509,
-        "pre_inference_ms": 95,
-        "service_tbt_ms": 8,
-        "service_ttft_ms": 407,
-        "service_ttlt_ms": 879,
-        "user_visible_ttft_ms": 312
+        "engine_ttft_ms": 33,
+        "engine_ttlt_ms": 611,
+        "pre_inference_ms": 88,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 769,
+        "service_ttlt_ms": 1341,
+        "user_visible_ttft_ms": 681
       },
-      "prompt_tokens": 356,
+      "prompt_tokens": 357,
       "prompt_tokens_details": {
         "audio_tokens": 0,
         "cached_tokens": 0
       },
-      "total_tokens": 411
+      "total_tokens": 427
     }
   }
 }

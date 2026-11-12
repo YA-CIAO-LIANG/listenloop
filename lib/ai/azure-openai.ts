@@ -9,6 +9,7 @@ import {
   translateBudget,
   type LanguageBudget,
 } from "./budgets";
+import { GUESSABLE_CATEGORIES } from "@/lib/categories";
 import { postToProvider, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA } from "./notes-schema";
 import { LANGUAGE_PRICES, tokenCost, type TokenPrice } from "./pricing";
@@ -18,7 +19,7 @@ import {
   DESCRIBE_INSTRUCTIONS,
   NEWS_INSTRUCTIONS,
   REVISE_INSTRUCTIONS,
-  NOTES_INSTRUCTIONS,
+  notesInstructions,
   PROMPT_VERSION,
   SEGMENT_INSTRUCTIONS,
   TRANSLATE_INSTRUCTIONS,
@@ -96,7 +97,15 @@ export const AZURE_SCHEMAS = {
   segments: object({
     lines: { type: "array", items: { type: "array", items: STRING } },
   }),
+  // D153: the closest category, for a text the learner didn't file.
   composition: object({
+    title: STRING,
+    titleZh: STRING,
+    subtitle: STRING,
+    category: { type: "string", enum: [...GUESSABLE_CATEGORIES] },
+    lines: { type: "array", items: STRING },
+  }),
+  news: object({
     title: STRING,
     titleZh: STRING,
     subtitle: STRING,
@@ -288,13 +297,7 @@ export function azureOpenAiLanguage(
       return generate("audit", AUDIT_INSTRUCTIONS, input, auditBudget(input));
     },
     async rewriteNews(input) {
-      return generate(
-        "composition",
-        NEWS_INSTRUCTIONS,
-        input,
-        newsBudget(input),
-        0.5,
-      );
+      return generate("news", NEWS_INSTRUCTIONS, input, newsBudget(input), 0.5);
     },
     async revise(input) {
       return generate(
@@ -317,7 +320,7 @@ export function azureOpenAiLanguage(
     async annotate(sentences) {
       return generate(
         "notes",
-        NOTES_INSTRUCTIONS,
+        notesInstructions(sentences),
         { sentences: sentences.map((en, index) => ({ index, en })) },
         annotateBudget(sentences),
       );

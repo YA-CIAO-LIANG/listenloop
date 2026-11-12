@@ -1,3 +1,4 @@
+import { LENGTH_TOLERANCE } from "@/lib/custom-practice/generation";
 import { LEVEL_PROMPTS } from "@/lib/categories";
 import type { EvalCase, Rule } from "./types";
 
@@ -494,7 +495,8 @@ const ANNOTATE: EvalCase[] = [
 
 const composeRules = (format: "dialogue" | "monologue"): Rule[] => [
   valid,
-  { kind: "wordsWithin", ratio: 0.3 },
+  // ±20% (D153; ±30% before): beyond that, production shortens the text.
+  { kind: "wordsWithin", ratio: LENGTH_TOLERANCE },
   {
     kind: "sentenceWords",
     min: format === "dialogue" ? 2 : 4,
@@ -615,6 +617,11 @@ const COMPOSE: EvalCase[] = [
     rules: [
       ...composeRules("dialogue"),
       { kind: "mentions", anyOf: ["electric", "bill", "power"] },
+      // D153: filed where a learner would look for it.
+      {
+        kind: "categoryIn",
+        anyOf: ["daily-life", "relationships", "money-admin"],
+      },
     ],
     judge: composeJudge(
       "室友討論怎麼分攤電費，偏離這個情境最多 2 分",
@@ -637,6 +644,7 @@ const COMPOSE: EvalCase[] = [
     rules: [
       ...composeRules("dialogue"),
       { kind: "mentions", anyOf: ["medicine", "pharmacist", "cold", "pill"] },
+      { kind: "categoryIn", anyOf: ["health", "daily-life"] },
     ],
     judge: composeJudge("向藥師詢問感冒藥怎麼吃；用藥說明不可危險", "初級 A2"),
   },
