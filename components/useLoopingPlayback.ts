@@ -1,5 +1,6 @@
 "use client";
 
+import { settingsChanged } from "@/lib/personal-settings";
 import { useCallback, useEffect, useRef, useSyncExternalStore } from "react";
 import { LOOP_GAP_MS, LOOP_STORAGE_KEY } from "@/lib/player/loop";
 
@@ -19,6 +20,7 @@ function readLoop(): boolean {
 function writeLoop(on: boolean) {
   try {
     localStorage.setItem(LOOP_STORAGE_KEY, on ? "1" : "0");
+    settingsChanged();
   } catch {
     // Storage blocked: the switch can't change; nothing else breaks.
   }

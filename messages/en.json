@@ -3054,7 +3054,7 @@
   },
   "backgrounds": {
     "title": "Background themes",
-    "intro": "Pick a page background you like. Each has a light and a dark version, and text and buttons stay easy to read on all of them. Your choice is saved in this browser.",
+    "intro": "Pick a page background you like. Each has a light and a dark version, and text and buttons stay easy to read on all of them. Signed in, your choice follows your account to any device; signing out puts this device back to the default.",
     "loading": "Working out your practice score…",
     "next": "Practice score {score}: {needed} more points open “{name}”.",
     "allOpen": "Practice score {score}: every background practice opens is open.",

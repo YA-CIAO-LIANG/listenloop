@@ -513,6 +513,11 @@ createServer(async (request, response) => {
     json(200, []);
     return;
   }
+  // Signing out (D138): nothing to end on the stand-in.
+  if (url.pathname === "/auth/v1/logout") {
+    response.writeHead(204, cors).end();
+    return;
+  }
   if (url.pathname === "/auth/v1/user") {
     const sub = tokenSubject(request.headers.authorization);
     json(200, sub ? { ...AUTHOR, id: sub } : AUTHOR);

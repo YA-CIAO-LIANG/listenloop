@@ -1,5 +1,6 @@
 "use client";
 
+import { settingsChanged } from "@/lib/personal-settings";
 import { useCallback, useSyncExternalStore } from "react";
 import { HANDS_FREE_KEY, readHandsFree } from "@/lib/hands-free";
 
@@ -27,6 +28,7 @@ export function useHandsFree(): [boolean, (on: boolean) => void] {
     try {
       if (next) window.localStorage.removeItem(HANDS_FREE_KEY);
       else window.localStorage.setItem(HANDS_FREE_KEY, "off");
+      settingsChanged();
     } catch {
       // Storage blocked: the choice lasts until the page closes.
     }

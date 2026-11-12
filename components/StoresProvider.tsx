@@ -1,6 +1,11 @@
 "use client";
 
 import {
+  applyLook,
+  readSettings,
+  SETTINGS_EVENT,
+} from "@/lib/personal-settings";
+import {
   createContext,
   useContext,
   useEffect,
@@ -89,6 +94,8 @@ export function StoresProvider({
       storage: window.localStorage,
     })
       .then(({ changedLocal }) => {
+        // The account's look (wallpaper, accent, theme) on the page now.
+        applyLook(window.localStorage, document.documentElement);
         // A new object: effects keyed on a store run again and re-read.
         if (changedLocal && !cancelled) {
           setStores(createSyncedStores(localStores, cloud, reportSyncError));
@@ -101,6 +108,25 @@ export function StoresProvider({
       cancelled = true;
     };
   }, [cloud, userId]);
+
+  // A setting changed on this page: copied to the account (D138).
+  useEffect(() => {
+    if (!cloud?.saveSettings) return;
+    let timer: number | undefined;
+    const upload = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        void cloud
+          .saveSettings?.(readSettings(window.localStorage))
+          .catch(reportSyncError);
+      }, 800);
+    };
+    window.addEventListener(SETTINGS_EVENT, upload);
+    return () => {
+      window.removeEventListener(SETTINGS_EVENT, upload);
+      window.clearTimeout(timer);
+    };
+  }, [cloud]);
 
   return (
     <StoresContext value={stores}>

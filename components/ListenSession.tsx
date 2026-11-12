@@ -1,5 +1,6 @@
 "use client";
 
+import { settingsChanged } from "@/lib/personal-settings";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { missedPieces, markSentence } from "@/lib/custom-practice/marks";
@@ -38,6 +39,7 @@ function readSettings(): ListenSettings {
 function saveSettings(settings: ListenSettings) {
   try {
     localStorage.setItem(LISTEN_STORAGE_KEY, JSON.stringify(settings));
+    settingsChanged();
   } catch {
     // Storage blocked: the choice lasts for this visit only.
   }

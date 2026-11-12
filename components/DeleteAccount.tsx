@@ -1,5 +1,6 @@
 "use client";
 
+import { clearPersonalData } from "@/lib/personal-settings";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useId, useState } from "react";
@@ -41,6 +42,8 @@ export function DeleteAccount({
       return;
     }
     clearPracticeData(window.localStorage);
+    // Settings too (D138): nothing of the account stays.
+    clearPersonalData(window.localStorage);
     // The account page, now signed out, confirms the deletion.
     router.replace("/account?deleted=1");
     router.refresh();
