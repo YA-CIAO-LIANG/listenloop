@@ -1,13 +1,30 @@
 "use client";
 
+import { useEffect } from "react";
+
 /**
  * When even the layout fails (D61): no translations or styles can be
  * relied on here, so it's a small page in both languages with inline
  * styles in the brand's colors.
  */
-export default function GlobalError({ reset }: { reset: () => void }) {
+export default function GlobalError({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
   return (
     <html lang="zh-Hant">
+      {/* This page replaces the root layout, so it brings its own viewport:
+          without it phones lay it out 980px wide, like a desktop (D140). */}
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>ListenLoop</title>
+      </head>
       <body
         style={{
           margin: 0,

@@ -2482,6 +2482,20 @@
   - 時區 cookie 和裝置一致。
 - **要改時**：`lib/time-zone.ts`、`components/TimeZoneSync.tsx`、`app/time-zone-actions.ts`、`i18n/request.ts`；日期工具在 `lib/dates.ts`。
 
+## D140 手機登入後顯示成電腦版：檢查結果與修正（2026-11-12，Joe 回報）
+
+- **檢查**：
+  - 正式站每一頁的 viewport 都是 `width=device-width, initial-scale=1`。
+  - 登入回呼（`/auth/callback`）只做轉址，回到原本的頁面。
+  - 用 Playwright 模擬真實裝置（iPhone 15、Pixel 7：螢幕、觸控、手機瀏覽器標識），在訪客、免費、付費、管理員、很長的 Gmail 地址五種身分下，打開主要頁面，沒有任何一頁比螢幕寬。手機在內容比螢幕寬時會自動縮小，看起來就像電腦版。
+- **找到的問題**：整站出錯時的錯誤頁（`app/global-error.tsx`）會取代整個版面、自己產生 `<html>`，但沒有 viewport 設定。手機會用 980px 的寬度排版，畫面看起來就是電腦版。登入回來的頁面如果在瀏覽器端出錯，看到的就是這一頁。伺服器端的錯誤紀錄裡沒有對應的錯誤，所以最可能是瀏覽器端的錯誤。
+- **修正**：
+  - 錯誤頁加上 viewport，並把錯誤寫進瀏覽器 console；
+  - 根版面明確宣告 viewport（`width=device-width`、`initialScale: 1`、`viewportFit: "cover"`），不依賴框架的預設值；
+  - 新增真實裝置模擬的 E2E：五種身分在 iPhone 15、Pixel 7 上逐頁檢查不超出螢幕寬度、有 viewport，並模擬「從 Google 登入回來」的轉址，確認回到手機版面。
+- **還需要 Joe 確認**：正式站用手機重新登入一次。如果還是電腦版，請截圖並告訴我網址列的網址（看是不是錯誤頁），或手機瀏覽器是否開了「電腦版網站」。
+- **要改時**：`app/global-error.tsx`、`app/layout.tsx`（`viewport`）、`e2e/mobile-devices.spec.ts`。
+
 ## D141 手機跟讀「我念完了」與「播放」都在底部固定列（2026-11-12，Joe 回報）
 
 - **檢查**：用 Playwright 模擬 iPhone 15、Pixel 7（螢幕、觸控、手機瀏覽器標識），在「瀏覽器不支援語音辨識」「麥克風被拒」兩種情況下量按鈕位置。「我念完了」本身已經在底部固定列，但它前面要先按的「播放」留在頁面中間的按鈕列（播放器和速度設定下方），常常在畫面外，而且每一句會隨上方文字上下移動。使用者要先往下找「播放」、再到底部按「我念完了」，兩顆按鈕不在一起。
