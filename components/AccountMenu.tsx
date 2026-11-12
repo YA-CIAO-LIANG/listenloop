@@ -1,5 +1,6 @@
 "use client";
 
+import { applyLook, clearPersonalData } from "@/lib/personal-settings";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -144,6 +145,16 @@ function AccountPanel({ email }: { email: string }) {
       return;
     }
     setOpen(false);
+    // Nothing of this account stays on the device: its practice data and
+    // its settings (wallpaper, accent, filters…) are in its cloud (D138).
+    try {
+      clearPersonalData(window.localStorage);
+      applyLook(window.localStorage, document.documentElement);
+    } catch {
+      // Storage blocked: nothing was kept here.
+    }
+    // Home, rendered anew (the stores remount for the signed-out state).
+    router.replace("/");
     router.refresh();
   }
 

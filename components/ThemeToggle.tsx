@@ -1,5 +1,6 @@
 "use client";
 
+import { settingsChanged } from "@/lib/personal-settings";
 import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
 import {
@@ -37,6 +38,7 @@ function setPreference(preference: ThemePreference) {
     } else {
       localStorage.setItem(THEME_STORAGE_KEY, preference);
     }
+    settingsChanged();
   } catch {
     // Storage blocked (e.g. private mode): still apply for this page view.
   }

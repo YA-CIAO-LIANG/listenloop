@@ -1,5 +1,6 @@
 "use client";
 
+import { settingsChanged } from "@/lib/personal-settings";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { recordIntent } from "@/app/intent-actions";
@@ -45,6 +46,7 @@ function show(id: BackgroundId) {
 function save(id: BackgroundId) {
   try {
     localStorage.setItem(BACKGROUND_STORAGE_KEY, id);
+    settingsChanged();
   } catch {
     // Not remembered; it still changes on this page.
   }

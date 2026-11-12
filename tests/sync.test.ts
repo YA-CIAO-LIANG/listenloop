@@ -13,6 +13,7 @@ import { createLocalRewardStore } from "@/lib/storage/local-reward-store";
 import { createSyncedStores } from "@/lib/storage/synced-stores";
 import { mergeActivity, planProgressSync } from "@/lib/sync/merge";
 import { ACCOUNT_KEY, syncWithCloud } from "@/lib/sync/sync";
+import type { SettingsDocument } from "@/lib/personal-settings";
 import { MemoryStorage } from "./memory-storage";
 
 const d = (day: string) => `2026-11-${day}` as LocalDate;
@@ -124,6 +125,7 @@ function fakeCloud(
   const state = {
     progress: new Map(progress.map((p) => [p.videoId, p])),
     activity,
+    settings: null as SettingsDocument | null,
   };
   const cloud: CloudData = {
     listProgress: vi.fn(async () => [...state.progress.values()]),
@@ -136,6 +138,10 @@ function fakeCloud(
     getActivity: vi.fn(async () => state.activity),
     saveActivity: vi.fn(async (a: Activity) => {
       state.activity = a;
+    }),
+    getSettings: vi.fn(async () => state.settings),
+    saveSettings: vi.fn(async (settings: SettingsDocument) => {
+      state.settings = settings;
     }),
   };
   return { cloud, state };
@@ -152,6 +158,27 @@ describe("syncWithCloud", () => {
   beforeEach(() => {
     storage = new MemoryStorage();
     local = localStores();
+  });
+
+  it("signing in as another account: its settings, not the last one's (D138)", async () => {
+    storage.setItem(ACCOUNT_KEY, JSON.stringify({ userId: "u1", synced: [] }));
+    storage.setItem("ll-background", "ocean");
+    storage.setItem("ll-wallet:v1", "{}");
+    storage.setItem("ll-level-test:v1", "{}");
+    const { cloud, state } = fakeCloud();
+    state.settings = { values: { "ll-accent": "teal" }, at: 1 };
+    await syncWithCloud({ userId: "u2", local, cloud, storage });
+    expect(storage.getItem("ll-background")).toBeNull();
+    expect(storage.getItem("ll-accent")).toBe("teal");
+    expect(storage.getItem("ll-wallet:v1")).toBeNull();
+    expect(storage.getItem("ll-level-test:v1")).toBeNull();
+  });
+
+  it("a guest's settings go up to an account that has none yet (D138)", async () => {
+    storage.setItem("ll-background", "ocean");
+    const { cloud, state } = fakeCloud();
+    await syncWithCloud({ userId: "u1", local, cloud, storage });
+    expect(state.settings?.values).toEqual({ "ll-background": "ocean" });
   });
 
   it("moves a guest's progress into the account on first sign-in", async () => {

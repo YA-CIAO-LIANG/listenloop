@@ -1,5 +1,6 @@
 "use client";
 
+import { settingsChanged } from "@/lib/personal-settings";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore } from "react";
 import { recordIntent } from "@/app/intent-actions";
@@ -44,6 +45,7 @@ function readAccent(): AccentId {
 function applyAccent(id: AccentId) {
   try {
     localStorage.setItem(ACCENT_STORAGE_KEY, id);
+    settingsChanged();
   } catch {
     // Not remembered; it still changes on this page.
   }

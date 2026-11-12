@@ -46,7 +46,8 @@ describe("DeleteAccount", () => {
     expect(
       window.localStorage.getItem(`${PROGRESS_KEY_PREFIX}sintel`),
     ).toBeNull();
-    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe("dark");
+    // Settings belong to the account too (D138): none stay.
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBeNull();
     expect(router.replace).toHaveBeenCalledWith("/account?deleted=1");
     expect(router.refresh).toHaveBeenCalled();
   });

@@ -1,5 +1,6 @@
 "use client";
 
+import { settingsChanged } from "@/lib/personal-settings";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
@@ -36,6 +37,7 @@ function writeLocal(value: string | null) {
   try {
     if (value === null) localStorage.removeItem(LIBRARY_DEFAULT_STORAGE_KEY);
     else localStorage.setItem(LIBRARY_DEFAULT_STORAGE_KEY, value);
+    settingsChanged();
   } catch {
     // Not remembered in this browser.
   }

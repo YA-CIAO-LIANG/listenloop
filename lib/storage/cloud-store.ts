@@ -1,3 +1,8 @@
+import {
+  parseSettingsDocument,
+  SETTINGS_DOCUMENT,
+  type SettingsDocument,
+} from "@/lib/personal-settings";
 import { parseActivity, type Activity } from "../activity";
 import { parseProgress, type Progress } from "../progress";
 import type { Supabase } from "../supabase/browser";
@@ -19,6 +24,9 @@ export type CloudData = {
   /** null when the account has no activity log yet. */
   getActivity(): Promise<Activity | null>;
   saveActivity(activity: Activity): Promise<void>;
+  /** The account's personal settings (D138); null when it has none yet. */
+  getSettings?(): Promise<SettingsDocument | null>;
+  saveSettings?(settings: SettingsDocument): Promise<void>;
 };
 
 const asJson = (value: unknown) => value as Json;
@@ -83,6 +91,28 @@ export function createCloudData(
         .maybeSingle();
       fail(error);
       return data ? parseActivity(data.data) : null;
+    },
+
+    async getSettings() {
+      const { data, error } = await (
+        await client()
+      )
+        .from("user_documents")
+        .select("data")
+        .eq("user_id", userId)
+        .eq("key", SETTINGS_DOCUMENT)
+        .maybeSingle();
+      fail(error);
+      return data ? parseSettingsDocument(data.data) : null;
+    },
+
+    async saveSettings(settings) {
+      const { error } = await (await client()).from("user_documents").upsert({
+        user_id: userId,
+        key: SETTINGS_DOCUMENT,
+        data: asJson(settings),
+      });
+      fail(error);
     },
 
     async saveActivity(activity) {

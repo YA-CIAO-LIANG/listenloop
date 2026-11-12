@@ -1,3 +1,10 @@
+import { LEVEL_TEST_KEY } from "@/lib/level-test";
+import {
+  applySettings,
+  mergeSettings,
+  readSettings,
+} from "@/lib/personal-settings";
+import { WALLET_KEY } from "@/lib/storage/local-reward-store";
 import { emptyActivity } from "../activity";
 import type { CloudData } from "../storage/cloud-store";
 import type { ProgressStore } from "../storage/progress-store";
@@ -71,7 +78,22 @@ export async function syncWithCloud({
 
   const account = readAccount(storage);
   const sameAccount = account?.userId === userId;
+  // Personal settings follow the account (D138).
+  const settings = cloud.getSettings
+    ? mergeSettings(
+        readSettings(storage),
+        await cloud.getSettings(),
+        sameAccount,
+      )
+    : null;
+  if (settings?.toLocal) {
+    applySettings(storage, settings.use);
+    changedLocal = true;
+  }
   if (account !== null && !sameAccount) {
+    // Another account's wallet and level test go too (D138).
+    storage.removeItem(WALLET_KEY);
+    storage.removeItem(LEVEL_TEST_KEY);
     await Promise.all(
       localProgress.map((p) => local.progress.remove(p.videoId)),
     );
@@ -99,6 +121,9 @@ export async function syncWithCloud({
   }
 
   await Promise.all([
+    settings?.toCloud && cloud.saveSettings
+      ? cloud.saveSettings(settings.use)
+      : null,
     cloud.saveProgress(toCloud),
     ...removeCloud.map((videoId) => cloud.removeProgress(videoId)),
     sameData(activity, cloudActivity) ? null : cloud.saveActivity(activity),
