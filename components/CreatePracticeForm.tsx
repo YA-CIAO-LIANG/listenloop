@@ -1,5 +1,11 @@
 "use client";
 
+import { recordGenerationTime } from "@/app/materials/generation-time-actions";
+import {
+  countWords,
+  estimateSeconds as audioSeconds,
+  WORDS_PER_MINUTE,
+} from "@/lib/custom-practice/generation";
 import { SUBTITLE_MAX } from "@/lib/videos";
 import { oneLineTitle } from "@/lib/titles";
 import type { UsageBlock } from "@/lib/usage";
@@ -104,6 +110,10 @@ type CreatePracticeFormProps = {
   generateText?: GenerateText;
   /** An admin making an official material (D80): saved as its draft. */
   official?: boolean;
+  /** The site's measured seconds per sentence (D142), when known. */
+  sitePace?: number | null;
+  /** Records the real time it took (D142). */
+  recordTime?: typeof recordGenerationTime;
 };
 
 type FormError =
@@ -144,6 +154,8 @@ export function CreatePracticeForm({
   official = false,
   youtube = false,
   upload = false,
+  sitePace = null,
+  recordTime = recordGenerationTime,
 }: CreatePracticeFormProps) {
   const tPlans = useTranslations("plans");
   const tSpeakers = useTranslations("speakers");
@@ -373,9 +385,10 @@ export function CreatePracticeForm({
     }));
     preparing.current = null;
     if (ready.ok) {
-      saveSpeed(
-        addMeasurement(speed, (performance.now() - began) / 1000, rows.length),
-      );
+      const took = (performance.now() - began) / 1000;
+      saveSpeed(addMeasurement(speed, took, rows.length));
+      // The site's estimate learns from it too (D142); best effort.
+      void recordTime(result.id, took).catch(() => {});
     }
     setPending(false);
     setProgress(null);
@@ -521,9 +534,14 @@ export function CreatePracticeForm({
   // Getting ready: notes and audio for each sentence (D95).
   const estimate = estimateSeconds(
     rows?.length ?? 0,
-    secondsPerSentence(speed),
+    secondsPerSentence(speed, sitePace),
   );
   const duration = (seconds: number) => t("duration", roundForDisplay(seconds));
+  // At least a second, so a short line doesn't read "0 seconds".
+  const audioLength = Math.max(
+    1,
+    audioSeconds(rows?.map((row) => row.en) ?? []),
+  );
 
   if (rows) {
     return (
@@ -542,6 +560,15 @@ export function CreatePracticeForm({
           </p>
           <p className="mt-2 text-supporting text-ink-muted">
             {t("sentenceCount", { count: rows.length })}
+          </p>
+          {/* Its length from the actual words (D142). */}
+          <p className="mt-1 text-supporting text-ink-muted">
+            {t("lengthEstimate", {
+              minutes: Math.floor(audioLength / 60),
+              seconds: audioLength % 60,
+              words: countWords(rows.map((row) => row.en)),
+              perMinute: WORDS_PER_MINUTE,
+            })}
           </p>
         </div>
         {/* AI changes the English by an instruction (D96). */}

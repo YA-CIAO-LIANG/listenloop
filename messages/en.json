@@ -779,6 +779,7 @@
     "reviewTitle": "Review and edit",
     "reviewIntro": "Each sentence becomes one dictation and shadowing item. Edit the English and Chinese, merge or split sentences, or delete ones you don't need, then create the practice.",
     "sentenceCount": "{count, plural, one {# sentence} other {# sentences}}",
+    "lengthEstimate": "About {minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}} long ({words, number} words, at about {perMinute} words a minute).",
     "sentenceEn": "Sentence {n}, English",
     "sentenceZh": "Sentence {n}, Chinese",
     "removeSentence": "Delete",

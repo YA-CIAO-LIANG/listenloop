@@ -37,8 +37,19 @@ export type GenerationLength = (typeof GENERATION_LENGTHS)[number];
 /** A length of one's own (D94), in seconds; the plan may allow less. */
 export const CUSTOM_LENGTH = { min: 15, max: 600 } as const;
 
-/** Azure neural voices read about this many words a minute (D36). */
-export const WORDS_PER_MINUTE = 130;
+/**
+ * English read aloud runs about this many words a minute (D36, D142): the
+ * length shown for a text, checked against the plan, and asked of the AI.
+ */
+export const WORDS_PER_MINUTE = 150;
+
+/** The words in English sentences. */
+export function countWords(sentences: readonly string[]): number {
+  return sentences.reduce(
+    (sum, s) => sum + s.split(/\s+/).filter(Boolean).length,
+    0,
+  );
+}
 
 /**
  * The words asked for: the middle of a length bucket, or the length
@@ -55,11 +66,7 @@ export function lengthWords(length: GenerationLength, seconds = 0): number {
 
 /** About how long English text takes to read aloud, in seconds (D102). */
 export function estimateSeconds(sentences: readonly string[]): number {
-  const words = sentences.reduce(
-    (sum, s) => sum + s.split(/\s+/).filter(Boolean).length,
-    0,
-  );
-  return Math.round((words / WORDS_PER_MINUTE) * 60);
+  return Math.round((countWords(sentences) / WORDS_PER_MINUTE) * 60);
 }
 
 /**

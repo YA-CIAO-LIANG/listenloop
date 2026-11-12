@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
+import { getGenerationPace } from "@/auth/generation-pace";
 import { onWaitlist } from "@/app/plans/actions";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
 import { youtubeEnabled } from "@/auth/youtube";
@@ -72,6 +73,7 @@ export default async function NewMaterialPage({
         {allowed.ok ? (
           <CreatePracticeForm
             official={official}
+            sitePace={await getGenerationPace()}
             // Speech to text set up (D130); the plan is checked inside.
             upload={!official && !!creator.providers.transcribe}
             youtube={

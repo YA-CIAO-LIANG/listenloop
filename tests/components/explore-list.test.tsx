@@ -50,8 +50,8 @@ describe("ExploreList", () => {
     expect(first.getAttribute("href")).toBe("/videos/p-136");
     expect(first.textContent).toContain("音檔");
     expect(first.textContent).toContain("你建立的");
-    // 6 sentences, no audio length known: about 33 s (D70).
-    expect(first.textContent).toContain("33 秒 · 英式英語 · 每天約 3 分鐘");
+    // 6 sentences, no audio length known: about 29 s (D70, D142).
+    expect(first.textContent).toContain("29 秒 · 英式英語 · 每天約 2 分鐘");
     expect(screen.getAllByRole("link")[1].textContent).not.toContain(
       "你建立的",
     );
