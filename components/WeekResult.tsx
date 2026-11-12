@@ -36,6 +36,7 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
   const t = useTranslations("week");
   const tCycle = useTranslations("cycle");
   const tHandout = useTranslations("handout");
+  const tListen = useTranslations("listen");
   const format = useFormatter();
   const comparison = weekComparison(video.sentences, progress);
   if (!comparison) return null;
@@ -145,6 +146,12 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
                 variant="secondary"
               >
                 {tHandout("open")}
+              </ButtonLink>
+              <ButtonLink
+                href={`/videos/${video.id}/listen`}
+                variant="secondary"
+              >
+                {tListen("open")}
               </ButtonLink>
             </>
           ) : canStart ? (

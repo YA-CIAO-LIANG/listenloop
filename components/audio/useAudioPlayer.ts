@@ -131,14 +131,32 @@ export function useAudioPlayer(
       audio.playbackRate = rate;
       cancelAnimationFrame(clipWatch.current);
       if (clip) {
-        const watch = () => {
-          if (playToken.current !== token) return;
+        // rAF for precision; timeupdate too, since rAF stops while the
+        // page is hidden (a locked phone in listening mode, D135).
+        let done = false;
+        const ended = () => {
+          if (done || playToken.current !== token) return true;
           if (audio.currentTime >= clip.end || audio.ended) {
+            done = true;
+            audio.removeEventListener("timeupdate", onTime);
             audio.pause();
             onEnd?.();
+            return true;
+          }
+          return false;
+        };
+        const onTime = () => {
+          if (playToken.current !== token) {
+            audio.removeEventListener("timeupdate", onTime);
             return;
           }
-          clipWatch.current = requestAnimationFrame(watch);
+          ended();
+        };
+        audio.addEventListener("timeupdate", onTime);
+        const watch = () => {
+          if (!ended() && playToken.current === token) {
+            clipWatch.current = requestAnimationFrame(watch);
+          }
         };
         clipWatch.current = requestAnimationFrame(watch);
       } else {

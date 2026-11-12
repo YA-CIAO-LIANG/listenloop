@@ -36,7 +36,12 @@ function deviceId(): string {
  * while lib/practice-time.ts isPracticing says so, saved to the activity
  * log every SAVE_EVERY_MS and when the page is hidden or left.
  */
-export function usePracticeTimer(videoId: string, playing: boolean) {
+export function usePracticeTimer(
+  videoId: string,
+  playing: boolean,
+  /** Count playing in the background too (listening mode, D135). */
+  { background = false }: { background?: boolean } = {},
+) {
   const { rewards } = useStores();
   const playingRef = useRef(playing);
   const lastActive = useRef(0);
@@ -74,6 +79,7 @@ export function usePracticeTimer(videoId: string, playing: boolean) {
         playing: playingRef.current,
         lastActive: lastActive.current,
         now: Date.now(),
+        background,
       });
       if (!counting) return;
       pending += 1;
@@ -96,5 +102,5 @@ export function usePracticeTimer(videoId: string, playing: boolean) {
       window.removeEventListener("pagehide", save);
       save();
     };
-  }, [rewards, videoId]);
+  }, [rewards, videoId, background]);
 }

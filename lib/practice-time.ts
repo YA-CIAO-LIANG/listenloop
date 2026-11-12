@@ -119,14 +119,20 @@ export function isPracticing({
   playing,
   lastActive,
   now,
+  background = false,
 }: {
   visible: boolean;
   focused: boolean;
   playing: boolean;
   lastActive: number;
   now: number;
+  /**
+   * Listening mode (D135): audio playing with the screen locked or the
+   * page in the background still counts.
+   */
+  background?: boolean;
 }): boolean {
-  if (!visible) return false;
+  if (!visible) return background && playing;
   if (playing) return true;
   return focused && now - lastActive < IDLE_LIMIT_MS;
 }

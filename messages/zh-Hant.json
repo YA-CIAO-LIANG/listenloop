@@ -3210,5 +3210,41 @@
         "failed": "沒有成功，請稍後再試。"
       }
     }
+  },
+  "listen": {
+    "title": "聆聽模式",
+    "intro": "不測驗，只聽：整篇連續播放，可以切換字幕。建議用「三遍聽法」：第一遍盲聽、第二遍看英文、第三遍英中對照。",
+    "open": "聆聽模式",
+    "loading": "正在讀取進度…",
+    "locked": "完成第 1 天的聽寫後，就能用聆聽模式反覆聽整篇。先自己聽寫一次，才知道哪裡聽不出來。",
+    "goDay1": "前往第 1 天聽寫",
+    "play": "播放",
+    "pause": "暫停",
+    "previous": "上一句",
+    "next": "下一句",
+    "threePasses": "三遍聽法",
+    "passStatus": "第 {pass} 遍／共 {total} 遍：{mode}",
+    "position": "第 {n} 句／共 {total} 句",
+    "keysHint": "鍵盤：空白鍵播放／暫停，方向鍵切換上一句、下一句。點任何一句就從那句開始播放。",
+    "subtitlesLegend": "字幕",
+    "subtitles": {
+      "blind": "盲聽",
+      "en": "只有英文",
+      "both": "英中對照",
+      "zh": "只有中文"
+    },
+    "loopLegend": "循環",
+    "loops": {
+      "off": "不循環",
+      "one": "單句循環",
+      "all": "整篇循環"
+    },
+    "background": "手機鎖屏或切到其他 App 時會繼續播放，鎖屏畫面可以暫停或換句。",
+    "sentencesLabel": "句子",
+    "sentenceN": "第 {n} 句",
+    "playSentence": "從第 {n} 句開始播放",
+    "marksNote": "螢光筆標示的是你第 1 天聽寫時聽錯的字。",
+    "short": "聆聽",
+    "openFor": "聆聽模式：{title}"
   }
 }

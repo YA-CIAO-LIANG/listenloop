@@ -870,6 +870,7 @@ function DictationResult({
   const t = useTranslations("dictation");
   const tSpeed = useTranslations("speed");
   const tHandout = useTranslations("handout");
+  const tListen = useTranslations("listen");
   const format = useFormatter();
   const percent = (value: number) =>
     format.number(value, { style: "percent", maximumFractionDigits: 0 });
@@ -910,6 +911,9 @@ function DictationResult({
           </Button>
           <ButtonLink href={`/videos/${video.id}/handout`} variant="secondary">
             {tHandout("open")}
+          </ButtonLink>
+          <ButtonLink href={`/videos/${video.id}/listen`} variant="secondary">
+            {tListen("open")}
           </ButtonLink>
           <ButtonLink href={`/videos/${video.id}`} variant="ghost">
             {t("backToVideo")}
