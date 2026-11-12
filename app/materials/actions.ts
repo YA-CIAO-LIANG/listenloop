@@ -11,7 +11,7 @@ import { officialColumns } from "@/lib/material-admin";
 import { getAdminSupabase } from "@/auth/admin";
 import type { UsageBlock } from "@/lib/usage";
 import { revalidatePath } from "next/cache";
-import { creationAllowed } from "@/auth/creation-quota";
+import { creationAllowance, creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
@@ -213,7 +213,7 @@ export async function createPractice(
   }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
-  const allowed = await creationAllowed(creator);
+  const { check: allowed, week } = await creationAllowance(creator);
   const length = can(planFor(creator.user), {
     kind: "practice-chars",
     chars: countChars(cleaned.draft.sentences.map((s) => s.en)),
@@ -224,6 +224,8 @@ export async function createPractice(
   const long = can(planFor(creator.user), {
     kind: "practice-seconds",
     seconds,
+    // It must fit in what's left of the week (D143).
+    secondsThisWeek: week?.usedSeconds,
   });
   if (!allowed.ok || !length.ok || !long.ok) {
     const block = !allowed.ok
@@ -552,7 +554,7 @@ export type GenerateTextResult =
       subtitle: string;
       text: string;
     }
-  | { ok: false; reason: "tooLong"; max?: number }
+  | { ok: false; reason: "tooLong" | "weekLeft"; max?: number }
   | ({
       ok: false;
       reason: "unavailable" | "invalid" | MeteredFailure;
@@ -568,20 +570,28 @@ export async function generatePracticeText(
   input: unknown,
 ): Promise<GenerateTextResult> {
   const creator = await getCreator();
-  if (!creator || !(await creationAllowed(creator)).ok) {
-    return { ok: false, reason: "unavailable" };
-  }
+  if (!creator) return { ok: false, reason: "unavailable" };
+  const { check: allowed, week } = await creationAllowance(creator);
+  if (!allowed.ok) return { ok: false, reason: "unavailable" };
   if (!(await allowAction("ai", creator.user.id))) {
     return { ok: false, reason: "busy" };
   }
   const request = parseGenerationRequest(input);
   if (!request) return { ok: false, reason: "invalid" };
-  // The plan's longest practice (D94).
+  // The plan's longest practice (D94), within what's left of the week
+  // (D143).
   const long = can(planFor(creator.user), {
     kind: "practice-seconds",
     seconds: lengthSeconds(request.length, request.seconds),
+    secondsThisWeek: week?.usedSeconds,
   });
-  if (!long.ok) return { ok: false, reason: "tooLong", max: long.max };
+  if (!long.ok) {
+    return {
+      ok: false,
+      reason: long.limit === "weekSecondsLeft" ? "weekLeft" : "tooLong",
+      max: long.max,
+    };
+  }
   const prompt = compositionPrompt(request);
   const result = await meteredLanguage(creator, composeBudget(prompt), () =>
     creator.providers.language.compose(prompt),

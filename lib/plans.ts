@@ -6,7 +6,8 @@ import type { Role } from "./accounts";
  * itself, so changing what a plan includes means editing PLANS only.
  *
  * - free: every official material and feature, a preview of shared
- *   materials (D106), and one practice of their own to try creating;
+ *   materials (D106), and 2 minutes of their own practices a week
+ *   (D143: two of a minute or one of two);
  * - paid: 30 practices a month of up to 2,000 characters (set by an
  *   admin until payments exist; the price shows "coming soon");
  * - admin: no limits.
@@ -46,6 +47,11 @@ export type PlanLimits = {
    * estimated length; resets each month, even on a yearly plan.
    */
   minutesPerMonth: number | null;
+  /**
+   * Minutes of practices made per week (D143), from Monday 00:00 Taiwan
+   * time; a new practice must fit in what's left.
+   */
+  minutesPerWeek: number | null;
   /** Characters of text per created practice. */
   charsPerPractice: number | null;
   /** May set each practice's own pass rules (D92); otherwise the defaults. */
@@ -73,16 +79,18 @@ export type PlanLimits = {
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
+  // Free (D143): 2 minutes a week, up to 2 minutes each.
   free: {
     createPractices: true,
     sharedPractices: false,
     activePractices: null,
-    practicesTotal: 1,
+    practicesTotal: null,
     practicesPerMonth: null,
     minutesPerMonth: null,
+    minutesPerWeek: 2,
     charsPerPractice: 2_000,
     customRules: false,
-    maxPracticeSeconds: 30,
+    maxPracticeSeconds: 120,
     youtubePractices: false,
     uploadAudio: false,
     uploadMegabytes: null,
@@ -99,6 +107,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesTotal: null,
     practicesPerMonth: null,
     minutesPerMonth: 40,
+    minutesPerWeek: null,
     charsPerPractice: 2_000,
     customRules: true,
     maxPracticeSeconds: 300,
@@ -118,6 +127,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesTotal: null,
     practicesPerMonth: null,
     minutesPerMonth: 120,
+    minutesPerWeek: null,
     charsPerPractice: 10_000,
     customRules: true,
     maxPracticeSeconds: 600,
@@ -136,6 +146,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     practicesTotal: null,
     practicesPerMonth: null,
     minutesPerMonth: null,
+    minutesPerWeek: null,
     charsPerPractice: null,
     customRules: true,
     maxPracticeSeconds: null,
@@ -165,6 +176,8 @@ export type PlanAction =
       createdTotal?: number;
       /** Seconds of practices made this month (D102). */
       secondsThisMonth?: number;
+      /** Seconds of practices made this week (D143). */
+      secondsThisWeek?: number;
     }
   | { kind: "start-practice"; active?: number }
   | { kind: "practice-chars"; chars: number }
@@ -172,11 +185,30 @@ export type PlanAction =
   | { kind: "feature"; feature: "playbackSpeed" | "fullStats" | "batchPdf" }
   | { kind: "youtube-practice" }
   | { kind: "upload-audio"; bytes?: number }
-  | { kind: "practice-seconds"; seconds: number };
+  | {
+      kind: "practice-seconds";
+      seconds: number;
+      /** Seconds already made this week, for a weekly allowance (D143). */
+      secondsThisWeek?: number;
+    };
+
+/**
+ * Seconds of the weekly allowance left (D143), never negative; null when
+ * the plan has none.
+ */
+export function weekSecondsLeft(
+  limits: PlanLimits,
+  secondsThisWeek: number,
+): number | null {
+  return limits.minutesPerWeek === null
+    ? null
+    : Math.max(0, limits.minutesPerWeek * 60 - Math.round(secondsThisWeek));
+}
 
 /** Why an action isn't allowed: a translation key under plans.limits. */
 export type PlanBlock = {
-  limit: keyof PlanLimits;
+  /** A limit, or "weekSecondsLeft": too long for what's left this week. */
+  limit: keyof PlanLimits | "weekSecondsLeft";
   /** The number reached, for the message; absent for yes/no limits. */
   max?: number;
 };
@@ -214,6 +246,16 @@ export function can(
         };
       }
       if (
+        limits.minutesPerWeek !== null &&
+        (action.secondsThisWeek ?? 0) >= limits.minutesPerWeek * 60
+      ) {
+        return {
+          ok: false,
+          limit: "minutesPerWeek",
+          max: limits.minutesPerWeek,
+        };
+      }
+      if (
         limits.minutesPerMonth !== null &&
         (action.secondsThisMonth ?? 0) >= limits.minutesPerMonth * 60
       ) {
@@ -235,14 +277,24 @@ export function can(
         action.active ?? 0,
       );
     case "practice-seconds":
-      return limits.maxPracticeSeconds !== null &&
+      if (
+        limits.maxPracticeSeconds !== null &&
         action.seconds > limits.maxPracticeSeconds
-        ? {
-            ok: false,
-            limit: "maxPracticeSeconds",
-            max: limits.maxPracticeSeconds,
-          }
-        : { ok: true };
+      ) {
+        return {
+          ok: false,
+          limit: "maxPracticeSeconds",
+          max: limits.maxPracticeSeconds,
+        };
+      }
+      // It must fit in what's left of the week (D143); max: seconds left.
+      if (limits.minutesPerWeek !== null) {
+        const left = weekSecondsLeft(limits, action.secondsThisWeek ?? 0)!;
+        if (action.seconds > left) {
+          return { ok: false, limit: "weekSecondsLeft", max: left };
+        }
+      }
+      return { ok: true };
     case "youtube-practice":
       return limits.youtubePractices
         ? { ok: true }
@@ -285,6 +337,8 @@ export function needsCount(
 ): boolean {
   const limits = plans[plan];
   return kind === "create-practice"
-    ? limits.practicesPerMonth !== null || limits.minutesPerMonth !== null
+    ? limits.practicesPerMonth !== null ||
+        limits.minutesPerMonth !== null ||
+        limits.minutesPerWeek !== null
     : limits.activePractices !== null;
 }

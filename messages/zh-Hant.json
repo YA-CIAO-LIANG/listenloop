@@ -759,7 +759,7 @@
   },
   "create": {
     "title": "建立練習",
-    "intro": "上傳一份中文或英文的文字檔，或讓 AI 依情境生成英文文字，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。免費方案可以試做 1 份。",
+    "intro": "上傳一份中文或英文的文字檔，或讓 AI 依情境生成英文文字，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。免費方案每週可以建立 2 分鐘。",
     "textLabel": "文字內容",
     "textHint": "可以直接貼上，或選擇 .txt 檔。每一行會分開斷句。",
     "chooseFile": "選擇 .txt 檔",
@@ -1270,7 +1270,8 @@
       "busy": "AI 服務目前忙碌中，請過一分鐘再試。",
       "failed": "生成的內容無法使用，請再試一次。",
       "config": "AI 服務的設定或額度有問題（例如金鑰錯誤，或免費額度、預付額度用完）。詳細原因在伺服器紀錄。",
-      "tooLong": "這個長度超過你的方案上限（每份最長 {max, number} 秒）。"
+      "tooLong": "這個長度超過你的方案上限（每份最長 {max, number} 秒）。",
+      "weekLeft": "本週只剩 {max, number} 秒可以建立，請選短一點的長度，或等每週重設。"
     },
     "categoryLabel": "類別",
     "scenarioLabel": "情境",
@@ -1327,6 +1328,8 @@
       "maxPracticeSeconds": "你的方案每份教材最長 {max, number} 秒。",
       "youtubePractices": "用 YouTube 影片建立練習是付費方案的功能。",
       "minutesPerMonth": "這個月已經建立 {max} 分鐘的教材，達到方案上限，下個月 1 日重設。",
+      "minutesPerWeek": "免費方案每週可以建立 {max} 分鐘的教材，本週已經用完。",
+      "weekSecondsLeft": "本週只剩 {max, number} 秒可以建立，這份教材比較長。請刪掉一些句子、選短一點的長度，或等每週重設後再建立。",
       "playbackSpeed": "調整播放速度是 Plus 以上方案的功能。",
       "fullStats": "完整的學習分析是 Plus 以上方案的功能。",
       "priority": "優先產生是 Pro 方案的功能。",
@@ -1335,12 +1338,14 @@
       "uploadAudio": "上傳自己的音檔建立教材是 Plus 以上方案的功能。",
       "uploadMegabytes": "檔案太大：你的方案每個檔案最大 {max, number} MB。"
     },
+    "week": "免費方案每週可以建立 {total} 分鐘的教材（單份最長 {total} 分鐘）。本週還剩 {minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}，{reset} 重設。",
+    "weekUsed": "免費方案每週可以建立 {total} 分鐘的教材，本週的已經用完，{reset} 重設。",
     "seePractices": "查看學習進度",
     "paid": {
       "title": "Plus 方案",
       "perMonth": "每月自建 {max} 分鐘的教材",
       "everything": "所有官方教材與功能",
-      "free": "你目前是免費方案：所有官方教材與功能，加上試做 1 份自己的教材。",
+      "free": "你目前是免費方案：所有官方教材與功能，加上每週 2 分鐘的自建教材。",
       "join": "加入等候名單",
       "joined": "已加入等候名單，付費方案開放時會通知你。",
       "failed": "加入失敗，請稍後再試。",
@@ -2738,7 +2743,7 @@
     "current": "目前方案",
     "perMonthSuffix": "／月",
     "summaries": {
-      "free": "所有官方教材與功能、基本學習分析，可以試做 1 份自建教材（最長 30 秒）。",
+      "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘）。",
       "plus": "每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。",
       "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。"
     },
@@ -2763,6 +2768,7 @@
     "noLimit": "不限",
     "trial": "試做 {n} 份",
     "perMonth": "每月 {n} 分鐘",
+    "perWeek": "每週 {n} 分鐘",
     "seconds": "{n} 秒",
     "minutes": "{n} 分鐘",
     "statsBasic": "基本",

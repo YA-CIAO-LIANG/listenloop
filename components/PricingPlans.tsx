@@ -136,9 +136,11 @@ export function PricingPlans({
       case "shared":
         return limits.sharedPractices ? yes : t("previewOnly");
       case "create":
-        return limits.practicesTotal !== null
-          ? t("trial", { n: limits.practicesTotal })
-          : t("perMonth", { n: limits.minutesPerMonth ?? 0 });
+        return limits.minutesPerWeek !== null
+          ? t("perWeek", { n: limits.minutesPerWeek })
+          : limits.practicesTotal !== null
+            ? t("trial", { n: limits.practicesTotal })
+            : t("perMonth", { n: limits.minutesPerMonth ?? 0 });
       case "longest": {
         const seconds = limits.maxPracticeSeconds;
         if (seconds === null) return t("noLimit");

@@ -2517,3 +2517,15 @@
   - 一分鐘以上四捨五入到整分鐘，不再無條件進位。開始產生後的「剩餘時間」照舊依這次工作自己的速度推算。
 - **不變**：聲音實際長度（`duration_sec`）有量到時一律用實際值。
 - **要改時**：`lib/custom-practice/generation.ts`（`WORDS_PER_MINUTE`）、`lib/custom-practice/estimate.ts`（`GENERATION_SPEED`、`sitePace`、`roundForDisplay`）、`auth/generation-pace.ts`、`app/materials/generation-time-actions.ts`。
+
+## D143 免費方案改成「每週 2 分鐘」（2026-11-12，Joe 指定）
+
+- **規則**：
+  - 免費方案每週可以建立 2 分鐘的自建教材：2 份 1 分鐘，或 1 份 2 分鐘；單份最長 2 分鐘。取代原本的「試做 1 份、最長 30 秒」。
+  - 一週從**週一 0 點（台灣時間）**到下週一 0 點。和 AI 用量的每日、每月重設一樣用台灣時間（D139：全站的額度規則不跟著個人時區），畫面上的重設時間用使用者自己的時區顯示。
+  - 新的一份必須**放得進本週剩下的秒數**（例如已用 1 分 30 秒，只能再建立 30 秒以內的）。AI 生成文字時也先檢查選的長度。
+  - 建立頁上方顯示「本週還剩 N 分 M 秒，X/X（週一）00:00 重設」；用完時顯示重設時間和付費方案。
+- **刪除不退回**（同時套用到付費方案的每月分鐘數）：新表 `practice_creations`，新增教材時由觸發器記一筆（使用者、教材、估計秒數、時間），刪除教材不刪紀錄。原本「每月分鐘數」用現存教材加總，刪掉再建立就能重複用，每份都會花聲音與 AI 費用。上線時把現有教材補進紀錄，本月與本週照舊計算。
+- **長度**：以字數估算，每分鐘 150 字（D142）。
+- **不變**：每份 2,000 字的上限；舊的 `practices_created` 計數保留（不再用來擋免費方案）。
+- **要改時**：`lib/plans.ts`（`minutesPerWeek`、`maxPracticeSeconds`、`weekSecondsLeft`）、`lib/usage-report.ts`（`usageWeek`）、`auth/creation-quota.ts`（`creationAllowance`）、`components/WeekAllowanceNote.tsx`、`supabase/migrations/20261120000000_practice_creations.sql`。

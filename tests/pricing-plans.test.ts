@@ -33,10 +33,11 @@ describe("prices (D102)", () => {
 });
 
 describe("plans (D102)", () => {
-  it("free tries one practice of 30 s; Plus 40 and Pro 120 minutes a month", () => {
+  it("free makes 2 minutes a week (D143); Plus 40 and Pro 120 minutes a month", () => {
     expect(PLANS.free).toMatchObject({
-      practicesTotal: 1,
-      maxPracticeSeconds: 30,
+      practicesTotal: null,
+      minutesPerWeek: 2,
+      maxPracticeSeconds: 120,
     });
     expect(PLANS.paid).toMatchObject({
       minutesPerMonth: 40,

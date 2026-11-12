@@ -665,7 +665,7 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 | ------------------------------------ | --------------------------- | ---------------------------------- | ------------------------------------ | --------------------------------------------- | -------- |
 | Official materials, videos, the loop | ✓                           | ✓                                  | ✓                                    | ✓                                             | ✓        |
 | Shared materials                     | Preview (first 3 sentences) | Practice in full                   | Practice in full                     | Practice in full                              | In full  |
-| Your own materials                   | One to try (30 seconds)     | 40 minutes a month, 5 minutes each | 120 minutes a month, 10 minutes each | 160 minutes a month (whichever is more)       | No limit |
+| Your own materials                   | 2 minutes a week (2 each)   | 40 minutes a month, 5 minutes each | 120 minutes a month, 10 minutes each | 160 minutes a month (whichever is more)       | No limit |
 | YouTube materials                    | —                           | ✓                                  | ✓                                    | By personal plan                              | ✓        |
 | Playback speed                       | —                           | ✓                                  | ✓                                    | By personal plan                              | ✓        |
 | Full stats                           | Basics                      | ✓                                  | ✓                                    | By personal plan                              | ✓        |
@@ -678,8 +678,8 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 
 ### 7.2 Counting allowances
 
-- **One to try**: `profiles.practices_created` (a trigger adds 1 on insert; deleting doesn't give it back, D72).
-- **Minutes a month**: the sum of `practices.estimated_seconds` created this month (Taiwan time); text at 150 words a minute (D142), YouTube by the excerpt's length (D102).
+- **Minutes a week (free)**: the seconds in `practice_creations` this week (from Monday 00:00, Taiwan time); a new one must fit in what's left (D143).
+- **Minutes a month**: the seconds in `practice_creations` this month (Taiwan time; a trigger records `estimated_seconds` when a practice is added, and deleting the practice keeps the record, so minutes don't come back, D143); text at 150 words a minute (D142), YouTube by the excerpt's length (D102).
 - **Characters per material**: 2,000 on Free and Plus, 10,000 on Pro (technical limit).
 - Checked before every AI step and on saving (`auth/creation-quota.ts`).
 

@@ -1,14 +1,28 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, signInAsAdmin, signInAsAuthor, test } from "./fixtures";
+import {
+  expect,
+  signInAsAdmin,
+  signInAsAuthor,
+  signInAsLearner,
+  test,
+} from "./fixtures";
 
-/** Plans (D72): past the free trial, the paid plan and its waiting list. */
-test("past the free trial, the create page offers the paid plan's waitlist", async ({
+/**
+ * Plans (D72, D143): past the free plan's minutes this week, when they
+ * come back, the paid plan and its waiting list.
+ */
+test("past this week's free minutes, the create page offers the paid plan's waitlist", async ({
   page,
 }) => {
   await signInAsAuthor(page);
   await page.goto("/materials/new");
+  await expect(page.getByTestId("week-allowance")).toContainText(
+    /本週的已經用完，\d+\/\d+（週一）\s?00:00 重設/,
+  );
   const card = page.getByRole("region", { name: "Plus 方案" });
-  await expect(card).toContainText("免費方案可以試做 1 份自己的教材");
+  await expect(card).toContainText(
+    "免費方案每週可以建立 2 分鐘的教材，本週已經用完。",
+  );
   await expect(card).toContainText("每月自建 40 分鐘的教材");
   await expect(card).toContainText("每份最長 5 分鐘");
   await expect(card).toContainText(
@@ -35,4 +49,16 @@ test("admins create without limits", async ({ page }) => {
   await signInAsAdmin(page);
   await page.goto("/materials/new");
   await expect(page.getByRole("heading", { name: "付費方案" })).toHaveCount(0);
+  await expect(page.getByTestId("week-allowance")).toHaveCount(0);
+});
+
+test("a free learner sees the week's minutes left and when they reset (D143)", async ({
+  page,
+}) => {
+  await signInAsLearner(page);
+  await page.goto("/materials/new");
+  await expect(page.getByTestId("week-allowance")).toContainText(
+    /每週可以建立 2 分鐘.*本週還剩 2 分鐘，\d+\/\d+（週一）\s?00:00 重設/,
+  );
+  await expect(page.getByRole("button", { name: /斷句/ })).toBeVisible();
 });

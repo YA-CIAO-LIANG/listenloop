@@ -176,7 +176,7 @@ Shown after a dictation answer or a shadowed sentence:
 
 ## 9. Making your own materials
 
-Header "My materials" → "Create". The free plan tries one (up to 30 seconds); Plus gets 40 minutes a month, Pro 120.
+Header "My materials" → "Create". The free plan makes 2 minutes a week (two of a minute or one of two; it resets Monday 00:00 Taiwan time, and the create page shows what's left and when it resets; deleting a material doesn't give minutes back); Plus gets 40 minutes a month, Pro 120.
 
 ```mermaid
 flowchart LR
@@ -209,12 +209,12 @@ flowchart LR
 
 ## 11. Plans
 
-| Plan  | Price (monthly / yearly)                            | What's included                                                                                                                                   |
-| ----- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Free  | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, one material of your own (30 seconds), basic stats |
-| Plus  | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                    |
-| Pro   | NT$299 / NT$2,990                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                           |
-| Class | NT$499 / NT$4,990 (priority list NT$349 / NT$3,490) | 40 students a class, assignments and progress, CSV, announcements, 160 minutes a month for the teacher                                            |
+| Plan  | Price (monthly / yearly)                            | What's included                                                                                                                                                           |
+| ----- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Free  | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, 2 minutes of your own materials a week (up to 2 minutes each), basic stats |
+| Plus  | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                                            |
+| Pro   | NT$299 / NT$2,990                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                                                   |
+| Class | NT$499 / NT$4,990 (priority list NT$349 / NT$3,490) | 40 students a class, assignments and progress, CSV, announcements, 160 minutes a month for the teacher                                                                    |
 
 - Yearly = 10 × monthly: **2 months free**.
 - Paid plans are **coming soon**: "Subscribe" adds you to the waiting list; nothing is charged.
@@ -245,7 +245,7 @@ flowchart LR
 | The video has no sound or won't play     | Check your connection and that YouTube opens; starting from inside the site helps autoplay                                                                |
 | My progress is gone on a new phone       | Sign in to the same account; signed out, progress stays on the old device                                                                                 |
 | A shared material shows only 3 sentences | The free plan previews; Plus and above practice in full                                                                                                   |
-| Creating says my allowance is used       | The free plan tries one; paid plans' minutes reset on the 1st                                                                                             |
+| Creating says my allowance is used       | The free plan's 2 minutes reset each Monday; paid plans' minutes reset on the 1st                                                                         |
 | Can I practice offline?                  | Once an audio material's practice page is open, its sentences are kept on the device and play on a shaky connection; opening new pages needs the internet |
 | A translation or note is wrong           | Tell us which material and sentence on "Feedback" in the footer                                                                                           |
 | Question                                 | Answer                                                                                                                                                    |
@@ -256,7 +256,7 @@ flowchart LR
 | The video has no sound or won't play     | Check your connection and that YouTube opens; starting from inside the site helps autoplay                                                                |
 | My progress is gone on a new phone       | Sign in to the same account; signed out, progress stays on the old device                                                                                 |
 | A shared material shows only 3 sentences | The free plan previews; Plus and above practice in full                                                                                                   |
-| Creating says my allowance is used       | The free plan tries one; paid plans' minutes reset on the 1st                                                                                             |
+| Creating says my allowance is used       | The free plan's 2 minutes reset each Monday; paid plans' minutes reset on the 1st                                                                         |
 | Can I practice offline?                  | It needs the internet; offline you see the offline page, and progress stays on this device                                                                |
 | A translation, note, or audio is wrong   | Press "Report a problem with this sentence" under it; you'll be told on the home page when it's fixed                                                     |
 

@@ -304,6 +304,25 @@ createServer(async (request, response) => {
     else json(200, []);
     return;
   }
+  // What each account made (D143): the author has used this week's
+  // 2 free minutes (two of a minute, just now); nobody else made any.
+  if (
+    url.pathname === "/rest/v1/practice_creations" &&
+    request.method === "GET"
+  ) {
+    const sub = tokenSubject(request.headers.authorization);
+    const now = new Date().toISOString();
+    json(
+      200,
+      sub === "e2e-author"
+        ? [
+            { seconds: 60, created_at: now },
+            { seconds: 60, created_at: now },
+          ]
+        : [],
+    );
+    return;
+  }
   // No speech to text used this month (D130).
   if (url.pathname === "/rest/v1/rpc/month_audio_ms") {
     json(200, [{ site: 0, mine: 0 }]);

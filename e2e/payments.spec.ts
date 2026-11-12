@@ -39,7 +39,7 @@ test("signed out, pricing shows Free, Plus, and Pro, yearly first at ten months 
   await expect(plus.getByText(/一次付清/)).toHaveCount(0);
   await expect(
     page.getByRole("table", { name: "方案比較" }).getByRole("row", {
-      name: /單份最長 30 秒 5 分鐘 10 分鐘/,
+      name: /單份最長 2 分鐘 5 分鐘 10 分鐘/,
     }),
   ).toBeVisible();
 

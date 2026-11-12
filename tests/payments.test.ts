@@ -311,10 +311,14 @@ describe("getPaymentProvider", () => {
 });
 
 describe("downgrading (D72, D85)", () => {
-  it("keeps what a free account made, but it can't add more", () => {
+  it("keeps what a free account made; it adds the free plan's week (D143)", () => {
     expect(
-      can("free", { kind: "create-practice", createdTotal: 12 }),
-    ).toMatchObject({ ok: false, limit: "practicesTotal" });
+      can("free", {
+        kind: "create-practice",
+        createdTotal: 12,
+        secondsThisWeek: 120,
+      }),
+    ).toMatchObject({ ok: false, limit: "minutesPerWeek" });
   });
 });
 
