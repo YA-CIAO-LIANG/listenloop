@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from "next-intl";
-import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import {
+  getLocale,
+  getMessages,
+  getTimeZone,
+  getTranslations,
+} from "next-intl/server";
 import { Suspense } from "react";
 import { canCreatePractices } from "@/auth/creator";
 import { getSignedInUser } from "@/auth/session";
@@ -10,6 +15,7 @@ import { UsageNotice } from "@/components/UsageNotice";
 import { USAGE_NOTICE_COOKIE } from "@/lib/notices";
 import { cookies, headers } from "next/headers";
 import { ServiceWorker } from "@/components/ServiceWorker";
+import { TimeZoneSync } from "@/components/TimeZoneSync";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
@@ -77,7 +83,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         {/* The locale from i18n/request.ts; only the messages Client
             Components use everywhere (D120). */}
-        <NextIntlClientProvider messages={clientMessages(await getMessages())}>
+        <NextIntlClientProvider
+          messages={clientMessages(await getMessages())}
+          timeZone={await getTimeZone()}
+        >
           <PlanProvider plan={planFor(user)}>
             {/* Signed in: progress syncs with the account (b3). */}
             <StoresProvider
@@ -120,6 +129,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               </div>
               <SiteFooter />
               <ServiceWorker />
+              <TimeZoneSync signedIn={user !== null} />
             </StoresProvider>
           </PlanProvider>
         </NextIntlClientProvider>

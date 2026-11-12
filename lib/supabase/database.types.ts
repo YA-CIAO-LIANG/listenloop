@@ -980,6 +980,7 @@ export type Database = {
           practices_created: number;
           role: string;
           status: string;
+          time_zone: string | null;
           user_id: string;
         };
         Insert: {
@@ -993,6 +994,7 @@ export type Database = {
           practices_created?: number;
           role?: string;
           status?: string;
+          time_zone?: string | null;
           user_id: string;
         };
         Update: {
@@ -1006,6 +1008,7 @@ export type Database = {
           practices_created?: number;
           role?: string;
           status?: string;
+          time_zone?: string | null;
           user_id?: string;
         };
         Relationships: [];
