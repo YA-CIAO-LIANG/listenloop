@@ -2,6 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getServerSupabase } from "@/auth/server";
 import { admitAfterSignIn } from "@/auth/beta";
 import { logEvent } from "@/auth/events";
+import { verifyStudentOnSignIn } from "@/auth/student";
 import { safeNextPath, withSignInResult } from "@/lib/auth/redirect";
 
 /**
@@ -41,6 +42,8 @@ export async function GET(request: NextRequest) {
     const gate = await admitAfterSignIn(session.user);
     if (gate !== "ok") return back(`/beta?reason=${gate}`);
     await logEvent(session.user.id, { type: "sign_in" });
+    // A school account is a student for a year (D144).
+    await verifyStudentOnSignIn(session.user).catch(() => false);
   }
   return back(next);
 }

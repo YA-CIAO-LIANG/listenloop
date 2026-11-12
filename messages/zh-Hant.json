@@ -1703,7 +1703,8 @@
       },
       "names": {
         "plus": "Plus",
-        "pro": "Pro"
+        "pro": "Pro",
+        "student": "學生方案"
       },
       "rows": {
         "subscribers": "{plan} 人數",
@@ -2738,14 +2739,24 @@
     "names": {
       "free": "免費",
       "plus": "Plus",
-      "pro": "Pro"
+      "pro": "Pro",
+      "student": "學生方案"
     },
     "current": "目前方案",
     "perMonthSuffix": "／月",
     "summaries": {
       "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘）。",
       "plus": "每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。",
-      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。"
+      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。",
+      "student": "Plus 的全部內容，學生價。用學校信箱（.edu、.edu.tw 等）的 Google 帳號登入就會自動認證，有效一年。"
+    },
+    "student": {
+      "verified": "已認證學生身分，有效到 {until}。",
+      "expired": "學生認證在 {until} 到期了。請用學校的 Google 帳號重新登入，確認你還是學生。",
+      "none": "你目前登入的不是學校信箱。學生方案需要用學校信箱（例如 .edu、.edu.tw）的 Google 帳號登入。",
+      "signedOut": "學生方案需要用學校信箱（例如 .edu、.edu.tw）的 Google 帳號登入，登入後自動認證。",
+      "signInSchool": "用學校帳號登入",
+      "needVerified": "訂閱學生方案前，請先用學校信箱的 Google 帳號登入完成認證。"
     },
     "subscribe": "訂閱 {plan}",
     "compareTitle": "方案比較",

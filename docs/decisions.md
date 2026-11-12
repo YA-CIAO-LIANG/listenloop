@@ -2530,6 +2530,18 @@
 - **不變**：每份 2,000 字的上限；舊的 `practices_created` 計數保留（不再用來擋免費方案）。
 - **要改時**：`lib/plans.ts`（`minutesPerWeek`、`maxPracticeSeconds`、`weekSecondsLeft`）、`lib/usage-report.ts`（`usageWeek`）、`auth/creation-quota.ts`（`creationAllowance`）、`components/WeekAllowanceNote.tsx`、`supabase/migrations/20261120000000_practice_creations.sql`。
 
+## D144 學生方案（假門）：學校信箱自動認證、學生價年繳例外（2026-11-12，Joe 指定）
+
+- **價格**：月繳 NT$90、年繳 NT$990。這是「年繳 = 月繳 × 10」（D105）的**唯一例外**（照規則會是 NT$900），寫死在 `lib/payments/pricing.ts` 的 `STUDENT_YEARLY`；年繳省下的月數由價格算出（`monthsSaved`，學生方案是 1 個月），卡片上顯示「省 1 個月」。年繳／月繳切換鈕仍寫「省 2 個月」，因為 Plus、Pro 是 2 個月。測試把學生方案從 ×10 規則中排除，另外檢查 NT$90／NT$990。
+- **內容**：和 Plus 完全相同（`PLANS.paid`）。比較表多一欄「學生方案」。
+- **認證**：
+  - 不寄信。用 Google 登入時，帳號的信箱網域如果是學校網域，`/auth/callback` 就把 `profiles.student_verified_at` 設成現在。信箱來自登入服務，不是瀏覽器送來的，無法偽造。
+  - 網域集中在 `lib/student.ts`：後綴 `.edu`、`.edu.tw`、`.ac.uk`、`.edu.au`、`.ac.nz`、`.ac.jp`、`.ac.kr`、`.edu.hk`、`.edu.sg`、`.edu.my`、`.edu.cn`、`.edu.mo`，以及沒有學校後綴的加拿大大學（完整網域）。只有後綴本身（例如 `a@edu.tw`）不算。
+  - 有效一年（`STUDENT_VERIFICATION_DAYS`）。到期後定價頁顯示「已到期，請用學校帳號重新登入」，重新登入就更新日期。
+- **假門**：按「訂閱 學生方案」和 Plus 一樣記錄 `subscribe_click`（`plan: student`）。已認證的可以加入等候名單（`waitlist.plan = 'student'`，資料庫限制已放寬）；沒認證的看到「請先用學校帳號登入」與登入按鈕，登入後回到這個方案。
+- **之後收費時**：結帳前要再檢查 `student_verified_at` 仍有效；到期時降回免費或改收 Plus 價，屆時再決定。
+- **要改時**：`lib/student.ts`（網域、有效天數）、`lib/payments/pricing.ts`（價格）、`auth/student.ts`、`app/auth/callback/route.ts`、`components/PricingPlans.tsx`。
+
 ## D145 我的錯字：單字發音、重播與循環、作答後的單字講解（2026-11-12，Joe 指定）
 
 - **發音**：每個字出現時自動播放一次單字發音。用單字測驗（D136）的共用發音快取：每個「單字＋聲音」只產生一次（Azure F0），之後所有人共用；沒有錄音時（未登入、額度用完）改用瀏覽器內建語音。伺服器只為「這份教材句子裡出現的字」產生發音（`wordAudioUrl` 多接受出現在句子裡、值得複習的字），不能拿來產生任意文字。瀏覽器若擋下自動播放（還沒點過頁面），就等使用者按「重播」。

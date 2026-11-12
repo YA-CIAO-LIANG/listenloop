@@ -56,6 +56,11 @@ export async function signInAsPaid(page: Page) {
   await signInAs(page, { id: "e2e-paid", email: "paid@example.com" });
 }
 
+/** Signs in as a student verified by a school email (D144). */
+export async function signInAsStudent(page: Page) {
+  await signInAs(page, { id: "e2e-student", email: "amy@ntu.edu.tw" });
+}
+
 /**
  * Signs in as an account of its own for the payment flow (D85), so its
  * paid plan never changes what other tests see.

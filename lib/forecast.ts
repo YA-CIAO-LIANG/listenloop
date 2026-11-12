@@ -46,6 +46,8 @@ export type ForecastResult = {
 const MINUTES = {
   plus: PLANS.paid.minutesPerMonth ?? 0,
   pro: PLANS.pro.minutesPerMonth ?? 0,
+  // Plus at a student price (D144).
+  student: PLANS.paid.minutesPerMonth ?? 0,
 };
 
 export function defaultForecastInput(aiPerMinute: number): ForecastInput {
@@ -57,13 +59,16 @@ export function defaultForecastInput(aiPerMinute: number): ForecastInput {
       ]),
     ) as Record<PaidPlan, Record<BillingPeriod, T>>;
   return {
-    subscribers: grid((plan, period) =>
-      plan === "plus"
-        ? { month: 30, year: 60 }[period]
-        : { month: 5, year: 12 }[period],
+    subscribers: grid(
+      (plan, period) =>
+        ({
+          plus: { month: 30, year: 60 },
+          pro: { month: 5, year: 12 },
+          student: { month: 10, year: 10 },
+        })[plan][period],
     ),
     prices: grid((plan, period) => PLAN_PRICES[plan][period].amount),
-    usage: { plus: 0.4, pro: 0.4 },
+    usage: { plus: 0.4, pro: 0.4, student: 0.4 },
     aiPerMinute,
     feeRate: 0.028,
     feeFixed: 0,

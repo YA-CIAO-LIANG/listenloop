@@ -6,6 +6,7 @@ import { PricingPlans } from "@/components/PricingPlans";
 import { isIntentSource } from "@/lib/intent";
 import { isBillingPeriod, isPaidPlan } from "@/lib/payments/pricing";
 import { planFor } from "@/lib/plans";
+import { studentStatus } from "@/lib/student";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("pricing");
@@ -49,6 +50,7 @@ export default async function PricingPage({
           joined={joined}
           source={source}
           open={open}
+          student={user ? studentStatus(user.studentVerifiedAt) : null}
         />
       </div>
     </main>

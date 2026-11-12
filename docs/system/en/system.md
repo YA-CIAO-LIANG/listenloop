@@ -674,6 +674,7 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 | Classes (create, assign, reports)    | Join a class                | Join a class                       | Join a class                         | 40 students                                   | 100      |
 
 - The account plan is `profiles.plan` (`free` / `paid` / `pro`); the class plan is `profiles.classroom_seats`.
+- The student plan (D144): the same as Plus at NT$90 / NT$990 (`lib/payments/pricing.ts`). School email domains are in `lib/student.ts`; signing in with one makes `/auth/callback` write `profiles.student_verified_at`, good for a year. A fake door for now: subscribing only records interest (`intent_events`, `waitlist.plan = 'student'`).
 - Code asks only `can(plan, action)`; changing a plan means editing `PLANS` (D54).
 
 ### 7.2 Counting allowances
