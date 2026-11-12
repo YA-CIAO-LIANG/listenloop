@@ -6,6 +6,8 @@ import { ConnectionTest } from "@/components/ConnectionTest";
 import { diagnoseCreator, getAdminUser } from "@/auth/creator";
 import { getUsageSettings } from "@/auth/usage-settings";
 import { UsageSettingsForm } from "@/components/UsageSettingsForm";
+import { toMicros } from "@/lib/ai/pricing";
+import { EVAL_BUDGET_USD } from "@/lib/evals/config";
 import { DAILY_LIMITS, DEFAULT_USAGE_SETTINGS } from "@/lib/usage";
 import {
   AZURE_CREDIT,
@@ -45,7 +47,7 @@ export default async function UsagePage() {
   ]);
   const diagnosis = diagnoseCreator(user);
   const { dayStart, monthStart } = usagePeriodStarts(new Date());
-  const [{ data: totalsRows }, { data: calls }] = admin
+  const [{ data: totalsRows }, { data: calls }, { data: evalCalls }] = admin
     ? await Promise.all([
         admin.rpc("api_usage_totals", {
           month_start: monthStart,
@@ -58,8 +60,14 @@ export default async function UsagePage() {
           )
           .order("created_at", { ascending: false })
           .limit(RECENT_CALLS),
+        // The AI eval's recordings this month (D150).
+        admin
+          .from("api_calls")
+          .select("cost_micros")
+          .like("operation", "eval:%")
+          .gte("created_at", monthStart),
       ])
-    : [{ data: null }, { data: null }];
+    : [{ data: null }, { data: null }, { data: null }];
   const settings = admin
     ? await getUsageSettings(admin)
     : DEFAULT_USAGE_SETTINGS;
@@ -117,6 +125,16 @@ export default async function UsagePage() {
         free: count(AZURE_SPEECH_FREE_CHARS),
       }),
       note: t("speechNote", { limit: count(DAILY_LIMITS.speech) }),
+    },
+    {
+      label: t("eval"),
+      value: usd(
+        (evalCalls ?? []).reduce((sum, call) => sum + call.cost_micros, 0),
+      ),
+      note: t("evalNote", {
+        calls: evalCalls?.length ?? 0,
+        cap: usd(toMicros(EVAL_BUDGET_USD)),
+      }),
     },
   ];
 

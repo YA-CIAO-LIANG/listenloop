@@ -15,3 +15,8 @@ app/backgrounds.css
 
 # Local logs and QA output (git-ignored on this machine)
 .local/
+
+# Written by npm run eval and eval:record (D150); eval:check compares them
+evals/baseline.json
+evals/report.md
+tests/fixtures/eval/

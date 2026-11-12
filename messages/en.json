@@ -1181,6 +1181,8 @@
     "speech": "Azure speech characters this month",
     "speechValue": "{used} / {free}",
     "speechNote": "Free F0 tier: it stops past this, never charges; limit {limit} characters per person a day",
+    "eval": "AI eval (this month)",
+    "evalNote": "{calls} golden-set recordings; at most {cap} a run",
     "recentTitle": "Latest {count} calls",
     "noCalls": "No calls yet.",
     "columns": {

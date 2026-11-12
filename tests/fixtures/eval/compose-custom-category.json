@@ -1,0 +1,154 @@
+{
+  "requestHash": "4578d29e717b9aff",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width.\ncustomCategory (in any language) is the subject area the learner chose; keep the text within it.\ncustomScenario (in any language) is the main situation: write that situation, using the scenario, if any, only as its setting."
+      },
+      {
+        "role": "user",
+        "content": "{\"topic\":\"\",\"scenario\":\"\",\"customCategory\":\"醫療\",\"customScenario\":\"向藥師詢問感冒藥的吃法\",\"level\":\"CEFR A2: short sentences, the most common words\",\"words\":80,\"format\":\"dialogue\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "composition",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "titleZh": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "lines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "title",
+            "titleZh",
+            "subtitle",
+            "lines"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 460,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"title\":\"Asking About Cold Medicine\",\"titleZh\":\"詢問感冒藥的吃法\",\"subtitle\":\"你會聽到顧客向藥師問用藥方式。\",\"lines\":[\"Hello, I have a cold and need some medicine.\",\"Can you tell me your symptoms and how long they have lasted?\",\"I have a runny nose, a sore throat, and a mild fever for two days.\",\"Do you have any allergies or usual medicines you take?\",\"No, I am not allergic to anything and I take no regular medicine.\",\"I recommend a tablet for fever and a syrup for your throat.\",\"How often should I take the tablet and the syrup?\",\"Take one tablet every six hours as needed, but do not take more than four tablets in 24 hours.\",\"For the syrup, take two teaspoons every eight hours after meals.\",\"Are there any side effects I should watch for?\",\"You might feel drowsy from the tablet, so do not drive if you feel sleepy.\",\"Can I drink alcohol while taking these medicines?\",\"It is better to avoid alcohol while taking the tablet, because it can increase drowsiness.\",\"How long until I should feel better?\",\"You should feel relief in two to three days, but finish the full course of syrup.\",\"What if my fever stays high or gets worse?\",\"If your fever is higher than 38.5°C or does not improve in three days, see a doctor.\"]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497240,
+    "id": "chatcmpl-EjQzoAXEay2FEynH0OPHkLUob2QZx",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261103051020-05b5f4fd-default-r2-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 310,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 22,
+        "engine_ttlt_ms": 2290,
+        "pre_inference_ms": 103,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 579,
+        "service_ttlt_ms": 2906,
+        "user_visible_ttft_ms": 476
+      },
+      "prompt_tokens": 410,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 720
+    }
+  }
+}

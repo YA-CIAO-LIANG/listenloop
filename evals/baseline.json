@@ -1,0 +1,286 @@
+{
+  "version": "d91cfb0f7c89",
+  "judgeVersion": 1,
+  "model": "gpt-5-mini",
+  "total": 92.06,
+  "byOperation": {
+    "segment": 79.17,
+    "translate": 97.5,
+    "annotate": 92.62,
+    "compose": 90.4,
+    "describe": 100,
+    "revise": 93.33
+  },
+  "cases": [
+    {
+      "id": "segment-abbreviations",
+      "score": 100,
+      "requestHash": "acc886492599e032"
+    },
+    {
+      "id": "segment-numbers",
+      "score": 100,
+      "requestHash": "1d4929d0e4af2948"
+    },
+    {
+      "id": "segment-quote",
+      "score": 100,
+      "requestHash": "a8432d06c1e999d2"
+    },
+    {
+      "id": "segment-long",
+      "score": 33.33,
+      "requestHash": "376140897e3713b3"
+    },
+    {
+      "id": "segment-lines",
+      "score": 100,
+      "requestHash": "62d43c0c24d3b57d"
+    },
+    {
+      "id": "segment-percent",
+      "score": 100,
+      "requestHash": "ddcf7bcfab521277"
+    },
+    {
+      "id": "segment-zh",
+      "score": 50,
+      "requestHash": "4e34ef6d4a056497"
+    },
+    {
+      "id": "segment-zh-long",
+      "score": 50,
+      "requestHash": "fc465b3091124389"
+    },
+    {
+      "id": "translate-platform",
+      "score": 100,
+      "requestHash": "60b4d84b8d596da4:eb55fddc540fc4bb"
+    },
+    {
+      "id": "translate-names",
+      "score": 100,
+      "requestHash": "1d39485258097d72:83d261d8c08cfa46"
+    },
+    {
+      "id": "translate-full-name",
+      "score": 100,
+      "requestHash": "ad5ec34f4c3a66ad:f6c91fceeb049e82"
+    },
+    {
+      "id": "translate-software-video",
+      "score": 100,
+      "requestHash": "3136e12d764b90d0:93f83411be493e7b"
+    },
+    {
+      "id": "translate-taxi",
+      "score": 90,
+      "requestHash": "4d9926e56e7f9f36:19ca77be6e4d495e"
+    },
+    {
+      "id": "translate-places",
+      "score": 90,
+      "requestHash": "bef61541024a7947:2359f61fc1d7c2a5"
+    },
+    {
+      "id": "translate-seat",
+      "score": 100,
+      "requestHash": "c01dd109e6621df8:c69d20bf999e0aa1"
+    },
+    {
+      "id": "translate-money",
+      "score": 90,
+      "requestHash": "9584dd67ad9ce493:6bbc560d870e1ac7"
+    },
+    {
+      "id": "translate-idiom",
+      "score": 100,
+      "requestHash": "66b1c95ac679fc24:c2815be06362d984"
+    },
+    {
+      "id": "translate-print",
+      "score": 100,
+      "requestHash": "f92a3ebdb8aa6e8a:8ee52447bbb6b889"
+    },
+    {
+      "id": "translate-zh-en-time",
+      "score": 100,
+      "requestHash": "eb0161c15c6cc7ef:be3dc86699acc36f"
+    },
+    {
+      "id": "translate-zh-en-name",
+      "score": 100,
+      "requestHash": "988443712dc53d24:19356f8029d78e69"
+    },
+    {
+      "id": "annotate-long",
+      "score": 81.43,
+      "requestHash": "a52d2672e7499e80:71b3f8bfe45020ca"
+    },
+    {
+      "id": "annotate-phrasal-verb",
+      "score": 100,
+      "requestHash": "913dfebd5db2c3d2:aa89ee7f0b4329ce"
+    },
+    {
+      "id": "annotate-idiom",
+      "score": 100,
+      "requestHash": "a1dbb30bd0debf0a:65133a7882264906"
+    },
+    {
+      "id": "annotate-easy",
+      "score": 90,
+      "requestHash": "46099965f35ba986:b72e27a4eb487dc5"
+    },
+    {
+      "id": "annotate-would-rather",
+      "score": 100,
+      "requestHash": "5937b604741ecb0e:0441982101da070f"
+    },
+    {
+      "id": "annotate-numbers",
+      "score": 90,
+      "requestHash": "73a343269f76eef2:54599a0e37927ee1"
+    },
+    {
+      "id": "annotate-two-sentences",
+      "score": 100,
+      "requestHash": "c5ee90baa0dfffbf:1c5b8aac91c22ec9"
+    },
+    {
+      "id": "annotate-business",
+      "score": 100,
+      "requestHash": "90b121eb6c9faded:9cd04d0de6f7ecdf"
+    },
+    {
+      "id": "connected-going-to-place",
+      "score": 100,
+      "requestHash": "4767fae05e3f3225:2cea5868624b8210"
+    },
+    {
+      "id": "connected-want-to-verb",
+      "score": 100,
+      "requestHash": "5695c30bd6a6d468:f31529bd7516b3b0"
+    },
+    {
+      "id": "connected-linking",
+      "score": 80,
+      "requestHash": "39e6b7fa285c2e04:3ea497212ee9292e"
+    },
+    {
+      "id": "connected-want-two",
+      "score": 70,
+      "requestHash": "bef64e5f5c8ab969:b4b0da596b9258cc"
+    },
+    {
+      "id": "compose-coffee-beginner",
+      "score": 100,
+      "requestHash": "9680bb90d6fb22ca:4856f8db4ebaf9c8"
+    },
+    {
+      "id": "compose-club-fair",
+      "score": 91.43,
+      "requestHash": "3a735cef16b98004:9a30f97a626694ab"
+    },
+    {
+      "id": "compose-schedule-advanced",
+      "score": 91.43,
+      "requestHash": "038ec83e78e25ddc:a502f75fedf3c516"
+    },
+    {
+      "id": "compose-title-en",
+      "score": 75,
+      "requestHash": "2cddea746a722f2c:6fdd588ce1b4b6d6"
+    },
+    {
+      "id": "compose-title-zh",
+      "score": 100,
+      "requestHash": "ae8c61989697d321:42f32eaf467562fc"
+    },
+    {
+      "id": "compose-custom-scenario",
+      "score": 91.43,
+      "requestHash": "121de2d2b0d9407f:0a94389a116af78a"
+    },
+    {
+      "id": "compose-custom-category",
+      "score": 81.43,
+      "requestHash": "4578d29e717b9aff:ac2906ff6de03aa3"
+    },
+    {
+      "id": "compose-keywords",
+      "score": 92.5,
+      "requestHash": "0d249033267797a1:4eccedc9a06df6f2"
+    },
+    {
+      "id": "describe-coffee",
+      "score": 100,
+      "requestHash": "5308cbb5ddef29d2:454bbaafe7e0b408"
+    },
+    {
+      "id": "describe-platform",
+      "score": 100,
+      "requestHash": "ffa660d1862331c5:baad1c060752f451"
+    },
+    {
+      "id": "describe-title-zh",
+      "score": 100,
+      "requestHash": "9fc30877dcae8c96:626960909b6e8ce2"
+    },
+    {
+      "id": "describe-announcement",
+      "score": 100,
+      "requestHash": "56ce07eabe8ce38c:9c124675b1cb27c7"
+    },
+    {
+      "id": "revise-horror",
+      "score": 100,
+      "requestHash": "fec7c6a0912cc86c:ddcea860672dfbca"
+    },
+    {
+      "id": "revise-funny",
+      "score": 100,
+      "requestHash": "6dedc3fa4e813f81:48fa4391c2b2ab80"
+    },
+    {
+      "id": "revise-formal",
+      "score": 100,
+      "requestHash": "41ec87efc69a0744:661c973986d59745"
+    },
+    {
+      "id": "revise-fewer",
+      "score": 100,
+      "requestHash": "04b748108297ed4f"
+    },
+    {
+      "id": "revise-more",
+      "score": 100,
+      "requestHash": "1ef133fee8b5214d:717d8bb710415be5"
+    },
+    {
+      "id": "revise-simpler",
+      "score": 100,
+      "requestHash": "37b957c76f073dfa:d43c673151e092c3"
+    },
+    {
+      "id": "revise-past-tense",
+      "score": 100,
+      "requestHash": "74828688b35b790f:976daa161d231fca"
+    },
+    {
+      "id": "revise-refuse-real-person",
+      "score": 100,
+      "requestHash": "e321f1240195b36f"
+    },
+    {
+      "id": "revise-refuse-unrelated",
+      "score": 33.33,
+      "requestHash": "30530743645989ca"
+    },
+    {
+      "id": "revise-unchanged",
+      "score": 100,
+      "requestHash": "150dbca066ec6ecf"
+    }
+  ]
+}

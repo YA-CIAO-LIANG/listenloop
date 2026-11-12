@@ -1,0 +1,142 @@
+{
+  "requestHash": "1d39485258097d72",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate each English line into Traditional Chinese as written in Taiwan (臺灣用語).\nThe lines are sentences of one text that a Taiwanese student will use to practice English listening.\nTranslate every line on its own, in order, one translation per line; never merge, split, or skip lines.\nKeep the meaning and tone. Write natural, everyday language, not word-for-word.\nUse Taiwanese usage and full-width punctuation, but half-width digits and Latin letters (4號月台, B車廂), never full-width ones.\nKeep people's names in English exactly as in the original (Alex, Mei, Jamie Lin), the same way in every line; a well-known place keeps its usual Chinese name (Taipei → 台北)."
+      },
+      {
+        "role": "user",
+        "content": "{\"lines\":[\"Mei is waiting for Alex at the bus stop.\",\"Alex is late again, so Mei calls him.\",\"Mei tells Alex the bus is coming.\"]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "translations",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "translations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "translations"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 365,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"translations\":[\"Mei 在公車站等 Alex。\",\"Alex 又遲到了，所以 Mei 打電話給他。\",\"Mei 跟 Alex 說公車要來了。\"]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497075,
+    "id": "chatcmpl-EjQx9aTwLkbLM5VQrJeVMqrHnS6HZ",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261108064603-a07db6e4-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 53,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 32,
+        "engine_ttlt_ms": 518,
+        "pre_inference_ms": 86,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 1050,
+        "service_ttlt_ms": 1532,
+        "user_visible_ttft_ms": 965
+      },
+      "prompt_tokens": 223,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 276
+    }
+  }
+}

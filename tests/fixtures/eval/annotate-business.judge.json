@@ -1,0 +1,150 @@
+{
+  "requestHash": "9cd04d0de6f7ecdf",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"annotate\",\"input\":{\"sentences\":[\"We need to postpone the meeting until the client confirms the budget.\"]},\"output\":{\"notes\":[{\"v\":2,\"difficulty\":\"medium\",\"highlights\":[{\"text\":\"postpone the meeting\",\"note\":\"常用片語，表示把會議延後。\"},{\"text\":\"confirms the budget\",\"note\":\"實務用語，表示客戶確認預算。\"}],\"vocab\":[{\"term\":\"postpone\",\"inSentence\":\"postpone the meeting\",\"kind\":\"word\",\"pos\":\"v.\",\"zh\":\"延後，推遲\",\"ipa\":\"/poʊstˈpoʊn/\",\"collocations\":[\"postpone a meeting\",\"postpone indefinitely\",\"postpone until\"],\"examples\":[{\"en\":\"They decided to postpone the trip.\",\"zh\":\"他們決定把旅行延後。\"}]},{\"term\":\"client\",\"inSentence\":\"the client\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"客戶\",\"ipa\":\"/ˈklaɪənt/\",\"collocations\":[\"client meeting\",\"client request\",\"client feedback\"],\"examples\":[{\"en\":\"The client approved the design.\",\"zh\":\"客戶批准了設計。\"}]},{\"term\":\"budget\",\"inSentence\":\"the budget\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"預算\",\"ipa\":\"/ˈbʌdʒɪt/\",\"collocations\":[\"set a budget\",\"budget constraints\",\"approve the budget\"],\"examples\":[{\"en\":\"We must stick to the budget.\",\"zh\":\"我們必須遵守預算。\"}]}],\"grammar\":[{\"point\":\"until + clause\",\"quote\":\"until the client confirms the budget\",\"explanation\":\"表示一個動作會持續到另一件事發生為止。這裡意指會議會被延後，直到客戶確認預算。\",\"examples\":[{\"en\":\"I will wait until she arrives.\",\"zh\":\"我會等到她到達。\"}],\"pitfall\":\"別用現在進行代替，常錯說成 'until the client is confirming'。\"}],\"chunks\":[],\"connected\":[{\"text\":\"to postpone\",\"soundsLike\":\"tə postpone\",\"note\":\"'to' 在快語速中常弱讀成 /tə/，聽起來像 'tə postpone'。\"},{\"text\":\"confirms the\",\"soundsLike\":\"confirms thə\",\"note\":\"'the' 在此為弱讀 /ðə/，聽起來像 'thə'。\"}]}],\"rawChars\":[856]},\"criteria\":\"單字的詞性、中文意思、音標正確；文法說明正確且適合 B1 學生；例句自然；中文解釋清楚、不冗長。有任何錯誤的講解最多 2 分。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":5,\"reason\":\"單字詞性、中文意思與音標都正確；文法說明（until + clause）適合 B1 並指出常見錯誤；例句自然且中文解釋簡潔明瞭。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497183,
+    "id": "chatcmpl-EjQytvFktFP6LaUvA3fEH45Amjtfr",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261108081702-b6bbe11a-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 70,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 40,
+        "engine_ttlt_ms": 701,
+        "pre_inference_ms": 86,
+        "service_tbt_ms": 9,
+        "service_ttft_ms": 685,
+        "service_ttlt_ms": 1368,
+        "user_visible_ttft_ms": 599
+      },
+      "prompt_tokens": 818,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 888
+    }
+  }
+}

@@ -1181,6 +1181,8 @@
     "speech": "本月 Azure 聲音字元",
     "speechValue": "{used}／{free}",
     "speechNote": "F0 免費方案，超過就停止，不會收費；每人每天上限 {limit} 字元",
+    "eval": "AI eval（本月）",
+    "evalNote": "錄製黃金測試集 {calls} 次；每次執行上限 {cap}",
     "recentTitle": "最近 {count} 次呼叫",
     "noCalls": "還沒有任何呼叫。",
     "columns": {

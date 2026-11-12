@@ -1,0 +1,350 @@
+{
+  "requestHash": "a52d2672e7499e80",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write study notes for Taiwanese students (high school or university, around CEFR B1) practicing English listening with these sentences. Write every Chinese text in Traditional Chinese as used in Taiwan.\nReturn one entry per sentence, with its 0-based index.\ndifficulty: easy, medium, or hard, judged for a B1 listener by length, number of clauses, vocabulary level, and connected speech (linking, weak forms, reductions).\nhighlights: 1 or 2 key words or phrases most worth learning, copied exactly as they appear in the sentence, each with a short Chinese note on why.\nvocab: easy 1-2 items, medium or hard up to 3 (words, phrasal verbs, phrases, or idioms worth learning; skip very basic words). For each: term as best learned (base form for verbs), inSentence (the words exactly as in the sentence), kind (word, phrase, idiom), pos (n., v., adj., adv., prep., phr., idiom…), zh (short meaning), ipa (American IPA in slashes, e.g. /ˈɡɑːrdn/; empty for long idioms), collocations (0-3 common collocations), examples (1 NEW short sentence, not the original, each with zh).\ngrammar: none for easy; medium 0-1, hard 0-2, only patterns worth teaching. For each: point (short English form, e.g. \"would rather + V\"), quote (the words in the sentence that show it, copied exactly), explanation (1-2 Chinese sentences), examples (1 NEW sentence with zh), pitfall (one common mistake learners make, in Chinese).\nchunks: only for hard sentences, else empty. Split the sentence into 2-6 meaning groups in order, covering every word exactly once, copied exactly; role is main (main clause), subordinate (subordinate clause), modifier (phrase that modifies), or connector (linking word); zh translates that group alone.\nconnected: none for easy; for medium and hard, 0-3 places hard to catch by ear (e.g. want to → wanna and going to → gonna only before a verb, never before a place or noun such as \"going to the library\"; did you → didja; a final consonant linked to the next vowel; weak forms of and/to/of/the). Describe only what really happens in this sentence. text is copied exactly from the sentence, soundsLike shows how it sounds (e.g. \"wanna\", \"tur-nit-off\"), note explains in Chinese.\nDo not repeat a word or grammar point across sentences. Keep notes short: about 900 characters at most for one sentence's notes in total, so prefer one example and two collocations.\nIn Chinese text, write digits and Latin letters half-width (4號月台), never full-width, and keep people's names in English as in the sentence."
+      },
+      {
+        "role": "user",
+        "content": "{\"sentences\":[{\"index\":0,\"en\":\"Although the professor had explained the assignment twice, several students who had missed the first lecture still weren't sure whether they were supposed to submit a draft by Friday.\"}]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "notes",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "sentences": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "index": {
+                    "type": "integer"
+                  },
+                  "difficulty": {
+                    "type": "string",
+                    "enum": [
+                      "easy",
+                      "medium",
+                      "hard"
+                    ]
+                  },
+                  "highlights": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "vocab": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "term": {
+                          "type": "string"
+                        },
+                        "inSentence": {
+                          "type": "string"
+                        },
+                        "kind": {
+                          "type": "string",
+                          "enum": [
+                            "word",
+                            "phrase",
+                            "idiom"
+                          ]
+                        },
+                        "pos": {
+                          "type": "string"
+                        },
+                        "zh": {
+                          "type": "string"
+                        },
+                        "ipa": {
+                          "type": "string"
+                        },
+                        "collocations": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "term",
+                        "inSentence",
+                        "kind",
+                        "pos",
+                        "zh",
+                        "ipa",
+                        "collocations",
+                        "examples"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "grammar": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "point": {
+                          "type": "string"
+                        },
+                        "quote": {
+                          "type": "string"
+                        },
+                        "explanation": {
+                          "type": "string"
+                        },
+                        "examples": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "en": {
+                                "type": "string"
+                              },
+                              "zh": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "en",
+                              "zh"
+                            ],
+                            "additionalProperties": false
+                          }
+                        },
+                        "pitfall": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "point",
+                        "quote",
+                        "explanation",
+                        "examples",
+                        "pitfall"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "chunks": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "role": {
+                          "type": "string",
+                          "enum": [
+                            "main",
+                            "subordinate",
+                            "modifier",
+                            "connector"
+                          ]
+                        },
+                        "zh": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "role",
+                        "zh"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "connected": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "text": {
+                          "type": "string"
+                        },
+                        "soundsLike": {
+                          "type": "string"
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "text",
+                        "soundsLike",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    }
+                  }
+                },
+                "required": [
+                  "index",
+                  "difficulty",
+                  "highlights",
+                  "vocab",
+                  "grammar",
+                  "chunks",
+                  "connected"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "sentences"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 1600,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\n  \"sentences\": [\n    {\n      \"index\": 0,\n      \"difficulty\": \"hard\",\n      \"highlights\": [\n        {\n          \"text\": \"had missed the first lecture\",\n          \"note\": \"過去完成表示在另一事件（解釋）之前就已經發生的動作\"\n        },\n        {\n          \"text\": \"weren't sure whether they were supposed to submit a draft by Friday\",\n          \"note\": \"表示不確定（被期待要做的事）和截止時間\"\n        }\n      ],\n      \"vocab\": [\n        {\n          \"term\": \"assignment\",\n          \"inSentence\": \"assignment\",\n          \"kind\": \"word\",\n          \"pos\": \"n.\",\n          \"zh\": \"作業；指定的任務\",\n          \"ipa\": \"/əˈsaɪnmənt/\",\n          \"collocations\": [\n            \"homework assignment\",\n            \"complete an assignment\"\n          ]\n        ,\n          \"examples\": [\n            {\n              \"en\": \"She turned in the assignment on time.\",\n              \"zh\": \"她準時交了作業。\"\n            }\n          ]\n        },\n        {\n          \"term\": \"draft\",\n          \"inSentence\": \"draft\",\n          \"kind\": \"word\",\n          \"pos\": \"n.\",\n          \"zh\": \"草稿、初稿\",\n          \"ipa\": \"/dræft/\",\n          \"collocations\": [\n            \"first draft\",\n            \"revise a draft\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"Please send me the draft before we meet.\",\n              \"zh\": \"請在開會前把草稿寄給我。\"\n            }\n          ]\n        },\n        {\n          \"term\": \"be supposed to\",\n          \"inSentence\": \"were supposed to submit\",\n          \"kind\": \"phrase\",\n          \"pos\": \"phr.\",\n          \"zh\": \"應該（被期望去做某事）\",\n          \"ipa\": \"/bɪ səˈpoʊzd tu/\",\n          \"collocations\": [\n            \"be supposed to do\",\n            \"supposed to arrive\"\n          ],\n          \"examples\": [\n            {\n              \"en\": \"You're supposed to wear a suit to the interview.\",\n              \"zh\": \"面試時你應該穿西裝。\"\n            }\n          ]\n        }\n      ],\n      \"grammar\": [\n        {\n          \"point\": \"past perfect\",\n          \"quote\": \"had explained / had missed\",\n          \"explanation\": \"past perfect 用來表示在過去另一個時間或事件之前已經發生的動作，這句表示教授在講座前已經解釋過，學生在更早之前就錯過了第一堂課。\",\n          \"examples\": [\n            {\n              \"en\": \"She had left before I arrived.\",\n              \"zh\": \"我到之前她已經離開了。\"\n            }\n          ],\n          \"pitfall\": \"學生常把 past perfect 和 simple past 混用；若有兩個過去動作，要明確用 past perfect 表示較早發生的那個。\"\n        },\n        {\n          \"point\": \"polite uncertainty with 'whether'\",\n          \"quote\": \"weren't sure whether they were supposed to submit\",\n          \"explanation\": \"'whether' 用來引出兩種可能（要不要做），在禮貌或正式寫法中很常見，後面可接從句。\",\n          \"examples\": [\n            {\n              \"en\": \"I don't know whether I should call him.\",\n              \"zh\": \"我不知道是否應該打給他。\"\n            }\n          ],\n          \"pitfall\": \"不要用 'if' 在正式寫作中替換 'whether'（某些情況下可用，但 'whether' 更清楚）。\"\n        }\n      ],\n      \"chunks\": [\n        {\n          \"text\": \"Although the professor\",\n          \"role\": \"connector\",\n          \"zh\": \"雖然教授\"\n        },\n        {\n          \"text\": \"had explained the assignment twice,\",\n          \"role\": \"main\",\n          \"zh\": \"已經解釋過那份作業兩次，\"\n        },\n        {\n          \"text\": \"several students\",\n          \"role\": \"main\",\n          \"zh\": \"幾位學生\"\n        },\n        {\n          \"text\": \"who had missed the first lecture\",\n          \"role\": \"subordinate\",\n          \"zh\": \"（那些）錯過第一堂課的\"\n        },\n        {\n          \"text\": \"still weren't sure\",\n          \"role\": \"main\",\n          \"zh\": \"仍然不確定\"\n        },\n        {\n          \"text\": \"whether they were supposed to submit a draft by Friday.\",\n          \"role\": \"subordinate\",\n          \"zh\": \"是否應該在星期五之前提交一份草稿。\"\n        }\n      ],\n      \"connected\": [\n        {\n          \"text\": \"had explained the\",\n          \"soundsLike\": \"hæd ɪkˈspleɪnd ðə\",\n          \"note\": \"'the' 在連讀中常弱讀為 /ðə/，且 past tense 'explained' 的 /d/ 與下一個 /ð/ 幾乎連在一起，聽起來像一段連續音。\"\n        },\n        {\n          \"text\": \"were supposed to submit\",\n          \"soundsLike\": \"wər səˈpoʊzd tə səbˈmɪt\",\n          \"note\": \"'to' 在口語中常弱讀為 /tə/，連在 submit 前使得整片段快而緊湊，容易聽成 'səˈpoʊzdə'.\"\n        },\n        {\n          \"text\": \"missed the first\",\n          \"soundsLike\": \"mɪst ðə fɝst\",\n          \"note\": \"'t' 往往輕弱，且 'the first' 連讀成一個流暢片段，'the' 弱讀為 /ðə/。\"\n        }\n      ]\n    }\n  ]\n}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497115,
+    "id": "chatcmpl-EjQxnK3qYAsHJrlHYJIOfYsPKmiK0",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261107062543-e4f71741-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 1327,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 44,
+        "engine_ttlt_ms": 9287,
+        "pre_inference_ms": 97,
+        "service_tbt_ms": 7,
+        "service_ttft_ms": 742,
+        "service_ttlt_ms": 9979,
+        "user_visible_ttft_ms": 645
+      },
+      "prompt_tokens": 956,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 2283
+    }
+  }
+}

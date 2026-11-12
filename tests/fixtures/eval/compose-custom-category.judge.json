@@ -1,0 +1,150 @@
+{
+  "requestHash": "ac2906ff6de03aa3",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"\",\"customCategory\":\"醫療\",\"customScenario\":\"向藥師詢問感冒藥的吃法\",\"level\":\"CEFR A2: short sentences, the most common words\",\"words\":80,\"format\":\"dialogue\"},\"output\":{\"text\":{\"title\":\"Asking About Cold Medicine\",\"titleZh\":\"詢問感冒藥的吃法\",\"subtitle\":\"你會聽到顧客向藥師問用藥方式。\",\"text\":\"Hello, I have a cold and need some medicine.\\nCan you tell me your symptoms and how long they have lasted?\\nI have a runny nose, a sore throat, and a mild fever for two days.\\nDo you have any allergies or usual medicines you take?\\nNo, I am not allergic to anything and I take no regular medicine.\\nI recommend a tablet for fever and a syrup for your throat.\\nHow often should I take the tablet and the syrup?\\nTake one tablet every six hours as needed, but do not take more than four tablets in 24 hours.\\nFor the syrup, take two teaspoons every eight hours after meals.\\nAre there any side effects I should watch for?\\nYou might feel drowsy from the tablet, so do not drive if you feel sleepy.\\nCan I drink alcohol while taking these medicines?\\nIt is better to avoid alcohol while taking the tablet, because it can increase drowsiness.\\nHow long until I should feel better?\\nYou should feel relief in two to three days, but finish the full course of syrup.\\nWhat if my fever stays high or gets worse?\\nIf your fever is higher than 38.5°C or does not improve in three days, see a doctor.\"}},\"criteria\":\"內容符合情境（向藥師詢問感冒藥怎麼吃；用藥說明不可危險），程度符合 初級 A2，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":4,\"reason\":\"對話內容貼近情境且用語簡單，符合A2程度；中文標題與副標也通順。不過有小處需修正：藥量與間隔說明合理但未標示具體藥物成分或警告孕婦/兒童用藥，可能造成用藥安全風險，教師會補充。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497243,
+    "id": "chatcmpl-EjQzrjQfRHKGsBNkDrjmTODfG1KkC",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261106080815-120ca4d6-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 103,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 27,
+        "engine_ttlt_ms": 691,
+        "pre_inference_ms": 87,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 855,
+        "service_ttlt_ms": 1536,
+        "user_visible_ttft_ms": 768
+      },
+      "prompt_tokens": 658,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 761
+    }
+  }
+}

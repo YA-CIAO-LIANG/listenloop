@@ -1,0 +1,142 @@
+{
+  "requestHash": "988443712dc53d24",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Translate each Traditional Chinese as written in Taiwan (臺灣用語) line into English.\nThe lines are sentences of one text that a Taiwanese student will use to practice English listening.\nTranslate every line on its own, in order, one translation per line; never merge, split, or skip lines.\nKeep the meaning and tone. Write natural, everyday language, not word-for-word.\nUse simple, clear English a learner can dictate: common words, standard spelling, no abbreviations."
+      },
+      {
+        "role": "user",
+        "content": "{\"lines\":[\"小美今天請假，因為她感冒了。\"]}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "translations",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "translations": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "translations"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 221,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"translations\":[\"Xiaomei is off today because she has a cold.\"]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497112,
+    "id": "chatcmpl-EjQxkbcAdhpBr1jnQMxxaBI8Ywhfl",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261108060724-0209ad43-default-r2-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 30,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 7,
+        "engine_ttft_ms": 23,
+        "engine_ttlt_ms": 286,
+        "pre_inference_ms": 70,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 747,
+        "service_ttlt_ms": 994,
+        "user_visible_ttft_ms": 676
+      },
+      "prompt_tokens": 155,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 185
+    }
+  }
+}

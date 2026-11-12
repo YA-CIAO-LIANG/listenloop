@@ -1,0 +1,150 @@
+{
+  "requestHash": "a502f75fedf3c516",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"compose\",\"input\":{\"topic\":\"\",\"scenario\":\"a manager explaining a change in the work schedule\",\"level\":\"CEFR B2 to C1: natural, varied vocabulary and sentence structure\",\"words\":200,\"format\":\"monologue\"},\"output\":{\"text\":{\"title\":\"Schedule Update for the Team\",\"titleZh\":\"團隊排班調整說明\",\"subtitle\":\"聽一位經理說明工作時間調整細節。\",\"text\":\"Good morning everyone, I have a few important updates about our work schedule.\\nStarting next Monday, we will adopt a staggered start time to reduce peak congestion in the office.\\nMost team members will begin between 8:00 and 9:30, depending on their role and daily tasks.\\nPlease check the new rota on the shared drive to see your assigned start time.\\nWe know this change may affect commute plans, so we asked the HR team to coordinate with local transit options.\\nEach person will still work their full contracted hours, and lunch breaks remain unchanged.\\nOn Wednesdays only, the office will close at 3:00 for team briefings and training sessions.\\nIf you cannot attend a Wednesday session, notify your manager in advance so we can arrange a make-up or provide materials.\\nOvertime will be paid or taken as time off in line with existing company policy.\\nWe are introducing one floating work-from-home day per week for eligible staff to improve flexibility.\\nEligibility details and the application process are explained in the memo attached to the rota.\\nPlease note that critical client meetings will require in-person attendance regardless of your floating day.\\nTeam leaders will revise project timelines to reflect the new schedule and ensure deliverables remain on track.\\nIf a scheduling conflict arises, discuss alternatives with your supervisor as early as possible.\\nWe will review the impact of these changes after eight weeks and welcome your feedback.\\nSend any questions or concerns to the scheduling inbox so we can address them efficiently.\\nThank you for your cooperation as we try to create a more balanced and productive work environment.\\nI appreciate your patience while we implement these adjustments and ensure a smooth transition.\"}},\"criteria\":\"內容符合情境（主管說明班表變動），程度符合 高級 B2～C1，英文自然正確、適合學生；中文標題與副標正確通順。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":5,\"reason\":\"內容完整、符合主管說明班表變動的情境；語言達到 B2–C1 水準，句型自然多樣且文法正確；中文標題與副標也通順恰當，可直接給學生使用。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497220,
+    "id": "chatcmpl-EjQzUyPzju4Kd0FwX5bS9A6bJJz7j",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261106080815-120ca4d6-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 76,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 27,
+        "engine_ttlt_ms": 509,
+        "pre_inference_ms": 84,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 893,
+        "service_ttlt_ms": 1369,
+        "user_visible_ttft_ms": 809
+      },
+      "prompt_tokens": 714,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 790
+    }
+  }
+}

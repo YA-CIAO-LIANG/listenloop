@@ -1,0 +1,150 @@
+{
+  "requestHash": "ddcea860672dfbca",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"revise\",\"input\":{\"lines\":[\"After school, I walked home through the park.\",\"The sun was going down, and the air was cool.\",\"I stopped at a small shop to buy a hot drink.\",\"The owner smiled and asked about my day.\",\"I told her I had a big test tomorrow.\",\"She said I would do fine if I got some sleep.\",\"I went home, studied a little, and went to bed early.\"],\"instruction\":\"改成恐怖風\",\"format\":\"monologue\"},\"output\":{\"revision\":{\"status\":\"changed\",\"lines\":[\"After school, I walked home through the park.\",\"The sun was going down, and the air felt colder than before.\",\"I stopped at a small shop to buy a hot drink.\",\"The owner smiled, but her eyes seemed to watch me too long.\",\"I told her I had a big test tomorrow, and my voice sounded small.\",\"She said I would do fine if I got some sleep, but her words echoed oddly.\",\"I went home, studied a little, and then I heard a soft scratching at my window.\",\"I got into bed early, but the house was not as quiet as I expected.\"]}},\"criteria\":\"整篇明顯改成恐怖、懸疑的風格，每個部分都讀得出這個風格；保持原本的基本情境與相近的英文程度；英文自然正確，適合青少年。不可以有血腥或暴力細節。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":5,\"reason\":\"整體明顯轉為恐怖懸疑風格，每句都有詭異氛圍但保留原情境與語言程度，英文自然正確且沒有血腥或暴力細節，適合青少年。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497267,
+    "id": "chatcmpl-EjR0FNlUPK68xBn3N4kIGEzJpDBuh",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261108081702-b6bbe11a-default-r0-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 75,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 9,
+        "engine_ttft_ms": 43,
+        "engine_ttlt_ms": 780,
+        "pre_inference_ms": 165,
+        "service_tbt_ms": 9,
+        "service_ttft_ms": 765,
+        "service_ttlt_ms": 1483,
+        "user_visible_ttft_ms": 600
+      },
+      "prompt_tokens": 533,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 608
+    }
+  }
+}

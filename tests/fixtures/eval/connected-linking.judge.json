@@ -1,0 +1,150 @@
+{
+  "requestHash": "3ea497212ee9292e",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You grade the output of one AI step in an English listening course for Taiwanese students (high school or university, around CEFR B1).\nYou get: the step, its input, the output after the app's own checks, and the criteria to grade by (in Traditional Chinese).\nGrade only by the criteria. Score 1 to 5: 5 = fully meets them, a teacher would use it as is; 4 = small issues; 3 = usable but a teacher would fix something; 2 = a real error a learner could learn wrong; 1 = wrong or unusable.\nBe strict about facts: a wrong meaning, a wrong grammar explanation, or a sound change that doesn't happen is at most 2.\nGive reason: one or two short sentences in Traditional Chinese (Taiwan usage) naming the most important issue, or what makes it good."
+      },
+      {
+        "role": "user",
+        "content": "{\"operation\":\"annotate\",\"input\":{\"sentences\":[\"Can I have a cup of tea, please?\"]},\"output\":{\"notes\":[{\"v\":2,\"difficulty\":\"easy\",\"highlights\":[{\"text\":\"a cup of tea\",\"note\":\"常用的飲料量詞片語；禮貌點餐或請求時會用。\"},{\"text\":\"please\",\"note\":\"禮貌用語，放句尾表客氣。\"}],\"vocab\":[{\"term\":\"cup\",\"inSentence\":\"a cup\",\"kind\":\"word\",\"pos\":\"n.\",\"zh\":\"杯（容量單位）\",\"ipa\":\"/kʌp/\",\"collocations\":[\"a cup of coffee\",\"cup of tea\"],\"examples\":[{\"en\":\"She drank a cup of coffee.\",\"zh\":\"她喝了一杯咖啡。\"}]},{\"term\":\"please\",\"inSentence\":\"please\",\"kind\":\"word\",\"pos\":\"adv.\",\"zh\":\"請（表示禮貌）\",\"ipa\":\"/pliːz/\",\"collocations\":[\"please help\",\"please come\"],\"examples\":[{\"en\":\"Please sit down.\",\"zh\":\"請坐。\"}]}],\"grammar\":[],\"chunks\":[],\"connected\":[]}],\"rawChars\":[215]},\"criteria\":\"連音說明（如 cup of → cu-pof、of 弱讀、can 弱讀）要正確且真的會發生。\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "grade",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "score": {
+              "type": "integer",
+              "enum": [
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            "reason": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "score",
+            "reason"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 400,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"score\":3,\"reason\":\"說明標出重點詞彙與禮貌用語很實用，但沒有對題目要求的「連音說明」做出正確且具體的說明；若補上 of 的弱讀與 cup of → cu-pəv 之類實際發音變化就可直接使用。\"}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497198,
+    "id": "chatcmpl-EjQz8d39mUElgaqJzoaf96l3qvi5V",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261106080815-120ca4d6-default-r1-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 91,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 6,
+        "engine_ttft_ms": 27,
+        "engine_ttlt_ms": 606,
+        "pre_inference_ms": 101,
+        "service_tbt_ms": 6,
+        "service_ttft_ms": 912,
+        "service_ttlt_ms": 1486,
+        "user_visible_ttft_ms": 811
+      },
+      "prompt_tokens": 515,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 606
+    }
+  }
+}

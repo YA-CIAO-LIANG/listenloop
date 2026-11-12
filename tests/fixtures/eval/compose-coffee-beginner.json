@@ -1,0 +1,154 @@
+{
+  "requestHash": "9680bb90d6fb22ca",
+  "request": {
+    "model": "gpt-5-mini",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You write original English listening practice texts for Taiwanese students (high school or university). Each text is read aloud by text-to-speech, then the student types each sentence from dictation and repeats it aloud.\nWrite natural, spoken English with correct standard spelling. Give the text a short English title.\nReturn the text as lines: one sentence per line for a monologue; for a dialogue, one speaker's turn per line, alternating between two people, with no speaker names or labels.\nKeep each sentence about 5 to 25 words. Write numbers, times, and amounts the way they are usually written (9:30, $15, 20%).\nDo not write about real people, real brands, or real current events; invent names and details. Keep it appropriate for students.\nMatch the requested level, length (in words), and format. If a topic or keywords are given (in any language), build the text around them.\nAlso give titleZh, the title in Traditional Chinese (Taiwan usage), and subtitle, one Traditional Chinese sentence of at most 30 characters saying what the listener will hear.\nIn any Chinese text, write digits and Latin letters half-width (4號月台), never full-width."
+      },
+      {
+        "role": "user",
+        "content": "{\"topic\":\"\",\"scenario\":\"ordering a drink at a coffee shop\",\"level\":\"CEFR A2: short sentences, the most common words\",\"words\":80,\"format\":\"dialogue\"}"
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "composition",
+        "strict": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "titleZh": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "lines": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "title",
+            "titleZh",
+            "subtitle",
+            "lines"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "max_completion_tokens": 460,
+    "reasoning_effort": "minimal"
+  },
+  "response": {
+    "choices": [
+      {
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "protected_material_code": {
+            "detected": false,
+            "filtered": false
+          },
+          "protected_material_text": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        },
+        "finish_reason": "stop",
+        "index": 0,
+        "logprobs": null,
+        "message": {
+          "annotations": [],
+          "content": "{\"title\":\"Ordering a Drink\",\"titleZh\":\"點飲料\",\"subtitle\":\"你將聽到在咖啡店點飲料的對話。\",\"lines\":[\"Hi, can I get a coffee please?\",\"Sure, what size would you like?\",\"Small, please.\",\"Would you like milk or sugar?\",\"Yes, one sugar and a little milk.\",\"Do you want anything to eat with that?\",\"No, just the coffee today.\",\"Okay, that will be $2.50.\",\"Here you go.\",\"Thank you. Your order will be ready soon.\",\"Great, thank you very much.\"]}",
+          "refusal": null,
+          "role": "assistant"
+        }
+      }
+    ],
+    "created": 1794497205,
+    "id": "chatcmpl-EjQzFj8nc2Y1P3bMtZtmVyiRuZtz3",
+    "model": "gpt-5-mini-2025-08-07",
+    "object": "chat.completion",
+    "prompt_filter_results": [
+      {
+        "prompt_index": 0,
+        "content_filter_results": {
+          "hate": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "jailbreak": {
+            "detected": false,
+            "filtered": false
+          },
+          "self_harm": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "sexual": {
+            "filtered": false,
+            "severity": "safe"
+          },
+          "violence": {
+            "filtered": false,
+            "severity": "safe"
+          }
+        }
+      }
+    ],
+    "routing": {
+      "serving_pipereplica": "d20261107070554-b7bd1393-default-r2-dp0-default"
+    },
+    "service_tier": "default",
+    "system_fingerprint": null,
+    "usage": {
+      "completion_tokens": 138,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": 0,
+        "audio_tokens": 0,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": 0
+      },
+      "latency_checkpoint": {
+        "engine_tbt_ms": 8,
+        "engine_ttft_ms": 34,
+        "engine_ttlt_ms": 1183,
+        "pre_inference_ms": 151,
+        "service_tbt_ms": 8,
+        "service_ttft_ms": 699,
+        "service_ttlt_ms": 1843,
+        "user_visible_ttft_ms": 548
+      },
+      "prompt_tokens": 346,
+      "prompt_tokens_details": {
+        "audio_tokens": 0,
+        "cached_tokens": 0
+      },
+      "total_tokens": 484
+    }
+  }
+}
