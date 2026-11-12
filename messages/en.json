@@ -2961,6 +2961,7 @@
     "ruleCount": "{count} sentences, from easy to hard.",
     "ruleReplay": "Each one plays once by itself, and you can replay it.",
     "ruleSound": "Turn your sound on; if you can't catch it all, type what you heard.",
+    "ruleLevel": "How it's scored: you reach a level at {pass}% or more; the result is the highest level reached in a row, from beginner up.",
     "previous": "Last time: {level}",
     "start": "Start the test",
     "progress": "Sentence {n} of {total}",
@@ -2971,7 +2972,7 @@
     "finish": "See my result",
     "resultLabel": "Your suggested level",
     "resultLevel": "{level}",
-    "how": "A level counts as passed at {pass}% or more; the suggestion is the highest one passed.",
+    "how": "You reach a level at {pass}% or more; the suggestion is the highest level reached in a row, from beginner up. The library opens filtered to it (unless you saved a default filter of your own).",
     "startMaterial": "Start the recommended material",
     "browseLevel": "Browse {level} materials",
     "again": "Take it again"

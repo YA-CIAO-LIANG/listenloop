@@ -2549,3 +2549,11 @@
 - **作答後的講解**：從教材自己的講解找這個字（`lib/review-notes.ts`，不呼叫 AI）：先找聽錯那一句的講解，再找整份教材；依序比對「句子裡的形式」（moved）、「原形」（move）、片語裡的單字。顯示詞性、中文、音標（只有第 2 版講解有）、例句與例句翻譯；講解裡沒有這個字時說明「講解裡沒有這個字」。下方顯示「出自《教材》第 N 句」與「去聽原句」連結。
 - **去聽原句**：連到聆聽模式並從那一句開始（`/videos/<id>/listen?s=N`，`ListenSession` 的 `start`）。聆聽模式需要第 1 天完成；錯字都來自已完成的聽寫，所以一定打得開。
 - **要改時**：`components/MisheardReview.tsx`、`components/useWordSound.ts`、`lib/review-notes.ts`、`lib/review.ts`（`REVIEW_LOOP_GAP_MS`）、`app/review/actions.ts`（`loadReviewDetails`）、`app/videos/[id]/quiz/actions.ts`。
+
+## D146 程度測驗：某一級正確率達 60% 就判定為該程度，並作為教材庫的初始程度（2026-11-12，Joe 指定）
+
+- **規則**：每個程度（初級、中級、高級）各聽寫幾句，依字數加權算正確率；**達到 60%**（`LEVEL_PASS`，原本 70%）就算達到那一級。結果是從初級往上**連續**達到的最高一級：中級沒到 60% 時，即使高級到了也判定為初級（跳級多半是猜中，不採用）。一級都沒到時是初級。
+- **說明給使用者**：測驗開始前的規則清單多一行「分級規則」；結果頁列出每一級的正確率（達到的打 ✓）和規則說明。
+- **作為初始分級與推薦**：結果存在這台裝置（`ll-level-test:v1`，登入後跟著帳號，D138）。推薦的第一份教材照舊是該程度的第一份官方教材。**教材庫第一次打開時**，如果使用者沒有存自己的預設篩選、網址也沒有篩選，就先篩選測驗的程度；自己存的預設篩選優先。
+- **Joe 的「集數」**：理解為「級數」（程度的級別），依此實作；若指的是別的（例如每級題數），改 `LEVEL_TEST_PER_LEVEL`。
+- **要改時**：`lib/level-test.ts`（`LEVEL_PASS`、`LEVEL_TEST_PER_LEVEL`）、`components/LevelTest.tsx`、`components/LibraryDefault.tsx`。

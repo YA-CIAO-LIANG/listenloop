@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  LEVEL_PASS,
   LEVEL_TEST_PER_LEVEL,
   parseSavedLevelTest,
   pickLevelTest,
@@ -98,7 +99,34 @@ describe("scoring", () => {
     const result = scoreLevelTest(test, easyOnly);
     expect(result.level).toBe("beginner");
     expect(result.scores.beginner).toBe(1);
-    expect(result.scores.intermediate).toBeLessThan(0.7);
+    expect(result.scores.intermediate).toBeLessThan(LEVEL_PASS);
+  });
+
+  it("reaches a level at 60%, not below (D146)", () => {
+    expect(LEVEL_PASS).toBe(0.6);
+    // Intermediate sentences answered with about 60% of their words.
+    const partly = (en: string, share: number) => {
+      const words = en.split(" ");
+      return words.slice(0, Math.ceil(words.length * share)).join(" ");
+    };
+    const at60 = test.map((t) =>
+      t.level === "beginner"
+        ? t.en
+        : t.level === "intermediate"
+          ? partly(t.en, 0.6)
+          : "",
+    );
+    const reached = scoreLevelTest(test, at60);
+    expect(reached.scores.intermediate).toBeGreaterThanOrEqual(0.6);
+    expect(reached.level).toBe("intermediate");
+    const at40 = test.map((t) =>
+      t.level === "beginner"
+        ? t.en
+        : t.level === "intermediate"
+          ? partly(t.en, 0.4)
+          : "",
+    );
+    expect(scoreLevelTest(test, at40).level).toBe("beginner");
   });
 
   it("stops at the first level not passed", () => {

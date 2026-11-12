@@ -12,6 +12,8 @@ test("the level test suggests a level and a first material", async ({
   await expect(
     page.getByRole("heading", { level: 1, name: "程度測驗" }),
   ).toBeVisible();
+  // The rule is said before starting (D146).
+  await expect(page.getByText(/正確率達到 60% 就算達到那一級/)).toBeVisible();
   await page.getByRole("button", { name: "開始測驗" }).click();
   await expect(page.getByText("第 1 句，共 1 句")).toBeVisible();
   const field = page.getByLabel("你聽到的句子");
@@ -31,4 +33,8 @@ test("the level test suggests a level and a first material", async ({
   // Remembered on this device.
   await page.reload();
   await expect(page.getByText("上次的結果：初級")).toBeVisible();
+
+  // The starting level: the library opens filtered to it (D146).
+  await page.goto("/");
+  await expect(page).toHaveURL(/level=beginner/);
 });
