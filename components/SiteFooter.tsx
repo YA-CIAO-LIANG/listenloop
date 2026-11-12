@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { CookieSettingsButton } from "./AnalyticsConsent";
 import { ThemeToggle } from "./ThemeToggle";
 
 const linkClassName = "tap underline-offset-4 hover:text-ink hover:underline";
@@ -8,7 +9,12 @@ const linkClassName = "tap underline-offset-4 hover:text-ink hover:underline";
  * Bottom of every page (D60): terms, privacy policy, credits, and
  * feedback; public for Google sign-in's and Google Play's review.
  */
-export function SiteFooter() {
+export function SiteFooter({
+  analytics = false,
+}: {
+  /** Clarity is set up (D148): the cookie choice can be changed here. */
+  analytics?: boolean;
+}) {
   const t = useTranslations("footer");
 
   return (
@@ -41,6 +47,7 @@ export function SiteFooter() {
         <Link href="/feedback" className={linkClassName}>
           {t("feedback")}
         </Link>
+        {analytics && <CookieSettingsButton />}
       </nav>
       {/* Phones only: the header has no room for it (D86). */}
       <div className="mx-auto max-w-content px-4 pb-6 split:hidden">

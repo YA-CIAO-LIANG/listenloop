@@ -640,7 +640,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 11, 2026",
+    "updated": "Last updated: November 12, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -670,7 +670,7 @@
       {
         "title": "How we use it",
         "paragraphs": [
-          "Only to sign you in and keep your progress in sync across devices. We don't sell data, share it with advertisers, or use advertising or analytics trackers."
+          "Only to sign you in and keep your progress in sync across devices. We don't sell data, share it with advertisers, or use advertising trackers; usage analytics run only if you agree (see \"Usage analytics\")."
         ]
       },
       {
@@ -684,6 +684,20 @@
           "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
           "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard.",
           "LINE (LY Corporation): when you sign in with LINE, it handles the sign-in and gives us your account details."
+        ]
+      },
+      {
+        "id": "analytics",
+        "title": "Usage analytics (Microsoft Clarity)",
+        "paragraphs": [
+          "Only after you choose \"Accept analytics cookies\" do we load Microsoft Clarity, which records anonymously how the site is used, so we can find what's hard to use and improve it. Without your consent, or when the site hasn't set Clarity up, it isn't loaded at all."
+        ],
+        "items": [
+          "What's recorded: clicks, scrolling, pointer movement, and changes on the page (replayed as recordings and heatmaps), browser and device type, and approximate location (country).",
+          "Masking: everything typed into inputs is masked and never recorded; the email in the account menu is masked; the account, sign-in, class, and admin pages are masked whole. We don't link recordings to your account.",
+          "Cookies: Clarity keeps analytics cookies in your browser (such as _clck and _clsk) to connect the pages of one visit. We set Clarity to analytics only, not advertising.",
+          "Processor: Microsoft Clarity is provided by Microsoft; data may be stored in the United States and is handled under Microsoft's privacy statement (https://privacy.microsoft.com/privacystatement).",
+          "Change it any time: \"Cookie settings\" at the bottom of the page switches to \"Necessary cookies only\", and Clarity isn't loaded after that; you can also clear your browser's cookies."
         ]
       },
       {
@@ -3371,5 +3385,13 @@
     "backToVideo": "Back to the material",
     "hintLengthLabel": "Hint: {count} letters",
     "hintFirstLabel": "Hint: {count} letters, starting with {first}"
+  },
+  "consent": {
+    "label": "Cookie settings",
+    "text": "We'd like to use Microsoft Clarity to record anonymously how the site is used (clicks, scrolling, heatmaps) to improve it. Inputs and personal details are masked, and account, class, and admin pages aren't recorded. You can change this any time under \"Cookie settings\" at the bottom of the page.",
+    "more": "Privacy policy",
+    "accept": "Accept analytics cookies",
+    "decline": "Necessary cookies only",
+    "settings": "Cookie settings"
   }
 }
