@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
-type Section = { title: string; paragraphs: string[]; items?: string[] };
+type Section = {
+  /** An anchor to link to (e.g. /privacy#analytics). */
+  id?: string;
+  title: string;
+  paragraphs: string[];
+  items?: string[];
+};
 
 /**
  * A legal page (privacy policy, terms of service; D60): title, last
@@ -22,7 +28,11 @@ export async function LegalPage({
       <p className="mt-2 text-supporting text-ink-muted">{t("updated")}</p>
       <p className="mt-6 max-w-reading">{t("intro")}</p>
       {sections.map((section) => (
-        <section key={section.title} className="mt-12 max-w-reading">
+        <section
+          key={section.title}
+          id={section.id}
+          className="mt-12 max-w-reading scroll-mt-16"
+        >
           <h2 className="font-display text-h3">{section.title}</h2>
           {section.paragraphs.map((paragraph) => (
             <p key={paragraph} className="mt-4 text-ink-muted">

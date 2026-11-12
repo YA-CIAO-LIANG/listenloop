@@ -640,7 +640,7 @@
   },
   "privacy": {
     "title": "隱私權政策",
-    "updated": "最後更新：2026 年 11 月 11 日",
+    "updated": "最後更新：2026 年 11 月 12 日",
     "intro": "ListenLoop 是英語聽力練習網站。這份政策說明我們收集哪些資料、怎麼使用、存在哪裡，以及你可以怎麼刪除。不登入也能使用全部的練習功能。",
     "sections": [
       {
@@ -670,7 +670,7 @@
       {
         "title": "我們怎麼使用",
         "paragraphs": [
-          "這些資料只用來讓你登入，並在不同裝置之間同步練習進度。我們不販售資料、不提供給廣告商，也不使用廣告或分析追蹤工具。"
+          "這些資料只用來讓你登入，並在不同裝置之間同步練習進度。我們不販售資料、不提供給廣告商，也不使用廣告追蹤工具；使用分析只在你同意後才啟用（見「使用分析」）。"
         ]
       },
       {
@@ -684,6 +684,20 @@
           "YouTube：練習影片由 YouTube 播放（使用 youtube-nocookie.com），播放時 YouTube 可能依 Google 的隱私權政策設定 cookie。",
           "語音辨識：跟讀使用瀏覽器內建的語音辨識；在 Chrome 中，聲音會傳到 Google 的伺服器辨識。ListenLoop 不錄音、不儲存聲音，只保存每句的完成狀態與涵蓋率。",
           "LINE（LY Corporation）：用 LINE 登入時，處理登入與提供你的帳號資料。"
+        ]
+      },
+      {
+        "id": "analytics",
+        "title": "使用分析（Microsoft Clarity）",
+        "paragraphs": [
+          "只有在你按「接受分析 Cookie」之後，我們才會載入 Microsoft Clarity，匿名記錄網站的使用方式，用來找出難用的地方、改善介面。沒有同意，或網站沒有設定 Clarity 時，完全不會載入。"
+        ],
+        "items": [
+          "記錄的內容：頁面上的點擊、捲動、游標移動與畫面變化（重播成影片與熱點圖）、瀏覽器與裝置類型、大約位置（國家）。",
+          "遮蔽：所有輸入框的內容都會遮蔽，不會被記錄；帳號選單裡的 email 也遮蔽；帳號、登入、班級與管理頁面整頁遮蔽、不記錄內容。我們不會把錄影和你的帳號對應。",
+          "Cookie：Clarity 會在你的瀏覽器存放分析用的 cookie（例如 _clck、_clsk），用來把同一次造訪的頁面串起來。我們把 Clarity 設定為只做分析、不做廣告用途。",
+          "處理者：Microsoft Clarity 由 Microsoft 提供，資料可能存放在美國，依 Microsoft 隱私權聲明處理（https://privacy.microsoft.com/privacystatement）。",
+          "隨時更改：頁尾的「Cookie 設定」可以改成「只用必要的 Cookie」，之後就不再載入；你也可以清除瀏覽器 cookie。"
         ]
       },
       {
@@ -3369,5 +3383,13 @@
     "backToVideo": "回到教材",
     "hintLengthLabel": "提示：共 {count} 個字母",
     "hintFirstLabel": "提示：共 {count} 個字母，第一個字母是 {first}"
+  },
+  "consent": {
+    "label": "Cookie 設定",
+    "text": "我們想用 Microsoft Clarity 匿名記錄網站的使用方式（點擊、捲動、熱點圖），用來改善介面。輸入框和個人資料都會遮蔽，帳號、班級與管理頁面不記錄。你可以隨時在頁尾的「Cookie 設定」更改。",
+    "more": "隱私權政策",
+    "accept": "接受分析 Cookie",
+    "decline": "只用必要的 Cookie",
+    "settings": "Cookie 設定"
   }
 }

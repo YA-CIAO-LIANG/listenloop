@@ -2572,3 +2572,16 @@
 - **格狀／清單**：切換後記住，跟著帳號（D138 的個人化設定）。
 - **空資料夾**：說明可以怎麼放教材，並有「建立教材」按鈕。
 - **要改時**：`lib/material-folders.ts`、`components/MaterialsBrowser.tsx`、`app/materials/page.tsx`、`app/materials/organize-actions.ts`、`auth/admin-writes.ts`（`writeAsOwner`）、`app/materials/actions.ts`（`folderNamed`）。
+
+## D148 真實使用者行為分析：Microsoft Clarity，同意分析 Cookie 後才啟用（2026-11-12，Joe 指定）
+
+- **選擇**：Microsoft Clarity。比較過：Clarity 完全免費、錄影與熱點圖不限量、沒有流量上限；Hotjar 免費版每天只有少量錄影；PostHog 免費額度大但要自己架設定、功能遠超需要；Google Analytics 沒有錄影。目標是看「真實使用者卡在哪裡」，Clarity 最直接。
+- **啟用條件**：
+  - 沒有設定 `NEXT_PUBLIC_CLARITY_PROJECT_ID`：不顯示 Cookie 提示、不載入任何東西、CSP 也不放行 Clarity 的網址。
+  - 有設定時，第一次造訪在畫面底部顯示 Cookie 提示（不是擋住畫面的對話框）：「接受分析 Cookie」或「只用必要的 Cookie」。選擇存在 cookie `ll-consent`，一年後再問。只有選「接受」才載入 Clarity，並用 Clarity 的同意 API 標示「只做分析、不做廣告」。
+  - 頁尾多一個「Cookie 設定」可以隨時更改；從接受改成不接受時重新整理頁面，Clarity 就不在了。
+- **遮蔽**：
+  - 輸入框：Clarity 的 Balanced 遮蔽模式（預設）遮蔽所有輸入框內容，設定步驟寫在 roadmap。
+  - 個人資料：帳號選單裡的 email 加 `data-clarity-mask`；帳號、登入、登入回呼、班級（有學生名字）、管理頁面整頁遮蔽（`UNRECORDED_PATHS`）。
+- **隱私權政策**：新增「使用分析（Microsoft Clarity）」一節（`/privacy#analytics`）：記錄什麼、遮蔽什麼、cookie、處理者、怎麼更改；「我們怎麼使用」不再說「不使用分析工具」。
+- **要改時**：`lib/analytics-consent.ts`（不記錄的頁面、Clarity 網址）、`components/AnalyticsConsent.tsx`、`lib/security/csp.ts`、`messages/*.json` 的 `consent` 與 `privacy`。

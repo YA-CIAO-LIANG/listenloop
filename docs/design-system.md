@@ -846,3 +846,9 @@ CardLink，內容由上到下：
 - 教材卡片：格狀時是 `border-line` 圓角卡片（sm 兩欄、wide 三欄），清單時是上下分隔線。內容：標題（MaterialTitle compact，可點）、副標題、長度與進度（supporting、ink-muted）、「移動到」下拉、「管理」展開（`details`）。
 - 空狀態：虛線框、說明文字（ink-muted）、secondary「建立教材」。
 - 刪除資料夾：`role="alertdialog"` 的確認框，說明教材會回到「我的教材」。
+
+### Cookie 提示（D148）
+
+- 只在設定 Clarity 且還沒選擇時出現。畫面底部固定的一條（`fixed`、`bg-surface`、上方 `border-line`），不遮住整個畫面、不擋操作；手機上文字在上、按鈕在下。
+- 文字（supporting）＋「隱私權政策」連結；按鈕「接受分析 Cookie」（primary）與「只用必要的 Cookie」（secondary），兩個一樣容易按，不做誘導。
+- 頁尾的「Cookie 設定」是和其他頁尾連結同樣樣式的按鈕，按了再顯示這條提示。

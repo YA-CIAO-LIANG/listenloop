@@ -17,6 +17,8 @@ import { cookies, headers } from "next/headers";
 import { ServiceWorker } from "@/components/ServiceWorker";
 import { TimeZoneSync } from "@/components/TimeZoneSync";
 import { SiteFooter } from "@/components/SiteFooter";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
+import { clarityProjectId } from "@/lib/analytics-consent";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
 import { StoresProvider } from "@/components/StoresProvider";
@@ -137,9 +139,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               >
                 {children}
               </div>
-              <SiteFooter />
+              <SiteFooter analytics={clarityProjectId() !== null} />
               <ServiceWorker />
               <TimeZoneSync signedIn={user !== null} />
+              <AnalyticsConsent projectId={clarityProjectId()} />
             </StoresProvider>
           </PlanProvider>
         </NextIntlClientProvider>
