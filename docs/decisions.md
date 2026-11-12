@@ -2641,3 +2641,21 @@
   - 評分標準與權重：`lib/evals/judge.ts`、`lib/evals/config.ts`（評分標準改了就提高 `JUDGE_VERSION`，並記錄例外）；
   - 腳本：`scripts/eval.eval.ts`、`scripts/eval-record.record.ts`；
   - CI：`.github/workflows/ci.yml` 的「AI eval」。
+
+## D151 開發效率追蹤：每個里程碑的 PR 數據、逃脫的錯誤、夜間任務回顧（2026-11-13，Joe 指定）
+
+- **`npm run dev:metrics`**（`scripts/dev-metrics.mts`）：
+  - 用 `gh` 從 GitHub 讀取已合併的 PR，只讀不寫；依 `docs/ai-dev-log.md` 里程碑表的「主要 PR」欄位分組。
+  - 算出每組的：PR 數、平均每個 PR 的 commit 數（修改次數）、每項週期的中位數、開 PR 到合併的中位數、整批耗時。
+- **「從開始到合併」怎麼算**：
+  - 開發流程是本機一次做一項，五項檢查加 E2E 都通過才開 PR。所以「第一個 commit 到合併」只有幾分鐘，反映不了實際花的時間。
+  - 改用**上一個 PR 合併到這個 PR 合併**作為每一項的週期。超過 8 小時的間隔（跨夜、等 Joe 操作）不算。
+  - 另外列出開 PR 到合併的時間，也就是 CI 加合併。
+- **逃脫的錯誤**：
+  - 只記 Joe 或使用者在正式站發現、但自動測試沒抓到的問題。
+  - 每筆寫出原因、測試為什麼沒抓到、補上的測試。
+  - 開發中被測試或 QA 抓到的錯誤不算，例如 D147、D149，因為那正是測試發揮作用。
+  - 第一版整理了 11 筆，最多的原因是「測試環境和正式站不同」。
+- **夜間任務回顧**：每批任務的 PR、耗時、主要成果，效益高與低（有沒有重做、等待、假警報），以及下次的改善建議。
+- **工作規則**（CLAUDE.md）：每個里程碑更新這三節；Joe 回報的錯誤要記進「逃脫的錯誤」。
+- **要改時**：`scripts/dev-metrics.mts`、`lib/dev-metrics.ts`、`docs/ai-dev-log.md`。
