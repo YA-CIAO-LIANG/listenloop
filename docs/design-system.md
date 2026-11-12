@@ -408,6 +408,7 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - 練習區由上到下：標題列（← 影片名、h3「第 N 天：跟讀」）→ 固定進度列（「第 N / M 句」＋已完成幾句的進度條）→ 提示框（需要時才出現）→ 影片 → CaptionHint → **狀態區** → 句子 → 按鈕列 → 快捷鍵說明 → 講解區（最上方是「回報這句的問題」，自建練習接著是講解）。說明文字、出處、句子清單放在練習區下方。
 - **狀態區在句子正上方（D124）**：「你念的：…」（body 字級）與「✓ 念完了 · 涵蓋率 N%」（font-medium，success 色）是念完後最先看的，放在句子正上方；保留至少 64px 高度，出現結果時句子不會跳動。講解放在按鈕列下方。
+- **沒有麥克風時（D141）**：「我念完了」是主要按鈕，和「播放並跟讀」「下一句」在同一個位置；它前面的「播放」（secondary）也放在同一列（`PracticeActions` 的 `secondary`），手機上兩顆都在底部固定列，每一句位置都一樣。
 - 按鈕列同聽寫（`PracticeActions`）：主要按鈕（播放並跟讀、下一句、再試一次、我念完了）固定在右邊，手機在底部列。
 - 句子：英文一直顯示（sentence 字級、`lang="en"`）；中文放在可收合的「中文」（`<details>`，supporting、ink-muted），預設收合。
 - 自建練習（e+ 7，D42）：沒有影片可以看，所以不用「中文」收合，改在句子下方直接顯示這句的講解（`SentenceNotes`，和聽寫每句答完後的回饋相同）：1px line 分隔線 → 中文 → 單字（metadata 小標籤，單字 font-medium、`lang="en"`、詞性 supporting ink-muted、中文）→ 文法（句型 font-medium、`lang="en"`，說明 supporting ink-muted）。換到下一句時跟著換。

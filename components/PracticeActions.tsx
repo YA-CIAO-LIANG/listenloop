@@ -38,12 +38,18 @@ export function useKeyboardInset(): number {
  * action sits in a bar fixed to the bottom of the screen, where the thumb
  * is, lifted above the keyboard; put PracticeActionsSpacer at the end of
  * the page so the bar never hides the last lines.
+ *
+ * `secondary` is a control that goes with the main action every time (the
+ * "Play" before "I said it" without a microphone, D141): it sits in the bar
+ * right before the main action, so both are under the thumb on phones.
  */
 export function PracticeActions({
   primary,
+  secondary,
   children,
 }: {
   primary: ReactNode;
+  secondary?: ReactNode;
   children?: ReactNode;
 }) {
   const inset = useKeyboardInset();
@@ -53,8 +59,9 @@ export function PracticeActions({
       <div
         data-practice-primary=""
         style={{ "--ll-keyboard": `${inset}px` } as CSSProperties}
-        className="ml-auto flex justify-end max-sm:fixed max-sm:inset-x-0 max-sm:bottom-(--ll-keyboard) max-sm:z-20 max-sm:border-t max-sm:border-line max-sm:bg-ground max-sm:px-4 max-sm:pt-3 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))] max-sm:[&>*]:min-w-40"
+        className="ml-auto flex items-center justify-end gap-3 max-sm:fixed max-sm:inset-x-0 max-sm:bottom-(--ll-keyboard) max-sm:z-20 max-sm:border-t max-sm:border-line max-sm:bg-ground max-sm:px-4 max-sm:pt-3 max-sm:pb-[max(0.75rem,env(safe-area-inset-bottom))] max-sm:[&>:last-child]:min-w-40"
       >
+        {secondary}
         {primary}
       </div>
     </div>
