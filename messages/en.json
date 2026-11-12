@@ -789,7 +789,7 @@
     "back": "Back",
     "created": "Created “{title}” with its notes and audio. It's ready to practice.",
     "errors": {
-      "unavailable": "Creating practices isn't available. Make sure you're signed in with an admin account.",
+      "unavailable": "The practice can't be created right now: your sign-in may have expired, or the service is unavailable for a moment. Reload the page, sign in again, and try again.",
       "empty": "No sentences to practice were found. Please check the text.",
       "too-long": "The text is too long: {max, number} characters at most.",
       "too-many": "Too many sentences: {max, number} at most.",
@@ -830,7 +830,7 @@
     "voiceName": "{accent} · {gender}",
     "audioPartial": "Audio {voiced} / {total}",
     "audioErrors": {
-      "unavailable": "Audio can't be generated right now. Make sure you're signed in with an admin account.",
+      "unavailable": "The audio can't be made right now: your sign-in may have expired, or the speech service is unavailable for a moment. The practice is saved; sign in again and choose “Finish preparing” in My materials.",
       "not-found": "This practice couldn't be found.",
       "limit": "Today's speech allowance is used up. The audio made so far is kept; continue tomorrow (after midnight, Taiwan time).",
       "failed": "Something went wrong while generating audio. The audio made so far is kept; please try again.",
@@ -848,7 +848,7 @@
     "statusLine": "{notes} · {audio}",
     "resume": "Continue",
     "notesErrors": {
-      "unavailable": "Notes can't be made right now. Make sure you're signed in with an admin account.",
+      "unavailable": "The notes can't be made right now: your sign-in may have expired, or the AI service is unavailable for a moment. The practice is saved; sign in again and choose “Finish preparing” in My materials.",
       "not-found": "This practice couldn't be found.",
       "limit": "Today's translation and notes allowance is used up. Continue tomorrow (after midnight, Taiwan time).",
       "busy": "The AI service is busy. Wait a minute, then press Continue.",
