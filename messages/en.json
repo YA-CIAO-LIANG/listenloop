@@ -1362,7 +1362,8 @@
       "interest": "Interest",
       "forecast": "Forecast",
       "docs": "System docs",
-      "retention": "Retention"
+      "retention": "Retention",
+      "beta": "Sign-ups"
     },
     "overview": {
       "title": "Admin overview",
@@ -1788,6 +1789,69 @@
         "oneGrammar": "At most 1 grammar point",
         "noCollocations": "Collocations removed",
         "oneConnected": "At most 1 connected-speech note"
+      }
+    },
+    "beta": {
+      "title": "Sign-ups and invites",
+      "intro": "Open sign-ups in stages: switch public sign-ups on or off and set a cap on accounts; people with an invite link skip the cap. Admins aren't counted. People who already have an account can always sign in.",
+      "noKey": "SUPABASE_SERVICE_ROLE_KEY isn't set, so the settings can't be read.",
+      "admitted": "Accounts / cap",
+      "openNote": "Public sign-ups are open",
+      "fullNote": "At the cap: new people see “The Beta is full”",
+      "closedNote": "Public sign-ups are closed",
+      "waiting": "Waiting list",
+      "waitingNote": "Not invited yet",
+      "activeInvites": "Usable invites",
+      "activeInvitesNote": "Of the latest 100",
+      "settingsTitle": "Public sign-ups",
+      "settingsIntro": "When closed or at the cap, new people see “The Beta is full” after signing in and can join the waiting list; existing accounts aren't affected.",
+      "openLegend": "Public sign-ups",
+      "open": "Open",
+      "closed": "Closed",
+      "cap": "Account cap",
+      "save": "Save",
+      "saved": "Saved.",
+      "invitesTitle": "Invites",
+      "uses": "Uses",
+      "days": "Valid days",
+      "forever": "No limit",
+      "note": "Note (e.g. who it's for)",
+      "create": "Make an invite link",
+      "createHint": "Leave the days empty for no expiry. Each person uses it once at their first sign-in, whatever the cap.",
+      "created": "Invite {code} made:",
+      "copy": "Copy",
+      "copied": "Copied",
+      "copyLabel": "Copy the invite link for {label}",
+      "revoke": "Withdraw",
+      "revokeLabel": "Withdraw invite {code}",
+      "noInvites": "No invites yet.",
+      "columns": {
+        "code": "Code and link",
+        "note": "Note",
+        "uses": "Used / allowed",
+        "expires": "Expires",
+        "state": "State",
+        "actions": "Actions"
+      },
+      "states": {
+        "active": "Usable",
+        "used-up": "Used up",
+        "expired": "Expired",
+        "revoked": "Withdrawn"
+      },
+      "waitlistTitle": "Waiting list",
+      "waitlistIntro": "Choose people and select Invite: each gets a single-use link valid for 30 days. Until an email service is set up, copy the links and send them yourself.",
+      "noWaitlist": "The waiting list is empty.",
+      "chooseAll": "Choose the {count} not invited yet",
+      "inviteChosen": "Invite the {count} chosen",
+      "chooseLabel": "Choose {email}",
+      "invitedIntro": "Invite links made for {count} people; copy and send them:",
+      "joinedOn": "Joined {joined}",
+      "invitedOn": "Joined {joined} · invited {invited}",
+      "errors": {
+        "unavailable": "Only admins can change this.",
+        "invalid": "Check the numbers: cap 0–1,000,000, uses 1–10,000, days 1–365 or empty.",
+        "failed": "That didn't work. Please try again later."
       }
     }
   },
@@ -2616,14 +2680,21 @@
       "short": "Use at least 10 characters.",
       "long": "That password is too long.",
       "common": "That password is too common. Pick another.",
-      "emailPassword": "Don’t use your email’s name in the password."
+      "emailPassword": "Don’t use your email’s name in the password.",
+      "full": "The Beta is full for now, so new accounts can't be made."
     },
     "resetTitle": "Set a new password",
     "resetFor": "Set a new password for {email}.",
     "resetSave": "Save the new password",
     "resetDone": "Your new password is saved, and you’re signed in.",
     "resetExpired": "This reset link has expired or was used. Ask for a new one.",
-    "home": "Home"
+    "home": "Home",
+    "joinWaitlist": "Join the waiting list",
+    "beta": {
+      "invited": "You've been invited to the ListenLoop Beta: sign in with Google, LINE, or email to make your account, whatever the cap.",
+      "full": "The Beta is full for now: if you already have an account, sign in as usual; new people, please join the waiting list."
+    },
+    "consent": "By signing in or making an account, you agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>. Under 18, please get a parent's or guardian's consent first; under 13, please don't make an account yourself."
   },
   "plansPage": {
     "periodLegend": "Billing",
@@ -3087,6 +3158,38 @@
       "failed": "That didn't work. Please try again.",
       "row": "Sentence {n} needs a fix: the English can't be empty, it must start before it ends, and not before the previous one starts.",
       "notes": "The practice was created, but its notes aren't finished; continue from My materials."
+    }
+  },
+  "beta": {
+    "title": "The Beta is full",
+    "inviteTitle": "This invite link doesn't work",
+    "open": "ListenLoop is in Beta, and you can make an account now.",
+    "signIn": "Go to sign in →",
+    "reasons": {
+      "full": "ListenLoop is in Beta, and this round's places are taken, so new accounts can't be made for now. If you already have an account, sign in as usual. Leave your email and we'll send you an invite when the next round opens.",
+      "closed": "ListenLoop is in Beta, and sign-ups are paused for now. If you already have an account, sign in as usual. Leave your email and we'll send you an invite when they open.",
+      "invite": "This invite link is wrong, used up, expired, or withdrawn. Ask whoever invited you for a new one, or join the waiting list."
+    },
+    "note": {
+      "label": "In Beta",
+      "body": ": features and content are still changing. If something goes wrong or you have an idea, tell us.",
+      "feedback": "Send feedback"
+    },
+    "waitlist": {
+      "title": "Join the waiting list",
+      "intro": "No account needed. We'll only use your email to send you an invite.",
+      "email": "Email",
+      "purpose": "What would you like to use ListenLoop for? (optional)",
+      "purposeHint": "For example: preparing for TOEIC, understanding TV shows, practicing with a class. Up to 500 characters.",
+      "join": "Join the waiting list",
+      "joining": "Sending…",
+      "joined": "You're on the waiting list. When the next round opens, we'll email you an invite link.",
+      "errors": {
+        "invalid": "Enter a valid email; the purpose can be up to 500 characters.",
+        "busy": "Too many tries. Please try again later.",
+        "unavailable": "Joining isn't available right now. Please try again later.",
+        "failed": "That didn't work. Please try again later."
+      }
     }
   }
 }

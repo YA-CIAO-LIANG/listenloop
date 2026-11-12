@@ -37,9 +37,9 @@ describe("messages sent to the browser (D120)", () => {
   it("an area's namespaces are used only by its own pages' components", () => {
     const allowed: Record<string, RegExp> = {
       admin:
-        /^(app\/admin\/|components\/(AdminNav|ClassroomSeatsControl|ContentFixActions|FeedbackStatusButton|ForecastCalculator|MaterialControls|RevenueControls|SentenceReportActions|SiteActivityChart|UserControls|ConnectionTest|UsageSettingsForm|OfficialNotesUpgrade)\.tsx$)/,
+        /^(app\/admin\/|components\/(AdminNav|ClassroomSeatsControl|ContentFixActions|FeedbackStatusButton|ForecastCalculator|MaterialControls|RevenueControls|SentenceReportActions|SiteActivityChart|UserControls|ConnectionTest|UsageSettingsForm|OfficialNotesUpgrade|BetaAdmin)\.tsx$)/,
       materials:
-        /^(app\/materials\/|components\/(CreatePracticeForm|EditPracticeForm|GenerateTextPanel|YouTubeCreate)\.tsx$)/,
+        /^(app\/materials\/|components\/(CreatePracticeForm|EditPracticeForm|GenerateTextPanel|YouTubeCreate|UploadCreate)\.tsx$)/,
       classroom: /^(app\/classroom\/|components\/ClassroomForms\.tsx$)/,
       styleguide: /^app\/styleguide\//,
     };

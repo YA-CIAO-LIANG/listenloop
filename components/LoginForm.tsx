@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useActionState, useId, useState } from "react";
 import {
@@ -128,7 +129,20 @@ export function LoginForm({
           {result?.ok && result.sent && mode !== "signin" ? (
             <span className="text-success">{t(`sent.${mode}`)}</span>
           ) : result && !result.ok ? (
-            <span className="text-error">{t(`errors.${result.reason}`)}</span>
+            <span className="text-error">
+              {t(`errors.${result.reason}`)}
+              {result.reason === "full" && (
+                <>
+                  {" "}
+                  <Link
+                    href="/beta?reason=full"
+                    className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+                  >
+                    {t("joinWaitlist")}
+                  </Link>
+                </>
+              )}
+            </span>
           ) : null}
         </p>
       </form>

@@ -268,6 +268,103 @@ export type Database = {
           },
         ];
       };
+      beta_invite_uses: {
+        Row: {
+          invite_id: string;
+          used_at: string;
+          user_id: string;
+        };
+        Insert: {
+          invite_id: string;
+          used_at?: string;
+          user_id: string;
+        };
+        Update: {
+          invite_id?: string;
+          used_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "beta_invite_uses_invite_id_fkey";
+            columns: ["invite_id"];
+            isOneToOne: false;
+            referencedRelation: "beta_invites";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      beta_invites: {
+        Row: {
+          code: string;
+          created_at: string;
+          created_by: string | null;
+          expires_at: string | null;
+          id: string;
+          max_uses: number;
+          note: string | null;
+          revoked_at: string | null;
+          uses: number;
+        };
+        Insert: {
+          code: string;
+          created_at?: string;
+          created_by?: string | null;
+          expires_at?: string | null;
+          id?: string;
+          max_uses?: number;
+          note?: string | null;
+          revoked_at?: string | null;
+          uses?: number;
+        };
+        Update: {
+          code?: string;
+          created_at?: string;
+          created_by?: string | null;
+          expires_at?: string | null;
+          id?: string;
+          max_uses?: number;
+          note?: string | null;
+          revoked_at?: string | null;
+          uses?: number;
+        };
+        Relationships: [];
+      };
+      beta_waitlist: {
+        Row: {
+          created_at: string;
+          email: string;
+          id: string;
+          invite_id: string | null;
+          invited_at: string | null;
+          purpose: string;
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+          id?: string;
+          invite_id?: string | null;
+          invited_at?: string | null;
+          purpose?: string;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          id?: string;
+          invite_id?: string | null;
+          invited_at?: string | null;
+          purpose?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "beta_waitlist_invite_id_fkey";
+            columns: ["invite_id"];
+            isOneToOne: false;
+            referencedRelation: "beta_invites";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       class_members: {
         Row: {
           class_id: string;
@@ -873,6 +970,8 @@ export type Database = {
       };
       profiles: {
         Row: {
+          beta_admitted_at: string | null;
+          beta_admitted_via: string | null;
           classroom_seats: number | null;
           created_at: string;
           last_seen_at: string | null;
@@ -884,6 +983,8 @@ export type Database = {
           user_id: string;
         };
         Insert: {
+          beta_admitted_at?: string | null;
+          beta_admitted_via?: string | null;
           classroom_seats?: number | null;
           created_at?: string;
           last_seen_at?: string | null;
@@ -895,6 +996,8 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          beta_admitted_at?: string | null;
+          beta_admitted_via?: string | null;
           classroom_seats?: number | null;
           created_at?: string;
           last_seen_at?: string | null;
@@ -1101,6 +1204,30 @@ export type Database = {
           },
         ];
       };
+      signup_settings: {
+        Row: {
+          cap: number;
+          id: boolean;
+          open: boolean;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          cap?: number;
+          id?: boolean;
+          open?: boolean;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          cap?: number;
+          id?: boolean;
+          open?: boolean;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [];
+      };
       speech_audio: {
         Row: {
           bytes: number;
@@ -1270,6 +1397,10 @@ export type Database = {
           user_id: string;
         }[];
       };
+      admit_account: {
+        Args: { as_admin: boolean; invite_code: string; target: string };
+        Returns: string;
+      };
       api_usage_totals: {
         Args: { day_start: string; month_start: string };
         Returns: {
@@ -1280,6 +1411,7 @@ export type Database = {
           today_micros: number;
         }[];
       };
+      beta_admitted_count: { Args: never; Returns: number };
       can_practice: { Args: { target: string }; Returns: boolean };
       class_progress: {
         Args: { target: string };

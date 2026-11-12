@@ -1362,7 +1362,8 @@
       "interest": "付費意願",
       "forecast": "收益試算",
       "docs": "系統文件",
-      "retention": "留存分析"
+      "retention": "留存分析",
+      "beta": "註冊與邀請"
     },
     "overview": {
       "title": "後台總覽",
@@ -1788,6 +1789,69 @@
         "oneGrammar": "文法最多 1 個",
         "noCollocations": "拿掉常見搭配",
         "oneConnected": "連音說明最多 1 個"
+      }
+    },
+    "beta": {
+      "title": "註冊與邀請",
+      "intro": "分階段開放註冊：公開註冊可以開或關，並設定帳號上限；持邀請連結的人不受上限限制。管理員不算在人數裡。已經有帳號的人隨時可以登入。",
+      "noKey": "沒有設定 SUPABASE_SERVICE_ROLE_KEY，無法讀取設定。",
+      "admitted": "註冊人數／上限",
+      "openNote": "公開註冊開放中",
+      "fullNote": "已達上限，新使用者會看到「名額已滿」",
+      "closedNote": "公開註冊已關閉",
+      "waiting": "等候名單",
+      "waitingNote": "還沒邀請的人",
+      "activeInvites": "可用的邀請碼",
+      "activeInvitesNote": "最近 100 個裡",
+      "settingsTitle": "公開註冊",
+      "settingsIntro": "關閉或達到上限時，新使用者登入後會看到「目前 Beta 名額已滿」，可以加入等候名單；已經有帳號的人不受影響。",
+      "openLegend": "公開註冊",
+      "open": "開放",
+      "closed": "關閉",
+      "cap": "帳號上限",
+      "save": "儲存",
+      "saved": "已儲存。",
+      "invitesTitle": "邀請碼",
+      "uses": "可用次數",
+      "days": "有效天數",
+      "forever": "不限",
+      "note": "備註（例如發給誰）",
+      "create": "產生邀請連結",
+      "createHint": "有效天數留空表示不會過期。每個人第一次登入時用掉一次，不受帳號上限限制。",
+      "created": "已產生邀請碼 {code}：",
+      "copy": "複製",
+      "copied": "已複製",
+      "copyLabel": "複製 {label} 的邀請連結",
+      "revoke": "停用",
+      "revokeLabel": "停用邀請碼 {code}",
+      "noInvites": "還沒有邀請碼。",
+      "columns": {
+        "code": "邀請碼與連結",
+        "note": "備註",
+        "uses": "已用／可用",
+        "expires": "到期",
+        "state": "狀態",
+        "actions": "操作"
+      },
+      "states": {
+        "active": "可用",
+        "used-up": "已用完",
+        "expired": "已過期",
+        "revoked": "已停用"
+      },
+      "waitlistTitle": "等候名單",
+      "waitlistIntro": "勾選要邀請的人，按「邀請」會為每個人產生一個只能用一次、30 天有效的連結。寄信服務設定好之前，請複製連結自己寄給他們。",
+      "noWaitlist": "等候名單是空的。",
+      "chooseAll": "勾選還沒邀請的 {count} 人",
+      "inviteChosen": "邀請勾選的 {count} 人",
+      "chooseLabel": "選擇 {email}",
+      "invitedIntro": "已為 {count} 人產生邀請連結，請複製後寄出：",
+      "joinedOn": "{joined} 加入",
+      "invitedOn": "{joined} 加入・{invited} 已邀請",
+      "errors": {
+        "unavailable": "只有管理員可以變更。",
+        "invalid": "請檢查數字：上限 0～1,000,000、可用次數 1～10,000、有效天數 1～365 或留空。",
+        "failed": "沒有成功，請稍後再試。"
       }
     }
   },
@@ -2614,14 +2678,21 @@
       "short": "密碼至少要 10 個字元。",
       "long": "密碼太長了。",
       "common": "這個密碼太常見，請換一個。",
-      "emailPassword": "密碼不能包含 Email 的名稱。"
+      "emailPassword": "密碼不能包含 Email 的名稱。",
+      "full": "目前 Beta 名額已滿，暫時不能建立新帳號。"
     },
     "resetTitle": "設定新密碼",
     "resetFor": "為 {email} 設定新密碼。",
     "resetSave": "儲存新密碼",
     "resetDone": "新密碼已儲存，你已經登入。",
     "resetExpired": "重設連結已失效或已用過，請重新申請。",
-    "home": "回首頁"
+    "home": "回首頁",
+    "joinWaitlist": "加入等候名單",
+    "beta": {
+      "invited": "你收到了 ListenLoop Beta 的邀請：用 Google、LINE 或 Email 登入就會建立帳號，不受名額限制。",
+      "full": "目前 Beta 名額已滿：已經有帳號的人可以照常登入，新使用者請先加入等候名單。"
+    },
+    "consent": "繼續登入或建立帳號，即表示你同意<terms>服務條款</terms>與<privacy>隱私權政策</privacy>。未滿 18 歲請先取得家長或法定代理人同意；未滿 13 歲請勿自行建立帳號。"
   },
   "plansPage": {
     "periodLegend": "繳費週期",
@@ -3085,6 +3156,38 @@
       "failed": "沒有成功，請再試一次。",
       "row": "第 {n} 句需要修正：英文不能空白，開始時間要早於結束時間，而且不能早於上一句的開始。",
       "notes": "練習已建立，但講解還沒做完；可以在「我的教材」繼續。"
+    }
+  },
+  "beta": {
+    "title": "目前 Beta 名額已滿",
+    "inviteTitle": "這個邀請連結無法使用",
+    "open": "ListenLoop 正在 Beta 測試，現在可以直接建立帳號。",
+    "signIn": "前往登入 →",
+    "reasons": {
+      "full": "ListenLoop 正在 Beta 測試，這一批的名額已經滿了，暫時不能建立新帳號。已經有帳號的人可以照常登入。留下 Email，下一批開放時我們會寄邀請給你。",
+      "closed": "ListenLoop 正在 Beta 測試，目前暫停開放註冊。已經有帳號的人可以照常登入。留下 Email，開放時我們會寄邀請給你。",
+      "invite": "這個邀請連結不正確、已經用完、過期或已經停用。請向邀請你的人要新的連結，或加入等候名單。"
+    },
+    "note": {
+      "label": "Beta 測試中",
+      "body": "：功能和內容還在調整，遇到問題或有建議，歡迎告訴我們。",
+      "feedback": "意見回饋"
+    },
+    "waitlist": {
+      "title": "加入等候名單",
+      "intro": "不需要帳號。我們只會用這個 Email 寄邀請給你。",
+      "email": "Email",
+      "purpose": "你想用 ListenLoop 做什麼？（選填）",
+      "purposeHint": "例如：準備多益、練習聽美劇、帶班上學生練聽力。最多 500 字。",
+      "join": "加入等候名單",
+      "joining": "送出中…",
+      "joined": "已加入等候名單。下一批開放時，我們會把邀請連結寄到你的 Email。",
+      "errors": {
+        "invalid": "請輸入正確的 Email；用途最多 500 字。",
+        "busy": "送出太多次了，請稍後再試。",
+        "unavailable": "目前無法加入，請稍後再試。",
+        "failed": "沒有成功，請稍後再試。"
+      }
     }
   }
 }

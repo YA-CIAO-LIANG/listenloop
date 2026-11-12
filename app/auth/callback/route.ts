@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { getServerSupabase } from "@/auth/server";
+import { admitAfterSignIn } from "@/auth/beta";
 import { logEvent } from "@/auth/events";
 import { safeNextPath, withSignInResult } from "@/lib/auth/redirect";
 
@@ -35,6 +36,11 @@ export async function GET(request: NextRequest) {
     const banned = /banned/i.test(exchangeError.message);
     return back(withSignInResult(next, banned ? "disabled" : "failed"));
   }
-  if (session.user) await logEvent(session.user.id, { type: "sign_in" });
+  if (session.user) {
+    // A new account is let in or not (D132).
+    const gate = await admitAfterSignIn(session.user);
+    if (gate !== "ok") return back(`/beta?reason=${gate}`);
+    await logEvent(session.user.id, { type: "sign_in" });
+  }
   return back(next);
 }

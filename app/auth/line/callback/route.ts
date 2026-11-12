@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse, type NextRequest } from "next/server";
 import { getAdminSupabase } from "@/auth/admin";
+import { admitAfterSignIn } from "@/auth/beta";
 import { logEvent } from "@/auth/events";
 import { LINE_COOKIE, lineConfig, lineIdentity } from "@/auth/line";
 import { getServerSupabase } from "@/auth/server";
@@ -71,6 +72,9 @@ export async function GET(request: NextRequest) {
   await admin.auth.admin.updateUserById(session.user.id, {
     app_metadata: { ...session.user.app_metadata, line_sub: identity.sub },
   });
+  // A new account is let in or not (D132).
+  const gate = await admitAfterSignIn(session.user);
+  if (gate !== "ok") return back(`/beta?reason=${gate}`);
   await logEvent(session.user.id, { type: "sign_in" });
   return back(next);
 }

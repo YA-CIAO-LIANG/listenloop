@@ -12,6 +12,9 @@ vi.mock("@/auth/server", () => ({
       : null,
 }));
 
+const gate = vi.hoisted(() => vi.fn());
+vi.mock("@/auth/beta", () => ({ admitAfterSignIn: gate }));
+
 const logEvent = vi.hoisted(() => vi.fn());
 vi.mock("@/auth/events", () => ({ logEvent }));
 
@@ -25,6 +28,7 @@ const callback = async (query: string) => {
 };
 
 beforeEach(() => {
+  gate.mockReset().mockResolvedValue("ok");
   supabase.configured = true;
   supabase.exchangeCodeForSession.mockReset();
 });
@@ -41,6 +45,20 @@ describe("/auth/callback", () => {
     expect(supabase.exchangeCodeForSession).toHaveBeenCalledWith("abc");
     // Signing in is logged (D55).
     expect(logEvent).toHaveBeenCalledWith("u1", { type: "sign_in" });
+  });
+
+  it("sends a new account the Beta can't take to the Beta page (D132)", async () => {
+    supabase.exchangeCodeForSession.mockResolvedValue({
+      data: { user: { id: "u2", email: "new@example.com" } },
+      error: null,
+    });
+    gate.mockResolvedValue("full");
+    logEvent.mockClear();
+    expect(await callback("code=abc&next=%2F")).toBe(
+      "https://listenloop.test/beta?reason=full",
+    );
+    expect(gate).toHaveBeenCalledWith({ id: "u2", email: "new@example.com" });
+    expect(logEvent).not.toHaveBeenCalled();
   });
 
   it("says when a disabled account tries to sign in (D50)", async () => {

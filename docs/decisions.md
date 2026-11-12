@@ -2322,3 +2322,22 @@
 - **不受影響**：已經用 YouTube 連結建立的練習照常練習（播放用 IFrame Player，不需要 YouTube Data API 金鑰）；內建的 YouTube 影片教材（Blender 開放電影）本來就不用這個功能。
 - **`YOUTUBE_API_KEY`**：暫時不需要設定；設了也不會用到。
 - **要改時**：`lib/features.ts`；受影響的地方在 `auth/youtube.ts`、`auth/creator.ts`、`app/admin/usage/actions.ts`、`components/ConnectionTest.tsx`、`app/materials/new/page.tsx`、`components/PricingPlans.tsx`、`app/admin/interest/page.tsx`。
+
+## D132 分階段開放註冊：上限、公開註冊開關、邀請碼、Beta 等候名單（2026-11-11，Joe 指定）
+
+- **怎麼擋**：Google、LINE 是先在供應者那邊登入，回到我們的網站時帳號才建立，事前不知道是新使用者還是舊使用者。所以在每次登入回來時（`/auth/callback`、`/auth/line/callback`、Email 的 `/auth/confirm`）檢查：
+  - 已經放行的帳號直接通過；
+  - 新帳號由資料庫函式 `admit_account` 判斷，鎖住設定列，避免兩個人同時搶最後一個名額。依序是：管理員（`ADMIN_EMAILS`）、這個瀏覽器帶著有效的邀請碼、公開註冊開放且還沒到上限；
+  - 都不符合時，立刻登出並刪除剛建立的帳號（不留資料、不佔名額），導到 `/beta` 顯示「目前 Beta 名額已滿」或「暫停開放註冊」。已經放行的帳號絕對不會被刪除；資料庫出錯時放行，不刪人。
+  - `getSignedInUser` 把還沒放行的帳號當成未登入（例如登入回來的檢查沒做完），再登入一次就會重新檢查。
+  - Email 註冊在寄確認信之前就先檢查名額，額滿時直接提示並給等候名單連結，不寄信。
+- **既有帳號**：migration 把現有帳號都標成已放行（`existing`）。2026-11-11 正式站有 2 個帳號（1 位管理員），上限 50 不影響任何人。
+- **上限怎麼算**：已放行的帳號數，不含管理員；用邀請碼進來的也算在人數裡，但不受上限擋。預設上限 50、公開註冊開放（Joe 指定），管理員在 `/admin/beta` 調整，寫進稽核。
+- **邀請碼**：8 個字，去掉容易看錯的 0、O、1、I、L。可以設定可用次數（1～10,000）、有效天數（1～365 或不限）、備註，也可以停用。連結 `/invite/<code>` 會把邀請碼存在 httpOnly cookie（30 天），導到登入頁顯示「你收到了邀請」；第一次登入時用掉，之後刪除 cookie。無效的連結導到 `/beta?reason=invite`。每次使用記在 `beta_invite_uses`。
+- **Beta 等候名單**（`beta_waitlist`）：不需要帳號，記 Email 和「想用來做什麼」（選填，500 字內）。同一個 Email 只留一筆，回應不透露是否已經在名單上；每個 IP 每小時 5 次。和付費方案的等候名單（`waitlist`，D72）是不同的東西。
+  - 後台勾選後，為每個人產生只能用一次、30 天有效的邀請連結，並標記已邀請；寄信服務設定好之前，由 Joe 手動寄出。稽核只記人數，不記 Email。
+- **Beta 說明與意見回饋**：首頁、登入頁、`/beta` 顯示「Beta 測試中」和「意見回饋」連結（`/feedback`）。
+- **條款同意與年齡**：網站原本就有全站的使用說明條（「使用 ListenLoop 即表示你同意服務條款與隱私權政策；未滿 18 歲請在家長或法定代理人同意下使用」），班級加入時也有年齡確認（D103）。這次在登入頁加上「繼續登入或建立帳號，即表示同意服務條款與隱私權政策；未滿 18 歲請先取得家長同意；未滿 13 歲請勿自行建立帳號」，和條款第 2 條一致。沒有另外加勾選框（業界常見的 browsewrap/sign-in-wrap 做法）；要改成必須勾選時，在 `LoginForm` 加一個勾選框即可。
+- **新手引導**：第一次造訪的七天循環說明（`OnboardingStart`）不受影響，E2E 照常檢查。
+- **寄信**：Supabase 內建的寄信服務每小時只能寄很少封（確認信、重設密碼），Beta 期間用 Email 註冊的人多時會寄不出去。這是 Joe 待辦清單上的「自訂 SMTP」。
+- **要改時**：`lib/beta.ts`、`auth/beta.ts`、`app/beta/`、`app/invite/[code]/route.ts`、`app/admin/beta/`、`components/BetaAdmin.tsx`、`components/BetaWaitlistForm.tsx`、`components/BetaNote.tsx`；資料表 `supabase/migrations/20261115000000_beta_signups.sql`。

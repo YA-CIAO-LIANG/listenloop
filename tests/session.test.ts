@@ -71,6 +71,28 @@ describe("getSignedInUser", () => {
     });
   });
 
+  it("treats an account not let into the Beta yet as signed out (D132)", async () => {
+    state.profile = {
+      number: 1,
+      role: "user",
+      status: "active",
+      beta_admitted_at: null,
+    } as typeof state.profile;
+    expect(await getSignedInUser()).toBeNull();
+    // Admins always get in.
+    state.claims = { sub: "u0", email: "owner@example.com" };
+    expect(await getSignedInUser()).toMatchObject({ role: "admin" });
+    // Let in: as usual.
+    state.claims = { sub: "u1", email: "learner@example.com" };
+    state.profile = {
+      number: 1,
+      role: "user",
+      status: "active",
+      beta_admitted_at: "2026-11-11T00:00:00Z",
+    } as typeof state.profile;
+    expect(await getSignedInUser()).toMatchObject({ id: "u1" });
+  });
+
   it("treats a disabled account as signed out", async () => {
     state.profile = { number: 1, role: "admin", status: "disabled" };
     expect(await getSignedInUser()).toBeNull();

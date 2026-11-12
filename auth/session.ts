@@ -37,11 +37,23 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
   const email = claims.email ?? "";
   const { data: profile } = await supabase
     .from("profiles")
-    .select("number, role, status, plan, practices_created, classroom_seats")
+    .select(
+      "number, role, status, plan, practices_created, classroom_seats, beta_admitted_at",
+    )
     .eq("user_id", id)
     .maybeSingle();
   if (profile?.status === "disabled") return null;
   const listed = isAdminEmail(email);
+  // Not let in yet (D132): a new account between its first sign-in and
+  // the check right after it, or one the check couldn't finish. It's
+  // treated as signed out; signing in again runs the check again.
+  if (
+    profile?.beta_admitted_at === null &&
+    profile.role !== "admin" &&
+    !listed
+  ) {
+    return null;
+  }
   if (listed && profile?.role !== "admin") {
     // Saved for the admin pages; this request is an admin's either way.
     await getAdminSupabase()
