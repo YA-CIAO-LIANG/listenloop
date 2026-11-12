@@ -1,3 +1,4 @@
+import { updateActivity } from "@/lib/claim-rewards";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   emptyActivity,
@@ -158,6 +159,37 @@ describe("syncWithCloud", () => {
   beforeEach(() => {
     storage = new MemoryStorage();
     local = localStores();
+  });
+
+  it("keeps an answer given while it was reading the cloud (no lost update)", async () => {
+    storage.setItem(ACCOUNT_KEY, JSON.stringify({ userId: "u1", synced: [] }));
+    const { cloud } = fakeCloud([], {
+      days: { "2026-11-01": { official: true, retries: [] } },
+    } as Activity);
+    // The page records a review while the sync is still talking to the
+    // cloud (after it read this device's activity).
+    const slow = cloud.getSettings!;
+    cloud.getSettings = vi.fn(async () => {
+      await updateActivity(local.rewards, (activity) => ({
+        ...activity,
+        review: {
+          station: {
+            en: "The station is near.",
+            zh: "車站很近。",
+            videoId: "v",
+            i: 0,
+            stage: 1,
+            due: "2026-11-05",
+            at: "2026-11-02T02:00:00.000Z",
+          },
+        },
+      }));
+      return slow();
+    });
+    await syncWithCloud({ userId: "u1", local, cloud, storage });
+    const after = await local.rewards.getActivity();
+    expect(after.review?.station?.due).toBe("2026-11-05");
+    expect(after.days["2026-11-01"]).toBeDefined();
   });
 
   it("signing in as another account: its settings, not the last one's (D138)", async () => {
