@@ -394,10 +394,10 @@ describe("generatePracticeText", () => {
 
 describe("lengths (D94)", () => {
   it("asks for 30 seconds or one's own length in words", () => {
-    expect(lengthWords("30s")).toBe(65);
-    expect(lengthWords("custom", 90)).toBe(195);
-    // The buckets read as before (the recorded fixtures depend on it).
-    expect(lengthWords("1-2")).toBe(195);
+    // 150 words a minute (D142).
+    expect(lengthWords("30s")).toBe(75);
+    expect(lengthWords("custom", 90)).toBe(225);
+    expect(lengthWords("1-2")).toBe(225);
     expect(lengthSeconds("2-3")).toBe(180);
     expect(lengthSeconds("custom", 45)).toBe(45);
   });
@@ -415,6 +415,6 @@ describe("lengths (D94)", () => {
       compositionPrompt(
         parseGenerationRequest({ ...request, length: "custom", seconds: 60 })!,
       ).words,
-    ).toBe(130);
+    ).toBe(150);
   });
 });

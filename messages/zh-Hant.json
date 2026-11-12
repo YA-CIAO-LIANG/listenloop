@@ -779,6 +779,7 @@
     "reviewTitle": "預覽與修改",
     "reviewIntro": "每一句會成為一題聽寫和跟讀。可以修改英文和中文、合併或拆分句子，或刪除不需要的句子；確認後再建立。",
     "sentenceCount": "共 {count} 句",
+    "lengthEstimate": "長度約 {minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}（{words, number} 個字，以每分鐘約 {perMinute} 字估算）。",
     "sentenceEn": "第 {n} 句英文",
     "sentenceZh": "第 {n} 句中文",
     "removeSentence": "刪除",

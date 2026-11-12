@@ -679,7 +679,7 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 ### 7.2 Counting allowances
 
 - **One to try**: `profiles.practices_created` (a trigger adds 1 on insert; deleting doesn't give it back, D72).
-- **Minutes a month**: the sum of `practices.estimated_seconds` created this month (Taiwan time); text at 130 words a minute, YouTube by the excerpt's length (D102).
+- **Minutes a month**: the sum of `practices.estimated_seconds` created this month (Taiwan time); text at 150 words a minute (D142), YouTube by the excerpt's length (D102).
 - **Characters per material**: 2,000 on Free and Plus, 10,000 on Pro (technical limit).
 - Checked before every AI step and on saving (`auth/creation-quota.ts`).
 

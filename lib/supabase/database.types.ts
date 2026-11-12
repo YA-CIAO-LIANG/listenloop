@@ -842,6 +842,7 @@ export type Database = {
           estimated_seconds: number | null;
           exam: string | null;
           exam_target: string | null;
+          generation_seconds: number | null;
           grammar: Json;
           id: string;
           level: string | null;
@@ -884,6 +885,7 @@ export type Database = {
           estimated_seconds?: number | null;
           exam?: string | null;
           exam_target?: string | null;
+          generation_seconds?: number | null;
           grammar?: Json;
           id?: string;
           level?: string | null;
@@ -926,6 +928,7 @@ export type Database = {
           estimated_seconds?: number | null;
           exam?: string | null;
           exam_target?: string | null;
+          generation_seconds?: number | null;
           grammar?: Json;
           id?: string;
           level?: string | null;

@@ -1,3 +1,4 @@
+import { WORDS_PER_MINUTE } from "@/lib/custom-practice/generation";
 import { VOICE_ACCENTS, type VoiceAccent } from "@/lib/ai/types";
 import {
   allScenarioIds,
@@ -327,7 +328,7 @@ export function videoLibraryItem(video: Video, learners = 0): LibraryItem {
 
 /**
  * A practice as a library item. `seconds` is its audio's length; when
- * that's unknown, about 130 words a minute (D36) from the sentence count
+ * that's unknown, WORDS_PER_MINUTE (D36, D142) from the sentence count
  * at 12 words a sentence.
  */
 export function practiceLibraryItem(
@@ -345,7 +346,9 @@ export function practiceLibraryItem(
     exam: practice.exam,
     examTarget: practice.examTarget,
     level: isLevel(practice.level) ? practice.level : null,
-    seconds: Math.round(seconds ?? (practice.sentenceCount * 12 * 60) / 130),
+    seconds: Math.round(
+      seconds ?? (practice.sentenceCount * 12 * 60) / WORDS_PER_MINUTE,
+    ),
     accent: practice.voice
       ? (parseVoiceId(practice.voice)?.accent ?? null)
       : null,

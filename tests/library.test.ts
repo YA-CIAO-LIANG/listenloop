@@ -372,8 +372,8 @@ describe("library items", () => {
   });
 
   it("estimates the length from the sentences when the audio's isn't known", () => {
-    // 13 sentences × 12 words ÷ 130 words a minute = 72 s.
-    expect(practiceLibraryItem(practice).seconds).toBe(72);
+    // 13 sentences × 12 words ÷ 150 words a minute = 62 s (D142).
+    expect(practiceLibraryItem(practice).seconds).toBe(62);
   });
 
   it("drops categories and levels it doesn't know", () => {

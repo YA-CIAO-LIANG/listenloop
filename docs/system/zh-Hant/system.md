@@ -679,7 +679,7 @@ sequenceDiagram
 ### 7.2 額度計算
 
 - **試做 1 份**：`profiles.practices_created`（觸發器在新增時 +1，刪除不減，D72）。
-- **每月分鐘數**：本月（台灣時間）建立的 `practices.estimated_seconds` 加總；文字以每分鐘 130 字估算，YouTube 用片段長度（D102）。
+- **每月分鐘數**：本月（台灣時間）建立的 `practices.estimated_seconds` 加總；文字以每分鐘 150 字估算（D142），YouTube 用片段長度（D102）。
 - **每份字數**：免費、Plus 2,000 字，Pro 10,000 字（技術上限）。
 - 建立前每個 AI 步驟、存檔時都檢查（`auth/creation-quota.ts`）。
 

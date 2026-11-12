@@ -9,6 +9,10 @@ import { renderWithIntl } from "../render";
 const router = vi.hoisted(() => ({ refresh: vi.fn() }));
 vi.mock("next/navigation", () => ({ useRouter: () => router }));
 // The real Server Actions can't run in a test DOM; the form takes them as props.
+const recordTime = vi.hoisted(() => vi.fn(async () => {}));
+vi.mock("@/app/materials/generation-time-actions", () => ({
+  recordGenerationTime: recordTime,
+}));
 vi.mock("@/app/materials/actions", () => ({
   splitText: vi.fn(),
   translateSentences: vi.fn(),
@@ -62,11 +66,11 @@ beforeEach(() => {
 
 /** On the paid plan by default: every length is offered (D94). */
 async function renderForm(
-  planOrProps: PlanId | { create: typeof create } = "paid",
+  planOrProps: PlanId | { create?: typeof create; sitePace?: number } = "paid",
 ) {
   const plan = typeof planOrProps === "string" ? planOrProps : "paid";
-  const createAction =
-    typeof planOrProps === "string" ? create : planOrProps.create;
+  const props = typeof planOrProps === "string" ? {} : planOrProps;
+  const createAction = props.create ?? create;
   await act(async () => {
     renderWithIntl(
       <PlanProvider plan={plan}>
@@ -78,6 +82,7 @@ async function renderForm(
           generateNotes={generateNotes}
           generateText={generateText}
           describe={describeTitles}
+          sitePace={props.sitePace}
         />
       </PlanProvider>,
     );
@@ -133,9 +138,13 @@ describe("CreatePracticeForm", () => {
     );
 
     expect(screen.getByText("共 2 句")).toBeTruthy();
-    // How long it should take, before creating (D95): 2 × 2.5 s.
+    // How long it should take, before creating (D95): 2 × 2 s.
     expect(screen.getByText(/建立後預計約/).textContent).toBe(
       "建立後預計約 10 秒可以開始練習。",
+    );
+    // Its length from the actual words, at 150 a minute (D142): 7 words.
+    expect(screen.getByText(/^長度約/).textContent).toBe(
+      "長度約 3 秒（7 個字，以每分鐘約 150 字估算）。",
     );
     expect(screen.queryByText(/可以離開這個頁面/)).toBeNull();
     fireEvent.change(screen.getByLabelText("第 1 句英文"), {
@@ -181,6 +190,19 @@ describe("CreatePracticeForm", () => {
       JSON.parse(localStorage.getItem("ll-gen-speed:v1") ?? "null"),
     ).toMatchObject({ samples: 1 });
     localStorage.removeItem("ll-gen-speed:v1");
+    // …and the site's, from every device (D142).
+    expect(recordTime).toHaveBeenCalledWith("p1", expect.any(Number));
+  });
+
+  it("estimates from the site's real times when known (D142)", async () => {
+    await renderForm({ sitePace: 10 });
+    fireEvent.change(textBox(), {
+      target: { value: "We moved here. Do you like it?" },
+    });
+    await click("斷句並翻譯");
+    expect(screen.getByText(/建立後預計約/).textContent).toBe(
+      "建立後預計約 20 秒可以開始練習。",
+    );
   });
 
   async function renderWithRevise(revise: ReviseText) {
@@ -331,7 +353,8 @@ describe("CreatePracticeForm", () => {
   );
 
   it("suggests leaving a long job, and the server finishes it if the page closes (D95)", async () => {
-    const sentences = Array.from({ length: 30 }, (_, i) => `Line ${i}.`);
+    // 60 sentences at the default 2 s each (D142).
+    const sentences = Array.from({ length: 60 }, (_, i) => `Line ${i}.`);
     split.mockResolvedValueOnce({ ok: true, sentences });
     translate.mockImplementation(async (batch: string[]) => ({
       ok: true,
