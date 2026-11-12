@@ -17,6 +17,9 @@ import { normalizeWords } from "./scoring/normalize";
  */
 export const REVIEW_INTERVALS = [1, 3, 7] as const;
 
+/** "Loop": the pause between one playing of the word and the next (D145). */
+export const REVIEW_LOOP_GAP_MS = 1500;
+
 /** Reviews a day at most, so a long list never turns into a chore. */
 export const REVIEW_PER_DAY = 10;
 

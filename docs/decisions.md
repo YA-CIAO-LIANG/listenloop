@@ -2542,6 +2542,14 @@
 - **之後收費時**：結帳前要再檢查 `student_verified_at` 仍有效；到期時降回免費或改收 Plus 價，屆時再決定。
 - **要改時**：`lib/student.ts`（網域、有效天數）、`lib/payments/pricing.ts`（價格）、`auth/student.ts`、`app/auth/callback/route.ts`、`components/PricingPlans.tsx`。
 
+## D145 我的錯字：單字發音、重播與循環、作答後的單字講解（2026-11-12，Joe 指定）
+
+- **發音**：每個字出現時自動播放一次單字發音。用單字測驗（D136）的共用發音快取：每個「單字＋聲音」只產生一次（Azure F0），之後所有人共用；沒有錄音時（未登入、額度用完）改用瀏覽器內建語音。伺服器只為「這份教材句子裡出現的字」產生發音（`wordAudioUrl` 多接受出現在句子裡、值得複習的字），不能拿來產生任意文字。瀏覽器若擋下自動播放（還沒點過頁面），就等使用者按「重播」。
+- **重播與循環**：「重播」再播一次；「循環播放」（`aria-pressed`）每次播完隔 `REVIEW_LOOP_GAP_MS`（1.5 秒，`lib/review.ts`）再播，直到關掉或換下一個字。原本的「播放這句」（原句音檔）保留。
+- **作答後的講解**：從教材自己的講解找這個字（`lib/review-notes.ts`，不呼叫 AI）：先找聽錯那一句的講解，再找整份教材；依序比對「句子裡的形式」（moved）、「原形」（move）、片語裡的單字。顯示詞性、中文、音標（只有第 2 版講解有）、例句與例句翻譯；講解裡沒有這個字時說明「講解裡沒有這個字」。下方顯示「出自《教材》第 N 句」與「去聽原句」連結。
+- **去聽原句**：連到聆聽模式並從那一句開始（`/videos/<id>/listen?s=N`，`ListenSession` 的 `start`）。聆聽模式需要第 1 天完成；錯字都來自已完成的聽寫，所以一定打得開。
+- **要改時**：`components/MisheardReview.tsx`、`components/useWordSound.ts`、`lib/review-notes.ts`、`lib/review.ts`（`REVIEW_LOOP_GAP_MS`）、`app/review/actions.ts`（`loadReviewDetails`）、`app/videos/[id]/quiz/actions.ts`。
+
 ## D146 程度測驗：某一級正確率達 60% 就判定為該程度，並作為教材庫的初始程度（2026-11-12，Joe 指定）
 
 - **規則**：每個程度（初級、中級、高級）各聽寫幾句，依字數加權算正確率；**達到 60%**（`LEVEL_PASS`，原本 70%）就算達到那一級。結果是從初級往上**連續**達到的最高一級：中級沒到 60% 時，即使高級到了也判定為初級（跳級多半是猜中，不採用）。一級都沒到時是初級。

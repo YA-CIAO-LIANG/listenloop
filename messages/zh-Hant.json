@@ -2942,7 +2942,15 @@
     "listTitle": "我的錯字（{count}）",
     "listIntro": "依下次複習的日期排列；學會的排在最後。",
     "learned": "已學會",
-    "due": "下次複習：{date}"
+    "due": "下次複習：{date}",
+    "soundLabel": "單字發音",
+    "replay": "重播",
+    "loop": "循環播放",
+    "loopOn": "停止循環",
+    "example": "例句",
+    "noNotes": "這份教材的講解裡沒有這個字。",
+    "from": "出自《{title}》第 {n} 句。",
+    "hearIt": "去聽原句"
   },
   "levelTest": {
     "title": "程度測驗",

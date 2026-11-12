@@ -163,7 +163,7 @@ Shown after a dictation answer or a shadowed sentence:
 ## 8. Progress and stats
 
 - **Home** (signed in): practice calendar → today's tasks → official library.
-- **My misheard words** (`/review`): words you mishear in dictation are listed automatically and come back in today's tasks the next day, 3 days later, and 7 days later; fill the word back into its sentence (with the Chinese and, for audio materials, the sound). Three right in a row and it's learned.
+- **My misheard words** (`/review`): words you mishear in dictation are listed automatically and come back in today's tasks the next day, 3 days later, and 7 days later; fill the word back into its sentence (with the Chinese and, for audio materials, the sound). Three right in a row and it's learned. Each word plays its sound when it comes up; "Replay" and "Loop" (again every 1.5 seconds) play it more. After answering you see its part of speech, Chinese, IPA, an example with its Chinese, and "From ‘material’, sentence N"; "Hear the sentence" opens listening mode at that sentence.
 - **Progress** (header): every material you're practicing, which day, the full calendar; remove ones you don't want (removed on your other devices too).
 - **Stats** (header):
   - Streak and practice time a day (only while the page is in front and you're active);

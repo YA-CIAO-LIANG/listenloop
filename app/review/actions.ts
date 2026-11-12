@@ -1,6 +1,8 @@
 "use server";
 
+import { getPracticeMaterial } from "@/auth/practice-material";
 import { getServerSupabase } from "@/auth/server";
+import { reviewNote, type ReviewNote } from "@/lib/review-notes";
 import {
   customPracticeId,
   parseCustomPracticeId,
@@ -56,4 +58,39 @@ export async function loadReviewMaterials(
     };
   }
   return out;
+}
+
+export type ReviewDetails = {
+  /** The material's title, for "from … sentence N". */
+  title: string;
+  note: ReviewNote | null;
+};
+
+/**
+ * A misheard word's notes after it's answered (D145): its meaning, sound,
+ * and example from the material's own notes, and the material's title.
+ * Only for materials the viewer may read (getPracticeMaterial decides).
+ */
+export async function loadReviewDetails(
+  videoId: unknown,
+  word: unknown,
+  sentence: unknown,
+): Promise<ReviewDetails | null> {
+  if (
+    typeof videoId !== "string" ||
+    typeof word !== "string" ||
+    word.length > 64
+  ) {
+    return null;
+  }
+  const material = await getPracticeMaterial(videoId).catch(() => null);
+  if (!material) return null;
+  return {
+    title: material.title,
+    note: reviewNote(
+      material,
+      word,
+      typeof sentence === "number" ? sentence : undefined,
+    ),
+  };
 }
