@@ -1302,7 +1302,26 @@
         "failed": "Couldn't save. Try again later."
       }
     },
-    "monthCapNote": "Site cap {cap}"
+    "monthCapNote": "Site cap {cap}",
+    "forecast": {
+      "title": "Forecasts and weekly summaries",
+      "intro": "From the last 30 days of spend (all AI and speech, so on the safe side) and the daily size samples; estimates only.",
+      "credit": "Azure credit runs out",
+      "lastsToExpiry": "Lasts until it expires",
+      "creditNote": "About {perDay} a day, {left} left ({days} days of data)",
+      "database": "Supabase database full",
+      "storage": "Supabase storage full",
+      "noSamples": "No data yet",
+      "noSamplesNote": "The monitor samples sizes once a day; forecasts appear after a few days.",
+      "notGrowing": "Not growing",
+      "capacityNote": "{now} now, about {perDay} more a day",
+      "vercel": "Vercel has no free usage API; check function calls and bandwidth on Vercel's dashboard.",
+      "vercelLink": "Open Vercel usage",
+      "weeksTitle": "Weekly summaries",
+      "noWeeks": "No weekly summary yet; the monitor makes one every Monday morning.",
+      "week": "{start} – {end}",
+      "weekLine": "Spend {spend} · new accounts {users} · new materials {practices} · active learners {active}"
+    }
   },
   "generate": {
     "sourceLegend": "Text source",
@@ -1990,7 +2009,23 @@
       "confirmYes": "Change",
       "cancel": "Cancel",
       "confirmTitle": "Change the service switches",
-      "closed": "Off"
+      "closed": "Off",
+      "monitorTitle": "Monitoring",
+      "lastCheck": "Last health check: {status} ({at})",
+      "noCheck": "No health check yet; once the monitor is scheduled, it checks every 15 minutes.",
+      "health": {
+        "ok": "OK",
+        "degraded": "Degraded",
+        "down": "Down"
+      },
+      "alertsTitle": "Alerts",
+      "noAlerts": "No alerts.",
+      "alertLevels": {
+        "warning": "Warning",
+        "critical": "Critical"
+      },
+      "notified": "Sent to Discord",
+      "notNotified": "Kept here only"
     }
   },
   "events": {
@@ -3490,6 +3525,12 @@
         "info": "Notice",
         "warning": "Heads-up",
         "critical": "Important"
+      },
+      "lastCheck": "Last check: {status} ({at})",
+      "health": {
+        "ok": "OK",
+        "degraded": "Degraded",
+        "down": "Down"
       }
     },
     "banner": {

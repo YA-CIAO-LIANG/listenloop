@@ -312,6 +312,13 @@ When something goes wrong, contain it first, then find the cause. The full steps
 - It shows under the header on every page; people can dismiss it, except an important one.
 - The public status page `/status` (footer: "Service status") shows the state, what's paused, and the announcements.
 
+### 11.3 Monitoring and alerts (D156)
+
+- `.github/workflows/ops.yml` checks the site every 15 minutes, prunes old logs daily, and makes a usage summary every Monday morning. Setup steps: "Things to do yourself" in `docs/roadmap.md`.
+- Alerts are under "Alerts" on `/admin/ops`, and on Discord when a webhook is set. The same problem is sent at most once in 6 hours.
+- What raises one: the site or a health check failing, a burst of errors, an AI or speech allowance at 80% or used up, today's spend over 3× the 7-day average, Supabase at 80%, many sign-ups or reports in an hour.
+- Forecasts and weekly summaries are on `/admin/usage`.
+
 ## 12. Questions
 
 | Question                                   | Answer                                                                                                                                  |

@@ -2792,3 +2792,43 @@
   - 讀取與快取：`auth/site-switches.ts`。
   - 接上的地方：`proxy.ts`、`auth/creator.ts`（`getCreator`）、`app/materials/actions.ts`、`app/materials/upload-actions.ts`、`app/materials/organize-actions.ts`、`auth/beta.ts`、`app/materials/new/page.tsx`。
   - 後台：`app/admin/ops/`、`components/OpsAdmin.tsx`。
+
+## D156 監控、通知、成本斷路器通知、容量預測、每週摘要（2026-11-13，Joe 指定）
+
+- **為什麼**：出事時要比使用者先知道；Supabase 免費方案 7 天沒有活動會暫停；Azure 學生額度與 Supabase 免費額度用完前要能預先看到。
+- **做法**：
+  - **公開健康檢查** `GET /api/health`：只回 `{status, checks}`，每項只有 ok、fail、skipped，沒有任何訊息、版本或數字；`cache-control: no-store`；結果在伺服器上重用 30 秒。資料庫掛掉時回 503。
+    - 只檢查資料庫、Storage 和設定是否齊全，**不呼叫 AI 供應者**，避免任何人透過載入網址讓網站去呼叫 Azure。
+    - 會讀一次資料庫，所以每 15 分鐘被呼叫一次，就能防止 Supabase 因 7 天沒活動而暫停。
+  - **監控** `POST /api/cron/monitor`：需要 `Authorization: Bearer <CRON_SECRET>`。沒設定 `CRON_SECRET`（或少於 16 字）時這個路由不存在（404），比對用 `timingSafeEqual`。
+    - 呼叫 AI 與語音的免費連線檢查（D49，不花 token）。
+    - 用 `ops_snapshot()` 一次取得所有數字，依 `lib/ops/alerts.ts` 的規則產生通知。數字集中在 `lib/ops/thresholds.ts`。
+    - 通知規則：
+      - 健康檢查失敗；
+      - 錯誤率：15 分鐘內 ≥ 10 筆，而且 ≥ 過去 7 天平均的 5 倍；
+      - 全站 AI 月額度、F0 語音字數、轉文字時數：達 80% 和 100% 各通知一次；
+      - 今日花費 > 過去 7 天平均 × 3，而且 ≥ US$0.10；
+      - Supabase 資料庫或 Storage ≥ 80%；
+      - 1 小時內註冊 ≥ 20 或檢舉 ≥ 10。
+    - 每則通知存在 `ops_alerts`（保留 90 天）。同一個 key 6 小時內不重複送出。有 `DISCORD_WEBHOOK_URL` 時送到 Discord（只接受 discord.com 的 webhook 網址，關閉 @ 提及），沒有就只顯示在 `/admin/ops`。
+    - 每天一次（`?daily=1`）：`prune_logs()`（原本只在管理員打開後台時執行），並記錄資料庫與 Storage 大小到 `ops_samples`，供預測使用。
+  - **每週摘要** `POST /api/cron/weekly`（每週一 08:30）：上週的花費（依供應者與操作）、新帳號、新教材、活躍學習者、Azure 額度預測與 Supabase 容量預測，存在 `weekly_reports`，有 Discord 時同時送出。
+  - **排程**：`.github/workflows/ops.yml`。理由：Vercel Hobby 的 cron 一天只能一次；repo 是公開的，Actions 免費。
+    - 每 15 分鐘：先打 `/api/health`（不需要任何秘密），再打監控。
+    - 每天台灣 03:00：加上 daily；每週一 08:30：產生每週摘要。
+    - 網站本身連不上時，Actions 直接用 secret `DISCORD_WEBHOOK_URL` 通知。秘密都留在 Vercel，Actions 只需要 `CRON_SECRET`（Discord 選用）。
+    - 注意：公開 repo 60 天沒有 commit，GitHub 會停用排程（寫進事故手冊）。
+  - **成本斷路器**：檢查過所有付費 AI 呼叫都經過 meter（`reserve()` 先檢查全站月上限，再檢查每日上限，D77）。新增 `tests/ai-calls-metered.test.ts`，掃描每一處呼叫，確保之後新增的也有經過 meter。原本達到上限時只有後台橫幅，現在 80% 和 100% 都會通知。
+  - **預測** `lib/ops/forecast.ts`，顯示在 `/admin/usage` 的「預測與每週摘要」：
+    - Azure 學生額度：用最近 30 天每天的花費平均，推算 US$100 何時用完。如果到期日（2027-11-04）比較早，就顯示「到期前用不完」。用的是全部 AI 與語音花費，偏保守。
+    - Supabase：用 `ops_samples` 的每日容量做最小平方法直線，推算何時滿。
+    - Vercel 沒有免費的用量 API，改成附上 Vercel 後台連結，並在 `docs/capacity.md` 用流量估算。
+  - `/admin/ops` 加上「監控」：最近一次健康檢查與通知紀錄。`/status` 顯示最近一次檢查的時間與結果。
+- **沒有新增付費服務**：Discord webhook 免費，GitHub Actions 在公開 repo 免費。
+- **測試**：
+  - `tests/ops-monitoring.test.ts`：每條通知規則、不重複、預測、Discord 訊息格式、秘密比對、每週摘要。
+  - `tests/cron-routes.test.ts`：沒有秘密時 404、秘密錯誤時 401、health 不洩漏細節。
+  - `tests/ai-calls-metered.test.ts`。
+  - E2E（`e2e/ops.spec.ts`）：`/api/health` 的格式、沒有秘密時 cron 回 404、後台看得到預測與監控。
+- **Migration 回復**：`20261123000000_ops_monitoring.sql` 檔尾。
+- **要改時**：門檻 `lib/ops/thresholds.ts`；規則 `lib/ops/alerts.ts`；排程 `.github/workflows/ops.yml`；伺服器端 `auth/ops.ts`、`auth/forecasts.ts`。

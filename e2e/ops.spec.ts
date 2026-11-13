@@ -108,3 +108,35 @@ test("an announcement shows on every page and on the status page", async ({
   await page.reload();
   await expect(banner).toHaveCount(0);
 });
+
+test("the health check answers without details; the cron routes are closed without a secret", async ({
+  request,
+}) => {
+  const health = await request.get("/api/health");
+  expect(health.status()).toBe(200);
+  const body = await health.json();
+  expect(Object.keys(body).sort()).toEqual(["checks", "status"]);
+  expect(body.status).toBe("ok");
+  expect(Object.keys(body.checks).sort()).toEqual([
+    "ai",
+    "config",
+    "db",
+    "speech",
+    "storage",
+  ]);
+  // CRON_SECRET isn't set in the E2E build: the routes don't exist.
+  expect((await request.post("/api/cron/monitor")).status()).toBe(404);
+  expect((await request.post("/api/cron/weekly")).status()).toBe(404);
+});
+
+test("the admin sees the forecasts and the monitor", async ({ page }) => {
+  await signInAsAdmin(page);
+  await page.goto("/admin/usage");
+  await expect(
+    page.getByRole("heading", { name: "預測與每週摘要" }),
+  ).toBeVisible();
+  await expect(page.getByText("Azure 學生額度用完日")).toBeVisible();
+  await page.goto("/admin/ops");
+  await expect(page.getByRole("heading", { name: "監控" })).toBeVisible();
+  await expect(page.getByText("沒有通知。")).toBeVisible();
+});

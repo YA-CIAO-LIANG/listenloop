@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getFormatter, getLocale, getTranslations } from "next-intl/server";
 import { getActiveAnnouncements, getSiteSwitches } from "@/auth/site-switches";
+import { latestHealth } from "@/auth/ops";
 import { Card } from "@/components/Card";
 import { pausedFeatures, siteState } from "@/lib/site-switches";
 
@@ -17,16 +18,18 @@ export async function generateMetadata(): Promise<Metadata> {
  * maintenance mode too.
  */
 export default async function StatusPage() {
-  const [t, format, locale, switches, announcements] = await Promise.all([
-    getTranslations("ops.status"),
-    getFormatter(),
-    getLocale(),
-    getSiteSwitches(),
-    getActiveAnnouncements(),
-  ]);
+  const [t, format, locale, switches, announcements, health] =
+    await Promise.all([
+      getTranslations("ops.status"),
+      getFormatter(),
+      getLocale(),
+      getSiteSwitches(),
+      getActiveAnnouncements(),
+      latestHealth(),
+    ]);
   const state = siteState(switches);
   const paused = pausedFeatures(switches);
-  const healthy = state === "normal";
+  const healthy = state === "normal" && health?.status !== "down";
 
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
@@ -43,6 +46,18 @@ export default async function StatusPage() {
           />
           {t(`states.${state}`)}
         </p>
+        {/* The monitor's last check (D156). */}
+        {health && (
+          <p className="mt-2 text-supporting text-ink-muted">
+            {t("lastCheck", {
+              status: t(`health.${health.status}`),
+              at: format.dateTime(new Date(health.checkedAt), {
+                dateStyle: "medium",
+                timeStyle: "short",
+              }),
+            })}
+          </p>
+        )}
         <h2 className="mt-6 font-medium">{t("paused")}</h2>
         {paused.length === 0 ? (
           <p className="mt-2 text-supporting text-ink-muted">{t("none")}</p>

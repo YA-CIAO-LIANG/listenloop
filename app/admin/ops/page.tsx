@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
+import { latestHealth } from "@/auth/ops";
 import {
   AnnouncementForm,
   EndAnnouncementButton,
@@ -30,7 +31,7 @@ export default async function AdminOpsPage() {
     getFormatter(),
   ]);
   const admin = getAdminSupabase();
-  const [{ data: settings }, { data: rows }] = admin
+  const [{ data: settings }, { data: rows }, { data: alerts }, health] = admin
     ? await Promise.all([
         admin
           .from("site_settings")
@@ -41,8 +42,15 @@ export default async function AdminOpsPage() {
           .select("id, level, body_zh, body_en, starts_at, ends_at")
           .order("starts_at", { ascending: false })
           .limit(20),
+        // The monitor's alerts and last health check (D156).
+        admin
+          .from("ops_alerts")
+          .select("id, created_at, level, message, notified")
+          .order("created_at", { ascending: false })
+          .limit(30),
+        latestHealth(),
       ])
-    : [{ data: null }, { data: null }];
+    : [{ data: null }, { data: null }, { data: null }, null];
   const switches = settings ? parseSwitches(settings) : DEFAULT_SWITCHES;
   const announcements = (rows ?? []).flatMap(
     (row) => parseAnnouncement(row) ?? [],
@@ -64,6 +72,47 @@ export default async function AdminOpsPage() {
           {t("statusLink")}
         </Link>
       </p>
+
+      <section aria-labelledby="ops-monitor" className="mt-12 max-w-practice">
+        <h2 id="ops-monitor" className="font-display text-h2">
+          {t("monitorTitle")}
+        </h2>
+        <p className="mt-2 text-supporting text-ink-muted">
+          {health
+            ? t("lastCheck", {
+                status: t(`health.${health.status}`),
+                at: format.dateTime(new Date(health.checkedAt), {
+                  dateStyle: "medium",
+                  timeStyle: "short",
+                }),
+              })
+            : t("noCheck")}
+        </p>
+        <h3 className="mt-6 font-medium">{t("alertsTitle")}</h3>
+        {(alerts ?? []).length === 0 ? (
+          <p className="mt-2 text-supporting text-ink-muted">{t("noAlerts")}</p>
+        ) : (
+          <ul className="mt-2 divide-y divide-line border-y border-line">
+            {(alerts ?? []).map((alert) => (
+              <li key={alert.id} className="py-3 text-supporting">
+                <p className="text-metadata text-ink-muted">
+                  {format.dateTime(new Date(alert.created_at), {
+                    dateStyle: "short",
+                    timeStyle: "short",
+                  })}{" "}
+                  · {t(`alertLevels.${alert.level as "warning" | "critical"}`)}{" "}
+                  · {alert.notified ? t("notified") : t("notNotified")}
+                </p>
+                <p
+                  className={`mt-1 ${alert.level === "critical" ? "text-error" : ""}`}
+                >
+                  {alert.message}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <section aria-labelledby="ops-switches" className="mt-12 max-w-practice">
         <h2 id="ops-switches" className="font-display text-h2">
