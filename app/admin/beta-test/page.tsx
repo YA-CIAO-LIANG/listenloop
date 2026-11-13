@@ -148,7 +148,7 @@ export default async function AdminBetaTestPage({
               <li key={row.userId} className="py-3">
                 <Link
                   href={`/admin/users/${row.number}`}
-                  className="text-accent-ink underline underline-offset-4"
+                  className="tap text-accent-ink underline underline-offset-4"
                 >
                   {numbers.get(row.userId)}
                 </Link>
@@ -201,7 +201,7 @@ export default async function AdminBetaTestPage({
                     <th scope="row" className="py-2 pr-4 font-normal">
                       <Link
                         href={`/admin/users/${row.number}`}
-                        className="text-accent-ink underline underline-offset-4"
+                        className="tap text-accent-ink underline underline-offset-4"
                       >
                         {numbers.get(row.userId)}
                       </Link>
