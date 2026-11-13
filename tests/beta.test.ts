@@ -29,6 +29,7 @@ vi.mock("next/headers", () => ({
 }));
 vi.mock("@/auth/rate-limit", () => ({
   allowAction: async () => state.allowed,
+  requestIpHash: async () => "iphash01",
 }));
 vi.mock("@/auth/server", () => ({
   getServerSupabase: async () => ({ auth: { signOut: state.signOut } }),

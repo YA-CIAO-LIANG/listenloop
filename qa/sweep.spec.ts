@@ -116,6 +116,7 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           "/admin/users",
           "/admin/beta",
           "/admin/ops",
+          "/admin/abuse",
           "/admin/materials",
           "/admin/reports",
           "/admin/errors",

@@ -14,6 +14,7 @@ import { alertLines, discordText, sendDiscord } from "@/lib/ops/notify";
 import { supabaseConfig } from "@/lib/supabase/config";
 import { usageDay, usageMonth } from "@/lib/usage";
 import { AZURE_SPEECH_FREE_CHARS } from "@/lib/usage-report";
+import { runAbuseDetection } from "./abuse";
 import { getAdminSupabase } from "./admin";
 import { cleanOrphans } from "./orphans";
 import { getUsageSettings } from "./usage-settings";
@@ -165,7 +166,9 @@ export async function runMonitor(
     .from("health_checks")
     .insert({ status, checks: health, checked_at: now.toISOString() });
   const snapshot = await collectSnapshot(admin, health, now);
-  const alerts = evaluateAlerts(snapshot);
+  // Abuse detection (D162) adds its own alerts.
+  const abuse = await runAbuseDetection(admin, now).catch(() => []);
+  const alerts = [...evaluateAlerts(snapshot), ...abuse];
   const { fresh } = await recordAlerts(admin, alerts, now);
   if (daily) {
     await Promise.all([

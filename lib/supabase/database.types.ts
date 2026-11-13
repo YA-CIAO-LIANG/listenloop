@@ -39,6 +39,63 @@ export type Database = {
   };
   public: {
     Tables: {
+      abuse_flags: {
+        Row: {
+          auto_suspended: boolean;
+          created_at: string;
+          detail: Json;
+          id: string;
+          kind: string;
+          note: string | null;
+          resolved_at: string | null;
+          resolved_by: string | null;
+          status: string;
+          user_id: string;
+        };
+        Insert: {
+          auto_suspended?: boolean;
+          created_at?: string;
+          detail?: Json;
+          id?: string;
+          kind: string;
+          note?: string | null;
+          resolved_at?: string | null;
+          resolved_by?: string | null;
+          status?: string;
+          user_id: string;
+        };
+        Update: {
+          auto_suspended?: boolean;
+          created_at?: string;
+          detail?: Json;
+          id?: string;
+          kind?: string;
+          note?: string | null;
+          resolved_at?: string | null;
+          resolved_by?: string | null;
+          status?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      account_signals: {
+        Row: {
+          created_at: string;
+          ip_hash: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          ip_hash: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          ip_hash?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       admin_audit: {
         Row: {
           action: string;
@@ -1653,6 +1710,10 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      abuse_signals: {
+        Args: { day_start: string; heavy_calls: number };
+        Returns: Json;
+      };
       admin_overview: {
         Args: { day_start: string; week_start: string };
         Returns: {

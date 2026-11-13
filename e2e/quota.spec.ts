@@ -32,3 +32,10 @@ test("an admin sees the quota controls on a user's page", async ({ page }) => {
     page.getByRole("button", { name: "暫停這個帳號的 AI 功能" }),
   ).toBeVisible();
 });
+
+test("an admin sees the abuse flags page (D162)", async ({ page }) => {
+  await signInAsAdmin(page);
+  await page.goto("/admin/abuse");
+  await expect(page.getByRole("heading", { name: "濫用標記" })).toBeVisible();
+  await expect(page.getByText("沒有標記。")).toBeVisible();
+});

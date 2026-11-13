@@ -9,6 +9,7 @@ import {
   type Admission,
 } from "@/lib/beta";
 import { getAdminSupabase } from "./admin";
+import { requestIpHash } from "./rate-limit";
 import { featurePaused } from "./site-switches";
 import { getServerSupabase } from "./server";
 
@@ -100,6 +101,17 @@ export async function admitAfterSignIn(user: {
   const answer = data as Admission;
   if (isAdmitted(answer)) {
     if (invite) (await cookies()).delete(INVITE_COOKIE);
+    // A new account (D162): where it signed up from, hashed, to spot
+    // many accounts from one place. Best effort.
+    if (answer !== "admitted") {
+      try {
+        await admin
+          .from("account_signals")
+          .upsert({ user_id: user.id, ip_hash: await requestIpHash() });
+      } catch {
+        // Not worth failing a sign-in over.
+      }
+    }
     return "ok";
   }
   await (await getServerSupabase())?.auth.signOut().catch(() => undefined);
