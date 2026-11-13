@@ -2868,3 +2868,31 @@
   - **事後檢討範本**：`docs/postmortem-template.md`（對事不對人、時間軸、五個為什麼、改善行動）。
 - **測試**：`tests/migration-rollback.test.ts`（新 migration 要有回復區塊、舊 migration 都列在文件裡）；還原演練本身就是驗證。
 - **要改時**：排程與保留天數改 `backup.yml`；加密參數 `scripts/backup-encrypt.sh` 與 `backup-decrypt.sh` 要一起改，舊備份要用舊參數解開。
+
+## D158 威脅模型、OWASP 檢查與自動化資安掃描（2026-11-13，Joe 指定）
+
+- **為什麼**：repo 是公開的，網站也會開放給更多人；要有一份清楚的威脅模型，並讓機器在每個 PR 自動找出常見的問題。
+- **做法**：
+  - `docs/security.md`：
+    - 主要資產與攻擊面；
+    - STRIDE 表（每項威脅都對應對策與程式位置）；
+    - OWASP Top 10 的逐項檢查與修正；
+    - 掃描工具與結果；
+    - 個資盤點（D159 補上）。
+  - `SECURITY.md`：漏洞回報方式（GitHub 私人回報，或意見回饋頁）。
+  - **Dependabot**（`.github/dependabot.yml`）：npm 與 GitHub Actions 每週一檢查，minor 與 patch 合成一個 PR，減少要看的 PR；安全修正會立即開 PR。
+  - **CodeQL**（`.github/workflows/codeql.yml`）：用 `security-extended` 查詢，同時掃 JavaScript/TypeScript 和 Actions workflow。PR、合併到 main、每週日執行。公開 repo 免費。
+  - **gitleaks**：
+    - CI 的 `check` 加一個步驟，只掃這次 PR 的 commit，連只改文件的 PR 也掃（金鑰可能貼在文件裡）。
+    - binary 固定版本 8.30.1，並用官方 checksum 驗證，避免下載到被竄改的工具。
+    - `.gitleaks.toml` 是預設規則加上允許清單，每一項都附理由。
+  - **gitleaks 完整歷史掃描**（本機，2026-11-13）：418 個 commit，找到 10 筆，全部是誤報（E2E 的假金鑰、影片片段 id），沒有任何金鑰需要輪替。
+  - **ZAP baseline**（`.github/workflows/zap.yml`）：
+    - 只做被動檢查，不攻擊：在 runner 上起和 E2E 相同的 production build（假 Supabase、假 AI），用 ZAP 的 spider 加上 AJAX spider 爬過網站，檢查標頭、cookie 屬性、資訊洩漏。
+    - 改到 proxy、`next.config.ts`、安全設定的 PR，以及每週一執行。
+    - 已接受的項目寫在 `.zap/rules.tsv`，每項附理由。
+    - 不在本機跑的原因：Homebrew 自 2026-09-01 起停用 ZAP 的 macOS 套件（沒通過 Gatekeeper），本機也沒有 Java 或 Docker；runner 上跑的是同一個 production build，結果可以重現。
+  - **這次修正**：`poweredByHeader: false`，不再送出 `X-Powered-By: Next.js`（正式站目前會送，ZAP 會列為資訊洩漏）。
+  - `npm audit --omit=dev`：0 個漏洞；之後交給 Dependabot。
+- **測試**：`tests/security-headers.test.ts`（不送 X-Powered-By）、`e2e/security.spec.ts`（回應沒有 `x-powered-by`）。
+- **要改時**：掃描設定在 `.github/`、`.gitleaks.toml`、`.zap/rules.tsv`；威脅模型在 `docs/security.md`。
