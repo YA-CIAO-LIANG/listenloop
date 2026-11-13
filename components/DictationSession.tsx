@@ -913,7 +913,9 @@ function DictationResult({
         {/* The vocabulary quiz, which can be skipped (D136). */}
         <QuizInvite videoId={video.id} day={day === 7 ? 7 : 1} />
         <div className="flex flex-wrap items-center gap-3">
-          <Button variant="primary" arrow onClick={onRetry}>
+          {/* Secondary: the quiz above is the next step, one primary
+              button per view (D170). */}
+          <Button variant="secondary" arrow onClick={onRetry}>
             {t("retry")}
           </Button>
           <ButtonLink href={`/videos/${video.id}/handout`} variant="secondary">

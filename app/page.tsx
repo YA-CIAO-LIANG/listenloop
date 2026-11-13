@@ -7,6 +7,7 @@ import {
 } from "@/components/MaterialLibrary";
 import { BetaNote } from "@/components/BetaNote";
 import { FixedReportsNotice } from "@/components/FixedReportsNotice";
+import { HomeVisitorIntro } from "@/components/HomeVisitorIntro";
 import { OnboardingStart } from "@/components/OnboardingStart";
 import { ProductIntro } from "@/components/ProductIntro";
 import { QuickStart } from "@/components/QuickStart";
@@ -37,8 +38,9 @@ export default function Home() {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
       <h1 className="font-display text-hero">{t("common.appName")}</h1>
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
-      {/* Who it's for and how, readable in five seconds (D119). */}
-      <p className="mt-3 max-w-reading text-ink-muted">{t("home.audience")}</p>
+      {/* Signed out: who it's for and how, readable in five seconds
+          (D119); signed in, left out for today's tasks (D170). */}
+      <HomeVisitorIntro />
       {/* First visit: straight to Day 1's first sentence (D169). */}
       <QuickStart />
       {/* In Beta, with a way to tell us what to fix (D132). */}

@@ -87,18 +87,42 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
 
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
+      {/* Official materials go back to the official library, not to
+          shared materials, which never list them (D170). */}
       <Link
-        href={video ? "/" : material.mine ? "/materials" : "/explore"}
+        href={
+          video
+            ? "/"
+            : material.mine
+              ? "/materials"
+              : material.official
+                ? "/#library"
+                : "/explore"
+        }
         className="tap text-supporting text-ink-muted hover:text-ink"
       >
         <span aria-hidden="true">← </span>
-        {t(video ? "back" : material.mine ? "backToCreate" : "backToExplore")}
+        {t(
+          video
+            ? "back"
+            : material.mine
+              ? "backToCreate"
+              : material.official
+                ? "backToLibrary"
+                : "backToExplore",
+        )}
       </Link>
 
       <p className="mt-8 text-metadata tracking-widest text-ink-muted uppercase">
         {video
           ? `${t(`levels.${video.level}`)} · ${t(`categories.${video.category}`)}`
-          : t(material.mine ? "custom" : "shared")}
+          : t(
+              material.mine
+                ? "custom"
+                : material.official
+                  ? "officialMaterial"
+                  : "shared",
+            )}
       </p>
       <MaterialTitle
         as="h1"

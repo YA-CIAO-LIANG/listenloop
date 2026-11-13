@@ -430,7 +430,9 @@
     "shared": "公開練習",
     "backToExplore": "公開教材",
     "rewrittenFrom": "改寫自 {source} 的新聞稿〈<link>{title}</link>〉，由 ListenLoop 依事實以自己的話重寫成學習用短文。",
-    "seoDescription": "{title}：免費英文聽力練習，共 {count} 句。第 1 天逐句聽寫、第 2～6 天跟讀、第 7 天再聽寫，附中英對照講義、單字與文法。"
+    "seoDescription": "{title}：免費英文聽力練習，共 {count} 句。第 1 天逐句聽寫、第 2～6 天跟讀、第 7 天再聽寫，附中英對照講義、單字與文法。",
+    "officialMaterial": "官方教材",
+    "backToLibrary": "官方教材庫"
   },
   "player": {
     "loading": "影片載入中…",
@@ -567,7 +569,7 @@
     "saveFailed": "無法儲存進度。請確認瀏覽器允許網站儲存資料（例如不要使用無痕模式），然後重新整理。",
     "errors": {
       "unsupportedTitle": "這個瀏覽器不支援語音辨識",
-      "unsupported": "建議改用電腦版 Chrome。你也可以聽完自己念，再按「我念完了」。",
+      "unsupported": "請用 Chrome（電腦或 Android 手機）或 iPhone 的 Safari 開啟；在 LINE 等 App 裡開的網頁通常不支援。你也可以聽完自己念，再按「我念完了」。",
       "braveTitle": "Brave 瀏覽器不支援語音辨識",
       "brave": "請改用 Chrome 或 Edge，或使用「我念完了」完成練習。",
       "unavailableTitle": "這個瀏覽器目前無法使用語音辨識",
@@ -1086,7 +1088,7 @@
   },
   "materials": {
     "title": "我的教材",
-    "intro": "你建立的練習和 Collection。每份練習都和教材庫的教材一樣，走七天的循環。",
+    "intro": "你建立的練習，可以用資料夾整理。每份練習都和教材庫的教材一樣，走七天的循環。",
     "create": "建立練習",
     "createUnavailable": "建立練習目前關閉：有設定條件不成立，請到「API 用量」頁的「設定診斷」查看是哪一項。",
     "removed": "已被管理員下架（原因：{reason}）。這份練習不再公開，只有你看得到，也不能再設為公開。",
@@ -3068,7 +3070,7 @@
     "perMonthSuffix": "／月",
     "summaries": {
       "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘）。",
-      "plus": "每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。",
+      "plus": "完整練習所有人分享的公開教材、每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。",
       "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。",
       "student": "Plus 的全部內容，學生價。用學校信箱（.edu、.edu.tw 等）的 Google 帳號登入就會自動認證，有效一年。"
     },
@@ -3724,7 +3726,7 @@
   "quota": {
     "title": "我的額度",
     "back": "帳號",
-    "intro": "你目前是{plan}。以下是各項額度的使用情形與重設時間（台灣時間）。",
+    "intro": "你目前是{plan}。以下是各項額度的使用情形與重設時間（依你裝置的時區顯示）。",
     "plans": {
       "free": "免費方案",
       "paid": "Plus 方案",
@@ -3770,7 +3772,8 @@
     "perDay": "每天 {n} 次",
     "perHour": "每小時 {n} 次",
     "more": "需要更多額度？",
-    "pricing": "看方案與價格"
+    "pricing": "看方案與價格",
+    "upgrade": "需要更多？看付費方案"
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."

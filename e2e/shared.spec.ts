@@ -45,6 +45,10 @@ test("on the free plan, a shared material is a preview with an upgrade", async (
 
   await page.getByRole("link", { name: "升級即可練習這份教材" }).click();
   await expect(page).toHaveURL(/\/pricing\?from=shared-preview$/);
+  // Plus says it's the plan for this (D170).
+  await expect(
+    page.getByRole("listitem").filter({ hasText: "訂閱 Plus" }),
+  ).toContainText("完整練習所有人分享的公開教材");
 });
 
 test("on the free plan, a practice or handout address goes to the preview", async ({

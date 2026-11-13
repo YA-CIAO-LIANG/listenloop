@@ -24,11 +24,16 @@ export default async function QuotaPage() {
     getFormatter(),
     quotaReport(user),
   ]);
+  // In the learner's own time zone (D139; the formatter's default), as
+  // "11/16 週一 00:00", like the create page (D170).
   const when = (iso: string) =>
     format.dateTime(new Date(iso), {
-      dateStyle: "medium",
-      timeStyle: "short",
-      timeZone: "Asia/Taipei",
+      month: "numeric",
+      day: "numeric",
+      weekday: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
     });
   const amount = (row: QuotaRow, value: number) =>
     t(`units.${row.unit}`, { n: format.number(value) });
@@ -98,6 +103,17 @@ export default async function QuotaPage() {
                 {warn && (
                   <p className="mt-2 text-supporting font-medium text-error">
                     {share >= 1 ? t("usedUp") : t("almost")}
+                  </p>
+                )}
+                {/* Used up: what to do next, not a dead end (D170). */}
+                {share !== null && share >= 1 && report.plan !== "admin" && (
+                  <p className="mt-1 text-supporting">
+                    <Link
+                      href="/pricing?from=quota"
+                      className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+                    >
+                      {t("upgrade")}
+                    </Link>
                   </p>
                 )}
               </Card>

@@ -430,7 +430,9 @@
     "shared": "Shared practice",
     "backToExplore": "Shared materials",
     "rewrittenFrom": "Rewritten from {source}'s release “<link>{title}</link>”: ListenLoop retold its facts in its own words for learners.",
-    "seoDescription": "{title}: free English listening practice in {count, plural, one {# sentence} other {# sentences}}. Dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, with a bilingual handout, vocabulary, and grammar notes."
+    "seoDescription": "{title}: free English listening practice in {count, plural, one {# sentence} other {# sentences}}. Dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, with a bilingual handout, vocabulary, and grammar notes.",
+    "officialMaterial": "Official lesson",
+    "backToLibrary": "Official library"
   },
   "player": {
     "loading": "Loading video…",
@@ -567,7 +569,7 @@
     "saveFailed": "Couldn’t save your progress. Allow this site to store data (for example, leave private browsing), then reload.",
     "errors": {
       "unsupportedTitle": "This browser doesn’t support speech recognition",
-      "unsupported": "Try Chrome on a computer. You can also listen, say it yourself, and press “I said it”.",
+      "unsupported": "Open this page in Chrome (computer or Android) or Safari on iPhone; pages opened inside apps such as LINE usually can't listen. You can also listen, say it yourself, and press “I said it”.",
       "braveTitle": "Brave doesn’t support speech recognition",
       "brave": "Please switch to Chrome or Edge, or use “I said it” to finish practicing.",
       "unavailableTitle": "Speech recognition isn’t available in this browser right now",
@@ -1086,7 +1088,7 @@
   },
   "materials": {
     "title": "My materials",
-    "intro": "The practices and collections you've made. Each one runs the same seven-day loop as the library's materials.",
+    "intro": "The practices you've made, in folders if you like. Each one runs the same seven-day loop as the library's materials.",
     "create": "Create a practice",
     "createUnavailable": "Creating practices is off: a setup condition isn't met. See \"Setup check\" on the API usage page for which one.",
     "removed": "Taken down by an admin (reason: {reason}). It's no longer public; only you can see it, and it can't be made public again.",
@@ -3070,7 +3072,7 @@
     "perMonthSuffix": " / month",
     "summaries": {
       "free": "Every official lesson and feature, basic stats, and 2 minutes of your own materials a week (two of a minute, or one of two).",
-      "plus": "40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules.",
+      "plus": "Every shared material in full, 40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules.",
       "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus.",
       "student": "Everything in Plus at a student price. Sign in with a school (.edu, .edu.tw …) Google account to be verified automatically, for a year."
     },
@@ -3726,7 +3728,7 @@
   "quota": {
     "title": "My quota",
     "back": "Account",
-    "intro": "You're on {plan}. Here's how much of each allowance you've used, and when it resets (Taiwan time).",
+    "intro": "You're on {plan}. Here's how much of each allowance you've used, and when it resets (in your device's time zone).",
     "plans": {
       "free": "the free plan",
       "paid": "Plus",
@@ -3772,7 +3774,8 @@
     "perDay": "{n} a day",
     "perHour": "{n} an hour",
     "more": "Need more?",
-    "pricing": "See plans and prices"
+    "pricing": "See plans and prices",
+    "upgrade": "Need more? See the paid plans"
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
