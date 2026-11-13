@@ -674,6 +674,44 @@ createServer(async (request, response) => {
     json(200, [{ video_id: "sintel", learners: 1 }]);
     return;
   }
+  // The Beta test page (D165): one tester three days into the week and
+  // idle for three days, one who joined two days ago and hasn't started.
+  if (url.pathname === "/rest/v1/rpc/beta_tester_activity") {
+    const ago = (days: number) =>
+      new Date(Date.now() - days * 86_400_000).toISOString();
+    json(200, [
+      {
+        user_id: "e2e-learner",
+        number: 2,
+        invite_id: "0b9c7d1e-2f3a-4b5c-8d6e-7f8091a2b3c4",
+        invite_note: "第一梯",
+        joined_at: ago(5),
+        last_sign_in_at: ago(3),
+        last_activity: ago(3),
+        progress: [
+          {
+            video: "sintel",
+            week: 1,
+            status: "in-progress",
+            done: [1, 2, 3],
+            weeks: 0,
+            updated: ago(3),
+          },
+        ],
+      },
+      {
+        user_id: "e2e-paid",
+        number: 3,
+        invite_id: "0b9c7d1e-2f3a-4b5c-8d6e-7f8091a2b3c4",
+        invite_note: "第一梯",
+        joined_at: ago(2),
+        last_sign_in_at: ago(2),
+        last_activity: null,
+        progress: [],
+      },
+    ]);
+    return;
+  }
   if (url.pathname === "/rest/v1/rpc/practice_audio_bytes") {
     json(200, []);
     return;

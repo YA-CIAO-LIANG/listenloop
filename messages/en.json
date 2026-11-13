@@ -1484,7 +1484,8 @@
       "retention": "Retention",
       "beta": "Sign-ups",
       "ops": "Operations",
-      "abuse": "Abuse"
+      "abuse": "Abuse",
+      "betaTest": "Beta test"
     },
     "overview": {
       "title": "Admin overview",
@@ -2131,6 +2132,54 @@
       "splitNote": "9–10 / 7–8 / 0–6",
       "score": "{score} points",
       "material": "{id}, week {week}"
+    },
+    "betaTest": {
+      "title": "Beta test",
+      "intro": "Testers who joined with an invite link: progress, last practice, who needs a nudge (not started a day after joining, or no practice for {days} days), when to interview, and what they said. The plan is in docs/beta-test-plan.md.",
+      "cohort": "Cohort (invite)",
+      "allInvites": "All invites",
+      "show": "Show",
+      "cohortTitle": "Overall",
+      "testers": "Testers",
+      "startedDay1": "Finished Day 1",
+      "finishedWeek": "Finished 7 days",
+      "activeRecently": "Practised recently",
+      "activeNote": "within {days} days",
+      "followUps": "Need follow-up",
+      "people": "{count} people",
+      "followTitle": "Testers to follow up",
+      "noFollowUps": "Nobody needs a follow-up now.",
+      "reasons": {
+        "notStarted": "Joined {days} days ago, Day 1 not done: ask where they're stuck",
+        "idle": "No practice for {days} days: send a reminder, or ask about problems"
+      },
+      "testersTitle": "Each tester",
+      "none": "No accounts have joined with an invite yet.",
+      "columns": {
+        "account": "Account",
+        "invite": "Invite",
+        "joined": "Joined",
+        "progress": "Progress",
+        "finished": "Finished 7 days",
+        "lastPractice": "Last practice",
+        "followUp": "Follow-up",
+        "interview": "Interview"
+      },
+      "progressText": "Week {week}, day {day} ({materials} materials)",
+      "notStarted": "Not started",
+      "yes": "Yes",
+      "no": "No",
+      "followUpShort": {
+        "notStarted": "Not started",
+        "idle": "Idle"
+      },
+      "interviews": {
+        "day3": "Day 3 interview",
+        "day14": "Day 14 interview"
+      },
+      "feedbackTitle": "Feedback from testers",
+      "noFeedback": "No feedback from testers yet.",
+      "allFeedback": "All feedback"
     }
   },
   "events": {

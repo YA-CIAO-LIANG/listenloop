@@ -1484,7 +1484,8 @@
       "retention": "留存分析",
       "beta": "註冊與邀請",
       "ops": "服務控制",
-      "abuse": "濫用標記"
+      "abuse": "濫用標記",
+      "betaTest": "Beta 測試"
     },
     "overview": {
       "title": "後台總覽",
@@ -2131,6 +2132,54 @@
       "splitNote": "9～10／7～8／0～6 分",
       "score": "{score} 分",
       "material": "{id} 第 {week} 週"
+    },
+    "betaTest": {
+      "title": "Beta 測試",
+      "intro": "用邀請連結加入的測試者：進度、最後練習時間、需要追蹤的人（加入 1 天還沒開始，或超過 {days} 天沒練習）、訪談時機，以及測試者的回饋。計畫見 docs/beta-test-plan.md。",
+      "cohort": "測試梯次（邀請）",
+      "allInvites": "全部邀請",
+      "show": "顯示",
+      "cohortTitle": "整體",
+      "testers": "測試者",
+      "startedDay1": "完成第 1 天",
+      "finishedWeek": "完成 7 天",
+      "activeRecently": "最近有練習",
+      "activeNote": "{days} 天內",
+      "followUps": "需要追蹤",
+      "people": "{count} 人",
+      "followTitle": "需要追蹤的測試者",
+      "noFollowUps": "目前沒有需要追蹤的人。",
+      "reasons": {
+        "notStarted": "加入 {days} 天，還沒完成第 1 天：傳訊息問問卡在哪裡",
+        "idle": "{days} 天沒有練習：傳訊息提醒，或問是否遇到問題"
+      },
+      "testersTitle": "每位測試者",
+      "none": "還沒有用邀請連結加入的帳號。",
+      "columns": {
+        "account": "帳號",
+        "invite": "邀請",
+        "joined": "加入",
+        "progress": "進度",
+        "finished": "完成 7 天",
+        "lastPractice": "最後練習",
+        "followUp": "追蹤",
+        "interview": "訪談"
+      },
+      "progressText": "第 {week} 週第 {day} 天（{materials} 份教材）",
+      "notStarted": "還沒開始",
+      "yes": "是",
+      "no": "否",
+      "followUpShort": {
+        "notStarted": "還沒開始",
+        "idle": "沒練習"
+      },
+      "interviews": {
+        "day3": "第 3 天訪談",
+        "day14": "第 14 天訪談"
+      },
+      "feedbackTitle": "測試者的意見回饋",
+      "noFeedback": "測試者還沒有送出回饋。",
+      "allFeedback": "所有意見回饋"
     }
   },
   "events": {

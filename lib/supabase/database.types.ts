@@ -1800,6 +1800,19 @@ export type Database = {
         }[];
       };
       beta_admitted_count: { Args: never; Returns: number };
+      beta_tester_activity: {
+        Args: { invite?: string };
+        Returns: {
+          invite_id: string;
+          invite_note: string;
+          joined_at: string;
+          last_activity: string;
+          last_sign_in_at: string;
+          number: number;
+          progress: Json;
+          user_id: string;
+        }[];
+      };
       can_practice: { Args: { target: string }; Returns: boolean };
       claim_ops_run: {
         Args: { gap_seconds: number; run_name: string };
