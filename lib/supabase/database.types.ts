@@ -1675,6 +1675,36 @@ export type Database = {
         };
         Relationships: [];
       };
+      week_surveys: {
+        Row: {
+          comment: string | null;
+          created_at: string;
+          id: string;
+          score: number;
+          user_id: string;
+          video_id: string;
+          week: number;
+        };
+        Insert: {
+          comment?: string | null;
+          created_at?: string;
+          id?: string;
+          score: number;
+          user_id: string;
+          video_id: string;
+          week: number;
+        };
+        Update: {
+          comment?: string | null;
+          created_at?: string;
+          id?: string;
+          score?: number;
+          user_id?: string;
+          video_id?: string;
+          week?: number;
+        };
+        Relationships: [];
+      };
       weekly_reports: {
         Row: {
           created_at: string;

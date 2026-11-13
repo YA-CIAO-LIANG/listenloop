@@ -19,6 +19,8 @@ import { Tag } from "./Tag";
 import { QuizInvite } from "./QuizInvite";
 import { StartNextWeekButton } from "./StartNextWeekButton";
 import { WordDiffView } from "./WordDiffView";
+import { WeekSurvey } from "./WeekSurvey";
+import { useProgressVisible } from "./StoresProvider";
 
 type WeekResultProps = {
   video: PracticeMaterial;
@@ -39,6 +41,7 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
   const tHandout = useTranslations("handout");
   const tListen = useTranslations("listen");
   const format = useFormatter();
+  const signedIn = useProgressVisible();
   const comparison = weekComparison(video.sentences, progress);
   if (!comparison) return null;
 
@@ -168,6 +171,8 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
             {tCycle("backToVideo")}
           </ButtonLink>
         </div>
+        {/* How was the week? One question and a comment (D164). */}
+        {signedIn && <WeekSurvey videoId={video.id} week={progress.week} />}
       </div>
 
       <section>

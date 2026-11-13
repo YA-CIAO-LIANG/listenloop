@@ -48,6 +48,27 @@ const sentenceReports: Record<string, unknown>[] = [];
  * admin pages. Plans changed by those webhooks are in `plans`.
  */
 const tables: Record<string, Row[]> = {
+  // Day 7 surveys (D164): two answers for the admin pages; new ones add.
+  week_surveys: [
+    {
+      id: "5e1f0a2b-0c3d-4e5f-8a9b-000000000001",
+      created_at: "2026-11-01T10:00:00Z",
+      user_id: "e2e-learner",
+      video_id: "sintel",
+      week: 1,
+      score: 9,
+      comment: "第 7 天看到進步很有成就感",
+    },
+    {
+      id: "5e1f0a2b-0c3d-4e5f-8a9b-000000000002",
+      created_at: "2026-11-02T10:00:00Z",
+      user_id: "e2e-author",
+      video_id: "sintel",
+      week: 1,
+      score: 6,
+      comment: null,
+    },
+  ],
   subscriptions: [],
   payments: [],
   payment_events: [],
@@ -479,7 +500,7 @@ createServer(async (request, response) => {
     return;
   }
   const table =
-    /^\/rest\/v1\/(subscriptions|payments|payment_events|content_fixes)$/.exec(
+    /^\/rest\/v1\/(subscriptions|payments|payment_events|content_fixes|week_surveys)$/.exec(
       url.pathname,
     );
   if (table) {

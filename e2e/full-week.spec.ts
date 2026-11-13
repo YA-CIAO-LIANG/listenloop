@@ -76,6 +76,23 @@ for (const where of ["desktop", "phone"] as const) {
       await expect(
         page.getByText("通過！這支影片的七天循環完成了。"),
       ).toBeVisible();
+
+      // The short survey (D164): a score, a comment, sent once.
+      const survey = page.getByRole("region", {
+        name: "花 10 秒告訴我們這週的感覺",
+      });
+      await expect(survey).toBeVisible();
+      await survey.getByText("9", { exact: true }).click();
+      await survey
+        .getByRole("textbox", { name: "最想改進或最喜歡的一件事（選填）" })
+        .fill("跟讀的我念完了很方便");
+      await survey.getByRole("button", { name: "送出" }).click();
+      await expect(
+        page.getByText("謝謝你的回饋！我們每一則都會看。"),
+      ).toBeVisible();
+      await page.reload();
+      await expect(page.getByText("第 1 週結果")).toBeVisible();
+      await expect(survey).toHaveCount(0);
     });
   });
 }
