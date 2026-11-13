@@ -202,6 +202,14 @@ function AccountPanel({ email }: { email: string }) {
             >
               {t("accountSettings")}
             </Link>
+            {/* Each allowance and when it resets (D161). */}
+            <Link
+              href="/account/usage"
+              onClick={() => setOpen(false)}
+              className="text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+            >
+              {t("quota")}
+            </Link>
           </div>
           {failed && (
             <p role="alert" className="text-supporting text-error">

@@ -15,6 +15,7 @@ import { supabaseConfig } from "@/lib/supabase/config";
 import { usageDay, usageMonth } from "@/lib/usage";
 import { AZURE_SPEECH_FREE_CHARS } from "@/lib/usage-report";
 import { getAdminSupabase } from "./admin";
+import { cleanOrphans } from "./orphans";
 import { getUsageSettings } from "./usage-settings";
 
 /**
@@ -175,6 +176,30 @@ export async function runMonitor(
         storage_bytes: snapshot.storageBytes,
       }),
     ]);
+    // Files no material uses (D161); held back and reported if too many.
+    const orphans = await cleanOrphans(admin, now).catch(
+      (error: unknown) =>
+        ({
+          status: "failed",
+          message: error instanceof Error ? error.message : "unknown",
+        }) as const,
+    );
+    if (orphans.status !== "done") {
+      await recordAlerts(
+        admin,
+        [
+          {
+            key: "orphans:held",
+            level: "warning",
+            message:
+              orphans.status === "held"
+                ? `孤兒檔案清除暫停：${orphans.bucket} 有 ${orphans.orphans} / ${orphans.files} 個檔案看起來沒被使用，超過安全上限，請人工確認`
+                : `孤兒檔案清除失敗：${orphans.message}`,
+          },
+        ],
+        now,
+      );
+    }
   }
   return { status, alerts: alerts.length, sent: fresh.length };
 }

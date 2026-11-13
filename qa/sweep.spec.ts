@@ -86,6 +86,7 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           "/materials",
           "/materials/new",
           "/account",
+          "/account/usage",
           "/review",
           `/videos/p-${ready}`,
           `/videos/p-${ready}/day/1`,
@@ -101,6 +102,7 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           "/review",
           "/stats",
           "/account",
+          "/account/usage",
         ].map((path) => ({ path, role: "learner" as const })),
         ...["/", "/materials/new", "/pricing", "/stats"].map((path) => ({
           path,

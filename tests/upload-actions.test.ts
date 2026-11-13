@@ -23,6 +23,14 @@ const state = vi.hoisted(() => ({
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 vi.mock("@/auth/events", () => ({ logEvent: vi.fn() }));
 vi.mock("@/auth/rate-limit", () => ({ allowAction: async () => true }));
+// The account's own quota changes and storage (D161): none here.
+vi.mock("@/auth/quota", async () => {
+  const { PLANS } = await import("@/lib/plans");
+  return {
+    plansFor: async (_user: unknown, base = PLANS) => base,
+    storedUploadBytes: async () => 0,
+  };
+});
 vi.mock("@/auth/creation-quota", () => ({
   creationAllowed: async () =>
     state.quota

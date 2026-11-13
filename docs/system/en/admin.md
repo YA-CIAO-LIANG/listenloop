@@ -324,6 +324,12 @@ When something goes wrong, contain it first, then find the cause. The full steps
 - Risky actions need a sign-in within the last 30 minutes: changing a role, plan, or status, class seats, taking down or restoring a material, refunds, the emergency switches, the AI cost limits, the sign-up switch, and exporting the waiting list.
 - Past that, you're asked to sign out and in again: use "Account" at the top right, then retry.
 
+### 11.5 Quotas (D161)
+
+- Every plan's quotas: `docs/quotas.md`.
+- More or less for one person: "Users → number → Quota": an amount, days, and a reason; you can also pause that account's AI.
+- Audio no material has used for 7 days is removed daily; if too much looks unused, it stops and alerts you: check Supabase Storage.
+
 ## 12. Questions
 
 | Question                                   | Answer                                                                                                                                  |

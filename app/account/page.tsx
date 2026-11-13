@@ -52,6 +52,15 @@ export default async function AccountPage({
             <p className="mt-4 text-supporting text-ink-muted">
               {t("syncNote")}
             </p>
+            {/* Each allowance and when it resets (D161). */}
+            <p className="mt-4">
+              <Link
+                href="/account/usage"
+                className="tap text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+              >
+                {t("quotaLink")}
+              </Link>
+            </p>
           </section>
           <BillingSection
             plan={user.plan}

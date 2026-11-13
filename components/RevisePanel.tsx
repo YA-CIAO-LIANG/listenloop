@@ -75,11 +75,13 @@ export function RevisePanel({
     reason: string;
     detail?: string;
     usage?: UsageBlock;
+    /** For "daily": the plan's revises a day (D161). */
+    max?: number;
   } | null>(null);
 
   function fail(
     reason: string,
-    extra?: { detail?: string; usage?: UsageBlock },
+    extra?: { detail?: string; usage?: UsageBlock; max?: number },
   ) {
     setPending(false);
     setStatus(null);
@@ -97,6 +99,10 @@ export function RevisePanel({
       format: dialogue ? "dialogue" : "monologue",
     }).catch((): ReviseDraftResult => ({ ok: false, reason: "failed" }));
     if (!result.ok) {
+      if (result.reason === "daily") {
+        fail("daily", { max: result.max });
+        return;
+      }
       fail(result.reason, { detail: result.detail, usage: result.limit });
       return;
     }
@@ -304,6 +310,8 @@ export function RevisePanel({
               block={error.usage}
               fallback={t("errors.limit")}
             />
+          ) : error.reason === "daily" ? (
+            t("errors.daily", { max: error.max ?? 0 })
           ) : error.reason === "filtered" ? (
             <>
               {t("errors.filtered")}

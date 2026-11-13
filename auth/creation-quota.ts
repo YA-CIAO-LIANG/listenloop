@@ -6,8 +6,11 @@ import {
   planFor,
   weekSecondsLeft,
   type PlanCheck,
+  type PlanId,
+  type PlanLimits,
 } from "@/lib/plans";
 import { usagePeriodStarts, usageWeek } from "@/lib/usage-report";
+import { plansFor } from "./quota";
 import type { SignedInUser } from "./session";
 import { getServerSupabase } from "./server";
 
@@ -39,7 +42,14 @@ export async function creationAllowance({
   user,
 }: {
   user: SignedInUser;
-}): Promise<{ check: PlanCheck; week: WeekAllowance | null }> {
+}): Promise<{
+  check: PlanCheck;
+  week: WeekAllowance | null;
+  /** The plan table with this account's own changes (D161), for `can`. */
+  plans: Readonly<Record<PlanId, PlanLimits>>;
+  /** What was made this month and week (seconds), for the quota page. */
+  made: { count: number; seconds: number; weekSeconds: number };
+}> {
   const plan = planFor(user);
   const supabase =
     needsCount(plan, "create-practice") ||
@@ -58,7 +68,7 @@ export async function creationAllowance({
     isClassSeats(user.classroomSeats) ? user.classroomSeats : null,
   );
   const own = PLANS[plan];
-  const plans =
+  const classPlans =
     classMonthly !== null &&
     (own.minutesPerMonth === null ||
       own.minutesPerWeek !== null ||
@@ -76,6 +86,8 @@ export async function creationAllowance({
           },
         }
       : PLANS;
+  // An admin's changes for this account (D161) on top.
+  const plans = await plansFor(user, classPlans);
   const limits = plans[plan];
   const check = can(
     plan,
@@ -91,6 +103,8 @@ export async function creationAllowance({
   const left = weekSecondsLeft(limits, made.weekSeconds);
   return {
     check,
+    plans,
+    made,
     week:
       left === null || limits.minutesPerWeek === null
         ? null

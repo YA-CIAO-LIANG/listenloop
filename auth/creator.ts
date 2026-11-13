@@ -242,6 +242,8 @@ export async function getCreator(): Promise<Creator | null> {
   if (!canCreatePractices(user)) return null;
   // Maintenance or read-only (D155): nothing that calls a paid API.
   if (await featurePaused(user, "create")) return null;
+  // AI paused for this account by an admin or abuse detection (D161).
+  if (user.aiSuspended != null && user.role !== "admin") return null;
   const admin = getAdminSupabase();
   if (!admin) return null;
   return {

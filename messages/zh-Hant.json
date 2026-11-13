@@ -593,7 +593,8 @@
     "dismiss": "關閉",
     "accountSettings": "帳號設定",
     "signInDisabled": "這個帳號已被停用，無法登入。如果你認為這是誤會，請透過頁尾的「意見回饋」聯絡我們。",
-    "signInNoEmail": "LINE 沒有提供 Email，無法登入。請改用 Google 或 Email 登入（或在 LINE 允許分享 Email）。"
+    "signInNoEmail": "LINE 沒有提供 Email，無法登入。請改用 Google 或 Email 登入（或在 LINE 允許分享 Email）。",
+    "quota": "我的額度"
   },
   "accountPage": {
     "title": "帳號",
@@ -625,7 +626,8 @@
       "intro": "下載 ListenLoop 存的所有你的資料（JSON 檔）：帳號資料、雲端練習進度與紀錄、你建立的練習、操作紀錄、問題句子回報、意見回饋、你送出的檢舉和 API 用量。",
       "link": "下載我的資料（JSON）"
     },
-    "terms": "服務條款"
+    "terms": "服務條款",
+    "quotaLink": "查看我的額度 →"
   },
   "footer": {
     "privacy": "隱私權政策",
@@ -907,7 +909,10 @@
       "title": "建立教材暫停中",
       "body": "為了維護服務品質，建立教材暫時暫停，已有的教材可以照常練習。詳情請看服務狀態頁。",
       "status": "查看服務狀態",
-      "some": "以下功能暫停中：{features}。"
+      "some": "以下功能暫停中：{features}。",
+      "accountTitle": "你的帳號暫時不能使用 AI 建立教材",
+      "accountBody": "為了保護服務，你的帳號的 AI 功能暫時停用，既有的教材可以照常練習。如果你認為這是誤判，請透過意見回饋告訴我們。",
+      "accountContact": "聯絡我們"
     },
     "listSeparator": "、"
   },
@@ -1421,7 +1426,9 @@
       "batchPdf": "批次 PDF 是 Pro 方案的功能。",
       "sharedPractices": "完整練習公開教材是 Plus 以上方案的功能。",
       "uploadAudio": "上傳自己的音檔建立教材是 Plus 以上方案的功能。",
-      "uploadMegabytes": "檔案太大：你的方案每個檔案最大 {max, number} MB。"
+      "uploadMegabytes": "檔案太大：你的方案每個檔案最大 {max, number} MB。",
+      "storageMegabytes": "你的錄音已經用掉方案的 {max, number} MB 儲存空間。刪除不需要的錄音教材，或升級方案。",
+      "revisesPerDay": "今天已經用指令修改 {max} 次，達到方案上限，明天（台灣時間 0 點）重設。"
     },
     "week": "免費方案每週可以建立 {total} 分鐘的教材（單份最長 {total} 分鐘）。本週還剩 {minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}，{reset} 重設。",
     "weekUsed": "免費方案每週可以建立 {total} 分鐘的教材，本週的已經用完，{reset} 重設。",
@@ -1576,7 +1583,8 @@
       "classroom": "班級方案（測試用）",
       "classroomNone": "無",
       "classroomSeats": "{seats} 人",
-      "classroomFailed": "沒有存成功。"
+      "classroomFailed": "沒有存成功。",
+      "quotaTitle": "額度調整"
     },
     "events": {
       "title": "操作紀錄",
@@ -2034,6 +2042,35 @@
       },
       "notified": "已送到 Discord",
       "notNotified": "只記錄在後台"
+    },
+    "quota": {
+      "limit": "額度",
+      "extra": "增減量",
+      "days": "天數",
+      "hint": "正數是加額度、負數是限制；最多 {max} 天，到期自動恢復。理由會記在管理稽核。",
+      "reason": "理由（必填）",
+      "add": "套用調整",
+      "row": "{limit}：{extra}，到 {until}",
+      "ended": "已結束",
+      "end": "結束",
+      "limits": {
+        "minutesPerWeek": "每週分鐘數",
+        "minutesPerMonth": "每月分鐘數",
+        "storageMegabytes": "儲存空間（MB）",
+        "revisesPerDay": "每天用指令修改次數"
+      },
+      "aiTitle": "AI 功能",
+      "aiPaused": "已暫停。理由：{reason}",
+      "aiResume": "恢復 AI 功能",
+      "aiReason": "暫停的理由（必填）",
+      "aiPause": "暫停這個帳號的 AI 功能",
+      "saved": "已儲存。",
+      "errors": {
+        "unavailable": "只有管理員可以變更。",
+        "invalid": "內容不正確：增減量不能是 0，天數 1～90，理由必填。",
+        "failed": "儲存失敗，請稍後再試。",
+        "reauth": "為了安全，這個操作需要在 30 分鐘內登入過。請從右上角「帳號」登出，再登入一次後重試。"
+      }
     }
   },
   "events": {
@@ -2765,7 +2802,8 @@
       "limit": "今天的 AI 用量已經用完，明天（台灣時間 0 點後）再試。",
       "busy": "太多次了，請稍後再試。",
       "failed": "修改失敗，請稍後再試。原本的內容沒有變。",
-      "filtered": "這個指令的內容無法產生，請換個說法（例如把「恐怖」改成「輕微懸疑」，不涉及血腥暴力）。"
+      "filtered": "這個指令的內容無法產生，請換個說法（例如把「恐怖」改成「輕微懸疑」，不涉及血腥暴力）。",
+      "daily": "今天已經用指令修改 {max} 次，達到方案上限，明天（台灣時間 0 點）重設。可以在「我的額度」查看。"
     },
     "previewReady": "預覽好了：修改後共 {total} 句，其中 {changed} 句是新的或改過的。確認後按「套用」。",
     "previewTitle": "預覽修改",
@@ -3548,5 +3586,56 @@
       "dismiss": "關閉公告",
       "label": "網站公告"
     }
+  },
+  "quota": {
+    "title": "我的額度",
+    "back": "帳號",
+    "intro": "你目前是{plan}。以下是各項額度的使用情形與重設時間（台灣時間）。",
+    "plans": {
+      "free": "免費方案",
+      "paid": "Plus 方案",
+      "pro": "Pro 方案",
+      "admin": "管理員（不限）"
+    },
+    "suspended": "你的帳號的 AI 功能暫時停用，既有的教材可以照常練習。如果你認為這是誤判，請透過意見回饋告訴我們。",
+    "rows": {
+      "minutesPerWeek": "本週建立教材的分鐘數",
+      "minutesPerMonth": "本月建立教材的分鐘數",
+      "revisesPerDay": "今天用指令修改的次數",
+      "storageMegabytes": "錄音的儲存空間",
+      "dailyAi": "今天的 AI 用量"
+    },
+    "units": {
+      "minutes": "{n} 分鐘",
+      "times": "{n} 次",
+      "megabytes": "{n} MB",
+      "percent": "{n}%"
+    },
+    "usedOf": "已用 {used} / {max}",
+    "unlimitedUsed": "已用 {used}（不限）",
+    "left": "剩 {left}",
+    "resets": "{at} 重設",
+    "noReset": "刪除錄音教材後會釋出空間",
+    "almost": "快用完了。",
+    "usedUp": "已經用完了。",
+    "overridesTitle": "管理員為你調整的額度",
+    "override": "{limit}：{extra}，到 {until}",
+    "fixedTitle": "其他限制",
+    "fixed": {
+      "charsPerPractice": "每份教材的字數",
+      "maxPracticeSeconds": "每份教材的最長長度",
+      "uploadMegabytes": "上傳錄音的檔案大小",
+      "reportsPerDay": "檢舉",
+      "feedbackPerDay": "意見回饋",
+      "aiPerHour": "AI 操作"
+    },
+    "chars": "{n} 字",
+    "minutes": "{n} 分鐘",
+    "unlimited": "不限",
+    "notIncluded": "這個方案不包含",
+    "perDay": "每天 {n} 次",
+    "perHour": "每小時 {n} 次",
+    "more": "需要更多額度？",
+    "pricing": "看方案與價格"
   }
 }

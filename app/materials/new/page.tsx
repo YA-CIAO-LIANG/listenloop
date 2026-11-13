@@ -43,6 +43,10 @@ export default async function NewMaterialPage({
     if (canCreatePractices(user) && (await featurePaused(user, "create"))) {
       return <CreationPaused />;
     }
+    // AI paused for this account (D161): say so, and how to ask.
+    if (canCreatePractices(user) && user.aiSuspended != null) {
+      return <CreationPaused account />;
+    }
     notFound();
   }
   // ?official=1: an admin making an official material (D80).
@@ -148,18 +152,27 @@ export default async function NewMaterialPage({
   );
 }
 
-/** Creating is paused (maintenance or read-only, D155). */
-async function CreationPaused() {
+/**
+ * Creating is paused: site-wide (maintenance or read-only, D155), or for
+ * this account (`account`, D161).
+ */
+async function CreationPaused({ account = false }: { account?: boolean }) {
   const t = await getTranslations("create.paused");
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
-      <h1 className="font-display text-h1">{t("title")}</h1>
+      <h1 className="font-display text-h1">
+        {account ? t("accountTitle") : t("title")}
+      </h1>
       <p role="status" className="mt-4 max-w-reading text-ink-muted">
-        {t("body")}
+        {account ? t("accountBody") : t("body")}
       </p>
       <div className="mt-8">
-        <ButtonLink href="/status" variant="secondary" arrow>
-          {t("status")}
+        <ButtonLink
+          href={account ? "/feedback" : "/status"}
+          variant="secondary"
+          arrow
+        >
+          {account ? t("accountContact") : t("status")}
         </ButtonLink>
       </div>
     </main>

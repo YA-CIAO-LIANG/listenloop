@@ -263,6 +263,12 @@
 - 外觀由 Cloudflare 繪製（iframe），不套用我們的 tokens；大多數人只會看到一個勾選完成的小方塊。
 - 沒有設定金鑰時完全不顯示。
 
+## 我的額度 `/account/usage`（D161）
+
+- h1 → 說明（目前方案）→ 每一項額度一張 Card：左邊是名稱（font-medium），右邊是「已用 X / Y」（supporting、tabular-nums）；下方是 4px 高的進度條（line 軌道、accent 填色，達 80% 改成 error 色，`role="meter"`）；再下方是 supporting、ink-muted 的「剩 N · ○○ 重設」。達 80% 時加一行 error 色的「快用完了。」。
+- 下面是「其他限制」的 `dl`（每列名稱與值，1px line 分隔）和「方案與價格」連結。
+- AI 被暫停時，在說明下方用 error 色、`role="alert"` 說明。
+
 ## 頁尾與隱私權政策
 
 - **頁尾**（`SiteFooter`）：

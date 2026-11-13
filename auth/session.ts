@@ -23,6 +23,8 @@ export type SignedInUser = {
   studentVerifiedAt?: string | null;
   /** When this session signed in (seconds), for risky actions (D159). */
   signedInAt?: number | null;
+  /** AI paused for this account (D161, D162): why, or null. */
+  aiSuspended?: string | null;
 };
 
 /**
@@ -43,7 +45,7 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
   const { data: profile } = await supabase
     .from("profiles")
     .select(
-      "number, role, status, plan, practices_created, classroom_seats, beta_admitted_at, student_verified_at",
+      "number, role, status, plan, practices_created, classroom_seats, beta_admitted_at, student_verified_at, ai_suspended_at, ai_suspended_reason",
     )
     .eq("user_id", id)
     .maybeSingle();
@@ -80,5 +82,8 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
     classroomSeats: profile?.classroom_seats ?? null,
     studentVerifiedAt: profile?.student_verified_at ?? null,
     signedInAt: signedInAt(claims),
+    aiSuspended: profile?.ai_suspended_at
+      ? (profile.ai_suspended_reason ?? "")
+      : null,
   };
 });

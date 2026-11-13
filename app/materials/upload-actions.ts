@@ -5,6 +5,7 @@ import { getAdminSupabase } from "@/auth/admin";
 import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
 import { featurePaused } from "@/auth/site-switches";
+import { plansFor, storedUploadBytes } from "@/auth/quota";
 import { logEvent } from "@/auth/events";
 import { leaveQueue, takeTurn } from "@/auth/queue";
 import { allowAction } from "@/auth/rate-limit";
@@ -128,6 +129,24 @@ export async function startAudioUpload(
     return { ok: false, reason: "too-big" };
   }
   if (seconds > limits.seconds) return { ok: false, reason: "too-long" };
+  // The account's total storage (D161), with an admin's changes.
+  const storage = can(
+    planFor(creator.user),
+    {
+      kind: "store-audio",
+      stored: await storedUploadBytes(creator.user.id),
+      adding: bytes,
+    },
+    await plansFor(creator.user),
+  );
+  if (!storage.ok) {
+    return {
+      ok: false,
+      reason: "plan",
+      limit: storage.limit,
+      max: storage.max,
+    };
+  }
   if (!(await allowAction("ai", creator.user.id))) {
     return { ok: false, reason: "busy" };
   }
