@@ -159,7 +159,7 @@
     "startNext": "開始第 {week} 週",
     "nextTomorrow": "第 {week} 週明天開始",
     "canStartNext": "可以開始第 {week} 週",
-    "chooseNext": "選下一支影片",
+    "chooseNext": "選下一份教材",
     "compareTitle": "逐句比較",
     "sentenceCompare": "第 1 天 {day1} → 第 7 天 {day7}",
     "improvedSr": "（進步）",
@@ -812,7 +812,7 @@
   },
   "create": {
     "title": "建立練習",
-    "intro": "上傳一份中文或英文的文字檔，或讓 AI 依情境生成英文文字，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。免費方案每週可以建立 2 分鐘。",
+    "intro": "上傳一份中文或英文的文字檔，或讓 AI 依情境生成英文文字，系統會自動斷句並翻譯，確認內容後就能建立自己的練習。",
     "textLabel": "文字內容",
     "textHint": "可以直接貼上，或選擇 .txt 檔。每一行會分開斷句。",
     "chooseFile": "選擇 .txt 檔",

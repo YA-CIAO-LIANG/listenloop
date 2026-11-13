@@ -164,7 +164,7 @@ describe("WeekResult", () => {
     expect(screen.getByText("29%")).toBeDefined();
     expect(screen.getByText("進步 71 個百分點")).toBeDefined();
     expect(
-      screen.getByRole("link", { name: "選下一支影片" }).getAttribute("href"),
+      screen.getByRole("link", { name: "選下一份教材" }).getAttribute("href"),
     ).toBe("/");
 
     const rows = within(
