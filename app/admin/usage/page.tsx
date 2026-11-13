@@ -1,3 +1,6 @@
+import { loadForecasts } from "@/auth/forecasts";
+import { OpsForecast } from "@/components/OpsForecast";
+import { parseWeeklySummary } from "@/lib/ops/weekly";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
@@ -71,6 +74,16 @@ export default async function UsagePage() {
   const settings = admin
     ? await getUsageSettings(admin)
     : DEFAULT_USAGE_SETTINGS;
+  const { data: weekRows } = admin
+    ? await admin
+        .from("weekly_reports")
+        .select("summary")
+        .order("week_start", { ascending: false })
+        .limit(8)
+    : { data: null };
+  const weeks = (weekRows ?? []).flatMap(
+    (row) => parseWeeklySummary(row.summary) ?? [],
+  );
   const totals = totalsRows?.[0] ?? {
     today_micros: 0,
     today_calls: 0,
@@ -229,6 +242,18 @@ export default async function UsagePage() {
           </div>
         ))}
       </dl>
+
+      {/* Forecasts and weekly summaries (D156). */}
+      {admin && (
+        <OpsForecast
+          forecasts={await loadForecasts(
+            admin,
+            new Date(),
+            totals.azure_micros,
+          )}
+          weeks={weeks}
+        />
+      )}
 
       <section className="mt-12">
         <h2 className="font-display text-h2">

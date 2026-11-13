@@ -609,6 +609,27 @@ export type Database = {
         };
         Relationships: [];
       };
+      health_checks: {
+        Row: {
+          checked_at: string;
+          checks: Json;
+          id: number;
+          status: string;
+        };
+        Insert: {
+          checked_at?: string;
+          checks?: Json;
+          id?: never;
+          status: string;
+        };
+        Update: {
+          checked_at?: string;
+          checks?: Json;
+          id?: never;
+          status?: string;
+        };
+        Relationships: [];
+      };
       intent_events: {
         Row: {
           billing_interval: string | null;
@@ -642,6 +663,51 @@ export type Database = {
           step?: string;
           user_id?: string | null;
           visitor_id?: string;
+        };
+        Relationships: [];
+      };
+      ops_alerts: {
+        Row: {
+          created_at: string;
+          id: number;
+          key: string;
+          level: string;
+          message: string;
+          notified: boolean;
+        };
+        Insert: {
+          created_at?: string;
+          id?: never;
+          key: string;
+          level: string;
+          message: string;
+          notified?: boolean;
+        };
+        Update: {
+          created_at?: string;
+          id?: never;
+          key?: string;
+          level?: string;
+          message?: string;
+          notified?: boolean;
+        };
+        Relationships: [];
+      };
+      ops_samples: {
+        Row: {
+          database_bytes: number;
+          day: string;
+          storage_bytes: number;
+        };
+        Insert: {
+          database_bytes: number;
+          day: string;
+          storage_bytes: number;
+        };
+        Update: {
+          database_bytes?: number;
+          day?: string;
+          storage_bytes?: number;
         };
         Relationships: [];
       };
@@ -1498,6 +1564,24 @@ export type Database = {
         };
         Relationships: [];
       };
+      weekly_reports: {
+        Row: {
+          created_at: string;
+          summary: Json;
+          week_start: string;
+        };
+        Insert: {
+          created_at?: string;
+          summary: Json;
+          week_start: string;
+        };
+        Update: {
+          created_at?: string;
+          summary?: Json;
+          week_start?: string;
+        };
+        Relationships: [];
+      };
       work_queue: {
         Row: {
           enqueued_at: string;
@@ -1584,6 +1668,13 @@ export type Database = {
         Args: { actor: string; source: string };
         Returns: string;
       };
+      daily_api_cost: {
+        Args: { day_start: string; days: number };
+        Returns: {
+          day: string;
+          micros: number;
+        }[];
+      };
       hit_rate_limit: {
         Args: { limit_key: string; max_hits: number; window_seconds: number };
         Returns: boolean;
@@ -1609,6 +1700,10 @@ export type Database = {
           mine: number;
           site: number;
         }[];
+      };
+      ops_snapshot: {
+        Args: { day_start: string; month_start: string };
+        Returns: Json;
       };
       practice_audio_bytes: {
         Args: { ids: string[] };
@@ -1705,6 +1800,10 @@ export type Database = {
           target: string;
         };
         Returns: number;
+      };
+      weekly_numbers: {
+        Args: { week_end: string; week_start: string };
+        Returns: Json;
       };
     };
     Enums: {

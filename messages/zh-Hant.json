@@ -1302,7 +1302,26 @@
         "failed": "儲存失敗，請稍後再試。"
       }
     },
-    "monthCapNote": "全站上限 {cap}"
+    "monthCapNote": "全站上限 {cap}",
+    "forecast": {
+      "title": "預測與每週摘要",
+      "intro": "依最近 30 天的花費（全部 AI 與語音，偏保守）與每天的容量紀錄推算；數字只是估計。",
+      "credit": "Azure 學生額度用完日",
+      "lastsToExpiry": "到期前用不完",
+      "creditNote": "每天約 {perDay}，剩 {left}（依 {days} 天資料）",
+      "database": "Supabase 資料庫滿載日",
+      "storage": "Supabase 檔案儲存滿載日",
+      "noSamples": "還沒有資料",
+      "noSamplesNote": "監控排程每天記錄一次容量，開始後幾天就會有預測。",
+      "notGrowing": "沒有成長",
+      "capacityNote": "目前 {now}，每天約增加 {perDay}",
+      "vercel": "Vercel 沒有免費的用量 API，請到 Vercel 後台查看函式次數與流量。",
+      "vercelLink": "開啟 Vercel 用量",
+      "weeksTitle": "每週摘要",
+      "noWeeks": "還沒有每週摘要；監控排程每週一早上產生。",
+      "week": "{start} ～ {end}",
+      "weekLine": "花費 {spend}・新帳號 {users}・新教材 {practices}・活躍學習者 {active}"
+    }
   },
   "generate": {
     "sourceLegend": "文字來源",
@@ -1990,7 +2009,23 @@
       "confirmYes": "確定變更",
       "cancel": "取消",
       "confirmTitle": "變更服務開關",
-      "closed": "關閉"
+      "closed": "關閉",
+      "monitorTitle": "監控",
+      "lastCheck": "最近一次健康檢查：{status}（{at}）",
+      "noCheck": "還沒有健康檢查紀錄；設定監控排程後每 15 分鐘檢查一次。",
+      "health": {
+        "ok": "正常",
+        "degraded": "部分異常",
+        "down": "無法使用"
+      },
+      "alertsTitle": "通知紀錄",
+      "noAlerts": "沒有通知。",
+      "alertLevels": {
+        "warning": "注意",
+        "critical": "嚴重"
+      },
+      "notified": "已送到 Discord",
+      "notNotified": "只記錄在後台"
     }
   },
   "events": {
@@ -3488,6 +3523,12 @@
         "info": "公告",
         "warning": "注意",
         "critical": "重要"
+      },
+      "lastCheck": "最近一次檢查：{status}（{at}）",
+      "health": {
+        "ok": "正常",
+        "degraded": "部分異常",
+        "down": "無法使用"
       }
     },
     "banner": {

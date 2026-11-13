@@ -1,0 +1,68 @@
+name: Ops monitor
+
+# Monitoring (D156):
+# - every 15 minutes: the public health check (it also keeps Supabase's
+#   free project from pausing), then the full monitor when CRON_SECRET is
+#   set (alerts go to Discord when DISCORD_WEBHOOK_URL is set on Vercel);
+# - every day at 03:00 Taiwan time: the monitor's daily chores (pruning
+#   old logs, sampling database and storage sizes);
+# - every Monday at 08:30 Taiwan time: the weekly usage and cost summary.
+# If the site doesn't answer at all, this workflow posts to Discord
+# itself (secret DISCORD_WEBHOOK_URL here too). Setup: docs/roadmap.md.
+# Note: GitHub turns schedules off after 60 days without commits.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+    - cron: "0 19 * * *"
+    - cron: "30 0 * * 1"
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "monitor, daily, or weekly"
+        default: monitor
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ops
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SITE_URL: ${{ vars.SITE_URL || 'https://listenloop-three.vercel.app' }}
+      CRON_SECRET: ${{ secrets.CRON_SECRET }}
+      DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      JOB: ${{ github.event.schedule == '0 19 * * *' && 'daily' || github.event.schedule == '30 0 * * 1' && 'weekly' || inputs.job || 'monitor' }}
+    steps:
+      - name: Health check (keeps Supabase awake)
+        id: health
+        run: |
+          status=$(curl -s -o /tmp/health.json -w '%{http_code}' --max-time 30 "$SITE_URL/api/health" || echo 000)
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          echo "HTTP $status"; cat /tmp/health.json 2>/dev/null || true
+          [ "$status" = "200" ]
+
+      - name: Tell Discord the site is down
+        if: failure() && steps.health.outcome == 'failure'
+        run: |
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then echo "No Discord webhook set."; exit 0; fi
+          curl -s -X POST -H 'content-type: application/json' --max-time 10 \
+            -d "{\"content\":\"🔴 **ListenLoop 無法連線**：健康檢查回應 ${{ steps.health.outputs.status }}（$SITE_URL）\",\"allowed_mentions\":{\"parse\":[]}}" \
+            "$DISCORD_WEBHOOK_URL"
+
+      - name: Monitor
+        if: always() && env.JOB != 'weekly'
+        run: |
+          if [ -z "$CRON_SECRET" ]; then echo "CRON_SECRET not set: health check only."; exit 0; fi
+          query=""; [ "$JOB" = "daily" ] && query="?daily=1"
+          curl -sf -X POST --max-time 60 -H "authorization: Bearer $CRON_SECRET" "$SITE_URL/api/cron/monitor$query"
+
+      - name: Weekly summary
+        if: always() && env.JOB == 'weekly'
+        run: |
+          if [ -z "$CRON_SECRET" ]; then echo "CRON_SECRET not set."; exit 0; fi
+          curl -sf -X POST --max-time 60 -H "authorization: Bearer $CRON_SECRET" "$SITE_URL/api/cron/weekly"
