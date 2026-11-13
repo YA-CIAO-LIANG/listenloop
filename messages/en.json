@@ -39,7 +39,12 @@
       "noAccount": "You can practice without an account; sign in for the calendar, today's tasks, and your stats.",
       "levelTest": "Not sure where to start? Take the 2-minute level test"
     },
-    "audience": "For students and professionals who want solid English listening: dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, and see the difference. Every official lesson is free."
+    "audience": "For students and professionals who want solid English listening: dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, and see the difference. Every official lesson is free.",
+    "quickStart": {
+      "start": "Try your first sentence free",
+      "levelTest": "Take the 2-minute level test",
+      "note": "No sign-up needed to start; sign in later to save to the cloud."
+    }
   },
   "settings": {
     "theme": {
@@ -661,7 +666,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 12, 2026",
+    "updated": "Last updated: November 13, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -679,7 +684,10 @@
           "Account data: the user number the system gives you, your role (user or admin), account status, and when you joined and were last active. The admin pages identify users by number and don’t show emails.",
           "Activity log: events such as signing in, starting a practice, completing a day (with its score), retrying, creating, editing, deleting, or publishing a practice, reporting, skipping a sentence, speech recognition failures, and deleting your account. Only your user number and the needed fields (practice code, day, score, a short code) are kept — never practice text, recognized speech, or recordings.",
           "Hard-sentence reports: when shadowing one sentence stays under half five times in a row and you choose “Try again” or “Skip and report,” we keep the sentence’s position, each try’s coverage, the text speech recognition heard, your browser and system names, and whether you skipped; and, if you’re signed in, your account. Text only, never audio. You can report without signing in, in which case no account is kept.",
-          "Feedback: what you send us, and (if signed in) your account."
+          "Feedback: what you send us, and (if signed in) your account.",
+          "Practice reminders (optional): if you turn on reminders on the account page, we keep the push subscription your browser provides (the push service address and encryption keys) and the time you chose, to send one reminder a day; turning reminders off deletes it.",
+          "Satisfaction survey: if you answer the survey after Day 7, we keep the score (0–10), your optional comment, the material's code, and the week.",
+          "Abuse prevention: sign-up and some actions record a hash of the connection's IP address (it can't be turned back into the IP) to limit bursts of requests and spot many sign-ups from one source."
         ]
       },
       {
@@ -691,7 +699,8 @@
       {
         "title": "How we use it",
         "paragraphs": [
-          "Only to sign you in and keep your progress in sync across devices. We don't sell data, share it with advertisers, or use advertising trackers; usage analytics run only if you agree (see \"Usage analytics\")."
+          "We use this data to sign you in and keep your progress in sync across devices; to provide features such as creating materials, AI notes, and audio; to prevent abuse and keep the service secure (for example rate limits and bot checks); and to improve the product from feedback, surveys, and the anonymous activity log.",
+          "We don't sell data, share it with advertisers, or use advertising trackers; usage analytics run only if you agree (see \"Usage analytics\"). We don't send marketing email."
         ]
       },
       {
@@ -702,9 +711,12 @@
           "Vercel: the web host, which handles the technical data a connection needs (such as IP addresses) to serve and protect the site.",
           "Google: Google sign-in.",
           "Microsoft Azure AI services: when you create a practice, its text is sent to Azure OpenAI (the gpt-5-mini model) to split it into sentences, translate it, and write vocabulary and grammar notes, or to write practice text for the situation you pick; its English sentences go to Azure Speech for audio; for a practice from your own recording, the recording is sent in short pieces to Azure Speech's speech to text, which writes it down with each sentence's times. Under Microsoft's terms, what's sent and what's generated aren't used to train models. Azure OpenAI may keep them for up to 30 days to detect abuse, and may process them in any of Microsoft's regions (a Global Standard deployment); Azure Speech processes them in the United Arab Emirates. Even so, please don't put personal or sensitive information in practice text.",
-          "YouTube: practice videos play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
+          "YouTube: built-in video materials (such as the Blender open movies) play through YouTube (youtube-nocookie.com); once a video plays, YouTube may set cookies under Google's privacy policy.",
           "Speech recognition: shadowing uses your browser's built-in speech recognition; in Chrome, audio is sent to Google's servers to be recognized. ListenLoop doesn't record or store audio, only whether each sentence is done and how much was heard.",
-          "LINE (LY Corporation): when you sign in with LINE, it handles the sign-in and gives us your account details."
+          "LINE (LY Corporation): when you sign in with LINE, it handles the sign-in and gives us your account details.",
+          "Cloudflare Turnstile (when turned on): the sign-up, waiting list, report, and feedback forms use it to tell people from bots; it handles technical data about the browser and connection, not for advertising.",
+          "Push services: when practice reminders are on, they reach you through your browser maker's push service (for example Google, Apple, or Mozilla).",
+          "GitHub: the database's daily backups are encrypted (AES-256) and kept in GitHub Actions for 14 days; they can't be read without the password."
         ]
       },
       {
@@ -731,7 +743,8 @@
       {
         "title": "How long we keep it",
         "paragraphs": [
-          "Your account and practice data are kept while your account exists. The activity log is kept 180 days and hard-sentence reports 365 days, then deleted automatically. The API usage log (number of calls, tokens, characters, estimated cost — no text) is kept to account for service costs; deleting your account removes its link to you. When you delete your account, your account, practices, activity, reports, and feedback are deleted from the database right away; audio files of your practices are deleted too, unless another practice shares them; recordings you uploaded are deleted with their practice or your account. Service providers’ system backups are cleared when their retention ends."
+          "Your account and practice data are kept while your account exists. The activity log is kept 180 days and hard-sentence reports 365 days, then deleted automatically. The API usage log (number of calls, tokens, characters, estimated cost — no text) is kept to account for service costs; deleting your account removes its link to you. When you delete your account, your account, practices, activity, reports, and feedback are deleted from the database right away; audio files of your practices are deleted too, unless another practice shares them; recordings you uploaded are deleted with their practice or your account. Service providers’ system backups are cleared when their retention ends.",
+          "Other records are kept for: error logs 90 days, abuse-prevention IP hashes 90 days, rate-limit counters 1 day, encrypted backups 14 days; survey answers while your account exists, deleted with it."
         ]
       },
       {
@@ -2426,7 +2439,7 @@
   },
   "terms": {
     "title": "Terms of Service",
-    "updated": "Last updated: November 11, 2026",
+    "updated": "Last updated: November 13, 2026",
     "intro": "Welcome to ListenLoop (the “Service”), a seven-day loop for English listening practice. By using the Service you agree to these terms; if you don’t, please stop using it.",
     "sections": [
       {
@@ -2480,7 +2493,7 @@
           "Paid plans (Plus, Pro) are subscriptions billed monthly or yearly, at the prices on the Plans and pricing page. A yearly plan’s allowance resets every month and doesn’t carry over. A third-party payment service handles payment.",
           "Shared materials (practices other users share) can be practiced in full on Plus, Pro, and class plans; on the free plan or signed out, you can preview the first three sentences and listen to the first. You can always practice the materials you share yourself. A shared material you were already practicing when this rule began can be finished for that week.",
           "Subscriptions renew automatically: at the end of each period, your payment method is charged for the next, until you cancel. Cancel any time on the Account page; you keep the paid plan until the period ends.",
-          "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly plan ended early refunds its unused whole months. If prices change, we’ll tell you before the next period starts, and you can cancel before the change applies.",
+          "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly plan ended early refunds its unused whole months. If prices change, we’ll announce it on the site and show it under \"Plan and billing\" on the account page before the next period starts, and you can cancel before the change applies.",
           "When a subscription ends or you return to the free plan, your materials and progress are kept; you just can't add new materials."
         ]
       },

@@ -9,6 +9,7 @@ import { BetaNote } from "@/components/BetaNote";
 import { FixedReportsNotice } from "@/components/FixedReportsNotice";
 import { OnboardingStart } from "@/components/OnboardingStart";
 import { ProductIntro } from "@/components/ProductIntro";
+import { QuickStart } from "@/components/QuickStart";
 import { ProgressGate } from "@/components/ProgressGate";
 import { LibrarySkeleton } from "@/components/Skeleton";
 import { HomeProgress } from "@/components/HomeProgress";
@@ -28,6 +29,8 @@ export default function Home() {
       <p className="mt-4 font-display text-h3">{t("home.tagline")}</p>
       {/* Who it's for and how, readable in five seconds (D119). */}
       <p className="mt-3 max-w-reading text-ink-muted">{t("home.audience")}</p>
+      {/* First visit: straight to Day 1's first sentence (D169). */}
+      <QuickStart />
       {/* In Beta, with a way to tell us what to fix (D132). */}
       <BetaNote className="mt-6" />
 
