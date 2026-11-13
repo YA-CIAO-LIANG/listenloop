@@ -9,6 +9,8 @@ import { UserControls } from "@/components/UserControls";
 import { isAccountStatus, isRole, userNumberLabel } from "@/lib/accounts";
 import { isAccountPlan } from "@/lib/plans";
 import { ClassroomSeatsControl } from "@/components/ClassroomSeatsControl";
+import { QuotaControls } from "@/components/QuotaControls";
+import { isOverridableLimit } from "@/lib/quota";
 import { ADMIN_PAGE_ROWS } from "@/lib/admin-dashboard";
 
 export async function generateMetadata({
@@ -38,7 +40,7 @@ export default async function AdminUserPage({
   const { data: profile } = await admin
     .from("profiles")
     .select(
-      "user_id, number, role, status, plan, classroom_seats, created_at, last_seen_at",
+      "user_id, number, role, status, plan, classroom_seats, created_at, last_seen_at, ai_suspended_at, ai_suspended_reason",
     )
     .eq("number", number)
     .maybeSingle();
@@ -49,6 +51,14 @@ export default async function AdminUserPage({
     .eq("user_id", profile.user_id)
     .order("created_at", { ascending: false })
     .limit(ADMIN_PAGE_ROWS);
+  // Quota changes for this account, newest first (D161).
+  const { data: overrideRows } = await admin
+    .from("quota_overrides")
+    .select("id, limit_name, extra, expires_at, reason")
+    .eq("user_id", profile.user_id)
+    .order("created_at", { ascending: false })
+    .limit(20);
+  const now = new Date();
   const date = (iso: string | null) =>
     iso
       ? format.dateTime(new Date(iso), {
@@ -89,6 +99,36 @@ export default async function AdminUserPage({
           userId={profile.user_id}
           seats={profile.classroom_seats}
         />
+      </section>
+      <section aria-labelledby="user-quota" className="mt-12 max-w-reading">
+        <h2 id="user-quota" className="font-display text-h2">
+          {t("quotaTitle")}
+        </h2>
+        <div className="mt-4">
+          <QuotaControls
+            userId={profile.user_id}
+            aiSuspended={
+              profile.ai_suspended_at
+                ? (profile.ai_suspended_reason ?? "")
+                : null
+            }
+            overrides={(overrideRows ?? []).flatMap((row) =>
+              isOverridableLimit(row.limit_name)
+                ? [
+                    {
+                      id: row.id,
+                      limit: row.limit_name,
+                      extra: row.extra,
+                      expiresAt: row.expires_at,
+                      reason: row.reason,
+                      active: Date.parse(row.expires_at) > now.getTime(),
+                      expires: date(row.expires_at),
+                    },
+                  ]
+                : [],
+            )}
+          />
+        </div>
       </section>
       <section className="mt-12">
         <h2 className="font-display text-h2">{t("activity")}</h2>

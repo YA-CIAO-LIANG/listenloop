@@ -2964,3 +2964,41 @@
 - **新元件**：`Turnstile`。由 Cloudflare 繪製，不使用我們的 tokens，放在送出按鈕上方。已補進 `docs/design-system.md`。
 - **測試**：`tests/turnstile.test.ts`（沒有金鑰時放行、token 要被接受、送出 IP、連不上時放行、CSP 只在設定時加入）；既有的元件測試確認 token 有傳給 action。
 - **要改時**：套用的表單在各 action 呼叫 `verifyTurnstile`；連不上時的行為在 `auth/turnstile.ts`。
+
+## D161 額度總表、我的額度、儲存空間上限、管理員調整單一使用者的額度（2026-11-13，Joe 指定）
+
+- **為什麼**：額度分散在好幾個檔案，使用者看不到自己用了多少；管理員要幫某個人加額度（活動、補償）或限制某個人（疑似濫用）時，只能改整個方案。Supabase 免費方案全站只有 1 GB，錄音沒有個人上限，少數人就能塞滿。
+- **做法**：
+  - **新額度**（`lib/plans.ts`）：
+    - `storageMegabytes`：錄音總儲存空間，免費 0（本來就不能上傳）、Plus 200 MB、Pro 500 MB、管理員不限。理由：全站 1 GB，預留給產生的音檔（目前 43 MB）。
+    - `revisesPerDay`：每天用指令修改的次數，免費 5、Plus 30、Pro 100。原本只有每日花費上限，次數比較容易理解。新文字自動精簡（D153）不算在內。
+  - **額度總表** `docs/quotas.md`：用 `lib/quota-table.ts` 從程式設定產生，`tests/quotas-doc.test.ts` 檢查文件和程式一致；不一致時測試會印出新的表。
+    - 方案：免費、學生（Plus 的額度）、Plus、Pro、班級、管理員；
+    - 項目：分鐘數、長度、字數、轉文字、用指令修改、檔案大小、儲存空間、教材數量、每日 AI 費用、檢舉、回饋、速率限制，以及各項的重設時間。
+  - **我的額度** `/account/usage`（從帳號選單與帳號頁進入）：
+    - 每項顯示已用、上限、剩餘、重設時間（台灣時間）與進度條（`role="meter"`）。
+    - 達 80% 顯示「快用完了」，100% 顯示「已經用完了」。
+    - 也列出其他固定限制、管理員為你做的調整、AI 是否被暫停。
+    - 每日 AI 用量只顯示百分比，不顯示金額。
+  - **儲存空間**：上傳前把已存的錄音加上新檔，跟上限比較。超過時回傳方案限制，畫面沿用既有的方案訊息。
+  - **孤兒檔案清除**（`auth/orphans.ts`、RPC `orphan_audio`），每天由監控執行：
+    - 刪除超過 7 天、沒有任何句子或已存版本使用的音檔（並刪除 `speech_audio` 那一列），以及沒有建立成教材的錄音。
+    - **安全閥**：某個 bucket 看起來沒用的檔案超過 20% 時，一律不刪，改發通知請人工確認，避免程式錯誤或備份只還原一半時誤刪；每次最多刪 500 個。
+    - 上線前在正式環境只讀查詢：目前 1,639 個音檔中有 8 個沒被使用。
+  - **管理員調整**（`/admin/users/<編號>` 的「額度調整」，`app/admin/users/quota-actions.ts`）：
+    - 選一項額度，填增減量（負數表示限制）、天數（1～90，到期自動恢復）與理由（必填）。
+    - 可以結束某一筆調整；可以暫停或恢復這個帳號的 AI 功能，暫停時理由必填。
+    - 都需要 30 分鐘內登入過（D159），並寫入管理稽核。
+    - 資料存在 `quota_overrides`（本人可以讀，只有伺服器能寫），以及 `profiles.ai_suspended_at`、`ai_suspended_reason`。
+  - **生效位置**：
+    - `creationAllowance` 回傳套用調整後的方案表，每週與每月分鐘數、教材長度都用它；
+    - 用指令修改與上傳儲存空間也套用；
+    - AI 被暫停時 `getCreator()` 回 null，建立頁顯示「你的帳號暫時不能使用 AI 建立教材」，並提供聯絡連結。
+  - **沒有新增元件**：沿用 Card、Button、表單欄位；進度條是 4px 的 line 軌道加上 accent 填色，80% 以上改用 error 色。已補進 `docs/design-system.md`。
+- **測試**：
+  - `tests/quota.test.ts`：調整與到期、不低於 0、不限仍然不限、儲存空間與次數的上限、孤兒清除與安全閥；
+  - `tests/quotas-doc.test.ts`；`tests/upload-actions.test.ts`；
+  - E2E `e2e/quota.spec.ts`：我的額度、未登入導向登入、後台額度調整區塊；
+  - QA sweep 加入 `/account/usage`。
+- **Migration**：`20261125000000_quota_overrides.sql`、`20261125010000_orphan_audio.sql`（檔尾附回復方式）。
+- **要改時**：各方案的數字在 `lib/plans.ts`，改完照測試印出的表更新 `docs/quotas.md`；可以調整的額度在 `lib/quota.ts` 的 `OVERRIDABLE_LIMITS`，資料庫的 check 也要一起改。

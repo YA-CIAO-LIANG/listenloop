@@ -251,7 +251,7 @@ flowchart LR
 | The video has no sound or won't play              | Check your connection and that YouTube opens; starting from inside the site helps autoplay                                                                |
 | My progress is gone on a new phone                | Sign in to the same account; signed out, progress stays on the old device                                                                                 |
 | A shared material shows only 3 sentences          | The free plan previews; Plus and above practice in full                                                                                                   |
-| Creating says my allowance is used                | The free plan's 2 minutes reset each Monday; paid plans' minutes reset on the 1st                                                                         |
+| Creating says my allowance is used                | The free plan's 2 minutes reset each Monday; paid plans' minutes reset on the 1st. "Account" → "My quota" shows each allowance and when it resets         |
 | Can I practice offline?                           | Once an audio material's practice page is open, its sentences are kept on the device and play on a shaky connection; opening new pages needs the internet |
 | A translation, note, or audio is wrong            | Press "Report a problem with this sentence" under it; you'll be told on the home page when it's fixed                                                     |
 | The site says maintenance, or something is paused | "Service status" in the footer shows the state and announcements; your progress is saved in the cloud                                                     |

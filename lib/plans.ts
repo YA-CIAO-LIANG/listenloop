@@ -68,6 +68,13 @@ export type PlanLimits = {
    * technical cap only.
    */
   uploadMegabytes: number | null;
+  /**
+   * All of this account's stored recordings together, in MB (D161):
+   * Supabase's free plan has 1 GB for the whole site. null: no cap.
+   */
+  storageMegabytes: number | null;
+  /** "Revise with an instruction" (D96) per Taiwan day (D161). */
+  revisesPerDay: number | null;
   /** Slower and faster playback of audio practices (D73, D102). */
   playbackSpeed: boolean;
   /** Every chart on the stats page; otherwise the basics (D102). */
@@ -94,6 +101,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     youtubePractices: false,
     uploadAudio: false,
     uploadMegabytes: null,
+    storageMegabytes: 0,
+    revisesPerDay: 5,
     playbackSpeed: false,
     fullStats: false,
     priority: false,
@@ -114,6 +123,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     youtubePractices: true,
     uploadAudio: true,
     uploadMegabytes: 100,
+    storageMegabytes: 200,
+    revisesPerDay: 30,
     playbackSpeed: true,
     fullStats: true,
     priority: false,
@@ -134,6 +145,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     youtubePractices: true,
     uploadAudio: true,
     uploadMegabytes: 200,
+    storageMegabytes: 500,
+    revisesPerDay: 100,
     playbackSpeed: true,
     fullStats: true,
     priority: true,
@@ -153,6 +166,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     youtubePractices: true,
     uploadAudio: true,
     uploadMegabytes: null,
+    storageMegabytes: null,
+    revisesPerDay: null,
     playbackSpeed: true,
     fullStats: true,
     priority: true,
@@ -185,6 +200,10 @@ export type PlanAction =
   | { kind: "feature"; feature: "playbackSpeed" | "fullStats" | "batchPdf" }
   | { kind: "youtube-practice" }
   | { kind: "upload-audio"; bytes?: number }
+  /** Storing `adding` more bytes on top of `stored` (D161). */
+  | { kind: "store-audio"; stored: number; adding: number }
+  /** Another revise today, after `today` of them (D161). */
+  | { kind: "revise"; today: number }
   | {
       kind: "practice-seconds";
       seconds: number;
@@ -270,6 +289,15 @@ export function can(
         limits.practicesPerMonth,
         action.createdThisMonth ?? 0,
       );
+    case "store-audio": {
+      if (limits.storageMegabytes === null) return { ok: true };
+      const cap = limits.storageMegabytes * 1024 * 1024;
+      return action.stored + action.adding > cap
+        ? { ok: false, limit: "storageMegabytes", max: limits.storageMegabytes }
+        : { ok: true };
+    }
+    case "revise":
+      return over("revisesPerDay", limits.revisesPerDay, action.today);
     case "start-practice":
       return over(
         "activePractices",

@@ -593,7 +593,8 @@
     "dismiss": "Close",
     "accountSettings": "Account settings",
     "signInDisabled": "This account has been disabled and can’t sign in. If you think this is a mistake, contact us through “Feedback” at the bottom of the page.",
-    "signInNoEmail": "LINE didn’t share an email, so you can’t sign in with it. Use Google or email instead (or allow LINE to share your email)."
+    "signInNoEmail": "LINE didn’t share an email, so you can’t sign in with it. Use Google or email instead (or allow LINE to share your email).",
+    "quota": "My quota"
   },
   "accountPage": {
     "title": "Account",
@@ -625,7 +626,8 @@
       "intro": "Download everything ListenLoop keeps about you (a JSON file): your account data, cloud progress and history, the practices you made, your activity, hard-sentence reports, feedback, reports you sent, and API usage.",
       "link": "Download my data (JSON)"
     },
-    "terms": "Terms"
+    "terms": "Terms",
+    "quotaLink": "See my quota →"
   },
   "footer": {
     "privacy": "Privacy policy",
@@ -907,7 +909,10 @@
       "title": "Creating materials is paused",
       "body": "To keep the service running well, creating materials is paused for now; your materials can still be practised. See the status page for details.",
       "status": "See service status",
-      "some": "Paused now: {features}."
+      "some": "Paused now: {features}.",
+      "accountTitle": "AI creation is paused for your account",
+      "accountBody": "To protect the service, AI features are paused for your account for now; your materials can still be practised. If you think this is a mistake, tell us through Feedback.",
+      "accountContact": "Contact us"
     },
     "listSeparator": ", "
   },
@@ -1421,7 +1426,9 @@
       "batchPdf": "Batch PDFs are part of Pro.",
       "sharedPractices": "Practicing shared materials in full is part of Plus, Pro, and class plans.",
       "uploadAudio": "Making practices from your own recordings is a Plus feature.",
-      "uploadMegabytes": "The file is too big: your plan allows up to {max, number} MB a file."
+      "uploadMegabytes": "The file is too big: your plan allows up to {max, number} MB a file.",
+      "storageMegabytes": "Your recordings use all of your plan's {max, number} MB of storage. Delete recordings you don't need, or upgrade.",
+      "revisesPerDay": "You've revised with an instruction {max} times today, your plan's limit; it resets at midnight (Taiwan time)."
     },
     "week": "The free plan makes {total} minutes of materials a week (up to {total} minutes each). Left this week: {minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}; resets {reset}.",
     "weekUsed": "The free plan makes {total} minutes of materials a week. This week's are used up; they reset {reset}.",
@@ -1576,7 +1583,8 @@
       "classroom": "Class plan (for trying)",
       "classroomNone": "None",
       "classroomSeats": "{seats} students",
-      "classroomFailed": "Couldn’t save."
+      "classroomFailed": "Couldn’t save.",
+      "quotaTitle": "Quota"
     },
     "events": {
       "title": "Activity",
@@ -2034,6 +2042,35 @@
       },
       "notified": "Sent to Discord",
       "notNotified": "Kept here only"
+    },
+    "quota": {
+      "limit": "Limit",
+      "extra": "Change",
+      "days": "Days",
+      "hint": "Positive gives more, negative restricts; up to {max} days, then it ends by itself. The reason goes in the audit log.",
+      "reason": "Reason (required)",
+      "add": "Apply",
+      "row": "{limit}: {extra}, until {until}",
+      "ended": "ended",
+      "end": "End",
+      "limits": {
+        "minutesPerWeek": "Minutes a week",
+        "minutesPerMonth": "Minutes a month",
+        "storageMegabytes": "Storage (MB)",
+        "revisesPerDay": "Revisions a day"
+      },
+      "aiTitle": "AI features",
+      "aiPaused": "Paused. Reason: {reason}",
+      "aiResume": "Resume AI",
+      "aiReason": "Reason for pausing (required)",
+      "aiPause": "Pause this account's AI",
+      "saved": "Saved.",
+      "errors": {
+        "unavailable": "Only admins can change this.",
+        "invalid": "Check the values: a change other than 0, 1–90 days, and a reason.",
+        "failed": "Couldn't save; try again later.",
+        "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
+      }
     }
   },
   "events": {
@@ -2767,7 +2804,8 @@
       "limit": "Today’s AI allowance is used up. Try again tomorrow (after midnight Taiwan time).",
       "busy": "Too many tries. Please wait a moment.",
       "failed": "The revision failed. Please try again later. Your text is unchanged.",
-      "filtered": "This instruction can't be written. Try saying it another way (for example, mild suspense instead of horror, with no blood or violence)."
+      "filtered": "This instruction can't be written. Try saying it another way (for example, mild suspense instead of horror, with no blood or violence).",
+      "daily": "You've revised {max} times today, your plan's limit; it resets at midnight (Taiwan time). See \"My quota\"."
     },
     "previewReady": "Preview ready: {total} sentences after the change, {changed} of them new or changed. Choose Apply to use it.",
     "previewTitle": "Preview the change",
@@ -3550,5 +3588,56 @@
       "dismiss": "Dismiss announcement",
       "label": "Site announcement"
     }
+  },
+  "quota": {
+    "title": "My quota",
+    "back": "Account",
+    "intro": "You're on {plan}. Here's how much of each allowance you've used, and when it resets (Taiwan time).",
+    "plans": {
+      "free": "the free plan",
+      "paid": "Plus",
+      "pro": "Pro",
+      "admin": "admin (unlimited)"
+    },
+    "suspended": "AI features are paused for your account for now; your materials can still be practised. If you think this is a mistake, tell us through Feedback.",
+    "rows": {
+      "minutesPerWeek": "Minutes of materials this week",
+      "minutesPerMonth": "Minutes of materials this month",
+      "revisesPerDay": "Revisions with an instruction today",
+      "storageMegabytes": "Storage for recordings",
+      "dailyAi": "AI use today"
+    },
+    "units": {
+      "minutes": "{n} min",
+      "times": "{n}",
+      "megabytes": "{n} MB",
+      "percent": "{n}%"
+    },
+    "usedOf": "{used} of {max} used",
+    "unlimitedUsed": "{used} used (unlimited)",
+    "left": "{left} left",
+    "resets": "resets {at}",
+    "noReset": "deleting recordings frees space",
+    "almost": "Almost used up.",
+    "usedUp": "Used up.",
+    "overridesTitle": "Changes an admin made for you",
+    "override": "{limit}: {extra}, until {until}",
+    "fixedTitle": "Other limits",
+    "fixed": {
+      "charsPerPractice": "Characters per material",
+      "maxPracticeSeconds": "Longest material",
+      "uploadMegabytes": "Recording file size",
+      "reportsPerDay": "Reports",
+      "feedbackPerDay": "Feedback",
+      "aiPerHour": "AI actions"
+    },
+    "chars": "{n} characters",
+    "minutes": "{n} min",
+    "unlimited": "Unlimited",
+    "notIncluded": "Not on this plan",
+    "perDay": "{n} a day",
+    "perHour": "{n} an hour",
+    "more": "Need more?",
+    "pricing": "See plans and prices"
   }
 }

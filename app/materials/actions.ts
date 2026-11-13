@@ -14,6 +14,7 @@ import { revalidatePath } from "next/cache";
 import { creationAllowance, creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
 import { featurePaused } from "@/auth/site-switches";
+import { plansFor, revisesToday } from "@/auth/quota";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
@@ -229,7 +230,7 @@ export async function createPractice(
   }
   const supabase = await getServerSupabase();
   if (!supabase) return { ok: false, reason: "unavailable" };
-  const { check: allowed, week } = await creationAllowance(creator);
+  const { check: allowed, week, plans } = await creationAllowance(creator);
   const length = can(planFor(creator.user), {
     kind: "practice-chars",
     chars: countChars(cleaned.draft.sentences.map((s) => s.en)),
@@ -237,12 +238,17 @@ export async function createPractice(
   // Its length counts toward the month's minutes, within the plan's
   // longest practice (D94, D102).
   const seconds = estimateSeconds(cleaned.draft.sentences.map((s) => s.en));
-  const long = can(planFor(creator.user), {
-    kind: "practice-seconds",
-    seconds,
-    // It must fit in what's left of the week (D143).
-    secondsThisWeek: week?.usedSeconds,
-  });
+  const long = can(
+    planFor(creator.user),
+    {
+      kind: "practice-seconds",
+      seconds,
+      // It must fit in what's left of the week (D143).
+      secondsThisWeek: week?.usedSeconds,
+    },
+    // With this account's own changes (D161).
+    plans,
+  );
   if (!allowed.ok || !length.ok || !long.ok) {
     const block = !allowed.ok
       ? allowed
@@ -626,7 +632,7 @@ export async function generatePracticeText(
   if (!creator || (await featurePaused(creator.user, "aiGenerate"))) {
     return { ok: false, reason: "unavailable" };
   }
-  const { check: allowed, week } = await creationAllowance(creator);
+  const { check: allowed, week, plans } = await creationAllowance(creator);
   if (!allowed.ok) return { ok: false, reason: "unavailable" };
   if (!(await allowAction("ai", creator.user.id))) {
     return { ok: false, reason: "busy" };
@@ -635,11 +641,16 @@ export async function generatePracticeText(
   if (!request) return { ok: false, reason: "invalid" };
   // The plan's longest practice (D94), within what's left of the week
   // (D143).
-  const long = can(planFor(creator.user), {
-    kind: "practice-seconds",
-    seconds: lengthSeconds(request.length, request.seconds),
-    secondsThisWeek: week?.usedSeconds,
-  });
+  const long = can(
+    planFor(creator.user),
+    {
+      kind: "practice-seconds",
+      seconds: lengthSeconds(request.length, request.seconds),
+      secondsThisWeek: week?.usedSeconds,
+    },
+    // With this account's own changes (D161).
+    plans,
+  );
   if (!long.ok) {
     return {
       ok: false,
@@ -683,6 +694,8 @@ export async function generatePracticeText(
 
 export type ReviseDraftResult =
   | { ok: true; status: "changed"; lines: string[] }
+  /** Today's revises are used up (D161). */
+  | { ok: false; reason: "daily"; max?: number }
   /** The model saw nothing to change; reason is its words, maybe empty. */
   | { ok: true; status: "unchanged"; reason: string }
   | ({
@@ -710,6 +723,13 @@ export async function reviseDraft(input: unknown): Promise<ReviseDraftResult> {
   if (!(await allowAction("ai", creator.user.id))) {
     return { ok: false, reason: "busy" };
   }
+  // The plan's revises a day (D161), with this account's own changes.
+  const revise = can(
+    planFor(creator.user),
+    { kind: "revise", today: await revisesToday(creator.user.id) },
+    await plansFor(creator.user),
+  );
+  if (!revise.ok) return { ok: false, reason: "daily", max: revise.max };
   const request = parseRevisionRequest(input);
   if (!request) return { ok: false, reason: "invalid" };
   const result = await meteredLanguage(

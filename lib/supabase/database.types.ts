@@ -1063,6 +1063,8 @@ export type Database = {
       };
       profiles: {
         Row: {
+          ai_suspended_at: string | null;
+          ai_suspended_reason: string | null;
           beta_admitted_at: string | null;
           beta_admitted_via: string | null;
           classroom_seats: number | null;
@@ -1078,6 +1080,8 @@ export type Database = {
           user_id: string;
         };
         Insert: {
+          ai_suspended_at?: string | null;
+          ai_suspended_reason?: string | null;
           beta_admitted_at?: string | null;
           beta_admitted_via?: string | null;
           classroom_seats?: number | null;
@@ -1093,6 +1097,8 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          ai_suspended_at?: string | null;
+          ai_suspended_reason?: string | null;
           beta_admitted_at?: string | null;
           beta_admitted_via?: string | null;
           classroom_seats?: number | null;
@@ -1127,6 +1133,39 @@ export type Database = {
           updated_at?: string;
           user_id?: string;
           video_id?: string;
+        };
+        Relationships: [];
+      };
+      quota_overrides: {
+        Row: {
+          created_at: string;
+          created_by: string | null;
+          expires_at: string;
+          extra: number;
+          id: string;
+          limit_name: string;
+          reason: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          created_by?: string | null;
+          expires_at: string;
+          extra: number;
+          id?: string;
+          limit_name: string;
+          reason: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          created_by?: string | null;
+          expires_at?: string;
+          extra?: number;
+          id?: string;
+          limit_name?: string;
+          reason?: string;
+          user_id?: string;
         };
         Relationships: [];
       };
@@ -1705,6 +1744,13 @@ export type Database = {
         Args: { day_start: string; month_start: string };
         Returns: Json;
       };
+      orphan_audio: {
+        Args: { max_rows: number; older_than: string };
+        Returns: {
+          bucket: string;
+          path: string;
+        }[];
+      };
       practice_audio_bytes: {
         Args: { ids: string[] };
         Returns: {
@@ -1791,6 +1837,13 @@ export type Database = {
       settle_api_cost: {
         Args: { delta: number; target_user: string; usage_day: string };
         Returns: undefined;
+      };
+      storage_file_counts: {
+        Args: never;
+        Returns: {
+          bucket: string;
+          files: number;
+        }[];
       };
       upgrade_practice_notes: {
         Args: {
