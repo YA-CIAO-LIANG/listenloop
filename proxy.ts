@@ -6,6 +6,11 @@ import { clarityProjectId } from "@/lib/analytics-consent";
 import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
 import { turnstileSiteKey } from "@/lib/turnstile";
 import { supabaseConfig } from "@/lib/supabase/config";
+import {
+  isLocale,
+  LOCALE_OVERRIDE_HEADER,
+  LOCALE_PARAM,
+} from "@/lib/i18n/config";
 
 /**
  * Every page request: a fresh CSP nonce (D63), passed to the page in the
@@ -24,6 +29,11 @@ export async function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("content-security-policy", policy);
+  // `?hl=en` shows this one request in that language (D167), so search
+  // engines can fetch each language; only we may set the header.
+  const hl = request.nextUrl.searchParams.get(LOCALE_PARAM);
+  if (isLocale(hl)) requestHeaders.set(LOCALE_OVERRIDE_HEADER, hl);
+  else requestHeaders.delete(LOCALE_OVERRIDE_HEADER);
   const { response, isAdmin } = await updateSession(request, requestHeaders);
   response.headers.set("content-security-policy", policy);
   // Maintenance mode (D155): everyone but admins sees the maintenance

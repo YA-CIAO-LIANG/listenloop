@@ -7,7 +7,13 @@ import { ButtonLink } from "@/components/ButtonLink";
 import { MaterialCard } from "@/components/MaterialCard";
 import { isLearnCategory, learnPath } from "@/lib/learn";
 import { filterLibrary, NO_LIBRARY_FILTER } from "@/lib/library";
-import { SITE_URL } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { RelatedArticles } from "@/components/RelatedArticles";
+import { seoFor } from "@/i18n/metadata";
+import { postsForTopic } from "@/lib/blog";
+import { defaultLocale } from "@/lib/i18n/config";
+import { localizedUrl } from "@/lib/seo";
+import { breadcrumbList } from "@/lib/structured-data";
 
 export async function generateMetadata({
   params,
@@ -18,14 +24,12 @@ export async function generateMetadata({
     getTranslations("learn"),
     getTranslations("categories.names"),
   ]);
-  const title = t("pageTitle", { name: tNames(category) });
-  const description = t(`intros.${category}`);
-  return {
-    title,
-    description,
-    alternates: { canonical: `${SITE_URL}${learnPath(category)}` },
-    openGraph: { title, description },
-  };
+  // The share image is ./opengraph-image.tsx (D167).
+  return seoFor({
+    path: learnPath(category),
+    title: t("pageTitle", { name: tNames(category) }),
+    description: t(`intros.${category}`),
+  });
 }
 
 /**
@@ -38,9 +42,10 @@ export default async function LearnCategoryPage({
 }: PageProps<"/learn/[category]">) {
   const { category } = await params;
   if (!isLearnCategory(category)) notFound();
-  const [t, tNames, all] = await Promise.all([
+  const [t, tNames, tCommon, all] = await Promise.all([
     getTranslations("learn"),
     getTranslations("categories.names"),
+    getTranslations("common"),
     getLibraryItems(),
   ]);
   const items = filterLibrary(all, {
@@ -111,6 +116,22 @@ export default async function LearnCategoryPage({
           </ButtonLink>
         </div>
       </section>
+
+      {/* Guides about this topic (D167). */}
+      <RelatedArticles posts={postsForTopic(category)} className="mt-12" />
+      <JsonLd
+        data={breadcrumbList([
+          { name: tCommon("appName"), url: localizedUrl("/", defaultLocale) },
+          {
+            name: t("indexTitle"),
+            url: localizedUrl("/learn", defaultLocale),
+          },
+          {
+            name: t("pageTitle", { name }),
+            url: localizedUrl(learnPath(category), defaultLocale),
+          },
+        ])}
+      />
     </main>
   );
 }

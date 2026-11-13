@@ -12,6 +12,11 @@ import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { Video } from "@/lib/videos";
 import { renderWithIntl } from "../render";
 
+// The language switch in the header uses the router (D167).
+vi.mock("next/navigation", async (original) => ({
+  ...(await original<typeof import("next/navigation")>()),
+  useRouter: () => ({ replace: vi.fn(), push: vi.fn(), refresh: vi.fn() }),
+}));
 vi.mock("@/components/youtube/useYouTubePlayer", () => ({
   useYouTubePlayer: () => ({
     containerRef: () => {},

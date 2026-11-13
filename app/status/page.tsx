@@ -4,12 +4,13 @@ import { getActiveAnnouncements, getSiteSwitches } from "@/auth/site-switches";
 import { latestHealth } from "@/auth/ops";
 import { Card } from "@/components/Card";
 import { pausedFeatures, siteState } from "@/lib/site-switches";
+import { publicPageMetadata } from "@/i18n/metadata";
 
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("ops.status");
-  return { title: t("title"), description: t("intro") };
+/** Title, description, canonical, and hreflang (D167). */
+export function generateMetadata(): Promise<Metadata> {
+  return publicPageMetadata("/status");
 }
 
 /**

@@ -97,6 +97,7 @@ describe("SiteFooter", () => {
     ).toEqual([
       "/learn",
       "/blog",
+      "/faq",
       "/pricing",
       "/terms",
       "/refund",

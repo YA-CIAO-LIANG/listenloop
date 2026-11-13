@@ -16,7 +16,8 @@
   "metadata": {
     "title": "ListenLoop",
     "description": "English listening practice: master one clip a week. Dictate on Day 1, shadow on Days 2–6, and see your progress on Day 7. Official lessons are free.",
-    "siteName": "ListenLoop"
+    "siteName": "ListenLoop",
+    "homeTitle": "ListenLoop | English listening practice: dictation and shadowing in a 7-day loop"
   },
   "home": {
     "tagline": "Master one English clip a week. Hear every word.",
@@ -428,7 +429,8 @@
     "customSentences": "{count, plural, one {# sentence} other {# sentences}}, each with its own audio.",
     "shared": "Shared practice",
     "backToExplore": "Shared materials",
-    "rewrittenFrom": "Rewritten from {source}'s release “<link>{title}</link>”: ListenLoop retold its facts in its own words for learners."
+    "rewrittenFrom": "Rewritten from {source}'s release “<link>{title}</link>”: ListenLoop retold its facts in its own words for learners.",
+    "seoDescription": "{title}: free English listening practice in {count, plural, one {# sentence} other {# sentences}}. Dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, with a bilingual handout, vocabulary, and grammar notes."
   },
   "player": {
     "loading": "Loading video…",
@@ -662,7 +664,8 @@
     "refund": "Refund policy",
     "learn": "Practice by topic",
     "blog": "Articles",
-    "status": "Service status"
+    "status": "Service status",
+    "faq": "FAQ"
   },
   "privacy": {
     "title": "Privacy policy",
@@ -1306,8 +1309,8 @@
         "401": "Wrong key: copy Key 1 from Azure’s “Keys and Endpoint” again, paste it into Vercel, and redeploy.",
         "403": "No access or out of quota: check that the subscription is active and F0 has free characters left this month.",
         "404": "Not found: for AI text, usually a typo in the endpoint or the AZURE_OPENAI_DEPLOYMENT name; for speech, usually the wrong AZURE_SPEECH_REGION.",
-        "DeploymentNotFound": "No deployment by that name: make AZURE_OPENAI_DEPLOYMENT exactly match the name on Foundry’s Deployments page.",
         "429": "Busy or over the per-minute limit; try again in a minute.",
+        "DeploymentNotFound": "No deployment by that name: make AZURE_OPENAI_DEPLOYMENT exactly match the name on Foundry’s Deployments page.",
         "timeout": "No answer in time: try again; if it keeps timing out, check the endpoint URL.",
         "network": "Couldn’t reach the service: check the endpoint URL or region.",
         "other": "Another error: look up the status and error code in Azure’s docs.",
@@ -3469,7 +3472,8 @@
     "related": "Practice with these lessons",
     "none": "No lessons on this topic yet.",
     "topic": "More “{name}” lessons",
-    "levelTest": "Take the 2-minute level test"
+    "levelTest": "Take the 2-minute level test",
+    "relatedArticles": "Related articles"
   },
   "handsFree": {
     "label": "Hands-free practice (plays and listens by itself)",
@@ -3769,5 +3773,90 @@
     "perHour": "{n} an hour",
     "more": "Need more?",
     "pricing": "See plans and prices"
+  },
+  "seo": {
+    "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "intro": "How ListenLoop works, what's free, whether you need to sign in, and what shadowing needs: the questions people ask most. If yours isn't here, tell us.",
+    "more": "Another question?",
+    "feedback": "Send us feedback",
+    "groups": {
+      "basics": "About ListenLoop",
+      "loop": "The 7-day loop",
+      "practice": "Practice and materials",
+      "account": "Account and devices"
+    },
+    "items": {
+      "what": {
+        "question": "What is ListenLoop?",
+        "answer": "ListenLoop is an English listening practice site. You practice one 1–3 minute recording for seven days: dictation on Day 1, shadowing on Days 2–6, and dictation again on Day 7, compared with Day 1 so you can see your progress. The goal isn't the gist; it's hearing every word."
+      },
+      "who": {
+        "question": "Who is it for?",
+        "answer": "Anyone who wants solid listening skills: students preparing for the TOEIC, TOEFL, IELTS, GEPT, or the college entrance listening test, people about to study abroad, and professionals who need to follow meetings and calls in English. Materials come in beginner, intermediate, and advanced levels; the level test helps you choose."
+      },
+      "free": {
+        "question": "Is it free?",
+        "answer": "Official materials and the 7-day loop are free. The free plan can also make 2 minutes of your own AI materials a week (two of 1 minute or one of 2 minutes). Paid plans (Plus and Pro) add more minutes, uploading your own audio, playback speed, full practice of shared materials, and more. They're coming soon: join the waiting list; nothing is charged now."
+      },
+      "signIn": {
+        "question": "Do I have to sign in?",
+        "answer": "No. Without signing in, your progress is saved in this device's browser. Signed in (Google or email), your progress syncs to the cloud so you can continue on another phone or computer, and the home page shows today's tasks and your practice calendar."
+      },
+      "loop": {
+        "question": "How does the 7-day loop work?",
+        "answer": "Day 1 is dictation: each sentence plays, you type what you hear, and every word is checked; the bilingual handout opens after you finish. Days 2–6 are shadowing: you repeat each sentence, and the browser's speech recognition marks the words you said and missed. On Day 7 you dictate the same recording again and compare it with Day 1, sentence by sentence."
+      },
+      "unlock": {
+        "question": "Why can't I do all seven days at once?",
+        "answer": "Each day opens after the previous one is done, on a later calendar day. Hearing the same recording again over several days is what links sounds to words; seven rounds in one day work less well. Days you've finished can be reviewed and practiced again any time."
+      },
+      "pass": {
+        "question": "What if I don't pass on Day 7?",
+        "answer": "By default you pass when your Day 7 accuracy beats Day 1. If you don't, you practice the same material for another week; the earlier week's scores are kept for comparison. After passing, pick your next material. Paid plans can change the pass rules on the material's page, for example to a target accuracy."
+      },
+      "retry": {
+        "question": "Can I redo a day? Does it change my score?",
+        "answer": "Yes, once that day's task is done you can practice it again. Your official score is your first completion; a retry only shows that round's score and never changes your results or whether you passed."
+      },
+      "minutes": {
+        "question": "How long does it take each day?",
+        "answer": "A material is 1–3 minutes of English: about 15 minutes on dictation days and about 10 on shadowing days. The library on the home page can filter by how many minutes you have today."
+      },
+      "shadowing": {
+        "question": "What does shadowing need? What if I can't use a microphone?",
+        "answer": "Shadowing uses the browser's built-in speech recognition; Chrome on a computer or Android works best, with microphone access allowed. If the browser has no speech recognition, or the microphone is blocked or missing, you can still repeat each sentence and press \"I said it\" to mark it yourself."
+      },
+      "materials": {
+        "question": "Where do the materials come from?",
+        "answer": "Official materials are original texts ListenLoop writes for learners, on daily life, travel, studying abroad, campus, work, news, exams, and more. They're read in American, British, Australian, and Indian accents, each with a Chinese translation, vocabulary, and grammar notes. A few are clips from CC BY-licensed open movies, always credited."
+      },
+      "exams": {
+        "question": "Are there TOEIC, TOEFL, IELTS, or GEPT listening materials?",
+        "answer": "Yes, under the Exam listening topic: original practice in the style of the TOEIC, TOEFL, IELTS, and GEPT, imitating their situations and difficulty. They aren't real test items, and ListenLoop has no connection with any of these tests' organizers."
+      },
+      "create": {
+        "question": "Can I make materials from my own text?",
+        "answer": "Yes. Signed in, go to My materials and paste English or Chinese text (Chinese is translated first), choose a voice and accent, and AI makes the audio and handout. The free plan has 2 minutes a week; Plus has 40 minutes a month and can also make materials from your own MP3 or MP4 recordings; Pro has 120 minutes a month. Materials can be private or shared publicly."
+      },
+      "level": {
+        "question": "Which material should I start with?",
+        "answer": "Take the level test: 2–3 minutes, no sign-in. You type a few sentences from easy to hard, and it suggests your level and a first material. Or pick a situation you like from Practice by topic."
+      },
+      "devices": {
+        "question": "Can I switch between my phone and computer?",
+        "answer": "Yes. Signed in to the same account, your progress syncs with the cloud each time you open a page. Without signing in, progress stays in this browser only, and is lost if you change devices or clear your browsing data."
+      },
+      "app": {
+        "question": "Is there an app?",
+        "answer": "ListenLoop is a web app that works in any phone or computer browser. On your phone, choose \"Add to Home Screen\" in the browser to open it like an app."
+      },
+      "delete": {
+        "question": "How do I delete my account and data?",
+        "answer": "Signed in, go to the Account page to download your data or delete your account. Deleting it removes your practice progress and history from the cloud, and cannot be undone. See the privacy policy for details."
+      }
+    }
   }
 }

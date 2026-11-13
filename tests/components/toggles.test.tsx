@@ -8,6 +8,8 @@ import { renderWithIntl } from "../render";
 
 const setLocale = vi.hoisted(() => vi.fn(async () => {}));
 vi.mock("@/i18n/actions", () => ({ setLocale }));
+const replace = vi.hoisted(() => vi.fn());
+vi.mock("next/navigation", () => ({ useRouter: () => ({ replace }) }));
 
 describe("ThemeToggle", () => {
   it("is a labelled radio group defaulting to system", () => {
@@ -91,5 +93,14 @@ describe("LanguageToggle", () => {
     renderWithIntl(<LanguageToggle />);
     await userEvent.click(screen.getByRole("radio", { name: "EN" }));
     await waitFor(() => expect(setLocale).toHaveBeenCalledWith("en"));
+    expect(replace).not.toHaveBeenCalled();
+  });
+
+  it("leaves a ?hl= address for the plain one after switching (D167)", async () => {
+    window.history.replaceState(null, "", "/faq?hl=en&x=1");
+    renderWithIntl(<LanguageToggle />);
+    await userEvent.click(screen.getByRole("radio", { name: "EN" }));
+    await waitFor(() => expect(replace).toHaveBeenCalledWith("/faq?x=1"));
+    window.history.replaceState(null, "", "/");
   });
 });

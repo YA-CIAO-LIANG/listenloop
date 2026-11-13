@@ -28,7 +28,7 @@ import { planFor } from "@/lib/plans";
 import { accountsEnabled } from "@/lib/supabase/config";
 import { fontVariables } from "./fonts";
 import { themeInitScript } from "@/lib/theme";
-import { SITE_URL } from "@/lib/site";
+import { SITE_URL, siteVerification } from "@/lib/site";
 import "./globals.css";
 import "./backgrounds.css";
 
@@ -61,6 +61,9 @@ export async function generateMetadata(): Promise<Metadata> {
       locale: locale === "en" ? "en_US" : "zh_TW",
     },
     twitter: { card: "summary_large_image" },
+    // Search Console and Bing Webmaster Tools ownership (D167): set the
+    // token in the environment; no tag when it isn't set.
+    verification: siteVerification(),
     appleWebApp: {
       capable: true,
       title: t("siteName"),
@@ -91,7 +94,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         <script
           nonce={nonce}
           // A constant in our code (no user or AI text), run before paint
-          // so the theme doesn't flash (D159 allows only this one).
+          // so the theme doesn't flash (D159 allows only this one, besides
+          // escaped JSON-LD data in components/JsonLd.tsx, D167).
           // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: themeInitScript }}
         />

@@ -9,34 +9,32 @@ import remarkGfm from "remark-gfm";
 import { getLibraryItems } from "@/auth/library";
 import { ButtonLink } from "@/components/ButtonLink";
 import { MaterialCard } from "@/components/MaterialCard";
-import { blogFile, blogPath, BLOG_POSTS, findPost } from "@/lib/blog";
+import { blogFile, blogPath, findPost } from "@/lib/blog";
 import { learnPath } from "@/lib/learn";
 import { filterLibrary, NO_LIBRARY_FILTER } from "@/lib/library";
-import { SITE_URL } from "@/lib/site";
+import { JsonLd } from "@/components/JsonLd";
+import { seoFor } from "@/i18n/metadata";
+import { defaultLocale } from "@/lib/i18n/config";
+import { localizedUrl } from "@/lib/seo";
+import { blogPosting, breadcrumbList } from "@/lib/structured-data";
 
 /** Official materials listed under an article, at most. */
 const RELATED = 6;
-
-export function generateStaticParams() {
-  return BLOG_POSTS.map(({ slug }) => ({ slug }));
-}
 
 export async function generateMetadata({
   params,
 }: PageProps<"/blog/[slug]">): Promise<Metadata> {
   const post = findPost((await params).slug);
   if (!post) return {};
-  return {
+  // Written in Traditional Chinese whatever the interface (D167).
+  return seoFor({
+    path: blogPath(post.slug),
     title: post.title,
     description: post.description,
-    alternates: { canonical: `${SITE_URL}${blogPath(post.slug)}` },
-    openGraph: {
-      title: post.title,
-      description: post.description,
-      type: "article",
-      publishedTime: post.published,
-    },
-  };
+    type: "article",
+    publishedTime: post.published,
+    contentLocale: "zh-Hant",
+  });
 }
 
 const linkClassName =
@@ -106,8 +104,9 @@ export default async function BlogPostPage({
 }: PageProps<"/blog/[slug]">) {
   const post = findPost((await params).slug);
   if (!post) notFound();
-  const [t, tNames, format, source, all] = await Promise.all([
+  const [t, tCommon, tNames, format, source, all] = await Promise.all([
     getTranslations("blog"),
+    getTranslations("common"),
     getTranslations("categories.names"),
     getFormatter(),
     readFile(join(process.cwd(), blogFile(post.slug)), "utf8"),
@@ -168,6 +167,25 @@ export default async function BlogPostPage({
           </ButtonLink>
         </div>
       </section>
+      <JsonLd
+        data={blogPosting({
+          headline: post.title,
+          description: post.description,
+          url: localizedUrl(blogPath(post.slug), defaultLocale),
+          published: post.published,
+          publisher: tCommon("appName"),
+        })}
+      />
+      <JsonLd
+        data={breadcrumbList([
+          { name: tCommon("appName"), url: localizedUrl("/", defaultLocale) },
+          { name: t("title"), url: localizedUrl("/blog", defaultLocale) },
+          {
+            name: post.title,
+            url: localizedUrl(blogPath(post.slug), defaultLocale),
+          },
+        ])}
+      />
     </main>
   );
 }

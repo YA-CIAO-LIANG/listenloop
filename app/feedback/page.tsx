@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 import { FeedbackForm } from "@/components/FeedbackForm";
+import { publicPageMetadata } from "@/i18n/metadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("feedback");
-  return { title: t("title"), description: t("intro") };
+/** Title, description, canonical, and hreflang (D167). */
+export function generateMetadata(): Promise<Metadata> {
+  return publicPageMetadata("/feedback");
 }
 
 /** Feedback (D60), linked from every page's footer. */

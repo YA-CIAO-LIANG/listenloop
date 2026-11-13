@@ -52,4 +52,4 @@
 
 可以從初級的 [Lunch at the Diner](/videos/p-745313f8-18b7-497d-8f03-f0ec6b2b6f2d) 或 [At Passport Control](/videos/p-eb34fe16-20a6-4168-803b-57462f2e19bd) 開始，或先做 [2 分鐘程度測驗](/level-test)。
 
-相關閱讀：〈[英文聽力聽不清楚的 5 個原因](/blog/listening-unclear-reasons)〉、〈[連音規則完整整理](/blog/connected-speech-rules)〉
+相關閱讀：〈[英文聽力聽不清楚的 5 個原因](/blog/listening-unclear-reasons)〉、〈[連音規則完整整理](/blog/connected-speech-rules)〉、〈[英文跟讀怎麼練](/blog/shadowing-method)〉

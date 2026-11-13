@@ -4,6 +4,11 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { renderWithIntl } from "../render";
 
 vi.mock("@/i18n/actions", () => ({ setLocale: vi.fn() }));
+// The language switch leaves a ?hl= address with the router (D167).
+vi.mock("next/navigation", async (original) => ({
+  ...(await original<typeof import("next/navigation")>()),
+  useRouter: () => ({ replace: vi.fn() }),
+}));
 
 const navLinks = () =>
   screen.getByRole("navigation", { name: "主要導覽" }).querySelectorAll("a");
