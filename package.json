@@ -81,7 +81,7 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^5.1.0",
-    "web-push": "3.6.7"
+    "web-push": "4.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,mjs,mts}": [
