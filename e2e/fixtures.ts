@@ -8,7 +8,11 @@ import { test as base, type Page } from "@playwright/test";
 export const test = base.extend({
   page: async ({ page, context }, provide) => {
     await context.addCookies([
-      { name: "ll-locale", value: "zh-Hant", url: "http://localhost:3200" },
+      {
+        name: "ll-locale",
+        value: "zh-Hant",
+        url: `http://localhost:${process.env.E2E_PORT ?? 3200}`,
+      },
     ]);
     await page.route(
       /youtube(-nocookie)?\.com|ytimg\.com|googlevideo\.com/,
@@ -115,7 +119,7 @@ async function signInAs(
     {
       name: "sb-localhost-auth-token",
       value: `base64-${base64url(session)}`,
-      url: "http://localhost:3200",
+      url: `http://localhost:${process.env.E2E_PORT ?? 3200}`,
     },
   ]);
 }

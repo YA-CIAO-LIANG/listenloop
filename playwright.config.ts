@@ -1,6 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3200;
+// Ports can be moved (E2E_PORT, MOCK_SUPABASE_PORT) so two checkouts can
+// run their end-to-end tests at once; build:e2e must use the same mock
+// port, since the Supabase address is built into the client.
+const PORT = Number(process.env.E2E_PORT ?? 3200);
+const MOCK_PORT = Number(process.env.MOCK_SUPABASE_PORT ?? 54329);
 
 /**
  * End-to-end tests (e2e/) against the production build: run `npm run
@@ -41,7 +45,7 @@ export default defineConfig({
   webServer: [
     {
       command: "node e2e/mock-supabase/server.mts",
-      url: "http://localhost:54329/health",
+      url: `http://localhost:${MOCK_PORT}/health`,
       reuseExistingServer: !process.env.CI,
     },
     {

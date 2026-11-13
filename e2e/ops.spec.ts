@@ -14,7 +14,7 @@ import {
  */
 test.describe.configure({ mode: "serial" });
 
-const MOCK = "http://localhost:54329";
+const MOCK = `http://localhost:${process.env.MOCK_SUPABASE_PORT ?? 54329}`;
 
 async function setSwitches(body: Record<string, unknown>) {
   const response = await fetch(`${MOCK}/rest/v1/site_settings?id=eq.true`, {

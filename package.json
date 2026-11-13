@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "build:e2e": "NEXT_PUBLIC_SUPABASE_URL=http://localhost:54329 NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-publishable-key NEXT_PUBLIC_VAPID_PUBLIC_KEY=BLsUJzGppWi2Z5kjA6ZBOSimvBNrePc2_PaS5rCsLXIXFLVCGWkZx4dxxDCMQrj3d6mOCkl1txnEM3oogAIUCgU next build",
+    "build:e2e": "NEXT_PUBLIC_SUPABASE_URL=http://localhost:${MOCK_SUPABASE_PORT:-54329} NEXT_PUBLIC_SUPABASE_ANON_KEY=e2e-publishable-key NEXT_PUBLIC_VAPID_PUBLIC_KEY=BLsUJzGppWi2Z5kjA6ZBOSimvBNrePc2_PaS5rCsLXIXFLVCGWkZx4dxxDCMQrj3d6mOCkl1txnEM3oogAIUCgU next build",
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
