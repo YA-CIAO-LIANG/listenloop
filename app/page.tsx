@@ -14,6 +14,16 @@ import { ProgressGate } from "@/components/ProgressGate";
 import { LibrarySkeleton } from "@/components/Skeleton";
 import { HomeProgress } from "@/components/HomeProgress";
 import type { LibraryItem } from "@/lib/library";
+import { JsonLd } from "@/components/JsonLd";
+import { publicPageMetadata } from "@/i18n/metadata";
+import { defaultLocale } from "@/lib/i18n/config";
+import { localizedUrl } from "@/lib/seo";
+import { webApplication } from "@/lib/structured-data";
+
+/** The home page's own title, description, canonical, hreflang (D167). */
+export function generateMetadata() {
+  return publicPageMetadata("/");
+}
 
 /**
  * The home page (D79). Signed in: the practice calendar, today's tasks,
@@ -33,6 +43,14 @@ export default function Home() {
       <QuickStart />
       {/* In Beta, with a way to tell us what to fix (D132). */}
       <BetaNote className="mt-6" />
+      {/* What search engines read about the app (D167). */}
+      <JsonLd
+        data={webApplication({
+          name: t("metadata.siteName"),
+          description: t("metadata.description"),
+          url: localizedUrl("/", defaultLocale),
+        })}
+      />
 
       <div className="mt-12 space-y-6">
         {/* Not in Suspense: it's in the first HTML, so nothing shifts (D62). */}

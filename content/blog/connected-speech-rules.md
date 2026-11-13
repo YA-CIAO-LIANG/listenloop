@@ -58,4 +58,4 @@ y 開頭的 you 會和前面的 d、t 結合：
 
 ListenLoop 的每份官方教材，聽寫答錯時都會在講解裡說明「為什麼難聽懂」，例如哪裡連音、哪個字弱讀。可以從對話多、語速自然的 [Hiking or Night Market](/videos/p-e2ede85c-c7a2-4614-af18-0e58c9edc4ea) 或 [Catching Up Over Coffee](/videos/p-f91e4fcf-4e5e-47a3-82a5-1bfd0a7df4f0) 開始練。
 
-相關閱讀：〈[英文聽力聽不清楚的 5 個原因](/blog/listening-unclear-reasons)〉
+相關閱讀：〈[英文聽力聽不清楚的 5 個原因](/blog/listening-unclear-reasons)〉、〈[英文跟讀怎麼練](/blog/shadowing-method)〉

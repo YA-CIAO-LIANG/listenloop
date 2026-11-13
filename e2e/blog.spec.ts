@@ -1,3 +1,4 @@
+import { BLOG_POSTS } from "../lib/blog";
 import { expect, test } from "./fixtures";
 
 /** Articles (D122): public, from the footer, each with practice below. */
@@ -12,7 +13,7 @@ test("anyone reads an article and finds lessons to practice", async ({
   await expect(
     page.getByRole("heading", { level: 1, name: "英文聽力學習文章" }),
   ).toBeVisible();
-  await expect(page.getByRole("article")).toHaveCount(5);
+  await expect(page.getByRole("article")).toHaveCount(BLOG_POSTS.length);
 
   await page
     .getByRole("link", { name: "多益聽力怎麼練？卡在 350 分的一週練法" })

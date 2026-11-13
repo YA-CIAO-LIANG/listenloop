@@ -1088,6 +1088,12 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.listenloop.auto-cont
 
 一律在自己的瀏覽器或終端機操作。**秘密金鑰不要貼進對話**，直接填到 Vercel 和 `.env.local`。
 
+### 000000. 2026-11-13 新增（D167 SEO）
+
+1. **Google Search Console**：用 HTML 標記驗證（Vercel 設定 `GOOGLE_SITE_VERIFICATION` 後 Redeploy），再提交 `sitemap.xml`。逐步說明見 `docs/seo.md` 第 1 節。
+2. **Bing Webmaster Tools**：從 Google Search Console 匯入（或設定 `BING_SITE_VERIFICATION`），提交 sitemap。見 `docs/seo.md` 第 2 節。
+3. （之後）**換成自己的網域**時，照 `docs/seo.md` 第 4 節的順序做（301 轉址、`NEXT_PUBLIC_SITE_URL`、Supabase 與 Google OAuth 網址、Search Console 網址變更）。
+
 ### 00000. 2026-11-13 新增（D150、D152）
 
 1. **抽查 eval 報告**：打開 `evals/report.md` 的「建議人工抽查」13 筆，看 AI 評分和你的判斷是否一致。不一致的告訴我，我會調整評分標準。

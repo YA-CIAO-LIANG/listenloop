@@ -1,43 +1,72 @@
 import type { MetadataRoute } from "next";
-import { getVideosByCollection } from "@/lib/video-library";
+import { getOfficialPractices } from "@/auth/library";
 import { BLOG_POSTS, blogPath } from "@/lib/blog";
+import { defaultLocale } from "@/lib/i18n/config";
 import { LEARN_CATEGORIES, learnPath } from "@/lib/learn";
-import { PUBLIC_PATHS, SITE_URL } from "@/lib/site";
+import { languageAlternates, localizedUrl, PUBLIC_PAGES } from "@/lib/seo";
+import { getAllVideos } from "@/lib/video-library";
+
+type Entry = MetadataRoute.Sitemap[number];
 
 /**
- * sitemap.xml (D61): the public pages and every built-in video's page.
- * Created practices are left out: their own pages decide whether they're
- * indexed (D30), and the list changes often.
+ * Made on request (the library read is cached for 5 minutes), never at
+ * build time: the build has no database, and a list read there would be
+ * cached empty for the pages that share it (D167).
  */
-export default function sitemap(): MetadataRoute.Sitemap {
-  const videos = getVideosByCollection().flatMap(({ videos }) => videos);
+export const dynamic = "force-dynamic";
+
+/** One address with its languages (hreflang, D167). */
+const entry = (
+  path: string,
+  changeFrequency: Entry["changeFrequency"],
+  priority: number,
+  options: { lastModified?: string; oneLanguage?: boolean } = {},
+): Entry => ({
+  url: localizedUrl(path, defaultLocale),
+  ...(options.lastModified ? { lastModified: options.lastModified } : {}),
+  changeFrequency,
+  priority,
+  ...(options.oneLanguage
+    ? {}
+    : { alternates: { languages: languageAlternates(path) } }),
+});
+
+/** Pages people come back to more often than the legal ones. */
+const WEEKLY = new Set<string>(["/", "/explore", "/learn", "/blog"]);
+
+/**
+ * sitemap.xml (D61, D167): the public pages, topic pages, articles, and
+ * every indexable material — built-in videos (drafts left out) and
+ * official materials (from the same cached list as the library).
+ * Learners' own and shared practices are left out: they're noindex
+ * (D30), and the list changes often.
+ */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const official = await getOfficialPractices().catch(() => []);
   return [
-    ...PUBLIC_PATHS.map((path) => ({
-      url: `${SITE_URL}${path === "/" ? "" : path}`,
-      changeFrequency:
-        path === "/" || path === "/explore"
-          ? ("weekly" as const)
-          : ("monthly" as const),
-      priority: path === "/" ? 1 : 0.5,
-    })),
+    ...PUBLIC_PAGES.map(({ path }) =>
+      entry(
+        path,
+        WEEKLY.has(path) ? "weekly" : "monthly",
+        path === "/" ? 1 : WEEKLY.has(path) ? 0.8 : 0.4,
+      ),
+    ),
     // Topic landing pages (D116).
-    ...["/learn", ...LEARN_CATEGORIES.map(learnPath)].map((path) => ({
-      url: `${SITE_URL}${path}`,
-      changeFrequency: "weekly" as const,
-      priority: 0.8,
-    })),
-    // Articles (D122).
-    ...["/blog", ...BLOG_POSTS.map((post) => blogPath(post.slug))].map(
-      (path) => ({
-        url: `${SITE_URL}${path}`,
-        changeFrequency: "monthly" as const,
-        priority: 0.7,
+    ...LEARN_CATEGORIES.map((category) =>
+      entry(learnPath(category), "weekly", 0.8),
+    ),
+    // Articles (D122): written in Traditional Chinese only.
+    ...BLOG_POSTS.map((post) =>
+      entry(blogPath(post.slug), "monthly", 0.7, {
+        lastModified: post.published,
+        oneLanguage: true,
       }),
     ),
-    ...videos.map((video) => ({
-      url: `${SITE_URL}/videos/${video.id}`,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    })),
+    ...getAllVideos().map((video) =>
+      entry(`/videos/${video.id}`, "monthly", 0.7),
+    ),
+    ...official.map((practice) =>
+      entry(`/videos/${practice.id}`, "monthly", 0.7),
+    ),
   ];
 }

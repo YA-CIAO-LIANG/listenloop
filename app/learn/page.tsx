@@ -3,15 +3,11 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { getLibraryItems } from "@/auth/library";
 import { LEARN_CATEGORIES, learnPath } from "@/lib/learn";
-import { SITE_URL } from "@/lib/site";
+import { publicPageMetadata } from "@/i18n/metadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("learn");
-  return {
-    title: t("indexTitle"),
-    description: t("indexIntro"),
-    alternates: { canonical: `${SITE_URL}/learn` },
-  };
+/** Title, description, canonical, and hreflang (D167). */
+export function generateMetadata(): Promise<Metadata> {
+  return publicPageMetadata("/learn");
 }
 
 /** Every topic's landing page (D116), with how many materials each has. */

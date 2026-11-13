@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { VideoAttribution } from "@/components/VideoAttribution";
 import { getAllVideos } from "@/lib/video-library";
+import { publicPageMetadata } from "@/i18n/metadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("credits");
-  return { title: t("title") };
+/** Title, description, canonical, and hreflang (D167). */
+export function generateMetadata(): Promise<Metadata> {
+  return publicPageMetadata("/credits");
 }
 
 /** Every video ListenLoop uses, credited as its license asks. */

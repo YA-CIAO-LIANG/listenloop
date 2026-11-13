@@ -4,10 +4,11 @@ import { getSharedForEveryone, practiceSeconds } from "@/auth/library";
 import { getSignedInUser } from "@/auth/session";
 import { listPublicPractices } from "@/auth/public-practices";
 import { ExploreList } from "@/components/ExploreList";
+import { publicPageMetadata } from "@/i18n/metadata";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const t = await getTranslations("explore");
-  return { title: t("title") };
+/** Title, description, canonical, and hreflang (D167). */
+export function generateMetadata(): Promise<Metadata> {
+  return publicPageMetadata("/explore");
 }
 
 /**

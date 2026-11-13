@@ -3081,22 +3081,6 @@
 - **Migration**：`20261128010000_beta_tester_activity.sql`（只有新增函式）。
 - **要改時**：天數在 `lib/beta-test.ts` 的 `BETA_TEST`；頁面在 `app/admin/beta-test/page.tsx`。
 
-## D168 行銷素材做成 Word 檔：用程式產生，格式一致（2026-11-13，Joe 指定）
-
-- **做了什麼**：9 份行銷素材做成 .docx，放在 `marketing/word/`（清單見 `marketing/word/README.md`）：品牌指南、上線行銷計畫、社群貼文（30 則）、短影音腳本（10 支）、論壇與社群分享文、合作邀請信（5 種對象，中英文）、媒體資料包、Beta 招募文案（含測試者須知）、Google Play 商店資料。
-- **怎麼產生**：`npm run marketing:docx`（`scripts/marketing-docx.mts`）。內容寫在 `scripts/marketing/content/`，每份一個檔案；版面在 `scripts/marketing/docx-builder.mts`。不直接改 .docx，改內容後重新產生，才能用 git 看出改了什麼、每份格式一致。
-- **為什麼選 `docx`（npm，devDependency，固定 9.15.0）**：
-  - 最多人用、持續維護的 JavaScript Word 產生套件（MIT），專案本來就是 Node／TypeScript，不用另外裝 Python 或 LibreOffice；
-  - 支援這次需要的全部格式：標題層級、目錄（含頁碼估算 `docx/layout`）、表格、頁首頁尾與頁碼、A4、東亞字體；
-  - 比較過：pandoc 要另外安裝、表格與字體很難控制；`officegen` 已多年沒有維護；用 Word 範本手動排版無法自動更新。
-  - 另外把 `fflate`（docx 本身就用的壓縮套件，固定 0.8.3）列為 devDependency：產生後補上字體表，告訴 Word 微軟正黑體不存在時改用蘋方或思源黑體。
-- **格式**：A4、邊界 2 cm；封面、目錄（第 1～2 層標題）、頁首「ListenLoop｜文件名稱」、頁尾「第 N 頁，共 M 頁」；中文微軟正黑體（eastAsia，替代字體 PingFang TC、Noto Sans TC），英文一律 Arial；品牌色取自 `docs/design-system.md`（標題墨黑、橘色細線、淡色帶表頭）。表格每一列不跨頁，這樣目錄頁碼的估算才準。黃底的〔 〕是待填欄位。
-- **內容的依據**（2026-11-13 對照程式）：方案與額度 `lib/plans.ts`、`docs/quotas.md`；價格 `lib/payments/pricing.ts`（付費方案仍是「即將推出」、不收費）；共用的事實與「不能宣傳的功能」集中在 `scripts/marketing/content/facts.mts`：YouTube 連結建立教材（D131 暫停）、Email 提醒與電子報（沒有寄信服務；練習提醒是瀏覽器通知）、魚缸、推薦獎勵（只有規劃）都不宣傳。沒有編造任何數字或使用者見證：分數、目標、創辦人介紹、聯絡方式都是待填欄位。
-- **Google Play 字數**：產生時檢查名稱 30 字、簡短說明 80 字、完整說明 4,000 字，超過就失敗。`docs/play-store.md` 的商店說明同步拿掉「把影片變成教材」，並指向這份 Word 檔。
-- **Beta 測試者須知**：寫在 `08-Beta招募文案.docx`，第 7 天的任務包含網站內的滿意度調查（D164）。Joe 另一個對話在寫 `docs/beta-tester-guide.md`；那份合併後，兩邊的流程（邀請連結、2 週、回報方式）要對齊，以那份為準。
-- **怎麼檢查**：每個檔案 `unzip -t`、Office XML 結構驗證（docx 技能的 `validate.py`）、轉成純文字確認中文沒有亂碼、目錄每一項都有頁碼、macOS 預覽確認封面與目錄。
-- **要改時**：內容改 `scripts/marketing/content/*.mts`（方案或價格變了先改 `facts.mts`），版面改 `scripts/marketing/docx-builder.mts`，然後 `npm run marketing:docx`，把 .docx 和 README 一起提交。
-
 ## D166 主題改版：整套搭配、卡片樣式、即時縮圖、對比自動測試（2026-11-13，Joe 指定）
 
 - **為什麼**：原本的「背景主題」（D121）只換底色與圖案，卡片、線條、強調色都沿用預設，有些組合看起來不協調；設定頁的預覽只是一小塊色塊，看不出套用後首頁與練習頁的樣子。
@@ -3114,6 +3098,56 @@
 - **沒有新增套件**，沒有圖片檔。
 - **測試**：`tests/theme-contrast.test.ts`（38 組：19 個主題 × 淺／深）；`tests/backgrounds.test.ts`（預設主題等於 `globals.css` 的 token、舊 id 保留、推薦 6 個、強調色優先順序、紋理大小、減少動態效果）；E2E `e2e/backgrounds.spec.ts`（推薦在前、縮圖、方向鍵、焦點外框、手機上 44px、淡入與減少動態效果）。
 - **要改時**：主題的顏色、卡片樣式、推薦清單都在 `lib/backgrounds.ts`（改完跑 `npm run backgrounds:css`、`npm run themes:contrast`）；毛玻璃透明度與紙紋在 `GLASS_ALPHA`、`PAPER_GRAIN`；切換時間在 `app/globals.css` 的 `--ll-duration-theme`；縮圖在 `components/ThemePreview.tsx`。
+
+## D167 SEO：語言網址、結構化資料、分享圖片、FAQ 與關鍵字內容（2026-11-13，Joe 指定）
+
+- **為什麼**：網站已有 sitemap、robots、文章與主題頁，但每頁缺少 canonical 與語言對應（hreflang）、教材頁沒有自己的描述與分享圖片、沒有結構化資料，考試類關鍵字（雅思、托福、全民英檢、學測英聽）與跟讀也還沒有對應的頁面。
+- **語言網址（hreflang）**：介面語言存在 cookie、網址沒有語言前綴，搜尋引擎（不帶 cookie）只看得到中文版。做法：
+  - 加上 `?hl=en`／`?hl=zh-Hant`：`proxy.ts` 讀到後設定請求標頭 `x-ll-locale`，`i18n/request.ts` 優先用它決定**這一次**的語言（`detectLocale` 的 `override`），**不寫入 cookie**，所以不會改掉使用者自己選的語言。瀏覽器送來的同名標頭一律刪除。
+  - 中文（預設）＝乾淨網址；英文＝`?hl=en`；`x-default`＝乾淨網址。
+  - canonical 指向「目前顯示的語言」的網址（中文頁指乾淨網址、英文頁指 `?hl=en`）。原因：Google 要求 hreflang 列出的網址都是自己的 canonical；如果英文版的 canonical 指回中文網址，Google 會把英文版當成重複內容，hreflang 失效。
+  - 文章只有繁體中文：不論介面語言，canonical 都是乾淨網址，hreflang 只列 `zh-Hant` 與 `x-default`（`seoMetadata` 的 `contentLocale`）。
+  - 在 `?hl=` 網址上切換語言時，`LanguageToggle` 存好 cookie 後改到沒有 `?hl=` 的網址，避免網址參數蓋過新的選擇。
+  - 沒有改成 `/en/...` 前綴：要搬動所有路由、改所有內部連結與 E2E，風險大；查詢參數是 Google 文件接受的語言網址形式之一。
+- **每頁的 metadata**（`lib/seo.ts`、`i18n/metadata.ts`）：
+  - 固定的公開頁集中在 `PUBLIC_PAGES`（路徑＋標題與描述的翻譯 key），頁面、sitemap、測試都用這份清單；首頁改用完整標題（`metadata.homeTitle`）。
+  - `seoMetadata` 產生 title、description、canonical、hreflang、Open Graph（含 url、locale）、Twitter card。
+  - 教材頁：只有可以被搜尋的教材（官方教材、內建影片）才有 canonical 與描述（`video.seoDescription`）；使用者自建、公開分享、用 YouTube 建立的練習維持 noindex（修正：原本用 YouTube 建立的個人練習會被當成可索引，`isIndexableMaterial`）。
+  - `GOOGLE_SITE_VERIFICATION`、`BING_SITE_VERIFICATION` 有設定時才輸出驗證 meta（`siteVerification`），步驟見 `docs/seo.md`。
+- **sitemap 與 robots**：
+  - sitemap 列出公開頁、主題頁、文章、內建影片與**官方教材**（從教材庫同一份快取讀，每小時重產），每個網址附語言對應；文章只列中文。
+  - robots 另外擋下 `/api`、`/payments`、`/checkout`、`/classroom`、`/maintenance`，以及教材的練習步驟（`/videos/*/day`、`handout`、`listen`、`quiz`、`timing`）：搜尋結果應該落在教材頁，不是第幾天的練習頁。登入頁維持「noindex＋可爬」，讓搜尋引擎看得到 noindex。
+- **不在建置時讀教材庫**：sitemap 改成每次請求產生（`force-dynamic`），文章頁拿掉 `generateStaticParams`（這頁本來就因為 cookie 而是動態的），主題頁的分享圖片也不在建置時產生。原因：建置時預先產生這些頁會呼叫教材庫，但建置環境沒有資料庫，讀到的空清單會被快取 5 分鐘，啟動後首頁、主題頁短時間看不到官方教材（E2E 抓到）。教材庫本身仍有 5 分鐘快取，sitemap 不會增加資料庫負擔。
+- **分享圖片**：`app/learn/[category]/opengraph-image.tsx` 與 `app/videos/[id]/opengraph-image.tsx`。共用 `components/ShareImage.tsx`，配色同網站分享圖；圖片內建字型沒有中文，所以只放英文（`ogText` 去掉其他字元，也避免執行時去下載字型）。教材圖片只查公開教材庫，查不到（個人或分享的練習）就用通用文字，不會把私人標題畫進圖片。
+- **結構化資料（JSON-LD）**（`lib/structured-data.ts`、`components/JsonLd.tsx`）：
+  - 首頁 `WebApplication`；教材頁 `LearningResource`＋`BreadcrumbList`；主題頁 `BreadcrumbList`；文章 `BlogPosting`＋`BreadcrumbList`；FAQ `FAQPage`。
+  - 教材用 `LearningResource` 而不是 `Course`：Google 的 Course 結果需要開課資訊、價格等我們沒有的資料，硬填等於造假。
+  - 只放頁面上看得到的事實，不放評分、評論數。
+  - 輸出方式：`serializeJsonLd` 把 `<`、`>`、`&`、U+2028、U+2029 轉成 `\uXXXX`，任何標題都無法關閉 `<script>`；`JsonLd` 是 `react/no-danger` 的第二個例外（第一個是 D159 的主題腳本），已在程式註解寫明理由。`application/ld+json` 不會被執行，不受 CSP 影響。
+- **內容**：
+  - `docs/seo-keywords.md`：台灣使用者的關鍵字表（搜尋意圖、對應頁面、狀態）。沒有實際搜尋量資料，熱度是定性估計。
+  - 新增 5 篇文章：跟讀（shadowing、英文發音）、雅思、托福、全民英檢、學測英聽；舊文章互相加上延伸閱讀。考試的題型細節一律寫「以主辦單位最新公告為準」，並註明教材是原創、非真實考題。
+  - 主題頁與教材頁下方加「相關文章」（`postsForTopic`），文章也連到教材，形成雙向內部連結。
+  - 新增 `/faq`（頁尾連結）：17 題、四組，答案依目前的方案與功能（`lib/plans.ts`、`docs/quotas.md`、隱私權政策）；不提已暫停的 YouTube 建立與 email 相關功能。答案一律展開，FAQPage 資料用同一份翻譯文字。
+- **測試**：`tests/seo.test.ts`（語言網址、canonical 與 hreflang、`?hl=` 優先順序、公開頁／主題／文章的標題與描述在兩種語言內都不重複、sitemap 內容、robots、可索引判斷、驗證 meta、JSON-LD 跳脫與結構、FAQ 兩種語言齊全）；`tests/components/toggles.test.tsx`（`?hl=` 網址切換語言）；E2E `e2e/seo.spec.ts`（教材頁的 canonical、hreflang、og:image 可下載、JSON-LD 可解析；`?hl=en` 只影響該次請求；FAQ 與頁尾；主題頁相關文章；robots 與 sitemap）。QA sweep 加入 `/faq`。
+- **Joe 要做的事**：Google Search Console、Bing Webmaster Tools 驗證與提交 sitemap，見 `docs/seo.md`。
+- **要改時**：公開頁清單 `lib/seo.ts` 的 `PUBLIC_PAGES`；擋爬的路徑 `lib/site.ts` 的 `PRIVATE_PATHS`；語言參數 `lib/i18n/config.ts` 的 `LOCALE_PARAM`；結構化資料 `lib/structured-data.ts`；FAQ 題目 `lib/faq.ts` 與翻譯檔 `faq.items`；文章 `lib/blog.ts` 與 `content/blog/`；換網域時改 `NEXT_PUBLIC_SITE_URL`（見 `docs/seo.md`）。
+
+## D168 行銷素材做成 Word 檔：用程式產生，格式一致（2026-11-13，Joe 指定）
+
+- **做了什麼**：9 份行銷素材做成 .docx，放在 `marketing/word/`（清單見 `marketing/word/README.md`）：品牌指南、上線行銷計畫、社群貼文（30 則）、短影音腳本（10 支）、論壇與社群分享文、合作邀請信（5 種對象，中英文）、媒體資料包、Beta 招募文案（含測試者須知）、Google Play 商店資料。
+- **怎麼產生**：`npm run marketing:docx`（`scripts/marketing-docx.mts`）。內容寫在 `scripts/marketing/content/`，每份一個檔案；版面在 `scripts/marketing/docx-builder.mts`。不直接改 .docx，改內容後重新產生，才能用 git 看出改了什麼、每份格式一致。
+- **為什麼選 `docx`（npm，devDependency，固定 9.15.0）**：
+  - 最多人用、持續維護的 JavaScript Word 產生套件（MIT），專案本來就是 Node／TypeScript，不用另外裝 Python 或 LibreOffice；
+  - 支援這次需要的全部格式：標題層級、目錄（含頁碼估算 `docx/layout`）、表格、頁首頁尾與頁碼、A4、東亞字體；
+  - 比較過：pandoc 要另外安裝、表格與字體很難控制；`officegen` 已多年沒有維護；用 Word 範本手動排版無法自動更新。
+  - 另外把 `fflate`（docx 本身就用的壓縮套件，固定 0.8.3）列為 devDependency：產生後補上字體表，告訴 Word 微軟正黑體不存在時改用蘋方或思源黑體。
+- **格式**：A4、邊界 2 cm；封面、目錄（第 1～2 層標題）、頁首「ListenLoop｜文件名稱」、頁尾「第 N 頁，共 M 頁」；中文微軟正黑體（eastAsia，替代字體 PingFang TC、Noto Sans TC），英文一律 Arial；品牌色取自 `docs/design-system.md`（標題墨黑、橘色細線、淡色帶表頭）。表格每一列不跨頁，這樣目錄頁碼的估算才準。黃底的〔 〕是待填欄位。
+- **內容的依據**（2026-11-13 對照程式）：方案與額度 `lib/plans.ts`、`docs/quotas.md`；價格 `lib/payments/pricing.ts`（付費方案仍是「即將推出」、不收費）；共用的事實與「不能宣傳的功能」集中在 `scripts/marketing/content/facts.mts`：YouTube 連結建立教材（D131 暫停）、Email 提醒與電子報（沒有寄信服務；練習提醒是瀏覽器通知）、魚缸、推薦獎勵（只有規劃）都不宣傳。沒有編造任何數字或使用者見證：分數、目標、創辦人介紹、聯絡方式都是待填欄位。
+- **Google Play 字數**：產生時檢查名稱 30 字、簡短說明 80 字、完整說明 4,000 字，超過就失敗。`docs/play-store.md` 的商店說明同步拿掉「把影片變成教材」，並指向這份 Word 檔。
+- **Beta 測試者須知**：寫在 `08-Beta招募文案.docx`，第 7 天的任務包含網站內的滿意度調查（D164）。Joe 另一個對話在寫 `docs/beta-tester-guide.md`；那份合併後，兩邊的流程（邀請連結、2 週、回報方式）要對齊，以那份為準。
+- **怎麼檢查**：每個檔案 `unzip -t`、Office XML 結構驗證（docx 技能的 `validate.py`）、轉成純文字確認中文沒有亂碼、目錄每一項都有頁碼、macOS 預覽確認封面與目錄。
+- **要改時**：內容改 `scripts/marketing/content/*.mts`（方案或價格變了先改 `facts.mts`），版面改 `scripts/marketing/docx-builder.mts`，然後 `npm run marketing:docx`，把 .docx 和 README 一起提交。
 
 ## D169 上線前檢查清單、第一次使用的捷徑、法律文件一致（2026-11-13，Joe 指定）
 

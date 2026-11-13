@@ -1,16 +1,20 @@
 import { defaultLocale, isLocale, type Locale } from "./config";
 
 /**
- * Picks the UI language: an explicit cookie choice wins, then the browser's
- * Accept-Language header, then the default (zh-Hant).
+ * Picks the UI language: a `?hl=` override for this request (D167) wins,
+ * then an explicit cookie choice, then the browser's Accept-Language
+ * header, then the default (zh-Hant).
  */
 export function detectLocale({
+  override,
   cookie,
   acceptLanguage,
 }: {
+  override?: string | null;
   cookie?: string | null;
   acceptLanguage?: string | null;
 }): Locale {
+  if (isLocale(override)) return override;
   if (isLocale(cookie)) return cookie;
   return matchAcceptLanguage(acceptLanguage) ?? defaultLocale;
 }

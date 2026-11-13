@@ -908,3 +908,9 @@ CardLink，內容由上到下：
 - 只在設定 Clarity 且還沒選擇時出現。畫面底部固定的一條（`fixed`、`bg-surface`、上方 `border-line`），不遮住整個畫面、不擋操作；手機上文字在上、按鈕在下。
 - 文字（supporting）＋「隱私權政策」連結；按鈕「接受分析 Cookie」（primary）與「只用必要的 Cookie」（secondary），兩個一樣容易按，不做誘導。
 - 頁尾的「Cookie 設定」是和其他頁尾連結同樣樣式的按鈕，按了再顯示這條提示。
+
+### 常見問題 `/faq` 與相關文章（D167）
+
+- FAQ：頁面標題（`text-h1`）＋說明（ink-muted）；每組一個 `text-h2` 小標，問題與答案用 `dl`（上下 `border-line` 分隔線，`py-5`）：問題 `dt`（`text-h3`）、答案 `dd`（ink-muted，`mt-2`）。答案一律展開，不收合（搜尋引擎與 FAQPage 結構化資料要看得到同樣的文字）。最下方「還有其他問題？」＋到意見回饋的 accent-ink 底線連結。
+- 相關文章 `RelatedArticles`：主題頁與教材頁下方，`text-h3` 小標「相關文章」，最多 3 篇，每篇一行 accent-ink 底線連結（`lang="zh-Hant"`）。沒有文章時不顯示。
+- 分享圖片（Open Graph）：沿用網站分享圖的配色（`#fafaf8` 底、`#141414` 字、`#e8590c` 橘），左上品牌名、橘色小標（等級／主題）、標題、灰色說明、底部 7 格循環條。只有英文（圖片字型沒有中文）。

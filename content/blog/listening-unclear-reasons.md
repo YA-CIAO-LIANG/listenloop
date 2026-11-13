@@ -37,3 +37,5 @@ a、the、to、of、and、can 這些功能字，在句子裡常常只剩一個�
 ## 從哪裡開始？
 
 挑一段 1～3 分鐘、程度剛好的英文。如果不確定程度，可以先做 [2 分鐘程度測驗](/level-test)。想從生活情境開始，可以試試 [First Order at the Coffee Shop](/videos/p-94439aa3-7ec3-48ed-89ad-9a70ce985226)（點咖啡）或 [Platform and Delay](/videos/p-bea5f4da-9182-45ad-9c46-3a6832250332)（車站月台）。
+
+考試準備：〈[多益聽力](/blog/toeic-listening)〉、〈[雅思聽力](/blog/ielts-listening)〉、〈[托福聽力](/blog/toefl-listening)〉、〈[全民英檢聽力](/blog/gept-listening)〉、〈[學測英聽](/blog/gsat-listening)〉

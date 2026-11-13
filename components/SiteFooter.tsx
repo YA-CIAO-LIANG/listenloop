@@ -29,6 +29,9 @@ export function SiteFooter({
         <Link href="/blog" className={linkClassName}>
           {t("blog")}
         </Link>
+        <Link href="/faq" className={linkClassName}>
+          {t("faq")}
+        </Link>
         <Link href="/pricing" className={linkClassName}>
           {t("pricing")}
         </Link>

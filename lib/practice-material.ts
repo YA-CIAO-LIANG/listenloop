@@ -275,10 +275,23 @@ export function titleLang(id: string): "en" | undefined {
  * metadata.
  */
 export function practiceRobots(material: PracticeMaterial) {
-  // Built-in videos and official materials are ours to index (D116).
-  return material.youtubeId || material.official
+  return isIndexableMaterial(material)
     ? {}
     : { robots: { index: false, follow: false } as const };
+}
+
+/**
+ * Built-in videos and official materials are ours to index (D116); a
+ * learner's own practice isn't, even one made from a YouTube video (D167).
+ */
+export function isIndexableMaterial(
+  material: Pick<PracticeMaterial, "id" | "official" | "youtubeId">,
+): boolean {
+  if (material.official) return true;
+  return (
+    Boolean(material.youtubeId) &&
+    !material.id.startsWith(CUSTOM_PRACTICE_PREFIX)
+  );
 }
 
 /** Metadata for a practice page shown as "still preparing" (D32). */
