@@ -9,6 +9,9 @@ const withNextIntl = createNextIntlPlugin();
 // renders per request anyway. Revisit when upgrading to Next 17, where it
 // becomes the default (see docs: migrating-to-cache-components).
 const nextConfig: NextConfig = {
+  // No "X-Powered-By: Next.js": it only tells attackers what to try
+  // (ZAP baseline, D158).
+  poweredByHeader: false,
   // The admin's system documents are read from docs/system/ at request time.
   outputFileTracingIncludes: {
     "/admin/docs": ["./docs/system/**/*.md"],

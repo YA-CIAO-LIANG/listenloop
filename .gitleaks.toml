@@ -1,0 +1,20 @@
+# gitleaks (D158): scans every commit for keys and passwords, in CI on
+# each pull request and once over the whole history. The default rules,
+# plus the known false positives below, each with its reason.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known non-secrets"
+regexes = [
+  # The end-to-end tests' stand-in Supabase key (package.json build:e2e).
+  '''e2e-publishable-key''',
+  # Test-only secrets in playwright.config.ts and tests.
+  '''e2e-(secret-key|payments-secret)''',
+]
+paths = [
+  # Excerpt ids such as key: "elephants-dream-1" (not keys at all).
+  '''lib/blender-films\.ts''',
+  # Recorded AI answers and eval fixtures: model output, no keys.
+  '''tests/fixtures/''',
+]

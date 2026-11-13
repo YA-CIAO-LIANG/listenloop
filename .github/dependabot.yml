@@ -1,0 +1,34 @@
+# Dependency updates (D158): Dependabot opens PRs for npm packages and
+# GitHub Actions once a week; minor and patch updates come as one PR per
+# ecosystem, so there are few to review. Each PR runs CI like any other
+# and is merged only when it passes. Security fixes come at once.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Taipei
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      npm-minor-and-patch:
+        update-types: [minor, patch]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "09:00"
+      timezone: Asia/Taipei
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      actions:
+        update-types: [minor, patch, major]

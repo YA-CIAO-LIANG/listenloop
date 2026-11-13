@@ -1,0 +1,64 @@
+name: ZAP baseline
+
+# OWASP ZAP's baseline scan (D158): the production build on the runner
+# (the same build as the end-to-end tests: stand-in Supabase, fake AI, no
+# network), crawled and checked passively for missing headers, cookie
+# flags, information leaks, and the like. Nothing is attacked. Runs when
+# the headers or the proxy change, weekly, and by hand. Accepted findings,
+# each with its reason, are in .zap/rules.tsv; anything else fails.
+on:
+  pull_request:
+    paths:
+      - "proxy.ts"
+      - "next.config.ts"
+      - "lib/security/**"
+      - "auth/proxy-session.ts"
+      - ".zap/**"
+      - ".github/workflows/zap.yml"
+  schedule:
+    - cron: "41 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zap-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  baseline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build:e2e
+
+      - name: Start the stand-in Supabase and the site
+        run: |
+          node e2e/mock-supabase/server.mts > "$RUNNER_TEMP/mock.log" 2>&1 &
+          SUPABASE_SERVICE_ROLE_KEY=e2e-secret-key AI_PROVIDERS=fake \
+            YOUTUBE_PROVIDER=fake PAYMENTS_PROVIDER=fake \
+            npx next start --port 3200 > "$RUNNER_TEMP/next.log" 2>&1 &
+          for i in $(seq 1 60); do
+            curl -sf http://localhost:3200/api/health > /dev/null && break
+            sleep 1
+          done
+          curl -sf http://localhost:3200/api/health
+
+      - name: ZAP baseline scan
+        uses: zaproxy/action-baseline@v0.14.0
+        with:
+          target: "http://localhost:3200"
+          rules_file_name: ".zap/rules.tsv"
+          cmd_options: "-a -j"
+          allow_issue_writing: false
+          artifact_name: zap-report

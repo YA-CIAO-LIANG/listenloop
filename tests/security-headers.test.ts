@@ -80,3 +80,10 @@ describe("SECURITY_HEADERS", () => {
     expect(permissions).toContain("camera=()");
   });
 });
+
+describe("next.config (D158)", () => {
+  it("doesn't announce the framework (X-Powered-By)", async () => {
+    const { default: config } = await import("../next.config");
+    expect(config.poweredByHeader).toBe(false);
+  });
+});
