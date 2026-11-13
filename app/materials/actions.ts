@@ -59,6 +59,7 @@ import {
 } from "@/lib/custom-practice/notes";
 import { can, planFor, type PlanBlock, type PlanCheck } from "@/lib/plans";
 import { countChars } from "@/lib/usage";
+import { looksLikeText } from "@/lib/custom-practice/text-guard";
 import {
   isDialogue,
   speakerLines,
@@ -75,7 +76,13 @@ export type SplitResult =
     }
   | {
       ok: false;
-      reason: "unavailable" | "empty" | "too-long" | "too-many";
+      reason:
+        | "unavailable"
+        | "empty"
+        | "too-long"
+        | "too-many"
+        /** Not text: a binary file, or control characters (D159). */
+        | "file-encoding";
       /** For too-long: the most characters allowed (the plan's or the service's). */
       max?: number;
     };
@@ -97,6 +104,8 @@ export async function splitText(
   if (typeof text !== "string" || !isTextSourceLanguage(language)) {
     return { ok: false, reason: "empty" };
   }
+  // Really text, checked here too (D159): the browser's check can be skipped.
+  if (!looksLikeText(text)) return { ok: false, reason: "file-encoding" };
   const chars = countChars([text]);
   if (chars > PRACTICE_LIMITS.textChars) {
     return { ok: false, reason: "too-long", max: PRACTICE_LIMITS.textChars };

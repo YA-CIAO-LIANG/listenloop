@@ -80,7 +80,11 @@ const db = vi.hoisted(() => ({
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 const logAudit = vi.hoisted(() => vi.fn());
 vi.mock("@/auth/audit", () => ({ logAudit }));
-vi.mock("@/auth/creator", () => ({ getAdminUser: async () => db.actor }));
+vi.mock("@/auth/creator", () => ({
+  // Signed in just now (D159).
+  getAdminUser: async () =>
+    db.actor && { ...db.actor, signedInAt: Math.floor(Date.now() / 1000) },
+}));
 vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () => ({
     from: () => ({

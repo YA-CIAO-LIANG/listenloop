@@ -90,6 +90,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script
           nonce={nonce}
+          // A constant in our code (no user or AI text), run before paint
+          // so the theme doesn't flash (D159 allows only this one).
+          // eslint-disable-next-line react/no-danger
           dangerouslySetInnerHTML={{ __html: themeInitScript }}
         />
       </head>

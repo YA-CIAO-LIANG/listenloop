@@ -1,3 +1,4 @@
+import { cleanModelInput } from "./input-guard";
 import {
   annotateBudget,
   auditBudget,
@@ -218,7 +219,8 @@ export function azureOpenAiLanguage(
           model: config.deployment,
           messages: [
             { role: "system", content: instructions },
-            { role: "user", content: JSON.stringify(input) },
+            // Learners' text as data, cleaned of hidden characters (D159).
+            { role: "user", content: JSON.stringify(cleanModelInput(input)) },
           ],
           response_format: {
             type: "json_schema",

@@ -97,12 +97,55 @@ GitHub Actions（排程、CI）──CRON_SECRET──▶ /api/cron/*
   - 6 筆是 `lib/blender-films.ts` 裡片段的 id 欄位（名稱叫 key，值是 elephants-dream-1 這類片段名稱）。
   - 已加進 `.gitleaks.toml` 的允許清單，各附理由；套用後重掃，結果是 0 筆。
 - **npm audit**（正式依賴）：0 個漏洞。
-- **ZAP baseline**、**CodeQL**：結果記在本節的下一段（由 CI 執行）。
+- **CodeQL**（PR #202 的第一次執行）：1 個 Medium：第三方 action `zaproxy/action-baseline` 用標籤而不是 commit 釘選（標籤可以被改指到別的程式碼）。**修正**：改成釘選 commit SHA（D159）。程式碼本身 0 個警告。
+- **gitleaks（CI）** 在 PR #202 第一次執行時就擋下一筆：這份文件引用了誤報的原文，被當成金鑰。改寫文字後通過，證實檢查有在運作。
+- **OWASP ZAP baseline**（PR #202，掃描 runner 上的 production build）：找到 14 種項目，沒有 High。處理方式：
 
-## 6. 個人資料盤點與保留期限
+  | ZAP 規則                                           | 風險          | 處理                                                                                                            |
+  | -------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------- |
+  | 10055 CSP：style-src 允許 `unsafe-inline`          | Medium        | 接受：React 的 style 屬性與 next/font 需要它；script 只允許 nonce 加上 `strict-dynamic`，注入的樣式無法執行程式 |
+  | 10099 原始碼洩漏（SQL）                            | Medium        | 誤報：英文介面文字「Select any sentence to play from there」被當成 SQL                                          |
+  | 90004 缺少 Cross-Origin-Resource-Policy            | Low           | **修正**：加上 `Cross-Origin-Resource-Policy: same-origin`（D159）                                              |
+  | 90004 缺少 Cross-Origin-Embedder-Policy            | Low           | 接受：`require-corp` 會擋掉 YouTube 播放器與 Supabase 的音檔                                                    |
+  | 10094 Base64、10027 可疑註解、10031 使用者可控屬性 | Informational | 誤報：`?next=` 的網址編碼、sw.js 註解裡的 from、`?next=` 經過 `safeNextPath` 且 React 會跳脫                    |
+  | 10109、10049、90005                                | Informational | 資訊性質；90005 是 ZAP 自己沒送的請求標頭                                                                       |
+  - 已接受的項目寫在 `.zap/rules.tsv`，每項附理由。之後出現**新的**警告，ZAP 工作流程就會失敗（`fail_action`）。
+  - 另外，正式站目前送出的 `X-Powered-By: Next.js` 已在 D158 移除。
 
-（D159 補上。）
+## 6. 個人資料盤點與保留期限（D159）
 
-## 7. 回報資安問題
+| 資料                          | 存在哪裡                                                                        | 用途                 | 保留期限                                                             | 刪除帳號時                                                              |
+| ----------------------------- | ------------------------------------------------------------------------------- | -------------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Email、登入方式               | Supabase Auth（`auth.users`）                                                   | 登入、通知           | 帳號存在期間                                                         | 刪除                                                                    |
+| 帳號資料                      | `profiles`（編號、方案、角色、學生驗證時間、最後上線時間）                      | 方案與權限           | 帳號存在期間                                                         | 刪除（cascade）                                                         |
+| 學習紀錄                      | `progress`、`user_documents`（活動、錯字複習、練習時間）、`vocab_quiz_attempts` | 7 天循環、進度、統計 | 帳號存在期間                                                         | 刪除                                                                    |
+| 自建教材與錄音                | `practices`、`practice_sentences`、`collections`、Storage `uploads/<帳號>/`     | 使用者的教材         | 帳號存在期間                                                         | 刪除資料列與錄音檔；只屬於這個帳號的音檔也刪除                          |
+| 檢舉、回饋、問題句子          | `practice_reports`、`sentence_reports`、`feedback`                              | 審查與改善           | 帳號存在期間                                                         | 刪除                                                                    |
+| 班級                          | `classes`、`class_members`、`assignments`、`announcements`                      | 班級功能             | 帳號存在期間                                                         | 刪除                                                                    |
+| 練習提醒                      | `reminders`（推播 endpoint）                                                    | 推播提醒             | 關閉提醒或帳號存在期間                                               | 刪除                                                                    |
+| 付款                          | `payments`、`subscriptions`、`payment_events`                                   | 金流、退款           | 帳號存在期間（目前只有測試資料）                                     | 刪除。**正式收費前要改成保留 5 年並解除關聯**（商業會計法），見 roadmap |
+| 操作紀錄                      | `events`                                                                        | 學習分析、後台統計   | **180 天**                                                           | 刪除                                                                    |
+| 付費意願點擊                  | `intent_events`                                                                 | 定價決策             | **365 天**（D159 新增）                                              | 解除關聯                                                                |
+| Beta 等候名單（沒有帳號的人） | `beta_waitlist`（email、用途）                                                  | 邀請                 | **365 天**（D159 新增）                                              | 不適用；可以透過意見回饋要求刪除                                        |
+| API 呼叫紀錄                  | `api_calls`                                                                     | 費用與額度           | 不刪（Azure 額度的累計依據）                                         | 解除關聯（set null），不再連到人                                        |
+| 管理稽核                      | `admin_audit`                                                                   | 追蹤管理操作         | **2 年**                                                             | 對象 id 保留（沒有 email）                                              |
+| 錯誤紀錄                      | `error_logs`（路徑、訊息，沒有帳號）                                            | 除錯                 | **90 天**                                                            | 不適用                                                                  |
+| 速率限制                      | `rate_limits`（帳號 id，或 IP 的雜湊）                                          | 防濫用               | **1 天**                                                             | 隨時間刪除                                                              |
+| 監控                          | `ops_alerts`、`health_checks`（沒有個資）                                       | 監控                 | 90 天、30 天                                                         | 不適用                                                                  |
+| 第三方                        | Microsoft Clarity（同意後才載入）、Azure OpenAI 與 Speech（處理教材文字）       | 使用分析、AI 處理    | 依各服務：Azure 最多 30 天（偵測濫用，不用來訓練）；Clarity 依其設定 | 不適用                                                                  |
+
+- **自動清除**：`prune_logs()` 每天由監控排程執行（D156），規則在最新的 `prune_logs` migration。
+- **刪除帳號**（`auth/actions.ts` 的 `deleteAccount`）：刪除 Auth 帳號後，所有指向它的資料表都會依 `on delete cascade` 一起刪除，或用 `set null` 解除關聯。接著刪除只屬於這個帳號的音檔，以及 `uploads/<帳號>/` 整個資料夾。`tests/account-data-coverage.test.ts` 會檢查每一個指向帳號的欄位都有刪除規則。
+- **匯出**：使用者可以在帳號頁下載自己的資料（`/account/export`）。
+
+## 7. 工作階段（D159）
+
+- 登入由 Supabase Auth 處理：access token（JWT）預設 1 小時有效，refresh token 每次使用就換新（rotation），舊的被重複使用時整串失效。
+- 伺服器用 `getClaims()` 驗證 JWT 的簽章。登出（`signOut()`，預設範圍 global）會撤銷這個帳號**所有**的 refresh token。已經發出的 access token 在到期前（最多 1 小時）仍然有效，這是 JWT 的特性。
+- 管理員停用帳號時，會同時在 Supabase Auth 封鎖（ban），無法再換新 token（D50）。
+- 管理員的高風險操作要在 30 分鐘內登入過，依 JWT 裡 `amr` 的登入時間判斷；換新 token 不會更新這個時間（D159）。
+- 免費方案無法設定「工作階段最長時間」與「閒置逾時」（Supabase Pro 才有）。
+
+## 8. 回報資安問題
 
 見 repo 根目錄的 `SECURITY.md`：用 GitHub 的「Report a vulnerability」（私人回報，要在 repo 設定開啟，見 roadmap），或網站的「意見回饋」頁；不要開公開的 issue。3 個工作天內回覆。

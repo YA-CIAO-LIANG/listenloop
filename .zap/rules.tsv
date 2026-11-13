@@ -1,2 +1,9 @@
-# ZAP baseline rules (D158): rule id, IGNORE/WARN/FAIL, and why.
-# Filled in from the first scan; see docs/security.md.
+10055	IGNORE	(CSP: style-src unsafe-inline) React style attributes and next/font need it; scripts are nonce-only with strict-dynamic, so injected styles can't run code (D159)
+10099	IGNORE	(Source Code Disclosure - SQL) false positive: the English UI text "Select any sentence to play from there" (D159)
+90004	IGNORE	(Cross-Origin-Embedder-Policy missing) require-corp would block the YouTube player and Supabase audio; CORP is set instead (D159)
+10094	IGNORE	(Base64 Disclosure) false positive: URL-encoded ?next= paths, not data (D159)
+10027	IGNORE	(Suspicious Comments) false positive: the word "from" in sw.js comments (D159)
+10031	IGNORE	(User Controllable HTML Element Attribute) ?next= goes through safeNextPath and React escapes attributes (D159)
+10109	IGNORE	(Modern Web Application) informational
+10049	IGNORE	(Non-Storable Content / Storable but Non-Cacheable) informational; pages are per user on purpose
+90005	IGNORE	(Sec-Fetch-* Header Missing) these are request headers ZAP itself didn't send

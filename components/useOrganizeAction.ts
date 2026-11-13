@@ -3,7 +3,10 @@
 import { useState } from "react";
 import type { OrganizeResult } from "@/app/materials/organize-actions";
 
-export type OrganizeError = Exclude<OrganizeResult, { ok: true }>["reason"];
+/** An organizing or moderating step's result; "reauth" is an admin's (D159). */
+type ActionResult = OrganizeResult | { ok: false; reason: "reauth" };
+
+export type OrganizeError = Exclude<ActionResult, { ok: true }>["reason"];
 
 /**
  * Runs one organizing Server Action at a time: pending while it runs, and
@@ -14,10 +17,10 @@ export function useOrganizeAction() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<OrganizeError | null>(null);
 
-  async function run(action: () => Promise<OrganizeResult>): Promise<boolean> {
+  async function run(action: () => Promise<ActionResult>): Promise<boolean> {
     setPending(true);
     setError(null);
-    const result = await action().catch((): OrganizeResult => ({
+    const result = await action().catch((): ActionResult => ({
       ok: false,
       reason: "failed",
     }));

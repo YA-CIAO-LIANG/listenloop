@@ -2896,3 +2896,47 @@
   - `npm audit --omit=dev`：0 個漏洞；之後交給 Dependabot。
 - **測試**：`tests/security-headers.test.ts`（不送 X-Powered-By）、`e2e/security.spec.ts`（回應沒有 `x-powered-by`）。
 - **要改時**：掃描設定在 `.github/`、`.gitleaks.toml`、`.zap/rules.tsv`；威脅模型在 `docs/security.md`。
+
+## D159 帳號權限、上傳與 AI 輸入安全、個資保留（2026-11-13，Joe 指定）
+
+- **為什麼**：OWASP 檢查（D158）找到的缺口：管理員的高風險操作沒有要求近期登入、上傳的音檔只看副檔名、AI 的輸入與輸出沒有明確的防護規則、個資的保留期限不完整。
+- **做法**：
+  - **近期登入**（`lib/auth/recent.ts`、`auth/recent-auth.ts`）：
+    - 涵蓋的操作：改角色、方案、狀態；班級座位；下架與恢復教材；退款；緊急開關；AI 費用上限；註冊開關；匯出等候名單（個資）。
+    - 這些操作都要在 30 分鐘內登入過，否則回 `reauth`，畫面顯示「請登出再登入」。匯出則導到 `/login?reauth=1`。
+    - 登入時間取 JWT `amr` 裡最新的 timestamp。理由：換新 token 時 `iat` 會變，但 `amr` 不會，才能代表「真正登入」的時間。
+    - 時間比現在晚超過 1 分鐘時不採信（時鐘不準）。
+    - 登入頁加上 `?reauth=1`：已經登入也會顯示表單和說明，重新登入後回到原頁。
+  - **簽名網址**：錄音播放網址從 6 小時縮短為 2 小時，每次載入頁面都會重新取得。上傳用的網址是 Supabase 固定的 2 小時。
+  - **前端沒有秘密**：
+    - `scripts/check-client-bundle.mjs` 掃描 `.next/static`，找 14 個伺服器專用設定的名稱，以及 E2E 用的假秘密值；
+    - CI 在 build 之後執行，找到就失敗。
+  - **AI 輸入**（`lib/ai/input-guard.ts`）：
+    - 送給模型前，移除控制字元、零寬字元、雙向覆寫字元、BOM、Unicode tag 字元，再做 NFC 正規化。
+    - 一般文字完全不變：eval 仍是 96.31，錄音的 request hash 沒有變，所以不用重錄、不花錢。
+    - 原本就有的防護：使用者文字只放在獨立的 user 訊息中，以 JSON 傳送；輸出用 strict JSON schema，並逐欄驗證。測試確認注入字串不會進到 system 訊息。
+  - **AI 輸出**：
+    - ESLint `react/no-danger` 設為 error，唯一的例外（主題初始化腳本，是常數）加註理由；
+    - 元件測試確認 AI 回傳 `<img onerror>`、`<script>` 時，顯示的是文字，不會變成元素。
+  - **上傳檔案**：
+    - 建立錄音教材前，伺服器讀 Storage 裡檔案的實際大小（≤ 50 MB）與前 16 bytes（range 請求），必須是 MP3（ID3 標籤或合法的 MPEG frame header）；
+    - 不符合時刪除檔案並拒絕。
+    - 文字也在伺服器檢查（`looksLikeText`）：不能有 NUL，控制字元少於 1%，無法解碼的字元少於 5%。
+  - **標頭**：加上 `Cross-Origin-Resource-Policy: same-origin`，這是 ZAP 的發現。ZAP 其餘的項目都是接受或誤報，記在 `.zap/rules.tsv`；之後出現新的警告，工作流程會失敗。
+  - **CodeQL 的發現**：第三方 action 改成釘選 commit SHA。
+  - **個資**：
+    - `docs/security.md` §6 盤點每一種個資的位置、用途、保留期限，以及刪除帳號時的處理；
+    - 新增保留期限：沒有帳號的 Beta 等候名單 365 天、付費意願點擊 365 天（`prune_logs`，每天執行）；
+    - 測試確認每個指向帳號的欄位都有 cascade 或 set null，`deleteAccount` 也刪除檔案。
+  - **工作階段**：
+    - 文件寫明 JWT 1 小時、refresh token 會輪替；
+    - 登出用 global，撤銷這個帳號所有 refresh token；
+    - 停用帳號時同時封鎖 Auth。
+  - **正式收費前要做**：`payments` 目前會隨帳號刪除。依商業會計法，憑證要保留 5 年，所以收費前要改成解除關聯（set null）並保留。已列入 roadmap。
+- **測試**：
+  - `tests/security-d159.test.ts`、`tests/ai-input-guard.test.ts`、`tests/components/ai-output-text.test.tsx`；
+  - `tests/storage-policies.test.ts`、`tests/account-data-coverage.test.ts`、`tests/upload-actions.test.ts`（假的 MP3 會被刪除並拒絕）；
+  - `tests/security-headers.test.ts`；
+  - E2E：45 分鐘前登入的管理員無法改開關，登入頁顯示重新登入的說明；回應包含 CORP 標頭。
+- **Migration 回復**：`20261124000000_personal_data_retention.sql` 檔尾。
+- **要改時**：時間 `RECENT_SIGN_IN_SECONDS`；涵蓋哪些操作，在各 action 呼叫 `getRecentAdmin()`；保留期限在最新的 `prune_logs`。

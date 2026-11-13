@@ -1,5 +1,6 @@
 "use server";
 
+import { getRecentAdmin } from "@/auth/recent-auth";
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
@@ -19,7 +20,8 @@ import { SITE_URL } from "@/lib/site";
  * change goes in the audit log.
  */
 export type BetaAdminResult =
-  { ok: true } | { ok: false; reason: "unavailable" | "invalid" | "failed" };
+  | { ok: true }
+  | { ok: false; reason: "unavailable" | "invalid" | "failed" | "reauth" };
 
 async function asAdmin() {
   const user = await getAdminUser();
@@ -30,6 +32,10 @@ async function asAdmin() {
 export async function saveSignupSettings(
   input: unknown,
 ): Promise<BetaAdminResult> {
+  // Risky: a sign-in within 30 minutes (D159).
+  if ((await getRecentAdmin()) === "reauth") {
+    return { ok: false, reason: "reauth" };
+  }
   const ctx = await asAdmin();
   if (!ctx) return { ok: false, reason: "unavailable" };
   const raw = (input ?? {}) as Record<string, unknown>;

@@ -1,5 +1,5 @@
+import { getRecentAdmin } from "@/auth/recent-auth";
 import { getAdminSupabase } from "@/auth/admin";
-import { getAdminUser } from "@/auth/creator";
 import { userNumberLabel } from "@/lib/accounts";
 
 /** A CSV cell: quoted when it holds a comma, quote, or line break. */
@@ -11,9 +11,16 @@ const cell = (value: string) =>
  * opens: account number, email, and when they joined. Admins only (404
  * otherwise, like every admin page).
  */
-export async function GET() {
-  const [user, admin] = [await getAdminUser(), getAdminSupabase()];
+export async function GET(request: Request) {
+  // An export of personal data: a sign-in within 30 minutes (D159).
+  const [user, admin] = [await getRecentAdmin(), getAdminSupabase()];
   if (!user || !admin) return new Response("Not found", { status: 404 });
+  if (user === "reauth") {
+    return Response.redirect(
+      new URL("/login?reauth=1&next=/admin/revenue", request.url),
+      303,
+    );
+  }
   const { data: rows } = await admin
     .from("waitlist")
     .select("user_id, created_at")

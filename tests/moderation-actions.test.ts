@@ -13,7 +13,13 @@ const logAudit = vi.hoisted(() => vi.fn());
 vi.mock("@/auth/audit", () => ({ logAudit }));
 vi.mock("@/auth/creator", () => ({
   getAdminUser: async () =>
-    state.admin ? { id: "admin-1", email: "joe@example.com" } : null,
+    state.admin
+      ? {
+          id: "admin-1",
+          email: "joe@example.com",
+          signedInAt: Math.floor(Date.now() / 1000),
+        }
+      : null,
 }));
 vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () => ({

@@ -140,3 +140,20 @@ test("the admin sees the forecasts and the monitor", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "監控" })).toBeVisible();
   await expect(page.getByText("沒有通知。")).toBeVisible();
 });
+
+test("risky admin actions need a sign-in within 30 minutes", async ({
+  page,
+}) => {
+  await signInAsAdmin(page, { signedInMinutesAgo: 45 });
+  await page.goto("/admin/ops");
+  await page.getByRole("group", { name: "唯讀模式" }).getByText("開啟").click();
+  await page.getByRole("button", { name: "儲存開關" }).click();
+  await page.getByRole("button", { name: "確定變更" }).click();
+  await expect(page.getByText(/30 分鐘內登入過/)).toBeVisible();
+  // Nothing changed.
+  await page.goto("/status");
+  await expect(page.getByRole("status").first()).toHaveText("所有服務正常運作");
+  // The sign-in page explains, even while signed in.
+  await page.goto("/login?reauth=1&next=/admin/ops");
+  await expect(page.getByText(/請再登入一次/)).toBeVisible();
+});

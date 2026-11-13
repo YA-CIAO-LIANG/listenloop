@@ -1,5 +1,6 @@
 import { cache } from "react";
 import { isAdminEmail } from "@/lib/admin";
+import { signedInAt } from "@/lib/auth/recent";
 import type { Role } from "@/lib/accounts";
 import { isAccountPlan, type AccountPlan } from "@/lib/plans";
 import { getAdminSupabase } from "./admin";
@@ -20,6 +21,8 @@ export type SignedInUser = {
   classroomSeats: number | null;
   /** Last sign-in with a school email (D144), or null; good for a year. */
   studentVerifiedAt?: string | null;
+  /** When this session signed in (seconds), for risky actions (D159). */
+  signedInAt?: number | null;
 };
 
 /**
@@ -76,5 +79,6 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
     practicesCreated: profile?.practices_created ?? 0,
     classroomSeats: profile?.classroom_seats ?? null,
     studentVerifiedAt: profile?.student_verified_at ?? null,
+    signedInAt: signedInAt(claims),
   };
 });

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
 import { getAdminUser } from "@/auth/creator";
+import { getRecentAdmin } from "@/auth/recent-auth";
 import { checkYouTubeConnection } from "@/auth/youtube";
 import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { getUsageSettings } from "@/auth/usage-settings";
@@ -44,7 +45,8 @@ export async function testConnections(): Promise<ConnectionTestResult> {
 }
 
 export type UsageSettingsResult =
-  { ok: true } | { ok: false; reason: "unavailable" | "invalid" | "failed" };
+  | { ok: true }
+  | { ok: false; reason: "unavailable" | "invalid" | "failed" | "reauth" };
 
 /**
  * Saves the AI cost limits from /admin/usage (D77), typed in US$, and
@@ -53,7 +55,9 @@ export type UsageSettingsResult =
 export async function saveUsageSettings(
   input: unknown,
 ): Promise<UsageSettingsResult> {
-  const [actor, admin] = [await getAdminUser(), getAdminSupabase()];
+  // Risky: a sign-in within 30 minutes (D159).
+  const [actor, admin] = [await getRecentAdmin(), getAdminSupabase()];
+  if (actor === "reauth") return { ok: false, reason: "reauth" };
   if (!actor || !admin) return { ok: false, reason: "unavailable" };
   const settings = parseUsageSettings(input);
   if (!settings) return { ok: false, reason: "invalid" };

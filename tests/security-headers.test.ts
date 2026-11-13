@@ -79,6 +79,13 @@ describe("SECURITY_HEADERS", () => {
     expect(permissions).toContain("microphone=(self)");
     expect(permissions).toContain("camera=()");
   });
+
+  it("keeps our files from being loaded by other sites (D159)", () => {
+    expect(
+      SECURITY_HEADERS.find((h) => h.key === "Cross-Origin-Resource-Policy")
+        ?.value,
+    ).toBe("same-origin");
+  });
 });
 
 describe("next.config (D158)", () => {

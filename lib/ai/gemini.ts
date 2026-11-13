@@ -1,3 +1,4 @@
+import { cleanModelInput } from "./input-guard";
 import {
   annotateBudget,
   auditBudget,
@@ -218,7 +219,13 @@ export function geminiLanguage(
       apiKey,
       {
         systemInstruction: { parts: [{ text: instructions }] },
-        contents: [{ role: "user", parts: [{ text: JSON.stringify(input) }] }],
+        // Learners' text as data, cleaned of hidden characters (D159).
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: JSON.stringify(cleanModelInput(input)) }],
+          },
+        ],
         generationConfig: {
           responseMimeType: "application/json",
           responseSchema: schema,

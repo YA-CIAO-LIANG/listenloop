@@ -1003,7 +1003,8 @@
       "invalid": "Please enter a name (100 characters at most).",
       "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
       "failed": "Couldn't save. Please try again.",
-      "paused": "Public sharing is paused for now; try again later. See \"Service status\" at the bottom of the page."
+      "paused": "Public sharing is paused for now; try again later. See \"Service status\" at the bottom of the page.",
+      "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
     },
     "officialPublic": "A practice made official starts as a private draft; publish it from Admin → Materials to list it in the library.",
     "copyOfficial": "Copy to official materials",
@@ -1177,7 +1178,8 @@
       "invalid": "Something's off; please reload the page.",
       "not-found": "Couldn't find it; it may have been handled already. Please reload the page.",
       "failed": "Couldn't save. Please try again later.",
-      "paused": "Public sharing is paused for now; try again later."
+      "paused": "Public sharing is paused for now; try again later.",
+      "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
     }
   },
   "adminUsage": {
@@ -1299,7 +1301,8 @@
       "errors": {
         "unavailable": "Only admins can change this.",
         "invalid": "Enter a number from 0 to 100.",
-        "failed": "Couldn't save. Try again later."
+        "failed": "Couldn't save. Try again later.",
+        "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
       }
     },
     "monthCapNote": "Site cap {cap}",
@@ -1558,7 +1561,8 @@
         "not-found": "No such account.",
         "self": "You can’t change your own account.",
         "listed": "This account is in ADMIN_EMAILS, so it stays an admin and can’t be demoted or disabled. Remove it from ADMIN_EMAILS on Vercel first.",
-        "failed": "The change didn’t go through; try again later."
+        "failed": "The change didn’t go through; try again later.",
+        "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
       },
       "planIs": "Plan: {plan}",
       "plans": {
@@ -1742,7 +1746,8 @@
         "past_due": "Payment fails",
         "expire": "Expire",
         "failed": "That didn't work; try again."
-      }
+      },
+      "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
     },
     "interest": {
       "title": "Interest in paying",
@@ -1958,7 +1963,8 @@
       "errors": {
         "unavailable": "Only admins can change this.",
         "invalid": "Check the numbers: cap 0–1,000,000, uses 1–10,000, days 1–365 or empty.",
-        "failed": "That didn't work. Please try again later."
+        "failed": "That didn't work. Please try again later.",
+        "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
       }
     },
     "ops": {
@@ -1986,7 +1992,8 @@
       "errors": {
         "unavailable": "Only admins can change this.",
         "invalid": "Something isn't right; check and try again.",
-        "failed": "Couldn't save; try again later."
+        "failed": "Couldn't save; try again later.",
+        "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
       },
       "announcementsTitle": "Site announcements",
       "announcementsIntro": "Announcements show at the top of every page and on the status page.",
@@ -2877,7 +2884,8 @@
       "invited": "You've been invited to the ListenLoop Beta: sign in with Google, LINE, or email to make your account, whatever the cap.",
       "full": "The Beta is full for now: if you already have an account, sign in as usual; new people, please join the waiting list."
     },
-    "consent": "By signing in or making an account, you agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>. Under 18, please get a parent's or guardian's consent first; under 13, please don't make an account yourself."
+    "consent": "By signing in or making an account, you agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>. Under 18, please get a parent's or guardian's consent first; under 13, please don't make an account yourself.",
+    "reauth": "For safety, this needs a recent sign-in (within 30 minutes). Sign in again and you'll be taken back."
   },
   "plansPage": {
     "periodLegend": "Billing",
