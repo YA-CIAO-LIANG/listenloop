@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
+import { featurePaused } from "@/auth/site-switches";
 import { logEvent } from "@/auth/events";
 import { leaveQueue, takeTurn } from "@/auth/queue";
 import { allowAction } from "@/auth/rate-limit";
@@ -62,6 +63,14 @@ async function uploadAllowed(
   return null;
 }
 
+/** Uploading or transcribing paused by an emergency switch (D155). */
+async function uploadPaused(user: { role?: string }): Promise<boolean> {
+  return (
+    (await featurePaused(user, "uploadAudio")) !== null ||
+    (await featurePaused(user, "transcribe")) !== null
+  );
+}
+
 /**
  * Step 1: checks the plan and the sizes the browser measured (the
  * picked file's, the MP3's, and its length), then makes a one-time
@@ -72,7 +81,12 @@ export async function startAudioUpload(
 ): Promise<StartUploadResult> {
   const creator = await getCreator();
   const admin = getAdminSupabase();
-  if (!creator || !admin || !creator.providers.transcribe) {
+  if (
+    !creator ||
+    !admin ||
+    !creator.providers.transcribe ||
+    (await uploadPaused(creator.user))
+  ) {
     return { ok: false, reason: "unavailable" };
   }
   const raw = (input ?? {}) as Record<string, unknown>;
@@ -146,7 +160,11 @@ export async function transcribeAudio(
   form: FormData,
 ): Promise<TranscribeResult> {
   const creator = await getCreator();
-  if (!creator || !creator.providers.transcribe) {
+  if (
+    !creator ||
+    !creator.providers.transcribe ||
+    (await featurePaused(creator.user, "transcribe"))
+  ) {
     return { ok: false, reason: "unavailable" };
   }
   const refused = await uploadAllowed(creator, 0);
@@ -278,7 +296,12 @@ export async function createUploadPractice(
 ): Promise<CreateUploadResult> {
   const creator = await getCreator();
   const admin = getAdminSupabase();
-  if (!creator || !admin || !creator.providers.transcribe) {
+  if (
+    !creator ||
+    !admin ||
+    !creator.providers.transcribe ||
+    (await uploadPaused(creator.user))
+  ) {
     return { ok: false, reason: "unavailable" };
   }
   const refused = await uploadAllowed(creator, 0);

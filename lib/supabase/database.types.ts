@@ -1261,6 +1261,66 @@ export type Database = {
         };
         Relationships: [];
       };
+      site_announcements: {
+        Row: {
+          body_en: string;
+          body_zh: string;
+          created_at: string;
+          created_by: string | null;
+          ends_at: string | null;
+          id: string;
+          level: string;
+          starts_at: string;
+        };
+        Insert: {
+          body_en: string;
+          body_zh: string;
+          created_at?: string;
+          created_by?: string | null;
+          ends_at?: string | null;
+          id?: string;
+          level?: string;
+          starts_at?: string;
+        };
+        Update: {
+          body_en?: string;
+          body_zh?: string;
+          created_at?: string;
+          created_by?: string | null;
+          ends_at?: string | null;
+          id?: string;
+          level?: string;
+          starts_at?: string;
+        };
+        Relationships: [];
+      };
+      site_settings: {
+        Row: {
+          features: Json;
+          id: boolean;
+          maintenance: boolean;
+          read_only: boolean;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          features?: Json;
+          id?: boolean;
+          maintenance?: boolean;
+          read_only?: boolean;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          features?: Json;
+          id?: boolean;
+          maintenance?: boolean;
+          read_only?: boolean;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [];
+      };
       speech_audio: {
         Row: {
           bytes: number;

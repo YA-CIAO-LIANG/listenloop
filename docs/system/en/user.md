@@ -243,28 +243,18 @@ flowchart LR
 
 - **Are there guides?** The footer's "Articles" link has guides (in Chinese) on linking, dictation, TOEIC, and everyday English for studying abroad, each with lessons to practice.
 
-| Question                                 | Answer                                                                                                                                                    |
-| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| The next day opens only tomorrow?        | Yes: one task a day, the next on a new calendar day, so listening has time to settle                                                                      |
-| I didn't pass Day 7                      | Practice the same material for another week from the day after; earlier records stay                                                                      |
-| Shadowing doesn't hear me                | Chrome, allow the microphone, get closer, find a quiet room; or skip and report                                                                           |
-| The video has no sound or won't play     | Check your connection and that YouTube opens; starting from inside the site helps autoplay                                                                |
-| My progress is gone on a new phone       | Sign in to the same account; signed out, progress stays on the old device                                                                                 |
-| A shared material shows only 3 sentences | The free plan previews; Plus and above practice in full                                                                                                   |
-| Creating says my allowance is used       | The free plan's 2 minutes reset each Monday; paid plans' minutes reset on the 1st                                                                         |
-| Can I practice offline?                  | Once an audio material's practice page is open, its sentences are kept on the device and play on a shaky connection; opening new pages needs the internet |
-| A translation or note is wrong           | Tell us which material and sentence on "Feedback" in the footer                                                                                           |
-| Question                                 | Answer                                                                                                                                                    |
-| ---------------------------------------- | -----------------------------------------------------------------------------------------------------                                                     |
-| The next day opens only tomorrow?        | Yes: one task a day, the next on a new calendar day, so listening has time to settle                                                                      |
-| I didn't pass Day 7                      | Practice the same material for another week from the day after; earlier records stay                                                                      |
-| Shadowing doesn't hear me                | Chrome, allow the microphone, get closer, find a quiet room; or skip and report                                                                           |
-| The video has no sound or won't play     | Check your connection and that YouTube opens; starting from inside the site helps autoplay                                                                |
-| My progress is gone on a new phone       | Sign in to the same account; signed out, progress stays on the old device                                                                                 |
-| A shared material shows only 3 sentences | The free plan previews; Plus and above practice in full                                                                                                   |
-| Creating says my allowance is used       | The free plan's 2 minutes reset each Monday; paid plans' minutes reset on the 1st                                                                         |
-| Can I practice offline?                  | It needs the internet; offline you see the offline page, and progress stays on this device                                                                |
-| A translation, note, or audio is wrong   | Press "Report a problem with this sentence" under it; you'll be told on the home page when it's fixed                                                     |
+| Question                                          | Answer                                                                                                                                                    |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| The next day opens only tomorrow?                 | Yes: one task a day, the next on a new calendar day, so listening has time to settle                                                                      |
+| I didn't pass Day 7                               | Practice the same material for another week from the day after; earlier records stay                                                                      |
+| Shadowing doesn't hear me                         | Chrome, allow the microphone, get closer, find a quiet room; or skip and report                                                                           |
+| The video has no sound or won't play              | Check your connection and that YouTube opens; starting from inside the site helps autoplay                                                                |
+| My progress is gone on a new phone                | Sign in to the same account; signed out, progress stays on the old device                                                                                 |
+| A shared material shows only 3 sentences          | The free plan previews; Plus and above practice in full                                                                                                   |
+| Creating says my allowance is used                | The free plan's 2 minutes reset each Monday; paid plans' minutes reset on the 1st                                                                         |
+| Can I practice offline?                           | Once an audio material's practice page is open, its sentences are kept on the device and play on a shaky connection; opening new pages needs the internet |
+| A translation, note, or audio is wrong            | Press "Report a problem with this sentence" under it; you'll be told on the home page when it's fixed                                                     |
+| The site says maintenance, or something is paused | "Service status" in the footer shows the state and announcements; your progress is saved in the cloud                                                     |
 
 ---
 

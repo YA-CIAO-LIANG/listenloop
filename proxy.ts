@@ -1,5 +1,7 @@
-import type { NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/auth/proxy-session";
+import { getSiteSwitches } from "@/auth/site-switches";
+import { openInMaintenance } from "@/lib/site-switches";
 import { clarityProjectId } from "@/lib/analytics-consent";
 import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
 import { supabaseConfig } from "@/lib/supabase/config";
@@ -20,8 +22,26 @@ export async function proxy(request: NextRequest) {
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("content-security-policy", policy);
-  const response = await updateSession(request, requestHeaders);
+  const { response, isAdmin } = await updateSession(request, requestHeaders);
   response.headers.set("content-security-policy", policy);
+  // Maintenance mode (D155): everyone but admins sees the maintenance
+  // page (503, so search engines come back later); the session cookies
+  // just refreshed are kept.
+  if (
+    !openInMaintenance(request.nextUrl.pathname) &&
+    (await getSiteSwitches()).maintenance &&
+    !(await isAdmin())
+  ) {
+    const page = NextResponse.rewrite(new URL("/maintenance", request.url), {
+      status: 503,
+      request: { headers: requestHeaders },
+    });
+    for (const cookie of response.cookies.getAll()) page.cookies.set(cookie);
+    page.headers.set("content-security-policy", policy);
+    page.headers.set("retry-after", "600");
+    page.headers.set("cache-control", "no-store");
+    return page;
+  }
   return response;
 }
 

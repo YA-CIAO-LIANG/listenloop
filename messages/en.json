@@ -636,7 +636,8 @@
     "pricing": "Pricing",
     "refund": "Refund policy",
     "learn": "Practice by topic",
-    "blog": "Articles"
+    "blog": "Articles",
+    "status": "Service status"
   },
   "privacy": {
     "title": "Privacy policy",
@@ -901,7 +902,14 @@
     "longJob": "This takes a while: you can leave this page and we’ll keep going in the background; it’ll be ready in My materials.",
     "toMaterials": "Go to My materials",
     "duration": "{minutes, plural, =0 {{seconds} seconds} one {# minute} other {# minutes}}",
-    "ownRecording": "your recording"
+    "ownRecording": "your recording",
+    "paused": {
+      "title": "Creating materials is paused",
+      "body": "To keep the service running well, creating materials is paused for now; your materials can still be practised. See the status page for details.",
+      "status": "See service status",
+      "some": "Paused now: {features}."
+    },
+    "listSeparator": ", "
   },
   "editPractice": {
     "titlesLegend": "Titles",
@@ -994,7 +1002,8 @@
       "unavailable": "Practices can't be organized right now. Make sure you're signed in with an admin account.",
       "invalid": "Please enter a name (100 characters at most).",
       "not-found": "This item couldn't be found; it may have been deleted. Please reload the page.",
-      "failed": "Couldn't save. Please try again."
+      "failed": "Couldn't save. Please try again.",
+      "paused": "Public sharing is paused for now; try again later. See \"Service status\" at the bottom of the page."
     },
     "officialPublic": "A practice made official starts as a private draft; publish it from Admin → Materials to list it in the library.",
     "copyOfficial": "Copy to official materials",
@@ -1167,7 +1176,8 @@
       "unavailable": "Can't review right now. Make sure you're signed in as an admin and the server has SUPABASE_SERVICE_ROLE_KEY.",
       "invalid": "Something's off; please reload the page.",
       "not-found": "Couldn't find it; it may have been handled already. Please reload the page.",
-      "failed": "Couldn't save. Please try again later."
+      "failed": "Couldn't save. Please try again later.",
+      "paused": "Public sharing is paused for now; try again later."
     }
   },
   "adminUsage": {
@@ -1424,7 +1434,8 @@
       "forecast": "Forecast",
       "docs": "System docs",
       "retention": "Retention",
-      "beta": "Sign-ups"
+      "beta": "Sign-ups",
+      "ops": "Operations"
     },
     "overview": {
       "title": "Admin overview",
@@ -1930,6 +1941,56 @@
         "invalid": "Check the numbers: cap 0–1,000,000, uses 1–10,000, days 1–365 or empty.",
         "failed": "That didn't work. Please try again later."
       }
+    },
+    "ops": {
+      "title": "Operations",
+      "intro": "Switches to contain a problem. Admins aren't affected, so you can keep checking and fixing; each change goes in the audit log and takes effect site-wide within about 30 seconds.",
+      "switchesTitle": "Emergency switches",
+      "maintenance": "Maintenance mode",
+      "maintenanceHint": "Everyone but admins sees the maintenance page.",
+      "readOnly": "Read-only mode",
+      "readOnlyHint": "Browsing and practising go on; creating, uploading, public sharing, and sign-ups are paused.",
+      "featuresTitle": "Features",
+      "on": "On",
+      "off": "Paused",
+      "features": {
+        "aiGenerate": "AI text generation",
+        "aiRevise": "Revise with an instruction",
+        "uploadAudio": "Audio upload",
+        "transcribe": "Speech to text",
+        "publicShare": "Public sharing",
+        "signup": "New sign-ups"
+      },
+      "save": "Save switches",
+      "confirm": "Change the service switches? Everyone is affected within 30 seconds.",
+      "saved": "Saved.",
+      "errors": {
+        "unavailable": "Only admins can change this.",
+        "invalid": "Something isn't right; check and try again.",
+        "failed": "Couldn't save; try again later."
+      },
+      "announcementsTitle": "Site announcements",
+      "announcementsIntro": "Announcements show at the top of every page and on the status page.",
+      "level": "Level",
+      "levels": {
+        "info": "Notice",
+        "warning": "Heads-up",
+        "critical": "Important"
+      },
+      "bodyZh": "Chinese text",
+      "bodyEn": "English text",
+      "hours": "Hours shown",
+      "hoursHint": "1–720 hours; empty to show until ended.",
+      "post": "Post announcement",
+      "end": "End",
+      "active": "Showing",
+      "ended": "Ended",
+      "noAnnouncements": "No announcements yet.",
+      "statusLink": "Open the public status page",
+      "confirmYes": "Change",
+      "cancel": "Cancel",
+      "confirmTitle": "Change the service switches",
+      "closed": "Off"
     }
   },
   "events": {
@@ -3397,5 +3458,43 @@
     "accept": "Accept analytics cookies",
     "decline": "Necessary cookies only",
     "settings": "Cookie settings"
+  },
+  "ops": {
+    "maintenance": {
+      "title": "Down for maintenance",
+      "body": "We're doing some maintenance and will be back soon. Your progress is saved in the cloud and won't be lost.",
+      "status": "See service status"
+    },
+    "status": {
+      "title": "Service status",
+      "intro": "How ListenLoop is running right now, and announcements.",
+      "states": {
+        "normal": "All services are running",
+        "maintenance": "Down for maintenance",
+        "readOnly": "Read-only: browsing and practice work; creating and uploading are paused",
+        "partial": "Some features are paused"
+      },
+      "paused": "Paused features",
+      "none": "Nothing is paused.",
+      "announcements": "Announcements",
+      "noAnnouncements": "No announcements right now.",
+      "features": {
+        "aiGenerate": "AI text generation",
+        "aiRevise": "Revise with an instruction",
+        "uploadAudio": "Audio upload",
+        "transcribe": "Speech to text",
+        "publicShare": "Public sharing",
+        "signup": "New sign-ups"
+      },
+      "levels": {
+        "info": "Notice",
+        "warning": "Heads-up",
+        "critical": "Important"
+      }
+    },
+    "banner": {
+      "dismiss": "Dismiss announcement",
+      "label": "Site announcement"
+    }
   }
 }

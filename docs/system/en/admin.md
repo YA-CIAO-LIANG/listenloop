@@ -14,7 +14,8 @@ For ListenLoop's admins: what each admin page is for and how to use it, official
 8. [Paying interest and the revenue forecast](#8-paying-interest-and-the-revenue-forecast)
 9. [The news schedule](#9-the-news-schedule)
 10. [Monthly checklist](#10-monthly-checklist)
-11. [Questions](#11-questions)
+11. [Operations and incidents](#11-operations-and-incidents)
+12. [Questions](#12-questions)
 
 ---
 
@@ -287,7 +288,31 @@ With it, a teacher gets 40 students a class, 160 minutes of their own materials 
 
 ---
 
-## 11. Questions
+## 11. Operations and incidents
+
+When something goes wrong, contain it first, then find the cause. The full steps are in `docs/incident-runbook.md`.
+
+### 11.1 Emergency switches (`/admin/ops`, D155)
+
+| Switch           | Effect                                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Maintenance mode | Everyone but admins sees the maintenance page (HTTP 503). Sign-in, status, privacy, and terms stay open            |
+| Read-only mode   | Browsing and practising go on; creating (AI, uploads, quiz questions), public sharing, and new sign-ups are paused |
+| Features         | AI text generation, revising, audio upload, speech to text, public sharing, and new sign-ups can each be paused    |
+
+- "Save switches" asks once more; every change goes in the audit log (`site_switches`).
+- Each server caches the switches for up to 30 seconds, so a change reaches the whole site within about 30 seconds.
+- Admins aren't affected, so they can keep checking and fixing.
+- Public sharing is also refused by the database (a trigger), even for someone calling the API directly.
+- With sign-ups paused, invite links don't work either; people with an account sign in as usual.
+
+### 11.2 Announcements and the status page
+
+- Post an announcement at the bottom of `/admin/ops`: a level (notice, heads-up, important), the Chinese and English text, and how many hours it shows (empty: until ended).
+- It shows under the header on every page; people can dismiss it, except an important one.
+- The public status page `/status` (footer: "Service status") shows the state, what's paused, and the announcements.
+
+## 12. Questions
 
 | Question                                   | Answer                                                                                                                                  |
 | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |

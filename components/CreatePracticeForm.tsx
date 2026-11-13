@@ -93,6 +93,9 @@ type CreatePracticeFormProps = {
    * when speech to text is set up.
    */
   upload?: boolean;
+  /** AI text generation and revising (D155): false while paused. */
+  aiGenerate?: boolean;
+  aiRevise?: boolean;
   create?: (draft: {
     titleEn: string;
     titleZh: string;
@@ -155,6 +158,8 @@ export function CreatePracticeForm({
   official = false,
   youtube = false,
   upload = false,
+  aiGenerate = true,
+  aiRevise = true,
   sitePace = null,
   recordTime = recordGenerationTime,
 }: CreatePracticeFormProps) {
@@ -616,24 +621,26 @@ export function CreatePracticeForm({
           </p>
         </div>
         {/* AI changes the English by an instruction (D96). */}
-        <RevisePanel
-          sentences={rows}
-          dialogue={dialogue}
-          disabled={pending}
-          canUndo={undoStack.length > 0}
-          translate={translate}
-          revise={revise}
-          onRevised={(next) => {
-            setUndoStack((stack) => [...stack, rows].slice(-UNDO_STEPS));
-            setRows(next.map((s) => ({ ...s, key: nextKey.current++ })));
-          }}
-          onUndo={() => {
-            const previous = undoStack.at(-1);
-            if (!previous) return;
-            setUndoStack((stack) => stack.slice(0, -1));
-            setRows(previous);
-          }}
-        />
+        {aiRevise && (
+          <RevisePanel
+            sentences={rows}
+            dialogue={dialogue}
+            disabled={pending}
+            canUndo={undoStack.length > 0}
+            translate={translate}
+            revise={revise}
+            onRevised={(next) => {
+              setUndoStack((stack) => [...stack, rows].slice(-UNDO_STEPS));
+              setRows(next.map((s) => ({ ...s, key: nextKey.current++ })));
+            }}
+            onUndo={() => {
+              const previous = undoStack.at(-1);
+              if (!previous) return;
+              setUndoStack((stack) => stack.slice(0, -1));
+              setRows(previous);
+            }}
+          />
+        )}
         <ol className="divide-y divide-line border-y border-line">
           {rows.map((row, index) => (
             <li key={row.key} className="flex gap-4 py-4">
@@ -907,7 +914,10 @@ export function CreatePracticeForm({
           value={source}
           options={[
             { value: "text", label: tGenerate("sources.text") },
-            { value: "ai", label: tGenerate("sources.ai") },
+            // Writing text with AI (e+ 5), unless paused (D155).
+            ...(aiGenerate
+              ? [{ value: "ai" as const, label: tGenerate("sources.ai") }]
+              : []),
             // From the learner's own recording (D130), when it's set up.
             ...(upload
               ? [

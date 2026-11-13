@@ -13,6 +13,7 @@ import type { UsageBlock } from "@/lib/usage";
 import { revalidatePath } from "next/cache";
 import { creationAllowance, creationAllowed } from "@/auth/creation-quota";
 import { getCreator } from "@/auth/creator";
+import { featurePaused } from "@/auth/site-switches";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
@@ -613,7 +614,9 @@ export async function generatePracticeText(
   input: unknown,
 ): Promise<GenerateTextResult> {
   const creator = await getCreator();
-  if (!creator) return { ok: false, reason: "unavailable" };
+  if (!creator || (await featurePaused(creator.user, "aiGenerate"))) {
+    return { ok: false, reason: "unavailable" };
+  }
   const { check: allowed, week } = await creationAllowance(creator);
   if (!allowed.ok) return { ok: false, reason: "unavailable" };
   if (!(await allowAction("ai", creator.user.id))) {
@@ -688,7 +691,11 @@ export type ReviseDraftResult =
  */
 export async function reviseDraft(input: unknown): Promise<ReviseDraftResult> {
   const creator = await getCreator();
-  if (!creator || !(await creationAllowed(creator)).ok) {
+  if (
+    !creator ||
+    (await featurePaused(creator.user, "aiRevise")) ||
+    !(await creationAllowed(creator)).ok
+  ) {
     return { ok: false, reason: "unavailable" };
   }
   if (!(await allowAction("ai", creator.user.id))) {

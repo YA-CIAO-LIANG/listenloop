@@ -246,13 +246,24 @@
 - **練習總覽頁**：上方小標籤是「自建練習」（別人公開的練習是「公開練習」，取代程度與分類），返回連結回到「我的教材」（別人的練習回到「公開教材」），標題下方是「共 N 句，每一句都有音檔。」，沒有播放器和影片出處。
 - 建立頁的練習清單：音檔完成時，「✓ 音檔已完成」右側有 primary、sm 的「開始練習 →」。
 
+## 網站公告、服務狀態、維護頁（D155）
+
+- **網站公告** `SiteAnnouncementBanner`：
+  - 頁首下方，整頁寬、底部 1px line 線，內容寬度和頁首一樣；列印時隱藏；
+  - 內容是 supporting 字級；右側「×」關閉鈕（ink-muted，hover ink，手機上至少 44px），`aria-label`「關閉公告」；
+  - info 用 surface 底色；warning、critical 用 `bg-error/10`；critical 沒有關閉鈕；
+  - 外層是 `role="region"`，名稱為「網站公告」。
+- **服務狀態** `/status`：h1 → 說明 → Card（狀態一行：12px 圓點加文字，正常時是 success，否則是 error，`role="status"`；下面列出暫停中的功能）→ h2「公告」→ 每則一張 Card（metadata 的等級與時間，加上內文）。
+- **維護頁** `/maintenance`：和 404 頁同樣的版面（metadata「503」→ h1 → 說明 → secondary「查看服務狀態 →」）。
+- **後台服務控制** `/admin/ops`：每個開關一列（左邊是名稱與 supporting、ink-muted 說明，右邊是 SegmentedControl「開啟／關閉」或「開啟／暫停」），列和列之間用 1px line 分隔；儲存前用 Dialog 確認。
+
 ## 頁尾與隱私權政策
 
 - **頁尾**（`SiteFooter`）：
   - 每一頁都有，列印時隱藏；
   - 上方 1px line 線，和頁面內容之間距離 64px；
   - 內容寬度和頁首一樣，`nav` 的標籤是「網站資訊」；
-  - 連結是 supporting、ink-muted 的「隱私權政策」「素材出處」，hover 時改成 ink 色並加底線。
+  - 連結是 supporting、ink-muted 的「隱私權政策」「素材出處」，hover 時改成 ink 色並加底線；最後一個是「服務狀態」（D155）。
 - **隱私權政策** `/privacy`：
   - 由上到下：h1 → supporting、ink-muted 的「最後更新」日期 → 前言 → 各節（h3 標題，段落和清單用 ink-muted，寬度上限是閱讀寬度）→ 聯絡方式（accent-ink 底線連結）；
   - 內容放在翻譯檔的 `privacy.sections`，依閱讀順序排列。

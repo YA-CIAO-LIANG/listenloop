@@ -9,6 +9,7 @@ import {
   type Admission,
 } from "@/lib/beta";
 import { getAdminSupabase } from "./admin";
+import { featurePaused } from "./site-switches";
 import { getServerSupabase } from "./server";
 
 /**
@@ -24,11 +25,15 @@ export type BetaStatus = {
   admitted: number;
   /** Public sign-ups can't take anyone now (closed or at the cap). */
   full: boolean;
+  /** Paused by an emergency switch (D155): not even with an invite. */
+  paused: boolean;
 };
 
 export const getBetaStatus = cache(async (): Promise<BetaStatus | null> => {
   const admin = getAdminSupabase();
   if (!admin) return null;
+  // New sign-ups paused by an emergency switch (D155): closed to all.
+  const paused = (await featurePaused(null, "signup")) !== null;
   const [{ data: settings }, { data: admitted }] = await Promise.all([
     admin.from("signup_settings").select("open, cap").maybeSingle(),
     admin.rpc("beta_admitted_count"),
@@ -36,7 +41,13 @@ export const getBetaStatus = cache(async (): Promise<BetaStatus | null> => {
   const open = settings?.open ?? true;
   const cap = settings?.cap ?? DEFAULT_SIGNUP_CAP;
   const count = admitted ?? 0;
-  return { open, cap, admitted: count, full: !open || count >= cap };
+  return {
+    open,
+    cap,
+    admitted: count,
+    full: paused || !open || count >= cap,
+    paused,
+  };
 });
 
 /** The invite code this browser brought (from /invite/<code>), if any. */
@@ -60,6 +71,24 @@ export async function admitAfterSignIn(user: {
 }): Promise<GateResult> {
   const admin = getAdminSupabase();
   if (!admin) return "ok";
+  // Sign-ups paused (D155): a new account isn't let in, even with an
+  // invite; admins and accounts already in are.
+  if (
+    !isAdminEmail(user.email ?? "") &&
+    (await featurePaused(null, "signup")) !== null
+  ) {
+    const { data: profile } = await admin
+      .from("profiles")
+      .select("beta_admitted_at")
+      .eq("user_id", user.id)
+      .maybeSingle();
+    if (!profile?.beta_admitted_at) {
+      await (await getServerSupabase())?.auth.signOut().catch(() => undefined);
+      await admin.auth.admin.deleteUser(user.id).catch(() => undefined);
+      return "closed";
+    }
+    return "ok";
+  }
   const invite = await inviteFromCookie();
   const { data, error } = await admin.rpc("admit_account", {
     target: user.id,

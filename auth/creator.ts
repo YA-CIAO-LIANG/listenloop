@@ -1,3 +1,4 @@
+import { featurePaused } from "./site-switches";
 import {
   diagnoseAiProviders,
   getAiProviders,
@@ -239,6 +240,8 @@ export async function getCreator(): Promise<Creator | null> {
   if (!providers) return null;
   const user = await getSignedInUser();
   if (!canCreatePractices(user)) return null;
+  // Maintenance or read-only (D155): nothing that calls a paid API.
+  if (await featurePaused(user, "create")) return null;
   const admin = getAdminSupabase();
   if (!admin) return null;
   return {
