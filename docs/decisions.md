@@ -2832,3 +2832,39 @@
   - E2E（`e2e/ops.spec.ts`）：`/api/health` 的格式、沒有秘密時 cron 回 404、後台看得到預測與監控。
 - **Migration 回復**：`20261123000000_ops_monitoring.sql` 檔尾。
 - **要改時**：門檻 `lib/ops/thresholds.ts`；規則 `lib/ops/alerts.ts`；排程 `.github/workflows/ops.yml`；伺服器端 `auth/ops.ts`、`auth/forecasts.ts`。
+
+## D157 每日加密備份、還原演練、回滾步驟、事故手冊（2026-11-13，Joe 指定）
+
+- **為什麼**：Supabase 免費方案沒有可以還原的備份；出事時要有寫好的步驟可以照著做，而不是臨場想。
+- **做法**：
+  - **每日備份**：`.github/workflows/backup.yml`，台灣時間 02:00 執行。
+    - 用 Supabase 官方的 `supabase db dump` 存 roles、schema、data 三個檔案，再加上 Storage 檔案清單（`scripts/storage-manifest.mts`）。
+    - 用 `scripts/backup-encrypt.sh` 加密：AES-256-CBC，金鑰用 PBKDF2 跑 60 萬次，每次的 salt 不同。
+    - 上傳成 artifact，保留 14 天。
+    - 預設關閉，要設定 secrets 加上 `BACKUP_SCHEDULE=on` 才會執行。
+  - **為什麼加密是硬性規定**：公開 repo 的 artifact 任何人都能下載。所以：
+    - 加密腳本沒有密碼（或少於 20 字）時直接失敗；
+    - 會檢查輸出檔是加密格式，而且沒有 dump 的明文特徵；
+    - 加密後刪除 runner 上的明文檔；
+    - 檔名只有時間，沒有任何個資。
+  - **選 openssl 而不是 age 或 gpg 的理由**：runner 與 macOS 都已經內建，不需要新增套件或工具；PBKDF2 加上高迭代次數是 OWASP 建議的作法。
+  - **不備份 Storage 的檔案內容**：
+    - `speech` 的音檔可以用同樣的文字與聲音重新產生（內容雜湊）；
+    - `uploads` 目前是 0 個檔案；
+    - 複製一份會占用免費方案 1 GB 中的空間。所以只存清單，作為「要重新產生什麼、要通知誰」的依據。
+  - **還原演練** `scripts/restore-drill.sh`：在本機用暫時的 PostgreSQL 17（brew，免費），完全不碰正式資料。
+    - 流程：套用全部 migration 與範例資料 → 用和 workflow 相同的方式備份加密 → 依 `docs/backup.md` 解密還原到新資料庫 → 比對每張表的筆數與 RLS 規則數。
+    - Supabase 才有的部分（角色、auth、storage）用 `scripts/drill/supabase-shim.sql` 補上最小替身。
+    - 2026-11-13 演練通過：57 個 migration、50 張表、43 條規則，全程約 3 秒。正式環境估計約 30 分鐘可以恢復，見 `docs/backup.md` 第 3 節。
+  - **Migration 回復**：
+    - `docs/migrations-rollback.md` 列出每個既有 migration 的反向操作，是從檔案內容產生的（drop table、function、column、trigger、bucket），並標出刪除或修改資料、只能從備份還原的 migration；
+    - 2026-11-22 之後的 migration 必須在檔尾寫 `-- Rollback:`；
+    - 原則是「程式回滾、資料庫不回滾」，要破壞相容性的改動分兩步做。
+  - **部署回滾**：`docs/deploy-rollback.md`（Vercel Instant Rollback、Undo Rollback、`git revert`）。
+  - **事故手冊**：`docs/incident-runbook.md`，涵蓋 10 個情境。每個情境都寫：如何發現、立即要做的事、用哪個開關、如何通知使用者、如何恢復、事後檢討。
+    - 包含 16 種金鑰的輪替步驟；
+    - 嚴重程度與時間目標；
+    - 個資外洩的通知義務（個資法第 12 條）。
+  - **事後檢討範本**：`docs/postmortem-template.md`（對事不對人、時間軸、五個為什麼、改善行動）。
+- **測試**：`tests/migration-rollback.test.ts`（新 migration 要有回復區塊、舊 migration 都列在文件裡）；還原演練本身就是驗證。
+- **要改時**：排程與保留天數改 `backup.yml`；加密參數 `scripts/backup-encrypt.sh` 與 `backup-decrypt.sh` 要一起改，舊備份要用舊參數解開。

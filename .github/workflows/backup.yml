@@ -1,0 +1,77 @@
+name: Database backup
+
+# Daily encrypted backup (D157): the database (roles, schema, data, with
+# Supabase's own `db dump`) and the Storage file list, encrypted with
+# BACKUP_PASSPHRASE before anything is uploaded, kept 14 days as a
+# workflow artifact. The repository is public, so anyone can download
+# artifacts: an unencrypted file must never be uploaded, and the encrypt
+# step refuses to run without the passphrase. Restoring: docs/backup.md.
+#
+# OFF until the repository variable BACKUP_SCHEDULE is "on", with the
+# secrets SUPABASE_DB_URL (session pooler URL with the database
+# password), BACKUP_PASSPHRASE, NEXT_PUBLIC_SUPABASE_URL, and
+# SUPABASE_SERVICE_ROLE_KEY (steps in docs/roadmap.md).
+on:
+  schedule:
+    # 02:00 Taiwan time.
+    - cron: "0 18 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backup
+  cancel-in-progress: false
+
+jobs:
+  backup:
+    if: vars.BACKUP_SCHEDULE == 'on' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+      BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Check the secrets are set
+        run: |
+          for name in SUPABASE_DB_URL BACKUP_PASSPHRASE NEXT_PUBLIC_SUPABASE_URL SUPABASE_SERVICE_ROLE_KEY; do
+            if [ -z "${!name}" ]; then echo "::error::$name is not set"; exit 1; fi
+          done
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Dump the database (Supabase's documented way)
+        run: |
+          mkdir -p "$RUNNER_TEMP/backup"
+          npx --yes supabase@3.0.0 db dump --db-url "$SUPABASE_DB_URL" -f "$RUNNER_TEMP/backup/roles.sql" --role-only
+          npx --yes supabase@3.0.0 db dump --db-url "$SUPABASE_DB_URL" -f "$RUNNER_TEMP/backup/schema.sql"
+          npx --yes supabase@3.0.0 db dump --db-url "$SUPABASE_DB_URL" -f "$RUNNER_TEMP/backup/data.sql" --use-copy --data-only
+
+      - name: List the Storage files
+        run: node scripts/storage-manifest.mts "$RUNNER_TEMP/backup/storage-files.json"
+
+      - name: Encrypt
+        run: |
+          stamp=$(date -u +%Y%m%dT%H%M%SZ)
+          bash scripts/backup-encrypt.sh "$RUNNER_TEMP/backup" "$RUNNER_TEMP/listenloop-backup-$stamp.tar.gz.enc"
+          # Nothing unencrypted stays on the runner either.
+          find "$RUNNER_TEMP/backup" -type f -delete
+          echo "BACKUP_FILE=$RUNNER_TEMP/listenloop-backup-$stamp.tar.gz.enc" >> "$GITHUB_ENV"
+
+      - name: Keep for 14 days
+        uses: actions/upload-artifact@v6
+        with:
+          name: listenloop-backup
+          path: ${{ env.BACKUP_FILE }}
+          retention-days: 14
+          if-no-files-found: error
