@@ -1,5 +1,6 @@
 // Relative: next.config.ts imports this file, without the @/ alias.
 import { CLARITY_HOSTS } from "../analytics-consent";
+import { TURNSTILE_ORIGIN } from "../turnstile";
 
 /**
  * The Content Security Policy (P1, D63): what a page may load and run.
@@ -18,13 +19,17 @@ export function contentSecurityPolicy({
   supabaseUrl,
   development = false,
   clarity = false,
+  turnstile = false,
 }: {
   nonce: string;
   supabaseUrl: string | null;
   development?: boolean;
   /** Microsoft Clarity is set up (D148): its hosts are allowed. */
   clarity?: boolean;
+  /** Cloudflare Turnstile is set up (D160): its script and frame. */
+  turnstile?: boolean;
 }): string {
+  const bots = turnstile ? TURNSTILE_ORIGIN : null;
   const analytics = (hosts: readonly string[]) => (clarity ? hosts : []);
   const supabase = supabaseUrl ? new URL(supabaseUrl).origin : null;
   const supabaseSocket = supabase?.replace(/^http/, "ws") ?? null;
@@ -37,6 +42,7 @@ export function contentSecurityPolicy({
       "https://www.youtube.com",
       "https://s.ytimg.com",
       ...analytics(CLARITY_HOSTS.script),
+      bots,
       // React's dev tools evaluate code; never in production.
       development ? "'unsafe-eval'" : null,
     ],
@@ -61,6 +67,7 @@ export function contentSecurityPolicy({
     "frame-src": [
       "https://www.youtube-nocookie.com",
       "https://www.youtube.com",
+      bots,
     ],
     "worker-src": ["'self'", "blob:"],
     "manifest-src": ["'self'"],

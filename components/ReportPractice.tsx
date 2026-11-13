@@ -12,6 +12,7 @@ import {
   type ReportReason,
 } from "@/lib/moderation";
 import { Button } from "./Button";
+import { Turnstile } from "./Turnstile";
 
 type ReportPracticeProps = {
   /** "p-<uuid>". */
@@ -41,13 +42,14 @@ export function ReportPractice({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<ReportError | null>(null);
   const [sent, setSent] = useState(false);
+  const [turnstile, setTurnstile] = useState("");
   const tooLong = [...details].length > REPORT_LIMITS.details;
 
   async function submit() {
     if (!reason || tooLong) return;
     setPending(true);
     setError(null);
-    const result = await report(practiceId, reason, details).catch(
+    const result = await report(practiceId, reason, details, turnstile).catch(
       (): ReportResult => ({ ok: false, reason: "failed" }),
     );
     setPending(false);
@@ -137,6 +139,7 @@ export function ReportPractice({
           })}
         </p>
       </div>
+      <Turnstile action="report" onToken={setTurnstile} />
       <div className="flex flex-wrap gap-3">
         <Button
           variant="primary"

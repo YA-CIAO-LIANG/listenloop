@@ -13,6 +13,7 @@ import {
   type FeedbackCategory,
 } from "@/lib/feedback";
 import { Button } from "./Button";
+import { Turnstile } from "./Turnstile";
 
 /**
  * The feedback form (D60): a category and a message. The page it came
@@ -32,6 +33,7 @@ export function FeedbackForm({
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(false);
   const [result, setResult] = useState<FeedbackResult | null>(null);
+  const [turnstile, setTurnstile] = useState("");
 
   async function submit() {
     setPending(true);
@@ -39,6 +41,7 @@ export function FeedbackForm({
       category,
       message,
       page: from,
+      turnstile,
     }).catch((): FeedbackResult => ({ ok: false, reason: "failed" }));
     setPending(false);
     setResult(outcome);
@@ -85,6 +88,7 @@ export function FeedbackForm({
           className="block w-full rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent"
         />
       </div>
+      <Turnstile action="feedback" onToken={setTurnstile} />
       <Button
         variant="primary"
         onClick={submit}

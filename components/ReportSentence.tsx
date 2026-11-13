@@ -15,6 +15,7 @@ import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 import { FlagIcon } from "./icons";
 import { useProgressVisible } from "./StoresProvider";
+import { Turnstile } from "./Turnstile";
 
 type Problem = Exclude<SentenceReportResult, { ok: true }>["reason"];
 
@@ -43,6 +44,7 @@ export function ReportSentence({
   const [pending, setPending] = useState(false);
   const [problem, setProblem] = useState<Problem | null>(null);
   const [sent, setSent] = useState<number | null>(null);
+  const [turnstile, setTurnstile] = useState("");
   const tooLong = [...note].length > SENTENCE_REPORT_NOTE_MAX;
 
   async function submit() {
@@ -55,6 +57,7 @@ export function ReportSentence({
       index,
       kind,
       note,
+      turnstile,
     }).catch((): SentenceReportResult => ({ ok: false, reason: "failed" }));
     setPending(false);
     if (result.ok) {
@@ -122,6 +125,7 @@ export function ReportSentence({
                   {t("noteHint", { max: SENTENCE_REPORT_NOTE_MAX })}
                 </p>
               </div>
+              <Turnstile action="sentence-report" onToken={setTurnstile} />
               {problem && (
                 <p role="alert" className="text-supporting text-error">
                   {t(`problems.${problem}`)}

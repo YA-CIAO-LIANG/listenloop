@@ -32,8 +32,13 @@ describe("cleaning model input (D159)", () => {
 describe("prompt injection stays data (D159)", () => {
   it("sends the learner's text only inside the user message, as JSON", async () => {
     const fetchImpl = vi.fn(
-      async (_url: string, _init: RequestInit) =>
-        new Response(JSON.stringify({ error: { code: "x" } }), { status: 400 }),
+      async (...args: [string, RequestInit]) =>
+        new Response(
+          JSON.stringify({ error: { code: "x", args: args.length } }),
+          {
+            status: 400,
+          },
+        ),
     );
     const provider = azureOpenAiLanguage(
       {

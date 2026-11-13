@@ -257,6 +257,12 @@
 - **維護頁** `/maintenance`：和 404 頁同樣的版面（metadata「503」→ h1 → 說明 → secondary「查看服務狀態 →」）。
 - **後台服務控制** `/admin/ops`：每個開關一列（左邊是名稱與 supporting、ink-muted 說明，右邊是 SegmentedControl「開啟／關閉」或「開啟／暫停」），列和列之間用 1px line 分隔；儲存前用 Dialog 確認。
 
+## 機器人檢查 `Turnstile`（D160）
+
+- Cloudflare Turnstile 的小工具，放在註冊、Beta 等候名單、檢舉、回報問題句子、意見回饋表單的送出按鈕上方；寬度跟著表單（flexible），主題跟著系統，語言跟著介面。
+- 外觀由 Cloudflare 繪製（iframe），不套用我們的 tokens；大多數人只會看到一個勾選完成的小方塊。
+- 沒有設定金鑰時完全不顯示。
+
 ## 頁尾與隱私權政策
 
 - **頁尾**（`SiteFooter`）：

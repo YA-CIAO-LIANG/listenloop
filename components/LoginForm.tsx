@@ -12,6 +12,7 @@ import {
 import { PASSWORD_MIN, passwordStrength } from "@/lib/auth/password";
 import { Button } from "./Button";
 import { SignInButton } from "./AccountMenu";
+import { Turnstile } from "./Turnstile";
 
 type Mode = "signin" | "signup" | "forgot";
 type Action = (form: FormData) => Promise<EmailAuthResult>;
@@ -122,6 +123,8 @@ export function LoginForm({
             )}
           </div>
         )}
+        {/* The bot check on sign-up (D160); off without its keys. */}
+        {mode === "signup" && <Turnstile action="signup" />}
         <Button type="submit" variant="primary" disabled={pending}>
           {pending ? t("working") : t(`submit.${mode}`)}
         </Button>

@@ -2940,3 +2940,27 @@
   - E2E：45 分鐘前登入的管理員無法改開關，登入頁顯示重新登入的說明；回應包含 CORP 標頭。
 - **Migration 回復**：`20261124000000_personal_data_retention.sql` 檔尾。
 - **要改時**：時間 `RECENT_SIGN_IN_SECONDS`；涵蓋哪些操作，在各 action 呼叫 `getRecentAdmin()`；保留期限在最新的 `prune_logs`。
+
+## D160 Cloudflare Turnstile 防機器人（2026-11-13，Joe 指定）
+
+- **為什麼**：註冊、等候名單、檢舉、回饋是機器人最常攻擊的表單（灌假帳號、塞垃圾資料）。只靠速率限制，擋不住換 IP 的攻擊。
+- **做法**：
+  - Cloudflare Turnstile（免費，不需要信用卡），套用在：
+    - Email 註冊（`signUpWithEmail`）；
+    - Beta 等候名單（`joinBetaWaitlist`，不需要帳號，最容易被灌）；
+    - 檢舉教材、回報問題句子；
+    - 意見回饋（未登入也能送）。
+  - **兩把金鑰都設定才啟用**：`NEXT_PUBLIC_TURNSTILE_SITE_KEY`（放在頁面）與 `TURNSTILE_SECRET_KEY`（只在伺服器）。沒有 site key 時元件不顯示，沒有 secret 時伺服器直接放行，所以現在的行為完全不變。
+  - 伺服器用 `verifyTurnstile()` 呼叫 siteverify，並附上訪客 IP。token 沒有、被拒或太長時，回傳 `bot` 並顯示「沒有通過機器人檢查」。
+  - **Cloudflare 連不上時放行並記錄**。理由：Cloudflare 故障時不能讓整個註冊流程停擺，速率限制仍然有效。
+  - **付費方案的等候名單不加**：它需要先登入，而且有速率限制；註冊時已經檢查過了。
+  - 元件 `Turnstile`：
+    - 用 `render=explicit` 載入 Cloudflare 的腳本，CSP 的 `strict-dynamic` 允許它；
+    - 主題跟著系統，語言跟著介面，寬度自適應；
+    - token 同時放進表單的隱藏欄位（給 FormData 送出的註冊表單）和 `onToken`。
+  - CSP 只在設定了 site key 時，才把 `https://challenges.cloudflare.com` 加進 `script-src` 與 `frame-src`。
+  - 測試的網路設定擋掉 Cloudflare 與 Discord 的網址，避免測試意外連出去。
+  - `.env.example` 補上 `CRON_SECRET`、`DISCORD_WEBHOOK_URL`（D156）與 Turnstile 的兩把金鑰。
+- **新元件**：`Turnstile`。由 Cloudflare 繪製，不使用我們的 tokens，放在送出按鈕上方。已補進 `docs/design-system.md`。
+- **測試**：`tests/turnstile.test.ts`（沒有金鑰時放行、token 要被接受、送出 IP、連不上時放行、CSP 只在設定時加入）；既有的元件測試確認 token 有傳給 action。
+- **要改時**：套用的表單在各 action 呼叫 `verifyTurnstile`；連不上時的行為在 `auth/turnstile.ts`。

@@ -9,6 +9,9 @@ const PAID_HOSTS = [
   /\.cognitiveservices\.azure\.com$/,
   /\.speech\.microsoft\.com$/,
   /(^|\.)googleapis\.com$/,
+  // Not paid, but never from tests either (D160).
+  /^challenges\.cloudflare\.com$/,
+  /(^|\.)discord(app)?\.com$/,
 ];
 
 export function isPaidApiUrl(url: string): boolean {

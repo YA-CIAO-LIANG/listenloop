@@ -1153,7 +1153,8 @@
       "not-found": "This practice is no longer public, or it's your own.",
       "already": "You've already reported this practice; an admin is reviewing it.",
       "limit": "You've reached today's report limit; please try again tomorrow.",
-      "failed": "Couldn't send the report. Please try again later."
+      "failed": "Couldn't send the report. Please try again later.",
+      "bot": "The bot check didn't pass. Wait for the check on the page to finish, or reload and try again."
     }
   },
   "moderation": {
@@ -2385,7 +2386,8 @@
     "errors": {
       "invalid": "Choose a type and write a message (up to 2,000 characters).",
       "limit": "You’ve sent a lot of feedback today; try again tomorrow.",
-      "failed": "It didn’t send; try again later."
+      "failed": "It didn’t send; try again later.",
+      "bot": "The bot check didn't pass. Wait for the check on the page to finish, or reload and try again."
     }
   },
   "usageNotice": {
@@ -2871,7 +2873,8 @@
       "long": "That password is too long.",
       "common": "That password is too common. Pick another.",
       "emailPassword": "Don’t use your email’s name in the password.",
-      "full": "The Beta is full for now, so new accounts can't be made."
+      "full": "The Beta is full for now, so new accounts can't be made.",
+      "bot": "The bot check didn't pass. Wait for the check on the page to finish, or reload and try again."
     },
     "resetTitle": "Set a new password",
     "resetFor": "Set a new password for {email}.",
@@ -3181,7 +3184,8 @@
       "signedOut": "Please sign in first.",
       "invalid": "Something's off with the report; please choose again.",
       "busy": "Too many reports; please try later.",
-      "failed": "That didn't go through; please try again."
+      "failed": "That didn't go through; please try again.",
+      "bot": "The bot check didn't pass. Wait for the check on the page to finish, or reload and try again."
     },
     "fixedTitle": "Your reports were fixed",
     "fixedLine": "{title}, sentence {n} ({kind})",
@@ -3402,7 +3406,8 @@
         "invalid": "Enter a valid email; the purpose can be up to 500 characters.",
         "busy": "Too many tries. Please try again later.",
         "unavailable": "Joining isn't available right now. Please try again later.",
-        "failed": "That didn't work. Please try again later."
+        "failed": "That didn't work. Please try again later.",
+        "bot": "The bot check didn't pass. Wait for the check on the page to finish, or reload and try again."
       }
     }
   },

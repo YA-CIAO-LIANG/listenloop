@@ -5,6 +5,7 @@ import { useId, useState } from "react";
 import { joinBetaWaitlist, type BetaWaitlistResult } from "@/app/beta/actions";
 import { PURPOSE_MAX } from "@/lib/beta";
 import { Button } from "./Button";
+import { Turnstile } from "./Turnstile";
 
 const fieldClassName =
   "block w-full rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent";
@@ -22,15 +23,18 @@ export function BetaWaitlistForm({
   const [purpose, setPurpose] = useState("");
   const [pending, setPending] = useState(false);
   const [result, setResult] = useState<BetaWaitlistResult | null>(null);
+  const [turnstile, setTurnstile] = useState("");
 
   async function submit(event: React.FormEvent) {
     event.preventDefault();
     setPending(true);
     setResult(
-      await join({ email, purpose }).catch((): BetaWaitlistResult => ({
-        ok: false,
-        reason: "failed",
-      })),
+      await join({ email, purpose, turnstile }).catch(
+        (): BetaWaitlistResult => ({
+          ok: false,
+          reason: "failed",
+        }),
+      ),
     );
     setPending(false);
   }
@@ -78,6 +82,7 @@ export function BetaWaitlistForm({
           className={`${fieldClassName} resize-y`}
         />
       </div>
+      <Turnstile action="beta-waitlist" onToken={setTurnstile} />
       <Button type="submit" variant="primary" disabled={pending}>
         {pending ? t("joining") : t("join")}
       </Button>
