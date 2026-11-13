@@ -159,7 +159,7 @@
     "startNext": "Start week {week}",
     "nextTomorrow": "Week {week} starts tomorrow",
     "canStartNext": "Week {week} can start",
-    "chooseNext": "Choose the next video",
+    "chooseNext": "Choose the next material",
     "compareTitle": "Sentence by sentence",
     "sentenceCompare": "Day 1 {day1} → Day 7 {day7}",
     "improvedSr": " (improved)",
@@ -812,7 +812,7 @@
   },
   "create": {
     "title": "Create a practice",
-    "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice. The free plan makes 2 minutes a week.",
+    "intro": "Upload a Chinese or English text file, or have AI write English text for a scenario. It's split into sentences and translated; review it, then create your own practice.",
     "textLabel": "Text",
     "textHint": "Paste it here or choose a .txt file. Each line is split separately.",
     "chooseFile": "Choose a .txt file",
