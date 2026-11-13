@@ -1,5 +1,192 @@
 # 開發路線圖
 
+## 進度報告（2026-11-13）：上線前衝刺
+
+> **⚠️ 提醒 Joe**：驗證 yaciaol2@illinois.edu 信箱，並申請 GitHub Student Developer Pack（https://education.github.com/pack），通過後重新開啟 listenloop 的分支保護（Settings → Branches → main：必須透過 PR、必須通過 `check`）。
+
+這次照順序做完全部 8 大項。每項都開 PR，本機五項檢查、E2E 和 CI 都通過才合併，共 13 個 PR。用了 4 個背景代理平行開發（SEO、主題、Word 行銷檔、AI 模擬使用者測試），每個代理在自己的 worktree、用自己的 E2E 埠號。**沒有呼叫任何付費 API**。
+
+### 1. 各項完成狀況
+
+| 項目                     | 內容                                                                                                                                                                                                                                                 | PR                                                                                                                         | 決策       |
+| ------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| 一、repo 改私人前的準備  | E2E 埠號可設定（平行開發用）；UptimeRobot＋網站自己每 15 分鐘監控，Actions 改成每 6 小時備援；Semgrep 取代 CodeQL；合併到 main 不再跑 CI、Dependabot 改每月、`CI_LITE` 開關、`npm run actions:usage`；CLAUDE.md 寫明「沒有分支保護仍必須等 CI 通過」 | [#214](https://github.com/YA-CIAO-LIANG/listenloop/pull/214)、[#215](https://github.com/YA-CIAO-LIANG/listenloop/pull/215) | D163       |
+| 一、作品集 repo          | 公開的 `listenloop-showcase`：README（中英）、架構圖、技術選型、AI 開發流程、品質與 eval、成本控制、截圖、個案研究（中英）；不含程式碼與內部文件                                                                                                     | （另一個 repo）                                                                                                            | —          |
+| 一、改為私人             | 已用 `gh` 改成私人，CI、部署、Dependabot、排程都確認過（第 2 節）                                                                                                                                                                                    | —                                                                                                                          | D163       |
+| 二 A、AI 模擬使用者測試  | 新增 3 個角色（共 10 個）；4 種身分 × iPhone 15、Pixel 7、筆電，走完 12 個完整流程；3 輪；修正 7 個嚴重度 2                                                                                                                                          | [#226](https://github.com/YA-CIAO-LIANG/listenloop/pull/226)、[#228](https://github.com/YA-CIAO-LIANG/listenloop/pull/228) | D170、D172 |
+| 二 B、真人 Beta 測試準備 | `docs/beta-test-plan.md`、`docs/beta-tester-guide.md`、第 3 天與第 14 天的訪談；後台「Beta 測試」頁                                                                                                                                                  | [#221](https://github.com/YA-CIAO-LIANG/listenloop/pull/221)                                                               | D165       |
+| 三、佈景主題精緻化       | 19 個主題各自是整套搭配（背景、卡片樣式：純色／紙張／毛玻璃、強調色、線條、陰影），淺色與深色都通過 WCAG AA（38 組自動測試）；切換淡入（尊重減少動態）；設定頁改成即時縮圖卡片，6 個推薦主題在前、其餘依風格分組                                     | [#219](https://github.com/YA-CIAO-LIANG/listenloop/pull/219)                                                               | D166       |
+| 四、SEO                  | sitemap、robots；每頁獨特標題、描述、canonical、zh-Hant／en hreflang（`?hl=en`）；每個主題頁與教材頁的分享圖片；JSON-LD（WebApplication、LearningResource、FAQPage、BreadcrumbList、BlogPosting）；關鍵字表；5 篇新文章與雙向內部連結；`/faq`        | [#220](https://github.com/YA-CIAO-LIANG/listenloop/pull/220)                                                               | D167       |
+| 五、行銷素材 Word 檔     | 9 個 .docx（第 6 節），用程式產生                                                                                                                                                                                                                    | [#218](https://github.com/YA-CIAO-LIANG/listenloop/pull/218)                                                               | D168       |
+| 六、上線前檢查與修正     | `docs/launch-checklist.md`；首頁「免費試聽寫第一句」；法律文件與功能一致；第 7 天滿意度調查與後台統計                                                                                                                                                | [#222](https://github.com/YA-CIAO-LIANG/listenloop/pull/222)、[#217](https://github.com/YA-CIAO-LIANG/listenloop/pull/217) | D169、D164 |
+| 七、作品集同步           | `docs/portfolio` 個案研究（中英）與 `docs/ai-dev-log.md` 的數據；同步到 showcase                                                                                                                                                                     | 這個 PR                                                                                                                    | —          |
+| 八 1、無障礙             | 26 頁的 axe、頁面結構（main、h1、標題層級、lang）、只用鍵盤完成第一句：全部通過                                                                                                                                                                      | [#224](https://github.com/YA-CIAO-LIANG/listenloop/pull/224)                                                               | D171       |
+| 八 2、效能               | 正式站手機 Lighthouse：10 個主要頁面效能 96～100                                                                                                                                                                                                     | —                                                                                                                          | —          |
+| 八 3、手冊               | 使用者手冊、管理員手冊（中英文）依這次修改更新                                                                                                                                                                                                       | [#225](https://github.com/YA-CIAO-LIANG/listenloop/pull/225)                                                               | —          |
+| QA 掃描                  | 第 59 輪修正 1 個點擊範圍；第 60 輪只剩已知假警報                                                                                                                                                                                                    | [#227](https://github.com/YA-CIAO-LIANG/listenloop/pull/227)                                                               | —          |
+
+- 資料庫：新增 3 個 migration（`ops_runs`、`week_surveys`、`beta_tester_activity`），都只有新增，已套用。
+- 測試：單元約 2,030 項、E2E 179 項（這次新增 20 項），全部通過；AI eval 維持 96.31（沒改提示詞）。
+
+### 2. repo 私人、GitHub 方案、Actions 分鐘數
+
+- **listenloop 已改為私人**（2026-11-13）。
+- **GitHub 方案：Free（沒有 Pro）**。`gh` 的權杖讀不到方案名稱；切換後分支保護 API 回「Upgrade to GitHub Pro or make this repository public」，確認是 Free。**main 的分支保護已失效**；CLAUDE.md 已寫明仍必須等 CI 通過才合併，這次之後的 PR 都照做。
+- 切換後確認：
+  - CI、Semgrep 正常執行，PR 照常有 Vercel 預覽，正式站照常部署。
+  - Dependabot 的安全性警示切換後被關掉，已重新開啟；版本更新照常。
+  - 監控排程手動執行成功；網站自己每 15 分鐘的監控在正式站正常寫入。
+  - 備份排程等你設定 secrets（沒有密碼不會上傳任何東西）。
+- **Actions 分鐘數**（私人 repo 每月免費 2,000 分鐘）：
+  - 11 月 1～13 日實測 1,356 分鐘，照這個速度一個月約 3,300 分鐘，因為衝刺期每天合併十幾個 PR。
+  - 改完之後的估計：
+    - 一般月份（約 100 個 PR）約 **770 分鐘**；
+    - 衝刺月份（約 400 個 PR）約 2,540 分鐘，要把 repo 變數 `CI_LITE` 設成 `on`（PR 不跑 E2E，本機仍必須跑）。
+  - 月中用 `npm run actions:usage` 查看。細節在 `docs/github-private.md`。
+
+### 3. 作品集 repo
+
+**https://github.com/YA-CIAO-LIANG/listenloop-showcase**（公開）
+
+- 只有 README（中英）、截圖 12 張、個案研究（中英）、LICENSE（保留所有權利）。
+- 已拿掉內部細節：各身分的 AI 費用上限金額、容量數字、原始碼連結。
+- commit 用 GitHub 的 noreply 信箱，沒有露出你的 email。
+- 創辦人一律寫「Joe」；要改名字或身分，改 README 和個案研究即可。
+
+### 4. AI 模擬使用者測試（`docs/usability-ai-test.md`）
+
+| 輪次                    | 完成的流程                          | 嚴重度 3～4 | 嚴重度 2 | axe／超出螢幕／點擊目標太小 |
+| ----------------------- | ----------------------------------- | ----------- | -------- | --------------------------- |
+| 第 1 輪                 | 34／39（沒完成的 5 個都是腳本問題） | 0           | 7        | 0／0／0                     |
+| 第 2 輪                 | 39／39                              | 0           | 0        | 0／0／0                     |
+| 第 3 輪（最終程式確認） | 39／39                              | 0           | 0        | 0／0／0                     |
+
+- **最嚴重的問題**（都是嚴重度 2，已修正）：
+  - 手機首頁第一屏沒有下一步。上線檢查也獨立發現同一個問題，改成「免費試聽寫第一句」。
+  - 官方教材頁標示成「公開練習」，返回連結指錯地方。
+  - 登入後，給訪客的介紹把今日任務往下擠。
+  - 第 1 天結果有兩個主要按鈕。
+  - 手機不支援語音辨識時，說明要人「改用電腦版」。
+  - 額度用完後沒有下一步，重設時間也沒用當地時區顯示。
+  - Plus 的說明沒寫「可以練公開教材」。
+- **模擬 SUS**：73.5 → 77.5。這是模擬的分數，不是真人填的。
+- **已修正的嚴重度 1**：建立頁重複顯示額度說明、管理員看到免費方案的文字、「選下一支影片」改成「選下一份教材」。
+- **待你決定**：
+  1. 免費帳號每個練習頁都有「播放速度是 Plus 功能」的提示，要不要改成只顯示一次？
+  2. 第 7 天結果頁有 4 個主要按鈕，要不要只留「選下一份教材」？
+  3. 額度要不要改成在使用者所在時區的午夜重設？目前是台灣時間，只有顯示改成當地時間。
+  4. 字放大 200% 時，大標會斷行，需要在真機上確認。
+
+### 5. 真人 Beta 測試
+
+- 測試計畫：`docs/beta-test-plan.md`。
+  - 目標與指標：完成第 1 天、完成 7 天、留存、NPS、最常卡住的地方。
+  - 招募 15 人：學生 8、上班族 4、老師 3。
+  - 為期 2 週，含任務清單、第 3 天與第 14 天的訪談題目、回饋蒐集方式、隱私。
+- 測試者須知：`docs/beta-tester-guide.md`，可以直接傳給測試者。Word 版在 `marketing/word/08-Beta招募文案.docx`。
+- 後台「Beta 測試」頁：https://listenloop-three.vercel.app/admin/beta-test
+  - 每位測試者的進度與最後練習時間；
+  - 需要追蹤的人；
+  - 訪談時機；
+  - 測試者的滿意度調查與意見回饋。
+- 每一梯在「註冊與邀請」產生一個邀請連結，備註寫梯次名稱，就能在 Beta 測試頁篩選這一梯。
+
+### 6. Word 檔（`marketing/word/`，用 `npm run marketing:docx` 重新產生）
+
+| 檔案                          | 內容                                                                        |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `01-品牌指南.docx`            | 定位、目標使用者、一句話介紹、主標語、語氣與用字、配色與字型、Logo 使用方式 |
+| `02-上線行銷計畫.docx`        | 上線前要完成的事、第 0～4 週每週的工作、各管道做法、目標與追蹤數據          |
+| `03-社群貼文.docx`            | 30 則 IG／Threads 貼文（文案、建議圖片、hashtag），第 1～30 天的排程        |
+| `04-短影音腳本.docx`          | 10 支 30～60 秒腳本（開頭吸睛句、分鏡、字幕、行動呼籲）                     |
+| `05-論壇與社群分享文.docx`    | Dcard、PTT、Facebook 社團各 2 篇，加上各平台的發文規範                      |
+| `06-合作邀請信.docx`          | 補習班、家教老師、大學英文社團、海外台灣同學會、英文學習 KOL，中英文        |
+| `07-媒體資料包.docx`          | 產品簡介、創辦人介紹（範本，請修改）、截圖清單、常見問答                    |
+| `08-Beta招募文案.docx`        | 招募 50 位測試者的貼文、私訊範本、測試者須知                                |
+| `09-Google-Play商店資料.docx` | 中英文的簡短說明、完整說明、ASO 關鍵字（會自動檢查字數上限）                |
+
+- 黃底〔〕的部分要你填：分數、目標數字、創辦人介紹、聯絡方式。
+- 目錄頁碼如果不準，在 Word 裡右鍵按「更新功能變數」。
+- 這台電腦沒有 Word 或 LibreOffice，請你打開一次，確認字型顯示正常。
+
+### 7. 上線前檢查清單（`docs/launch-checklist.md`）
+
+| 類別 | 結果                                                                                                                                                      |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 功能 | ✅ 全部通過。修正：首頁到完成第一句，從約 6 個動作減到 3 個                                                                                               |
+| 資安 | ✅ 標頭、金鑰、掃描、RLS 都通過；⚠️ 兩步驟驗證、Turnstile 金鑰要你設定                                                                                    |
+| 法律 | ✅ 已修正：隱私權政策補上推播、滿意度調查、IP 雜湊、Turnstile、加密備份與保存期限；條款的「價格調整通知」方式改正。⚠️ 正式收費前，付款紀錄要改成保留 5 年 |
+| 內容 | ❌ **考試類 4 種（TOEFL、IELTS、TOEIC、全民英檢）各只有 1 份官方教材**，其餘 18 個類別都有 2～4 份。⚠️ Blender 影片只有 Sintel 已發布                     |
+| 效能 | ✅ 手機版效能 96～100                                                                                                                                     |
+| 監控 | ✅ 健康檢查與自我監控已運作；⚠️ UptimeRobot、Discord 要你設定                                                                                             |
+| 備份 | ✅ 工作流程與還原演練已完成；⚠️ 要你設定 secrets 才會開始每日備份                                                                                         |
+| 客服 | ✅ 回饋、狀態頁、事故手冊都已就緒；⚠️ 建議另開一個客服信箱                                                                                                |
+
+### 8. 需要你親手做的事
+
+1. **GitHub Student Developer Pack**（見最上方提醒）：通過後重新開啟 main 的分支保護。
+2. **GitHub 預算**：Settings → Billing and plans → Budgets and alerts，把 Actions 預算設為 US$0，並開啟 75%、90% 的提醒。
+3. **UptimeRobot**（約 10 分鐘，步驟見 `docs/uptime-monitoring.md`）：
+   1. 註冊免費帳號，開啟兩步驟驗證。
+   2. Integrations → Discord，貼上 webhook。
+   3. 新增 Keyword 監控：網址 `https://listenloop-three.vercel.app/api/health`，關鍵字 `"status":"ok"`，條件選 Keyword does not exist，每 5 分鐘一次。
+   4. 按 Test notification 確認收得到。
+4. **Discord 與 `DISCORD_WEBHOOK_URL`**：建立頻道與 webhook，把網址設定在 Vercel（Production）和 GitHub secrets。
+5. **`CRON_SECRET`**：產生 40 字元以上的亂數，Vercel 和 GitHub secrets 設同一個值。
+6. **每日加密備份**：
+   1. 先產生一組密碼並存進密碼管理器。
+   2. 在 GitHub secrets 設定 `SUPABASE_DB_URL`（Supavisor session 連線字串）與 `BACKUP_PASSPHRASE`。
+   3. 在 GitHub variables 設定 `BACKUP_SCHEDULE=on`。
+   4. 到 Actions 的「Database backup」按 Run workflow 試跑一次。
+7. **Google Search Console**（`docs/seo.md`）：
+   1. 新增「網址前置字元」資源 `https://listenloop-three.vercel.app`，驗證方式選 HTML 標記。
+   2. 把 content 的值設成 Vercel 的 `GOOGLE_SITE_VERIFICATION`，重新部署。
+   3. 按驗證，再到 Sitemap 提交 `sitemap.xml`。
+8. **Bing Webmaster Tools**：從 Search Console 匯入，或設定 `BING_SITE_VERIFICATION` 後重新部署；之後提交 sitemap。
+9. **自己的網域**（建議上線前就決定）：
+   - 好處：品牌與信任感、SEO 累積在自己的網域、之後換主機不影響搜尋排名。
+   - 換網域要注意（步驟在 `docs/seo.md`）：
+     - 舊網址逐頁 301 轉址；
+     - 改 `NEXT_PUBLIC_SITE_URL`；
+     - Supabase 的 Site URL 與 redirect URLs；
+     - Google OAuth 的來源與同意畫面連結、LINE callback；
+     - Search Console 的「網址變更」；
+     - UptimeRobot 的監控網址。
+10. **兩步驟驗證**：Google、GitHub、Vercel、Supabase、Azure、Cloudflare、UptimeRobot 全部開啟。
+11. **Turnstile**：在 Cloudflare 申請免費金鑰，設定 `NEXT_PUBLIC_TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET_KEY` 後重新部署。
+12. **補考試類官方教材**：TOEFL、IELTS、TOEIC、全民英檢各補 2 份，共 8 份，AI 費用約 US$0.10～0.15。**同意後我再執行。**
+13. **Beta 測試**：
+    1. 在「註冊與邀請」產生第一梯的邀請連結。
+    2. 用 Word 的招募文案招募 15 人。
+    3. 把 `docs/beta-tester-guide.md` 傳給測試者。
+14. **其他要你決定或處理的**：
+    - 第 4 節的 4 個問題；
+    - 客服信箱；
+    - Word 檔的〔〕；
+    - Dependabot 的 PR：#223（小版本）CI 通過後可以合併；#203～#208 照上次的建議。
+15. **正式站的測試重點**：
+    - 未登入時，首頁有「免費試聽寫第一句」，點下去會直接開始聽寫；
+    - 帳號頁的主題卡片，淺色與深色都看一次；
+    - 完成一份教材的第 7 天後填滿意度調查，再到後台「意見回饋」查看；
+    - 後台「Beta 測試」頁；
+    - `/faq`；
+    - 在網址後面加 `?hl=en`，會看到英文頁面。
+
+### 9. 上線後值得做的 10 個功能（依影響 ÷ 成本排序，不實作）
+
+| #   | 功能                                                                                    | 影響                            | 成本                   | 為什麼                                                              |
+| --- | --------------------------------------------------------------------------------------- | ------------------------------- | ---------------------- | ------------------------------------------------------------------- |
+| 1   | **完成一週後自動推薦下一份**：依這週的錯字、程度與類別，在第 7 天結果頁直接給「下一份」 | 高（留存）                      | 低                     | 第 7 天是最容易流失的時刻；現在只有「選下一份」連到首頁             |
+| 2   | **補齊考試類官方教材**：TOEFL、IELTS、TOEIC、全民英檢各補到 3～5 份，並做成「考試路線」 | 高（SEO＋目標使用者）           | 低（AI 約 US$0.2）     | 考試是台灣學生最常搜尋的需求，目前各只有 1 份                       |
+| 3   | **自訂網域**                                                                            | 中高（SEO、信任感、OAuth 審查） | 低（每年約 US$10～15） | 換網域越晚越麻煩；見 `docs/seo.md`                                  |
+| 4   | **LINE 官方帳號提醒**：每日練習提醒與週報改用 LINE（台灣使用者的主要通訊工具）          | 高（留存）                      | 中                     | 推播通知在 iPhone 要先加到主畫面，LINE 觸及率高很多                 |
+| 5   | **錯字複習的間隔重複提醒**：到期的字在首頁與提醒中出現                                  | 中                              | 低                     | 已有 `review` 資料與到期日，只缺提醒入口                            |
+| 6   | **邀請好友**：分享卡附邀請連結，雙方各得額外分鐘數                                      | 中（成長）                      | 低～中                 | `docs/marketing/referral-program.md` 已規劃；分享卡已存在           |
+| 7   | **跟讀發音評分**（Azure Pronunciation Assessment，付費方案）                            | 高（差異化）                    | 中（每次呼叫有費用）   | 目前只判斷「有沒有念到」，學生想知道「念得準不準」                  |
+| 8   | **老師儀表板**：班級每位學生的 7 天進度、常錯的字、一鍵指派教材                         | 中（B2B 收入）                  | 中                     | 補習班老師是重要的付費管道（P10 角色）                              |
+| 9   | **正式金流與電子發票**（綠界或 Stripe＋發票）                                           | 高（收入）                      | 高                     | 假門測試與等候名單驗證需求後再做；要先處理付款紀錄的法定保存        |
+| 10  | **Google Play 上架（TWA）**                                                             | 中                              | 中                     | `docs/twa.md` 已準備；商店資料已有 Word 檔；需要開發者帳號（US$25） |
+
 ## 進度報告（2026-11-13 晚）：危機預防、資安、使用者額度、成本
 
 8 項依序完成，每項一個 PR。每個 PR 都在本機五項檢查、build、E2E 與 CI 通過後才合併；新的 CodeQL、gitleaks、ZAP 也在之後的每個 PR 執行。這次沒有呼叫任何付費 API。
@@ -1087,6 +1274,16 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.listenloop.auto-cont
 ## 需要 Joe 操作的事（一次整理）
 
 一律在自己的瀏覽器或終端機操作。**秘密金鑰不要貼進對話**，直接填到 Vercel 和 `.env.local`。
+
+### 0000000. 2026-11-13 新增（上線前衝刺，D163～D172）
+
+1. **GitHub Student Developer Pack**：驗證 yaciaol2@illinois.edu，申請 https://education.github.com/pack；通過後重新開啟 main 的分支保護（必須通過 `check`）。
+2. **GitHub Actions 預算**：Billing and plans → Budgets and alerts，Actions 設 US$0，開 75%、90% 提醒。
+3. **UptimeRobot**：`docs/uptime-monitoring.md`（Keyword 監控 `/api/health`、通知 Discord）。
+4. **考試類官方教材**：TOEFL、IELTS、TOEIC、全民英檢各補 2 份（約 US$0.10～0.15），同意後我執行。
+5. **Beta 測試**：產生第一梯邀請連結，招募 15 人，傳 `docs/beta-tester-guide.md`。
+6. **Word 行銷檔**：填上〔〕的部分，在 Word 確認字型。
+7. **決定**：播放速度提示的頻率、第 7 天結果頁的主要按鈕、額度依當地時區重設（`docs/usability-ai-test.md` 的「需要 Joe 決定的事」）。
 
 ### 000000. 2026-11-13 新增（D167 SEO）
 
