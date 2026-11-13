@@ -125,7 +125,7 @@ test("a topic page links to its articles and has breadcrumbs", async ({
 test("robots.txt and the sitemap", async ({ request }) => {
   const robots = await (await request.get("/robots.txt")).text();
   expect(robots).toContain("Disallow: /admin");
-  expect(robots).toContain("Disallow: /videos/*/day/");
+  expect(robots).toContain("Disallow: /videos/*/day");
   expect(robots).toMatch(/Sitemap: .*\/sitemap\.xml/);
   const sitemap = await (await request.get("/sitemap.xml")).text();
   expect(sitemap).toContain("/faq</loc>");

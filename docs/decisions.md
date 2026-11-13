@@ -3116,7 +3116,7 @@
   - `GOOGLE_SITE_VERIFICATION`、`BING_SITE_VERIFICATION` 有設定時才輸出驗證 meta（`siteVerification`），步驟見 `docs/seo.md`。
 - **sitemap 與 robots**：
   - sitemap 列出公開頁、主題頁、文章、內建影片與**官方教材**（從教材庫同一份快取讀，每小時重產），每個網址附語言對應；文章只列中文。
-  - robots 另外擋下 `/api/`、`/payments/`、`/checkout`、`/classroom`、`/maintenance`，以及教材的練習步驟（`/videos/*/day/`、`handout`、`listen`、`quiz`、`timing`）：搜尋結果應該落在教材頁，不是第幾天的練習頁。登入頁維持「noindex＋可爬」，讓搜尋引擎看得到 noindex。
+  - robots 另外擋下 `/api`、`/payments`、`/checkout`、`/classroom`、`/maintenance`，以及教材的練習步驟（`/videos/*/day`、`handout`、`listen`、`quiz`、`timing`）：搜尋結果應該落在教材頁，不是第幾天的練習頁。登入頁維持「noindex＋可爬」，讓搜尋引擎看得到 noindex。
 - **不在建置時讀教材庫**：sitemap 改成每次請求產生（`force-dynamic`），文章頁拿掉 `generateStaticParams`（這頁本來就因為 cookie 而是動態的），主題頁的分享圖片也不在建置時產生。原因：建置時預先產生這些頁會呼叫教材庫，但建置環境沒有資料庫，讀到的空清單會被快取 5 分鐘，啟動後首頁、主題頁短時間看不到官方教材（E2E 抓到）。教材庫本身仍有 5 分鐘快取，sitemap 不會增加資料庫負擔。
 - **分享圖片**：`app/learn/[category]/opengraph-image.tsx` 與 `app/videos/[id]/opengraph-image.tsx`。共用 `components/ShareImage.tsx`，配色同網站分享圖；圖片內建字型沒有中文，所以只放英文（`ogText` 去掉其他字元，也避免執行時去下載字型）。教材圖片只查公開教材庫，查不到（個人或分享的練習）就用通用文字，不會把私人標題畫進圖片。
 - **結構化資料（JSON-LD）**（`lib/structured-data.ts`、`components/JsonLd.tsx`）：

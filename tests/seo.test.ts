@@ -196,7 +196,7 @@ describe("sitemap and robots (D167)", () => {
     const rules = robots();
     expect(rules.sitemap).toBe(`${SITE_URL}/sitemap.xml`);
     const disallow = [rules.rules].flat()[0]?.disallow;
-    for (const path of ["/admin", "/account", "/api/", "/videos/*/day/"]) {
+    for (const path of ["/admin", "/account", "/api", "/videos/*/day"]) {
       expect(disallow).toContain(path);
     }
     // Public pages stay crawlable.
