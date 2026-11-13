@@ -70,6 +70,8 @@ export default defineConfig({
         // Switches read fresh on every request (D155): the ops tests
         // flip them and look at once.
         SITE_SWITCHES_TTL_MS: "0",
+        // The health check doesn't start the monitor here (D163).
+        SELF_MONITOR: "off",
       },
       reuseExistingServer: !process.env.CI,
       timeout: 60_000,

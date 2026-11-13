@@ -3032,3 +3032,23 @@
 - **測試**：`tests/abuse-queue.test.ts`（每條規則、管理員除外、資料庫回應的解析、排隊順序、與 SQL 一致）；`tests/queue.test.ts`（各方案的優先度）；E2E：後台濫用標記頁。
 - **Migration**：`20261126000000_abuse_and_queue.sql`（只有新增；`queue_position`、`prune_logs` 用新版本取代，檔尾附回復方式）。
 - **要改時**：門檻在 `lib/ops/abuse.ts` 的 `ABUSE`；排隊的提前秒數在 `lib/queue.ts` 的 `headStartSeconds`，資料庫函式也要一起改。
+
+## D163 repo 改私人前的準備：外部監控、Semgrep、Actions 分鐘數（2026-11-13，Joe 指定）
+
+- **為什麼**：Joe 要把 repo 改成私人。私人 repo 在 GitHub Free 只有每月 2,000 分鐘 Actions、沒有分支保護、CodeQL 與 secret scanning 要付費。原本每 15 分鐘的監控排程一個月就要約 2,900 分鐘；11 月實測 CI 照目前速度一個月約 3,300 分鐘。
+- **帳號方案**：`gh` 的權杖沒有 `user` 權限，讀不到方案名稱（`plan: null`）。依 Joe 要申請 Student Developer Pack 判斷是 **GitHub Free**；切換後以分支保護 API 的回應確認。
+- **做法**：
+  - **監控**：UptimeRobot（免費、每 5 分鐘）讀 `/api/health`，異常時通知 Discord；`/api/health` 回應後用 `after()` 嘗試跑完整監控，由資料庫函式 `claim_ops_run` 搶鎖，**最多 15 分鐘一次**（再多人讀也一樣），每天台灣 03:00 後做一次每日清理。GitHub Actions 改成每 6 小時一次當備援。
+    - 不讓 UptimeRobot 直接呼叫 `/api/cron/monitor`：那需要把 `CRON_SECRET` 交給第三方，且免費方案不能自訂標頭。
+    - E2E 用 `SELF_MONITOR=off` 關掉。
+  - **Semgrep** 取代 CodeQL：開源引擎、社群規則（p/javascript、p/typescript、p/react、p/nextjs、p/secrets），不需要帳號、不上傳程式碼；固定版本 1.185.0。gitleaks 不變。
+  - **CI**：合併到 main 不再跑（PR 已跑過同一份程式）；每週三一次完整 CI（含 gitleaks 掃完整歷史）。repo 變數 `CI_LITE=on` 時 PR 不跑 E2E（分鐘數快用完時的開關；本機仍必須跑 E2E）。
+  - **Dependabot** 改每月（安全性更新仍立即）。
+  - `npm run actions:usage`：依每個 job 進位統計本月分鐘數與月底推估。
+  - **E2E 埠號**（PR #214）：`E2E_PORT`、`MOCK_SUPABASE_PORT`，讓多個工作目錄同時跑 E2E。
+  - CLAUDE.md 寫明：沒有分支保護時，仍必須等 CI 通過才合併。
+- **估算**：一般月份（約 100 個 PR）約 770 分鐘；衝刺月份（約 400 個 PR）約 2,540 分鐘，要開 `CI_LITE`。細節見 `docs/github-private.md`。
+- **Vercel**：repo 在個人帳號下，Vercel Hobby 可以連動私人 repo，不需改設定；切換後用一個 PR 確認預覽與正式部署。
+- **Migration**：`20261127000000_ops_runs.sql`（只有新增）。
+- **測試**：`tests/self-monitor.test.ts`、`tests/cron-routes.test.ts`（健康檢查回應後才啟動監控）。
+- **要改時**：間隔在 `lib/ops/self-monitor.ts` 的 `SELF_MONITOR`；排程在 `.github/workflows/ops.yml`、`ci.yml`、`semgrep.yml`。

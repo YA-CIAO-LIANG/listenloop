@@ -20,3 +20,6 @@ app/backgrounds.css
 evals/baseline.json
 evals/report.md
 tests/fixtures/eval/
+
+# Other checkouts (agents' git worktrees)
+.claude/worktrees

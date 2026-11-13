@@ -3,6 +3,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 /** The monitor's routes (D156): closed without the secret, no details out. */
 const state = vi.hoisted(() => ({
   runMonitor: vi.fn(async () => ({ status: "ok", alerts: 0, sent: 0 })),
+  runMonitorIfDue: vi.fn(async () => true),
+  after: [] as (() => unknown)[],
   health: {
     db: "ok",
     storage: "ok",
@@ -16,6 +18,13 @@ vi.mock("@/auth/admin", () => ({ getAdminSupabase: () => ({}) }));
 vi.mock("@/auth/ops", () => ({
   runMonitor: state.runMonitor,
   runHealthChecks: async () => state.health,
+  runMonitorIfDue: state.runMonitorIfDue,
+}));
+vi.mock("next/server", async (original) => ({
+  ...(await original<typeof import("next/server")>()),
+  after: (task: () => unknown) => {
+    state.after.push(task);
+  },
 }));
 
 const SECRET = "c".repeat(40);
@@ -73,5 +82,16 @@ describe("/api/health (D156)", () => {
       status: "ok",
       checks: state.health,
     });
+  });
+
+  it("starts the monitor after answering, which decides if it's due (D163)", async () => {
+    state.after.length = 0;
+    state.runMonitorIfDue.mockClear();
+    const { GET } = await import("@/app/api/health/route");
+    await GET();
+    expect(state.runMonitorIfDue).not.toHaveBeenCalled();
+    expect(state.after).toHaveLength(1);
+    await state.after[0]();
+    expect(state.runMonitorIfDue).toHaveBeenCalledWith(expect.any(Date));
   });
 });

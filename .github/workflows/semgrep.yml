@@ -1,0 +1,38 @@
+name: Semgrep
+
+# Static analysis for security bugs (D163), replacing CodeQL, which isn't
+# free for private repositories. Semgrep's open-source engine with the
+# community rule sets (JavaScript, TypeScript, React, Next.js, secrets),
+# no account and no upload: findings print in the log and fail the run.
+# On pull requests that change code, weekly for new rules, and by hand.
+# Keys in commits are checked separately by gitleaks in CI (D158).
+on:
+  pull_request:
+    paths-ignore: ["**/*.md", "docs/**"]
+  schedule:
+    - cron: "17 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: semgrep-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Semgrep (pinned)
+        run: pipx install semgrep==1.185.0
+
+      - name: Scan
+        run: |
+          semgrep scan --metrics=off --error \
+            --config p/javascript --config p/typescript --config p/react \
+            --config p/nextjs --config p/secrets \
+            --exclude node_modules --exclude .next --exclude tests/fixtures

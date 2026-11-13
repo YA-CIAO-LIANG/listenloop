@@ -2,8 +2,11 @@ name: CI
 
 on:
   pull_request:
-  push:
-    branches: [main]
+  # Not on every merge to main any more (D163, private repo minutes): the
+  # pull request ran the same checks on the same code. A full run on main
+  # once a week, and by hand, catches anything two merges broke together.
+  schedule:
+    - cron: "23 2 * * 3"
   workflow_dispatch:
 
 # Cancel an in-progress run when a newer commit is pushed to the same branch/PR.
@@ -19,8 +22,8 @@ permissions:
 # - docs only (docs/, *.md): the format check;
 # - code on a pull request: lint, types, unit tests (in parallel), then
 #   the production build and the end-to-end tests;
-# - code merged to main: lint, types, unit tests (the pull request ran
-#   the end-to-end tests on the same code); run by hand for everything.
+# - weekly on main, and by hand: everything (D163; merges to main no
+#   longer run CI, to save the private repo's minutes).
 jobs:
   check:
     name: check
@@ -36,6 +39,7 @@ jobs:
         env:
           EVENT: ${{ github.event_name }}
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          CI_LITE: ${{ vars.CI_LITE }}
         run: |
           if [ "$EVENT" = "workflow_dispatch" ] || [ -z "$BASE" ] || \
              ! git cat-file -e "$BASE^{commit}" 2>/dev/null; then
@@ -51,6 +55,10 @@ jobs:
           fi
           e2e=false
           if [ "$code" = true ] && [ "$EVENT" != "push" ]; then e2e=true; fi
+          # Repo variable CI_LITE=on skips the end-to-end tests on pull
+          # requests when the month's free minutes run low (D163); they
+          # must still pass locally before pushing (CLAUDE.md).
+          if [ "$EVENT" = "pull_request" ] && [ "$CI_LITE" = "on" ]; then e2e=false; fi
           echo "code=$code" >> "$GITHUB_OUTPUT"
           echo "e2e=$e2e" >> "$GITHUB_OUTPUT"
           echo "code=$code e2e=$e2e"
