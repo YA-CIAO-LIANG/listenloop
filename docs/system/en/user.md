@@ -22,7 +22,7 @@ ListenLoop is an English listening practice site: pick one material and spend 7 
 
 ## 1. Signing up and in
 
-- **You can practice built-in videos and official materials without signing in**; your records stay on this device.
+- **You can practice built-in videos and official materials without signing in**; your records stay on this device. On a first visit, "**Try your first sentence free**" at the top of the home page opens Day 1 of an easy material; "Take the 2-minute level test" suggests a level.
 - **Signed in**, you see the practice calendar, today's tasks, progress, and stats, and your progress is kept in your account on every device. This device's earlier records join your account the first time you sign in.
 - Press "Sign in" at the top right and choose one:
   1. **Google**;
@@ -68,6 +68,7 @@ flowchart LR
 
 - One day at a time; **the next day opens tomorrow** (each material counts its own).
 - You can practice several materials at once, each with its own progress.
+- **Satisfaction survey**: when signed in, the Day 7 result asks "How likely are you to recommend ListenLoop to a friend?" (0–10) and an optional comment; once per material and week, and you can skip it.
 - **Share card**: after Day 7, the result page makes an image (Day 1 and Day 7 accuracy, the change, the title, the site address; nothing personal) to download or share.
 - After finishing a day, "Practice again" shows a score but doesn't change the official one.
 - **Pass rules** ("Pass rules" on the material's page): by default "answer every sentence on Day 1", "say 60% of each sentence when shadowing", "Day 7 better than Day 1". Plus and above can change them, for example requiring 70% in dictation.
@@ -230,7 +231,7 @@ flowchart LR
 
 ## 12. Account and privacy
 
-- **Background themes**: on the account page, change the page background (19, each with a light and a dark version) and preview any of them on the whole page first; some are free, some open with points. Animated ones (stars, rain) stand still when your device asks for reduced motion.
+- **Background themes**: on the account page, change the page background (19, each with a light and a dark version). Each theme is a full set (background, card style: solid, paper, or frosted glass, and accent colour); thumbnail cards draw the home and practice pages live, six recommended themes come first and the rest are grouped by style, and arrow keys move between them. Some are free, some open with points. With reduced motion, switching doesn't fade and animated backgrounds stand still.
 - **Practice reminders**: turn on a daily reminder on the account page and pick a time; no reminder once you have practiced that day.
 - **Account page**: sign out, download my data (JSON), delete my account (tick to confirm; permanent).
 - We keep only what's needed (progress, events, what you choose to report); no recordings.

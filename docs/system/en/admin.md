@@ -314,7 +314,9 @@ When something goes wrong, contain it first, then find the cause. The full steps
 
 ### 11.3 Monitoring and alerts (D156)
 
-- `.github/workflows/ops.yml` checks the site every 15 minutes, prunes old logs daily, and makes a usage summary every Monday morning. Setup steps: "Things to do yourself" in `docs/roadmap.md`.
+- **UptimeRobot** (free) loads `/api/health` every 5 minutes and tells Discord when the site is down; when loaded, the site itself runs the full monitor at most every 15 minutes and prunes old logs once a day after 03:00 (D163, `docs/uptime-monitoring.md`).
+- `.github/workflows/ops.yml` checks every 6 hours as the backup and makes a usage summary every Monday morning. Setup steps: "Things to do yourself" in `docs/roadmap.md`.
+- GitHub Actions has 2,000 free minutes a month (private repo): run `npm run actions:usage` mid-month for usage and a projection; if it runs low, set the repo variable `CI_LITE` to `on` (see `docs/github-private.md`).
 - Alerts are under "Alerts" on `/admin/ops`, and on Discord when a webhook is set. The same problem is sent at most once in 6 hours.
 - What raises one: the site or a health check failing, a burst of errors, an AI or speech allowance at 80% or used up, today's spend over 3× the 7-day average, Supabase at 80%, many sign-ups or reports in an hour.
 - Forecasts and weekly summaries are on `/admin/usage`.
@@ -334,6 +336,17 @@ When something goes wrong, contain it first, then find the cause. The full steps
 
 - "Abuse" lists accounts the detector found: many accounts from one IP, bursts of AI calls, near the cap for days, public materials reported by many. Some pause AI automatically.
 - "Confirm" keeps AI paused (disable the account on its user page); "Dismiss" resumes AI. Both need a recent sign-in.
+
+### 11.7 Beta test (`/admin/beta-test`, D165)
+
+- The plan is `docs/beta-test-plan.md`; the guide for testers is `docs/beta-tester-guide.md` (ready to send).
+- Make one invite link per cohort under "Sign-ups and invites" (put the cohort's name in the note); pick the cohort at the top of the "Beta test" page.
+- The page shows: overall rates (finished Day 1, finished 7 days, practised recently), **testers to follow up** (not started a day after joining, or no practice for 2+ days, longest first), each tester's progress and last practice, interview timing (day 3, day 14), and the testers' survey answers and feedback.
+- Check "follow up" daily and message those testers.
+
+### 11.8 Satisfaction survey (D164)
+
+- After Day 7, learners rate how likely they are to recommend ListenLoop (0–10) and may comment. Results are at the top of the "Feedback" page: NPS (% scoring 9–10 minus % scoring 0–6, from −100 to 100), the average, the three groups, and the latest comments.
 
 ## 12. Questions
 
