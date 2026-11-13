@@ -103,6 +103,7 @@ describe("SiteFooter", () => {
       "/privacy",
       "/credits",
       "/feedback",
+      "/status",
     ]);
   });
 });

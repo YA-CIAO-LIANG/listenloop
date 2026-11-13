@@ -2761,3 +2761,34 @@
   - 預覽頁的類別：`components/CreatePracticeForm.tsx`。
   - 自選主題的提示：`FREE_TOPIC`（`lib/custom-practice/generation.ts`）。
   - 可判斷的類別：`GUESSABLE_CATEGORIES`（`lib/categories.ts`）。
+
+## D155 緊急開關、網站公告與服務狀態頁（2026-11-13，Joe 指定）
+
+- **為什麼**：出問題時（服務中斷、被濫用、花費暴衝、不當內容），要能不改程式、不重新部署，一鍵止血；同時讓使用者知道發生什麼事。
+- **做法**：
+  - 資料表 `site_settings`（一列：`maintenance`、`read_only`、`features` jsonb）與 `site_announcements`。任何人可讀（狀態頁、proxy 用公開金鑰讀），只有伺服器（secret key）可寫。
+  - 規則在 `lib/site-switches.ts`：
+    - 維護模式：除了管理員，所有頁面改寫到 `/maintenance`（HTTP 503、`retry-after: 600`）。登入、`/auth/*`、`/status`、`/api/health`、`/api/cron/*`、隱私權、條款不受影響（`openInMaintenance`）。
+    - 唯讀模式：暫停建立教材（`getCreator()` 回 null，涵蓋所有會呼叫付費 API 的步驟，包括單字測驗出題）和全部 6 個功能。練習、瀏覽、進度同步照常。
+    - 個別功能：`aiGenerate`、`aiRevise`、`uploadAudio`、`transcribe`、`publicShare`、`signup`。
+  - 讀不到資料表時一律視為「全部開啟」：設定壞掉不能讓網站停擺。
+  - 快取：每台伺服器在記憶體快取 30 秒（`SITE_SWITCHES_TTL_MS`，E2E 設 0）。理由：proxy 在每個請求都會讀，不能每次都查資料庫；30 秒內全站生效對緊急應變已經夠快。
+  - **管理員永遠不受限**，才能在維護中檢查與修正。管理員依 `ADMIN_EMAILS` 或自己的 profile（RLS 下用使用者自己的 token 讀）判斷，只在維護模式時才查。
+  - 公開分享在資料庫也擋：`practices`、`collections` 的觸發器 `enforce_public_share_switch` 會拒絕在暫停期間改成公開。因為作者可以直接用 Supabase API 更新自己的教材（RLS 允許），只擋 server action 不夠。
+  - 暫停新註冊：Email 註冊直接回「名額已滿」；Google、LINE 的新帳號在第一次登入後刪除（沿用 D132 的流程），**邀請連結也不行**。已經有帳號的人照常登入。
+  - 建立頁：建立暫停時顯示「建立教材暫停中」和服務狀態頁連結（不是 404）；個別功能暫停時隱藏對應選項（AI 生成、指令修改、上傳錄音），並列出暫停中的功能。
+  - 後台 `/admin/ops`（「服務控制」，排在總覽之後）：每個開關一組「開啟／關閉（或暫停）」，儲存前用 Dialog 再確認一次；變更記在管理稽核（`site_switches`、`site_announcement_post`、`site_announcement_end`）。
+  - 公告：等級分成公告、注意、重要，可設顯示時數（1～720 小時，或直到手動結束）。每一頁頁首下方顯示最新一則，使用者可以關閉（記在 localStorage）；「重要」不能關閉。
+  - 公開的 `/status`：目前狀態、暫停中的功能、公告；頁尾加「服務狀態」連結。PR 2（D156）再加上健康檢查結果。
+- **新元件**：`SiteAnnouncementBanner`（頁首下方的一行公告，info 用 surface 底色，warning、critical 用 `bg-error/10`）。其餘沿用 SegmentedControl、Dialog、Card、Button。已補進 `docs/design-system.md`。
+- **測試**：
+  - 單元：`tests/site-switches.test.ts`（規則、快取、讀取失敗）、`tests/ops-actions.test.ts`（儲存、稽核、驗證）、`tests/site-switch-migration.test.ts`（權限、觸發器、回復方式）。
+  - 元件：`tests/components/ops-admin.test.tsx`（確認後儲存、公告關閉）。
+  - E2E `e2e/ops.spec.ts`：維護模式（503，管理員不受影響）、唯讀、暫停 AI 生成、公告。這些測試會改變全站狀態，所以放在獨立的 Playwright 專案 `ops`，等其他測試跑完才依序執行，結束後重設假伺服器（`/__reset-ops`）。
+  - QA sweep 加入 `/status`、`/maintenance`、`/admin/ops`。
+- **Migration 回復**：`20261122000000_site_switches.sql` 檔尾的 `-- Rollback:`。
+- **要改時**：
+  - 開關種類與規則：`lib/site-switches.ts`（`SWITCHABLE_FEATURES`、`pauseReason`、`openInMaintenance`）。
+  - 讀取與快取：`auth/site-switches.ts`。
+  - 接上的地方：`proxy.ts`、`auth/creator.ts`（`getCreator`）、`app/materials/actions.ts`、`app/materials/upload-actions.ts`、`app/materials/organize-actions.ts`、`auth/beta.ts`、`app/materials/new/page.tsx`。
+  - 後台：`app/admin/ops/`、`components/OpsAdmin.tsx`。

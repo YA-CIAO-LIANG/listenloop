@@ -16,6 +16,7 @@ import { USAGE_NOTICE_COOKIE } from "@/lib/notices";
 import { cookies, headers } from "next/headers";
 import { ServiceWorker } from "@/components/ServiceWorker";
 import { TimeZoneSync } from "@/components/TimeZoneSync";
+import { SiteAnnouncements } from "@/components/SiteAnnouncements";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import { clarityProjectId } from "@/lib/analytics-consent";
@@ -131,6 +132,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
                   <SignInNotice />
                 </Suspense>
               )}
+              {/* Site announcements (D155). */}
+              <Suspense fallback={null}>
+                <SiteAnnouncements />
+              </Suspense>
               {!cookieStore.has(USAGE_NOTICE_COOKIE) && <UsageNotice />}
               <div
                 id="main"

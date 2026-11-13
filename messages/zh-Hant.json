@@ -636,7 +636,8 @@
     "pricing": "方案與價格",
     "refund": "退款政策",
     "learn": "依主題練習",
-    "blog": "學習文章"
+    "blog": "學習文章",
+    "status": "服務狀態"
   },
   "privacy": {
     "title": "隱私權政策",
@@ -901,7 +902,14 @@
     "longJob": "需要比較久：你可以離開這個頁面，我們會在背景繼續準備，完成後在「我的教材」就能開始練習。",
     "toMaterials": "前往我的教材",
     "duration": "{minutes, plural, =0 {{seconds} 秒} other {# 分鐘}}",
-    "ownRecording": "你的錄音"
+    "ownRecording": "你的錄音",
+    "paused": {
+      "title": "建立教材暫停中",
+      "body": "為了維護服務品質，建立教材暫時暫停，已有的教材可以照常練習。詳情請看服務狀態頁。",
+      "status": "查看服務狀態",
+      "some": "以下功能暫停中：{features}。"
+    },
+    "listSeparator": "、"
   },
   "editPractice": {
     "titlesLegend": "標題",
@@ -994,7 +1002,8 @@
       "unavailable": "目前無法整理練習。請確認已用管理員帳號登入。",
       "invalid": "請填寫名稱（最多 100 字）。",
       "not-found": "找不到這個項目，可能已經刪除。請重新整理頁面。",
-      "failed": "儲存失敗，請稍後再試一次。"
+      "failed": "儲存失敗，請稍後再試一次。",
+      "paused": "公開分享暫時暫停中，請稍後再試。詳情請看頁尾的「服務狀態」。"
     },
     "officialPublic": "設為官方教材後會先存成草稿（私人），到「後台 → 教材」發布後才會出現在教材庫。",
     "copyOfficial": "複製為官方教材",
@@ -1167,7 +1176,8 @@
       "unavailable": "目前無法審查。請確認已用管理員帳號登入，且伺服器設定了 SUPABASE_SERVICE_ROLE_KEY。",
       "invalid": "資料不正確，請重新整理頁面。",
       "not-found": "找不到這份練習或檢舉，可能已經處理過。請重新整理頁面。",
-      "failed": "儲存失敗，請稍後再試一次。"
+      "failed": "儲存失敗，請稍後再試一次。",
+      "paused": "公開分享暫時暫停中，請稍後再試。"
     }
   },
   "adminUsage": {
@@ -1424,7 +1434,8 @@
       "forecast": "收益試算",
       "docs": "系統文件",
       "retention": "留存分析",
-      "beta": "註冊與邀請"
+      "beta": "註冊與邀請",
+      "ops": "服務控制"
     },
     "overview": {
       "title": "後台總覽",
@@ -1930,6 +1941,56 @@
         "invalid": "請檢查數字：上限 0～1,000,000、可用次數 1～10,000、有效天數 1～365 或留空。",
         "failed": "沒有成功，請稍後再試。"
       }
+    },
+    "ops": {
+      "title": "服務控制",
+      "intro": "出問題時用這裡的開關止血。管理員不受開關限制，可以繼續操作與檢查；每次變更都記在管理稽核，約 30 秒內全站生效。",
+      "switchesTitle": "緊急開關",
+      "maintenance": "維護模式",
+      "maintenanceHint": "除了管理員，所有人都會看到維護頁。",
+      "readOnly": "唯讀模式",
+      "readOnlyHint": "可以瀏覽與練習既有教材，暫停建立教材、上傳、公開分享和註冊。",
+      "featuresTitle": "個別功能",
+      "on": "開啟",
+      "off": "暫停",
+      "features": {
+        "aiGenerate": "AI 生成文字",
+        "aiRevise": "用指令修改",
+        "uploadAudio": "上傳音檔",
+        "transcribe": "語音轉文字",
+        "publicShare": "公開分享",
+        "signup": "新註冊"
+      },
+      "save": "儲存開關",
+      "confirm": "確定要變更服務開關嗎？會在 30 秒內影響所有使用者。",
+      "saved": "已儲存。",
+      "errors": {
+        "unavailable": "只有管理員可以變更。",
+        "invalid": "內容不正確，請檢查後再試一次。",
+        "failed": "儲存失敗，請稍後再試。"
+      },
+      "announcementsTitle": "網站公告",
+      "announcementsIntro": "公告會出現在每一頁上方和服務狀態頁。",
+      "level": "等級",
+      "levels": {
+        "info": "公告",
+        "warning": "注意",
+        "critical": "重要"
+      },
+      "bodyZh": "中文內容",
+      "bodyEn": "英文內容",
+      "hours": "顯示時數",
+      "hoursHint": "1～720 小時；留空表示直到手動結束。",
+      "post": "發布公告",
+      "end": "結束",
+      "active": "顯示中",
+      "ended": "已結束",
+      "noAnnouncements": "還沒有公告。",
+      "statusLink": "查看公開的服務狀態頁",
+      "confirmYes": "確定變更",
+      "cancel": "取消",
+      "confirmTitle": "變更服務開關",
+      "closed": "關閉"
     }
   },
   "events": {
@@ -3395,5 +3456,43 @@
     "accept": "接受分析 Cookie",
     "decline": "只用必要的 Cookie",
     "settings": "Cookie 設定"
+  },
+  "ops": {
+    "maintenance": {
+      "title": "網站維護中",
+      "body": "我們正在進行維護，很快就會回來。你的練習進度都保存在雲端，不會遺失。",
+      "status": "查看服務狀態"
+    },
+    "status": {
+      "title": "服務狀態",
+      "intro": "ListenLoop 目前的運作狀態與公告。",
+      "states": {
+        "normal": "所有服務正常運作",
+        "maintenance": "網站維護中",
+        "readOnly": "唯讀模式：可以瀏覽和練習，暫停建立與上傳",
+        "partial": "部分功能暫停"
+      },
+      "paused": "暫停中的功能",
+      "none": "沒有暫停的功能。",
+      "announcements": "公告",
+      "noAnnouncements": "目前沒有公告。",
+      "features": {
+        "aiGenerate": "AI 生成文字",
+        "aiRevise": "用指令修改",
+        "uploadAudio": "上傳音檔",
+        "transcribe": "語音轉文字",
+        "publicShare": "公開分享",
+        "signup": "新註冊"
+      },
+      "levels": {
+        "info": "公告",
+        "warning": "注意",
+        "critical": "重要"
+      }
+    },
+    "banner": {
+      "dismiss": "關閉公告",
+      "label": "網站公告"
+    }
   }
 }

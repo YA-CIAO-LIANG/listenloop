@@ -22,7 +22,22 @@ export default defineConfig({
     timezoneId: "Asia/Taipei",
     trace: "retain-on-failure",
   },
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  projects: [
+    {
+      name: "chromium",
+      use: { ...devices["Desktop Chrome"] },
+      testIgnore: /ops\.spec\.ts/,
+    },
+    // The emergency switches change the whole site (D155): after
+    // everything else, one test at a time.
+    {
+      name: "ops",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: /ops\.spec\.ts/,
+      dependencies: ["chromium"],
+      fullyParallel: false,
+    },
+  ],
   webServer: [
     {
       command: "node e2e/mock-supabase/server.mts",
@@ -48,6 +63,9 @@ export default defineConfig({
         // The fake payment provider only (D85): no money, no network.
         PAYMENTS_PROVIDER: "fake",
         PAYMENTS_WEBHOOK_SECRET: "e2e-payments-secret",
+        // Switches read fresh on every request (D155): the ops tests
+        // flip them and look at once.
+        SITE_SWITCHES_TTL_MS: "0",
       },
       reuseExistingServer: !process.env.CI,
       timeout: 60_000,

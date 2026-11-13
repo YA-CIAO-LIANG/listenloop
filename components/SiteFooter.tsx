@@ -47,6 +47,9 @@ export function SiteFooter({
         <Link href="/feedback" className={linkClassName}>
           {t("feedback")}
         </Link>
+        <Link href="/status" className={linkClassName}>
+          {t("status")}
+        </Link>
         {analytics && <CookieSettingsButton />}
       </nav>
       {/* Phones only: the header has no room for it (D86). */}

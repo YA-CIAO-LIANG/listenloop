@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { isAdminEmail } from "@/lib/admin";
 import { supabaseConfig } from "@/lib/supabase/config";
 import type { Database } from "@/lib/supabase/database.types";
 
@@ -12,11 +13,11 @@ import type { Database } from "@/lib/supabase/database.types";
 export async function updateSession(
   request: NextRequest,
   requestHeaders: Headers = request.headers,
-) {
+): Promise<{ response: NextResponse; isAdmin: () => Promise<boolean> }> {
   const next = () =>
     NextResponse.next({ request: { headers: requestHeaders } });
   let response = next();
-  if (!supabaseConfig) return response;
+  if (!supabaseConfig) return { response, isAdmin: async () => false };
 
   const supabase = createServerClient<Database>(
     supabaseConfig.url,
@@ -44,6 +45,23 @@ export async function updateSession(
   );
   // Verifies the token and refreshes it when it's about to expire. Must
   // run before anything reads the session.
-  await supabase.auth.getClaims();
-  return response;
+  const { data } = await supabase.auth.getClaims();
+  const claims = data?.claims;
+  return {
+    response,
+    // Only asked in maintenance mode (D155): an admin by the email list,
+    // or by their profile (read with their own token, under RLS).
+    async isAdmin() {
+      if (!claims?.sub) return false;
+      if (isAdminEmail(typeof claims.email === "string" ? claims.email : "")) {
+        return true;
+      }
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("user_id", claims.sub)
+        .maybeSingle();
+      return profile?.role === "admin";
+    },
+  };
 }

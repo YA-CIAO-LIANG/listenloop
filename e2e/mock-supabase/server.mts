@@ -152,6 +152,63 @@ async function paymentTable(
   return [201, written];
 }
 
+/**
+ * Site-wide tables (D155 and later): anyone reads, only the secret key
+ * writes. Kept while the server runs; /__reset-ops puts them back.
+ */
+const opsDefaults = (): Record<string, Row[]> => ({
+  site_settings: [
+    { id: "true", maintenance: false, read_only: false, features: {} },
+  ],
+  site_announcements: [],
+});
+let opsTables = opsDefaults();
+
+async function opsTable(
+  name: string,
+  request: import("node:http").IncomingMessage,
+  url: URL,
+): Promise<[number, Row[] | Row | null]> {
+  const rows = opsTables[name];
+  const filters = eqFilters(url.searchParams).filter(
+    ([column]) => column !== "id" || name !== "site_settings",
+  );
+  const matches = (row: Row) =>
+    filters.every(([column, value]) => String(row[column]) === value);
+  const single = String(request.headers.accept ?? "").includes(
+    "vnd.pgrst.object",
+  );
+  if (request.method === "GET") {
+    const found = rows.filter(matches);
+    const limit = Number(url.searchParams.get("limit") ?? Infinity);
+    const sorted =
+      url.searchParams.get("order")?.endsWith(".desc") === true
+        ? [...found].reverse()
+        : found;
+    const page = sorted.slice(0, limit);
+    return [200, single ? (page[0] ?? null) : page];
+  }
+  if (request.headers.authorization !== "Bearer e2e-secret-key") {
+    return [401, []];
+  }
+  const body = JSON.parse((await readBody(request)) || "null");
+  if (request.method === "PATCH") {
+    const changed = rows.filter(matches);
+    for (const row of changed) Object.assign(row, body);
+    return [200, single ? (changed[0] ?? null) : changed];
+  }
+  if (request.method === "POST") {
+    const written = (Array.isArray(body) ? body : [body]).map((incoming) => ({
+      id: crypto.randomUUID(),
+      created_at: new Date().toISOString(),
+      ...incoming,
+    }));
+    rows.push(...written);
+    return [201, single ? written[0] : written];
+  }
+  return [405, []];
+}
+
 /** One second of 8 kHz, 8-bit mono silence. */
 function silentWav(): Buffer {
   const samples = 8000;
@@ -268,6 +325,11 @@ createServer(async (request, response) => {
     response.writeHead(200, cors).end("ok");
     return;
   }
+  if (url.pathname === "/__reset-ops") {
+    opsTables = opsDefaults();
+    response.writeHead(204, cors).end();
+    return;
+  }
   if (url.pathname.startsWith("/storage/v1/object/public/")) {
     response
       .writeHead(200, { ...cors, "content-type": "audio/wav" })
@@ -289,6 +351,14 @@ createServer(async (request, response) => {
         ? { Key: path }
         : { url: `/object/upload/sign/${path}?token=e2e-upload` },
     );
+    return;
+  }
+  const ops = /^\/rest\/v1\/(site_settings|site_announcements)$/.exec(
+    url.pathname,
+  );
+  if (ops) {
+    const [status, body] = await opsTable(ops[1], request, url);
+    json(status, body);
     return;
   }
   // Sign-ups in stages (D132): open, 3 of 50 places taken; the waiting

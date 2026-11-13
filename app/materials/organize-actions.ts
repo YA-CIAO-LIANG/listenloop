@@ -15,6 +15,8 @@ import {
   isVisibility,
 } from "@/lib/custom-practice/organize";
 import { getAdminUser } from "@/auth/creator";
+import { featurePaused } from "@/auth/site-switches";
+import { getSignedInUser } from "@/auth/session";
 import { logEvent } from "@/auth/events";
 import { customPracticeId } from "@/lib/practice-material";
 import { UPLOADS_BUCKET } from "@/lib/supabase/config";
@@ -25,7 +27,10 @@ import { UPLOADS_BUCKET } from "@/lib/supabase/config";
  * (D147; row level security keeps it to their rows); copying to the
  * official materials stays admin-only.
  */
-export type OrganizeResult = WriteResult;
+export type OrganizeResult =
+  | WriteResult
+  /** Public sharing is paused by an emergency switch (D155). */
+  | { ok: false; reason: "paused" };
 
 const asOwner = (write: Parameters<typeof writeAsOwner>[1]) =>
   writeAsOwner("/materials", write);
@@ -91,6 +96,13 @@ export async function setVisibility(
     !isVisibility(visibility)
   ) {
     return { ok: false, reason: "invalid" };
+  }
+  // Paused by an emergency switch (D155); the database refuses it too.
+  if (
+    visibility === "public" &&
+    (await featurePaused(await getSignedInUser(), "publicShare"))
+  ) {
+    return { ok: false, reason: "paused" };
   }
   return asOwner(async (supabase, userId) => {
     const result = outcome(

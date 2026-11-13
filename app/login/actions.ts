@@ -67,7 +67,7 @@ export async function signUpWithEmail(
   // The Beta is full and there's no invite (D132): say so before any
   // email goes out. (Someone who already has an account can sign in.)
   const beta = await getBetaStatus();
-  if (beta?.full && !(await inviteFromCookie())) {
+  if (beta?.paused || (beta?.full && !(await inviteFromCookie()))) {
     return { ok: false, reason: "full" };
   }
   const supabase = await getServerSupabase();
