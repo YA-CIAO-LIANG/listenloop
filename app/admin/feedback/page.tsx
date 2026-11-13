@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
+import { getSurveys } from "@/auth/surveys";
+import { SurveySummary } from "@/components/SurveySummary";
 import { FeedbackStatusButton } from "@/components/FeedbackStatusButton";
 import { userNumberLabel } from "@/lib/accounts";
 import { ADMIN_PAGE_ROWS } from "@/lib/admin-dashboard";
@@ -28,8 +30,12 @@ export default async function AdminFeedbackPage() {
         .order("created_at", { ascending: false })
         .limit(ADMIN_PAGE_ROWS)
     : { data: null };
+  const surveys = await getSurveys();
   const ids = [
-    ...new Set((rows ?? []).flatMap((r) => (r.user_id ? [r.user_id] : []))),
+    ...new Set([
+      ...(rows ?? []).flatMap((r) => (r.user_id ? [r.user_id] : [])),
+      ...surveys.rows.map((r) => r.userId),
+    ]),
   ];
   const { data: profiles } =
     admin && ids.length
@@ -47,6 +53,17 @@ export default async function AdminFeedbackPage() {
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{t("title")}</h1>
+      <div className="mt-8">
+        <SurveySummary
+          {...surveys}
+          numbers={
+            new Map(
+              [...numbers].map(([id, number]) => [id, userNumberLabel(number)]),
+            )
+          }
+        />
+      </div>
+      <h2 className="mt-12 font-display text-h2">{t("listTitle")}</h2>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
       {!rows?.length ? (
         <p className="mt-8 text-ink-muted">{t("none")}</p>

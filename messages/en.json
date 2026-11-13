@@ -165,7 +165,25 @@
     "notPassedWeek": "Not passed this week (Day 7 {score})",
     "weekNotPassed": "Week {week} not passed",
     "viewResult": "View week result",
-    "saveFailed": "Couldn’t save your progress. Allow this site to store data (for example, leave private browsing), then reload."
+    "saveFailed": "Couldn’t save your progress. Allow this site to store data (for example, leave private browsing), then reload.",
+    "survey": {
+      "title": "Tell us about your week in 10 seconds",
+      "question": "How likely are you to recommend ListenLoop to a friend?",
+      "low": "0 Not at all likely",
+      "high": "10 Extremely likely",
+      "commentLabel": "One thing to improve, or one you liked (optional)",
+      "commentHint": "For example, which day was hardest, or which feature helped most.",
+      "send": "Send",
+      "sending": "Sending…",
+      "skip": "Skip",
+      "thanks": "Thank you! We read every answer.",
+      "errors": {
+        "invalid": "Choose a score first.",
+        "signedOut": "Sign in to answer.",
+        "limit": "Too many tries. Please try again later.",
+        "failed": "It wasn't sent. Please try again later."
+      }
+    }
   },
   "rewards": {
     "points": "Points",
@@ -1696,7 +1714,8 @@
       "done": "Done",
       "markDone": "Mark done",
       "reopen": "Reopen",
-      "failed": "That didn’t save; try again."
+      "failed": "That didn’t save; try again.",
+      "listTitle": "Feedback from the footer"
     },
     "errors": {
       "title": "Errors",
@@ -2099,6 +2118,19 @@
         "failed": "Couldn't save; it may be resolved already. Reload.",
         "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
       }
+    },
+    "survey": {
+      "title": "Day 7 survey",
+      "intro": "How likely learners are to recommend ListenLoop (0–10) and their comment, after Day 7. NPS = % promoters (9–10) − % detractors (0–6), from −100 to 100.",
+      "none": "No answers yet.",
+      "nps": "NPS",
+      "npsNote": "−100 to 100",
+      "count": "Answers",
+      "average": "Average",
+      "split": "Promoters / passives / detractors",
+      "splitNote": "9–10 / 7–8 / 0–6",
+      "score": "{score} points",
+      "material": "{id}, week {week}"
     }
   },
   "events": {

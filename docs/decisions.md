@@ -3052,3 +3052,16 @@
 - **Migration**：`20261127000000_ops_runs.sql`（只有新增）。
 - **測試**：`tests/self-monitor.test.ts`、`tests/cron-routes.test.ts`（健康檢查回應後才啟動監控）。
 - **要改時**：間隔在 `lib/ops/self-monitor.ts` 的 `SELF_MONITOR`；排程在 `.github/workflows/ops.yml`、`ci.yml`、`semgrep.yml`。
+
+## D164 第 7 天的滿意度調查（2026-11-13，Joe 指定）
+
+- **為什麼**：上線前要知道使用者完成一週後的感受。業界常用 NPS（Net Promoter Score）：「你有多大可能推薦給朋友？」0～10 分，加一題開放題。
+- **做法**：
+  - 第 7 天的週結果下方顯示（**只給登入的人**：答案要對應帳號，才能和進度一起看；訪客的進度只在本機）。
+  - 0～10 分是 11 個單選按鈕（每個至少 44 px，可以用鍵盤選），開放題選填、最多 1,000 字；可以「略過」。
+  - 每份教材、每一週只問一次：送出或略過記在這台裝置（`ll-week-survey:v1`），資料庫也有唯一索引（同一週重送只保留第一次）。
+  - 存在 `week_surveys`（只有伺服器的 secret key 能讀寫；刪除帳號時一起刪除），送出受「回饋」的速率限制。
+  - 後台「意見回饋」頁最上方顯示：NPS（推薦者 9～10 分比例 − 批評者 0～6 分比例）、填寫數、平均、三類人數、最新 20 則意見（帳號編號，不顯示 email）。Beta 測試頁也會用（D165）。
+- **測試**：`tests/survey.test.ts`（輸入檢查、NPS 計算、唯一索引）；E2E：`e2e/full-week.spec.ts` 完成第 7 天後填寫並送出、重新整理後不再出現；`e2e/survey.spec.ts` 後台看到統計與意見。
+- **Migration**：`20261128000000_week_surveys.sql`（只有新增）。
+- **要改時**：題目在 `messages/*.json` 的 `week.survey`；規則在 `lib/survey.ts`；畫面在 `components/WeekSurvey.tsx`。
