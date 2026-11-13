@@ -1,5 +1,110 @@
 # 開發路線圖
 
+## 進度報告（2026-11-13 晚）：危機預防、資安、使用者額度、成本
+
+8 項依序完成，每項一個 PR。每個 PR 都在本機五項檢查、build、E2E 與 CI 通過後才合併；新的 CodeQL、gitleaks、ZAP 也在之後的每個 PR 執行。這次沒有呼叫任何付費 API。
+
+### 1. 各項完成狀況
+
+| 項目                       | 內容                                                                                                                           | PR   | 決策 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---- | ---- |
+| 緊急開關、公告、服務狀態頁 | 維護模式、唯讀模式、6 個功能開關（後台「服務控制」）；網站公告；公開的 `/status`                                               | #199 | D155 |
+| 監控與通知、成本、預測     | `/api/health`；每 15 分鐘監控並通知 Discord；成本斷路器的 80%／100% 通知；Azure 與 Supabase 預測；每週摘要；防止 Supabase 暫停 | #200 | D156 |
+| 備份、還原、回滾、事故手冊 | 每日加密備份（保留 14 天）；本機還原演練；部署與 migration 回滾步驟；`docs/incident-runbook.md`（10 種情境）；事後檢討範本     | #201 | D157 |
+| 威脅模型與自動掃描         | `docs/security.md`（STRIDE、OWASP Top 10、個資盤點）；Dependabot、CodeQL、gitleaks、ZAP baseline                               | #202 | D158 |
+| 帳號權限與輸入安全         | 管理員高風險操作需 30 分鐘內登入；檢查上傳檔的真實格式；AI 輸入清理、輸出一律純文字；前端沒有秘密；個資保留期限                | #209 | D159 |
+| 防機器人                   | Cloudflare Turnstile：註冊、等候名單、檢舉、回饋（沒設定金鑰時不啟用）                                                         | #210 | D160 |
+| 使用者額度                 | `docs/quotas.md` 總表；「我的額度」頁；錄音儲存空間上限；管理員調整單一使用者額度；每日清除孤兒檔案                            | #211 | D161 |
+| 濫用偵測、排隊公平性       | 自動標記，必要時暫停 AI，後台「濫用標記」確認；排隊依方案優先但不會無限等待                                                    | #212 | D162 |
+
+- 文件：`docs/incident-runbook.md`、`docs/security.md`、`SECURITY.md`、`docs/quotas.md`、`docs/backup.md`（含演練紀錄）、`docs/deploy-rollback.md`、`docs/migrations-rollback.md`、`docs/postmortem-template.md`、`docs/capacity.md` 第 7 節。
+- 資料庫：新增 6 個 migration，都只有新增，已套用到正式資料庫，檔尾都附回復方式。
+- 後台新頁面：「服務控制」`/admin/ops`、「濫用標記」`/admin/abuse`；使用者頁新增「額度調整」區塊；「API 用量」頁新增預測與每週摘要。
+
+### 2. 掃描發現的問題與修正
+
+| 工具                                    | 結果                                                                                       | 處理                                                                                                                                                                                                                                        |
+| --------------------------------------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **gitleaks（完整歷史，418 個 commit）** | 10 筆，**全部是誤報**：4 筆是 E2E 的假金鑰 `e2e-publishable-key`，6 筆是影片片段的 id 欄位 | **沒有任何金鑰曾被提交，不需要輪替**。誤報加進 `.gitleaks.toml`，每一項附理由                                                                                                                                                               |
+| gitleaks（CI，每個 PR）                 | 第一次執行就擋下一筆：`docs/security.md` 引用了誤報的原文                                  | 改寫文字，證實檢查有效                                                                                                                                                                                                                      |
+| **OWASP ZAP baseline**                  | 14 種項目，沒有 High                                                                       | **修正**：正式站送出的 `X-Powered-By: Next.js`（資訊洩漏）、缺少 `Cross-Origin-Resource-Policy`。其餘是接受或誤報（例如 CSP 的 `style-src 'unsafe-inline'`、介面文字被當成 SQL），每項附理由寫在 `.zap/rules.tsv`；之後出現新的警告就會失敗 |
+| **CodeQL**                              | 程式碼 0 個；workflow 1 個 Medium：第三方 action 用標籤而不是 commit 釘選                  | 改成釘選 commit SHA                                                                                                                                                                                                                         |
+| npm audit（正式依賴）                   | 0 個漏洞                                                                                   | 之後由 Dependabot 每週檢查                                                                                                                                                                                                                  |
+| OWASP Top 10 人工檢查                   | 缺管理員近期登入、上傳只看副檔名、簽名網址 6 小時偏長                                      | D159 全部修正（細節在 `docs/security.md` §4）                                                                                                                                                                                               |
+| 還原演練                                | 57 個 migration、50 張表筆數一致、43 條 RLS 規則一致，全程約 3 秒                          | 正式環境估計約 30 分鐘可以恢復（`docs/backup.md` §3）                                                                                                                                                                                       |
+
+### 3. 正式站測試重點
+
+**緊急開關**（後台 →「服務控制」）
+
+1. 「唯讀模式」改成「開啟」，按「儲存開關」再「確定變更」。
+2. 用另一個瀏覽器（或無痕視窗）登入一般帳號，打開「建立練習」，應該顯示「建立教材暫停中」；首頁和練習照常。約 30 秒內生效。
+3. 打開頁尾的「服務狀態」，應該顯示「唯讀模式」和暫停中的功能。
+4. 改回「關閉」並儲存。
+5. 發布一則公告（例如「測試公告」，顯示 1 小時）：每一頁上方都會出現，可以關閉；測完按「結束」。
+6. 不要在正式站測「維護模式」，除非可以接受短暫影響其他使用者；要測的話，先確認自己的管理員帳號可以照常操作，測完立刻關掉。
+
+**我的額度**
+
+1. 右上角「帳號」→「我的額度」：應該看到本週（或本月）分鐘數、今天用指令修改的次數、AI 用量、其他限制，以及各自的重設時間。
+2. 在建立頁用「用指令修改」幾次後回來看，次數會增加。
+
+**管理員調整額度**
+
+1. 後台「使用者」→ 點一位測試帳號 →「額度調整」：選「每週分鐘數」、增減量 5、天數 1、理由「測試」，按「套用調整」。超過 30 分鐘沒有重新登入時會要求重新登入，這是正常的。
+2. 用那個帳號打開「我的額度」，上限應該多 5 分鐘，下方列出「管理員為你調整的額度」。
+3. 回後台按「結束」，再試一次「暫停這個帳號的 AI 功能」：那個帳號打開建立頁，應該看到「你的帳號暫時不能使用 AI 建立教材」。測完按「恢復 AI 功能」。
+4. 「管理稽核」應該有這幾筆紀錄。
+
+**其他**
+
+- `https://listenloop-three.vercel.app/api/health` 應該回 `{"status":"ok",...}`，回應裡沒有其他資訊。
+- 用 <https://securityheaders.com> 檢查首頁：應該看不到 `X-Powered-By`，並有 `Cross-Origin-Resource-Policy`。
+
+### 4. 需要你親手做的事
+
+1. **所有服務帳號開啟兩步驟驗證**（建議用驗證器 App，例如 Google Authenticator，不要只用簡訊；備用碼存進密碼管理器）：
+   1. **Google**：<https://myaccount.google.com/security> →「兩步驟驗證」→ 開啟，並設定驗證器 App。
+   2. **GitHub**：<https://github.com/settings/security> →「Two-factor authentication」→「Enable」，掃描 QR code，下載 recovery codes。
+   3. **Vercel**：右上角頭像 →「Account Settings」→「Authentication」→「Two-Factor Authentication」→ 開啟。如果是用 GitHub 登入 Vercel，GitHub 的兩步驟驗證也會保護 Vercel。
+   4. **Supabase**：<https://supabase.com/dashboard/account/security> →「Multi-factor authentication」→「Add new app」。
+   5. **Azure**：<https://mysignins.microsoft.com/security-info> →「新增登入方法」→「Microsoft Authenticator」。
+   6. **Cloudflare**（申請 Turnstile 後）：「My Profile」→「Authentication」→「Two-Factor Authentication」。
+2. **GitHub 開啟 secret scanning、push protection 與私人漏洞回報**（公開 repo 免費）：
+   1. 打開 <https://github.com/YA-CIAO-LIANG/listenloop/settings/security_analysis>。
+   2. 「Secret Protection」（或「Secret scanning」）按「Enable」，並開啟「Push protection」：有人 push 金鑰時 GitHub 會直接擋下。
+   3. 同一頁開啟「Private vulnerability reporting」，`SECURITY.md` 寫的回報方式才會生效。
+   4. 「Dependabot alerts」和「Dependabot security updates」也確認是開啟的。
+3. **建立 Discord 頻道與 webhook**（免費）：
+   1. 在你的 Discord 伺服器建立私人文字頻道，例如 `#listenloop-alerts`，只有你看得到。
+   2. 頻道名稱旁的齒輪 →「整合」→「Webhooks」→「新 Webhook」→ 命名為「ListenLoop 監控」→「複製 Webhook 網址」。
+   3. **Vercel**：Project → Settings → Environment Variables，新增 `DISCORD_WEBHOOK_URL`（Production），貼上網址。
+   4. **GitHub**：<https://github.com/YA-CIAO-LIANG/listenloop/settings/secrets/actions> →「New repository secret」→ 名稱 `DISCORD_WEBHOOK_URL`，貼上同一個網址。這是給網站完全連不上時用的。
+4. **開啟監控排程**：
+   1. 終端機執行 `openssl rand -hex 32`，產生一組隨機字串。
+   2. Vercel 新增環境變數 `CRON_SECRET`（Production），值是這組字串，然後重新部署（Deployments → 最新的 → Redeploy）。
+   3. GitHub 新增 secret `CRON_SECRET`，值相同。
+   4. Actions →「Ops monitor」→「Run workflow」手動跑一次（健康檢查本來就每 15 分鐘執行，不需要任何設定；設定 `CRON_SECRET` 後才會加上完整監控與通知），確認是綠色的；後台「服務控制 → 監控」應該出現「最近一次健康檢查」。
+5. **開啟每日加密備份**：
+   1. 終端機執行 `openssl rand -base64 32`，產生備份密碼，**先存進密碼管理器**。弄丟了，所有備份都解不開。
+   2. Supabase → Project Settings → Database → Connection string →「Session pooler」，複製 URI，把 `[YOUR-PASSWORD]` 換成資料庫密碼（忘了可以在同一頁 Reset）。
+   3. GitHub 新增 4 個 secret：`SUPABASE_DB_URL`（上一步的 URI）、`BACKUP_PASSPHRASE`（備份密碼）、`NEXT_PUBLIC_SUPABASE_URL`、`SUPABASE_SERVICE_ROLE_KEY`（後兩個如果已經有就不用再加）。
+   4. 新增 repository variable `BACKUP_SCHEDULE` = `on`。
+   5. Actions →「Database backup」→「Run workflow」跑一次，確認有產生 artifact `listenloop-backup`。
+6. **申請 Cloudflare Turnstile 金鑰**（免費，不需要信用卡）：
+   1. 註冊或登入 <https://dash.cloudflare.com/>（建議開兩步驟驗證）。
+   2. 左側「Turnstile」→「Add widget」：名稱 ListenLoop；Hostnames 加上 `listenloop-three.vercel.app`（之後有自己的網域也要加，本機測試可以加 `localhost`）；Widget mode 選「Managed」→「Create」。
+   3. 複製「Site Key」與「Secret Key」。
+   4. Vercel 新增 `NEXT_PUBLIC_TURNSTILE_SITE_KEY`（Site Key）與 `TURNSTILE_SECRET_KEY`（Secret Key），然後**重新部署**（site key 要在 build 時放進頁面）。
+   5. 用無痕視窗打開登入頁 →「註冊」：送出按鈕上方應該出現 Cloudflare 的小方塊。
+7. **金鑰輪替**：gitleaks 掃描完整歷史，**沒有發現任何曾被提交的真正金鑰，這次不需要輪替**。之後如果有疑慮，照 `docs/incident-runbook.md` 第 5 節的表格逐一輪替。
+8. **Dependabot 的 PR 要你決定**（已經自動開好，我沒有合併）：
+   - #204（npm 小版本更新）、#203（GitHub Actions 更新）：CI 都通過，可以直接合併。
+   - #208 eslint 10、#207 web-push 4、#205 @types/node 26：主版本升級，CI 通過，但建議之後一次處理，再請我檢查相容性。
+   - #206 jsdom 31：CI 失敗，先不要合併。
+9. **正式收費之前要做**：目前付款紀錄會隨帳號刪除；依商業會計法，憑證要保留 5 年，所以收費前要改成保留並解除關聯（`docs/security.md` §6）。到時候我會開 PR，會改到資料表的外鍵。
+10. **之前的待辦，仍然需要**：見下方「需要你決定或親手做的事」各節。
+
 ## 進度報告（2026-11-13 下午）：修正 eval 的 5 個問題、預設自訂類別
 
 兩項依序完成，每項一個 PR，本機五項檢查、eval、完整 E2E、CI 通過才合併；之後跑 QA 第 56、57 輪。
