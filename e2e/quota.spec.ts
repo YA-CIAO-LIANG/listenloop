@@ -1,4 +1,10 @@
-import { expect, signInAsAdmin, signInAsLearner, test } from "./fixtures";
+import {
+  expect,
+  signInAsAdmin,
+  signInAsAuthor,
+  signInAsLearner,
+  test,
+} from "./fixtures";
 
 /** My quota and the admin's quota changes (D161). */
 test("a learner sees each allowance and when it resets", async ({ page }) => {
@@ -16,6 +22,22 @@ test("a learner sees each allowance and when it resets", async ({ page }) => {
   ).toBeVisible();
   await expect(page.getByText(/重設/).first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "其他限制" })).toBeVisible();
+});
+
+test("used up: when it resets in the learner's own clock, and a way on (D170)", async ({
+  page,
+}) => {
+  // The author's two free minutes this week are used.
+  await signInAsAuthor(page);
+  await page.goto("/account/usage");
+  const week = page
+    .getByRole("listitem")
+    .filter({ hasText: "本週建立教材的分鐘數" });
+  await expect(week).toContainText("已經用完了。");
+  await expect(week).toContainText(/\d+\/\d+（週一）\s?00:00 重設/);
+  await expect(
+    week.getByRole("link", { name: "需要更多？看付費方案" }),
+  ).toHaveAttribute("href", "/pricing?from=quota");
 });
 
 test("signed out, My quota asks to sign in", async ({ page }) => {

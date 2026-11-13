@@ -80,6 +80,8 @@
 - Disabled：整體透明度 40%，游標 not-allowed。
 - 尺寸：sm 32px / md 40px / lg 48px 高。手機上主要按鈕至少 44px，好點擊。
 - 標籤可帶一個小方向箭頭（→）。
+- 一個畫面（或一張卡片）只放一個 primary，代表建議的下一步；其他動作用 secondary 或 ghost（D170：聽寫結果頁的「再練一次」是 secondary）。
+- 首頁：給訪客的說明段落（`home.audience`）只在未登入時顯示，登入後讓今日任務往上（D170）；未登入時第一屏的兩個按鈕見 D169（`QuickStart`）。
 
 ## 點擊範圍 `tap`（D76）
 
