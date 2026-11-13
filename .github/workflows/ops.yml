@@ -1,19 +1,19 @@
 name: Ops monitor
 
-# Monitoring (D156):
-# - every 15 minutes: the public health check (it also keeps Supabase's
-#   free project from pausing), then the full monitor when CRON_SECRET is
-#   set (alerts go to Discord when DISCORD_WEBHOOK_URL is set on Vercel);
-# - every day at 03:00 Taiwan time: the monitor's daily chores (pruning
-#   old logs, sampling database and storage sizes);
+# Monitoring (D156), the backup since the repo went private (D163):
+# UptimeRobot loads /api/health every 5 minutes, and the site runs its
+# own monitor from there every 15 minutes. This workflow:
+# - every 6 hours: the public health check, then the full monitor when
+#   CRON_SECRET is set (alerts go to Discord when DISCORD_WEBHOOK_URL is
+#   set on Vercel); the 03:00 Taiwan run also does the daily chores
+#   (pruning old logs, sampling database and storage sizes);
 # - every Monday at 08:30 Taiwan time: the weekly usage and cost summary.
 # If the site doesn't answer at all, this workflow posts to Discord
 # itself (secret DISCORD_WEBHOOK_URL here too). Setup: docs/roadmap.md.
 # Note: GitHub turns schedules off after 60 days without commits.
 on:
   schedule:
-    - cron: "*/15 * * * *"
-    - cron: "0 19 * * *"
+    - cron: "0 1,7,13,19 * * *"
     - cron: "30 0 * * 1"
   workflow_dispatch:
     inputs:
@@ -36,7 +36,7 @@ jobs:
       SITE_URL: ${{ vars.SITE_URL || 'https://listenloop-three.vercel.app' }}
       CRON_SECRET: ${{ secrets.CRON_SECRET }}
       DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-      JOB: ${{ github.event.schedule == '0 19 * * *' && 'daily' || github.event.schedule == '30 0 * * 1' && 'weekly' || inputs.job || 'monitor' }}
+      JOB: ${{ github.event.schedule == '30 0 * * 1' && 'weekly' || inputs.job || 'monitor' }}
     steps:
       - name: Health check (keeps Supabase awake)
         id: health
@@ -58,7 +58,9 @@ jobs:
         if: always() && env.JOB != 'weekly'
         run: |
           if [ -z "$CRON_SECRET" ]; then echo "CRON_SECRET not set: health check only."; exit 0; fi
-          query=""; [ "$JOB" = "daily" ] && query="?daily=1"
+          query=""
+          # 19:00 UTC is 03:00 in Taiwan: that run does the daily chores.
+          if [ "$JOB" = "daily" ] || { [ "${{ github.event_name }}" = "schedule" ] && [ "$(date -u +%H)" = "19" ]; }; then query="?daily=1"; fi
           curl -sf -X POST --max-time 60 -H "authorization: Bearer $CRON_SECRET" "$SITE_URL/api/cron/monitor$query"
 
       - name: Weekly summary

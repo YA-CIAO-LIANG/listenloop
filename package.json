@@ -39,6 +39,7 @@
     "portfolio:screenshots": "node --env-file=.env.local scripts/portfolio-screenshots.mts",
     "qa:summary": "node qa/summary.mts",
     "dev:metrics": "node scripts/dev-metrics.mts",
+    "actions:usage": "node scripts/actions-usage.mts",
     "loadtest": "bash loadtest/run.sh"
   },
   "dependencies": {

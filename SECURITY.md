@@ -15,4 +15,4 @@ Only the live site (the `main` branch) is supported.
 
 ## What we do
 
-How the site is protected, and what's checked automatically (gitleaks, CodeQL, Dependabot, OWASP ZAP), is in [`docs/security.md`](docs/security.md) (in Chinese).
+How the site is protected, and what's checked automatically (gitleaks, Semgrep, Dependabot, OWASP ZAP), is in [`docs/security.md`](docs/security.md) (in Chinese).

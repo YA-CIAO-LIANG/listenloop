@@ -11,6 +11,8 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   2. 每項開 PR；大的項目拆成幾個 PR，依序做。
   3. 本機五項檢查（lint、format:check、typecheck、test、build）都通過，並用 production 模式檢查後再推送。
   4. CI 全部通過後，用 squash 合併並刪除分支，合併時用 `--match-head-commit`。
+     - **repo 是私人的、沒有 GitHub Pro 時分支保護會失效**（2026-11-13 起，D163）：GitHub 不會擋，但仍然**必須等 CI 的 `check` 全部通過才能合併**，不可以直接推送到 main，也不可以在 CI 失敗或還在執行時合併。Joe 通過 GitHub Student Developer Pack（含 Pro）後，要重新開啟 main 的分支保護（必須通過 `check`）。
+     - Actions 分鐘數有限（每月 2,000）：月中用 `npm run actions:usage` 檢查，見 `docs/github-private.md`。
   5. 同步 main（切回 main、pull），刪除本機分支，更新 `docs/roadmap.md` 的進度，接著做下一項。
 - 規格沒有定義的細節：自行選擇合理的業界預設，記在 `docs/decisions.md`，不要停下來問我。內容包括日期、決定、理由，以及要改時看哪裡。
 - 只有需要我本人操作時才停下來，例如建立帳號或專案、申請憑證、提供 API 金鑰、同意需要信用卡的服務。需要我做的事要一次整理成清單、附上詳細步驟，並同步更新 `docs/roadmap.md` 的「需要 Joe 操作的事」。
@@ -116,7 +118,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - E2E 測試時會擋掉 YouTube，日期用 `page.clock` 設定（D18）；Supabase 換成 `e2e/mock-supabase/` 的假伺服器（D32）。
   - 主要流程有改動時，要補上或更新 E2E 測試。
 - **Git**：分支命名 `feat/…`、`fix/…`、`chore/…`、`docs/…`、`content/…`（新增或修改影片內容）；commit 用 Conventional Commits。所有 PR 在 CI 通過後直接合併（2026-10-30 起，見工作規則）。
-- **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改）。PR 改到程式時執行 format:check、lint、typecheck、test（後三項同時跑）、build:e2e、E2E；只改文件時只做 format:check；合併到 main 時不跑 build 與 E2E（D134，分鐘數見 `docs/github-private.md`）。
+- **CI**：GitHub Actions job 名稱為 `check`（分支保護依此名稱，不可任意更改）。PR 改到程式時執行 format:check、lint、typecheck、test（後三項同時跑）、build:e2e、E2E；只改文件時只做 format:check；合併到 main 時不跑 CI，改成每週一次完整執行（D134、D163，分鐘數見 `docs/github-private.md`）。程式碼安全掃描用 Semgrep（`.github/workflows/semgrep.yml`），金鑰用 gitleaks。
 - **秘密資訊**：API key 只放 `.env.local`，必須在 `.gitignore`；`.env.example` 提供範本。
 - **無障礙與錯誤處理**：見 `docs/design-system.md`；麥克風權限被拒、瀏覽器不支援語音辨識、影片無法載入，都要有友善提示。
 

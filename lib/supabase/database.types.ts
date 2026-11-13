@@ -750,6 +750,21 @@ export type Database = {
         };
         Relationships: [];
       };
+      ops_runs: {
+        Row: {
+          last_at: string;
+          name: string;
+        };
+        Insert: {
+          last_at?: string;
+          name: string;
+        };
+        Update: {
+          last_at?: string;
+          name?: string;
+        };
+        Relationships: [];
+      };
       ops_samples: {
         Row: {
           database_bytes: number;
@@ -1756,6 +1771,10 @@ export type Database = {
       };
       beta_admitted_count: { Args: never; Returns: number };
       can_practice: { Args: { target: string }; Returns: boolean };
+      claim_ops_run: {
+        Args: { gap_seconds: number; run_name: string };
+        Returns: boolean;
+      };
       class_progress: {
         Args: { target: string };
         Returns: {

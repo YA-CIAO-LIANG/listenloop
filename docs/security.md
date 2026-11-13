@@ -74,7 +74,7 @@ GitHub Actions（排程、CI）──CRON_SECRET──▶ /api/cron/*
 | A03 注入                     | 資料庫一律用 PostgREST 或參數化的 RPC，沒有拼接 SQL；React 跳脫輸出；唯一的 `dangerouslySetInnerHTML` 是靜態的主題腳本。提示詞注入見 STRIDE 的 E           | D159：ESLint 禁止 `dangerouslySetInnerHTML`（那一處加註理由）；AI 輸入清理；測試確認 AI 回傳的 HTML 以純文字顯示 |
 | A04 不安全的設計             | 方案限制集中在 `lib/plans.ts`；花費有每日與每月上限；速率限制；排隊                                                                                        | D155 緊急開關、D161 儲存空間與個人額度、D162 濫用偵測                                                            |
 | A05 安全設定錯誤             | CSP、HSTS、X-Frame-Options、nosniff、Referrer-Policy、Permissions-Policy、COOP 都有。**缺**：送出 `X-Powered-By: Next.js`                                  | 這次：`poweredByHeader: false`；ZAP baseline 進 CI                                                               |
-| A06 易受攻擊與過時的元件     | `npm audit --omit=dev`：0 個漏洞                                                                                                                           | 這次：Dependabot（npm、Actions 每週）、CodeQL                                                                    |
+| A06 易受攻擊與過時的元件     | `npm audit --omit=dev`：0 個漏洞                                                                                                                           | 這次：Dependabot（npm、Actions；D163 起每月）、CodeQL（D163 起改用 Semgrep）                                     |
 | A07 識別與驗證失效           | Supabase Auth；密碼規則（長度、常見密碼、不能和 email 相同）；登入每個 IP 每小時 20 次                                                                     | D159：確認登出會撤銷 refresh token；D160：Turnstile                                                              |
 | A08 軟體與資料完整性失效     | `npm ci` 依 lockfile 安裝；金流 webhook 有 HMAC 與防重送；Actions 用主版本號釘選                                                                           | 這次：gitleaks 的 binary 用 checksum 驗證；CodeQL 也掃 Actions 的 workflow                                       |
 | A09 安全記錄與監控失效       | `error_logs`、`admin_audit`、`api_calls`、`events`                                                                                                         | D156：監控與通知、每週摘要                                                                                       |
@@ -82,13 +82,13 @@ GitHub Actions（排程、CI）──CRON_SECRET──▶ /api/cron/*
 
 ## 5. 自動化掃描
 
-| 工具                                    | 什麼時候跑                                            | 在哪裡看結果                                   |
-| --------------------------------------- | ----------------------------------------------------- | ---------------------------------------------- |
-| gitleaks                                | 每個 PR（CI 的 `check`，只掃這次的 commit）           | CI 紀錄；有發現時 CI 失敗                      |
-| CodeQL                                  | 每個 PR、合併到 main、每週日                          | GitHub → Security → Code scanning              |
-| Dependabot                              | 每週一                                                | GitHub 的 PR、Security → Dependabot alerts     |
-| OWASP ZAP baseline                      | 改到標頭、proxy、安全設定的 PR，以及每週一            | Actions → ZAP baseline → artifact `zap-report` |
-| GitHub secret scanning、push protection | 每次 push（公開 repo 免費，要在設定開啟，見 roadmap） | GitHub → Security → Secret scanning            |
+| 工具                                    | 什麼時候跑                                               | 在哪裡看結果                                   |
+| --------------------------------------- | -------------------------------------------------------- | ---------------------------------------------- |
+| gitleaks                                | 每個 PR（只掃這次的 commit）；每週的完整 CI 掃完整歷史   | CI 紀錄；有發現時 CI 失敗                      |
+| Semgrep（D163，取代 CodeQL）            | 改到程式的 PR、每週日                                    | Actions → Semgrep 的紀錄；有發現時失敗         |
+| Dependabot                              | 每月（D163）                                             | GitHub 的 PR、Security → Dependabot alerts     |
+| OWASP ZAP baseline                      | 改到標頭、proxy、安全設定的 PR，以及每週一               | Actions → ZAP baseline → artifact `zap-report` |
+| GitHub secret scanning、push protection | 公開 repo 才免費；改私人後停止（D163），由 gitleaks 補上 | GitHub → Security → Secret scanning            |
 
 ### 2026-11-13 的掃描結果
 
@@ -97,7 +97,8 @@ GitHub Actions（排程、CI）──CRON_SECRET──▶ /api/cron/*
   - 6 筆是 `lib/blender-films.ts` 裡片段的 id 欄位（名稱叫 key，值是 elephants-dream-1 這類片段名稱）。
   - 已加進 `.gitleaks.toml` 的允許清單，各附理由；套用後重掃，結果是 0 筆。
 - **npm audit**（正式依賴）：0 個漏洞。
-- **CodeQL**（PR #202 的第一次執行）：1 個 Medium：第三方 action `zaproxy/action-baseline` 用標籤而不是 commit 釘選（標籤可以被改指到別的程式碼）。**修正**：改成釘選 commit SHA（D159）。程式碼本身 0 個警告。
+- **Semgrep**（D163，改私人前本機第一次執行，1.185.0、5 組開源規則、610 個檔案）：0 筆。
+- **CodeQL**（PR #202 的第一次執行；D163 起停用）：1 個 Medium：第三方 action `zaproxy/action-baseline` 用標籤而不是 commit 釘選（標籤可以被改指到別的程式碼）。**修正**：改成釘選 commit SHA（D159）。程式碼本身 0 個警告。
 - **gitleaks（CI）** 在 PR #202 第一次執行時就擋下一筆：這份文件引用了誤報的原文，被當成金鑰。改寫文字後通過，證實檢查有在運作。
 - **OWASP ZAP baseline**（PR #202，掃描 runner 上的 production build）：找到 14 種項目，沒有 High。處理方式：
 

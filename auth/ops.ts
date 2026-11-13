@@ -11,6 +11,11 @@ import {
   type OpsSnapshot,
 } from "@/lib/ops/alerts";
 import { alertLines, discordText, sendDiscord } from "@/lib/ops/notify";
+import {
+  SELF_MONITOR,
+  dailyWindow,
+  selfMonitorEnabled,
+} from "@/lib/ops/self-monitor";
 import { supabaseConfig } from "@/lib/supabase/config";
 import { usageDay, usageMonth } from "@/lib/usage";
 import { AZURE_SPEECH_FREE_CHARS } from "@/lib/usage-report";
@@ -21,8 +26,9 @@ import { getUsageSettings } from "./usage-settings";
 
 /**
  * Monitoring on the server (D156): health checks, the site's numbers,
- * and recording and sending alerts. Called by /api/health (quick checks)
- * and /api/cron/monitor (everything, every 15 minutes).
+ * and recording and sending alerts. Called by /api/health (quick checks,
+ * and the full monitor at most every 15 minutes, D163) and by
+ * /api/cron/monitor (GitHub Actions, every 6 hours as the backup).
  */
 
 type Admin = NonNullable<ReturnType<typeof getAdminSupabase>>;
@@ -225,4 +231,34 @@ export async function latestHealth(): Promise<{
     status: data.status as "ok" | "degraded" | "down",
     checkedAt: data.checked_at,
   };
+}
+
+/**
+ * The monitor started from the public health check (D163): runs only
+ * when this caller wins the database claim for the gap, so loading
+ * /api/health more often can't run it more often. Errors are swallowed:
+ * the health check's own answer never depends on this.
+ */
+export async function runMonitorIfDue(now: Date): Promise<boolean> {
+  if (!selfMonitorEnabled()) return false;
+  const admin = getAdminSupabase();
+  if (!admin) return false;
+  try {
+    const claim = async (name: string, gap: number) => {
+      const { data, error } = await admin.rpc("claim_ops_run", {
+        run_name: name,
+        gap_seconds: gap,
+      });
+      return !error && data === true;
+    };
+    if (!(await claim("monitor", SELF_MONITOR.monitorGapSeconds))) {
+      return false;
+    }
+    const daily =
+      dailyWindow(now) && (await claim("daily", SELF_MONITOR.dailyGapSeconds));
+    await runMonitor(admin, now, { daily });
+    return true;
+  } catch {
+    return false;
+  }
 }
