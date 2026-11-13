@@ -47,7 +47,7 @@ The method that works is old-fashioned: take a short clip, write down every word
 | Working professionals               | Meetings, calls, clients                  | Done in 10 minutes a day                    |
 | Teachers and cram schools           | Assigning materials, tracking students    | Class tools, each student's gain            |
 
-Seven personas (a junior-high student, a high-school student, a student abroad, a professional, an older learner, an assistive-technology user, an English-interface user) drive an AI usability test whose problems are fixed by Nielsen severity (`docs/personas.md`, `docs/usability-ai-test.md`).
+Ten personas (a junior-high student, a high-school student, a student abroad, a professional, an older learner, an assistive-technology user, an English-interface user, a senior preparing for the college entrance exam, a Taiwanese graduate student in the US, a cram-school teacher) drive an AI usability test whose problems are fixed by Nielsen severity (`docs/personas.md`, `docs/usability-ai-test.md`).
 
 ## 4. The solution: a 7-day loop
 
@@ -138,33 +138,38 @@ Result: about **US$2** of real API spend over the whole build (2,360 logged call
 
 | Layer              | Tool            | What                                                                                                                                                     |
 | ------------------ | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Unit and component | Vitest          | ~1,570 tests: scoring normalization and alignment, the 7-day rules, sync merging, plans and allowances, column-level permissions                         |
-| End to end         | Playwright      | 96 tests against the **production build**, with a stand-in Supabase and a fixed clock                                                                    |
-| Page sweep         | Custom qa-sweep | Every page at 5 widths × light/dark × Chinese/English: overlaps, clipping, overflow, touch targets, axe WCAG 2.1 AA, broken links, slow loads; 22 rounds |
-| Simulated users    | Custom skill    | 7 personas complete the main tasks on phone and laptop; fixes by severity                                                                                |
+| Unit and component | Vitest          | ~2,030 tests: scoring normalization and alignment, the 7-day rules, sync merging, plans and allowances, column-level permissions                         |
+| End to end         | Playwright      | 179 tests against the **production build**, with a stand-in Supabase and a fixed clock                                                                   |
+| Page sweep         | Custom qa-sweep | Every page at 5 widths × light/dark × Chinese/English: overlaps, clipping, overflow, touch targets, axe WCAG 2.1 AA, broken links, slow loads; 60 rounds |
+| Simulated users    | Custom skill    | 10 personas, 4 roles, 12 whole flows on emulated iPhone and Android and a laptop; fixes by severity; simulated SUS 73.5 → 77.5                           |
+| AI eval            | Custom          | 54-case golden set, a merge gate for prompt or model changes; now 96.31                                                                                  |
+| Security           | CI              | gitleaks (0 real secrets in full history), Semgrep (0), OWASP ZAP (no High), Dependabot; daily encrypted backups and a restore drill                     |
 | Content quality    | Audit script    | Rules on every official material plus an AI sample of translations (report only); fixes go through review                                                |
 | After deploy       | verify-prod     | Deployment, security headers, CSP, YouTube playback, RLS                                                                                                 |
 
-Process: main is protected; every change is a PR; local checks (lint, format, typecheck, test, build) and E2E pass before pushing; green CI before a squash merge.
+Process: every change is a PR (the repo is private without branch protection; CI must still pass before merging); local checks (lint, format, typecheck, test, build) and E2E pass before pushing; green CI before a squash merge.
 
 ## 9. Numbers
 
-(2026-11-12)
+(2026-11-13)
 
-| Item                          | Number                                                                                          |
-| ----------------------------- | ----------------------------------------------------------------------------------------------- |
-| Build time                    | 2026-10-24 to 2026-11-12 (20 days)                                                              |
-| Merged PRs                    | 150+                                                                                            |
-| Unit and component tests      | ~1,570                                                                                          |
-| E2E tests                     | 96                                                                                              |
-| Page-sweep rounds             | 22                                                                                              |
-| Recorded decisions            | 118 (D1–D118)                                                                                   |
-| Database migrations           | 44                                                                                              |
-| Lighthouse (home, production) | Mobile: performance 92, accessibility 100, best practices 100, SEO 100; desktop performance 100 |
-| Lighthouse (video page)       | Performance 100 on mobile and desktop                                                           |
-| Total real AI API spend       | ~US$2 (logged since 2026-11-05)                                                                 |
-| Official materials            | 51 published audio lessons + the Sintel film; 26 drafts (incl. 4 Blender film lessons)          |
-| Languages                     | Traditional Chinese and English UI; 3 system manuals in each                                    |
+| Item                            | Number                                                                             |
+| ------------------------------- | ---------------------------------------------------------------------------------- |
+| Build time                      | 2026-10-24 to 2026-11-13 (21 days)                                                 |
+| Merged PRs                      | ~220                                                                               |
+| Unit and component tests        | ~2,030                                                                             |
+| E2E tests                       | 179 (incl. accessibility, emulated phones, emergency switches)                     |
+| Page-sweep rounds               | 60                                                                                 |
+| AI eval                         | 54-case golden set, 92.06 → 96.31                                                  |
+| AI simulated usability test     | 10 personas, all 39 flows completed; simulated SUS 77.5 (not real users)           |
+| Security scans                  | gitleaks 0 real secrets in full history; Semgrep 0; ZAP no High (2 headers fixed)  |
+| Restore drill                   | All 50 tables and 43 RLS policies matched in ~3 s; ~30 min estimated in production |
+| Recorded decisions              | 172 (D1–D172)                                                                      |
+| Database migrations             | 64                                                                                 |
+| Lighthouse (production, mobile) | 10 main pages at performance 96–100; home 100 on all four categories               |
+| Total real AI API spend         | ~US$2.08 (logged since 2026-11-05)                                                 |
+| Official materials              | 51 published audio lessons + the Sintel film                                       |
+| Languages                       | Traditional Chinese and English UI; 3 system manuals in each                       |
 
 ## 10. My role and the AI's
 

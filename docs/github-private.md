@@ -1,6 +1,12 @@
 # 把 GitHub repo 改成私人：要注意的事（D134，2026-11-11；D163 更新，2026-11-13）
 
-**2026-11-13（D163）**：Joe 決定改成私人。改之前的準備都已完成（見下方「D163：改私人前的準備」），切換結果與日期寫在 `docs/roadmap.md` 最上方的報告。
+**2026-11-13（D163）：已改成私人。** 用 `gh repo edit --visibility private` 切換，切換後確認：
+
+- 方案是 **GitHub Free**：分支保護與 rulesets 的 API 回「Upgrade to GitHub Pro or make this repository public」，所以 main 的分支保護已失效；照 CLAUDE.md，仍然必須等 CI 通過才合併。通過 Student Developer Pack（含 Pro）後要重新開啟。
+- CI、Semgrep 在私人 repo 照常執行；Vercel 預覽與正式部署照常（之後的 PR 都有 Vercel 檢查，正式站已更新）。
+- Dependabot 的安全性警示與自動安全性更新：切換後是關閉的，已用 API 重新開啟；版本更新（`dependabot.yml`）照常。
+- 監控排程手動執行成功（健康檢查 HTTP 200）；網站自己的 15 分鐘監控在正式站正常寫入。
+- 備份排程手動執行時，因為還沒設定 `SUPABASE_DB_URL`、`BACKUP_PASSPHRASE` 而在第一步停下（設計如此：沒有密碼絕不上傳）。
 
 ## D163：改私人前的準備
 
