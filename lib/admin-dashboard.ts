@@ -8,6 +8,7 @@ import { usagePeriodStarts } from "./usage-report";
 export const ADMIN_SECTIONS = [
   { id: "overview", href: "/admin" },
   { id: "ops", href: "/admin/ops" },
+  { id: "abuse", href: "/admin/abuse" },
   { id: "official", href: "/admin/official" },
   { id: "users", href: "/admin/users" },
   { id: "beta", href: "/admin/beta" },

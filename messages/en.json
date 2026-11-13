@@ -1465,7 +1465,8 @@
       "docs": "System docs",
       "retention": "Retention",
       "beta": "Sign-ups",
-      "ops": "Operations"
+      "ops": "Operations",
+      "abuse": "Abuse"
     },
     "overview": {
       "title": "Admin overview",
@@ -2069,6 +2070,33 @@
         "unavailable": "Only admins can change this.",
         "invalid": "Check the values: a change other than 0, 1–90 days, and a reason.",
         "failed": "Couldn't save; try again later.",
+        "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
+      }
+    },
+    "abuse": {
+      "title": "Abuse flags",
+      "intro": "Checked every 15 minutes: {ip}+ new accounts from one IP in a day (flag only), {calls}+ AI calls in an hour (AI paused), near the daily AI cap {days} days running (flag only), public materials reported by {reporters}+ people (AI paused). Confirming keeps AI paused (disable the account on its user page); dismissing resumes AI the detector paused.",
+      "none": "No flags.",
+      "user": "User {number}",
+      "autoSuspended": "AI paused automatically",
+      "status": {
+        "open": "Open",
+        "confirmed": "Confirmed",
+        "dismissed": "Dismissed"
+      },
+      "kinds": {
+        "multi-signup": "Many accounts from one IP",
+        "heavy-use": "Burst of AI calls",
+        "capped-days": "Near the AI cap for days",
+        "reported": "Public materials reported by many"
+      },
+      "note": "Note (optional)",
+      "confirm": "Confirm",
+      "dismiss": "Dismiss (false alarm)",
+      "errors": {
+        "unavailable": "Only admins can change this.",
+        "invalid": "Something isn't right.",
+        "failed": "Couldn't save; it may be resolved already. Reload.",
         "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
       }
     }

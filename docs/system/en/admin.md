@@ -330,6 +330,11 @@ When something goes wrong, contain it first, then find the cause. The full steps
 - More or less for one person: "Users → number → Quota": an amount, days, and a reason; you can also pause that account's AI.
 - Audio no material has used for 7 days is removed daily; if too much looks unused, it stops and alerts you: check Supabase Storage.
 
+### 11.6 Abuse flags (D162)
+
+- "Abuse" lists accounts the detector found: many accounts from one IP, bursts of AI calls, near the cap for days, public materials reported by many. Some pause AI automatically.
+- "Confirm" keeps AI paused (disable the account on its user page); "Dismiss" resumes AI. Both need a recent sign-in.
+
 ## 12. Questions
 
 | Question                                   | Answer                                                                                                                                  |

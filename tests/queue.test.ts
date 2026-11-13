@@ -40,16 +40,17 @@ describe("takeTurn (D133)", () => {
       target_resource: "speech",
       target_ticket: "speech:p1",
       target_user: "u1",
-      target_priority: 0,
+      // Plus gets a head start of one level (D162).
+      target_priority: 1,
       stale_seconds: QUEUE.staleSeconds,
     });
   });
 
-  it("puts Pro and admins first (D102)", async () => {
+  it("gives Pro and admins the longest head start (D102, D162)", async () => {
     await takeTurn("transcribe", "x", { id: "u1" }, "pro");
     expect(state.rpc).toHaveBeenCalledWith(
       "queue_position",
-      expect.objectContaining({ target_priority: 1 }),
+      expect.objectContaining({ target_priority: 2 }),
     );
   });
 

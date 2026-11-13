@@ -1,5 +1,10 @@
-import { PLANS, type PlanId } from "@/lib/plans";
-import { QUEUE, queueTicket, type QueueResource } from "@/lib/queue";
+import type { PlanId } from "@/lib/plans";
+import {
+  QUEUE,
+  QUEUE_PRIORITY,
+  queueTicket,
+  type QueueResource,
+} from "@/lib/queue";
 import { getAdminSupabase } from "./admin";
 
 /**
@@ -21,7 +26,8 @@ export async function takeTurn(
       target_resource: resource,
       target_ticket: queueTicket(resource, id),
       target_user: user.id,
-      target_priority: PLANS[plan].priority ? 1 : 0,
+      // Fair priority by plan (D162).
+      target_priority: QUEUE_PRIORITY[plan],
       stale_seconds: QUEUE.staleSeconds,
     });
   } catch (error) {

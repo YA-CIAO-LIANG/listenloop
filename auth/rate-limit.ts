@@ -3,13 +3,20 @@ import { RATE_LIMITS, type RateLimitedAction } from "@/lib/rate-limits";
 import { sha256Hex } from "@/lib/custom-practice/hash";
 import { getAdminSupabase } from "./admin";
 
+/**
+ * This request's IP, hashed (D63): only the hash is ever stored, never
+ * the address. Also used to spot many sign-ups from one place (D162).
+ */
+export async function requestIpHash(): Promise<string> {
+  const list = (await headers()).get("x-forwarded-for") ?? "";
+  const ip = list.split(",")[0]?.trim() || "unknown";
+  return (await sha256Hex(`listenloop:${ip}`)).slice(0, 32);
+}
+
 /** Who's asking, as a rate-limit key part: the account, or the IP hashed. */
 async function requester(userId: string | null): Promise<string> {
   if (userId) return `u:${userId}`;
-  const list = (await headers()).get("x-forwarded-for") ?? "";
-  const ip = list.split(",")[0]?.trim() || "unknown";
-  // Only a hash is stored, never the address (D63).
-  return `ip:${(await sha256Hex(`listenloop:${ip}`)).slice(0, 32)}`;
+  return `ip:${await requestIpHash()}`;
 }
 
 /**
