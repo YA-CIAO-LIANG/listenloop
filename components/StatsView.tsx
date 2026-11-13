@@ -330,7 +330,7 @@ export function StatsView({
           </div>
         </>
       ) : (
-        <section className="space-y-3 rounded-base border border-line bg-surface p-6">
+        <section className="space-y-3 rounded-base border border-line surface-card p-6">
           <h2 className="font-display text-h3">{t("lockedTitle")}</h2>
           <p className="text-ink-muted">{t("lockedBody")}</p>
           <ButtonLink href="/pricing?from=stats" variant="secondary" arrow>

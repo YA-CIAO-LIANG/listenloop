@@ -32,7 +32,7 @@ export function ProgressGate({
   return (
     <section
       aria-labelledby={`progress-gate-${place}`}
-      className={`rounded-base border border-line bg-surface p-6 ${className}`}
+      className={`rounded-base border border-line surface-card p-6 ${className}`}
     >
       <h2 id={`progress-gate-${place}`} className="font-display text-h3">
         {t(`${place}.title`)}

@@ -90,7 +90,7 @@ export async function SharedPreviewPage({
         </ol>
       </section>
 
-      <div className="mt-8 max-w-reading space-y-4 rounded-base border border-line bg-surface p-6">
+      <div className="mt-8 max-w-reading space-y-4 rounded-base border border-line surface-card p-6">
         <p>{t("locked")}</p>
         <p className="text-supporting text-ink-muted">{t("plans")}</p>
         <PreviewActions

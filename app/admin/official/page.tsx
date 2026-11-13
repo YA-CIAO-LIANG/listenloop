@@ -194,7 +194,7 @@ export default async function OfficialMaterialsPage({
 
       <section
         aria-labelledby="official-upgrade"
-        className="mt-8 max-w-practice rounded-base border border-line bg-surface p-6"
+        className="mt-8 max-w-practice rounded-base border border-line surface-card p-6"
       >
         <h2 id="official-upgrade" className="font-display text-h3">
           {t("upgrade.title")}

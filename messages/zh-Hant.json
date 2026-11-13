@@ -322,7 +322,7 @@
       "titleZh": "改期客戶會議",
       "titleZhVideo": "辛特爾"
     },
-    "backgroundsNote": "每個背景的淺色（左）與深色（右）版本，以及三種文字顏色。對比由 tests/backgrounds.test.ts 自動檢查。",
+    "backgroundsNote": "每個主題的淺色（左）與深色（右）版本：首頁與練習頁的縮圖、卡片樣式，以及三種文字顏色。對比由 tests/theme-contrast.test.ts 自動檢查（npm run themes:contrast 印出每個主題的最低對比）。",
     "backgroundsMuted": "次要文字",
     "backgroundsAccent": "強調文字"
   },
@@ -2822,7 +2822,7 @@
     "next": "再 {needed} 分解鎖「{color}」",
     "allOpen": "所有顏色都解鎖了",
     "colorsTitle": "主題顏色",
-    "colorsIntro": "選一個顏色當作網站的強調色，只影響這個瀏覽器。",
+    "colorsIntro": "選一個顏色當作網站的強調色。預設的橘色會跟著背景主題換成搭配的顏色；選其他顏色則在每個主題都固定使用。",
     "open": "已解鎖",
     "needs": "還差 {points} 分",
     "unlockForever": "{price} 永久解鎖",
@@ -2837,7 +2837,7 @@
     "offerJoined": "已加入名單，謝謝！",
     "offerClose": "關閉",
     "colors": {
-      "orange": "橘",
+      "orange": "橘（跟著主題）",
       "teal": "青綠",
       "blue": "藍",
       "violet": "紫",
@@ -3337,7 +3337,15 @@
   },
   "backgrounds": {
     "title": "背景主題",
-    "intro": "換一個你喜歡的頁面背景。每個背景都有淺色與深色版本，文字和按鈕在任何背景上都清楚可讀。登入時，選擇會跟著你的帳號，換裝置也一樣；登出後這台裝置會恢復預設。",
+    "intro": "每個主題是一整套搭配：背景紋理、卡片樣式（純色、紙張或毛玻璃）、強調色、線條與陰影，都有淺色與深色版本，文字和按鈕在任何主題上都清楚可讀。登入時，選擇會跟著你的帳號，換裝置也一樣；登出後這台裝置會恢復預設。",
+    "previewNote": "縮圖用你目前的淺色或深色模式，畫出首頁（左）與練習頁（右）套用這個主題的樣子。",
+    "recommended": "推薦主題",
+    "cards": {
+      "solid": "純色卡片",
+      "paper": "紙張質感",
+      "glass": "毛玻璃"
+    },
+    "inUse": "使用中",
     "loading": "計算練習分數中…",
     "next": "目前練習分數 {score}，再 {needed} 分解鎖「{name}」。",
     "allOpen": "目前練習分數 {score}，用分數能解鎖的背景都已解鎖。",

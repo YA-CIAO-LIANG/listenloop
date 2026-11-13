@@ -950,7 +950,7 @@ export function CreatePracticeForm({
         youtube === "no-key" ? (
           <div
             role="note"
-            className="space-y-3 rounded-base border border-line bg-surface p-4"
+            className="space-y-3 rounded-base border border-line surface-card p-4"
           >
             <p className="font-medium">{tGenerate("youtubeNoKey.title")}</p>
             <p className="text-supporting text-ink-muted">

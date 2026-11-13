@@ -3081,3 +3081,21 @@
 - **Beta 測試者須知**：寫在 `08-Beta招募文案.docx`，第 7 天的任務包含網站內的滿意度調查（D164）。Joe 另一個對話在寫 `docs/beta-tester-guide.md`；那份合併後，兩邊的流程（邀請連結、2 週、回報方式）要對齊，以那份為準。
 - **怎麼檢查**：每個檔案 `unzip -t`、Office XML 結構驗證（docx 技能的 `validate.py`）、轉成純文字確認中文沒有亂碼、目錄每一項都有頁碼、macOS 預覽確認封面與目錄。
 - **要改時**：內容改 `scripts/marketing/content/*.mts`（方案或價格變了先改 `facts.mts`），版面改 `scripts/marketing/docx-builder.mts`，然後 `npm run marketing:docx`，把 .docx 和 README 一起提交。
+
+## D166 主題改版：整套搭配、卡片樣式、即時縮圖、對比自動測試（2026-11-13，Joe 指定）
+
+- **為什麼**：原本的「背景主題」（D121）只換底色與圖案，卡片、線條、強調色都沿用預設，有些組合看起來不協調；設定頁的預覽只是一小塊色塊，看不出套用後首頁與練習頁的樣子。
+- **做法**：
+  - **主題 = 一整套 token**：每個主題的淺色與深色各自定義 ground、surface、band、line、ink、ink-muted、accent、accent-ink，加上卡片樣式（純色 solid、紙張 paper、毛玻璃 glass）。全部寫在 `lib/backgrounds.ts`，由 `npm run backgrounds:css` 產生 `app/backgrounds.css`；元件仍然只用 design token，不知道主題的存在。
+  - **卡片樣式用 token 控制**：新增 `--ll-card-alpha`、`--ll-card-filter`、`--ll-card-texture`、`--ll-shadow-card` 與 `surface-card` utility。框起來的面板從 `bg-surface` 改成 `surface-card`（29 個檔案的機械式替換，只換有 `p-3`～`p-6` 內距的面板）；輸入框保持不透明的 `bg-surface`，避免毛玻璃影響輸入的可讀性。
+  - **強調色**：主題自帶協調的強調色；使用者在 D93 選了橘色以外的顏色時優先使用（`:not([data-accent])`），所以「橘」改名為「橘（跟著主題）」。
+  - **紋理更細緻**：紙紋、細格線、細波紋、小圓點的濃度與線寬都降低，部分主題加上方柔和光暈（`wash`）。SVG 都在 `:root` 寫一次再用變數引用，CSS 的 gzip 大小約 8.5 KB（原本約 4.2 KB）。
+  - **切換淡入**：`lib/theme-transition.ts` 在切換時短暫加上 `data-theme-switching`，顏色 280ms 淡入；只在切換的那一刻有 transition（避免平常每次 hover 都多算），`prefers-reduced-motion` 時直接切換。
+  - **設定頁**：主題卡片上方是即時縮圖 `ThemePreview`（首頁＋練習頁，用該主題的 token 畫，不是截圖），六個「推薦主題」在最前面（預設、米色紙張、暖灰、海洋、森林、柔和粉彩；三種卡片樣式都有，其中四個免費），其餘依原本的組別分類，空的組不顯示。所有卡片仍是同一個原生 radio group（方向鍵、未解鎖的跳過），焦點時整張卡片顯示外框。
+  - **舊的 id 全部保留**：19 個 id 不變，使用者存的 `ll-background`（本機與帳號同步的設定，D138）不需要轉換；測試列出舊 id，之後要改名必須在 `<head>` script 和 `lib/personal-settings.ts` 加對照。
+- **對比**：`lib/theme-contrast.ts` 計算每個主題、淺色與深色的所有組合（文字、次要文字、強調文字、success／error 在底色與紋理最濃處、毛玻璃卡片疊在每一種底色上、紙張卡片含紙紋；primary／secondary 按鈕文字在 hover 前後的底色上；accent 對底色與卡片 ≥ 3），主題自己的強調色和使用者可選的每個強調色都算。`tests/theme-contrast.test.ts` 全部要 ≥ AA；`npm run themes:contrast` 印出每個主題的最低值。
+  - 為了讓使用者選的強調色在所有主題的按鈕 hover 底色上都 ≥ 4.5，淺色強調文字色加深約 5～14%：青綠 #0A665D、藍 #1A47C5、紫 #6626CC、玫瑰紅 #A30F34、綠 #156132、金 #7D480D。橘色（預設）不變。
+  - 新的按鈕檢查只在純底色與卡片上算（按鈕本身有 `backdrop-blur`，紋理線條會被模糊掉）；文字則連紋理最濃處都算。
+- **沒有新增套件**，沒有圖片檔。
+- **測試**：`tests/theme-contrast.test.ts`（38 組：19 個主題 × 淺／深）；`tests/backgrounds.test.ts`（預設主題等於 `globals.css` 的 token、舊 id 保留、推薦 6 個、強調色優先順序、紋理大小、減少動態效果）；E2E `e2e/backgrounds.spec.ts`（推薦在前、縮圖、方向鍵、焦點外框、手機上 44px、淡入與減少動態效果）。
+- **要改時**：主題的顏色、卡片樣式、推薦清單都在 `lib/backgrounds.ts`（改完跑 `npm run backgrounds:css`、`npm run themes:contrast`）；毛玻璃透明度與紙紋在 `GLASS_ALPHA`、`PAPER_GRAIN`；切換時間在 `app/globals.css` 的 `--ll-duration-theme`；縮圖在 `components/ThemePreview.tsx`。

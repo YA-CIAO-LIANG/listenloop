@@ -109,7 +109,7 @@ export function YouTubeCreate({
 
   if (!allowed) {
     return (
-      <div className="space-y-3 rounded-base border border-line bg-surface p-4">
+      <div className="space-y-3 rounded-base border border-line surface-card p-4">
         <p>{t("paidOnly")}</p>
         <ButtonLink href="/pricing?from=youtube" variant="secondary" arrow>
           {t("seePlans")}
@@ -287,7 +287,7 @@ export function YouTubeCreate({
       </div>
 
       {video && (
-        <div className="space-y-2 rounded-base border border-line bg-surface p-4">
+        <div className="space-y-2 rounded-base border border-line surface-card p-4">
           <p className="font-medium" lang="en">
             {video.title}
           </p>

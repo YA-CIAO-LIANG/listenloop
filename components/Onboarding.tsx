@@ -19,7 +19,7 @@ export function Onboarding({ startHref }: { startHref: string }) {
   return (
     <section
       aria-labelledby="onboarding-title"
-      className="rounded-base border border-line bg-surface p-6"
+      className="rounded-base border border-line surface-card p-6"
     >
       <h2 id="onboarding-title" className="font-display text-h3">
         {t("title")}

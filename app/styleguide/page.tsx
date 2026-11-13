@@ -25,6 +25,7 @@ import { LanguageToggle } from "@/components/LanguageToggle";
 import { ProgressBar } from "@/components/ProgressBar";
 import { StageProgress } from "@/components/StageProgress";
 import { ScoreBadge } from "@/components/ScoreBadge";
+import { ThemePreview } from "@/components/ThemePreview";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   DayTrackerDemo,
@@ -151,13 +152,21 @@ export default function StyleguidePage() {
                   <div key={mode} data-theme={mode}>
                     <div
                       data-bg={b.id}
-                      className="bg-swatch h-32 space-y-1 p-3 text-supporting"
+                      className="bg-swatch space-y-2 p-3 text-supporting"
                     >
-                      <p className="text-ink">{tBackgrounds(mode)}</p>
-                      <p className="text-ink-muted">{t("backgroundsMuted")}</p>
-                      <p className="text-accent-ink">
-                        {t("backgroundsAccent")}
-                      </p>
+                      <ThemePreview id={b.id} className="h-24" />
+                      <div className="space-y-1 rounded-base border border-line surface-card p-3">
+                        <p className="text-ink">
+                          {tBackgrounds(mode)} ·{" "}
+                          {tBackgrounds(`cards.${b.card}`)}
+                        </p>
+                        <p className="text-ink-muted">
+                          {t("backgroundsMuted")}
+                        </p>
+                        <p className="text-accent-ink">
+                          {t("backgroundsAccent")}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}

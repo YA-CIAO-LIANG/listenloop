@@ -32,7 +32,7 @@ export default async function LearnIndexPage() {
             <li key={category}>
               <Link
                 href={learnPath(category)}
-                className="tap block h-full rounded-base border border-line bg-surface p-5 hover:border-ink"
+                className="tap block h-full rounded-base border border-line surface-card p-5 hover:border-ink"
               >
                 <span className="block font-display text-h3">
                   {t("pageTitle", { name: tNames(category) })}

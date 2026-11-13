@@ -26,6 +26,7 @@
     "eval:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.eval-record.config.mts --silent=false",
     "official:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.official.config.mts --silent=false",
     "backgrounds:css": "node --no-warnings scripts/backgrounds-css.mts",
+    "themes:contrast": "node --no-warnings scripts/themes-contrast.mts",
     "blender:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.blender.config.mts --silent=false",
     "content:fixes": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.fixes.config.mts --silent=false",
     "official:audit": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.audit.config.mts --silent=false",

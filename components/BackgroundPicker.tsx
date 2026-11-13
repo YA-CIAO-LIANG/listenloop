@@ -5,6 +5,12 @@ import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { recordIntent } from "@/app/intent-actions";
 import {
+  ACCENT_STORAGE_KEY,
+  DEFAULT_ACCENT,
+  isAccentId,
+  type AccentId,
+} from "@/lib/accents";
+import {
   BACKGROUND_GROUPS,
   BACKGROUND_STORAGE_KEY,
   BACKGROUND_UNLOCK_PRICE,
@@ -14,15 +20,19 @@ import {
   isBackgroundId,
   isBackgroundOpen,
   nextBackground,
+  RECOMMENDED_BACKGROUNDS,
+  type Background,
   type BackgroundId,
 } from "@/lib/backgrounds";
 import { formatPrice } from "@/lib/payments/pricing";
 import { scoreEntries, totalScore } from "@/lib/score-points";
+import { withThemeTransition } from "@/lib/theme-transition";
 import { Button } from "./Button";
 import { Dialog } from "./Dialog";
 import { useStores } from "./StoresProvider";
+import { ThemePreview } from "./ThemePreview";
 
-// The chosen background, remembered in this browser (D121); the server
+// The chosen theme, remembered in this browser (D121); the server
 // renders the default, and the <head> script applies the saved one.
 const listeners = new Set<() => void>();
 function subscribe(listener: () => void) {
@@ -37,11 +47,23 @@ function readSaved(): BackgroundId {
     return DEFAULT_BACKGROUND;
   }
 }
-/** Shows `id` on the whole page (without saving it). */
+/** The learner's own accent color (D93), which wins over a theme's. */
+function readAccent(): AccentId | null {
+  try {
+    const saved = localStorage.getItem(ACCENT_STORAGE_KEY);
+    return isAccentId(saved) && saved !== DEFAULT_ACCENT ? saved : null;
+  } catch {
+    return null;
+  }
+}
+const noSubscription = () => () => {};
+/** Shows `id` on the whole page (without saving it), fading over. */
 function show(id: BackgroundId) {
   const attribute = backgroundAttribute(id);
-  if (attribute) document.documentElement.setAttribute("data-bg", attribute);
-  else document.documentElement.removeAttribute("data-bg");
+  withThemeTransition(() => {
+    if (attribute) document.documentElement.setAttribute("data-bg", attribute);
+    else document.documentElement.removeAttribute("data-bg");
+  });
 }
 function save(id: BackgroundId) {
   try {
@@ -55,10 +77,14 @@ function save(id: BackgroundId) {
 }
 
 /**
- * Background themes (D121) in the account settings: each one's light and
- * dark look, grouped by style. Open ones (free, or reached by practice
- * score) can be chosen; any one can be previewed on the whole page; the
- * animated ones have an "unlock forever" fake door that records interest.
+ * Themes (D121, D166) in the account settings: six recommended ones
+ * first, then the rest grouped by style. Each is a card with a live
+ * miniature of the home page and a practice page in that theme (the
+ * learner's current light or dark mode). Open ones (free, or reached by
+ * practice score) can be chosen; any one can be previewed on the whole
+ * page; the animated ones have an "unlock forever" fake door that records
+ * interest. All the cards are one native radio group (arrow keys move
+ * between the open ones), and the focused card shows the focus ring.
  */
 export function BackgroundPicker() {
   const t = useTranslations("backgrounds");
@@ -69,6 +95,7 @@ export function BackgroundPicker() {
     readSaved,
     () => DEFAULT_BACKGROUND,
   );
+  const accent = useSyncExternalStore(noSubscription, readAccent, () => null);
   const [score, setScore] = useState<number | null>(null);
   const [preview, setPreview] = useState<BackgroundId | null>(null);
   const [offer, setOffer] = useState<BackgroundId | null>(null);
@@ -87,7 +114,7 @@ export function BackgroundPicker() {
     };
   }, [progress, rewards]);
 
-  // Leaving the page ends a preview: back to the saved background.
+  // Leaving the page ends a preview: back to the saved theme.
   useEffect(() => () => show(readSaved()), []);
 
   const points = score ?? 0;
@@ -128,6 +155,95 @@ export function BackgroundPicker() {
     });
   }
 
+  const sections = [
+    {
+      key: "recommended",
+      title: t("recommended"),
+      items: RECOMMENDED_BACKGROUNDS.map((id) =>
+        BACKGROUNDS.find((b) => b.id === id)!,
+      ),
+    },
+    ...BACKGROUND_GROUPS.map((group) => ({
+      key: group,
+      title: t(`groups.${group}`),
+      items: BACKGROUNDS.filter(
+        (b) => b.group === group && !RECOMMENDED_BACKGROUNDS.includes(b.id),
+      ),
+    })),
+  ].filter((section) => section.items.length > 0);
+
+  function themeCard(b: Background) {
+    const open = isBackgroundOpen(b.id, points);
+    const name = t(`names.${b.id}`);
+    const checked = chosen === b.id;
+    const status =
+      b.unlock.kind === "free"
+        ? t("free")
+        : b.unlock.kind === "paid"
+          ? t("paidOnly")
+          : open
+            ? t("open")
+            : t("needs", { points: b.unlock.at - points });
+    return (
+      <li
+        key={b.id}
+        className="space-y-3 rounded-base border border-line surface-card p-3 has-[input:checked]:border-accent has-[input:focus-visible]:outline-2 has-[input:focus-visible]:outline-offset-2 has-[input:focus-visible]:outline-focus"
+      >
+        <label className={`block space-y-3 ${open ? "cursor-pointer" : ""}`}>
+          <ThemePreview id={b.id} accent={accent} className="h-28" />
+          <span className="flex min-h-11 items-center gap-3">
+            <input
+              type="radio"
+              name="background"
+              value={b.id}
+              checked={checked}
+              disabled={!open}
+              onChange={() => choose(b.id)}
+              className="size-4 shrink-0 accent-(--ll-accent)"
+            />
+            <span className="min-w-0 flex-1">
+              <span className="block">
+                {name}
+                {b.motion && (
+                  <span className="ml-2 text-metadata text-ink-muted">
+                    {t("animated")}
+                  </span>
+                )}
+              </span>
+              <span className="block text-metadata text-ink-muted">
+                {t(`cards.${b.card}`)} · {status}
+              </span>
+            </span>
+            {checked && (
+              <span className="shrink-0 text-metadata text-accent-ink">
+                {t("inUse")}
+              </span>
+            )}
+          </span>
+        </label>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            aria-label={t("previewLabel", { name })}
+            onClick={() => startPreview(b.id)}
+          >
+            {t("preview")}
+          </Button>
+          {b.unlock.kind === "paid" && (
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => openOffer(b.id)}
+            >
+              {t("unlockForever", { price })}
+            </Button>
+          )}
+        </div>
+      </li>
+    );
+  }
+
   return (
     <section
       aria-labelledby="backgrounds-title"
@@ -137,6 +253,9 @@ export function BackgroundPicker() {
         {t("title")}
       </h2>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
+      <p className="mt-2 max-w-reading text-supporting text-ink-muted">
+        {t("previewNote")}
+      </p>
       <p className="mt-2 max-w-reading text-supporting text-ink-muted">
         {score === null
           ? t("loading")
@@ -170,90 +289,11 @@ export function BackgroundPicker() {
 
       <fieldset className="mt-8 space-y-10">
         <legend className="sr-only">{t("title")}</legend>
-        {BACKGROUND_GROUPS.map((group) => (
-          <div key={group} className="space-y-3">
-            <h3 className="font-display text-h3">{t(`groups.${group}`)}</h3>
+        {sections.map((section) => (
+          <div key={section.key} className="space-y-3">
+            <h3 className="font-display text-h3">{section.title}</h3>
             <ul className="grid gap-4 split:grid-cols-2 wide:grid-cols-3">
-              {BACKGROUNDS.filter((b) => b.group === group).map((b) => {
-                const open = isBackgroundOpen(b.id, points);
-                const name = t(`names.${b.id}`);
-                const status =
-                  b.unlock.kind === "free"
-                    ? t("free")
-                    : b.unlock.kind === "paid"
-                      ? t("paidOnly")
-                      : open
-                        ? t("open")
-                        : t("needs", { points: b.unlock.at - points });
-                return (
-                  <li
-                    key={b.id}
-                    className="space-y-3 rounded-base border border-line bg-surface p-3"
-                  >
-                    {/* Light and dark side by side, each its own theme. */}
-                    <div
-                      aria-hidden="true"
-                      className="grid h-20 grid-cols-2 overflow-hidden rounded-base border border-line"
-                    >
-                      {(["light", "dark"] as const).map((mode) => (
-                        <div key={mode} data-theme={mode}>
-                          <div
-                            data-bg={b.id}
-                            className="bg-swatch flex h-full items-end p-2 text-metadata text-ink-muted"
-                          >
-                            {t(mode)}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                    <label
-                      className={`flex min-h-11 items-center gap-3 ${open ? "cursor-pointer" : ""}`}
-                    >
-                      <input
-                        type="radio"
-                        name="background"
-                        value={b.id}
-                        checked={chosen === b.id}
-                        disabled={!open}
-                        onChange={() => choose(b.id)}
-                        className="size-4 accent-(--ll-accent)"
-                      />
-                      <span>
-                        <span className="block">
-                          {name}
-                          {b.motion && (
-                            <span className="ml-2 text-metadata text-ink-muted">
-                              {t("animated")}
-                            </span>
-                          )}
-                        </span>
-                        <span className="block text-metadata text-ink-muted">
-                          {status}
-                        </span>
-                      </span>
-                    </label>
-                    <div className="flex flex-wrap gap-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        aria-label={t("previewLabel", { name })}
-                        onClick={() => startPreview(b.id)}
-                      >
-                        {t("preview")}
-                      </Button>
-                      {b.unlock.kind === "paid" && (
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          onClick={() => openOffer(b.id)}
-                        >
-                          {t("unlockForever", { price })}
-                        </Button>
-                      )}
-                    </div>
-                  </li>
-                );
-              })}
+              {section.items.map(themeCard)}
             </ul>
           </div>
         ))}

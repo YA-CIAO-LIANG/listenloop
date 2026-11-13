@@ -134,7 +134,7 @@ export function TimingTool({ video }: { video: Video }) {
         <YouTubeFrame {...player} />
       </div>
 
-      <section className="space-y-4 rounded-base border border-line bg-surface p-4">
+      <section className="space-y-4 rounded-base border border-line surface-card p-4">
         <h2 className="font-display text-h3">{t("tapTitle")}</h2>
         <p className="max-w-reading text-supporting text-ink-muted">
           {t("tapIntro")}
@@ -305,7 +305,7 @@ export function TimingTool({ video }: { video: Video }) {
           value={json}
           aria-label={t("copy")}
           rows={10}
-          className="font-mono w-full rounded-base border border-line bg-surface p-3 text-metadata"
+          className="font-mono w-full rounded-base border border-line surface-card p-3 text-metadata"
         />
       </section>
     </div>

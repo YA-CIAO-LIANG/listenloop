@@ -110,7 +110,7 @@ export default async function AdminDocsPage({
         tabIndex={0}
         role="region"
         aria-label={t("code")}
-        className="mt-4 overflow-x-auto rounded-base border border-line bg-surface p-4 text-supporting focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
+        className="mt-4 overflow-x-auto rounded-base border border-line surface-card p-4 text-supporting focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus"
       >
         {children}
       </pre>

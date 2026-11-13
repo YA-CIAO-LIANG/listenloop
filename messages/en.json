@@ -322,7 +322,7 @@
       "titleZh": "Rescheduling the client meeting",
       "titleZhVideo": "Sintel"
     },
-    "backgroundsNote": "Each background's light (left) and dark (right) versions, with three text colors. tests/backgrounds.test.ts checks their contrast.",
+    "backgroundsNote": "Each theme's light (left) and dark (right) versions: thumbnails of the home and practice pages, the card style, and three text colors. tests/theme-contrast.test.ts checks their contrast (npm run themes:contrast prints each theme's lowest).",
     "backgroundsMuted": "Muted text",
     "backgroundsAccent": "Accent text"
   },
@@ -2824,7 +2824,7 @@
     "next": "{needed} more to unlock {color}",
     "allOpen": "Every color is unlocked",
     "colorsTitle": "Accent color",
-    "colorsIntro": "Pick the site’s highlight color. It applies to this browser only.",
+    "colorsIntro": "Pick the site’s highlight color. The default, orange, changes to match your background theme; any other color stays the same on every theme.",
     "open": "Unlocked",
     "needs": "{points} points to go",
     "unlockForever": "Unlock forever for {price}",
@@ -2839,7 +2839,7 @@
     "offerJoined": "You’re on the list. Thank you!",
     "offerClose": "Close",
     "colors": {
-      "orange": "Orange",
+      "orange": "Orange (matches theme)",
       "teal": "Teal",
       "blue": "Blue",
       "violet": "Violet",
@@ -3339,7 +3339,15 @@
   },
   "backgrounds": {
     "title": "Background themes",
-    "intro": "Pick a page background you like. Each has a light and a dark version, and text and buttons stay easy to read on all of them. Signed in, your choice follows your account to any device; signing out puts this device back to the default.",
+    "intro": "Each theme is a complete set: background texture, card style (solid, paper, or frosted glass), accent color, lines, and shadows, in a light and a dark version, and text and buttons stay easy to read on all of them. Signed in, your choice follows your account to any device; signing out puts this device back to the default.",
+    "previewNote": "Each thumbnail shows the home page (left) and a practice page (right) in that theme, in your current light or dark mode.",
+    "recommended": "Recommended",
+    "cards": {
+      "solid": "Solid cards",
+      "paper": "Paper texture",
+      "glass": "Frosted glass"
+    },
+    "inUse": "In use",
     "loading": "Working out your practice score…",
     "next": "Practice score {score}: {needed} more points open “{name}”.",
     "allOpen": "Practice score {score}: every background practice opens is open.",

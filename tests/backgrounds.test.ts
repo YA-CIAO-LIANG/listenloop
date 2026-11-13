@@ -3,37 +3,18 @@ import { describe, expect, it } from "vitest";
 import {
   BACKGROUND_GROUPS,
   BACKGROUNDS,
+  CARD_STYLES,
+  RECOMMENDED_BACKGROUNDS,
   backgroundAttribute,
   backgroundCss,
-  groundsOf,
   isBackgroundOpen,
   nextBackground,
-  type Hex,
 } from "@/lib/backgrounds";
-import { ACCENTS } from "@/lib/accents";
 import { BACKGROUND_IDS } from "@/lib/background-ids";
 import en from "@/messages/en.json";
 import zh from "@/messages/zh-Hant.json";
 
 const css = readFileSync("app/globals.css", "utf8");
-
-type RGB = [number, number, number];
-const hex = (value: string): RGB => [
-  parseInt(value.slice(1, 3), 16),
-  parseInt(value.slice(3, 5), 16),
-  parseInt(value.slice(5, 7), 16),
-];
-const luminance = ([r, g, b]: RGB) => {
-  const channel = (c: number) => {
-    const s = c / 255;
-    return s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4;
-  };
-  return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
-};
-const contrast = (a: string, b: string) => {
-  const [hi, lo] = [luminance(hex(a)), luminance(hex(b))].sort((x, y) => y - x);
-  return (hi + 0.05) / (lo + 0.05);
-};
 
 /** A token's value in a CSS block (the first block for `selector`). */
 function token(selector: string, name: string): string {
@@ -43,84 +24,111 @@ function token(selector: string, name: string): string {
   return body.match(new RegExp(`--ll-${name}: (#[0-9a-f]{6})`))![1];
 }
 
-const MODES = {
-  light: {
-    selector: '[data-theme="light"]',
-    accent: (id: string) => `[data-accent="${id}"]`,
-  },
-  dark: {
-    selector: '[data-theme="dark"]',
-    accent: (id: string) => `[data-theme="dark"] [data-accent="${id}"]`,
-  },
-} as const;
-
-describe("background themes (D121)", () => {
+describe("themes (D121, D166)", () => {
   it("has at least 12, each with a name in both languages", () => {
     expect(BACKGROUNDS.length).toBeGreaterThanOrEqual(13);
     const ids = BACKGROUNDS.map((b) => b.id);
     expect(new Set(ids).size).toBe(ids.length);
     for (const b of BACKGROUNDS) {
       expect(BACKGROUND_GROUPS).toContain(b.group);
+      expect(CARD_STYLES).toContain(b.card);
       expect(zh.backgrounds.names).toHaveProperty(b.id);
       expect(en.backgrounds.names).toHaveProperty(b.id);
     }
     expect(ids).toEqual([...BACKGROUND_IDS]);
-    // Free, score, and paid ones all exist.
+    // Free, score, and paid ones all exist; so does every card style.
     for (const kind of ["free", "score", "paid"]) {
       expect(BACKGROUNDS.some((b) => b.unlock.kind === kind)).toBe(true);
     }
+    for (const style of CARD_STYLES) {
+      expect(BACKGROUNDS.some((b) => b.card === style)).toBe(true);
+      expect(zh.backgrounds.cards).toHaveProperty(style);
+      expect(en.backgrounds.cards).toHaveProperty(style);
+    }
   });
 
-  for (const b of BACKGROUNDS) {
-    it(`${b.id}: every text color passes AA in light and dark`, () => {
-      for (const [name, mode] of Object.entries(MODES)) {
-        const own = b[name as "light" | "dark"];
-        const ink = own.ink ?? token(mode.selector, "ink");
-        const muted = own.inkMuted ?? token(mode.selector, "ink-muted");
-        const texts: [string, string][] = [
-          ["ink", ink],
-          ["ink-muted", muted],
-          ["success", token(mode.selector, "success")],
-          ["error", token(mode.selector, "error")],
-          ...ACCENTS.map(
-            (a) =>
-              [
-                `accent-ink ${a.id}`,
-                token(mode.accent(a.id), "accent-ink"),
-              ] as [string, string],
-          ),
-        ];
-        const plain =
-          own.pattern.kind === "gradient"
-            ? [own.ground, ...own.pattern.stops]
-            : [own.ground];
-        for (const ground of groundsOf(own, !!b.motion)) {
-          for (const [what, color] of texts) {
-            expect(
-              contrast(color, ground),
-              `${b.id} ${name} ${what} on ${ground}`,
-            ).toBeGreaterThanOrEqual(4.5);
-          }
-          // The focus ring and button borders (non-text, WCAG 1.4.11): on the
-          // ground and gradient stops; patterns are thin decorative lines.
-          if (!plain.includes(ground)) continue;
-          for (const a of ACCENTS) {
-            const accent = token(mode.accent(a.id), "accent");
-            expect(
-              contrast(accent, ground),
-              `${b.id} ${name} accent ${a.id} on ${ground}`,
-            ).toBeGreaterThanOrEqual(3);
-          }
-        }
-      }
-    });
-  }
+  it("keeps every id learners may have saved (no saved choice breaks)", () => {
+    // The ids before D166; a saved one must still be a theme. Renaming one
+    // needs a mapping in the <head> script and lib/personal-settings.ts.
+    const saved = [
+      "default",
+      "pure",
+      "warm-gray",
+      "paper",
+      "notebook",
+      "kraft",
+      "forest",
+      "ocean",
+      "mountain",
+      "sunset",
+      "cafe",
+      "city",
+      "rain",
+      "washi",
+      "retro",
+      "nordic",
+      "stars",
+      "pastel",
+      "high-contrast",
+    ];
+    for (const id of saved) expect(BACKGROUND_IDS).toContain(id);
+  });
+
+  it("recommends six, the rest grouped by style", () => {
+    expect(RECOMMENDED_BACKGROUNDS).toHaveLength(6);
+    expect(new Set(RECOMMENDED_BACKGROUNDS).size).toBe(6);
+    expect(RECOMMENDED_BACKGROUNDS[0]).toBe("default");
+    for (const id of RECOMMENDED_BACKGROUNDS) {
+      expect(BACKGROUND_IDS).toContain(id);
+    }
+    // Recommended ones show several card styles, and at least half are free.
+    const recommended = BACKGROUNDS.filter((b) =>
+      RECOMMENDED_BACKGROUNDS.includes(b.id),
+    );
+    expect(new Set(recommended.map((b) => b.card)).size).toBe(3);
+    expect(
+      recommended.filter((b) => b.unlock.kind === "free").length,
+    ).toBeGreaterThanOrEqual(3);
+  });
+
+  it("the default theme is the site's default tokens", () => {
+    const b = BACKGROUNDS.find((x) => x.id === "default")!;
+    const modes = {
+      light: '[data-theme="light"]',
+      dark: '[data-theme="dark"]',
+    } as const;
+    for (const [scheme, selector] of Object.entries(modes)) {
+      const mode = b[scheme as "light" | "dark"];
+      expect(mode.ground).toBe(token(selector, "ground"));
+      expect(mode.surface).toBe(token(selector, "surface"));
+      expect(mode.band).toBe(token(selector, "band"));
+      expect(mode.line).toBe(token(selector, "line"));
+      expect(mode.ink).toBe(token(selector, "ink"));
+      expect(mode.inkMuted).toBe(token(selector, "ink-muted"));
+      expect(mode.accent).toBe(token(selector, "accent"));
+      expect(mode.accentInk).toBe(token(selector, "accent-ink"));
+    }
+    expect(b.card).toBe("solid");
+  });
 
   it("app/backgrounds.css is written from lib/backgrounds.ts", () => {
     expect(readFileSync("app/backgrounds.css", "utf8")).toBe(backgroundCss());
   });
 
-  it("animated backgrounds stand still for reduced motion", () => {
+  it("a chosen accent color wins over the theme's own", () => {
+    const generated = backgroundCss();
+    // Every theme's accent is set only where no data-accent is.
+    const accentBlocks = generated.match(/[^}]*\{\s*--ll-accent: [^}]*\}/g)!;
+    expect(accentBlocks.length).toBe(BACKGROUNDS.length * 4);
+    for (const blockText of accentBlocks) {
+      const selectors = blockText.slice(0, blockText.indexOf("{"));
+      for (const selector of selectors.split(",")) {
+        expect(selector.trim()).toMatch(/:not\(\[data-accent\]\)$/);
+      }
+    }
+  });
+
+  it("animated themes stand still for reduced motion", () => {
     const generated = backgroundCss();
     expect(BACKGROUNDS.some((b) => b.motion)).toBe(true);
     expect(generated).toMatch(
@@ -131,6 +139,12 @@ describe("background themes (D121)", () => {
     for (const frame of keyframes) {
       expect(frame).not.toMatch(/background-position|top:|left:|width|height/);
     }
+  });
+
+  it("theme switches fade, except for reduced motion", () => {
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: no-preference\) \{\s*html\[data-theme-switching\]/,
+    );
   });
 
   it("opens with practice score, in order", () => {
@@ -146,13 +160,16 @@ describe("background themes (D121)", () => {
     expect(backgroundAttribute("forest")).toBe("forest");
   });
 
-  it("uses no image files: only gradients and inline SVG", () => {
-    const outside = backgroundCss().replace(
+  it("uses no image files and stays small: only gradients and inline SVG", () => {
+    const generated = backgroundCss();
+    const outside = generated.replace(
       /url\("data:image\/svg\+xml,[^"]*"\)/g,
       "",
     );
     expect(outside).not.toMatch(/url\(/);
+    // Every drawn texture is tiny (each SVG under 2 KB).
+    for (const svg of generated.match(/url\("data:image[^"]*"\)/g) ?? []) {
+      expect(svg.length).toBeLessThan(2048);
+    }
   });
 });
-
-export type { Hex };

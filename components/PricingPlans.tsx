@@ -215,7 +215,7 @@ export function PricingPlans({
       </div>
 
       <ul className="grid gap-6 wide:grid-cols-2">
-        <li className="space-y-4 rounded-base border border-line bg-surface p-6">
+        <li className="space-y-4 rounded-base border border-line surface-card p-6">
           <h2 className="flex flex-wrap items-center gap-2 font-display text-h3">
             {t("names.free")}
             {current === "free" && <Tag>{t("current")}</Tag>}
