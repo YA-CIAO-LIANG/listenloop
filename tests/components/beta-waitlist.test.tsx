@@ -18,7 +18,12 @@ describe("BetaWaitlistForm (D132)", () => {
     await act(async () => {
       fireEvent.click(screen.getByRole("button", { name: "加入等候名單" }));
     });
-    expect(join).toHaveBeenCalledWith({ email: "a@b.co", purpose: "準備多益" });
+    // No Turnstile key in tests (D160): an empty token.
+    expect(join).toHaveBeenCalledWith({
+      email: "a@b.co",
+      purpose: "準備多益",
+      turnstile: "",
+    });
     expect(screen.getByRole("status").textContent).toContain("已加入等候名單");
   });
 

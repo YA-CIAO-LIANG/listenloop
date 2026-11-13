@@ -1,5 +1,6 @@
 "use server";
 
+import { verifyTurnstile } from "@/auth/turnstile";
 import { logEvent } from "@/auth/events";
 import { allowAction } from "@/auth/rate-limit";
 import { getServerSupabase } from "@/auth/server";
@@ -20,7 +21,14 @@ export type ReportResult =
   | {
       ok: false;
       reason:
-        "signed-out" | "invalid" | "not-found" | "already" | "limit" | "failed";
+        | "signed-out"
+        | "invalid"
+        | "not-found"
+        | "already"
+        | "limit"
+        | "failed"
+        /** Didn't pass the bot check (D160). */
+        | "bot";
     };
 
 /**
@@ -33,7 +41,11 @@ export async function reportPractice(
   practiceId: unknown,
   reason: unknown,
   details: unknown,
+  turnstile?: unknown,
 ): Promise<ReportResult> {
+  // Cloudflare Turnstile (D160): off until its keys are set.
+  if (!(await verifyTurnstile(turnstile))) return { ok: false, reason: "bot" };
+
   const uuid =
     typeof practiceId === "string" ? parseCustomPracticeId(practiceId) : null;
   const text = cleanReportDetails(details);

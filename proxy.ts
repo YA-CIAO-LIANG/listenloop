@@ -4,6 +4,7 @@ import { getSiteSwitches } from "@/auth/site-switches";
 import { openInMaintenance } from "@/lib/site-switches";
 import { clarityProjectId } from "@/lib/analytics-consent";
 import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
+import { turnstileSiteKey } from "@/lib/turnstile";
 import { supabaseConfig } from "@/lib/supabase/config";
 
 /**
@@ -18,6 +19,7 @@ export async function proxy(request: NextRequest) {
     supabaseUrl: supabaseConfig?.url ?? null,
     development: process.env.NODE_ENV === "development",
     clarity: clarityProjectId() !== null,
+    turnstile: turnstileSiteKey() !== null,
   });
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set("x-nonce", nonce);

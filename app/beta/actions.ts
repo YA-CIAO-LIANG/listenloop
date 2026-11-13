@@ -1,12 +1,16 @@
 "use server";
 
+import { verifyTurnstile } from "@/auth/turnstile";
 import { getAdminSupabase } from "@/auth/admin";
 import { allowAction } from "@/auth/rate-limit";
 import { cleanWaitlistEntry } from "@/lib/beta";
 
 export type BetaWaitlistResult =
   | { ok: true }
-  | { ok: false; reason: "invalid" | "busy" | "unavailable" | "failed" };
+  | {
+      ok: false;
+      reason: "invalid" | "busy" | "unavailable" | "failed" | "bot";
+    };
 
 /**
  * Joins the Beta waiting list (D132): an email and what they'd like to
@@ -19,6 +23,9 @@ export async function joinBetaWaitlist(
   const raw = (input ?? {}) as Record<string, unknown>;
   const entry = cleanWaitlistEntry({ email: raw.email, purpose: raw.purpose });
   if (!entry) return { ok: false, reason: "invalid" };
+  // Cloudflare Turnstile (D160): off until its keys are set.
+  if (!(await verifyTurnstile(raw.turnstile)))
+    return { ok: false, reason: "bot" };
   if (!(await allowAction("betaWaitlist", null))) {
     return { ok: false, reason: "busy" };
   }

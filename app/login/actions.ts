@@ -1,5 +1,7 @@
 "use server";
 
+import { verifyTurnstile } from "@/auth/turnstile";
+import { TURNSTILE_FIELD } from "@/lib/turnstile";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getBetaStatus, inviteFromCookie } from "@/auth/beta";
@@ -23,6 +25,8 @@ export type EmailAuthResult =
       reason:
         | "unavailable"
         | "busy"
+        /** Didn't pass the bot check (D160). */
+        | "bot"
         | "email"
         | "credentials"
         | "unconfirmed"
@@ -64,6 +68,9 @@ export async function signUpWithEmail(
   const problem = passwordProblem(password, email);
   if (problem) return { ok: false, reason: passwordReason(problem) };
   if (!(await allowAction("auth", null))) return { ok: false, reason: "busy" };
+  // Cloudflare Turnstile (D160): off until its keys are set.
+  if (!(await verifyTurnstile(form.get(TURNSTILE_FIELD))))
+    return { ok: false, reason: "bot" };
   // The Beta is full and there's no invite (D132): say so before any
   // email goes out. (Someone who already has an account can sign in.)
   const beta = await getBetaStatus();

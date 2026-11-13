@@ -31,7 +31,13 @@ describe("ReportPractice", () => {
       target: { value: "第 3 句有電話號碼" },
     });
     await click("送出檢舉");
-    expect(report).toHaveBeenCalledWith("p-1", "personal", "第 3 句有電話號碼");
+    // No Turnstile key in tests (D160): an empty token.
+    expect(report).toHaveBeenCalledWith(
+      "p-1",
+      "personal",
+      "第 3 句有電話號碼",
+      "",
+    );
     expect(screen.getByRole("status").textContent).toContain("已收到你的檢舉");
   });
 

@@ -1,5 +1,6 @@
 "use server";
 
+import { verifyTurnstile } from "@/auth/turnstile";
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
@@ -19,7 +20,7 @@ export type SentenceReportResult =
   | { ok: true }
   | {
       ok: false;
-      reason: "signedOut" | "invalid" | "busy" | "failed";
+      reason: "signedOut" | "invalid" | "busy" | "failed" | "bot";
     };
 
 /**
@@ -31,6 +32,14 @@ export async function reportSentence(
 ): Promise<SentenceReportResult> {
   const report = parseSentenceReport(input);
   if (!report) return { ok: false, reason: "invalid" };
+  // Cloudflare Turnstile (D160): off until its keys are set.
+  if (
+    !(await verifyTurnstile(
+      (input as { turnstile?: unknown } | null)?.turnstile,
+    ))
+  )
+    return { ok: false, reason: "bot" };
+
   const [user, supabase] = await Promise.all([
     getSignedInUser(),
     getServerSupabase(),

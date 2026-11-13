@@ -1,5 +1,6 @@
 "use server";
 
+import { verifyTurnstile } from "@/auth/turnstile";
 import { getAdminSupabase } from "@/auth/admin";
 import { allowAction } from "@/auth/rate-limit";
 import { getSignedInUser } from "@/auth/session";
@@ -7,7 +8,7 @@ import { cleanFeedback, FEEDBACK_PER_DAY } from "@/lib/feedback";
 import { usageDay } from "@/lib/usage";
 
 export type FeedbackResult =
-  { ok: true } | { ok: false; reason: "invalid" | "limit" | "failed" };
+  { ok: true } | { ok: false; reason: "invalid" | "limit" | "failed" | "bot" };
 
 /**
  * Saves feedback from the footer's form (D60), with the sender's account
@@ -17,6 +18,12 @@ export type FeedbackResult =
 export async function submitFeedback(raw: unknown): Promise<FeedbackResult> {
   const input = cleanFeedback(raw);
   if (!input) return { ok: false, reason: "invalid" };
+  // Cloudflare Turnstile (D160): off until its keys are set.
+  if (
+    !(await verifyTurnstile((raw as { turnstile?: unknown } | null)?.turnstile))
+  )
+    return { ok: false, reason: "bot" };
+
   const admin = getAdminSupabase();
   if (!admin) return { ok: false, reason: "failed" };
   const user = await getSignedInUser();
