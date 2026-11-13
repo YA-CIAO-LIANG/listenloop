@@ -3065,3 +3065,19 @@
 - **測試**：`tests/survey.test.ts`（輸入檢查、NPS 計算、唯一索引）；E2E：`e2e/full-week.spec.ts` 完成第 7 天後填寫並送出、重新整理後不再出現；`e2e/survey.spec.ts` 後台看到統計與意見。
 - **Migration**：`20261128000000_week_surveys.sql`（只有新增）。
 - **要改時**：題目在 `messages/*.json` 的 `week.survey`；規則在 `lib/survey.ts`；畫面在 `components/WeekSurvey.tsx`。
+
+## D168 行銷素材做成 Word 檔：用程式產生，格式一致（2026-11-13，Joe 指定）
+
+- **做了什麼**：9 份行銷素材做成 .docx，放在 `marketing/word/`（清單見 `marketing/word/README.md`）：品牌指南、上線行銷計畫、社群貼文（30 則）、短影音腳本（10 支）、論壇與社群分享文、合作邀請信（5 種對象，中英文）、媒體資料包、Beta 招募文案（含測試者須知）、Google Play 商店資料。
+- **怎麼產生**：`npm run marketing:docx`（`scripts/marketing-docx.mts`）。內容寫在 `scripts/marketing/content/`，每份一個檔案；版面在 `scripts/marketing/docx-builder.mts`。不直接改 .docx，改內容後重新產生，才能用 git 看出改了什麼、每份格式一致。
+- **為什麼選 `docx`（npm，devDependency，固定 9.15.0）**：
+  - 最多人用、持續維護的 JavaScript Word 產生套件（MIT），專案本來就是 Node／TypeScript，不用另外裝 Python 或 LibreOffice；
+  - 支援這次需要的全部格式：標題層級、目錄（含頁碼估算 `docx/layout`）、表格、頁首頁尾與頁碼、A4、東亞字體；
+  - 比較過：pandoc 要另外安裝、表格與字體很難控制；`officegen` 已多年沒有維護；用 Word 範本手動排版無法自動更新。
+  - 另外把 `fflate`（docx 本身就用的壓縮套件，固定 0.8.3）列為 devDependency：產生後補上字體表，告訴 Word 微軟正黑體不存在時改用蘋方或思源黑體。
+- **格式**：A4、邊界 2 cm；封面、目錄（第 1～2 層標題）、頁首「ListenLoop｜文件名稱」、頁尾「第 N 頁，共 M 頁」；中文微軟正黑體（eastAsia，替代字體 PingFang TC、Noto Sans TC），英文一律 Arial；品牌色取自 `docs/design-system.md`（標題墨黑、橘色細線、淡色帶表頭）。表格每一列不跨頁，這樣目錄頁碼的估算才準。黃底的〔 〕是待填欄位。
+- **內容的依據**（2026-11-13 對照程式）：方案與額度 `lib/plans.ts`、`docs/quotas.md`；價格 `lib/payments/pricing.ts`（付費方案仍是「即將推出」、不收費）；共用的事實與「不能宣傳的功能」集中在 `scripts/marketing/content/facts.mts`：YouTube 連結建立教材（D131 暫停）、Email 提醒與電子報（沒有寄信服務；練習提醒是瀏覽器通知）、魚缸、推薦獎勵（只有規劃）都不宣傳。沒有編造任何數字或使用者見證：分數、目標、創辦人介紹、聯絡方式都是待填欄位。
+- **Google Play 字數**：產生時檢查名稱 30 字、簡短說明 80 字、完整說明 4,000 字，超過就失敗。`docs/play-store.md` 的商店說明同步拿掉「把影片變成教材」，並指向這份 Word 檔。
+- **Beta 測試者須知**：寫在 `08-Beta招募文案.docx`，第 7 天的任務包含網站內的滿意度調查（D164）。Joe 另一個對話在寫 `docs/beta-tester-guide.md`；那份合併後，兩邊的流程（邀請連結、2 週、回報方式）要對齊，以那份為準。
+- **怎麼檢查**：每個檔案 `unzip -t`、Office XML 結構驗證（docx 技能的 `validate.py`）、轉成純文字確認中文沒有亂碼、目錄每一項都有頁碼、macOS 預覽確認封面與目錄。
+- **要改時**：內容改 `scripts/marketing/content/*.mts`（方案或價格變了先改 `facts.mts`），版面改 `scripts/marketing/docx-builder.mts`，然後 `npm run marketing:docx`，把 .docx 和 README 一起提交。

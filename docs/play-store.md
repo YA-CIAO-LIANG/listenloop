@@ -4,6 +4,8 @@
 
 ## 1. 商店資訊草稿
 
+> 2026-11-13 起，最新版（含字數檢查與 ASO 關鍵字）在 `marketing/word/09-Google-Play商店資料.docx`（D168），由 `scripts/marketing/content/play-store.mts` 產生；改內容時以那份為準。
+
 ### 繁體中文（預設語言）
 
 > 2026-11-12 依 ASO 關鍵字（`docs/marketing/aso.md`）改寫，並更新已改變的規則：通關條件改為「比第 1 天進步」、公開教材的完整練習是付費功能（D92、D106）。
@@ -24,12 +26,12 @@
   ・官方教材免費：生活英文、旅遊、留學英文、校園、職場、新聞、科普、演講，以及多益聽力、托福聽力、雅思聽力、全民英檢、學測英文風格的原創練習（模仿題型與難度，非真實考題，與考試主辦單位無關）。
   ・英文會話與獨白，有美式、英式、澳洲、印度口音。
   ・Blender 開放電影等創用 CC 授權影片，一律標示出處。
-  ・付費方案：把自己的文章或影片變成教材、完整練習其他學習者分享的教材（目前尚未開放收費）。
+  ・付費方案：每月建立更多自己的教材、上傳自己的錄音建立教材、完整練習其他學習者分享的教材（目前尚未開放收費）。
 
   【其他】
   ・不用登入也能學英文；登入後手機和電腦同步進度、看學習分析。
   ・深色模式、背景主題、中英文介面。
-  ・不放廣告，不販售資料；錄音不會上傳。
+  ・不放廣告，不販售資料；跟讀不錄音。
 
 - **應用程式類別**：教育（Education）
 - **標記**：語言學習
@@ -54,12 +56,12 @@
   • Free official lessons: everyday English, travel, study abroad English, campus, work, news, science, talks, and original TOEIC-, TOEFL-, IELTS-, and GEPT-style listening (format and difficulty only; not real test items, not affiliated with the test makers).
   • English conversation and monologues with US, UK, Australian, and Indian accents for accent training.
   • Creative Commons films such as Blender's open movies, always credited.
-  • Paid plans: turn your own texts or videos into lessons, and fully practice lessons other learners share (not charged yet).
+  • Paid plans: more lessons of your own each month, lessons from your own recordings, and full practice of lessons other learners share (not charged yet).
 
   Also
   • Learn English without signing in; sign in to sync between phone and computer and see your analytics.
   • Dark mode, background themes, Chinese and English interface. ESL-friendly.
-  • No ads; we don't sell data; recordings never leave your device.
+  • No ads; we don't sell data; shadowing is never recorded.
 
 ## 2. 內容分級問卷（IARC）建議答案
 
