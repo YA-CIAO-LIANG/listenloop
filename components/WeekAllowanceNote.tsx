@@ -21,7 +21,7 @@ export async function WeekAllowanceNote({ week }: { week: WeekAllowance }) {
   return (
     <p
       data-testid="week-allowance"
-      className="rounded-base border border-line bg-surface p-4 text-supporting"
+      className="rounded-base border border-line surface-card p-4 text-supporting"
     >
       {week.leftSeconds === 0
         ? t("weekUsed", { total: week.minutes, reset })

@@ -298,7 +298,7 @@ function CalendarMonth({
                       <div
                         id={tipId}
                         role="tooltip"
-                        className="absolute bottom-full left-1/2 z-10 mb-1 w-max max-w-64 -translate-x-1/2 rounded-base border border-line bg-surface p-3 text-left text-supporting"
+                        className="absolute bottom-full left-1/2 z-10 mb-1 w-max max-w-64 -translate-x-1/2 rounded-base border border-line surface-card p-3 text-left text-supporting"
                       >
                         <p className="mb-1 text-metadata text-ink-muted">
                           {dayName(date)} · {t("tipCount", { count })}

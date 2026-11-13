@@ -18,6 +18,7 @@ import {
 import type { Activity } from "@/lib/activity";
 import type { LocalDate } from "@/lib/dates";
 import { formatPrice } from "@/lib/payments/pricing";
+import { withThemeTransition } from "@/lib/theme-transition";
 import type { Progress } from "@/lib/progress";
 import { scoreEntries, totalScore, type ScoreEntry } from "@/lib/score-points";
 import { Button } from "./Button";
@@ -50,9 +51,11 @@ function applyAccent(id: AccentId) {
     // Not remembered; it still changes on this page.
   }
   const attribute = accentAttribute(id);
-  if (attribute)
-    document.documentElement.setAttribute("data-accent", attribute);
-  else document.documentElement.removeAttribute("data-accent");
+  withThemeTransition(() => {
+    if (attribute)
+      document.documentElement.setAttribute("data-accent", attribute);
+    else document.documentElement.removeAttribute("data-accent");
+  });
   listeners.forEach((listener) => listener());
 }
 
@@ -171,7 +174,7 @@ export function ScoreSection({
             return (
               <li
                 key={accent.id}
-                className="flex flex-wrap items-center gap-3 rounded-base border border-line bg-surface p-3"
+                className="flex flex-wrap items-center gap-3 rounded-base border border-line surface-card p-3"
               >
                 <label
                   className={`flex min-h-11 flex-1 items-center gap-3 ${open ? "cursor-pointer" : ""}`}

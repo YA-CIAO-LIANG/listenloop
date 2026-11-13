@@ -463,7 +463,7 @@ function FolderActions({
         <div
           role="alertdialog"
           aria-labelledby={`${id}-delete`}
-          className="space-y-3 rounded-base border border-line bg-surface p-4"
+          className="space-y-3 rounded-base border border-line surface-card p-4"
         >
           <p id={`${id}-delete`}>
             {t("deleteConfirm", { name: folder.title })}
@@ -532,7 +532,7 @@ function MaterialItem({
       onDragEnd={onDragEnd}
       className={
         view === "grid"
-          ? "flex h-full flex-col gap-3 rounded-base border border-line bg-surface p-4"
+          ? "flex h-full flex-col gap-3 rounded-base border border-line surface-card p-4"
           : "flex flex-col gap-3 py-4"
       }
     >

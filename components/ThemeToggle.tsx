@@ -10,6 +10,7 @@ import {
   themePreferences,
   type ThemePreference,
 } from "@/lib/theme";
+import { withThemeTransition } from "@/lib/theme-transition";
 import { SegmentedControl } from "./SegmentedControl";
 
 const listeners = new Set<() => void>();
@@ -42,7 +43,7 @@ function setPreference(preference: ThemePreference) {
   } catch {
     // Storage blocked (e.g. private mode): still apply for this page view.
   }
-  applyAttribute(preference);
+  withThemeTransition(() => applyAttribute(preference));
   listeners.forEach((listener) => listener());
 }
 

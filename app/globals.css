@@ -59,7 +59,18 @@
   --ll-font-reading:
     var(--font-instrument-sans), var(--ll-cjk-sans), system-ui, sans-serif;
 
+  /*
+   * Card style (D166): the default theme's cards are solid with no shadow.
+   * A theme (app/backgrounds.css) may make them paper (grain and a soft
+   * shadow) or frosted glass (translucent surface, blurred ground).
+   */
+  --ll-card-alpha: 100%;
+  --ll-card-filter: none;
+  --ll-card-texture: none;
+  --ll-shadow-card: none;
+
   /* Motion */
+  --ll-duration-theme: 280ms;
   --ll-duration-press: 120ms;
   --ll-duration-transition: 160ms;
   --ll-duration-progress: 300ms;
@@ -342,6 +353,24 @@
 }
 
 /*
+ * A card's surface (D166): use instead of `bg-surface` on framed panels
+ * (Card, CardLink, and the like). The theme decides how it looks: solid,
+ * paper (grain and a soft shadow), or frosted glass (translucent, blurs
+ * the ground). Contrast is checked on every result (tests/theme-contrast).
+ */
+@utility surface-card {
+  background-color: color-mix(
+    in srgb,
+    var(--ll-surface) var(--ll-card-alpha),
+    transparent
+  );
+  background-image: var(--ll-card-texture);
+  box-shadow: var(--ll-shadow-card);
+  -webkit-backdrop-filter: var(--ll-card-filter);
+  backdrop-filter: var(--ll-card-filter);
+}
+
+/*
  * A touch target (D76): on touch screens a link or control is at least
  * 44px tall, without changing how it looks with a mouse.
  */
@@ -407,6 +436,26 @@
   }
 }
 
+/*
+ * Switching theme, scheme, or accent (D166): lib/theme-transition.ts sets
+ * data-theme-switching on <html> for a moment, so colors fade instead of
+ * jumping. Only while switching (a standing transition on every element
+ * would cost on every hover), and never for reduced motion.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme-switching],
+  html[data-theme-switching] *,
+  html[data-theme-switching] *::before,
+  html[data-theme-switching] *::after {
+    transition:
+      background-color var(--ll-duration-theme) ease-out,
+      border-color var(--ll-duration-theme) ease-out,
+      color var(--ll-duration-theme) ease-out,
+      box-shadow var(--ll-duration-theme) ease-out,
+      fill var(--ll-duration-theme) ease-out !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -442,32 +491,32 @@
 }
 [data-accent="teal"] {
   --ll-accent: #0d9488;
-  --ll-accent-ink: #0b6b62;
+  --ll-accent-ink: #0a665d;
   --ll-focus: #0d9488;
 }
 [data-accent="blue"] {
   --ll-accent: #2563eb;
-  --ll-accent-ink: #1d4ed8;
+  --ll-accent-ink: #1a47c5;
   --ll-focus: #2563eb;
 }
 [data-accent="violet"] {
   --ll-accent: #7c3aed;
-  --ll-accent-ink: #6d28d9;
+  --ll-accent-ink: #6626cc;
   --ll-focus: #7c3aed;
 }
 [data-accent="rose"] {
   --ll-accent: #e11d48;
-  --ll-accent-ink: #be123c;
+  --ll-accent-ink: #a30f34;
   --ll-focus: #e11d48;
 }
 [data-accent="green"] {
   --ll-accent: #15803d;
-  --ll-accent-ink: #166534;
+  --ll-accent-ink: #156132;
   --ll-focus: #15803d;
 }
 [data-accent="gold"] {
   --ll-accent: #a16207;
-  --ll-accent-ink: #854d0e;
+  --ll-accent-ink: #7d480d;
   --ll-focus: #a16207;
 }
 @media (prefers-color-scheme: dark) {
@@ -569,6 +618,11 @@
     --ll-line: #cccccc !important;
     --ll-accent: #a63d09 !important;
     --ll-accent-ink: #a63d09 !important;
+    /* Plain white cards on paper, whatever the theme (D166). */
+    --ll-card-alpha: 100% !important;
+    --ll-card-filter: none !important;
+    --ll-card-texture: none !important;
+    --ll-shadow-card: none !important;
     /* Printer-friendly highlighter (D66): pale fills, dark lines. */
     --ll-mark-miss: #ffe3d1 !important;
     --ll-mark-miss-line: #a63d09 !important;

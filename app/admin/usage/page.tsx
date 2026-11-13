@@ -158,7 +158,7 @@ export default async function UsagePage() {
 
       {admin && (
         <section
-          className="mt-8 max-w-practice rounded-base border border-line bg-surface p-6"
+          className="mt-8 max-w-practice rounded-base border border-line surface-card p-6"
           aria-labelledby="usage-settings"
         >
           <h2 id="usage-settings" className="font-display text-h3">

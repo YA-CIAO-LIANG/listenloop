@@ -17,7 +17,7 @@ export function ProductIntro() {
   return (
     <section
       aria-labelledby="product-intro"
-      className="rounded-base border border-line bg-surface p-6"
+      className="rounded-base border border-line surface-card p-6"
     >
       <h2 id="product-intro" className="font-display text-h2">
         {t("title")}

@@ -48,7 +48,7 @@ export function PaidPlanCard({
   return (
     <section
       aria-labelledby="paid-plan"
-      className="max-w-practice space-y-4 rounded-base border border-line bg-surface p-6"
+      className="max-w-practice space-y-4 rounded-base border border-line surface-card p-6"
     >
       <p className="text-ink-muted">
         {t(`limits.${block.limit}`, { max: block.max ?? 0 })}

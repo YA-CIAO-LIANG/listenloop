@@ -170,7 +170,7 @@ export function RevisePanel({
   return (
     <section
       aria-labelledby={`${id}-title`}
-      className="space-y-3 rounded-base border border-line bg-surface p-4"
+      className="space-y-3 rounded-base border border-line surface-card p-4"
     >
       <h3 id={`${id}-title`} className="font-display text-h3">
         {t("title")}

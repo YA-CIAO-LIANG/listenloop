@@ -44,7 +44,7 @@ export async function FixedReportsNotice() {
   return (
     <section
       aria-labelledby="fixed-reports"
-      className="rounded-base border border-line bg-surface p-6"
+      className="rounded-base border border-line surface-card p-6"
     >
       <h2 id="fixed-reports" className="font-display text-h3">
         <span aria-hidden="true" className="text-success">

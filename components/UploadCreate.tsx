@@ -176,7 +176,7 @@ export function UploadCreate({
 
   if (!allowed) {
     return (
-      <div className="space-y-3 rounded-base border border-line bg-surface p-4">
+      <div className="space-y-3 rounded-base border border-line surface-card p-4">
         <p>{t("paidOnly")}</p>
         <ButtonLink href="/pricing?from=upload" variant="secondary" arrow>
           {t("seePlans")}

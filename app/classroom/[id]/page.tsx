@@ -80,7 +80,7 @@ export default async function ClassPage({
           {detail.announcements.map((a) => (
             <li
               key={a.id}
-              className="rounded-base border border-line bg-surface p-4"
+              className="rounded-base border border-line surface-card p-4"
             >
               <p className="whitespace-pre-line">{a.body}</p>
               <p className="mt-2 flex flex-wrap items-center gap-3 text-metadata text-ink-muted">
@@ -267,7 +267,7 @@ export default async function ClassPage({
           {reports.map(({ assignment, students, unfinished, missedWords }) => (
             <article
               key={assignment.id}
-              className="space-y-3 rounded-base border border-line bg-surface p-4"
+              className="space-y-3 rounded-base border border-line surface-card p-4"
             >
               <h3 className="flex flex-wrap items-center gap-2 font-display text-h3">
                 {assignment.title}

@@ -36,7 +36,7 @@ export function ChartFrame({
   return (
     <figure
       aria-labelledby={`${ids}-title`}
-      className="space-y-4 rounded-base border border-line bg-surface p-6"
+      className="space-y-4 rounded-base border border-line surface-card p-6"
     >
       <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
         <h2 id={`${ids}-title`} className="font-display text-h3">

@@ -174,7 +174,7 @@ function AccountPanel({ email }: { email: string }) {
       {open && (
         <div
           id={panelId}
-          className="absolute top-full right-0 z-20 mt-2 w-64 space-y-3 rounded-base border border-line bg-surface p-4"
+          className="absolute top-full right-0 z-20 mt-2 w-64 space-y-3 rounded-base border border-line surface-card p-4"
         >
           <p className="text-supporting text-ink-muted">
             {t("signedInAs")}

@@ -91,7 +91,7 @@ export function WeekSurvey({
   return (
     <section
       aria-labelledby={`${ids.comment}-title`}
-      className="space-y-5 rounded-base border border-line bg-surface p-5"
+      className="space-y-5 rounded-base border border-line surface-card p-5"
     >
       <h3 id={`${ids.comment}-title`} className="font-display text-h3">
         {t("title")}

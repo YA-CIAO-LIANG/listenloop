@@ -570,7 +570,7 @@ export function ShadowingSession({
         {notice && (
           <div
             role="alert"
-            className="rounded-base border border-line bg-surface p-4"
+            className="rounded-base border border-line surface-card p-4"
           >
             <p className="text-supporting text-error">
               {t(`errors.${notice}Title` as "errors.unsupportedTitle")}

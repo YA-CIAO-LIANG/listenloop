@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 
-export const cardClassName = "rounded-base border border-line bg-surface p-6";
+export const cardClassName = "rounded-base border border-line surface-card p-6";
 
 /**
  * Framed panel: surface background, 1px line border, 4px radius, no shadow.
