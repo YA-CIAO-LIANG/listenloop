@@ -30,7 +30,7 @@ export function RefundButton({
   const router = useRouter();
   const [confirming, setConfirming] = useState(false);
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<false | "failed" | "reauth">(false);
 
   async function confirm() {
     setPending(true);
@@ -39,7 +39,7 @@ export function RefundButton({
     setPending(false);
     setConfirming(false);
     if (result.ok) router.refresh();
-    else setError(true);
+    else setError(result.reason === "reauth" ? "reauth" : "failed");
   }
 
   return (
@@ -72,7 +72,7 @@ export function RefundButton({
       )}
       {error && (
         <span role="alert" className="text-supporting text-error">
-          {t("failed")}
+          {error === "reauth" ? t("reauth") : t("failed")}
         </span>
       )}
     </span>

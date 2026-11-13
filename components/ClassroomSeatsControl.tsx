@@ -21,7 +21,7 @@ export function ClassroomSeatsControl({
   const id = useId();
   const router = useRouter();
   const [pending, setPending] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [failed, setFailed] = useState<false | "failed" | "reauth">(false);
   return (
     <div className="flex flex-wrap items-center gap-3">
       <label htmlFor={id}>{t("classroom")}</label>
@@ -35,10 +35,11 @@ export function ClassroomSeatsControl({
           const value = event.target.value ? Number(event.target.value) : null;
           const result = await setClassroomSeats(userId, value).catch(() => ({
             ok: false as const,
+            reason: "failed" as const,
           }));
           setPending(false);
           if (result.ok) router.refresh();
-          else setFailed(true);
+          else setFailed(result.reason === "reauth" ? "reauth" : "failed");
         }}
         className="h-10 rounded-base border border-line bg-surface px-2 pointer-coarse:min-h-11"
       >
@@ -54,7 +55,7 @@ export function ClassroomSeatsControl({
       </select>
       {failed && (
         <span className="text-supporting text-error">
-          {t("classroomFailed")}
+          {failed === "reauth" ? t("errors.reauth") : t("classroomFailed")}
         </span>
       )}
     </div>

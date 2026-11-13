@@ -21,6 +21,28 @@ export function isUploadFile(file: { name: string; type: string }): boolean {
   return type === "" && /\.(mp3|mp4|m4a)$/i.test(file.name);
 }
 
+/**
+ * Whether a file's first bytes are really an MP3 (D159): an ID3 tag, or
+ * an MPEG audio frame header (11 sync bits, a real layer and bit rate).
+ * The name and the type the browser reports can say anything.
+ */
+export function looksLikeMp3(head: Uint8Array): boolean {
+  if (head.length < 4) return false;
+  if (head[0] === 0x49 && head[1] === 0x44 && head[2] === 0x33) return true;
+  const sync = head[0] === 0xff && (head[1] & 0xe0) === 0xe0;
+  const version = (head[1] >> 3) & 0b11; // 01 is reserved
+  const layer = (head[1] >> 1) & 0b11; // 00 is reserved
+  const bitRate = head[2] >> 4; // 1111 is invalid
+  const sampleRate = (head[2] >> 2) & 0b11; // 11 is reserved
+  return (
+    sync &&
+    version !== 0b01 &&
+    layer !== 0b00 &&
+    bitRate !== 0b1111 &&
+    sampleRate !== 0b11
+  );
+}
+
 export const UPLOAD_LIMITS = {
   /**
    * The stored MP3, in bytes: Supabase's single-file upload limit on the

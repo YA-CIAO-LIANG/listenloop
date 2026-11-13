@@ -22,6 +22,7 @@ test("pages send the security headers and a per-request nonce", async ({
   expect(headers["permissions-policy"]).toContain("microphone=(self)");
   // The framework isn't announced (ZAP baseline, D158).
   expect(headers["x-powered-by"]).toBeUndefined();
+  expect(headers["cross-origin-resource-policy"]).toBe("same-origin");
 });
 
 test("main pages run without CSP violations", async ({ page }) => {

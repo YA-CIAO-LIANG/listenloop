@@ -1,5 +1,6 @@
 "use server";
 
+import { getRecentAdmin } from "@/auth/recent-auth";
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
@@ -7,7 +8,8 @@ import { getAdminUser } from "@/auth/creator";
 import { getPaymentProvider, isFakeProvider } from "@/auth/payments";
 
 export type RevenueActionResult =
-  { ok: true } | { ok: false; reason: "unavailable" | "not-found" | "failed" };
+  | { ok: true }
+  | { ok: false; reason: "unavailable" | "not-found" | "failed" | "reauth" };
 
 /**
  * Refunds a payment in full (D85), through the provider; its webhook then
@@ -16,11 +18,13 @@ export type RevenueActionResult =
 export async function refundPayment(
   paymentId: unknown,
 ): Promise<RevenueActionResult> {
+  // Risky: a sign-in within 30 minutes (D159).
   const [user, provider, admin] = [
-    await getAdminUser(),
+    await getRecentAdmin(),
     getPaymentProvider(),
     getAdminSupabase(),
   ];
+  if (user === "reauth") return { ok: false, reason: "reauth" };
   if (!user || !provider || !admin) return { ok: false, reason: "unavailable" };
   if (typeof paymentId !== "string") return { ok: false, reason: "not-found" };
   const { data: payment } = await admin

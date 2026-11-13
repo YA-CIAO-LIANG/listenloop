@@ -55,10 +55,13 @@ jobs:
           curl -sf http://localhost:3200/api/health
 
       - name: ZAP baseline scan
-        uses: zaproxy/action-baseline@v0.14.0
+        # Pinned to a commit: third-party actions can move a tag (CodeQL, D159).
+        uses: zaproxy/action-baseline@7c4deb10e6261301961c86d65d54a516394f9aed # v0.14.0
         with:
           target: "http://localhost:3200"
           rules_file_name: ".zap/rules.tsv"
           cmd_options: "-a -j"
           allow_issue_writing: false
+          # Fails on any warning not accepted in .zap/rules.tsv (D159).
+          fail_action: true
           artifact_name: zap-report

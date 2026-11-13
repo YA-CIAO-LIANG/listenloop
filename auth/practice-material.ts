@@ -162,10 +162,11 @@ async function readPracticeState(
 }
 
 /**
- * How long a recording's signed URL works (D130): a long practice
- * session, with the page open; a new one comes with each page load.
+ * How long a recording's signed URL works (D130, D159): a long practice
+ * session with the page open (2 hours; was 6 until D159, shorter so a
+ * copied link stops working sooner); a new one comes with each page load.
  */
-export const RECORDING_URL_SECONDS = 6 * 3600;
+export const RECORDING_URL_SECONDS = 2 * 3600;
 
 /**
  * A signed URL for a learner's recording (D130), made with the secret

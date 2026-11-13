@@ -1,10 +1,10 @@
 "use server";
 
+import { getRecentAdmin } from "@/auth/recent-auth";
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import type { WriteResult } from "@/auth/admin-writes";
 import { logAudit } from "@/auth/audit";
-import { getAdminUser } from "@/auth/creator";
 import { isUuid } from "@/lib/custom-practice/organize";
 import { isReportReason } from "@/lib/moderation";
 
@@ -14,7 +14,10 @@ import { isReportReason } from "@/lib/moderation";
  * security keeps users from doing (and the removal columns are guarded by
  * a trigger that only lets the server change them).
  */
-export type ModerationResult = WriteResult;
+export type ModerationResult =
+  | WriteResult
+  /** Signed in too long ago for this (D159). */
+  | { ok: false; reason: "reauth" };
 
 type Admin = NonNullable<ReturnType<typeof getAdminSupabase>>;
 
@@ -26,7 +29,9 @@ async function asModerator(
   },
   write: (admin: Admin, now: string) => Promise<ModerationResult>,
 ): Promise<ModerationResult> {
-  const [user, admin] = [await getAdminUser(), getAdminSupabase()];
+  // Risky: a sign-in within 30 minutes (D159).
+  const [user, admin] = [await getRecentAdmin(), getAdminSupabase()];
+  if (user === "reauth") return { ok: false, reason: "reauth" };
   if (!user || !admin) return { ok: false, reason: "unavailable" };
   const result = await write(admin, new Date().toISOString()).catch(
     (): ModerationResult => ({ ok: false, reason: "failed" }),

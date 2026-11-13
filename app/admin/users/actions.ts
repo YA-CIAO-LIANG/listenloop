@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
-import { getAdminUser } from "@/auth/creator";
+import { getRecentAdmin } from "@/auth/recent-auth";
 import { isAccountStatus, isRole } from "@/lib/accounts";
 import { isAdminEmail } from "@/lib/admin";
 import { isUuid } from "@/lib/custom-practice/organize";
@@ -15,7 +15,14 @@ export type UserChangeResult =
   | {
       ok: false;
       reason:
-        "unavailable" | "invalid" | "not-found" | "self" | "listed" | "failed";
+        | "unavailable"
+        | "invalid"
+        | "not-found"
+        | "self"
+        | "listed"
+        | "failed"
+        /** Signed in too long ago for this (D159). */
+        | "reauth";
     };
 
 /** A Supabase Auth ban long enough to mean "until restored" (D50). */
@@ -36,7 +43,9 @@ export async function changeUser(
   userId: unknown,
   change: Change,
 ): Promise<UserChangeResult> {
-  const [actor, admin] = [await getAdminUser(), getAdminSupabase()];
+  // Risky: a sign-in within 30 minutes (D159).
+  const [actor, admin] = [await getRecentAdmin(), getAdminSupabase()];
+  if (actor === "reauth") return { ok: false, reason: "reauth" };
   if (!actor || !admin) return { ok: false, reason: "unavailable" };
   if (!isUuid(userId)) return { ok: false, reason: "invalid" };
   const field =
@@ -101,7 +110,9 @@ export async function setClassroomSeats(
   userId: unknown,
   seats: unknown,
 ): Promise<UserChangeResult> {
-  const [actor, admin] = [await getAdminUser(), getAdminSupabase()];
+  // Risky: a sign-in within 30 minutes (D159).
+  const [actor, admin] = [await getRecentAdmin(), getAdminSupabase()];
+  if (actor === "reauth") return { ok: false, reason: "reauth" };
   if (!actor || !admin) return { ok: false, reason: "unavailable" };
   if (!isUuid(userId) || (seats !== null && seats !== CLASS_PLAN.seats)) {
     return { ok: false, reason: "invalid" };

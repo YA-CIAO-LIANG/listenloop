@@ -39,8 +39,15 @@ export async function signInAsAuthor(page: Page) {
  * account's profile. No secret key in E2E, so admin pages show their
  * empty or "no key" states: enough to see each page renders.
  */
-export async function signInAsAdmin(page: Page) {
-  await signInAs(page, { id: "e2e-admin", email: "admin@example.com" });
+export async function signInAsAdmin(
+  page: Page,
+  { signedInMinutesAgo = 0 }: { signedInMinutesAgo?: number } = {},
+) {
+  await signInAs(
+    page,
+    { id: "e2e-admin", email: "admin@example.com" },
+    signedInMinutesAgo,
+  );
 }
 
 /**
@@ -74,7 +81,13 @@ export async function signInWithEmail(page: Page, id: string, email: string) {
   await signInAs(page, { id, email });
 }
 
-async function signInAs(page: Page, user: { id: string; email: string }) {
+async function signInAs(
+  page: Page,
+  user: { id: string; email: string },
+  /** When the session signed in (D159): just now unless said otherwise. */
+  signedInMinutesAgo = 0,
+) {
+  const signedInAt = Math.floor(Date.now() / 1000) - signedInMinutesAgo * 60;
   const base64url = (value: unknown) =>
     Buffer.from(JSON.stringify(value)).toString("base64url");
   const expiresAt = 4_102_444_800; // 2100
@@ -86,6 +99,7 @@ async function signInAs(page: Page, user: { id: string; email: string }) {
       aud: "authenticated",
       role: "authenticated",
       exp: expiresAt,
+      amr: [{ method: "oauth", timestamp: signedInAt }],
     }),
     base64url("signature"),
   ].join(".");

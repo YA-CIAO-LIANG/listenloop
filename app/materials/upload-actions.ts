@@ -17,6 +17,7 @@ import { customPracticeId } from "@/lib/practice-material";
 import { UPLOADS_BUCKET } from "@/lib/supabase/config";
 import { keepTypedTitles } from "@/lib/titles";
 import {
+  looksLikeMp3,
   UPLOAD_LIMITS,
   uploadLimits,
   type HeardSegment,
@@ -61,6 +62,28 @@ async function uploadAllowed(
   const quota = await creationAllowed(creator);
   if (!quota.ok) return { reason: "plan", ...quota };
   return null;
+}
+
+/** The stored file's first bytes are an MP3's (D159). */
+async function storedLooksLikeMp3(
+  admin: NonNullable<ReturnType<typeof getAdminSupabase>>,
+  path: string,
+): Promise<boolean> {
+  const { data } = await admin.storage
+    .from(UPLOADS_BUCKET)
+    .createSignedUrl(path, 60);
+  if (!data?.signedUrl) return false;
+  try {
+    const response = await fetch(data.signedUrl, {
+      headers: { range: "bytes=0-15" },
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!response.ok) return false;
+    const head = new Uint8Array(await response.arrayBuffer()).slice(0, 16);
+    return looksLikeMp3(head);
+  } catch {
+    return false;
+  }
 }
 
 /** Uploading or transcribing paused by an emergency switch (D155). */
@@ -334,7 +357,16 @@ export async function createUploadPractice(
   const { data: files } = await admin.storage
     .from(UPLOADS_BUCKET)
     .list(folder, { search: name, limit: 1 });
-  if (!files?.some((file) => file.name === name)) {
+  const stored = files?.find((file) => file.name === name);
+  if (!stored) return { ok: false, reason: "invalid" };
+  // What's really stored (D159): no bigger than allowed, and an MP3 by
+  // its first bytes, whatever the browser said. Anything else is removed.
+  const size = Number(stored.metadata?.size ?? 0);
+  if (
+    !(size > 0 && size <= UPLOAD_LIMITS.storedBytes) ||
+    !(await storedLooksLikeMp3(admin, raw.path))
+  ) {
+    await admin.storage.from(UPLOADS_BUCKET).remove([raw.path]);
     return { ok: false, reason: "invalid" };
   }
 

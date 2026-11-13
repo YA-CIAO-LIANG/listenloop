@@ -14,7 +14,10 @@ vi.mock("@/auth/site-switches", () => ({
   clearSiteSwitchCache: state.cleared,
 }));
 vi.mock("@/auth/creator", () => ({
-  getAdminUser: async () => (state.admin ? { id: "admin-1" } : null),
+  getAdminUser: async () =>
+    state.admin
+      ? { id: "admin-1", signedInAt: Math.floor(Date.now() / 1000) }
+      : null,
 }));
 vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () => ({

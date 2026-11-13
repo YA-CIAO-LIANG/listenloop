@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { fakeLanguage, fakeSpeech, fakeTranscriber } from "@/lib/ai/fake";
 import { encodeWav } from "@/lib/upload-audio";
 
@@ -15,6 +15,9 @@ const state = vi.hoisted(() => ({
   inserts: [] as Insert[],
   files: [] as string[],
   uploadUrls: [] as string[],
+  /** The stored file's first bytes (D159): an MP3 frame header by default. */
+  head: [0xff, 0xfb, 0x90, 0x64] as number[],
+  removed: [] as string[],
 }));
 
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
@@ -62,9 +65,17 @@ vi.mock("@/auth/admin", () => ({
         list: async (_folder: string, { search }: { search: string }) => ({
           data: state.files
             .filter((name) => name === search)
-            .map((name) => ({ name })),
+            .map((name) => ({ name, metadata: { size: 120_000 } })),
           error: null,
         }),
+        createSignedUrl: async () => ({
+          data: { signedUrl: "https://storage.test/signed" },
+          error: null,
+        }),
+        remove: async (paths: string[]) => {
+          state.removed.push(...paths);
+          return { data: null, error: null };
+        },
       }),
     },
   }),
@@ -218,6 +229,26 @@ describe("transcribeAudio (D130)", () => {
 });
 
 describe("createUploadPractice (D130)", () => {
+  beforeEach(() => {
+    state.head = [0xff, 0xfb, 0x90, 0x64];
+    state.removed = [];
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => new Response(new Uint8Array(state.head))),
+    );
+  });
+  afterEach(() => vi.unstubAllGlobals());
+
+  it("refuses and removes a file that isn't really an MP3 (D159)", async () => {
+    state.files = [FILE];
+    state.head = [0x3c, 0x68, 0x74, 0x6d]; // "<htm"
+    expect(
+      await createUploadPractice({ path: PATH, seconds: 4.2, sentences }),
+    ).toEqual({ ok: false, reason: "invalid" });
+    expect(state.removed).toEqual([PATH]);
+    expect(state.inserts).toEqual([]);
+  });
+
   const sentences = [
     { en: "Good morning everyone.", zh: "大家早安。", start: 0.1, end: 1.6 },
     {

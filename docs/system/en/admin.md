@@ -319,6 +319,11 @@ When something goes wrong, contain it first, then find the cause. The full steps
 - What raises one: the site or a health check failing, a burst of errors, an AI or speech allowance at 80% or used up, today's spend over 3× the 7-day average, Supabase at 80%, many sign-ups or reports in an hour.
 - Forecasts and weekly summaries are on `/admin/usage`.
 
+### 11.4 Signing in again (D159)
+
+- Risky actions need a sign-in within the last 30 minutes: changing a role, plan, or status, class seats, taking down or restoring a material, refunds, the emergency switches, the AI cost limits, the sign-up switch, and exporting the waiting list.
+- Past that, you're asked to sign out and in again: use "Account" at the top right, then retry.
+
 ## 12. Questions
 
 | Question                                   | Answer                                                                                                                                  |

@@ -1,5 +1,6 @@
 "use server";
 
+import { getRecentAdmin } from "@/auth/recent-auth";
 import { revalidatePath } from "next/cache";
 import { getAdminSupabase } from "@/auth/admin";
 import { logAudit } from "@/auth/audit";
@@ -18,7 +19,8 @@ import {
  * only; every change goes in the audit log.
  */
 export type OpsResult =
-  { ok: true } | { ok: false; reason: "unavailable" | "invalid" | "failed" };
+  | { ok: true }
+  | { ok: false; reason: "unavailable" | "invalid" | "failed" | "reauth" };
 
 async function asAdmin() {
   const user = await getAdminUser();
@@ -34,6 +36,10 @@ function refresh() {
 
 /** Saves all the switches at once (the form sends every one). */
 export async function saveSiteSwitches(input: unknown): Promise<OpsResult> {
+  // Risky: a sign-in within 30 minutes (D159).
+  if ((await getRecentAdmin()) === "reauth") {
+    return { ok: false, reason: "reauth" };
+  }
   const ctx = await asAdmin();
   if (!ctx) return { ok: false, reason: "unavailable" };
   const raw = (input ?? {}) as Record<string, unknown>;

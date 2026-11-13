@@ -18,7 +18,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   const params = await searchParams;
   const next = safeNextPath((params.next as string | undefined) ?? "/");
-  if (await getSignedInUser()) redirect(next);
+  // Signing in again for an admin's risky action (D159): the form shows
+  // even when signed in; signing in replaces the session.
+  const reauth = params.reauth === "1";
+  if (!reauth && (await getSignedInUser())) redirect(next);
   const [t, beta, invite] = await Promise.all([
     getTranslations("login"),
     getBetaStatus(),
@@ -30,6 +33,11 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
       <h1 className="font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">{t("intro")}</p>
+      {reauth && (
+        <p role="status" className="mt-4 max-w-reading font-medium">
+          {t("reauth")}
+        </p>
+      )}
       {/* Sign-ups in stages (D132): an invite, or a full Beta. */}
       {invite ? (
         <p role="status" className="mt-4 max-w-reading text-success">

@@ -53,6 +53,7 @@ describe("getSignedInUser", () => {
       practicesCreated: 0,
       classroomSeats: null,
       studentVerifiedAt: null,
+      signedInAt: null,
     });
     expect(state.upsert).not.toHaveBeenCalled();
   });

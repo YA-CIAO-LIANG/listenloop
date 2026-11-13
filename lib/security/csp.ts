@@ -105,4 +105,7 @@ export const SECURITY_HEADERS: readonly { key: string; value: string }[] = [
       "camera=(), microphone=(self), geolocation=(), payment=(), usb=(), interest-cohort=()",
   },
   { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+  // Other sites' pages can't load our files (ZAP baseline, D159); link
+  // previews are fetched by servers, which this doesn't affect.
+  { key: "Cross-Origin-Resource-Policy", value: "same-origin" },
 ];

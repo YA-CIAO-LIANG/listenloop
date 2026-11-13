@@ -11,7 +11,10 @@ const state = vi.hoisted(() => ({
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 vi.mock("@/auth/audit", () => ({ logAudit: state.audit }));
 vi.mock("@/auth/creator", () => ({
-  getAdminUser: async () => (state.admin ? { id: "admin-1" } : null),
+  getAdminUser: async () =>
+    state.admin
+      ? { id: "admin-1", signedInAt: Math.floor(Date.now() / 1000) }
+      : null,
 }));
 vi.mock("@/auth/admin", () => ({
   getAdminSupabase: () => ({
