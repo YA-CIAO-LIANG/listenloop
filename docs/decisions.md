@@ -3374,3 +3374,36 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - E2E：`e2e/legal.spec.ts`（登入時按「知道了」，另一個瀏覽器登入同一帳號不再顯示；未登入時仍會顯示；帳號頁可以重看）。
   - `e2e/consent.spec.ts`：只在用 `NEXT_PUBLIC_CLARITY_PROJECT_ID` 建置時執行（QA sweep 的 Clarity 輪）。
 - 要改時看哪裡：`lib/notices.ts`（`NOTICES_DOCUMENT`）、`lib/analytics-consent.ts`（`CONSENT_DOCUMENT`、`effectiveConsent`）、`auth/consent.ts`、`app/consent-actions.ts`、`components/UsageNotice.tsx`、`components/AnalyticsConsent.tsx`。
+
+## D181 練習時間與日曆的練習時間圈（2026-11-14，Joe 指定）
+
+- **計時範圍**：聽寫、跟讀、聆聽模式（原本就有，D74、D135），新加入單字測驗與錯字複習。
+  - 錯字複習跨教材，時間記在 `review` 這個鍵下（`REVIEW_TIME_KEY`），只在還有字要複習時計時。
+  - 單字測驗記在那份教材下。
+- **暫停規則**（`lib/practice-time.ts` 的 `isPracticing`）：
+  - 頁面在背景、切到別的分頁、鎖螢幕時一律暫停。**這改變了 D135**：原本聆聽模式在鎖屏播放時也計時，Joe 這次的規格寫明「頁面在背景時暫停」，所以拿掉了這個例外。鎖屏播放仍然可以用，只是不計入練習時間。
+  - 超過 2 分鐘沒有任何操作時暫停。**例外**：畫面在前景、正在播放聲音時繼續計時。聆聽模式本來就是聽、不按，播放就是在練習；播完或暫停，2 分鐘後就停止計時。
+- **日期歸屬**：每一秒算進「計時當下」使用者裝置時區的日期（`timerTick`）。跨過午夜時，前一天累積的秒數先存進前一天，之後的算新的一天。原本是存檔時才看日期，跨午夜會把最多 30 秒算到隔天。
+- **日曆的圈**：
+  - 門檻在 `lib/practice-rings.ts`：15 分鐘、30 分鐘、1 小時、2 小時、3 小時。
+  - 顏色是 `app/globals.css` 的 `--ll-practice-*`，30 分鐘用主題強調色；粗細在 `components/practice-rings.ts`：1、1.5、2、3、4 px。
+  - **對比**：圈是傳達意義的圖形，依 WCAG 1.4.11 要 ≥ 3:1。圈的內外各有 2px 卡片底色的間隔，所以不論熱度格是哪一階都一樣清楚。測試逐一檢查每個背景主題、淺色與深色、每種卡片（含玻璃與紙張）。最接近門檻的是淺色模式的灰圈在「牛皮紙」主題上（3.2:1）。
+  - **「淺灰」與「淺色主題色」**：要達到 3:1，淺色背景上的灰不能太淡，主題色也不能再調淡，所以用中灰與主題色本身，再用細線表現「淺」的感覺。
+  - **3 小時用紫色、不用紅色**：紅色和預設的橘色強調色、橘色 2 小時圈太接近，也容易被當成錯誤訊息。
+  - 選紫色強調色或「星空」這類紫色主題時，30 分鐘圈也是紫色，要靠粗細（1.5 vs 4 px）和圖例分辨。
+- **不只靠顏色**：
+  - 圈越久越粗。
+  - 日曆下方有「練習時間」圖例，文字由門檻產生，不寫死。
+  - 滑過或用鍵盤移到日期時，提示顯示「練習 1 小時 12 分」；點一下日期，下方清單也會顯示（手機）。
+  - 日期按鈕的名稱包含練習時間，例如「11月5日，練習 1 小時 12 分，沒有完成任務」。
+- **和學習分析一致**：兩邊都用 `practiceMinutes`（一天的秒數四捨五入成分鐘）。日曆的圈、提示，以及學習分析每天的分鐘數是同一個數字；E2E 會比對。
+- **測試**：
+  - 單元：
+    - `tests/practice-time.test.ts`：暫停、每 30 秒存檔、跨午夜、時區、四捨五入。
+    - `tests/practice-rings.test.ts`：門檻、粗細遞增、每個主題的對比。
+    - `tests/components/practice-calendar.test.tsx`：圈、名稱、提示、圖例，以及和學習分析一致。
+  - E2E `e2e/practice-time.spec.ts`：
+    - 在芝加哥時區跨午夜計時，閒置 2 分鐘後停止，畫面隱藏時停止。
+    - 圈、提示、圖例、axe（淺色與深色）、和學習分析的數字一致。
+    - 手機上圈不超出日期格。
+- 要改時看哪裡：門檻 `lib/practice-rings.ts`；顏色 `app/globals.css` 的 `--ll-practice-*`；粗細 `components/practice-rings.ts`；計時規則 `lib/practice-time.ts`、`components/usePracticeTimer.ts`。

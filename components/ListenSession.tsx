@@ -120,7 +120,8 @@ function Listening({
     start,
   });
   const { player, current, playing, pass } = listen;
-  usePracticeTimer(video.id, player.isPlaying, { background: true });
+  // In front only, like every practice page (D181).
+  usePracticeTimer(video.id, player.isPlaying);
   const shown = shownSubtitles(settings.subtitles, pass);
 
   const change = (next: Partial<ListenSettings>) => {

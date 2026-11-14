@@ -2,11 +2,14 @@ import type { Activity, DayActivity } from "./activity";
 import type { LocalDate } from "./dates";
 
 /**
- * Time spent practicing (D74), kept in the activity log (ll-activity:v1)
- * per day as `time`: seconds per device, per material. Only time on a
- * practice page counts, with the page in front, the window focused, and
- * the learner active (typing, clicking, or audio playing) within the last
- * IDLE_LIMIT_MS. Each device only adds to its own count, so merging two
+ * Time spent practicing (D74, D181), kept in the activity log
+ * (ll-activity:v1) per day as `time`: seconds per device, per material.
+ * Only time actually practicing counts: dictation, shadowing, listening
+ * mode, the vocabulary quiz, and the misheard-words review, with the page
+ * in front, the window focused, and the learner active (typing, clicking,
+ * or audio playing) within the last IDLE_LIMIT_MS. A page in the
+ * background or another tab pauses it, listening mode included (D181).
+ * Each second goes to the learner's local date when it was counted. Each device only adds to its own count, so merging two
  * devices takes the larger count for each device and material and adds
  * the devices up: practicing on a phone and a laptop on the same day is
  * never counted once, nor twice.
@@ -71,6 +74,12 @@ export function mergeDayTime(a: DayTime, b: DayTime): DayTime {
   return merged;
 }
 
+/**
+ * The key the misheard-words review (D108) counts its time under: it
+ * spans materials, so it isn't one.
+ */
+export const REVIEW_TIME_KEY = "review";
+
 /** A day's practice time in seconds, every device and material added. */
 export function daySeconds(day: DayActivity | undefined): number {
   let total = 0;
@@ -79,6 +88,13 @@ export function daySeconds(day: DayActivity | undefined): number {
   }
   return total;
 }
+
+/**
+ * A day's practice time in whole minutes (rounded): what the calendar's
+ * rings and the stats page both show, so their numbers agree (D181).
+ */
+export const practiceMinutes = (day: DayActivity | undefined): number =>
+  Math.round(daySeconds(day) / 60);
 
 /** Seconds per material on a day, devices added up. */
 export function secondsByMaterial(
@@ -110,8 +126,10 @@ export function isDayTime(value: unknown): value is DayTime {
 }
 
 /**
- * Whether the learner counts as practicing at `now`: page in front,
- * window focused, and active within IDLE_LIMIT_MS, or audio playing.
+ * Whether the learner counts as practicing at `now`: page in front and
+ * active within IDLE_LIMIT_MS (with the window focused), or audio playing
+ * on the page in front. Hidden (another tab, the screen locked, the app
+ * in the background) never counts (D181).
  */
 export function isPracticing({
   visible,
@@ -119,20 +137,68 @@ export function isPracticing({
   playing,
   lastActive,
   now,
-  background = false,
 }: {
   visible: boolean;
   focused: boolean;
   playing: boolean;
   lastActive: number;
   now: number;
-  /**
-   * Listening mode (D135): audio playing with the screen locked or the
-   * page in the background still counts.
-   */
-  background?: boolean;
 }): boolean {
-  if (!visible) return background && playing;
+  if (!visible) return false;
   if (playing) return true;
   return focused && now - lastActive < IDLE_LIMIT_MS;
+}
+
+/** Counted seconds not saved yet, and the local date they belong to. */
+export type TimerState = {
+  date: LocalDate | null;
+  pending: number;
+  sinceSave: number;
+};
+
+export const TIMER_START: TimerState = { date: null, pending: 0, sinceSave: 0 };
+
+/** Seconds to add to a date's count. */
+export type TimerFlush = { date: LocalDate; seconds: number };
+
+/**
+ * One second of the practice timer. A counted second belongs to `date`
+ * (the learner's local date now): when the date changes (midnight), what
+ * was pending is saved to the day before first. Saves every SAVE_EVERY_MS.
+ */
+export function timerTick(
+  state: TimerState,
+  { counting, date }: { counting: boolean; date: LocalDate },
+): { state: TimerState; flush: TimerFlush | null } {
+  if (!counting) return { state, flush: null };
+  if (state.date && state.date !== date && state.pending > 0) {
+    return {
+      state: { date, pending: 1, sinceSave: 1000 },
+      flush: { date: state.date, seconds: state.pending },
+    };
+  }
+  const next = {
+    date,
+    pending: state.pending + 1,
+    sinceSave: state.sinceSave + 1000,
+  };
+  if (next.sinceSave >= SAVE_EVERY_MS) {
+    return {
+      state: { date, pending: 0, sinceSave: 0 },
+      flush: { date, seconds: next.pending },
+    };
+  }
+  return { state: next, flush: null };
+}
+
+/** What to save now (the page is hidden or left), and the state after. */
+export function timerFlush(state: TimerState): {
+  state: TimerState;
+  flush: TimerFlush | null;
+} {
+  if (!state.date || state.pending <= 0) return { state, flush: null };
+  return {
+    state: { ...state, pending: 0, sinceSave: 0 },
+    flush: { date: state.date, seconds: state.pending },
+  };
 }

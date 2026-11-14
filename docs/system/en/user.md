@@ -147,7 +147,7 @@ Shown after a dictation answer or a shadowed sentence:
 - **Three passes**: one button plays the whole text three times: first with nothing, then the English, then both languages.
 - **Repeat**: one sentence or the whole text. Audio materials can change speed (Plus and above).
 - **Lock screen**: audio materials keep playing with the phone locked or in another app, with pause and previous/next on the lock screen. YouTube videos can't play in the background (YouTube's terms).
-- Day 1's misheard words are highlighted. Listening counts toward practice time in your stats, but doesn't finish the day's task.
+- Day 1's misheard words are highlighted. Listening counts toward practice time, but doesn't finish the day's task; another tab or a locked screen pauses the count (D181).
 - Keyboard: Space plays or pauses; the arrow keys go to the previous or next sentence.
 
 ### 7.2 Vocabulary quiz (D136)
@@ -163,11 +163,11 @@ Shown after a dictation answer or a shadowed sentence:
 
 ## 8. Progress and stats
 
-- **Home** (signed in): practice calendar → today's tasks → official library.
+- **Home** (signed in): practice calendar → today's tasks → official library. The calendar's colors are tasks finished; a ring around a date is the time practiced: 15 min gray, 30 min the theme's color, 1 hour yellow, 2 hours orange, 3 hours purple, thicker for longer, with a legend below.
 - **My misheard words** (`/review`): words you mishear in dictation are listed automatically and come back in today's tasks the next day, 3 days later, and 7 days later; fill the word back into its sentence (with the Chinese and, for audio materials, the sound). Three right in a row and it's learned. Each word plays its sound when it comes up; "Replay" and "Loop" (again every 1.5 seconds) play it more. After answering you see its part of speech, Chinese, IPA, an example with its Chinese, and "From ‘material’, sentence N"; "Hear the sentence" opens listening mode at that sentence.
 - **Progress** (header): every material you're practicing, which day, the full calendar; remove ones you don't want (removed on your other devices too).
 - **Stats** (header):
-  - Streak and practice time a day (only while the page is in front and you're active);
+  - Streak and practice time a day (dictation, shadowing, listening, the vocabulary quiz, and the misheard-words review; only while the page is in front and you've acted in the last 2 minutes or audio is playing; the same numbers as the calendar's rings);
   - Accuracy over time (weighted and raw), each material's Day 1 and Day 7;
   - Your 10 most-misheard words, categories and levels you practice (full charts on Plus and above);
   - **Vocabulary quiz**: quizzes taken, average accuracy, words mastered (both steps right last time, no hint); the trend on Plus and above;

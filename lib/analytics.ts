@@ -5,7 +5,7 @@ import { missedPieces, missedWords } from "./custom-practice/marks";
 import { officialScore } from "./cycle";
 import type { LocalDate } from "./dates";
 import { tasksByDate } from "./practice-calendar";
-import { daySeconds } from "./practice-time";
+import { daySeconds, practiceMinutes } from "./practice-time";
 import { practiceDays, streakStatus, type StreakStatus } from "./streak";
 import type { Progress } from "./progress";
 
@@ -42,7 +42,8 @@ export function dailyMinutes(
 ): { date: LocalDate; minutes: number }[] {
   return lastDays(today, count).map((date) => ({
     date,
-    minutes: Math.round(daySeconds(activity.days[date]) / 60),
+    // The same minutes the calendar's rings show (D181).
+    minutes: practiceMinutes(activity.days[date]),
   }));
 }
 

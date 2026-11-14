@@ -12,6 +12,12 @@ import type { PracticeTask } from "@/lib/activity";
 import { taskForDay, type CycleDay } from "@/lib/cycle";
 import { toLocalDate, type LocalDate } from "@/lib/dates";
 import { heatLevel, tasksByDate } from "@/lib/practice-calendar";
+import {
+  hoursAndMinutes,
+  PRACTICE_RINGS,
+  ringLevel,
+} from "@/lib/practice-rings";
+import { practiceMinutes } from "@/lib/practice-time";
 import { isCustomPracticeId, titleLang } from "@/lib/practice-material";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { RewardStore } from "@/lib/storage/reward-store";
@@ -20,6 +26,7 @@ import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
+import { RING_CLASS } from "./practice-rings";
 import { Skeleton } from "./Skeleton";
 import { useStores } from "./StoresProvider";
 import { useToday } from "./useToday";
@@ -93,7 +100,10 @@ const utcNoon = (year: number, month: number, day: number) =>
 /**
  * The home page's practice calendar (this month first, Sunday first): a heat
  * map where each day's color steps up with the official tasks finished
- * (heatLevel), with a less → more legend; today is underlined. Hovering a
+ * (heatLevel), with a less → more legend; today is underlined. A ring
+ * around a day's number shows the time practiced that day (D181), thicker
+ * for longer, explained by a legend below; the tooltip, the list under the
+ * calendar, and the screen reader say the time in words. Hovering a
  * day (or reaching it with the keyboard) shows its count and tasks beside
  * it; clicking or tapping a day lists them under the calendar (today by
  * default), which is how phones see them. Phones (below `split`) show only
@@ -138,6 +148,8 @@ function CalendarMonth({
   const [tasks, setTasks] = useState<Map<LocalDate, PracticeTask[]> | null>(
     null,
   );
+  // Practice minutes per day (D181), as the stats page counts them.
+  const [minutes, setMinutes] = useState<Map<LocalDate, number>>(new Map());
   const [shown, setShown] = useState({
     year: Number(today.slice(0, 4)),
     month: Number(today.slice(5, 7)) - 1,
@@ -149,10 +161,23 @@ function CalendarMonth({
   useEffect(() => {
     let cancelled = false;
     Promise.all([stores.progress.list(), stores.rewards.getActivity()])
-      .then(([progresses, activity]) => tasksByDate(activity, progresses))
-      .catch(() => new Map<LocalDate, PracticeTask[]>())
-      .then((byDate) => {
-        if (!cancelled) setTasks(byDate);
+      .then(([progresses, activity]) => ({
+        byDate: tasksByDate(activity, progresses),
+        time: new Map(
+          Object.entries(activity.days).map(([date, day]) => [
+            date,
+            practiceMinutes(day),
+          ]),
+        ),
+      }))
+      .catch(() => ({
+        byDate: new Map<LocalDate, PracticeTask[]>(),
+        time: new Map<LocalDate, number>(),
+      }))
+      .then(({ byDate, time }) => {
+        if (cancelled) return;
+        setTasks(byDate);
+        setMinutes(time);
       });
     return () => {
       cancelled = true;
@@ -160,6 +185,18 @@ function CalendarMonth({
   }, [stores]);
 
   const tasksOn = (date: LocalDate) => tasks?.get(date) ?? [];
+  const minutesOn = (date: LocalDate) => minutes.get(date) ?? 0;
+  /** "Practiced 1 hr 12 min", or "No practice time". */
+  const timeText = (date: LocalDate) => {
+    const total = minutesOn(date);
+    if (total === 0) return t("noPracticeTime");
+    const { hours, minutes: rest } = hoursAndMinutes(total);
+    const parts = [
+      ...(hours > 0 ? [t("hours", { n: hours })] : []),
+      ...(rest > 0 ? [t("minutes", { n: rest })] : []),
+    ];
+    return t("practiceTime", { duration: parts.join(" ") });
+  };
   const customTitles = useCustomPracticeTitles(
     tasks && [...tasks.values()].flat().map((task) => task.videoId),
   );
@@ -257,6 +294,7 @@ function CalendarMonth({
                 if (!date) return <td key={d} />;
                 const count = tasksOn(date).length;
                 const level = heatLevel(count);
+                const ring = ringLevel(minutesOn(date));
                 const isToday = date === today;
                 const tipId = `practice-tip-${date}`;
                 return (
@@ -264,9 +302,11 @@ function CalendarMonth({
                     <button
                       type="button"
                       data-level={level}
+                      data-ring={ring}
                       aria-pressed={selected === date}
                       aria-label={t("dayLabel", {
                         date: dayName(date),
+                        time: timeText(date),
                         count,
                         today: isToday ? "yes" : "no",
                       })}
@@ -292,7 +332,16 @@ function CalendarMonth({
                           : ""
                       }`}
                     >
-                      <span aria-hidden="true">{Number(date.slice(8))}</span>
+                      <span
+                        aria-hidden="true"
+                        className={
+                          ring !== 0
+                            ? `flex size-[86%] items-center justify-center rounded-full practice-ring ${RING_CLASS[ring]}`
+                            : undefined
+                        }
+                      >
+                        {Number(date.slice(8))}
+                      </span>
                     </button>
                     {hovered === date && (
                       <div
@@ -303,6 +352,7 @@ function CalendarMonth({
                         <p className="mb-1 text-metadata text-ink-muted">
                           {dayName(date)} · {t("tipCount", { count })}
                         </p>
+                        <p className="mb-1">{timeText(date)}</p>
                         <TaskList
                           tasks={tasksOn(date)}
                           customTitles={customTitles}
@@ -349,6 +399,29 @@ function CalendarMonth({
         </p>
       </div>
 
+      <div className="text-metadata text-ink-muted">
+        <p id="practice-ring-legend" className="mb-2">
+          {t("ringLegend")}
+        </p>
+        <ul
+          aria-labelledby="practice-ring-legend"
+          className="flex flex-wrap gap-x-4 gap-y-2"
+        >
+          {PRACTICE_RINGS.map(({ level, minMinutes }) => (
+            <li key={level} className="flex items-center gap-2">
+              <span
+                aria-hidden="true"
+                data-legend-ring={level}
+                className={`inline-block size-5 rounded-full bg-heat-0 practice-ring ${RING_CLASS[level]}`}
+              />
+              {minMinutes % 60 === 0
+                ? t("atLeastHours", { n: minMinutes / 60 })
+                : t("atLeastMinutes", { n: minMinutes })}
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <section
         aria-live="polite"
         className="space-y-2 border-t border-line pt-4 text-supporting"
@@ -357,6 +430,7 @@ function CalendarMonth({
           {dayName(selected)}
           {selected === today ? ` · ${t("today")}` : ""}
         </h3>
+        <p data-testid="calendar-day-time">{timeText(selected)}</p>
         <TaskList tasks={tasksOn(selected)} customTitles={customTitles} />
       </section>
     </Card>
