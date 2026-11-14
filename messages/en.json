@@ -2261,7 +2261,7 @@
       "addVariant": "Add a group",
       "start": "Start the experiment",
       "pastTitle": "Ended experiments",
-      "pastLine": "{plan}: {prices}, {visitors} people, {result}",
+      "pastLine": "{from}–{to} {plan}: {prices}, {visitors} people, {result}",
       "pastApplied": "applied {price}",
       "pastNone": "nothing applied",
       "errors": {
@@ -3169,8 +3169,7 @@
     "student": {
       "verified": "Verified as a student until {until}.",
       "expired": "Your student verification ended on {until}. Sign in again with your school Google account to confirm you're still a student.",
-      "none": "You're not signed in with a school email. The student plan needs a Google account with a school email (such as .edu or .edu.tw).",
-      "signedOut": "The student plan needs a Google account with a school email (such as .edu or .edu.tw); signing in verifies you automatically.",
+      "none": "You're not signed in with a school email, so the student plan isn't open to you yet.",
       "signInSchool": "Sign in with a school account",
       "needVerified": "Before subscribing to the student plan, sign in with a school Google account to be verified.",
       "how": "How to verify: sign in with a school Google account (.edu, .edu.tw, .ac.uk, and others) and it's checked automatically, no student ID upload. It lasts a year; sign in with the school account again to renew.",

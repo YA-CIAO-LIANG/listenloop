@@ -117,7 +117,7 @@ export function PricingPlans({
         })
       : "";
   const studentLine = !student
-    ? t("student.signedOut")
+    ? null
     : student.state === "none"
       ? t("student.none")
       : t(`student.${student.state}`, { until: studentUntil });
@@ -266,7 +266,8 @@ export function PricingPlans({
               />
               <p className="text-supporting">{t(`summaries.${plan}`)}</p>
               {/* Who can have it, and where this account stands (D144). */}
-              {plan === "student" && (
+              {/* Signed out, the "how" below says it all (D179). */}
+              {plan === "student" && student && (
                 <p
                   data-testid="student-status"
                   className={`text-supporting ${verified ? "text-success" : "text-ink-muted"}`}

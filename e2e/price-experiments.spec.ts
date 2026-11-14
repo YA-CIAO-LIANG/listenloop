@@ -122,6 +122,17 @@ test("ending applies the chosen price to everyone, and it can be undone", async 
   await expect(page.getByText("目前沒有進行中的實驗")).toBeVisible();
   await expect(page.getByText(/實驗套用的價格/)).toBeVisible();
   await expect(page.getByText(/套用 NT\$199/)).toBeVisible();
+  // Each past run says when it ran.
+  await expect(
+    page
+      .getByRole("region", { name: "已結束的實驗" })
+      .or(
+        page.locator("section", {
+          has: page.getByRole("heading", { name: "已結束的實驗" }),
+        }),
+      )
+      .first(),
+  ).toContainText(/\d{4}\/\d{1,2}\/\d{1,2}–\d{4}\/\d{1,2}\/\d{1,2}/);
 
   const visitor = await browser.newContext({ locale: "zh-TW" });
   const visitorPage = await visitor.newPage();

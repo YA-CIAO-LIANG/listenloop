@@ -46,6 +46,7 @@ export default async function AdminPriceExperimentsPage() {
     getPriceSurveyAnswers(),
   ]);
   const prices = effectivePrices(PLAN_PRICES, overrides);
+  const day = { year: "numeric", month: "numeric", day: "numeric" } as const;
   const current = Object.fromEntries(
     PAID_PLANS.map((plan) => [plan, prices[plan].month.amount]),
   ) as Record<PaidPlan, number>;
@@ -222,6 +223,11 @@ export default async function AdminPriceExperimentsPage() {
               return (
                 <li key={r.id}>
                   {t("pastLine", {
+                    // Dates tell runs of the same prices apart (D174).
+                    from: format.dateTime(new Date(r.createdAt), day),
+                    to: r.endedAt
+                      ? format.dateTime(new Date(r.endedAt), day)
+                      : "—",
                     plan: tNames(r.plan),
                     prices: r.variants.map((v) => nt(v.monthly)).join("／"),
                     visitors: r.stats.reduce((n, s) => n + s.visitors, 0),

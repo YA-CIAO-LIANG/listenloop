@@ -24,9 +24,9 @@ test("visitors see the student price and how to be verified", async ({
   await expect(card).toContainText("年繳 NT$900，一次付清，省 2 個月");
   // How to be verified, said before anyone tries (D173).
   await expect(card).toContainText("不用上傳學生證");
-  await expect(card.getByTestId("student-status")).toContainText(
-    "學校信箱（例如 .edu、.edu.tw）的 Google 帳號登入",
-  );
+  // Said once: no status line on top of it when signed out (D179).
+  await expect(card.getByTestId("student-status")).toHaveCount(0);
+  await expect(card.getByText(/學校信箱/)).toHaveCount(1);
   await page.getByText("月繳", { exact: true }).click();
   await expect(card.getByText("NT$90", { exact: true })).toBeVisible();
   // The comparison table has a student column, the same as Plus.
