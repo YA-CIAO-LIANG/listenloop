@@ -4,10 +4,12 @@ import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { getBetaStatus, inviteFromCookie } from "@/auth/beta";
 import { lineEnabled } from "@/auth/line";
+import { referralFromCookie } from "@/auth/referral";
 import { BetaNote } from "@/components/BetaNote";
 import { getSignedInUser } from "@/auth/session";
 import { LoginForm } from "@/components/LoginForm";
 import { safeNextPath } from "@/lib/auth/redirect";
+import { REFERRAL_BONUS_MINUTES } from "@/lib/referral";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("login");
@@ -22,10 +24,11 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
   // even when signed in; signing in replaces the session.
   const reauth = params.reauth === "1";
   if (!reauth && (await getSignedInUser())) redirect(next);
-  const [t, beta, invite] = await Promise.all([
+  const [t, beta, invite, referred] = await Promise.all([
     getTranslations("login"),
     getBetaStatus(),
     inviteFromCookie(),
+    referralFromCookie(),
   ]);
   const link =
     "text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink";
@@ -52,6 +55,12 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
             </Link>
           </p>
         )
+      )}
+      {/* A friend's referral link (D177). */}
+      {referred && (
+        <p role="status" className="mt-4 max-w-reading">
+          {t("referred", { minutes: REFERRAL_BONUS_MINUTES })}
+        </p>
       )}
       <BetaNote className="mt-4" />
       <div className="mt-8">

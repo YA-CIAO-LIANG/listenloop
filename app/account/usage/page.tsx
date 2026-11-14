@@ -3,9 +3,17 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import { quotaReport, type QuotaRow } from "@/auth/quota-report";
+import { settleReferralsFor } from "@/auth/referral";
 import { getSignedInUser } from "@/auth/session";
 import { Card } from "@/components/Card";
+import { ReferralLink } from "@/components/ReferralLink";
 import { QUOTA_WARN_SHARE, usageShare } from "@/lib/quota";
+import {
+  REFERRAL_BONUS_MINUTES,
+  REFERRAL_VALID_DAYS,
+  referralUrl,
+} from "@/lib/referral";
+import { SITE_URL } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("quota");
@@ -14,11 +22,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 /**
  * My quota (D161): each allowance used, left, and when it resets, with
- * a warning from 80%, the fixed limits, and any change an admin made.
+ * a warning from 80%, the fixed limits, and any change an admin made;
+ * and the referral program (D177): the link, who came, what was earned.
  */
 export default async function QuotaPage() {
   const user = await getSignedInUser();
   if (!user) redirect("/login?next=/account/usage");
+  // A friend's Day 1 since the last visit counts before the numbers show.
+  await settleReferralsFor(user.id);
   const [t, format, report] = await Promise.all([
     getTranslations("quota"),
     getFormatter(),
@@ -141,6 +152,60 @@ export default async function QuotaPage() {
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {report.referral?.code && (
+        <section
+          aria-labelledby="quota-referral"
+          className="mt-12 max-w-practice"
+        >
+          <h2 id="quota-referral" className="font-display text-h2">
+            {t("referral.title")}
+          </h2>
+          <p className="mt-4 max-w-reading text-ink-muted">
+            {t("referral.intro", {
+              minutes: REFERRAL_BONUS_MINUTES,
+              days: REFERRAL_VALID_DAYS,
+            })}
+          </p>
+          <ReferralLink url={referralUrl(SITE_URL, report.referral.code)} />
+          <dl className="mt-6 grid grid-cols-2 gap-4 split:grid-cols-4">
+            {(
+              [
+                [
+                  "invited",
+                  t("referral.people", { n: report.referral.invited }),
+                ],
+                [
+                  "qualified",
+                  t("referral.people", { n: report.referral.qualified }),
+                ],
+                [
+                  "earned",
+                  t("minutes", {
+                    n: format.number(report.referral.earnedMinutes),
+                  }),
+                ],
+                [
+                  "left",
+                  t("minutes", {
+                    n: format.number(report.referral.leftMinutes),
+                  }),
+                ],
+              ] as const
+            ).map(([id, value]) => (
+              <div key={id}>
+                <dt className="text-supporting text-ink-muted">
+                  {t(`referral.stats.${id}`)}
+                </dt>
+                <dd className="mt-1 font-medium tabular-nums">{value}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-4 text-supporting text-ink-muted">
+            {t("referral.rules")}
+          </p>
         </section>
       )}
 

@@ -7,6 +7,7 @@ import {
   type QuotaOverride,
 } from "@/lib/quota";
 import { RATE_LIMITS } from "@/lib/rate-limits";
+import type { ReferralSummary } from "@/lib/referral";
 import {
   dailyCostLimit,
   nextUsageDay,
@@ -16,6 +17,7 @@ import {
 import { getAdminSupabase } from "./admin";
 import { creationAllowance } from "./creation-quota";
 import { revisesToday, storedUploadBytes } from "./quota";
+import { referralSummary } from "./referral";
 import type { SignedInUser } from "./session";
 import { getUsageSettings } from "./usage-settings";
 
@@ -53,35 +55,45 @@ export type QuotaReport = {
   };
   overrides: (QuotaOverride & { reason: string })[];
   aiSuspended: string | null;
+  /** The referral program (D177); null without the database. */
+  referral: ReferralSummary | null;
 };
 
 export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
   const plan = planFor(user);
   const now = new Date();
   const admin = getAdminSupabase();
-  const [allowance, revises, stored, settings, todayCost, overrideRows] =
-    await Promise.all([
-      creationAllowance({ user }),
-      revisesToday(user.id),
-      storedUploadBytes(user.id),
-      admin ? getUsageSettings(admin) : Promise.resolve(null),
-      admin
-        ? admin
-            .from("api_daily_cost")
-            .select("micros")
-            .eq("user_id", user.id)
-            .eq("day", usageDay(now))
-            .maybeSingle()
-        : Promise.resolve({ data: null }),
-      admin
-        ? admin
-            .from("quota_overrides")
-            .select("limit_name, extra, expires_at, reason")
-            .eq("user_id", user.id)
-            .gt("expires_at", now.toISOString())
-            .order("expires_at")
-        : Promise.resolve({ data: null }),
-    ]);
+  const [
+    allowance,
+    revises,
+    stored,
+    settings,
+    todayCost,
+    overrideRows,
+    referral,
+  ] = await Promise.all([
+    creationAllowance({ user }),
+    revisesToday(user.id),
+    storedUploadBytes(user.id),
+    admin ? getUsageSettings(admin) : Promise.resolve(null),
+    admin
+      ? admin
+          .from("api_daily_cost")
+          .select("micros")
+          .eq("user_id", user.id)
+          .eq("day", usageDay(now))
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    admin
+      ? admin
+          .from("quota_overrides")
+          .select("limit_name, extra, expires_at, reason")
+          .eq("user_id", user.id)
+          .gt("expires_at", now.toISOString())
+          .order("expires_at")
+      : Promise.resolve({ data: null }),
+    referralSummary(user.id),
+  ]);
   const limits = allowance.plans[plan];
   const tomorrow = nextUsageDay(now).toISOString();
   const nextMonth = usageMonth(now).next.toISOString();
@@ -149,5 +161,9 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     },
     overrides: activeOverrides(overrides, now),
     aiSuspended: user.aiSuspended ?? null,
+    referral: referral && {
+      ...referral,
+      leftMinutes: Math.round((allowance.bonusLeftSeconds ?? 0) / 6) / 10,
+    },
   };
 }

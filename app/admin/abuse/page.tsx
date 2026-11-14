@@ -11,7 +11,13 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: t("title") };
 }
 
-const KINDS = ["multi-signup", "heavy-use", "capped-days", "reported"] as const;
+const KINDS = [
+  "multi-signup",
+  "heavy-use",
+  "capped-days",
+  "reported",
+  "referral-farm",
+] as const;
 type Kind = (typeof KINDS)[number];
 const isKind = (value: string): value is Kind =>
   (KINDS as readonly string[]).includes(value);

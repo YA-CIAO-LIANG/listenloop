@@ -1259,6 +1259,92 @@ export type Database = {
         };
         Relationships: [];
       };
+      referral_codes: {
+        Row: {
+          code: string;
+          created_at: string;
+          user_id: string;
+        };
+        Insert: {
+          code: string;
+          created_at?: string;
+          user_id: string;
+        };
+        Update: {
+          code?: string;
+          created_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      referral_rewards: {
+        Row: {
+          created_at: string;
+          expires_at: string;
+          id: string;
+          minutes: number;
+          referral_id: string;
+          role: string;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          expires_at: string;
+          id?: string;
+          minutes: number;
+          referral_id: string;
+          role: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          expires_at?: string;
+          id?: string;
+          minutes?: number;
+          referral_id?: string;
+          role?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "referral_rewards_referral_id_fkey";
+            columns: ["referral_id"];
+            isOneToOne: false;
+            referencedRelation: "referrals";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      referrals: {
+        Row: {
+          created_at: string;
+          id: string;
+          reason: string | null;
+          referee_id: string | null;
+          referrer_id: string;
+          settled_at: string | null;
+          status: string;
+        };
+        Insert: {
+          created_at?: string;
+          id?: string;
+          reason?: string | null;
+          referee_id?: string | null;
+          referrer_id: string;
+          settled_at?: string | null;
+          status?: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          reason?: string | null;
+          referee_id?: string | null;
+          referrer_id?: string;
+          settled_at?: string | null;
+          status?: string;
+        };
+        Relationships: [];
+      };
       reminders: {
         Row: {
           auth: string;
@@ -1901,6 +1987,15 @@ export type Database = {
         }[];
       };
       queue_leave: { Args: { target_ticket: string }; Returns: undefined };
+      qualify_referral: {
+        Args: {
+          referee_minutes: number;
+          referrer_minutes: number;
+          target: string;
+          valid_days: number;
+        };
+        Returns: boolean;
+      };
       queue_position: {
         Args: {
           stale_seconds: number;

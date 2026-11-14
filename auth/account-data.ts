@@ -25,6 +25,10 @@ export async function exportAccountData(admin: Supabase, userId: string) {
     reports,
     calls,
     quizzes,
+    referralCode,
+    referralsMade,
+    referredBy,
+    referralRewards,
   ] = await Promise.all([
     own("profiles"),
     own("progress"),
@@ -45,6 +49,17 @@ export async function exportAccountData(admin: Supabase, userId: string) {
       )
       .eq("user_id", userId),
     own("vocab_quiz_attempts"),
+    // The referral program (D177): the friends' accounts aren't named.
+    own("referral_codes"),
+    admin
+      .from("referrals")
+      .select("status, reason, created_at, settled_at")
+      .eq("referrer_id", userId),
+    admin
+      .from("referrals")
+      .select("status, reason, created_at, settled_at")
+      .eq("referee_id", userId),
+    own("referral_rewards"),
   ]);
   return {
     exportedAt: new Date().toISOString(),
@@ -59,6 +74,12 @@ export async function exportAccountData(admin: Supabase, userId: string) {
     reportsYouMade: reports.data ?? [],
     apiUsage: calls.data ?? [],
     vocabQuizzes: quizzes.data ?? [],
+    referrals: {
+      code: referralCode.data?.[0] ?? null,
+      friendsInvited: referralsMade.data ?? [],
+      invitedBy: referredBy.data ?? [],
+      rewards: referralRewards.data ?? [],
+    },
   };
 }
 

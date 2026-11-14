@@ -82,6 +82,35 @@ describe("abuse detection", () => {
     ]);
   });
 
+  it("flags a referrer whose friends look like the same person (D177)", () => {
+    expect(
+      detectAbuse(
+        {
+          ...empty,
+          referrals: [
+            { user: "a", rejected: ABUSE.referralsRejected, day: 0 },
+            { user: "b", rejected: 0, day: ABUSE.referralsPerDay },
+            { user: "c", rejected: 1, day: 2 },
+            { user: "admin", rejected: 9, day: 9 },
+          ],
+        },
+        limit,
+      ).map((f) => [f.userId, f.kind, f.suspend]),
+    ).toEqual([
+      ["a", "referral-farm", false],
+      ["b", "referral-farm", false],
+    ]);
+    // The database's thresholds are the same numbers.
+    const sql = readFileSync(
+      "supabase/migrations/20261129010000_referrals.sql",
+      "utf8",
+    );
+    expect(sql).toContain(
+      `filter (where status = 'rejected') >= ${ABUSE.referralsRejected}`,
+    );
+    expect(sql).toContain(`interval '24 hours') >= ${ABUSE.referralsPerDay}`);
+  });
+
   it("reads the database's answer defensively", () => {
     expect(parseAbuseSignals(null)).toEqual(empty);
     expect(

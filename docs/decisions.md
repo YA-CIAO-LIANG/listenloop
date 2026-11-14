@@ -3267,3 +3267,26 @@
   - 測試：`tests/setup-network.ts` 擋 `api.vercel.com`；加總、分頁、快取、警示門檻、要刪哪些部署都有單元測試（`tests/vercel-storage.test.ts`，fixture 在 `tests/fixtures/vercel/`）；E2E 檢查沒有金鑰時後台顯示「未設定」。
 - **業界做法**：只把執行時需要的檔案放進 serverless 函式（Next.js 官方的 output file tracing 設定）；用量用官方 API 量測、到門檻前就通知；舊部署定期清理，但保留回滾需要的版本。
 - **要改時**：排除清單在 `next.config.ts`；上限與比例在 `lib/ops/thresholds.ts`；計算在 `lib/ops/vercel-storage.ts`，伺服器端讀取與快取在 `auth/vercel-storage.ts`；保留數量用 `--keep`。後台數字 24～48 小時內沒有下降時，用 `docs/capacity.md` 第 8 節的訊息聯絡 Vercel。
+
+## D177 推薦好友計畫（2026-11-14，Joe 指定）
+
+- **為什麼**：讓現有使用者帶朋友來，同時讓雙方多用「建立教材」。獎勵是自建教材的分鐘數，不是現金或點數；規劃見 `docs/marketing/referral-program.md`（當時建議 5 分鐘，Joe 定為 2 分鐘）。
+- **規則**（數字集中在 `lib/referral.ts`）：
+  - 每個帳號有自己的連結 `/r/<推薦碼>`（8 碼，和 Beta 邀請碼同一套字母，不含帳號資訊），在「我的額度」第一次顯示時建立（`referral_codes`）。
+  - 打開連結時推薦碼存在 cookie `ll-ref`（30 天，httpOnly），導到登入頁並說明獎勵；新帳號第一次登入、通過註冊名額檢查後（`auth/beta.ts` 的 `admitAfterSignIn`，Google、LINE、Email 都經過這裡），記一筆 `referrals`（待完成）。
+  - 被推薦人完成第 1 天的聽寫後，雙方各得 `REFERRAL_BONUS_MINUTES = 2` 分鐘。第 1 天是否完成**只看雲端進度**（`progress` 表，伺服器用秘密金鑰讀），不信任瀏覽器送來的事件；而且完成日期要在註冊前一天以後（避免用註冊前的本機進度）。註冊後 30 天內沒完成第 1 天，這筆推薦就到期。
+  - 結算時機：被推薦人送出第 1 天的完成事件時（`app/events/actions.ts`），以及任何一方打開「我的額度」時；進度上傳和事件是同時送出，所以第一次可能還讀不到進度，下一次就會結算。發放用資料庫函式 `qualify_referral`（security definer，只有 service_role 能執行），把狀態改成完成和發放兩邊的獎勵放在同一個交易，同一筆推薦不會發兩次。
+- **獎勵分鐘數怎麼用**：一次性的額度池，每次發放可以用 `REFERRAL_VALID_DAYS = 90` 天，加在方案的額度**之上**——免費方案加在每週分鐘數，付費方案加在每月分鐘數（`withBonus`）。每週／每月用超過方案的部分才從額度池扣，先扣最早到期的那筆（`bonusPool`）；方案額度照常每週／每月重設，用掉的獎勵不會回來。沒有沿用管理員的額度調整（`quota_overrides`，D161），因為那是「期間內每週／每月都多 N 分鐘」，用在獎勵會變成 90 天內每週都多 2 分鐘（約 26 分鐘），成本不可控。
+- **防濫用**（`referralVerdict`）：
+  - 自己的連結不算（寫入時擋，資料表也有 `referrer_id <> referee_id` 檢查）；
+  - 兩個帳號註冊時的 IP 雜湊相同（`account_signals`，D162）不算；
+  - 兩個帳號在同一台裝置練習過（活動紀錄裡的裝置代碼 `ll-device:v1`）不算；
+  - 同一個連結 24 小時內第 3 個以後的註冊不算（`REFERRAL_BURST = 3`）；
+  - 推薦人 30 天內最多拿 10 次獎勵（`REFERRAL_REFERRER_MONTHLY`），超過時被推薦人照拿、推薦人不拿，控制 AI 成本；
+  - 濫用偵測（`lib/ops/abuse.ts`）新增 `referral-farm`：30 天內有 2 筆以上被判定不算，或 24 小時內有 3 個以上註冊的推薦人，只標記、不暫停 AI（不算的推薦本來就沒有獎勵），管理員在「濫用標記」確認。
+  - 同 IP 會誤擋同宿舍、同學校的朋友；這是 Joe 指定的規則，誤擋的人可以用意見回饋反映，管理員用額度調整補發。
+- **註冊名額**：推薦連結**不增加名額**、也不像 Beta 邀請碼一樣跳過上限（`admit_account` 的 `invite_code` 是空的）。名額滿時新帳號照樣被刪除，推薦也不會記錄；這樣名額才有意義。
+- **刪除帳號**：被推薦人刪除帳號時，`referrals` 這一筆保留但不再指向帳號（`on delete set null`），推薦人已得的獎勵保留，也不能用刪了再註冊的方式重複推薦；推薦人刪除帳號時，他的推薦紀錄與獎勵一起刪除。下載我的資料包含推薦碼、推薦紀錄（不含對方帳號）與獎勵。
+- **隱私**：隱私權政策「我們收集的資料」加一條推薦紀錄的說明；推薦人只看得到人數，看不到被推薦人的帳號。
+- **測試**：`tests/referral.test.ts`（判定、第 1 天、裝置、額度池、加到哪個額度）、`tests/beta.test.ts`（註冊時記錄、自己的連結、名額滿）、`tests/abuse-queue.test.ts`（`referral-farm`）、`e2e/referral.spec.ts`（推薦人拿到連結 → 朋友用連結註冊、完成第 1 天 → 雙方都多 2 分鐘）。假 Supabase 會保存 id 以 `e2e-ref-` 開頭的帳號的進度，並支援 Email 連結註冊（`/auth/v1/verify`）。
+- **要改時**：數字在 `lib/referral.ts`；伺服器流程在 `auth/referral.ts`；資料表與函式在 `supabase/migrations/20261129010000_referrals.sql`；濫用門檻在 `lib/ops/abuse.ts` 的 `ABUSE`（資料庫的 `abuse_signals` 用同樣的數字，測試會檢查）。

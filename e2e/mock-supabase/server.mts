@@ -230,6 +230,172 @@ async function opsTable(
   return [405, []];
 }
 
+/**
+ * The referral program (D177), kept while the server runs: codes,
+ * referrals and rewards (written with the secret key), the sign-up IP
+ * hashes, and the cloud progress of referral test accounts (ids starting
+ * "e2e-ref-"), which the server reads to check a friend's Day 1. Other
+ * accounts' progress stays unsaved, as before.
+ */
+const referralTables: Record<string, Row[]> = {
+  referral_codes: [],
+  referrals: [],
+  referral_rewards: [],
+  account_signals: [],
+  progress: [],
+};
+const referralConflict: Record<string, string[]> = {
+  referral_codes: ["user_id"],
+  referrals: ["referee_id"],
+  referral_rewards: ["referral_id", "user_id"],
+  account_signals: ["user_id"],
+  progress: ["user_id", "video_id"],
+};
+const isReferralAccount = (id: unknown) =>
+  typeof id === "string" && id.startsWith("e2e-ref-");
+
+/** Whether a row passes one PostgREST filter (`eq`, `in`, `gte`, …). */
+function passes(row: Row, column: string, filter: string): boolean {
+  const value = row[column];
+  const [op, ...rest] = filter.split(".");
+  const arg = rest.join(".");
+  switch (op) {
+    case "eq":
+      return String(value) === arg;
+    case "in":
+      return arg
+        .replace(/^\(|\)$/g, "")
+        .split(",")
+        .map((v) => v.replace(/"/g, ""))
+        .includes(String(value));
+    case "gte":
+      return String(value) >= arg;
+    case "gt":
+      return String(value) > arg;
+    case "lte":
+      return String(value) <= arg;
+    case "lt":
+      return String(value) < arg;
+    default:
+      return true;
+  }
+}
+
+const RESERVED = new Set(["select", "order", "limit", "on_conflict", "or"]);
+
+function referralRows(name: string, params: URLSearchParams): Row[] {
+  let rows = referralTables[name].filter((row) =>
+    [...params.entries()].every(
+      ([column, filter]) => RESERVED.has(column) || passes(row, column, filter),
+    ),
+  );
+  // `or=(a.eq.x,b.eq.y)`: any of them.
+  const or = /^\((.*)\)$/.exec(params.get("or") ?? "");
+  if (or) {
+    const parts = or[1].split(",").map((part) => {
+      const [column, ...filter] = part.split(".");
+      return [column, filter.join(".")] as const;
+    });
+    rows = rows.filter((row) =>
+      parts.some(([column, filter]) => passes(row, column, filter)),
+    );
+  }
+  const limit = Number(params.get("limit") ?? Infinity);
+  return rows.slice(0, limit);
+}
+
+async function referralTable(
+  name: string,
+  request: import("node:http").IncomingMessage,
+  url: URL,
+): Promise<[number, Row[] | Row | null]> {
+  const sub = tokenSubject(request.headers.authorization);
+  const service = request.headers.authorization === "Bearer e2e-secret-key";
+  const single = String(request.headers.accept ?? "").includes(
+    "vnd.pgrst.object",
+  );
+  // Row level security: a person reads their own progress; the other
+  // tables are read and written with the secret key only.
+  const own = name === "progress" && isReferralAccount(sub);
+  if (!service && !own) {
+    return [request.method === "GET" ? 200 : 401, single ? null : []];
+  }
+  const visible = (rows: Row[]) =>
+    own ? rows.filter((row) => row.user_id === sub) : rows;
+  if (request.method === "GET") {
+    const rows = visible(referralRows(name, url.searchParams));
+    return [200, single ? (rows[0] ?? null) : rows];
+  }
+  const body = JSON.parse((await readBody(request)) || "null");
+  if (request.method === "PATCH") {
+    const changed = visible(referralRows(name, url.searchParams));
+    for (const row of changed) Object.assign(row, body);
+    return [200, changed];
+  }
+  if (request.method !== "POST") return [405, []];
+  const keys = (url.searchParams.get("on_conflict") ?? "")
+    .split(",")
+    .filter(Boolean);
+  const conflict = keys.length ? keys : referralConflict[name];
+  const prefer = String(request.headers.prefer ?? "");
+  const upsert = prefer.includes("resolution=");
+  const ignore = prefer.includes("ignore-duplicates");
+  const written: Row[] = [];
+  for (const incoming of [body].flat() as Record<string, unknown>[]) {
+    if (own && incoming.user_id !== sub) return [401, []];
+    const existing = referralTables[name].find((row) =>
+      conflict.every((key) => row[key] === incoming[key]),
+    );
+    if (existing) {
+      // A unique column taken: an insert fails, an upsert merges.
+      if (!upsert) return [409, { code: "23505" } as unknown as Row];
+      if (!ignore) written.push(Object.assign(existing, incoming));
+      continue;
+    }
+    const row = {
+      id: randomUUID(),
+      created_at: new Date().toISOString(),
+      ...(name === "referrals" ? { status: "pending" } : {}),
+      ...incoming,
+    };
+    referralTables[name].push(row);
+    written.push(row);
+  }
+  return [201, single ? (written[0] ?? null) : written];
+}
+
+/** A session for a referral test account (the fake email sign-up). */
+function referralSession(id: string) {
+  const base64url = (value: unknown) =>
+    Buffer.from(JSON.stringify(value)).toString("base64url");
+  const expiresAt = 4_102_444_800;
+  const user = {
+    id,
+    aud: "authenticated",
+    role: "authenticated",
+    email: `${id}@example.com`,
+  };
+  return {
+    access_token: [
+      base64url({ alg: "HS256", typ: "JWT" }),
+      base64url({
+        sub: id,
+        email: user.email,
+        aud: "authenticated",
+        role: "authenticated",
+        exp: expiresAt,
+        amr: [{ method: "otp", timestamp: Math.floor(Date.now() / 1000) }],
+      }),
+      base64url("signature"),
+    ].join("."),
+    refresh_token: "refresh",
+    token_type: "bearer",
+    expires_in: 3600,
+    expires_at: expiresAt,
+    user,
+  };
+}
+
 /** One second of 8 kHz, 8-bit mono silence. */
 function silentWav(): Buffer {
   const samples = 8000;
@@ -714,6 +880,73 @@ createServer(async (request, response) => {
   }
   if (url.pathname === "/rest/v1/rpc/practice_audio_bytes") {
     json(200, []);
+    return;
+  }
+  // The referral program (D177): its tables, the sign-up IP hashes, and
+  // referral test accounts' progress.
+  const referral =
+    /^\/rest\/v1\/(referral_codes|referrals|referral_rewards|account_signals|progress)$/.exec(
+      url.pathname,
+    );
+  if (
+    referral &&
+    (referral[1] !== "progress" ||
+      isReferralAccount(tokenSubject(request.headers.authorization)) ||
+      url.searchParams.get("user_id")?.startsWith("eq.e2e-ref-"))
+  ) {
+    const [status, body] = await referralTable(referral[1], request, url);
+    json(status, body);
+    return;
+  }
+  if (url.pathname === "/rest/v1/rpc/qualify_referral") {
+    const args = JSON.parse((await readBody(request)) || "{}");
+    const row = referralTables.referrals.find(
+      (r) => r.id === args.target && r.status === "pending",
+    );
+    if (!row) {
+      json(200, false);
+      return;
+    }
+    Object.assign(row, {
+      status: "qualified",
+      settled_at: new Date().toISOString(),
+    });
+    const expires = new Date(
+      Date.now() + Number(args.valid_days) * 86_400_000,
+    ).toISOString();
+    for (const [user, role, minutes] of [
+      [row.referee_id, "referee", args.referee_minutes],
+      [row.referrer_id, "referrer", args.referrer_minutes],
+    ] as const) {
+      if (!user || !(Number(minutes) > 0)) continue;
+      referralTables.referral_rewards.push({
+        id: randomUUID(),
+        referral_id: row.id,
+        user_id: user,
+        role,
+        minutes: Number(minutes),
+        created_at: new Date().toISOString(),
+        expires_at: expires,
+      });
+    }
+    json(200, true);
+    return;
+  }
+  // A new account's first sign-in (D132): public sign-ups are open.
+  if (url.pathname === "/rest/v1/rpc/admit_account") {
+    await readBody(request);
+    json(200, "open");
+    return;
+  }
+  // The email link of a referral test account's sign-up (D101): its
+  // token is the account id.
+  if (url.pathname === "/auth/v1/verify" && request.method === "POST") {
+    const { token_hash: token } = JSON.parse((await readBody(request)) || "{}");
+    if (!isReferralAccount(token)) {
+      json(403, { code: 403, msg: "Token has expired or is invalid" });
+      return;
+    }
+    json(200, referralSession(token));
     return;
   }
   // Signing out (D138): nothing to end on the stand-in.

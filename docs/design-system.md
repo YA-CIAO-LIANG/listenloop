@@ -271,6 +271,8 @@
 - h1 → 說明（目前方案）→ 每一項額度一張 Card：左邊是名稱（font-medium），右邊是「已用 X / Y」（supporting、tabular-nums）；下方是 4px 高的進度條（line 軌道、accent 填色，達 80% 改成 error 色，`role="meter"`）；再下方是 supporting、ink-muted 的「剩 N · ○○ 重設」。達 80% 時加一行 error 色的「快用完了。」。
 - 下面是「其他限制」的 `dl`（每列名稱與值，1px line 分隔）和「方案與價格」連結。
 - AI 被暫停時，在說明下方用 error 色、`role="alert"` 說明。
+- **邀請朋友**（D177，在「其他限制」上方）：`text-h2` 小標 → ink-muted 說明 → 連結（`code`、1px line 外框、`rounded-base`、可斷行）＋「複製連結」（secondary、sm；複製後文字變「已複製」，另有 `role="status"` 給螢幕閱讀器）→ 四格數字的 `dl`（手機兩欄、`split` 以上四欄；名稱 supporting、ink-muted，值 font-medium、tabular-nums）：用連結註冊、完成第 1 天、獲得的分鐘數、還能用的分鐘數 → supporting、ink-muted 的規則說明。
+- 登入頁從推薦連結來時，在說明下方用一般文字色、`role="status"` 寫獎勵內容。
 
 ## 頁尾與隱私權政策
 

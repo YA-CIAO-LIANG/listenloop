@@ -10,6 +10,7 @@ import {
 } from "@/lib/beta";
 import { getAdminSupabase } from "./admin";
 import { requestIpHash } from "./rate-limit";
+import { recordReferral } from "./referral";
 import { featurePaused } from "./site-switches";
 import { getServerSupabase } from "./server";
 
@@ -111,6 +112,9 @@ export async function admitAfterSignIn(user: {
       } catch {
         // Not worth failing a sign-in over.
       }
+      // A friend who came through a referral link (D177). Only once let
+      // in: a referral link never gets past the sign-up cap.
+      await recordReferral(admin, user.id);
     }
     return "ok";
   }

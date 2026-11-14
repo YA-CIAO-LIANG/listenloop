@@ -18,6 +18,7 @@ const KIND_TEXT: Record<AbuseKind, string> = {
   "heavy-use": "1 小時內大量 AI 呼叫，已自動暫停 AI",
   "capped-days": "連續 3 天接近每日 AI 上限",
   reported: "公開教材被多人檢舉，已自動暫停 AI",
+  "referral-farm": "推薦好友異常：多次被判定為同一人，或一天內大量註冊",
 };
 
 /**
@@ -42,6 +43,7 @@ export async function runAbuseDetection(
       ...signals.heavy.map((h) => h.user),
       ...signals.days.map((d) => d.user),
       ...signals.reported.map((r) => r.user),
+      ...signals.referrals.map((r) => r.user),
     ]),
   ];
   if (ids.length === 0) return [];
