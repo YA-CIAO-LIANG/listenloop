@@ -17,6 +17,27 @@ export const parseConsent = (
   value: string | null | undefined,
 ): Consent | null => (value === "granted" || value === "denied" ? value : null);
 
+/**
+ * Where a signed-in person's choice is kept (user_documents, D180), so
+ * every device they sign in on remembers it.
+ */
+export const CONSENT_DOCUMENT = "consent";
+
+/** The choice in a consent document; anything else is null. */
+export function parseConsentDocument(data: unknown): Consent | null {
+  const value = (data as { consent?: unknown } | null)?.consent;
+  return typeof value === "string" ? parseConsent(value) : null;
+}
+
+/**
+ * The choice that applies (D180): signed in, the account's when it has
+ * one; otherwise this browser's.
+ */
+export const effectiveConsent = (
+  browser: Consent | null,
+  account: Consent | null,
+): Consent | null => account ?? browser;
+
 /** Clarity's project id, from the environment; null leaves it off. */
 export function clarityProjectId(
   env: Record<string, string | undefined> = {
@@ -43,6 +64,14 @@ export function isRecordedPath(pathname: string): boolean {
     (path) => pathname === path || pathname.startsWith(`${path}/`),
   );
 }
+
+/**
+ * Practice pages (a day of a material): the notice waits for another page
+ * (D180), so it never covers the phone's practice bar mid-exercise.
+ * Clarity isn't loaded before a choice anyway.
+ */
+export const isPracticePath = (pathname: string) =>
+  /^\/videos\/[^/]+\/day\/\d+(\/|$)/.test(pathname);
 
 /** Where Clarity loads from and sends to (the CSP allows these, D63). */
 export const CLARITY_HOSTS = {

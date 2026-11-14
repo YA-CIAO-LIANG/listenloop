@@ -3,10 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { saveConsent } from "@/app/consent-actions";
 import {
   CONSENT_COOKIE,
   CONSENT_MAX_AGE,
+  effectiveConsent,
+  isPracticePath,
   isRecordedPath,
   parseConsent,
   type Consent,
@@ -57,17 +60,9 @@ function loadClarity(projectId: string) {
   });
 }
 
-/**
- * Real-user analytics (D148): a cookie notice the first time; Microsoft
- * Clarity loads only after "Accept analytics cookies", and never when
- * NEXT_PUBLIC_CLARITY_PROJECT_ID isn't set (then nothing shows). Account,
- * admin, and class pages are masked whole; inputs are masked by Clarity.
- * Declining later stops it (the page reloads without it).
- */
-export function AnalyticsConsent({ projectId }: { projectId: string | null }) {
-  const t = useTranslations("consent");
-  const pathname = usePathname();
-  const consent = useSyncExternalStore(
+/** This browser's choice, kept up to date. */
+function useBrowserConsent(): Consent | null {
+  return useSyncExternalStore(
     (listener) => {
       listeners.add(listener);
       return () => listeners.delete(listener);
@@ -75,7 +70,48 @@ export function AnalyticsConsent({ projectId }: { projectId: string | null }) {
     readConsent,
     () => "denied" as Consent,
   );
+}
+
+/**
+ * Real-user analytics (D148): a cookie notice the first time; Microsoft
+ * Clarity loads only after "Accept analytics cookies", and never when
+ * NEXT_PUBLIC_CLARITY_PROJECT_ID isn't set (then nothing shows). Account,
+ * admin, and class pages are masked whole; inputs are masked by Clarity.
+ * Declining later stops it (the page reloads without it).
+ *
+ * Once chosen it isn't asked again (D180): signed out, this browser keeps
+ * the choice; signed in, the account does too, so another device knows
+ * it (`account`: the account's choice, undefined when signed out). The
+ * footer's "Cookie settings" and the account page show it again.
+ */
+export function AnalyticsConsent({
+  projectId,
+  account,
+}: {
+  projectId: string | null;
+  account?: Consent | null;
+}) {
+  const t = useTranslations("consent");
+  const pathname = usePathname();
+  const browser = useBrowserConsent();
+  const signedIn = account !== undefined;
+  // The account's choice, with what was chosen on this page since.
+  const [accountChoice, setAccountChoice] = useState(account ?? null);
+  const consent = signedIn ? effectiveConsent(browser, accountChoice) : browser;
   const [reopened, setReopened] = useState(false);
+  const copied = useRef<Consent | null>(null);
+
+  // Signed in: this browser follows the account's choice; a choice made
+  // here before signing in becomes the account's.
+  useEffect(() => {
+    if (!projectId || !signedIn) return;
+    if (accountChoice && browser !== accountChoice) writeConsent(accountChoice);
+    else if (!accountChoice && browser && copied.current !== browser) {
+      // Once: until a choice here, the browser's applies (effectiveConsent).
+      copied.current = browser;
+      void saveConsent(browser);
+    }
+  }, [projectId, signedIn, accountChoice, browser]);
 
   useEffect(() => {
     const open = () => setReopened(true);
@@ -96,10 +132,15 @@ export function AnalyticsConsent({ projectId }: { projectId: string | null }) {
   }, [projectId, pathname]);
 
   if (!projectId || (consent !== null && !reopened)) return null;
+  if (!reopened && isPracticePath(pathname)) return null;
 
   function choose(next: Consent) {
-    const was = readConsent();
+    const was = consent;
     writeConsent(next);
+    if (signedIn) {
+      setAccountChoice(next);
+      void saveConsent(next);
+    }
     setReopened(false);
     // Turning it off after it ran: reload so it's gone from this page.
     if (was === "granted" && next === "denied") location.reload();
@@ -108,7 +149,7 @@ export function AnalyticsConsent({ projectId }: { projectId: string | null }) {
   return (
     <section
       aria-label={t("label")}
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface print:hidden"
+      className="sticky inset-x-0 bottom-0 z-30 border-t border-line bg-surface print:hidden"
     >
       <div className="mx-auto flex max-w-content flex-wrap items-center gap-x-6 gap-y-3 px-4 py-4 split:px-6">
         <p className="min-w-0 flex-1 basis-80 text-supporting">
@@ -130,6 +171,27 @@ export function AnalyticsConsent({ projectId }: { projectId: string | null }) {
         </div>
       </div>
     </section>
+  );
+}
+
+/**
+ * The account page's analytics cookie setting (D180): what's chosen now,
+ * and a button that shows the choice again.
+ */
+export function ConsentSetting() {
+  const t = useTranslations("consent");
+  const consent = useBrowserConsent();
+  return (
+    <div className="space-y-4">
+      <p className="text-ink-muted">{t("settingIntro")}</p>
+      <p role="status">{t(`current.${consent ?? "none"}`)}</p>
+      <Button
+        variant="secondary"
+        onClick={() => window.dispatchEvent(new Event(CONSENT_OPEN_EVENT))}
+      >
+        {t("change")}
+      </Button>
+    </div>
   );
 }
 

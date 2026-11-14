@@ -244,6 +244,10 @@ async function opsTable(
  * "e2e-ref-"), which the server reads to check a friend's Day 1. Other
  * accounts' progress stays unsaved, as before.
  */
+/** Cookie choices and dismissed notices kept in accounts (D180). */
+const ACCOUNT_DOCUMENTS = new Set(["consent", "notices"]);
+const accountDocuments = new Map<string, unknown>();
+
 const referralTables: Record<string, Row[]> = {
   referral_codes: [],
   referrals: [],
@@ -1144,6 +1148,28 @@ createServer(async (request, response) => {
   if (url.pathname === "/auth/v1/user") {
     const sub = tokenSubject(request.headers.authorization);
     json(200, sub ? { ...AUTHOR, id: sub } : AUTHOR);
+    return;
+  }
+  // A signed-in person's cookie choice and dismissed notices (D180),
+  // their own rows.
+  const documentKey = url.searchParams.get("key")?.replace(/^eq\./, "") ?? "";
+  if (
+    url.pathname === "/rest/v1/user_documents" &&
+    (ACCOUNT_DOCUMENTS.has(documentKey) || request.method === "POST")
+  ) {
+    const sub = tokenSubject(request.headers.authorization);
+    if (request.method === "GET") {
+      const data = sub ? accountDocuments.get(`${sub}:${documentKey}`) : null;
+      json(200, data ? [{ data }] : []);
+      return;
+    }
+    const body = JSON.parse((await readBody(request)) || "{}");
+    if (!sub || body.user_id !== sub || !ACCOUNT_DOCUMENTS.has(body.key)) {
+      json(401, []);
+      return;
+    }
+    accountDocuments.set(`${sub}:${body.key}`, body.data);
+    json(201, []);
     return;
   }
   // Anything else finds nothing (reads) or isn't allowed (writes).

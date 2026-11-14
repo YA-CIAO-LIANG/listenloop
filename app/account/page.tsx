@@ -5,7 +5,10 @@ import { getTranslations } from "next-intl/server";
 import { getSignedInUser } from "@/auth/session";
 import { getOwnBilling } from "@/auth/billing";
 import { getPaymentProvider } from "@/auth/payments";
+import { ConsentSetting } from "@/components/AnalyticsConsent";
+import { UsageNoticeText } from "@/components/UsageNotice";
 import { BackgroundPicker } from "@/components/BackgroundPicker";
+import { clarityProjectId } from "@/lib/analytics-consent";
 import { HandsFreeSetting } from "@/components/HandsFreeSetting";
 import { BillingSection } from "@/components/BillingSection";
 import { DeleteAccount } from "@/components/DeleteAccount";
@@ -31,9 +34,10 @@ export default async function AccountPage({
   searchParams,
 }: PageProps<"/account">) {
   if (!accountsEnabled) notFound();
-  const [t, tHands, user, { deleted }] = await Promise.all([
+  const [t, tHands, tConsent, user, { deleted }] = await Promise.all([
     getTranslations("accountPage"),
     getTranslations("handsFree"),
+    getTranslations("consent"),
     getSignedInUser(),
     searchParams,
   ]);
@@ -79,6 +83,13 @@ export default async function AccountPage({
           {VAPID_PUBLIC_KEY && (
             <ReminderSettings publicKey={VAPID_PUBLIC_KEY} />
           )}
+          <section className="mt-16 max-w-reading border-t border-line pt-8">
+            <h2 className="font-display text-h2">{tConsent("settingTitle")}</h2>
+            <div className="mt-4 space-y-6">
+              <UsageNoticeText />
+              {clarityProjectId() && <ConsentSetting />}
+            </div>
+          </section>
           <section className="mt-16 max-w-reading border-t border-line pt-8">
             <h2 className="font-display text-h2">{t("export.title")}</h2>
             <p className="mt-4 text-ink-muted">{t("export.intro")}</p>
