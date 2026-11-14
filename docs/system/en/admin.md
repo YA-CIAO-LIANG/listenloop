@@ -247,8 +247,12 @@ Choose a tier: Small (15 students, 45 minutes a month), Standard (40, 70 minutes
 
 ### 8.2 Revenue forecast (`/admin/forecast`)
 
-- Every number can be changed: subscribers per plan and period, prices, AI cost (by default this month's actual cost ÷ minutes created this month), other costs.
-- It shows monthly revenue, prepaid cash (yearly plans pay up front), gross margin, and profit, live.
+- Every number can be changed: subscribers per plan and period, prices, AI cost, business tax, payment fees, servers.
+- Defaults (D184):
+  - prices include Taiwan's 5% business tax, taken out before the margin;
+  - payments through ECPay at about 2.9% (about 2.75% a card payment, plus tax on the fee), no fixed fee; the contract has the real rate;
+  - AI cost a minute = language models (this month's actual cost ÷ minutes created this month, evals left out) + paid voice (about NT$1.16, the price once past Azure's free tier).
+- It shows monthly revenue (tax included, with the tax in it), prepaid cash (yearly plans pay up front), gross margin (after tax), and profit, live.
 - Use it with the interest numbers times a sensible conversion (for example 10–30% of the waiting list) to estimate the first month.
 
 ---

@@ -6,7 +6,12 @@ import {
   type BillingPeriod,
   type PaidPlan,
 } from "./payments/pricing";
-import { CLASS_TIERS, classPrice, type ClassTierId } from "./classroom";
+import {
+  CLASS_COST,
+  CLASS_TIERS,
+  classPrice,
+  type ClassTierId,
+} from "./classroom";
 import { PLANS } from "./plans";
 
 /**
@@ -30,9 +35,11 @@ const tierOf = (plan: ForecastPlan) =>
   CLASS_TIERS.find((tier) => tier.id === CLASS_PLAN_TIER[plan]);
 
 /**
- * The admin's revenue forecast (D102): a month of a business with the
- * given subscribers, in NT$. Prepaid periods are counted as revenue a
- * month at a time (their price ÷ months); the cash comes in up front.
+ * The admin's revenue forecast (D102, D184): a month of a business with
+ * the given subscribers, in NT$. Prices include Taiwan's 5% business tax
+ * (consumer prices are shown with tax), so the tax is taken out first.
+ * Prepaid periods are counted as revenue a month at a time (their price
+ * ÷ months); the cash comes in up front.
  */
 export type ForecastInput = {
   /** Subscribers per plan and period, and the price each pays. */
@@ -42,6 +49,8 @@ export type ForecastInput = {
   usage: Record<ForecastPlan, number>;
   /** AI cost to make one minute of practice (text, notes, voice), NT$. */
   aiPerMinute: number;
+  /** Business tax included in the prices, 0–1 (5% in Taiwan). */
+  taxRate: number;
   /** Payment fees: a share of each payment, plus a fixed amount, NT$. */
   feeRate: number;
   feeFixed: number;
@@ -50,7 +59,10 @@ export type ForecastInput = {
 };
 
 export type ForecastResult = {
+  /** What subscribers pay a month, tax included. */
   revenue: number;
+  /** The business tax inside `revenue`. */
+  tax: number;
   /**
    * Cash collected up front: what these subscribers pay when they sign
    * up (a yearly one pays the year at once).
@@ -74,6 +86,48 @@ const MINUTES: Readonly<Record<ForecastPlan, number>> = {
   classStandard: tierOf("classStandard")?.minutes ?? 0,
   classLarge: tierOf("classLarge")?.minutes ?? 0,
 };
+
+/**
+ * Defaults for ECPay (綠界, D184): about 2.75% a card payment, plus 5%
+ * tax on that fee ≈ 2.9%, no fixed fee; the real rate is in the contract.
+ */
+export const ECPAY_FEE_RATE = 0.029;
+export const TW_BUSINESS_TAX = 0.05;
+
+/**
+ * Voice a minute of practice costs once past the free tier, NT$ (D184):
+ * the measured characters a minute at the higher paid voice price, the
+ * same worst case as the class plans (D173).
+ */
+export function voicePerMinute(twdPerUsd: number = CLASS_COST.twdPerUsd) {
+  return (
+    ((CLASS_COST.voiceCharsPerMinute * CLASS_COST.voiceUsdPerMillionChars) /
+      1_000_000) *
+    twdPerUsd
+  );
+}
+
+/** Operations that are voice, priced by voicePerMinute instead. */
+const VOICE_OPERATIONS = new Set(["speech", "transcribe"]);
+
+/**
+ * US$ of language-model calls among `calls` (D184): evals (`eval:…`, not
+ * a learner's practice) and voice (counted by voicePerMinute, free today
+ * on Azure F0 so logged as 0) are left out.
+ */
+export function languageCostUsd(
+  calls: readonly { operation: string; cost_micros: number | null }[],
+): number {
+  return (
+    calls
+      .filter(
+        (c) =>
+          !c.operation.startsWith("eval:") &&
+          !VOICE_OPERATIONS.has(c.operation),
+      )
+      .reduce((sum, c) => sum + (c.cost_micros ?? 0), 0) / 1e6
+  );
+}
 
 const priceOf = (plan: ForecastPlan, period: BillingPeriod): number => {
   const tier = tierOf(plan);
@@ -113,7 +167,8 @@ export function defaultForecastInput(aiPerMinute: number): ForecastInput {
       classLarge: 0.6,
     },
     aiPerMinute,
-    feeRate: 0.028,
+    taxRate: TW_BUSINESS_TAX,
+    feeRate: ECPAY_FEE_RATE,
     feeFixed: 0,
     serverMonthly: 1500,
   };
@@ -138,14 +193,19 @@ export function forecast(input: ForecastInput): ForecastResult {
     }
   }
   const serverCost = input.serverMonthly;
-  const gross = revenue - aiCost - fees;
+  const taxRate = Math.max(0, input.taxRate);
+  const tax = revenue - revenue / (1 + taxRate);
+  // Margin on what's ours: revenue without the tax.
+  const income = revenue - tax;
+  const gross = income - aiCost - fees;
   return {
     revenue,
+    tax,
     cash,
     aiCost,
     fees,
     serverCost,
-    grossMargin: revenue > 0 ? gross / revenue : 0,
+    grossMargin: income > 0 ? gross / income : 0,
     net: gross - serverCost,
     subscribers,
   };

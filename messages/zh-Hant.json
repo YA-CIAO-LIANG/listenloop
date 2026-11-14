@@ -1843,13 +1843,12 @@
     },
     "forecast": {
       "title": "收益試算",
-      "introMeasured": "所有數字都可以改，結果即時重算，不會儲存。AI 成本預設為本月實際花費 ÷ 本月建立的教材分鐘數：每分鐘 NT${perMinute}（匯率 {rate}）。",
-      "introFallback": "所有數字都可以改，結果即時重算，不會儲存。本月還沒有足夠的資料，AI 成本預設用 11 月 8 日官方教材批次的實際花費：每分鐘 NT${perMinute}（匯率 {rate}）。",
-      "revenue": "月營收",
-      "perMonth": "長期方案按月攤提",
+      "introMeasured": "所有數字都可以改，結果即時重算，不會儲存。AI 成本預設每分鐘 NT${perMinute}：語言模型 NT${language}（本月實際花費 ÷ 本月建立的教材分鐘數，不含 eval），加上聲音 NT${voice}（超過免費額度後的付費價格）；匯率 {rate}。",
+      "introFallback": "所有數字都可以改，結果即時重算，不會儲存。AI 成本預設每分鐘 NT${perMinute}：本月還沒有足夠的資料，語言模型用 11 月 8 日官方教材批次的實際花費 NT${language}，加上聲音 NT${voice}（超過免費額度後的付費價格）；匯率 {rate}。",
+      "revenue": "月營收（含稅）",
       "cash": "預收現金",
       "cashNote": "這些人付款當下收到的金額",
-      "grossMargin": "毛利率",
+      "grossMargin": "毛利率（扣除營業稅後）",
       "costs": "AI {ai} · 手續費 {fees}",
       "net": "淨利",
       "server": "扣除伺服器 {server}",
@@ -1877,9 +1876,11 @@
         "aiPerMinute": "AI 成本（NT$／每分鐘教材）",
         "feeRate": "金流手續費（%）",
         "feeFixed": "每筆固定手續費（NT$）",
-        "serverMonthly": "伺服器成本（NT$／月）"
+        "serverMonthly": "伺服器成本（NT$／月）",
+        "taxRate": "營業稅（%，含在價格內）"
       },
-      "notes": "預設假設：額度使用率 40%（大多數人用不完）；手續費 2.8%（台灣常見的信用卡金流費率，實際依簽約的金流而定）；伺服器 NT$1,500／月（Vercel Pro US$20 加 Supabase Pro US$25，商業使用時需要升級）；聲音目前用 Azure F0 免費額度，超過後的成本已含在每分鐘 AI 成本的估算內。"
+      "notes": "預設假設：價格含 5% 營業稅（賣給台灣消費者要標含稅價），先扣掉再算毛利；金流用綠界，信用卡手續費約 2.75%，加上手續費本身 5% 的稅，約 2.9%、沒有每筆固定費（實際費率依和綠界簽的合約而定，可以在這裡改）；額度使用率 40%（大多數人用不完）；聲音目前用 Azure F0 免費額度，但訂閱人數一多就會超過，所以 AI 成本一律含付費聲音的價格；伺服器 NT$1,500／月（Vercel Pro US$20 加 Supabase Pro US$25，商業使用時需要升級）。",
+      "perMonthTax": "含營業稅 {tax}；長期方案按月攤提"
     },
     "docs": {
       "title": "系統文件",

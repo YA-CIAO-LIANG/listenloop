@@ -146,6 +146,7 @@ describe("revenue forecast (D102)", () => {
     }
     input.subscribers.plus.year = 12;
     input.feeRate = 0;
+    input.taxRate = 0; // tax is in tests/forecast.test.ts (D184)
     input.serverMonthly = 0;
     input.usage.plus = 0.5;
     const result = forecast(input);
