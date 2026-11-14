@@ -1568,6 +1568,13 @@
       "aiCostNote": "{used} / 全站上限 {cap}",
       "betaWaitlist": "Beta 等候名單",
       "betaWaitlistNote": "還沒邀請的人；到「註冊與邀請」分批邀請",
+      "vercelFunctions": "Vercel 函式儲存空間",
+      "vercelFunctionsNote": "{used} GB / {limit} GB，{deployments} 個部署（每小時更新）。依 Vercel API 估算，Vercel 後台的數字可能不同。",
+      "vercelUnset": "未設定",
+      "vercelUnsetNote": "在 Vercel 設定 VERCEL_API_TOKEN、VERCEL_TEAM_ID、VERCEL_PROJECT_ID 後顯示，步驟見 docs/capacity.md。",
+      "vercelError": "無法讀取",
+      "vercelErrorNote": "Vercel API 沒有回應或金鑰無效，5 分鐘後再試。",
+      "vercelUsageLink": "看 Vercel 後台的用量 →",
       "nearTitle": "接近免費額度上限（80% 以上）：",
       "nearItem": "{label}：已用 {share}",
       "nearHint": "Vercel 的流量與函式用量要到 Vercel 後台的 Usage 查看。各服務滿了會怎樣、要升級哪個方案，見 docs/capacity.md。"

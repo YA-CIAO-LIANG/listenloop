@@ -11,6 +11,7 @@ import {
   type OpsSnapshot,
 } from "@/lib/ops/alerts";
 import { alertLines, discordText, sendDiscord } from "@/lib/ops/notify";
+import { OPS_THRESHOLDS } from "@/lib/ops/thresholds";
 import {
   SELF_MONITOR,
   dailyWindow,
@@ -23,6 +24,7 @@ import { runAbuseDetection } from "./abuse";
 import { getAdminSupabase } from "./admin";
 import { cleanOrphans } from "./orphans";
 import { getUsageSettings } from "./usage-settings";
+import { getFunctionsStorage } from "./vercel-storage";
 
 /**
  * Monitoring on the server (D156): health checks, the site's numbers,
@@ -172,6 +174,16 @@ export async function runMonitor(
     .from("health_checks")
     .insert({ status, checks: health, checked_at: now.toISOString() });
   const snapshot = await collectSnapshot(admin, health, now);
+  // Vercel Functions Storage (D175): once a day, when the token is set.
+  if (daily) {
+    const functions = await getFunctionsStorage({ now, fresh: true }).catch(
+      () => null,
+    );
+    if (functions?.status === "ok") {
+      snapshot.vercelFunctionsBytes = functions.bytes;
+      snapshot.vercelFunctionsCap = OPS_THRESHOLDS.vercelFunctionsStorageBytes;
+    }
+  }
   // Abuse detection (D162) adds its own alerts.
   const abuse = await runAbuseDetection(admin, now).catch(() => []);
   const alerts = [...evaluateAlerts(snapshot), ...abuse];

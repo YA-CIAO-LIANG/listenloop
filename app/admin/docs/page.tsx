@@ -13,7 +13,6 @@ import {
   parseSystemDocLanguage,
   SYSTEM_DOC_LANGUAGES,
   SYSTEM_DOCS,
-  systemDocPath,
 } from "@/lib/system-docs";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -51,7 +50,9 @@ export default async function AdminDocsPage({
   const doc = parseSystemDoc(query.doc);
   const language = parseSystemDocLanguage(query.lang, locale);
   const source = await readFile(
-    join(process.cwd(), systemDocPath(language, doc)),
+    // Literal folders (= systemDocPath) so the build traces only
+    // docs/system into this function, not the whole project (D175).
+    join(process.cwd(), "docs", "system", language, `${doc}.md`),
     "utf8",
   ).catch(() => null);
   const href = (d: string, l: string) => `/admin/docs?doc=${d}&lang=${l}`;

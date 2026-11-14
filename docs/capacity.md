@@ -52,13 +52,13 @@
 
 ## 3. 各服務的上限，滿了會怎樣
 
-| 服務                  | 免費方案的上限（每月）                                                            | 滿了會怎樣                                                                                                 |
-| --------------------- | --------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| **Vercel Hobby**      | 函式呼叫 100 萬次；Active CPU 4 小時；流量 100 GB；Origin 傳輸 10 GB              | 超過時 Vercel 會暫停專案，網站打不開，直到下個月或升級。**Hobby 只能非商業使用**，開始收費前一定要升級 Pro |
-| **Supabase Free**     | 資料庫 500 MB；檔案 1 GB；egress 5 GB 加 cached egress 5 GB；MAU 5 萬；單檔 50 MB | 超過會收到通知，持續超過可能限制服務。**一週沒有活動會暫停專案**（目前每天都有使用，不會發生）             |
-| **Azure Speech F0**   | 語音合成 50 萬字元；語音轉文字 5 小時；每分鐘約 20 個請求                         | 超過後 Azure 回 403，不收費。網站會顯示「本月額度用完」。全站語音轉文字上限設 4.5 小時                     |
-| **Azure OpenAI**      | 學生額度 US$100（到 2027-11-04）                                                  | 網站自己的每月上限（目前 US$8）先擋下，一般使用者暫停建立教材                                              |
-| **Supabase 內建寄信** | 每小時只能寄少量的確認信、重設密碼信                                              | Email 註冊的人會收不到確認信。**Beta 期間建議引導使用 Google 登入**；人多時要設定自訂 SMTP（Joe 待辦清單） |
+| 服務                  | 免費方案的上限（每月）                                                                                                    | 滿了會怎樣                                                                                                 |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| **Vercel Hobby**      | 函式呼叫 100 萬次；Active CPU 4 小時；流量 100 GB；Origin 傳輸 10 GB；函式儲存空間 10 GB（所有還存在的部署合計，第 8 節） | 超過時 Vercel 會暫停專案，網站打不開，直到下個月或升級。**Hobby 只能非商業使用**，開始收費前一定要升級 Pro |
+| **Supabase Free**     | 資料庫 500 MB；檔案 1 GB；egress 5 GB 加 cached egress 5 GB；MAU 5 萬；單檔 50 MB                                         | 超過會收到通知，持續超過可能限制服務。**一週沒有活動會暫停專案**（目前每天都有使用，不會發生）             |
+| **Azure Speech F0**   | 語音合成 50 萬字元；語音轉文字 5 小時；每分鐘約 20 個請求                                                                 | 超過後 Azure 回 403，不收費。網站會顯示「本月額度用完」。全站語音轉文字上限設 4.5 小時                     |
+| **Azure OpenAI**      | 學生額度 US$100（到 2027-11-04）                                                                                          | 網站自己的每月上限（目前 US$8）先擋下，一般使用者暫停建立教材                                              |
+| **Supabase 內建寄信** | 每小時只能寄少量的確認信、重設密碼信                                                                                      | Email 註冊的人會收不到確認信。**Beta 期間建議引導使用 Google 登入**；人多時要設定自訂 SMTP（Joe 待辦清單） |
 
 ### 用量模型與大約能支援的人數
 
@@ -152,3 +152,94 @@
 - **每週一**會收到（或在後台看到）每週摘要，包括上週花費、新帳號與新教材，以及上面三項預測。
 - 任何一項達到 80% 會立即通知（D156）。應對步驟見 `docs/incident-runbook.md` 的「Supabase 流量或儲存超過上限」「Azure 額度用完」。
 - Azure 額度的預測是用**全部** AI 與語音花費估算，偏保守；Gemini 或 Google 的花費不會扣學生額度。
+
+---
+
+## 8. Vercel Functions Storage（D175，2026-11-14）
+
+### 發生了什麼
+
+Vercel Hobby 除了每月的呼叫次數與 CPU，還有一個**累計**的上限：**Functions Storage 10 GB**。每一個還存在的部署（Production 和 Preview 都算）都保留自己的伺服器函式，全部加起來不能超過 10 GB。滿了之後，Vercel 不接受新的部署。
+
+2026-11-14 Vercel 後台顯示 **10.57 GB / 10 GB**。用 Vercel API（`GET /v11/deployments/{id}/builds`，取 `type == "lambda"` 的輸出、依 `digest` 去重、加總 `size`）量到：
+
+| 項目           | 數字                                                                                                                                                                                               |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 每個部署的函式 | 5 個，共約 **45 MB**：主要函式 21.08 MB（127 個路由）、11.36 MB（account/export、admin/waitlist/export…）、11.28 MB（admin/official、admin/usage…）、0.92 MB（api/cron/\*）、0.40 MB（middleware） |
+| 部署數         | 62 個，約 2.77 GB（依 API 計算）                                                                                                                                                                   |
+| 刪除後         | 刪掉 58 個，留下目前的 Production 與 3 個較新的 Production：**4 個部署、約 180 MB**                                                                                                                |
+
+API 算出來的 2.77 GB 比後台的 10.57 GB 小很多：後台的計算方式 Vercel 沒有公開（可能包含已刪除部署、或依時間累計），所以兩邊數字不一定一樣。刪除後 24～48 小時內後台沒有下降時，用下面的訊息聯絡 Vercel。
+
+### 這次的改善
+
+1. **縮小每個部署的函式**（`next.config.ts` 的 `outputFileTracingExcludes`）：
+   - `sharp` 與 `@img/sharp-libvips-*` 只給 Next.js 自架時的圖片最佳化用。我們的程式沒有使用；Vercel 上的圖片最佳化是平台服務，`next/og` 用自己的 resvg。原本每個頁面函式都帶著它（Linux 上約 16～18 MB）。
+   - 測試、文件、腳本、行銷素材、`package-lock.json` 等不會在伺服器執行的資料夾，一律排除。
+   - `/admin/docs` 和 `/blog/[slug]` 原本用 `join(process.cwd(), 變數)` 讀檔，build 工具無法判斷會讀哪些檔案，於是**把整個專案**（tests、docs、截圖等約 20 MB）放進這兩個函式。改成寫出固定的資料夾（`"docs", "system"`、`"content", "blog"`），只會帶入需要的 Markdown。
+2. **本機量測**：`npm run size:functions`（先 `npm run build`）。讀 `.next/server/**/*.nft.json`，列出每組路由帶入的檔案大小與最大的套件。本機是 macOS，數字含 darwin 的原生套件，只適合比較同一台電腦的前後差異。
+
+| 本機量測（macOS）                      |   改善前 |                        改善後 |
+| -------------------------------------- | -------: | ----------------------------: |
+| 所有函式合計（每個檔案只算一次）       | 57.07 MB |                      25.74 MB |
+| Next.js 伺服器執行環境（每個函式共用） | 31.19 MB |                      12.80 MB |
+| `app/admin`（23 個路由）               | 39.92 MB |                       8.58 MB |
+| `app/blog`（2 個路由）                 | 37.95 MB |                       6.39 MB |
+| 一般頁面（例如 `app/videos`）          | 26.02 MB |                       7.62 MB |
+| `sharp-libvips`                        | 17.40 MB |                          0 MB |
+| 專案資料夾 `docs`、`tests`、`scripts`  |  8.89 MB | 0.24 MB（只剩 `docs/system`） |
+
+合併後，到後台「總覽 → 容量與免費額度」看新部署的大小（預估每個部署從約 45 MB 降到約 10～15 MB）。
+
+3. **後台監控**：「容量與免費額度」多一格「Vercel 函式儲存空間」，顯示已用、上限 10 GB、百分比與部署數，每小時向 Vercel API 更新一次（`auth/vercel-storage.ts`；計算在 `lib/ops/vercel-storage.ts`）。
+   - 每天的監控（D163 的每日工作）也會檢查：**70% 以上**發警告、**90% 以上**發嚴重通知到 Discord（`lib/ops/alerts.ts`，同一個通知 6 小時內不重發）。上限與比例在 `lib/ops/thresholds.ts`。
+   - 沒有設定 `VERCEL_API_TOKEN` 時顯示「未設定」，不影響其他功能。
+4. **清除舊部署**：`npm run vercel:prune`。預設只列出會刪除哪些部署（dry run）；加 `-- --yes` 才真的刪除。
+   - 保留：目前 Production 指向的部署，加上 3 個較新的 Production（`-- --keep 5` 可以改數字），所以**仍然可以 Instant Rollback**（見 `docs/deploy-rollback.md`）。
+   - 刪除：所有 Preview、更舊的 Production。還在 build 的部署不會刪。
+   - 金鑰：`VERCEL_API_TOKEN`，沒有時用 Vercel CLI 的登入（`vercel login`）；專案用 `VERCEL_PROJECT_ID`、`VERCEL_TEAM_ID`，沒有時讀 `.vercel/project.json`（`vercel link`）。
+   - 刪除無法復原。`vercel.json` 已經限制只有 `main` 會自動部署，Preview 不會再一直累積。
+
+### 設定後台監控（Joe）
+
+1. 到 Vercel → 右上角頭像 → **Account Settings → Tokens** → **Create Token**。
+   - Scope 選擁有 listenloop 專案的團隊（不要選 Full Account）；Expiration 選 1 年，到期前會收到 Email。
+   - Vercel 的 token 沒有「唯讀」選項；這個 token 只放在 Vercel 的環境變數，網站只用它讀取部署清單。
+2. 到 listenloop 專案 → **Settings → Environment Variables**，只加在 **Production**：
+   - `VERCEL_API_TOKEN`：上一步的 token（勾選 Sensitive）。
+   - `VERCEL_TEAM_ID`：`.vercel/project.json` 的 `orgId`（`team_` 開頭）。
+   - `VERCEL_PROJECT_ID`：`.vercel/project.json` 的 `projectId`（`prj_` 開頭），或專案 **Settings → General** 的 Project ID。
+3. Redeploy（或等下一次合併），打開後台總覽，「Vercel 函式儲存空間」應該顯示約 180 MB、4 個部署。
+
+### 後台數字沒有下降時，寄給 Vercel 的訊息
+
+刪除後 24～48 小時，Vercel 後台的 Functions Storage 還是約 10.57 GB 時，到 <https://vercel.com/help> 開支援單，貼上：
+
+```text
+Subject: Functions Storage usage not decreasing after deleting deployments (Hobby)
+
+Hi Vercel team,
+
+My Hobby project "listenloop" showed Functions Storage at 10.57 GB of the
+10 GB limit. On 2026-11-14 I deleted 58 of its 62 deployments (all previews
+and older production deployments), keeping the current production
+deployment and three previous production deployments.
+
+By the REST API (GET /v11/deployments/{id}/builds, summing the unique
+"lambda" outputs by digest), the 4 remaining deployments use about 45 MB
+each, roughly 180 MB in total. Even the 62 deployments before the deletion
+added up to only about 2.77 GB by the same method. The usage dashboard
+still shows about 10.57 GB more than 24 hours later.
+
+Could you help me with the following?
+1. Is Functions Storage recalculated on a schedule, and how long after
+   deleting deployments should the dashboard reflect it?
+2. Do deleted deployments (or anything else, such as build cache or
+   deployments from other projects) still count towards Functions Storage?
+3. If the usage is stale, could you recalculate or reset it for this
+   project?
+
+I have also reduced the size of each deployment's functions since then.
+
+Thank you!
+```

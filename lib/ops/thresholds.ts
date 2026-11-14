@@ -18,6 +18,14 @@ export const OPS_THRESHOLDS = {
   /** Sign-ups or reports in the last hour. */
   signupsPerHour: 20,
   reportsPerHour: 10,
+  /**
+   * Vercel Hobby "Functions Storage" (D175): every remaining deployment's
+   * functions, 10 GB (decimal, as Vercel counts). Warn at 70%, critical
+   * at 90%. Checked once a day.
+   */
+  vercelFunctionsStorageBytes: 10 * 1000 ** 3,
+  vercelFunctionsWarnShare: 0.7,
+  vercelFunctionsCriticalShare: 0.9,
   /** The same alert isn't sent again within this many hours. */
   repeatHours: 6,
 } as const;

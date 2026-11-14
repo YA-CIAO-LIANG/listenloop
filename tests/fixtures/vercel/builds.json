@@ -1,0 +1,55 @@
+{
+  "builds": [
+    {
+      "id": "bld_fixture",
+      "use": "@vercel/next",
+      "readyState": "READY",
+      "output": [
+        {
+          "type": "lambda",
+          "path": "index",
+          "digest": "aaa111",
+          "size": 21080000
+        },
+        {
+          "type": "lambda",
+          "path": "videos/[id]",
+          "digest": "aaa111",
+          "size": 21080000
+        },
+        {
+          "type": "lambda",
+          "path": "account/export",
+          "digest": "bbb222",
+          "size": 11360000
+        },
+        {
+          "type": "lambda",
+          "path": "admin/waitlist/export",
+          "digest": "bbb222",
+          "size": 11360000
+        },
+        {
+          "type": "lambda",
+          "path": "admin/usage",
+          "digest": "ccc333",
+          "size": 11280000
+        },
+        {
+          "type": "lambda",
+          "path": "api/cron/monitor",
+          "digest": "ddd444",
+          "size": 920000
+        },
+        {
+          "type": "lambda",
+          "path": "_middleware",
+          "digest": "eee555",
+          "size": 400000
+        },
+        { "type": "file", "path": "favicon.ico", "size": 15086 },
+        { "type": "edge", "path": "opengraph-image", "size": 500000 }
+      ]
+    }
+  ]
+}

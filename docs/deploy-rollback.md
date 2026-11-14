@@ -30,6 +30,10 @@ vercel rollback <部署網址>     # 回到指定的部署
 
 - 回滾後，Vercel 會**暫停自動部署**到 Production，避免下一次合併又把壞的版本推上去。修好之後，到專案頁按 **Undo Rollback**，或把修正後的部署 **Promote to Production**，自動部署就會恢復。
 - 環境變數是跟著部署走的。如果問題是環境變數改錯了，回滾無效：要改回環境變數，再 **Redeploy**。
+- **能回滾到哪幾個版本**（D175）：為了 Vercel Hobby 的函式儲存空間上限（10 GB），舊部署會用 `npm run vercel:prune` 清掉。它一定保留目前的 Production 和 **3 個較新的 Production 部署**，所以最近 3 個版本一定可以 Instant Rollback。
+  - 回滾之後才執行清除也安全：它保留的是「Production 目前指向的部署」，不是最新的那一個。
+  - 要回到更舊的版本：在 git 上 revert（第 3 節），或在 Vercel 對那個 commit 重新部署。
+  - 要多留幾個：`npm run vercel:prune -- --keep 5`。詳見 `docs/capacity.md` 第 8 節。
 
 ## 3. 在 git 上修正
 

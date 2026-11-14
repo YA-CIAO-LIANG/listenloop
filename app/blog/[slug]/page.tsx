@@ -9,7 +9,7 @@ import remarkGfm from "remark-gfm";
 import { getLibraryItems } from "@/auth/library";
 import { ButtonLink } from "@/components/ButtonLink";
 import { MaterialCard } from "@/components/MaterialCard";
-import { blogFile, blogPath, findPost } from "@/lib/blog";
+import { blogPath, findPost } from "@/lib/blog";
 import { learnPath } from "@/lib/learn";
 import { filterLibrary, NO_LIBRARY_FILTER } from "@/lib/library";
 import { JsonLd } from "@/components/JsonLd";
@@ -119,7 +119,9 @@ export default async function BlogPostPage({
     getTranslations("common"),
     getTranslations("categories.names"),
     getFormatter(),
-    readFile(join(process.cwd(), blogFile(post.slug)), "utf8"),
+    // Literal folders (= blogFile) so the build traces only content/blog
+    // into this function, not the whole project (D175).
+    readFile(join(process.cwd(), "content", "blog", `${post.slug}.md`), "utf8"),
     getLibraryItems(),
   ]);
   const related = filterLibrary(all, {

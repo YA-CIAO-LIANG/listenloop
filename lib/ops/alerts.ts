@@ -37,6 +37,12 @@ export type OpsSnapshot = {
   storageCap: number;
   signups1h: number;
   reports1h: number;
+  /**
+   * Vercel Functions Storage in bytes (D175); null or missing when not
+   * checked (only the daily run asks Vercel) or not set up.
+   */
+  vercelFunctionsBytes?: number | null;
+  vercelFunctionsCap?: number;
 };
 
 export type AlertLevel = "warning" | "critical";
@@ -74,6 +80,36 @@ function shareAlert(
       key: `${key}:80`,
       level: "warning",
       message: `${label}已用 ${pct(share)}：${format(used)} / ${format(cap)}`,
+    };
+  }
+  return null;
+}
+
+const gb = (bytes: number) => `${(bytes / 1000 ** 3).toFixed(2)} GB`;
+
+/**
+ * Vercel Hobby's Functions Storage (D175): a warning from 70%, critical
+ * from 90%. When it's full, Vercel stops accepting new deployments.
+ */
+export function vercelFunctionsAlert(
+  bytes: number | null,
+  cap: number,
+): OpsAlert | null {
+  if (bytes === null || cap <= 0) return null;
+  const share = bytes / cap;
+  const detail = `${gb(bytes)} / ${gb(cap)}（${pct(share)}）`;
+  if (share >= OPS_THRESHOLDS.vercelFunctionsCriticalShare) {
+    return {
+      key: "vercel-functions:90",
+      level: "critical",
+      message: `Vercel 函式儲存空間快滿了：${detail}。請執行 npm run vercel:prune 刪除舊部署`,
+    };
+  }
+  if (share >= OPS_THRESHOLDS.vercelFunctionsWarnShare) {
+    return {
+      key: "vercel-functions:70",
+      level: "warning",
+      message: `Vercel 函式儲存空間已用 ${detail}，可以執行 npm run vercel:prune 刪除舊部署`,
     };
   }
   return null;
@@ -157,6 +193,12 @@ export function evaluateAlerts(s: OpsSnapshot): OpsAlert[] {
       });
     }
   }
+
+  const vercel = vercelFunctionsAlert(
+    s.vercelFunctionsBytes ?? null,
+    s.vercelFunctionsCap ?? OPS_THRESHOLDS.vercelFunctionsStorageBytes,
+  );
+  if (vercel) alerts.push(vercel);
 
   if (s.signups1h >= OPS_THRESHOLDS.signupsPerHour) {
     alerts.push({

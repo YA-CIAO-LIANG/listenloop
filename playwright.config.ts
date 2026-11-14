@@ -72,6 +72,8 @@ export default defineConfig({
         SITE_SWITCHES_TTL_MS: "0",
         // The health check doesn't start the monitor here (D163).
         SELF_MONITOR: "off",
+        // Never the Vercel API (D175): the admin page shows "not set up".
+        VERCEL_API_TOKEN: "",
       },
       reuseExistingServer: !process.env.CI,
       timeout: 60_000,

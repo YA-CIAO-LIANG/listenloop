@@ -12,6 +12,8 @@ const PAID_HOSTS = [
   // Not paid, but never from tests either (D160).
   /^challenges\.cloudflare\.com$/,
   /(^|\.)discord(app)?\.com$/,
+  // The Vercel API (Functions Storage, D175): tests pass a stub fetch.
+  /^api\.vercel\.com$/,
 ];
 
 export function isPaidApiUrl(url: string): boolean {

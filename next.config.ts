@@ -17,6 +17,38 @@ const nextConfig: NextConfig = {
     "/admin/docs": ["./docs/system/**/*.md"],
     "/blog/[slug]": ["./content/blog/*.md"],
   },
+  // Every deployment's functions count towards Vercel Hobby's 10 GB
+  // "Functions Storage" (D175). Keep out what the server never loads:
+  // sharp is only Next's self-hosted image optimizer (on Vercel, images
+  // are optimized by the platform; next/og draws with its own resvg), and
+  // the project's own non-runtime folders. `npm run size:functions`
+  // shows the result.
+  outputFileTracingExcludes: {
+    "*": [
+      "node_modules/sharp/**",
+      "node_modules/@img/**",
+      "node_modules/typescript/**",
+      "node_modules/@playwright/**",
+      "node_modules/playwright*/**",
+      "node_modules/vitest/**",
+      "node_modules/@vitest/**",
+      "node_modules/docx/**",
+      "tests/**",
+      "e2e/**",
+      "evals/**",
+      "scripts/**",
+      "qa/**",
+      "usability/**",
+      "loadtest/**",
+      "marketing/**",
+      "brand/**",
+      "supabase/**",
+      "docs/!(system)/**",
+      "docs/*",
+      "content/!(blog)/**",
+      "package-lock.json",
+    ],
+  },
   // On every response, pages and files alike (D63).
   async headers() {
     return [
