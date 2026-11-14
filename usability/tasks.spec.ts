@@ -991,3 +991,123 @@ test("T18 paid and free: pricing as each sees it, Plus most popular, class tiers
   await step(page, "t18-pricing", "3-refund", () => page.goto("/refund"));
   await step(page, "t18-pricing", "4-terms", () => page.goto("/terms"));
 });
+
+test("T19 price experiment: an admin tries Plus prices, each visitor keeps one, the waiting list keeps it (管理員 Joe, P4 上班族, P3 留學生, P1 國中生)", async ({
+  page,
+  browser,
+}) => {
+  await signInAsAdmin(page);
+  await step(page, "t19-price-test", "1-admin-new", () =>
+    page.goto("/admin/price-experiments"),
+  );
+  await step(page, "t19-price-test", "2-admin-started", async () => {
+    await page.getByLabel("第 2 組").fill("199");
+    await page.getByLabel("第 3 組").fill("249");
+    await page.getByRole("button", { name: "開始實驗" }).click();
+    await expect(page.getByRole("table", { name: "各組的轉換" })).toBeVisible();
+  });
+  const guest = await browser.newContext({
+    ...test.info().project.use,
+    locale: "zh-TW",
+  });
+  try {
+    const visitor = await guest.newPage();
+    await step(visitor, "t19-price-test", "3-guest-pricing", () =>
+      visitor.goto("/pricing"),
+    );
+    await step(visitor, "t19-price-test", "4-guest-again", () =>
+      visitor.reload(),
+    );
+    await step(visitor, "t19-price-test", "5-guest-monthly", () =>
+      visitor.getByText("月繳", { exact: true }).click(),
+    );
+    // Signed in: the waiting list with the price this person saw.
+    await signInWithEmail(
+      visitor,
+      `e2e-ux-price-${test.info().project.name}`,
+      `ux-price-${test.info().project.name}@example.com`,
+    );
+    await step(visitor, "t19-price-test", "6-learner-pricing", () =>
+      visitor.goto("/pricing"),
+    );
+    await step(visitor, "t19-price-test", "7-learner-waitlist", async () => {
+      await visitor
+        .getByRole("listitem")
+        .filter({ hasText: "訂閱 Plus" })
+        .getByRole("button", { name: "訂閱 Plus" })
+        .click();
+      await visitor.getByRole("button", { name: "加入名單" }).click();
+      await expect(visitor.getByText(/已加入名單/)).toBeVisible();
+    });
+    await step(visitor, "t19-price-test", "8-learner-create-upgrade", () =>
+      visitor.goto("/materials/new"),
+    );
+    await step(page, "t19-price-test", "9-admin-results", () => page.reload());
+  } finally {
+    // End it and go back to the code's prices, for the next device.
+    await page.goto("/admin/price-experiments");
+    if (await page.getByRole("button", { name: "結束實驗" }).count()) {
+      await page.getByLabel("結束時套用").selectOption("none");
+      page.once("dialog", (dialog) => void dialog.accept());
+      await page.getByRole("button", { name: "結束實驗" }).click();
+      await step(page, "t19-price-test", "10-admin-ended", () =>
+        expect(page.getByText("目前沒有進行中的實驗")).toBeVisible(),
+      );
+    }
+    if (await page.getByRole("button", { name: "恢復預設" }).count()) {
+      await page.getByRole("button", { name: "恢復預設" }).click();
+    }
+    await guest.close();
+  }
+});
+
+test("T20 price survey: after 30 s on the pricing page, answer or skip, and the admin's curves (P4 上班族, P2 高中生, 管理員 Joe)", async ({
+  page,
+  browser,
+}) => {
+  const guest = await browser.newContext({
+    ...test.info().project.use,
+    locale: "zh-TW",
+  });
+  try {
+    const visitor = await guest.newPage();
+    await visitor.clock.install();
+    await visitor.goto("/pricing");
+    const survey = visitor.getByRole("region", { name: /Plus 值多少錢/ });
+    await step(visitor, "t20-price-survey", "1-survey-shows", async () => {
+      await visitor.clock.runFor(31_000);
+      await expect(survey).toBeVisible();
+    });
+    await step(visitor, "t20-price-survey", "2-out-of-order", async () => {
+      await survey.getByLabel(/太貴，根本不考慮/).fill("100");
+      await survey.getByLabel(/有點貴/).fill("200");
+      await survey.getByLabel(/很划算/).fill("90");
+      await survey.getByLabel(/懷疑品質/).fill("30");
+      await survey.getByRole("button", { name: "送出" }).click();
+    });
+    await step(visitor, "t20-price-survey", "3-answered", async () => {
+      await survey.getByLabel(/太貴，根本不考慮/).fill("400");
+      await survey.getByRole("button", { name: "送出" }).click();
+      await expect(visitor.getByText("謝謝你！")).toBeVisible();
+    });
+  } finally {
+    await guest.close();
+  }
+  // A learner who doesn't want to answer.
+  await signInAsLearner(page);
+  await page.clock.install();
+  await page.goto("/pricing");
+  const survey = page.getByRole("region", { name: /Plus 值多少錢/ });
+  await step(page, "t20-price-survey", "4-learner-survey", async () => {
+    await page.clock.runFor(31_000);
+    await expect(survey).toBeVisible();
+  });
+  await step(page, "t20-price-survey", "5-learner-skip", async () => {
+    await survey.getByRole("button", { name: /略過|不用了|跳過/ }).click();
+    await expect(survey).toHaveCount(0);
+  });
+  await signInAsAdmin(page);
+  await step(page, "t20-price-survey", "6-admin-curves", () =>
+    page.goto("/admin/price-experiments#survey"),
+  );
+});

@@ -2261,7 +2261,7 @@
       "addVariant": "再加一組",
       "start": "開始實驗",
       "pastTitle": "已結束的實驗",
-      "pastLine": "{plan}：{prices}，共 {visitors} 人，{result}",
+      "pastLine": "{from}–{to}　{plan}：{prices}，共 {visitors} 人，{result}",
       "pastApplied": "套用 {price}",
       "pastNone": "沒有套用",
       "errors": {
@@ -3167,8 +3167,7 @@
     "student": {
       "verified": "已認證學生身分，有效到 {until}。",
       "expired": "學生認證在 {until} 到期了。請用學校的 Google 帳號重新登入，確認你還是學生。",
-      "none": "你目前登入的不是學校信箱。學生方案需要用學校信箱（例如 .edu、.edu.tw）的 Google 帳號登入。",
-      "signedOut": "學生方案需要用學校信箱（例如 .edu、.edu.tw）的 Google 帳號登入，登入後自動認證。",
+      "none": "你目前登入的不是學校信箱，還不能訂閱學生方案。",
       "signInSchool": "用學校帳號登入",
       "needVerified": "訂閱學生方案前，請先用學校信箱的 Google 帳號登入完成認證。",
       "how": "認證方式：用學校信箱（.edu、.edu.tw、.ac.uk 等）的 Google 帳號登入，系統自動確認，不用上傳學生證。有效一年，到期後再用學校帳號登入一次即可續用。",
