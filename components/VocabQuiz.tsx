@@ -35,6 +35,7 @@ import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { PracticeActions, PracticeActionsSpacer } from "./PracticeActions";
 import { useStores } from "./StoresProvider";
+import { usePracticeTimer } from "./usePracticeTimer";
 
 const fieldClassName =
   "block w-full max-w-sm rounded-base border border-line bg-surface px-4 py-3 text-sentence focus-visible:border-accent";
@@ -142,6 +143,8 @@ function Quiz({
 }: VocabQuizProps & { answers: readonly (string | null)[] }) {
   const t = useTranslations("quiz");
   const { rewards } = useStores();
+  // The quiz counts as practice time (D181).
+  usePracticeTimer(video.id, false);
   const ids = { input: useId(), hint: useId(), choices: useId() };
   const words = useMemo(
     () => pickQuizWords(candidates, misheardWords(video.sentences, answers)),

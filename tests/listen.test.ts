@@ -56,7 +56,7 @@ describe("listening mode (D135)", () => {
     });
   });
 
-  it("counts background listening only in listening mode", () => {
+  it("never counts in the background, listening mode included (D181)", () => {
     const base = {
       visible: false,
       focused: false,
@@ -65,10 +65,7 @@ describe("listening mode (D135)", () => {
       now: 10_000_000,
     };
     expect(isPracticing(base)).toBe(false);
-    expect(isPracticing({ ...base, background: true })).toBe(true);
-    expect(isPracticing({ ...base, background: true, playing: false })).toBe(
-      false,
-    );
+    expect(isPracticing({ ...base, visible: true })).toBe(true);
   });
 });
 

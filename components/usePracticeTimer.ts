@@ -6,7 +6,10 @@ import { toLocalDate } from "@/lib/dates";
 import {
   addPracticeTime,
   isPracticing,
-  SAVE_EVERY_MS,
+  TIMER_START,
+  timerFlush,
+  timerTick,
+  type TimerFlush,
 } from "@/lib/practice-time";
 import { useStores } from "./StoresProvider";
 
@@ -32,18 +35,24 @@ function deviceId(): string {
 }
 
 /**
- * Counts the time spent on a practice page (D74): a second at a time,
- * while lib/practice-time.ts isPracticing says so, saved to the activity
- * log every SAVE_EVERY_MS and when the page is hidden or left.
+ * Counts the time spent practicing (D74, D181): a second at a time, while
+ * lib/practice-time.ts isPracticing says so, each second to the local date
+ * it was counted on (lib/practice-time.ts timerTick), saved to the
+ * activity log every SAVE_EVERY_MS, at midnight, and when the page is
+ * hidden or left. `videoId` is the material, or REVIEW_TIME_KEY.
  */
 export function usePracticeTimer(
   videoId: string,
   playing: boolean,
-  /** Count playing in the background too (listening mode, D135). */
-  { background = false }: { background?: boolean } = {},
+  /** False while there's nothing to practice (e.g. no words to review). */
+  active = true,
 ) {
   const { rewards } = useStores();
   const playingRef = useRef(playing);
+  const activeRef = useRef(active);
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
   const lastActive = useRef(0);
   useEffect(() => {
     playingRef.current = playing;
@@ -52,39 +61,43 @@ export function usePracticeTimer(
 
   useEffect(() => {
     lastActive.current = Date.now();
-    let pending = 0;
-    let sinceSave = 0;
+    let state = TIMER_START;
     const touch = () => {
       lastActive.current = Date.now();
     };
-    const save = () => {
-      if (pending <= 0) return;
-      const seconds = pending;
-      pending = 0;
-      sinceSave = 0;
+    const write = (flush: TimerFlush | null) => {
+      if (!flush) return;
       void updateActivity(rewards, (activity) =>
         addPracticeTime(
           activity,
-          toLocalDate(new Date()),
+          flush.date,
           deviceId(),
           videoId,
-          seconds,
+          flush.seconds,
         ),
       ).catch(() => {});
     };
+    const save = () => {
+      const result = timerFlush(state);
+      state = result.state;
+      write(result.flush);
+    };
     const tick = window.setInterval(() => {
-      const counting = isPracticing({
-        visible: document.visibilityState === "visible",
-        focused: document.hasFocus(),
-        playing: playingRef.current,
-        lastActive: lastActive.current,
-        now: Date.now(),
-        background,
+      const now = Date.now();
+      const result = timerTick(state, {
+        counting:
+          activeRef.current &&
+          isPracticing({
+            visible: document.visibilityState === "visible",
+            focused: document.hasFocus(),
+            playing: playingRef.current,
+            lastActive: lastActive.current,
+            now,
+          }),
+        date: toLocalDate(new Date(now)),
       });
-      if (!counting) return;
-      pending += 1;
-      sinceSave += 1000;
-      if (sinceSave >= SAVE_EVERY_MS) save();
+      state = result.state;
+      write(result.flush);
     }, 1000);
     const onHide = () => {
       if (document.visibilityState === "hidden") save();
@@ -102,5 +115,5 @@ export function usePracticeTimer(
       window.removeEventListener("pagehide", save);
       save();
     };
-  }, [rewards, videoId, background]);
+  }, [rewards, videoId]);
 }

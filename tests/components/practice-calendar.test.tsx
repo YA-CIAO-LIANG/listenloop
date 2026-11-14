@@ -4,6 +4,8 @@ import { describe, expect, it, vi } from "vitest";
 import { DictationSession } from "@/components/DictationSession";
 import { PracticeCalendar } from "@/components/PracticeCalendar";
 import { emptyActivity, recordTask, type Activity } from "@/lib/activity";
+import { dailyMinutes } from "@/lib/analytics";
+import { addPracticeTime } from "@/lib/practice-time";
 import { toLocalDate } from "@/lib/dates";
 import type { Progress } from "@/lib/progress";
 import { ACTIVITY_KEY } from "@/lib/storage/local-reward-store";
@@ -81,13 +83,86 @@ describe("PracticeCalendar", () => {
     expect(headers).toHaveLength(7);
     expect(headers[0]).toBe("日");
     const todayButton = screen.getByRole("button", {
-      name: `${dayName(today)}，完成 2 個任務（今天）`,
+      name: `${dayName(today)}，沒有練習時間，完成 2 個任務（今天）`,
     });
     expect(todayButton.dataset.level).toBe("2");
     expect(
-      screen.getByRole("button", { name: `${dayName(otherDay)}，沒有完成任務` })
-        .dataset.level,
+      screen.getByRole("button", {
+        name: `${dayName(otherDay)}，沒有練習時間，沒有完成任務`,
+      }).dataset.level,
     ).toBe("0");
+  });
+
+  /** An activity log with this many seconds practiced on `date`. */
+  const timed = (date: string, seconds: number, base = emptyActivity()) =>
+    addPracticeTime(base, date, "phone", "sintel", seconds);
+
+  it("rings a day by its practice time, thicker for longer (D181)", async () => {
+    const { container } = renderWithIntl(
+      <PracticeCalendar
+        progress={memoryProgress()}
+        rewards={rewardStore(timed(today, 72 * 60, timed(otherDay, 14 * 60)))}
+      />,
+    );
+    await act(async () => {});
+    const todayButton = screen.getByRole("button", {
+      name: `${dayName(today)}，練習 1 小時 12 分，沒有完成任務（今天）`,
+    });
+    expect(todayButton.dataset.ring).toBe("3");
+    const ring = todayButton.querySelector("span")!;
+    expect(ring.className).toContain("border-practice-3");
+    expect(ring.className).toContain("border-2");
+    expect(ring.className).toContain("practice-ring");
+    // Under 15 minutes: no ring, but the time is still said.
+    const other = screen.getByRole("button", {
+      name: `${dayName(otherDay)}，練習 14 分，沒有完成任務`,
+    });
+    expect(other.dataset.ring).toBe("0");
+    expect(other.querySelector("span")!.className).toBe("");
+    // The list under the calendar (phones) says it too.
+    expect(screen.getByTestId("calendar-day-time").textContent).toBe(
+      "練習 1 小時 12 分",
+    );
+    fireEvent.click(other);
+    expect(screen.getByTestId("calendar-day-time").textContent).toBe(
+      "練習 14 分",
+    );
+    // A legend of every ring, in words.
+    const legend = screen.getByRole("list", { name: "練習時間" });
+    expect(
+      within(legend)
+        .getAllByRole("listitem")
+        .map((li) => li.textContent),
+    ).toEqual([
+      "15 分鐘以上",
+      "30 分鐘以上",
+      "1 小時以上",
+      "2 小時以上",
+      "3 小時以上",
+    ]);
+    expect(
+      [...container.querySelectorAll("[data-legend-ring]")].map(
+        (el) => el.className.match(/border-(\[[^\]]+\]|\d)/)?.[1],
+      ),
+    ).toEqual(["[1px]", "[1.5px]", "2", "3", "4"]);
+  });
+
+  it("shows the time in the tooltip when hovering (D181)", async () => {
+    await renderCalendar(timed(today, 2 * 3600));
+    const day = screen.getByRole("button", { name: /練習 2 小時，/ });
+    fireEvent.pointerEnter(day, { pointerType: "mouse" });
+    expect(screen.getByRole("tooltip").textContent).toContain("練習 2 小時");
+  });
+
+  it("counts the same minutes as the stats page (D181)", async () => {
+    // 29.6 minutes: both round to 30, so the ring is the 30-minute one.
+    const activity = timed(today, 29 * 60 + 36);
+    await renderCalendar(activity);
+    const [{ minutes }] = dailyMinutes(activity, today, 1);
+    expect(minutes).toBe(30);
+    expect(
+      screen.getByRole("button", { name: /練習 30 分，/ }).dataset.ring,
+    ).toBe("2");
   });
 
   it("explains the colors with a less → more legend", async () => {

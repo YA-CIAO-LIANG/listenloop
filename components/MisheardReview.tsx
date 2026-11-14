@@ -28,6 +28,8 @@ import { Card } from "./Card";
 import { useStores } from "./StoresProvider";
 import { useSamplePlayer } from "./useSamplePlayer";
 import { useWordSound } from "./useWordSound";
+import { REVIEW_TIME_KEY } from "@/lib/practice-time";
+import { usePracticeTimer } from "./usePracticeTimer";
 
 type Answer = { key: string; typed: string; correct: boolean };
 
@@ -61,6 +63,8 @@ export function MisheardReview({
   const nextRef = useRef<HTMLButtonElement>(null);
   const current = queue[index];
   const { playing, toggle } = useSamplePlayer(() => current?.[1].audio ?? null);
+  // Reviewing counts as practice time while there's a word to do (D181).
+  usePracticeTimer(REVIEW_TIME_KEY, playing !== null, current !== undefined);
   // The word's own sound (D145): played on arrival, replayed, looped.
   const [loop, setLoop] = useState(false);
   const blankWord = current
