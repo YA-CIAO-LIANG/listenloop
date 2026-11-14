@@ -26,7 +26,7 @@ import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
-import { RING_CLASS, RING_SAMPLE_CLASS } from "./practice-rings";
+import { glowStyle } from "./practice-rings";
 import { Skeleton } from "./Skeleton";
 import { useStores } from "./StoresProvider";
 import { useToday } from "./useToday";
@@ -100,9 +100,9 @@ const utcNoon = (year: number, month: number, day: number) =>
 /**
  * The home page's practice calendar (this month first, Sunday first): a heat
  * map where each day's color steps up with the official tasks finished
- * (heatLevel), with a less → more legend; today is underlined. A ring
- * around a day's number shows the time practiced that day (D181), thicker
- * for longer, explained by a legend below; the tooltip, the list under the
+ * (heatLevel), with a less → more legend; today is underlined. A yellow
+ * glow around a day's number shows the time practiced that day (D181,
+ * D183), brighter and wider for longer, explained by a legend below; the tooltip, the list under the
  * calendar, and the screen reader say the time in words. Hovering a
  * day (or reaching it with the keyboard) shows its count and tasks beside
  * it; clicking or tapping a day lists them under the calendar (today by
@@ -320,17 +320,18 @@ function CalendarMonth({
                         selected === date ? "bg-ink/8" : "hover:bg-ink/5"
                       }`}
                     >
-                      {/* The day's dot: filled by tasks finished, ringed
-                          by time practiced (D182). */}
+                      {/* The day's dot: filled by tasks finished (D182),
+                          glowing by time practiced (D183). */}
                       <span
                         aria-hidden="true"
+                        style={ring !== 0 ? glowStyle(ring) : undefined}
                         className={`flex size-7 items-center justify-center rounded-full ${
                           count > 0 ? HEAT_BACKGROUND[level] : ""
                         } ${
                           count > 0 || ring !== 0
                             ? HEAT_TEXT[level === 0 ? 1 : level]
                             : HEAT_TEXT[0]
-                        } ${ring !== 0 ? RING_CLASS[ring] : ""} ${
+                        } ${
                           isToday
                             ? `font-semibold underline decoration-2 underline-offset-4 ${
                                 level >= 3
@@ -381,20 +382,21 @@ function CalendarMonth({
         </Button>
       )}
 
-      {/* One row of legends (D182): time rings, then tasks. */}
+      {/* One row of legends (D182): time glows, then tasks. */}
       <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 text-metadata text-ink-muted">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <p id="practice-ring-legend">{t("ringLegend")}</p>
           <ul
             aria-labelledby="practice-ring-legend"
-            className="flex flex-wrap items-center gap-x-4 gap-y-2"
+            className="flex flex-wrap items-center gap-x-5 gap-y-2"
           >
             {PRACTICE_RINGS.map(({ level, minMinutes }) => (
-              <li key={level} className="flex items-center gap-2">
+              <li key={level} className="flex items-center gap-2.5">
                 <span
                   aria-hidden="true"
                   data-legend-ring={level}
-                  className={`inline-block size-2.5 rounded-full ${RING_SAMPLE_CLASS[level]}`}
+                  style={glowStyle(level, 0.6)}
+                  className="inline-block size-2.5 rounded-full border border-line"
                 />
                 {minMinutes % 60 === 0
                   ? t("atLeastHours", { n: minMinutes / 60 })

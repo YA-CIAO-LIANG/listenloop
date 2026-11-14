@@ -1,10 +1,9 @@
 /**
- * Practice-time rings on the practice calendar (D181): a circle around a
- * day's number that steps up with the time practiced that day. The
- * thresholds are here; the colors are tokens in app/globals.css
- * (--ll-practice-1 … 5; level 2 is the accent), drawn by
- * components/practice-rings.ts, and checked for contrast against every
- * background theme in tests/practice-rings.test.ts.
+ * Practice-time levels on the practice calendar (D181): a yellow glow
+ * around a day's number (D183) that steps up with the time practiced that
+ * day. The thresholds are here; the color is --ll-glow in app/globals.css
+ * and each level's brightness and size are in components/practice-rings.ts,
+ * checked against every background theme in tests/practice-rings.test.ts.
  */
 export const PRACTICE_RINGS = [
   { level: 1, minMinutes: 15 },

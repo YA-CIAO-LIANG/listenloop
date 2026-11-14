@@ -33,12 +33,9 @@
   --ll-heat-4: #e8590c;
   /* Date numbers on the darkest steps (AA on every step). */
   --ll-heat-ink-strong: #141414;
-  /* Practice-time rings on the calendar (D181): 15 min, (30 min is the
-     accent), 1 h, 2 h, 3 h; ≥ 3:1 on every theme's cards and surface. */
-  --ll-practice-1: #7a7a7a;
-  --ll-practice-3: #8f6c00;
-  --ll-practice-4: #c05000;
-  --ll-practice-5: #7a3fd9;
+  /* Practice-time glow on the calendar (D183): one yellow, brighter and
+     wider the longer the day's practice (components/practice-rings.ts). */
+  --ll-glow: #f5ab00;
 
   /* Highlighter (D66): what the learner misheard, and each sentence's key
      words. Backgrounds behind ink text; underlines tell them apart too. */
@@ -122,10 +119,7 @@
     --ll-heat-3: #c4602b;
     --ll-heat-4: #ff7a33;
     --ll-heat-ink-strong: #121212;
-    --ll-practice-1: #858585;
-    --ll-practice-3: #e0bb2e;
-    --ll-practice-4: #ff8b42;
-    --ll-practice-5: #b996f5;
+    --ll-glow: #ffd23f;
 
     --ll-mark-miss: #5e2a0e;
     --ll-mark-miss-line: #ff8f52;
@@ -156,10 +150,7 @@
   --ll-heat-3: #c4602b;
   --ll-heat-4: #ff7a33;
   --ll-heat-ink-strong: #121212;
-  --ll-practice-1: #858585;
-  --ll-practice-3: #e0bb2e;
-  --ll-practice-4: #ff8b42;
-  --ll-practice-5: #b996f5;
+  --ll-glow: #ffd23f;
 
   --ll-mark-miss: #5e2a0e;
   --ll-mark-miss-line: #ff8f52;
@@ -192,11 +183,7 @@
   --color-heat-3: var(--ll-heat-3);
   --color-heat-4: var(--ll-heat-4);
   --color-heat-ink-strong: var(--ll-heat-ink-strong);
-  --color-practice-1: var(--ll-practice-1);
-  --color-practice-2: var(--ll-accent);
-  --color-practice-3: var(--ll-practice-3);
-  --color-practice-4: var(--ll-practice-4);
-  --color-practice-5: var(--ll-practice-5);
+  --color-glow: var(--ll-glow);
   --color-mark-miss: var(--ll-mark-miss);
   --color-mark-miss-line: var(--ll-mark-miss-line);
   --color-mark-key: var(--ll-mark-key);
