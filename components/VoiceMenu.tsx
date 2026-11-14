@@ -18,6 +18,7 @@ import {
 import { voiceDisplayName } from "@/lib/ai/voices";
 import { Button } from "./Button";
 import { ChevronDownIcon, SpeakerIcon, StopIcon } from "./icons";
+import { useCloseOnBack } from "./useCloseOnBack";
 import { useSamplePlayer } from "./useSamplePlayer";
 
 /** Where each voice's sample clip is served (npm run voices:samples). */
@@ -73,6 +74,9 @@ export function VoiceMenu({
     if (playing) toggle(playing);
     if (focusButton) buttonRef.current?.focus();
   }
+
+  // Android's back button closes the menu before leaving the page (D178).
+  useCloseOnBack(open, close);
 
   // Opening puts focus on the chosen voice, like a native menu.
   useEffect(() => {

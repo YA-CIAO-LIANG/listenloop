@@ -47,6 +47,13 @@ export default function manifest(): MetadataRoute.Manifest {
         type: "image/png",
         purpose: "maskable",
       },
+      // Android 13 themed icons (D178): white on transparent, tinted.
+      {
+        src: "/icons/monochrome-512.png",
+        sizes: "512x512",
+        type: "image/png",
+        purpose: "monochrome",
+      },
     ],
   };
 }

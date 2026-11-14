@@ -3193,3 +3193,21 @@
 - **F12、F13**（D170）：建立頁的開頭說明寫「免費方案每週可以建立 2 分鐘」，和下方的額度框重複，管理員與付費使用者也看到免費方案的文字。拿掉這一句；每個人的額度只在額度框顯示（依方案）。
 - **F15 的一部分**：第 7 天結果頁的「選下一支影片」，音檔教材也這樣寫。改成「選下一份教材」（英文 "Choose the next material"）。第 7 天結果頁要不要只留一個主要按鈕，留給 Joe 決定（見報告）。
 - 其他嚴重度 1 的項目（字放大 200% 時的版面、播放速度提示的頻率、同意提示）需要真機確認或 Joe 決定，列在報告。
+
+## D178 Google Play 上架準備：Bubblewrap 設定、由環境變數產生的 assetlinks、App 內體驗（2026-11-14，Joe 指定）
+
+- **為什麼**：原本的做法（D64）是用 PWABuilder 網頁打包，設定沒有留在 repo，`public/.well-known/assetlinks.json` 要拿到指紋後改程式、再部署。改成設定進 repo、指紋放環境變數，Joe 拿到指紋只要在 Vercel 設定，不用等 PR。
+- **打包工具**：Google 官方的 Bubblewrap CLI，設定檔 `android/twa-manifest.json`（Bubblewrap 格式）。只提交這個檔和 `android/assetlinks.template.json`；`android/` 裡產生的 Gradle 專案、`*.aab`、`*.apk`、`*.keystore`、`*.jks` 都在 `.gitignore`。不加新套件（Bubblewrap 由 Joe 全域安裝）。
+- **Package ID `app.listenloop.twa`**：沿用 D64 文件的寫法（簡短、和品牌一致；Play 只要求唯一，不需要擁有該網域）。**第一次上傳 Play Console 後不能改。**
+- **App 設定**：名稱與桌面名稱都是 `ListenLoop`；狀態列與導覽列用 ink（淺色 #141414、深色 #121212），啟動畫面背景用 ground #FAFAF8，和網頁 manifest 一致；`startUrl` `/`；`enableNotifications: true`（練習提醒變成 Android 通知）；`fallbackType: customtabs`；Play 帳款與位置委派先關閉。測試 `tests/twa.test.ts` 檢查顏色、起始網址和網頁 manifest 一致，圖示檔案存在。
+- **圖示**：新增 `public/icons/monochrome-512.png`（白色圖形、透明背景，Android 13 主題圖示），由 `scripts/brand-assets.mts` 從 `brand/icon.svg` 產生，並加進網頁 manifest（`purpose: monochrome`）。
+- **簽署金鑰**：程式不產生、repo 不保存。`signingKey.path` 指向 repo 外的 `../../listenloop-signing/listenloop-upload.jks`（從 `android/` 算起，也就是 `~/Projects/listenloop-signing/`）；Joe 自己用 keytool 產生，存在密碼管理器加離線備份，並使用 Play 應用程式簽署。測試檢查路徑在 repo 外面。
+- **assetlinks**：`/.well-known/assetlinks.json` 改成 Route Handler（`app/.well-known/assetlinks.json/route.ts`，刪掉 `public/` 裡的靜態檔），讀 `TWA_PACKAGE_NAME` 和 `TWA_SHA256_FINGERPRINTS`（逗號分隔；自動轉大寫、補冒號、去重，格式不對的略過）；任何一個沒設定就回 `[]`。`content-type: application/json`、快取 1 小時、不轉址。proxy 的 matcher 不處理有副檔名的路徑，所以維護模式、登入 session、CSP nonce 都不會影響它。
+- **App 內體驗**：
+  - 返回鍵：TWA 是 Chrome，返回鍵就是瀏覽器的上一頁；練習每一天是獨立網址，不需要改。原生 `<dialog>` 在 Chrome 已經會隨返回鍵關閉；帳號選單、聲音選單加上 `components/useCloseOnBack.ts`（Chrome 的 CloseWatcher；不支援的瀏覽器不變），返回鍵先關選單。CloseWatcher 也會收到 Escape，所以自己處理 Escape 的選單要 `preventDefault`，避免關兩次。
+  - 外部連結：部落格的外部連結與新聞改寫教材的原文連結補上 `target="_blank" rel="noopener noreferrer"`（出處連結原本就有），在 App 裡用 Custom Tab 開啟。部落格的 `#`、`mailto:` 連結不開新分頁。
+  - 登入：Google 擋的是 WebView，TWA 是 Chrome 所以可以；`redirectTo` 用 `window.location.origin`，回到同一個網域。LINE 登入同樣在 Chrome 裡完成，上架前要實機確認（裝了 LINE App 時會先跳過去）。
+  - 偵測：`components/TwaMarker.tsx` 看 `document.referrer` 是否以 `android-app://` 開頭，記在 sessionStorage，在 `<html>` 加 `data-twa`。目前沒有畫面差異（網站沒有「安裝 App」提示）；**開放收費前**要用它在 App 裡改用 Google Play 帳款服務或隱藏網頁付款（Play 政策）。
+- **測試**：`tests/twa.test.ts`（指紋格式、環境變數、Route Handler、設定檔一致）；`e2e/twa.spec.ts` 用 Pixel 7 模擬從 App 開啟（referrer `android-app://app.listenloop.twa/`）：assetlinks 是 JSON 且不轉址、整個 session 都有 `data-twa`、返回鍵依序回到影片頁與首頁、外部連結開新分頁、Google 登入的 `redirect_to` 回到同網域。
+- **順手修正**：`e2e/student-plan.spec.ts` 把「有效到 2027/11/11～13」寫死，2026-11-14 起會失敗；改成依實際日期計算前後一天。
+- **要改時**：App 設定在 `android/twa-manifest.json`；assetlinks 邏輯在 `lib/twa.ts`；Joe 的操作步驟在 `docs/twa.md`。

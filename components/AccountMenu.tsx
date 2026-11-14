@@ -9,6 +9,7 @@ import { withSignInResult } from "@/lib/auth/redirect";
 import { loadBrowserSupabase } from "@/lib/supabase/browser";
 import { Button, type ButtonSize, type ButtonVariant } from "./Button";
 import { ButtonLink } from "./ButtonLink";
+import { useCloseOnBack } from "./useCloseOnBack";
 
 type AccountMenuProps = {
   /** The signed-in account, or null when signed out. */
@@ -119,6 +120,8 @@ function AccountPanel({ email }: { email: string }) {
     }
     function onKeyDown(event: KeyboardEvent) {
       if (event.key !== "Escape") return;
+      // Handled here, so the back-button watcher below doesn't run too.
+      event.preventDefault();
       setOpen(false);
       toggleRef.current?.focus();
     }
@@ -129,6 +132,8 @@ function AccountPanel({ email }: { email: string }) {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
+  // Android's back button closes the panel before leaving the page (D178).
+  useCloseOnBack(open, () => setOpen(false));
 
   async function signOut() {
     setPending(true);

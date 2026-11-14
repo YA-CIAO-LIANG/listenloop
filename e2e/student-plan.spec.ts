@@ -65,10 +65,17 @@ test("a school account is verified for a year and can join the list", async ({
   await signInAsStudent(page);
   await page.goto("/pricing");
   const card = studentCard(page);
-  // The mock verifies at the real time and the page shows Taipei's date,
-  // so a year from now can already be the 13th there (UTC 16:00 on).
+  // The mock verifies at the real time (not the page clock) and the page
+  // shows Taipei's date: a year from today, give or take a day.
+  const yearLater = [-1, 0, 1].map((days) => {
+    const date = new Date(Date.now() + days * 86_400_000);
+    date.setFullYear(date.getFullYear() + 1);
+    return date
+      .toLocaleDateString("en-CA", { timeZone: "Asia/Taipei" })
+      .replaceAll("-", "/");
+  });
   await expect(card.getByTestId("student-status")).toContainText(
-    /已認證學生身分，有效到 2027\/11\/1[123]/,
+    new RegExp(`已認證學生身分，有效到 (${yearLater.join("|")})`),
   );
   await card.getByRole("button", { name: "訂閱 學生方案" }).click();
   const dialog = page.getByRole("dialog", { name: "學生方案 · 年繳" });

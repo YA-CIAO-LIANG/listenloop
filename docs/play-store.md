@@ -121,7 +121,7 @@
 
 1. **註冊 Google Play 開發者帳號**（Joe）：一次性 US$25，需要信用卡（依工作規則，要 Joe 明確同意）。個人帳號需要身分驗證，並驗證一支 Android 裝置。
 2. **確認網址可以公開存取**：首頁、`/privacy`、`/terms`（已上線）。
-3. **產生 Android App**：用 PWABuilder 打包成 Trusted Web Activity（見 `docs/twa.md`），取得簽署金鑰的 SHA-256 指紋，填進 `public/.well-known/assetlinks.json`，部署後確認可以開啟。
+3. **產生 Android App**：用 Bubblewrap 從 `android/twa-manifest.json` 打包成 Trusted Web Activity（見 `docs/twa.md`，D178），取得簽署金鑰的 SHA-256 指紋，設定在 Vercel 的 `TWA_PACKAGE_NAME`、`TWA_SHA256_FINGERPRINTS`，重新部署後確認 `/.well-known/assetlinks.json`。
 4. **在 Play Console 建立 App**：填商店資訊（上方草稿）、內容分級問卷、資料安全表單、目標對象（建議 13 歲以上；如果勾選包含 13 歲以下，需要遵守「家庭」政策，不建議）、廣告（無）。
 5. **封閉測試**：2023-11-13 之後建立的個人帳號，申請正式版之前，必須進行封閉測試：至少 12 位測試者，連續 14 天保持加入。建議找 15～20 位，避免有人中途退出。
 6. **申請正式版存取權**：回答測試心得問卷，等待審核（通常幾天）。

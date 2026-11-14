@@ -53,4 +53,17 @@ backups/
 # AI usability test output (usability/)
 /usability-results/
 /qa-results/
+
+# Android app (Trusted Web Activity, D178): only the Bubblewrap config and
+# the asset-links template are kept; the generated Gradle project, build
+# outputs, and above all signing keys never enter the repo.
+/android/*
+!/android/twa-manifest.json
+!/android/assetlinks.template.json
+android/app/
+*.keystore
+*.jks
+*.aab
+*.apk
+*.idsig
 .claude/worktrees/
