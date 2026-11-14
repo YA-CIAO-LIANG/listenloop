@@ -26,7 +26,7 @@ import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { Button } from "./Button";
 import { Card } from "./Card";
 import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
-import { RING_CLASS } from "./practice-rings";
+import { RING_CLASS, RING_SAMPLE_CLASS } from "./practice-rings";
 import { Skeleton } from "./Skeleton";
 import { useStores } from "./StoresProvider";
 import { useToday } from "./useToday";
@@ -316,29 +316,29 @@ function CalendarMonth({
                       onPointerLeave={() => setHovered(null)}
                       onFocus={onFocus(date)}
                       onBlur={() => setHovered(null)}
-                      className={`mx-auto flex aspect-square w-full max-w-9 items-center justify-center rounded-base pointer-coarse:max-w-11 ${
-                        HEAT_BACKGROUND[level]
-                      } ${HEAT_TEXT[level]} ${
-                        selected === date
-                          ? "ring-1 ring-ink"
-                          : "hover:ring-1 hover:ring-ink-muted"
-                      } ${
-                        isToday
-                          ? `font-medium underline decoration-2 underline-offset-4 ${
-                              level >= 3
-                                ? "decoration-current"
-                                : "decoration-accent"
-                            }`
-                          : ""
+                      className={`mx-auto flex aspect-square w-full max-w-10 items-center justify-center rounded-full pointer-coarse:max-w-11 ${
+                        selected === date ? "bg-ink/8" : "hover:bg-ink/5"
                       }`}
                     >
+                      {/* The day's dot: filled by tasks finished, ringed
+                          by time practiced (D182). */}
                       <span
                         aria-hidden="true"
-                        className={
-                          ring !== 0
-                            ? `flex size-[86%] items-center justify-center rounded-full practice-ring ${RING_CLASS[ring]}`
-                            : undefined
-                        }
+                        className={`flex size-7 items-center justify-center rounded-full ${
+                          count > 0 ? HEAT_BACKGROUND[level] : ""
+                        } ${
+                          count > 0 || ring !== 0
+                            ? HEAT_TEXT[level === 0 ? 1 : level]
+                            : HEAT_TEXT[0]
+                        } ${ring !== 0 ? RING_CLASS[ring] : ""} ${
+                          isToday
+                            ? `font-semibold underline decoration-2 underline-offset-4 ${
+                                level >= 3
+                                  ? "decoration-current"
+                                  : "decoration-accent"
+                              }`
+                            : ""
+                        }`}
                       >
                         {Number(date.slice(8))}
                       </span>
@@ -367,59 +367,55 @@ function CalendarMonth({
         </tbody>
       </table>
 
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        {thisWeek !== -1 ? (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="split:invisible"
-            aria-expanded={expanded}
-            aria-controls={tableId}
-            onClick={() => setExpanded((open) => !open)}
-          >
-            {expanded ? t("collapse") : t("expand")}
-            <span aria-hidden="true"> {expanded ? "▴" : "▾"}</span>
-          </Button>
-        ) : (
-          <span />
-        )}
-        <p
-          aria-hidden="true"
-          className="ml-auto flex items-center gap-1 text-metadata text-ink-muted"
+      {thisWeek !== -1 && (
+        <Button
+          variant="ghost"
+          size="sm"
+          className="split:hidden"
+          aria-expanded={expanded}
+          aria-controls={tableId}
+          onClick={() => setExpanded((open) => !open)}
         >
+          {expanded ? t("collapse") : t("expand")}
+          <span aria-hidden="true"> {expanded ? "▴" : "▾"}</span>
+        </Button>
+      )}
+
+      {/* One row of legends (D182): time rings, then tasks. */}
+      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 text-metadata text-ink-muted">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+          <p id="practice-ring-legend">{t("ringLegend")}</p>
+          <ul
+            aria-labelledby="practice-ring-legend"
+            className="flex flex-wrap items-center gap-x-4 gap-y-2"
+          >
+            {PRACTICE_RINGS.map(({ level, minMinutes }) => (
+              <li key={level} className="flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  data-legend-ring={level}
+                  className={`inline-block size-2.5 rounded-full ${RING_SAMPLE_CLASS[level]}`}
+                />
+                {minMinutes % 60 === 0
+                  ? t("atLeastHours", { n: minMinutes / 60 })
+                  : t("atLeastMinutes", { n: minMinutes })}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <p aria-hidden="true" className="flex items-center gap-1.5">
           {t("legendLess")}
           {HEAT_LEVELS.map((level) => (
             <span
               key={level}
               data-legend-level={level}
-              className={`size-3 rounded-base ${HEAT_BACKGROUND[level]}`}
+              className={`size-3 rounded-full ${
+                level === 0 ? "border border-line" : HEAT_BACKGROUND[level]
+              }`}
             />
           ))}
           {t("legendMore")}
         </p>
-      </div>
-
-      <div className="text-metadata text-ink-muted">
-        <p id="practice-ring-legend" className="mb-2">
-          {t("ringLegend")}
-        </p>
-        <ul
-          aria-labelledby="practice-ring-legend"
-          className="flex flex-wrap gap-x-4 gap-y-2"
-        >
-          {PRACTICE_RINGS.map(({ level, minMinutes }) => (
-            <li key={level} className="flex items-center gap-2">
-              <span
-                aria-hidden="true"
-                data-legend-ring={level}
-                className={`inline-block size-5 rounded-full bg-heat-0 practice-ring ${RING_CLASS[level]}`}
-              />
-              {minMinutes % 60 === 0
-                ? t("atLeastHours", { n: minMinutes / 60 })
-                : t("atLeastMinutes", { n: minMinutes })}
-            </li>
-          ))}
-        </ul>
       </div>
 
       <section

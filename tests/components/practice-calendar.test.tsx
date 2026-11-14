@@ -110,15 +110,15 @@ describe("PracticeCalendar", () => {
     });
     expect(todayButton.dataset.ring).toBe("3");
     const ring = todayButton.querySelector("span")!;
-    expect(ring.className).toContain("border-practice-3");
-    expect(ring.className).toContain("border-2");
-    expect(ring.className).toContain("practice-ring");
+    expect(ring.className).toContain("outline-practice-3");
+    expect(ring.className).toContain("outline-2");
+    expect(ring.className).toContain("outline-offset-2");
     // Under 15 minutes: no ring, but the time is still said.
     const other = screen.getByRole("button", {
       name: `${dayName(otherDay)}，練習 14 分，沒有完成任務`,
     });
     expect(other.dataset.ring).toBe("0");
-    expect(other.querySelector("span")!.className).toBe("");
+    expect(other.querySelector("span")!.className).not.toContain("outline");
     // The list under the calendar (phones) says it too.
     expect(screen.getByTestId("calendar-day-time").textContent).toBe(
       "練習 1 小時 12 分",
@@ -142,9 +142,9 @@ describe("PracticeCalendar", () => {
     ]);
     expect(
       [...container.querySelectorAll("[data-legend-ring]")].map(
-        (el) => el.className.match(/border-(\[[^\]]+\]|\d)/)?.[1],
+        (el) => el.className.match(/outline-(\[[\d.]+px\]|\d)(?=\s|$)/)?.[1],
       ),
-    ).toEqual(["[1px]", "[1.5px]", "2", "3", "4"]);
+    ).toEqual(["1", "[1.5px]", "2", "3", "4"]);
   });
 
   it("shows the time in the tooltip when hovering (D181)", async () => {
