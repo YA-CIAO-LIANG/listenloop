@@ -3771,11 +3771,19 @@
   },
   "consent": {
     "label": "Cookie 設定",
-    "text": "我們想用 Microsoft Clarity 匿名記錄網站的使用方式（點擊、捲動、熱點圖），用來改善介面。輸入框和個人資料都會遮蔽，帳號、班級與管理頁面不記錄。你可以隨時在頁尾的「Cookie 設定」更改。",
+    "text": "我們想用 Microsoft Clarity 匿名記錄網站的使用方式（點擊、捲動、熱點圖），用來改善介面。輸入框和個人資料都會遮蔽，帳號、班級與管理頁面不記錄。選擇後就不會再問；你可以隨時在頁尾的「Cookie 設定」或帳號頁更改。",
     "more": "隱私權政策",
     "accept": "接受分析 Cookie",
     "decline": "只用必要的 Cookie",
-    "settings": "Cookie 設定"
+    "settings": "Cookie 設定",
+    "settingTitle": "條款與 Cookie",
+    "settingIntro": "是否允許 Microsoft Clarity 匿名記錄你的使用方式。選擇會存在帳號裡，換裝置登入也不會再問。",
+    "current": {
+      "granted": "目前：已接受分析 Cookie",
+      "denied": "目前：只用必要的 Cookie",
+      "none": "目前：還沒有選擇"
+    },
+    "change": "更改 Cookie 設定"
   },
   "ops": {
     "maintenance": {
@@ -3824,7 +3832,7 @@
   "quota": {
     "title": "我的額度",
     "back": "帳號",
-    "intro": "你目前是{plan}。以下是各項額度的使用情形與重設時間（依你裝置的時區顯示）。",
+    "intro": "你目前是{plan}。以下是各項額度的使用情形與重設時間。額度一律在台灣時間的午夜重設，這裡換算成你裝置的時區顯示。",
     "plans": {
       "free": "免費方案",
       "paid": "Plus 方案",

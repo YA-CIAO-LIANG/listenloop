@@ -11,7 +11,7 @@ import { canCreatePractices } from "@/auth/creator";
 import { getSignedInUser } from "@/auth/session";
 import { AccountMenu } from "@/components/AccountMenu";
 import { SignInNotice } from "@/components/SignInNotice";
-import { UsageNotice } from "@/components/UsageNotice";
+import { RememberUsageNotice, UsageNotice } from "@/components/UsageNotice";
 import { USAGE_NOTICE_COOKIE } from "@/lib/notices";
 import { cookies, headers } from "next/headers";
 import { ServiceWorker } from "@/components/ServiceWorker";
@@ -20,6 +20,7 @@ import { TwaMarker } from "@/components/TwaMarker";
 import { SiteAnnouncements } from "@/components/SiteAnnouncements";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
+import { getAccountConsent, getUsageNoticeDismissed } from "@/auth/consent";
 import { clarityProjectId } from "@/lib/analytics-consent";
 import { SiteHeader } from "@/components/SiteHeader";
 import { PlanProvider } from "@/components/PlanProvider";
@@ -144,7 +145,12 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               <Suspense fallback={null}>
                 <SiteAnnouncements />
               </Suspense>
-              {!cookieStore.has(USAGE_NOTICE_COOKIE) && <UsageNotice />}
+              {!cookieStore.has(USAGE_NOTICE_COOKIE) &&
+                (user && (await getUsageNoticeDismissed()) ? (
+                  <RememberUsageNotice />
+                ) : (
+                  <UsageNotice signedIn={user !== null} />
+                ))}
               <div
                 id="main"
                 tabIndex={-1}
@@ -156,7 +162,14 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               <ServiceWorker />
               <TwaMarker />
               <TimeZoneSync signedIn={user !== null} />
-              <AnalyticsConsent projectId={clarityProjectId()} />
+              <AnalyticsConsent
+                projectId={clarityProjectId()}
+                account={
+                  user && clarityProjectId()
+                    ? await getAccountConsent()
+                    : undefined
+                }
+              />
             </StoresProvider>
           </PlanProvider>
         </NextIntlClientProvider>

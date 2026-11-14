@@ -3773,11 +3773,19 @@
   },
   "consent": {
     "label": "Cookie settings",
-    "text": "We'd like to use Microsoft Clarity to record anonymously how the site is used (clicks, scrolling, heatmaps) to improve it. Inputs and personal details are masked, and account, class, and admin pages aren't recorded. You can change this any time under \"Cookie settings\" at the bottom of the page.",
+    "text": "We'd like to use Microsoft Clarity to record anonymously how the site is used (clicks, scrolling, heatmaps) to improve it. Inputs and personal details are masked, and account, class, and admin pages aren't recorded. You won't be asked again; change it any time under \"Cookie settings\" at the bottom of the page or on your account page.",
     "more": "Privacy policy",
     "accept": "Accept analytics cookies",
     "decline": "Necessary cookies only",
-    "settings": "Cookie settings"
+    "settings": "Cookie settings",
+    "settingTitle": "Terms and cookies",
+    "settingIntro": "Whether Microsoft Clarity may record anonymously how you use the site. Your choice is kept in your account, so other devices won't ask again.",
+    "current": {
+      "granted": "Now: analytics cookies accepted",
+      "denied": "Now: necessary cookies only",
+      "none": "Now: not chosen yet"
+    },
+    "change": "Change cookie settings"
   },
   "ops": {
     "maintenance": {
@@ -3826,7 +3834,7 @@
   "quota": {
     "title": "My quota",
     "back": "Account",
-    "intro": "You're on {plan}. Here's how much of each allowance you've used, and when it resets (in your device's time zone).",
+    "intro": "You're on {plan}. Here's how much of each allowance you've used, and when it resets. Allowances always reset at midnight Taiwan time, shown here in your device's time zone.",
     "plans": {
       "free": "the free plan",
       "paid": "Plus",

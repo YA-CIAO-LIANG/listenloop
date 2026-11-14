@@ -3352,3 +3352,22 @@
   - E2E 會檢查這些屬性。
 - **ZAP 10019（Content-Type Header Missing）**（2026-11-14）：這次掃描另外抓到 `/r/` 的 308 轉址沒有 Content-Type。這是 Next.js 對所有結尾有 `/` 的網址做的自動轉址（`/videos/` 也一樣），轉址的回應帶了內容（目標網址的文字），卻沒有標 Content-Type。這次沒有把它加進已接受清單，而是直接修正：在 `next.config.ts` 設 `skipTrailingSlashRedirect`，改由 proxy 做 308 轉址，並標上 `Content-Type: text/plain`（`lib/trailing-slash.ts`）。Next 對任何轉址都會把目標網址寫成內容，所以要明確標示類型。有單元測試與 E2E。
 - 要改時看哪裡：門檻與上限 `EXPERIMENT_LIMITS`；問卷時機與上限 `PRICE_SURVEY`；顯著性的說明文字 `admin.priceExperiments`。
+
+## D180 同意提示記住選擇、額度維持台灣午夜重設（2026-11-14，Joe 決定）
+
+Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）做了決定：
+
+- **同意提示（F11）**：使用者做出選擇後就不再顯示。選擇要記住：登入者存在帳號，未登入存在瀏覽器；可以在設定或頁尾重新調整。套用在兩個提示上：
+  - **「使用即表示同意條款」提示**（`UsageNotice`，D60、D62）：按「知道了」後，瀏覽器記在 cookie（原本就有）；登入時另外存進帳號（`user_documents` 的 `notices`，`{ usage: 時間 }`）。在新裝置登入時，伺服器看到帳號已經按過，就不顯示，並讓這台瀏覽器補記 cookie。之後有 cookie 就不必再查帳號，只有沒有 cookie 的登入者會多一次查詢。
+  - **分析 Cookie 提示**（Clarity，D148）：選擇存在瀏覽器的 `ll-consent`；登入時另外存進帳號（`user_documents` 的 `consent`）。換裝置登入時沿用帳號的選擇，不再詢問。登入前在這台瀏覽器做的選擇，登入後會存進帳號（只存一次）。帳號和瀏覽器的選擇不同時，以帳號為準。
+  - **重新查看或調整**：頁尾原本就有「服務條款」「隱私權政策」和「Cookie 設定」。帳號頁新增「條款與 Cookie」區塊，顯示同意提示的全文與連結，以及目前的 Cookie 選擇和「更改 Cookie 設定」按鈕（網站有設定 Clarity 時才顯示）。
+  - **練習頁先不問**：在某一天的練習頁（`/videos/<id>/day/<n>`）不顯示 Cookie 提示，到其他頁再問，避免在手機上蓋住跟讀的底部按鈕。選擇前本來就不會載入 Clarity。提示也從 `fixed` 改成 `sticky`，捲到頁尾時會排在頁尾下方，不再蓋住頁尾的條款連結。
+  - **不需要 migration**：沿用 `user_documents`，它已經有 RLS「只能讀寫自己的資料」，刪除帳號時也會一起刪除。
+  - 條款有重大變更時，用站內公告（D155）另外通知，不重新顯示這個提示。
+- **額度重設時間（F16）**：維持台灣時間午夜重設（D161），不改成依使用者所在時區。「我的額度」頁的說明改寫清楚：額度一律在台灣時間的午夜重設，頁面只是換算成裝置的時區顯示。在美國的研究生（P9）困惑的就是這段文字。
+- **暫不處理、留在待辦**：老師分鐘數、播放速度提示頻率與第 7 天按鈕（F10、F15）、家長付款。
+- **測試**：
+  - 單元：`tests/components/analytics-consent.test.tsx`（未登入不存帳號、登入時存帳號、新裝置沿用帳號、登入前的選擇只存一次、帳號頁顯示目前選擇）、`tests/analytics-consent.test.ts`。
+  - E2E：`e2e/legal.spec.ts`（登入時按「知道了」，另一個瀏覽器登入同一帳號不再顯示；未登入時仍會顯示；帳號頁可以重看）。
+  - `e2e/consent.spec.ts`：只在用 `NEXT_PUBLIC_CLARITY_PROJECT_ID` 建置時執行（QA sweep 的 Clarity 輪）。
+- 要改時看哪裡：`lib/notices.ts`（`NOTICES_DOCUMENT`）、`lib/analytics-consent.ts`（`CONSENT_DOCUMENT`、`effectiveConsent`）、`auth/consent.ts`、`app/consent-actions.ts`、`components/UsageNotice.tsx`、`components/AnalyticsConsent.tsx`。
