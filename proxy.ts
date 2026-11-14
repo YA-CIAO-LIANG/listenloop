@@ -7,6 +7,7 @@ import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
 import { turnstileSiteKey } from "@/lib/turnstile";
 import { VISITOR_COOKIE, VISITOR_COOKIE_OPTIONS } from "@/lib/intent";
 import { supabaseConfig } from "@/lib/supabase/config";
+import { withoutTrailingSlash } from "@/lib/trailing-slash";
 import {
   isLocale,
   LOCALE_OVERRIDE_HEADER,
@@ -19,6 +20,18 @@ import {
  * its scripts) and sent with the response; then the Supabase session.
  */
 export async function proxy(request: NextRequest) {
+  // A trailing slash: redirected here with a Content-Type (ZAP 10019,
+  // D174); Next writes the target as the body of any redirect.
+  const bare = withoutTrailingSlash(request.nextUrl.pathname);
+  if (bare) {
+    return new NextResponse(null, {
+      status: 308,
+      headers: {
+        location: new URL(`${bare}${request.nextUrl.search}`, request.url).href,
+        "content-type": "text/plain; charset=utf-8",
+      },
+    });
+  }
   const nonce = createNonce();
   const policy = contentSecurityPolicy({
     nonce,

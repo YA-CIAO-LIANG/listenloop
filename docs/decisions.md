@@ -3350,4 +3350,5 @@
   - 正式站加 Secure；E2E 在 http://localhost 上執行，所以不加。
   - 有效期從一年縮短為 **180 天**：比一次價格測試長，但不會無限期保存。隱私權政策同步更新。
   - E2E 會檢查這些屬性。
+- **ZAP 10019（Content-Type Header Missing）**（2026-11-14）：這次掃描另外抓到 `/r/` 的 308 轉址沒有 Content-Type。這是 Next.js 對所有結尾有 `/` 的網址做的自動轉址（`/videos/` 也一樣），轉址的回應帶了內容（目標網址的文字），卻沒有標 Content-Type。這次沒有把它加進已接受清單，而是直接修正：在 `next.config.ts` 設 `skipTrailingSlashRedirect`，改由 proxy 做 308 轉址，並標上 `Content-Type: text/plain`（`lib/trailing-slash.ts`）。Next 對任何轉址都會把目標網址寫成內容，所以要明確標示類型。有單元測試與 E2E。
 - 要改時看哪裡：門檻與上限 `EXPERIMENT_LIMITS`；問卷時機與上限 `PRICE_SURVEY`；顯著性的說明文字 `admin.priceExperiments`。

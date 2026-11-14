@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   // No "X-Powered-By: Next.js": it only tells attackers what to try
   // (ZAP baseline, D158).
   poweredByHeader: false,
+  // The proxy redirects trailing slashes itself, without a body: Next's
+  // redirect has a body with no Content-Type (ZAP 10019, D174).
+  skipTrailingSlashRedirect: true,
   // The admin's system documents are read from docs/system/ at request time.
   outputFileTracingIncludes: {
     "/admin/docs": ["./docs/system/**/*.md"],

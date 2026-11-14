@@ -41,6 +41,20 @@ test("the visitor id cookie is HttpOnly, SameSite=Lax, and lasts 180 days", asyn
   );
 });
 
+test("a trailing slash redirects with a Content-Type (ZAP 10019)", async ({
+  request,
+}) => {
+  const response = await request.get("/r/", { maxRedirects: 0 });
+  expect(response.status()).toBe(308);
+  expect(new URL(response.headers().location, "http://x").pathname).toBe("/r");
+  expect(response.headers()["content-type"]).toMatch(/^text\/plain/);
+  const kept = await request.get("/videos/?level=beginner", {
+    maxRedirects: 0,
+  });
+  const target = new URL(kept.headers().location, "http://x");
+  expect(`${target.pathname}${target.search}`).toBe("/videos?level=beginner");
+});
+
 test("an admin runs a Plus price experiment; each visitor keeps one price", async ({
   page,
   browser,
