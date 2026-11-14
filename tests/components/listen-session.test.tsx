@@ -1,4 +1,4 @@
-import { act, fireEvent, screen } from "@testing-library/react";
+import { act, fireEvent, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { ListenSession } from "@/components/ListenSession";
 import { LISTEN_STORAGE_KEY, SENTENCE_GAP_MS } from "@/lib/listen";
@@ -80,7 +80,10 @@ afterEach(() => {
 const open = async () => {
   localStorage.setItem(`ll-progress:v1:${material.id}`, progress(true));
   renderWithIntl(<ListenSession video={material} />);
-  await screen.findByRole("button", { name: "播放" });
+  const play = await screen.findByRole("button", { name: "播放" });
+  // The player is ready (keys and buttons do nothing before): under a busy
+  // CI runner that can come a moment after the button shows.
+  await waitFor(() => expect((play as HTMLButtonElement).disabled).toBe(false));
 };
 
 describe("ListenSession (D135)", () => {
@@ -158,11 +161,15 @@ describe("ListenSession (D135)", () => {
     await act(async () => {
       fireEvent.keyDown(window, { key: " " });
     });
-    expect(playSentence).toHaveBeenLastCalledWith(0, expect.any(Function));
+    await waitFor(() =>
+      expect(playSentence).toHaveBeenLastCalledWith(0, expect.any(Function)),
+    );
     await act(async () => {
       fireEvent.keyDown(window, { key: "ArrowRight" });
     });
-    expect(playSentence).toHaveBeenLastCalledWith(1, expect.any(Function));
+    await waitFor(() =>
+      expect(playSentence).toHaveBeenLastCalledWith(1, expect.any(Function)),
+    );
     await act(async () => {
       fireEvent.keyDown(window, { key: " " });
     });
