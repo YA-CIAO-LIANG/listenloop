@@ -109,7 +109,7 @@ export function StatsView({
         <StatTile
           label={t("streak")}
           value={t("days", { n: streak.current })}
-          note={t("longest", { n: streak.longest })}
+          note={`${t("longest", { n: streak.longest })} · ${tAll("streak.freezesLeft", { n: streak.freezesLeft })}`}
         />
         <StatTile
           label={t(range === "week" ? "weekMinutes" : "monthMinutes")}

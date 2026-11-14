@@ -138,13 +138,17 @@
     "newWeekLine": "<video>{title}</video> · Week {week} starts again",
     "available": "Ready",
     "done": "Done",
-    "tomorrowDay": "Day {day} opens tomorrow",
+    "tomorrowDay": "Tomorrow: Day {day} {task}",
     "tomorrowWeek": "Week {week} starts tomorrow",
     "start": "Start",
     "retry": "Practice again",
     "reviewLine": "Misheard words: {count, plural, one {# word} other {# words}} to review",
     "reviewStart": "Review",
-    "reviewNote": "Words you misheard, spaced out"
+    "reviewNote": "Words you misheard, spaced out",
+    "allDoneTitle": "All of today’s tasks are done",
+    "allDoneBody": "Nice work! Come back tomorrow to keep your rhythm.",
+    "allDoneTomorrowDay": "Tomorrow: Day {day} {task} — <video>{title}</video>",
+    "allDoneTomorrowWeek": "Tomorrow: Week {week} starts again — <video>{title}</video>"
   },
   "week": {
     "resultTitle": "Week {week} result",
@@ -3861,5 +3865,38 @@
         "answer": "Signed in, go to the Account page to download your data or delete your account. Deleting it removes your practice progress and history from the cloud, and cannot be undone. See the privacy policy for details."
       }
     }
+  },
+  "streak": {
+    "line": "{n, plural, one {# day} other {# days}} in a row",
+    "freezesLeft": "Streak freezes: {n} left this week",
+    "saved": "A streak freeze kept your streak going (you missed {date})",
+    "help": "You get one streak freeze a week. It’s used automatically when you miss a day; miss two days in a row and the streak starts over."
+  },
+  "weeklyReport": {
+    "title": "Last week’s report",
+    "range": "{from}–{to}",
+    "minutes": "Practice time",
+    "minutesValue": "{n, plural, one {# minute} other {# minutes}}",
+    "days": "Practice days",
+    "daysValue": "{n} / 7 days",
+    "tasks": "Tasks done",
+    "tasksValue": "{n}",
+    "accuracy": "Dictation accuracy",
+    "accuracyNone": "No dictation",
+    "changeUp": "Up {delta} from the week before",
+    "changeDown": "Down {delta} from the week before",
+    "changeSame": "Same as the week before",
+    "changeNone": "No dictation the week before",
+    "words": "Words you misheard last week",
+    "suggestionTitle": "This week",
+    "suggestions": {
+      "comeBack": "You didn’t practice last week. Start with one task a day to get your rhythm back.",
+      "slowDown": "Accuracy dipped. Replay single sentences more this week, or pick an easier material.",
+      "moreDays": "Try practicing on more days this week: 10 minutes a day beats one long session.",
+      "review": "Review last week’s misheard words first, then do today’s task.",
+      "levelUp": "Your accuracy is high. Try a harder material this week.",
+      "keepGoing": "Your rhythm is steady. Keep the same pace this week."
+    },
+    "dismiss": "Got it"
   }
 }
