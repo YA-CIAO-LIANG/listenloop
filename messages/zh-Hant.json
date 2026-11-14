@@ -138,13 +138,17 @@
     "newWeekLine": "<video>{title}</video> · 第 {week} 週重新開始",
     "available": "可以做",
     "done": "已完成",
-    "tomorrowDay": "第 {day} 天明天開放",
+    "tomorrowDay": "明天：第 {day} 天 {task}",
     "tomorrowWeek": "第 {week} 週明天開始",
     "start": "開始",
     "retry": "再練一次",
     "reviewLine": "錯字複習：{count} 個字",
     "reviewStart": "開始複習",
-    "reviewNote": "聽寫時聽錯的字，間隔複習"
+    "reviewNote": "聽寫時聽錯的字，間隔複習",
+    "allDoneTitle": "今天的任務都完成了",
+    "allDoneBody": "做得好！明天再回來，保持你的節奏。",
+    "allDoneTomorrowDay": "明天：第 {day} 天 {task} — <video>{title}</video>",
+    "allDoneTomorrowWeek": "明天：第 {week} 週重新開始 — <video>{title}</video>"
   },
   "week": {
     "resultTitle": "第 {week} 週結果",
@@ -3859,5 +3863,38 @@
         "answer": "登入後到「帳號」頁，可以下載自己的資料，也可以刪除帳號。刪除後，雲端上的練習進度與練習紀錄都會刪除，而且無法復原。詳細內容請見隱私權政策。"
       }
     }
+  },
+  "streak": {
+    "line": "連續練習 {n} 天",
+    "freezesLeft": "補救卡：本週剩 {n} 張",
+    "saved": "補救卡保住了你的連續天數（{date} 沒練習）",
+    "help": "補救卡每週一張，漏掉一天時自動使用；連續漏掉兩天，連續天數就會重新計算。"
+  },
+  "weeklyReport": {
+    "title": "上週學習報告",
+    "range": "{from}–{to}",
+    "minutes": "練習時間",
+    "minutesValue": "{n} 分鐘",
+    "days": "練習天數",
+    "daysValue": "{n} / 7 天",
+    "tasks": "完成任務",
+    "tasksValue": "{n} 個",
+    "accuracy": "聽寫正確率",
+    "accuracyNone": "沒有聽寫",
+    "changeUp": "比前一週進步 {delta}",
+    "changeDown": "比前一週下降 {delta}",
+    "changeSame": "和前一週相同",
+    "changeNone": "前一週沒有聽寫",
+    "words": "上週聽錯的字",
+    "suggestionTitle": "這週的建議",
+    "suggestions": {
+      "comeBack": "上週沒有練習。這週從每天一份任務開始，先把節奏找回來。",
+      "slowDown": "正確率比前一週低。這週聽寫時多用單句重播，或選一份程度低一點的教材。",
+      "moreDays": "這週試著多練幾天：每天 10 分鐘，比一次練很久更有效。",
+      "review": "先把上週聽錯的字複習一遍，再開始今天的任務。",
+      "levelUp": "正確率很高，這週可以挑戰程度高一點的教材。",
+      "keepGoing": "節奏很穩定，這週照這個步調繼續。"
+    },
+    "dismiss": "知道了"
   }
 }

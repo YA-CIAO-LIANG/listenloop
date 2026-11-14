@@ -6,6 +6,7 @@ import { officialScore } from "./cycle";
 import type { LocalDate } from "./dates";
 import { tasksByDate } from "./practice-calendar";
 import { daySeconds } from "./practice-time";
+import { practiceDays, streakStatus, type StreakStatus } from "./streak";
 import type { Progress } from "./progress";
 
 /**
@@ -174,34 +175,15 @@ export function distribution(
 
 /**
  * Days in a row with practice (an official task or counted time), ending
- * today, or yesterday when today has none yet; and the longest run.
+ * today, or yesterday when today has none yet; the longest run; and the
+ * weekly streak freeze (D176, lib/streak.ts).
  */
 export function streaks(
   activity: Activity,
   progresses: readonly Progress[],
   today: LocalDate,
-): { current: number; longest: number } {
-  const days = new Set<LocalDate>(tasksByDate(activity, progresses).keys());
-  for (const [date, day] of Object.entries(activity.days)) {
-    if (day?.official || daySeconds(day) > 0) days.add(date);
-  }
-  const sorted = [...days].sort();
-  let longest = 0;
-  let run = 0;
-  let previous: LocalDate | null = null;
-  for (const date of sorted) {
-    run = previous && lastDays(date, 2)[0] === previous ? run + 1 : 1;
-    longest = Math.max(longest, run);
-    previous = date;
-  }
-  const [yesterday] = lastDays(today, 2);
-  let current = 0;
-  let cursor = days.has(today) ? today : days.has(yesterday) ? yesterday : null;
-  while (cursor && days.has(cursor)) {
-    current += 1;
-    cursor = lastDays(cursor, 2)[0];
-  }
-  return { current, longest };
+): StreakStatus {
+  return streakStatus(practiceDays(activity, progresses), today);
 }
 
 /** Site-wide numbers for the admin dashboard (D75): no one is named. */

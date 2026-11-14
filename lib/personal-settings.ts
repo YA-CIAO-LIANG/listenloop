@@ -38,6 +38,8 @@ const PERSONAL_DATA_KEYS = [
   // lib/sync/sync.ts ACCOUNT_KEY (not imported: sync imports this file).
   "ll-account:v1",
   SETTINGS_AT_KEY,
+  // lib/weekly-report.ts WEEKLY_REPORT_DISMISSED_KEY (D176).
+  "ll-weekly-report-dismissed:v1",
 ];
 const PERSONAL_DATA_PREFIXES = ["ll-progress:v1:"];
 

@@ -487,7 +487,10 @@ Button、Card、ProgressBar、SentenceRow、DayTracker（7 天進度）、ScoreB
 
 - **標題區**（D119）：h1 產品名稱（hero）→ 16px → 標語（display、h3 字級）→ 12px → 一行 ink-muted 說明（閱讀寬度內）：適合誰、三個步驟、官方教材免費。
 
-- **登入**：練習日曆（Card）→ 24px → 今日任務（Card）→ 64px → 官方教材庫；
+- **登入**：（週一到週三）上週學習報告（Card）→ 24px → 練習日曆（Card）→ 24px → 今日任務（Card）→ 64px → 官方教材庫；
+  - **上週學習報告**（`WeeklyReport`，D176）：`role="region"`，標題 Display h3「上週學習報告」＋右側 supporting、ink-muted 的日期範圍 → 四個 StatTile（練習時間、練習天數、完成任務、聽寫正確率＋與前一週比較；手機兩欄、wide 四欄）→「上週聽錯的字」（字用 1px line 邊框、4px 圓角的小標籤，`lang="en"`）→「這週的建議」一句 → 「開始複習」（primary、sm，只在建議複習時）＋「知道了」（secondary、sm）。
+  - **今日任務的連續天數**（D176）：標題下方 supporting 一行「連續練習 N 天」（font-medium）·「補救卡：本週剩 1 張」（ink-muted），補救卡剛保住連續天數時加一行 accent-ink「補救卡保住了你的連續天數（11/17 沒練習）」，最後一行 ink-muted 說明規則。
+  - **今天全部完成**（D176）：卡片內、任務清單上方，1px success 邊框、4px 圓角、內距 16px 的框（`role="status"`）：20px 的 ✓（success，`ll-check-draw` 描線一次；reduced motion 時直接出現）＋ font-medium success「今天的任務都完成了」→ supporting、ink-muted 鼓勵一句 → 每份教材一行「明天：第 3 天 跟讀 — 教材名稱」。不加彩帶或其他慶祝效果（慶祝動畫只有一種）。
 - **未登入**：產品介紹（`ProductIntro`）→ 64px → 官方教材庫。
 
 「學習進度」頁 `/practices` 保留完整版（日曆加上每份練習的清單）。新手引導（`Onboarding`）只給已登入、還沒有練習的人。

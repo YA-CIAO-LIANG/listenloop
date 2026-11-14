@@ -205,9 +205,18 @@ describe("streaks", () => {
   };
 
   it("counts the run ending today or yesterday, and the longest", () => {
-    expect(streaks(log, [], "2026-11-08")).toEqual({ current: 2, longest: 3 });
-    expect(streaks(log, [], "2026-11-07")).toEqual({ current: 2, longest: 3 });
-    expect(streaks(log, [], "2026-11-10")).toEqual({ current: 0, longest: 3 });
+    expect(streaks(log, [], "2026-11-08")).toMatchObject({
+      current: 2,
+      longest: 3,
+    });
+    expect(streaks(log, [], "2026-11-07")).toMatchObject({
+      current: 2,
+      longest: 3,
+    });
+    expect(streaks(log, [], "2026-11-10")).toMatchObject({
+      current: 0,
+      longest: 3,
+    });
   });
 });
 

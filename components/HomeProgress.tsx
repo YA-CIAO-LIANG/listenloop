@@ -11,11 +11,18 @@ const PracticeCalendar = dynamic(() =>
 const TodayTasks = dynamic(() =>
   import("./TodayTasks").then((m) => m.TodayTasks),
 );
+const WeeklyReport = dynamic(() =>
+  import("./WeeklyReport").then((m) => m.WeeklyReport),
+);
 
-/** The home page's calendar and today's tasks. */
+/**
+ * The home page's weekly report (Mondays, D176), calendar, and today's
+ * tasks.
+ */
 export function HomeProgress() {
   return (
     <>
+      <WeeklyReport />
       <PracticeCalendar />
       <TodayTasks />
     </>
