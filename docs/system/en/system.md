@@ -665,7 +665,7 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 | ------------------------------------ | --------------------------- | ---------------------------------- | ------------------------------------ | --------------------------------------------- | -------- |
 | Official materials, videos, the loop | ✓                           | ✓                                  | ✓                                    | ✓                                             | ✓        |
 | Shared materials                     | Preview (first 3 sentences) | Practice in full                   | Practice in full                     | Practice in full                              | In full  |
-| Your own materials                   | 2 minutes a week (2 each)   | 40 minutes a month, 5 minutes each | 120 minutes a month, 10 minutes each | 160 minutes a month (whichever is more)       | No limit |
+| Your own materials                   | 2 minutes a week (2 each)   | 40 minutes a month, 5 minutes each | 120 minutes a month, 10 minutes each | 45/70/105 minutes by tier (whichever is more) | No limit |
 | YouTube materials                    | —                           | ✓                                  | ✓                                    | By personal plan                              | ✓        |
 | Playback speed                       | —                           | ✓                                  | ✓                                    | By personal plan                              | ✓        |
 | Full stats                           | Basics                      | ✓                                  | ✓                                    | By personal plan                              | ✓        |
@@ -674,7 +674,7 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 | Classes (create, assign, reports)    | Join a class                | Join a class                       | Join a class                         | 40 students                                   | 100      |
 
 - The account plan is `profiles.plan` (`free` / `paid` / `pro`); the class plan is `profiles.classroom_seats`.
-- The student plan (D144): the same as Plus at NT$90 / NT$990 (`lib/payments/pricing.ts`). School email domains are in `lib/student.ts`; signing in with one makes `/auth/callback` write `profiles.student_verified_at`, good for a year. A fake door for now: subscribing only records interest (`intent_events`, `waitlist.plan = 'student'`).
+- The student plan (D144): the same as Plus at NT$90 / NT$900 (`lib/payments/pricing.ts`). School email domains are in `lib/student.ts`; signing in with one makes `/auth/callback` write `profiles.student_verified_at`, good for a year. A fake door for now: subscribing only records interest (`intent_events`, `waitlist.plan = 'student'`).
 - Code asks only `can(plan, action)`; changing a plan means editing `PLANS` (D54).
 
 ### 7.2 Counting allowances
@@ -690,12 +690,14 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 - Who may practice, what the preview shows, sending practice links back to it, the week under way: see 5.12 and `can_practice`.
 - Prices:
 
-| Plan                  | Monthly | Yearly (× 10) | A month on average |
-| --------------------- | ------- | ------------- | ------------------ |
-| Plus                  | NT$149  | NT$1,490      | NT$124             |
-| Pro                   | NT$299  | NT$2,990      | NT$249             |
-| Class                 | NT$499  | NT$4,990      | NT$416             |
-| Class (priority list) | NT$349  | NT$3,490      | NT$291             |
+| Plan            | Monthly | Yearly (× 10) | A month on average |
+| --------------- | ------- | ------------- | ------------------ |
+| Plus            | NT$149  | NT$1,490      | NT$124             |
+| Pro             | NT$299  | NT$2,990      | NT$249             |
+| Student         | NT$90   | NT$900        | NT$75              |
+| Class: Small    | NT$349  | NT$3,490      | NT$291             |
+| Class: Standard | NT$549  | NT$5,490      | NT$458             |
+| Class: Large    | NT$800  | NT$8,000      | NT$667             |
 
 ---
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { defaultForecastInput, forecast } from "@/lib/forecast";
+import { defaultForecastInput, forecast, FORECAST_PLANS } from "@/lib/forecast";
 import {
   funnel,
   shares,
@@ -139,7 +139,7 @@ describe("interest funnel (D102)", () => {
 describe("revenue forecast (D102)", () => {
   it("spreads prepaid plans by month and takes their cash up front", () => {
     const input = defaultForecastInput(0.6);
-    for (const plan of ["plus", "pro", "student"] as const) {
+    for (const plan of FORECAST_PLANS) {
       for (const period of ["month", "year"] as const) {
         input.subscribers[plan][period] = 0;
       }
@@ -154,5 +154,18 @@ describe("revenue forecast (D102)", () => {
     expect(result.aiCost).toBeCloseTo(12 * 40 * 0.5 * 0.6);
     expect(result.net).toBeCloseTo(1490 - 144);
     expect(result.grossMargin).toBeCloseTo((1490 - 144) / 1490);
+  });
+
+  it("counts class tiers with their teacher's minutes (D173)", () => {
+    const input = defaultForecastInput(1);
+    for (const plan of FORECAST_PLANS) {
+      input.subscribers[plan] = { month: 0, year: 0 };
+    }
+    input.subscribers.classStandard.month = 2;
+    input.usage.classStandard = 1;
+    input.feeRate = 0;
+    const result = forecast(input);
+    expect(result.revenue).toBe(2 * 549);
+    expect(result.aiCost).toBe(2 * 70);
   });
 });

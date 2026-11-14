@@ -1,5 +1,5 @@
 import { TRANSCRIBE_MONTHLY_SECONDS } from "./ai/pricing";
-import { CLASS_PLAN } from "./classroom";
+import { CLASS_TIERS } from "./classroom";
 import { FEEDBACK_PER_DAY } from "./feedback";
 import { REPORT_LIMITS } from "./moderation";
 import { PLANS, type PlanLimits } from "./plans";
@@ -33,12 +33,16 @@ function limitsOf(column: Column): PlanLimits {
   // otherwise their own plan applies; shown here on Plus.
   return {
     ...PLANS.paid,
-    minutesPerMonth: CLASS_PLAN.minutes,
+    // Shown as each tier's minutes by `minutes` below (D173).
+    minutesPerMonth: CLASS_TIERS[1].minutes,
     maxPracticeSeconds: Math.max(PLANS.paid.maxPracticeSeconds ?? 0, 300),
   };
 }
 
-function minutes(l: PlanLimits): string {
+function minutes(l: PlanLimits, column?: Column): string {
+  if (column === "class") {
+    return `每月 ${CLASS_TIERS.map((tier) => tier.minutes).join("／")} 分鐘（小班／標準班／大班）`;
+  }
   if (l.minutesPerWeek !== null) return `每週 ${l.minutesPerWeek} 分鐘`;
   if (l.minutesPerMonth !== null) return `每月 ${l.minutesPerMonth} 分鐘`;
   return unlimited;
@@ -147,6 +151,6 @@ export function siteLimitsMarkdown(): string {
   return [
     `- 全站每月 AI 費用上限：${usd(DEFAULT_USAGE_SETTINGS.siteMonthlyMicros)}（後台可調），達到時暫停一般使用者的 AI 功能，每月 1 日重設。`,
     `- 全站每月語音轉文字：${TRANSCRIBE_MONTHLY_SECONDS / 3600} 小時（Azure F0 免費 5 小時，留一點餘裕），每月 1 日重設。`,
-    `- 班級方案：每位老師 ${CLASS_PLAN.seats} 個座位；學生用自己的方案額度。`,
+    `- 班級方案：${CLASS_TIERS.map((tier) => `${tier.seats} 位學生`).join("／")}（小班／標準班／大班）；學生用自己的方案額度。`,
   ].join("\n");
 }

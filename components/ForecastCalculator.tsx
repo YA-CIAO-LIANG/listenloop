@@ -3,13 +3,13 @@
 import { ScrollRegion } from "./ScrollRegion";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
-import { forecast, type ForecastInput } from "@/lib/forecast";
 import {
-  BILLING_PERIODS,
-  PAID_PLANS,
-  type BillingPeriod,
-  type PaidPlan,
-} from "@/lib/payments/pricing";
+  forecast,
+  FORECAST_PLANS,
+  type ForecastInput,
+  type ForecastPlan,
+} from "@/lib/forecast";
+import { BILLING_PERIODS, type BillingPeriod } from "@/lib/payments/pricing";
 import { StatTile } from "./StatTile";
 
 const inputClassName =
@@ -30,7 +30,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
 
   const setGrid = (
     key: "subscribers" | "prices",
-    plan: PaidPlan,
+    plan: ForecastPlan,
     period: BillingPeriod,
     value: string,
   ) =>
@@ -88,7 +88,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
             </tr>
           </thead>
           <tbody>
-            {PAID_PLANS.flatMap((plan) =>
+            {FORECAST_PLANS.flatMap((plan) =>
               (["subscribers", "prices"] as const).map((key) => (
                 <tr key={`${plan}-${key}`} className="border-b border-line">
                   <th scope="row" className="py-2 pr-4 font-normal">
@@ -119,7 +119,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
         <legend className="mb-3 font-display text-h3">
           {t("assumptions")}
         </legend>
-        {PAID_PLANS.map((plan) => (
+        {FORECAST_PLANS.map((plan) => (
           <label key={plan} className="space-y-1">
             <span className="block">
               {t("usage", { plan: t(`names.${plan}`) })}

@@ -17,6 +17,7 @@ import {
   monthsSaved,
   PAID_PLANS,
   PLAN_PRICES,
+  POPULAR_PLAN,
   REFUND_DAYS,
   YEARLY_MONTHS_FREE,
   type BillingPeriod,
@@ -229,11 +230,14 @@ export function PricingPlans({
             <li
               key={plan}
               className={`space-y-4 rounded-base border bg-surface p-6 ${
-                plan === "plus" ? "border-accent" : "border-line"
+                plan === POPULAR_PLAN ? "border-accent" : "border-line"
               }`}
             >
               <h2 className="flex flex-wrap items-center gap-2 font-display text-h3">
                 {t(`names.${plan}`)}
+                {plan === POPULAR_PLAN && (
+                  <Tag tone="accent">{t("popular")}</Tag>
+                )}
                 {current === plan && <Tag>{t("current")}</Tag>}
               </h2>
               {/* The price a month is always the big number (D128). */}
@@ -253,8 +257,13 @@ export function PricingPlans({
                   {studentLine}
                 </p>
               )}
+              {plan === "student" && (
+                <p className="text-supporting text-ink-muted">
+                  {t("student.how")}
+                </p>
+              )}
               <Button
-                variant={plan === "plus" ? "primary" : "secondary"}
+                variant={plan === POPULAR_PLAN ? "primary" : "secondary"}
                 onClick={() => subscribe(plan)}
               >
                 {t("subscribe", { plan: t(`names.${plan}`) })}

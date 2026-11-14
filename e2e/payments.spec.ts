@@ -21,6 +21,9 @@ test("signed out, pricing shows Free, Plus, and Pro, yearly first at ten months 
   await expect(
     plus.getByText("年繳 NT$1,490，一次付清，省 2 個月"),
   ).toBeVisible();
+  // Plus is marked the most popular (D173), and only Plus.
+  await expect(plus.getByText("最受歡迎", { exact: true })).toBeVisible();
+  await expect(page.getByText("最受歡迎", { exact: true })).toHaveCount(1);
   const pro = page.getByRole("listitem").filter({ hasText: "訂閱 Pro" });
   await expect(pro.getByText("NT$249", { exact: true })).toHaveClass(/text-h2/);
   await expect(pro.getByText(/年繳 NT\$2,990，一次付清/)).toBeVisible();

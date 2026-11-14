@@ -7,7 +7,7 @@ import { getRecentAdmin } from "@/auth/recent-auth";
 import { isAccountStatus, isRole } from "@/lib/accounts";
 import { isAdminEmail } from "@/lib/admin";
 import { isUuid } from "@/lib/custom-practice/organize";
-import { CLASS_PLAN } from "@/lib/classroom";
+import { CLASS_TIERS } from "@/lib/classroom";
 import { isAccountPlan } from "@/lib/plans";
 
 export type UserChangeResult =
@@ -102,7 +102,7 @@ export async function changeUser(
 }
 
 /**
- * Turns a teacher's class plan on (its seats, CLASS_PLAN.seats) or off
+ * Turns a teacher's class plan on (a tier's seats, CLASS_TIERS, D173) or off
  * (null) by hand, for trying Classroom before payments open (D103, D105);
  * audited.
  */
@@ -114,7 +114,11 @@ export async function setClassroomSeats(
   const [actor, admin] = [await getRecentAdmin(), getAdminSupabase()];
   if (actor === "reauth") return { ok: false, reason: "reauth" };
   if (!actor || !admin) return { ok: false, reason: "unavailable" };
-  if (!isUuid(userId) || (seats !== null && seats !== CLASS_PLAN.seats)) {
+  const tierSeats =
+    seats === null
+      ? null
+      : (CLASS_TIERS.find((tier) => tier.seats === seats)?.seats ?? undefined);
+  if (!isUuid(userId) || tierSeats === undefined) {
     return { ok: false, reason: "invalid" };
   }
   const { data: profile } = await admin
@@ -125,14 +129,14 @@ export async function setClassroomSeats(
   if (!profile) return { ok: false, reason: "not-found" };
   const { error } = await admin
     .from("profiles")
-    .update({ classroom_seats: seats })
+    .update({ classroom_seats: tierSeats })
     .eq("user_id", userId);
   if (error) return { ok: false, reason: "failed" };
   await logAudit(
     actor.id,
     "user.classroom",
     { type: "user", id: `user-${profile.number}` },
-    { from: profile.classroom_seats, to: seats },
+    { from: profile.classroom_seats, to: tierSeats },
   );
   revalidatePath("/admin/users", "layout");
   return { ok: true };

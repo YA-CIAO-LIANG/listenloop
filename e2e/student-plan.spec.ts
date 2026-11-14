@@ -8,7 +8,7 @@ import {
 } from "./fixtures";
 
 /**
- * The student plan (D144): Plus at NT$90 a month or NT$990 a year, for a
+ * The student plan (D144, D173): Plus at NT$90 a month or NT$900 a year, for a
  * school Google account. Subscribing is a fake door like Plus's.
  */
 const studentCard = (page: import("@playwright/test").Page) =>
@@ -19,9 +19,11 @@ test("visitors see the student price and how to be verified", async ({
 }) => {
   await page.goto("/pricing");
   const card = studentCard(page);
-  // Yearly first: NT$990 a year, about NT$83 a month, one month saved.
-  await expect(card).toContainText("NT$83／月");
-  await expect(card).toContainText("年繳 NT$990，一次付清，省 1 個月");
+  // Yearly first: NT$900 a year, NT$75 a month, two months saved (D173).
+  await expect(card).toContainText("NT$75／月");
+  await expect(card).toContainText("年繳 NT$900，一次付清，省 2 個月");
+  // How to be verified, said before anyone tries (D173).
+  await expect(card).toContainText("不用上傳學生證");
   await expect(card.getByTestId("student-status")).toContainText(
     "學校信箱（例如 .edu、.edu.tw）的 Google 帳號登入",
   );
