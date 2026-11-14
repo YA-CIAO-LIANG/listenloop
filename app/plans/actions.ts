@@ -1,6 +1,7 @@
 "use server";
 
 import { getAdminSupabase } from "@/auth/admin";
+import { getPriceView } from "@/auth/prices";
 import { getServerSupabase } from "@/auth/server";
 import { getSignedInUser } from "@/auth/session";
 import { recordIntent } from "@/app/intent-actions";
@@ -27,16 +28,28 @@ export async function joinWaitlist(
   const plan = isPaidPlan(choice.plan) ? choice.plan : null;
   const period = isBillingPeriod(choice.period) ? choice.period : null;
   const source = isIntentSource(choice.source) ? choice.source : null;
+  // The price they saw, for the early-bird offer when paying opens (D174).
+  const view = plan ? await getPriceView(`u:${user.id}`) : null;
+  const seen = plan && view ? view.prices[plan][period ?? "month"] : null;
+  const fromExperiment =
+    view?.experiment && view.experiment.plan === plan ? view.experiment : null;
   // The latest choice wins: written with the secret key (people may only
   // insert their own row, not change it).
   const admin = getAdminSupabase();
   const { error } = admin
-    ? await admin
-        .from("waitlist")
-        .upsert(
-          { user_id: user.id, plan, billing_period: period, source },
-          { onConflict: "user_id" },
-        )
+    ? await admin.from("waitlist").upsert(
+        {
+          user_id: user.id,
+          plan,
+          billing_period: period,
+          source,
+          seen_amount: seen?.amount ?? null,
+          seen_currency: seen?.currency ?? null,
+          seen_experiment_id: fromExperiment?.id ?? null,
+          seen_variant: fromExperiment?.variant ?? null,
+        },
+        { onConflict: "user_id" },
+      )
     : await supabase
         .from("waitlist")
         .upsert(

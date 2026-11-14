@@ -3,11 +3,15 @@
 import { cookies } from "next/headers";
 import { getAdminSupabase } from "@/auth/admin";
 import { allowAction } from "@/auth/rate-limit";
+import { getPriceView } from "@/auth/prices";
 import { getSignedInUser } from "@/auth/session";
-import { parseIntent, VISITOR_COOKIE } from "@/lib/intent";
+import {
+  parseIntent,
+  VISITOR_COOKIE,
+  VISITOR_COOKIE_OPTIONS,
+} from "@/lib/intent";
 
 /** A year: long enough to count a returning visitor once. */
-const VISITOR_MAX_AGE = 60 * 60 * 24 * 365;
 
 /**
  * Records one step toward paying (D93, P2): never charges, never fails
@@ -25,14 +29,13 @@ export async function recordIntent(input: unknown): Promise<{ ok: boolean }> {
   let visitor = jar.get(VISITOR_COOKIE)?.value;
   if (!visitor || !/^[a-f0-9-]{8,64}$/.test(visitor)) {
     visitor = crypto.randomUUID();
-    jar.set(VISITOR_COOKIE, visitor, {
-      path: "/",
-      maxAge: VISITOR_MAX_AGE,
-      sameSite: "lax",
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-    });
+    jar.set(VISITOR_COOKIE, visitor, VISITOR_COOKIE_OPTIONS);
   }
+  // The price experiment this person is in, worked out again here from
+  // who they are (never taken from the browser, D174).
+  const { experiment } = await getPriceView(
+    user ? `u:${user.id}` : `v:${visitor}`,
+  );
   const { error } = await admin.from("intent_events").insert({
     user_id: user?.id ?? null,
     visitor_id: visitor,
@@ -41,6 +44,8 @@ export async function recordIntent(input: unknown): Promise<{ ok: boolean }> {
     billing_interval: intent.interval ?? null,
     item: intent.item ?? null,
     source: intent.source ?? null,
+    experiment_id: experiment?.id ?? null,
+    variant: experiment?.variant ?? null,
   });
   if (error) console.error(`[intent] not recorded: ${error.message}`);
   return { ok: !error };

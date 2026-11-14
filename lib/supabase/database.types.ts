@@ -691,34 +691,40 @@ export type Database = {
         Row: {
           billing_interval: string | null;
           created_at: string;
+          experiment_id: string | null;
           id: number;
           item: string | null;
           plan: string | null;
           source: string | null;
           step: string;
           user_id: string | null;
+          variant: string | null;
           visitor_id: string;
         };
         Insert: {
           billing_interval?: string | null;
           created_at?: string;
+          experiment_id?: string | null;
           id?: never;
           item?: string | null;
           plan?: string | null;
           source?: string | null;
           step: string;
           user_id?: string | null;
+          variant?: string | null;
           visitor_id: string;
         };
         Update: {
           billing_interval?: string | null;
           created_at?: string;
+          experiment_id?: string | null;
           id?: never;
           item?: string | null;
           plan?: string | null;
           source?: string | null;
           step?: string;
           user_id?: string | null;
+          variant?: string | null;
           visitor_id?: string;
         };
         Relationships: [];
@@ -1132,6 +1138,102 @@ export type Database = {
             referencedColumns: ["id"];
           },
         ];
+      };
+      price_experiments: {
+        Row: {
+          created_at: string;
+          created_by: string | null;
+          ended_at: string | null;
+          id: string;
+          note: string | null;
+          plan: string;
+          status: string;
+          variants: Json;
+          winner: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          created_by?: string | null;
+          ended_at?: string | null;
+          id?: string;
+          note?: string | null;
+          plan: string;
+          status?: string;
+          variants: Json;
+          winner?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          created_by?: string | null;
+          ended_at?: string | null;
+          id?: string;
+          note?: string | null;
+          plan?: string;
+          status?: string;
+          variants?: Json;
+          winner?: string | null;
+        };
+        Relationships: [];
+      };
+      price_overrides: {
+        Row: {
+          experiment_id: string | null;
+          monthly: number;
+          plan: string;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          experiment_id?: string | null;
+          monthly: number;
+          plan: string;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          experiment_id?: string | null;
+          monthly?: number;
+          plan?: string;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Relationships: [];
+      };
+      price_survey_responses: {
+        Row: {
+          bargain: number;
+          context: string;
+          created_at: string;
+          expensive: number;
+          id: number;
+          too_cheap: number;
+          too_expensive: number;
+          user_id: string | null;
+          visitor_id: string | null;
+        };
+        Insert: {
+          bargain: number;
+          context: string;
+          created_at?: string;
+          expensive: number;
+          id?: number;
+          too_cheap: number;
+          too_expensive: number;
+          user_id?: string | null;
+          visitor_id?: string | null;
+        };
+        Update: {
+          bargain?: number;
+          context?: string;
+          created_at?: string;
+          expensive?: number;
+          id?: number;
+          too_cheap?: number;
+          too_expensive?: number;
+          user_id?: string | null;
+          visitor_id?: string | null;
+        };
+        Relationships: [];
       };
       profiles: {
         Row: {
@@ -1742,6 +1844,10 @@ export type Database = {
           billing_period: string | null;
           created_at: string;
           plan: string | null;
+          seen_amount: number | null;
+          seen_currency: string | null;
+          seen_experiment_id: string | null;
+          seen_variant: string | null;
           source: string | null;
           user_id: string;
         };
@@ -1749,6 +1855,10 @@ export type Database = {
           billing_period?: string | null;
           created_at?: string;
           plan?: string | null;
+          seen_amount?: number | null;
+          seen_currency?: string | null;
+          seen_experiment_id?: string | null;
+          seen_variant?: string | null;
           source?: string | null;
           user_id: string;
         };
@@ -1756,6 +1866,10 @@ export type Database = {
           billing_period?: string | null;
           created_at?: string;
           plan?: string | null;
+          seen_amount?: number | null;
+          seen_currency?: string | null;
+          seen_experiment_id?: string | null;
+          seen_variant?: string | null;
           source?: string | null;
           user_id?: string;
         };

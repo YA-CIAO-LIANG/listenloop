@@ -5,7 +5,9 @@ import { openInMaintenance } from "@/lib/site-switches";
 import { clarityProjectId } from "@/lib/analytics-consent";
 import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
 import { turnstileSiteKey } from "@/lib/turnstile";
+import { VISITOR_COOKIE, VISITOR_COOKIE_OPTIONS } from "@/lib/intent";
 import { supabaseConfig } from "@/lib/supabase/config";
+import { withoutTrailingSlash } from "@/lib/trailing-slash";
 import {
   isLocale,
   LOCALE_OVERRIDE_HEADER,
@@ -18,6 +20,18 @@ import {
  * its scripts) and sent with the response; then the Supabase session.
  */
 export async function proxy(request: NextRequest) {
+  // A trailing slash: redirected here with a Content-Type (ZAP 10019,
+  // D174); Next writes the target as the body of any redirect.
+  const bare = withoutTrailingSlash(request.nextUrl.pathname);
+  if (bare) {
+    return new NextResponse(null, {
+      status: 308,
+      headers: {
+        location: new URL(`${bare}${request.nextUrl.search}`, request.url).href,
+        "content-type": "text/plain; charset=utf-8",
+      },
+    });
+  }
   const nonce = createNonce();
   const policy = contentSecurityPolicy({
     nonce,
@@ -34,8 +48,20 @@ export async function proxy(request: NextRequest) {
   const hl = request.nextUrl.searchParams.get(LOCALE_PARAM);
   if (isLocale(hl)) requestHeaders.set(LOCALE_OVERRIDE_HEADER, hl);
   else requestHeaders.delete(LOCALE_OVERRIDE_HEADER);
+  // Pricing pages: a browser without a visitor id gets one now (D174), so
+  // a price experiment can show it the same price on every visit; the
+  // page sees it in this very request.
+  const visitor = newVisitorFor(request);
+  if (visitor) {
+    // On the request too (the session refresh rebuilds the header from it).
+    request.cookies.set(VISITOR_COOKIE, visitor);
+    requestHeaders.set("cookie", request.cookies.toString());
+  }
   const { response, isAdmin } = await updateSession(request, requestHeaders);
   response.headers.set("content-security-policy", policy);
+  if (visitor) {
+    response.cookies.set(VISITOR_COOKIE, visitor, VISITOR_COOKIE_OPTIONS);
+  }
   // Maintenance mode (D155): everyone but admins sees the maintenance
   // page (503, so search engines come back later); the session cookies
   // just refreshed are kept.
@@ -55,6 +81,15 @@ export async function proxy(request: NextRequest) {
     return page;
   }
   return response;
+}
+
+/** A new visitor id when a pricing page is opened without one (D174). */
+function newVisitorFor(request: NextRequest): string | null {
+  if (!request.nextUrl.pathname.startsWith("/pricing")) return null;
+  const current = request.cookies.get(VISITOR_COOKIE)?.value;
+  return current && /^[a-f0-9-]{8,64}$/.test(current)
+    ? null
+    : crypto.randomUUID();
 }
 
 export const config = {

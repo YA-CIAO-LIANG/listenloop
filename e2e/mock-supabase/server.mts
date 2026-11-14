@@ -48,6 +48,10 @@ const sentenceReports: Record<string, unknown>[] = [];
  * admin pages. Plans changed by those webhooks are in `plans`.
  */
 const tables: Record<string, Row[]> = {
+  // Price experiments and the price survey (D174), kept while running.
+  price_experiments: [],
+  price_overrides: [],
+  price_survey_responses: [],
   // Day 7 surveys (D164): two answers for the admin pages; new ones add.
   week_surveys: [
     {
@@ -108,6 +112,9 @@ const conflictKeys: Record<string, string[]> = {
   payments: ["provider_payment_id"],
   payment_events: ["provider", "event_id"],
   content_fixes: ["id"],
+  price_experiments: ["id"],
+  price_overrides: ["plan"],
+  price_survey_responses: ["user_id", "visitor_id"],
 };
 // e2e-paid is on the paid plan from the start (paid features, D97).
 const plans = new Map<string, string>([["e2e-paid", "paid"]]);
@@ -769,7 +776,7 @@ createServer(async (request, response) => {
     return;
   }
   const table =
-    /^\/rest\/v1\/(subscriptions|payments|payment_events|content_fixes|week_surveys)$/.exec(
+    /^\/rest\/v1\/(subscriptions|payments|payment_events|content_fixes|week_surveys|price_experiments|price_overrides|price_survey_responses)$/.exec(
       url.pathname,
     );
   if (table) {
@@ -779,7 +786,11 @@ createServer(async (request, response) => {
       url,
       tokenSubject(request.headers.authorization),
     );
-    json(status, rows);
+    // `.single()` asks for one object, not a list.
+    const single = String(request.headers.accept ?? "").includes(
+      "vnd.pgrst.object",
+    );
+    json(status, single ? (rows[0] ?? null) : rows);
     return;
   }
   if (url.pathname === "/rest/v1/practices" && request.method === "GET") {
@@ -904,7 +915,14 @@ createServer(async (request, response) => {
       response.writeHead(201, cors).end();
       return;
     }
-    json(200, intents);
+    // Price experiments read their own steps (D174).
+    const filters = eqFilters(url.searchParams);
+    json(
+      200,
+      intents.filter((row) =>
+        filters.every(([column, value]) => String(row[column]) === value),
+      ),
+    );
     return;
   }
   // The paid plan's waiting list (D72), kept while the server runs.

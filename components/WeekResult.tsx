@@ -19,6 +19,7 @@ import { Tag } from "./Tag";
 import { QuizInvite } from "./QuizInvite";
 import { StartNextWeekButton } from "./StartNextWeekButton";
 import { WordDiffView } from "./WordDiffView";
+import { PriceSurvey } from "./PriceSurvey";
 import { WeekSurvey } from "./WeekSurvey";
 import { useProgressVisible } from "./StoresProvider";
 
@@ -173,6 +174,8 @@ export function WeekResult({ video, progress, store }: WeekResultProps) {
         </div>
         {/* How was the week? One question and a comment (D164). */}
         {signedIn && <WeekSurvey videoId={video.id} week={progress.week} />}
+        {/* What Plus is worth to them, once per device (D174). */}
+        {signedIn && <PriceSurvey context="day7" />}
       </div>
 
       <section>

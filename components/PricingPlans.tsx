@@ -14,7 +14,6 @@ import type { IntentSource } from "@/lib/intent";
 import {
   BILLING_PERIODS,
   DEFAULT_PERIOD,
-  monthsSaved,
   PAID_PLANS,
   PLAN_PRICES,
   POPULAR_PLAN,
@@ -24,6 +23,7 @@ import {
   type PaidPlan,
 } from "@/lib/payments/pricing";
 import { PLANS } from "@/lib/plans";
+import type { PlanPrices } from "@/lib/price-experiments";
 import type { StudentStatus } from "@/lib/student";
 import { Button } from "./Button";
 import { PlanPrice } from "./PlanPrice";
@@ -77,6 +77,7 @@ export function PricingPlans({
   source,
   open: openAtStart = null,
   student = null,
+  prices = PLAN_PRICES,
   joinWaitlist = joinWaitlistAction,
   record = recordIntent,
 }: {
@@ -90,12 +91,22 @@ export function PricingPlans({
   open?: { plan: PaidPlan; period: BillingPeriod } | null;
   /** The signed-in account's student verification (D144); null signed out. */
   student?: StudentStatus | null;
+  /**
+   * The prices this visitor sees (D174): the code's, an applied price, or
+   * their price experiment's variant (auth/prices.ts).
+   */
+  prices?: PlanPrices;
   /** Injected in tests; the Server Actions otherwise. */
   joinWaitlist?: typeof joinWaitlistAction;
   record?: typeof recordIntent;
 }) {
   const t = useTranslations("plansPage");
   const format = useFormatter();
+  // Whole months a year saves (2 under the ten-months rule, D105).
+  const monthsSaved = (plan: PaidPlan) => {
+    const { month, year } = prices[plan];
+    return Math.floor((month.amount * 12 - year.amount) / month.amount);
+  };
   const verified = student?.state === "verified";
   const studentUntil =
     student && student.state !== "none"
@@ -229,7 +240,7 @@ export function PricingPlans({
           ? (["student", ...PAID_PLANS.filter((p) => p !== "student")] as const)
           : PAID_PLANS
         ).map((plan) => {
-          const total = PLAN_PRICES[plan][period].amount;
+          const total = prices[plan][period].amount;
           return (
             <li
               key={plan}
@@ -306,9 +317,7 @@ export function PricingPlans({
               {(["free", ...PAID_PLANS] as const).map((plan) => (
                 <td key={plan} className="px-2 py-2">
                   <PlanPrice
-                    total={
-                      plan === "free" ? 0 : PLAN_PRICES[plan][period].amount
-                    }
+                    total={plan === "free" ? 0 : prices[plan][period].amount}
                     period={plan === "free" ? "month" : period}
                     size="inline"
                   />
@@ -349,7 +358,7 @@ export function PricingPlans({
           onClose={() => setOffer(null)}
         >
           <PlanPrice
-            total={PLAN_PRICES[offer][period].amount}
+            total={prices[offer][period].amount}
             period={period}
             size="md"
             monthsFree={monthsSaved(offer)}
