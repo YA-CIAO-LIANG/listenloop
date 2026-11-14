@@ -146,6 +146,33 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
             await page.getByText(/^(AI 生成|Write with AI)$/).click();
           },
         },
+        // The calendar's practice-time rings and legend (D181): a day at
+        // every ring, the whole month shown.
+        {
+          path: "/",
+          role: "author" as const,
+          state: "practice-time",
+          then: async (page: Page) => {
+            const minutes = [14, 15, 30, 72, 120, 200];
+            await page.evaluate((list) => {
+              const days: Record<string, unknown> = {};
+              list.forEach((m, i) => {
+                days[`2026-11-${String(i + 2).padStart(2, "0")}`] = {
+                  official: true,
+                  retries: [],
+                  tasks: [{ videoId: "sintel", week: 1, day: 1 }],
+                  time: { phone: { sintel: m * 60 } },
+                };
+              });
+              localStorage.setItem("ll-activity:v1", JSON.stringify({ days }));
+            }, minutes);
+            await page.reload();
+            await page
+              .getByRole("button", { name: /^(展開整月|Show the month)$/ })
+              .click({ timeout: 5_000 })
+              .catch(() => {});
+          },
+        },
         // YouTube links are paused (D131); the upload panel took its
         // place (D130): a real MP3 through to the sentences to check.
         {
