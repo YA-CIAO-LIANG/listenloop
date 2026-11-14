@@ -26,7 +26,7 @@ test("a student's classes page: join with a code; teachers see the class plans (
   );
 });
 
-test("the class plan: NT$4,990 a year, NT$3,490 on the priority list, a fake door (D105)", async ({
+test("class plans: three tiers by class size, yearly by default, a fake door (D173)", async ({
   page,
 }) => {
   await page.goto("/pricing/classroom");
@@ -36,24 +36,35 @@ test("the class plan: NT$4,990 a year, NT$3,490 on the priority list, a fake doo
   await expect(
     page.getByRole("radio", { name: "年繳 · 省 2 個月" }),
   ).toBeChecked();
-  const plan = page.getByRole("region", { name: "班級版" });
+  const tier = (name: string) =>
+    page
+      .getByRole("listitem")
+      .filter({ has: page.getByRole("heading", { level: 2, name }) });
   // A month's price is the big number; the yearly total under it (D128).
-  await expect(plan.getByText("NT$416", { exact: true })).toHaveClass(
+  await expect(tier("小班").getByText("NT$291", { exact: true })).toHaveClass(
     /text-h2/,
   );
   await expect(
-    plan.getByText("年繳 NT$4,990，一次付清，省 2 個月"),
+    tier("小班").getByText("年繳 NT$3,490，一次付清，省 2 個月"),
   ).toBeVisible();
-  await expect(plan.getByText("NT$291", { exact: true })).toBeVisible();
-  await expect(plan.getByText(/年繳 NT\$3,490，一次付清/)).toBeVisible();
+  await expect(tier("小班")).toContainText("每班最多 15 位學生");
+  await expect(tier("小班")).toContainText("老師每月自建 45 分鐘");
+  await expect(tier("標準班").getByText(/年繳 NT\$5,490/)).toBeVisible();
+  await expect(tier("標準班")).toContainText("老師每月自建 70 分鐘");
+  await expect(tier("大班").getByText(/年繳 NT\$8,000/)).toBeVisible();
+  await expect(tier("大班")).toContainText("每班最多 100 位學生");
+  await expect(page.locator("main")).not.toContainText("優先名單");
   await expect(page.locator("main")).not.toContainText("%");
   await page.getByText("月繳", { exact: true }).click();
-  await expect(plan.getByText("NT$499", { exact: true })).toBeVisible();
-  await expect(plan.getByText("NT$349", { exact: true })).toBeVisible();
-  await plan.getByRole("button", { name: "訂閱" }).click();
+  await expect(tier("小班").getByText("NT$349", { exact: true })).toBeVisible();
+  await expect(
+    tier("標準班").getByText("NT$549", { exact: true }),
+  ).toBeVisible();
+  await expect(tier("大班").getByText("NT$800", { exact: true })).toBeVisible();
+  await tier("標準班").getByRole("button", { name: "訂閱標準班" }).click();
   await expect(
     page
-      .getByRole("dialog", { name: "班級方案 · 月繳" })
+      .getByRole("dialog", { name: "標準班 · 月繳" })
       .getByText(/現在不會收費/),
   ).toBeVisible();
 });

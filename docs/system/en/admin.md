@@ -222,7 +222,7 @@ flowchart LR
 4. Choose "None" to turn it off. Other sizes turned on under D103 (10 / 20 / 80 / 100) still work.
 5. Admins can create classes without a class plan (trials, demos), up to 100 students each.
 
-With it, a teacher gets 40 students a class, 160 minutes of their own materials a month (when that's more than their personal plan), and shared materials in full.
+Choose a tier: Small (15 students, 45 minutes a month), Standard (40, 70 minutes), or Large (100, 105 minutes). The teacher's minutes replace their personal plan's when they're more, and they can practice shared materials in full (D173).
 
 ---
 

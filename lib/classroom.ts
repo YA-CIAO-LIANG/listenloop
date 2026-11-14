@@ -9,37 +9,88 @@ import { parseProgress, type Progress } from "./progress";
  */
 
 /**
- * The class plan (D105): one plan, NT$499 a month; the waiting list's
- * priority price NT$349. Yearly prices are 10 × monthly, like every plan
- * (lib/payments/pricing.ts). `seats` is the class size the plan allows;
- * `minutes` the teacher's own monthly minutes.
+ * Class plans (D173, Joe 2026-11-14): three tiers by class size, each
+ * billed monthly or yearly (10 × monthly, like every plan in
+ * lib/payments/pricing.ts). `seats` is the most students a class may
+ * hold; `minutes` the teacher's own monthly minutes of practices, set so
+ * that a teacher using all of them costs at most CLASS_COST.maxShare of
+ * the monthly price in AI and voice (classMinutesCost, checked by tests).
  */
-export const CLASS_PLAN = {
-  monthly: 499,
-  priorityMonthly: 349,
-  seats: 40,
-  minutes: 160,
+export const CLASS_TIER_IDS = ["small", "standard", "large"] as const;
+export type ClassTierId = (typeof CLASS_TIER_IDS)[number];
+
+export type ClassTier = {
+  id: ClassTierId;
+  seats: number;
+  monthly: number;
+  minutes: number;
+};
+
+export const CLASS_TIERS: readonly ClassTier[] = [
+  { id: "small", seats: 15, monthly: 349, minutes: 45 },
+  { id: "standard", seats: 40, monthly: 549, minutes: 70 },
+  { id: "large", seats: 100, monthly: 800, minutes: 105 },
+];
+
+/**
+ * What one minute of a made practice costs (D173), measured on the live
+ * site's api_calls to 2026-11-14 (78 practices, 92.7 minutes):
+ * - language model (translate, notes, segment, compose, revise…):
+ *   US$2.018 → US$0.0218 a minute;
+ * - voice: 112,045 characters → 1,209 a minute, priced as if paid at
+ *   US$30 per million (Chirp 3 HD, the higher of our voices; Azure F0
+ *   is free today) → US$0.0363 a minute.
+ * Uploading a recording instead (speech to text, US$1 an hour paid) is
+ * cheaper, so text is the worst case. NT$ at TWD_PER_USD.
+ */
+export const CLASS_COST = {
+  languageUsdPerMinute: 0.0218,
+  voiceCharsPerMinute: 1209,
+  voiceUsdPerMillionChars: 30,
+  twdPerUsd: 32,
+  /** A full month of the teacher's minutes may cost this share of the price. */
+  maxShare: 0.25,
 } as const;
 
-/** Seat counts a class plan may hold: today's, and earlier grants (D103). */
-export const CLASS_SEAT_OPTIONS = [10, 20, 40, 80, 100] as const;
+/** NT$ that one minute of a made practice costs at most (D173). */
+export function classCostPerMinute(): number {
+  const voice =
+    (CLASS_COST.voiceCharsPerMinute * CLASS_COST.voiceUsdPerMillionChars) /
+    1_000_000;
+  return (CLASS_COST.languageUsdPerMinute + voice) * CLASS_COST.twdPerUsd;
+}
+
+/** NT$ a teacher's whole month of minutes costs on `tier`. */
+export function classMinutesCost(tier: ClassTier): number {
+  return tier.minutes * classCostPerMinute();
+}
+
+/**
+ * Seat counts an account may hold: the three tiers, and earlier grants
+ * (10, 20, 80 from D103) that keep working.
+ */
+export const CLASS_SEAT_OPTIONS = [10, 15, 20, 40, 80, 100] as const;
 export type ClassSeats = (typeof CLASS_SEAT_OPTIONS)[number];
 
 export const isClassSeats = (value: unknown): value is ClassSeats =>
   (CLASS_SEAT_OPTIONS as readonly unknown[]).includes(value);
 
-/** The class plan's price for a period; `priority` for the waiting list. */
-export function classPrice(
-  period: BillingPeriod,
-  { priority = false }: { priority?: boolean } = {},
-): number {
-  const monthly = priority ? CLASS_PLAN.priorityMonthly : CLASS_PLAN.monthly;
-  return period === "year" ? yearlyFromMonthly(monthly) : monthly;
+/** The tier a class of `seats` falls in: the smallest that holds it. */
+export function classTierFor(seats: number): ClassTier {
+  return (
+    CLASS_TIERS.find((tier) => seats <= tier.seats) ??
+    CLASS_TIERS[CLASS_TIERS.length - 1]
+  );
 }
 
-/** A teacher's monthly minutes of their own practices (D103, D105). */
+/** A tier's price for a period. */
+export function classPrice(tier: ClassTier, period: BillingPeriod): number {
+  return period === "year" ? yearlyFromMonthly(tier.monthly) : tier.monthly;
+}
+
+/** A teacher's monthly minutes of their own practices (D103, D173). */
 export function classMinutes(seats: ClassSeats | null): number | null {
-  return seats === null ? null : CLASS_PLAN.minutes;
+  return seats === null ? null : classTierFor(seats).minutes;
 }
 
 /** Invite codes: 8 letters and digits, no 0/O or 1/I to misread. */

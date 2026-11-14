@@ -548,6 +548,7 @@ CardLink，內容由上到下：
 
 - 卡片上的資訊標籤，不能點：1px line 邊框、4px 圓角、左右 8px、最小高 24px、metadata 字級、ink-muted；可帶 16px 圖示（間距 4px）。
 - 可點的篩選一律用 FilterChip，兩者外觀刻意不同（Tag 沒有 hover、沒有 ✓）。
+- `tone="accent"`（D173）：accent 邊框＋accent-ink 文字，只用來標示一組裡唯一被強調的項目，例如定價頁 Plus 的「最受歡迎」。
 
 ### 公開教材 `/explore`
 

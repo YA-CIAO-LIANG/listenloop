@@ -6,7 +6,28 @@ import {
   type BillingPeriod,
   type PaidPlan,
 } from "./payments/pricing";
+import { CLASS_TIERS, classPrice, type ClassTierId } from "./classroom";
 import { PLANS } from "./plans";
+
+/**
+ * The plans the forecast counts (D173): the personal ones, and each class
+ * tier (its teacher's minutes; students use their own plan).
+ */
+export const FORECAST_PLANS = [
+  ...PAID_PLANS,
+  "classSmall",
+  "classStandard",
+  "classLarge",
+] as const;
+export type ForecastPlan = (typeof FORECAST_PLANS)[number];
+
+const CLASS_PLAN_TIER: Readonly<Record<string, ClassTierId>> = {
+  classSmall: "small",
+  classStandard: "standard",
+  classLarge: "large",
+};
+const tierOf = (plan: ForecastPlan) =>
+  CLASS_TIERS.find((tier) => tier.id === CLASS_PLAN_TIER[plan]);
 
 /**
  * The admin's revenue forecast (D102): a month of a business with the
@@ -15,10 +36,10 @@ import { PLANS } from "./plans";
  */
 export type ForecastInput = {
   /** Subscribers per plan and period, and the price each pays. */
-  subscribers: Record<PaidPlan, Record<BillingPeriod, number>>;
-  prices: Record<PaidPlan, Record<BillingPeriod, number>>;
+  subscribers: Record<ForecastPlan, Record<BillingPeriod, number>>;
+  prices: Record<ForecastPlan, Record<BillingPeriod, number>>;
   /** Share of the monthly minutes people actually use, 0–1. */
-  usage: Record<PaidPlan, number>;
+  usage: Record<ForecastPlan, number>;
   /** AI cost to make one minute of practice (text, notes, voice), NT$. */
   aiPerMinute: number;
   /** Payment fees: a share of each payment, plus a fixed amount, NT$. */
@@ -43,21 +64,32 @@ export type ForecastResult = {
   subscribers: number;
 };
 
-const MINUTES = {
+const MINUTES: Readonly<Record<ForecastPlan, number>> = {
   plus: PLANS.paid.minutesPerMonth ?? 0,
   pro: PLANS.pro.minutesPerMonth ?? 0,
   // Plus at a student price (D144).
   student: PLANS.paid.minutesPerMonth ?? 0,
+  // A class plan's teacher (D173).
+  classSmall: tierOf("classSmall")?.minutes ?? 0,
+  classStandard: tierOf("classStandard")?.minutes ?? 0,
+  classLarge: tierOf("classLarge")?.minutes ?? 0,
+};
+
+const priceOf = (plan: ForecastPlan, period: BillingPeriod): number => {
+  const tier = tierOf(plan);
+  return tier
+    ? classPrice(tier, period)
+    : PLAN_PRICES[plan as PaidPlan][period].amount;
 };
 
 export function defaultForecastInput(aiPerMinute: number): ForecastInput {
-  const grid = <T>(value: (plan: PaidPlan, period: BillingPeriod) => T) =>
+  const grid = <T>(value: (plan: ForecastPlan, period: BillingPeriod) => T) =>
     Object.fromEntries(
-      PAID_PLANS.map((plan) => [
+      FORECAST_PLANS.map((plan) => [
         plan,
         Object.fromEntries(BILLING_PERIODS.map((p) => [p, value(plan, p)])),
       ]),
-    ) as Record<PaidPlan, Record<BillingPeriod, T>>;
+    ) as Record<ForecastPlan, Record<BillingPeriod, T>>;
   return {
     subscribers: grid(
       (plan, period) =>
@@ -65,10 +97,21 @@ export function defaultForecastInput(aiPerMinute: number): ForecastInput {
           plus: { month: 30, year: 60 },
           pro: { month: 5, year: 12 },
           student: { month: 10, year: 10 },
+          // Cram schools and teachers mostly pay by the school year.
+          classSmall: { month: 2, year: 3 },
+          classStandard: { month: 1, year: 3 },
+          classLarge: { month: 0, year: 1 },
         })[plan][period],
     ),
-    prices: grid((plan, period) => PLAN_PRICES[plan][period].amount),
-    usage: { plus: 0.4, pro: 0.4, student: 0.4 },
+    prices: grid(priceOf),
+    usage: {
+      plus: 0.4,
+      pro: 0.4,
+      student: 0.4,
+      classSmall: 0.6,
+      classStandard: 0.6,
+      classLarge: 0.6,
+    },
     aiPerMinute,
     feeRate: 0.028,
     feeFixed: 0,
@@ -82,7 +125,7 @@ export function forecast(input: ForecastInput): ForecastResult {
   let aiCost = 0;
   let fees = 0;
   let subscribers = 0;
-  for (const plan of PAID_PLANS) {
+  for (const plan of FORECAST_PLANS) {
     for (const period of BILLING_PERIODS) {
       const people = Math.max(0, input.subscribers[plan][period]);
       const price = Math.max(0, input.prices[plan][period]);

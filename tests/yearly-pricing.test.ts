@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CLASS_PLAN, classPrice } from "@/lib/classroom";
+import { CLASS_TIERS, classPrice } from "@/lib/classroom";
 import {
   averagePerMonth,
   BILLING_PERIODS,
@@ -17,8 +17,8 @@ import zh from "@/messages/zh-Hant.json";
  * × 10, so a year is cheaper than 12 months and saves exactly two.
  */
 const plans: { name: string; monthly: number; yearly: number }[] = [
-  // The student plan is the one exception (D144), checked below.
-  ...PAID_PLANS.filter((plan) => plan !== "student").map((plan) => ({
+  // The student plan too, since its exception was dropped (D173).
+  ...PAID_PLANS.map((plan) => ({
     name: plan,
     monthly: PLAN_PRICES[plan].month.amount,
     yearly: PLAN_PRICES[plan].year.amount,
@@ -28,16 +28,11 @@ const plans: { name: string; monthly: number; yearly: number }[] = [
     monthly: PRICES.month.amount,
     yearly: PRICES.year.amount,
   },
-  {
-    name: "class",
-    monthly: classPrice("month"),
-    yearly: classPrice("year"),
-  },
-  {
-    name: "class, priority list",
-    monthly: classPrice("month", { priority: true }),
-    yearly: classPrice("year", { priority: true }),
-  },
+  ...CLASS_TIERS.map((tier) => ({
+    name: `class, ${tier.id}`,
+    monthly: classPrice(tier, "month"),
+    yearly: classPrice(tier, "year"),
+  })),
 ];
 
 describe("yearly prices (D105)", () => {
@@ -52,22 +47,25 @@ describe("yearly prices (D105)", () => {
     expect(YEARLY_MONTHS_FREE).toBe(2);
     expect(monthsSaved("plus")).toBe(2);
     expect(monthsSaved("pro")).toBe(2);
+    expect(monthsSaved("student")).toBe(2);
   });
 
-  it("except the student plan: NT$90 a month, NT$990 a year, one month saved (D144)", () => {
-    expect(PLAN_PRICES.student).toEqual({
-      month: { amount: 90, currency: "TWD" },
-      year: { amount: 990, currency: "TWD" },
-    });
-    expect(PLAN_PRICES.student.year.amount).toBeLessThan(90 * 12);
-    expect(monthsSaved("student")).toBe(1);
-    expect(averagePerMonth(990)).toBe(83); // 82.5
+  it("are Joe's personal prices (D173): student NT$90/900, Plus 149/1,490, Pro 299/2,990", () => {
+    expect(
+      Object.fromEntries(
+        PAID_PLANS.map((plan) => [
+          plan,
+          [PLAN_PRICES[plan].month.amount, PLAN_PRICES[plan].year.amount],
+        ]),
+      ),
+    ).toEqual({ plus: [149, 1490], pro: [299, 2990], student: [90, 900] });
+    expect(averagePerMonth(900)).toBe(75);
   });
 
-  it("are Joe's class prices: NT$4,990, and NT$3,490 for the priority list", () => {
-    expect(classPrice("year")).toBe(4990);
-    expect(classPrice("year", { priority: true })).toBe(3490);
-    expect(CLASS_PLAN.monthly).toBe(499);
+  it("are Joe's class prices (D173): NT$3,490, NT$5,490, NT$8,000 a year", () => {
+    expect(CLASS_TIERS.map((tier) => classPrice(tier, "year"))).toEqual([
+      3490, 5490, 8000,
+    ]);
   });
 
   it("averages the yearly price over 12 months, rounded", () => {

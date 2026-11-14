@@ -88,7 +88,10 @@ export const PERIOD_MONTHS: Readonly<Record<BillingPeriod, number>> = {
   year: 12,
 };
 
-/** Joe's monthly prices (D102), in NT$; the yearly ones follow (D105). */
+/**
+ * Joe's monthly prices (D102, confirmed D173), in NT$; the yearly ones
+ * follow (D105). The most popular plan is marked on the pricing page.
+ */
 export const PLAN_MONTHLY: Readonly<Record<PaidPlan, number>> = {
   plus: PRICES.month.amount,
   pro: 299,
@@ -96,33 +99,31 @@ export const PLAN_MONTHLY: Readonly<Record<PaidPlan, number>> = {
 };
 
 /**
- * The student plan's year (D144): NT$990, Joe's price, an exception to
- * the ten-months rule (D105), which would make it NT$900.
+ * Every plan's year is 10 × its month (D105); the student plan's earlier
+ * exception (NT$990, D144) was dropped by Joe on 2026-11-14 (D173).
  */
-export const STUDENT_YEARLY = 990;
-
 export const PLAN_PRICES: Readonly<
   Record<PaidPlan, Readonly<Record<BillingPeriod, Price>>>
 > = {
   plus: monthlyAndYearly(PLAN_MONTHLY.plus),
   pro: monthlyAndYearly(PLAN_MONTHLY.pro),
-  student: {
-    month: { amount: PLAN_MONTHLY.student, currency: "TWD" },
-    year: { amount: STUDENT_YEARLY, currency: "TWD" },
-  },
+  student: monthlyAndYearly(PLAN_MONTHLY.student),
 };
 
 /**
  * Whole months a year saves against paying monthly: 2 under the
- * ten-months rule; 1 for the student plan (NT$1,080 − NT$990 = NT$90).
+ * ten-months rule (D105).
  */
 export function monthsSaved(plan: PaidPlan): number {
   const { month, year } = PLAN_PRICES[plan];
   return Math.floor((month.amount * 12 - year.amount) / month.amount);
 }
 
-/** Shown first, and marked "most popular". */
+/** The period selected when the pricing page opens (D173). */
 export const DEFAULT_PERIOD: BillingPeriod = "year";
+
+/** The plan marked "most popular" on the pricing page (D173). */
+export const POPULAR_PLAN: PaidPlan = "plus";
 
 /**
  * Refund for a prepaid period cancelled early (D102): within REFUND_DAYS

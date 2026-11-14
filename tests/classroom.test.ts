@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
+  CLASS_COST,
+  classCostPerMinute,
   classMinutes,
-  CLASS_PLAN,
+  classMinutesCost,
   classPrice,
+  CLASS_TIERS,
+  classTierFor,
   classReport,
   isInviteCode,
   newInviteCode,
@@ -10,15 +14,45 @@ import {
 } from "@/lib/classroom";
 import { createProgress, withDay, type Progress } from "@/lib/progress";
 
-describe("class plans (D103)", () => {
-  it("is one plan: NT$499 a month, NT$4,990 a year; priority NT$3,490 (D105)", () => {
-    expect(classPrice("month")).toBe(499);
-    expect(classPrice("year")).toBe(4990);
-    expect(classPrice("month", { priority: true })).toBe(349);
-    expect(classPrice("year", { priority: true })).toBe(3490);
-    expect(classMinutes(40)).toBe(CLASS_PLAN.minutes);
-    // An earlier grant keeps working, with today's minutes.
-    expect(classMinutes(10)).toBe(CLASS_PLAN.minutes);
+describe("class plans (D103, D173)", () => {
+  it("are three tiers by class size: NT$349, NT$549, NT$800 a month", () => {
+    expect(
+      CLASS_TIERS.map(({ id, seats, monthly }) => [id, seats, monthly]),
+    ).toEqual([
+      ["small", 15, 349],
+      ["standard", 40, 549],
+      ["large", 100, 800],
+    ]);
+    expect(CLASS_TIERS.map((tier) => classPrice(tier, "year"))).toEqual([
+      3490, 5490, 8000,
+    ]);
+  });
+
+  it("give the teacher minutes whose full use costs at most 25% of the price", () => {
+    // US$0.0218 language + 1,209 characters at US$30/M voice, × NT$32.
+    expect(classCostPerMinute()).toBeCloseTo(1.858, 3);
+    for (const tier of CLASS_TIERS) {
+      expect(classMinutesCost(tier)).toBeLessThanOrEqual(
+        tier.monthly * CLASS_COST.maxShare,
+      );
+      // ...and not far below it: the next 5 minutes would go over.
+      expect((tier.minutes + 5) * classCostPerMinute()).toBeGreaterThan(
+        tier.monthly * CLASS_COST.maxShare,
+      );
+    }
+    expect(CLASS_TIERS.map((tier) => tier.minutes)).toEqual([45, 70, 105]);
+  });
+
+  it("put every seat count in the smallest tier that holds it", () => {
+    expect(classTierFor(10).id).toBe("small");
+    expect(classTierFor(15).id).toBe("small");
+    expect(classTierFor(20).id).toBe("standard");
+    expect(classTierFor(40).id).toBe("standard");
+    expect(classTierFor(80).id).toBe("large");
+    expect(classTierFor(100).id).toBe("large");
+    expect(classMinutes(15)).toBe(45);
+    // An earlier grant keeps working, with its tier's minutes.
+    expect(classMinutes(20)).toBe(70);
     expect(classMinutes(null)).toBeNull();
   });
 

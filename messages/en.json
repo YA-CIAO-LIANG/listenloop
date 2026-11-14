@@ -1843,7 +1843,10 @@
       "names": {
         "plus": "Plus",
         "pro": "Pro",
-        "student": "Student"
+        "student": "Student",
+        "classSmall": "Small class",
+        "classStandard": "Standard class",
+        "classLarge": "Large class"
       },
       "rows": {
         "subscribers": "{plan} subscribers",
@@ -2499,7 +2502,7 @@
       {
         "title": "7. Paid plan and subscriptions",
         "paragraphs": [
-          "Paid plans (Plus, Pro) are subscriptions billed monthly or yearly, at the prices on the Plans and pricing page. A yearly plan’s allowance resets every month and doesn’t carry over. A third-party payment service handles payment.",
+          "Paid plans (Student, Plus, Pro, and the class plans for teachers: Small, Standard, and Large) are subscriptions billed monthly or yearly (a year costs ten months), at the prices on the Plans and pricing page. A yearly plan’s allowance resets every month and doesn’t carry over. The student plan is verified by signing in with a school Google account and lasts a year; if it isn’t renewed, the period already paid can be used to the end, but it won’t renew at the student price. A third-party payment service handles payment.",
           "Shared materials (practices other users share) can be practiced in full on Plus, Pro, and class plans; on the free plan or signed out, you can preview the first three sentences and listen to the first. You can always practice the materials you share yourself. A shared material you were already practicing when this rule began can be finished for that week.",
           "Subscriptions renew automatically: at the end of each period, your payment method is charged for the next, until you cancel. Cancel any time on the Account page; you keep the paid plan until the period ends.",
           "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly plan ended early refunds its unused whole months. If prices change, we’ll announce it on the site and show it under \"Plan and billing\" on the account page before the next period starts, and you can cancel before the change applies.",
@@ -2841,7 +2844,7 @@
       {
         "title": "3. Ending a yearly plan early",
         "paragraphs": [
-          "After 7 days, you can still end a yearly plan early: the unused whole months are refunded at that plan’s own monthly rate (for example, Plus yearly at NT$1,490 used for 3 months and a few days refunds 8 × NT$1,490 ÷ 12 ≈ NT$993). The month already started isn’t refunded.",
+          "After 7 days, you can still end a yearly plan early: the unused whole months are refunded at that plan’s own monthly rate. For example, Plus yearly at NT$1,490 used for 3 months and a few days refunds 8 × NT$1,490 ÷ 12 ≈ NT$993; the student plan’s year at NT$900 refunds 8 × NT$900 ÷ 12 = NT$600 in the same case. The month already started isn’t refunded.",
           "A yearly plan’s allowance still resets every month; unused minutes don’t carry over or turn into refunds."
         ]
       },
@@ -3086,7 +3089,8 @@
       "none": "You're not signed in with a school email. The student plan needs a Google account with a school email (such as .edu or .edu.tw).",
       "signedOut": "The student plan needs a Google account with a school email (such as .edu or .edu.tw); signing in verifies you automatically.",
       "signInSchool": "Sign in with a school account",
-      "needVerified": "Before subscribing to the student plan, sign in with a school Google account to be verified."
+      "needVerified": "Before subscribing to the student plan, sign in with a school Google account to be verified.",
+      "how": "How to verify: sign in with a school Google account (.edu, .edu.tw, .ac.uk, and others) and it's checked automatically, no student ID upload. It lasts a year; sign in with the school account again to renew."
     },
     "subscribe": "Subscribe to {plan}",
     "compareTitle": "Compare plans",
@@ -3130,7 +3134,8 @@
     "yearlyBilled": "{total} billed yearly, paid once: ",
     "yearlyShort": "({total} billed yearly)",
     "priceRow": "Price",
-    "uploadSize": "✓ ({mb} MB a file)"
+    "uploadSize": "✓ ({mb} MB a file)",
+    "popular": "Most popular"
   },
   "classroom": {
     "title": "My classes",
@@ -3226,18 +3231,20 @@
   },
   "classPricing": {
     "title": "Class plans",
-    "intro": "For teachers: make classes, assign lessons, see each student’s progress and improvement, and export a CSV. One plan; teachers also get monthly minutes for their own practices.",
+    "intro": "For teachers: make classes, assign materials, see each student's progress and improvement, and export a CSV. Three sizes by class, each with the teacher's own monthly minutes of practices.",
     "seats": "Up to {seats} students a class",
     "minutes": "{minutes} minutes a month of the teacher’s own practices",
-    "subscribe": "Subscribe",
+    "subscribe": "Subscribe to {tier}",
     "note": "Before class plans open, an admin can turn one on for a trial.",
-    "offerTitle": "Class plan · {period}",
+    "offerTitle": "{tier} · {period}",
     "comingSoon": "Class plans are coming soon; nothing is charged now. Press “Tell me when it opens” and we’ll note your interest.",
     "notify": "Tell me when it opens",
-    "planName": "Classroom",
-    "priority": "Priority list price",
-    "priorityNote": "Teachers on the priority list subscribe at this price when it opens.",
-    "features": "Classes, assignments, a progress dashboard, CSV export, announcements, and shared materials in full"
+    "features": "Every size includes classes, assignments, the progress dashboard, CSV export, announcements, and full practice of shared materials. Students practice on their own plan at no extra cost.",
+    "tiers": {
+      "small": "Small class",
+      "standard": "Standard class",
+      "large": "Large class"
+    }
   },
   "sharedPreview": {
     "label": "Shared material preview",

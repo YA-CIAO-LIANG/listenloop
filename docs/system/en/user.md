@@ -219,11 +219,11 @@ flowchart LR
 | ------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Free    | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, 2 minutes of your own materials a week (up to 2 minutes each), basic stats     |
 | Plus    | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                                                |
-| Student | NT$90 / NT$990                                      | The same as Plus. Signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew |
+| Student | NT$90 / NT$900                                      | The same as Plus. Signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew |
 | Pro     | NT$299 / NT$2,990                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                                                       |
-| Class   | NT$499 / NT$4,990 (priority list NT$349 / NT$3,490) | 40 students a class, assignments and progress, CSV, announcements, 160 minutes a month for the teacher                                                                        |
+| Class   | Small NT$349, Standard NT$549, Large NT$800 a month | 15, 40, or 100 students; assignments and progress, CSV, announcements; 45/70/105 minutes a month for the teacher                                                              |
 
-- Yearly = 10 × monthly: **2 months free**; the student plan is the exception, NT$990 a year (1 month free).
+- Yearly = 10 × monthly: **2 months free**, on every plan (D173).
 - Paid plans are **coming soon**: "Subscribe" adds you to the waiting list; nothing is charged.
 - Refunds: in full within 7 days of the first payment; a yearly plan cancelled early refunds the unused whole months (`/refund`).
 
