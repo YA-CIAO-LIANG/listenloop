@@ -16,7 +16,7 @@ const inputClassName =
   "h-10 w-24 rounded-base border border-line bg-surface px-2 text-right tabular-nums focus-visible:border-accent pointer-coarse:min-h-11";
 
 /**
- * The revenue forecast (D102): every number editable, the month's
+ * The revenue forecast (D102, D184): every number editable, the month's
  * result recomputed as you type. Nothing is saved.
  */
 export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
@@ -48,7 +48,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
         <StatTile
           label={t("revenue")}
           value={nt(result.revenue)}
-          note={t("perMonth")}
+          note={t("perMonthTax", { tax: nt(result.tax) })}
         />
         <StatTile
           label={t("cash")}
@@ -142,6 +142,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
         {(
           [
             ["aiPerMinute", 100, 1],
+            ["taxRate", 100, 1],
             ["feeRate", 100, 0.1],
             ["feeFixed", 1, 1],
             ["serverMonthly", 1, 100],

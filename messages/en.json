@@ -1843,13 +1843,12 @@
     },
     "forecast": {
       "title": "Revenue forecast",
-      "introMeasured": "Every number is editable; the result updates as you type and isn’t saved. AI cost starts from this month’s real spend ÷ minutes of practices made: NT${perMinute} a minute (at {rate} to the dollar).",
-      "introFallback": "Every number is editable; the result updates as you type and isn’t saved. Not enough this month to measure, so AI cost starts from the official batch of Nov 8: NT${perMinute} a minute (at {rate} to the dollar).",
-      "revenue": "Monthly revenue",
-      "perMonth": "Prepaid plans spread by month",
+      "introMeasured": "Every number can be changed; results update as you type and aren't saved. AI cost defaults to NT${perMinute} a minute: language models NT${language} (this month's real spend ÷ minutes of practices made this month, evals left out), plus voice NT${voice} (the paid price once past the free tier); rate {rate}.",
+      "introFallback": "Every number can be changed; results update as you type and aren't saved. AI cost defaults to NT${perMinute} a minute: not enough data this month, so language models use the 8 November official batch's real spend, NT${language}, plus voice NT${voice} (the paid price once past the free tier); rate {rate}.",
+      "revenue": "Monthly revenue (tax incl.)",
       "cash": "Cash up front",
       "cashNote": "What these subscribers pay when they sign up",
-      "grossMargin": "Gross margin",
+      "grossMargin": "Gross margin (after tax)",
       "costs": "AI {ai} · fees {fees}",
       "net": "Net",
       "server": "After hosting {server}",
@@ -1877,9 +1876,11 @@
         "aiPerMinute": "AI cost (NT$ per minute made)",
         "feeRate": "Payment fee (%)",
         "feeFixed": "Fixed fee per payment (NT$)",
-        "serverMonthly": "Hosting (NT$ a month)"
+        "serverMonthly": "Hosting (NT$ a month)",
+        "taxRate": "Business tax (%, inside prices)"
       },
-      "notes": "Default assumptions: 40% of the allowance used (most people don’t use it all); a 2.8% payment fee (a common card rate in Taiwan; it depends on the provider signed); NT$1,500 a month of hosting (Vercel Pro US$20 plus Supabase Pro US$25, needed for commercial use); speech is on Azure’s free tier for now, and its cost beyond that is folded into the AI cost per minute."
+      "notes": "Default assumptions: prices include Taiwan's 5% business tax (consumer prices are shown with tax), taken out before the margin; payments through ECPay, about 2.75% a card payment plus 5% tax on that fee, about 2.9%, no fixed fee (the real rate is in the ECPay contract; change it here); 40% of the minutes used (most people don't use them all); voice is on Azure's free F0 tier today but more subscribers will pass it, so the AI cost always includes the paid voice price; servers NT$1,500 a month (Vercel Pro US$20 plus Supabase Pro US$25, needed for commercial use).",
+      "perMonthTax": "Includes {tax} business tax; long plans spread by month"
     },
     "docs": {
       "title": "System docs",

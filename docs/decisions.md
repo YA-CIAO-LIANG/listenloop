@@ -3436,3 +3436,16 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 測試改成檢查：每個背景主題、淺色與深色的每種卡片上，每一階都比前一階明顯，最亮的一階 ≥ 1.6:1。
   - 光暈最外圈的模糊會淡淡延伸到隔壁日期，實心的擴散部分（4px）仍在自己的格子裡（E2E 檢查）。
 - 要改時看哪裡：`components/practice-rings.ts`（`GLOW`）、`app/globals.css`（`--ll-glow`）、`docs/design-system.md`「練習時間光暈」。
+
+## D184 收益試算改用綠界、含營業稅、AI 成本含付費聲音（2026-11-14，Joe：「用綠界，幫我修正收益試算」）
+
+- **為什麼**：核對時發現後台的收益試算太樂觀。照預設的 137 位訂閱者，原本算出每月淨利 NT$18,032，修正後約 NT$13,540（語言模型每分鐘 NT$0.70 時；毛利率 71%）。原因有三：
+  1. 沒有扣營業稅。賣給台灣消費者要標含稅價，所以價格裡有 5% 是稅。
+  2. 手續費假設不明確。Joe 選定綠界，所以照綠界設定。
+  3. AI 成本沒有算聲音。聲音目前用 Azure F0 免費額度，記錄的成本是 0；但預設人數每月約需 356 萬字元，遠超過免費的 50 萬。另外本月花費原本把 eval 也算進去。
+- **改了什麼**（`lib/forecast.ts`、`app/admin/forecast/page.tsx`、`components/ForecastCalculator.tsx`）：
+  - 新增「營業稅」欄位，預設 5%（`TW_BUSINESS_TAX`）。月營收顯示含稅金額，旁邊列出其中的稅。毛利率以扣除營業稅後的收入計算。
+  - 手續費預設 2.9%（`ECPAY_FEE_RATE`），沒有每筆固定費。綠界的費率依合約而定，官網沒有公開；台灣信用卡金流常見約 2.75%，再加上手續費本身 5% 的稅，約 2.9%。簽約後在後台直接改，或改這個常數。
+  - AI 成本每分鐘＝語言模型的實際花費（`languageCostUsd`：不含 `eval:*`，也不含 speech、transcribe）＋付費聲音（`voicePerMinute`：每分鐘 1,209 字元 × US$30／百萬字元 × 匯率 32 ≈ NT$1.16，和班級方案的最壞情況 D173 相同）。
+- **測試**：`tests/forecast.test.ts`（稅、手續費、年繳攤提、固定費、聲音成本與 D173 一致、eval 與聲音不算進語言模型）；`e2e/revenue-forecast.spec.ts`（後台顯示營業稅與手續費，改數字會重算）。
+- 要改時看哪裡：`lib/forecast.ts` 的 `ECPAY_FEE_RATE`、`TW_BUSINESS_TAX`、`defaultForecastInput`；聲音假設在 `lib/classroom.ts` 的 `CLASS_COST`。
