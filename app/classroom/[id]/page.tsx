@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ScrollRegion } from "@/components/ScrollRegion";
 import Link from "next/link";
+import { ButtonLink } from "@/components/ButtonLink";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations } from "next-intl/server";
 import {
@@ -163,6 +164,22 @@ export default async function ClassPage({
                           due: date(a.dueOn),
                         })}
                       </p>
+                      {/* One clear next step for each assignment (D179). */}
+                      <ButtonLink
+                        href={
+                          done
+                            ? `/videos/${a.videoId}`
+                            : `/videos/${a.videoId}/day/${Math.min(7, days + 1)}`
+                        }
+                        variant={done ? "secondary" : "primary"}
+                        size="sm"
+                      >
+                        {done
+                          ? t("seeResult")
+                          : days === 0
+                            ? t("startDay1")
+                            : t("continueDay", { day: Math.min(7, days + 1) })}
+                      </ButtonLink>
                       {a.rules !== null && (
                         <ApplyRulesButton videoId={a.videoId} rules={a.rules} />
                       )}
@@ -254,7 +271,7 @@ export default async function ClassPage({
             {reports.length > 0 && (
               <a
                 href={`/classroom/${id}/export`}
-                className={linkClassName}
+                className={`${linkClassName} tap`}
                 download
               >
                 {t("exportCsv")}

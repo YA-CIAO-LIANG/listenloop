@@ -252,7 +252,108 @@ const referralConflict: Record<string, string[]> = {
   progress: ["user_id", "video_id"],
 };
 const isReferralAccount = (id: unknown) =>
-  typeof id === "string" && id.startsWith("e2e-ref-");
+  typeof id === "string" &&
+  (id.startsWith("e2e-ref-") || id.startsWith("e2e-class-"));
+
+/**
+ * Classroom (D103), kept while the server runs, for the usability test's
+ * class flows (D179): teachers are accounts whose id starts
+ * "e2e-class-teacher" (a 40-seat class plan); students' progress is kept
+ * like referral accounts' ("e2e-class-" ids) so class_progress can read it.
+ */
+const classTables: Record<string, Row[]> = {
+  classes: [],
+  class_members: [],
+  assignments: [],
+  announcements: [],
+};
+const isClassTeacher = (id: unknown) =>
+  typeof id === "string" && id.startsWith("e2e-class-teacher");
+
+function classVisible(sub: string | null, classId: unknown): boolean {
+  const row = classTables.classes.find((c) => c.id === classId);
+  if (!row || !sub) return false;
+  return (
+    row.teacher_id === sub ||
+    classTables.class_members.some(
+      (m) => m.class_id === classId && m.user_id === sub,
+    )
+  );
+}
+
+async function classTable(
+  name: string,
+  request: import("node:http").IncomingMessage,
+  url: URL,
+): Promise<[number, Row[] | Row | null]> {
+  const sub = tokenSubject(request.headers.authorization);
+  const single = String(request.headers.accept ?? "").includes(
+    "vnd.pgrst.object",
+  );
+  const filtered = () =>
+    classTables[name].filter((row) =>
+      [...url.searchParams.entries()].every(
+        ([column, filter]) =>
+          RESERVED.has(column) ||
+          (filter === "is.null"
+            ? row[column] === null || row[column] === undefined
+            : passes(row, column, filter)),
+      ),
+    );
+  // Row level security: teachers their classes, students theirs.
+  const mine = (row: Row) =>
+    name === "classes"
+      ? classVisible(sub, row.id)
+      : name === "class_members"
+        ? classTables.classes.some(
+            (c) => c.id === row.class_id && c.teacher_id === sub,
+          ) || row.user_id === sub
+        : classVisible(sub, row.class_id);
+  if (request.method === "GET") {
+    let rows = filtered().filter(mine);
+    if (name === "classes") {
+      rows = rows.map((row) => ({
+        ...row,
+        class_members: [
+          {
+            count: classTables.class_members.filter(
+              (m) => m.class_id === row.id,
+            ).length,
+          },
+        ],
+      }));
+    }
+    return [200, single ? (rows[0] ?? null) : rows];
+  }
+  if (request.method === "DELETE") {
+    const gone = filtered().filter(mine);
+    classTables[name] = classTables[name].filter((row) => !gone.includes(row));
+    return [200, []];
+  }
+  if (request.method !== "POST") return [405, []];
+  const body = JSON.parse((await readBody(request)) || "null");
+  const written: Row[] = [];
+  for (const incoming of [body].flat()) {
+    if (name === "classes" && incoming.teacher_id !== sub) return [401, []];
+    if (
+      name !== "classes" &&
+      !classTables.classes.some(
+        (c) => c.id === incoming.class_id && c.teacher_id === sub,
+      )
+    ) {
+      return [401, []];
+    }
+    const row = {
+      id: crypto.randomUUID(),
+      created_at: new Date().toISOString(),
+      archived_at: null,
+      ...incoming,
+    };
+    classTables[name].push(row);
+    written.push(row);
+  }
+  return [201, single ? (written[0] ?? null) : written];
+}
 
 /** Whether a row passes one PostgREST filter (`eq`, `in`, `gte`, …). */
 function passes(row: Row, column: string, filter: string): boolean {
@@ -653,6 +754,8 @@ createServer(async (request, response) => {
         // Signed in with a school email this month (D144).
         student_verified_at:
           sub === "e2e-student" ? new Date().toISOString() : null,
+        // A teacher on the standard class plan (D173, D179).
+        classroom_seats: isClassTeacher(sub) ? 40 : null,
       },
     ]);
     return;
@@ -882,6 +985,71 @@ createServer(async (request, response) => {
     json(200, []);
     return;
   }
+  // Classroom (D103, D179): classes, members, assignments, announcements.
+  const classPath =
+    /^\/rest\/v1\/(classes|class_members|assignments|announcements)$/.exec(
+      url.pathname,
+    );
+  if (classPath) {
+    const [status, body] = await classTable(classPath[1], request, url);
+    json(status, body);
+    return;
+  }
+  if (url.pathname === "/rest/v1/rpc/join_class") {
+    const sub = tokenSubject(request.headers.authorization);
+    const { code, name, consent } = JSON.parse(
+      (await readBody(request)) || "{}",
+    );
+    const target = classTables.classes.find(
+      (c) => c.invite_code === String(code).toUpperCase() && !c.archived_at,
+    );
+    if (!sub || !target || target.teacher_id === sub) {
+      json(200, null);
+      return;
+    }
+    const existing = classTables.class_members.find(
+      (m) => m.class_id === target.id && m.user_id === sub,
+    );
+    if (existing) existing.display_name = name;
+    else {
+      classTables.class_members.push({
+        id: `${target.id}:${sub}`,
+        class_id: target.id,
+        user_id: sub,
+        display_name: String(name).slice(0, 40),
+        minor_consent: consent === true,
+        joined_at: new Date().toISOString(),
+      });
+    }
+    json(200, target.id);
+    return;
+  }
+  if (url.pathname === "/rest/v1/rpc/class_progress") {
+    const sub = tokenSubject(request.headers.authorization);
+    const { target } = JSON.parse((await readBody(request)) || "{}");
+    const owned = classTables.classes.some(
+      (c) => c.id === target && c.teacher_id === sub,
+    );
+    const members = new Set(
+      classTables.class_members
+        .filter((m) => m.class_id === target)
+        .map((m) => m.user_id),
+    );
+    const assigned = new Set(
+      classTables.assignments
+        .filter((a) => a.class_id === target)
+        .map((a) => a.video_id),
+    );
+    json(
+      200,
+      owned
+        ? referralTables.progress
+            .filter((p) => members.has(p.user_id) && assigned.has(p.video_id))
+            .map(({ user_id, video_id, data }) => ({ user_id, video_id, data }))
+        : [],
+    );
+    return;
+  }
   // The referral program (D177): its tables, the sign-up IP hashes, and
   // referral test accounts' progress.
   const referral =
@@ -892,7 +1060,8 @@ createServer(async (request, response) => {
     referral &&
     (referral[1] !== "progress" ||
       isReferralAccount(tokenSubject(request.headers.authorization)) ||
-      url.searchParams.get("user_id")?.startsWith("eq.e2e-ref-"))
+      url.searchParams.get("user_id")?.startsWith("eq.e2e-ref-") ||
+      url.searchParams.get("user_id")?.startsWith("eq.e2e-class-"))
   ) {
     const [status, body] = await referralTable(referral[1], request, url);
     json(status, body);

@@ -79,6 +79,11 @@ test("a school account is verified for a year and can join the list", async ({
   await expect(card.getByTestId("student-status")).toContainText(
     new RegExp(`已認證學生身分，有效到 (${yearLater.join("|")})`),
   );
+  // Their plan comes first, marked for them (D179).
+  await expect(card.getByText("適合你", { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("listitem").filter({ hasText: /訂閱 / }).first(),
+  ).toContainText("學生方案");
   await card.getByRole("button", { name: "訂閱 學生方案" }).click();
   const dialog = page.getByRole("dialog", { name: "學生方案 · 年繳" });
   await expect(dialog.getByText(/付費方案即將推出/)).toBeVisible();

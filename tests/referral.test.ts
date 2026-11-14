@@ -58,15 +58,15 @@ describe("referralVerdict", () => {
     });
   });
 
-  it("turns down the same person: own link, same IP, same device", () => {
+  it("turns down the same person: own link, same device; a shared network is fine (D179)", () => {
     expect(referralVerdict(facts({ refereeId: "a" }))).toEqual({
       status: "rejected",
       reason: "self",
     });
-    expect(referralVerdict(facts({ sameIp: true }))).toEqual({
-      status: "rejected",
-      reason: "same-ip",
-    });
+    // Classmates on one school network: not turned down for that alone.
+    expect(referralVerdict(facts({ sameIp: true })).status).not.toBe(
+      "rejected",
+    );
     expect(referralVerdict(facts({ sameDevice: true }))).toEqual({
       status: "rejected",
       reason: "same-device",

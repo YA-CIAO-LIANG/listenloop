@@ -26,6 +26,13 @@ export const REFERRAL_QUALIFY_DAYS = 30;
  * the third and later in a day are turned down.
  */
 export const REFERRAL_BURST = 3;
+/**
+ * Whether the same IP alone turns a referral down (D179: no). Classmates
+ * on a school or dorm network share one address, and inviting them is the
+ * point; the same device and bursts still count, and the abuse detector
+ * still sees shared IPs.
+ */
+export const REFERRAL_REJECT_SAME_IP = false;
 /** Rewards a referrer can earn in 30 days (bounds the AI cost). */
 export const REFERRAL_REFERRER_MONTHLY = 10;
 
@@ -73,7 +80,8 @@ export type ReferralVerdict =
 
 /**
  * What to do with a pending referral. Turned down: the same person on
- * both sides (same account, IP, or device), or a burst of sign-ups
+ * both sides (same account or device; the same IP only when
+ * REFERRAL_REJECT_SAME_IP), or a burst of sign-ups
  * through one link. Otherwise it waits for the friend's Day 1, for
  * REFERRAL_QUALIFY_DAYS. A referrer past the monthly cap earns nothing
  * more; the friend still does.
@@ -82,7 +90,9 @@ export function referralVerdict(facts: ReferralFacts): ReferralVerdict {
   if (facts.referrerId === facts.refereeId) {
     return { status: "rejected", reason: "self" };
   }
-  if (facts.sameIp) return { status: "rejected", reason: "same-ip" };
+  if (REFERRAL_REJECT_SAME_IP && facts.sameIp) {
+    return { status: "rejected", reason: "same-ip" };
+  }
   if (facts.sameDevice) return { status: "rejected", reason: "same-device" };
   if (facts.burst >= REFERRAL_BURST) {
     return { status: "rejected", reason: "burst" };
