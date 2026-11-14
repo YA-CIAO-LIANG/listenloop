@@ -10,7 +10,11 @@
  * - near the daily AI cap three days running: flag only (heavy, but
  *   within the plan);
  * - public practices reported by 3+ different people in 30 days: flag
- *   and pause AI.
+ *   and pause AI;
+ * - referrals (D177): a referrer with 2+ referrals turned down in 30 days
+ *   (same IP, same device, or a burst), or 3+ sign-ups through their link
+ *   in 24 hours: flag only (the turned-down ones already earn nothing).
+ *   The database's abuse_signals uses the same two numbers.
  */
 export const ABUSE = {
   signupsPerIp: 3,
@@ -18,10 +22,12 @@ export const ABUSE = {
   cappedShare: 0.9,
   cappedDays: 3,
   reporters: 3,
+  referralsRejected: 2,
+  referralsPerDay: 3,
 } as const;
 
 export type AbuseKind =
-  "multi-signup" | "heavy-use" | "capped-days" | "reported";
+  "multi-signup" | "heavy-use" | "capped-days" | "reported" | "referral-farm";
 
 export type AbuseFlag = {
   userId: string;
@@ -36,6 +42,8 @@ export type AbuseSignals = {
   heavy: { user: string; calls: number }[];
   days: { user: string; day: string; micros: number }[];
   reported: { user: string; reporters: number }[];
+  /** Referrers: referrals turned down in 30 days, sign-ups in 24 hours. */
+  referrals: { user: string; rejected: number; day: number }[];
 };
 
 export function parseAbuseSignals(raw: unknown): AbuseSignals {
@@ -63,6 +71,11 @@ export function parseAbuseSignals(raw: unknown): AbuseSignals {
     reported: list("reported").map((x) => ({
       user: String(obj(x).user ?? ""),
       reporters: Number(obj(x).reporters) || 0,
+    })),
+    referrals: list("referrals").map((x) => ({
+      user: String(obj(x).user ?? ""),
+      rejected: Number(obj(x).rejected) || 0,
+      day: Number(obj(x).day) || 0,
     })),
   };
 }
@@ -120,6 +133,18 @@ export function detectAbuse(
       kind: "reported",
       detail: { reporters: r.reporters },
       suspend: true,
+    });
+  }
+  for (const r of signals.referrals) {
+    if (exempt(r.user)) continue;
+    if (r.rejected < ABUSE.referralsRejected && r.day < ABUSE.referralsPerDay) {
+      continue;
+    }
+    flags.push({
+      userId: r.user,
+      kind: "referral-farm",
+      detail: { rejected: r.rejected, signupsPerDay: r.day },
+      suspend: false,
     });
   }
   return flags;

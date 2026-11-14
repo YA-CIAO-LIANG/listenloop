@@ -11,6 +11,8 @@ import {
 
 const state = vi.hoisted(() => ({
   cookie: undefined as string | undefined,
+  refCookie: undefined as string | undefined,
+  referrer: null as string | null,
   deletedCookies: [] as string[],
   answer: "open" as string,
   rpc: vi.fn(),
@@ -23,7 +25,10 @@ const state = vi.hoisted(() => ({
 
 vi.mock("next/headers", () => ({
   cookies: async () => ({
-    get: () => (state.cookie ? { value: state.cookie } : undefined),
+    get: (name: string) => {
+      const value = name === "ll-ref" ? state.refCookie : state.cookie;
+      return value ? { value } : undefined;
+    },
     delete: (name: string) => state.deletedCookies.push(name),
   }),
 }));
@@ -45,6 +50,14 @@ vi.mock("@/auth/admin", () => ({
               state.upserts.push(row);
               return { error: null };
             },
+            // A referral code's owner (D177).
+            select: () => ({
+              eq: () => ({
+                maybeSingle: async () => ({
+                  data: state.referrer ? { user_id: state.referrer } : null,
+                }),
+              }),
+            }),
           }),
         }
       : null,
@@ -55,6 +68,8 @@ const { joinBetaWaitlist } = await import("@/app/beta/actions");
 
 beforeEach(() => {
   state.cookie = undefined;
+  state.refCookie = undefined;
+  state.referrer = null;
   state.deletedCookies = [];
   state.answer = "open";
   state.rpc.mockReset().mockImplementation(async () => ({
@@ -142,6 +157,34 @@ describe("admitAfterSignIn (D132)", () => {
       as_admin: false,
     });
     expect(state.deletedCookies).toEqual(["ll-invite"]);
+  });
+
+  it("records a friend who came through a referral link (D177)", async () => {
+    state.refCookie = "refr2345";
+    state.referrer = "r1";
+    expect(await admitAfterSignIn({ id: "u1", email: "a@b.co" })).toBe("ok");
+    expect(state.upserts).toContainEqual({
+      referrer_id: "r1",
+      referee_id: "u1",
+    });
+    expect(state.deletedCookies).toEqual(["ll-ref"]);
+    // A referral link takes no extra place: the cap still decides.
+    expect(state.rpc).toHaveBeenCalledWith(
+      "admit_account",
+      expect.objectContaining({ invite_code: "" }),
+    );
+  });
+
+  it("never records one's own link, nor a full Beta's sign-up", async () => {
+    state.refCookie = "refr2345";
+    state.referrer = "u1";
+    await admitAfterSignIn({ id: "u1", email: "a@b.co" });
+    state.answer = "full";
+    state.referrer = "r1";
+    await admitAfterSignIn({ id: "u2", email: "c@b.co" });
+    expect(state.upserts).not.toContainEqual(
+      expect.objectContaining({ referrer_id: expect.any(String) }),
+    );
   });
 
   it("always lets admins in", async () => {

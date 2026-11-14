@@ -38,6 +38,14 @@ vi.mock("@/auth/server", () => ({
   }),
 }));
 
+// Referral bonus grants (D177).
+const referral = vi.hoisted(() => ({
+  grants: [] as { minutes: number; grantedAt: string; expiresAt: string }[],
+}));
+vi.mock("@/auth/referral", () => ({
+  getReferralGrants: async () => referral.grants,
+}));
+
 const { creationAllowance } = await import("@/auth/creation-quota");
 const user = (plan?: "paid") => ({
   user: {
@@ -53,6 +61,7 @@ beforeEach(() => {
   vi.useFakeTimers();
   vi.setSystemTime(new Date("2026-11-12T02:00:00Z"));
   rows.data = [];
+  referral.grants = [];
 });
 
 describe("creationAllowance (D143)", () => {
@@ -85,5 +94,40 @@ describe("creationAllowance (D143)", () => {
   it("has no week on the paid plans", async () => {
     const { week } = await creationAllowance(user("paid") as never);
     expect(week).toBeNull();
+  });
+});
+
+describe("referral bonus minutes (D177)", () => {
+  const grant = {
+    minutes: 2,
+    grantedAt: "2026-11-10T00:00:00Z",
+    expiresAt: "2027-02-08T00:00:00Z",
+  };
+
+  it("adds them to the free plan's week once the plan's 2 are used", async () => {
+    referral.grants = [grant];
+    rows.data = [{ seconds: 120, created_at: "2026-11-10T03:00:00+00:00" }];
+    const { check, week, bonusLeftSeconds } = await creationAllowance(
+      user() as never,
+    );
+    expect(check).toEqual({ ok: true });
+    expect(week).toMatchObject({ minutes: 4, leftSeconds: 120 });
+    expect(bonusLeftSeconds).toBe(120);
+  });
+
+  it("adds them to the paid plans' month", async () => {
+    referral.grants = [grant];
+    const { plans, bonusLeftSeconds } = await creationAllowance(
+      user("paid") as never,
+    );
+    expect(plans.paid.minutesPerMonth).toBe(42);
+    expect(bonusLeftSeconds).toBe(120);
+  });
+
+  it("ignores expired grants", async () => {
+    referral.grants = [{ ...grant, expiresAt: "2026-11-11T00:00:00Z" }];
+    const { week, bonusLeftSeconds } = await creationAllowance(user() as never);
+    expect(week?.minutes).toBe(2);
+    expect(bonusLeftSeconds).toBeNull();
   });
 });

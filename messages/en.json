@@ -675,7 +675,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 13, 2026",
+    "updated": "Last updated: November 14, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -696,6 +696,7 @@
           "Feedback: what you send us, and (if signed in) your account.",
           "Practice reminders (optional): if you turn on reminders on the account page, we keep the push subscription your browser provides (the push service address and encryption keys) and the time you chose, to send one reminder a day; turning reminders off deletes it.",
           "Satisfaction survey: if you answer the survey after Day 7, we keep the score (0–10), your optional comment, the material's code, and the week.",
+          "Referrals: when you sign up through a friend's link, we record who invited whom, when, whether Day 1 was finished, and the minutes each side got; to tell whether both are the same person we compare the sign-up IP hashes and the practice device codes, and never show these to the other person. A referrer sees only counts, not the accounts they brought.",
           "Abuse prevention: sign-up and some actions record a hash of the connection's IP address (it can't be turned back into the IP) to limit bursts of requests and spot many sign-ups from one source."
         ]
       },
@@ -2140,7 +2141,8 @@
         "multi-signup": "Many accounts from one IP",
         "heavy-use": "Burst of AI calls",
         "capped-days": "Near the AI cap for days",
-        "reported": "Public materials reported by many"
+        "reported": "Public materials reported by many",
+        "referral-farm": "Unusual referrals"
       },
       "note": "Note (optional)",
       "confirm": "Confirm",
@@ -3067,7 +3069,8 @@
       "full": "The Beta is full for now: if you already have an account, sign in as usual; new people, please join the waiting list."
     },
     "consent": "By signing in or making an account, you agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>. Under 18, please get a parent's or guardian's consent first; under 13, please don't make an account yourself.",
-    "reauth": "For safety, this needs a recent sign-in (within 30 minutes). Sign in again and you'll be taken back."
+    "reauth": "For safety, this needs a recent sign-in (within 30 minutes). Sign in again and you'll be taken back.",
+    "referred": "A friend invited you to practice English listening together! Sign up and finish Day 1, and you each get {minutes} extra minutes for making your own materials."
   },
   "plansPage": {
     "periodLegend": "Billing",
@@ -3793,7 +3796,21 @@
     "perHour": "{n} an hour",
     "more": "Need more?",
     "pricing": "See plans and prices",
-    "upgrade": "Need more? See the paid plans"
+    "upgrade": "Need more? See the paid plans",
+    "referral": {
+      "title": "Invite friends",
+      "intro": "Send your link to friends. When a friend signs up through it and finishes Day 1's dictation, you each get {minutes} extra minutes for making your own materials, usable for {days} days on top of your plan's weekly or monthly minutes.",
+      "copy": "Copy link",
+      "copied": "Copied",
+      "people": "{n, plural, one {# person} other {# people}}",
+      "stats": {
+        "invited": "Signed up",
+        "qualified": "Finished Day 1",
+        "earned": "Minutes earned",
+        "left": "Minutes left"
+      },
+      "rules": "Accounts from the same device or network, or many sign-ups in one day, don't count, and your own link doesn't work for you. Invite links don't add sign-up places."
+    }
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."

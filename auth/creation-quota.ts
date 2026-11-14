@@ -9,8 +9,15 @@ import {
   type PlanId,
   type PlanLimits,
 } from "@/lib/plans";
+import {
+  bonusLimit,
+  bonusPool,
+  withBonus,
+  type CreationRecord,
+} from "@/lib/referral";
 import { usagePeriodStarts, usageWeek } from "@/lib/usage-report";
 import { plansFor } from "./quota";
+import { getReferralGrants } from "./referral";
 import type { SignedInUser } from "./session";
 import { getServerSupabase } from "./server";
 
@@ -49,6 +56,8 @@ export async function creationAllowance({
   plans: Readonly<Record<PlanId, PlanLimits>>;
   /** What was made this month and week (seconds), for the quota page. */
   made: { count: number; seconds: number; weekSeconds: number };
+  /** Referral bonus seconds left (D177); null without any grant. */
+  bonusLeftSeconds: number | null;
 }> {
   const plan = planFor(user);
   const supabase =
@@ -59,9 +68,23 @@ export async function creationAllowance({
   const now = new Date();
   const { monthStart } = usagePeriodStarts(now);
   const week = usageWeek(now);
+  // Referral bonus minutes (D177), on the free and paid plans.
+  const grants =
+    plan === "admin" || !supabase
+      ? []
+      : (await getReferralGrants(user.id)).filter(
+          (g) => Date.parse(g.expiresAt) > now.getTime(),
+        );
+  // The pool needs what was made since the period of its oldest grant.
+  const bonusFrom = grants.reduce<string | null>((from, g) => {
+    const start = usageWeek(new Date(g.grantedAt)).start;
+    const month = usagePeriodStarts(new Date(g.grantedAt)).monthStart;
+    const earliest = start < month ? start : month;
+    return from === null || earliest < from ? earliest : from;
+  }, null);
   const made = supabase
-    ? await createdSince(supabase, user.id, monthStart, week.start)
-    : { count: 0, seconds: 0, weekSeconds: 0 };
+    ? await createdSince(supabase, user.id, monthStart, week.start, bonusFrom)
+    : { count: 0, seconds: 0, weekSeconds: 0, rows: [] };
   // A teacher's class plan brings its own monthly minutes (D103), when
   // more than their own plan's.
   const classMonthly = classMinutes(
@@ -86,8 +109,29 @@ export async function creationAllowance({
           },
         }
       : PLANS;
-  // An admin's changes for this account (D161) on top.
-  const plans = await plansFor(user, classPlans);
+  // An admin's changes for this account (D161) on top, then the
+  // referral bonus (D177) on the week's or the month's minutes.
+  const adjusted = await plansFor(user, classPlans);
+  const limit = bonusLimit(adjusted[plan]);
+  const bonus =
+    grants.length > 0 && limit !== null
+      ? bonusPool({
+          grants,
+          creations: made.rows,
+          baseSeconds: adjusted[plan][limit]! * 60,
+          periodOf: (iso) =>
+            limit === "minutesPerWeek"
+              ? usageWeek(new Date(iso)).start
+              : usagePeriodStarts(new Date(iso)).monthStart,
+          now,
+        })
+      : null;
+  const plans = bonus
+    ? {
+        ...adjusted,
+        [plan]: withBonus(adjusted[plan], bonus.extraSeconds),
+      }
+    : adjusted;
   const limits = plans[plan];
   const check = can(
     plan,
@@ -104,7 +148,12 @@ export async function creationAllowance({
   return {
     check,
     plans,
-    made,
+    made: {
+      count: made.count,
+      seconds: made.seconds,
+      weekSeconds: made.weekSeconds,
+    },
+    bonusLeftSeconds: bonus ? Math.round(bonus.leftSeconds) : null,
     week:
       left === null || limits.minutesPerWeek === null
         ? null
@@ -125,15 +174,24 @@ export const UNKNOWN_PRACTICE_SECONDS = 60;
  * time): how many and their estimated seconds (D102), and the seconds of
  * those since the week began (D143; a week can start in last month).
  * Read from practice_creations, kept when a practice is deleted, so
- * deleting doesn't give minutes back.
+ * deleting doesn't give minutes back. `bonusFrom` reads further back for
+ * the referral bonus pool (D177), whose rows come back too.
  */
 async function createdSince(
   supabase: NonNullable<Awaited<ReturnType<typeof getServerSupabase>>>,
   userId: string,
   monthStart: string,
   weekStart: string,
-): Promise<{ count: number; seconds: number; weekSeconds: number }> {
-  const from = weekStart < monthStart ? weekStart : monthStart;
+  bonusFrom: string | null = null,
+): Promise<{
+  count: number;
+  seconds: number;
+  weekSeconds: number;
+  rows: CreationRecord[];
+}> {
+  const from = [weekStart, monthStart, bonusFrom ?? monthStart].reduce(
+    (a, b) => (Date.parse(b) < Date.parse(a) ? b : a),
+  );
   const { data } = await supabase
     .from("practice_creations")
     .select("seconds, created_at")
@@ -150,5 +208,9 @@ async function createdSince(
     weekSeconds: rows
       .filter(since(weekStart))
       .reduce((sum, row) => sum + length(row), 0),
+    rows: rows.map((row) => ({
+      seconds: row.seconds,
+      createdAt: row.created_at,
+    })),
   };
 }

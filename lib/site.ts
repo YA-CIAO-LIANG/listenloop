@@ -31,6 +31,8 @@ export const PRIVATE_PATHS = [
   "/styleguide",
   "/offline",
   "/invite",
+  // Referral links (D177): a redirect that sets a cookie.
+  "/r/",
   "/videos/*/day",
   "/videos/*/handout",
   "/videos/*/listen",
