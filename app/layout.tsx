@@ -16,6 +16,7 @@ import { USAGE_NOTICE_COOKIE } from "@/lib/notices";
 import { cookies, headers } from "next/headers";
 import { ServiceWorker } from "@/components/ServiceWorker";
 import { TimeZoneSync } from "@/components/TimeZoneSync";
+import { TwaMarker } from "@/components/TwaMarker";
 import { SiteAnnouncements } from "@/components/SiteAnnouncements";
 import { SiteFooter } from "@/components/SiteFooter";
 import { AnalyticsConsent } from "@/components/AnalyticsConsent";
@@ -153,6 +154,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               </div>
               <SiteFooter analytics={clarityProjectId() !== null} />
               <ServiceWorker />
+              <TwaMarker />
               <TimeZoneSync signedIn={user !== null} />
               <AnalyticsConsent projectId={clarityProjectId()} />
             </StoresProvider>

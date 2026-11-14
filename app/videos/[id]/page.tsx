@@ -176,6 +176,8 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
             link: (chunks) => (
               <a
                 href={material.rewrittenFrom!.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 lang="en"
                 className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
               >

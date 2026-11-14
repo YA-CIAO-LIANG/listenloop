@@ -65,8 +65,18 @@ const components: Components = {
       <Link href={href} className={linkClassName}>
         {children}
       </Link>
+    ) : href && /^https?:/.test(href) ? (
+      // Other sites open in a new tab (a Custom Tab in the Android app, D178).
+      <a
+        href={href}
+        className={linkClassName}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {children}
+      </a>
     ) : (
-      <a href={href} className={linkClassName} rel="noopener">
+      <a href={href} className={linkClassName}>
         {children}
       </a>
     ),

@@ -39,6 +39,20 @@ for (const size of [192, 512]) {
   await render(icon(size), size, size, `public/icons/icon-${size}.png`);
   await render(icon(size), size, size, `public/icons/maskable-${size}.png`);
 }
+// Monochrome (Android 13 themed icons, D178): the loop and dot in white
+// on transparent; Android tints it. Same safe zone as the maskable icon.
+const monochrome = svg
+  .replace(/<rect [^>]*\/>/, "")
+  .replaceAll(/(fill|stroke)="#(fafaf8|e8590c)"/g, '$1="#ffffff"');
+await page.setViewportSize({ width: 512, height: 512 });
+await page.setContent(
+  `<html><body style="margin:0;background:transparent">${monochrome.replace("<svg ", '<svg width="512" height="512" ')}</body></html>`,
+);
+await page.screenshot({
+  path: "public/icons/monochrome-512.png",
+  omitBackground: true,
+});
+console.log("public/icons/monochrome-512.png");
 await render(icon(180), 180, 180, "app/apple-icon.png");
 // Play Store icon: 512×512, full square (Play rounds it).
 await render(icon(512), 512, 512, "docs/store/play-icon-512.png");
