@@ -3,6 +3,7 @@
 import { cookies } from "next/headers";
 import { getAdminSupabase } from "@/auth/admin";
 import { allowAction } from "@/auth/rate-limit";
+import { getPriceView } from "@/auth/prices";
 import { getSignedInUser } from "@/auth/session";
 import { parseIntent, VISITOR_COOKIE } from "@/lib/intent";
 
@@ -33,6 +34,11 @@ export async function recordIntent(input: unknown): Promise<{ ok: boolean }> {
       secure: process.env.NODE_ENV === "production",
     });
   }
+  // The price experiment this person is in, worked out again here from
+  // who they are (never taken from the browser, D174).
+  const { experiment } = await getPriceView(
+    user ? `u:${user.id}` : `v:${visitor}`,
+  );
   const { error } = await admin.from("intent_events").insert({
     user_id: user?.id ?? null,
     visitor_id: visitor,
@@ -41,6 +47,8 @@ export async function recordIntent(input: unknown): Promise<{ ok: boolean }> {
     billing_interval: intent.interval ?? null,
     item: intent.item ?? null,
     source: intent.source ?? null,
+    experiment_id: experiment?.id ?? null,
+    variant: experiment?.variant ?? null,
   });
   if (error) console.error(`[intent] not recorded: ${error.message}`);
   return { ok: !error };

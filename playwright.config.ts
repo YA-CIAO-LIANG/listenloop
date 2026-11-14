@@ -30,7 +30,7 @@ export default defineConfig({
     {
       name: "chromium",
       use: { ...devices["Desktop Chrome"] },
-      testIgnore: /ops\.spec\.ts/,
+      testIgnore: /(ops|price-experiments)\.spec\.ts/,
     },
     // The emergency switches change the whole site (D155): after
     // everything else, one test at a time.
@@ -39,6 +39,15 @@ export default defineConfig({
       use: { ...devices["Desktop Chrome"] },
       testMatch: /ops\.spec\.ts/,
       dependencies: ["chromium"],
+      fullyParallel: false,
+    },
+    // A price experiment changes the prices everyone sees (D174): after
+    // the emergency switches, on its own.
+    {
+      name: "prices",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: /price-experiments\.spec\.ts/,
+      dependencies: ["ops"],
       fullyParallel: false,
     },
   ],

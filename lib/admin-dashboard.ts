@@ -20,6 +20,7 @@ export const ADMIN_SECTIONS = [
   { id: "usage", href: "/admin/usage" },
   { id: "revenue", href: "/admin/revenue" },
   { id: "interest", href: "/admin/interest" },
+  { id: "priceExperiments", href: "/admin/price-experiments" },
   { id: "forecast", href: "/admin/forecast" },
   { id: "retention", href: "/admin/retention" },
   { id: "events", href: "/admin/events" },

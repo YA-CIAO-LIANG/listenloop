@@ -5,6 +5,7 @@ import { openInMaintenance } from "@/lib/site-switches";
 import { clarityProjectId } from "@/lib/analytics-consent";
 import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
 import { turnstileSiteKey } from "@/lib/turnstile";
+import { VISITOR_COOKIE } from "@/lib/intent";
 import { supabaseConfig } from "@/lib/supabase/config";
 import {
   isLocale,
@@ -34,8 +35,26 @@ export async function proxy(request: NextRequest) {
   const hl = request.nextUrl.searchParams.get(LOCALE_PARAM);
   if (isLocale(hl)) requestHeaders.set(LOCALE_OVERRIDE_HEADER, hl);
   else requestHeaders.delete(LOCALE_OVERRIDE_HEADER);
+  // Pricing pages: a browser without a visitor id gets one now (D174), so
+  // a price experiment can show it the same price on every visit; the
+  // page sees it in this very request.
+  const visitor = newVisitorFor(request);
+  if (visitor) {
+    // On the request too (the session refresh rebuilds the header from it).
+    request.cookies.set(VISITOR_COOKIE, visitor);
+    requestHeaders.set("cookie", request.cookies.toString());
+  }
   const { response, isAdmin } = await updateSession(request, requestHeaders);
   response.headers.set("content-security-policy", policy);
+  if (visitor) {
+    response.cookies.set(VISITOR_COOKIE, visitor, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: "lax",
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    });
+  }
   // Maintenance mode (D155): everyone but admins sees the maintenance
   // page (503, so search engines come back later); the session cookies
   // just refreshed are kept.
@@ -55,6 +74,15 @@ export async function proxy(request: NextRequest) {
     return page;
   }
   return response;
+}
+
+/** A new visitor id when a pricing page is opened without one (D174). */
+function newVisitorFor(request: NextRequest): string | null {
+  if (!request.nextUrl.pathname.startsWith("/pricing")) return null;
+  const current = request.cookies.get(VISITOR_COOKIE)?.value;
+  return current && /^[a-f0-9-]{8,64}$/.test(current)
+    ? null
+    : crypto.randomUUID();
 }
 
 export const config = {

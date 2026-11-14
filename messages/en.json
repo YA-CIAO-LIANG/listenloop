@@ -697,13 +697,16 @@
           "Practice reminders (optional): if you turn on reminders on the account page, we keep the push subscription your browser provides (the push service address and encryption keys) and the time you chose, to send one reminder a day; turning reminders off deletes it.",
           "Satisfaction survey: if you answer the survey after Day 7, we keep the score (0–10), your optional comment, the material's code, and the week.",
           "Referrals: when you sign up through a friend's link, we record who invited whom, when, whether Day 1 was finished, and the minutes each side got; to tell whether both are the same person we compare the sign-up IP hashes and the practice device codes, and never show these to the other person. A referrer sees only counts, not the accounts they brought.",
-          "Abuse prevention: sign-up and some actions record a hash of the connection's IP address (it can't be turned back into the IP) to limit bursts of requests and spot many sign-ups from one source."
+          "Abuse prevention: sign-up and some actions record a hash of the connection's IP address (it can't be turned back into the IP) to limit bursts of requests and spot many sign-ups from one source.",
+          "Interest in paying and price tests: your steps on the pricing page and upgrade prompts (viewed, switched monthly or yearly, pressed subscribe, joined the waiting list), and which price-test group you're in. The same account (or browser) always sees the same test price. When you join the waiting list, we note the plan, period, and price you saw, so the early-bird offer can use that price when paying opens.",
+          "Price survey (optional): if you answer the 4 price questions after Day 7 or a while on the pricing page, we keep the 4 amounts and where you answered (Day 7 or the pricing page)."
         ]
       },
       {
         "title": "When you're not signed in",
         "paragraphs": [
-          "Your progress stays in your browser (localStorage) and is never sent to our servers. The interface language is kept in a cookie and the theme in localStorage. Clearing your browser data removes them."
+          "Your progress stays in your browser (localStorage) and is never sent to our servers. The interface language is kept in a cookie and the theme in localStorage. Clearing your browser data removes them.",
+          "When you open the pricing page, your browser keeps a random visitor id (a cookie, for a year) so a price test shows you the same price each time and interest can be counted; it isn't linked to anything personal. A price survey answered while signed out is kept only under this id."
         ]
       },
       {
@@ -754,7 +757,7 @@
         "title": "How long we keep it",
         "paragraphs": [
           "Your account and practice data are kept while your account exists. The activity log is kept 180 days and hard-sentence reports 365 days, then deleted automatically. The API usage log (number of calls, tokens, characters, estimated cost — no text) is kept to account for service costs; deleting your account removes its link to you. When you delete your account, your account, practices, activity, reports, and feedback are deleted from the database right away; audio files of your practices are deleted too, unless another practice shares them; recordings you uploaded are deleted with their practice or your account. Service providers’ system backups are cleared when their retention ends.",
-          "Other records are kept for: error logs 90 days, abuse-prevention IP hashes 90 days, rate-limit counters 1 day, encrypted backups 14 days; survey answers while your account exists, deleted with it."
+          "Other records are kept for: error logs 90 days, abuse-prevention IP hashes 90 days, rate-limit counters 1 day, encrypted backups 14 days; survey answers while your account exists, deleted with it. Interest records are kept for 365 days; price survey answers while your account exists, and deleted with it."
         ]
       },
       {
@@ -1508,7 +1511,8 @@
       "beta": "Sign-ups",
       "ops": "Operations",
       "abuse": "Abuse",
-      "betaTest": "Beta test"
+      "betaTest": "Beta test",
+      "priceExperiments": "Price experiments"
     },
     "overview": {
       "title": "Admin overview",
@@ -2214,6 +2218,75 @@
       "feedbackTitle": "Feedback from testers",
       "noFeedback": "No feedback from testers yet.",
       "allFeedback": "All feedback"
+    },
+    "priceExperiments": {
+      "title": "Price experiments",
+      "intro": "Try a few monthly prices for one plan at a time: visitors are split at random and stay in their group (by account when signed in, by browser otherwise), and the pricing page and upgrade prompts show their group's price. Still a fake door: nothing is charged; a year is always 10 × the month.",
+      "nowTitle": "Prices now",
+      "perMonth": "{price} a month",
+      "default": "Default in the code",
+      "applied": "Applied from an experiment (default {price})",
+      "clear": "Back to default",
+      "runningTitle": "Running experiment",
+      "runningLine": "{plan}, started {date}.",
+      "none": "No experiment is running. One can run at a time.",
+      "tableLabel": "Each group's conversions",
+      "cols": {
+        "variant": "Group",
+        "price": "Monthly",
+        "visitors": "People",
+        "subscribe": "Pressed subscribe",
+        "waitlist": "Joined the waiting list",
+        "revenue": "Expected revenue a visitor a month",
+        "reading": "Against the control"
+      },
+      "control": "Control",
+      "variant": "Group {n}",
+      "readings": {
+        "tooEarly": "Too few people yet: about {n} more per group",
+        "noDifference": "No clear difference (p = {p})",
+        "significant": "A real difference: {better} is better (p = {p})"
+      },
+      "howToRead": "How to read it: conversion is joining the waiting list ÷ people, the step closest to paying. \"A real difference\" means a two-proportion z-test gives p < 0.05: less than a 5% chance that luck alone made the gap. Don't draw conclusions before {min} people per group, and don't change prices midway; apply one when it ends.",
+      "revenueNote": "Expected revenue a visitor = the monthly price × the share who joined the list. A higher price can bring more with fewer people. The suggested winner goes by this number.",
+      "apply": "Apply when ending",
+      "applyPrice": "NT${price} a month",
+      "suggested": "suggested",
+      "applyNone": "Don't apply; keep the price before",
+      "end": "End the experiment",
+      "endConfirm": "End this experiment? An applied price shows to everyone at once.",
+      "plan": "Plan",
+      "prices": "Monthly prices to try (NT$)",
+      "pricesHint": "2–4 whole prices, all different. The first is the control, today's price by default.",
+      "addVariant": "Add a group",
+      "start": "Start the experiment",
+      "pastTitle": "Ended experiments",
+      "pastLine": "{plan}: {prices}, {visitors} people, {result}",
+      "pastApplied": "applied {price}",
+      "pastNone": "nothing applied",
+      "errors": {
+        "unavailable": "The database can't be reached now.",
+        "invalid": "Prices must be 2–4 different whole numbers (NT$1–10,000).",
+        "running": "An experiment is already running; end it first.",
+        "failed": "That didn't work. Please try again.",
+        "reauth": "This needs a sign-in within the last 30 minutes. Please sign in again."
+      },
+      "surveyTitle": "Price sensitivity survey (Van Westendorp)",
+      "surveyIntro": "After Day 7, or 30 seconds on the pricing page, people are asked 4 questions (a monthly price for Plus). Once per device, and skippable.",
+      "survey": {
+        "responses": "Answers",
+        "few": "Worth reading from {n}",
+        "range": "Acceptable price range",
+        "optimal": "Optimal price point",
+        "indifference": "Indifference price point",
+        "curves": {
+          "tooCheap": "Too cheap to trust",
+          "bargain": "A bargain",
+          "expensive": "Getting expensive",
+          "tooExpensive": "Too expensive"
+        },
+        "howToRead": "How to read it: \"too cheap\" and \"a bargain\" fall as the price rises; \"expensive\" and \"too expensive\" rise. The range starts where \"too cheap\" meets \"not a bargain\" and ends where \"too expensive\" meets \"not expensive\"; the optimal point is where as many find it too cheap as too expensive. Pick a price inside the range, then confirm it with a price experiment."
+      }
     }
   },
   "events": {
@@ -3933,5 +4006,22 @@
       "keepGoing": "Your rhythm is steady. Keep the same pace this week."
     },
     "dismiss": "Got it"
+  },
+  "priceSurvey": {
+    "title": "What is Plus worth? 4 questions",
+    "intro": "Picture Plus (full practice of shared materials, 40 minutes of your own a month, audio uploads, speed, full stats). Give a price a month for each; there are no right answers. Asked only once, and you can skip it.",
+    "perMonth": "a month",
+    "questions": {
+      "tooExpensive": "At what price would it be too expensive to consider at all?",
+      "expensive": "At what price would it feel expensive, but you'd still consider it?",
+      "bargain": "At what price would it feel like a bargain?",
+      "tooCheap": "At what price would it be so cheap you'd doubt its quality?"
+    },
+    "order": "Fill in falling prices from top to bottom: too expensive ≥ expensive ≥ bargain ≥ too cheap, with the top one higher than the bottom one.",
+    "send": "Send",
+    "sending": "Sending…",
+    "skip": "Skip",
+    "thanks": "Thank you! This helps us set a fair price.",
+    "failed": "It wasn't sent. Please try again later."
   }
 }

@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { creationAllowance } from "@/auth/creation-quota";
 import { getGenerationPace } from "@/auth/generation-pace";
 import { onWaitlist } from "@/app/plans/actions";
+import { getPriceView } from "@/auth/prices";
 import { CreatePracticeForm } from "@/components/CreatePracticeForm";
 import { youtubeEnabled } from "@/auth/youtube";
 import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
@@ -53,7 +54,9 @@ export default async function NewMaterialPage({
   const official =
     (await searchParams).official === "1" && creator.user.role === "admin";
   const { check: allowed, week } = await creationAllowance(creator);
-  const joined = allowed.ok ? false : await onWaitlist();
+  const [joined, view] = allowed.ok
+    ? [false, null]
+    : await Promise.all([onWaitlist(), getPriceView()]);
   const [aiGenerate, aiRevise, uploadOff, transcribeOff] = await Promise.all([
     featurePaused(creator.user, "aiGenerate"),
     featurePaused(creator.user, "aiRevise"),
@@ -145,6 +148,7 @@ export default async function NewMaterialPage({
           <PaidPlanCard
             block={{ limit: allowed.limit, max: allowed.max }}
             joined={joined}
+            prices={view?.prices}
           />
         )}
       </div>

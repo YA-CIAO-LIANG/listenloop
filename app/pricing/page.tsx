@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { getPriceView } from "@/auth/prices";
 import { getSignedInUser } from "@/auth/session";
 import { onWaitlist } from "@/app/plans/actions";
+import { PriceSurvey } from "@/components/PriceSurvey";
 import { PricingPlans } from "@/components/PricingPlans";
 import { isIntentSource } from "@/lib/intent";
 import { isBillingPeriod, isPaidPlan } from "@/lib/payments/pricing";
@@ -22,11 +24,12 @@ export function generateMetadata(): Promise<Metadata> {
 export default async function PricingPage({
   searchParams,
 }: PageProps<"/pricing">) {
-  const [t, user, joined, params] = await Promise.all([
+  const [t, user, joined, params, view] = await Promise.all([
     getTranslations("pricing"),
     getSignedInUser(),
     onWaitlist(),
     searchParams,
+    getPriceView(),
   ]);
   const plan = user ? planFor(user) : null;
   const source = isIntentSource(params.from) ? params.from : "direct";
@@ -52,7 +55,12 @@ export default async function PricingPage({
           source={source}
           open={open}
           student={user ? studentStatus(user.studentVerifiedAt) : null}
+          prices={view.prices}
         />
+      </div>
+      {/* After a while on the page, once per device (D174). */}
+      <div className="mt-10">
+        <PriceSurvey context="pricing" />
       </div>
     </main>
   );

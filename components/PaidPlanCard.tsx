@@ -9,6 +9,7 @@ import {
 import { PLANS, type PlanBlock } from "@/lib/plans";
 import { Button } from "./Button";
 import { PLAN_PRICES } from "@/lib/payments/pricing";
+import type { PlanPrices } from "@/lib/price-experiments";
 import { PlanPrice } from "./PlanPrice";
 
 /**
@@ -19,13 +20,16 @@ import { PlanPrice } from "./PlanPrice";
 export function PaidPlanCard({
   block,
   joined: joinedBefore,
+  prices = PLAN_PRICES,
   joinWaitlist = joinWaitlistAction,
 }: {
   /** Why creating is blocked, for the first line. */
   block: PlanBlock;
   joined: boolean;
+  /** The prices this account sees (D174, auth/prices.ts). */
+  prices?: PlanPrices;
   /** Injected in tests; the Server Action otherwise. */
-  joinWaitlist?: () => Promise<WaitlistResult>;
+  joinWaitlist?: typeof joinWaitlistAction;
 }) {
   const t = useTranslations("plans");
   const [joined, setJoined] = useState(joinedBefore);
@@ -36,7 +40,13 @@ export function PaidPlanCard({
   async function join() {
     setPending(true);
     setFailed(false);
-    const result = await joinWaitlist().catch((): WaitlistResult => ({
+    // The plan and price shown here (Plus yearly), remembered with the
+    // list for the early-bird offer (D174).
+    const result = await joinWaitlist({
+      plan: "plus",
+      period: "year",
+      source: "trial-used",
+    }).catch((): WaitlistResult => ({
       ok: false,
       reason: "failed",
     }));
@@ -81,7 +91,7 @@ export function PaidPlanCard({
         </li>
       </ul>
       {/* Plus billed yearly, a month first like everywhere (D128). */}
-      <PlanPrice total={PLAN_PRICES.plus.year.amount} period="year" size="md" />
+      <PlanPrice total={prices.plus.year.amount} period="year" size="md" />
       <div aria-live="polite" className="space-y-2">
         {joined ? (
           <p className="text-success">
