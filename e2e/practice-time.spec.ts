@@ -173,7 +173,15 @@ test.describe("the calendar's rings", () => {
         .locator("#practice-calendar-days")
         .getByRole("button", { name: /^11月7日，/ });
       const outer = (await day.boundingBox())!;
-      const ring = (await day.locator("span").boundingBox())!;
+      // The ring is an outline: offset 2 px and 4 px wide, past the dot.
+      const dot = (await day.locator("span").boundingBox())!;
+      const reach = 2 + 4;
+      const ring = {
+        x: dot.x - reach,
+        y: dot.y - reach,
+        width: dot.width + 2 * reach,
+        height: dot.height + 2 * reach,
+      };
       expect(ring.x).toBeGreaterThanOrEqual(outer.x);
       expect(ring.y).toBeGreaterThanOrEqual(outer.y);
       expect(ring.x + ring.width).toBeLessThanOrEqual(outer.x + outer.width);

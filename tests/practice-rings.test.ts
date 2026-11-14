@@ -7,7 +7,7 @@ import {
   ringLevel,
 } from "@/lib/practice-rings";
 import { RING_CLASS } from "@/components/practice-rings";
-import { cardsOf, contrast, type Scheme } from "@/lib/theme-contrast";
+import { cardsOf, contrast, over, type Scheme } from "@/lib/theme-contrast";
 
 const css = readFileSync("app/globals.css", "utf8");
 
@@ -43,7 +43,9 @@ describe("practice-time rings (D181)", () => {
 
   it("gets thicker with time, not only another color", () => {
     const widths = PRACTICE_RINGS.map(({ level }) => {
-      const width = RING_CLASS[level].match(/border-(\[([\d.]+)px\]|(\d))/)!;
+      const width = RING_CLASS[level].match(
+        /outline-(\[([\d.]+)px\]|(\d))(?=\s|$)/,
+      )!;
       return Number(width[2] ?? width[3]);
     });
     expect(widths).toEqual([1, 1.5, 2, 3, 4]);
@@ -52,7 +54,7 @@ describe("practice-time rings (D181)", () => {
     }
     // Each ring has its own color; 30 minutes is the accent.
     const colors = PRACTICE_RINGS.map(
-      ({ level }) => RING_CLASS[level].match(/border-(practice-\d)/)![1],
+      ({ level }) => RING_CLASS[level].match(/outline-(practice-\d)/)![1],
     );
     expect(new Set(colors).size).toBe(5);
     expect(css).toContain("--color-practice-2: var(--ll-accent);");
@@ -64,17 +66,26 @@ describe("practice-time rings (D181)", () => {
     expect(hoursAndMinutes(14.6)).toEqual({ hours: 0, minutes: 15 });
   });
 
-  // WCAG 1.4.11: a ring is a graphic that conveys meaning, so ≥ 3:1. It
-  // sits between two gaps of the card's color (the practice-ring utility),
-  // so it's checked against every card and surface color of every theme,
-  // light and dark. The accent ring (30 min) is checked with every theme
-  // and chosen accent by tests/theme-contrast.test.ts ("accent line").
+  // WCAG 1.4.11: a ring is a graphic that conveys meaning, so ≥ 3:1. It's
+  // an outline 2 px out from the day's dot (D182), so the card shows on
+  // both sides of it: checked against every card and surface color of
+  // every theme, light and dark, and the selected day's 8% ink tint. The
+  // accent ring (30 min) is checked here too, with the theme's accent.
   for (const scheme of ["light", "dark"] as Scheme[]) {
     for (const b of BACKGROUNDS) {
       it(`${b.id} (${scheme}): every ring is ≥ 3:1`, () => {
-        const backs = [...cardsOf(b, scheme), b[scheme].surface];
-        const failing = [1, 3, 4, 5].flatMap((level) => {
-          const ring = token(SELECTOR[scheme], `practice-${level}`);
+        const mode = b[scheme];
+        const cards = [...cardsOf(b, scheme), mode.surface];
+        const backs = [
+          ...cards,
+          // The selected day: bg-ink/8 behind the dot and ring.
+          ...cards.map((c) => over({ color: mode.ink, alpha: 0.08 }, c)),
+        ];
+        const failing = [1, 2, 3, 4, 5].flatMap((level) => {
+          const ring =
+            level === 2
+              ? mode.accent
+              : token(SELECTOR[scheme], `practice-${level}`);
           return backs
             .map((bg) => ({ bg, ratio: contrast(ring, bg) }))
             .filter(({ ratio }) => ratio < 3)

@@ -35,8 +35,8 @@
   --ll-heat-ink-strong: #141414;
   /* Practice-time rings on the calendar (D181): 15 min, (30 min is the
      accent), 1 h, 2 h, 3 h; ≥ 3:1 on every theme's cards and surface. */
-  --ll-practice-1: #808080;
-  --ll-practice-3: #a17a00;
+  --ll-practice-1: #7a7a7a;
+  --ll-practice-3: #8f6c00;
   --ll-practice-4: #c05000;
   --ll-practice-5: #7a3fd9;
 
@@ -404,14 +404,6 @@
     min-width: 44px;
     padding-block: 0;
   }
-}
-
-/* A practice-time ring (D181) with a gap of the card's color on both
-   sides, so it shows the same on every heat-map step. */
-@utility practice-ring {
-  box-shadow:
-    0 0 0 2px var(--ll-surface),
-    inset 0 0 0 2px var(--ll-surface);
 }
 
 @utility pressable {
