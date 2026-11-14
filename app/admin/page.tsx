@@ -163,7 +163,7 @@ export default async function AdminOverviewPage() {
       href={VERCEL_USAGE_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-accent-ink underline underline-offset-4"
+      className="tap text-accent-ink underline underline-offset-4"
     >
       {t("vercelUsageLink")}
     </a>
