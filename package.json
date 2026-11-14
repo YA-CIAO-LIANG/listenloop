@@ -42,7 +42,9 @@
     "dev:metrics": "node scripts/dev-metrics.mts",
     "actions:usage": "node scripts/actions-usage.mts",
     "loadtest": "bash loadtest/run.sh",
-    "marketing:docx": "node scripts/marketing-docx.mts"
+    "marketing:docx": "node scripts/marketing-docx.mts",
+    "size:functions": "node --no-warnings scripts/function-sizes.mts",
+    "vercel:prune": "node --no-warnings scripts/vercel-prune.mts"
   },
   "dependencies": {
     "@breezystack/lamejs": "1.2.7",

@@ -20,6 +20,12 @@ import {
   type CapacityUse,
 } from "@/lib/admin-dashboard";
 import { getBetaStatus } from "@/auth/beta";
+import { getFunctionsStorage } from "@/auth/vercel-storage";
+import { OPS_THRESHOLDS } from "@/lib/ops/thresholds";
+import type { ReactNode } from "react";
+
+/** Vercel's usage page for whichever team the admin is signed in to. */
+const VERCEL_USAGE_URL = "https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fusage";
 
 /** month_audio_ms wants a user; this one is nobody (the site total only). */
 const NO_USER = "00000000-0000-0000-0000-000000000000";
@@ -57,6 +63,8 @@ export default async function AdminOverviewPage() {
     );
   }
   const { dayStart, weekStart, monthStart } = adminPeriods(new Date());
+  // Started now so the Vercel API runs alongside the database reads.
+  const functionsPromise = getFunctionsStorage();
   const [
     { data: overviewRows },
     { data: usageRows },
@@ -145,8 +153,28 @@ export default async function AdminOverviewPage() {
   const percent = (share: number) =>
     format.number(share, { style: "percent", maximumFractionDigits: 0 });
 
+  // Vercel Functions Storage (D175): from the Vercel API, cached an hour.
+  const functions = await functionsPromise;
+  const functionsCap = OPS_THRESHOLDS.vercelFunctionsStorageBytes;
+  const gb = (bytes: number) =>
+    format.number(bytes / 1000 ** 3, { maximumFractionDigits: 2 });
+  const vercelUsage = (
+    <a
+      href={VERCEL_USAGE_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-accent-ink underline underline-offset-4"
+    >
+      {t("vercelUsageLink")}
+    </a>
+  );
+
   // Each free tier's use against its limit (D133), warned from 80%.
-  const capacity: (CapacityUse & { label: string; note: string })[] = [
+  const capacity: (CapacityUse & {
+    label: string;
+    note: ReactNode;
+    value?: string;
+  })[] = [
     ...(beta
       ? [
           {
@@ -223,6 +251,43 @@ export default async function AdminOverviewPage() {
         limit: mb(SUPABASE_FREE.storageBytes),
       }),
     },
+    functions.status === "ok"
+      ? {
+          id: "vercelFunctions",
+          label: t("vercelFunctions"),
+          used: functions.bytes,
+          limit: functionsCap,
+          note: (
+            <>
+              {t("vercelFunctionsNote", {
+                used: gb(functions.bytes),
+                limit: gb(functionsCap),
+                deployments: count(functions.deployments),
+              })}{" "}
+              {vercelUsage}
+            </>
+          ),
+        }
+      : {
+          // Not counted towards the warnings: limit 0.
+          id: "vercelFunctions",
+          label: t("vercelFunctions"),
+          used: 0,
+          limit: 0,
+          value: t(
+            functions.status === "unset" ? "vercelUnset" : "vercelError",
+          ),
+          note: (
+            <>
+              {t(
+                functions.status === "unset"
+                  ? "vercelUnsetNote"
+                  : "vercelErrorNote",
+              )}{" "}
+              {vercelUsage}
+            </>
+          ),
+        },
   ];
   const near = nearLimits(capacity);
 
@@ -232,7 +297,7 @@ export default async function AdminOverviewPage() {
       stats: [
         ...capacity.map((use) => ({
           label: use.label,
-          value: percent(shareOf(use.used, use.limit)),
+          value: use.value ?? percent(shareOf(use.used, use.limit)),
           note: use.note,
         })),
         {

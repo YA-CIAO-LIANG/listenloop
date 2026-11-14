@@ -1568,6 +1568,13 @@
       "aiCostNote": "{used} of the site cap {cap}",
       "betaWaitlist": "Beta waiting list",
       "betaWaitlistNote": "Not invited yet; invite them in batches under Sign-ups",
+      "vercelFunctions": "Vercel functions storage",
+      "vercelFunctionsNote": "{used} GB / {limit} GB, {deployments} deployments (updated hourly). Estimated from the Vercel API; the Vercel dashboard may show a different number.",
+      "vercelUnset": "Not set up",
+      "vercelUnsetNote": "Shown once VERCEL_API_TOKEN, VERCEL_TEAM_ID, and VERCEL_PROJECT_ID are set on Vercel; see docs/capacity.md.",
+      "vercelError": "Unavailable",
+      "vercelErrorNote": "The Vercel API didn’t answer or the token is invalid; tried again in 5 minutes.",
+      "vercelUsageLink": "See usage in the Vercel dashboard →",
       "nearTitle": "Close to a free-tier limit (80% or more):",
       "nearItem": "{label}: {share} used",
       "nearHint": "Vercel's traffic and function use are under Usage in the Vercel dashboard. What happens when each fills up, and which plan to move to, is in docs/capacity.md."

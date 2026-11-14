@@ -3253,3 +3253,17 @@
   - 收益試算（`/admin/forecast`）加入三種班級方案（預設小班 2＋3、標準班 1＋3、大班 0＋1，月繳＋年繳；老師額度使用率 60%）；
   - `docs/quotas.md`、`docs/payments.md`、使用者與系統手冊的價格表。
 - 要改時看哪裡：個人方案價格 `PLAN_MONTHLY`；班級 `CLASS_TIERS`；成本假設 `CLASS_COST`；最受歡迎 `POPULAR_PLAN`。
+
+## D175 Vercel 函式儲存空間：縮小每個部署、後台監控、清除舊部署（2026-11-14）
+
+- **為什麼**：Vercel Hobby 的 Functions Storage（所有還存在的部署的伺服器函式合計）上限 10 GB，2026-11-14 後台顯示 10.57 GB，滿了會擋新的部署。用 Vercel API 量到每個部署有 5 個函式、約 45 MB，當時有 62 個部署；已用 Vercel CLI 刪掉 58 個，留下 4 個（約 180 MB）。`vercel.json` 已經限制只有 `main` 自動部署。
+- **決定**：
+  - **縮小函式**：`next.config.ts` 加 `outputFileTracingExcludes`（`"*"`）：排除 `sharp`、`@img/*`（只給 Next.js 自架時的圖片最佳化；我們沒有用 `next/image`，Vercel 的圖片最佳化是平台服務，`next/og` 用自己的 resvg），以及 tests、docs（`docs/system` 除外）、scripts、e2e、evals、marketing、supabase 等不在伺服器執行的資料夾。
+  - `/admin/docs`、`/blog/[slug]` 的讀檔路徑改成寫死資料夾（`join(process.cwd(), "docs", "system", …)`），build 工具才不會把整個專案放進函式。`outputFileTracingIncludes` 保留，雙重保險。
+  - 本機量測 `npm run size:functions`（`scripts/function-sizes.mts`）：所有函式合計 57.07 MB → 25.90 MB；`app/admin` 39.92 → 8.63 MB；一般頁面約 26 → 7.6 MB（macOS，見 `docs/capacity.md` 第 8 節）。
+  - **監控**：後台總覽「容量與免費額度」加「Vercel 函式儲存空間」：依 Vercel API（部署清單 v6 分頁＋每個部署的 builds v11，依 `digest` 去重加總 `type == "lambda"` 的 `size`）計算，每小時更新一次；顯示已用、上限、百分比、部署數，並註明 Vercel 後台的數字可能不同、連到 Vercel 的用量頁。沒有 `VERCEL_API_TOKEN`、`VERCEL_PROJECT_ID` 時顯示「未設定」。
+  - **警示**：每天的監控工作（D163）檢查一次，70% 以上警告、90% 以上嚴重，送到 Discord（沿用 6 小時不重發）。上限 10 GB 用十進位（Vercel 的計算方式），數字在 `lib/ops/thresholds.ts`。
+  - **清除舊部署**：`npm run vercel:prune`，預設只列出（dry run），`--yes` 才刪除（`DELETE /v13/deployments/{id}`）。保留 Production 目前指向的部署與 3 個較新的 Production（Instant Rollback 仍可用），其他都刪；還在 build 的不刪。
+  - 測試：`tests/setup-network.ts` 擋 `api.vercel.com`；加總、分頁、快取、警示門檻、要刪哪些部署都有單元測試（`tests/vercel-storage.test.ts`，fixture 在 `tests/fixtures/vercel/`）；E2E 檢查沒有金鑰時後台顯示「未設定」。
+- **業界做法**：只把執行時需要的檔案放進 serverless 函式（Next.js 官方的 output file tracing 設定）；用量用官方 API 量測、到門檻前就通知；舊部署定期清理，但保留回滾需要的版本。
+- **要改時**：排除清單在 `next.config.ts`；上限與比例在 `lib/ops/thresholds.ts`；計算在 `lib/ops/vercel-storage.ts`，伺服器端讀取與快取在 `auth/vercel-storage.ts`；保留數量用 `--keep`。後台數字 24～48 小時內沒有下降時，用 `docs/capacity.md` 第 8 節的訊息聯絡 Vercel。
