@@ -37,21 +37,19 @@ export async function joinWaitlist(
   // insert their own row, not change it).
   const admin = getAdminSupabase();
   const { error } = admin
-    ? await admin
-        .from("waitlist")
-        .upsert(
-          {
-            user_id: user.id,
-            plan,
-            billing_period: period,
-            source,
-            seen_amount: seen?.amount ?? null,
-            seen_currency: seen?.currency ?? null,
-            seen_experiment_id: fromExperiment?.id ?? null,
-            seen_variant: fromExperiment?.variant ?? null,
-          },
-          { onConflict: "user_id" },
-        )
+    ? await admin.from("waitlist").upsert(
+        {
+          user_id: user.id,
+          plan,
+          billing_period: period,
+          source,
+          seen_amount: seen?.amount ?? null,
+          seen_currency: seen?.currency ?? null,
+          seen_experiment_id: fromExperiment?.id ?? null,
+          seen_variant: fromExperiment?.variant ?? null,
+        },
+        { onConflict: "user_id" },
+      )
     : await supabase
         .from("waitlist")
         .upsert(

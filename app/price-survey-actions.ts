@@ -12,8 +12,7 @@ import {
 } from "@/lib/price-survey";
 
 export type PriceSurveyResult =
-  | { ok: true }
-  | { ok: false; reason: "invalid" | "unavailable" | "failed" };
+  { ok: true } | { ok: false; reason: "invalid" | "unavailable" | "failed" };
 
 /**
  * Saves one Van Westendorp answer (D174): the account's, or the
