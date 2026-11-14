@@ -6,7 +6,7 @@ import {
   PRACTICE_RINGS,
   ringLevel,
 } from "@/lib/practice-rings";
-import { RING_CLASS } from "@/components/practice-rings";
+import { GLOW, glowStyle } from "@/components/practice-rings";
 import { cardsOf, contrast, over, type Scheme } from "@/lib/theme-contrast";
 
 const css = readFileSync("app/globals.css", "utf8");
@@ -23,7 +23,9 @@ const SELECTOR = {
   dark: '[data-theme="dark"]',
 } as const;
 
-describe("practice-time rings (D181)", () => {
+const LEVELS = PRACTICE_RINGS.map((r) => r.level);
+
+describe("practice-time levels (D181)", () => {
   it("steps up at 15 min, 30 min, 1 h, 2 h, 3 h", () => {
     expect(PRACTICE_RINGS.map((r) => r.minMinutes)).toEqual([
       15, 30, 60, 120, 180,
@@ -41,71 +43,71 @@ describe("practice-time rings (D181)", () => {
     expect(ringLevel(600)).toBe(5);
   });
 
-  it("gets thicker with time, not only another color", () => {
-    const widths = PRACTICE_RINGS.map(({ level }) => {
-      const width = RING_CLASS[level].match(
-        /outline-(\[([\d.]+)px\]|(\d))(?=\s|$)/,
-      )!;
-      return Number(width[2] ?? width[3]);
-    });
-    expect(widths).toEqual([1, 1.5, 2, 3, 4]);
-    for (let i = 1; i < widths.length; i++) {
-      expect(widths[i]).toBeGreaterThan(widths[i - 1]);
-    }
-    // Each ring has its own color; 30 minutes is the accent.
-    const colors = PRACTICE_RINGS.map(
-      ({ level }) => RING_CLASS[level].match(/outline-(practice-\d)/)![1],
-    );
-    expect(new Set(colors).size).toBe(5);
-    expect(css).toContain("--color-practice-2: var(--ll-accent);");
-  });
-
   it("says minutes as hours and minutes", () => {
     expect(hoursAndMinutes(72)).toEqual({ hours: 1, minutes: 12 });
     expect(hoursAndMinutes(120)).toEqual({ hours: 2, minutes: 0 });
     expect(hoursAndMinutes(14.6)).toEqual({ hours: 0, minutes: 15 });
   });
+});
 
-  // WCAG 1.4.11: a ring is a graphic that conveys meaning, so ≥ 3:1. It's
-  // an outline 2 px out from the day's dot (D182), so the card shows on
-  // both sides of it: checked against every card and surface color of
-  // every theme, light and dark, and the selected day's 8% ink tint. The
-  // accent ring (30 min) is checked here too, with the theme's accent.
+describe("the yellow glow (D183)", () => {
+  it("gets brighter and wider with time, not only another shade", () => {
+    for (let i = 1; i < LEVELS.length; i++) {
+      const [a, b] = [GLOW[LEVELS[i - 1]], GLOW[LEVELS[i]]];
+      expect(b.strength).toBeGreaterThan(a.strength);
+      expect(b.blur).toBeGreaterThan(a.blur);
+      expect(b.spread).toBeGreaterThan(a.spread);
+    }
+    expect(GLOW[5].strength).toBe(100);
+  });
+
+  it("draws one token, scaled down for the legend", () => {
+    expect(glowStyle(3).boxShadow).toBe(
+      "0 0 8px 2px color-mix(in srgb, var(--ll-glow) 65%, transparent)",
+    );
+    expect(glowStyle(5, 0.5).boxShadow).toBe(
+      "0 0 6px 2px color-mix(in srgb, var(--ll-glow) 100%, transparent)",
+    );
+  });
+
+  // A glow is soft by design, so it can't be the only way to tell the
+  // time (WCAG 1.4.1): the label, tooltip, and selected day's line say it
+  // in words. What it must do on every card of every theme, light and
+  // dark: stand out more at each level (brighter = more), and the
+  // brightest stand out clearly.
   for (const scheme of ["light", "dark"] as Scheme[]) {
     for (const b of BACKGROUNDS) {
-      it(`${b.id} (${scheme}): every ring is ≥ 3:1`, () => {
-        const mode = b[scheme];
-        const cards = [...cardsOf(b, scheme), mode.surface];
-        const backs = [
-          ...cards,
-          // The selected day: bg-ink/8 behind the dot and ring.
-          ...cards.map((c) => over({ color: mode.ink, alpha: 0.08 }, c)),
-        ];
-        const failing = [1, 2, 3, 4, 5].flatMap((level) => {
-          const ring =
-            level === 2
-              ? mode.accent
-              : token(SELECTOR[scheme], `practice-${level}`);
-          return backs
-            .map((bg) => ({ bg, ratio: contrast(ring, bg) }))
-            .filter(({ ratio }) => ratio < 3)
-            .map(
-              ({ bg, ratio }) =>
-                `ring ${level} ${ring} on ${bg} = ${ratio.toFixed(2)}`,
+      it(`${b.id} (${scheme}): each level stands out more than the last`, () => {
+        const glow = token(SELECTOR[scheme], "glow");
+        const failing = [...cardsOf(b, scheme), b[scheme].surface].flatMap(
+          (card) => {
+            const ratios = LEVELS.map((level) =>
+              contrast(
+                over({ color: glow, alpha: GLOW[level].strength / 100 }, card),
+                card,
+              ),
             );
-        });
+            const problems: string[] = [];
+            for (let i = 1; i < ratios.length; i++) {
+              if (ratios[i] <= ratios[i - 1]) {
+                problems.push(`level ${i + 1} not brighter on ${card}`);
+              }
+            }
+            if (ratios[4] < 1.6) {
+              problems.push(`level 5 ${ratios[4].toFixed(2)}:1 on ${card}`);
+            }
+            return problems;
+          },
+        );
         expect(failing).toEqual([]);
       });
     }
   }
 
-  it("has the same dark colors with and without the system setting", () => {
+  it("has the same dark glow with and without the system setting", () => {
     const media = css.slice(css.indexOf("@media (prefers-color-scheme: dark)"));
-    for (const level of [1, 3, 4, 5]) {
-      const system = media.match(
-        new RegExp(`--ll-practice-${level}: (#[0-9a-f]{6})`),
-      )![1];
-      expect(system).toBe(token(SELECTOR.dark, `practice-${level}`));
-    }
+    expect(media.match(/--ll-glow: (#[0-9a-f]{6})/)![1]).toBe(
+      token(SELECTOR.dark, "glow"),
+    );
   });
 });

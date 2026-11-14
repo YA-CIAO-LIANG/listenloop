@@ -40,12 +40,20 @@ function deviceId(): string {
  * it was counted on (lib/practice-time.ts timerTick), saved to the
  * activity log every SAVE_EVERY_MS, at midnight, and when the page is
  * hidden or left. `videoId` is the material, or REVIEW_TIME_KEY.
+ * Listening mode keeps counting while its audio plays in the background.
  */
 export function usePracticeTimer(
   videoId: string,
   playing: boolean,
-  /** False while there's nothing to practice (e.g. no words to review). */
-  active = true,
+  {
+    active = true,
+    background = false,
+  }: {
+    /** False while there's nothing to practice (e.g. no words to review). */
+    active?: boolean;
+    /** Audio playing in the background counts (listening mode, D183). */
+    background?: boolean;
+  } = {},
 ) {
   const { rewards } = useStores();
   const playingRef = useRef(playing);
@@ -62,6 +70,7 @@ export function usePracticeTimer(
   useEffect(() => {
     lastActive.current = Date.now();
     let state = TIMER_START;
+    let lastTick = Date.now();
     const touch = () => {
       lastActive.current = Date.now();
     };
@@ -84,15 +93,23 @@ export function usePracticeTimer(
     };
     const tick = window.setInterval(() => {
       const now = Date.now();
+      const visible = document.visibilityState === "visible";
+      // In front a tick is a second (a jump of the clock, e.g. waking
+      // from sleep, adds nothing); a background page's timers slow down,
+      // so there it's the time since the last tick (D183).
+      const seconds = visible ? 1 : (now - lastTick) / 1000;
+      lastTick = now;
       const result = timerTick(state, {
+        seconds,
         counting:
           activeRef.current &&
           isPracticing({
-            visible: document.visibilityState === "visible",
+            visible,
             focused: document.hasFocus(),
             playing: playingRef.current,
             lastActive: lastActive.current,
             now,
+            background,
           }),
         date: toLocalDate(new Date(now)),
       });
@@ -115,5 +132,5 @@ export function usePracticeTimer(
       window.removeEventListener("pagehide", save);
       save();
     };
-  }, [rewards, videoId]);
+  }, [rewards, videoId, background]);
 }

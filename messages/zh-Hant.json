@@ -119,7 +119,7 @@
     "title": "練習日曆",
     "previousMonth": "上個月",
     "nextMonth": "下個月",
-    "caption": "練習日曆：顏色越深，那天完成的任務越多；日期外的圈代表當天的練習時間，越粗越久；選一天可以看當天的任務與練習時間",
+    "caption": "練習日曆：顏色越深，那天完成的任務越多；日期周圍的黃色光暈代表當天的練習時間，越亮練越久；選一天可以看當天的任務與練習時間",
     "taskLine": "<video>{title}</video> · 第 {day} 天 {task}",
     "none": "這天沒有完成任務",
     "dayLabel": "{date}，{time}，{count, plural, =0 {沒有完成任務} other {完成 # 個任務}}{today, select, yes {（今天）} other {}}",

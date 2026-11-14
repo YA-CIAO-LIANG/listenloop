@@ -8,8 +8,10 @@ import type { LocalDate } from "./dates";
  * mode, the vocabulary quiz, and the misheard-words review, with the page
  * in front, the window focused, and the learner active (typing, clicking,
  * or audio playing) within the last IDLE_LIMIT_MS. A page in the
- * background or another tab pauses it, listening mode included (D181).
- * Each second goes to the learner's local date when it was counted. Each device only adds to its own count, so merging two
+ * background or another tab pauses it (D181), except listening mode while
+ * its audio plays: just listening counts, on the lock screen too (D183).
+ * Each second goes to the learner's local date when it was counted. Each
+ * device only adds to its own count, so merging two
  * devices takes the larger count for each device and material and adds
  * the devices up: practicing on a phone and a laptop on the same day is
  * never counted once, nor twice.
@@ -129,7 +131,8 @@ export function isDayTime(value: unknown): value is DayTime {
  * Whether the learner counts as practicing at `now`: page in front and
  * active within IDLE_LIMIT_MS (with the window focused), or audio playing
  * on the page in front. Hidden (another tab, the screen locked, the app
- * in the background) never counts (D181).
+ * in the background) doesn't count (D181), except listening mode's audio
+ * still playing (`background`): just listening is practice too (D183).
  */
 export function isPracticing({
   visible,
@@ -137,13 +140,17 @@ export function isPracticing({
   playing,
   lastActive,
   now,
+  background = false,
 }: {
   visible: boolean;
   focused: boolean;
   playing: boolean;
   lastActive: number;
   now: number;
+  /** Audio playing in the background counts (listening mode, D183). */
+  background?: boolean;
 }): boolean {
+  if (playing && background) return true;
   if (!visible) return false;
   if (playing) return true;
   return focused && now - lastActive < IDLE_LIMIT_MS;
@@ -162,25 +169,39 @@ export const TIMER_START: TimerState = { date: null, pending: 0, sinceSave: 0 };
 export type TimerFlush = { date: LocalDate; seconds: number };
 
 /**
- * One second of the practice timer. A counted second belongs to `date`
- * (the learner's local date now): when the date changes (midnight), what
- * was pending is saved to the day before first. Saves every SAVE_EVERY_MS.
+ * Longest gap between two ticks that still counts in full: a page in the
+ * background gets its timers slowed to about one a minute (D183); a
+ * longer gap (the browser froze the page) counts this much.
+ */
+export const MAX_TICK_SECONDS = 60;
+
+/**
+ * One tick of the practice timer: `seconds` since the last one (1 in
+ * front; up to MAX_TICK_SECONDS in the background). Counted seconds
+ * belong to `date` (the learner's local date now): when the date changes
+ * (midnight), what was pending is saved to the day before first. Saves
+ * every SAVE_EVERY_MS.
  */
 export function timerTick(
   state: TimerState,
-  { counting, date }: { counting: boolean; date: LocalDate },
+  {
+    counting,
+    date,
+    seconds = 1,
+  }: { counting: boolean; date: LocalDate; seconds?: number },
 ): { state: TimerState; flush: TimerFlush | null } {
   if (!counting) return { state, flush: null };
+  const add = Math.min(Math.max(Math.round(seconds), 1), MAX_TICK_SECONDS);
   if (state.date && state.date !== date && state.pending > 0) {
     return {
-      state: { date, pending: 1, sinceSave: 1000 },
+      state: { date, pending: add, sinceSave: add * 1000 },
       flush: { date: state.date, seconds: state.pending },
     };
   }
   const next = {
     date,
-    pending: state.pending + 1,
-    sinceSave: state.sinceSave + 1000,
+    pending: state.pending + add,
+    sinceSave: state.sinceSave + add * 1000,
   };
   if (next.sinceSave >= SAVE_EVERY_MS) {
     return {

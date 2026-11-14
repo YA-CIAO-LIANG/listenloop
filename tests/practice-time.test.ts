@@ -5,6 +5,7 @@ import {
   daySeconds,
   IDLE_LIMIT_MS,
   isPracticing,
+  MAX_TICK_SECONDS,
   mergeDayTime,
   practiceMinutes,
   REVIEW_TIME_KEY,
@@ -160,15 +161,54 @@ describe("the practice timer's seconds (D181)", () => {
     expect(after.pending).toBe(0);
   });
 
-  it("pauses in the background, listening mode included", () => {
+  it("pauses in the background, except listening mode's audio (D183)", () => {
     const now = 5_000_000;
     const at = { now, lastActive: now, focused: true };
     expect(isPracticing({ ...at, visible: false, playing: true })).toBe(false);
     expect(isPracticing({ ...at, visible: false, playing: false })).toBe(false);
+    // Listening mode: playing on the lock screen counts; paused doesn't.
+    const listen = { ...at, visible: false, background: true };
+    expect(isPracticing({ ...listen, playing: true })).toBe(true);
+    expect(isPracticing({ ...listen, playing: false })).toBe(false);
+    expect(
+      isPracticing({
+        ...listen,
+        playing: true,
+        lastActive: now - 60 * 60_000,
+      }),
+    ).toBe(true);
     // Idle over two minutes: paused, unless audio is playing in front.
     const idle = { ...at, lastActive: now - IDLE_LIMIT_MS, visible: true };
     expect(isPracticing({ ...idle, playing: false })).toBe(false);
     expect(isPracticing({ ...idle, playing: true })).toBe(true);
+  });
+});
+
+describe("slow ticks in the background (D183)", () => {
+  it("counts the seconds since the last tick, up to a minute", () => {
+    const date = "2026-11-14";
+    let r = timerTick(TIMER_START, { counting: true, date, seconds: 1 });
+    expect(r.state.pending).toBe(1);
+    // A tick a minute later (a background page's timers): 60 seconds.
+    r = timerTick(TIMER_START, { counting: true, date, seconds: 60.2 });
+    expect(r.flush).toEqual({ date, seconds: 60 });
+    // A frozen page coming back after ten minutes: only a minute.
+    r = timerTick(TIMER_START, { counting: true, date, seconds: 600 });
+    expect(r.flush).toEqual({ date, seconds: MAX_TICK_SECONDS });
+    // Not counting: nothing, however long.
+    r = timerTick(TIMER_START, { counting: false, date, seconds: 60 });
+    expect(r.state).toBe(TIMER_START);
+  });
+
+  it("puts a slow tick after midnight on the new day", () => {
+    let r = timerTick(TIMER_START, {
+      counting: true,
+      date: "2026-11-14",
+      seconds: 10,
+    });
+    r = timerTick(r.state, { counting: true, date: "2026-11-15", seconds: 20 });
+    expect(r.flush).toEqual({ date: "2026-11-14", seconds: 10 });
+    expect(r.state).toMatchObject({ date: "2026-11-15", pending: 20 });
   });
 });
 

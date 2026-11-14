@@ -97,7 +97,7 @@ describe("PracticeCalendar", () => {
   const timed = (date: string, seconds: number, base = emptyActivity()) =>
     addPracticeTime(base, date, "phone", "sintel", seconds);
 
-  it("rings a day by its practice time, thicker for longer (D181)", async () => {
+  it("lights a day by its practice time, brighter for longer (D181, D183)", async () => {
     const { container } = renderWithIntl(
       <PracticeCalendar
         progress={memoryProgress()}
@@ -109,16 +109,14 @@ describe("PracticeCalendar", () => {
       name: `${dayName(today)}，練習 1 小時 12 分，沒有完成任務（今天）`,
     });
     expect(todayButton.dataset.ring).toBe("3");
-    const ring = todayButton.querySelector("span")!;
-    expect(ring.className).toContain("outline-practice-3");
-    expect(ring.className).toContain("outline-2");
-    expect(ring.className).toContain("outline-offset-2");
-    // Under 15 minutes: no ring, but the time is still said.
+    const dot = todayButton.querySelector("span")!;
+    expect(dot.style.boxShadow).toContain("var(--ll-glow) 65%");
+    // Under 15 minutes: no glow, but the time is still said.
     const other = screen.getByRole("button", {
       name: `${dayName(otherDay)}，練習 14 分，沒有完成任務`,
     });
     expect(other.dataset.ring).toBe("0");
-    expect(other.querySelector("span")!.className).not.toContain("outline");
+    expect(other.querySelector("span")!.style.boxShadow).toBe("");
     // The list under the calendar (phones) says it too.
     expect(screen.getByTestId("calendar-day-time").textContent).toBe(
       "練習 1 小時 12 分",
@@ -127,7 +125,7 @@ describe("PracticeCalendar", () => {
     expect(screen.getByTestId("calendar-day-time").textContent).toBe(
       "練習 14 分",
     );
-    // A legend of every ring, in words.
+    // A legend of every level, in words.
     const legend = screen.getByRole("list", { name: "練習時間" });
     expect(
       within(legend)
@@ -141,10 +139,10 @@ describe("PracticeCalendar", () => {
       "3 小時以上",
     ]);
     expect(
-      [...container.querySelectorAll("[data-legend-ring]")].map(
-        (el) => el.className.match(/outline-(\[[\d.]+px\]|\d)(?=\s|$)/)?.[1],
+      [...container.querySelectorAll<HTMLElement>("[data-legend-ring]")].map(
+        (el) => el.style.boxShadow.match(/glow\) (\d+)%/)?.[1],
       ),
-    ).toEqual(["1", "[1.5px]", "2", "3", "4"]);
+    ).toEqual(["35", "50", "65", "82", "100"]);
   });
 
   it("shows the time in the tooltip when hovering (D181)", async () => {
@@ -155,7 +153,7 @@ describe("PracticeCalendar", () => {
   });
 
   it("counts the same minutes as the stats page (D181)", async () => {
-    // 29.6 minutes: both round to 30, so the ring is the 30-minute one.
+    // 29.6 minutes: both round to 30, so the glow is the 30-minute one.
     const activity = timed(today, 29 * 60 + 36);
     await renderCalendar(activity);
     const [{ minutes }] = dailyMinutes(activity, today, 1);

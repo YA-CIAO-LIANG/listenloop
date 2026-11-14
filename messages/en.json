@@ -119,7 +119,7 @@
     "title": "Practice calendar",
     "previousMonth": "Previous",
     "nextMonth": "Next",
-    "caption": "Practice calendar: the darker the day, the more tasks finished; a ring around the date shows the time practiced, thicker for longer; pick a day to see its tasks and time",
+    "caption": "Practice calendar: the darker the day, the more tasks finished; a yellow glow around the date shows the time practiced, brighter for longer; pick a day to see its tasks and time",
     "taskLine": "<video>{title}</video> · Day {day} {task}",
     "none": "No tasks finished this day",
     "dayLabel": "{date}, {time}, {count, plural, =0 {no tasks finished} one {# task finished} other {# tasks finished}}{today, select, yes { (today)} other {}}",

@@ -120,8 +120,8 @@ function Listening({
     start,
   });
   const { player, current, playing, pass } = listen;
-  // In front only, like every practice page (D181).
-  usePracticeTimer(video.id, player.isPlaying);
+  // Just listening is practice, on the lock screen too (D183).
+  usePracticeTimer(video.id, player.isPlaying, { background: true });
   const shown = shownSubtitles(settings.subtitles, pass);
 
   const change = (next: Partial<ListenSettings>) => {

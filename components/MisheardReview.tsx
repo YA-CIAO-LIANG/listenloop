@@ -64,7 +64,9 @@ export function MisheardReview({
   const current = queue[index];
   const { playing, toggle } = useSamplePlayer(() => current?.[1].audio ?? null);
   // Reviewing counts as practice time while there's a word to do (D181).
-  usePracticeTimer(REVIEW_TIME_KEY, playing !== null, current !== undefined);
+  usePracticeTimer(REVIEW_TIME_KEY, playing !== null, {
+    active: current !== undefined,
+  });
   // The word's own sound (D145): played on arrival, replayed, looped.
   const [loop, setLoop] = useState(false);
   const blankWord = current

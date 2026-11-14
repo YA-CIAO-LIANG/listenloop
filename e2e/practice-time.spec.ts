@@ -6,7 +6,7 @@ import { expect, setToday, signInAsAuthor, test } from "./fixtures";
 /**
  * Practice time (D74, D181): the timer on a practice page (paused when
  * idle or hidden, each second on the local date it was counted), the
- * calendar's rings with their legend, tooltip, and spoken time, and the
+ * calendar's glow (D183) with its legend, tooltip, and spoken time, and the
  * stats page showing the same minutes.
  */
 const official = `p-${mock.official.id}`;
@@ -90,7 +90,7 @@ const activity = {
   ),
 };
 
-test.describe("the calendar's rings", () => {
+test.describe("the calendar's glow", () => {
   test.beforeEach(async ({ page }) => {
     await setToday(page, "2026-11-20");
     await page.addInitScript((a) => {
@@ -99,7 +99,7 @@ test.describe("the calendar's rings", () => {
     await signInAsAuthor(page);
   });
 
-  test("a ring per time, a legend, the time in words, the same as stats", async ({
+  test("a glow per time, a legend, the time in words, the same as stats", async ({
     page,
   }) => {
     await page.goto("/");
@@ -166,16 +166,22 @@ test.describe("the calendar's rings", () => {
   test.describe("on a phone", () => {
     test.use({ viewport: { width: 360, height: 800 }, hasTouch: true });
 
-    test("the rings stay inside their day", async ({ page }) => {
+    test("the brightest glow's solid part stays inside its day", async ({
+      page,
+    }) => {
       await page.goto("/");
       await page.getByRole("button", { name: /展開整月/ }).click();
       const day = page
         .locator("#practice-calendar-days")
         .getByRole("button", { name: /^11月7日，/ });
       const outer = (await day.boundingBox())!;
-      // The ring is an outline: offset 2 px and 4 px wide, past the dot.
+      // The glow's spread (D183); only its blur fades past the day.
       const dot = (await day.locator("span").boundingBox())!;
-      const reach = 2 + 4;
+      const shadow = await day
+        .locator("span")
+        .evaluate((el) => getComputedStyle(el).boxShadow);
+      const reach = Number(shadow.match(/(\d+(?:\.\d+)?)px\s*$/)![1]);
+      expect(reach).toBe(4);
       const ring = {
         x: dot.x - reach,
         y: dot.y - reach,
