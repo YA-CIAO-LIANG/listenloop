@@ -706,7 +706,7 @@
         "title": "When you're not signed in",
         "paragraphs": [
           "Your progress stays in your browser (localStorage) and is never sent to our servers. The interface language is kept in a cookie and the theme in localStorage. Clearing your browser data removes them.",
-          "When you open the pricing page, your browser keeps a random visitor id (a cookie, for a year) so a price test shows you the same price each time and interest can be counted; it isn't linked to anything personal. A price survey answered while signed out is kept only under this id."
+          "When you open the pricing page, your browser keeps a random visitor id (a cookie, for 180 days) so a price test shows you the same price each time and interest can be counted; it isn't linked to anything personal. A price survey answered while signed out is kept only under this id."
         ]
       },
       {

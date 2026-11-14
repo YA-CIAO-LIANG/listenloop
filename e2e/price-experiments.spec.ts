@@ -22,6 +22,25 @@ async function plusAverage(page: import("@playwright/test").Page) {
   return null;
 }
 
+test("the visitor id cookie is HttpOnly, SameSite=Lax, and lasts 180 days", async ({
+  page,
+}) => {
+  await page.goto("/pricing");
+  const cookie = (await page.context().cookies()).find(
+    (c) => c.name === "ll-visitor",
+  );
+  expect(cookie).toBeDefined();
+  expect(cookie!.httpOnly).toBe(true);
+  expect(cookie!.sameSite).toBe("Lax");
+  const days = (cookie!.expires * 1000 - Date.now()) / 86_400_000;
+  expect(days).toBeGreaterThan(179);
+  expect(days).toBeLessThanOrEqual(180);
+  // No script on the page can read it.
+  expect(await page.evaluate(() => document.cookie)).not.toContain(
+    "ll-visitor",
+  );
+});
+
 test("an admin runs a Plus price experiment; each visitor keeps one price", async ({
   page,
   browser,

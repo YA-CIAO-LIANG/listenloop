@@ -3344,4 +3344,10 @@
 - **隱私權政策**：補上付費意願與價格測試組別、等候名單記錄的價格、價格問卷、未登入時的訪客代碼 cookie，以及保存期限（付費意願 365 天，問卷在帳號存在期間）。
 - **E2E**：實驗會改變所有人看到的價格，所以 `e2e/price-experiments.spec.ts` 放在獨立的 Playwright 專案 `prices`，在 `ops` 之後一個一個執行。
 - migration：`20261129030000_price_experiments.sql`（只新增，有 Rollback）。
+- **`ll-visitor` cookie 與 ZAP 10112**（2026-11-14，Joe 同意）：ZAP 的資訊性提示 10112「Session Management Response Identified」把這個訪客代碼當成工作階段 cookie。它其實只是價格測試用的隨機代碼，不能用來登入，所以加進 `.zap/rules.tsv` 的已接受清單並寫明理由。同時確認並統一設定（`lib/intent.ts` 的 `VISITOR_COOKIE_OPTIONS`，proxy 和 action 共用）：
+  - HttpOnly：前端沒有程式需要讀它。
+  - SameSite=Lax。
+  - 正式站加 Secure；E2E 在 http://localhost 上執行，所以不加。
+  - 有效期從一年縮短為 **180 天**：比一次價格測試長，但不會無限期保存。隱私權政策同步更新。
+  - E2E 會檢查這些屬性。
 - 要改時看哪裡：門檻與上限 `EXPERIMENT_LIMITS`；問卷時機與上限 `PRICE_SURVEY`；顯著性的說明文字 `admin.priceExperiments`。

@@ -7,3 +7,4 @@
 10109	IGNORE	(Modern Web Application) informational
 10049	IGNORE	(Non-Storable Content / Storable but Non-Cacheable) informational; pages are per user on purpose
 90005	IGNORE	(Sec-Fetch-* Header Missing) these are request headers ZAP itself didn't send
+10112	IGNORE	(Session Management Response Identified) informational: ll-visitor is a random price-test id, not a session; HttpOnly, SameSite=Lax, Secure in production, 180 days (D174, Joe approved 2026-11-14)

@@ -5,7 +5,7 @@ import { openInMaintenance } from "@/lib/site-switches";
 import { clarityProjectId } from "@/lib/analytics-consent";
 import { contentSecurityPolicy, createNonce } from "@/lib/security/csp";
 import { turnstileSiteKey } from "@/lib/turnstile";
-import { VISITOR_COOKIE } from "@/lib/intent";
+import { VISITOR_COOKIE, VISITOR_COOKIE_OPTIONS } from "@/lib/intent";
 import { supabaseConfig } from "@/lib/supabase/config";
 import {
   isLocale,
@@ -47,13 +47,7 @@ export async function proxy(request: NextRequest) {
   const { response, isAdmin } = await updateSession(request, requestHeaders);
   response.headers.set("content-security-policy", policy);
   if (visitor) {
-    response.cookies.set(VISITOR_COOKIE, visitor, {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 365,
-      sameSite: "lax",
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-    });
+    response.cookies.set(VISITOR_COOKIE, visitor, VISITOR_COOKIE_OPTIONS);
   }
   // Maintenance mode (D155): everyone but admins sees the maintenance
   // page (503, so search engines come back later); the session cookies

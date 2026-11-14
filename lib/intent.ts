@@ -43,6 +43,21 @@ export type Intent = {
 /** Where this browser keeps its random visitor id. */
 export const VISITOR_COOKIE = "ll-visitor";
 
+/**
+ * How the visitor id is kept (D174, checked for ZAP 10112): no script
+ * reads it (HttpOnly), it isn't sent from other sites' requests (Lax),
+ * only over HTTPS in production (Secure; the E2E build runs on plain
+ * http://localhost), and it lasts 180 days, longer than a price test
+ * runs but not indefinitely.
+ */
+export const VISITOR_COOKIE_OPTIONS = {
+  path: "/",
+  maxAge: 60 * 60 * 24 * 180,
+  sameSite: "lax",
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+} as const;
+
 const isShortId = (value: unknown, max: number): value is string =>
   typeof value === "string" &&
   /^[a-z0-9-]+$/.test(value) &&
