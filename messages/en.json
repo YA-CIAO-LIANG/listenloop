@@ -3091,7 +3091,7 @@
       "free": "Every official lesson and feature, basic stats, and 2 minutes of your own materials a week (two of a minute, or one of two).",
       "plus": "Every shared material in full, 40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules.",
       "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus.",
-      "student": "Everything in Plus at a student price. Sign in with a school (.edu, .edu.tw …) Google account to be verified automatically, for a year."
+      "student": "Everything in Plus, at a student price."
     },
     "student": {
       "verified": "Verified as a student until {until}.",
@@ -3100,7 +3100,8 @@
       "signedOut": "The student plan needs a Google account with a school email (such as .edu or .edu.tw); signing in verifies you automatically.",
       "signInSchool": "Sign in with a school account",
       "needVerified": "Before subscribing to the student plan, sign in with a school Google account to be verified.",
-      "how": "How to verify: sign in with a school Google account (.edu, .edu.tw, .ac.uk, and others) and it's checked automatically, no student ID upload. It lasts a year; sign in with the school account again to renew."
+      "how": "How to verify: sign in with a school Google account (.edu, .edu.tw, .ac.uk, and others) and it's checked automatically, no student ID upload. It lasts a year; sign in with the school account again to renew.",
+      "forYou": "For you"
     },
     "subscribe": "Subscribe to {plan}",
     "compareTitle": "Compare plans",
@@ -3237,7 +3238,10 @@
       "status": "Status",
       "day": "Day {day} (%)",
       "improvement": "Gain (points)"
-    }
+    },
+    "startDay1": "Start Day 1 →",
+    "continueDay": "Continue with Day {day} →",
+    "seeResult": "See the week's result →"
   },
   "classPricing": {
     "title": "Class plans",
@@ -3809,7 +3813,7 @@
         "earned": "Minutes earned",
         "left": "Minutes left"
       },
-      "rules": "Accounts from the same device or network, or many sign-ups in one day, don't count, and your own link doesn't work for you. Invite links don't add sign-up places."
+      "rules": "Accounts from the same device, or many sign-ups in one day, don't count, and your own link doesn't work for you. Classmates on the same school network are fine. Invite links don't add sign-up places."
     }
   },
   "seo": {

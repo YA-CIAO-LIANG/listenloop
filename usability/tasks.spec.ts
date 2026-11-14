@@ -17,6 +17,8 @@ import {
   signInAsBuyer,
   signInAsLearner,
   signInAsPaid,
+  signInAsStudent,
+  signInWithEmail,
   test,
 } from "../e2e/fixtures";
 
@@ -749,4 +751,243 @@ test("T12 admin: dashboard, usage, creating without limits (管理員 Joe)", asy
     await page.goto("/materials/new");
     await expect(page.getByTestId("week-allowance")).toHaveCount(0);
   });
+});
+
+// ------------------------------------------- 2026-11-14 additions (D179)
+
+/** A fresh account per device, so a step that changes it can't collide. */
+const runId = () =>
+  `${test.info().project.name}-${Math.random().toString(36).slice(2, 7)}`;
+
+test("T13 student plan: verified by a school account, price, waiting list (P8 高三生, P3 留學生)", async ({
+  page,
+}) => {
+  await step(page, "t13-student", "1-pricing-guest", () =>
+    page.goto("/pricing"),
+  );
+  await signInAsStudent(page);
+  await step(page, "t13-student", "2-pricing-verified", async () => {
+    await page.goto("/pricing");
+    await expect(page.getByTestId("student-status")).toContainText(
+      "已認證學生身分",
+    );
+  });
+  await step(page, "t13-student", "3-offer", async () => {
+    await page
+      .getByRole("listitem")
+      .filter({ hasText: "訂閱 學生方案" })
+      .getByRole("button", { name: "訂閱 學生方案" })
+      .click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+  });
+  await step(page, "t13-student", "4-classes", () =>
+    page.goto("/pricing/classroom"),
+  );
+});
+
+test("T14 class: a teacher makes a class, a student joins, an assignment, progress (P10 老師, P1 國中生, P2 高中生)", async ({
+  page,
+  browser,
+}) => {
+  const id = runId();
+  const teacher = `e2e-class-teacher-${id}`;
+  const student = `e2e-class-student-${id}`;
+  await signInWithEmail(page, teacher, `${teacher}@example.com`);
+  await step(page, "t14-class", "1-teacher-classes", () =>
+    page.goto("/classroom"),
+  );
+  await step(page, "t14-class", "2-create-class", async () => {
+    await page.getByLabel("建立新班級").fill("三年二班 英聽");
+    await page.getByRole("button", { name: "建立", exact: true }).click();
+    await expect(page.getByText("三年二班 英聽").first()).toBeVisible();
+  });
+  await step(page, "t14-class", "3-class-page", async () => {
+    await page
+      .getByRole("link", { name: /三年二班 英聽/ })
+      .first()
+      .click();
+    await expect(page.getByText("請學生輸入邀請碼")).toBeVisible();
+  });
+  const code =
+    (await page
+      .locator("main")
+      .innerText()
+      .then((text) => /\b([A-HJ-NP-Z2-9]{8})\b/.exec(text)?.[1])) ?? "";
+  const classUrl = page.url();
+  await step(page, "t14-class", "4-assign", async () => {
+    await page.getByLabel("教材").selectOption({ index: 0 });
+    await page.getByRole("button", { name: "指派", exact: true }).click();
+    await expect(page.getByText("還沒有作業。")).toHaveCount(0);
+  });
+
+  // The student joins with the code, on their own device.
+  const other = await browser.newContext({
+    ...test.info().project.use,
+    locale: "zh-TW",
+  });
+  await other.addCookies([
+    {
+      name: "ll-locale",
+      value: "zh-Hant",
+      url: `http://localhost:${PORT}`,
+    },
+  ]);
+  const kid = await other.newPage();
+  await signInWithEmail(kid, student, `${student}@example.com`);
+  await step(kid, "t14-class", "5-student-join", async () => {
+    await kid.goto("/classroom");
+    await kid.getByLabel("邀請碼（8 碼）").fill(code);
+    await kid.getByLabel("在班上的稱呼").fill("01 王小明");
+    await kid.getByText("我未滿 18 歲，已經取得家長或法定代理人同意").click();
+    await kid.getByRole("button", { name: "加入", exact: true }).click();
+    await expect(kid.getByText("三年二班 英聽").first()).toBeVisible();
+  });
+  // Joining opens the class page.
+  await step(kid, "t14-class", "6-student-class", async () => {
+    await expect(kid.getByRole("heading", { name: "作業" })).toBeVisible();
+    await expect(kid.getByText("還沒有作業。")).toHaveCount(0);
+  });
+  await step(kid, "t14-class", "7-student-assignment", async () => {
+    await kid
+      .locator("main")
+      .getByRole("link", { name: /Sintel/ })
+      .first()
+      .click();
+    await expect(kid).toHaveURL(/\/videos\//);
+  });
+  await other.close();
+
+  await step(page, "t14-class", "8-teacher-progress", async () => {
+    await page.goto(classUrl);
+    await expect(page.getByText("01 王小明").first()).toBeVisible();
+  });
+});
+
+test("T15 retention: Monday's weekly report, the streak freeze, all done today (P2 高中生, P4 上班族, P5 長輩)", async ({
+  page,
+}) => {
+  // 2026-11-23 is a Monday; last week 11-16 to 11-22, 11-21 missed.
+  await setToday(page, "2026-11-23");
+  const time = (s: number) => ({ phone: { sintel: s } });
+  await seed(page, "ll-activity:v1", {
+    days: Object.fromEntries(
+      [
+        "2026-11-16",
+        "2026-11-17",
+        "2026-11-18",
+        "2026-11-19",
+        "2026-11-20",
+        "2026-11-22",
+      ].map((d) => [d, { official: false, retries: [], time: time(600) }]),
+    ),
+    review: {
+      dragon: {
+        en: "The dragon flew away.",
+        zh: "龍飛走了。",
+        videoId: "sintel",
+        i: 0,
+        stage: 0,
+        due: "2026-11-19",
+        at: "2026-11-18T02:00:00.000Z",
+      },
+    },
+  });
+  await signInAsAuthor(page);
+  await step(page, "t15-retention", "1-home-monday", async () => {
+    await page.goto("/");
+    await expect(
+      page.getByRole("region", { name: "上週學習報告" }),
+    ).toBeVisible();
+  });
+  await step(page, "t15-retention", "2-dismiss", async () => {
+    await page
+      .getByRole("region", { name: "上週學習報告" })
+      .getByRole("button", { name: "知道了" })
+      .click();
+  });
+  await step(page, "t15-retention", "3-stats", () => page.goto("/stats"));
+});
+
+test("T16 referral: my invite link, a friend opens it (P1 國中生, P2 高中生, P3 留學生)", async ({
+  page,
+}) => {
+  const host = `e2e-ref-host-${runId()}`;
+  await signInWithEmail(page, host, `${host}@example.com`);
+  await step(page, "t16-referral", "1-my-quota", async () => {
+    await page.goto("/account/usage");
+    await expect(page.getByRole("heading", { name: "邀請朋友" })).toBeVisible();
+  });
+  const link = (await page.getByTestId("referral-link").textContent()) ?? "";
+  const code = /\/r\/([A-Z0-9]{8})$/.exec(link)?.[1] ?? "XXXXXXXX";
+  await page.context().clearCookies();
+  await page
+    .context()
+    .addCookies([
+      { name: "ll-locale", value: "zh-Hant", url: `http://localhost:${PORT}` },
+    ]);
+  await step(page, "t16-referral", "2-friend-opens", async () => {
+    await page.goto(`/r/${code}`);
+    await expect(page.getByText(/朋友邀請你一起練英文聽力/)).toBeVisible();
+  });
+});
+
+test("T17 emergency switches: read-only and maintenance, as a learner sees them (管理員 Joe, P2 高中生)", async ({
+  page,
+  browser,
+}) => {
+  await signInAsAdmin(page);
+  await step(page, "t17-ops", "1-admin-ops", () => page.goto("/admin/ops"));
+  const learner = await browser.newContext({
+    ...test.info().project.use,
+    locale: "zh-TW",
+  });
+  await learner.addCookies([
+    { name: "ll-locale", value: "zh-Hant", url: `http://localhost:${PORT}` },
+  ]);
+  const kid = await learner.newPage();
+  await signInAsAuthor(kid);
+  const toggle = async (group: string, value: "開啟" | "關閉") => {
+    await page.goto("/admin/ops");
+    await page.getByRole("group", { name: group }).getByText(value).click();
+    await page.getByRole("button", { name: "儲存開關" }).click();
+    await page.getByRole("button", { name: "確定變更" }).click();
+    await expect(page.getByRole("status")).toContainText("已儲存");
+  };
+  try {
+    await step(page, "t17-ops", "2-read-only-on", () =>
+      toggle("唯讀模式", "開啟"),
+    );
+    await step(kid, "t17-ops", "3-learner-create-read-only", () =>
+      kid.goto("/materials/new"),
+    );
+    await toggle("唯讀模式", "關閉");
+    await step(page, "t17-ops", "4-maintenance-on", () =>
+      toggle("維護模式", "開啟"),
+    );
+    await step(kid, "t17-ops", "5-learner-maintenance", () => kid.goto("/"));
+    await step(kid, "t17-ops", "6-status", () => kid.goto("/status"));
+  } finally {
+    // Back to normal for everything after this.
+    await fetch(
+      `http://localhost:${process.env.MOCK_SUPABASE_PORT ?? 54329}/__reset-ops`,
+      { method: "POST" },
+    ).catch(() => {});
+    await learner.close();
+  }
+});
+
+test("T18 paid and free: pricing as each sees it, Plus most popular, class tiers (P4 上班族, P5 長輩, P10 老師)", async ({
+  page,
+}) => {
+  await signInAsPaid(page);
+  await step(page, "t18-pricing", "1-paid-pricing", () =>
+    page.goto("/pricing"),
+  );
+  await signInAsLearner(page);
+  await step(page, "t18-pricing", "2-free-pricing-monthly", async () => {
+    await page.goto("/pricing");
+    await page.getByText("月繳", { exact: true }).click();
+  });
+  await step(page, "t18-pricing", "3-refund", () => page.goto("/refund"));
+  await step(page, "t18-pricing", "4-terms", () => page.goto("/terms"));
 });

@@ -224,7 +224,11 @@ export function PricingPlans({
           <PlanPrice total={0} period="month" />
           <p className="text-supporting">{t("summaries.free")}</p>
         </li>
-        {PAID_PLANS.map((plan) => {
+        {/* A verified student sees their plan first (D179). */}
+        {(verified
+          ? (["student", ...PAID_PLANS.filter((p) => p !== "student")] as const)
+          : PAID_PLANS
+        ).map((plan) => {
           const total = PLAN_PRICES[plan][period].amount;
           return (
             <li
@@ -239,6 +243,9 @@ export function PricingPlans({
                   <Tag tone="accent">{t("popular")}</Tag>
                 )}
                 {current === plan && <Tag>{t("current")}</Tag>}
+                {plan === "student" && verified && current !== "student" && (
+                  <Tag>{t("student.forYou")}</Tag>
+                )}
               </h2>
               {/* The price a month is always the big number (D128). */}
               <PlanPrice
@@ -257,7 +264,8 @@ export function PricingPlans({
                   {studentLine}
                 </p>
               )}
-              {plan === "student" && (
+              {/* How to verify, until they are (D179). */}
+              {plan === "student" && !verified && (
                 <p className="text-supporting text-ink-muted">
                   {t("student.how")}
                 </p>

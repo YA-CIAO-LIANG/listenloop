@@ -19,13 +19,16 @@ import {
   CLASS_NAME_MAX,
   DISPLAY_NAME_MAX,
 } from "@/lib/classroom";
-import { toLocalDate } from "@/lib/dates";
+import { addDays, toLocalDate } from "@/lib/dates";
 import {
   DEFAULT_PASS_RULES,
   isPassRules,
   type PassRules,
 } from "@/lib/pass-rules";
 import { Button } from "./Button";
+
+/** Days an assignment spans by default: one 7-day cycle (D179). */
+const ASSIGNMENT_DAYS = 7;
 import { useStores } from "./StoresProvider";
 
 const fieldClassName =
@@ -264,7 +267,9 @@ export function AssignmentForm({
   const today = toLocalDate(new Date());
   const [videoId, setVideoId] = useState(materials[0]?.id ?? "");
   const [startsOn, setStartsOn] = useState(today);
-  const [dueOn, setDueOn] = useState(today);
+  // A week's cycle by default: Day 1 on the start date, Day 7 six days
+  // later (D179).
+  const [dueOn, setDueOn] = useState(addDays(today, ASSIGNMENT_DAYS - 1));
   const [rule, setRule] = useState<"default" | "eighty">("default");
   const { pending, run, message } = useRun();
   const rules: PassRules | null =
@@ -305,7 +310,14 @@ export function AssignmentForm({
             id={ids.starts}
             type="date"
             value={startsOn}
-            onChange={(event) => setStartsOn(event.target.value)}
+            onChange={(event) => {
+              const next = event.target.value;
+              setStartsOn(next);
+              // A start past the due date moves the due date a week on.
+              if (next && dueOn < next) {
+                setDueOn(addDays(next, ASSIGNMENT_DAYS - 1));
+              }
+            }}
             className={fieldClassName}
           />
         </label>
