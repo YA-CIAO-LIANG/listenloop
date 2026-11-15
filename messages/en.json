@@ -2265,7 +2265,7 @@
       "endConfirm": "End this experiment? An applied price shows to everyone at once.",
       "plan": "Plan",
       "prices": "Monthly prices to try (NT$)",
-      "pricesHint": "2–4 whole prices, all different. The first is the control, today's price by default.",
+      "pricesHint": "2–4 whole prices, all different, none under the floor (no loss even if everyone uses all their minutes). The first is the control, the current price by default.",
       "addVariant": "Add a group",
       "start": "Start the experiment",
       "pastTitle": "Ended experiments",
@@ -2277,7 +2277,8 @@
         "invalid": "Prices must be 2–4 different whole numbers (NT$1–10,000).",
         "running": "An experiment is already running; end it first.",
         "failed": "That didn't work. Please try again.",
-        "reauth": "This needs a sign-in within the last 30 minutes. Please sign in again."
+        "reauth": "This needs a sign-in within the last 30 minutes. Please sign in again.",
+        "belowFloor": "A price is under the floor of NT${min}: even if every subscriber uses all their minutes, each must still earn at least NT$15 a month after business tax, fees, and AI cost (D185)."
       },
       "surveyTitle": "Price sensitivity survey (Van Westendorp)",
       "surveyIntro": "After Day 7, or 30 seconds on the pricing page, people are asked 4 questions (a monthly price for Plus). Once per device, and skippable.",
@@ -2934,7 +2935,7 @@
       {
         "title": "3. Ending a yearly plan early",
         "paragraphs": [
-          "After 7 days, you can still end a yearly plan early: the unused whole months are refunded at that plan’s own monthly rate. For example, Plus yearly at NT$1,490 used for 3 months and a few days refunds 8 × NT$1,490 ÷ 12 ≈ NT$993; the student plan’s year at NT$900 refunds 8 × NT$900 ÷ 12 = NT$600 in the same case. The month already started isn’t refunded.",
+          "After 7 days, you can still end a yearly plan early: the unused whole months are refunded at that plan’s own monthly rate. For example, Plus yearly at NT$1,490 used for 3 months and a few days refunds 8 × NT$1,490 ÷ 12 ≈ NT$993; the student plan’s year at NT$1,190 refunds 8 × NT$1,190 ÷ 12 ≈ NT$793 in the same case. The month already started isn’t refunded.",
           "A yearly plan’s allowance still resets every month; unused minutes don’t carry over or turn into refunds."
         ]
       },

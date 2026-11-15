@@ -30,7 +30,12 @@ function useOutcome() {
     }));
     setPending(false);
     if (result.ok) router.refresh();
-    else setError(t(`errors.${result.reason}`));
+    else
+      setError(
+        result.reason === "belowFloor"
+          ? t("errors.belowFloor", { min: result.min })
+          : t(`errors.${result.reason}`),
+      );
   }
   const message = error && (
     <p role="alert" className="text-supporting text-error">

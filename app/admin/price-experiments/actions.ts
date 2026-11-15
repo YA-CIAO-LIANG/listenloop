@@ -11,6 +11,7 @@ import {
   parseExperiment,
   parseVariants,
 } from "@/lib/price-experiments";
+import { minimumMonthly, PLAN_MINUTES } from "@/lib/payments/price-floor";
 
 /**
  * Starting and ending price experiments (D174). Prices change what people
@@ -21,7 +22,9 @@ export type ExperimentResult =
   | {
       ok: false;
       reason: "unavailable" | "invalid" | "running" | "failed" | "reauth";
-    };
+    }
+  /** A price under the floor (D185): `min` is the lowest allowed. */
+  | { ok: false; reason: "belowFloor"; min: number };
 
 export async function startPriceExperiment(
   input: unknown,
@@ -34,6 +37,11 @@ export async function startPriceExperiment(
   const variants = Array.isArray(raw.prices) ? parseVariants(raw.prices) : null;
   if (!isPaidPlanId(raw.plan) || !variants) {
     return { ok: false, reason: "invalid" };
+  }
+  // Even if everyone uses every minute, no price may lose money (D185).
+  const min = minimumMonthly(PLAN_MINUTES[raw.plan]);
+  if (variants.some((v) => v.monthly < min)) {
+    return { ok: false, reason: "belowFloor", min };
   }
   const note =
     typeof raw.note === "string" ? raw.note.trim().slice(0, 200) : "";

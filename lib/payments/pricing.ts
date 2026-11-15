@@ -89,13 +89,15 @@ export const PERIOD_MONTHS: Readonly<Record<BillingPeriod, number>> = {
 };
 
 /**
- * Joe's monthly prices (D102, confirmed D173), in NT$; the yearly ones
- * follow (D105). The most popular plan is marked on the pricing page.
+ * Monthly prices in NT$ (D102, D173; Pro and student raised by D185 so a
+ * subscriber who uses every minute still earns the price floor,
+ * lib/payments/price-floor.ts); the yearly ones follow (D105). The most
+ * popular plan is marked on the pricing page.
  */
 export const PLAN_MONTHLY: Readonly<Record<PaidPlan, number>> = {
   plus: PRICES.month.amount,
-  pro: 299,
-  student: 90,
+  pro: 319,
+  student: 119,
 };
 
 /**

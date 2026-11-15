@@ -32,8 +32,8 @@ describe("PlanPrice", () => {
         size="inline"
       />,
     );
-    expect(screen.getByText(/NT\$249／月/).textContent).toBe(
-      "NT$249／月 （年繳 NT$2,990）",
+    expect(screen.getByText(/NT\$266／月/).textContent).toBe(
+      "NT$266／月 （年繳 NT$3,190）",
     );
   });
 

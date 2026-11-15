@@ -8,7 +8,7 @@ import {
 } from "./fixtures";
 
 /**
- * The student plan (D144, D173): Plus at NT$90 a month or NT$900 a year, for a
+ * The student plan (D144, D173, D185): Plus at NT$119 a month or NT$1,190 a year, for a
  * school Google account. Subscribing is a fake door like Plus's.
  */
 const studentCard = (page: import("@playwright/test").Page) =>
@@ -19,16 +19,16 @@ test("visitors see the student price and how to be verified", async ({
 }) => {
   await page.goto("/pricing");
   const card = studentCard(page);
-  // Yearly first: NT$900 a year, NT$75 a month, two months saved (D173).
-  await expect(card).toContainText("NT$75／月");
-  await expect(card).toContainText("年繳 NT$900，一次付清，省 2 個月");
+  // Yearly first: NT$1,190 a year, NT$99 a month, two months saved (D185).
+  await expect(card).toContainText("NT$99／月");
+  await expect(card).toContainText("年繳 NT$1,190，一次付清，省 2 個月");
   // How to be verified, said before anyone tries (D173).
   await expect(card).toContainText("不用上傳學生證");
   // Said once: no status line on top of it when signed out (D179).
   await expect(card.getByTestId("student-status")).toHaveCount(0);
   await expect(card.getByText(/學校信箱/)).toHaveCount(1);
   await page.getByText("月繳", { exact: true }).click();
-  await expect(card.getByText("NT$90", { exact: true })).toBeVisible();
+  await expect(card.getByText("NT$119", { exact: true })).toBeVisible();
   // The comparison table has a student column, the same as Plus.
   await expect(
     page.getByRole("table", { name: "方案比較" }).getByRole("columnheader", {
