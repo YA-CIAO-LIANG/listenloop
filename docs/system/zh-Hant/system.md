@@ -674,7 +674,7 @@ sequenceDiagram
 | 班級（建立、作業、報表）     | 加入班級                       | 加入班級                      | 加入班級                        | 40 位學生                                 | 100 位   |
 
 - 帳號方案存在 `profiles.plan`（`free`／`paid`／`pro`）；班級方案是 `profiles.classroom_seats`。
-- 學生方案（D144）：內容等於 Plus，價格 NT$90／NT$900（`lib/payments/pricing.ts`）。學校信箱網域集中在 `lib/student.ts`；用學校信箱登入時 `/auth/callback` 寫入 `profiles.student_verified_at`，一年內有效。目前是假門，訂閱只記錄意願（`intent_events`、`waitlist.plan = 'student'`）。
+- 學生方案（D144）：內容等於 Plus，價格 NT$119／NT$1,190（D185）（`lib/payments/pricing.ts`）。學校信箱網域集中在 `lib/student.ts`；用學校信箱登入時 `/auth/callback` 寫入 `profiles.student_verified_at`，一年內有效。目前是假門，訂閱只記錄意願（`intent_events`、`waitlist.plan = 'student'`）。
 - 程式只透過 `can(plan, action)` 判斷；改方案內容只改 `PLANS`（D54）。
 
 ### 7.2 額度計算
@@ -693,8 +693,8 @@ sequenceDiagram
 | 方案         | 月繳   | 年繳（× 10） | 每月平均 |
 | ------------ | ------ | ------------ | -------- |
 | Plus         | NT$149 | NT$1,490     | NT$124   |
-| Pro          | NT$299 | NT$2,990     | NT$249   |
-| 學生方案     | NT$90  | NT$900       | NT$75    |
+| Pro          | NT$319 | NT$3,190     | NT$266   |
+| 學生方案     | NT$119 | NT$1,190     | NT$99    |
 | 班級：小班   | NT$349 | NT$3,490     | NT$291   |
 | 班級：標準班 | NT$549 | NT$5,490     | NT$458   |
 | 班級：大班   | NT$800 | NT$8,000     | NT$667   |

@@ -14,7 +14,8 @@ test("the forecast takes out tax and ECPay's fee, and recomputes", async ({
   const tiles = page.locator("dl > div");
   const revenue = tiles.nth(0);
   await expect(revenue.locator("dt")).toHaveText("月營收（含稅）");
-  await expect(revenue).toContainText("含營業稅 NT$1,058");
+  // 5% inside the default subscribers' NT$23,045 a month (D185 prices).
+  await expect(revenue).toContainText("含營業稅 NT$1,097");
   const tax = page.getByLabel("營業稅（%，含在價格內）");
   const fee = page.getByLabel("金流手續費（%）");
   await expect(tax).toHaveValue("5");

@@ -56,9 +56,9 @@ describe("revenue forecast (D102, D184)", () => {
 
   it("spreads a year over 12 months, fees included", () => {
     const r = forecast(only(base, "student", "year", 12));
-    expect(r.revenue).toBeCloseTo(900);
-    expect(r.cash).toBe(12 * 900);
-    expect(r.fees).toBeCloseTo(900 * ECPAY_FEE_RATE);
+    expect(r.revenue).toBeCloseTo(1190);
+    expect(r.cash).toBe(12 * 1190);
+    expect(r.fees).toBeCloseTo(1190 * ECPAY_FEE_RATE);
   });
 
   it("charges a fixed fee per payment when one is set", () => {

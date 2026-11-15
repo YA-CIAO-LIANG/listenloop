@@ -50,7 +50,7 @@ describe("yearly prices (D105)", () => {
     expect(monthsSaved("student")).toBe(2);
   });
 
-  it("are Joe's personal prices (D173): student NT$90/900, Plus 149/1,490, Pro 299/2,990", () => {
+  it("are the personal prices (D173, D185): student NT$119/1,190, Plus 149/1,490, Pro 319/3,190", () => {
     expect(
       Object.fromEntries(
         PAID_PLANS.map((plan) => [
@@ -58,8 +58,8 @@ describe("yearly prices (D105)", () => {
           [PLAN_PRICES[plan].month.amount, PLAN_PRICES[plan].year.amount],
         ]),
       ),
-    ).toEqual({ plus: [149, 1490], pro: [299, 2990], student: [90, 900] });
-    expect(averagePerMonth(900)).toBe(75);
+    ).toEqual({ plus: [149, 1490], pro: [319, 3190], student: [119, 1190] });
+    expect(averagePerMonth(1190)).toBe(99);
   });
 
   it("are Joe's class prices (D173): NT$3,490, NT$5,490, NT$8,000 a year", () => {

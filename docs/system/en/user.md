@@ -219,8 +219,8 @@ flowchart LR
 | ------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Free    | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, 2 minutes of your own materials a week (up to 2 minutes each), basic stats     |
 | Plus    | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                                                |
-| Student | NT$90 / NT$900                                      | The same as Plus. Signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew |
-| Pro     | NT$299 / NT$2,990                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                                                       |
+| Student | NT$119 / NT$1,190                                   | The same as Plus. Signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew |
+| Pro     | NT$319 / NT$3,190                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                                                       |
 | Class   | Small NT$349, Standard NT$549, Large NT$800 a month | 15, 40, or 100 students; assignments and progress, CSV, announcements; 45/70/105 minutes a month for the teacher                                                              |
 
 - Yearly = 10 × monthly: **2 months free**, on every plan (D173).

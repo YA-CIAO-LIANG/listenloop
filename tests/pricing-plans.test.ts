@@ -17,8 +17,8 @@ describe("prices (D102)", () => {
       year: { amount: 1490 },
     });
     expect(PLAN_PRICES.pro).toMatchObject({
-      month: { amount: 299 },
-      year: { amount: 2990 },
+      month: { amount: 319 },
+      year: { amount: 3190 },
     });
     expect(Object.keys(PLAN_PRICES.plus)).toEqual(["month", "year"]);
   });
@@ -27,7 +27,8 @@ describe("prices (D102)", () => {
     expect(prepaidRefund("plus", "year", 3, 0)).toBe(1490);
     // 8 unused months × 1,490 ÷ 12.
     expect(prepaidRefund("plus", "year", 100, 3.2)).toBe(993);
-    expect(prepaidRefund("pro", "year", 200, 6.5)).toBe(1246);
+    // 5 unused months × 3,190 ÷ 12 (D185).
+    expect(prepaidRefund("pro", "year", 200, 6.5)).toBe(1329);
     expect(prepaidRefund("plus", "month", 20, 0.7)).toBe(0);
   });
 });

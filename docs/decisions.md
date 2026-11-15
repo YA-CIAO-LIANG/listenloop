@@ -3449,3 +3449,18 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - AI 成本每分鐘＝語言模型的實際花費（`languageCostUsd`：不含 `eval:*`，也不含 speech、transcribe）＋付費聲音（`voicePerMinute`：每分鐘 1,209 字元 × US$30／百萬字元 × 匯率 32 ≈ NT$1.16，和班級方案的最壞情況 D173 相同）。
 - **測試**：`tests/forecast.test.ts`（稅、手續費、年繳攤提、固定費、聲音成本與 D173 一致、eval 與聲音不算進語言模型）；`e2e/revenue-forecast.spec.ts`（後台顯示營業稅與手續費，改數字會重算）。
 - 要改時看哪裡：`lib/forecast.ts` 的 `ECPAY_FEE_RATE`、`TW_BUSINESS_TAX`、`defaultForecastInput`；聲音假設在 `lib/classroom.ts` 的 `CLASS_COST`。
+
+## D185 保本價：每位用戶都用完額度也不賠；學生改 NT$119／1,190、Pro 改 NT$319／3,190（2026-11-15，Joe：「要最差的情況，就是使用者都有花完額度，我還要不賠錢」，選「分鐘數不變，改價格」）
+
+- **規則**（`lib/payments/price-floor.ts`）：每位付費用戶每月都把方案分鐘數用完，扣掉 5% 營業稅、綠界手續費 2.9%（D184）、每分鐘的 AI 與聲音成本 NT$1.858（`classCostPerMinute`，D173 的最壞情況：語言模型實測加上 Chirp 3 HD 付費聲音）之後，每人每月還要賺至少 **NT$15**（`PRICE_FLOOR.minMarginPerMonth`）。NT$15 的理由：100 位付費用戶就能付伺服器每月 NT$1,500。
+- **年繳決定最低價**：年繳一律等於月繳 × 10（D105），也就是年繳的人每月付得比較少，所以保本價由年繳決定。`minimumMonthly`：40 分鐘的方案（Plus、學生）每月至少 NT$117，120 分鐘的方案（Pro）至少 NT$310。
+- **新價格**（`PLAN_MONTHLY`）：
+  - 學生 NT$90／900 → **NT$119／1,190**（年繳折合每月 NT$99）。原本年繳每人每月虧約 NT$5。
+  - Pro NT$299／2,990 → **NT$319／3,190**（年繳折合每月 NT$266）。原本年繳每人每月只賺約 NT$7，不夠付伺服器費。
+  - Plus NT$149／1,490 不變：最壞情況年繳每人每月還賺約 NT$40。
+  - 班級方案不變：老師的分鐘數本來就限制在月費的 25%（D173），最壞情況每班每月賺 NT$180 以上。
+  - 分鐘數都不變（Plus、學生 40 分鐘，Pro 120 分鐘）。
+- **價格實驗也受限**：開始實驗時，任何一組低於這個方案的保本價就會被擋下，並顯示最低價（`app/admin/price-experiments/actions.ts`）。
+- **免費方案不在保本規則內**：免費使用者每週 2 分鐘（D143），全部用完時每人每月成本約 NT$16，要由付費用戶的利潤支付。
+- **測試**：`tests/price-floor.test.ts` 檢查每個方案、每個週期（含班級）的最壞情況都 ≥ NT$15，舊價格會被抓到；之後改價格、分鐘數或成本假設，測試會告訴你要不要跟著調。E2E 檢查價格實驗擋下低於保本價的價格、定價頁顯示新價格。
+- 要改時看哪裡：保本規則 `lib/payments/price-floor.ts`；價格 `lib/payments/pricing.ts` 的 `PLAN_MONTHLY`；成本假設 `lib/classroom.ts` 的 `CLASS_COST`；稅與手續費 `lib/forecast.ts`。

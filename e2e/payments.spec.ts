@@ -25,12 +25,12 @@ test("signed out, pricing shows Free, Plus, and Pro, yearly first at ten months 
   await expect(plus.getByText("最受歡迎", { exact: true })).toBeVisible();
   await expect(page.getByText("最受歡迎", { exact: true })).toHaveCount(1);
   const pro = page.getByRole("listitem").filter({ hasText: "訂閱 Pro" });
-  await expect(pro.getByText("NT$249", { exact: true })).toHaveClass(/text-h2/);
-  await expect(pro.getByText(/年繳 NT\$2,990，一次付清/)).toBeVisible();
+  await expect(pro.getByText("NT$266", { exact: true })).toHaveClass(/text-h2/);
+  await expect(pro.getByText(/年繳 NT\$3,190，一次付清/)).toBeVisible();
   // The comparison table has the same prices a month.
   await expect(
     page.getByRole("table", { name: "方案比較" }).getByRole("row", {
-      name: /^價格 NT\$0／月 NT\$124／月.*NT\$1,490.*NT\$249／月/,
+      name: /^價格 NT\$0／月 NT\$124／月.*NT\$1,490.*NT\$266／月/,
     }),
   ).toBeVisible();
   await expect(page.getByText("兩年")).toHaveCount(0);
