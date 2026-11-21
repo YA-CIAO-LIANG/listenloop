@@ -4390,5 +4390,63 @@
     "notebook": "Writing notebook",
     "reviews": "{count, plural, one {# review} other {# reviews}} due",
     "review": "Review"
+  },
+  "writingStats": {
+    "title": "Writing",
+    "empty": "No writing yet. Pick a prompt under Writing to start Day 1.",
+    "weeks": "Weeks finished",
+    "passed": "Weeks passed",
+    "improvement": "Average Day 1 → Day 7 change",
+    "points": "{n} points",
+    "patterns": "Patterns mastered",
+    "trendTitle": "Writing scores",
+    "trendSummary": "{count} scored essays, from {first} to {last}.",
+    "trendEmpty": "No scored essays yet.",
+    "date": "Date",
+    "prompt": "Prompt",
+    "day": "Day",
+    "score": "Score (out of 100)",
+    "criteriaTitle": "Each criterion on average",
+    "criteriaSummary": "Each scoring criterion's average, out of 100.",
+    "criterion": "Criterion",
+    "errorsTitle": "Most common kinds of mistakes",
+    "errorsSummary": "Most common: {type}.",
+    "errorsEmpty": "No mistakes found yet.",
+    "errorType": "Kind",
+    "count": "Times",
+    "criteria": {
+      "task": "Task",
+      "organization": "Organization",
+      "vocabulary": "Vocabulary",
+      "grammar": "Grammar",
+      "taskResponse": "Task Response",
+      "taskAchievement": "Task Achievement",
+      "coherence": "Coherence and Cohesion",
+      "lexical": "Lexical Resource",
+      "grammarRange": "Grammatical Range and Accuracy",
+      "development": "Development",
+      "languageUse": "Language use",
+      "accuracy": "Accuracy",
+      "content": "Content"
+    },
+    "errors": {
+      "grammar": "Grammar",
+      "verb": "Verbs and tenses",
+      "article": "Articles",
+      "preposition": "Prepositions",
+      "word-choice": "Word choice",
+      "spelling": "Spelling",
+      "punctuation": "Punctuation",
+      "sentence": "Sentence structure",
+      "cohesion": "Linking ideas",
+      "organization": "Organization",
+      "task": "Answering the task",
+      "tone": "Tone and register"
+    }
+  },
+  "writingReport": {
+    "heading": "Writing",
+    "line": "{essays, plural, one {# essay} other {# essays}}, {drills, plural, one {# day} other {# days}} of practice",
+    "improvement": "Prompts finished this week improved by {n} points on average"
   }
 }

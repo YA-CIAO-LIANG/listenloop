@@ -283,4 +283,13 @@ test("the home page shows today's writing next to listening", async ({
   const tasks = page.getByRole("region", { name: "今天的寫作" });
   await expect(tasks).toContainText("我理想的週末");
   await expect(tasks).toContainText("今天：第 2 天");
+  // The stats page has writing too (D190), every chart with its table.
+  await page.goto("/stats");
+  const writing = page.getByRole("region", { name: "寫作" });
+  await expect(writing.getByText("寫作分數")).toBeVisible();
+  await expect(writing.getByText("最常犯的錯誤類型")).toBeVisible();
+  const results = await new AxeBuilder({ page })
+    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+    .analyze();
+  expect(results.violations.map((v) => v.id)).toEqual([]);
 });
