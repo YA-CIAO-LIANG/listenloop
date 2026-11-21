@@ -4388,5 +4388,63 @@
     "notebook": "寫作錯誤本",
     "reviews": "{count} 項要複習",
     "review": "複習"
+  },
+  "writingStats": {
+    "title": "寫作",
+    "empty": "還沒有寫作紀錄。到「寫作」挑一個題目開始第 1 天。",
+    "weeks": "完成的週數",
+    "passed": "通過的週數",
+    "improvement": "第 1 天 → 第 7 天平均進步",
+    "points": "{n} 分",
+    "patterns": "已掌握的句型",
+    "trendTitle": "寫作分數",
+    "trendSummary": "共 {count} 篇有分數的文章，從 {first} 分到 {last} 分。",
+    "trendEmpty": "還沒有有分數的文章。",
+    "date": "日期",
+    "prompt": "題目",
+    "day": "天",
+    "score": "分數（滿分 100）",
+    "criteriaTitle": "各項分數的平均",
+    "criteriaSummary": "各評分項目的平均，換算成 100 分。",
+    "criterion": "項目",
+    "errorsTitle": "最常犯的錯誤類型",
+    "errorsSummary": "最常出現的是「{type}」。",
+    "errorsEmpty": "還沒有找到錯誤。",
+    "errorType": "類型",
+    "count": "次數",
+    "criteria": {
+      "task": "完成任務",
+      "organization": "組織與連貫",
+      "vocabulary": "字彙",
+      "grammar": "文法",
+      "taskResponse": "回應題目（Task Response）",
+      "taskAchievement": "完成任務（Task Achievement）",
+      "coherence": "連貫與銜接（Coherence and Cohesion）",
+      "lexical": "字彙（Lexical Resource）",
+      "grammarRange": "文法多樣與正確（Grammatical Range and Accuracy）",
+      "development": "內容發展",
+      "languageUse": "語言運用",
+      "accuracy": "正確性",
+      "content": "內容"
+    },
+    "errors": {
+      "grammar": "文法",
+      "verb": "動詞與時態",
+      "article": "冠詞",
+      "preposition": "介系詞",
+      "word-choice": "用字",
+      "spelling": "拼字",
+      "punctuation": "標點",
+      "sentence": "句子結構",
+      "cohesion": "連貫與轉折",
+      "organization": "段落組織",
+      "task": "回答題目",
+      "tone": "語氣與正式程度"
+    }
+  },
+  "writingReport": {
+    "heading": "寫作",
+    "line": "寫了 {essays} 篇、完成 {drills} 天的刻意練習",
+    "improvement": "這週完成的題目平均進步 {n} 分"
   }
 }

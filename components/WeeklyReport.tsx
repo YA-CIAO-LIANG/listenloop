@@ -1,5 +1,7 @@
 "use client";
 
+import { useAllWritingProgress } from "./writing/WritingProvider";
+import { writingWeek } from "@/lib/writing/analytics";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import type { Activity } from "@/lib/activity";
@@ -137,6 +139,7 @@ function ReportCard({
           note={change ?? undefined}
         />
       </dl>
+      <WritingWeekLine from={report.from} to={report.to} />
       {report.words.length > 0 && (
         <div className="space-y-2">
           <h3 className="text-supporting font-medium">{t("words")}</h3>
@@ -167,5 +170,30 @@ function ReportCard({
         </Button>
       </div>
     </Card>
+  );
+}
+
+/** Last week's writing (WritingLoop, D190), when there was any. */
+function WritingWeekLine({ from, to }: { from: LocalDate; to: LocalDate }) {
+  const t = useTranslations("writingReport");
+  const progresses = useAllWritingProgress();
+  if (!progresses) return null;
+  const week = writingWeek(progresses, from, to);
+  if (week.essays === 0 && week.drills === 0) return null;
+  return (
+    <div className="space-y-1">
+      <h3 className="text-supporting font-medium">{t("heading")}</h3>
+      <p>{t("line", { essays: week.essays, drills: week.drills })}</p>
+      {week.improvement !== null && (
+        <p className="text-supporting text-ink-muted">
+          {t("improvement", {
+            n:
+              week.improvement > 0
+                ? `+${week.improvement}`
+                : String(week.improvement),
+          })}
+        </p>
+      )}
+    </div>
   );
 }
