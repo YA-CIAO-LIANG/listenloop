@@ -26,6 +26,9 @@ export const AREA_NAMESPACES = {
   materials: ["editPractice", "generate", "youtube", "upload"],
   classroom: ["classroom"],
   styleguide: ["styleguide"],
+  // WritingLoop (D187): its pages only; the home page's tasks use
+  // "writingTasks", sent everywhere.
+  writing: ["writing"],
 } as const;
 
 export type MessageArea = keyof typeof AREA_NAMESPACES;

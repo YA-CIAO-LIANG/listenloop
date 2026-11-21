@@ -941,3 +941,33 @@ CardLink，內容由上到下：
 - FAQ：頁面標題（`text-h1`）＋說明（ink-muted）；每組一個 `text-h2` 小標，問題與答案用 `dl`（上下 `border-line` 分隔線，`py-5`）：問題 `dt`（`text-h3`）、答案 `dd`（ink-muted，`mt-2`）。答案一律展開，不收合（搜尋引擎與 FAQPage 結構化資料要看得到同樣的文字）。最下方「還有其他問題？」＋到意見回饋的 accent-ink 底線連結。
 - 相關文章 `RelatedArticles`：主題頁與教材頁下方，`text-h3` 小標「相關文章」，最多 3 篇，每篇一行 accent-ink 底線連結（`lang="zh-Hant"`）。沒有文章時不顯示。
 - 分享圖片（Open Graph）：沿用網站分享圖的配色（`#fafaf8` 底、`#141414` 字、`#e8590c` 橘），左上品牌名、橘色小標（等級／主題）、標題、灰色說明、底部 7 格循環條。只有英文（圖片字型沒有中文）。
+
+## 聽力｜寫作切換 `AreaTabs`（D187）
+
+頁首商標右邊的兩個連結，切換 ListenLoop（聽力）和 WritingLoop（寫作，`/writing` 開頭）。
+
+- 外觀：外框 `border-line`、`rounded-base`，目前所在的一邊是 `bg-ink text-ground`，另一邊是 `text-ink-muted`（hover `bg-ink/6`）。
+- 無障礙：
+  - 它們是連結，不是分頁（tabs），因為每一邊是不同的頁面。
+  - 目前所在的一邊用 `aria-current="page"` 表示，不只靠顏色。
+  - `nav` 的名稱是「練習類型」。
+- 觸控：`pointer-coarse:min-h-11`（44 px）。
+
+## 寫作練習的元件（D187）
+
+所有寫作元件放在 `components/writing/`，只使用既有的 tokens 和元件：`Card`、`CardLink`、`Tag`、`FilterChip`、`Button`、`Mark`。
+
+- **題目庫**（`WritingLibrary`）：和教材庫的篩選一樣（D104）。三組 `FilterChip`（我今天有幾分鐘、題目類型、程度）全部展開，篩選條件記在網址裡，可以「存為我的預設篩選」。
+- **作答區**（`EssayDay`）：
+  - 輸入框是 `textarea lang="en"`。
+  - 字數、計時和送出按鈕放在 `sticky bottom-0` 的列。手機鍵盤彈出時，這一列仍然在鍵盤上方，並且加上 `env(safe-area-inset-bottom)`。
+  - 字數在目標範圍內時顯示 `text-success`，其他時候顯示 `text-ink-muted`。字數同時以文字寫出，不只靠顏色。
+- **回饋**（`FeedbackView`）：
+  - 用 `Mark kind="miss"` 把最重要的 3 個問題標在原文上，旁邊加 `sup` 編號，對應下方的編號清單。
+  - 「更多建議」放在收合的 `details`。
+  - 分數顯示考試自己的分數（Band 6.5、14 / 20），另外寫出換算成 100 分的分數。
+- **範例文章**（`ModelEssay`）：
+  - 好用句型用 `Mark kind="key"` 標示並編號。
+  - 每段的中文翻譯收合在 `details` 裡。
+- **段落重組**：用「上移」「下移」按鈕排序，不用拖曳，讓鍵盤和螢幕閱讀器都能操作。每個按鈕的名稱會說出是第幾句。
+- **默寫重建**：倒數秒數放在 `aria-live="polite"` 裡讀出來。

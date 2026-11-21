@@ -9,7 +9,9 @@ import {
   segmentBudget,
   translateBudget,
   type LanguageBudget,
+  writingBudget,
 } from "./budgets";
+import { WRITING_SCHEMA, writingInstructions } from "@/lib/writing/prompts";
 import { GUESSABLE_CATEGORIES } from "@/lib/categories";
 import { postToProvider, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA } from "./notes-schema";
@@ -93,6 +95,8 @@ const object = (properties: Record<string, unknown>) => ({
 
 /** Strict mode: every property required, nothing else allowed. */
 export const AZURE_SCHEMAS = {
+  // WritingLoop (D187).
+  writing: WRITING_SCHEMA,
   translations: object({ translations: { type: "array", items: STRING } }),
   notes: RICH_NOTES_SCHEMA,
   segments: object({
@@ -300,6 +304,14 @@ export function azureOpenAiLanguage(
     },
     async rewriteNews(input) {
       return generate("news", NEWS_INSTRUCTIONS, input, newsBudget(input), 0.5);
+    },
+    async reviewWriting(input) {
+      return generate(
+        "writing",
+        writingInstructions(input.rubric),
+        input,
+        writingBudget(input),
+      );
     },
     async revise(input) {
       return generate(

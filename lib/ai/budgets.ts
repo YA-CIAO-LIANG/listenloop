@@ -22,7 +22,8 @@ export type LanguageOperation =
   | "describe"
   | "revise"
   | "news"
-  | "audit";
+  | "audit"
+  | "writing";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -130,4 +131,20 @@ export function maxCost(budget: LanguageBudget, price: TokenPrice): number {
     budget.inputChars + INSTRUCTION_CHARS,
     budget.maxOutputTokens,
   );
+}
+
+/**
+ * Writing feedback (D187): the essay in, about 1,500 tokens out for four
+ * scores, eight issues, strengths, and a summary (Chinese runs about one
+ * token a character); capped at 3,000.
+ */
+export function writingBudget(input: {
+  essay: string;
+  task: string;
+}): LanguageBudget {
+  return {
+    operation: "writing",
+    inputChars: input.essay.length + input.task.length,
+    maxOutputTokens: 3_000,
+  };
 }

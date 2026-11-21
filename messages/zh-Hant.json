@@ -11,7 +11,10 @@
     "skipToContent": "跳到主要內容",
     "stats": "學習分析",
     "official": "官方教材",
-    "classroom": "班級"
+    "classroom": "班級",
+    "listening": "聽力",
+    "writing": "寫作",
+    "practiceArea": "練習類型"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -682,7 +685,7 @@
   },
   "privacy": {
     "title": "隱私權政策",
-    "updated": "最後更新：2026 年 11 月 14 日",
+    "updated": "最後更新：2026 年 11 月 21 日",
     "intro": "ListenLoop 是英語聽力練習網站。這份政策說明我們收集哪些資料、怎麼使用、存在哪裡，以及你可以怎麼刪除。不登入也能使用全部的練習功能。",
     "sections": [
       {
@@ -737,6 +740,14 @@
           "Cloudflare Turnstile（啟用時）：註冊、等候名單、檢舉與意見回饋表單用它判斷是不是機器人，會處理瀏覽器與連線的技術資料，不用於廣告。",
           "推播服務：開啟練習提醒時，提醒經由你的瀏覽器廠商的推播服務（例如 Google、Apple、Mozilla）送達。",
           "GitHub：資料庫每天的備份經過加密（AES-256）後存放在 GitHub Actions，保存 14 天；沒有密碼無法讀取。"
+        ]
+      },
+      {
+        "title": "寫作練習的文章",
+        "paragraphs": [
+          "寫作練習（WritingLoop）的文章、草稿、AI 回饋和錯誤本，沒有登入時只存在這個瀏覽器；登入時也存在你的帳號裡，只有你自己看得到（資料庫的存取規則只允許本人讀寫）。管理員後台只看得到使用次數等統計，看不到文章內容。",
+          "要取得 AI 回饋時，你的文章會傳給 AI 服務（Azure OpenAI）評分，伺服器不另外保存文章。我們不會拿你的文章訓練 AI 模型；依 Azure OpenAI 的條款，送出的內容也不會被用來訓練模型。",
+          "保存期限：文章和回饋保存到你刪除為止。刪除帳號時會一起刪除；沒有登入時，清除瀏覽器資料就會刪除。"
         ]
       },
       {
@@ -1479,7 +1490,9 @@
       "uploadAudio": "上傳自己的音檔建立教材是 Plus 以上方案的功能。",
       "uploadMegabytes": "檔案太大：你的方案每個檔案最大 {max, number} MB。",
       "storageMegabytes": "你的錄音已經用掉方案的 {max, number} MB 儲存空間。刪除不需要的錄音教材，或升級方案。",
-      "revisesPerDay": "今天已經用指令修改 {max} 次，達到方案上限，明天（台灣時間 0 點）重設。"
+      "revisesPerDay": "今天已經用指令修改 {max} 次，達到方案上限，明天（台灣時間 0 點）重設。",
+      "writingReviewsPerWeek": "本週的 {max} 次 AI 寫作批改已經用完，每週一 00:00（台灣時間）重設。",
+      "writingWords": "文章超過方案上限，每篇最多 {max, number} 個字。"
     },
     "week": "免費方案每週可以建立 {total} 分鐘的教材（單份最長 {total} 分鐘）。本週還剩 {minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}，{reset} 重設。",
     "weekUsed": "免費方案每週可以建立 {total} 分鐘的教材，本週的已經用完，{reset} 重設。",
@@ -4037,5 +4050,334 @@
     "skip": "略過",
     "thanks": "謝謝你！這會幫我們訂出合理的價格。",
     "failed": "沒有送出，請稍後再試。"
+  },
+  "writing": {
+    "metaTitle": "寫作練習：7 天英文寫作循環",
+    "metaDescription": "同一個題目練一週：第 1 天先寫，中間 5 天針對自己的弱點練習，第 7 天重寫並比較進步。",
+    "title": "寫作練習",
+    "intro": "同一個題目練一週。先寫出自己的版本，再針對最需要的地方練習，第 7 天不看任何資料重寫一次，看看自己進步多少。",
+    "steps": {
+      "day1": "第 1 天：先寫，送出後才看範例",
+      "middle": "第 2～6 天：每天 10～15 分鐘，練自己的弱點",
+      "day7": "第 7 天：重寫同一題，比較進步"
+    },
+    "status": {
+      "passed": "已通過",
+      "inProgress": "練習中"
+    },
+    "prompt": {
+      "focus": "評分重點"
+    },
+    "library": {
+      "heading": "寫作題目",
+      "minutes": "我今天有幾分鐘",
+      "minutesOption": "{minutes} 分鐘內",
+      "group": "題目類型",
+      "level": "程度",
+      "saveDefault": "存為我的預設篩選",
+      "clearDefault": "清除預設篩選",
+      "reset": "清除篩選",
+      "count": "{count} 個題目",
+      "isDefault": "這是你的預設篩選",
+      "empty": "沒有符合的題目，試著減少篩選條件。",
+      "words": "{min}–{max} 字",
+      "time": "建議 {minutes} 分鐘"
+    },
+    "groups": {
+      "daily": "日常短文",
+      "email": "Email",
+      "opinion": "意見文",
+      "chart": "圖表描述",
+      "story": "故事",
+      "campus": "留學生活",
+      "exam": "考試"
+    },
+    "levels": {
+      "beginner": "初級",
+      "intermediate": "中級",
+      "advanced": "高級"
+    },
+    "types": {
+      "daily": "日常短文",
+      "email-formal": "正式 Email",
+      "email-informal": "非正式 Email",
+      "opinion": "意見文",
+      "chart": "圖表描述",
+      "story": "故事",
+      "campus-leave": "請假信",
+      "campus-professor": "問教授問題",
+      "campus-housing": "租屋",
+      "ielts-task1": "IELTS Task 1",
+      "ielts-task2": "IELTS Task 2",
+      "toefl": "TOEFL",
+      "gept": "全民英檢",
+      "gsat": "學測英文作文"
+    },
+    "overview": {
+      "days": "這一週",
+      "dayN": "第 {day} 天",
+      "dayName": {
+        "1": "先寫",
+        "2": "刻意練習",
+        "3": "刻意練習",
+        "4": "刻意練習",
+        "5": "刻意練習",
+        "6": "刻意練習",
+        "7": "重寫"
+      },
+      "done": "已完成",
+      "open": "可以開始",
+      "lock": {
+        "previous": "先完成前一天",
+        "tomorrow": "明天開放",
+        "weekClosed": "這週已結束"
+      },
+      "lockLong": {
+        "previous": "要先完成前一天，才能開始這一天。",
+        "tomorrow": "前一天今天才完成，這一天明天開放。每天練一小段，比一次練很久更有效。",
+        "weekClosed": "這一週已經結束了，可以從題目頁再練一週。"
+      },
+      "passed": "恭喜通過這一週！可以再練一週同一題，或選下一個題目。",
+      "repeat": "這週還沒通過。再練一週同一題，會更熟悉。",
+      "again": "再練一週",
+      "continue": "繼續今天的練習",
+      "start": "開始第 1 天",
+      "rule": "通關條件",
+      "ruleLabel": "這一週怎樣算通過",
+      "ruleBeat": "第 7 天總分高於第 1 天（預設）",
+      "ruleTarget": "第 7 天至少 {percent} 分",
+      "history": "之前的週",
+      "week": "第 {week} 週：第 1 天 {day1} 分 → 第 7 天 {day7} 分",
+      "weekPassed": "通過",
+      "weekRepeat": "未通過",
+      "day1Score": "第 1 天的分數：{score} 分（滿分 100）"
+    },
+    "essay": {
+      "noPeek": "先寫出你自己的版本。範例文章在你送出後才會出現：先自己想過，再看範例，會記得更牢。",
+      "noLookBack": "不看第 1 天的文章和範例，重新寫一次同一個題目。",
+      "guest": "沒有登入時，送出後用評分標準自己評分。登入後可以得到 AI 回饋。",
+      "signIn": "登入",
+      "label": "你的文章",
+      "placeholder": "用英文寫…",
+      "words": "{count} 字",
+      "target": "目標 {min}–{max} 字",
+      "timer": "已寫 {time}（建議 {minutes} 分鐘）",
+      "saved": "草稿已自動儲存",
+      "submit": "送出，取得 AI 回饋",
+      "submitting": "批改中…",
+      "submitSelf": "送出並自己評分",
+      "selfInstead": "改用評分標準自己評分",
+      "nextDays": "明天開始刻意練習：每天 10～15 分鐘，針對這篇的弱點。",
+      "toOverview": "回到這一週",
+      "errors": {
+        "signIn": "登入後才能取得 AI 回饋。",
+        "invalid": "這篇文章無法送出，請重新整理頁面。",
+        "paused": "AI 批改暫停中，可以先自己評分。",
+        "suspended": "你的帳號暫時不能使用 AI 功能。",
+        "limit": "今天的 AI 用量已經用完，明天再試，或先自己評分。",
+        "busy": "送出太頻繁，請稍候再試。",
+        "unavailable": "AI 批改目前無法使用，可以先自己評分。",
+        "failed": "批改沒有成功，請再試一次。",
+        "plan": "已達到方案的上限。"
+      }
+    },
+    "feedback": {
+      "score": "整體分數",
+      "band": "Band {score}",
+      "outOf": "{score} / {max}",
+      "percent": "換算 {percent} 分（滿分 100）",
+      "estimate": "AI 的分數是依評分標準估計的參考，不是官方成績。",
+      "issues": "最重要的 {count} 個問題",
+      "noIssues": "沒有找到主要問題，寫得很好！",
+      "quoteLabel": "你寫的：",
+      "suggestion": "修改示範：",
+      "strengths": "做得好的地方",
+      "more": "更多建議（{count}）",
+      "declined": {
+        "ghostwrite": "這次沒有評分：WritingLoop 不會代寫文章。",
+        "off-task": "這次沒有評分：這篇看起來不是在回答題目。",
+        "too-short": "這次沒有評分：文章太短了。"
+      }
+    },
+    "criteria": {
+      "task": "完成任務",
+      "organization": "組織與連貫",
+      "vocabulary": "字彙",
+      "grammar": "文法",
+      "taskResponse": "回應題目（Task Response）",
+      "taskAchievement": "完成任務（Task Achievement）",
+      "coherence": "連貫與銜接（Coherence and Cohesion）",
+      "lexical": "字彙（Lexical Resource）",
+      "grammarRange": "文法多樣與正確（Grammatical Range and Accuracy）",
+      "development": "內容發展",
+      "languageUse": "語言運用",
+      "accuracy": "正確性",
+      "content": "內容"
+    },
+    "errors": {
+      "grammar": "文法",
+      "verb": "動詞與時態",
+      "article": "冠詞",
+      "preposition": "介系詞",
+      "word-choice": "用字",
+      "spelling": "拼字",
+      "punctuation": "標點",
+      "sentence": "句子結構",
+      "cohesion": "連貫與轉折",
+      "organization": "段落組織",
+      "task": "回答題目",
+      "tone": "語氣與正式程度"
+    },
+    "self": {
+      "heading": "用評分標準自己評分",
+      "intro": "對照題目和評分重點，誠實地給自己分數，再選出最想加強的地方（最多 3 個）。接下來 5 天的練習會依你選的弱點安排。",
+      "option": "{score} / {max}",
+      "weak": "我最想加強的地方（最多 {max} 個）",
+      "submit": "完成評分",
+      "back": "回去修改文章",
+      "result": "你的自評分數",
+      "weakList": "要加強的地方：{list}"
+    },
+    "model": {
+      "heading": "範例文章",
+      "intro": "標示的是值得學的句型，數字對應下面的說明。之後 5 天會練習這些句型。",
+      "translation": "看中文翻譯",
+      "patterns": "好用句型"
+    },
+    "result": {
+      "heading": "這一週的成果",
+      "scores": "第 1 天 {day1} 分 → 第 7 天 {day7} 分",
+      "passed": "通過！",
+      "notPassed": "這週還沒通過。",
+      "ruleBeat": "（條件：第 7 天總分高於第 1 天）",
+      "ruleTarget": "（條件：第 7 天至少 {percent} 分）",
+      "criteria": "各項分數",
+      "criterion": "項目",
+      "day1": "第 1 天",
+      "day7": "第 7 天",
+      "change": "變化",
+      "issues": "第 1 天的 3 個問題",
+      "better": "這次沒有再出現",
+      "keepGoing": "還要再加油",
+      "shareHeading": "我的 7 天英文寫作進步",
+      "again": "再練一週同一題"
+    },
+    "drills": {
+      "intro": "今天有 {count} 項練習，大約 10～15 分鐘。",
+      "because": "依你第 1 天的弱點安排：{list}。",
+      "today": "今天的練習",
+      "check": "檢查",
+      "next": "下一步",
+      "ok": "很好，寫對了！",
+      "answer": "參考答案：",
+      "progress": "第 {n} 句，共 {total} 句",
+      "problems": {
+        "empty": "還沒有寫內容。",
+        "short": "句子太短了，試著寫完整一點（至少 6 個字）。",
+        "copied": "和範例幾乎一樣，試著用自己的內容造句。",
+        "missingPattern": "還沒用到這個句型，再試一次。",
+        "notOneSentence": "請合併成一個句子（只用一個句號）。",
+        "lostMeaning": "少了原本的重要內容，對照參考答案看看。",
+        "same": "和原句一樣，試著換個說法。",
+        "differs": "和修改示範不太一樣，對照看看哪裡不同。"
+      },
+      "fix": {
+        "label": "把這句改對"
+      },
+      "pattern": {
+        "label": "用這個句型，寫一句關於你自己的句子"
+      },
+      "combine": {
+        "label": "把這幾句合併成一個句子"
+      },
+      "paraphrase": {
+        "label": "用另一種說法寫出同樣的意思"
+      },
+      "reorder": {
+        "label": "用箭頭把句子排回正確順序",
+        "up": "第 {n} 句往上移",
+        "down": "第 {n} 句往下移",
+        "wrong": "順序還不對。正確順序："
+      },
+      "rebuild": {
+        "intro": "這段範例會顯示 {seconds} 秒，讀完後隱藏，再憑記憶寫出來。",
+        "show": "開始讀",
+        "left": "還有 {seconds} 秒",
+        "ready": "我準備好了",
+        "label": "憑記憶寫出這段",
+        "result": "寫對了 {percent}% 的字"
+      },
+      "listen": {
+        "intro": "到 ListenLoop 聽一段影片（聆聽模式），聽完回來，用英文寫出摘要或你的想法。",
+        "open": "開啟聆聽模式（新分頁）",
+        "label": "你的摘要或回應",
+        "words": "{count} 字",
+        "ok": "很好！至少 20 個字，已經是完整的回應。",
+        "short": "再多寫一些，至少 20 個字。",
+        "tips": "檢查一下：有沒有說出主要內容？有沒有用到這週學的句型？"
+      },
+      "dayDone": "今天的練習完成了！明天再來。",
+      "toNotebook": "我的寫作錯誤本",
+      "kinds": {
+        "fix": {
+          "name": "改錯",
+          "intro": "這些是你第 1 天寫的句子。先自己改，再看修改示範。"
+        },
+        "pattern": {
+          "name": "句型模仿",
+          "intro": "用範例的句型，寫一句你自己的內容。"
+        },
+        "combine": {
+          "name": "句子合併",
+          "intro": "把幾個短句合併成一個更好的句子。"
+        },
+        "paraphrase": {
+          "name": "換句話說",
+          "intro": "同一個意思，用另一種說法寫出來。"
+        },
+        "reorder": {
+          "name": "段落重組",
+          "intro": "把打亂的句子排回正確順序，注意轉折詞。"
+        },
+        "rebuild": {
+          "name": "默寫重建",
+          "intro": "讀 30 秒，隱藏後憑記憶寫出來，再對照差異。"
+        },
+        "listen": {
+          "name": "聽寫轉寫作",
+          "intro": "聽一段 ListenLoop 的影片，聽完寫出摘要或回應。"
+        }
+      }
+    },
+    "notebook": {
+      "title": "我的寫作錯誤本",
+      "intro": "你寫錯的句子和學到的句型，會在 1、3、7 天後再出現。先自己寫，再看答案；記得就進到下一次，忘了就從 1 天後重來。",
+      "due": "今天要複習（{count}）",
+      "noneDue": "今天沒有要複習的，明天再來。",
+      "empty": "還沒有內容。完成一篇寫作的第 1 天後，錯誤和句型會加進來。",
+      "fixThis": "把這句改對",
+      "useThis": "用這個句型寫一句",
+      "yourTurn": "你的答案",
+      "show": "看答案",
+      "answer": "答案：",
+      "remembered": "我記得",
+      "forgot": "還不熟",
+      "all": "全部（{count}）",
+      "mistake": "錯誤",
+      "pattern": "句型",
+      "mastered": "已掌握",
+      "next": "{date} 複習（第 {stage} 次）"
+    }
+  },
+  "writingTasks": {
+    "heading": "今天的寫作",
+    "empty": "還沒有進行中的寫作。從下面挑一個題目開始吧。",
+    "day": "今天：第 {day} 天",
+    "doneToday": "今天的寫作完成了",
+    "start": "開始",
+    "open": "查看",
+    "notebook": "寫作錯誤本",
+    "reviews": "{count} 項要複習",
+    "review": "複習"
   }
 }

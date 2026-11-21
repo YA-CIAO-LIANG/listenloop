@@ -41,7 +41,14 @@ const PERSONAL_DATA_KEYS = [
   // lib/weekly-report.ts WEEKLY_REPORT_DISMISSED_KEY (D176).
   "ll-weekly-report-dismissed:v1",
 ];
-const PERSONAL_DATA_PREFIXES = ["ll-progress:v1:"];
+const PERSONAL_DATA_PREFIXES = [
+  "ll-progress:v1:",
+  // WritingLoop's essays, drafts, and notebook (D187): lib/writing/store.ts
+  // (not imported, to keep this file small).
+  "ll-writing:v1:",
+  "ll-writing-draft:v1:",
+  "ll-writing-notebook:v1",
+];
 
 export const SETTINGS_DOCUMENT = "settings";
 

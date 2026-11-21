@@ -35,6 +35,8 @@ const limited: Record<PlanId, PlanLimits> = {
     fullStats: false,
     priority: false,
     batchPdf: false,
+    writingReviewsPerWeek: 2,
+    writingWords: 400,
   },
 };
 

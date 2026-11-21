@@ -83,6 +83,15 @@ export type PlanLimits = {
   priority: boolean;
   /** Several handouts as one PDF (D102; coming soon). */
   batchPdf: boolean;
+  /**
+   * AI feedback on essays per week, from Monday 00:00 Taiwan time
+   * (WritingLoop, D187). Every plan can finish a seven-day cycle (Day 1
+   * and Day 7 are the two reviews); the cost per review is in D187, and
+   * the paid plans' allowances keep the price floor (D185).
+   */
+  writingReviewsPerWeek: number | null;
+  /** The longest essay sent for feedback, in words (D187). */
+  writingWords: number | null;
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
@@ -107,6 +116,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     fullStats: false,
     priority: false,
     batchPdf: false,
+    writingReviewsPerWeek: 2,
+    writingWords: 400,
   },
   // Plus (D102): 40 minutes a month.
   paid: {
@@ -129,6 +140,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     fullStats: true,
     priority: false,
     batchPdf: false,
+    writingReviewsPerWeek: 3,
+    writingWords: 600,
   },
   // Pro (D102): 120 minutes a month, up to 10 minutes each, and Plus.
   pro: {
@@ -151,6 +164,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     fullStats: true,
     priority: true,
     batchPdf: true,
+    writingReviewsPerWeek: 6,
+    writingWords: 1_000,
   },
   admin: {
     createPractices: true,
@@ -172,6 +187,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     fullStats: true,
     priority: true,
     batchPdf: true,
+    writingReviewsPerWeek: null,
+    writingWords: null,
   },
 };
 
@@ -202,6 +219,10 @@ export type PlanAction =
   | { kind: "upload-audio"; bytes?: number }
   /** Storing `adding` more bytes on top of `stored` (D161). */
   | { kind: "store-audio"; stored: number; adding: number }
+  /** Another essay review this week, after `thisWeek` of them (D187). */
+  | { kind: "writing-review"; thisWeek: number }
+  /** An essay of `words` words sent for feedback (D187). */
+  | { kind: "writing-words"; words: number }
   /** Another revise today, after `today` of them (D161). */
   | { kind: "revise"; today: number }
   | {
@@ -298,6 +319,16 @@ export function can(
     }
     case "revise":
       return over("revisesPerDay", limits.revisesPerDay, action.today);
+    case "writing-review":
+      return over(
+        "writingReviewsPerWeek",
+        limits.writingReviewsPerWeek,
+        action.thisWeek,
+      );
+    case "writing-words":
+      return limits.writingWords !== null && action.words > limits.writingWords
+        ? { ok: false, limit: "writingWords", max: limits.writingWords }
+        : { ok: true };
     case "start-practice":
       return over(
         "activePractices",

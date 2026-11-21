@@ -1,4 +1,5 @@
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
+import type { WritingReviewInput } from "@/lib/writing/prompts";
 import type { TokenPrice } from "./pricing";
 
 /**
@@ -122,6 +123,11 @@ export interface LanguageProvider {
    * lib/official-audit.ts checks it. Only the quality audit uses it.
    */
   auditTranslations(input: AuditInput): Promise<Billed<unknown>>;
+  /**
+   * Feedback on a learner's essay (WritingLoop, D187): scores, the main
+   * issues, strengths. Optional: a provider without it can't review.
+   */
+  reviewWriting?(input: WritingReviewInput): Promise<Billed<unknown>>;
 }
 
 /** Sentence pairs to check (D115). */

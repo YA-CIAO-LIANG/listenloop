@@ -7,6 +7,7 @@ import { Divider } from "./Divider";
 import { LanguageToggle } from "./LanguageToggle";
 import { RewardBadge } from "./RewardBadge";
 import { ThemeToggle } from "./ThemeToggle";
+import { AreaTabs } from "./writing/AreaTabs";
 
 /**
  * Wordmark, "Progress", "Shared", and (signed in) "My materials" on the
@@ -42,6 +43,12 @@ export function SiteHeader({
           <Link href="/" className="tap font-display text-h3">
             {t("appName")}
           </Link>
+          {/* Listening or writing (WritingLoop, D187). */}
+          <AreaTabs
+            listening={t("listening")}
+            writing={t("writing")}
+            label={t("practiceArea")}
+          />
           <Link
             href="/practices"
             className="tap text-supporting text-ink-muted underline-offset-4 hover:text-ink hover:underline"

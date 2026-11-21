@@ -74,6 +74,12 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
     "/login",
     "/pricing/classroom",
     "/classroom/join/ABCD2345",
+    // WritingLoop (D187).
+    "/writing",
+    "/writing/daily-perfect-weekend",
+    "/writing/daily-perfect-weekend/day/1",
+    "/writing/daily-perfect-weekend/day/2",
+    "/writing/notebook",
     ...(LIVE ? [] : [`/videos/p-${shared}`]),
     "/no-such-page",
   ].map((path) => ({ path, role: "none" as const })),
@@ -94,6 +100,8 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
           `/videos/p-${ready}/day/2`,
           `/materials/${ready}/edit`,
           "/classroom",
+          "/writing",
+          "/writing/daily-perfect-weekend/day/1",
         ].map((path) => ({ path, role: "author" as const })),
         ...[
           "/",

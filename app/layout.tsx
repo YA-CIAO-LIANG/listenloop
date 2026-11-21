@@ -1,3 +1,4 @@
+import { WritingProvider } from "@/components/writing/WritingProvider";
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import {
@@ -116,60 +117,66 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
               userId={user?.id ?? null}
               accounts={accountsEnabled}
             >
-              {/* Keyboard users skip the header (D61). */}
-              <a
-                href="#main"
-                className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-base focus:bg-surface focus:px-4 focus:py-2 focus:text-ink focus:shadow"
+              {/* WritingLoop's essays and notebook, synced too (D187). */}
+              <WritingProvider
+                key={user?.id ?? "guest"}
+                userId={user?.id ?? null}
               >
-                {tCommon("skipToContent")}
-              </a>
-              <SiteHeader
-                showMaterials={!!user}
-                showCreate={canCreatePractices(user)}
-                showAdmin={user?.role === "admin"}
-                account={
-                  accountsEnabled && (
-                    // useSearchParams inside: Suspense keeps the page renderable.
-                    <Suspense fallback={null}>
-                      <AccountMenu user={user && { email: user.email }} />
-                    </Suspense>
-                  )
-                }
-              />
-              {accountsEnabled && (
+                {/* Keyboard users skip the header (D61). */}
+                <a
+                  href="#main"
+                  className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-base focus:bg-surface focus:px-4 focus:py-2 focus:text-ink focus:shadow"
+                >
+                  {tCommon("skipToContent")}
+                </a>
+                <SiteHeader
+                  showMaterials={!!user}
+                  showCreate={canCreatePractices(user)}
+                  showAdmin={user?.role === "admin"}
+                  account={
+                    accountsEnabled && (
+                      // useSearchParams inside: Suspense keeps the page renderable.
+                      <Suspense fallback={null}>
+                        <AccountMenu user={user && { email: user.email }} />
+                      </Suspense>
+                    )
+                  }
+                />
+                {accountsEnabled && (
+                  <Suspense fallback={null}>
+                    <SignInNotice />
+                  </Suspense>
+                )}
+                {/* Site announcements (D155). */}
                 <Suspense fallback={null}>
-                  <SignInNotice />
+                  <SiteAnnouncements />
                 </Suspense>
-              )}
-              {/* Site announcements (D155). */}
-              <Suspense fallback={null}>
-                <SiteAnnouncements />
-              </Suspense>
-              {!cookieStore.has(USAGE_NOTICE_COOKIE) &&
-                (user && (await getUsageNoticeDismissed()) ? (
-                  <RememberUsageNotice />
-                ) : (
-                  <UsageNotice signedIn={user !== null} />
-                ))}
-              <div
-                id="main"
-                tabIndex={-1}
-                className="flex flex-1 flex-col outline-none"
-              >
-                {children}
-              </div>
-              <SiteFooter analytics={clarityProjectId() !== null} />
-              <ServiceWorker />
-              <TwaMarker />
-              <TimeZoneSync signedIn={user !== null} />
-              <AnalyticsConsent
-                projectId={clarityProjectId()}
-                account={
-                  user && clarityProjectId()
-                    ? await getAccountConsent()
-                    : undefined
-                }
-              />
+                {!cookieStore.has(USAGE_NOTICE_COOKIE) &&
+                  (user && (await getUsageNoticeDismissed()) ? (
+                    <RememberUsageNotice />
+                  ) : (
+                    <UsageNotice signedIn={user !== null} />
+                  ))}
+                <div
+                  id="main"
+                  tabIndex={-1}
+                  className="flex flex-1 flex-col outline-none"
+                >
+                  {children}
+                </div>
+                <SiteFooter analytics={clarityProjectId() !== null} />
+                <ServiceWorker />
+                <TwaMarker />
+                <TimeZoneSync signedIn={user !== null} />
+                <AnalyticsConsent
+                  projectId={clarityProjectId()}
+                  account={
+                    user && clarityProjectId()
+                      ? await getAccountConsent()
+                      : undefined
+                  }
+                />
+              </WritingProvider>
             </StoresProvider>
           </PlanProvider>
         </NextIntlClientProvider>

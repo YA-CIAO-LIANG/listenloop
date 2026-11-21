@@ -5,6 +5,7 @@ import {
   readSettings,
 } from "@/lib/personal-settings";
 import { WALLET_KEY } from "@/lib/storage/local-reward-store";
+import { isWritingStorageKey } from "@/lib/writing/store";
 import { emptyActivity } from "../activity";
 import { updateActivity } from "../claim-rewards";
 import type { CloudData } from "../storage/cloud-store";
@@ -95,6 +96,11 @@ export async function syncWithCloud({
     // Another account's wallet and level test go too (D138).
     storage.removeItem(WALLET_KEY);
     storage.removeItem(LEVEL_TEST_KEY);
+    // And its writing (D187), before the writing sync brings this one's.
+    const writing = Array.from({ length: storage.length }, (_, i) =>
+      storage.key(i),
+    ).filter((key): key is string => !!key && isWritingStorageKey(key));
+    for (const key of writing) storage.removeItem(key);
     await Promise.all(
       localProgress.map((p) => local.progress.remove(p.videoId)),
     );

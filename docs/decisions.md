@@ -3475,3 +3475,75 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 備份 workflow：上傳前一律用 `BACKUP_PASSPHRASE` 加密，沒有密碼就停下（D157）；Actions 裡沒有備份產出物，只有 ZAP 報告（掃描結果，不含資料）。
 - **改回公開後恢復**（還原 D163 的暫時做法）：main 的分支保護（必須通過 `check`）、CodeQL（`.github/workflows/codeql.yml`）、合併到 main 時跑 CI、監控每 15 分鐘（`ops.yml`）、Dependabot 每週、repo 變數 `CI_LITE=off`；Secret scanning、Push protection、Dependabot alerts 用 API 開啟。UptimeRobot 與 Semgrep 保留。
 - 要改時看哪裡：`.github/workflows/`、`.github/dependabot.yml`、`docs/github-private.md`。
+
+## D187 WritingLoop：英文寫作的 7 天循環（P0，2026-11-21，Joe：「在 ListenLoop 同一個專案裡新增 WritingLoop 英文寫作練習，部署在同一個 Vercel 專案」）
+
+- **計畫**：見 `docs/writingloop/plan.md`；學習原理與參考文獻見 `docs/writingloop/learning-science.md`。
+  - Joe 交代「先用 plan mode 寫好計畫」。plan mode 要按「同意」才能離開，Joe 睡覺時會整晚停住，所以計畫直接寫成檔案，接著開始做。
+- **架構**：寫作的程式都放在自己的資料夾，之後要拆成獨立 App 時，整個搬走即可。
+  - `lib/writing/`：純邏輯。
+  - `components/writing/`、`app/writing/`：介面與頁面。
+  - `data/writing/`：題目。
+  - 共用的部分：帳號、方案（`lib/plans.ts`）、AI 供應者與計費（`meteredLanguage`）、設計系統、練習計時。
+  - 練習計時的教材 id 用 `w-<promptId>`，日曆的練習時間自動把聽力和寫作加總。
+- **頁首**：「聽力｜寫作」切換（`AreaTabs`，見 design-system）。首頁的今日任務下面多了「今天的寫作」，包括進行中的題目和錯誤本要複習的項目。
+- **資料**：沒有新增資料表，所以**沒有 migration**。
+  - 文章、回饋、錯誤本、草稿：沒登入時存在瀏覽器；登入時也存到帳號既有的 `user_documents`，key 是 `writing-<id>`、`writing-notebook`、`wdraft-<id>-<天>`。
+  - `user_documents` 的 RLS 只允許本人讀寫。管理員後台的程式從不讀這些 key；後台只用 `api_calls` 的 `writing` 次數做統計。
+  - 刪除帳號時，`user_documents` 會一起刪除（cascade），匯出資料時也包含在內。
+  - 登出、或換成另一個帳號時，會清掉這台裝置上的寫作資料（D138）。
+  - 每週的批改次數從 `api_calls` 計算（`operation = writing`、沒有錯誤的呼叫、從週一 00:00 台灣時間起），不另外建表。
+- **伺服器不保存文章**：`reviewEssay` 把文章當成資料傳給模型，回饋傳回瀏覽器，伺服器只記錄次數、token 和費用。Vercel 也沒有新增函式入口：寫作回饋是 server action，和頁面在同一個函式裡。
+- **訪客**：可以走完 7 天，但沒有 AI 批改，改成用同一套評分標準自己評分，並選出最多 3 個要加強的地方，這些會決定第 2～6 天的練習。
+  - 理由：AI 費用要依帳號計算額度（D77），訪客沒有帳號可以計算。
+  - AI 暫時不能用時（額度用完、維護開關、帳號被暫停、供應者故障），登入的人也可以改用自己評分完成這一天。
+- **AI 回饋的規則**：寫進提示詞 `lib/writing/prompts.ts`（`WRITING_PROMPT_VERSION`），伺服器 `cleanFeedback` 再檢查一次。
+  - 最多 3 個重點，其餘收進「更多建議」（最多 8 個）；優點 1～2 個。
+  - 修改示範最多 3 句。比文章 60% 還長的「建議」只保留第 1 句，避免整篇代寫。
+  - 引用的句子必須真的出現在原文，否則不標示。
+  - 分數限制在評分標準的範圍內，每一項都要有理由。
+  - 文章當成資料處理（防 prompt injection）。要求代寫時拒絕（`declined: ghostwrite`），也不算完成這一天。
+- **評分標準**（`lib/writing/rubrics.ts`）：每種都是 4 個項目，顯示考試自己的分數；比較第 1 天與第 7 天、通關、圖表時，一律換算成 0～100。
+  - 一般題型：任務、組織、字彙、文法，各 0～5。
+  - IELTS：四項 Band，以 0.5 為單位，取平均。
+  - TOEFL：0～5，取平均。
+  - 全民英檢：0～5，加總。
+  - 學測：內容、組織、文法句構、字彙拼字，各 0～5，加總 20 分。
+  - 產品文字一律說明「AI 估計，不是官方成績」。
+- **7 天流程**：
+  - 解鎖規則和聽力一樣，要先完成前一天，而且要在不同的日曆日。
+  - 第 2～6 天（`lib/writing/drills.ts`）：
+    - 依第 1 天的弱點，每天排 2 項練習，連續兩天不排同一種（交錯練習）。
+    - 沒有 AI 引用的原句時（例如訪客），不排「改錯」。
+    - 「聽寫轉寫作」連到 ListenLoop 的聆聽模式（開新分頁），聽完回來寫。
+  - 第 7 天：結果頁並排顯示兩篇文章，列出各項分數的變化，以及第 1 天的 3 個問題有沒有改善。
+    - 「改善」的定義：原句不再出現，而且第 7 天沒有同類型的問題。
+    - 分享卡沿用聽力的 `ShareCard`，可以換標題，只放分數和題目名稱。
+  - 通關條件（`PassRule`）預設是「第 7 天高於第 1 天」，可以改成「第 7 天至少 60／70／80／90 分」。聽力的自訂通關條件是付費功能（D92），寫作依 Joe 的規格開放給所有人。
+- **第 2～6 天的練習用規則檢查，不呼叫 AI**：句型模仿、句子合併、換句話說、改錯、默寫重建、段落重組都由規則立即檢查，再顯示參考答案。
+  - Joe 的規格寫「句型模仿：AI 檢查」。如果每天每項都呼叫 AI，付費方案在最壞情況下會跌破保本價（D185），所以改用規則。
+  - 規則包括：有沒有用到句型的關鍵字、是不是一個句子、有沒有保留原意、是不是只是照抄範例。
+  - **列在晨間報告請 Joe 決定**：要不要另外給付費方案「AI 檢查句子」，並調整額度。
+- **錯誤本**（`lib/writing/notebook.ts`）：
+  - 加入時機：第 1 天完成時，加入 AI 引用的錯誤（最多 5 個）和題目的好用句型。
+  - 複習間隔：1、3、7 天後再出現。記得就進到下一個間隔，忘了就從 1 天後重來；3 次都記得就算「已掌握」。
+  - 每天最多複習 5 個，不同題目的項目混在一起。
+- **草稿**：每 5 秒自動儲存，離開頁面或切到背景時也會存。沒登入時存在瀏覽器；登入時也存到帳號，下次打開會用比較新的那一份。
+- **方案額度**（`lib/plans.ts`）：
+  - 每週 AI 批改次數：免費 2 次（剛好夠完成一個 7 天循環）、Plus／學生 3 次、Pro 6 次、管理員不限。
+  - 每篇字數上限：400／600／1,000／不限。
+  - 每次批改的成本估計：輸入約 1,800 token、輸出約 1,600 token，以 gpt-5-mini 計算約 US$0.0037，約 NT$0.12。
+  - 這筆成本已加進保本價（`lib/payments/price-floor.ts` 的 `writingReviewCost`）。最壞情況下，學生年繳每人每月仍有約 NT$15.7，高於 NT$15；價格不變。
+  - 每次批改同時計入既有的每日與每月 AI 額度。
+  - 價格實驗的保本價也一起計入寫作批改：Plus／學生最低從 NT$117 變成 NT$119，Pro 從 NT$310 變成 NT$314。目前的價格都高於保本價，所以不用調整。
+- **其他**：
+  - 隱私權政策新增「寫作練習的文章」一節。
+  - sitemap 加入 `/writing` 和各個題目頁；第 1～7 天與錯誤本的頁面設為 noindex。
+  - QA sweep 加入寫作頁。
+  - E2E `e2e/writing.spec.ts`：訪客、免費、付費、管理員（AI 額度用完，改用自己評分）在電腦上，以及訪客、免費在 iPhone 15 和 Pixel 7 上，各走完第 1～7 天。
+- 要改時看哪裡：
+  - 流程：`lib/writing/progress.ts`。
+  - 練習安排：`lib/writing/drills.ts`。
+  - 提示詞：`lib/writing/prompts.ts`（要重錄 eval）。
+  - 額度：`lib/plans.ts` 的 `writingReviewsPerWeek`、`writingWords`。
+  - 成本：`lib/payments/price-floor.ts` 的 `WRITING_REVIEW_COST`。
