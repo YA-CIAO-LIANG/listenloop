@@ -1,3 +1,4 @@
+import type { ChatTurnInput } from "@/lib/writing/chat/types";
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
 import type { WritingReviewInput } from "@/lib/writing/prompts";
 import type { TokenPrice } from "./pricing";
@@ -128,6 +129,11 @@ export interface LanguageProvider {
    * issues, strengths. Optional: a provider without it can't review.
    */
   reviewWriting?(input: WritingReviewInput): Promise<Billed<unknown>>;
+  /**
+   * The chat partner's next turn (WritingLoop chat, D197): a reply and a
+   * quiet correction in one call. Optional like reviewWriting.
+   */
+  chatTurn?(input: ChatTurnInput): Promise<Billed<unknown>>;
 }
 
 /** Sentence pairs to check (D115). */

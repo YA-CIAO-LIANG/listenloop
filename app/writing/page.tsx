@@ -21,9 +21,10 @@ export async function generateMetadata(): Promise<Metadata> {
  * the library's filters.
  */
 export default async function WritingPage() {
-  const [t, tSettings, locale] = await Promise.all([
+  const [t, tSettings, tChat, locale] = await Promise.all([
     getTranslations("writing"),
     getTranslations("writingSettings"),
+    getTranslations("writingChat"),
     getLocale(),
   ]);
   const prompts = writingPrompts.map(
@@ -54,6 +55,9 @@ export default async function WritingPage() {
           <li>{t("steps.day7")}</li>
         </ol>
         <div className="flex flex-wrap gap-3">
+          <ButtonLink href="/writing/chat" variant="primary" size="sm">
+            {tChat("title")}
+          </ButtonLink>
           <ButtonLink href="/writing/notebook" variant="secondary" size="sm">
             {t("notebook.title")}
           </ButtonLink>

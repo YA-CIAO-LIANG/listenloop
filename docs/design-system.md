@@ -973,5 +973,13 @@ CardLink，內容由上到下：
 - **範例文章**（`ModelEssay`）：
   - 好用句型用 `Mark kind="key"` 標示並編號。
   - 每段的中文翻譯收合在 `details` 裡。
+- **聊天練習**（`components/writing/chat/`，D197）：
+  - 外框是一張 surface 卡片（1px line、`rounded-base`），高度跟著畫面可見範圍（和 `WritingWorkspace` 相同的做法），鍵盤彈出時輸入框仍在畫面內。
+  - 上方一列：頭像（36px 圓形，accent/14 底、accent-ink 字，顯示名字的第一個字）、名字、情境、倒數（tabular-nums）、「提早結束」（ghost）。
+  - 訊息：對方在左，ground 底、1px line；自己在右，accent/14 底。最寬 85%。
+  - 糾正放在自己訊息下方的 `details`，摘要是 ink-muted 的「✎ 有建議」。
+  - 對方訊息的每個字都是按鈕，用虛線底線；點開後在字後面顯示中文。
+  - 正在輸入：三個點（`motion-safe:animate-pulse`），另附給螢幕閱讀器的文字。
+  - 自我傷害：用 `role="alert"` 的卡片取代輸入框，專線是 `tel:` 連結。
 - **段落重組**：用「上移」「下移」按鈕排序，不用拖曳，讓鍵盤和螢幕閱讀器都能操作。每個按鈕的名稱會說出是第幾句。
 - **默寫重建**：倒數秒數放在 `aria-live="polite"` 裡讀出來。

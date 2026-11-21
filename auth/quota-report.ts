@@ -18,6 +18,7 @@ import { getAdminSupabase } from "./admin";
 import { creationAllowance } from "./creation-quota";
 import { revisesToday, storedUploadBytes } from "./quota";
 import { writingReviewsThisWeek } from "./writing";
+import { chatMinutesThisWeek } from "./chat";
 import { usageWeek } from "@/lib/usage-report";
 import { referralSummary } from "./referral";
 import type { SignedInUser } from "./session";
@@ -34,7 +35,8 @@ export type QuotaRow = {
     | "revisesPerDay"
     | "storageMegabytes"
     | "dailyAi"
-    | "writingReviewsPerWeek";
+    | "writingReviewsPerWeek"
+    | "chatMinutesPerWeek";
   used: number;
   /** null: unlimited. */
   max: number | null;
@@ -77,6 +79,7 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     overrideRows,
     referral,
     writingReviews,
+    chatMinutes,
   ] = await Promise.all([
     creationAllowance({ user }),
     revisesToday(user.id),
@@ -100,6 +103,7 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
       : Promise.resolve({ data: null }),
     referralSummary(user.id),
     writingReviewsThisWeek(user.id),
+    chatMinutesThisWeek(user.id),
   ]);
   const limits = allowance.plans[plan];
   const tomorrow = nextUsageDay(now).toISOString();
@@ -145,6 +149,14 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     used: writingReviews,
     max: limits.writingReviewsPerWeek,
     unit: "times",
+    resetsAt: usageWeek(now).end,
+  });
+  // Chat practice minutes (D197).
+  rows.push({
+    id: "chatMinutesPerWeek",
+    used: chatMinutes,
+    max: limits.chatMinutesPerWeek,
+    unit: "minutes",
     resetsAt: usageWeek(now).end,
   });
   if (settings) {

@@ -10,8 +10,10 @@ import {
   translateBudget,
   type LanguageBudget,
   writingBudget,
+  chatBudget,
 } from "./budgets";
 import { WRITING_SCHEMA, writingInstructions } from "@/lib/writing/prompts";
+import { CHAT_SCHEMA, chatInstructions } from "@/lib/writing/chat/prompts";
 import { GUESSABLE_CATEGORIES } from "@/lib/categories";
 import { postToProvider, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA } from "./notes-schema";
@@ -97,6 +99,7 @@ const object = (properties: Record<string, unknown>) => ({
 export const AZURE_SCHEMAS = {
   // WritingLoop (D187).
   writing: WRITING_SCHEMA,
+  chat: CHAT_SCHEMA,
   translations: object({ translations: { type: "array", items: STRING } }),
   notes: RICH_NOTES_SCHEMA,
   segments: object({
@@ -311,6 +314,15 @@ export function azureOpenAiLanguage(
         writingInstructions(input.rubric),
         input,
         writingBudget(input),
+      );
+    },
+    async chatTurn(input) {
+      return generate(
+        "chat",
+        chatInstructions(input),
+        input,
+        chatBudget(input),
+        0.7,
       );
     },
     async revise(input) {

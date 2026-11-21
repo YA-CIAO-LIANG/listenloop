@@ -6,6 +6,7 @@ import {
 } from "../classroom";
 import { ECPAY_FEE_RATE, TW_BUSINESS_TAX } from "../forecast";
 import { PLANS } from "../plans";
+import { MESSAGES_PER_MINUTE } from "../writing/chat/limits";
 import {
   BILLING_PERIODS,
   PERIOD_MONTHS,
@@ -74,6 +75,46 @@ export const PLAN_WRITING_REVIEWS: Readonly<Record<PaidPlan, number>> = {
 export const writingMonthCost = (perWeek: number) =>
   perWeek * WEEKS_PER_MONTH * writingReviewCost();
 
+/**
+ * One chat turn (D197), measured on the chat eval's recording (32 turns,
+ * 748 tokens in and 178 out on average on gpt-5-mini), with room for a
+ * longer conversation (the last 10 messages go with each turn): 1,050 in
+ * and 250 out, about US$0.00076, NT$0.024.
+ */
+export const CHAT_TURN_COST = {
+  inputTokens: 1_050,
+  outputTokens: 250,
+  usdPerMillionIn: 0.25,
+  usdPerMillionOut: 2.0,
+} as const;
+
+/** NT$ one chat minute costs at most: MESSAGES_PER_MINUTE turns. */
+export function chatMinuteCost(): number {
+  const c = CHAT_TURN_COST;
+  const usd =
+    (c.inputTokens * c.usdPerMillionIn + c.outputTokens * c.usdPerMillionOut) /
+    1_000_000;
+  return usd * CLASS_COST.twdPerUsd * MESSAGES_PER_MINUTE;
+}
+
+/**
+ * Chat minutes a week each paid plan has beyond the free plan's (D197).
+ * The free plan's minutes are a free-tier cost every account has, like
+ * the free plan itself; the price floor counts what a paid plan adds.
+ */
+export const PLAN_CHAT_EXTRA: Readonly<Record<PaidPlan, number>> = {
+  plus:
+    (PLANS.paid.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
+  student:
+    (PLANS.paid.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
+  pro:
+    (PLANS.pro.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
+};
+
+/** NT$ a month of `perWeek` chat minutes, all used (the worst case). */
+export const chatMonthCost = (perWeek: number) =>
+  perWeek * WEEKS_PER_MONTH * chatMinuteCost();
+
 /** What's ours of a payment: without the tax inside it, less the fee. */
 const kept = (paid: number) =>
   paid / (1 + TW_BUSINESS_TAX) - paid * ECPAY_FEE_RATE;
@@ -88,11 +129,14 @@ export function worstCaseMargin(
   minutes: number,
   /** Essay reviews a week, all used (WritingLoop, D187). */
   writingPerWeek = 0,
+  /** Chat minutes a week beyond the free plan's, all used (D197). */
+  chatPerWeek = 0,
 ): number {
   return (
     kept(paid) / PERIOD_MONTHS[period] -
     minutes * classCostPerMinute() -
-    writingMonthCost(writingPerWeek)
+    writingMonthCost(writingPerWeek) -
+    chatMonthCost(chatPerWeek)
   );
 }
 
@@ -101,7 +145,11 @@ export function worstCaseMargin(
  * periods at or above the floor (a year is 10 months, D105, so the year
  * decides).
  */
-export function minimumMonthly(minutes: number, writingPerWeek = 0): number {
+export function minimumMonthly(
+  minutes: number,
+  writingPerWeek = 0,
+  chatPerWeek = 0,
+): number {
   let monthly = 1;
   while (
     !BILLING_PERIODS.every(
@@ -111,6 +159,7 @@ export function minimumMonthly(minutes: number, writingPerWeek = 0): number {
           period,
           minutes,
           writingPerWeek,
+          chatPerWeek,
         ) >= PRICE_FLOOR.minMarginPerMonth,
     )
   ) {
@@ -141,6 +190,7 @@ export function worstCaseTable(): {
           period,
           minutes,
           PLAN_WRITING_REVIEWS[plan],
+          PLAN_CHAT_EXTRA[plan],
         ),
       };
     }),

@@ -89,6 +89,14 @@ const ROWS: [string, (l: PlanLimits, column: Column) => string, string][] = [
     "每週一 00:00",
   ],
   [
+    "聊天練習（WritingLoop，D197）",
+    (l) =>
+      l.chatMinutesPerWeek === null
+        ? unlimited
+        : `每週 ${l.chatMinutesPerWeek} 分鐘`,
+    "每週一 00:00",
+  ],
+  [
     "每篇寫作字數",
     (l) =>
       l.writingWords === null

@@ -24,6 +24,7 @@
     "eval": "vitest run --config vitest.eval.config.mts --silent=false",
     "eval:check": "EVAL_MODE=check vitest run --config vitest.eval.config.mts --silent=false",
     "eval:writing:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.writing-record.config.mts --silent=false",
+    "eval:chat:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.chat-record.config.mts --silent=false",
     "writing:audio": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.writing-audio.config.mts --silent=false",
     "eval:record": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.eval-record.config.mts --silent=false",
     "official:drafts": "node --env-file=.env.local ./node_modules/vitest/vitest.mjs run --config vitest.official.config.mts --silent=false",

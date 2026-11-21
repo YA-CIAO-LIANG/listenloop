@@ -60,6 +60,7 @@ const ALL_FEATURES = [
   "writing",
   "writingReviews",
   "writingWords",
+  "chatMinutes",
 ] as const;
 /** YouTube links are paused (D131): no row for them. */
 const FEATURES = ALL_FEATURES.filter(
@@ -201,6 +202,10 @@ export function PricingPlans({
         return limits.writingReviewsPerWeek === null
           ? t("noLimit")
           : t("timesPerWeek", { n: limits.writingReviewsPerWeek });
+      case "chatMinutes":
+        return limits.chatMinutesPerWeek === null
+          ? t("noLimit")
+          : t("minutesPerWeek", { n: limits.chatMinutesPerWeek });
       case "writingWords":
         return limits.writingWords === null
           ? t("noLimit")

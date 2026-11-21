@@ -37,6 +37,7 @@ const limited: Record<PlanId, PlanLimits> = {
     batchPdf: false,
     writingReviewsPerWeek: 2,
     writingWords: 400,
+    chatMinutesPerWeek: 5,
   },
 };
 

@@ -273,6 +273,29 @@ WritingLoop 是 ListenLoop 裡的 7 天英文寫作循環，目標使用者是�
 - Laufer, B., & Girsai, N. (2008). Form-focused instruction in second language vocabulary learning: A case for contrastive analysis and translation. _Applied Linguistics, 29_(4), 694–716. https://doi.org/10.1093/applin/amn018
 - Wajnryb, R. (1990). _Grammar dictation_. Oxford University Press.
 
+## 9. 聊天練習的隱性糾正（D197）
+
+### 原理說明
+
+- **互動假說**：Long（1996）認為，第二語言學習者在對話中為了理解和被理解而「協商意義」時，會注意到語言形式，這有助於習得。
+- **重述（recast）與糾正回饋**：Lyster 與 Ranta（1997）分析課堂裡的糾正回饋，發現「重述」（把學生的話用正確的方式說一次、不中斷對話）最常見，但學生常常沒注意到。Li（2010）的後設分析顯示，口語糾正回饋整體有中等效果，明確的回饋短期效果較大。
+
+### 在 WritingLoop 怎麼用
+
+- 對方照常回覆，不中斷對話（保留互動與意義協商）；錯誤用訊息下方的小標示呈現，點開才看到修正、原因和更自然的說法，把「重述」變成學習者可以主動查看的明確回饋。
+- 結束後只整理最重要的 3 個錯誤（認知負荷，第 7 節），並加入錯誤本間隔複習（第 3 節）。
+
+### 限制與注意
+
+- 上述研究多半是面對面的口語互動；文字聊天的節奏、學習者的注意力不同，效果不能直接套用。
+- AI 的糾正可能有錯；聊天 eval 會檢查糾正是否正確，但沒辦法涵蓋所有情況。
+
+### 參考文獻
+
+- Long, M. H. (1996). The role of the linguistic environment in second language acquisition. In W. C. Ritchie & T. K. Bhatia (Eds.), _Handbook of second language acquisition_ (pp. 413–468). Academic Press.
+- Lyster, R., & Ranta, L. (1997). Corrective feedback and learner uptake: Negotiation of form in communicative classrooms. _Studies in Second Language Acquisition, 19_(1), 37–66. https://doi.org/10.1017/S0272263197001034
+- Li, S. (2010). The effectiveness of corrective feedback in SLA: A meta-analysis. _Language Learning, 60_(2), 309–365. https://doi.org/10.1111/j.1467-9922.2010.00561.x
+
 ## 不使用的神經迷思
 
 以下說法流傳很廣，但缺乏證據或已被研究否定。產品設計、介面文字、行銷文案、社群貼文都**不可以使用**，也不要用類似的說法暗示。

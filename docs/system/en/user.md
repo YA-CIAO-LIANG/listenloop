@@ -282,9 +282,16 @@ flowchart LR
    - Set the pass rule on the prompt's page; the default is that Day 7 scores higher than Day 1.
    - You can download a share card that shows only the scores.
 5. **Your own prompts** (`/writing/new`): write on your own topic, or choose a diary or free writing; the title can be left empty (it's named by kind and date). Your own prompts have no model essay, so days 2–6 use your own sentences, as corrected when there's an AI review. Only you can see them.
-6. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.
-7. **Allowance**: AI reviews a week are 2 on Free, 3 on Plus and Student, and 6 on Pro. AI scores are estimates, not official results.
-8. **Privacy**: only you can see your writing. Admins never see it, and it's never used to train AI.
+6. **Chat practice** (`/writing/chat`, signed in):
+   - Choose the time (5, 10, or 20 minutes), the situation and partner (classmate, professor, coworker, barista, roommate, online friend, job interviewer, or your own), and your partner's level, then text in English.
+   - Your partner replies as usual; a message with a mistake gets a small "Tip" underneath, opened to see the correction, why, and a more natural way. Tap any word of their messages for its meaning or a dictionary.
+   - When time's up or you end early: your 3 main mistakes, 3 natural phrases, and the whole conversation; mistakes and phrases go to the notebook, reviewed after 1, 3, and 7 days by writing the English from the Chinese.
+   - Chat minutes a week: 5 on Free, Plus, and Student, 20 on Pro; minutes not used when you end early are given back.
+   - The AI won't role-play romance, sex, violence, or anything illegal; under-18s can turn on age-appropriate rules. If you mention hurting yourself, the practice stops and helplines are shown (Taiwan 1925 and 1995, US 988). You can report an inappropriate reply.
+   - Only you can see your chats; delete them under Past chats.
+7. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.
+8. **Allowance**: AI reviews a week are 2 on Free, 3 on Plus and Student, and 6 on Pro. AI scores are estimates, not official results.
+9. **Privacy**: only you can see your writing. Admins never see it, and it's never used to train AI.
 
 ---
 

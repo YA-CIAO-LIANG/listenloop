@@ -727,7 +727,15 @@ export type Database = {
           variant?: string | null;
           visitor_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "intent_events_experiment_id_fkey";
+            columns: ["experiment_id"];
+            isOneToOne: false;
+            referencedRelation: "price_experiments";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       ops_alerts: {
         Row: {
@@ -1197,7 +1205,15 @@ export type Database = {
           updated_at?: string;
           updated_by?: string | null;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "price_overrides_experiment_id_fkey";
+            columns: ["experiment_id"];
+            isOneToOne: false;
+            referencedRelation: "price_experiments";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       price_survey_responses: {
         Row: {
@@ -1216,7 +1232,7 @@ export type Database = {
           context: string;
           created_at?: string;
           expensive: number;
-          id?: number;
+          id?: never;
           too_cheap: number;
           too_expensive: number;
           user_id?: string | null;
@@ -1227,7 +1243,7 @@ export type Database = {
           context?: string;
           created_at?: string;
           expensive?: number;
-          id?: number;
+          id?: never;
           too_cheap?: number;
           too_expensive?: number;
           user_id?: string | null;
@@ -1873,7 +1889,15 @@ export type Database = {
           source?: string | null;
           user_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: "waitlist_seen_experiment_id_fkey";
+            columns: ["seen_experiment_id"];
+            isOneToOne: false;
+            referencedRelation: "price_experiments";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       week_surveys: {
         Row: {
@@ -1947,6 +1971,36 @@ export type Database = {
           seen_at?: string;
           ticket?: string;
           user_id?: string | null;
+        };
+        Relationships: [];
+      };
+      writing_chat_sessions: {
+        Row: {
+          ended_at: string | null;
+          id: string;
+          messages: number;
+          minutes: number;
+          started_at: string;
+          used_minutes: number | null;
+          user_id: string;
+        };
+        Insert: {
+          ended_at?: string | null;
+          id?: string;
+          messages?: number;
+          minutes: number;
+          started_at?: string;
+          used_minutes?: number | null;
+          user_id: string;
+        };
+        Update: {
+          ended_at?: string | null;
+          id?: string;
+          messages?: number;
+          minutes?: number;
+          started_at?: string;
+          used_minutes?: number | null;
+          user_id?: string;
         };
         Relationships: [];
       };
@@ -2100,7 +2154,6 @@ export type Database = {
           voiced: number;
         }[];
       };
-      queue_leave: { Args: { target_ticket: string }; Returns: undefined };
       qualify_referral: {
         Args: {
           referee_minutes: number;
@@ -2110,6 +2163,7 @@ export type Database = {
         };
         Returns: boolean;
       };
+      queue_leave: { Args: { target_ticket: string }; Returns: undefined };
       queue_position: {
         Args: {
           stale_seconds: number;

@@ -16,7 +16,8 @@ export const REVIEWS_PER_DAY = 5;
 export type NotebookEntry = {
   /** Stable: the same mistake or pattern isn't added twice. */
   id: string;
-  kind: "error" | "pattern";
+  /** "chat": from a chat (D197): `text` is the Chinese, `answer` the English. */
+  kind: "error" | "pattern" | "chat";
   promptId: string;
   /** The learner's sentence (error) or the pattern (pattern). */
   text: string;
@@ -113,7 +114,7 @@ export function parseNotebook(value: unknown): Notebook {
     if (!e || typeof e !== "object") continue;
     const o = e as Record<string, unknown>;
     if (
-      (o.kind !== "error" && o.kind !== "pattern") ||
+      (o.kind !== "error" && o.kind !== "pattern" && o.kind !== "chat") ||
       typeof o.text !== "string" ||
       typeof o.answer !== "string" ||
       !isLocalDate(o.due) ||
