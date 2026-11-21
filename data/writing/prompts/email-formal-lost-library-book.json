@@ -1,0 +1,87 @@
+{
+  "id": "email-formal-lost-library-book",
+  "type": "email-formal",
+  "level": "beginner",
+  "title": {
+    "en": "I Lost a Library Book",
+    "zh": "我弄丟了圖書館的書"
+  },
+  "subtitle": "寫一封簡短的正式信給圖書館，說明遺失書本並詢問賠償",
+  "task": "You have lost a book that you borrowed from your school library. Write an email to the library staff. Say which book you lost, apologize, and ask what you should do.",
+  "taskZh": "你弄丟了向學校圖書館借的書。寫一封 email 給圖書館人員：說明是哪一本書、表達歉意，並詢問你該怎麼處理。",
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "正式 email 的開頭與結尾",
+    "清楚說明事情經過",
+    "用 Could you please … 禮貌提問"
+  ],
+  "model": {
+    "en": [
+      "Dear Library Staff,",
+      "I am writing to tell you that I have lost a library book. The book is called Introduction to Economics, and I borrowed it on October 15. I looked for it at home and in my classroom, but I could not find it. I am very sorry about this.",
+      "Could you please tell me how much I need to pay for the book? I would also like to know if I can buy a new copy instead.",
+      "Thank you for your help.",
+      "Best regards,",
+      "Alex Chen"
+    ],
+    "zh": [
+      "圖書館的工作人員您好：",
+      "我寫信是想告訴您，我弄丟了一本圖書館的書。那本書是《經濟學導論》，我在 10 月 15 日借的。我在家裡和教室都找過了，但還是找不到。對此我感到非常抱歉。",
+      "可以請您告訴我需要賠多少錢嗎？我也想知道能不能改買一本新的來賠。",
+      "謝謝您的幫忙。",
+      "敬祝 安好",
+      "陳艾力"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to tell you that …",
+      "zh": "正式信件開頭：說明寫信的目的",
+      "example": "I am writing to tell you that I have lost a library book.",
+      "keys": ["i am writing to", "that"]
+    },
+    {
+      "pattern": "I looked for it …, but I could not …",
+      "zh": "我找過……，但還是沒辦法……",
+      "example": "I looked for it at home and in my classroom, but I could not find it.",
+      "keys": ["but", "could not"]
+    },
+    {
+      "pattern": "Could you please tell me …?",
+      "zh": "可以請您告訴我……嗎？（禮貌提問）",
+      "example": "Could you please tell me how much I need to pay for the book?",
+      "keys": ["could you please"]
+    },
+    {
+      "pattern": "I would also like to know if …",
+      "zh": "我也想知道是否……",
+      "example": "I would also like to know if I can buy a new copy instead.",
+      "keys": ["would also like to know", "if"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I lost a library book.", "I am very sorry."],
+      "answer": "I am very sorry that I lost a library book."
+    },
+    {
+      "parts": ["I looked for it at home.", "I could not find it."],
+      "answer": "I looked for it at home, but I could not find it."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I could not find it.",
+      "answers": ["I was not able to find it.", "It was nowhere to be found."]
+    },
+    {
+      "sentence": "How much do I need to pay?",
+      "answers": ["How much will I have to pay?", "What is the cost?"]
+    }
+  ],
+  "listenVideo": "sintel"
+}

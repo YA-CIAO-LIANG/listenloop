@@ -1,0 +1,91 @@
+{
+  "id": "gept-essay-skill-from-family",
+  "type": "gept",
+  "level": "intermediate",
+  "title": {
+    "en": "A Skill I Learned from My Family",
+    "zh": "家人教我的一項技能"
+  },
+  "subtitle": "原創模擬題（中級寫作風格）：寫一篇短文描述經驗與感想",
+  "task": "Write an essay of 120–160 words about a skill you learned from an older family member, such as a parent, grandparent, aunt, or uncle. Describe (1) what the skill is, (2) how you learned it, and (3) why it is meaningful to you.",
+  "taskZh": "寫一篇 120–160 字的短文，描述一項你從長輩（父母、祖父母、阿姨、叔叔等）身上學到的技能：(1) 這是什麼技能，(2) 你怎麼學會的，(3) 為什麼它對你有意義。",
+  "words": { "min": 120, "max": 160 },
+  "minutes": 30,
+  "focus": [
+    "內容：三個要求都要寫到，並有具體細節",
+    "組織：一段一個重點，前後連貫",
+    "文法與用字：過去式與現在式使用正確",
+    "句型變化：適度使用連接詞與複合句"
+  ],
+  "model": {
+    "en": [
+      "One useful skill I learned from an older family member is how to make dumplings. My grandfather taught me when I was ten years old. Every Lunar New Year, our whole family gathers in his small kitchen, and he is always the one in charge.",
+      "At first, my dumplings looked terrible. The filling leaked out, and some of them fell apart in the boiling water. Instead of laughing at me, my grandfather patiently showed me how to fold the edges again and again. He told me that a good cook is not someone who never makes mistakes, but someone who keeps trying.",
+      "This skill is meaningful to me for two reasons. First, I can now cook a simple meal for my family when my parents work late. More importantly, whenever I make dumplings, I remember my grandfather's warm hands and his patient words. It is a lesson that goes far beyond cooking."
+    ],
+    "zh": [
+      "我從長輩身上學到的一項實用技能是包水餃。我十歲時，爺爺教我包的。每年農曆新年，全家人都會聚在他的小廚房裡，而他總是負責掌廚的那個人。",
+      "一開始，我包的水餃很難看。餡料會漏出來，有些下鍋煮的時候還會破掉。爺爺沒有笑我，而是很有耐心地一次又一次示範怎麼捏邊。他告訴我，好廚師不是從不犯錯的人，而是會一直嘗試的人。",
+      "這項技能對我有意義，原因有兩個。第一，現在爸媽加班晚歸時，我可以為家人煮一頓簡單的飯。更重要的是，每次包水餃，我都會想起爺爺溫暖的手和他耐心的話語。這是一個遠遠超越烹飪的道理。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "One useful skill I learned from … is how to …",
+      "zh": "開頭點出主題",
+      "example": "One useful skill I learned from an older family member is how to make dumplings.",
+      "keys": ["one useful skill", "is how to"]
+    },
+    {
+      "pattern": "Instead of …ing, …",
+      "zh": "沒有……，反而……",
+      "example": "Instead of laughing at me, my grandfather patiently showed me how to fold the edges again and again.",
+      "keys": ["instead of"]
+    },
+    {
+      "pattern": "… is not someone who …, but someone who …",
+      "zh": "不是……的人，而是……的人",
+      "example": "He told me that a good cook is not someone who never makes mistakes, but someone who keeps trying.",
+      "keys": ["not someone who", "but someone who"]
+    },
+    {
+      "pattern": "More importantly, whenever …, …",
+      "zh": "更重要的是，每當……",
+      "example": "More importantly, whenever I make dumplings, I remember my grandfather's warm hands and his patient words.",
+      "keys": ["more importantly", "whenever"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My grandfather did not laugh at me.",
+        "He patiently showed me how to fold the edges."
+      ],
+      "answer": "Instead of laughing at me, my grandfather patiently showed me how to fold the edges."
+    },
+    {
+      "parts": [
+        "The filling leaked out.",
+        "Some dumplings fell apart in the water."
+      ],
+      "answer": "The filling leaked out, and some dumplings fell apart in the water."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "My dumplings looked terrible.",
+      "answers": [
+        "My dumplings did not look good at all.",
+        "My dumplings were very ugly."
+      ]
+    },
+    {
+      "sentence": "It is a lesson that goes far beyond cooking.",
+      "answers": [
+        "The lesson is about much more than cooking.",
+        "I learned something more important than how to cook."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

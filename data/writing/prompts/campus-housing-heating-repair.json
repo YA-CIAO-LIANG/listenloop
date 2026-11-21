@@ -1,0 +1,105 @@
+{
+  "id": "campus-housing-heating-repair",
+  "type": "campus-housing",
+  "level": "intermediate",
+  "title": {
+    "en": "Reporting a Broken Heater",
+    "zh": "向房東報修暖氣"
+  },
+  "subtitle": "暖氣壞了，寫信清楚描述問題並請房東安排維修",
+  "task": "The heating in your rented flat has stopped working. Write an email to your landlord, Ms. Clarke, to report the problem, explain how it affects you, and ask when it can be repaired.",
+  "taskZh": "你租的公寓暖氣壞了。寫一封 email 給房東 Clarke 女士：報告問題、說明對你的影響，並詢問什麼時候可以修理。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 20,
+  "focus": [
+    "清楚描述問題：地點、開始時間、已經做過的處理",
+    "說明影響，讓請求更有說服力",
+    "語氣禮貌，但明確要求安排維修時間"
+  ],
+  "model": {
+    "en": [
+      "Dear Ms. Clarke,",
+      "I am writing to report a problem with the heating in Flat 3B at 12 Elm Road. Since last Sunday evening, the radiators in both bedrooms have been completely cold, although the hot water still works normally.",
+      "I have already checked the thermostat and reset the boiler as described in the tenant guide, but nothing has changed. With temperatures dropping below zero at night, the flat has become very uncomfortable, and my flatmate and I are worried about damp and mould.",
+      "Could you please arrange for an engineer to look at the heating as soon as possible? Either of us can be at home on weekday mornings to let them in. Please let me know which day would suit you best.",
+      "Thank you for your help.",
+      "Kind regards,",
+      "Chloe Yang"
+    ],
+    "zh": [
+      "Clarke 女士您好：",
+      "來信是要報告 Elm Road 12 號 3B 公寓的暖氣問題。從上星期天晚上開始，兩間臥室的暖氣片都完全不熱，不過熱水還是正常的。",
+      "我已經照著房客手冊檢查過溫控器，也重新啟動過鍋爐，但情況沒有改變。夜裡氣溫降到零度以下，公寓變得非常不舒服，我和室友也擔心會受潮發霉。",
+      "可以請您盡快安排技師來檢查暖氣嗎？平日早上我們其中一人可以在家開門。請告訴我哪一天對您最方便。",
+      "謝謝您的協助。",
+      "敬祝 安好",
+      "楊克洛伊"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to report a problem with …",
+      "zh": "開門見山說明要報修的問題",
+      "example": "I am writing to report a problem with the heating in Flat 3B at 12 Elm Road.",
+      "keys": ["writing to report", "problem with"]
+    },
+    {
+      "pattern": "Since …, … have been …",
+      "zh": "現在完成式：從某時開始一直如此",
+      "example": "Since last Sunday evening, the radiators in both bedrooms have been completely cold, although the hot water still works normally.",
+      "keys": ["since", "have been"]
+    },
+    {
+      "pattern": "With … + V-ing, …",
+      "zh": "用 with 片語說明背景狀況",
+      "example": "With temperatures dropping below zero at night, the flat has become very uncomfortable, and my flatmate and I are worried about damp and mould.",
+      "keys": ["with", "dropping"]
+    },
+    {
+      "pattern": "Could you please arrange for … as soon as possible?",
+      "zh": "禮貌但明確地要求處理",
+      "example": "Could you please arrange for an engineer to look at the heating as soon as possible?",
+      "keys": ["arrange for", "as soon as possible"]
+    },
+    {
+      "pattern": "Please let me know which … would suit you best.",
+      "zh": "請對方選擇方便的時間",
+      "example": "Please let me know which day would suit you best.",
+      "keys": ["let me know", "suit you"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I checked the thermostat.",
+        "I reset the boiler.",
+        "Nothing has changed."
+      ],
+      "answer": "I have already checked the thermostat and reset the boiler, but nothing has changed."
+    },
+    {
+      "parts": [
+        "The radiators have been cold since Sunday.",
+        "The hot water still works."
+      ],
+      "answer": "Since Sunday, the radiators have been cold, although the hot water still works."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Please let me know which day would suit you best.",
+      "answers": [
+        "Please tell me which day is most convenient for you.",
+        "Let me know what day works best for you."
+      ]
+    },
+    {
+      "sentence": "Nothing has changed.",
+      "answers": ["The problem is still there.", "It has made no difference."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

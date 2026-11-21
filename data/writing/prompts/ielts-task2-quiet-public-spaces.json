@@ -1,0 +1,99 @@
+{
+  "id": "ielts-task2-quiet-public-spaces",
+  "type": "ielts-task2",
+  "level": "advanced",
+  "title": {
+    "en": "Should All Public Spaces Be Quiet?",
+    "zh": "所有公共空間都該保持安靜嗎？"
+  },
+  "subtitle": "原創模擬題：同意或不同意型議論文",
+  "task": "Many trains and buses now have quiet carriages where phone calls and loud conversations are not allowed. Some people believe that similar rules should apply in all public spaces. To what extent do you agree or disagree? Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "現在許多火車和公車設有「安靜車廂」，禁止講電話和大聲交談。有些人認為所有公共空間都該採用類似規定。你同意或不同意到什麼程度？請說明理由並舉例。至少寫 250 字。",
+  "words": { "min": 250, "max": 320 },
+  "minutes": 40,
+  "focus": [
+    "Task Response：清楚表明同意的程度，全文立場一致",
+    "Coherence and Cohesion：讓步段與反駁段分明",
+    "Lexical Resource：用字精準、避免重複 quiet、noise",
+    "Grammatical Range and Accuracy：讓步句、假設語氣與關係子句正確"
+  ],
+  "model": {
+    "en": [
+      "Many trains and buses now include quiet carriages, where passengers are asked not to make phone calls or talk loudly. Some people think this idea should be extended to all public spaces. Although I agree that quiet areas are valuable, I believe applying such rules everywhere would be both unrealistic and undesirable.",
+      "There are good reasons to protect quiet in certain places. In a crowded city, a train journey may be one of the few moments in the day when people can read, rest or think without interruption. Libraries, hospitals and places of worship also depend on silence to function properly. In these settings, clear rules prevent arguments between strangers because everyone knows what is expected.",
+      "However, public spaces are shared by people with very different needs. Parks, markets and stations are meant to be lively, and conversation is a large part of what makes them enjoyable. If silence were required in every public area, families with young children, groups of friends and street performers would all be treated as a problem. Furthermore, enforcing such rules would require staff or cameras in countless locations, which would be extremely costly and could make citizens feel constantly watched.",
+      "In conclusion, quiet zones work well where their purpose is obvious and their limits are clear, such as on trains or in libraries. Rather than banning noise everywhere, authorities should offer a balance of quiet and lively spaces so that everyone can find somewhere that suits them."
+    ],
+    "zh": [
+      "現在許多火車和公車設有安靜車廂，要求乘客不要講電話或大聲交談。有些人認為這個做法應該擴大到所有公共空間。雖然我同意安靜的區域很有價值，但我認為在所有地方都套用這種規定既不切實際，也不理想。",
+      "在某些地方維持安靜確實有充分的理由。在擁擠的城市裡，搭火車可能是一天中少數能不受打擾地閱讀、休息或思考的時刻。圖書館、醫院和宗教場所也需要安靜才能正常運作。在這些場合，明確的規定能避免陌生人之間的爭執，因為每個人都知道該怎麼做。",
+      "然而，公共空間是由需求非常不同的人共同使用的。公園、市場和車站本來就應該熱鬧，交談正是這些地方令人愉快的重要原因。如果每個公共區域都要求安靜，帶著幼兒的家庭、成群的朋友和街頭藝人都會被當成問題。此外，執行這種規定需要在無數地點安排人員或攝影機，不但成本極高，還可能讓民眾覺得一直被監視。",
+      "總而言之，安靜區在目的明顯、範圍清楚的地方效果很好，例如火車上或圖書館裡。與其全面禁止噪音，政府更應該提供安靜與熱鬧空間之間的平衡，讓每個人都能找到適合自己的地方。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Although I agree that …, I believe …",
+      "zh": "讓步後表明立場",
+      "example": "Although I agree that quiet areas are valuable, I believe applying such rules everywhere would be both unrealistic and undesirable.",
+      "keys": ["although", "i believe"]
+    },
+    {
+      "pattern": "There are good reasons to …",
+      "zh": "段落主題句：承認對方觀點的合理處",
+      "example": "There are good reasons to protect quiet in certain places.",
+      "keys": ["there are good reasons to"]
+    },
+    {
+      "pattern": "If … were …, … would …",
+      "zh": "假設語氣：推想全面實施的後果",
+      "example": "If silence were required in every public area, families with young children, groups of friends and street performers would all be treated as a problem.",
+      "keys": ["if", "were required", "would"]
+    },
+    {
+      "pattern": "Furthermore, …, which would …",
+      "zh": "補充論點，並用關係子句說明後果",
+      "example": "Furthermore, enforcing such rules would require staff or cameras in countless locations, which would be extremely costly and could make citizens feel constantly watched.",
+      "keys": ["furthermore", "which would"]
+    },
+    {
+      "pattern": "Rather than …ing, … should …",
+      "zh": "與其……，不如……（提出替代方案）",
+      "example": "Rather than banning noise everywhere, authorities should offer a balance of quiet and lively spaces so that everyone can find somewhere that suits them.",
+      "keys": ["rather than", "should"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Quiet areas are valuable.",
+        "Applying such rules everywhere would be unrealistic."
+      ],
+      "answer": "Although quiet areas are valuable, applying such rules everywhere would be unrealistic."
+    },
+    {
+      "parts": [
+        "Authorities should offer quiet and lively spaces.",
+        "Everyone can find somewhere that suits them."
+      ],
+      "answer": "Authorities should offer quiet and lively spaces so that everyone can find somewhere that suits them."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Conversation is a large part of what makes them enjoyable.",
+      "answers": [
+        "Talking with others is one of the main reasons people enjoy these places.",
+        "These places are enjoyable largely because people talk there."
+      ]
+    },
+    {
+      "sentence": "Enforcing such rules would be extremely costly.",
+      "answers": [
+        "It would cost a great deal to enforce these rules.",
+        "Putting these rules into practice would be very expensive."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

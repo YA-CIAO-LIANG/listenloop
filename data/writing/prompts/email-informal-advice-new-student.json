@@ -1,0 +1,104 @@
+{
+  "id": "email-informal-advice-new-student",
+  "type": "email-informal",
+  "level": "advanced",
+  "title": {
+    "en": "Advice for a New University Student",
+    "zh": "給大一新生的建議"
+  },
+  "subtitle": "回信給即將上大學的表弟妹，分享你的經驗與建議",
+  "task": "Your younger cousin is about to start university in another city and has written to you for advice. Reply to the email. Respond to their feelings, give at least three pieces of practical advice, and explain why each one matters.",
+  "taskZh": "你的表弟妹即將到外縣市念大學，寫信向你請教。請回信：回應他的心情，給出至少三個實用的建議，並說明每個建議為什麼重要。",
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 30,
+  "focus": [
+    "回應對方情緒，語氣親切",
+    "建議具體並附上理由",
+    "用 First、Second、Finally 組織段落"
+  ],
+  "model": {
+    "en": [
+      "Hi Jamie,",
+      "Congratulations again on getting into National Cheng Kung University! I was really happy to read your message, and I can tell from it that you are both excited and a little worried. That is completely normal. I felt exactly the same way three years ago, so here is some advice that I wish someone had given me.",
+      "First, do not try to do everything in your first month. Clubs, parties, and part-time jobs will all compete for your time, but your body still needs sleep. Choose one or two activities that you genuinely enjoy, and give yourself time to settle in before adding more. Second, talk to your professors during office hours. Many students never go, which is a shame, because professors are usually happy to help and can tell you about research or internship opportunities.",
+      "Finally, call home once in a while, even if you are busy. Moving to a new city can be lonely at first, and hearing a familiar voice really helps. If you ever feel overwhelmed, you can always message me as well.",
+      "I am sure you will have an amazing time. Good luck, and let me know how your first week goes!",
+      "Cheers,",
+      "Alex"
+    ],
+    "zh": [
+      "嗨，Jamie：",
+      "再次恭喜你考上成功大學！讀到你的訊息我真的很開心，也看得出來你既興奮又有點擔心。這完全是正常的。三年前我的感受一模一樣，所以這裡有一些我真希望當年有人告訴我的建議。",
+      "首先，第一個月不要什麼都想做。社團、聚會和打工都會搶走你的時間，但你的身體還是需要睡眠。選一兩個你真正喜歡的活動，先給自己時間適應，再考慮增加更多。第二，利用 office hours 去找教授聊聊。很多學生從來不去，這很可惜，因為教授通常很樂意幫忙，還能告訴你研究或實習的機會。",
+      "最後，就算再忙也要偶爾打電話回家。剛搬到新城市時可能會覺得孤單，聽到熟悉的聲音真的很有幫助。如果你覺得喘不過氣，也隨時可以傳訊息給我。",
+      "我相信你一定會過得很精彩。祝你好運，第一週過得怎麼樣再跟我說！",
+      "加油，",
+      "Alex"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I can tell from … that …",
+      "zh": "從……看得出來……",
+      "example": "I was really happy to read your message, and I can tell from it that you are both excited and a little worried.",
+      "keys": ["i can tell", "that"]
+    },
+    {
+      "pattern": "… advice that I wish someone had given me",
+      "zh": "我真希望當初有人給我的建議（wish + 過去完成式）",
+      "example": "I felt exactly the same way three years ago, so here is some advice that I wish someone had given me.",
+      "keys": ["i wish", "had given"]
+    },
+    {
+      "pattern": "…, which is a shame, because …",
+      "zh": "用 which 評論前面整件事，再說明原因",
+      "example": "Many students never go, which is a shame, because professors are usually happy to help and can tell you about research or internship opportunities.",
+      "keys": ["which is", "because"]
+    },
+    {
+      "pattern": "…, even if …",
+      "zh": "即使……也……",
+      "example": "Finally, call home once in a while, even if you are busy.",
+      "keys": ["even if"]
+    },
+    {
+      "pattern": "If you ever feel …, you can always …",
+      "zh": "如果你有時覺得……，隨時都可以……",
+      "example": "If you ever feel overwhelmed, you can always message me as well.",
+      "keys": ["if you ever", "can always"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Many students never go to office hours.", "This is a shame."],
+      "answer": "Many students never go to office hours, which is a shame."
+    },
+    {
+      "parts": [
+        "Moving to a new city can be lonely.",
+        "Hearing a familiar voice helps."
+      ],
+      "answer": "Moving to a new city can be lonely, but hearing a familiar voice helps."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Give yourself time to settle in.",
+      "answers": [
+        "Allow yourself some time to get used to your new life.",
+        "Take it slow while you adjust."
+      ]
+    },
+    {
+      "sentence": "That is completely normal.",
+      "answers": [
+        "Everyone feels that way.",
+        "There is nothing strange about that."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

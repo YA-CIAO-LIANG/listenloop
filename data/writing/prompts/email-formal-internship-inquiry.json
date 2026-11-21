@@ -1,0 +1,107 @@
+{
+  "id": "email-formal-internship-inquiry",
+  "type": "email-formal",
+  "level": "advanced",
+  "title": {
+    "en": "Asking About an Internship",
+    "zh": "詢問實習機會"
+  },
+  "subtitle": "寫信給公司詢問暑期實習，並介紹自己的經驗",
+  "task": "Write an email to a company you would like to work for, asking whether it offers summer internships. Introduce yourself, explain why you are interested, describe a relevant experience, and say when you are available.",
+  "taskZh": "寫一封 email 給你想去的公司，詢問是否有暑期實習機會。介紹自己、說明你為什麼有興趣、描述一段相關經驗，並說明你可以實習的時間。",
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 35,
+  "focus": [
+    "正式且有自信的語氣",
+    "用具體經驗證明能力",
+    "段落分工清楚（自我介紹、經驗、時間與結尾）"
+  ],
+  "model": {
+    "en": [
+      "Dear Ms. Lin,",
+      "My name is Alex Chen, and I am a third-year student majoring in Information Management at a university in Taipei. I am writing to ask whether your company will be offering summer internships in user experience design next year. A professor in my department, who has worked with your team on several projects, suggested that I contact you directly.",
+      "Over the past two years, I have developed a strong interest in designing apps that are easy for older people to use. Last semester, my classmates and I interviewed thirty senior citizens and redesigned a hospital appointment app based on their feedback. Not only did the project improve my research skills, but it also taught me how to explain design decisions to people without a technical background. I believe this experience would allow me to contribute to your team from the first week.",
+      "I would be available from early July to the end of August and would be happy to work either in the office or remotely. Should you require any further information, such as my portfolio or academic transcript, I would be glad to send it.",
+      "Thank you very much for considering my request. I look forward to hearing from you.",
+      "Yours sincerely,",
+      "Alex Chen"
+    ],
+    "zh": [
+      "林小姐您好：",
+      "我叫陳艾力，是台北一所大學資訊管理學系的三年級學生。我寫信是想詢問貴公司明年是否會提供使用者體驗設計的暑期實習。我系上一位曾和貴團隊合作過幾個專案的教授，建議我直接與您聯繫。",
+      "過去兩年來，我對設計讓長者容易使用的 App 產生了濃厚的興趣。上學期，我和同學訪談了三十位長者，並根據他們的回饋重新設計了一款醫院掛號 App。這個專案不僅提升了我的研究能力，也讓我學會如何向沒有技術背景的人說明設計決策。我相信這段經驗能讓我從第一週起就為貴團隊有所貢獻。",
+      "我可以實習的時間是七月初到八月底，進辦公室或遠端工作都可以。若您需要任何進一步的資料，例如我的作品集或成績單，我很樂意提供。",
+      "非常感謝您考慮我的請求。期待您的回覆。",
+      "敬上",
+      "陳艾力"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to ask whether …",
+      "zh": "我寫信是想詢問是否……",
+      "example": "I am writing to ask whether your company will be offering summer internships in user experience design next year.",
+      "keys": ["writing to ask whether"]
+    },
+    {
+      "pattern": "…, who …, suggested that …",
+      "zh": "用非限定關係子句補充人物資訊",
+      "example": "A professor in my department, who has worked with your team on several projects, suggested that I contact you directly.",
+      "keys": ["who", "suggested that"]
+    },
+    {
+      "pattern": "Over the past …, I have …",
+      "zh": "過去……以來，我已經……（現在完成式）",
+      "example": "Over the past two years, I have developed a strong interest in designing apps that are easy for older people to use.",
+      "keys": ["over the past", "have"]
+    },
+    {
+      "pattern": "Not only did …, but it also …",
+      "zh": "不僅……而且……（倒裝句）",
+      "example": "Not only did the project improve my research skills, but it also taught me how to explain design decisions to people without a technical background.",
+      "keys": ["not only did", "but", "also"]
+    },
+    {
+      "pattern": "Should you require …, I would …",
+      "zh": "若您需要……（省略 if 的正式倒裝）",
+      "example": "Should you require any further information, such as my portfolio or academic transcript, I would be glad to send it.",
+      "keys": ["should you require", "would"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I am a third-year student.",
+        "I major in Information Management."
+      ],
+      "answer": "I am a third-year student majoring in Information Management."
+    },
+    {
+      "parts": [
+        "We interviewed thirty senior citizens.",
+        "We redesigned a hospital app based on their feedback."
+      ],
+      "answer": "We interviewed thirty senior citizens and redesigned a hospital app based on their feedback."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Should you require any further information, I would be glad to send it.",
+      "answers": [
+        "If you need any more information, I would be happy to send it.",
+        "Please let me know if you need anything else, and I will send it."
+      ]
+    },
+    {
+      "sentence": "I believe this experience would allow me to contribute to your team.",
+      "answers": [
+        "I think this experience would help me make a real contribution to your team.",
+        "Thanks to this experience, I could be useful to your team."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

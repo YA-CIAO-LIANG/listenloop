@@ -1,0 +1,93 @@
+{
+  "id": "campus-leave-sick-day",
+  "type": "campus-leave",
+  "level": "beginner",
+  "title": {
+    "en": "Sick Leave from Class",
+    "zh": "生病請假"
+  },
+  "subtitle": "生病無法上課，寫信向老師請假",
+  "task": "You are sick and cannot attend your English class tomorrow. Write a short email to your teacher, Ms. Parker. Explain why you will be absent, apologize, and ask how you can catch up.",
+  "taskZh": "你生病了，明天無法去上英文課。寫一封簡短的 email 給 Parker 老師：說明缺席原因、表示歉意，並詢問要怎麼補上進度。",
+  "words": {
+    "min": 60,
+    "max": 100
+  },
+  "minutes": 10,
+  "focus": [
+    "語氣禮貌：先道歉再說明原因",
+    "清楚寫出缺席日期與原因",
+    "主動提出補上進度的方法"
+  ],
+  "model": {
+    "en": [
+      "Dear Ms. Parker,",
+      "I am sorry, but I will not be able to come to class tomorrow. I have a high fever, and the doctor told me to stay home for two days. I have attached my doctor's note to this email.",
+      "Could you please tell me what I will miss? I will read the chapter and finish the homework before the next class.",
+      "Thank you for your understanding.",
+      "Best regards,",
+      "Kevin Lin"
+    ],
+    "zh": [
+      "Parker 老師您好：",
+      "很抱歉，我明天無法去上課。我發高燒，醫生要我在家休息兩天。我已將醫生證明附在這封信中。",
+      "可以請您告訴我明天的上課內容嗎？我會在下次上課前讀完那一章並完成作業。",
+      "謝謝您的體諒。",
+      "敬祝 安好",
+      "林凱文"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am sorry, but I will not be able to …",
+      "zh": "委婉告知無法做某事",
+      "example": "I am sorry, but I will not be able to come to class tomorrow.",
+      "keys": ["sorry", "not be able to"]
+    },
+    {
+      "pattern": "I have attached … to this email.",
+      "zh": "說明附件",
+      "example": "I have attached my doctor's note to this email.",
+      "keys": ["attached", "this email"]
+    },
+    {
+      "pattern": "Could you please …?",
+      "zh": "禮貌的請求",
+      "example": "Could you please tell me what I will miss?",
+      "keys": ["could you please"]
+    },
+    {
+      "pattern": "Thank you for your understanding.",
+      "zh": "請假信常用的結尾感謝語",
+      "example": "Thank you for your understanding.",
+      "keys": ["thank you for", "understanding"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I have a high fever.", "The doctor told me to stay home."],
+      "answer": "I have a high fever, and the doctor told me to stay home."
+    },
+    {
+      "parts": ["I will read the chapter.", "I will finish the homework."],
+      "answer": "I will read the chapter and finish the homework."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I will not be able to come to class tomorrow.",
+      "answers": [
+        "I will miss class tomorrow.",
+        "I can't attend class tomorrow."
+      ]
+    },
+    {
+      "sentence": "Could you please tell me what I will miss?",
+      "answers": [
+        "Could you let me know what we will cover?",
+        "Would you mind telling me what I will miss?"
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

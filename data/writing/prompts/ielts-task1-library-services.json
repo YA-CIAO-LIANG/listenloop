@@ -1,0 +1,109 @@
+{
+  "id": "ielts-task1-library-services",
+  "type": "ielts-task1",
+  "level": "advanced",
+  "title": {
+    "en": "Library Services Over a Decade",
+    "zh": "十年間圖書館各項服務的使用量"
+  },
+  "subtitle": "原創模擬題：比較表格中四項服務十年間的變化",
+  "task": "The table below shows how many times four services at Riverton City Library were used in 2015, 2020 and 2025 (in thousands). Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+  "taskZh": "下表是某市立圖書館四項服務在 2015、2020、2025 年的使用次數（單位：千次）。請挑出主要特徵加以摘要，並在適當處做比較。至少寫 150 字。資料為虛構。",
+  "chart": {
+    "title": "Annual use of services at Riverton City Library (thousands)",
+    "columns": ["Service", "2015", "2020", "2025"],
+    "rows": [
+      ["Printed book loans", 420, 310, 265],
+      ["E-book downloads", 35, 140, 290],
+      ["Study room bookings", 18, 9, 46],
+      ["Workshop and event attendance", 22, 6, 38]
+    ]
+  },
+  "words": { "min": 150, "max": 200 },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：寫出整體趨勢（Overview），挑出關鍵數據",
+    "Coherence and Cohesion：依趨勢或類別分段，連接詞自然",
+    "Lexical Resource：描述增減的字詞要有變化",
+    "Grammatical Range and Accuracy：時態正確、比較句型多樣"
+  ],
+  "model": {
+    "en": [
+      "The table compares how many times four services at Riverton City Library were used in 2015, 2020 and 2025, with all figures given in thousands.",
+      "Overall, printed book loans fell steadily over the decade, while e-book downloads rose dramatically and eventually overtook them. Study rooms and events both dipped in 2020 before recovering strongly.",
+      "Printed book loans were by far the most popular service in 2015, at 420,000. This figure dropped to 310,000 in 2020 and continued to decline to 265,000 by 2025. In contrast, e-book downloads grew from just 35,000 to 140,000 and then more than doubled to 290,000, making them the most used service in the final year.",
+      "The two smaller services followed a similar pattern. Study room bookings halved from 18,000 to 9,000 in 2020, but then climbed to 46,000, roughly two and a half times the original level. Attendance at workshops and events fell sharply to 6,000 in the middle year, whereas by 2025 it had reached 38,000, its highest point in the period."
+    ],
+    "zh": [
+      "此表比較 Riverton 市立圖書館四項服務在 2015、2020 與 2025 年的使用次數，所有數字皆以千次為單位。",
+      "整體而言，紙本書借閱在這十年間穩定下滑，而電子書下載則大幅成長，最終超越紙本借閱。自習室與活動兩項都在 2020 年下跌，之後強勁回升。",
+      "2015 年時，紙本書借閱是遠比其他服務受歡迎的項目，達 42 萬次。這個數字在 2020 年降到 31 萬次，到 2025 年持續減少至 26.5 萬次。相較之下，電子書下載從僅 3.5 萬次成長到 14 萬次，之後再增加一倍以上達到 29 萬次，成為最後一年使用量最高的服務。",
+      "兩項規模較小的服務走勢相似。自習室預約在 2020 年從 1.8 萬次減半為 9 千次，之後攀升到 4.6 萬次，約為原本的兩倍半。工作坊與活動的參加人次在中間那一年大幅降至 6 千，而到了 2025 年已達 3.8 萬，是這段期間的最高點。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Overall, A …, while B …",
+      "zh": "總覽段：用 while 對比兩個相反的趨勢",
+      "example": "Overall, printed book loans fell steadily over the decade, while e-book downloads rose dramatically and eventually overtook them.",
+      "keys": ["overall", "while"]
+    },
+    {
+      "pattern": "… was by far the most … , at …",
+      "zh": "強調最大值：遠比其他都……，並附上數字",
+      "example": "Printed book loans were by far the most popular service in 2015, at 420,000.",
+      "keys": ["by far", "the most"]
+    },
+    {
+      "pattern": "In contrast, … grew from … to …",
+      "zh": "轉折對比，並用 from … to … 描述變化",
+      "example": "In contrast, e-book downloads grew from just 35,000 to 140,000 and then more than doubled to 290,000, making them the most used service in the final year.",
+      "keys": ["in contrast", "from", "to"]
+    },
+    {
+      "pattern": "… halved from … to …, but then climbed to …",
+      "zh": "描述先降後升：減半、再攀升",
+      "example": "Study room bookings halved from 18,000 to 9,000 in 2020, but then climbed to 46,000, roughly two and a half times the original level.",
+      "keys": ["halved", "but then"]
+    },
+    {
+      "pattern": "…, whereas by … it had reached …",
+      "zh": "用 whereas 對比，並以過去完成式寫「到某年時已達到」",
+      "example": "Attendance at workshops and events fell sharply to 6,000 in the middle year, whereas by 2025 it had reached 38,000, its highest point in the period.",
+      "keys": ["whereas", "had reached"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Printed book loans fell steadily.",
+        "E-book downloads rose dramatically."
+      ],
+      "answer": "Printed book loans fell steadily, while e-book downloads rose dramatically."
+    },
+    {
+      "parts": [
+        "Attendance fell to 6,000 in 2020.",
+        "By 2025 it had reached 38,000."
+      ],
+      "answer": "Attendance fell to 6,000 in 2020, whereas by 2025 it had reached 38,000."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "E-book downloads more than doubled.",
+      "answers": [
+        "The number of e-book downloads rose to over twice its previous level.",
+        "E-book downloads increased by more than 100 percent."
+      ]
+    },
+    {
+      "sentence": "Printed book loans were the most popular service.",
+      "answers": [
+        "Printed book loans were used more than any other service.",
+        "No other service was used as often as printed book loans."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

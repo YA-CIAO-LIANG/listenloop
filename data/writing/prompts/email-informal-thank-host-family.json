@@ -1,0 +1,98 @@
+{
+  "id": "email-informal-thank-host-family",
+  "type": "email-informal",
+  "level": "intermediate",
+  "title": {
+    "en": "Thank You, Host Family",
+    "zh": "謝謝你們，寄宿家庭"
+  },
+  "subtitle": "交換回國後，寫信感謝寄宿家庭的照顧",
+  "task": "You have just come home from a short exchange trip abroad, where you stayed with a host family. Write an email to thank them. Mention some special memories and explain how the trip helped you.",
+  "taskZh": "你剛結束短期出國交換回到台灣，交換期間住在寄宿家庭。寫一封 email 感謝他們：提到幾個特別的回憶，並說明這趟旅程對你的幫助。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": ["真誠溫暖的語氣", "用具體回憶表達感謝", "過去式與現在完成式的使用"],
+  "model": {
+    "en": [
+      "Hi Emma and David,",
+      "I hope you are both doing well! I arrived home in Hsinchu safely last Sunday, and I have finally recovered from the jet lag. I wanted to write and thank you for everything you did for me during my two weeks in Brisbane.",
+      "Before the trip, I was nervous about living with a family I had never met. However, you made me feel at home from the very first night. I still remember the barbecue in your backyard and the long walk along the beach. Thanks to our dinner conversations, my English improved much faster than I expected. I will also never forget how patiently you explained Australian slang to me!",
+      "I have sent you a small package with some pineapple cakes and a tea set from Taiwan. I hope you enjoy them. If you ever visit Taiwan, I would love to show you around.",
+      "Love,",
+      "Alex"
+    ],
+    "zh": [
+      "嗨，Emma 和 David：",
+      "希望你們都好！我上週日平安回到新竹了，時差也終於調過來了。我想寫信謝謝你們在我待在布里斯本的兩週裡為我做的一切。",
+      "出發前，我很緊張要和一個從沒見過面的家庭一起生活。不過，從第一個晚上起，你們就讓我覺得像在家一樣。我還記得在你們後院的烤肉，還有沿著海灘的長長散步。多虧了我們晚餐時的聊天，我的英文進步得比我預期的快很多。我也永遠不會忘記你們多麼有耐心地向我解釋澳洲俚語！",
+      "我寄了一個小包裹給你們，裡面有一些鳳梨酥和一組台灣茶具。希望你們會喜歡。如果你們有機會來台灣，我很想帶你們到處逛逛。",
+      "愛你們的，",
+      "Alex"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I wanted to write and thank you for …",
+      "zh": "我想寫信謝謝你們……",
+      "example": "I wanted to write and thank you for everything you did for me during my two weeks in Brisbane.",
+      "keys": ["thank you for"]
+    },
+    {
+      "pattern": "Before …, I was nervous about + V-ing",
+      "zh": "在……之前，我對……感到緊張",
+      "example": "Before the trip, I was nervous about living with a family I had never met.",
+      "keys": ["before", "nervous about"]
+    },
+    {
+      "pattern": "However, you made me feel …",
+      "zh": "然而／不過，你們讓我覺得……",
+      "example": "However, you made me feel at home from the very first night.",
+      "keys": ["however", "made me feel"]
+    },
+    {
+      "pattern": "Thanks to …, … than I expected",
+      "zh": "多虧了……，……比我預期的更……",
+      "example": "Thanks to our dinner conversations, my English improved much faster than I expected.",
+      "keys": ["thanks to", "than i expected"]
+    },
+    {
+      "pattern": "If you ever …, I would love to …",
+      "zh": "如果你們有機會……，我很想……",
+      "example": "If you ever visit Taiwan, I would love to show you around.",
+      "keys": ["if you ever", "would love to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I arrived home safely last Sunday.",
+        "I have finally recovered from the jet lag."
+      ],
+      "answer": "I arrived home safely last Sunday, and I have finally recovered from the jet lag."
+    },
+    {
+      "parts": ["I was nervous before the trip.", "You made me feel at home."],
+      "answer": "Although I was nervous before the trip, you made me feel at home."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "You made me feel at home.",
+      "answers": [
+        "You made me feel very welcome.",
+        "I felt like part of the family."
+      ]
+    },
+    {
+      "sentence": "My English improved much faster than I expected.",
+      "answers": [
+        "My English got better more quickly than I had hoped.",
+        "I made faster progress in English than I thought I would."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

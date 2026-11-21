@@ -1,0 +1,99 @@
+{
+  "id": "opinion-part-time-jobs",
+  "type": "opinion",
+  "level": "intermediate",
+  "title": {
+    "en": "Should University Students Work Part-Time?",
+    "zh": "大學生該打工嗎？"
+  },
+  "subtitle": "討論大學生打工的好處與壞處，並提出你的立場",
+  "task": "Many university students have part-time jobs. Do you think working part-time is good for students? Discuss the advantages and disadvantages, and give your own opinion.",
+  "taskZh": "很多大學生都有打工。你認為打工對學生有好處嗎？請討論優點和缺點，並提出你自己的看法。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 25,
+  "focus": [
+    "清楚的立場與正反兩面",
+    "用 For example 舉具體例子",
+    "轉折詞（On the other hand、As long as）的使用"
+  ],
+  "model": {
+    "en": [
+      "Many university students in Taiwan work part-time at convenience stores, cafés, or cram schools. Some people believe this distracts them from their studies, but I think a part-time job can be valuable if students manage their time well.",
+      "The main benefit of working is that students learn skills that classrooms cannot teach. For example, a student who works at a café learns how to deal with difficult customers and how to stay calm under pressure. In addition, earning their own money teaches students to budget carefully. These experiences also look good on a résumé when they apply for jobs after graduation.",
+      "On the other hand, working too many hours can hurt students' grades and health. That is why I believe students should work no more than about fifteen hours a week. As long as studying remains their first priority, a part-time job can help them grow into more responsible adults."
+    ],
+    "zh": [
+      "台灣很多大學生在便利商店、咖啡店或補習班打工。有些人認為這會讓他們無法專心讀書，但我認為只要學生善於管理時間，打工是很有價值的。",
+      "工作最大的好處是，學生能學到課堂上學不到的技能。例如，在咖啡店打工的學生會學到如何應對難搞的客人，以及如何在壓力下保持冷靜。此外，自己賺錢也能讓學生學會謹慎地規劃預算。這些經驗在畢業後找工作時，寫在履歷上也很加分。",
+      "另一方面，工作時數太長可能會影響學生的成績和健康。這就是為什麼我認為學生每週打工最好不要超過大約十五個小時。只要讀書仍是第一優先，打工就能幫助他們成長為更有責任感的大人。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Some people believe …, but I think …",
+      "zh": "先提他人看法，再提出自己的立場",
+      "example": "Some people believe this distracts them from their studies, but I think a part-time job can be valuable if students manage their time well.",
+      "keys": ["some people believe", "but i think"]
+    },
+    {
+      "pattern": "The main benefit of … is that …",
+      "zh": "……最大的好處是……",
+      "example": "The main benefit of working is that students learn skills that classrooms cannot teach.",
+      "keys": ["the main benefit of", "is that"]
+    },
+    {
+      "pattern": "For example, a student who … learns how to …",
+      "zh": "舉例：一個……的學生會學到如何……",
+      "example": "For example, a student who works at a café learns how to deal with difficult customers and how to stay calm under pressure.",
+      "keys": ["for example", "who", "how to"]
+    },
+    {
+      "pattern": "On the other hand, …",
+      "zh": "另一方面（提出相反面）",
+      "example": "On the other hand, working too many hours can hurt students' grades and health.",
+      "keys": ["on the other hand"]
+    },
+    {
+      "pattern": "As long as …, …",
+      "zh": "只要……，就……（表達條件）",
+      "example": "As long as studying remains their first priority, a part-time job can help them grow into more responsible adults.",
+      "keys": ["as long as"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Students earn their own money.",
+        "They learn to budget carefully."
+      ],
+      "answer": "By earning their own money, students learn to budget carefully."
+    },
+    {
+      "parts": [
+        "Working too many hours can hurt grades.",
+        "It can also hurt health."
+      ],
+      "answer": "Working too many hours can hurt both grades and health."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Studying should remain their first priority.",
+      "answers": [
+        "Their studies should always come first.",
+        "Schoolwork should be the most important thing for them."
+      ]
+    },
+    {
+      "sentence": "These experiences look good on a résumé.",
+      "answers": [
+        "Employers value these experiences.",
+        "This kind of experience makes a résumé stronger."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

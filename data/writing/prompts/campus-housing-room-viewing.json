@@ -1,0 +1,99 @@
+{
+  "id": "campus-housing-room-viewing",
+  "type": "campus-housing",
+  "level": "beginner",
+  "title": {
+    "en": "Asking About a Room for Rent",
+    "zh": "詢問租屋並約看房"
+  },
+  "subtitle": "看到租屋廣告，寫信問房東問題並約看房",
+  "task": "You saw an advertisement for a room near your university. Write a short email to the landlord, Mr. Brown. Ask two or three questions about the room and ask to see it.",
+  "taskZh": "你看到學校附近的租屋廣告。寫一封簡短的 email 給房東 Brown 先生，問兩、三個關於房間的問題，並約時間看房。",
+  "words": {
+    "min": 60,
+    "max": 110
+  },
+  "minutes": 10,
+  "focus": [
+    "問題清楚，一句問一件事",
+    "說明自己的身分與入住時間",
+    "有禮貌地提出看房請求"
+  ],
+  "model": {
+    "en": [
+      "Dear Mr. Brown,",
+      "I saw your advertisement for the room on Oak Street, and I am very interested in it. I am a student from Taiwan, and I will study at the university from September.",
+      "I have a few questions. Is the rent $750 a month, including water and electricity? Is the room furnished? How long is the lease?",
+      "If the room is still available, could I come to see it this weekend? I am free on Saturday morning.",
+      "Thank you,",
+      "Ryan Wang"
+    ],
+    "zh": [
+      "Brown 先生您好：",
+      "我看到您在 Oak Street 出租房間的廣告，非常有興趣。我是台灣來的學生，九月起會在這裡的大學念書。",
+      "我有幾個問題。每月房租 750 美元有包含水電嗎？房間有附家具嗎？租約是多久？",
+      "如果房間還沒租出去，我這個週末可以去看房嗎？我星期六早上有空。",
+      "謝謝您",
+      "王瑞恩"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I saw your advertisement for …, and I am very interested in it.",
+      "zh": "說明從哪裡得知、表達興趣",
+      "example": "I saw your advertisement for the room on Oak Street, and I am very interested in it.",
+      "keys": ["saw your advertisement", "interested in"]
+    },
+    {
+      "pattern": "I have a few questions.",
+      "zh": "提問前的開場句",
+      "example": "I have a few questions.",
+      "keys": ["a few questions"]
+    },
+    {
+      "pattern": "Is …, including …?",
+      "zh": "確認費用包含哪些項目",
+      "example": "Is the rent $750 a month, including water and electricity?",
+      "keys": ["including"]
+    },
+    {
+      "pattern": "If …, could I …?",
+      "zh": "有條件的禮貌請求",
+      "example": "If the room is still available, could I come to see it this weekend?",
+      "keys": ["if", "could i"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I am a student from Taiwan.",
+        "I will study at the university from September."
+      ],
+      "answer": "I am a student from Taiwan, and I will study at the university from September."
+    },
+    {
+      "parts": [
+        "The room may still be available.",
+        "Could I come to see it this weekend?"
+      ],
+      "answer": "If the room is still available, could I come to see it this weekend?"
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Is the room furnished?",
+      "answers": [
+        "Does the room come with furniture?",
+        "Is there furniture in the room?"
+      ]
+    },
+    {
+      "sentence": "How long is the lease?",
+      "answers": [
+        "How long do I need to sign the contract for?",
+        "What is the length of the lease?"
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

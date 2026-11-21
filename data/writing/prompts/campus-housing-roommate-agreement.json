@@ -1,0 +1,108 @@
+{
+  "id": "campus-housing-roommate-agreement",
+  "type": "campus-housing",
+  "level": "advanced",
+  "title": {
+    "en": "Proposing a Roommate Agreement",
+    "zh": "提議室友公約"
+  },
+  "subtitle": "友善又清楚地和室友約定打掃、作息與分攤費用",
+  "task": "You have just moved into a shared apartment with two roommates. Write a message to them proposing a roommate agreement about cleaning, quiet hours, guests, and shared costs. Be friendly but clear, and invite them to suggest changes.",
+  "taskZh": "你剛和兩位室友搬進合租公寓。寫一則訊息給他們，提議一份室友公約，內容包括打掃、安靜時段、訪客和共同費用。語氣要友善但清楚，並邀請他們提出修改意見。",
+  "words": {
+    "min": 180,
+    "max": 260
+  },
+  "minutes": 30,
+  "focus": [
+    "語氣友善，但規則要具體清楚",
+    "用 First、Second、As for 分項整理",
+    "用建議而非命令（could、I suggest），並邀請對方修改"
+  ],
+  "model": {
+    "en": [
+      "Hi Jordan and Priya,",
+      "Now that we have all settled in, I thought it might be a good idea to agree on a few house rules. We are going to live together for the whole academic year, and I would rather we discuss things now than let small problems grow into big ones. Below are some suggestions, but please treat them as a starting point rather than a final decision.",
+      "First, cleaning: we could take turns cleaning the kitchen and bathroom on a weekly rotation, and everyone would wash their own dishes on the same day they use them. Second, since all three of us have early classes, quiet hours could begin at eleven o'clock on weeknights. Third, guests are always welcome, but overnight visitors should be mentioned in our group chat at least a day in advance.",
+      "As for shared costs, I suggest that we split the internet and utility bills equally and keep track of them in a shared spreadsheet. Shared items such as rice, cooking oil, and cleaning supplies could be paid for from a small common fund of thirty dollars each per month.",
+      "Let me know what you think, and feel free to add anything I have missed. Maybe we could talk it over at dinner this Friday?",
+      "Cheers,",
+      "Ethan"
+    ],
+    "zh": [
+      "嗨，Jordan、Priya：",
+      "既然我們都已經安頓好了，我想或許可以一起訂幾條生活公約。我們要一起住整個學年，與其讓小問題變成大問題，我寧願現在就先討論清楚。以下是我的一些建議，但請把它們當作討論的起點，而不是最後的決定。",
+      "第一，打掃：我們可以每週輪流打掃廚房和浴室，每個人用過的碗盤當天自己洗。第二，因為我們三個早上都有課，平日晚上可以從十一點開始保持安靜。第三，隨時歡迎朋友來玩，但如果有人要過夜，至少前一天在群組裡說一聲。",
+      "至於共同費用，我建議網路費和水電費平均分攤，並記在共用的試算表上。白米、食用油、清潔用品這類共用物品，可以從每人每月出三十元的小公基金支付。",
+      "告訴我你們的想法，也歡迎補充我漏掉的部分。也許我們可以這個星期五吃晚餐時聊一聊？",
+      "掰啦",
+      "Ethan"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Now that …, I thought it might be a good idea to …",
+      "zh": "既然……，或許可以……（委婉提出建議）",
+      "example": "Now that we have all settled in, I thought it might be a good idea to agree on a few house rules.",
+      "keys": ["now that", "good idea to"]
+    },
+    {
+      "pattern": "I would rather … than …",
+      "zh": "與其……，我寧願……",
+      "example": "We are going to live together for the whole academic year, and I would rather we discuss things now than let small problems grow into big ones.",
+      "keys": ["would rather", "than"]
+    },
+    {
+      "pattern": "… as a starting point rather than …",
+      "zh": "把提議定位為可以討論的起點",
+      "example": "Below are some suggestions, but please treat them as a starting point rather than a final decision.",
+      "keys": ["starting point", "rather than"]
+    },
+    {
+      "pattern": "As for …, I suggest that we …",
+      "zh": "轉換話題並提出建議",
+      "example": "As for shared costs, I suggest that we split the internet and utility bills equally and keep track of them in a shared spreadsheet.",
+      "keys": ["as for", "suggest that"]
+    },
+    {
+      "pattern": "Feel free to …",
+      "zh": "邀請對方提出意見",
+      "example": "Let me know what you think, and feel free to add anything I have missed.",
+      "keys": ["feel free to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Guests are always welcome.",
+        "Overnight visitors should be mentioned in our group chat.",
+        "This should happen at least a day in advance."
+      ],
+      "answer": "Guests are always welcome, but overnight visitors should be mentioned in our group chat at least a day in advance."
+    },
+    {
+      "parts": [
+        "All three of us have early classes.",
+        "Quiet hours could begin at eleven o'clock."
+      ],
+      "answer": "Since all three of us have early classes, quiet hours could begin at eleven o'clock."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Please treat them as a starting point rather than a final decision.",
+      "answers": [
+        "These are just ideas, not final rules.",
+        "Think of these as suggestions that we can change together."
+      ]
+    },
+    {
+      "sentence": "Maybe we could talk it over at dinner this Friday?",
+      "answers": [
+        "How about discussing it over dinner on Friday?",
+        "Shall we talk about it at dinner this Friday?"
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

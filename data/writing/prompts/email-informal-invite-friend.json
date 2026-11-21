@@ -1,0 +1,93 @@
+{
+  "id": "email-informal-invite-friend",
+  "type": "email-informal",
+  "level": "beginner",
+  "title": {
+    "en": "Come Visit Me This Summer!",
+    "zh": "今年夏天來找我玩！"
+  },
+  "subtitle": "寫信邀請外國朋友暑假來台灣找你",
+  "task": "Write an email to a friend from another country, inviting them to visit you in Taiwan during the summer vacation. Tell them where they can stay and what you can do together.",
+  "taskZh": "寫一封 email 給外國朋友，邀請他暑假來台灣找你。告訴他可以住哪裡，以及你們可以一起做什麼。",
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "輕鬆友善的語氣",
+    "清楚的邀請與具體活動",
+    "用 because、so、if 連接句子"
+  ],
+  "model": {
+    "en": [
+      "Hi Sam,",
+      "How are you? I have great news! My summer vacation starts in July, so I would love for you to come and visit me in Tainan. You can stay at my house because we have a spare room. My mom is excited to meet you, too.",
+      "There are so many things we can do together. We can eat beef soup for breakfast, visit old temples, and watch the sunset at Anping. If the weather is too hot, we can go to a café and play board games.",
+      "Let me know what you think!",
+      "Talk soon,",
+      "Alex"
+    ],
+    "zh": [
+      "嗨，Sam：",
+      "你好嗎？我有好消息！我的暑假七月開始，所以我很希望你能來台南找我。你可以住我家，因為我們有一間空房間。我媽媽也很期待見到你。",
+      "我們可以一起做好多事。我們可以早餐吃牛肉湯、去參觀古老的廟宇，還有去安平看夕陽。如果天氣太熱，我們可以去咖啡店玩桌遊。",
+      "告訴我你覺得怎麼樣！",
+      "再聊，",
+      "Alex"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "…, so I would love for you to …",
+      "zh": "……，所以我很希望你能……",
+      "example": "My summer vacation starts in July, so I would love for you to come and visit me in Tainan.",
+      "keys": ["so", "would love"]
+    },
+    {
+      "pattern": "You can … because …",
+      "zh": "你可以……，因為……",
+      "example": "You can stay at my house because we have a spare room.",
+      "keys": ["because"]
+    },
+    {
+      "pattern": "We can A, B, and C.",
+      "zh": "列舉三件可以一起做的事",
+      "example": "We can eat beef soup for breakfast, visit old temples, and watch the sunset at Anping.",
+      "keys": ["we can", "and"]
+    },
+    {
+      "pattern": "If …, we can …",
+      "zh": "如果……，我們可以……",
+      "example": "If the weather is too hot, we can go to a café and play board games.",
+      "keys": ["if", "we can"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["My vacation starts in July.", "You can visit me then."],
+      "answer": "My vacation starts in July, so you can visit me then."
+    },
+    {
+      "parts": ["We can visit old temples.", "We can watch the sunset."],
+      "answer": "We can visit old temples and watch the sunset."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Let me know what you think!",
+      "answers": [
+        "Tell me what you think!",
+        "What do you think? Write back soon!"
+      ]
+    },
+    {
+      "sentence": "My mom is excited to meet you.",
+      "answers": [
+        "My mom is looking forward to meeting you.",
+        "My mom can't wait to meet you."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

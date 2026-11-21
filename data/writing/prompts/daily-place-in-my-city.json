@@ -1,0 +1,98 @@
+{
+  "id": "daily-place-in-my-city",
+  "type": "daily",
+  "level": "advanced",
+  "title": {
+    "en": "A Place in My City That Matters to Me",
+    "zh": "城市裡對我有意義的地方"
+  },
+  "subtitle": "寫一個對你有特別意義的地方，以及它為什麼重要",
+  "task": "Write about a place in your city or town that is important to you. Describe the place, explain how you discovered it, and discuss why it matters to you.",
+  "taskZh": "寫一個你所在城市或家鄉中對你很重要的地方：描述這個地方、說明你怎麼發現它，並討論它為什麼對你有意義。",
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 30,
+  "focus": [
+    "具體的描寫與細節",
+    "現在完成式與過去式的正確搭配",
+    "說明「為什麼重要」而不只是描述"
+  ],
+  "model": {
+    "en": [
+      "If someone asked me to name my favorite place in Taichung, I would not choose a famous night market or a shopping mall. Instead, I would choose a quiet stretch of riverside path about ten minutes from my apartment. It is not beautiful in a postcard way, but it has become an important part of my life.",
+      "I first went there during my second year of high school, when exam pressure was making it hard for me to sleep. One evening, I went for a walk simply to get out of the house, and I discovered that the sound of the water calmed me down. Since then, I have walked there almost every evening. I see the same elderly couple doing exercises, students jogging in pairs, and a man who feeds the stray cats at exactly seven o'clock.",
+      "What makes the place special is not what happens there but how it makes me feel. In a city full of traffic and noise, the path gives me space to think. The more stressful my week is, the longer I tend to stay. Walking there reminds me that I do not have to solve every problem at once.",
+      "Recently, the city government announced a plan to build a parking lot nearby. I hope the path will be protected, because places like this are rare. A city needs quiet corners as much as it needs new buildings."
+    ],
+    "zh": [
+      "如果有人要我說出在台中最喜歡的地方，我不會選有名的夜市或購物中心，而是會選離我家大約十分鐘、一段安靜的河濱步道。它並不是明信片上那種漂亮，卻已經成為我生活中重要的一部分。",
+      "我第一次去那裡是在高二，那時考試壓力讓我很難入睡。有天晚上，我只是想離開家出去走走，結果發現水聲讓我平靜下來。從那時起，我幾乎每天傍晚都去那裡散步。我總會看到同一對老夫妻在做運動、學生兩兩結伴慢跑，還有一位每天準時七點餵流浪貓的先生。",
+      "讓這個地方特別的不是那裡發生了什麼，而是它帶給我的感受。在一個充滿車流和噪音的城市裡，這條步道給了我思考的空間。一週壓力越大，我就待得越久。在那裡散步提醒我，不必一次解決所有問題。",
+      "最近，市政府宣布要在附近蓋停車場。我希望這條步道能被保留下來，因為這樣的地方很少見。一座城市需要新建築，也同樣需要安靜的角落。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "If someone asked me to …, I would …",
+      "zh": "假設語氣：如果有人要我……，我會……",
+      "example": "If someone asked me to name my favorite place in Taichung, I would not choose a famous night market or a shopping mall.",
+      "keys": ["if", "would"]
+    },
+    {
+      "pattern": "Since then, I have …",
+      "zh": "從那時起就一直……（現在完成式）",
+      "example": "Since then, I have walked there almost every evening.",
+      "keys": ["since then", "have"]
+    },
+    {
+      "pattern": "What makes … special is not … but …",
+      "zh": "讓……特別的不是……而是……",
+      "example": "What makes the place special is not what happens there but how it makes me feel.",
+      "keys": ["what makes", "not", "but"]
+    },
+    {
+      "pattern": "The more …, the …",
+      "zh": "越……就越……",
+      "example": "The more stressful my week is, the longer I tend to stay.",
+      "keys": ["the more", "the longer"]
+    },
+    {
+      "pattern": "… as much as …",
+      "zh": "和……一樣（同等重要）",
+      "example": "A city needs quiet corners as much as it needs new buildings.",
+      "keys": ["as much as"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I went for a walk.", "I wanted to get out of the house."],
+      "answer": "I went for a walk simply to get out of the house."
+    },
+    {
+      "parts": [
+        "The path is not beautiful in a postcard way.",
+        "It has become important to me."
+      ],
+      "answer": "The path is not beautiful in a postcard way, but it has become important to me."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The sound of the water calmed me down.",
+      "answers": [
+        "Listening to the water helped me relax.",
+        "The sound of the river made me feel calmer."
+      ]
+    },
+    {
+      "sentence": "Places like this are rare.",
+      "answers": [
+        "You do not often find places like this.",
+        "There are not many places like this."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

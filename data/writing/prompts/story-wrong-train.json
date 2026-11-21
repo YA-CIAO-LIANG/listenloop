@@ -1,0 +1,87 @@
+{
+  "id": "story-wrong-train",
+  "type": "story",
+  "level": "beginner",
+  "title": {
+    "en": "The Wrong Train",
+    "zh": "搭錯車"
+  },
+  "subtitle": "在國外搭錯車或迷路的一次經驗",
+  "task": "Write a short story about a time you took the wrong bus or train, or got lost, in a new city. What happened, how did you feel, and how did it end?",
+  "taskZh": "寫一個短篇故事：你在陌生城市搭錯公車、火車或迷路的經驗。發生了什麼事？你有什麼感覺？最後怎麼解決？",
+  "words": {
+    "min": 80,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "用過去式說故事，時態一致",
+    "依時間順序安排：開始、問題、結局",
+    "寫出當下的感受"
+  ],
+  "model": {
+    "en": [
+      "On my second day in London, I took the wrong train. I wanted to go to my university, but I was tired and did not check the sign. After twenty minutes, I looked out of the window and saw fields and cows. I knew something was wrong.",
+      "I felt nervous, so I asked an old woman next to me for help. She smiled and told me to get off at the next station. Then she showed me which train to take back to the city.",
+      "I was an hour late for class, but my teacher understood. Since that day, I always check the sign twice before I get on a train."
+    ],
+    "zh": [
+      "到倫敦的第二天，我搭錯了火車。我想去學校，但因為太累，沒有看清楚標示。二十分鐘後，我望向窗外，看到一片田野和幾頭牛。我知道事情不對勁了。",
+      "我很緊張，所以向坐在旁邊的一位老太太求助。她笑著叫我在下一站下車，接著告訴我該搭哪一班車回市區。",
+      "我上課遲到了一個小時，但老師很體諒。從那天起，我上車前一定會把標示看兩次。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I wanted to …, but …",
+      "zh": "想做某事，但是……（說明意外的原因）",
+      "example": "I wanted to go to my university, but I was tired and did not check the sign.",
+      "keys": ["wanted to", "but"]
+    },
+    {
+      "pattern": "After + 時間, I …",
+      "zh": "用時間片語推進故事",
+      "example": "After twenty minutes, I looked out of the window and saw fields and cows.",
+      "keys": ["after", "minutes"]
+    },
+    {
+      "pattern": "I felt …, so I …",
+      "zh": "先寫感受，再寫因此採取的行動",
+      "example": "I felt nervous, so I asked an old woman next to me for help.",
+      "keys": ["felt", "so"]
+    },
+    {
+      "pattern": "Since that day, I always …",
+      "zh": "結尾：這次經驗帶來的改變",
+      "example": "Since that day, I always check the sign twice before I get on a train.",
+      "keys": ["since that day", "always"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I was an hour late for class.", "My teacher understood."],
+      "answer": "I was an hour late for class, but my teacher understood."
+    },
+    {
+      "parts": ["She smiled.", "She told me to get off at the next station."],
+      "answer": "She smiled and told me to get off at the next station."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I knew something was wrong.",
+      "answers": [
+        "I realized that something was not right.",
+        "I could tell there was a problem."
+      ]
+    },
+    {
+      "sentence": "I always check the sign twice.",
+      "answers": [
+        "I always double-check the sign.",
+        "I never forget to look at the sign carefully."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

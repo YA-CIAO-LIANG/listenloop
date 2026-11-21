@@ -1,0 +1,90 @@
+{
+  "id": "opinion-school-uniforms",
+  "type": "opinion",
+  "level": "beginner",
+  "title": {
+    "en": "Should Students Wear School Uniforms?",
+    "zh": "學生該穿制服嗎？"
+  },
+  "subtitle": "表達你對學校制服的看法，並給出兩個理由",
+  "task": "Some people think high school students should wear school uniforms. Others think students should wear what they like. What is your opinion? Give at least two reasons.",
+  "taskZh": "有些人認為高中生應該穿制服，也有人認為學生應該可以穿自己想穿的衣服。你的看法是什麼？請至少給出兩個理由。",
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "開頭清楚表明立場",
+    "用 First、Second 列出理由",
+    "回應反方意見並總結"
+  ],
+  "model": {
+    "en": [
+      "Should students wear school uniforms? In my opinion, uniforms are a good idea for high school students in Taiwan.",
+      "First, uniforms save time. Students do not need to think about what to wear every morning. Second, uniforms help students feel equal. When everyone wears the same clothes, nobody is judged for wearing cheap or old clothes. Also, uniforms make students feel proud of their school.",
+      "Some people say uniforms are boring. However, students can still show their style with their bags, shoes, or hair. For these reasons, I believe uniforms are good for students."
+    ],
+    "zh": [
+      "學生應該穿制服嗎？在我看來，制服對台灣的高中生來說是個好主意。",
+      "第一，制服可以節省時間。學生每天早上不需要煩惱要穿什麼。第二，制服讓學生感覺平等。當每個人都穿一樣的衣服，就沒有人會因為穿便宜或舊的衣服而被評斷。此外，制服也讓學生對自己的學校感到驕傲。",
+      "有些人說制服很無聊。不過，學生還是可以用包包、鞋子或髮型展現自己的風格。基於這些理由，我認為制服對學生是好的。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "In my opinion, …",
+      "zh": "表達個人看法",
+      "example": "In my opinion, uniforms are a good idea for high school students in Taiwan.",
+      "keys": ["in my opinion"]
+    },
+    {
+      "pattern": "When everyone …, nobody …",
+      "zh": "當每個人都……，就沒有人……",
+      "example": "When everyone wears the same clothes, nobody is judged for wearing cheap or old clothes.",
+      "keys": ["when", "nobody"]
+    },
+    {
+      "pattern": "However, … can still …",
+      "zh": "不過，……還是可以……（回應反方）",
+      "example": "However, students can still show their style with their bags, shoes, or hair.",
+      "keys": ["however", "still"]
+    },
+    {
+      "pattern": "For these reasons, I believe …",
+      "zh": "基於這些理由，我認為……（總結）",
+      "example": "For these reasons, I believe uniforms are good for students.",
+      "keys": ["for these reasons", "i believe"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Uniforms save time.", "Uniforms help students feel equal."],
+      "answer": "Uniforms not only save time but also help students feel equal."
+    },
+    {
+      "parts": [
+        "Some people say uniforms are boring.",
+        "Students can still show their style."
+      ],
+      "answer": "Although some people say uniforms are boring, students can still show their style."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Uniforms save time.",
+      "answers": [
+        "Wearing uniforms saves students time.",
+        "With uniforms, getting dressed is faster."
+      ]
+    },
+    {
+      "sentence": "Uniforms are a good idea.",
+      "answers": [
+        "Uniforms are a smart choice.",
+        "I think having uniforms is a good thing."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

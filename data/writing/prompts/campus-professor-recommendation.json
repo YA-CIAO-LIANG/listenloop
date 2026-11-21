@@ -1,0 +1,108 @@
+{
+  "id": "campus-professor-recommendation",
+  "type": "campus-professor",
+  "level": "advanced",
+  "title": {
+    "en": "Requesting a Recommendation Letter",
+    "zh": "請教授寫推薦信"
+  },
+  "subtitle": "提醒教授你是誰，並讓寫推薦信變得容易",
+  "task": "You are applying for a summer research program and need a recommendation letter. Write an email to Professor Bennett, whose course you took last year, asking whether she would be willing to write one. Remind her who you are, explain why you are asking her, and make the process easy for her.",
+  "taskZh": "你要申請暑期研究計畫，需要一封推薦信。寫一封 email 給去年修過她課的 Bennett 教授，詢問她是否願意幫你寫。要提醒她你是誰、說明為什麼請她寫，並讓整個過程對她來說盡量簡單。",
+  "words": {
+    "min": 200,
+    "max": 280
+  },
+  "minutes": 35,
+  "focus": [
+    "提醒教授你是誰（修課時間、具體表現）",
+    "說明為什麼請這位教授寫",
+    "附上資料與期限，讓對方容易答應；也給對方婉拒的空間"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Bennett,",
+      "I hope this email finds you well. My name is Sophia Lee, and I took your Cognitive Psychology seminar in the spring semester of last year, where I wrote my final paper on bilingual memory and received an A.",
+      "I am applying for the Summer Undergraduate Research Fellowship at Westbrook University, and I would be honored if you would consider writing a letter of recommendation for me. Your seminar was the course that first sparked my interest in research. Because you supervised my paper closely and gave me detailed feedback on my methods, I believe you are in the best position to comment on my ability to design and carry out a small study.",
+      "The deadline for the letter is February 28, and it can be submitted through the online portal. To make the process as easy as possible, I have attached my CV, my statement of purpose, and a copy of my seminar paper. I would also be happy to meet during your office hours if you would like to discuss the program in more detail.",
+      "I completely understand if your schedule does not allow it this term. Either way, thank you for everything I learned in your class.",
+      "Warm regards,",
+      "Sophia Lee"
+    ],
+    "zh": [
+      "Bennett 教授您好：",
+      "希望您一切安好。我是 Sophia Lee，去年春季學期修過您的認知心理學專題課，期末報告寫的是雙語記憶，成績拿到 A。",
+      "我正在申請 Westbrook 大學的暑期大學部研究獎助計畫，若您願意考慮為我寫一封推薦信，我將深感榮幸。您的專題課是第一堂引發我對研究產生興趣的課。由於您曾仔細指導我的報告，並對我的研究方法給予詳細的回饋，我相信您最能評論我設計與執行小型研究的能力。",
+      "推薦信的截止日期是 2 月 28 日，可以透過線上系統提交。為了讓過程盡量簡便，我已附上我的履歷、讀書計畫，以及專題課報告的副本。如果您想進一步了解這個計畫，我也很樂意在您的 office hours 前去拜訪。",
+      "如果您這學期行程太滿不方便，我完全能夠理解。無論如何，都謝謝您在課堂上教給我的一切。",
+      "誠摯問候",
+      "Sophia Lee"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I would be honored if you would consider …",
+      "zh": "非常正式、謙虛的請求",
+      "example": "I am applying for the Summer Undergraduate Research Fellowship at Westbrook University, and I would be honored if you would consider writing a letter of recommendation for me.",
+      "keys": ["would be honored if", "consider"]
+    },
+    {
+      "pattern": "… first sparked my interest in …",
+      "zh": "說明興趣的起點",
+      "example": "Your seminar was the course that first sparked my interest in research.",
+      "keys": ["sparked my interest in"]
+    },
+    {
+      "pattern": "Because …, I believe you are in the best position to …",
+      "zh": "說明為什麼特別請這位教授",
+      "example": "Because you supervised my paper closely and gave me detailed feedback on my methods, I believe you are in the best position to comment on my ability to design and carry out a small study.",
+      "keys": ["because", "in the best position to"]
+    },
+    {
+      "pattern": "To make the process as easy as possible, …",
+      "zh": "體貼對方：主動提供資料",
+      "example": "To make the process as easy as possible, I have attached my CV, my statement of purpose, and a copy of my seminar paper.",
+      "keys": ["as easy as possible", "attached"]
+    },
+    {
+      "pattern": "I completely understand if …",
+      "zh": "給對方婉拒的空間",
+      "example": "I completely understand if your schedule does not allow it this term.",
+      "keys": ["completely understand if"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I took your Cognitive Psychology seminar last spring.",
+        "I wrote my final paper on bilingual memory.",
+        "I received an A."
+      ],
+      "answer": "I took your Cognitive Psychology seminar last spring, where I wrote my final paper on bilingual memory and received an A."
+    },
+    {
+      "parts": [
+        "The deadline for the letter is February 28.",
+        "It can be submitted through the online portal."
+      ],
+      "answer": "The deadline for the letter is February 28, and it can be submitted through the online portal."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Your seminar was the course that first sparked my interest in research.",
+      "answers": [
+        "It was your seminar that first got me interested in research.",
+        "My interest in research began in your seminar."
+      ]
+    },
+    {
+      "sentence": "I completely understand if your schedule does not allow it this term.",
+      "answers": [
+        "I understand if you are too busy this term.",
+        "Please do not worry if your schedule makes this impossible this term."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

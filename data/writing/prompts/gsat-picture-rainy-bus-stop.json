@@ -1,0 +1,89 @@
+{
+  "id": "gsat-picture-rainy-bus-stop",
+  "type": "gsat",
+  "level": "intermediate",
+  "title": { "en": "A Rainy Day at the Bus Stop", "zh": "雨天的公車站" },
+  "subtitle": "原創模擬題（學測風格）：看圖寫作，延續故事結局",
+  "task": "Read the descriptions of the three pictures below. Picture 1: On a rainy afternoon, a high school girl waits at a bus stop with an umbrella, checking the time on her phone. Picture 2: An old man with a walking stick and a heavy bag of vegetables walks slowly toward the bus stop. He has no umbrella and is getting wet. Picture 3: The girl's bus arrives and its doors open. She looks at the bus, then at the old man. Write an English composition of about 120–180 words in two paragraphs. In the first paragraph, describe what happens in the three pictures. In the second paragraph, describe what you think happens next and how the girl feels in the end.",
+  "taskZh": "依照三張圖的文字描述寫一篇約 120–180 字、兩段的英文作文。圖一：雨天下午，一位高中女生撐傘在公車站等車，看著手機上的時間。圖二：一位拄著拐杖、提著一大袋菜的老先生慢慢走向公車站，沒帶傘、全身淋濕。圖三：女生等的公車到了、車門打開，她看看公車，又看看老先生。第一段描述三張圖的內容；第二段寫出你認為接下來發生的事，以及女生最後的感受。",
+  "words": { "min": 120, "max": 180 },
+  "minutes": 30,
+  "focus": [
+    "內容：涵蓋三張圖的情節，第二段結局合理、有感受",
+    "組織：兩段分工清楚，時間順序連貫",
+    "文法句構：過去式一致，句型有變化",
+    "字彙拼字：用字生動、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "It was a rainy Saturday afternoon, and Mia was waiting for the bus after her cram school class. She held her umbrella tightly and kept checking the time, because she did not want to be late for dinner. Just then, she noticed an old man walking slowly toward the bus stop. He was carrying a heavy bag of vegetables and leaning on a walking stick, and he had no umbrella at all. At that very moment, her bus pulled up and opened its doors.",
+      "Mia hesitated for a second, but she decided to let the bus go. She ran to the old man, held her umbrella over his head, and helped him carry the bag. It turned out that he lived only two blocks away, so she walked him all the way home. By the time she got back to the stop, her shoes were soaking wet and she had missed two buses. However, she did not feel annoyed. Instead, she felt warm inside, knowing that a small act of kindness had made someone's day a little easier."
+    ],
+    "zh": [
+      "那是一個下雨的星期六下午，Mia 下了補習班的課，正在等公車。她緊緊握著傘，不停看時間，因為她不想晚回家吃晚餐。就在這時，她注意到一位老先生正慢慢走向公車站。他提著一大袋沉重的蔬菜、拄著拐杖，而且完全沒有帶傘。就在那一刻，她的公車靠站、打開了車門。",
+      "Mia 猶豫了一下，但決定讓這班公車開走。她跑到老先生身邊，把傘撐在他頭上，並幫他提袋子。原來他就住在兩條街外，於是她一路陪他走回家。等她回到公車站時，鞋子已經濕透，也錯過了兩班公車。然而，她一點也不覺得懊惱。相反地，她心裡暖暖的，因為她知道一個小小的善意讓別人的一天輕鬆了一些。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Just then, …",
+      "zh": "就在這時（帶出新的情節）",
+      "example": "Just then, she noticed an old man walking slowly toward the bus stop.",
+      "keys": ["just then", "noticed"]
+    },
+    {
+      "pattern": "At that very moment, …",
+      "zh": "就在那一刻（製造故事的轉折）",
+      "example": "At that very moment, her bus pulled up and opened its doors.",
+      "keys": ["at that very moment"]
+    },
+    {
+      "pattern": "It turned out that …",
+      "zh": "結果發現、原來……",
+      "example": "It turned out that he lived only two blocks away, so she walked him all the way home.",
+      "keys": ["it turned out that"]
+    },
+    {
+      "pattern": "By the time …, … had …",
+      "zh": "等到……時，已經……（過去完成式）",
+      "example": "By the time she got back to the stop, her shoes were soaking wet and she had missed two buses.",
+      "keys": ["by the time", "had missed"]
+    },
+    {
+      "pattern": "…, knowing that …",
+      "zh": "用分詞構句說明感受的原因",
+      "example": "Instead, she felt warm inside, knowing that a small act of kindness had made someone's day a little easier.",
+      "keys": ["instead", "knowing that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Mia hesitated for a second.",
+        "She decided to let the bus go."
+      ],
+      "answer": "Mia hesitated for a second, but she decided to let the bus go."
+    },
+    {
+      "parts": [
+        "He lived only two blocks away.",
+        "She walked him all the way home."
+      ],
+      "answer": "He lived only two blocks away, so she walked him all the way home."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Her shoes were soaking wet.",
+      "answers": [
+        "Her shoes were completely wet.",
+        "Her shoes were wet through."
+      ]
+    },
+    {
+      "sentence": "She felt warm inside.",
+      "answers": ["She felt happy and touched.", "Her heart felt warm."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

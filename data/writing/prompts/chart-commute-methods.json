@@ -1,0 +1,104 @@
+{
+  "id": "chart-commute-methods",
+  "type": "chart",
+  "level": "beginner",
+  "title": {
+    "en": "How Students Get to School",
+    "zh": "學生怎麼上學"
+  },
+  "subtitle": "看表格寫出學生最常用的上學方式",
+  "task": "The table shows the results of a survey of 200 students at a high school (fictional data). It shows how they get to school every day. Describe the information in the table.",
+  "taskZh": "表格是一所高中 200 位學生的調查結果（虛構資料），顯示他們每天怎麼上學。請描述表格中的資訊。",
+  "chart": {
+    "title": "How 200 students at a high school get to school",
+    "columns": ["Method", "Number of students"],
+    "rows": [
+      ["Bus", 70],
+      ["MRT", 50],
+      ["Walking", 40],
+      ["Bicycle", 25],
+      ["Car (driven by parents)", 15]
+    ]
+  },
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "數字正確，和表格一致",
+    "從最多排到最少",
+    "最後寫一句總結（Overall）"
+  ],
+  "model": {
+    "en": [
+      "The table shows how 200 students at a high school get to school every day.",
+      "The bus is the most popular way to get to school, with 70 students. The MRT comes second, with 50 students. Forty students walk to school, and 25 students ride a bicycle. Only 15 students go to school by car.",
+      "Overall, most students use public transportation. This may be because buses and the MRT are cheap and convenient. Very few students are driven to school by their parents."
+    ],
+    "zh": [
+      "這個表格顯示一所高中的 200 位學生每天怎麼上學。",
+      "公車是最受歡迎的上學方式，有 70 位學生。捷運排第二，有 50 位學生。有 40 位學生走路上學，25 位學生騎腳踏車。只有 15 位學生坐車上學。",
+      "整體來說，大部分學生搭乘大眾運輸。這可能是因為公車和捷運便宜又方便。很少有學生是由父母開車送去上學的。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The table shows …",
+      "zh": "圖表題開頭：說明表格的內容",
+      "example": "The table shows how 200 students at a high school get to school every day.",
+      "keys": ["the table shows"]
+    },
+    {
+      "pattern": "… is the most popular …, with …",
+      "zh": "……是最受歡迎的……，有……",
+      "example": "The bus is the most popular way to get to school, with 70 students.",
+      "keys": ["the most popular", "with"]
+    },
+    {
+      "pattern": "… comes second, with …",
+      "zh": "……排第二，有……",
+      "example": "The MRT comes second, with 50 students.",
+      "keys": ["comes second", "with"]
+    },
+    {
+      "pattern": "Overall, …",
+      "zh": "整體來說（總結主要趨勢）",
+      "example": "Overall, most students use public transportation.",
+      "keys": ["overall"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Forty students walk to school.",
+        "Twenty-five students ride a bicycle."
+      ],
+      "answer": "Forty students walk to school, and 25 students ride a bicycle."
+    },
+    {
+      "parts": [
+        "The bus is the most popular way to get to school.",
+        "Seventy students take it."
+      ],
+      "answer": "The bus is the most popular way to get to school, with 70 students."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Only 15 students go to school by car.",
+      "answers": [
+        "Just 15 students are driven to school.",
+        "The car is the least common way to get to school, with only 15 students."
+      ]
+    },
+    {
+      "sentence": "Most students use public transportation.",
+      "answers": [
+        "The majority of students take public transportation.",
+        "Public transportation is the main choice for most students."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

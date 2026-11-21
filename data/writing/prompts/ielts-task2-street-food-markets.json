@@ -1,0 +1,99 @@
+{
+  "id": "ielts-task2-street-food-markets",
+  "type": "ielts-task2",
+  "level": "advanced",
+  "title": {
+    "en": "Street Food Markets and Local Residents",
+    "zh": "夜市觀光與在地居民"
+  },
+  "subtitle": "原創模擬題：討論雙方觀點並提出己見",
+  "task": "Some cities actively promote street food markets to attract tourists, but many residents who live nearby complain about the effects on their neighbourhood. Discuss both views and give your own opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "有些城市積極推廣街頭美食市集（例如夜市）來吸引觀光客，但附近的許多居民抱怨它對社區的影響。請討論雙方觀點，並提出你自己的看法。至少寫 250 字。",
+  "words": { "min": 250, "max": 320 },
+  "minutes": 40,
+  "focus": [
+    "Task Response：兩方觀點都要討論，並清楚寫出自己的立場",
+    "Coherence and Cohesion：一段一個觀點，轉折詞自然",
+    "Lexical Resource：用精準的字描述好處與問題",
+    "Grammatical Range and Accuracy：讓步句、分詞構句等句型正確"
+  ],
+  "model": {
+    "en": [
+      "Street food markets have become a major attraction in many cities, and some local governments actively promote them to bring in visitors. While these markets clearly benefit the tourism industry, residents who live nearby often feel that they pay the price. This essay will discuss both perspectives before explaining why I believe the markets should be supported but better managed.",
+      "Supporters argue that food markets offer something that shopping malls and famous landmarks cannot: an authentic taste of everyday local culture. Visitors who might spend only a few hours in a city can sample regional dishes at low prices, and they often share these experiences online, which promotes the city for free. Moreover, the markets provide income for small family businesses that could not afford to rent a restaurant.",
+      "On the other hand, people living near popular markets face real problems. Crowds block pavements, rubbish piles up late at night, and the noise can continue until after midnight, which makes it hard for children and shift workers to sleep. In addition, rising demand for nearby property may push up rents, forcing long-term residents to move away from the neighbourhood they grew up in.",
+      "In my view, these concerns are a reason to manage markets more carefully, not to close them. City councils could limit opening hours, require stall owners to pay a small fee for cleaning, and set aside quiet zones between the market and residential buildings. In this way, cities can keep the economic and cultural benefits while protecting the quality of life of the people who live there."
+    ],
+    "zh": [
+      "街頭美食市集已成為許多城市的重要景點，有些地方政府也積極推廣，以吸引遊客。雖然這些市集顯然對觀光業有利，但住在附近的居民常覺得付出代價的是他們。本文將討論雙方觀點，再說明為什麼我認為市集應該得到支持，但需要更好的管理。",
+      "支持者認為，美食市集提供了購物中心和知名景點無法提供的東西：道地的在地日常文化。可能只在一座城市停留幾小時的遊客，能以低廉的價格品嚐各地小吃，而且常在網路上分享這些經驗，等於免費為城市宣傳。此外，市集也為負擔不起店面租金的小型家庭事業提供收入。",
+      "另一方面，住在熱門市集附近的人面臨實際的問題。人潮堵住人行道，垃圾在深夜堆積，噪音可能持續到午夜之後，讓孩子和輪班工作者難以入睡。此外，附近房產需求上升可能推高租金，迫使長期居民搬離他們從小長大的社區。",
+      "我認為，這些疑慮是更謹慎管理市集的理由，而不是關閉市集的理由。市議會可以限制營業時間、要求攤商支付少許清潔費，並在市集和住宅之間劃設安靜區。如此一來，城市就能保有經濟與文化上的好處，同時保障當地居民的生活品質。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "While …, …",
+      "zh": "讓步句：雖然……，但……",
+      "example": "While these markets clearly benefit the tourism industry, residents who live nearby often feel that they pay the price.",
+      "keys": ["while"]
+    },
+    {
+      "pattern": "Supporters argue that …",
+      "zh": "介紹其中一方的觀點",
+      "example": "Supporters argue that food markets offer something that shopping malls and famous landmarks cannot: an authentic taste of everyday local culture.",
+      "keys": ["supporters argue that"]
+    },
+    {
+      "pattern": "On the other hand, …",
+      "zh": "轉向另一方觀點",
+      "example": "On the other hand, people living near popular markets face real problems.",
+      "keys": ["on the other hand"]
+    },
+    {
+      "pattern": "…, forcing … to …",
+      "zh": "用分詞構句寫出造成的結果",
+      "example": "In addition, rising demand for nearby property may push up rents, forcing long-term residents to move away from the neighbourhood they grew up in.",
+      "keys": ["in addition", "forcing"]
+    },
+    {
+      "pattern": "In my view, … a reason to …, not to …",
+      "zh": "表明立場並對比兩種做法",
+      "example": "In my view, these concerns are a reason to manage markets more carefully, not to close them.",
+      "keys": ["in my view", "not to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Street food markets attract tourists.",
+        "Residents who live nearby often complain."
+      ],
+      "answer": "While street food markets attract tourists, residents who live nearby often complain."
+    },
+    {
+      "parts": [
+        "Rents may rise.",
+        "Long-term residents are forced to move away."
+      ],
+      "answer": "Rents may rise, forcing long-term residents to move away."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "These markets clearly benefit the tourism industry.",
+      "answers": [
+        "The tourism industry obviously gains from these markets.",
+        "These markets are clearly good for tourism."
+      ]
+    },
+    {
+      "sentence": "Cities can keep the benefits while protecting residents.",
+      "answers": [
+        "Cities can enjoy the advantages without harming residents.",
+        "It is possible to keep the benefits and still protect local people."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

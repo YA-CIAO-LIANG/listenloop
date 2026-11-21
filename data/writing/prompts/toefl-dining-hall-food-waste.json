@@ -1,0 +1,89 @@
+{
+  "id": "toefl-dining-hall-food-waste",
+  "type": "toefl",
+  "level": "advanced",
+  "title": { "en": "Cutting Food Waste on Campus", "zh": "減少校園餐廳的剩食" },
+  "subtitle": "原創模擬題：學術討論題，回應教授與同學的貼文",
+  "task": "Your professor is teaching a class on environmental studies. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Moreno: University dining halls throw away a surprising amount of food every day. If our university could adopt only one policy to reduce food waste, which policy should it choose, and why?\n\nKai: I think students should pay for their meals by weight. If every extra spoonful costs money, people will only take what they can actually eat.\n\nSofia: I'd focus on what happens after meals. The dining hall should donate its leftovers to local shelters every evening, so good food goes to people who need it.\n\nWrite at least 100 words.",
+  "taskZh": "環境研究課的教授在線上討論區提問：如果學校只能採取一項政策來減少餐廳的剩食，應該選哪一項？為什麼？兩位同學分別主張「按重量計價」與「把剩菜捐給收容所」。請寫一則貼文表達並支持你的看法，並對討論有所貢獻（不要只重複同學的意見）。至少寫 100 字。",
+  "words": { "min": 100, "max": 160 },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應同學的觀點，提出新的想法而不是重複",
+    "用具體理由或親身例子支持看法",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "Both Kai and Sofia make useful points, but I think the most effective policy would be an app that lets students reserve their meals a day in advance. Kai's pay-by-weight idea might reduce waste on individual plates, yet it does nothing about the food that is cooked and never served. Sofia's donation plan helps with leftovers, but strict food safety rules often make it difficult to give away cooked dishes.",
+      "A reservation app tackles the problem at its source. If the kitchen knows that 300 students want curry and only 80 want pasta, it can cook almost exactly the right amount. For example, my high school cafeteria introduced a simple online order form, and the staff told us that the amount of food thrown away dropped noticeably within a month. Universities have the technology to do the same on a larger scale."
+    ],
+    "zh": [
+      "Kai 和 Sofia 都提出了有用的觀點，但我認為最有效的政策是推出一個 App，讓學生前一天預訂餐點。Kai 按重量計價的點子或許能減少每個盤子上的浪費，卻無法解決煮好卻沒有賣出去的食物。Sofia 的捐贈計畫能處理剩菜，但嚴格的食品安全規定常常讓煮好的菜很難送出去。",
+      "預訂 App 能從源頭解決問題。如果廚房知道有 300 個學生要咖哩、只有 80 個要義大利麵，就能煮出幾乎剛好的份量。舉例來說，我的高中餐廳曾推出一份簡單的線上訂餐表單，工作人員告訴我們，一個月內丟掉的食物明顯變少了。大學有足夠的技術，可以用更大的規模做到同樣的事。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Both A and B make useful points, but I think …",
+      "zh": "先肯定兩位同學，再提出自己的新看法",
+      "example": "Both Kai and Sofia make useful points, but I think the most effective policy would be an app that lets students reserve their meals a day in advance.",
+      "keys": ["both", "make useful points", "but i think"]
+    },
+    {
+      "pattern": "…, yet it does nothing about …",
+      "zh": "指出對方方案的不足",
+      "example": "Kai's pay-by-weight idea might reduce waste on individual plates, yet it does nothing about the food that is cooked and never served.",
+      "keys": ["yet", "does nothing about"]
+    },
+    {
+      "pattern": "… tackles the problem at its source.",
+      "zh": "強調自己的方案從根本解決問題",
+      "example": "A reservation app tackles the problem at its source.",
+      "keys": ["tackles the problem", "at its source"]
+    },
+    {
+      "pattern": "If …, it can …",
+      "zh": "用條件句說明方案如何運作",
+      "example": "If the kitchen knows that 300 students want curry and only 80 want pasta, it can cook almost exactly the right amount.",
+      "keys": ["if", "it can"]
+    },
+    {
+      "pattern": "For example, …",
+      "zh": "舉親身例子支持論點",
+      "example": "For example, my high school cafeteria introduced a simple online order form, and the staff told us that the amount of food thrown away dropped noticeably within a month.",
+      "keys": ["for example"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Kai's idea might reduce waste on plates.",
+        "It does nothing about food that is never served."
+      ],
+      "answer": "Kai's idea might reduce waste on plates, yet it does nothing about food that is never served."
+    },
+    {
+      "parts": [
+        "The kitchen knows how many students want curry.",
+        "It can cook the right amount."
+      ],
+      "answer": "If the kitchen knows how many students want curry, it can cook the right amount."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Strict food safety rules make it difficult to give away cooked dishes.",
+      "answers": [
+        "Because of strict food safety rules, it is hard to donate cooked food.",
+        "Cooked dishes are hard to give away under strict food safety rules."
+      ]
+    },
+    {
+      "sentence": "The amount of food thrown away dropped noticeably.",
+      "answers": ["Much less food was wasted.", "Food waste fell clearly."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

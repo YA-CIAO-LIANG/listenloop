@@ -1,0 +1,108 @@
+{
+  "id": "campus-professor-assignment-question",
+  "type": "campus-professor",
+  "level": "intermediate",
+  "title": {
+    "en": "A Question About an Assignment",
+    "zh": "寫信問教授作業問題"
+  },
+  "subtitle": "作業規定不清楚時，寫一封具體又有禮貌的提問信",
+  "task": "You are confused about one requirement of an assignment. Write an email to your professor, Professor Okafor, asking a clear question about it. Show that you have already tried to find the answer yourself.",
+  "taskZh": "你對某份作業的一項規定感到困惑。寫一封 email 給 Okafor 教授，清楚地提出問題，並讓教授知道你已經先自己找過答案。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 20,
+  "focus": [
+    "開頭就說明身分與來信目的",
+    "問題要具體，一封信聚焦一件事",
+    "表示自己已先查過資料，展現禮貌與主動"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Okafor,",
+      "I am a student in your Monday and Wednesday section of Environmental Economics. I have a question about the case study assignment that is due on October 20.",
+      "The instructions say that we should compare two policies, but I am not sure whether both policies need to come from the same country. I checked the syllabus and the discussion board on Canvas, but I could not find an answer. I would like to compare the plastic bag fee in Taiwan with a similar policy in Ireland, because I am already familiar with the situation in my home country.",
+      "Would this comparison be acceptable, or should I choose two policies from one country? Any advice would be greatly appreciated.",
+      "Thank you for your help.",
+      "Best wishes,",
+      "Daniel Tsai"
+    ],
+    "zh": [
+      "Okafor 教授您好：",
+      "我是您星期一、三環境經濟學那一班的學生。我想請教關於 10 月 20 日要交的個案研究作業的問題。",
+      "作業說明提到要比較兩項政策，但我不確定這兩項政策是否必須來自同一個國家。我查過課程大綱和 Canvas 上的討論區，但找不到答案。我想比較台灣的塑膠袋收費和愛爾蘭的類似政策，因為我對自己國家的情況已經很熟悉。",
+      "請問這樣的比較可以嗎？還是我應該選同一個國家的兩項政策？任何建議我都會非常感激。",
+      "謝謝您的協助。",
+      "敬祝 順心",
+      "蔡丹尼"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I have a question about …",
+      "zh": "直接點出來信目的",
+      "example": "I have a question about the case study assignment that is due on October 20.",
+      "keys": ["have a question about"]
+    },
+    {
+      "pattern": "…, but I am not sure whether …",
+      "zh": "說明不確定的地方",
+      "example": "The instructions say that we should compare two policies, but I am not sure whether both policies need to come from the same country.",
+      "keys": ["not sure whether"]
+    },
+    {
+      "pattern": "I checked …, but I could not …",
+      "zh": "表示自己已經先查過",
+      "example": "I checked the syllabus and the discussion board on Canvas, but I could not find an answer.",
+      "keys": ["checked", "could not"]
+    },
+    {
+      "pattern": "Would this … be acceptable, or should I …?",
+      "zh": "提供選項，讓教授容易回答",
+      "example": "Would this comparison be acceptable, or should I choose two policies from one country?",
+      "keys": ["acceptable", "or should i"]
+    },
+    {
+      "pattern": "Any advice would be greatly appreciated.",
+      "zh": "客氣地請求建議",
+      "example": "Any advice would be greatly appreciated.",
+      "keys": ["greatly appreciated"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I checked the syllabus.",
+        "I checked the discussion board.",
+        "I could not find an answer."
+      ],
+      "answer": "I checked the syllabus and the discussion board, but I could not find an answer."
+    },
+    {
+      "parts": [
+        "I would like to compare two policies from Taiwan and Ireland.",
+        "I am already familiar with the situation in Taiwan."
+      ],
+      "answer": "I would like to compare policies from Taiwan and Ireland because I am already familiar with the situation in Taiwan."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Any advice would be greatly appreciated.",
+      "answers": [
+        "I would really appreciate any advice.",
+        "I would be grateful for any suggestions."
+      ]
+    },
+    {
+      "sentence": "I am not sure whether both policies need to come from the same country.",
+      "answers": [
+        "I wonder if the two policies must be from the same country.",
+        "It is unclear to me whether we can use policies from different countries."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

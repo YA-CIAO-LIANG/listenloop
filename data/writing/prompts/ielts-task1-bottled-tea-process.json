@@ -1,0 +1,107 @@
+{
+  "id": "ielts-task1-bottled-tea-process",
+  "type": "ielts-task1",
+  "level": "intermediate",
+  "title": { "en": "From Tea Leaf to Bottle", "zh": "從茶葉到瓶裝茶" },
+  "subtitle": "原創模擬題：用被動語態描述瓶裝烏龍茶的製程",
+  "task": "The diagram below shows the stages in the production of bottled oolong tea. Summarise the information by selecting and reporting the main features. Write at least 150 words.",
+  "taskZh": "下圖（以表格呈現）是瓶裝烏龍茶的生產步驟。請挑出主要特徵加以摘要，至少寫 150 字。製程為虛構示意。",
+  "chart": {
+    "title": "How bottled oolong tea is produced",
+    "columns": ["Stage", "Step", "Details"],
+    "rows": [
+      [1, "Picking", "Fresh leaves are picked by hand on hillside farms"],
+      [2, "Withering", "Leaves are spread out in the sun for 1–2 hours"],
+      [
+        3,
+        "Rolling and oxidising",
+        "Leaves are rolled and left to oxidise partly"
+      ],
+      [4, "Roasting", "Leaves are roasted at 120°C to stop oxidation"],
+      [5, "Brewing", "Leaves are brewed in large tanks of hot water (factory)"],
+      [6, "Filtering and cooling", "Tea is filtered and cooled to 5°C"],
+      [7, "Bottling", "Tea is sealed in bottles, checked and shipped to shops"]
+    ]
+  },
+  "words": { "min": 150, "max": 200 },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：寫出總覽，涵蓋每個步驟",
+    "Coherence and Cohesion：用 first、then、after this、finally 串起順序",
+    "Grammatical Range and Accuracy：被動語態正確",
+    "Lexical Resource：不照抄表格，換句話說"
+  ],
+  "model": {
+    "en": [
+      "The diagram shows the seven stages involved in turning freshly picked tea leaves into the bottled oolong tea that is sold in shops.",
+      "Overall, the process can be divided into two main phases: the leaves are first prepared on the farm, and the tea is then made and packaged in a factory.",
+      "To begin with, fresh leaves are picked by hand on hillside farms. They are then spread out in the sun for one to two hours so that they wither. After this, the leaves are rolled and left to oxidise partly. Once this stage is complete, they are roasted at 120°C, which stops the oxidation process.",
+      "In the factory, the roasted leaves are brewed in large tanks of hot water. The tea is filtered and cooled to 5°C before it is sealed in bottles. Finally, the bottles are checked for quality and shipped to shops, where they are ready to be sold to customers."
+    ],
+    "zh": [
+      "這張圖表呈現把剛摘下的茶葉製成店裡販售的瓶裝烏龍茶所經歷的七個階段。",
+      "整體而言，這個流程可分成兩大階段：茶葉先在茶園處理，接著在工廠製成茶並包裝。",
+      "首先，新鮮茶葉在山坡上的茶園以人工採摘。接著把茶葉攤在陽光下一到兩個小時，讓茶葉萎凋。之後，茶葉經過揉捻，並放置讓其部分氧化。這個階段完成後，茶葉以攝氏 120 度烘焙，以停止氧化。",
+      "在工廠裡，烘好的茶葉放進裝滿熱水的大槽中沖泡。茶湯經過過濾並冷卻到攝氏 5 度，然後裝瓶密封。最後，瓶裝茶經過品質檢查後運送到商店，準備賣給顧客。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "To begin with, … are …ed",
+      "zh": "用 To begin with 開始描述第一步（被動語態）",
+      "example": "To begin with, fresh leaves are picked by hand on hillside farms.",
+      "keys": ["to begin with", "are picked"]
+    },
+    {
+      "pattern": "They are then …ed … so that …",
+      "zh": "說明下一步及其目的",
+      "example": "They are then spread out in the sun for one to two hours so that they wither.",
+      "keys": ["are then", "so that"]
+    },
+    {
+      "pattern": "Once this stage is complete, …",
+      "zh": "用 Once 表示前一步完成後才進行下一步",
+      "example": "Once this stage is complete, they are roasted at 120°C, which stops the oxidation process.",
+      "keys": ["once", "complete"]
+    },
+    {
+      "pattern": "… is …ed before it is …ed",
+      "zh": "用 before 連接兩個被動步驟",
+      "example": "The tea is filtered and cooled to 5°C before it is sealed in bottles.",
+      "keys": ["is filtered", "before it is"]
+    },
+    {
+      "pattern": "Finally, …",
+      "zh": "用 Finally 寫出最後一步",
+      "example": "Finally, the bottles are checked for quality and shipped to shops, where they are ready to be sold to customers.",
+      "keys": ["finally", "are checked"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["The leaves are rolled.", "They are left to oxidise partly."],
+      "answer": "The leaves are rolled and left to oxidise partly."
+    },
+    {
+      "parts": ["The tea is cooled to 5°C.", "It is sealed in bottles."],
+      "answer": "The tea is cooled to 5°C before it is sealed in bottles."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Fresh leaves are picked by hand.",
+      "answers": [
+        "Workers pick the fresh leaves by hand.",
+        "The fresh leaves are harvested manually."
+      ]
+    },
+    {
+      "sentence": "The process can be divided into two main phases.",
+      "answers": [
+        "The process consists of two main parts.",
+        "There are two key phases in the process."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

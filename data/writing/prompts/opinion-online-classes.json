@@ -1,0 +1,101 @@
+{
+  "id": "opinion-online-classes",
+  "type": "opinion",
+  "level": "advanced",
+  "title": {
+    "en": "Should University Lectures Stay Online?",
+    "zh": "大學課程該維持線上嗎？"
+  },
+  "subtitle": "討論線上課程能否取代實體課，並提出有層次的立場",
+  "task": "Some people believe that most university lectures should now be taught online. To what extent do you agree or disagree? Give reasons and relevant examples.",
+  "taskZh": "有些人認為大部分大學課程現在應該改成線上授課。你在多大程度上同意或不同意？請提出理由與相關例子。",
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 40,
+  "focus": [
+    "有層次的立場（承認對方優點再反駁）",
+    "論點有具體例子支持",
+    "轉折詞與段落銜接（Admittedly、However、Moreover）"
+  ],
+  "model": {
+    "en": [
+      "Since the pandemic, many universities have continued to offer courses online, and some people now argue that most lectures should stay that way. While I agree that online learning has clear advantages, I do not believe it should replace classroom teaching for most university students.",
+      "Admittedly, online courses are convenient and flexible. Students who live far from campus save hours of commuting, and recorded lectures can be paused and replayed whenever a concept is difficult. For working adults or students with health problems, this flexibility can make the difference between studying and giving up.",
+      "However, university is about more than receiving information. In a classroom, students can ask follow-up questions immediately, notice how classmates think, and form study groups naturally. These small interactions are difficult to recreate on a video call, where many students keep their cameras off and quietly lose focus. Moreover, a fixed schedule helps students build discipline, whereas a fully online course requires a level of self-control that many eighteen-year-olds have not yet developed.",
+      "In conclusion, online learning works best as a supplement rather than a substitute. Universities should record lectures and offer online options for students who need them, but they should keep face-to-face classes at the heart of the university experience."
+    ],
+    "zh": [
+      "疫情以來，許多大學持續提供線上課程，現在也有人主張大部分課程應該維持線上。雖然我同意線上學習有明顯的優點，但我不認為它應該取代大多數大學生的實體課堂。",
+      "不可否認，線上課程既方便又有彈性。住得離學校遠的學生可以省下好幾個小時的通勤時間，而錄好的課程也能在遇到困難的概念時隨時暫停、重播。對在職成人或有健康問題的學生來說，這樣的彈性可能決定了他們是繼續學習還是放棄。",
+      "然而，上大學不只是接收資訊。在教室裡，學生可以立刻追問、觀察同學怎麼思考，也能自然地組成讀書會。這些小小的互動很難在視訊通話中重現，因為很多學生會關掉鏡頭，不知不覺就分心了。此外，固定的課表能幫助學生培養紀律，而完全線上的課程則需要很多十八歲學生還沒培養出來的自制力。",
+      "總而言之，線上學習最適合作為輔助，而不是替代。大學應該錄下課程，並為有需要的學生提供線上選項，但應該讓面對面的課程繼續成為大學經驗的核心。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "While I agree that …, I do not believe …",
+      "zh": "雖然我同意……，但我不認為……（有層次的立場）",
+      "example": "While I agree that online learning has clear advantages, I do not believe it should replace classroom teaching for most university students.",
+      "keys": ["while i agree that", "i do not believe"]
+    },
+    {
+      "pattern": "Admittedly, …",
+      "zh": "不可否認（先承認對方的論點）",
+      "example": "Admittedly, online courses are convenient and flexible.",
+      "keys": ["admittedly"]
+    },
+    {
+      "pattern": "… can make the difference between A and B",
+      "zh": "可能決定是 A 還是 B",
+      "example": "For working adults or students with health problems, this flexibility can make the difference between studying and giving up.",
+      "keys": ["make the difference between"]
+    },
+    {
+      "pattern": "…, whereas …",
+      "zh": "……，而……（對比兩者）",
+      "example": "Moreover, a fixed schedule helps students build discipline, whereas a fully online course requires a level of self-control that many eighteen-year-olds have not yet developed.",
+      "keys": ["moreover", "whereas"]
+    },
+    {
+      "pattern": "… works best as A rather than B",
+      "zh": "最適合作為 A，而不是 B",
+      "example": "In conclusion, online learning works best as a supplement rather than a substitute.",
+      "keys": ["in conclusion", "rather than"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Online courses are convenient.",
+        "They cannot replace classroom teaching."
+      ],
+      "answer": "Although online courses are convenient, they cannot replace classroom teaching."
+    },
+    {
+      "parts": [
+        "Universities should record lectures.",
+        "They should keep face-to-face classes."
+      ],
+      "answer": "Universities should record lectures, but they should also keep face-to-face classes."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "University is about more than receiving information.",
+      "answers": [
+        "Going to university means much more than just getting information.",
+        "A university education involves more than absorbing facts."
+      ]
+    },
+    {
+      "sentence": "Online learning works best as a supplement rather than a substitute.",
+      "answers": [
+        "Online learning should support classroom teaching, not replace it.",
+        "Online classes are most useful when they add to face-to-face teaching instead of replacing it."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

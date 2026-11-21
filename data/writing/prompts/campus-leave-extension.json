@@ -1,0 +1,110 @@
+{
+  "id": "campus-leave-extension",
+  "type": "campus-leave",
+  "level": "advanced",
+  "title": {
+    "en": "Asking for a Deadline Extension",
+    "zh": "申請延後交報告"
+  },
+  "subtitle": "誠懇說明原因與進度，向教授申請延期",
+  "task": "You need more time to finish a term paper. Write an email to your professor, Professor Grant, requesting a deadline extension. Explain the reason honestly, show the progress you have made, and propose a new deadline.",
+  "taskZh": "你需要更多時間完成期末報告。寫一封 email 給 Grant 教授申請延期：誠實說明原因、展示你目前的進度，並提出新的繳交日期。",
+  "words": {
+    "min": 180,
+    "max": 260
+  },
+  "minutes": 30,
+  "focus": [
+    "委婉而誠懇的語氣，不找藉口",
+    "用具體進度證明自己一直在努力",
+    "提出明確的新期限，讓教授容易答應"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Grant,",
+      "I am writing to request a short extension on my term paper for HIST 210, which is due this Friday, March 14. I fully understand that deadlines are set for good reasons, so I do not make this request lightly.",
+      "Over the past two weeks, I have been dealing with a respiratory infection that required two visits to the campus health center. Although I have continued to attend lectures, the illness has made it difficult to concentrate for long periods, and my research has fallen behind schedule. I have attached a note from the health center for your reference.",
+      "Despite this setback, I have made steady progress. I have completed my outline and a draft of the first two sections, and I have gathered most of the primary sources I plan to analyze. What remains is the final section and a careful revision of the whole paper.",
+      "Would it be possible to submit the paper by Wednesday, March 19? This would give me enough time to finish the work to the standard the assignment deserves. I would also be glad to share my current draft if that would help you evaluate my request.",
+      "Thank you for your time and consideration.",
+      "Kind regards,",
+      "Mei-Ling Wu"
+    ],
+    "zh": [
+      "Grant 教授您好：",
+      "來信是想申請將 HIST 210 的期末報告稍微延後繳交，原本的期限是本週五 3 月 14 日。我完全明白設定期限有其道理，所以提出這個請求並非輕率之舉。",
+      "過去兩週，我一直受呼吸道感染所苦，去了兩次校園健康中心。雖然我仍持續上課，但生病讓我很難長時間專心，研究進度也因此落後。我已附上健康中心的證明供您參考。",
+      "儘管遇到這個挫折，我的進度仍穩定推進。我已完成大綱與前兩個章節的草稿，也蒐集好大部分要分析的一手資料。剩下的是最後一個章節，以及整篇報告的仔細修改。",
+      "請問我是否能在 3 月 19 日星期三前繳交？這能讓我有足夠的時間，把報告完成到符合這份作業應有的水準。如果有助於您評估，我也很樂意先提供目前的草稿。",
+      "感謝您撥冗考慮。",
+      "敬祝 安好",
+      "吳美玲"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I fully understand that …, so …",
+      "zh": "先表示理解對方的立場，再提出請求",
+      "example": "I fully understand that deadlines are set for good reasons, so I do not make this request lightly.",
+      "keys": ["fully understand that", "so"]
+    },
+    {
+      "pattern": "Although …, …",
+      "zh": "雖然……，但……（讓步，顯示自己有盡力）",
+      "example": "Although I have continued to attend lectures, the illness has made it difficult to concentrate for long periods, and my research has fallen behind schedule.",
+      "keys": ["although", "difficult to"]
+    },
+    {
+      "pattern": "Despite this setback, …",
+      "zh": "儘管遇到挫折，仍……（轉向正面）",
+      "example": "Despite this setback, I have made steady progress.",
+      "keys": ["despite"]
+    },
+    {
+      "pattern": "What remains is …",
+      "zh": "剩下的是……（清楚交代未完成的部分）",
+      "example": "What remains is the final section and a careful revision of the whole paper.",
+      "keys": ["what remains is"]
+    },
+    {
+      "pattern": "Would it be possible to …?",
+      "zh": "非常委婉的請求句型",
+      "example": "Would it be possible to submit the paper by Wednesday, March 19?",
+      "keys": ["would it be possible to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I have continued to attend lectures.",
+        "The illness has made it difficult to concentrate.",
+        "My research has fallen behind."
+      ],
+      "answer": "Although I have continued to attend lectures, the illness has made it difficult to concentrate, and my research has fallen behind."
+    },
+    {
+      "parts": [
+        "I am writing about my term paper for HIST 210.",
+        "It is due this Friday."
+      ],
+      "answer": "I am writing about my term paper for HIST 210, which is due this Friday."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I do not make this request lightly.",
+      "answers": [
+        "I have thought carefully before asking for this.",
+        "This is not a request I make casually."
+      ]
+    },
+    {
+      "sentence": "My research has fallen behind schedule.",
+      "answers": [
+        "My research is behind where it should be.",
+        "I have not been able to keep my research on schedule."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

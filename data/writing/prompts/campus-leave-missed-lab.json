@@ -1,0 +1,102 @@
+{
+  "id": "campus-leave-missed-lab",
+  "type": "campus-leave",
+  "level": "intermediate",
+  "title": {
+    "en": "Making Up a Missed Lab",
+    "zh": "申請補做實驗課"
+  },
+  "subtitle": "因家中急事缺了實驗課，寫信說明並申請補做",
+  "task": "You missed yesterday's chemistry lab because of a family emergency. Write an email to your lab instructor, Dr. Hughes, explaining what happened and asking whether you can make up the lab.",
+  "taskZh": "你因為家裡有急事，錯過了昨天的化學實驗課。寫一封 email 給實驗課老師 Hughes 博士，說明發生了什麼事，並詢問能否補做實驗。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 20,
+  "focus": [
+    "正式語氣：先自我介紹，再說明來信目的",
+    "誠實說明原因，並為沒有事先通知道歉",
+    "提出具體的補做方案"
+  ],
+  "model": {
+    "en": [
+      "Dear Dr. Hughes,",
+      "My name is Alex Chen, and I am in your Tuesday afternoon section of CHEM 101. I am writing to explain why I missed yesterday's lab on acid-base titration and to ask whether I could make it up.",
+      "On Monday night, I received a call from my family in Taiwan. My grandfather had been taken to the hospital, and I spent most of the night on the phone with my parents. By the time the situation was stable, I was too exhausted to work safely with chemicals, so I decided it was better not to attend. I should have emailed you before the lab, and I apologize for not doing so.",
+      "If possible, I would like to join another section this week or complete the experiment during open lab hours. I have already read the procedure and am happy to submit the report by the original deadline.",
+      "Thank you very much for considering my request.",
+      "Sincerely,",
+      "Alex Chen"
+    ],
+    "zh": [
+      "Hughes 博士您好：",
+      "我是 Alex Chen，修您星期二下午那一班的 CHEM 101。來信是想說明我為什麼缺席昨天的酸鹼滴定實驗，並詢問是否能補做。",
+      "星期一晚上，我接到台灣家人的電話。我祖父被送進醫院，我大半夜都在和父母通電話。等到情況穩定時，我已經累到無法安全地操作化學藥品，所以決定不去上課比較好。我應該在實驗課前先寫信通知您，對此我深感抱歉。",
+      "如果可以的話，我希望這週能加入其他班，或在實驗室開放時間完成實驗。我已經讀過實驗步驟，也願意在原本的期限前繳交報告。",
+      "非常感謝您考慮我的請求。",
+      "敬上",
+      "Alex Chen"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to … and to ask whether …",
+      "zh": "開門見山說明來信目的",
+      "example": "I am writing to explain why I missed yesterday's lab on acid-base titration and to ask whether I could make it up.",
+      "keys": ["i am writing to", "whether"]
+    },
+    {
+      "pattern": "By the time …, I was too … to …",
+      "zh": "到……的時候，已經太……而無法……",
+      "example": "By the time the situation was stable, I was too exhausted to work safely with chemicals, so I decided it was better not to attend.",
+      "keys": ["by the time", "too", "to"]
+    },
+    {
+      "pattern": "I should have …, and I apologize for …",
+      "zh": "承認疏失並道歉",
+      "example": "I should have emailed you before the lab, and I apologize for not doing so.",
+      "keys": ["should have", "apologize for"]
+    },
+    {
+      "pattern": "If possible, I would like to …",
+      "zh": "委婉提出希望的安排",
+      "example": "If possible, I would like to join another section this week or complete the experiment during open lab hours.",
+      "keys": ["if possible", "would like to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I received a call from my family.",
+        "It was Monday night.",
+        "My family is in Taiwan."
+      ],
+      "answer": "On Monday night, I received a call from my family in Taiwan."
+    },
+    {
+      "parts": [
+        "I have already read the procedure.",
+        "I can submit the report by the original deadline."
+      ],
+      "answer": "I have already read the procedure and am happy to submit the report by the original deadline."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I was too exhausted to work safely with chemicals.",
+      "answers": [
+        "I was so tired that I could not work safely with chemicals.",
+        "I was not alert enough to handle chemicals safely."
+      ]
+    },
+    {
+      "sentence": "Thank you very much for considering my request.",
+      "answers": [
+        "I really appreciate you considering my request.",
+        "Thank you for taking the time to consider this."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}
