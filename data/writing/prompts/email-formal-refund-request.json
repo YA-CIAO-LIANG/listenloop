@@ -1,0 +1,99 @@
+{
+  "id": "email-formal-refund-request",
+  "type": "email-formal",
+  "level": "intermediate",
+  "title": {
+    "en": "Requesting a Refund",
+    "zh": "要求退款"
+  },
+  "subtitle": "網購商品有瑕疵，寫一封正式信件要求退款",
+  "task": "You bought a product online, but it arrived damaged or does not work. Write an email to the store's customer service. Explain what you bought, describe the problem, and say what you would like them to do.",
+  "taskZh": "你在網路上買的商品送到時壞了或無法使用。寫一封 email 給商店客服：說明你買了什麼、描述問題，並說明你希望對方怎麼處理。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "正式語氣與 email 格式（稱呼、結尾）",
+    "清楚交代訂單、問題與要求",
+    "禮貌的請求句型"
+  ],
+  "model": {
+    "en": [
+      "Dear Customer Service Team,",
+      "I am writing to request a refund for a pair of wireless headphones that I ordered from your online store on November 3 (order number TW-58214). The package arrived on November 7, but the left earphone does not produce any sound. I have tried charging it fully and connecting it to two different phones, yet the problem remains. I have attached a short video that shows the issue.",
+      "As the product was faulty when it arrived, I would like a full refund of NT$2,490 rather than a replacement. I would be grateful if you could tell me how to return the item and when I can expect the money to be returned to my credit card.",
+      "Thank you for your time. I look forward to hearing from you.",
+      "Sincerely,",
+      "Alex Chen"
+    ],
+    "zh": [
+      "客服團隊您好：",
+      "我寫信是想為一副無線耳機申請退款，這是我在 11 月 3 日於貴公司網路商店訂購的（訂單編號 TW-58214）。包裹在 11 月 7 日送達，但左耳耳機完全沒有聲音。我已經試過把它充飽電，也連接過兩支不同的手機，但問題依然存在。我附上了一段顯示這個問題的短片。",
+      "由於商品送達時就有瑕疵，我希望能全額退款新台幣 2,490 元，而不是換貨。若您能告訴我如何退回商品，以及款項大約何時會退回我的信用卡，我將不勝感激。",
+      "感謝您撥冗處理。期待您的回覆。",
+      "敬上",
+      "陳艾力"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to …",
+      "zh": "正式信件開頭，直接說明寫信目的",
+      "example": "I am writing to request a refund for a pair of wireless headphones that I ordered from your online store on November 3 (order number TW-58214).",
+      "keys": ["i am writing to"]
+    },
+    {
+      "pattern": "…, yet …",
+      "zh": "然而……（表達與預期相反的結果）",
+      "example": "I have tried charging it fully and connecting it to two different phones, yet the problem remains.",
+      "keys": ["yet"]
+    },
+    {
+      "pattern": "As …, I would like … rather than …",
+      "zh": "由於……，我希望……而不是……",
+      "example": "As the product was faulty when it arrived, I would like a full refund of NT$2,490 rather than a replacement.",
+      "keys": ["as", "would like", "rather than"]
+    },
+    {
+      "pattern": "I would be grateful if you could …",
+      "zh": "若您能……，我將不勝感激（禮貌請求）",
+      "example": "I would be grateful if you could tell me how to return the item and when I can expect the money to be returned to my credit card.",
+      "keys": ["would be grateful if", "could"]
+    },
+    {
+      "pattern": "I look forward to + V-ing",
+      "zh": "期待……（正式信件結尾）",
+      "example": "I look forward to hearing from you.",
+      "keys": ["look forward to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The package arrived on November 7.",
+        "The left earphone does not work."
+      ],
+      "answer": "The package arrived on November 7, but the left earphone does not work."
+    },
+    {
+      "parts": ["The product was faulty.", "I would like a full refund."],
+      "answer": "As the product was faulty, I would like a full refund."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I would be grateful if you could tell me how to return the item.",
+      "answers": [
+        "Could you please let me know how to return the item?",
+        "Please let me know how I can send the item back."
+      ]
+    },
+    {
+      "sentence": "The problem remains.",
+      "answers": ["The problem has not gone away.", "It still does not work."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

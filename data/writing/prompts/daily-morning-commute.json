@@ -1,0 +1,91 @@
+{
+  "id": "daily-morning-commute",
+  "type": "daily",
+  "level": "intermediate",
+  "title": {
+    "en": "My Morning Commute",
+    "zh": "我的通勤時光"
+  },
+  "subtitle": "描述你每天上學或上班的路上，以及你怎麼利用這段時間",
+  "task": "Describe how you get to school or work every day. How long does the trip take, what do you do on the way, and how do you feel about it?",
+  "taskZh": "描述你每天怎麼上學或上班：路程要多久、路上做些什麼，以及你對這段通勤的感受。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "清楚交代路程、時間與路上做的事",
+    "用現在簡單式描述習慣",
+    "用 although、instead of 等表達對比"
+  ],
+  "model": {
+    "en": [
+      "Every school day, I take the MRT to school, and the trip takes about forty minutes. I leave home at seven o'clock, walk to the station, and squeeze into a crowded train. Although the ride is long, I have learned to use the time well.",
+      "Most mornings, I listen to English podcasts while I stand by the door. If I get a seat, I review my vocabulary cards or finish my reading for class. Sometimes I simply look out the window and watch the city wake up. Instead of feeling bored, I feel calm and ready for the day.",
+      "Of course, my commute is not always pleasant. When it rains, the station becomes wet and slippery, and everyone seems to be in a hurry. Even so, I would rather take the MRT than ride a scooter, because it is safer and better for the environment. For me, these forty minutes are a small but useful part of my day."
+    ],
+    "zh": [
+      "每個上學日，我都搭捷運上學，路程大約四十分鐘。我七點出門，走到車站，擠進一班擁擠的列車。雖然車程很長，但我已經學會好好利用這段時間。",
+      "大部分的早上，我會站在車門旁聽英文 Podcast。如果有位子坐，我就複習單字卡，或把上課要讀的文章讀完。有時候我只是看著窗外，看城市慢慢甦醒。我不覺得無聊，反而覺得平靜，準備好迎接新的一天。",
+      "當然，通勤不總是愉快的。下雨時，車站又濕又滑，每個人似乎都很趕。即使如此，我還是寧願搭捷運也不要騎機車，因為它比較安全，也對環境比較好。對我來說，這四十分鐘是一天中小小卻有用的一部分。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Although …, I …",
+      "zh": "雖然……，但……（表達讓步）",
+      "example": "Although the ride is long, I have learned to use the time well.",
+      "keys": ["although"]
+    },
+    {
+      "pattern": "If I …, I …",
+      "zh": "如果……，我就……（描述條件與習慣）",
+      "example": "If I get a seat, I review my vocabulary cards or finish my reading for class.",
+      "keys": ["if"]
+    },
+    {
+      "pattern": "Instead of + V-ing, …",
+      "zh": "不……，反而……",
+      "example": "Instead of feeling bored, I feel calm and ready for the day.",
+      "keys": ["instead of"]
+    },
+    {
+      "pattern": "I would rather A than B",
+      "zh": "寧願 A 也不要 B",
+      "example": "Even so, I would rather take the MRT than ride a scooter, because it is safer and better for the environment.",
+      "keys": ["would rather", "than"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["The ride is long.", "I use the time well."],
+      "answer": "Although the ride is long, I use the time well."
+    },
+    {
+      "parts": [
+        "I leave home at seven.",
+        "I walk to the station.",
+        "I get on a crowded train."
+      ],
+      "answer": "I leave home at seven, walk to the station, and get on a crowded train."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The trip takes about forty minutes.",
+      "answers": [
+        "It takes me about forty minutes to get to school.",
+        "My commute is around forty minutes long."
+      ]
+    },
+    {
+      "sentence": "I would rather take the MRT than ride a scooter.",
+      "answers": [
+        "I prefer taking the MRT to riding a scooter.",
+        "Taking the MRT suits me better than riding a scooter."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

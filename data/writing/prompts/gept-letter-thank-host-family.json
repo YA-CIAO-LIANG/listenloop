@@ -1,0 +1,92 @@
+{
+  "id": "gept-letter-thank-host-family",
+  "type": "gept",
+  "level": "intermediate",
+  "title": { "en": "Thanking a Host Family", "zh": "寫信感謝寄宿家庭" },
+  "subtitle": "原創模擬題（中級寫作風格）：依情境寫一封感謝信",
+  "task": "Last month, you joined a two-week exchange program in Japan and stayed with a host family, the Satos. Write an email of 120–160 words to them. In your email, (1) thank them, (2) describe your favorite memory of your stay, and (3) invite them to visit Taiwan.",
+  "taskZh": "上個月你參加了為期兩週的日本交換計畫，住在佐藤（Sato）一家。請寫一封 120–160 字的 email 給他們：(1) 表達感謝，(2) 描述這次寄宿最難忘的回憶，(3) 邀請他們來台灣玩。",
+  "words": { "min": 120, "max": 160 },
+  "minutes": 25,
+  "focus": [
+    "內容：感謝、回憶、邀請三個要求都要寫到",
+    "組織：一段一個重點，開頭與結尾完整",
+    "文法與用字：過去式描述回憶、未來式提出邀請",
+    "書信格式與語氣：親切、有禮貌"
+  ],
+  "model": {
+    "en": [
+      "Dear Mr. and Mrs. Sato,",
+      "I have been back in Taiwan for a week, and I still miss you and your lovely home in Kyoto. Thank you so much for taking care of me during the exchange program. You made me feel like a real member of your family.",
+      "My favorite memory is the evening we spent at the summer festival. Mrs. Sato helped me put on a yukata, and Kenji taught me how to catch goldfish with a paper net. I failed many times, but we laughed so hard that I did not mind at all.",
+      "I would love to show you around Taiwan someday. If you come during the winter vacation, we can visit the night markets in Taipei and take the train to the hot springs in Beitou. Please let me know if you are interested.",
+      "Best wishes, Yi-Ting"
+    ],
+    "zh": [
+      "親愛的佐藤先生、佐藤太太：",
+      "我回到台灣已經一個星期了，還是很想念你們和你們在京都溫馨的家。非常感謝你們在交換計畫期間照顧我。你們讓我覺得自己就像家裡真正的一份子。",
+      "我最難忘的回憶是一起去夏日祭典的那個晚上。佐藤太太幫我穿上浴衣，健司教我用紙網撈金魚。我失敗了好多次，但我們笑得好開心，所以我一點也不在意。",
+      "希望有一天能帶你們逛逛台灣。如果你們寒假來，我們可以去逛台北的夜市，再搭車去北投泡溫泉。如果你們有興趣，請告訴我。",
+      "祝福你們　怡婷"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Thank you so much for …ing …",
+      "zh": "表達感謝，for 後面接動名詞",
+      "example": "Thank you so much for taking care of me during the exchange program.",
+      "keys": ["thank you so much for"]
+    },
+    {
+      "pattern": "You made me feel like …",
+      "zh": "你們讓我覺得……",
+      "example": "You made me feel like a real member of your family.",
+      "keys": ["made me feel like"]
+    },
+    {
+      "pattern": "… so … that …",
+      "zh": "如此……以致於……",
+      "example": "I failed many times, but we laughed so hard that I did not mind at all.",
+      "keys": ["so hard that"]
+    },
+    {
+      "pattern": "If you …, we can …",
+      "zh": "用條件句提出具體的邀請",
+      "example": "If you come during the winter vacation, we can visit the night markets in Taipei and take the train to the hot springs in Beitou.",
+      "keys": ["if you", "we can"]
+    },
+    {
+      "pattern": "Please let me know if …",
+      "zh": "信末請對方回覆",
+      "example": "Please let me know if you are interested.",
+      "keys": ["please let me know if"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Mrs. Sato helped me put on a yukata.",
+        "Kenji taught me how to catch goldfish."
+      ],
+      "answer": "Mrs. Sato helped me put on a yukata, and Kenji taught me how to catch goldfish."
+    },
+    {
+      "parts": ["We laughed very hard.", "I did not mind failing."],
+      "answer": "We laughed so hard that I did not mind failing."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I still miss you.",
+      "answers": ["I keep thinking about you.", "I miss you a lot."]
+    },
+    {
+      "sentence": "I would love to show you around Taiwan.",
+      "answers": [
+        "I would be happy to be your guide in Taiwan.",
+        "I really want to take you around Taiwan."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

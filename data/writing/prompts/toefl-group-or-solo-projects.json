@@ -1,0 +1,95 @@
+{
+  "id": "toefl-group-or-solo-projects",
+  "type": "toefl",
+  "level": "intermediate",
+  "title": {
+    "en": "Group Projects or Solo Work?",
+    "zh": "分組報告還是個人作業？"
+  },
+  "subtitle": "原創模擬題：學術討論題，談期末專題的形式",
+  "task": "Your professor is teaching a class on education. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Hayes: Some instructors make final projects group work, while others require every student to work alone. Which approach do you think helps students learn more in a university course, and why?\n\nRyan: I prefer working alone. In group projects, one or two people often do most of the work, but everyone gets the same grade. That isn't fair.\n\nAna: Group projects are better because teamwork is a skill we will need in almost every job. Learning to cooperate is part of our education.\n\nWrite at least 100 words.",
+  "taskZh": "教育課的教授提問：期末專題要分組做，還是每個人自己做，哪一種讓學生學到更多？Ryan 認為分組常有人不做事、評分不公平；Ana 認為團隊合作是職場必備能力。請寫一則貼文表態、提出理由，並對討論有新的貢獻。至少寫 100 字。",
+  "words": { "min": 100, "max": 160 },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應同學的疑慮並提出解決方法",
+    "用親身例子支持看法",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "I think group projects help students learn more, but only if they are designed well. Ana is right that teamwork is an important skill, and I would add that explaining your ideas to classmates is one of the best ways to understand them deeply. When I worked on a science project with three classmates, I learned more from our discussions than from the textbook.",
+      "However, Ryan's concern about unfair grading is serious. To solve this problem, professors could divide each project into individual parts and grade each student's part separately, in addition to giving a group score. This way, students still enjoy the benefits of working together, and no one can rely on others to do all the work."
+    ],
+    "zh": [
+      "我認為分組專題能讓學生學到更多，但前提是設計得好。Ana 說團隊合作是重要的能力，這點沒錯；我還想補充，向同學解釋自己的想法，是深入理解這些想法的最佳方法之一。我曾和三位同學一起做科學專題，從討論中學到的比從課本學到的還多。",
+      "不過，Ryan 對評分不公的擔憂確實值得重視。為了解決這個問題，教授可以把每個專題分成個人負責的部分，除了給小組分數外，也分別評每位學生負責的部分。這樣一來，學生仍能享有合作的好處，也沒有人能把所有工作都丟給別人。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "…, but only if …",
+      "zh": "表態並加上條件：但前提是……",
+      "example": "I think group projects help students learn more, but only if they are designed well.",
+      "keys": ["i think", "only if"]
+    },
+    {
+      "pattern": "… is right that …, and I would add that …",
+      "zh": "認同同學的觀點，再補充自己的新想法",
+      "example": "Ana is right that teamwork is an important skill, and I would add that explaining your ideas to classmates is one of the best ways to understand them deeply.",
+      "keys": ["is right that", "i would add that"]
+    },
+    {
+      "pattern": "When I …, I learned more from … than from …",
+      "zh": "用親身經驗做比較",
+      "example": "When I worked on a science project with three classmates, I learned more from our discussions than from the textbook.",
+      "keys": ["when i", "more from", "than from"]
+    },
+    {
+      "pattern": "To solve this problem, … could …",
+      "zh": "針對疑慮提出解決方法",
+      "example": "To solve this problem, professors could divide each project into individual parts and grade each student's part separately, in addition to giving a group score.",
+      "keys": ["to solve this problem", "could"]
+    },
+    {
+      "pattern": "This way, …",
+      "zh": "說明方法帶來的結果",
+      "example": "This way, students still enjoy the benefits of working together, and no one can rely on others to do all the work.",
+      "keys": ["this way"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Group projects help students learn more.",
+        "They must be designed well."
+      ],
+      "answer": "Group projects help students learn more, but only if they are designed well."
+    },
+    {
+      "parts": [
+        "Teamwork is an important skill.",
+        "Explaining your ideas helps you understand them."
+      ],
+      "answer": "Teamwork is an important skill, and explaining your ideas helps you understand them."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Ryan's concern about unfair grading is serious.",
+      "answers": [
+        "Ryan is right to worry about unfair grading.",
+        "Unfair grading, as Ryan says, is a real problem."
+      ]
+    },
+    {
+      "sentence": "No one can rely on others to do all the work.",
+      "answers": [
+        "Nobody can let others do everything.",
+        "Every student has to do their own share."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

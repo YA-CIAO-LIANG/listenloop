@@ -1,0 +1,98 @@
+{
+  "id": "gept-letter-broken-elevator",
+  "type": "gept",
+  "level": "intermediate",
+  "title": {
+    "en": "A Letter About a Broken Elevator",
+    "zh": "寫信給管委會反映電梯故障"
+  },
+  "subtitle": "原創模擬題（中級寫作風格）：依情境寫一封反映問題的信",
+  "task": "The elevator in your apartment building has been out of order for two weeks. Your grandmother, who lives with you on the eighth floor, has trouble using the stairs. Write a letter of 120–160 words to the building management committee. In your letter, (1) describe the problem, (2) explain how it affects your family, and (3) suggest what the committee should do.",
+  "taskZh": "你住的大樓電梯已經故障兩週，和你同住在八樓的奶奶爬樓梯很吃力。請寫一封 120–160 字的信給大樓管委會：(1) 說明問題，(2) 說明對家人的影響，(3) 建議管委會該怎麼做。",
+  "words": { "min": 120, "max": 160 },
+  "minutes": 25,
+  "focus": [
+    "內容：三個要求（問題、影響、建議）都要寫到",
+    "組織：開頭說明來意、中間說明、最後提出請求，分段清楚",
+    "文法與用字：時態正確（現在完成式）、用字恰當",
+    "書信格式與語氣：稱呼、結尾與禮貌的請求用語"
+  ],
+  "model": {
+    "en": [
+      "Dear Members of the Management Committee,",
+      "I am writing to tell you about the elevator in our building, which has been out of order since November 3. A notice in the lobby says that it is being repaired, but no workers have come for over a week.",
+      "This problem has made daily life very difficult for my family. My grandmother, who is 82 years old, lives with us on the eighth floor. Because she has weak knees, she cannot walk down the stairs by herself, so she has not been able to leave home for two weeks. She even missed an important appointment with her doctor.",
+      "I would like to ask the committee to contact the repair company as soon as possible and tell residents when the elevator will be fixed. In the meantime, it would be very helpful if the security guards could help older residents carry heavy things upstairs. Thank you for your attention to this matter.",
+      "Sincerely, Amy Lin, 8F"
+    ],
+    "zh": [
+      "親愛的管委會委員們：",
+      "我寫這封信是想向各位反映大樓電梯的問題，電梯從 11 月 3 日起就故障了。大廳的公告寫著正在維修，但已經超過一個星期沒有工人來過。",
+      "這個問題讓我家的日常生活變得非常困難。我 82 歲的奶奶和我們一起住在八樓。因為她膝蓋不好，無法自己走樓梯下樓，所以已經兩個星期沒辦法出門了。她甚至錯過了一次重要的回診。",
+      "我想請管委會儘快聯絡維修公司，並告訴住戶電梯什麼時候會修好。在那之前，如果警衛能幫忙年長的住戶把重物搬上樓，會非常有幫助。謝謝各位對這件事的重視。",
+      "八樓 林艾美 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to tell you about …",
+      "zh": "書信開頭：說明寫信的目的",
+      "example": "I am writing to tell you about the elevator in our building, which has been out of order since November 3.",
+      "keys": ["i am writing to", "about"]
+    },
+    {
+      "pattern": "…, who is …, …",
+      "zh": "用關係子句補充人物的資訊",
+      "example": "My grandmother, who is 82 years old, lives with us on the eighth floor.",
+      "keys": ["who is"]
+    },
+    {
+      "pattern": "Because …, …, so … has not been able to …",
+      "zh": "說明原因與造成的影響",
+      "example": "Because she has weak knees, she cannot walk down the stairs by herself, so she has not been able to leave home for two weeks.",
+      "keys": ["because", "has not been able to"]
+    },
+    {
+      "pattern": "I would like to ask … to …",
+      "zh": "禮貌地提出請求",
+      "example": "I would like to ask the committee to contact the repair company as soon as possible and tell residents when the elevator will be fixed.",
+      "keys": ["i would like to ask", "as soon as possible"]
+    },
+    {
+      "pattern": "It would be very helpful if … could …",
+      "zh": "委婉地提出建議",
+      "example": "In the meantime, it would be very helpful if the security guards could help older residents carry heavy things upstairs.",
+      "keys": ["it would be very helpful if", "could"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["My grandmother lives with us.", "She is 82 years old."],
+      "answer": "My grandmother, who is 82 years old, lives with us."
+    },
+    {
+      "parts": [
+        "She has weak knees.",
+        "She cannot walk down the stairs by herself."
+      ],
+      "answer": "Because she has weak knees, she cannot walk down the stairs by herself."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The elevator has been out of order.",
+      "answers": [
+        "The elevator has not been working.",
+        "The elevator has been broken."
+      ]
+    },
+    {
+      "sentence": "Please fix it as soon as possible.",
+      "answers": [
+        "Please repair it as quickly as you can.",
+        "I hope it can be fixed soon."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

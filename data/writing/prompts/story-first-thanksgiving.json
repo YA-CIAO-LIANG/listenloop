@@ -1,0 +1,96 @@
+{
+  "id": "story-first-thanksgiving",
+  "type": "story",
+  "level": "intermediate",
+  "title": {
+    "en": "My First Thanksgiving",
+    "zh": "我的第一個感恩節"
+  },
+  "subtitle": "第一次參加國外節慶的驚喜與收穫",
+  "task": "Write a story about your first time joining a holiday celebration in another country. Describe what happened, what surprised you, and what you learned.",
+  "taskZh": "寫一個故事：你第一次在國外參加節慶活動的經驗。描述發生了什麼事、什麼讓你驚訝，以及你從中學到什麼。",
+  "words": {
+    "min": 130,
+    "max": 200
+  },
+  "minutes": 25,
+  "focus": [
+    "用過去完成式（had seen、had known）交代更早的經驗",
+    "細節描寫：氣味、動作、對話",
+    "結尾點出這次經驗的意義"
+  ],
+  "model": {
+    "en": [
+      "Last November, my classmate Emma invited me to have Thanksgiving dinner with her family in Ohio. I had only seen this holiday in movies, so I was both excited and a little worried. I did not know what to bring or how to behave.",
+      "When I arrived, the house smelled of roast turkey and cinnamon. Emma's grandmother hugged me as if we had known each other for years. Before the meal, everyone took turns saying what they were thankful for. When it was my turn, my mind went blank, but I finally said I was thankful for new friends who made me feel at home.",
+      "The food was much richer than what I usually eat in Taipei, and I could hardly finish my plate. What surprised me most, however, was not the food but the long conversation after dinner. Nobody checked their phones, and we played board games until midnight.",
+      "That evening taught me that holidays are less about traditions and more about the people you share them with. Next year, I hope to invite Emma to celebrate Lunar New Year with my family."
+    ],
+    "zh": [
+      "去年十一月，同學 Emma 邀請我到她在俄亥俄州的家，和她的家人一起吃感恩節晚餐。我只在電影裡看過這個節日，所以既興奮又有點擔心。我不知道該帶什麼，也不知道該怎麼表現。",
+      "我一到，整間屋子都是烤火雞和肉桂的香味。Emma 的奶奶抱了我一下，好像我們已經認識好多年。開飯前，每個人輪流說出自己感謝的事。輪到我時，我腦袋一片空白，最後說我很感謝這些讓我有家的感覺的新朋友。",
+      "食物比我在台北平常吃的豐盛許多，我幾乎吃不完盤子裡的東西。不過最讓我驚訝的不是食物，而是晚餐後漫長的聊天。沒有人在滑手機，我們一直玩桌遊玩到半夜。",
+      "那個晚上讓我明白，節日重要的不是傳統，而是和你一起度過的人。明年，我希望邀請 Emma 和我的家人一起過農曆新年。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I was both … and …",
+      "zh": "同時有兩種感受",
+      "example": "I had only seen this holiday in movies, so I was both excited and a little worried.",
+      "keys": ["both", "and"]
+    },
+    {
+      "pattern": "… as if …",
+      "zh": "好像……一樣（生動的比喻）",
+      "example": "Emma's grandmother hugged me as if we had known each other for years.",
+      "keys": ["as if"]
+    },
+    {
+      "pattern": "What surprised me most was not … but …",
+      "zh": "最讓我驚訝的不是……而是……",
+      "example": "What surprised me most, however, was not the food but the long conversation after dinner.",
+      "keys": ["what surprised me most", "not", "but"]
+    },
+    {
+      "pattern": "… taught me that … less about … and more about …",
+      "zh": "這次經驗讓我明白：重點不在……而在……",
+      "example": "That evening taught me that holidays are less about traditions and more about the people you share them with.",
+      "keys": ["taught me that", "less about", "more about"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I arrived at the house.",
+        "It smelled of roast turkey.",
+        "It also smelled of cinnamon."
+      ],
+      "answer": "When I arrived, the house smelled of roast turkey and cinnamon."
+    },
+    {
+      "parts": [
+        "Nobody checked their phones.",
+        "We played board games until midnight."
+      ],
+      "answer": "Nobody checked their phones, and we played board games until midnight."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "My mind went blank.",
+      "answers": [
+        "I couldn't think of anything to say.",
+        "I suddenly forgot what I wanted to say."
+      ]
+    },
+    {
+      "sentence": "I could hardly finish my plate.",
+      "answers": [
+        "I was barely able to finish my food.",
+        "It was difficult for me to eat everything on my plate."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

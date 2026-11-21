@@ -1,0 +1,111 @@
+{
+  "id": "chart-screen-time",
+  "type": "chart",
+  "level": "intermediate",
+  "title": {
+    "en": "Smartphone Use on Weekdays and Weekends",
+    "zh": "平日與週末的手機使用時間"
+  },
+  "subtitle": "比較大學生平日與週末的手機使用時間",
+  "task": "The table shows the results of a survey of 300 university students (fictional data): the average number of hours a day they spend on their smartphones for four activities, on weekdays and at weekends. Summarize the information and make comparisons where relevant.",
+  "taskZh": "表格是 300 位大學生的調查結果（虛構資料），顯示他們平日與週末每天平均花在手機上四種活動的時數。請摘要資訊，並在適當處做比較。",
+  "chart": {
+    "title": "Average daily smartphone use of 300 university students (hours)",
+    "columns": ["Activity", "Weekdays", "Weekends"],
+    "rows": [
+      ["Social media", 2.5, 3.5],
+      ["Watching videos", 1.5, 3.0],
+      ["Games", 1.0, 2.0],
+      ["Studying", 1.0, 0.5]
+    ]
+  },
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "數字正確，和表格一致",
+    "做比較，而不只是逐行列數字",
+    "描述變化的動詞（rise、double、fall）"
+  ],
+  "model": {
+    "en": [
+      "The table compares how many hours a day 300 university students spend on their smartphones on weekdays and at weekends, divided into four activities.",
+      "On weekdays, the students use their phones for six hours a day in total. Social media takes up the largest share, at 2.5 hours, followed by watching videos at 1.5 hours. Games and studying each account for one hour.",
+      "At weekends, total phone use rises to nine hours a day. Time spent on videos doubles to three hours, and gaming also doubles to two hours. Social media increases by one hour to 3.5 hours. In contrast, studying is the only activity that decreases, falling from one hour to half an hour.",
+      "Overall, the students spend much more time on their phones at weekends, mainly for entertainment, while they use them less for studying."
+    ],
+    "zh": [
+      "這個表格比較 300 位大學生在平日與週末每天花多少小時使用手機，並分成四種活動。",
+      "平日時，學生每天總共使用手機六小時。社群媒體佔最大比例，為 2.5 小時，其次是看影片，為 1.5 小時。玩遊戲和讀書各佔一小時。",
+      "週末時，手機總使用時間增加到每天九小時。看影片的時間加倍為三小時，玩遊戲的時間也加倍為兩小時。社群媒體增加一小時，達到 3.5 小時。相較之下，讀書是唯一減少的活動，從一小時降到半小時。",
+      "整體而言，學生在週末花在手機上的時間多出許多，主要用於娛樂，而用來讀書的時間則變少。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The table compares …",
+      "zh": "圖表題開頭：說明表格在比較什麼",
+      "example": "The table compares how many hours a day 300 university students spend on their smartphones on weekdays and at weekends, divided into four activities.",
+      "keys": ["the table compares"]
+    },
+    {
+      "pattern": "… takes up the largest share, at …, followed by …",
+      "zh": "……佔最大比例，為……，其次是……",
+      "example": "Social media takes up the largest share, at 2.5 hours, followed by watching videos at 1.5 hours.",
+      "keys": ["the largest share", "followed by"]
+    },
+    {
+      "pattern": "… doubles to …",
+      "zh": "……加倍為……",
+      "example": "Time spent on videos doubles to three hours, and gaming also doubles to two hours.",
+      "keys": ["doubles to"]
+    },
+    {
+      "pattern": "In contrast, … is the only … that …, falling from … to …",
+      "zh": "相較之下，……是唯一……的，從……降到……",
+      "example": "In contrast, studying is the only activity that decreases, falling from one hour to half an hour.",
+      "keys": ["in contrast", "falling from", "to"]
+    },
+    {
+      "pattern": "Overall, …, while …",
+      "zh": "整體而言……，而……（總結並對比）",
+      "example": "Overall, the students spend much more time on their phones at weekends, mainly for entertainment, while they use them less for studying.",
+      "keys": ["overall", "while"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Total phone use rises at weekends.",
+        "It reaches nine hours a day."
+      ],
+      "answer": "At weekends, total phone use rises to nine hours a day."
+    },
+    {
+      "parts": [
+        "Games account for one hour.",
+        "Studying accounts for one hour."
+      ],
+      "answer": "Games and studying each account for one hour."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Studying is the only activity that decreases.",
+      "answers": [
+        "Studying is the only activity that goes down.",
+        "Every activity except studying increases."
+      ]
+    },
+    {
+      "sentence": "Time spent on videos doubles.",
+      "answers": [
+        "Students spend twice as much time watching videos.",
+        "Video time goes up by 100 percent."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

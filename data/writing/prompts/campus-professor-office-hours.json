@@ -1,0 +1,99 @@
+{
+  "id": "campus-professor-office-hours",
+  "type": "campus-professor",
+  "level": "beginner",
+  "title": {
+    "en": "Meeting Outside Office Hours",
+    "zh": "約教授另外的時間見面"
+  },
+  "subtitle": "Office hours 跟其他課撞期，寫信另約時間",
+  "task": "You cannot go to your professor's office hours because they are at the same time as another class. Write a short email to Professor Davis asking to meet at another time.",
+  "taskZh": "教授的 office hours 跟你另一堂課時間衝突，你無法參加。寫一封簡短的 email 給 Davis 教授，請求另外約時間見面。",
+  "words": {
+    "min": 60,
+    "max": 110
+  },
+  "minutes": 10,
+  "focus": [
+    "稱呼與署名的正確格式",
+    "說明理由並提出自己可以的時段",
+    "使用客氣的請求句型（Would you …?）"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Davis,",
+      "My name is Jenny Huang, and I am a student in your Introduction to Psychology class. I would like to talk with you about my research project topic.",
+      "Unfortunately, your office hours on Thursday are at the same time as my biology lab. Would you be available to meet at another time? I am free on Monday and Wednesday afternoons after two o'clock.",
+      "Thank you for your time. I look forward to hearing from you.",
+      "Best regards,",
+      "Jenny Huang"
+    ],
+    "zh": [
+      "Davis 教授您好：",
+      "我是黃珍妮，修您的心理學導論。我想和您討論我的研究報告題目。",
+      "可惜的是，您星期四的 office hours 和我的生物實驗課時間衝突。請問您方便另外約時間見面嗎？我星期一和星期三下午兩點以後都有空。",
+      "謝謝您撥冗。期待您的回覆。",
+      "敬祝 安好",
+      "黃珍妮"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I would like to talk with you about …",
+      "zh": "說明想討論的事",
+      "example": "I would like to talk with you about my research project topic.",
+      "keys": ["would like to", "about"]
+    },
+    {
+      "pattern": "Unfortunately, … are at the same time as …",
+      "zh": "委婉說明時間衝突",
+      "example": "Unfortunately, your office hours on Thursday are at the same time as my biology lab.",
+      "keys": ["unfortunately", "at the same time as"]
+    },
+    {
+      "pattern": "Would you be available to …?",
+      "zh": "詢問對方是否有空",
+      "example": "Would you be available to meet at another time?",
+      "keys": ["would you be available"]
+    },
+    {
+      "pattern": "I look forward to hearing from you.",
+      "zh": "期待回覆（email 常用結尾）",
+      "example": "I look forward to hearing from you.",
+      "keys": ["look forward to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My name is Jenny Huang.",
+        "I am a student in your Introduction to Psychology class."
+      ],
+      "answer": "My name is Jenny Huang, and I am a student in your Introduction to Psychology class."
+    },
+    {
+      "parts": [
+        "I am free on Monday afternoons.",
+        "I am also free on Wednesday afternoons."
+      ],
+      "answer": "I am free on Monday and Wednesday afternoons."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Would you be available to meet at another time?",
+      "answers": [
+        "Could we meet at a different time?",
+        "Is there another time that would work for you?"
+      ]
+    },
+    {
+      "sentence": "I look forward to hearing from you.",
+      "answers": [
+        "I hope to hear from you soon.",
+        "I am looking forward to your reply."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

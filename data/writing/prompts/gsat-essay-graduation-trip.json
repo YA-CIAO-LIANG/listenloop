@@ -1,0 +1,89 @@
+{
+  "id": "gsat-essay-graduation-trip",
+  "type": "gsat",
+  "level": "advanced",
+  "title": { "en": "Choosing a Graduation Trip", "zh": "選擇畢業旅行的活動" },
+  "subtitle": "原創模擬題（學測風格）：二選一並說明理由的兩段式作文",
+  "task": "Your class must choose one activity for its graduation trip: (A) a two-day cycling trip along the east coast of Taiwan, or (B) a day of volunteering at a farm that grows vegetables for local school lunches. Write an English composition of about 120–180 words in two paragraphs. In the first paragraph, state which activity you prefer and explain why. In the second paragraph, explain how your class should prepare for the activity you chose.",
+  "taskZh": "你的班級要為畢業旅行選一項活動：(A) 兩天的東海岸單車之旅，或 (B) 到為附近學校營養午餐種菜的農場當一天志工。請寫一篇約 120–180 字、兩段的英文作文。第一段說明你選哪一項及理由；第二段說明全班該如何為這項活動做準備。",
+  "words": { "min": 120, "max": 180 },
+  "minutes": 30,
+  "focus": [
+    "內容：第一段明確選擇並給理由，第二段寫出具體準備方式",
+    "組織：兩段各自完成任務，段落內有主題句",
+    "文法句構：假設語氣與複合句正確、有變化",
+    "字彙拼字：用字精確、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "If I could choose, I would vote for the two-day cycling trip along the east coast. First of all, it would be a real challenge that our whole class could face together. After three years of sitting in classrooms and preparing for exams, we need an experience that tests our bodies as well as our minds. Moreover, the coastline in eastern Taiwan is breathtaking, and seeing it from a bicycle is far more memorable than seeing it through a bus window.",
+      "To make the trip safe and enjoyable, our class would need to prepare carefully. Since some classmates have not ridden a bike for years, we could practice together along the riverside on weekends for a month. We should also divide responsibilities, so that some students plan the route, others check the weather, and a few take charge of first aid. With good planning, I am sure this trip would become the best memory of our high school years."
+    ],
+    "zh": [
+      "如果可以選擇，我會投票給兩天的東海岸單車之旅。首先，這會是全班可以一起面對的真正挑戰。在教室裡坐了三年、準備了三年考試之後，我們需要一個同時考驗身體與心智的經驗。此外，台灣東部的海岸線美得令人屏息，騎著腳踏車欣賞，遠比隔著遊覽車窗戶看更令人難忘。",
+      "為了讓這趟旅程安全又愉快，全班需要仔細準備。因為有些同學好幾年沒騎腳踏車了，我們可以連續一個月在週末一起到河濱練習。我們也應該分工合作，讓一些同學規劃路線、一些同學注意天氣，再由幾位負責急救。只要規劃得好，我相信這趟旅行會成為我們高中生活最美好的回憶。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "If I could choose, I would …",
+      "zh": "用假設語氣表明選擇",
+      "example": "If I could choose, I would vote for the two-day cycling trip along the east coast.",
+      "keys": ["if i could choose", "i would"]
+    },
+    {
+      "pattern": "First of all, …",
+      "zh": "提出第一個理由",
+      "example": "First of all, it would be a real challenge that our whole class could face together.",
+      "keys": ["first of all"]
+    },
+    {
+      "pattern": "… A as well as B",
+      "zh": "不只 B，也包括 A",
+      "example": "After three years of sitting in classrooms and preparing for exams, we need an experience that tests our bodies as well as our minds.",
+      "keys": ["as well as"]
+    },
+    {
+      "pattern": "… is far more … than …",
+      "zh": "比較級加強語氣：遠比……更……",
+      "example": "Moreover, the coastline in eastern Taiwan is breathtaking, and seeing it from a bicycle is far more memorable than seeing it through a bus window.",
+      "keys": ["moreover", "far more", "than"]
+    },
+    {
+      "pattern": "With good planning, I am sure …",
+      "zh": "結尾表達信心",
+      "example": "With good planning, I am sure this trip would become the best memory of our high school years.",
+      "keys": ["with good planning", "i am sure"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Some classmates have not ridden a bike for years.",
+        "We could practice together on weekends."
+      ],
+      "answer": "Since some classmates have not ridden a bike for years, we could practice together on weekends."
+    },
+    {
+      "parts": [
+        "The coastline is breathtaking.",
+        "Seeing it from a bicycle is memorable."
+      ],
+      "answer": "The coastline is breathtaking, and seeing it from a bicycle is truly memorable."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It would be a real challenge.",
+      "answers": ["It would truly test us.", "It would not be easy at all."]
+    },
+    {
+      "sentence": "This trip would become the best memory of our high school years.",
+      "answers": [
+        "This trip would be our most unforgettable high school experience.",
+        "We would remember this trip more than anything else from high school."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

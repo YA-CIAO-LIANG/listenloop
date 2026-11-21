@@ -1,0 +1,96 @@
+{
+  "id": "ielts-task2-repair-or-replace",
+  "type": "ielts-task2",
+  "level": "advanced",
+  "title": { "en": "Repair or Replace?", "zh": "修理還是換新？" },
+  "subtitle": "原創模擬題：原因與解決方法型議論文",
+  "task": "In many countries, it is now cheaper to replace a broken electronic device than to have it repaired. Why is this the case? What could governments do to encourage people to repair their devices? Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "在許多國家，電子產品壞了直接換新反而比送修便宜。為什麼會這樣？政府可以怎麼做來鼓勵民眾修理？請說明理由，並舉出相關例子。至少寫 250 字。",
+  "words": { "min": 250, "max": 320 },
+  "minutes": 40,
+  "focus": [
+    "Task Response：兩個問題（原因、政府的做法）都要完整回答",
+    "Coherence and Cohesion：一段寫原因、一段寫解法，主題句清楚",
+    "Lexical Resource：用字精準，避免重複 repair、cheap",
+    "Grammatical Range and Accuracy：關係子句、假設語氣等複雜句型正確"
+  ],
+  "model": {
+    "en": [
+      "In many parts of the world, a cracked phone screen or a faulty laptop battery is now treated as a reason to buy a new device rather than to fix the old one. This essay will explain why replacement has become the cheaper option and suggest how governments could make repair attractive again.",
+      "The main reason is the way modern electronics are designed and sold. Many devices are glued together instead of being held by screws, so opening them without damaging other parts requires special tools and training. Manufacturers also tend to restrict the supply of spare parts and repair manuals, which allows them to charge high prices for official repairs. Meanwhile, mass production has pushed the price of new models down, so a repair bill can easily reach half the cost of a replacement.",
+      "Governments have several tools to change this situation. First, they could pass right-to-repair laws that require companies to sell spare parts and publish repair guides for a fixed number of years after a product is released. Second, tax relief could lower the cost of repair services; if labour on repairs were taxed at a reduced rate, small repair shops would be able to offer competitive prices. Finally, a simple repairability score printed on the packaging would help consumers choose products that are designed to last.",
+      "In conclusion, replacing electronics is often cheaper because of product design, limited access to parts and falling retail prices. However, with sensible legislation and financial incentives, governments can reverse this trend, which would save consumers money and reduce electronic waste."
+    ],
+    "zh": [
+      "在世界上許多地方，手機螢幕裂了或筆電電池故障，現在常被當成買新機的理由，而不是修理舊機。本文將說明為什麼換新變成比較便宜的選擇，並提出政府可以如何讓修理重新具有吸引力。",
+      "主要原因在於現代電子產品的設計與銷售方式。許多裝置是用膠黏合，而不是用螺絲固定，因此要在不損壞其他零件的情況下拆開，需要特殊工具與訓練。製造商也傾向限制零件與維修手冊的供應，讓他們能對原廠維修收取高價。同時，大量生產壓低了新機的價格，因此一筆維修費很容易就達到換新費用的一半。",
+      "政府有幾種方法可以改變這個情況。第一，可以制定「維修權」法律，要求廠商在產品上市後的一定年限內販售零件並公開維修指南。第二，減稅可以降低維修服務的成本；如果維修工資以較低稅率課稅，小型維修店就能提供有競爭力的價格。最後，在包裝上印出簡單的「可維修性評分」，能幫助消費者選擇設計耐用的產品。",
+      "總而言之，電子產品換新往往比較便宜，原因在於產品設計、取得零件的管道有限，以及零售價格下降。然而，透過合理的立法與經濟誘因，政府可以扭轉這個趨勢，既為消費者省錢，也減少電子垃圾。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… rather than …",
+      "zh": "而不是……（對比兩種選擇）",
+      "example": "In many parts of the world, a cracked phone screen or a faulty laptop battery is now treated as a reason to buy a new device rather than to fix the old one.",
+      "keys": ["rather than"]
+    },
+    {
+      "pattern": "The main reason is …",
+      "zh": "段落主題句：直接點出主要原因",
+      "example": "The main reason is the way modern electronics are designed and sold.",
+      "keys": ["the main reason is"]
+    },
+    {
+      "pattern": "…, which allows them to …",
+      "zh": "用非限定關係子句說明結果",
+      "example": "Manufacturers also tend to restrict the supply of spare parts and repair manuals, which allows them to charge high prices for official repairs.",
+      "keys": ["which allows them to"]
+    },
+    {
+      "pattern": "If … were …, … would …",
+      "zh": "假設語氣：提出政策並說明可能的效果",
+      "example": "Second, tax relief could lower the cost of repair services; if labour on repairs were taxed at a reduced rate, small repair shops would be able to offer competitive prices.",
+      "keys": ["if", "were", "would"]
+    },
+    {
+      "pattern": "In conclusion, … because of …",
+      "zh": "結論段：重述原因",
+      "example": "In conclusion, replacing electronics is often cheaper because of product design, limited access to parts and falling retail prices.",
+      "keys": ["in conclusion", "because of"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Many devices are glued together.",
+        "Opening them requires special tools."
+      ],
+      "answer": "Many devices are glued together, so opening them requires special tools."
+    },
+    {
+      "parts": [
+        "Mass production has made new models cheaper.",
+        "A repair bill can reach half the cost of a replacement."
+      ],
+      "answer": "Because mass production has made new models cheaper, a repair bill can reach half the cost of a replacement."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Replacing electronics is often cheaper than repairing them.",
+      "answers": [
+        "It often costs less to buy a new device than to fix an old one.",
+        "Repairs are frequently more expensive than replacements."
+      ]
+    },
+    {
+      "sentence": "Governments can reverse this trend.",
+      "answers": [
+        "Governments are able to change this pattern.",
+        "This trend can be turned around by governments."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

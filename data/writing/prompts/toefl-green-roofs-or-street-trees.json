@@ -1,0 +1,86 @@
+{
+  "id": "toefl-green-roofs-or-street-trees",
+  "type": "toefl",
+  "level": "advanced",
+  "title": { "en": "Green Roofs or Street Trees?", "zh": "綠屋頂還是行道樹？" },
+  "subtitle": "原創模擬題：學術討論題，比較兩種城市降溫方案",
+  "task": "Your professor is teaching a class on urban planning. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Okafor: Many cities are getting hotter every summer. Some planners want to require green roofs, with plants growing on top, for all new buildings. Others argue that the money would be better spent planting trees along streets. Which approach do you think would help cities more, and why?\n\nMei: Green roofs make sense because rooftops are wasted space in crowded cities. Plants up there can cool the building and even collect rainwater.\n\nDaniel: I prefer street trees. They give shade to people walking outside, and they make neighbourhoods more pleasant to live in.\n\nWrite at least 100 words.",
+  "taskZh": "都市計畫課的教授提問：城市夏天越來越熱，有人主張新建築一律設置綠屋頂，也有人認為經費應該用來種行道樹。哪一種對城市幫助較大？為什麼？兩位同學各支持一方。請寫一則貼文表態、提出理由，並對討論有新的貢獻。至少寫 100 字。",
+  "words": { "min": 100, "max": 160 },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應兩位同學的觀點，提出新的理由",
+    "用具體理由支持看法，論點前後一致",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "I understand Mei's point that rooftops are wasted space in crowded cities, but I agree with Daniel that street trees would make a bigger difference. The main problem with summer heat is how it affects people outdoors, especially those who walk to school, wait for buses or work outside. A green roof may cool the building underneath it, whereas a row of trees shades the pavement where people actually spend time.",
+      "In addition, trees are a more flexible investment. A city can plant them gradually in the hottest neighbourhoods first, while a rule requiring green roofs would only affect new buildings and might take decades to show results. That said, I would not reject Mei's idea completely; offering tax breaks to owners who add green roofs voluntarily could be a useful second step."
+    ],
+    "zh": [
+      "我理解 Mei 認為屋頂在擁擠城市中是被浪費的空間，但我同意 Daniel 的看法，行道樹的效果會更大。夏季高溫的主要問題在於它對戶外的人造成的影響，尤其是走路上學、等公車或在戶外工作的人。綠屋頂或許能讓下方的建築降溫，而一排行道樹則能為人們實際活動的人行道遮陽。",
+      "此外，種樹是更有彈性的投資。城市可以先在最熱的社區逐步種植，而強制設置綠屋頂的規定只會影響新建築，可能要幾十年才看得到成效。話雖如此，我不會完全否定 Mei 的想法；對自願加裝綠屋頂的屋主提供減稅，可以是很有用的第二步。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I understand …'s point that …, but I agree with … that …",
+      "zh": "先承認一位同學的觀點，再表明支持另一位",
+      "example": "I understand Mei's point that rooftops are wasted space in crowded cities, but I agree with Daniel that street trees would make a bigger difference.",
+      "keys": ["i understand", "point that", "i agree with"]
+    },
+    {
+      "pattern": "A may …, whereas B …",
+      "zh": "用 whereas 對比兩種方案的效果",
+      "example": "A green roof may cool the building underneath it, whereas a row of trees shades the pavement where people actually spend time.",
+      "keys": ["whereas"]
+    },
+    {
+      "pattern": "In addition, … is a more … investment.",
+      "zh": "補充第二個理由",
+      "example": "In addition, trees are a more flexible investment.",
+      "keys": ["in addition", "a more"]
+    },
+    {
+      "pattern": "That said, I would not … completely; …",
+      "zh": "讓步：不完全否定對方，並提出折衷做法",
+      "example": "That said, I would not reject Mei's idea completely; offering tax breaks to owners who add green roofs voluntarily could be a useful second step.",
+      "keys": ["that said", "would not", "completely"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "A green roof may cool the building.",
+        "A row of trees shades the pavement."
+      ],
+      "answer": "A green roof may cool the building, whereas a row of trees shades the pavement."
+    },
+    {
+      "parts": [
+        "A city can plant trees gradually.",
+        "A green roof rule would only affect new buildings."
+      ],
+      "answer": "A city can plant trees gradually, while a green roof rule would only affect new buildings."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Street trees would make a bigger difference.",
+      "answers": [
+        "Street trees would have a greater impact.",
+        "Planting trees along streets would help more."
+      ]
+    },
+    {
+      "sentence": "It might take decades to show results.",
+      "answers": [
+        "The results might not appear for many years.",
+        "It could be decades before we see any effect."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

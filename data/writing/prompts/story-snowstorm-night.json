@@ -1,0 +1,102 @@
+{
+  "id": "story-snowstorm-night",
+  "type": "story",
+  "level": "advanced",
+  "title": {
+    "en": "The Night of the Snowstorm",
+    "zh": "暴風雪之夜"
+  },
+  "subtitle": "異鄉的困境、陌生人的幫助與自我反思",
+  "task": "Write a story about a night when something went wrong far from home and a stranger or neighbour helped you. Build up the tension, describe the turning point, and reflect on what the experience changed in you.",
+  "taskZh": "寫一個故事：你在離家很遠的地方遇到困境，一位陌生人或鄰居幫了你。要營造緊張感、寫出轉折點，並反思這次經驗如何改變了你。",
+  "words": {
+    "min": 200,
+    "max": 280
+  },
+  "minutes": 35,
+  "focus": [
+    "營造緊張感：時間推進與感官細節",
+    "過去完成式與分詞構句的運用",
+    "轉折點與結尾的反思要互相呼應"
+  ],
+  "model": {
+    "en": [
+      "The storm arrived earlier than the forecast had predicted. By eight o'clock, snow was piling up against the windows of my student apartment in Montreal, and the wind howled like a train that never passed. Then, without warning, the lights flickered and went out.",
+      "At first, I tried to stay calm. I wrapped myself in every blanket I owned and searched my phone for news, but the battery was already down to twelve percent. As the hours went by, the room grew so cold that I could see my breath. I had never felt so far from home, and I seriously wondered whether moving abroad had been a mistake.",
+      "Around midnight, someone knocked on my door. It was Louise, the elderly woman from the floor below, whom I had only ever greeted in the elevator. Holding a candle, she told me that her gas stove still worked and that I was welcome to wait out the storm in her kitchen. We drank hot chocolate and, in a mix of English, French, and hand gestures, talked until the power came back at dawn.",
+      "Looking back, that night changed the way I think about independence. I used to believe that being strong meant handling everything alone. Now I understand that accepting help is not a weakness, and that a single act of kindness can turn a stranger into a neighbour."
+    ],
+    "zh": [
+      "暴風雪比氣象預報說的還要早來。到了八點，積雪已經堆到我在蒙特婁的學生公寓窗邊，風聲呼嘯，像一列永遠開不完的火車。接著，毫無預警地，燈閃了幾下就熄了。",
+      "一開始，我試著保持冷靜。我把所有的毯子都裹在身上，用手機找新聞，但電量只剩百分之十二。隨著時間過去，房間冷到我看得見自己呼出的白氣。我從來沒有覺得離家這麼遠，甚至認真懷疑出國是不是一個錯誤。",
+      "半夜左右，有人敲我的門。是住在樓下的老太太 Louise，我只在電梯裡跟她打過招呼。她拿著一根蠟燭，告訴我她家的瓦斯爐還能用，歡迎我到她的廚房裡等暴風雪過去。我們喝著熱可可，用英文、法文加上比手畫腳，一直聊到天亮恢復供電。",
+      "回想起來，那一晚改變了我對「獨立」的看法。我以前以為堅強就是什麼事都自己扛。現在我明白，接受幫助並不是軟弱，而一個小小的善意，就能讓陌生人變成鄰居。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "so … that …",
+      "zh": "如此……以至於……（強調程度與結果）",
+      "example": "As the hours went by, the room grew so cold that I could see my breath.",
+      "keys": ["so", "that"]
+    },
+    {
+      "pattern": "I had never felt so …, and I wondered whether …",
+      "zh": "用過去完成式寫出前所未有的感受與內心的懷疑",
+      "example": "I had never felt so far from home, and I seriously wondered whether moving abroad had been a mistake.",
+      "keys": ["had never", "wondered whether"]
+    },
+    {
+      "pattern": "Holding …, she told me that …",
+      "zh": "分詞構句：同時進行的動作",
+      "example": "Holding a candle, she told me that her gas stove still worked and that I was welcome to wait out the storm in her kitchen.",
+      "keys": ["holding", "told me that"]
+    },
+    {
+      "pattern": "I used to believe that …",
+      "zh": "過去的想法（與現在對比）",
+      "example": "I used to believe that being strong meant handling everything alone.",
+      "keys": ["used to believe that"]
+    },
+    {
+      "pattern": "Looking back, …",
+      "zh": "回想起來……（結尾反思的開頭）",
+      "example": "Looking back, that night changed the way I think about independence.",
+      "keys": ["looking back"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The lights flickered.",
+        "Then they went out.",
+        "There was no warning."
+      ],
+      "answer": "Then, without warning, the lights flickered and went out."
+    },
+    {
+      "parts": [
+        "She was holding a candle.",
+        "She told me that her gas stove still worked."
+      ],
+      "answer": "Holding a candle, she told me that her gas stove still worked."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Accepting help is not a weakness.",
+      "answers": [
+        "Letting others help you does not make you weak.",
+        "There is nothing weak about accepting help."
+      ]
+    },
+    {
+      "sentence": "The storm arrived earlier than the forecast had predicted.",
+      "answers": [
+        "The storm came sooner than expected.",
+        "The storm hit before the time the forecast had given."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,108 @@
+{
+  "id": "chart-recycling-rates",
+  "type": "chart",
+  "level": "advanced",
+  "title": {
+    "en": "What Happens to Household Waste",
+    "zh": "家庭垃圾的去向"
+  },
+  "subtitle": "描述一座城市十五年間回收、焚化與掩埋比例的變化",
+  "task": "The table shows how household waste was handled in Harbor City, a fictional coastal city, in 2010, 2015, 2020, and 2025 (fictional data). Summarize the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "taskZh": "表格顯示一座虛構的海港城市 Harbor City 在 2010、2015、2020 和 2025 年家庭垃圾的處理方式（虛構資料）。請挑出主要特徵加以摘要，並在適當處做比較。",
+  "chart": {
+    "title": "Household waste in Harbor City by method of disposal (%)",
+    "columns": ["Year", "Recycled", "Burned", "Landfill"],
+    "rows": [
+      [2010, 30, 55, 15],
+      [2015, 42, 50, 8],
+      [2020, 51, 45, 4],
+      [2025, 58, 40, 2]
+    ]
+  },
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 30,
+  "focus": [
+    "先寫總覽（Overview），點出主要趨勢",
+    "數字精確並挑重點，不逐一列出",
+    "比較與變化的句型多樣"
+  ],
+  "model": {
+    "en": [
+      "The table shows how household waste was handled in Harbor City, a fictional coastal city, in four years between 2010 and 2025. Waste was either recycled, burned in incinerators, or buried in landfill.",
+      "Overall, recycling became steadily more common over the period, while both burning and landfill declined. By 2020, recycling had overtaken burning as the main way of dealing with household waste.",
+      "In 2010, the majority of waste, 55 percent, was burned, compared with 30 percent that was recycled. Over the next fifteen years, the recycling rate rose consistently, reaching 42 percent in 2015 and 51 percent in 2020. It eventually climbed to 58 percent in 2025, almost double the figure for 2010. The largest increase took place in the first five years, when the rate jumped by 12 percentage points.",
+      "Burning, by contrast, fell gradually from 55 percent to 40 percent. The change in landfill use was the most dramatic in relative terms. The share of waste sent to landfill dropped from 15 percent in 2010 to only 2 percent in 2025, which means that landfill had almost disappeared by the end of the period."
+    ],
+    "zh": [
+      "這個表格顯示虛構的海港城市 Harbor City 在 2010 到 2025 年間四個年份的家庭垃圾處理方式。垃圾的處理方式分為回收、送焚化爐焚燒，或送掩埋場掩埋。",
+      "整體而言，回收在這段期間穩定地變得更普遍，而焚化和掩埋則都減少。到了 2020 年，回收已經超越焚化，成為處理家庭垃圾的主要方式。",
+      "2010 年，大部分垃圾（55%）被焚化，相較之下回收只有 30%。在接下來的十五年裡，回收率持續上升，2015 年達到 42%，2020 年達到 51%。到 2025 年最終攀升至 58%，幾乎是 2010 年的兩倍。增幅最大的是前五年，回收率躍升了 12 個百分點。",
+      "相對地，焚化比例從 55% 逐漸下降到 40%。以相對幅度來看，掩埋的變化最為劇烈。送往掩埋場的垃圾比例從 2010 年的 15% 降到 2025 年的僅 2%，這表示到這段期間結束時，掩埋幾乎已經消失。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Overall, …, while …",
+      "zh": "總覽：點出主要趨勢並對比",
+      "example": "Overall, recycling became steadily more common over the period, while both burning and landfill declined.",
+      "keys": ["overall", "while"]
+    },
+    {
+      "pattern": "By + 時間, A had overtaken B as …",
+      "zh": "到了……時，A 已經超越 B 成為……（過去完成式）",
+      "example": "By 2020, recycling had overtaken burning as the main way of dealing with household waste.",
+      "keys": ["by", "had overtaken"]
+    },
+    {
+      "pattern": "…, compared with …",
+      "zh": "……，相較之下……",
+      "example": "In 2010, the majority of waste, 55 percent, was burned, compared with 30 percent that was recycled.",
+      "keys": ["compared with"]
+    },
+    {
+      "pattern": "…, reaching … in … and … in …",
+      "zh": "用分詞片語接著說明數值變化",
+      "example": "Over the next fifteen years, the recycling rate rose consistently, reaching 42 percent in 2015 and 51 percent in 2020.",
+      "keys": ["reaching"]
+    },
+    {
+      "pattern": "…, which means that …",
+      "zh": "……，這表示……（解讀數據）",
+      "example": "The share of waste sent to landfill dropped from 15 percent in 2010 to only 2 percent in 2025, which means that landfill had almost disappeared by the end of the period.",
+      "keys": ["which means that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["The recycling rate rose.", "It reached 58 percent in 2025."],
+      "answer": "The recycling rate rose, reaching 58 percent in 2025."
+    },
+    {
+      "parts": [
+        "Landfill use dropped to 2 percent.",
+        "Landfill had almost disappeared."
+      ],
+      "answer": "Landfill use dropped to only 2 percent, which means that it had almost disappeared."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Recycling became steadily more common.",
+      "answers": [
+        "The proportion of recycled waste grew steadily.",
+        "More and more waste was recycled over time."
+      ]
+    },
+    {
+      "sentence": "Burning fell gradually from 55 percent to 40 percent.",
+      "answers": [
+        "The share of burned waste declined slowly from 55 to 40 percent.",
+        "There was a gradual decrease in burning, from 55 percent to 40 percent."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

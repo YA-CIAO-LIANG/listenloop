@@ -1,0 +1,110 @@
+{
+  "id": "ielts-task1-commute-modes",
+  "type": "ielts-task1",
+  "level": "advanced",
+  "title": {
+    "en": "How Commuters Travel in Three Cities",
+    "zh": "三座城市的通勤方式"
+  },
+  "subtitle": "原創模擬題：比較三座城市通勤方式的百分比",
+  "task": "The chart below shows the main way that commuters travelled to work in three cities, Alderport, Bayview and Corland, in 2025 (percentage of commuters). Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+  "taskZh": "下圖是 2025 年三座城市（Alderport、Bayview、Corland）通勤者上班的主要交通方式（百分比）。請挑出主要特徵加以摘要，並在適當處比較。至少寫 150 字。城市與資料皆為虛構。",
+  "chart": {
+    "title": "Main way commuters travel to work, 2025 (%)",
+    "columns": ["Mode", "Alderport", "Bayview", "Corland"],
+    "rows": [
+      ["Car", 52, 28, 35],
+      ["Public transport", 21, 48, 30],
+      ["Bicycle", 9, 12, 25],
+      ["Walking", 13, 8, 6],
+      ["Other", 5, 4, 4]
+    ]
+  },
+  "words": { "min": 150, "max": 200 },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：先寫 Overview，點出每座城市的主要特色",
+    "Coherence and Cohesion：以城市分段，比較時前後呼應",
+    "Lexical Resource：百分比、分數、比例的說法要有變化",
+    "Grammatical Range and Accuracy：關係子句與比較句正確"
+  ],
+  "model": {
+    "en": [
+      "The bar chart illustrates the main means of transport that people used to get to work in three cities, Alderport, Bayview and Corland, in 2025.",
+      "Overall, each city relied on a different form of transport. Driving dominated in Alderport, public transport was most common in Bayview, and Corland had a far higher share of cyclists than the other two.",
+      "In Alderport, just over half of commuters (52%) travelled by car, which was nearly double the proportion in Bayview (28%). Only about a fifth of people there took public transport, and 13% walked, the highest figure for walking among the three cities. Cycling accounted for a mere 9%.",
+      "Bayview presented the opposite picture, with almost half of its workers (48%) using buses or trains. Corland, meanwhile, had the most balanced distribution: 35% drove, 30% used public transport and a quarter cycled. In all three cities, other modes made up no more than 5% of journeys."
+    ],
+    "zh": [
+      "這張長條圖說明 2025 年 Alderport、Bayview 和 Corland 三座城市的民眾上班時主要使用的交通方式。",
+      "整體而言，每座城市倚重的交通方式都不同。Alderport 以開車為主，Bayview 最常見的是大眾運輸，而 Corland 騎腳踏車的比例遠高於另外兩座城市。",
+      "在 Alderport，略多於一半的通勤者（52%）開車上班，幾乎是 Bayview（28%）的兩倍。當地只有約五分之一的人搭乘大眾運輸，13% 步行，是三座城市中步行比例最高的。騎腳踏車僅占 9%。",
+      "Bayview 的情況正好相反，將近一半的上班族（48%）搭公車或火車。同時，Corland 的分布最平均：35% 開車、30% 搭大眾運輸、四分之一騎腳踏車。在三座城市中，其他交通方式都不超過 5%。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Overall, each … relied on a different …",
+      "zh": "總覽段：先點出最大的整體差異",
+      "example": "Overall, each city relied on a different form of transport.",
+      "keys": ["overall", "different"]
+    },
+    {
+      "pattern": "…, which was nearly double the proportion in …",
+      "zh": "用關係子句補充比較：幾乎是……的兩倍",
+      "example": "In Alderport, just over half of commuters (52%) travelled by car, which was nearly double the proportion in Bayview (28%).",
+      "keys": ["which was", "nearly double"]
+    },
+    {
+      "pattern": "… accounted for a mere …",
+      "zh": "強調比例很小：只占……",
+      "example": "Cycling accounted for a mere 9%.",
+      "keys": ["accounted for", "a mere"]
+    },
+    {
+      "pattern": "… presented the opposite picture, with …",
+      "zh": "描述相反情況，並用 with 補充數據",
+      "example": "Bayview presented the opposite picture, with almost half of its workers (48%) using buses or trains.",
+      "keys": ["the opposite picture", "with"]
+    },
+    {
+      "pattern": "… made up no more than …",
+      "zh": "說明上限：占比不超過……",
+      "example": "In all three cities, other modes made up no more than 5% of journeys.",
+      "keys": ["made up", "no more than"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Just over half of commuters in Alderport drove.",
+        "This was nearly double the proportion in Bayview."
+      ],
+      "answer": "Just over half of commuters in Alderport drove, which was nearly double the proportion in Bayview."
+    },
+    {
+      "parts": [
+        "Bayview presented the opposite picture.",
+        "Almost half of its workers used buses or trains."
+      ],
+      "answer": "Bayview presented the opposite picture, with almost half of its workers using buses or trains."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "A quarter of people cycled.",
+      "answers": [
+        "25% of people went to work by bicycle.",
+        "One in four commuters cycled."
+      ]
+    },
+    {
+      "sentence": "Cycling accounted for only 9%.",
+      "answers": [
+        "Only 9% of commuters cycled.",
+        "Just 9% of journeys were made by bike."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

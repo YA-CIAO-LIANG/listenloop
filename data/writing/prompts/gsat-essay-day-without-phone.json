@@ -1,0 +1,92 @@
+{
+  "id": "gsat-essay-day-without-phone",
+  "type": "gsat",
+  "level": "intermediate",
+  "title": { "en": "A Day Without My Phone", "zh": "沒有手機的一天" },
+  "subtitle": "原創模擬題（學測風格）：經驗敘述＋心得的兩段式作文",
+  "task": "Many students use their phones for several hours a day. Write an English composition of about 120–180 words in two paragraphs. In the first paragraph, describe a time when you could not use your phone for a whole day (for example, it was broken or you left it at home) and what happened that day. In the second paragraph, explain what you learned from the experience.",
+  "taskZh": "許多學生每天花好幾個小時用手機。請寫一篇約 120–180 字、兩段的英文作文。第一段描述某次你一整天無法使用手機的經驗（例如手機壞了或忘在家裡）以及那天發生的事；第二段說明你從這次經驗學到什麼。",
+  "words": { "min": 120, "max": 180 },
+  "minutes": 25,
+  "focus": [
+    "內容：第一段有具體經過，第二段有真實的體會",
+    "組織：兩段分工清楚，時間順序連貫",
+    "文法句構：過去式、過去完成式與現在完成式使用正確",
+    "字彙拼字：用字精確、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "Last spring, I dropped my phone into a bowl of beef noodle soup, and it stopped working immediately. Since the repair shop needed a full day to fix it, I had to spend Sunday without it. At first, I felt nervous and kept reaching into my pocket out of habit. Without my map app, I even got lost on my way to the library. Later that afternoon, however, I borrowed two novels and read one of them from cover to cover, something I had not done in years.",
+      "This experience taught me that my phone had been taking more of my time than I realized. Without notifications interrupting me every few minutes, I could focus for hours and actually enjoy it. Since then, I have kept my phone in another room while I study and turned off notifications from most apps. I still use my phone every day, but now I try to decide when to use it instead of letting it decide for me."
+    ],
+    "zh": [
+      "去年春天，我把手機掉進一碗牛肉麵裡，它當場就壞了。因為維修行需要一整天才能修好，我只好過一個沒有手機的星期天。一開始，我很焦慮，還會習慣性地把手伸進口袋。沒有地圖 App，我甚至在去圖書館的路上迷路了。不過，那天下午稍晚，我借了兩本小說，還把其中一本從頭到尾讀完，這是我好幾年沒做過的事。",
+      "這次經驗讓我明白，手機佔用我的時間比我以為的還多。沒有每隔幾分鐘就跳出來的通知打擾，我可以專心好幾個小時，而且真的樂在其中。從那之後，我讀書時都把手機放在另一個房間，並關掉大部分 App 的通知。我還是每天用手機，但現在我試著自己決定什麼時候用，而不是讓手機替我決定。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "At first, … out of habit.",
+      "zh": "描述一開始的反應：出於習慣地……",
+      "example": "At first, I felt nervous and kept reaching into my pocket out of habit.",
+      "keys": ["at first", "out of habit"]
+    },
+    {
+      "pattern": "…, something I had not done in years.",
+      "zh": "用同位語補充說明這件事的特別之處",
+      "example": "Later that afternoon, however, I borrowed two novels and read one of them from cover to cover, something I had not done in years.",
+      "keys": ["however", "something i had not done"]
+    },
+    {
+      "pattern": "This experience taught me that …",
+      "zh": "寫出心得：這次經驗讓我明白……",
+      "example": "This experience taught me that my phone had been taking more of my time than I realized.",
+      "keys": ["this experience taught me that"]
+    },
+    {
+      "pattern": "Since then, I have …",
+      "zh": "用現在完成式說明之後的改變",
+      "example": "Since then, I have kept my phone in another room while I study and turned off notifications from most apps.",
+      "keys": ["since then", "i have"]
+    },
+    {
+      "pattern": "… instead of letting …",
+      "zh": "而不是讓……（對比兩種做法）",
+      "example": "I still use my phone every day, but now I try to decide when to use it instead of letting it decide for me.",
+      "keys": ["instead of letting"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The repair shop needed a full day to fix it.",
+        "I had to spend Sunday without it."
+      ],
+      "answer": "Since the repair shop needed a full day to fix it, I had to spend Sunday without it."
+    },
+    {
+      "parts": [
+        "I borrowed two novels.",
+        "I read one of them from cover to cover."
+      ],
+      "answer": "I borrowed two novels and read one of them from cover to cover."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I got lost on my way to the library.",
+      "answers": [
+        "I could not find my way to the library.",
+        "I lost my way while going to the library."
+      ]
+    },
+    {
+      "sentence": "I could focus for hours.",
+      "answers": [
+        "I was able to concentrate for a long time.",
+        "I stayed focused for hours."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}
