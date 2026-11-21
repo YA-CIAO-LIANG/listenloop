@@ -122,12 +122,14 @@ export function writingSummary(
   notebook: Notebook,
 ): WritingSummary {
   const weeks = progresses.flatMap((p) => p.history);
+  // Weeks judged on measures, not scores, have no change in points (D194).
+  const scored = weeks.filter((w) => w.basis !== "metrics");
   return {
     weeks: weeks.length,
     passed: weeks.filter((w) => w.passed).length,
-    improvement: weeks.length
+    improvement: scored.length
       ? Math.round(
-          weeks.reduce((sum, w) => sum + (w.day7 - w.day1), 0) / weeks.length,
+          scored.reduce((sum, w) => sum + (w.day7 - w.day1), 0) / scored.length,
         )
       : null,
     patterns: masteredPatterns(notebook),
@@ -154,7 +156,9 @@ export function writingWeek(
     for (const week of progress.history) {
       const day7 =
         progress.week === week.week ? progress.days[7]?.date : undefined;
-      if (within(day7)) changes.push(week.day7 - week.day1);
+      if (within(day7) && week.basis !== "metrics") {
+        changes.push(week.day7 - week.day1);
+      }
     }
   }
   return {

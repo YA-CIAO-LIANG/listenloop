@@ -12,6 +12,7 @@ import {
 } from "@/lib/writing/notebook";
 import {
   newWritingProgress,
+  resettleWritingWeek,
   settleWritingWeek,
   writingTimeId,
   type EssayDay as EssayDayRecord,
@@ -34,7 +35,11 @@ import { SelfScoreForm } from "./SelfScoreForm";
 import { PromptTask } from "./PromptTask";
 import { WeekResult } from "./WeekResult";
 import { WritingWorkspace } from "./WritingWorkspace";
-import { useWritingData, useWritingProgress } from "./WritingProvider";
+import {
+  useWritingData,
+  useWritingProgress,
+  useWritingSettings,
+} from "./WritingProvider";
 
 /** Drafts are saved this often while typing (D187). */
 export const AUTOSAVE_MS = 5_000;
@@ -75,6 +80,8 @@ export function EssayDay({
   const [error, setError] = useState<ReviewResult | null>(null);
   const [declined, setDeclined] = useState<EssayDayRecord | null>(null);
   const [selfScoring, setSelfScoring] = useState(false);
+  const settings = useWritingSettings();
+  const reviewFirst = (settings?.review ?? "ai") === "ai";
   const lastSaved = useRef("");
 
   // Practice time counts toward the calendar like listening (D187).
@@ -163,6 +170,10 @@ export function EssayDay({
     saveLocalDraft(window.localStorage, prompt.id, day, null);
     void cloud?.removeDraft(prompt.id, day).catch(() => {});
     // The notebook: the AI's quoted mistakes, and (Day 1) the patterns.
+    toNotebook(dayRecord, day === 1);
+  };
+
+  const toNotebook = (dayRecord: EssayDayRecord, patterns: boolean) => {
     const items = [
       ...(dayRecord.feedback
         ? errorItems(prompt.id, [
@@ -170,20 +181,65 @@ export function EssayDay({
             ...dayRecord.feedback.more,
           ])
         : []),
-      ...(day === 1 ? patternItems(prompt.id, prompt.patterns) : []),
+      ...(patterns ? patternItems(prompt.id, prompt.patterns) : []),
     ];
     if (items.length) {
       saveNotebook(
-        addToNotebook(loadLocalNotebook(window.localStorage), items, today),
+        addToNotebook(
+          loadLocalNotebook(window.localStorage),
+          items,
+          toLocalDate(new Date()),
+        ),
       );
     }
   };
 
-  const submit = async () => {
+  /**
+   * An AI review asked for after saving without one (D194): counted
+   * against this week's reviews then. The day keeps its date and essay;
+   * Day 7 judges the week again.
+   */
+  const reviewLater = async () => {
+    if (!record || !progress) return;
+    setError(null);
+    setDeclined(null);
+    setBusy(true);
+    try {
+      const result = await reviewEssay({
+        promptId: prompt.id,
+        day,
+        essay: record.essay,
+      });
+      if (!result.ok) {
+        setError(result);
+        return;
+      }
+      if (result.feedback.declined) {
+        setDeclined({ ...record, feedback: result.feedback });
+        return;
+      }
+      const reviewed = { ...record, feedback: result.feedback };
+      saveProgress(
+        resettleWritingWeek({
+          ...progress,
+          days: { ...progress.days, [day]: reviewed },
+          updatedAt: new Date().toISOString(),
+        }),
+      );
+      toNotebook(reviewed, false);
+    } catch {
+      setError({ ok: false, reason: "failed" });
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const submit = async (review: boolean) => {
     save.current();
     setError(null);
     setDeclined(null);
-    if (!signedIn) {
+    // A guest, or "save only": the learner scores it (or skips that).
+    if (!signedIn || !review) {
       setSelfScoring(true);
       return;
     }
@@ -218,15 +274,25 @@ export function EssayDay({
     }
   };
 
-  const selfScored = (self: SelfScore) => {
+  const selfScored = (self: SelfScore | null) => {
     finish({
       done: true,
       date: toLocalDate(new Date()),
       essay: text.trim(),
       seconds,
-      self,
+      ...(self ? { self } : {}),
     });
     setSelfScoring(false);
+  };
+
+  const errorText = (result: ReviewResult) => {
+    if (result.ok) return "";
+    if (result.reason === "plan" && result.block) {
+      return tPlans(`limits.${result.block.limit}`, {
+        max: result.block.max ?? 0,
+      });
+    }
+    return t(`essay.errors.${result.reason}`);
   };
 
   if (done && record) {
@@ -243,17 +309,47 @@ export function EssayDay({
         </details>
         {record.feedback ? (
           <FeedbackView essay={essay} feedback={record.feedback} />
-        ) : record.self ? (
+        ) : (
           <>
-            <SelfScoreView rubric={rubric} self={record.self} />
+            {record.self ? (
+              <SelfScoreView rubric={rubric} self={record.self} />
+            ) : (
+              <p className="text-ink-muted">{t("essay.savedOnly")}</p>
+            )}
             <div
               lang="en"
               className="max-w-reading rounded-base border border-line bg-surface p-4 whitespace-pre-wrap"
             >
               {essay}
             </div>
+            {signedIn && (
+              <Card className="flex flex-col gap-3">
+                <p>{t("essay.reviewLater")}</p>
+                <div>
+                  <Button
+                    variant="secondary"
+                    onClick={reviewLater}
+                    disabled={busy}
+                    aria-describedby={error ? "review-error" : undefined}
+                  >
+                    {busy ? t("essay.submitting") : t("essay.reviewNow")}
+                  </Button>
+                </div>
+                {error && !error.ok && (
+                  <p id="review-error" role="alert" className="text-error">
+                    {errorText(error)}
+                  </p>
+                )}
+                {declined?.feedback && (
+                  <FeedbackView
+                    essay={declined.essay}
+                    feedback={declined.feedback}
+                  />
+                )}
+              </Card>
+            )}
           </>
-        ) : null}
+        )}
         {day === 7 && progress && (
           <WeekResult prompt={prompt} progress={progress} title={title} />
         )}
@@ -273,15 +369,6 @@ export function EssayDay({
     );
   }
 
-  const errorText = (result: ReviewResult) => {
-    if (result.ok) return "";
-    if (result.reason === "plan" && result.block) {
-      return tPlans(`limits.${result.block.limit}`, {
-        max: result.block.max ?? 0,
-      });
-    }
-    return t(`essay.errors.${result.reason}`);
-  };
   const aiUnavailable =
     error &&
     !error.ok &&
@@ -316,6 +403,7 @@ export function EssayDay({
           rubric={rubric}
           onDone={selfScored}
           onCancel={() => setSelfScoring(false)}
+          onSkip={() => selfScored(null)}
         />
       </div>
     );
@@ -370,18 +458,31 @@ export function EssayDay({
             {savedAt && ` · ${t("essay.saved")}`}
           </span>
         </p>
-        <Button
-          variant="primary"
-          onClick={submit}
-          disabled={busy || words < 1}
-          aria-describedby={error ? "essay-error" : undefined}
-        >
-          {busy
-            ? t("essay.submitting")
-            : signedIn
-              ? t("essay.submit")
-              : t("essay.submitSelf")}
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button
+            variant="primary"
+            onClick={() => submit(signedIn ? reviewFirst : false)}
+            disabled={busy || words < 1}
+            aria-describedby={error ? "essay-error" : undefined}
+          >
+            {busy
+              ? t("essay.submitting")
+              : !signedIn
+                ? t("essay.submitSelf")
+                : reviewFirst
+                  ? t("essay.submit")
+                  : t("essay.saveOnly")}
+          </Button>
+          {signedIn && (
+            <Button
+              variant="secondary"
+              onClick={() => submit(!reviewFirst)}
+              disabled={busy || words < 1}
+            >
+              {reviewFirst ? t("essay.saveOnly") : t("essay.submit")}
+            </Button>
+          )}
+        </div>
       </div>
       {error && !error.ok && (
         <div

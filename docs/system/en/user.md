@@ -264,9 +264,11 @@ flowchart LR
 1. **Pick a prompt**: filter by minutes you have today, kind (everyday, email, opinion, charts, stories, studying abroad, exams), and level. "Save as my default filter" applies it next time.
 2. **Day 1, write first**:
    - Write straight from the task. The model essay appears only after you submit.
+   - On a computer the task is on the left and your answer on the right; on a phone the task is one line at the top ("Show task" opens it). With the keyboard up, the box, the word count, and the button stay in view.
    - The word count, suggested time, and a timer are shown. The timer is a guide; it never stops you.
    - Drafts save every 5 seconds and when you leave the page.
    - Signed in, you get AI feedback: the score with reasons, the 3 most important issues highlighted on your essay, and what you did well. Smaller points are under "More suggestions".
+   - Signed in, you can also choose "Save only, no review": no allowance used; score yourself against the rubric, or skip it. "Ask the AI to review" on the finished page later uses one of that week's reviews. Change the default in Account → Writing settings.
    - Signed out, you score your essay against the rubric yourself and pick up to 3 things to work on.
 3. **Days 2–6, deliberate practice**:
    - Two drills a day, about 10–15 minutes, chosen from your Day 1 weak spots.
@@ -275,6 +277,7 @@ flowchart LR
 4. **Day 7, rewrite**:
    - Write the same prompt again, without Day 1 or the model.
    - The result shows both essays side by side, each criterion's change, and whether Day 1's three issues improved.
+   - It also compares words, average sentence length, and word variety. When neither day has a score (no review, no self-score), these three decide: two improved means passed.
    - Set the pass rule on the prompt's page; the default is that Day 7 scores higher than Day 1.
    - You can download a share card that shows only the scores.
 5. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.

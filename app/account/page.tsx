@@ -10,6 +10,7 @@ import { UsageNoticeText } from "@/components/UsageNotice";
 import { BackgroundPicker } from "@/components/BackgroundPicker";
 import { clarityProjectId } from "@/lib/analytics-consent";
 import { HandsFreeSetting } from "@/components/HandsFreeSetting";
+import { WritingSettingsForm } from "@/components/writing/WritingSettingsForm";
 import { BillingSection } from "@/components/BillingSection";
 import { DeleteAccount } from "@/components/DeleteAccount";
 import { ReminderSettings } from "@/components/ReminderSettings";
@@ -34,9 +35,10 @@ export default async function AccountPage({
   searchParams,
 }: PageProps<"/account">) {
   if (!accountsEnabled) notFound();
-  const [t, tHands, tConsent, user, { deleted }] = await Promise.all([
+  const [t, tHands, tWriting, tConsent, user, { deleted }] = await Promise.all([
     getTranslations("accountPage"),
     getTranslations("handsFree"),
+    getTranslations("writingSettings"),
     getTranslations("consent"),
     getSignedInUser(),
     searchParams,
@@ -77,6 +79,17 @@ export default async function AccountPage({
             <h2 className="font-display text-h2">{tHands("settingsTitle")}</h2>
             <div className="mt-4">
               <HandsFreeSetting />
+            </div>
+          </section>
+          <section
+            id="writing-settings"
+            className="mt-16 max-w-reading scroll-mt-8 border-t border-line pt-8"
+          >
+            <h2 className="font-display text-h2">
+              {tWriting("settingsTitle")}
+            </h2>
+            <div className="mt-4">
+              <WritingSettingsForm />
             </div>
           </section>
           {/* Reminders need the push keys (D111); hidden until they're set. */}
