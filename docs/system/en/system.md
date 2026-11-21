@@ -851,6 +851,17 @@ flowchart LR
 - Classroom: reminders, gradebook, co-teachers, school plans (`docs/classroom.md`).
 - Content: subtitles and timing for the Blender open movies (the rest of M3).
 
+## 13. WritingLoop (writing practice, D187)
+
+- **Code**:
+  - `lib/writing/`: prompt types, rubrics, the week and pass rules, drill planning and rule checks, the notebook, feedback cleaning, storage and sync.
+  - `components/writing/`, `app/writing/`: the UI and pages.
+  - `data/writing/prompts/*.json`: official prompts, validated at build.
+- **AI**: `LanguageProvider.reviewWriting` (Azure OpenAI with the `writing` JSON schema), billed through `meteredLanguage` and checked again on the server by `cleanFeedback`. The fake provider is `lib/writing/fake-review.ts`. The server action is `reviewEssay` in `app/writing/actions.ts`.
+- **Data**: in the browser as `ll-writing:v1:*`, `ll-writing-notebook:v1`, and `ll-writing-draft:v1:*`; signed in, also in `user_documents` (RLS: owner only). `WritingProvider` syncs them on each page load.
+- **Allowances**: `writingReviewsPerWeek` and `writingWords` in `lib/plans.ts`. The week's count comes from the `writing` calls in `api_calls`, and the cost is part of the price floor.
+- **Tests**: unit tests in `tests/writing/`; E2E in `e2e/writing.spec.ts`.
+
 ---
 
-Last updated: 2026-11-11
+Last updated: 2026-11-21

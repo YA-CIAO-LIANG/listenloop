@@ -1,5 +1,6 @@
 import { splitLine } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
+import { fakeWritingReview } from "@/lib/writing/fake-review";
 import {
   ProviderError,
   type Billed,
@@ -58,6 +59,10 @@ export const fakeLanguage: LanguageProvider = {
       },
       [title, text],
     );
+  },
+  // Rule-based feedback on an essay (WritingLoop, D187).
+  async reviewWriting(input) {
+    return free(fakeWritingReview(input), [input.task, input.essay]);
   },
   // Every translation passes (D115).
   async auditTranslations({ pairs }) {

@@ -1,4 +1,9 @@
-import { CLASS_TIERS, classCostPerMinute, classPrice } from "../classroom";
+import {
+  CLASS_COST,
+  CLASS_TIERS,
+  classCostPerMinute,
+  classPrice,
+} from "../classroom";
 import { ECPAY_FEE_RATE, TW_BUSINESS_TAX } from "../forecast";
 import { PLANS } from "../plans";
 import {
@@ -31,6 +36,44 @@ export const PLAN_MINUTES: Readonly<Record<PaidPlan, number>> = {
   pro: PLANS.pro.minutesPerMonth ?? 0,
 };
 
+/**
+ * WritingLoop's AI essay reviews (D187): about 1,800 tokens in (the
+ * instructions, the task, an essay of up to 600 words) and 1,600 out
+ * (scores with reasons, up to eight issues, strengths, summary) on
+ * gpt-5-mini (US$0.25 / US$2.00 a million), so about US$0.0037, NT$0.12.
+ * Re-measure with the writing eval's recorded usage when the prompt
+ * changes (evals/writing-report.md).
+ */
+export const WRITING_REVIEW_COST = {
+  inputTokens: 1_800,
+  outputTokens: 1_600,
+  usdPerMillionIn: 0.25,
+  usdPerMillionOut: 2.0,
+} as const;
+
+/** NT$ one essay review costs (D187). */
+export function writingReviewCost(): number {
+  const c = WRITING_REVIEW_COST;
+  const usd =
+    (c.inputTokens * c.usdPerMillionIn + c.outputTokens * c.usdPerMillionOut) /
+    1_000_000;
+  return usd * CLASS_COST.twdPerUsd;
+}
+
+/** Weeks in a month, for weekly allowances. */
+export const WEEKS_PER_MONTH = 52 / 12;
+
+/** Essay reviews a week each paid plan may use (lib/plans.ts). */
+export const PLAN_WRITING_REVIEWS: Readonly<Record<PaidPlan, number>> = {
+  plus: PLANS.paid.writingReviewsPerWeek ?? 0,
+  student: PLANS.paid.writingReviewsPerWeek ?? 0,
+  pro: PLANS.pro.writingReviewsPerWeek ?? 0,
+};
+
+/** NT$ a month of every weekly review used (the worst case). */
+export const writingMonthCost = (perWeek: number) =>
+  perWeek * WEEKS_PER_MONTH * writingReviewCost();
+
 /** What's ours of a payment: without the tax inside it, less the fee. */
 const kept = (paid: number) =>
   paid / (1 + TW_BUSINESS_TAX) - paid * ECPAY_FEE_RATE;
@@ -43,8 +86,14 @@ export function worstCaseMargin(
   paid: number,
   period: BillingPeriod,
   minutes: number,
+  /** Essay reviews a week, all used (WritingLoop, D187). */
+  writingPerWeek = 0,
 ): number {
-  return kept(paid) / PERIOD_MONTHS[period] - minutes * classCostPerMinute();
+  return (
+    kept(paid) / PERIOD_MONTHS[period] -
+    minutes * classCostPerMinute() -
+    writingMonthCost(writingPerWeek)
+  );
 }
 
 /**
@@ -52,7 +101,7 @@ export function worstCaseMargin(
  * periods at or above the floor (a year is 10 months, D105, so the year
  * decides).
  */
-export function minimumMonthly(minutes: number): number {
+export function minimumMonthly(minutes: number, writingPerWeek = 0): number {
   let monthly = 1;
   while (
     !BILLING_PERIODS.every(
@@ -61,6 +110,7 @@ export function minimumMonthly(minutes: number): number {
           period === "year" ? yearlyFromMonthly(monthly) : monthly,
           period,
           minutes,
+          writingPerWeek,
         ) >= PRICE_FLOOR.minMarginPerMonth,
     )
   ) {
@@ -86,7 +136,12 @@ export function worstCaseTable(): {
         period,
         paid,
         minutes,
-        margin: worstCaseMargin(paid, period, minutes),
+        margin: worstCaseMargin(
+          paid,
+          period,
+          minutes,
+          PLAN_WRITING_REVIEWS[plan],
+        ),
       };
     }),
   );

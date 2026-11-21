@@ -21,7 +21,10 @@ const FILE_NAME = "listenloop-progress.png";
 export function ShareCard({
   text,
 }: {
-  text: Omit<ShareCardText, "site" | "heading" | "day1Label" | "day7Label">;
+  text: Omit<ShareCardText, "site" | "heading" | "day1Label" | "day7Label"> & {
+    /** Another heading (WritingLoop's, D187); listening's by default. */
+    heading?: string;
+  };
 }) {
   const t = useTranslations("shareCard");
   const [image, setImage] = useState<{ url: string; blob: Blob } | null>(null);
@@ -29,7 +32,7 @@ export function ShareCard({
 
   const card: ShareCardText = {
     ...text,
-    heading: t("heading"),
+    heading: text.heading ?? t("heading"),
     day1Label: t("day1"),
     day7Label: t("day7"),
     site: SITE_URL.replace(/^https?:\/\//, ""),

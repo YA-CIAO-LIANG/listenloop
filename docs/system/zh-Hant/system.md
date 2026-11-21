@@ -851,6 +851,17 @@ flowchart LR
 - 班級：自動提醒、成績冊、多位老師、學校方案（`docs/classroom.md`）。
 - 內容：Blender 開放電影的字幕與時間點（M3 剩下的部分）。
 
+## 13. WritingLoop（寫作練習，D187）
+
+- **程式位置**：
+  - `lib/writing/`：題目型別、評分標準、流程與通關、練習安排與規則檢查、錯誤本、回饋清理、儲存與同步。
+  - `components/writing/`、`app/writing/`：介面與頁面。
+  - `data/writing/prompts/*.json`：官方題目，build 時驗證。
+- **AI**：`LanguageProvider.reviewWriting`（Azure OpenAI 使用 JSON schema `writing`），經過 `meteredLanguage` 計費，伺服器再用 `cleanFeedback` 檢查；假的供應者是 `lib/writing/fake-review.ts`。Server action 是 `app/writing/actions.ts` 的 `reviewEssay`。
+- **資料**：存在瀏覽器的 `ll-writing:v1:*`、`ll-writing-notebook:v1`、`ll-writing-draft:v1:*`；登入時同時存到 `user_documents`（RLS 只允許本人讀寫）。由 `WritingProvider` 在每次載入頁面時同步。
+- **額度**：`lib/plans.ts` 的 `writingReviewsPerWeek`、`writingWords`。每週次數從 `api_calls` 的 `writing` 呼叫計算，成本已計入保本價。
+- **測試**：單元測試在 `tests/writing/`，E2E 是 `e2e/writing.spec.ts`。
+
 ---
 
-最後更新：2026-11-11
+最後更新：2026-11-21

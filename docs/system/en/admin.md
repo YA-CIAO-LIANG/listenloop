@@ -363,6 +363,13 @@ When something goes wrong, contain it first, then find the cause. The full steps
 | A user reports an "error code"             | Search it (the digest) on the errors page                                                                                               |
 | A refund                                   | Revenue page, confirm twice; test data only for now                                                                                     |
 
+## 13. Writing (WritingLoop, D187)
+
+- **What you can see**: AI reviews and their cost, under `writing` in API usage (`/admin/usage`).
+- **What you can't**: no admin page shows what learners wrote. Essays stay in the learner's browser and their own account documents, which only they can read.
+- **Pausing**: the "AI generation" switch in Service controls (`/admin/ops`) also pauses writing reviews; learners then score their essays themselves.
+- **Prompts**: to add or change one, edit `data/writing/prompts/*.json` and register it in `data/writing/index.ts`. The build and the tests check the format.
+
 ---
 
-Last updated: 2026-11-11
+Last updated: 2026-11-21

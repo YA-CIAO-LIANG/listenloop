@@ -1,3 +1,4 @@
+import { writingPrompts } from "@/data/writing";
 import type { MetadataRoute } from "next";
 import { getOfficialPractices } from "@/auth/library";
 import { BLOG_POSTS, blogPath } from "@/lib/blog";
@@ -67,6 +68,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ),
     ...official.map((practice) =>
       entry(`/videos/${practice.id}`, "monthly", 0.7),
+    ),
+    // WritingLoop (D187): its home and every official prompt.
+    entry("/writing", "weekly", 0.8),
+    ...writingPrompts.map((prompt) =>
+      entry(`/writing/${prompt.id}`, "monthly", 0.6),
     ),
   ];
 }

@@ -18,9 +18,18 @@ describe("SiteHeader", () => {
     renderWithIntl(<SiteHeader />);
     expect([...navLinks()].map((a) => a.textContent)).toEqual([
       "ListenLoop",
+      "聽力",
+      "寫作",
       "學習進度",
       "公開教材",
     ]);
+    // Listening | Writing (D187): this page is listening.
+    expect(
+      screen.getByRole("link", { name: "聽力" }).getAttribute("aria-current"),
+    ).toBe("page");
+    expect(
+      screen.getByRole("link", { name: "寫作" }).getAttribute("aria-current"),
+    ).toBeNull();
   });
 
   it("adds Stats and My materials when signed in", () => {
@@ -29,6 +38,8 @@ describe("SiteHeader", () => {
       [...navLinks()].map((a) => [a.textContent, a.getAttribute("href")]),
     ).toEqual([
       ["ListenLoop", "/"],
+      ["聽力", "/"],
+      ["寫作", "/writing"],
       ["學習進度", "/practices"],
       ["學習分析", "/stats"],
       ["公開教材", "/explore"],

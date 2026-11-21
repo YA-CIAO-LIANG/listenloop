@@ -247,6 +247,8 @@ async function opsTable(
 /** Cookie choices and dismissed notices kept in accounts (D180). */
 const ACCOUNT_DOCUMENTS = new Set(["consent", "notices"]);
 const accountDocuments = new Map<string, unknown>();
+/** WritingLoop's documents by "<user>:<key>" (D187). */
+const writingDocuments = new Map<string, unknown>();
 
 const referralTables: Record<string, Row[]> = {
   referral_codes: [],
@@ -1150,6 +1152,59 @@ createServer(async (request, response) => {
     json(200, sub ? { ...AUTHOR, id: sub } : AUTHOR);
     return;
   }
+  // WritingLoop's documents (D187): writing-<id>, writing-notebook,
+  // wdraft-<id>-<day>; the owner's own, listed by prefix too.
+  const writingKey = url.searchParams.get("key") ?? "";
+  // A POST's key is in its body: read it once, here, for both handlers.
+  const documentBody =
+    url.pathname === "/rest/v1/user_documents" && request.method === "POST"
+      ? JSON.parse((await readBody(request)) || "{}")
+      : null;
+  if (
+    url.pathname === "/rest/v1/user_documents" &&
+    (/^(eq|like)\.(writing-|wdraft-)/.test(writingKey) ||
+      /^(writing-|wdraft-)/.test(String(documentBody?.key ?? "")))
+  ) {
+    const sub = tokenSubject(request.headers.authorization);
+    if (!sub) {
+      json(request.method === "GET" ? 200 : 401, []);
+      return;
+    }
+    if (request.method === "GET") {
+      const like = /^like\.(.*)\*$|^like\.(.*)%$/.exec(writingKey);
+      const prefix = like ? (like[1] ?? like[2]) : null;
+      const exact = writingKey.replace(/^eq\./, "");
+      const rows = [...writingDocuments.entries()]
+        .filter(([key]) => key.startsWith(`${sub}:`))
+        .map(([key, data]) => ({ key: key.slice(sub.length + 1), data }))
+        .filter((row) =>
+          prefix !== null ? row.key.startsWith(prefix) : row.key === exact,
+        );
+      const single = String(request.headers.accept ?? "").includes(
+        "vnd.pgrst.object",
+      );
+      if (single) {
+        if (rows.length) json(200, rows[0]);
+        else json(406, { code: "PGRST116", message: "no rows" });
+        return;
+      }
+      json(200, rows);
+      return;
+    }
+    if (request.method === "DELETE") {
+      writingDocuments.delete(`${sub}:${writingKey.replace(/^eq\./, "")}`);
+      json(200, []);
+      return;
+    }
+    const body = documentBody ?? {};
+    if (body.user_id !== sub) {
+      json(401, []);
+      return;
+    }
+    writingDocuments.set(`${sub}:${body.key}`, body.data);
+    json(201, []);
+    return;
+  }
   // A signed-in person's cookie choice and dismissed notices (D180),
   // their own rows.
   const documentKey = url.searchParams.get("key")?.replace(/^eq\./, "") ?? "";
@@ -1163,7 +1218,7 @@ createServer(async (request, response) => {
       json(200, data ? [{ data }] : []);
       return;
     }
-    const body = JSON.parse((await readBody(request)) || "{}");
+    const body = documentBody ?? {};
     if (!sub || body.user_id !== sub || !ACCOUNT_DOCUMENTS.has(body.key)) {
       json(401, []);
       return;

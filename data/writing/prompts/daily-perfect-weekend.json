@@ -1,0 +1,84 @@
+{
+  "id": "daily-perfect-weekend",
+  "type": "daily",
+  "level": "beginner",
+  "title": { "en": "My Perfect Weekend", "zh": "我理想的週末" },
+  "subtitle": "用簡單的句子描述一個你最想過的週末",
+  "task": "Describe your perfect weekend. Where would you go, who would you be with, and what would you do? Explain why it would make you happy.",
+  "taskZh": "描述你理想中的週末：去哪裡、和誰一起、做什麼，並說明為什麼這樣的週末會讓你開心。",
+  "words": { "min": 80, "max": 150 },
+  "minutes": 15,
+  "focus": [
+    "清楚回答「去哪、和誰、做什麼、為什麼」",
+    "時態一致（用 would 描述想像的情境）",
+    "用連接詞讓句子更流暢"
+  ],
+  "model": {
+    "en": [
+      "My perfect weekend would start slowly. On Saturday morning, I would sleep until nine and then have a big breakfast with my family. After that, I would ride my bike to the riverside park with my best friend. We would buy bubble tea and talk about everything.",
+      "On Sunday, I would visit the night market in the evening. Not only is the food cheap, but it is also delicious. I would try stinky tofu and grilled squid, and I would take a lot of photos.",
+      "This weekend would make me happy because I could rest, spend time with people I love, and enjoy simple things. In my opinion, a good weekend does not need to be expensive."
+    ],
+    "zh": [
+      "我理想的週末會從悠閒的早晨開始。星期六早上，我會睡到九點，然後和家人吃一頓豐盛的早餐。之後，我會和最好的朋友騎腳踏車到河濱公園。我們會買珍珠奶茶，無所不聊。",
+      "星期天傍晚，我會去逛夜市。那裡的食物不僅便宜，而且很好吃。我會嘗試臭豆腐和烤魷魚，還會拍很多照片。",
+      "這樣的週末會讓我開心，因為我可以休息、和我愛的人相處，並享受簡單的事物。在我看來，一個好的週末不需要花很多錢。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "After that, I would …",
+      "zh": "用 After that 串起事情的先後順序",
+      "example": "After that, I would ride my bike to the riverside park with my best friend.",
+      "keys": ["after that", "would"]
+    },
+    {
+      "pattern": "Not only is …, but it is also …",
+      "zh": "不僅……而且……（倒裝句，加強語氣）",
+      "example": "Not only is the food cheap, but it is also delicious.",
+      "keys": ["not only", "but", "also"]
+    },
+    {
+      "pattern": "… would make me happy because …",
+      "zh": "說明原因：……會讓我開心，因為……",
+      "example": "This weekend would make me happy because I could rest, spend time with people I love, and enjoy simple things.",
+      "keys": ["make me", "because"]
+    },
+    {
+      "pattern": "In my opinion, …",
+      "zh": "表達個人看法",
+      "example": "In my opinion, a good weekend does not need to be expensive.",
+      "keys": ["in my opinion"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I would sleep until nine.",
+        "I would have a big breakfast with my family."
+      ],
+      "answer": "I would sleep until nine and then have a big breakfast with my family."
+    },
+    {
+      "parts": ["The food is cheap.", "The food is delicious."],
+      "answer": "Not only is the food cheap, but it is also delicious."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "A good weekend does not need to be expensive.",
+      "answers": [
+        "You don't have to spend a lot of money to have a good weekend.",
+        "A great weekend can be cheap."
+      ]
+    },
+    {
+      "sentence": "We would talk about everything.",
+      "answers": [
+        "We would chat about anything and everything.",
+        "We would have long conversations about all kinds of things."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

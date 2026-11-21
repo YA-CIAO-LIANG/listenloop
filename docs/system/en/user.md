@@ -257,6 +257,30 @@ flowchart LR
 | A translation, note, or audio is wrong            | Press "Report a problem with this sentence" under it; you'll be told on the home page when it's fixed                                                     |
 | The site says maintenance, or something is paused | "Service status" in the footer shows the state and announcements; your progress is saved in the cloud                                                     |
 
+## 14. Writing (WritingLoop)
+
+"Listening | Writing" next to the logo switches to writing practice (`/writing`). Like listening, it's a seven-day loop on one prompt.
+
+1. **Pick a prompt**: filter by minutes you have today, kind (everyday, email, opinion, charts, stories, studying abroad, exams), and level. "Save as my default filter" applies it next time.
+2. **Day 1, write first**:
+   - Write straight from the task. The model essay appears only after you submit.
+   - The word count, suggested time, and a timer are shown. The timer is a guide; it never stops you.
+   - Drafts save every 5 seconds and when you leave the page.
+   - Signed in, you get AI feedback: the score with reasons, the 3 most important issues highlighted on your essay, and what you did well. Smaller points are under "More suggestions".
+   - Signed out, you score your essay against the rubric yourself and pick up to 3 things to work on.
+3. **Days 2–6, deliberate practice**:
+   - Two drills a day, about 10–15 minutes, chosen from your Day 1 weak spots.
+   - Drills: fix your sentences, pattern practice, sentence combining, paraphrasing, paragraph order, rebuilding from memory, and listen-then-write (a ListenLoop video).
+   - Each drill is checked at once and shows a model answer.
+4. **Day 7, rewrite**:
+   - Write the same prompt again, without Day 1 or the model.
+   - The result shows both essays side by side, each criterion's change, and whether Day 1's three issues improved.
+   - Set the pass rule on the prompt's page; the default is that Day 7 scores higher than Day 1.
+   - You can download a share card that shows only the scores.
+5. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.
+6. **Allowance**: AI reviews a week are 2 on Free, 3 on Plus and Student, and 6 on Pro. AI scores are estimates, not official results.
+7. **Privacy**: only you can see your writing. Admins never see it, and it's never used to train AI.
+
 ---
 
-Last updated: 2026-11-12
+Last updated: 2026-11-21

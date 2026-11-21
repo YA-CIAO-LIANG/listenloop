@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 import { getLibraryItems, getSavedLibraryDefault } from "@/auth/library";
 import {
@@ -14,6 +13,9 @@ import { QuickStart } from "@/components/QuickStart";
 import { ProgressGate } from "@/components/ProgressGate";
 import { LibrarySkeleton } from "@/components/Skeleton";
 import { HomeProgress } from "@/components/HomeProgress";
+import { WritingTasks } from "@/components/writing/WritingTasks";
+import { writingPrompts } from "@/data/writing";
+import { useLocale, useTranslations } from "next-intl";
 import type { LibraryItem } from "@/lib/library";
 import { JsonLd } from "@/components/JsonLd";
 import { publicPageMetadata } from "@/i18n/metadata";
@@ -60,6 +62,8 @@ export default function Home() {
         <ProgressGate place="home" signedOut={<ProductIntro />}>
           <FixedReportsNotice />
           <HomeProgress />
+          {/* Today's writing next to listening (WritingLoop, D187). */}
+          <HomeWritingTasks />
         </ProgressGate>
       </div>
 
@@ -83,4 +87,16 @@ async function Library() {
       <MaterialLibrary items={items} savedDefault={savedDefault} />
     </Suspense>
   );
+}
+
+/** Prompts in progress with today's day, by their title here. */
+function HomeWritingTasks() {
+  const locale = useLocale();
+  const titles = Object.fromEntries(
+    writingPrompts.map((p) => [
+      p.id,
+      locale === "en" ? p.title.en : p.title.zh,
+    ]),
+  );
+  return <WritingTasks titles={titles} />;
 }

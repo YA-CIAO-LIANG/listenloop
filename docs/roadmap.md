@@ -1,5 +1,16 @@
 # 開發路線圖
 
+## WritingLoop 進度（2026-11-21 夜間，進行中）
+
+| 項目                | 狀態                                                                                                                                                         |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 〇 repo 改回公開    | 完成：[#250](https://github.com/YA-CIAO-LIANG/listenloop/pull/250)。公開後已開啟分支保護、Secret scanning、Push protection、Dependabot alerts，`CI_LITE=off` |
+| 計畫與學習原理      | 完成：[#251](https://github.com/YA-CIAO-LIANG/listenloop/pull/251)                                                                                           |
+| P0 7 天寫作循環     | PR 進行中（D187）                                                                                                                                            |
+| P1 額度、方案、eval | 未開始                                                                                                                                                       |
+| P2 官方題目         | 41 份題目已寫好，通過自動檢查，等 P0 合併後發布                                                                                                              |
+| P3 學習分析與體驗   | 未開始（手機輸入列、5 秒草稿已在 P0 完成）                                                                                                                   |
+
 ## 後續（2026-11-14，Joe 決定之後）
 
 | 項目              | 內容                                                                                                                                                                                                                                             | PR                                                           | 決策       |
@@ -27,7 +38,7 @@
 
 > ~~提醒 Joe：申請 GitHub Student Developer Pack 以重新開啟分支保護~~：2026-11-21 repo 改回公開，分支保護已重新開啟，不再需要（D186）。
 >
-> **⚠️ Actions 分鐘數**：這個月已經用了約 1,720／2,000 分鐘。我已經把 repo 變數 `CI_LITE` 設成 `on`（PR 的 CI 不跑 E2E，E2E 改在本機跑完才推送），**12 月 1 日請改回 `off`**（GitHub → Settings → Secrets and variables → Actions → Variables）。
+> ~~Actions 分鐘數：12 月 1 日把 `CI_LITE` 改回 `off`~~：repo 已公開，Actions 分鐘數不限，2026-11-21 已改成 `off`（D186）。
 
 7 項中 6 項已合併；**價格測試（PR #235）做完了，但被 ZAP 掃描的一個提示擋住，需要你決定**（見第 5 節第 1 點）。每個 PR 都在本機跑過五項檢查與完整 E2E，CI 通過才合併。用了 4 個背景代理平行開發（留存、推薦好友、Google Play、Vercel）。**沒有呼叫任何付費 API。**
 

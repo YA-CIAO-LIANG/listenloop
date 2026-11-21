@@ -11,7 +11,10 @@
     "skipToContent": "Skip to main content",
     "stats": "Stats",
     "official": "Official materials",
-    "classroom": "Classes"
+    "classroom": "Classes",
+    "listening": "Listening",
+    "writing": "Writing",
+    "practiceArea": "Practice"
   },
   "metadata": {
     "title": "ListenLoop",
@@ -682,7 +685,7 @@
   },
   "privacy": {
     "title": "Privacy policy",
-    "updated": "Last updated: November 14, 2026",
+    "updated": "Last updated: November 21, 2026",
     "intro": "ListenLoop is an English listening practice site. This policy explains what data we collect, how we use it, where it's kept, and how you can delete it. Every practice feature works without signing in.",
     "sections": [
       {
@@ -737,6 +740,14 @@
           "Cloudflare Turnstile (when turned on): the sign-up, waiting list, report, and feedback forms use it to tell people from bots; it handles technical data about the browser and connection, not for advertising.",
           "Push services: when practice reminders are on, they reach you through your browser maker's push service (for example Google, Apple, or Mozilla).",
           "GitHub: the database's daily backups are encrypted (AES-256) and kept in GitHub Actions for 14 days; they can't be read without the password."
+        ]
+      },
+      {
+        "title": "Your writing",
+        "paragraphs": [
+          "In Writing (WritingLoop), your essays, drafts, AI feedback, and notebook stay in this browser when you're signed out; signed in, they're also kept in your account where only you can see them (the database lets only you read or write them). Admin pages show usage counts only, never what you wrote.",
+          "For AI feedback, your essay is sent to an AI service (Azure OpenAI) to be scored; our server doesn't keep a copy. We never use your writing to train AI models, and under Azure OpenAI's terms what is sent isn't used for training either.",
+          "How long: essays and feedback are kept until you delete them. Deleting your account deletes them; signed out, clearing the browser's data does."
         ]
       },
       {
@@ -1479,7 +1490,9 @@
       "uploadAudio": "Making practices from your own recordings is a Plus feature.",
       "uploadMegabytes": "The file is too big: your plan allows up to {max, number} MB a file.",
       "storageMegabytes": "Your recordings use all of your plan's {max, number} MB of storage. Delete recordings you don't need, or upgrade.",
-      "revisesPerDay": "You've revised with an instruction {max} times today, your plan's limit; it resets at midnight (Taiwan time)."
+      "revisesPerDay": "You've revised with an instruction {max} times today, your plan's limit; it resets at midnight (Taiwan time).",
+      "writingReviewsPerWeek": "You’ve used this week’s {max} AI writing reviews. They reset on Monday at 00:00 Taiwan time.",
+      "writingWords": "The essay is over your plan’s limit of {max, number} words."
     },
     "week": "The free plan makes {total} minutes of materials a week (up to {total} minutes each). Left this week: {minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}; resets {reset}.",
     "weekUsed": "The free plan makes {total} minutes of materials a week. This week's are used up; they reset {reset}.",
@@ -4039,5 +4052,334 @@
     "skip": "Skip",
     "thanks": "Thank you! This helps us set a fair price.",
     "failed": "It wasn't sent. Please try again later."
+  },
+  "writing": {
+    "metaTitle": "Writing: a seven-day English writing loop",
+    "metaDescription": "One prompt for a week: write first on Day 1, practice your own weak spots for five days, and rewrite on Day 7 to see your progress.",
+    "title": "Writing",
+    "intro": "One prompt for a week. Write your own version first, practice what you need most, then on Day 7 write it again without looking anything up and see how far you've come.",
+    "steps": {
+      "day1": "Day 1: write first; the model essay comes after",
+      "middle": "Days 2–6: 10–15 minutes a day on your weak spots",
+      "day7": "Day 7: rewrite the same prompt and compare"
+    },
+    "status": {
+      "passed": "Passed",
+      "inProgress": "In progress"
+    },
+    "prompt": {
+      "focus": "What the scoring looks at"
+    },
+    "library": {
+      "heading": "Writing prompts",
+      "minutes": "Minutes I have today",
+      "minutesOption": "Up to {minutes} min",
+      "group": "Kind",
+      "level": "Level",
+      "saveDefault": "Save as my default filter",
+      "clearDefault": "Clear my default filter",
+      "reset": "Clear filters",
+      "count": "{count, plural, one {# prompt} other {# prompts}}",
+      "isDefault": "your default filter",
+      "empty": "No prompts match. Try fewer filters.",
+      "words": "{min}–{max} words",
+      "time": "about {minutes} min"
+    },
+    "groups": {
+      "daily": "Everyday",
+      "email": "Email",
+      "opinion": "Opinion",
+      "chart": "Charts",
+      "story": "Stories",
+      "campus": "Studying abroad",
+      "exam": "Exams"
+    },
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    },
+    "types": {
+      "daily": "Everyday writing",
+      "email-formal": "Formal email",
+      "email-informal": "Informal email",
+      "opinion": "Opinion",
+      "chart": "Describing a chart",
+      "story": "Story",
+      "campus-leave": "Asking for leave",
+      "campus-professor": "Asking a professor",
+      "campus-housing": "Housing",
+      "ielts-task1": "IELTS Task 1",
+      "ielts-task2": "IELTS Task 2",
+      "toefl": "TOEFL",
+      "gept": "GEPT",
+      "gsat": "GSAT composition"
+    },
+    "overview": {
+      "days": "This week",
+      "dayN": "Day {day}",
+      "dayName": {
+        "1": "Write first",
+        "2": "Practice",
+        "3": "Practice",
+        "4": "Practice",
+        "5": "Practice",
+        "6": "Practice",
+        "7": "Rewrite"
+      },
+      "done": "Done",
+      "open": "Open",
+      "lock": {
+        "previous": "Finish the day before",
+        "tomorrow": "Opens tomorrow",
+        "weekClosed": "Week over"
+      },
+      "lockLong": {
+        "previous": "Finish the day before to open this one.",
+        "tomorrow": "You finished the day before today, so this one opens tomorrow. A little every day works better than a lot at once.",
+        "weekClosed": "This week is over. You can practice the prompt another week from its page."
+      },
+      "passed": "You passed this week! Practice the same prompt again, or pick the next one.",
+      "repeat": "Not passed this week. Another week on the same prompt will help.",
+      "again": "Another week",
+      "continue": "Continue today's practice",
+      "start": "Start Day 1",
+      "rule": "Pass rule",
+      "ruleLabel": "What passing this week means",
+      "ruleBeat": "Day 7 scores higher than Day 1 (default)",
+      "ruleTarget": "Day 7 scores at least {percent}",
+      "history": "Earlier weeks",
+      "week": "Week {week}: Day 1 {day1} → Day 7 {day7}",
+      "weekPassed": "passed",
+      "weekRepeat": "not passed",
+      "day1Score": "Day 1 score: {score} out of 100"
+    },
+    "essay": {
+      "noPeek": "Write your own version first. The model essay appears after you submit: trying first, then seeing a model, helps it stick.",
+      "noLookBack": "Write the same prompt again without looking at Day 1 or the model.",
+      "guest": "Signed out, you score your essay against the rubric yourself. Sign in for AI feedback.",
+      "signIn": "Sign in",
+      "label": "Your essay",
+      "placeholder": "Write in English…",
+      "words": "{count, plural, one {# word} other {# words}}",
+      "target": "target {min}–{max}",
+      "timer": "{time} so far (about {minutes} min)",
+      "saved": "Draft saved",
+      "submit": "Submit for AI feedback",
+      "submitting": "Reviewing…",
+      "submitSelf": "Submit and score it myself",
+      "selfInstead": "Score it myself with the rubric",
+      "nextDays": "From tomorrow: 10–15 minutes a day on this essay's weak spots.",
+      "toOverview": "Back to this week",
+      "errors": {
+        "signIn": "Sign in for AI feedback.",
+        "invalid": "This essay couldn't be sent. Reload the page.",
+        "paused": "AI feedback is paused. You can score it yourself for now.",
+        "suspended": "AI features are paused for your account.",
+        "limit": "Today's AI allowance is used up. Try tomorrow, or score it yourself.",
+        "busy": "Too many tries. Wait a moment and try again.",
+        "unavailable": "AI feedback isn't available right now. You can score it yourself.",
+        "failed": "The review didn't work. Please try again.",
+        "plan": "You've reached your plan's limit."
+      }
+    },
+    "feedback": {
+      "score": "Overall score",
+      "band": "Band {score}",
+      "outOf": "{score} / {max}",
+      "percent": "{percent} out of 100",
+      "estimate": "The AI's score is an estimate from the rubric, not an official result.",
+      "issues": "The {count} most important issues",
+      "noIssues": "No main issues found. Well done!",
+      "quoteLabel": "You wrote:",
+      "suggestion": "A fix:",
+      "strengths": "What you did well",
+      "more": "More suggestions ({count})",
+      "declined": {
+        "ghostwrite": "Not scored: WritingLoop doesn't write essays for you.",
+        "off-task": "Not scored: this doesn't seem to answer the prompt.",
+        "too-short": "Not scored: the essay is too short."
+      }
+    },
+    "criteria": {
+      "task": "Task",
+      "organization": "Organization",
+      "vocabulary": "Vocabulary",
+      "grammar": "Grammar",
+      "taskResponse": "Task Response",
+      "taskAchievement": "Task Achievement",
+      "coherence": "Coherence and Cohesion",
+      "lexical": "Lexical Resource",
+      "grammarRange": "Grammatical Range and Accuracy",
+      "development": "Development",
+      "languageUse": "Language use",
+      "accuracy": "Accuracy",
+      "content": "Content"
+    },
+    "errors": {
+      "grammar": "Grammar",
+      "verb": "Verbs and tenses",
+      "article": "Articles",
+      "preposition": "Prepositions",
+      "word-choice": "Word choice",
+      "spelling": "Spelling",
+      "punctuation": "Punctuation",
+      "sentence": "Sentence structure",
+      "cohesion": "Linking ideas",
+      "organization": "Organization",
+      "task": "Answering the task",
+      "tone": "Tone and register"
+    },
+    "self": {
+      "heading": "Score it yourself with the rubric",
+      "intro": "Compare your essay with the task and what the scoring looks at, score it honestly, and pick up to 3 things to work on. The next five days follow what you pick.",
+      "option": "{score} / {max}",
+      "weak": "What I most want to improve (up to {max})",
+      "submit": "Done",
+      "back": "Back to my essay",
+      "result": "Your own score",
+      "weakList": "To work on: {list}"
+    },
+    "model": {
+      "heading": "Model essay",
+      "intro": "Highlighted: patterns worth learning, numbered as below. The next five days practice them.",
+      "translation": "Show the Chinese translation",
+      "patterns": "Useful patterns"
+    },
+    "result": {
+      "heading": "This week's result",
+      "scores": "Day 1: {day1} → Day 7: {day7}",
+      "passed": "Passed!",
+      "notPassed": "Not passed this week.",
+      "ruleBeat": "(rule: Day 7 higher than Day 1)",
+      "ruleTarget": "(rule: Day 7 at least {percent})",
+      "criteria": "Each criterion",
+      "criterion": "Criterion",
+      "day1": "Day 1",
+      "day7": "Day 7",
+      "change": "Change",
+      "issues": "Day 1's three issues",
+      "better": "didn't come back",
+      "keepGoing": "keep working on it",
+      "shareHeading": "My 7-day English writing progress",
+      "again": "Another week on this prompt"
+    },
+    "drills": {
+      "intro": "{count, plural, one {# drill} other {# drills}} today, about 10–15 minutes.",
+      "because": "Chosen from your Day 1 weak spots: {list}.",
+      "today": "Today's drills",
+      "check": "Check",
+      "next": "Next",
+      "ok": "Nice, that's right!",
+      "answer": "Model answer:",
+      "progress": "Sentence {n} of {total}",
+      "problems": {
+        "empty": "Nothing written yet.",
+        "short": "Too short. Try a full sentence (6 words or more).",
+        "copied": "That's almost the example. Try your own content.",
+        "missingPattern": "The pattern isn't used yet. Try again.",
+        "notOneSentence": "Make it one sentence (one full stop).",
+        "lostMeaning": "Some of the original content is missing. Compare with the model answer.",
+        "same": "That's the same as the original. Try saying it another way.",
+        "differs": "Different from the suggested fix. Compare to see what changed."
+      },
+      "fix": {
+        "label": "Correct this sentence"
+      },
+      "pattern": {
+        "label": "Use this pattern in a sentence about yourself"
+      },
+      "combine": {
+        "label": "Combine these into one sentence"
+      },
+      "paraphrase": {
+        "label": "Say the same thing another way"
+      },
+      "reorder": {
+        "label": "Use the arrows to put the sentences back in order",
+        "up": "Move sentence {n} up",
+        "down": "Move sentence {n} down",
+        "wrong": "Not quite. The right order:"
+      },
+      "rebuild": {
+        "intro": "This model paragraph shows for {seconds} seconds, then hides. Write it from memory.",
+        "show": "Start reading",
+        "left": "{seconds} seconds left",
+        "ready": "I'm ready",
+        "label": "Write the paragraph from memory",
+        "result": "{percent}% of the words right"
+      },
+      "listen": {
+        "intro": "Listen to a video in ListenLoop (listening mode), then come back and write a summary or your response in English.",
+        "open": "Open listening mode (new tab)",
+        "label": "Your summary or response",
+        "words": "{count, plural, one {# word} other {# words}}",
+        "ok": "Good! 20 words or more makes a complete response.",
+        "short": "Write a little more: at least 20 words.",
+        "tips": "Check: did you give the main points? Did you use this week's patterns?"
+      },
+      "dayDone": "Today's drills are done! See you tomorrow.",
+      "toNotebook": "My writing notebook",
+      "kinds": {
+        "fix": {
+          "name": "Fix your sentences",
+          "intro": "These are sentences from your Day 1. Fix them yourself first, then see the suggestion."
+        },
+        "pattern": {
+          "name": "Pattern practice",
+          "intro": "Use a pattern from the model in a sentence of your own."
+        },
+        "combine": {
+          "name": "Sentence combining",
+          "intro": "Combine short sentences into one better sentence."
+        },
+        "paraphrase": {
+          "name": "Paraphrasing",
+          "intro": "Write the same meaning another way."
+        },
+        "reorder": {
+          "name": "Paragraph order",
+          "intro": "Put the shuffled sentences back in order; watch the linking words."
+        },
+        "rebuild": {
+          "name": "Rebuild from memory",
+          "intro": "Read for 30 seconds, then write it from memory and compare."
+        },
+        "listen": {
+          "name": "Listen, then write",
+          "intro": "Listen to a ListenLoop video, then write a summary or response."
+        }
+      }
+    },
+    "notebook": {
+      "title": "My writing notebook",
+      "intro": "Your mistakes and the patterns you learned come back after 1, 3, and 7 days. Write first, then see the answer: remembered moves on, not yet starts again from 1 day.",
+      "due": "To review today ({count})",
+      "noneDue": "Nothing to review today. Come back tomorrow.",
+      "empty": "Nothing here yet. Finish Day 1 of a prompt and its mistakes and patterns are added.",
+      "fixThis": "Correct this sentence",
+      "useThis": "Write a sentence with this pattern",
+      "yourTurn": "Your answer",
+      "show": "Show the answer",
+      "answer": "Answer:",
+      "remembered": "I remembered",
+      "forgot": "Not yet",
+      "all": "Everything ({count})",
+      "mistake": "Mistake",
+      "pattern": "Pattern",
+      "mastered": "Mastered",
+      "next": "Review on {date} (round {stage})"
+    }
+  },
+  "writingTasks": {
+    "heading": "Today's writing",
+    "empty": "No writing in progress. Pick a prompt below to start.",
+    "day": "Today: Day {day}",
+    "doneToday": "Done for today",
+    "start": "Start",
+    "open": "Open",
+    "notebook": "Writing notebook",
+    "reviews": "{count, plural, one {# review} other {# reviews}} due",
+    "review": "Review"
   }
 }

@@ -1,6 +1,7 @@
 import { ACCOUNT_KEY } from "../sync/sync";
 import { PROGRESS_KEY_PREFIX } from "./local-progress-store";
 import { ACTIVITY_KEY, WALLET_KEY } from "./local-reward-store";
+import { isWritingStorageKey } from "../writing/store";
 
 /**
  * Removes every piece of practice data from this browser (after deleting
@@ -16,6 +17,8 @@ export function clearPracticeData(storage: Storage): void {
       (key): key is string =>
         key !== null &&
         (key.startsWith(PROGRESS_KEY_PREFIX) ||
+          // WritingLoop's essays, notebook, and drafts (D187).
+          isWritingStorageKey(key) ||
           [ACTIVITY_KEY, WALLET_KEY, ACCOUNT_KEY].includes(key)),
     );
     for (const key of keys) storage.removeItem(key);
