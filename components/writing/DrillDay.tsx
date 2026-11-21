@@ -114,7 +114,9 @@ export function DrillDay({
   const drill = (() => {
     switch (kind) {
       case "fix":
-        return <FixDrill items={fixes} onDone={done} />;
+        return (
+          <FixDrill items={fixes} essay={day1?.essay ?? ""} onDone={done} />
+        );
       case "pattern":
         return <PatternDrill pattern={pick(prompt.patterns)} onDone={done} />;
       case "combine":

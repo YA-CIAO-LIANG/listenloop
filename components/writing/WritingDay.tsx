@@ -34,7 +34,10 @@ export function WritingDay({
     return (
       <div className="flex flex-col gap-3" role="status">
         <p>{t(`overview.lockLong.${lock}`)}</p>
-        <Link href={`/writing/${prompt.id}`} className="underline">
+        <Link
+          href={`/writing/${prompt.id}`}
+          className="tap inline-flex min-h-8 items-center underline pointer-coarse:min-h-11"
+        >
           {t("essay.toOverview")}
         </Link>
       </div>

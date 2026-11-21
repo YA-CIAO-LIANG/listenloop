@@ -113,3 +113,25 @@ describe("days 2–6 drills (D187)", () => {
     }
   });
 });
+
+describe("fixing a mistake in its sentence (D191)", () => {
+  it("shows the whole sentence and expects the suggestion in place", async () => {
+    const { fixInContext } = await import("@/lib/writing/drills");
+    const essay =
+      "I like parks. On Saturday he go to the park with me. It is fun.";
+    const c = fixInContext(essay, { quote: "he go", suggestion: "he goes" });
+    expect(c.sentence).toBe("On Saturday he go to the park with me.");
+    expect([c.before, c.quote, c.after]).toEqual([
+      "On Saturday ",
+      "he go",
+      " to the park with me.",
+    ]);
+    expect(c.fixed).toBe("On Saturday he goes to the park with me.");
+    expect(
+      checkFix(c.fixed, { quote: c.sentence, suggestion: c.fixed }).ok,
+    ).toBe(true);
+    expect(fixInContext("x", { quote: "zz", suggestion: "yy" }).quote).toBe(
+      "zz",
+    );
+  });
+});
