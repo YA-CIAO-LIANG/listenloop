@@ -1,3 +1,4 @@
+import { modelSentencesAligned } from "./back-translation";
 import { splitSentences } from "./drills";
 import { WRITING_LEVELS, WRITING_TYPES, type WritingPrompt } from "./types";
 
@@ -57,6 +58,11 @@ export function writingPromptProblems(value: unknown): string[] {
   need(
     zh.every((z) => typeof z === "string" && z.length > 0),
     "model zh",
+  );
+  // Each model sentence has its Chinese, for back-translation (D195).
+  need(
+    en.length === zh.length && modelSentencesAligned({ model: { en, zh } }),
+    "model: as many Chinese sentences as English in each paragraph",
   );
   if (p.words && en.length) {
     const count = en.join(" ").split(/\s+/).filter(Boolean).length;

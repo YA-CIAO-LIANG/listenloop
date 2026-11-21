@@ -65,5 +65,31 @@ for (const device of ["desktop", "iPhone 15", "Pixel 7"] as const) {
         page.locator('[aria-live="polite"]').filter({ hasText: /\d+ 字/ }),
       ).toBeInViewport();
     });
+
+    test("Day 2: the sound, the box, and Check together", async ({ page }) => {
+      await setToday(page, "2026-11-11");
+      await page.goto(`/writing/${PROMPT}/day/1`);
+      await page
+        .getByRole("textbox", { name: "你的文章" })
+        .fill("My perfect weekend would start slowly at home.");
+      await page.getByRole("button", { name: "送出並自己評分" }).click();
+      await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+      await setToday(page, "2026-11-12");
+      await page.goto(`/writing/${PROMPT}/day/2`);
+      const replay = page.getByRole("button", { name: "重播" });
+      const box = page.getByRole("textbox", { name: "聽到的英文句子" });
+      const check = page.getByRole("button", { name: "檢查" });
+      await expect(box).toBeVisible();
+      for (const element of [replay, box, check]) {
+        await expect(element).toBeInViewport();
+      }
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+      await box.click();
+      await box.fill("My perfect weekend");
+      await keyboardUp(page);
+      for (const element of [replay, box, check]) {
+        await expect(element).toBeInViewport();
+      }
+    });
   });
 }

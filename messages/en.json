@@ -747,6 +747,7 @@
         "paragraphs": [
           "In Writing (WritingLoop), your essays, drafts, AI feedback, and notebook stay in this browser when you're signed out; signed in, they're also kept in your account where only you can see them (the database lets only you read or write them). Admin pages show usage counts only, never what you wrote.",
           "For AI feedback, your essay is sent to an AI service (Azure OpenAI) to be scored; our server doesn't keep a copy. We never use your writing to train AI models, and under Azure OpenAI's terms what is sent isn't used for training either.",
+          "Back-translation audio: model sentences and your own corrected sentences are voiced by a speech service (Azure Speech) and kept in the shared speech cache, named by a hash of the sentence, with nothing about your account; only someone who knows the whole sentence can find it. Your own sentences are voiced only when you're signed in, counted against your daily speech allowance.",
           "How long: essays and feedback are kept until you delete them. Deleting your account deletes them; signed out, clearing the browser's data does."
         ]
       },
@@ -4063,12 +4064,12 @@
   },
   "writing": {
     "metaTitle": "Writing: a seven-day English writing loop",
-    "metaDescription": "One prompt for a week: write first on Day 1, practice your own weak spots for five days, and rewrite on Day 7 to see your progress.",
+    "metaDescription": "One prompt for a week: write first on Day 1, write back 5–8 sentences a day for five days, and rewrite on Day 7 to see your progress.",
     "title": "Writing",
     "intro": "One prompt for a week. Write your own version first, practice what you need most, then on Day 7 write it again without looking anything up and see how far you've come.",
     "steps": {
       "day1": "Day 1: write first; the model essay comes after",
-      "middle": "Days 2–6: 10–15 minutes a day on your weak spots",
+      "middle": "Days 2–6: write back 5–8 sentences a day, about 10 minutes",
       "day7": "Day 7: rewrite the same prompt and compare"
     },
     "status": {
@@ -4128,11 +4129,11 @@
       "dayN": "Day {day}",
       "dayName": {
         "1": "Write first",
-        "2": "Practice",
-        "3": "Practice",
-        "4": "Practice",
-        "5": "Practice",
-        "6": "Practice",
+        "2": "Back-translation",
+        "3": "Back-translation",
+        "4": "Back-translation",
+        "5": "Back-translation",
+        "6": "Back-translation",
         "7": "Rewrite"
       },
       "done": "Done",
@@ -4178,7 +4179,7 @@
       "submitting": "Reviewing…",
       "submitSelf": "Submit and score it myself",
       "selfInstead": "Score it myself with the rubric",
-      "nextDays": "From tomorrow: 10–15 minutes a day on this essay's weak spots.",
+      "nextDays": "From tomorrow: back-translation, 5–8 sentences a day, about 10 minutes, from your sentences and the model's key ones.",
       "toOverview": "Back to this week",
       "errors": {
         "signIn": "Sign in for AI feedback.",
@@ -4246,7 +4247,7 @@
     },
     "self": {
       "heading": "Score it yourself with the rubric",
-      "intro": "Compare your essay with the task and what the scoring looks at, score it honestly, and pick up to 3 things to work on. The next five days follow what you pick.",
+      "intro": "Compare your essay with the task and what the scoring looks at, score it honestly, and pick up to 3 things to work on. What you pick shows in your learning stats.",
       "option": "{score} / {max}",
       "weak": "What I most want to improve (up to {max})",
       "submit": "Done",
@@ -4374,8 +4375,18 @@
         "listen": {
           "name": "Listen, then write",
           "intro": "Listen to a ListenLoop video, then write a summary or response."
+        },
+        "back": {
+          "name": "Back-translation",
+          "intro": "Hear an English sentence (or read its Chinese) and write the English back, checked at once."
         }
-      }
+      },
+      "more": "More practice",
+      "moreIntro": "Want more? Pick one yourself. These are extra and don’t change today’s progress.",
+      "extraNote": "Extra practice: finishing it doesn’t change today’s progress.",
+      "backToDay": "Back to today’s practice",
+      "extraRight": "Well done, that’s right!",
+      "extraDone": "Done. Compare your answer with the model."
     },
     "notebook": {
       "title": "My writing notebook",
@@ -4402,6 +4413,45 @@
       "task": "Task",
       "answer": "Your answer",
       "taskAgain": "The task and what is scored"
+    },
+    "back": {
+      "count": "Sentence {n} of {total}",
+      "replay": "Replay",
+      "hint": "Play the English as a hint",
+      "loopOn": "Loop: on",
+      "loopOff": "Loop: off",
+      "check": "Check",
+      "next": "Next sentence",
+      "finish": "Finish today’s practice",
+      "right": "That’s right!",
+      "close": "Almost. See what’s different.",
+      "score": "({percent}%)",
+      "meaning": "Meaning",
+      "english": "The English",
+      "fromFix": "This is your Day 1 sentence, corrected.",
+      "noMeaning": "This sentence has no Chinese meaning, so write the English you hear.",
+      "rules": "Checked like listening dictation: case and punctuation don’t count, numbers count however they’re written; wrong or missing words are marked. Your first answer to each sentence counts.",
+      "changeMode": "Change the practice mode in writing settings",
+      "fromReview": "Today’s sentences: your corrected Day 1 sentences and the model’s key sentences.",
+      "fromModel": "Today’s sentences come from the model essay. With an AI review, your own corrected sentences are added.",
+      "dayResult": "Back-translation: {right} of {total} sentences right",
+      "modes": {
+        "listen-write": {
+          "name": "Hear English, write English",
+          "label": "The English sentence you heard",
+          "intro": "Listen and write the whole sentence. Replay or loop it as often as you like."
+        },
+        "read-zh": {
+          "name": "Read Chinese, write English",
+          "label": "The sentence in English",
+          "intro": "Read the meaning in Chinese and write the sentence in English. Play the English as a hint if you’re stuck."
+        },
+        "listen-zh": {
+          "name": "Hear English, write the meaning in Chinese",
+          "label": "The meaning in Chinese",
+          "intro": "Listen and write what it means in Chinese. The meaning matters, not the exact words; the model meaning shows after."
+        }
+      }
     }
   },
   "writingTasks": {
@@ -4470,7 +4520,7 @@
   },
   "writingReport": {
     "heading": "Writing",
-    "line": "{essays, plural, one {# essay} other {# essays}}, {drills, plural, one {# day} other {# days}} of practice",
+    "line": "{essays, plural, one {# essay} other {# essays}}, {drills, plural, one {# day} other {# days}} of back-translation",
     "improvement": "Prompts finished this week improved by {n} points on average"
   },
   "writingSettings": {
@@ -4484,6 +4534,21 @@
       "none": {
         "label": "Save only, no review",
         "hint": "Uses no allowance. Score it yourself against the rubric, and ask the AI later if you like."
+      }
+    },
+    "dictation": "Back-translation on days 2–6:",
+    "dictationModes": {
+      "listen-write": {
+        "label": "Hear English → write English (default)",
+        "hint": "Practises hearing every word, spelling, and sentence patterns."
+      },
+      "read-zh": {
+        "label": "Read Chinese → write English",
+        "hint": "Closest to real writing: from the meaning to the sentence. You can play the English as a hint."
+      },
+      "listen-zh": {
+        "label": "Hear English → write the meaning in Chinese",
+        "hint": "Practises understanding. The meaning counts; the model meaning is shown."
       }
     }
   }

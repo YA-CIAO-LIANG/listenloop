@@ -16,7 +16,9 @@ WritingLoop 是 ListenLoop 裡的 7 天英文寫作循環，目標使用者是�
 | 範文在送出後才解鎖                            | 預先測試／有效失敗               | 提取練習                     |
 | AI 回饋只標出前 3 個問題＋1～2 個優點         | 認知負荷、回饋研究（聚焦式回饋） | 刻意練習                     |
 | 較小的問題收在「更多建議」                    | 認知負荷                         | 回饋研究                     |
-| Day 2～6 只練 1～2 個自己的弱點               | 刻意練習                         | 認知負荷                     |
+| Day 2～6 每天聽寫回譯 5～8 句（D195）         | 提取練習、輸出假說               | 生成效應、分散練習           |
+| 聽寫回譯的句子：自己被改過的句子＋範文重點句  | 刻意練習、輸出假說（注意到落差） | 間隔重複                     |
+| 「更多練習」：7 種練習由學習者自己選          | 刻意練習                         | 自主性                       |
 | 改自己的錯句（先自己改，再看答案）            | 生成效應、提取練習               | 回饋研究                     |
 | 句型模仿、句子合併、改寫（paraphrase）        | 刻意練習、生成效應               | 寫作教學研究（句子合併）     |
 | 段落重組（連貫與轉折詞）                      | 生成效應                         | 刻意練習                     |
@@ -148,7 +150,8 @@ WritingLoop 是 ListenLoop 裡的 7 天英文寫作循環，目標使用者是�
 
 ### 在 WritingLoop 怎麼用
 
-- Day 2～6 只針對學習者**自己的** 1～2 個弱點（從 Day 1 的回饋找出來），而不是通用的文法題庫。
+- Day 2～6 的預設練習是「聽寫回譯」（D195），句子優先用學習者**自己**第 1 天被修正後的句子，而不是通用的文法題庫。
+- 原本依弱點自動安排的 7 種練習（D187）改成「更多練習」，由學習者自己選。2026-11-21 Joe 決定簡化：每天固定一種、10 分鐘的練習比較容易持續，也比較容易說明。
 - 每個練習都有明確目標（例如「這次練轉折詞」），並有立即回饋。
 - 句型模仿、句子合併、改寫、段落重組等練習，讓學習者在可控的範圍內反覆練同一種能力。Graham 與 Perin（2007）的寫作教學後設分析中，句子合併（sentence combining）對青少年的寫作品質有正面效果。
 
@@ -240,6 +243,35 @@ WritingLoop 是 ListenLoop 裡的 7 天英文寫作循環，目標使用者是�
 - Ferris, D. R. (2006). Does error feedback help student writers? New evidence on the short- and long-term effects of written error correction. In K. Hyland & F. Hyland (Eds.), _Feedback in second language writing: Contexts and issues_ (pp. 81–104). Cambridge University Press.
 - Bitchener, J., & Ferris, D. R. (2012). _Written corrective feedback in second language acquisition and writing_. Routledge.
 - Ellis, R., Sheen, Y., Murakami, M., & Takashima, H. (2008). The effects of focused and unfocused written corrective feedback in an English as a foreign language context. _System, 36_(3), 353–371. https://doi.org/10.1016/j.system.2008.02.001
+
+## 8. 聽寫回譯（D195）
+
+### 原理說明
+
+- **提取練習**（第 2 節）：聽到或看到意思後，自己把整句寫出來，是一種提取；寫完立刻比對，就是有回饋的提取。
+- **輸出假說**：Swain（1995）主張，要求學習者自己說出或寫出語言，會讓他們「注意到」自己想表達的和能表達的之間的落差，進而修正。把自己被修正過的句子重新寫一次，就是在練這個落差。
+- **翻譯與對比**：Laufer 與 Girsai（2008）比較了三種教法，發現以對比分析和翻譯（第一語言 ↔ 第二語言）為主的教法，學習者記住單字和搭配詞的效果比只讀文章、或只做第二語言練習好。「看中文寫英文」就是從第一語言的意思寫出第二語言。
+- **聽寫類練習**：dictogloss（Wajnryb, 1990）讓學習者聽一段文字後重建，用來把注意力放在文法形式上。WritingLoop 的版本比較簡單：一次一句、可以重播。
+
+### 在 WritingLoop 怎麼用
+
+- 每天 5～8 句、約 10 分鐘。有 AI 批改時，先用自己被修正後的句子（每天最多 3 句），再加上範文的重點句（範文好用句型的例句優先）；沒有批改時用範文的句子。
+- 三種方式：聽英文寫英文（預設，練聽清楚每個字與拼字）、看中文寫英文（最接近寫作）、聽英文寫中文意思（練理解）。
+- 比對沿用 ListenLoop 的聽寫規則（數字怎麼寫都算對、螢光筆標出寫錯的字），不呼叫 AI；每句以第一次送出的答案為準，避免猜到對為止。
+- 第 2～6 天依序換句子，一週下來會輪過整個句子庫；隔天才開放下一天，句子自然分散在不同天。
+
+### 限制與注意
+
+- 上述研究的形式和 WritingLoop 不完全相同：Laufer 與 Girsai 研究的是單字與搭配詞，不是整句寫作；dictogloss 原本是一段文字、分組重建。這裡借用的是原則。
+- 「聽英文寫中文意思」只用字元重疊做粗略比對（門檻 40%），同一個意思可以有很多種說法，所以一定會顯示參考意思，分數只當參考。
+- 範文以外、自己的句子沒有中文意思時（目前 AI 批改還沒有提供翻譯，見 D195），兩種中文模式會改成聽寫。
+- 沒有研究證實「每天 5～8 句」是最佳數量；這是依 10 分鐘與專注力做的實務選擇。
+
+### 參考文獻
+
+- Swain, M. (1995). Three functions of output in second language learning. In G. Cook & B. Seidlhofer (Eds.), _Principle and practice in applied linguistics_ (pp. 125–144). Oxford University Press.
+- Laufer, B., & Girsai, N. (2008). Form-focused instruction in second language vocabulary learning: A case for contrastive analysis and translation. _Applied Linguistics, 29_(4), 694–716. https://doi.org/10.1093/applin/amn018
+- Wajnryb, R. (1990). _Grammar dictation_. Oxford University Press.
 
 ## 不使用的神經迷思
 

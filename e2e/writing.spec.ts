@@ -83,45 +83,22 @@ async function writeEssay(
   }
 }
 
-/** Does whatever drill is showing until the day is done. */
+/** Writes back each of the day's sentences until the day is done (D195). */
 async function doDrills(page: Page) {
   const done = page.getByText("今天的練習完成了！明天再來。");
-  for (let step = 0; step < 12 && !(await done.isVisible()); step++) {
-    const title = page.locator("#drill-title");
-    await expect(title.or(done)).toBeVisible();
+  const box = page.getByRole("textbox", { name: "聽到的英文句子" });
+  for (let step = 0; step < 10; step++) {
+    await expect(box.or(done)).toBeVisible();
     if (await done.isVisible()) break;
-    const kind = (await title.textContent()) ?? "";
-    if (kind === "段落重組") {
-      await page.getByRole("button", { name: "檢查" }).click();
-    } else if (kind === "默寫重建") {
-      await page.getByRole("button", { name: "開始讀" }).click();
-      await page.getByRole("button", { name: "我準備好了" }).click();
-      await page
-        .getByRole("textbox", { name: "憑記憶寫出這段" })
-        .fill("We would talk about everything.");
-      await page.getByRole("button", { name: "檢查" }).click();
-    } else if (kind === "聽寫轉寫作") {
-      await expect(
-        page.getByRole("link", { name: "開啟聆聽模式（新分頁）" }),
-      ).toHaveAttribute("href", /\/videos\/sintel\/listen/);
-      await page
-        .getByRole("textbox", { name: "你的摘要或回應" })
-        .fill(
-          "The video is about a girl who looks for her lost dragon. She travels far and meets many people, and in the end she finds out something sad about it.",
-        );
-      await page.getByRole("button", { name: "檢查" }).click();
-    } else {
-      // Fix, pattern, combine, paraphrase: write, check at once.
-      const box = page.locator("textarea").first();
-      await box.fill(
-        "Not only is my bike fast, but it is also light after that because.",
-      );
-      await page.getByRole("button", { name: "檢查" }).click();
-      await expect(page.getByText(/參考答案：/)).toBeVisible();
-    }
-    await page.getByRole("button", { name: "下一步" }).click();
+    await box.fill("My perfect weekend would start slowly.");
+    await page.getByRole("button", { name: "檢查" }).click();
+    await expect(page.getByText(/寫對了|差一點/)).toBeVisible();
+    await page
+      .getByRole("button", { name: /^(下一句|完成今天的練習)$/ })
+      .click();
   }
   await expect(done).toBeVisible();
+  await expect(page.getByText(/聽寫回譯：\d+ 句中寫對 \d+ 句/)).toBeVisible();
 }
 
 async function wholeWeek(page: Page, role: Role, device: string) {
@@ -231,6 +208,9 @@ test("the library filters by kind, level, and minutes, and keeps a default", asy
   await page.getByRole("button", { name: "存為我的預設篩選" }).click();
   await page.goto("/writing");
   await expect(page).toHaveURL(/m=15/);
+  // The saved filter replaces the address; check once the page settles.
+  await expect(page).toHaveTitle(/寫作/);
+  await expect(page.getByText(/\d+ 個題目/)).toBeVisible();
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .analyze();
@@ -362,4 +342,67 @@ test("a week without scores is compared on words, length, and variety (D194)", a
   await expect(page.getByText(/3 項規則指標中有 \d 項進步/)).toBeVisible();
   await expect(page.getByRole("table", { name: "規則指標" })).toBeVisible();
   await expect(page.getByText("通過！")).toBeVisible();
+});
+
+/** Day 1 saved without scoring, then the clock on to Day 2. */
+async function toDay2(page: Page) {
+  await setToday(page, day(1));
+  await page.goto(`/writing/${PROMPT}/day/1`);
+  await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
+  await page
+    .getByRole("button", { name: /只儲存，不批改|送出並自己評分/ })
+    .first()
+    .click();
+  await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  await expect(page.getByRole("heading", { name: "範例文章" })).toBeVisible();
+  await setToday(page, day(2));
+  await page.goto(`/writing/${PROMPT}/day/2`);
+}
+
+test("back-translation in each mode, and more practice (D195)", async ({
+  page,
+}) => {
+  await signInWithEmail(page, "e2e-back", "back@example.com");
+  await toDay2(page);
+  // Hear English, write English: replay and loop above the box.
+  await expect(page.getByRole("button", { name: "重播" })).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "循環播放：關" }),
+  ).toBeVisible();
+  await expect(
+    page
+      .getByRole("region", { name: "聽到的英文句子" })
+      .getByText("第 1／6 句"),
+  ).toBeVisible();
+  const box = page.getByRole("textbox", { name: "聽到的英文句子" });
+  await box.fill("I would not do anything at all");
+  await box.press("Enter");
+  // Checked like dictation: the sentence, the mistakes marked.
+  await expect(page.getByText("差一點，看看哪裡不一樣。")).toBeVisible();
+  await expect(page.getByText("正確答案").first()).toBeVisible();
+
+  // Read Chinese, write English: the meaning shown, the English a hint.
+  await page.goto("/account#writing-settings");
+  await page.getByRole("radio", { name: /看中文 → 寫出英文/ }).check();
+  await page.goto(`/writing/${PROMPT}/day/2`);
+  await expect(
+    page.getByRole("button", { name: "播放英文提示" }),
+  ).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "這句的英文" })).toBeVisible();
+
+  // Hear English, write the meaning in Chinese: the model meaning after.
+  await page.goto("/account#writing-settings");
+  await page.getByRole("radio", { name: /聽英文 → 寫中文意思/ }).check();
+  await page.goto(`/writing/${PROMPT}/day/2`);
+  await page.getByRole("textbox", { name: "這句的中文意思" }).fill("週末");
+  await page.getByRole("button", { name: "檢查" }).click();
+  await expect(page.getByText("參考意思", { exact: true })).toBeVisible();
+
+  // More practice: any of the seven, not part of the day.
+  await page.getByRole("button", { name: "段落重組" }).click();
+  await expect(page.locator("#drill-title")).toHaveText("段落重組");
+  await page.getByRole("button", { name: "檢查" }).click();
+  await page.getByRole("button", { name: "下一步" }).click();
+  await page.getByRole("button", { name: "回到今天的練習" }).last().click();
+  await expect(page.getByRole("heading", { name: "更多練習" })).toBeVisible();
 });

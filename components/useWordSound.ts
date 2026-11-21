@@ -30,11 +30,14 @@ export function useWordSound(
     gapMs,
     lang = "en-US",
     audioUrl = wordAudioUrl,
+    autoplay = true,
   }: {
     loop: boolean;
     gapMs: number;
     lang?: string;
     audioUrl?: typeof wordAudioUrl;
+    /** Play once on arriving at each word (default); off: only on `play`. */
+    autoplay?: boolean;
   },
 ) {
   const audio = useRef<HTMLAudioElement | null>(null);
@@ -95,8 +98,8 @@ export function useWordSound(
   useEffect(() => {
     if (!ready || !word || played.current === word) return;
     played.current = word;
-    play();
-  }, [ready, word, play]);
+    if (autoplay) play();
+  }, [ready, word, play, autoplay]);
 
   // Nothing keeps playing after the word changes or the page goes.
   useEffect(
