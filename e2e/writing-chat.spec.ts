@@ -131,7 +131,7 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       await page.getByRole("radio", { name: "5 分鐘" }).check();
       await page.getByRole("button", { name: "開始聊天" }).click();
       await expect(
-        page.getByRole("alert").filter({ hasText: "聊天" }),
+        page.getByRole("alert").filter({ hasText: "分鐘聊天練習不夠" }),
       ).toContainText("分鐘聊天練習不夠這次的長度");
     });
 
