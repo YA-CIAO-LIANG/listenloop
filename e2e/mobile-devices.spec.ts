@@ -58,7 +58,7 @@ const ROLES: [string, ((page: Page) => Promise<void>) | null][] = [
   [
     "long email",
     (page) =>
-      signInWithEmail(page, "e2e-long", "51y102c1110834007abcdefg@gmail.com"),
+      signInWithEmail(page, "e2e-long", "learner1234567890abcdefg@example.com"),
   ],
 ];
 

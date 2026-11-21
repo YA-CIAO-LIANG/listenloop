@@ -25,7 +25,7 @@
 
 ## 進度報告（2026-11-14）：定價、價格測試、Vercel、留存、推薦好友、Google Play、AI 虛擬使用者測試
 
-> **⚠️ 提醒 Joe**：驗證 yaciaol2@illinois.edu 信箱，並申請 GitHub Student Developer Pack（https://education.github.com/pack），通過後重新開啟 listenloop 的分支保護。
+> ~~提醒 Joe：申請 GitHub Student Developer Pack 以重新開啟分支保護~~：2026-11-21 repo 改回公開，分支保護已重新開啟，不再需要（D186）。
 >
 > **⚠️ Actions 分鐘數**：這個月已經用了約 1,720／2,000 分鐘。我已經把 repo 變數 `CI_LITE` 設成 `on`（PR 的 CI 不跑 E2E，E2E 改在本機跑完才推送），**12 月 1 日請改回 `off`**（GitHub → Settings → Secrets and variables → Actions → Variables）。
 
@@ -180,7 +180,7 @@
 
 ## 進度報告（2026-11-13）：上線前衝刺
 
-> **⚠️ 提醒 Joe**：驗證 yaciaol2@illinois.edu 信箱，並申請 GitHub Student Developer Pack（https://education.github.com/pack），通過後重新開啟 listenloop 的分支保護（Settings → Branches → main：必須透過 PR、必須通過 `check`）。
+> ~~提醒 Joe：申請 GitHub Student Developer Pack~~：2026-11-21 repo 改回公開，分支保護已重新開啟（D186）。
 
 這次照順序做完全部 8 大項。每項都開 PR，本機五項檢查、E2E 和 CI 都通過才合併，共 13 個 PR。用了 4 個背景代理平行開發（SEO、主題、Word 行銷檔、AI 模擬使用者測試），每個代理在自己的 worktree、用自己的 E2E 埠號。**沒有呼叫任何付費 API**。
 
@@ -1463,7 +1463,7 @@ launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.listenloop.auto-cont
 
 ### 0000000. 2026-11-13 新增（上線前衝刺，D163～D172）
 
-1. **GitHub Student Developer Pack**：驗證 yaciaol2@illinois.edu，申請 https://education.github.com/pack；通過後重新開啟 main 的分支保護（必須通過 `check`）。
+1. **GitHub Student Developer Pack**：驗證學校信箱，申請 https://education.github.com/pack；通過後重新開啟 main 的分支保護（必須通過 `check`）。
 2. **GitHub Actions 預算**：Billing and plans → Budgets and alerts，Actions 設 US$0，開 75%、90% 提醒。
 3. **UptimeRobot**：`docs/uptime-monitoring.md`（Keyword 監控 `/api/health`、通知 Discord）。
 4. **考試類官方教材**：TOEFL、IELTS、TOEIC、全民英檢各補 2 份（約 US$0.10～0.15），同意後我執行。

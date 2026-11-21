@@ -3464,3 +3464,14 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **免費方案不在保本規則內**：免費使用者每週 2 分鐘（D143），全部用完時每人每月成本約 NT$16，要由付費用戶的利潤支付。
 - **測試**：`tests/price-floor.test.ts` 檢查每個方案、每個週期（含班級）的最壞情況都 ≥ NT$15，舊價格會被抓到；之後改價格、分鐘數或成本假設，測試會告訴你要不要跟著調。E2E 檢查價格實驗擋下低於保本價的價格、定價頁顯示新價格。
 - 要改時看哪裡：保本規則 `lib/payments/price-floor.ts`；價格 `lib/payments/pricing.ts` 的 `PLAN_MONTHLY`；成本假設 `lib/classroom.ts` 的 `CLASS_COST`；稅與手續費 `lib/forecast.ts`。
+
+## D186 repo 改回公開（2026-11-21，Joe：「把 listenloop repo 改回公開（最先做）」）
+
+- **公開前的檢查**：
+  - gitleaks 掃描完整歷史（503 個 commit）：0 筆。掃描目前的資料夾：15 筆都在沒有提交的 `.env.local` 與 `.next/`（`.gitignore` 的 `.env*` 涵蓋，歷史中只提交過 `.env.example`，裡面沒有金鑰）。
+  - commit 的作者信箱都是 GitHub 的 noreply 地址。
+  - 個資：文件裡的 Joe 學校信箱改成「學校信箱」；行動裝置 E2E 裡由 Joe 的 Gmail 改出來的長信箱改成 `@example.com` 假信箱。其餘測試信箱都是假的（example.com、虛構的學校帳號）。作品集截圖只有統計數字，沒有 Email 或文章內容。
+  - **限制**：上面兩個信箱留在舊的 commit 與 PR 紀錄裡（GitHub 的 PR ref 無法改寫，重寫歷史也清不掉），都是 Joe 自己的聯絡方式，不是使用者的資料；記在晨間報告。
+  - 備份 workflow：上傳前一律用 `BACKUP_PASSPHRASE` 加密，沒有密碼就停下（D157）；Actions 裡沒有備份產出物，只有 ZAP 報告（掃描結果，不含資料）。
+- **改回公開後恢復**（還原 D163 的暫時做法）：main 的分支保護（必須通過 `check`）、CodeQL（`.github/workflows/codeql.yml`）、合併到 main 時跑 CI、監控每 15 分鐘（`ops.yml`）、Dependabot 每週、repo 變數 `CI_LITE=off`；Secret scanning、Push protection、Dependabot alerts 用 API 開啟。UptimeRobot 與 Semgrep 保留。
+- 要改時看哪裡：`.github/workflows/`、`.github/dependabot.yml`、`docs/github-private.md`。
