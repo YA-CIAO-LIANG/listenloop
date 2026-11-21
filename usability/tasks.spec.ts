@@ -1111,3 +1111,125 @@ test("T20 price survey: after 30 s on the pricing page, answer or skip, and the 
     page.goto("/admin/price-experiments#survey"),
   );
 });
+
+// ------------------------------------------------------------- writing
+
+/** A middle-level essay with mistakes the fake reviewer finds (D187). */
+const WEAK_ESSAY =
+  "Nowadays many people think online learning is better. On the other hand he go to school every day and learn with friends. i think both have good points. Students can save time at home. But they may feel lonely and lose focus in a apple class.";
+
+/** Writes, sends, and lands on the result (AI feedback or self-scoring). */
+async function writeDayOne(page: Page, task: string, guest: boolean) {
+  // The paid stand-in account is shared by the three devices: after the
+  // first, Day 1 is already done, so its result is shown instead.
+  const start = page.getByRole("link", { name: "開始第 1 天" });
+  const fresh = (await start.count()) > 0;
+  await step(page, task, "3-day1-writing", async () => {
+    if (!fresh) {
+      await page.goto(`${new URL(page.url()).pathname}/day/1`);
+      return;
+    }
+    await start.click();
+    await page.getByRole("textbox", { name: "你的文章" }).fill(WEAK_ESSAY);
+  });
+  await step(page, task, "4-day1-result", async () => {
+    if (!fresh) return;
+    if (guest) {
+      await page.getByRole("button", { name: "送出並自己評分" }).click();
+      await page.getByRole("checkbox", { name: "連貫與轉折" }).check();
+      await page.getByRole("button", { name: "完成評分" }).click();
+      await expect(
+        page.getByRole("heading", { name: "你的自評分數" }),
+      ).toBeVisible();
+    } else {
+      await page.getByRole("button", { name: "送出，取得 AI 回饋" }).click();
+      await expect(
+        page.getByRole("heading", { name: "整體分數" }),
+      ).toBeVisible();
+    }
+  });
+}
+
+test("T21 paid: IELTS Task 2 — find it, write Day 1, AI feedback, the model, Day 2 drills (P11 IELTS 大學生)", async ({
+  page,
+}) => {
+  await signInAsPaid(page);
+  await setToday(page, "2026-11-16");
+  await step(page, "t21-ielts", "1-writing-home", async () => {
+    await page.goto("/writing");
+    await dismissNotices(page);
+    await page
+      .getByRole("group", { name: "題目類型" })
+      .getByRole("button", { name: "考試" })
+      .click();
+  });
+  await step(page, "t21-ielts", "2-prompt", () =>
+    page.getByRole("link", { name: /Repair or Replace/i }).click(),
+  );
+  await writeDayOne(page, "t21-ielts", false);
+  await step(page, "t21-ielts", "5-model", () =>
+    page.getByRole("heading", { name: "範例文章" }).scrollIntoViewIfNeeded(),
+  );
+  await setToday(page, "2026-11-17");
+  await step(page, "t21-ielts", "6-day2-drills", () =>
+    page.goto("/writing/ielts-task2-repair-or-replace/day/2"),
+  );
+  await step(page, "t21-ielts", "7-usage", () => page.goto("/account/usage"));
+});
+
+test("T22 free: an email to a professor — Day 1 with feedback, then the notebook (P12 留學生寫 Email)", async ({
+  page,
+}) => {
+  const device = test.info().project.name;
+  await signInWithEmail(
+    page,
+    `ux-writer-${device}`,
+    `ux-writer-${device}@example.com`,
+  );
+  await setToday(page, "2026-11-16");
+  await step(page, "t22-email", "1-writing-home", async () => {
+    await page.goto("/writing");
+    await dismissNotices(page);
+    await page
+      .getByRole("group", { name: "題目類型" })
+      .getByRole("button", { name: "留學生活" })
+      .click();
+  });
+  await step(page, "t22-email", "2-prompt", () =>
+    page.getByRole("link", { name: /Office Hours/i }).click(),
+  );
+  await writeDayOne(page, "t22-email", false);
+  await setToday(page, "2026-11-17");
+  await step(page, "t22-email", "5-home-tasks", () => page.goto("/"));
+  await step(page, "t22-email", "6-notebook", () =>
+    page.goto("/writing/notebook"),
+  );
+  await step(page, "t22-email", "7-pricing-writing", () =>
+    page.goto("/pricing"),
+  );
+});
+
+test("T23 guest: a GSAT composition on a phone — self-score, the week, minutes filter (P13 學測作文高三生)", async ({
+  page,
+}) => {
+  await setToday(page, "2026-11-16");
+  await step(page, "t23-gsat", "1-writing-home", async () => {
+    await page.goto("/writing");
+    await dismissNotices(page);
+    await page
+      .getByRole("group", { name: "題目類型" })
+      .getByRole("button", { name: "考試" })
+      .click();
+    await page
+      .getByRole("group", { name: "我今天有幾分鐘" })
+      .getByRole("button", { name: "30 分鐘內" })
+      .click();
+  });
+  await step(page, "t23-gsat", "2-prompt", () =>
+    page.getByRole("link", { name: /Rainy Bus Stop|Bus Stop/i }).click(),
+  );
+  await writeDayOne(page, "t23-gsat", true);
+  await step(page, "t23-gsat", "5-overview", () =>
+    page.getByRole("link", { name: "回到這一週" }).click(),
+  );
+});

@@ -8,6 +8,7 @@ import {
   checkFix,
   checkParaphrase,
   checkPattern,
+  fixInContext,
   REBUILD_PASS,
   REBUILD_SHOW_SECONDS,
   rebuildAccuracy,
@@ -23,6 +24,7 @@ import type {
 import { countWords } from "@/lib/writing/words";
 import { Button } from "../Button";
 import { Card } from "../Card";
+import { Mark } from "../Mark";
 
 /** A drill reports once: right on the first try or not. */
 export type DrillDone = (correct: boolean) => void;
@@ -40,8 +42,11 @@ function WriteAndCheck({
   answer,
   onDone,
   rows = 2,
+  initial = "",
 }: {
   id: string;
+  /** Text to start from (the learner's own sentence, to fix in place). */
+  initial?: string;
   label: string;
   check: (text: string) => DrillCheck;
   answer: ReactNode;
@@ -49,7 +54,7 @@ function WriteAndCheck({
   rows?: number;
 }) {
   const t = useTranslations("writing.drills");
-  const [text, setText] = useState("");
+  const [text, setText] = useState(initial);
   const [first, setFirst] = useState<boolean | null>(null);
   const [result, setResult] = useState<DrillCheck | null>(null);
   return (
@@ -112,9 +117,12 @@ const En = ({ children }: { children: ReactNode }) => (
 /** Fix your own sentences from Day 1: try first, then the correction. */
 export function FixDrill({
   items,
+  essay,
   onDone,
 }: {
   items: FeedbackIssue[];
+  /** The Day 1 essay, so each mistake shows in its sentence. */
+  essay: string;
   onDone: DrillDone;
 }) {
   const t = useTranslations("writing.drills");
@@ -122,22 +130,31 @@ export function FixDrill({
   const [score, setScore] = useState(0);
   const item = items[index];
   if (!item) return null;
+  const context = fixInContext(essay, item);
   return (
     <div className="flex flex-col gap-3">
       <p className="text-supporting text-ink-muted">
         {t("progress", { n: index + 1, total: items.length })}
       </p>
       <Card>
-        <p lang="en">{item.quote}</p>
+        <p lang="en">
+          {context.before}
+          <Mark kind="miss">{context.quote}</Mark>
+          {context.after}
+        </p>
       </Card>
       <WriteAndCheck
         key={index}
         id={`fix-${index}`}
         label={t("fix.label")}
-        check={(text) => checkFix(text, item)}
+        initial={context.sentence}
+        rows={3}
+        check={(text) =>
+          checkFix(text, { quote: context.sentence, suggestion: context.fixed })
+        }
         answer={
           <>
-            <En>{item.suggestion}</En> — {item.why}
+            <En>{context.fixed}</En> — {item.why}
           </>
         }
         onDone={(ok) => {

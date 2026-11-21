@@ -101,6 +101,50 @@ export function fixItems(feedback: WritingFeedback | undefined) {
     .slice(0, 3);
 }
 
+/**
+ * A mistake in its sentence (usability round 1, D191): the quote alone
+ * ("he go") is too little to fix, so the drill shows the learner's whole
+ * sentence with the quote marked, and the answer is that sentence with
+ * the suggestion in place. Without the sentence, the quote itself.
+ */
+export function fixInContext(
+  essay: string,
+  issue: { quote: string; suggestion: string },
+): {
+  before: string;
+  quote: string;
+  after: string;
+  sentence: string;
+  fixed: string;
+} {
+  const sentence =
+    essay
+      .split(/\n+/)
+      .flatMap(splitSentences)
+      .find((s) => s.toLowerCase().includes(issue.quote.toLowerCase())) ??
+    issue.quote;
+  const at = sentence.toLowerCase().indexOf(issue.quote.toLowerCase());
+  if (at === -1) {
+    return {
+      before: "",
+      quote: sentence,
+      after: "",
+      sentence,
+      fixed: issue.suggestion,
+    };
+  }
+  const before = sentence.slice(0, at);
+  const quote = sentence.slice(at, at + issue.quote.length);
+  const after = sentence.slice(at + issue.quote.length);
+  return {
+    before,
+    quote,
+    after,
+    sentence,
+    fixed: `${before}${issue.suggestion}${after}`,
+  };
+}
+
 /** Sentences of a paragraph, by end punctuation. */
 export function splitSentences(paragraph: string): string[] {
   return paragraph

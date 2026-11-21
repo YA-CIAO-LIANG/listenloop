@@ -4293,7 +4293,7 @@
         "differs": "Different from the suggested fix. Compare to see what changed."
       },
       "fix": {
-        "label": "Correct this sentence"
+        "label": "Fix the marked part and correct the whole sentence"
       },
       "pattern": {
         "label": "Use this pattern in a sentence about yourself"
@@ -4332,7 +4332,7 @@
       "kinds": {
         "fix": {
           "name": "Fix your sentences",
-          "intro": "These are sentences from your Day 1. Fix them yourself first, then see the suggestion."
+          "intro": "These are sentences from your Day 1, with the part to fix marked. Fix it yourself first, then see the suggestion."
         },
         "pattern": {
           "name": "Pattern practice",

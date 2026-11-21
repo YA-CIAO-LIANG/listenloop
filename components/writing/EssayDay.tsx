@@ -251,7 +251,10 @@ export function EssayDay({
         {day === 1 && (
           <Card className="flex flex-wrap items-center justify-between gap-3">
             <p>{t("essay.nextDays")}</p>
-            <Link href={`/writing/${prompt.id}`} className="underline">
+            <Link
+              href={`/writing/${prompt.id}`}
+              className="tap inline-flex min-h-8 items-center underline pointer-coarse:min-h-11"
+            >
               {t("essay.toOverview")}
             </Link>
           </Card>

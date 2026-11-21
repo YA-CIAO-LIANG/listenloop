@@ -41,7 +41,10 @@ export default async function WritingDayPage({
   return (
     <main className="mx-auto flex w-full max-w-content flex-1 flex-col gap-6 px-4 py-10 split:px-6">
       <nav className="text-supporting">
-        <Link href={`/writing/${prompt.id}`} className="underline">
+        <Link
+          href={`/writing/${prompt.id}`}
+          className="tap inline-flex min-h-8 items-center underline pointer-coarse:min-h-11"
+        >
           {title}
         </Link>
       </nav>
