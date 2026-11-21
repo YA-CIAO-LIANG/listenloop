@@ -747,6 +747,7 @@
         "paragraphs": [
           "In Writing (WritingLoop), your essays, drafts, AI feedback, notebook, and own prompts stay in this browser when you're signed out; signed in, they're also kept in your account where only you can see them (the database lets only you read or write them). Admin pages show usage counts only, never what you wrote.",
           "For AI feedback, your essay is sent to an AI service (Azure OpenAI) to be scored; our server doesn't keep a copy. We never use your writing to train AI models, and under Azure OpenAI's terms what is sent isn't used for training either.",
+          "Chat practice: each message is sent with the recent conversation to an AI service (Azure OpenAI) for the reply and tips; our server doesn't keep the conversation. It stays in this browser and your account, only for you, and you can delete it under Past chats. The server records only each chat's start time, length, and number of messages, for the weekly chat minutes. Reporting a reply sends only that AI reply and the situation to the admins, never your messages.",
           "Back-translation audio: model sentences and your own corrected sentences are voiced by a speech service (Azure Speech) and kept in the shared speech cache, named by a hash of the sentence, with nothing about your account; only someone who knows the whole sentence can find it. Your own sentences are voiced only when you're signed in, counted against your daily speech allowance.",
           "How long: essays and feedback are kept until you delete them. Deleting your account deletes them; signed out, clearing the browser's data does."
         ]
@@ -1493,6 +1494,7 @@
       "storageMegabytes": "Your recordings use all of your plan's {max, number} MB of storage. Delete recordings you don't need, or upgrade.",
       "revisesPerDay": "You've revised with an instruction {max} times today, your plan's limit; it resets at midnight (Taiwan time).",
       "writingReviewsPerWeek": "You’ve used this week’s {max} AI writing reviews. They reset on Monday at 00:00 Taiwan time.",
+      "chatMinutesPerWeek": "This week’s {max} chat minutes aren’t enough for that length. Choose a shorter chat, or wait for Monday at 00:00 Taiwan time.",
       "writingWords": "The essay is over your plan’s limit of {max, number} words."
     },
     "week": "The free plan makes {total} minutes of materials a week (up to {total} minutes each). Left this week: {minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}; resets {reset}.",
@@ -3215,7 +3217,8 @@
       "batchPdf": "Batch PDFs",
       "writing": "Writing practice (7-day loop, notebook)",
       "writingReviews": "AI writing reviews",
-      "writingWords": "Words per essay"
+      "writingWords": "Words per essay",
+      "chatMinutes": "Chat practice (AI conversation, quiet corrections)"
     },
     "yes": "✓",
     "no": "—",
@@ -3246,7 +3249,8 @@
     "uploadSize": "✓ ({mb} MB a file)",
     "popular": "Most popular",
     "timesPerWeek": "{n} a week",
-    "words": "{n} words"
+    "words": "{n} words",
+    "minutesPerWeek": "{n} minutes a week"
   },
   "classroom": {
     "title": "My classes",
@@ -3875,7 +3879,8 @@
       "revisesPerDay": "Revisions with an instruction today",
       "storageMegabytes": "Storage for recordings",
       "dailyAi": "AI use today",
-      "writingReviewsPerWeek": "AI writing reviews this week"
+      "writingReviewsPerWeek": "AI writing reviews this week",
+      "chatMinutesPerWeek": "Chat practice this week"
     },
     "units": {
       "minutes": "{n} min",
@@ -4405,7 +4410,9 @@
       "mistake": "Mistake",
       "pattern": "Pattern",
       "mastered": "Mastered",
-      "next": "Review on {date} (round {stage})"
+      "next": "Review on {date} (round {stage})",
+      "fromChinese": "Write it in English",
+      "chat": "Chat"
     },
     "workspace": {
       "more": "Show task",
@@ -4588,6 +4595,144 @@
         "hint": "Anything you like; 50–400 words.",
         "task": "Write about anything you like, in your own words."
       }
+    }
+  },
+  "writingChat": {
+    "title": "Chat practice",
+    "intro": "Text with an AI partner in English. They reply as usual; your mistakes show only as a small mark under your message, opened when you want, so the chat isn't interrupted. Afterwards, your three main mistakes and three natural phrases.",
+    "signIn": "Chat practice needs an account: each message uses AI, counted against your allowance.",
+    "signInButton": "Sign in",
+    "setup": {
+      "minutes": "How long",
+      "minutesN": "{n} minutes",
+      "scenario": "Situation and partner",
+      "custom": "Describe your situation (English or Chinese, up to 200 characters)",
+      "level": "Your partner's level",
+      "teen": "I'm under 18 (age-appropriate rules)",
+      "rules": "The AI won't role-play romance, sex, violence, or anything illegal. The conversation stays on your device and in your account, only for you, and you can delete it any time.",
+      "start": "Start chatting",
+      "starting": "Getting ready…"
+    },
+    "levels": {
+      "beginner": "Beginner: simple words, short sentences",
+      "intermediate": "Intermediate: natural everyday English",
+      "advanced": "Advanced: idioms and natural phrasing"
+    },
+    "scenarios": {
+      "classmate": {
+        "name": "Classmate",
+        "hint": "Classes, group projects, campus life",
+        "partner": "Alex",
+        "opening": "Hey! How's your week going so far?"
+      },
+      "professor": {
+        "name": "Professor",
+        "hint": "The course, assignments, office hours; a bit formal",
+        "partner": "Dr. Chen",
+        "opening": "Hello. Thanks for your message. How can I help you with the course?"
+      },
+      "coworker": {
+        "name": "Coworker",
+        "hint": "Work, meetings, plans after work",
+        "partner": "Sam",
+        "opening": "Hi! Do you have a minute? How's your project going?"
+      },
+      "barista": {
+        "name": "Barista",
+        "hint": "Ordering and small talk",
+        "partner": "Mia",
+        "opening": "Hi there! What can I get for you today?"
+      },
+      "roommate": {
+        "name": "Roommate",
+        "hint": "Chores, groceries, bills, weekend plans",
+        "partner": "Jordan",
+        "opening": "Hey, are you home tonight? We need to talk about groceries."
+      },
+      "online-friend": {
+        "name": "Online friend",
+        "hint": "Hobbies, music, food, daily life",
+        "partner": "Kai",
+        "opening": "Hi! Nice to meet you. What do you usually do for fun?"
+      },
+      "interviewer": {
+        "name": "Job interviewer",
+        "hint": "Common interview questions, one at a time",
+        "partner": "Ms. Rivera",
+        "opening": "Good morning, and thank you for coming in. Could you tell me a little about yourself?"
+      },
+      "custom": {
+        "name": "Your own situation",
+        "hint": "Describe the situation you want",
+        "partner": "Taylor",
+        "opening": "Hi! I'm ready when you are. What would you like to talk about?"
+      }
+    },
+    "room": {
+      "messages": "Conversation",
+      "me": "Me",
+      "typing": "{partner} is typing…",
+      "label": "Message {partner}",
+      "placeholder": "Reply in English… (Enter to send)",
+      "send": "Send",
+      "end": "End early",
+      "timeLeft": "{time} left",
+      "tip": "Tip",
+      "fixed": "Corrected",
+      "why": "Why",
+      "natural": "More natural",
+      "report": "Report this reply",
+      "reported": "Reported",
+      "dictionary": "Dictionary"
+    },
+    "report": {
+      "title": "Report this reply",
+      "note": "Only this AI reply and the situation are sent, never your messages. Admins review it.",
+      "reason": "Reason (optional)",
+      "send": "Send report"
+    },
+    "safety": {
+      "reply": "Thank you for telling me. Let's pause the practice. You're not alone: please talk to someone you trust now, or call one of the lines below.",
+      "title": "Let's pause the practice",
+      "body": "What you said matters. If you're struggling or thinking of hurting yourself, please reach out to someone you trust now, or call one of these free, confidential lines:",
+      "lines": {
+        "tw-1925": "Taiwan 1925 Mental Health Line (24 hours)",
+        "tw-1995": "Taiwan 1995 Lifeline",
+        "us-988": "US 988 Suicide & Crisis Lifeline"
+      },
+      "leave": "End the practice",
+      "filtered": "If you are struggling or thinking of hurting yourself, please talk to someone you trust, or call:"
+    },
+    "errors": {
+      "signIn": "Please sign in first.",
+      "invalid": "This chat can't start; please choose again.",
+      "paused": "AI features are paused; please try later.",
+      "suspended": "Your account can't use AI features for now.",
+      "plan": "This week's chat minutes are used up.",
+      "busy": "It's busy right now; wait a moment and send again.",
+      "unavailable": "Chat practice isn't available right now.",
+      "ended": "Time's up: this chat has ended.",
+      "tooMany": "This chat has reached its message limit.",
+      "limit": "Today's AI use is used up; come back tomorrow.",
+      "filtered": "The safety filter stopped this message; try saying it another way or another topic.",
+      "failed": "No reply came; please send again."
+    },
+    "summary": {
+      "heading": "Your chat summary",
+      "mistakes": "Your 3 main mistakes",
+      "noMistakes": "Nothing to correct this time. Well done!",
+      "phrases": "3 natural phrases",
+      "noPhrases": "No new phrases this time.",
+      "notebook": "Mistakes and phrases are in your writing notebook; they come back in today's tasks after 1, 3, and 7 days (read the Chinese, write the English).",
+      "review": "The whole conversation",
+      "again": "Chat again"
+    },
+    "history": {
+      "heading": "Past chats",
+      "private": "Only you can see them. Deleting one deletes it on your other devices when they sync.",
+      "open": "Read again",
+      "delete": "Delete",
+      "deleteConfirm": "Delete this chat?"
     }
   }
 }

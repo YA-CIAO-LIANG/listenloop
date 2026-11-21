@@ -747,6 +747,7 @@
         "paragraphs": [
           "寫作練習（WritingLoop）的文章、草稿、AI 回饋、錯誤本和自訂題目，沒有登入時只存在這個瀏覽器；登入時也存在你的帳號裡，只有你自己看得到（資料庫的存取規則只允許本人讀寫）。管理員後台只看得到使用次數等統計，看不到文章內容。",
           "要取得 AI 回饋時，你的文章會傳給 AI 服務（Azure OpenAI）評分，伺服器不另外保存文章。我們不會拿你的文章訓練 AI 模型；依 Azure OpenAI 的條款，送出的內容也不會被用來訓練模型。",
+          "聊天練習：每則訊息會連同最近的對話一起傳給 AI 服務（Azure OpenAI）產生回覆和建議，伺服器不保存對話內容；對話只存在這個瀏覽器和你的帳號裡，只有你看得到，可以在「過去的對話」刪除。伺服器只記錄每次聊天的開始時間、長度和訊息數，用來計算每週的聊天分鐘數。檢舉一則回覆時，只會把那則 AI 回覆和情境送給管理員，不包含你寫的訊息。",
           "聽寫回譯的語音：範文句子和你自己被修正後的句子，會用語音服務（Azure Speech）產生音檔，存在共用的語音快取裡，檔名是句子內容的雜湊值，不含帳號資料；只有知道整句內容的人才找得到。自己的句子只有登入後才會產生，算在你每天的聲音額度裡。",
           "保存期限：文章和回饋保存到你刪除為止。刪除帳號時會一起刪除；沒有登入時，清除瀏覽器資料就會刪除。"
         ]
@@ -1493,6 +1494,7 @@
       "storageMegabytes": "你的錄音已經用掉方案的 {max, number} MB 儲存空間。刪除不需要的錄音教材，或升級方案。",
       "revisesPerDay": "今天已經用指令修改 {max} 次，達到方案上限，明天（台灣時間 0 點）重設。",
       "writingReviewsPerWeek": "本週的 {max} 次 AI 寫作批改已經用完，每週一 00:00（台灣時間）重設。",
+      "chatMinutesPerWeek": "這週的 {max} 分鐘聊天練習不夠這次的長度。可以選短一點，或等每週一 00:00（台灣時間）重設。",
       "writingWords": "文章超過方案上限，每篇最多 {max, number} 個字。"
     },
     "week": "免費方案每週可以建立 {total} 分鐘的教材（單份最長 {total} 分鐘）。本週還剩 {minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}，{reset} 重設。",
@@ -3213,7 +3215,8 @@
       "batchPdf": "批次 PDF",
       "writing": "寫作練習（7 天循環、錯誤本）",
       "writingReviews": "AI 寫作批改",
-      "writingWords": "每篇寫作的字數"
+      "writingWords": "每篇寫作的字數",
+      "chatMinutes": "聊天練習（AI 對話＋即時糾正）"
     },
     "yes": "✓",
     "no": "—",
@@ -3244,7 +3247,8 @@
     "uploadSize": "✓（每檔 {mb} MB）",
     "popular": "最受歡迎",
     "timesPerWeek": "每週 {n} 次",
-    "words": "{n} 字"
+    "words": "{n} 字",
+    "minutesPerWeek": "每週 {n} 分鐘"
   },
   "classroom": {
     "title": "我的班級",
@@ -3873,7 +3877,8 @@
       "revisesPerDay": "今天用指令修改的次數",
       "storageMegabytes": "錄音的儲存空間",
       "dailyAi": "今天的 AI 用量",
-      "writingReviewsPerWeek": "本週的 AI 寫作批改"
+      "writingReviewsPerWeek": "本週的 AI 寫作批改",
+      "chatMinutesPerWeek": "本週的聊天練習"
     },
     "units": {
       "minutes": "{n} 分鐘",
@@ -4403,7 +4408,9 @@
       "mistake": "錯誤",
       "pattern": "句型",
       "mastered": "已掌握",
-      "next": "{date} 複習（第 {stage} 次）"
+      "next": "{date} 複習（第 {stage} 次）",
+      "fromChinese": "看中文，寫出英文",
+      "chat": "聊天"
     },
     "workspace": {
       "more": "展開題目",
@@ -4586,6 +4593,144 @@
         "hint": "想寫什麼都可以，建議 50～400 字。",
         "task": "想寫什麼都可以，用自己的話寫。"
       }
+    }
+  },
+  "writingChat": {
+    "title": "聊天練習",
+    "intro": "像傳訊息一樣和 AI 用英文聊天。對方照常回覆；你寫錯的地方只會在訊息下方出現小提示，點開才看得到，不會打斷對話。結束後整理最重要的 3 個錯誤和 3 個自然說法。",
+    "signIn": "聊天練習要登入才能使用，因為每則訊息都會用到 AI，要算在你的額度裡。",
+    "signInButton": "登入",
+    "setup": {
+      "minutes": "練習多久",
+      "minutesN": "{n} 分鐘",
+      "scenario": "情境與對象",
+      "custom": "描述你的情境（英文或中文，最多 200 字）",
+      "level": "對方說話的難度",
+      "teen": "我未滿 18 歲（套用適齡規則）",
+      "rules": "AI 不會進行戀愛、性、暴力或違法的角色扮演。對話只存在你的裝置和帳號裡，只有你看得到，可以隨時刪除。",
+      "start": "開始聊天",
+      "starting": "準備中…"
+    },
+    "levels": {
+      "beginner": "初級：簡單的字、短句",
+      "intermediate": "中級：日常自然的英文",
+      "advanced": "進階：道地說法與慣用語"
+    },
+    "scenarios": {
+      "classmate": {
+        "name": "同學",
+        "hint": "聊課程、分組報告、校園生活",
+        "partner": "Alex",
+        "opening": "Hey! How's your week going so far?"
+      },
+      "professor": {
+        "name": "教授",
+        "hint": "問課程、作業、office hours，稍微正式",
+        "partner": "Dr. Chen",
+        "opening": "Hello. Thanks for your message. How can I help you with the course?"
+      },
+      "coworker": {
+        "name": "同事",
+        "hint": "聊工作、會議、下班計畫",
+        "partner": "Sam",
+        "opening": "Hi! Do you have a minute? How's your project going?"
+      },
+      "barista": {
+        "name": "咖啡店店員",
+        "hint": "點餐和閒聊",
+        "partner": "Mia",
+        "opening": "Hi there! What can I get for you today?"
+      },
+      "roommate": {
+        "name": "室友",
+        "hint": "家事、採買、帳單、週末計畫",
+        "partner": "Jordan",
+        "opening": "Hey, are you home tonight? We need to talk about groceries."
+      },
+      "online-friend": {
+        "name": "網友閒聊",
+        "hint": "興趣、音樂、食物、日常",
+        "partner": "Kai",
+        "opening": "Hi! Nice to meet you. What do you usually do for fun?"
+      },
+      "interviewer": {
+        "name": "面試官",
+        "hint": "常見面試問題，一次一題",
+        "partner": "Ms. Rivera",
+        "opening": "Good morning, and thank you for coming in. Could you tell me a little about yourself?"
+      },
+      "custom": {
+        "name": "自訂情境",
+        "hint": "寫下你想練的情境",
+        "partner": "Taylor",
+        "opening": "Hi! I'm ready when you are. What would you like to talk about?"
+      }
+    },
+    "room": {
+      "messages": "對話",
+      "me": "我",
+      "typing": "{partner} 正在輸入…",
+      "label": "傳訊息給 {partner}",
+      "placeholder": "用英文回覆…（Enter 送出）",
+      "send": "送出",
+      "end": "提早結束",
+      "timeLeft": "剩下 {time}",
+      "tip": "有建議",
+      "fixed": "修正",
+      "why": "原因",
+      "natural": "更自然的說法",
+      "report": "檢舉這則回覆",
+      "reported": "已檢舉",
+      "dictionary": "查字典"
+    },
+    "report": {
+      "title": "檢舉這則回覆",
+      "note": "只會送出這則 AI 回覆和情境，不會送出你寫的訊息。管理員會在後台查看。",
+      "reason": "原因（可以不填）",
+      "send": "送出檢舉"
+    },
+    "safety": {
+      "reply": "謝謝你願意說出來，我們先暫停練習。你不是一個人，現在就找一位你信任的人聊聊，或打電話給下面的專線，他們會陪你。",
+      "title": "我們先暫停練習",
+      "body": "你提到的事很重要。如果你正在難過或有傷害自己的念頭，請現在就找信任的人，或撥打以下專線（免費、保密）：",
+      "lines": {
+        "tw-1925": "台灣 1925 安心專線（24 小時）",
+        "tw-1995": "台灣 1995 生命線",
+        "us-988": "美國 988 自殺與危機專線"
+      },
+      "leave": "結束練習",
+      "filtered": "如果你正在難過，或有傷害自己的念頭，請找信任的人聊聊，或撥打："
+    },
+    "errors": {
+      "signIn": "請先登入。",
+      "invalid": "這個設定無法開始，請重新選擇。",
+      "paused": "AI 功能暫停中，請稍後再試。",
+      "suspended": "你的帳號暫時不能使用 AI 功能。",
+      "plan": "這週的聊天分鐘數已經用完。",
+      "busy": "現在使用的人比較多，請稍等再送一次。",
+      "unavailable": "聊天練習現在無法使用。",
+      "ended": "時間到了，這次聊天已經結束。",
+      "tooMany": "這次聊天的訊息數到上限了。",
+      "limit": "今天的 AI 用量已經用完，明天再來。",
+      "filtered": "這則訊息被安全過濾擋下了，換個說法或話題試試。",
+      "failed": "對方沒有回覆，請再送一次。"
+    },
+    "summary": {
+      "heading": "這次聊天的整理",
+      "mistakes": "最重要的 3 個錯誤",
+      "noMistakes": "這次沒有需要修正的地方，很棒！",
+      "phrases": "學到的 3 個自然說法",
+      "noPhrases": "這次沒有整理出新的說法。",
+      "notebook": "錯誤和說法已加入寫作錯誤本，會在 1、3、7 天後出現在今天的任務（看中文、寫出英文）。",
+      "review": "整段對話",
+      "again": "再聊一次"
+    },
+    "history": {
+      "heading": "過去的對話",
+      "private": "只有你看得到。刪除後，其他裝置同步時也會刪除。",
+      "open": "回顧",
+      "delete": "刪除",
+      "deleteConfirm": "確定要刪除這段對話嗎？"
     }
   }
 }

@@ -19,14 +19,17 @@ import type { Notebook } from "@/lib/writing/notebook";
 import type { WritingProgress } from "@/lib/writing/progress";
 import type { WritingSettings } from "@/lib/writing/settings";
 import { mergeCustomPrompts, type CustomPrompt } from "@/lib/writing/custom";
+import { mergeChats, type ChatRecord } from "@/lib/writing/chat/history";
 import {
   isWritingStorageKey,
   listLocalProgress,
   loadLocalNotebook,
+  loadLocalChats,
   loadLocalCustom,
   loadLocalProgress,
   loadLocalSettings,
   saveLocalNotebook,
+  saveLocalChats,
   saveLocalCustom,
   saveLocalProgress,
   saveLocalSettings,
@@ -50,6 +53,8 @@ type WritingData = {
   saveSettings(settings: Omit<WritingSettings, "at">): void;
   /** Adds or changes one of the learner's own prompts (D196). */
   saveCustom(prompt: CustomPrompt): void;
+  /** Adds or changes one chat (D197). */
+  saveChat(chat: ChatRecord): void;
 };
 
 const WritingContext = createContext<WritingData>({
@@ -59,6 +64,7 @@ const WritingContext = createContext<WritingData>({
   saveNotebook: () => {},
   saveSettings: () => {},
   saveCustom: () => {},
+  saveChat: () => {},
 });
 
 /** The account the device's data last belonged to (lib/sync/sync.ts). */
@@ -149,6 +155,18 @@ export function WritingProvider({
     [cloud],
   );
 
+  const saveChat = useCallback(
+    (chat: ChatRecord) => {
+      const all = mergeChats(loadLocalChats(window.localStorage), [
+        { ...chat, updatedAt: new Date().toISOString() },
+      ]);
+      saveLocalChats(window.localStorage, all);
+      setVersion((v) => v + 1);
+      void cloud?.saveChats(all).catch((e: unknown) => console.warn(e));
+    },
+    [cloud],
+  );
+
   const value = useMemo(
     () => ({
       cloud,
@@ -157,8 +175,17 @@ export function WritingProvider({
       saveNotebook,
       saveSettings,
       saveCustom,
+      saveChat,
     }),
-    [cloud, version, saveProgress, saveNotebook, saveSettings, saveCustom],
+    [
+      cloud,
+      version,
+      saveProgress,
+      saveNotebook,
+      saveSettings,
+      saveCustom,
+      saveChat,
+    ],
   );
   return <WritingContext value={value}>{children}</WritingContext>;
 }
@@ -230,6 +257,20 @@ export function useCustomPrompts(): CustomPrompt[] | undefined {
     () =>
       mounted
         ? loadLocalCustom(window.localStorage).filter((p) => !p.deleted)
+        : undefined,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [mounted, version],
+  );
+}
+
+/** Past chats, newest first, without deleted ones (D197). */
+export function useChats(): ChatRecord[] | undefined {
+  const { version } = useWritingData();
+  const mounted = useMounted();
+  return useMemo(
+    () =>
+      mounted
+        ? loadLocalChats(window.localStorage).filter((c) => !c.deleted)
         : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [mounted, version],

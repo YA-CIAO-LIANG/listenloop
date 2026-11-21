@@ -23,7 +23,8 @@ export type LanguageOperation =
   | "revise"
   | "news"
   | "audit"
-  | "writing";
+  | "writing"
+  | "chat";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -146,5 +147,25 @@ export function writingBudget(input: {
     operation: "writing",
     inputChars: input.essay.length + input.task.length,
     maxOutputTokens: 3_000,
+  };
+}
+
+/**
+ * One chat turn (D197): the conversation so far and the new message in;
+ * a short reply, one correction, a phrase, and a few glossary words out,
+ * plus the model's reasoning.
+ */
+export function chatBudget(input: {
+  history: { text: string }[];
+  message: string;
+  custom?: string;
+}): LanguageBudget {
+  return {
+    operation: "chat",
+    inputChars:
+      input.history.reduce((sum, m) => sum + m.text.length, 0) +
+      input.message.length +
+      (input.custom?.length ?? 0),
+    maxOutputTokens: 1_500,
   };
 }

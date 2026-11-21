@@ -11,7 +11,7 @@ const MIN_HEIGHT_PX = 160;
  * viewport's bottom (above a phone's keyboard, D193) minus the element's
  * top. Recomputed on scroll, resize, and keyboard changes.
  */
-function useFitToViewport(ref: React.RefObject<HTMLElement | null>) {
+export function useFitToViewport(ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;

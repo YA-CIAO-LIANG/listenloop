@@ -52,6 +52,9 @@ const tables: Record<string, Row[]> = {
   price_experiments: [],
   price_overrides: [],
   price_survey_responses: [],
+  // Chat practice sessions (D197) and reported chat replies (feedback).
+  writing_chat_sessions: [],
+  feedback: [],
   // Day 7 surveys (D164): two answers for the admin pages; new ones add.
   week_surveys: [
     {
@@ -115,6 +118,8 @@ const conflictKeys: Record<string, string[]> = {
   price_experiments: ["id"],
   price_overrides: ["plan"],
   price_survey_responses: ["user_id", "visitor_id"],
+  writing_chat_sessions: ["id"],
+  feedback: ["id"],
 };
 // e2e-paid is on the paid plan from the start (paid features, D97).
 const plans = new Map<string, string>([["e2e-paid", "paid"]]);
@@ -172,6 +177,15 @@ async function paymentTable(
     const row = {
       id: crypto.randomUUID(),
       created_at: new Date().toISOString(),
+      // The chat session table's defaults (D197).
+      ...(name === "writing_chat_sessions"
+        ? {
+            started_at: new Date().toISOString(),
+            messages: 0,
+            used_minutes: null,
+            ended_at: null,
+          }
+        : {}),
       ...incoming,
     };
     rows.push(row);
@@ -782,7 +796,7 @@ createServer(async (request, response) => {
     return;
   }
   const table =
-    /^\/rest\/v1\/(subscriptions|payments|payment_events|content_fixes|week_surveys|price_experiments|price_overrides|price_survey_responses)$/.exec(
+    /^\/rest\/v1\/(subscriptions|payments|payment_events|content_fixes|week_surveys|price_experiments|price_overrides|price_survey_responses|writing_chat_sessions|feedback)$/.exec(
       url.pathname,
     );
   if (table) {

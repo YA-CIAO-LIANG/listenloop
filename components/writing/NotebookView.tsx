@@ -58,9 +58,16 @@ export function NotebookView() {
         ) : (
           <Card className="flex flex-col gap-3">
             <p className="text-supporting text-ink-muted">
-              {current.kind === "error" ? t("fixThis") : t("useThis")}
+              {current.kind === "error"
+                ? t("fixThis")
+                : current.kind === "chat"
+                  ? t("fromChinese")
+                  : t("useThis")}
             </p>
-            <p lang="en" className="font-medium">
+            <p
+              lang={current.kind === "chat" ? "zh-Hant" : "en"}
+              className="font-medium"
+            >
               {current.text}
             </p>
             {current.kind === "pattern" && (
@@ -95,7 +102,7 @@ export function NotebookView() {
                     {current.answer}
                   </span>
                 </p>
-                {current.kind === "error" && current.note && (
+                {current.kind !== "pattern" && current.note && (
                   <p className="text-supporting">{current.note}</p>
                 )}
                 <div className="flex flex-wrap gap-3">
@@ -136,9 +143,13 @@ export function NotebookView() {
                       ? entry.type
                         ? tw(`errors.${entry.type}`)
                         : t("mistake")
-                      : t("pattern")}
+                      : entry.kind === "chat"
+                        ? t("chat")
+                        : t("pattern")}
                   </span>
-                  <span lang="en">{entry.text}</span>
+                  <span lang="en">
+                    {entry.kind === "chat" ? entry.answer : entry.text}
+                  </span>
                 </span>
                 <span className="text-ink-muted tabular-nums">
                   {isMastered(entry)

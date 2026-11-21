@@ -9,7 +9,11 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   resolve: { tsconfigPaths: true },
   test: {
-    include: ["scripts/eval.eval.ts", "scripts/writing-eval.eval.ts"],
+    include: [
+      "scripts/eval.eval.ts",
+      "scripts/writing-eval.eval.ts",
+      "scripts/chat-eval.eval.ts",
+    ],
     environment: "node",
     setupFiles: ["tests/setup-network.ts"],
     testTimeout: 120_000,

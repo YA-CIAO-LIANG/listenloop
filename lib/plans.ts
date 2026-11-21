@@ -92,6 +92,13 @@ export type PlanLimits = {
   writingReviewsPerWeek: number | null;
   /** The longest essay sent for feedback, in words (D187). */
   writingWords: number | null;
+  /**
+   * Chat practice minutes a week, from Monday 00:00 Taiwan time (D197),
+   * counted when a chat starts (the chosen length) and given back when
+   * it ends early. Sized by each message's measured cost: within a
+   * quarter of the monthly price and the price floor (D185, D197).
+   */
+  chatMinutesPerWeek: number | null;
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
@@ -118,6 +125,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     batchPdf: false,
     writingReviewsPerWeek: 2,
     writingWords: 400,
+    chatMinutesPerWeek: 5,
   },
   // Plus (D102): 40 minutes a month.
   paid: {
@@ -142,6 +150,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     batchPdf: false,
     writingReviewsPerWeek: 3,
     writingWords: 600,
+    chatMinutesPerWeek: 5,
   },
   // Pro (D102): 120 minutes a month, up to 10 minutes each, and Plus.
   pro: {
@@ -166,6 +175,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     batchPdf: true,
     writingReviewsPerWeek: 6,
     writingWords: 1_000,
+    chatMinutesPerWeek: 20,
   },
   admin: {
     createPractices: true,
@@ -189,6 +199,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     batchPdf: true,
     writingReviewsPerWeek: null,
     writingWords: null,
+    chatMinutesPerWeek: null,
   },
 };
 
@@ -223,6 +234,8 @@ export type PlanAction =
   | { kind: "writing-review"; thisWeek: number }
   /** An essay of `words` words sent for feedback (D187). */
   | { kind: "writing-words"; words: number }
+  /** Starting a chat of `minutes` with `thisWeek` minutes used (D197). */
+  | { kind: "chat-minutes"; thisWeek: number; minutes: number }
   /** Another revise today, after `today` of them (D161). */
   | { kind: "revise"; today: number }
   | {
@@ -325,6 +338,15 @@ export function can(
         limits.writingReviewsPerWeek,
         action.thisWeek,
       );
+    case "chat-minutes":
+      return limits.chatMinutesPerWeek !== null &&
+        action.thisWeek + action.minutes > limits.chatMinutesPerWeek
+        ? {
+            ok: false,
+            limit: "chatMinutesPerWeek",
+            max: limits.chatMinutesPerWeek,
+          }
+        : { ok: true };
     case "writing-words":
       return limits.writingWords !== null && action.words > limits.writingWords
         ? { ok: false, limit: "writingWords", max: limits.writingWords }
