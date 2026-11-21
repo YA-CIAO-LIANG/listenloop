@@ -3641,3 +3641,17 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **未修，列在晨間報告**：
   - W3：手機上的題目說明很長，輸入框在很下面。
   - W5：學生自己寫小寫 i 開頭的句子時，斷句會連到下一句。
+
+## D192 CodeQL 的 critical 警示：準備教材的接力請求只送往本站（2026-11-21）
+
+- **問題**：repo 公開後重新開啟 CodeQL（security-extended），第一次掃描出 23 筆警示。唯一一筆 critical 是 `js/request-forgery`，位置在 `app/materials/[id]/prepare/route.ts`。
+  - 這個路由在時間快用完時，會帶著使用者的 cookie，再呼叫自己一次（D95 的接力）。
+  - 呼叫的網址取自請求自己的 Host。如果 Host 被偽造，cookie 可能會被送到別的網站。
+  - Vercel 只服務我們自己的網域，所以實際風險不高，但業界做法是只送往設定好的網址。
+- **修正**：接力前先用 `isOwnOrigin`（`lib/security/own-origin.ts`）檢查，只允許兩種網址：
+  - `SITE_URL` 本身；
+  - 開發與 E2E 用的 localhost／127.0.0.1。
+- **其他 22 筆沒有關閉**，都列在晨間報告，請 Joe 決定要不要逐筆關閉。
+  - 大多是開發腳本和測試裡的寫檔、regex，或是誤判，例如主題的內嵌 script 只用程式裡的常數組成。
+  - 關閉警示等同修改「已接受清單」，所以留給 Joe 決定（比照 ZAP，見 memory）。
+- 要改時看哪裡：`lib/security/own-origin.ts`、`tests/own-origin.test.ts`。

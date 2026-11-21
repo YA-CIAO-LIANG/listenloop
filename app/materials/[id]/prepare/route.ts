@@ -1,3 +1,4 @@
+import { isOwnOrigin } from "@/lib/security/own-origin";
 import { after } from "next/server";
 import { getSignedInUser } from "@/auth/session";
 import {
@@ -58,7 +59,10 @@ export async function POST(
     );
     const outOfTime =
       !result.ok && result.reason === "unavailable" && Date.now() >= deadline;
-    if (outOfTime && hop + 1 < MAX_HOPS) {
+    // The hand-over carries the learner's cookie, so it only ever goes to
+    // this site (CodeQL js/request-forgery, D192): the configured address,
+    // or localhost in development and tests; never a forged Host.
+    if (outOfTime && hop + 1 < MAX_HOPS && isOwnOrigin(origin)) {
       await fetch(`${origin}/materials/${id}/prepare`, {
         method: "POST",
         headers: { cookie, origin, "x-ll-hop": String(hop + 1) },
