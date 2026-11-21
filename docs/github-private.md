@@ -1,3 +1,5 @@
+> **2026-11-21（D186）：repo 已改回公開。** 這份文件保留作為紀錄：分支保護、CodeQL、每 15 分鐘的監控、合併到 main 的 CI、每週的 Dependabot 都已恢復，`CI_LITE=off`。
+
 # 把 GitHub repo 改成私人：要注意的事（D134，2026-11-11；D163 更新，2026-11-13）
 
 **2026-11-13（D163）：已改成私人。** 用 `gh repo edit --visibility private` 切換，切換後確認：

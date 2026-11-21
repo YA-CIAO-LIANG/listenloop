@@ -2,11 +2,8 @@ name: CI
 
 on:
   pull_request:
-  # Not on every merge to main any more (D163, private repo minutes): the
-  # pull request ran the same checks on the same code. A full run on main
-  # once a week, and by hand, catches anything two merges broke together.
-  schedule:
-    - cron: "23 2 * * 3"
+  push:
+    branches: [main]
   workflow_dispatch:
 
 # Cancel an in-progress run when a newer commit is pushed to the same branch/PR.
@@ -22,8 +19,8 @@ permissions:
 # - docs only (docs/, *.md): the format check;
 # - code on a pull request: lint, types, unit tests (in parallel), then
 #   the production build and the end-to-end tests;
-# - weekly on main, and by hand: everything (D163; merges to main no
-#   longer run CI, to save the private repo's minutes).
+# - code merged to main: lint, types, unit tests (the pull request ran
+#   the end-to-end tests on the same code); run by hand for everything.
 jobs:
   check:
     name: check
@@ -56,8 +53,8 @@ jobs:
           e2e=false
           if [ "$code" = true ] && [ "$EVENT" != "push" ]; then e2e=true; fi
           # Repo variable CI_LITE=on skips the end-to-end tests on pull
-          # requests when the month's free minutes run low (D163); they
-          # must still pass locally before pushing (CLAUDE.md).
+          # requests (D163). Off since the repo went public again (D186):
+          # public repositories have no minute limit.
           if [ "$EVENT" = "pull_request" ] && [ "$CI_LITE" = "on" ]; then e2e=false; fi
           echo "code=$code" >> "$GITHUB_OUTPUT"
           echo "e2e=$e2e" >> "$GITHUB_OUTPUT"
