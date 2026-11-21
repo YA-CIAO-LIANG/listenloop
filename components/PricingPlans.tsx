@@ -56,6 +56,10 @@ const ALL_FEATURES = [
   "rules",
   "priority",
   "batchPdf",
+  // WritingLoop (D187, D188).
+  "writing",
+  "writingReviews",
+  "writingWords",
 ] as const;
 /** YouTube links are paused (D131): no row for them. */
 const FEATURES = ALL_FEATURES.filter(
@@ -191,6 +195,16 @@ export function PricingPlans({
           : no;
       case "youtube":
         return limits.youtubePractices ? yes : no;
+      case "writing":
+        return yes;
+      case "writingReviews":
+        return limits.writingReviewsPerWeek === null
+          ? t("noLimit")
+          : t("timesPerWeek", { n: limits.writingReviewsPerWeek });
+      case "writingWords":
+        return limits.writingWords === null
+          ? t("noLimit")
+          : t("words", { n: limits.writingWords });
       case "speed":
         return limits.playbackSpeed ? yes : no;
       case "stats":

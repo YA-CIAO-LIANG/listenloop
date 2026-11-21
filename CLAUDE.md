@@ -64,6 +64,7 @@ GitHub：https://github.com/YA-CIAO-LIANG/listenloop
   - 新版總分要 ≥ main。低於 main 時不能合併；真的要合併，就在 `evals/exceptions.json` 記錄這個版本、理由與 D 編號，並寫進 `docs/decisions.md`。
   - 提示詞或模型改了，就要用 `npm run eval:record` 重新錄製。這會呼叫真的 API，**先告訴 Joe 次數與預估費用，等同意再錄**；每次執行上限 US$0.10（`lib/evals/config.ts`）。
   - Joe 在正式站回報 AI 內容的問題時，要在 `lib/evals/golden.ts` 加一個標上 `regression` 的案例。
+  - **寫作 eval**（D188）：改到寫作提示詞（`lib/writing/prompts.ts`，要升 `WRITING_PROMPT_VERSION`）或寫作回饋的清理（`lib/writing/feedback.ts`）的 PR，要用 `npm run eval:writing:record` 重新錄製（真的 API，**先告訴 Joe 次數與預估費用**，每次上限 US$0.45），再跑 `npm run eval`，提交 `evals/writing-baseline.json` 與 `evals/writing-report.md`。`eval:check` 會檢查總分 ≥ main。
 - **程式記錄每次呼叫**（`api_calls`）：token、字元數、估算費用，管理員在 `/admin/usage` 查看。
   - 語言模型的每日上限用估算費用控制，依身分與工作類型分開（D77）：管理員手動 US$1.00、管理員批次 US$1.00、付費 US$0.20、免費 US$0.05；全站每月上限 US$8，超過時暫停一般使用者建立。預設在 `lib/usage.ts`，管理員在 `/admin/usage` 調整（`usage_settings`）。批次腳本一律用批次額度；聲音用字元數控制；
   - 價格集中在 `lib/ai/pricing.ts`，每次呼叫的輸出上限集中在 `lib/ai/budgets.ts`（D38）。

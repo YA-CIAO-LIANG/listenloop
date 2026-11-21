@@ -246,6 +246,14 @@ export default async function QuotaPage() {
                 t("perDay", { n: report.fixed.feedbackPerDay }),
               ],
               ["aiPerHour", t("perHour", { n: report.fixed.aiPerHour })],
+              [
+                "writingWords",
+                report.fixed.writingWords === null
+                  ? t("unlimited")
+                  : t("words", {
+                      n: format.number(report.fixed.writingWords),
+                    }),
+              ],
             ] as const
           ).map(([id, value]) => (
             <div key={id} className="flex flex-wrap justify-between gap-2 py-3">
