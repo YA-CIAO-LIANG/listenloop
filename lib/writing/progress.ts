@@ -12,7 +12,8 @@ import type { ErrorType } from "./types";
  *
  * - Day 1 and Day 7: an essay, scored by the AI (signed in) or by the
  *   learner against the rubric (a guest: `self`), never both.
- * - Days 2–6: the day's drills (lib/writing/drills.ts), each done once.
+ * - Days 2–6: the day's back-translation (lib/writing/back-translation.ts,
+ *   D195); before D195, the day's drills (lib/writing/drills.ts).
  */
 export const EXERCISE_KINDS = [
   "fix",
@@ -45,10 +46,14 @@ export type EssayDay = {
 };
 
 export type DrillResult = {
-  kind: ExerciseKind;
+  /** "back": the daily back-translation (D195); else an older drill. */
+  kind: ExerciseKind | "back";
   done: boolean;
   /** Right on the first try (rule-checked drills), or the learner's own mark. */
   correct?: boolean;
+  /** Back-translation: sentences written back right, of `total`. */
+  right?: number;
+  total?: number;
 };
 
 export type DrillDay = {

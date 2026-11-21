@@ -24,6 +24,12 @@ export type FeedbackIssue = {
   why: string;
   /** A corrected version of the quoted part (at most 3 sentences). */
   suggestion: string;
+  /**
+   * The corrected sentence's meaning in Chinese, for writing it again
+   * from its meaning (D195). Not asked of the model yet: adding it to
+   * the prompt lowered the writing eval (D195), so it waits for Joe.
+   */
+  zh?: string;
 };
 
 export type FeedbackStrength = { quote: string; why: string };

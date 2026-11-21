@@ -270,10 +270,11 @@ flowchart LR
    - Signed in, you get AI feedback: the score with reasons, the 3 most important issues highlighted on your essay, and what you did well. Smaller points are under "More suggestions".
    - Signed in, you can also choose "Save only, no review": no allowance used; score yourself against the rubric, or skip it. "Ask the AI to review" on the finished page later uses one of that week's reviews. Change the default in Account → Writing settings.
    - Signed out, you score your essay against the rubric yourself and pick up to 3 things to work on.
-3. **Days 2–6, deliberate practice**:
-   - Two drills a day, about 10–15 minutes, chosen from your Day 1 weak spots.
-   - Drills: fix your sentences, pattern practice, sentence combining, paraphrasing, paragraph order, rebuilding from memory, and listen-then-write (a ListenLoop video).
-   - Each drill is checked at once and shows a model answer.
+3. **Days 2–6, back-translation**:
+   - 5–8 sentences a day, about 10 minutes. With an AI review, your corrected Day 1 sentences and the model's key sentences; without one, the model's sentences.
+   - Three ways (switch in Account → Writing settings): hear English and write English (default), read Chinese and write English (with an English hint), hear English and write the meaning in Chinese.
+   - The first sentence plays on arrival; replay or loop it. It's checked like listening dictation, with wrong words marked.
+   - Want more? Pick a drill under "More practice": fix your sentences, pattern practice, sentence combining, paraphrasing, paragraph order, rebuilding from memory, listen-then-write. These don't change the day's progress.
 4. **Day 7, rewrite**:
    - Write the same prompt again, without Day 1 or the model.
    - The result shows both essays side by side, each criterion's change, and whether Day 1's three issues improved.
