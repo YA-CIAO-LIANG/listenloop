@@ -3181,9 +3181,9 @@
     "current": "目前方案",
     "perMonthSuffix": "／月",
     "summaries": {
-      "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘）。",
-      "plus": "完整練習所有人分享的公開教材、每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。",
-      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。",
+      "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘），寫作練習每週 2 次 AI 批改。",
+      "plus": "完整練習所有人分享的公開教材、每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關，寫作練習每週 3 次 AI 批改。",
+      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF、寫作練習每週 6 次 AI 批改，以及 Plus 的全部功能。",
       "student": "Plus 的全部內容，學生價。"
     },
     "student": {
@@ -3209,7 +3209,10 @@
       "stats": "學習分析",
       "rules": "自訂通關條件",
       "priority": "優先產生",
-      "batchPdf": "批次 PDF"
+      "batchPdf": "批次 PDF",
+      "writing": "寫作練習（7 天循環、錯誤本）",
+      "writingReviews": "AI 寫作批改",
+      "writingWords": "每篇寫作的字數"
     },
     "yes": "✓",
     "no": "—",
@@ -3238,7 +3241,9 @@
     "yearlyShort": "（年繳 {total}）",
     "priceRow": "價格",
     "uploadSize": "✓（每檔 {mb} MB）",
-    "popular": "最受歡迎"
+    "popular": "最受歡迎",
+    "timesPerWeek": "每週 {n} 次",
+    "words": "{n} 字"
   },
   "classroom": {
     "title": "我的班級",
@@ -3866,7 +3871,8 @@
       "minutesPerMonth": "本月建立教材的分鐘數",
       "revisesPerDay": "今天用指令修改的次數",
       "storageMegabytes": "錄音的儲存空間",
-      "dailyAi": "今天的 AI 用量"
+      "dailyAi": "今天的 AI 用量",
+      "writingReviewsPerWeek": "本週的 AI 寫作批改"
     },
     "units": {
       "minutes": "{n} 分鐘",
@@ -3890,7 +3896,8 @@
       "uploadMegabytes": "上傳錄音的檔案大小",
       "reportsPerDay": "檢舉",
       "feedbackPerDay": "意見回饋",
-      "aiPerHour": "AI 操作"
+      "aiPerHour": "AI 操作",
+      "writingWords": "每篇寫作的字數"
     },
     "chars": "{n} 字",
     "minutes": "{n} 分鐘",
@@ -3914,7 +3921,8 @@
         "left": "還能用的分鐘數"
       },
       "rules": "同一台裝置，或一天內大量註冊的帳號不列入計算；自己的連結不能自己用。同學在同一個學校網路註冊沒關係。邀請連結不會增加註冊名額。"
-    }
+    },
+    "words": "{n} 字"
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
@@ -4178,7 +4186,8 @@
         "busy": "送出太頻繁，請稍候再試。",
         "unavailable": "AI 批改目前無法使用，可以先自己評分。",
         "failed": "批改沒有成功，請再試一次。",
-        "plan": "已達到方案的上限。"
+        "plan": "已達到方案的上限。",
+        "filtered": "這篇內容被 AI 服務的安全機制擋下，可能是看起來像在對 AI 下指令。請用英文寫一篇回答題目的文章再送出。"
       }
     },
     "feedback": {

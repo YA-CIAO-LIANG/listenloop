@@ -3183,9 +3183,9 @@
     "current": "Your plan",
     "perMonthSuffix": " / month",
     "summaries": {
-      "free": "Every official lesson and feature, basic stats, and 2 minutes of your own materials a week (two of a minute, or one of two).",
-      "plus": "Every shared material in full, 40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules.",
-      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus.",
+      "free": "Every official lesson and feature, basic stats, 2 minutes of your own materials a week (two of a minute, or one of two), and 2 AI writing reviews a week.",
+      "plus": "Every shared material in full, 40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, custom pass rules, and 3 AI writing reviews a week.",
+      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, 6 AI writing reviews a week, and everything in Plus.",
       "student": "Everything in Plus, at a student price."
     },
     "student": {
@@ -3211,7 +3211,10 @@
       "stats": "Stats",
       "rules": "Custom pass rules",
       "priority": "Priority generation",
-      "batchPdf": "Batch PDFs"
+      "batchPdf": "Batch PDFs",
+      "writing": "Writing practice (7-day loop, notebook)",
+      "writingReviews": "AI writing reviews",
+      "writingWords": "Words per essay"
     },
     "yes": "✓",
     "no": "—",
@@ -3240,7 +3243,9 @@
     "yearlyShort": "({total} billed yearly)",
     "priceRow": "Price",
     "uploadSize": "✓ ({mb} MB a file)",
-    "popular": "Most popular"
+    "popular": "Most popular",
+    "timesPerWeek": "{n} a week",
+    "words": "{n} words"
   },
   "classroom": {
     "title": "My classes",
@@ -3868,7 +3873,8 @@
       "minutesPerMonth": "Minutes of materials this month",
       "revisesPerDay": "Revisions with an instruction today",
       "storageMegabytes": "Storage for recordings",
-      "dailyAi": "AI use today"
+      "dailyAi": "AI use today",
+      "writingReviewsPerWeek": "AI writing reviews this week"
     },
     "units": {
       "minutes": "{n} min",
@@ -3892,7 +3898,8 @@
       "uploadMegabytes": "Recording file size",
       "reportsPerDay": "Reports",
       "feedbackPerDay": "Feedback",
-      "aiPerHour": "AI actions"
+      "aiPerHour": "AI actions",
+      "writingWords": "Words per essay"
     },
     "chars": "{n} characters",
     "minutes": "{n} min",
@@ -3916,7 +3923,8 @@
         "left": "Minutes left"
       },
       "rules": "Accounts from the same device, or many sign-ups in one day, don't count, and your own link doesn't work for you. Classmates on the same school network are fine. Invite links don't add sign-up places."
-    }
+    },
+    "words": "{n} words"
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
@@ -4180,7 +4188,8 @@
         "busy": "Too many tries. Wait a moment and try again.",
         "unavailable": "AI feedback isn't available right now. You can score it yourself.",
         "failed": "The review didn't work. Please try again.",
-        "plan": "You've reached your plan's limit."
+        "plan": "You've reached your plan's limit.",
+        "filtered": "The AI service's safety filter stopped this text; it may read like instructions to the AI. Write an essay that answers the prompt and send it again."
       }
     },
     "feedback": {

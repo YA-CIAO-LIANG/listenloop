@@ -81,6 +81,22 @@ const ROWS: [string, (l: PlanLimits, column: Column) => string, string][] = [
     "每天 00:00",
   ],
   [
+    "AI 寫作批改（WritingLoop，D187）",
+    (l) =>
+      l.writingReviewsPerWeek === null
+        ? unlimited
+        : `每週 ${l.writingReviewsPerWeek} 次`,
+    "每週一 00:00",
+  ],
+  [
+    "每篇寫作字數",
+    (l) =>
+      l.writingWords === null
+        ? unlimited
+        : `${l.writingWords.toLocaleString("en-US")} 字`,
+    "—",
+  ],
+  [
     "上傳檔案大小",
     (l) =>
       !l.uploadAudio

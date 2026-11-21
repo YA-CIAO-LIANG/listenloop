@@ -30,6 +30,7 @@ export type ReviewResult =
         | "limit"
         | "busy"
         | "unavailable"
+        | "filtered"
         | "failed";
       /** With "plan": which allowance (weekly reviews or essay length). */
       block?: PlanBlock;
@@ -107,6 +108,9 @@ export async function reviewEssay(input: {
     if (result.reason === "limit") {
       return { ok: false, reason: "limit", limit: result.limit };
     }
+    // The provider's safety filter refused the essay, e.g. text that
+    // reads as instructions to the AI (D188).
+    if (result.filtered) return { ok: false, reason: "filtered" };
     return {
       ok: false,
       reason: result.reason === "busy" ? "busy" : "failed",
