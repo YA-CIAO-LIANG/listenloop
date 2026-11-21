@@ -20,8 +20,9 @@ export async function generateMetadata(): Promise<Metadata> {
  * the library's filters.
  */
 export default async function WritingPage() {
-  const [t, locale] = await Promise.all([
+  const [t, tSettings, locale] = await Promise.all([
     getTranslations("writing"),
+    getTranslations("writingSettings"),
     getLocale(),
   ]);
   const prompts = writingPrompts.map(
@@ -51,9 +52,16 @@ export default async function WritingPage() {
           <li>{t("steps.middle")}</li>
           <li>{t("steps.day7")}</li>
         </ol>
-        <div>
+        <div className="flex flex-wrap gap-3">
           <ButtonLink href="/writing/notebook" variant="secondary" size="sm">
             {t("notebook.title")}
+          </ButtonLink>
+          <ButtonLink
+            href="/account#writing-settings"
+            variant="ghost"
+            size="sm"
+          >
+            {tSettings("settingsTitle")}
           </ButtonLink>
         </div>
       </header>

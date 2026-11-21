@@ -23,10 +23,13 @@ export function SelfScoreForm({
   rubric,
   onDone,
   onCancel,
+  onSkip,
 }: {
   rubric: RubricId;
   onDone: (self: SelfScore) => void;
   onCancel: () => void;
+  /** Save the essay without any score (D194). */
+  onSkip?: () => void;
 }) {
   const t = useTranslations("writing");
   const r = RUBRICS[rubric];
@@ -105,6 +108,11 @@ export function SelfScoreForm({
         <Button type="submit" variant="primary">
           {t("self.submit")}
         </Button>
+        {onSkip && (
+          <Button type="button" variant="secondary" onClick={onSkip}>
+            {t("self.skip")}
+          </Button>
+        )}
         <Button type="button" variant="ghost" onClick={onCancel}>
           {t("self.back")}
         </Button>

@@ -4158,7 +4158,8 @@
       "week": "第 {week} 週：第 1 天 {day1} 分 → 第 7 天 {day7} 分",
       "weekPassed": "通過",
       "weekRepeat": "未通過",
-      "day1Score": "第 1 天的分數：{score} 分（滿分 100）"
+      "day1Score": "第 1 天的分數：{score} 分（滿分 100）",
+      "weekMetrics": "第 {week} 週 · 依字數、句子長度、用字多樣性比較"
     },
     "essay": {
       "noPeek": "先寫出你自己的版本。範例文章在你送出後才會出現：先自己想過，再看範例，會記得更牢。",
@@ -4188,7 +4189,11 @@
         "failed": "批改沒有成功，請再試一次。",
         "plan": "已達到方案的上限。",
         "filtered": "這篇內容被 AI 服務的安全機制擋下，可能是看起來像在對 AI 下指令。請用英文寫一篇回答題目的文章再送出。"
-      }
+      },
+      "saveOnly": "只儲存，不批改",
+      "savedOnly": "這篇文章已儲存，沒有批改，也沒有自評。",
+      "reviewLater": "想知道 AI 怎麼看？請 AI 批改會用掉本週 1 次 AI 批改。",
+      "reviewNow": "請 AI 批改"
     },
     "feedback": {
       "score": "整體分數",
@@ -4245,7 +4250,8 @@
       "submit": "完成評分",
       "back": "回去修改文章",
       "result": "你的自評分數",
-      "weakList": "要加強的地方：{list}"
+      "weakList": "要加強的地方：{list}",
+      "skip": "略過自評，直接儲存"
     },
     "model": {
       "heading": "範例文章",
@@ -4269,7 +4275,18 @@
       "better": "這次沒有再出現",
       "keepGoing": "還要再加油",
       "shareHeading": "我的 7 天英文寫作進步",
-      "again": "再練一週同一題"
+      "again": "再練一週同一題",
+      "metricsImproved": "{total} 項規則指標中有 {improved} 項進步",
+      "ruleMetrics": "（沒有分數可以比較時：字數、句子長度、用字多樣性有 2 項進步就通過）",
+      "metrics": "規則指標",
+      "metric": "指標",
+      "metricBetter": "進步",
+      "metricNames": {
+        "words": "字數",
+        "sentenceWords": "平均句子長度（字）",
+        "diversity": "用字多樣性（0–100）"
+      },
+      "shareHeadingMetrics": "我的 7 天英文寫作進步：用字多樣性"
     },
     "drills": {
       "intro": "今天有 {count} 項練習，大約 10～15 分鐘。",
@@ -4453,5 +4470,19 @@
     "heading": "寫作",
     "line": "寫了 {essays} 篇、完成 {drills} 天的刻意練習",
     "improvement": "這週完成的題目平均進步 {n} 分"
+  },
+  "writingSettings": {
+    "settingsTitle": "寫作設定",
+    "review": "送出文章時，預設要：",
+    "reviewModes": {
+      "ai": {
+        "label": "AI 批改",
+        "hint": "會用掉本週 1 次 AI 批改。"
+      },
+      "none": {
+        "label": "只儲存，不批改",
+        "hint": "不用額度。可以用評分標準自評，之後也能再請 AI 批改。"
+      }
+    }
   }
 }

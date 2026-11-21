@@ -17,13 +17,16 @@ import {
 } from "@/lib/supabase/browser";
 import type { Notebook } from "@/lib/writing/notebook";
 import type { WritingProgress } from "@/lib/writing/progress";
+import type { WritingSettings } from "@/lib/writing/settings";
 import {
   isWritingStorageKey,
   listLocalProgress,
   loadLocalNotebook,
   loadLocalProgress,
+  loadLocalSettings,
   saveLocalNotebook,
   saveLocalProgress,
+  saveLocalSettings,
   syncWriting,
   writingCloud,
   type WritingCloud,
@@ -41,6 +44,7 @@ type WritingData = {
   version: number;
   saveProgress(progress: WritingProgress): void;
   saveNotebook(notebook: Notebook): void;
+  saveSettings(settings: Omit<WritingSettings, "at">): void;
 };
 
 const WritingContext = createContext<WritingData>({
@@ -48,6 +52,7 @@ const WritingContext = createContext<WritingData>({
   version: 0,
   saveProgress: () => {},
   saveNotebook: () => {},
+  saveSettings: () => {},
 });
 
 /** The account the device's data last belonged to (lib/sync/sync.ts). */
@@ -116,9 +121,19 @@ export function WritingProvider({
     [cloud],
   );
 
+  const saveSettings = useCallback(
+    (changes: Omit<WritingSettings, "at">) => {
+      const settings = { ...changes, at: new Date().toISOString() };
+      saveLocalSettings(window.localStorage, settings);
+      setVersion((v) => v + 1);
+      void cloud?.saveSettings(settings).catch((e: unknown) => console.warn(e));
+    },
+    [cloud],
+  );
+
   const value = useMemo(
-    () => ({ cloud, version, saveProgress, saveNotebook }),
-    [cloud, version, saveProgress, saveNotebook],
+    () => ({ cloud, version, saveProgress, saveNotebook, saveSettings }),
+    [cloud, version, saveProgress, saveNotebook, saveSettings],
   );
   return <WritingContext value={value}>{children}</WritingContext>;
 }
@@ -166,6 +181,17 @@ export function useNotebook(): Notebook | undefined {
   const mounted = useMounted();
   return useMemo(
     () => (mounted ? loadLocalNotebook(window.localStorage) : undefined),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [mounted, version],
+  );
+}
+
+/** The learner's writing settings (defaults until the browser reads them). */
+export function useWritingSettings(): WritingSettings | undefined {
+  const { version } = useWritingData();
+  const mounted = useMounted();
+  return useMemo(
+    () => (mounted ? loadLocalSettings(window.localStorage) : undefined),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [mounted, version],
   );

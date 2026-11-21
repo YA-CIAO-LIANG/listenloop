@@ -4160,7 +4160,8 @@
       "week": "Week {week}: Day 1 {day1} → Day 7 {day7}",
       "weekPassed": "passed",
       "weekRepeat": "not passed",
-      "day1Score": "Day 1 score: {score} out of 100"
+      "day1Score": "Day 1 score: {score} out of 100",
+      "weekMetrics": "Week {week} · compared on words, sentence length, and word variety"
     },
     "essay": {
       "noPeek": "Write your own version first. The model essay appears after you submit: trying first, then seeing a model, helps it stick.",
@@ -4190,7 +4191,11 @@
         "failed": "The review didn't work. Please try again.",
         "plan": "You've reached your plan's limit.",
         "filtered": "The AI service's safety filter stopped this text; it may read like instructions to the AI. Write an essay that answers the prompt and send it again."
-      }
+      },
+      "saveOnly": "Save only, no review",
+      "savedOnly": "This essay is saved, without a review or your own score.",
+      "reviewLater": "Want the AI’s view? An AI review uses one of this week’s reviews.",
+      "reviewNow": "Ask the AI to review"
     },
     "feedback": {
       "score": "Overall score",
@@ -4247,7 +4252,8 @@
       "submit": "Done",
       "back": "Back to my essay",
       "result": "Your own score",
-      "weakList": "To work on: {list}"
+      "weakList": "To work on: {list}",
+      "skip": "Skip and just save"
     },
     "model": {
       "heading": "Model essay",
@@ -4271,7 +4277,18 @@
       "better": "didn't come back",
       "keepGoing": "keep working on it",
       "shareHeading": "My 7-day English writing progress",
-      "again": "Another week on this prompt"
+      "again": "Another week on this prompt",
+      "metricsImproved": "{improved} of {total} measures improved",
+      "ruleMetrics": "(With no scores to compare: passed when two of words, sentence length, and word variety improve.)",
+      "metrics": "Measures",
+      "metric": "Measure",
+      "metricBetter": "improved",
+      "metricNames": {
+        "words": "Words",
+        "sentenceWords": "Average sentence length (words)",
+        "diversity": "Word variety (0–100)"
+      },
+      "shareHeadingMetrics": "My 7-day writing progress: word variety"
     },
     "drills": {
       "intro": "{count, plural, one {# drill} other {# drills}} today, about 10–15 minutes.",
@@ -4455,5 +4472,19 @@
     "heading": "Writing",
     "line": "{essays, plural, one {# essay} other {# essays}}, {drills, plural, one {# day} other {# days}} of practice",
     "improvement": "Prompts finished this week improved by {n} points on average"
+  },
+  "writingSettings": {
+    "settingsTitle": "Writing settings",
+    "review": "When you submit an essay, by default:",
+    "reviewModes": {
+      "ai": {
+        "label": "AI review",
+        "hint": "Uses one of this week’s AI reviews."
+      },
+      "none": {
+        "label": "Save only, no review",
+        "hint": "Uses no allowance. Score it yourself against the rubric, and ask the AI later if you like."
+      }
+    }
   }
 }

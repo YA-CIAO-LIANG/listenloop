@@ -1,6 +1,7 @@
 import { CYCLE_DAYS, type CycleDay, type DayStatus } from "@/lib/cycle";
 import { isLaterDay, isLocalDate, type LocalDate } from "@/lib/dates";
 import type { WritingFeedback } from "./feedback";
+import { compareMetrics } from "./metrics";
 import type { CriterionScore } from "./rubrics";
 import type { ErrorType } from "./types";
 
@@ -64,9 +65,16 @@ export const PASS_TARGETS = [60, 70, 80, 90] as const;
 export type WritingWeek = {
   week: number;
   startedAt: LocalDate;
+  /** 0–100 each; 0 when that day has no score (basis "metrics"). */
   day1: number;
   day7: number;
   passed: boolean;
+  /**
+   * "metrics": the days had no scores to compare, so the week was judged
+   * on words, sentence length, and variety (D194); the analytics' average
+   * change leaves these weeks out.
+   */
+  basis?: "metrics";
 };
 
 export type WritingProgress = {
@@ -211,27 +219,71 @@ export function passes(
   return day1 >= 100 ? day7 >= 100 : day7 > day1;
 }
 
+/**
+ * How Day 7 is judged (D194): by score when the rule can be decided on
+ * scores (both days scored, or a target and Day 7 scored); otherwise on
+ * the rule-based measures (lib/writing/metrics.ts).
+ */
+export function weekVerdict(progress: WritingProgress): {
+  basis: "score" | "metrics";
+  day1: number | null;
+  day7: number | null;
+  passed: boolean;
+} {
+  const day1 = essayPercent(progress.days[1]);
+  const day7 = essayPercent(progress.days[7]);
+  const scored =
+    day7 !== null && (day1 !== null || progress.rule.kind === "target");
+  if (scored) {
+    return {
+      basis: "score",
+      day1,
+      day7,
+      passed: passes(progress.rule, day1, day7),
+    };
+  }
+  return {
+    basis: "metrics",
+    day1,
+    day7,
+    passed: compareMetrics(
+      progress.days[1]?.essay ?? "",
+      progress.days[7]?.essay ?? "",
+    ).passed,
+  };
+}
+
 /** Closes the week once Day 7 is done: passed, or the prompt again. */
 export function settleWritingWeek(progress: WritingProgress): WritingProgress {
   if (progress.status !== "in-progress" || !progress.days[7]?.done)
     return progress;
-  const day1 = essayPercent(progress.days[1]);
-  const day7 = essayPercent(progress.days[7]);
-  const passed = passes(progress.rule, day1, day7);
+  const verdict = weekVerdict(progress);
   return {
     ...progress,
-    status: passed ? "passed" : "repeat",
+    status: verdict.passed ? "passed" : "repeat",
     history: [
       ...progress.history.filter((w) => w.week !== progress.week),
       {
         week: progress.week,
         startedAt: progress.startedAt,
-        day1: day1 ?? 0,
-        day7: day7 ?? 0,
-        passed,
+        day1: verdict.day1 ?? 0,
+        day7: verdict.day7 ?? 0,
+        passed: verdict.passed,
+        ...(verdict.basis === "metrics" ? { basis: "metrics" as const } : {}),
       },
     ],
   };
+}
+
+/**
+ * The week judged again after a day's score changed (an AI review asked
+ * for later, D194): only while this week's days are still here.
+ */
+export function resettleWritingWeek(
+  progress: WritingProgress,
+): WritingProgress {
+  if (!progress.days[7]?.done) return progress;
+  return settleWritingWeek({ ...progress, status: "in-progress" });
 }
 
 /** Another week on the same prompt (after it was passed or not). */

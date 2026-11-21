@@ -8,6 +8,12 @@ import {
   type Notebook,
 } from "./notebook";
 import {
+  mergeWritingSettings,
+  parseWritingSettings,
+  SETTINGS_KEY,
+  type WritingSettings,
+} from "./settings";
+import {
   mergeWritingProgress,
   parseWritingProgress,
   WRITING_KEY_PREFIX,
@@ -22,7 +28,8 @@ import {
  * pages never read them). No new table: documents are keyed
  * - `writing-<promptId>`: a prompt's progress (essays and feedback);
  * - `writing-notebook`: the notebook;
- * - `wdraft-<promptId>-<day>`: an unsent draft.
+ * - `wdraft-<promptId>-<day>`: an unsent draft;
+ * - `writing-settings`: the learner's settings (D194).
  * Prompt ids are at most 40 characters, so keys fit the column's 50.
  */
 export const DRAFT_KEY_PREFIX = "ll-writing-draft:v1:";
@@ -33,12 +40,16 @@ const cloudProgressKey = (promptId: string) => `writing-${promptId}`;
 const cloudDraftKey = (promptId: string, day: number) =>
   `wdraft-${promptId}-${day}`;
 const CLOUD_NOTEBOOK = "writing-notebook";
+const CLOUD_SETTINGS = "writing-settings";
+/** Documents under "writing-" that aren't a prompt's progress. */
+const NOT_PROGRESS = new Set([CLOUD_NOTEBOOK, CLOUD_SETTINGS]);
 
 /** Every writing key in this browser, for clearing after sign-out (D138). */
 export const isWritingStorageKey = (key: string) =>
   key.startsWith(WRITING_KEY_PREFIX) ||
   key.startsWith(DRAFT_KEY_PREFIX) ||
-  key === NOTEBOOK_KEY;
+  key === NOTEBOOK_KEY ||
+  key === SETTINGS_KEY;
 
 function read(storage: Storage, key: string): unknown {
   try {
@@ -98,6 +109,14 @@ export function loadLocalNotebook(storage: Storage): Notebook {
 
 export function saveLocalNotebook(storage: Storage, notebook: Notebook) {
   write(storage, NOTEBOOK_KEY, notebook);
+}
+
+export function loadLocalSettings(storage: Storage): WritingSettings {
+  return parseWritingSettings(read(storage, SETTINGS_KEY));
+}
+
+export function saveLocalSettings(storage: Storage, settings: WritingSettings) {
+  write(storage, SETTINGS_KEY, settings);
 }
 
 export type Draft = { text: string; at: string };
@@ -164,7 +183,7 @@ export function writingCloud(client: () => Promise<Supabase>, userId: string) {
         .like("key", "writing-%");
       fail(error);
       return (data ?? [])
-        .filter((row) => row.key !== CLOUD_NOTEBOOK)
+        .filter((row) => !NOT_PROGRESS.has(row.key))
         .map((row) => parseWritingProgress(row.data))
         .filter((p): p is WritingProgress => p !== null);
     },
@@ -174,6 +193,10 @@ export function writingCloud(client: () => Promise<Supabase>, userId: string) {
       return parseNotebook(await get(CLOUD_NOTEBOOK));
     },
     saveNotebook: (notebook: Notebook) => put(CLOUD_NOTEBOOK, notebook),
+    async getSettings(): Promise<WritingSettings> {
+      return parseWritingSettings(await get(CLOUD_SETTINGS));
+    },
+    saveSettings: (settings: WritingSettings) => put(CLOUD_SETTINGS, settings),
     async getDraft(promptId: string, day: number): Promise<Draft | null> {
       const value = (await get(cloudDraftKey(promptId, day))) as Draft | null;
       return value && typeof value.text === "string" ? value : null;
@@ -204,9 +227,10 @@ export async function syncWriting(
   storage: Storage,
   cloud: WritingCloud,
 ): Promise<boolean> {
-  const [remote, remoteNotebook] = await Promise.all([
+  const [remote, remoteNotebook, remoteSettings] = await Promise.all([
     cloud.listProgress(),
     cloud.getNotebook(),
+    cloud.getSettings(),
   ]);
   let changed = false;
   const local = listLocalProgress(storage);
@@ -233,6 +257,15 @@ export async function syncWriting(
   }
   if (JSON.stringify(notebook) !== JSON.stringify(remoteNotebook)) {
     uploads.push(cloud.saveNotebook(notebook));
+  }
+  const localSettings = loadLocalSettings(storage);
+  const settings = mergeWritingSettings(localSettings, remoteSettings);
+  if (JSON.stringify(settings) !== JSON.stringify(localSettings)) {
+    saveLocalSettings(storage, settings);
+    changed = true;
+  }
+  if (JSON.stringify(settings) !== JSON.stringify(remoteSettings)) {
+    uploads.push(cloud.saveSettings(settings));
   }
   await Promise.all(uploads);
   return changed;

@@ -3668,3 +3668,16 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **測試**：`e2e/writing-layout.spec.ts`。在 iPhone 15、Pixel 7、電腦上檢查：不捲動就能看到題目、作答框、送出按鈕；把可見高度縮成 55%（模擬鍵盤）後，作答框、字數、送出按鈕仍然在畫面內。
 - **限制**：Playwright 的裝置模擬不會真的彈出鍵盤，用縮小畫面高度代替。真機的檢查列在正式站測試重點。
 - 要改時看哪裡：`components/writing/WritingWorkspace.tsx`、`docs/design-system.md` 的「寫作練習的元件」。
+
+## D194 登入後也可以不用 AI 批改（2026-11-21，Joe 的修改清單第二項）
+
+- **送出時兩個按鈕**：「送出，取得 AI 回饋」和「只儲存，不批改」。第一個按鈕依「寫作設定」的預設（`/account#writing-settings`，存在本機 `ll-writing-settings:v1` 與帳號的 `writing-settings` 文件，後改的那份為準）。
+- **不批改**：存文章 → 顯示評分標準，可以自評，也可以「略過自評，直接儲存」。不呼叫 AI，不扣額度。訪客也能略過自評。
+- **之後再請 AI 批改**：完成頁有「請 AI 批改」，用同一個 `reviewEssay`，算當時那一週的次數。批改後保留原本的日期與自評，錯誤本加入 AI 找到的錯誤（句型在第 1 天已經加過，不重複）。第 7 天已經結算時重新結算（`resettleWritingWeek`）。
+- **第 7 天沒有分數時的比較**（`lib/writing/metrics.ts`）：
+  - 判斷方式：兩天都有分數（AI 或自評），或通關條件是「指定分數」而第 7 天有分數 → 照舊比分數；否則用三項規則指標。
+  - 三項指標：字數（多就算進步）、平均句子長度（22 字以內越長越好，超過不算）、用字多樣性（MATTR，50 字一個視窗；短文用一般的相異字比例）。三項有兩項進步就通過。
+  - 為什麼不只比字數：多寫不等於寫得好；句長與用字多樣性是寫作研究常用的「句法複雜度」與「詞彙豐富度」指標（Lu 2010、Covington & McFall 2010），不需要 AI 也算得出來。
+  - 週紀錄記 `basis: "metrics"`，分數欄為 0；學習分析的「平均進步」與每週報告的進步不算這種週。分享卡改成顯示用字多樣性。
+- **結果頁**一律顯示三項指標的表格，有分數時當作補充資訊。
+- 要改時看哪裡：`lib/writing/metrics.ts`（門檻 `METRICS_TO_PASS`、`SENTENCE_WORDS_CAP`）、`lib/writing/progress.ts` 的 `weekVerdict`、`lib/writing/settings.ts`、`components/writing/EssayDay.tsx`。

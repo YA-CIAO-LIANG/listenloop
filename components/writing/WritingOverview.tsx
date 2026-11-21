@@ -165,11 +165,13 @@ export function WritingOverview({ promptId }: { promptId: string }) {
           <ul className="flex flex-col gap-1 text-supporting">
             {progress.history.map((week) => (
               <li key={week.week} className="tabular-nums">
-                {t("overview.week", {
-                  week: week.week,
-                  day1: week.day1,
-                  day7: week.day7,
-                })}{" "}
+                {week.basis === "metrics"
+                  ? t("overview.weekMetrics", { week: week.week })
+                  : t("overview.week", {
+                      week: week.week,
+                      day1: week.day1,
+                      day7: week.day7,
+                    })}{" "}
                 ·{" "}
                 {week.passed
                   ? t("overview.weekPassed")
@@ -179,7 +181,7 @@ export function WritingOverview({ promptId }: { promptId: string }) {
           </ul>
         </section>
       )}
-      {progress?.days[1]?.done && (
+      {progress?.days[1]?.done && essayPercent(progress.days[1]) !== null && (
         <p className="text-supporting text-ink-muted">
           {t("overview.day1Score", {
             score: essayPercent(progress.days[1]) ?? 0,

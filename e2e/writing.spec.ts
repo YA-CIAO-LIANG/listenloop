@@ -296,3 +296,70 @@ test("the home page shows today's writing next to listening", async ({
     .analyze();
   expect(results.violations.map((v) => v.id)).toEqual([]);
 });
+
+test("save without a review, then ask the AI later (D194)", async ({
+  page,
+}) => {
+  await signInWithEmail(page, "e2e-no-review", "no-review@example.com");
+  await setToday(page, day(1));
+  await page.goto(`/writing/${PROMPT}/day/1`);
+  await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
+  await page.getByRole("button", { name: "只儲存，不批改" }).click();
+  // The rubric to score oneself, or skip it.
+  await expect(
+    page.getByRole("heading", { name: "用評分標準自己評分" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  await expect(
+    page.getByText("這篇文章已儲存，沒有批改，也沒有自評。"),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "範例文章" })).toBeVisible();
+  // Later: the AI's review, counted then.
+  await page.getByRole("button", { name: "請 AI 批改" }).click();
+  await expect(page.getByRole("heading", { name: "整體分數" })).toBeVisible();
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "整體分數" })).toBeVisible();
+});
+
+test("the default can be save only, set on the account page (D194)", async ({
+  page,
+}) => {
+  await signInWithEmail(page, "e2e-no-review-2", "no-review-2@example.com");
+  await setToday(page, day(1));
+  await page.goto("/writing");
+  await page.getByRole("link", { name: "寫作設定" }).click();
+  await expect(page).toHaveURL(/\/account#writing-settings$/);
+  await page.getByRole("radio", { name: /只儲存，不批改/ }).check();
+  await page.goto(`/writing/${PROMPT}/day/1`);
+  await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
+  // The first button follows the setting; AI review is still there.
+  const buttons = page
+    .getByTestId("writing-workspace")
+    .getByRole("button", { name: /只儲存|AI 回饋/ });
+  await expect(buttons.first()).toHaveText("只儲存，不批改");
+  await expect(buttons.nth(1)).toHaveText("送出，取得 AI 回饋");
+});
+
+test("a week without scores is compared on words, length, and variety (D194)", async ({
+  page,
+}) => {
+  test.setTimeout(120_000);
+  await setToday(page, day(1));
+  await page.goto(`/writing/${PROMPT}/day/1`);
+  await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
+  await page.getByRole("button", { name: "送出並自己評分" }).click();
+  await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  for (const n of [2, 3, 4, 5, 6]) {
+    await setToday(page, day(n));
+    await page.goto(`/writing/${PROMPT}/day/${n}`);
+    await doDrills(page);
+  }
+  await setToday(page, day(7));
+  await page.goto(`/writing/${PROMPT}/day/7`);
+  await page.getByRole("textbox", { name: "你的文章" }).fill(DAY7);
+  await page.getByRole("button", { name: "送出並自己評分" }).click();
+  await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  await expect(page.getByText(/3 項規則指標中有 \d 項進步/)).toBeVisible();
+  await expect(page.getByRole("table", { name: "規則指標" })).toBeVisible();
+  await expect(page.getByText("通過！")).toBeVisible();
+});
