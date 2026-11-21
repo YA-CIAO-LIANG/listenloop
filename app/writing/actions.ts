@@ -15,7 +15,14 @@ import { can, planFor, type PlanBlock } from "@/lib/plans";
 import type { UsageBlock } from "@/lib/usage";
 import { cleanFeedback, type WritingFeedback } from "@/lib/writing/feedback";
 import { countWords } from "@/lib/writing/words";
-import { WRITING_TYPE_CONFIG } from "@/lib/writing/types";
+import {
+  CUSTOM_KINDS,
+  CUSTOM_WORDS,
+  customTask,
+  isCustomPromptId,
+  MAX_CUSTOM_TASK,
+} from "@/lib/writing/custom";
+import { WRITING_TYPE_CONFIG, type WritingType } from "@/lib/writing/types";
 
 export type ReviewResult =
   | { ok: true; feedback: WritingFeedback; left: number | null }
@@ -50,13 +57,15 @@ export async function reviewEssay(input: {
   promptId: string;
   day: number;
   essay: string;
+  /**
+   * A learner's own prompt (D196): only they have it, so its kind and
+   * task come with the essay (as data for the model, like the essay).
+   */
+  custom?: { kind: string; task: string };
 }): Promise<ReviewResult> {
   const user = await getSignedInUser();
   if (!user) return { ok: false, reason: "signIn" };
-  const prompt =
-    typeof input?.promptId === "string"
-      ? getWritingPrompt(input.promptId)
-      : undefined;
+  const prompt = taskFor(input);
   const essay = typeof input?.essay === "string" ? input.essay.trim() : "";
   if (!prompt || (input.day !== 1 && input.day !== 7) || !essay) {
     return { ok: false, reason: "invalid" };
@@ -88,6 +97,7 @@ export async function reviewEssay(input: {
     return { ok: false, reason: "unavailable" };
   }
   const rubric = WRITING_TYPE_CONFIG[prompt.type].rubric;
+
   const request = {
     type: prompt.type,
     rubric,
@@ -124,4 +134,27 @@ export async function reviewEssay(input: {
     feedback,
     left: max === null ? null : Math.max(0, max - used - 1),
   };
+}
+
+/** The task to review against: an official prompt's, or the learner's own. */
+function taskFor(input: {
+  promptId?: unknown;
+  custom?: { kind?: unknown; task?: unknown };
+}):
+  | { type: WritingType; task: string; words: { min: number; max: number } }
+  | undefined {
+  if (typeof input?.promptId !== "string") return undefined;
+  if (!isCustomPromptId(input.promptId)) {
+    return getWritingPrompt(input.promptId);
+  }
+  const kind = CUSTOM_KINDS.find((k) => k === input.custom?.kind);
+  if (!kind) return undefined;
+  const task =
+    kind === "custom"
+      ? typeof input.custom?.task === "string"
+        ? input.custom.task.trim().slice(0, MAX_CUSTOM_TASK)
+        : ""
+      : customTask({ kind, task: "" });
+  if (!task) return undefined;
+  return { type: "daily", task, words: CUSTOM_WORDS[kind] };
 }

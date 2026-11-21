@@ -406,3 +406,108 @@ test("back-translation in each mode, and more practice (D195)", async ({
   await page.getByRole("button", { name: "回到今天的練習" }).last().click();
   await expect(page.getByRole("heading", { name: "更多練習" })).toBeVisible();
 });
+
+for (const device of ["desktop", "Pixel 7"] as const) {
+  test.describe(`custom prompts on ${device}`, () => {
+    if (device !== "desktop") {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { defaultBrowserType, ...rest } = devices[device];
+      test.use(rest);
+    }
+
+    test("a diary: no title, AI review, own sentences on Day 2 (D196)", async ({
+      page,
+    }) => {
+      const who = device === "desktop" ? "desk" : "pixel";
+      await signInWithEmail(
+        page,
+        `e2e-diary-${who}`,
+        `diary-${who}@example.com`,
+      );
+      await setToday(page, day(1));
+      await page.goto("/writing");
+      await page.getByRole("link", { name: "自訂題目" }).click();
+      await expect(page).toHaveURL(/\/writing\/new$/);
+      await page.getByRole("radio", { name: /日記/ }).check();
+      await page.getByRole("button", { name: "開始寫" }).click();
+      await expect(page).toHaveURL(/\/writing\/c-[a-z0-9-]+$/);
+      // Named by kind and date; private.
+      await expect(
+        page.getByRole("heading", { level: 1, name: /日記（11\/11）/ }),
+      ).toBeVisible();
+      await expect(page.getByText(/只有你看得到/)).toBeVisible();
+      const overview = page.url();
+      await page.getByRole("link", { name: "開始第 1 天" }).click();
+      await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
+      await page.getByRole("button", { name: "送出，取得 AI 回饋" }).click();
+      await expect(
+        page.getByRole("heading", { name: "整體分數" }),
+      ).toBeVisible();
+      // No model essay for one's own prompt.
+      await expect(page.getByRole("heading", { name: "範例文章" })).toHaveCount(
+        0,
+      );
+      // The home page lists it with today's writing.
+      await setToday(page, day(2));
+      await page.goto("/");
+      await expect(
+        page.getByRole("region", { name: "今天的寫作" }),
+      ).toContainText("日記（11/11）");
+      // Day 2: the learner's own sentences, as corrected.
+      await page.goto(`${overview}/day/2`);
+      await expect(
+        page.getByRole("textbox", { name: "聽到的英文句子" }),
+      ).toBeVisible();
+      await page
+        .getByRole("textbox", { name: "聽到的英文句子" })
+        .fill("On Saturday he goes to the park with me.");
+      await page.getByRole("button", { name: "檢查" }).click();
+      await expect(
+        page.getByText("這是你第 1 天寫的句子，修正後的版本。"),
+      ).toBeVisible();
+    });
+  });
+}
+
+test("my own topic, saved without review: Day 2 uses my sentences (D196)", async ({
+  page,
+}) => {
+  await signInWithEmail(page, "e2e-own-topic", "own-topic@example.com");
+  await setToday(page, day(1));
+  await page.goto("/writing/new");
+  // A topic is needed unless it's a diary or free writing.
+  await page.getByRole("button", { name: "開始寫" }).click();
+  await expect(
+    page.getByText("請寫下題目，或改選「日記」「自由寫作」。"),
+  ).toBeVisible();
+  await page
+    .getByRole("textbox", { name: "標題（可以留空）" })
+    .fill("Heater email");
+  await page
+    .getByRole("textbox", { name: "題目" })
+    .fill("Write an email to my landlord: the heater is broken.");
+  await page.getByRole("button", { name: "開始寫" }).click();
+  await expect(
+    page.getByRole("heading", { level: 1, name: "Heater email" }),
+  ).toBeVisible();
+  await expect(
+    page
+      .getByText("Write an email to my landlord: the heater is broken.")
+      .first(),
+  ).toBeVisible();
+  const overview = page.url();
+  await page.getByRole("link", { name: "開始第 1 天" }).click();
+  await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
+  await page.getByRole("button", { name: "只儲存，不批改" }).click();
+  await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  await setToday(page, day(2));
+  await page.goto(`${overview}/day/2`);
+  await expect(page.getByText(/第 1／[3-6] 句/).first()).toBeAttached();
+  // It's in the list on /writing, and can be deleted.
+  await page.goto("/writing");
+  await page.getByRole("link", { name: /Heater email/ }).click();
+  page.once("dialog", (dialog) => void dialog.accept());
+  await page.getByRole("button", { name: "刪除這個題目" }).click();
+  await expect(page).toHaveURL(/\/writing$/);
+  await expect(page.getByRole("link", { name: /Heater email/ })).toHaveCount(0);
+});

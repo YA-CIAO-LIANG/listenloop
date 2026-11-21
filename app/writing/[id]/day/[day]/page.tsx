@@ -6,6 +6,8 @@ import { getSignedInUser } from "@/auth/session";
 import { getWritingPrompt } from "@/data/writing";
 import { WritingDay } from "@/components/writing/WritingDay";
 import type { CycleDay } from "@/lib/cycle";
+import { CustomPromptDay } from "@/components/writing/CustomPrompts";
+import { isCustomPromptId } from "@/lib/writing/custom";
 
 export async function generateMetadata({
   params,
@@ -13,6 +15,12 @@ export async function generateMetadata({
   const { id, day } = await params;
   const prompt = getWritingPrompt(id);
   const t = await getTranslations("writing");
+  if (isCustomPromptId(id)) {
+    return {
+      title: t("overview.dayN", { day: Number(day) }),
+      robots: { index: false },
+    };
+  }
   if (!prompt) return {};
   const locale = await getLocale();
   return {
@@ -30,7 +38,20 @@ export default async function WritingDayPage({
   const { id, day: rawDay } = await params;
   const prompt = getWritingPrompt(id);
   const day = Number(rawDay);
-  if (!prompt || !Number.isInteger(day) || day < 1 || day > 7) notFound();
+  if (!Number.isInteger(day) || day < 1 || day > 7) notFound();
+  if (isCustomPromptId(id)) {
+    const user = await getSignedInUser();
+    return (
+      <main className="mx-auto flex w-full max-w-content flex-1 flex-col gap-4 px-4 py-4 split:gap-6 split:px-6 split:py-8">
+        <CustomPromptDay
+          id={id}
+          day={day as CycleDay}
+          signedIn={user !== null}
+        />
+      </main>
+    );
+  }
+  if (!prompt) notFound();
   const [t, locale, user] = await Promise.all([
     getTranslations("writing"),
     getLocale(),

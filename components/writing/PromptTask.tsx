@@ -12,9 +12,11 @@ export function PromptTask({ prompt }: { prompt: WritingPrompt }) {
       <p lang="en" className="max-w-reading text-body whitespace-pre-line">
         {prompt.task}
       </p>
-      <p className="max-w-reading text-supporting text-ink-muted">
-        {prompt.taskZh}
-      </p>
+      {prompt.taskZh && (
+        <p className="max-w-reading text-supporting text-ink-muted">
+          {prompt.taskZh}
+        </p>
+      )}
       {prompt.chart && (
         <div className="overflow-x-auto">
           <table
@@ -68,14 +70,16 @@ export function PromptTask({ prompt }: { prompt: WritingPrompt }) {
         {t("library.words", prompt.words)} ·{" "}
         {t("library.time", { minutes: prompt.minutes })}
       </p>
-      <div>
-        <h3 className="text-supporting font-medium">{t("prompt.focus")}</h3>
-        <ul className="mt-1 list-disc pl-5 text-supporting">
-          {prompt.focus.map((point) => (
-            <li key={point}>{point}</li>
-          ))}
-        </ul>
-      </div>
+      {prompt.focus.length > 0 && (
+        <div>
+          <h3 className="text-supporting font-medium">{t("prompt.focus")}</h3>
+          <ul className="mt-1 list-disc pl-5 text-supporting">
+            {prompt.focus.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

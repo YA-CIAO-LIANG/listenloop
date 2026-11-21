@@ -8,6 +8,12 @@ import {
   type Notebook,
 } from "./notebook";
 import {
+  CUSTOM_KEY,
+  mergeCustomPrompts,
+  parseCustomPrompts,
+  type CustomPrompt,
+} from "./custom";
+import {
   mergeWritingSettings,
   parseWritingSettings,
   SETTINGS_KEY,
@@ -29,7 +35,8 @@ import {
  * - `writing-<promptId>`: a prompt's progress (essays and feedback);
  * - `writing-notebook`: the notebook;
  * - `wdraft-<promptId>-<day>`: an unsent draft;
- * - `writing-settings`: the learner's settings (D194).
+ * - `writing-settings`: the learner's settings (D194);
+ * - `writing-custom`: the learner's own prompts (D196).
  * Prompt ids are at most 40 characters, so keys fit the column's 50.
  */
 export const DRAFT_KEY_PREFIX = "ll-writing-draft:v1:";
@@ -41,15 +48,17 @@ const cloudDraftKey = (promptId: string, day: number) =>
   `wdraft-${promptId}-${day}`;
 const CLOUD_NOTEBOOK = "writing-notebook";
 const CLOUD_SETTINGS = "writing-settings";
+const CLOUD_CUSTOM = "writing-custom";
 /** Documents under "writing-" that aren't a prompt's progress. */
-const NOT_PROGRESS = new Set([CLOUD_NOTEBOOK, CLOUD_SETTINGS]);
+const NOT_PROGRESS = new Set([CLOUD_NOTEBOOK, CLOUD_SETTINGS, CLOUD_CUSTOM]);
 
 /** Every writing key in this browser, for clearing after sign-out (D138). */
 export const isWritingStorageKey = (key: string) =>
   key.startsWith(WRITING_KEY_PREFIX) ||
   key.startsWith(DRAFT_KEY_PREFIX) ||
   key === NOTEBOOK_KEY ||
-  key === SETTINGS_KEY;
+  key === SETTINGS_KEY ||
+  key === CUSTOM_KEY;
 
 function read(storage: Storage, key: string): unknown {
   try {
@@ -117,6 +126,14 @@ export function loadLocalSettings(storage: Storage): WritingSettings {
 
 export function saveLocalSettings(storage: Storage, settings: WritingSettings) {
   write(storage, SETTINGS_KEY, settings);
+}
+
+export function loadLocalCustom(storage: Storage): CustomPrompt[] {
+  return parseCustomPrompts(read(storage, CUSTOM_KEY));
+}
+
+export function saveLocalCustom(storage: Storage, prompts: CustomPrompt[]) {
+  write(storage, CUSTOM_KEY, { prompts });
 }
 
 export type Draft = { text: string; at: string };
@@ -197,6 +214,10 @@ export function writingCloud(client: () => Promise<Supabase>, userId: string) {
       return parseWritingSettings(await get(CLOUD_SETTINGS));
     },
     saveSettings: (settings: WritingSettings) => put(CLOUD_SETTINGS, settings),
+    async getCustom(): Promise<CustomPrompt[]> {
+      return parseCustomPrompts(await get(CLOUD_CUSTOM));
+    },
+    saveCustom: (prompts: CustomPrompt[]) => put(CLOUD_CUSTOM, { prompts }),
     async getDraft(promptId: string, day: number): Promise<Draft | null> {
       const value = (await get(cloudDraftKey(promptId, day))) as Draft | null;
       return value && typeof value.text === "string" ? value : null;
@@ -227,11 +248,13 @@ export async function syncWriting(
   storage: Storage,
   cloud: WritingCloud,
 ): Promise<boolean> {
-  const [remote, remoteNotebook, remoteSettings] = await Promise.all([
-    cloud.listProgress(),
-    cloud.getNotebook(),
-    cloud.getSettings(),
-  ]);
+  const [remote, remoteNotebook, remoteSettings, remoteCustom] =
+    await Promise.all([
+      cloud.listProgress(),
+      cloud.getNotebook(),
+      cloud.getSettings(),
+      cloud.getCustom(),
+    ]);
   let changed = false;
   const local = listLocalProgress(storage);
   const ids = new Set([...local, ...remote].map((p) => p.promptId));
@@ -266,6 +289,15 @@ export async function syncWriting(
   }
   if (JSON.stringify(settings) !== JSON.stringify(remoteSettings)) {
     uploads.push(cloud.saveSettings(settings));
+  }
+  const localCustom = loadLocalCustom(storage);
+  const custom = mergeCustomPrompts(localCustom, remoteCustom);
+  if (JSON.stringify(custom) !== JSON.stringify(localCustom)) {
+    saveLocalCustom(storage, custom);
+    changed = true;
+  }
+  if (JSON.stringify(custom) !== JSON.stringify(remoteCustom)) {
+    uploads.push(cloud.saveCustom(custom));
   }
   await Promise.all(uploads);
   return changed;

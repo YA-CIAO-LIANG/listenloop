@@ -10,6 +10,7 @@ import {
 import { BarList } from "../charts/BarList";
 import { ChartFrame } from "../charts/ChartFrame";
 import { StatTile } from "../StatTile";
+import { useCustomTitles } from "./CustomPrompts";
 import { useAllWritingProgress, useNotebook } from "./WritingProvider";
 
 /**
@@ -19,12 +20,13 @@ import { useAllWritingProgress, useNotebook } from "./WritingProvider";
  * chart has its data table (ChartFrame).
  */
 export function WritingStats({
-  titles,
+  titles: officialTitles,
 }: {
   /** Prompt id → title in the viewer's language. */
   titles: Record<string, string>;
 }) {
   const t = useTranslations("writingStats");
+  const titles = { ...officialTitles, ...useCustomTitles() };
   const tw = useTranslations("writingTasks");
   const format = useFormatter();
   const progresses = useAllWritingProgress();

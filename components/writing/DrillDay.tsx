@@ -86,8 +86,12 @@ export function DrillDay({
       </h2>
       <p className="text-supporting text-ink-muted">{t("drills.moreIntro")}</p>
       <ul className="flex flex-wrap gap-2">
-        {EXERCISE_KINDS.filter(
-          (kind) => kind !== "fix" || fixItems(day1?.feedback).length > 0,
+        {EXERCISE_KINDS.filter((kind) =>
+          kind === "fix"
+            ? fixItems(day1?.feedback).length > 0
+            : // Without a model essay (a custom prompt, D196), only the
+              // listening drill has something to practise.
+              kind === "listen" || prompt.model.en.length > 0,
         ).map((kind) => (
           <li key={kind}>
             <Button

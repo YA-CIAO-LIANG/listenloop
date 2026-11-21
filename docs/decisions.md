@@ -3710,3 +3710,21 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **本機錄製的網路問題**：Node 26 送出的後量子 TLS 金鑰交換會被這裡的網路重設（curl 正常）。錄製或產生語音的腳本加上 `NODE_OPTIONS=--tls-max-v1.2`；正式站不受影響。
 - **相關修改**：第 2～6 天的名稱改成「聽寫回譯」，每週報告寫「完成 N 天的聽寫回譯」；自評的說明不再說「依弱點安排接下來 5 天」。
 - 要改時看哪裡：`lib/writing/back-translation.ts`（`BACK_PER_DAY`、`BACK_FIXES_PER_DAY`、`BACK_PASS`、`MEANING_PASS`）、`components/writing/BackTranslation.tsx`、`components/writing/DrillDay.tsx`、`docs/writingloop/learning-science.md` 第 8 節。
+
+## D196 自訂題目（2026-11-21，Joe 的修改清單第四項）
+
+- **三種**：自己的題目（必填，英文或中文都可以，最多 600 字）、日記、自由寫作。標題可以留空，留空時用「種類（日期）」當名稱。
+- **長度目標**：自己的題目 80～300 字、日記 50～250 字、自由寫作 50～400 字，建議時間 20／10／15 分鐘；方案的每篇字數上限照舊。AI 批改一律用一般評分標準（general）。
+- **私人**：
+  - 題目存在本機 `ll-writing-custom:v1` 和帳號自己的 `writing-custom` 文件（RLS，只有本人讀寫），伺服器沒有題目清單，別人無法列出或打開。
+  - 頁面 `/writing/c-…` 由瀏覽器讀取內容，伺服器只回空殼，並設定 `noindex`。
+  - 登出時一起清除；刪除帳號時隨 `user_documents` 刪除。
+  - 刪除題目時留下刪除標記（tombstone），讓其他裝置同步刪除；寫過的週紀錄留在學習分析。
+  - 目前沒有分享功能，所以「預設私人」就是唯一的狀態。
+- **AI 批改**：題目只在瀏覽器，所以送出時把種類和題目文字一起送給 `reviewEssay`。伺服器限制 600 字，日記與自由寫作用固定的英文題目。題目文字和文章一樣，只當資料交給模型；寫作提示詞本來就規定使用者訊息不是指令。
+- **沒有範文**：
+  - 第 2～6 天的聽寫回譯用被修正後的句子；沒有批改時用自己的句子（D195）。
+  - 「更多練習」只留不需要範文的兩種：改錯（有批改時）、聽寫轉寫作。
+  - 完成頁沒有範例文章。
+- **自訂題目的 id**：`c-` 加隨機字串，和官方題目、聽力教材的 id 都不會重疊；文件 key 不超過 50 字。
+- 要改時看哪裡：`lib/writing/custom.ts`（`CUSTOM_WORDS`、`CUSTOM_MINUTES`、`CUSTOM_TASK`）、`components/writing/CustomPrompts.tsx`、`app/writing/actions.ts` 的 `taskFor`。
