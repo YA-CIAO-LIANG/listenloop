@@ -80,6 +80,7 @@ const PAGES: { path: string; role: Role; state?: string; then?: Step }[] = [
     "/writing/daily-perfect-weekend/day/1",
     "/writing/daily-perfect-weekend/day/2",
     "/writing/notebook",
+    "/writing/new",
     ...(LIVE ? [] : [`/videos/p-${shared}`]),
     "/no-such-page",
   ].map((path) => ({ path, role: "none" as const })),

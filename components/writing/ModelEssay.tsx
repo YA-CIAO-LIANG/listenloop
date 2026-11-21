@@ -13,6 +13,8 @@ import { findQuotes } from "./FeedbackView";
  */
 export function ModelEssay({ prompt }: { prompt: WritingPrompt }) {
   const t = useTranslations("writing.model");
+  // A custom prompt has no model essay (D196).
+  if (prompt.model.en.length === 0) return null;
   const examples = prompt.patterns.map((p) => p.example);
   const mark = (paragraph: string) => {
     const parts: ReactNode[] = [];

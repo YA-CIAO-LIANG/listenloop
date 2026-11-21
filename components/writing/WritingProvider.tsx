@@ -18,13 +18,16 @@ import {
 import type { Notebook } from "@/lib/writing/notebook";
 import type { WritingProgress } from "@/lib/writing/progress";
 import type { WritingSettings } from "@/lib/writing/settings";
+import { mergeCustomPrompts, type CustomPrompt } from "@/lib/writing/custom";
 import {
   isWritingStorageKey,
   listLocalProgress,
   loadLocalNotebook,
+  loadLocalCustom,
   loadLocalProgress,
   loadLocalSettings,
   saveLocalNotebook,
+  saveLocalCustom,
   saveLocalProgress,
   saveLocalSettings,
   syncWriting,
@@ -45,6 +48,8 @@ type WritingData = {
   saveProgress(progress: WritingProgress): void;
   saveNotebook(notebook: Notebook): void;
   saveSettings(settings: Omit<WritingSettings, "at">): void;
+  /** Adds or changes one of the learner's own prompts (D196). */
+  saveCustom(prompt: CustomPrompt): void;
 };
 
 const WritingContext = createContext<WritingData>({
@@ -53,6 +58,7 @@ const WritingContext = createContext<WritingData>({
   saveProgress: () => {},
   saveNotebook: () => {},
   saveSettings: () => {},
+  saveCustom: () => {},
 });
 
 /** The account the device's data last belonged to (lib/sync/sync.ts). */
@@ -131,9 +137,28 @@ export function WritingProvider({
     [cloud],
   );
 
+  const saveCustom = useCallback(
+    (prompt: CustomPrompt) => {
+      const all = mergeCustomPrompts(loadLocalCustom(window.localStorage), [
+        { ...prompt, updatedAt: new Date().toISOString() },
+      ]);
+      saveLocalCustom(window.localStorage, all);
+      setVersion((v) => v + 1);
+      void cloud?.saveCustom(all).catch((e: unknown) => console.warn(e));
+    },
+    [cloud],
+  );
+
   const value = useMemo(
-    () => ({ cloud, version, saveProgress, saveNotebook, saveSettings }),
-    [cloud, version, saveProgress, saveNotebook, saveSettings],
+    () => ({
+      cloud,
+      version,
+      saveProgress,
+      saveNotebook,
+      saveSettings,
+      saveCustom,
+    }),
+    [cloud, version, saveProgress, saveNotebook, saveSettings, saveCustom],
   );
   return <WritingContext value={value}>{children}</WritingContext>;
 }
@@ -192,6 +217,20 @@ export function useWritingSettings(): WritingSettings | undefined {
   const mounted = useMounted();
   return useMemo(
     () => (mounted ? loadLocalSettings(window.localStorage) : undefined),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [mounted, version],
+  );
+}
+
+/** The learner's own prompts, newest first, without deleted ones. */
+export function useCustomPrompts(): CustomPrompt[] | undefined {
+  const { version } = useWritingData();
+  const mounted = useMounted();
+  return useMemo(
+    () =>
+      mounted
+        ? loadLocalCustom(window.localStorage).filter((p) => !p.deleted)
+        : undefined,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [mounted, version],
   );

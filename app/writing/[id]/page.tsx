@@ -5,6 +5,8 @@ import { getWritingPrompt, writingPrompts } from "@/data/writing";
 import { Tag } from "@/components/Tag";
 import { PromptTask } from "@/components/writing/PromptTask";
 import { WritingOverview } from "@/components/writing/WritingOverview";
+import { CustomPromptOverview } from "@/components/writing/CustomPrompts";
+import { isCustomPromptId } from "@/lib/writing/custom";
 
 export function generateStaticParams() {
   return writingPrompts.map((p) => ({ id: p.id }));
@@ -13,7 +15,13 @@ export function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps<"/writing/[id]">): Promise<Metadata> {
-  const prompt = getWritingPrompt((await params).id);
+  const { id } = await params;
+  // A learner's own prompt (D196): private, never indexed.
+  if (isCustomPromptId(id)) {
+    const t = await getTranslations("writingCustom");
+    return { title: t("metaTitle"), robots: { index: false, follow: false } };
+  }
+  const prompt = getWritingPrompt(id);
   if (!prompt) return {};
   const locale = await getLocale();
   return {
@@ -27,7 +35,16 @@ export async function generateMetadata({
 export default async function WritingPromptPage({
   params,
 }: PageProps<"/writing/[id]">) {
-  const prompt = getWritingPrompt((await params).id);
+  const { id } = await params;
+  if (isCustomPromptId(id)) {
+    // Only this browser (and the account) has it: read there.
+    return (
+      <main className="mx-auto flex w-full max-w-content flex-1 flex-col gap-8 px-4 py-12 split:px-6">
+        <CustomPromptOverview id={id} />
+      </main>
+    );
+  }
+  const prompt = getWritingPrompt(id);
   if (!prompt) notFound();
   const [t, locale] = await Promise.all([
     getTranslations("writing"),

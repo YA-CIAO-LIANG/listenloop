@@ -5,6 +5,7 @@ import { writingPrompts } from "@/data/writing";
 import { ButtonLink } from "@/components/ButtonLink";
 import { WritingLibrary } from "@/components/writing/WritingLibrary";
 import { WritingTasks } from "@/components/writing/WritingTasks";
+import { CustomPromptList } from "@/components/writing/CustomPrompts";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("writing");
@@ -66,6 +67,7 @@ export default async function WritingPage() {
         </div>
       </header>
       <WritingTasks titles={titles} />
+      <CustomPromptList />
       <Suspense fallback={null}>
         <WritingLibrary prompts={prompts} />
       </Suspense>

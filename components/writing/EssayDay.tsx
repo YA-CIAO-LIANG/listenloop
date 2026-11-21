@@ -82,6 +82,10 @@ export function EssayDay({
   const [selfScoring, setSelfScoring] = useState(false);
   const settings = useWritingSettings();
   const reviewFirst = (settings?.review ?? "ai") === "ai";
+  // A learner's own prompt goes with the essay (D196).
+  const customInput = prompt.custom
+    ? { custom: { kind: prompt.custom, task: prompt.task } }
+    : {};
   const lastSaved = useRef("");
 
   // Practice time counts toward the calendar like listening (D187).
@@ -207,6 +211,7 @@ export function EssayDay({
     try {
       const result = await reviewEssay({
         promptId: prompt.id,
+        ...customInput,
         day,
         essay: record.essay,
       });
@@ -247,6 +252,7 @@ export function EssayDay({
     try {
       const result = await reviewEssay({
         promptId: prompt.id,
+        ...customInput,
         day,
         essay: text,
       });

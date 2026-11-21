@@ -120,6 +120,8 @@ export type WritingPrompt = {
   /** A built-in ListenLoop video for the listen-then-write drill. */
   listenVideo?: string;
   draft?: boolean;
+  /** Set only on a learner's own prompt (D196): its kind. */
+  custom?: "custom" | "diary" | "free";
 };
 
 /** Kinds of mistakes, for the notebook and the analytics (D187). */

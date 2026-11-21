@@ -8,6 +8,7 @@ import { writingStatuses } from "@/lib/writing/progress";
 import { ButtonLink } from "../ButtonLink";
 import { Card } from "../Card";
 import { useToday } from "../useToday";
+import { useCustomTitles } from "./CustomPrompts";
 import { useAllWritingProgress, useNotebook } from "./WritingProvider";
 
 /**
@@ -17,7 +18,7 @@ import { useAllWritingProgress, useNotebook } from "./WritingProvider";
  * page, which has the prompts.
  */
 export function WritingTasks({
-  titles,
+  titles: officialTitles,
   showEmpty = false,
 }: {
   /** Prompt id → title to show. */
@@ -25,6 +26,8 @@ export function WritingTasks({
   showEmpty?: boolean;
 }) {
   const t = useTranslations("writingTasks");
+  // The learner's own prompts too (D196), named on this device.
+  const titles = { ...officialTitles, ...useCustomTitles() };
   const today = useToday();
   const all = useAllWritingProgress();
   const notebook = useNotebook();

@@ -281,9 +281,10 @@ flowchart LR
    - It also compares words, average sentence length, and word variety. When neither day has a score (no review, no self-score), these three decide: two improved means passed.
    - Set the pass rule on the prompt's page; the default is that Day 7 scores higher than Day 1.
    - You can download a share card that shows only the scores.
-5. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.
-6. **Allowance**: AI reviews a week are 2 on Free, 3 on Plus and Student, and 6 on Pro. AI scores are estimates, not official results.
-7. **Privacy**: only you can see your writing. Admins never see it, and it's never used to train AI.
+5. **Your own prompts** (`/writing/new`): write on your own topic, or choose a diary or free writing; the title can be left empty (it's named by kind and date). Your own prompts have no model essay, so days 2–6 use your own sentences, as corrected when there's an AI review. Only you can see them.
+6. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.
+7. **Allowance**: AI reviews a week are 2 on Free, 3 on Plus and Student, and 6 on Pro. AI scores are estimates, not official results.
+8. **Privacy**: only you can see your writing. Admins never see it, and it's never used to train AI.
 
 ---
 
