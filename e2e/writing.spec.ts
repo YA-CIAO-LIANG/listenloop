@@ -161,7 +161,10 @@ async function wholeWeek(page: Page, role: Role, device: string) {
   // Day 7: neither Day 1 nor the model while writing.
   await setToday(page, day(7));
   await page.goto(`/writing/${PROMPT}/day/7`);
-  await expect(page.getByText("不看第 1 天的文章和範例")).toBeVisible();
+  // The note is in the task: its own column, or the phone's one line.
+  await expect(
+    page.getByText("不看第 1 天的文章和範例").first(),
+  ).toBeAttached();
   await expect(page.getByText(DAY1)).toHaveCount(0);
   await writeEssay(page, DAY7, role, true);
   await expect(

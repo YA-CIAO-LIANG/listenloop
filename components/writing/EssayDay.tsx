@@ -31,7 +31,9 @@ import { usePracticeTimer } from "../usePracticeTimer";
 import { FeedbackView, SelfScoreView } from "./FeedbackView";
 import { ModelEssay } from "./ModelEssay";
 import { SelfScoreForm } from "./SelfScoreForm";
+import { PromptTask } from "./PromptTask";
 import { WeekResult } from "./WeekResult";
+import { WritingWorkspace } from "./WritingWorkspace";
 import { useWritingData, useWritingProgress } from "./WritingProvider";
 
 /** Drafts are saved this often while typing (D187). */
@@ -231,6 +233,14 @@ export function EssayDay({
     const essay = record.essay;
     return (
       <div className="flex flex-col gap-10">
+        <details className="rounded-base border border-line bg-surface">
+          <summary className="tap flex min-h-11 cursor-pointer items-center px-3 py-2 text-supporting">
+            {t("workspace.taskAgain")}
+          </summary>
+          <div className="border-t border-line p-3">
+            <PromptTask prompt={prompt} />
+          </div>
+        </details>
         {record.feedback ? (
           <FeedbackView essay={essay} feedback={record.feedback} />
         ) : record.self ? (
@@ -279,8 +289,8 @@ export function EssayDay({
       error.reason,
     );
 
-  return (
-    <div className="flex flex-col gap-4">
+  const notes = (
+    <>
       <p className="text-supporting text-ink-muted">
         {day === 1 ? t("essay.noPeek") : t("essay.noLookBack")}
       </p>
@@ -295,90 +305,109 @@ export function EssayDay({
           </Link>
         </p>
       )}
-      {selfScoring ? (
+    </>
+  );
+
+  if (selfScoring) {
+    return (
+      <div className="flex flex-col gap-4">
+        {notes}
         <SelfScoreForm
           rubric={rubric}
           onDone={selfScored}
           onCancel={() => setSelfScoring(false)}
         />
-      ) : (
-        <>
-          <label className="flex flex-col gap-2">
-            <span className="font-medium">{t("essay.label")}</span>
-            <textarea
-              lang="en"
-              value={text}
-              onChange={(e) => setText(e.target.value)}
-              disabled={!loaded || busy}
-              rows={14}
-              spellCheck={false}
-              autoCapitalize="sentences"
-              placeholder={t("essay.placeholder")}
-              className="min-h-64 w-full resize-y rounded-base border border-line bg-surface p-3 leading-relaxed focus:border-ink"
-              // Keyboards on phones: keep the caret's line in view.
-              onFocus={(e) =>
-                window.setTimeout(
-                  () => e.target.scrollIntoView({ block: "center" }),
-                  300,
-                )
-              }
-            />
-          </label>
-          {/* Phones: the count and the button stay above the keyboard. */}
-          <div className="sticky bottom-0 z-10 -mx-4 flex flex-wrap items-center justify-between gap-3 border-t border-line bg-ground/95 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur-sm split:mx-0 split:rounded-base split:border">
-            <p className="text-supporting tabular-nums" aria-live="polite">
-              <span
-                className={
-                  words < prompt.words.min || words > prompt.words.max
-                    ? "text-ink-muted"
-                    : "text-success"
-                }
+      </div>
+    );
+  }
+
+  return (
+    <WritingWorkspace
+      summary={prompt.task}
+      summaryLang="en"
+      label={t("essay.label")}
+      task={
+        <div className="flex flex-col gap-4">
+          {notes}
+          <PromptTask prompt={prompt} />
+        </div>
+      }
+    >
+      <label
+        htmlFor="essay"
+        className="sr-only shrink-0 font-medium wide:not-sr-only"
+      >
+        {t("essay.label")}
+      </label>
+      <textarea
+        id="essay"
+        lang="en"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        disabled={!loaded || busy}
+        spellCheck={false}
+        autoCapitalize="sentences"
+        placeholder={t("essay.placeholder")}
+        className="min-h-20 w-full flex-1 resize-none rounded-base border border-line bg-surface p-3 leading-relaxed focus:border-ink"
+      />
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-line pt-3 pb-1">
+        <p className="text-supporting tabular-nums" aria-live="polite">
+          <span
+            className={
+              words < prompt.words.min || words > prompt.words.max
+                ? "text-ink-muted"
+                : "text-success"
+            }
+          >
+            {t("essay.words", { count: words })}
+          </span>{" "}
+          <span className="text-ink-muted">
+            {t("essay.target", prompt.words)} ·{" "}
+            {t("essay.timer", {
+              time: formatTime(seconds),
+              minutes: prompt.minutes,
+            })}
+            {savedAt && ` · ${t("essay.saved")}`}
+          </span>
+        </p>
+        <Button
+          variant="primary"
+          onClick={submit}
+          disabled={busy || words < 1}
+          aria-describedby={error ? "essay-error" : undefined}
+        >
+          {busy
+            ? t("essay.submitting")
+            : signedIn
+              ? t("essay.submit")
+              : t("essay.submitSelf")}
+        </Button>
+      </div>
+      {error && !error.ok && (
+        <div
+          id="essay-error"
+          role="alert"
+          className="flex shrink-0 flex-col gap-2"
+        >
+          <p className="text-error">{errorText(error)}</p>
+          {aiUnavailable && (
+            <div>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => setSelfScoring(true)}
               >
-                {t("essay.words", { count: words })}
-              </span>{" "}
-              <span className="text-ink-muted">
-                {t("essay.target", prompt.words)} ·{" "}
-                {t("essay.timer", {
-                  time: formatTime(seconds),
-                  minutes: prompt.minutes,
-                })}
-                {savedAt && ` · ${t("essay.saved")}`}
-              </span>
-            </p>
-            <Button
-              variant="primary"
-              onClick={submit}
-              disabled={busy || words < 1}
-              aria-describedby={error ? "essay-error" : undefined}
-            >
-              {busy
-                ? t("essay.submitting")
-                : signedIn
-                  ? t("essay.submit")
-                  : t("essay.submitSelf")}
-            </Button>
-          </div>
-          {error && !error.ok && (
-            <div id="essay-error" role="alert" className="flex flex-col gap-2">
-              <p className="text-error">{errorText(error)}</p>
-              {aiUnavailable && (
-                <div>
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => setSelfScoring(true)}
-                  >
-                    {t("essay.selfInstead")}
-                  </Button>
-                </div>
-              )}
+                {t("essay.selfInstead")}
+              </Button>
             </div>
           )}
-          {declined?.feedback && (
-            <FeedbackView essay={declined.essay} feedback={declined.feedback} />
-          )}
-        </>
+        </div>
       )}
-    </div>
+      {declined?.feedback && (
+        <div className="shrink-0">
+          <FeedbackView essay={declined.essay} feedback={declined.feedback} />
+        </div>
+      )}
+    </WritingWorkspace>
   );
 }

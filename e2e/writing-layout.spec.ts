@@ -1,0 +1,69 @@
+import { devices, type Page } from "@playwright/test";
+import { expect, setToday, test } from "./fixtures";
+
+/**
+ * The writing workspace (D193): the task, the sound controls, and the
+ * answer box are in view together on load, without scrolling, on a
+ * desktop and on two emulated phones; with the keyboard up (the visible
+ * height about halved), the box, the count, and the button still are.
+ */
+const PROMPT = "daily-perfect-weekend";
+
+/** A phone keyboard takes about 45% of the screen. */
+async function keyboardUp(page: Page) {
+  const size = page.viewportSize()!;
+  await page.setViewportSize({
+    width: size.width,
+    height: Math.round(size.height * 0.55),
+  });
+}
+
+async function taskInView(page: Page, phone: boolean) {
+  const workspace = page.getByTestId("writing-workspace");
+  if (phone) {
+    // One line on top that opens to the whole task.
+    const summary = workspace.locator("summary");
+    await expect(summary).toBeInViewport();
+    await summary.click();
+    await expect(workspace.getByText("評分重點").first()).toBeVisible();
+    await summary.click();
+  } else {
+    await expect(
+      workspace.getByRole("region", { name: "題目" }),
+    ).toBeInViewport();
+  }
+}
+
+for (const device of ["desktop", "iPhone 15", "Pixel 7"] as const) {
+  const phone = device !== "desktop";
+  test.describe(device, () => {
+    if (phone) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { defaultBrowserType, ...rest } = devices[device];
+      test.use(rest);
+    } else {
+      test.use({ viewport: { width: 1280, height: 800 } });
+    }
+
+    test("Day 1: the task and the answer box together", async ({ page }) => {
+      await setToday(page, "2026-11-11");
+      await page.goto(`/writing/${PROMPT}/day/1`);
+      const box = page.getByRole("textbox", { name: "你的文章" });
+      await expect(box).toBeEnabled();
+      await taskInView(page, phone);
+      await expect(box).toBeInViewport();
+      const submit = page.getByRole("button", { name: /送出/ });
+      await expect(submit).toBeInViewport();
+      expect(await page.evaluate(() => window.scrollY)).toBe(0);
+
+      await box.click();
+      await box.fill("My perfect weekend would start slowly.");
+      await keyboardUp(page);
+      await expect(submit).toBeInViewport();
+      await expect(box).toBeInViewport();
+      await expect(
+        page.locator('[aria-live="polite"]').filter({ hasText: /\d+ 字/ }),
+      ).toBeInViewport();
+    });
+  });
+}

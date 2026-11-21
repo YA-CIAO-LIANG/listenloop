@@ -4378,6 +4378,13 @@
       "pattern": "Pattern",
       "mastered": "Mastered",
       "next": "Review on {date} (round {stage})"
+    },
+    "workspace": {
+      "more": "Show task",
+      "less": "Hide",
+      "task": "Task",
+      "answer": "Your answer",
+      "taskAgain": "The task and what is scored"
     }
   },
   "writingTasks": {

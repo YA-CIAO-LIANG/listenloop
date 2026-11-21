@@ -958,9 +958,13 @@ CardLink，內容由上到下：
 所有寫作元件放在 `components/writing/`，只使用既有的 tokens 和元件：`Card`、`CardLink`、`Tag`、`FilterChip`、`Button`、`Mark`。
 
 - **題目庫**（`WritingLibrary`）：和教材庫的篩選一樣（D104）。三組 `FilterChip`（我今天有幾分鐘、題目類型、程度）全部展開，篩選條件記在網址裡，可以「存為我的預設篩選」。
+- **作答版面**（`WritingWorkspace`，D193）：所有寫作練習頁都用它，讓題目和作答框同時在畫面上。
+  - `wide`（1024px）以上：左欄題目（2 份）、右欄作答（3 份），間距 32px，兩欄各自捲動。
+  - `wide` 以下：最上方是一行摘要（`details`，surface、1px line、`rounded-base`、至少 44px 高；文字 `truncate`，右邊 accent-ink 的「展開題目」）。展開後顯示完整題目與評分重點，最多佔畫面 45%，可以捲動。摘要下方是聲音控制（有的話），再下面是作答區，作答框填滿剩下的高度。
+  - 整個區塊的底邊對齊畫面可見範圍的底邊（`visualViewport`），所以手機鍵盤彈出時，作答框、字數與送出按鈕仍然看得到；鍵盤彈出時區塊會捲到畫面頂端。最小高度 160px。
 - **作答區**（`EssayDay`）：
-  - 輸入框是 `textarea lang="en"`。
-  - 字數、計時和送出按鈕放在 `sticky bottom-0` 的列。手機鍵盤彈出時，這一列仍然在鍵盤上方，並且加上 `env(safe-area-inset-bottom)`。
+  - 輸入框是 `textarea lang="en"`，填滿作答欄；手機上標籤只給螢幕閱讀器（placeholder 已說明）。
+  - 字數、計時和送出按鈕在輸入框下方的列（上方 1px line）。
   - 字數在目標範圍內時顯示 `text-success`，其他時候顯示 `text-ink-muted`。字數同時以文字寫出，不只靠顏色。
 - **回饋**（`FeedbackView`）：
   - 用 `Mark kind="miss"` 把最重要的 3 個問題標在原文上，旁邊加 `sup` 編號，對應下方的編號清單。
