@@ -1233,3 +1233,109 @@ test("T23 guest: a GSAT composition on a phone — self-score, the week, minutes
     page.getByRole("link", { name: "回到這一週" }).click(),
   );
 });
+
+test("T24 free: Day 2 back-translation, reading the Chinese, then more practice (P11 IELTS 大學生)", async ({
+  page,
+}) => {
+  const device = test.info().project.name;
+  await signInWithEmail(
+    page,
+    `ux-back-${device}`,
+    `ux-back-${device}@example.com`,
+  );
+  await setToday(page, "2026-11-16");
+  await step(page, "t24-back", "1-settings", async () => {
+    await page.goto("/account#writing-settings");
+    await dismissNotices(page);
+    await page.getByRole("radio", { name: /看中文 → 寫出英文/ }).check();
+  });
+  await step(page, "t24-back", "2-day1-save", async () => {
+    await page.goto("/writing/daily-perfect-weekend/day/1");
+    await page
+      .getByRole("textbox", { name: "你的文章" })
+      .fill(
+        "My perfect weekend would start slowly. On Saturday I would go to the park with my sister, and we would eat lunch by the river.",
+      );
+    await page.getByRole("button", { name: "只儲存，不批改" }).first().click();
+    await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  });
+  await setToday(page, "2026-11-17");
+  await step(page, "t24-back", "3-day2", () =>
+    page.goto("/writing/daily-perfect-weekend/day/2"),
+  );
+  await step(page, "t24-back", "4-checked", async () => {
+    await page
+      .getByRole("textbox", { name: "這句的英文" })
+      .fill("My perfect weekend would start slowly.");
+    await page.getByRole("button", { name: "檢查" }).click();
+  });
+  await step(page, "t24-back", "5-more", () =>
+    page.getByRole("heading", { name: "更多練習" }).scrollIntoViewIfNeeded(),
+  );
+});
+
+test("T25 free: my own prompt (an email to the landlord), saved, then the AI's review (P12 留學生寫 Email)", async ({
+  page,
+}) => {
+  const device = test.info().project.name;
+  await signInWithEmail(
+    page,
+    `ux-own-${device}`,
+    `ux-own-${device}@example.com`,
+  );
+  await setToday(page, "2026-11-16");
+  await step(page, "t25-own", "1-new", async () => {
+    await page.goto("/writing/new");
+    await dismissNotices(page);
+  });
+  await step(page, "t25-own", "2-overview", async () => {
+    await page
+      .getByRole("textbox", { name: "題目" })
+      .fill("Write an email to my landlord: the heater in my room is broken.");
+    await page.getByRole("button", { name: "開始寫" }).click();
+  });
+  await step(page, "t25-own", "3-day1", () =>
+    page.getByRole("link", { name: "開始第 1 天" }).click(),
+  );
+  await step(page, "t25-own", "4-saved", async () => {
+    await page
+      .getByRole("textbox", { name: "你的文章" })
+      .fill(
+        "Dear Mr. Brown, I am writing because the heater in my room do not work since Monday. It is very cold at night. Could you send someone to fix it this week? Thank you. Best regards, Amy",
+      );
+    await page.getByRole("button", { name: "只儲存，不批改" }).first().click();
+    await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  });
+  await step(page, "t25-own", "5-review-later", () =>
+    page.getByRole("button", { name: "請 AI 批改" }).click(),
+  );
+});
+
+test("T26 free: a 5-minute chat as a teen, a tip, ending early (P13 學測作文高三生)", async ({
+  page,
+}) => {
+  const device = test.info().project.name;
+  await signInWithEmail(
+    page,
+    `ux-chat-${device}`,
+    `ux-chat-${device}@example.com`,
+  );
+  await step(page, "t26-chat", "1-setup", async () => {
+    await page.goto("/writing/chat");
+    await dismissNotices(page);
+    await page.getByRole("radio", { name: /同學/ }).check();
+    await page.getByRole("checkbox", { name: /未滿 18 歲/ }).check();
+  });
+  await step(page, "t26-chat", "2-room", () =>
+    page.getByRole("button", { name: "開始聊天" }).click(),
+  );
+  await step(page, "t26-chat", "3-tip", async () => {
+    const box = page.getByRole("textbox", { name: /傳訊息給/ });
+    await box.fill("Yesterday i go to the library with my classmate.");
+    await box.press("Enter");
+    await page.getByText("有建議").click();
+  });
+  await step(page, "t26-chat", "4-summary", () =>
+    page.getByRole("button", { name: "提早結束" }).click(),
+  );
+});

@@ -11,12 +11,17 @@ const MIN_HEIGHT_PX = 160;
  * viewport's bottom (above a phone's keyboard, D193) minus the element's
  * top. Recomputed on scroll, resize, and keyboard changes.
  */
-export function useFitToViewport(ref: React.RefObject<HTMLElement | null>) {
+export function useFitToViewport(
+  ref: React.RefObject<HTMLElement | null>,
+  /** The whole visible height, the page scrolled to it (the chat room). */
+  { full = false }: { full?: boolean } = {},
+) {
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
     let frame = 0;
     let tallest = 0;
+    let first = true;
     const fit = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() => {
@@ -33,8 +38,15 @@ export function useFitToViewport(ref: React.RefObject<HTMLElement | null>) {
           element.scrollIntoView({ block: "start" });
         }
         const bottom = (view?.offsetTop ?? 0) + visible;
-        const top = Math.max(0, element.getBoundingClientRect().top);
+        const top = full
+          ? (view?.offsetTop ?? 0)
+          : Math.max(0, element.getBoundingClientRect().top);
         element.style.height = `${Math.max(MIN_HEIGHT_PX, Math.floor(bottom - top))}px`;
+        // Full height: once it has its height, bring it to the top.
+        if (full && first) {
+          first = false;
+          element.scrollIntoView({ block: "start" });
+        }
       });
     };
     fit();
@@ -53,7 +65,7 @@ export function useFitToViewport(ref: React.RefObject<HTMLElement | null>) {
       window.visualViewport?.removeEventListener("resize", fit);
       window.visualViewport?.removeEventListener("scroll", fit);
     };
-  }, [ref]);
+  }, [ref, full]);
 }
 
 /**

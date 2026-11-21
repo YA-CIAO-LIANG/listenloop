@@ -1,5 +1,5 @@
 import { devices, type Page } from "@playwright/test";
-import { expect, setToday, test } from "./fixtures";
+import { expect, setToday, signInWithEmail, test } from "./fixtures";
 
 /**
  * The writing workspace (D193): the task, the sound controls, and the
@@ -90,6 +90,24 @@ for (const device of ["desktop", "iPhone 15", "Pixel 7"] as const) {
       for (const element of [replay, box, check]) {
         await expect(element).toBeInViewport();
       }
+    });
+
+    test("the chat room fills the screen when it starts (D198)", async ({
+      page,
+    }) => {
+      const id = `e2e-room-${device.replace(/\W+/g, "-").toLowerCase()}`;
+      await signInWithEmail(page, id, `${id}@example.com`);
+      await page.goto("/writing/chat");
+      await page.getByRole("button", { name: "開始聊天" }).click();
+      const room = page.getByTestId("chat-room");
+      await expect(room).toBeVisible();
+      const height = page.viewportSize()!.height;
+      await expect
+        .poll(async () => (await room.boundingBox())?.height ?? 0)
+        .toBeGreaterThan(height * 0.9);
+      await expect(
+        page.getByRole("textbox", { name: /傳訊息給/ }),
+      ).toBeInViewport();
     });
   });
 }

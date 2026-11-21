@@ -165,7 +165,7 @@ export function ChatRoom({
 }) {
   const t = useTranslations("writingChat");
   const ref = useRef<HTMLDivElement>(null);
-  useFitToViewport(ref);
+  useFitToViewport(ref, { full: true });
   const list = useRef<HTMLOListElement>(null);
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
     { from: "them", text: opening, at: startedAt },
