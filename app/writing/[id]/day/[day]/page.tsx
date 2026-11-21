@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getSignedInUser } from "@/auth/session";
 import { getWritingPrompt } from "@/data/writing";
-import { PromptTask } from "@/components/writing/PromptTask";
 import { WritingDay } from "@/components/writing/WritingDay";
 import type { CycleDay } from "@/lib/cycle";
 
@@ -39,7 +38,7 @@ export default async function WritingDayPage({
   ]);
   const title = locale === "en" ? prompt.title.en : prompt.title.zh;
   return (
-    <main className="mx-auto flex w-full max-w-content flex-1 flex-col gap-6 px-4 py-10 split:px-6">
+    <main className="mx-auto flex w-full max-w-content flex-1 flex-col gap-4 px-4 py-4 split:gap-6 split:px-6 split:py-8">
       <nav className="text-supporting">
         <Link
           href={`/writing/${prompt.id}`}
@@ -48,11 +47,10 @@ export default async function WritingDayPage({
           {title}
         </Link>
       </nav>
-      <h1 className="font-display text-h1">
+      <h1 className="font-display text-h2 split:text-h1">
         {t("overview.dayN", { day })} ·{" "}
         {t(`overview.dayName.${day as CycleDay}`)}
       </h1>
-      {(day === 1 || day === 7) && <PromptTask prompt={prompt} />}
       <WritingDay
         prompt={prompt}
         day={day as CycleDay}

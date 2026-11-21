@@ -32,6 +32,7 @@ import {
   type DrillDone,
 } from "./Drills";
 import { useWritingData, useWritingProgress } from "./WritingProvider";
+import { WritingWorkspace } from "./WritingWorkspace";
 
 /** The listening video for the listen-then-write drill. */
 const DEFAULT_LISTEN_VIDEO = "sintel";
@@ -147,48 +148,56 @@ export function DrillDay({
     }
   })();
 
+  const steps = (
+    <ol className="flex flex-wrap gap-2" aria-label={t("drills.today")}>
+      {plan.map((k, i) => (
+        <li
+          key={i}
+          aria-current={i === results.length ? "step" : undefined}
+          className={`rounded-base border px-3 py-1 text-supporting ${
+            i === results.length ? "border-accent" : "border-line"
+          }`}
+        >
+          {i < results.length ? "✓ " : ""}
+          {t(`drills.kinds.${k}.name`)}
+        </li>
+      ))}
+    </ol>
+  );
+
+  if (!kind) return null;
   return (
-    <div className="flex flex-col gap-6">
-      <p className="text-ink-muted">
-        {t("drills.intro", { count: plan.length })}{" "}
-        {weak.length > 0 &&
-          t("drills.because", {
-            list: weak
-              .slice(0, 2)
-              .map((w) => t(`errors.${w}`))
-              .join("、"),
-          })}
-      </p>
-      <ol className="flex flex-wrap gap-2" aria-label={t("drills.today")}>
-        {plan.map((k, i) => (
-          <li
-            key={i}
-            aria-current={i === results.length ? "step" : undefined}
-            className={`rounded-base border px-3 py-1 text-supporting ${
-              i === results.length ? "border-accent" : "border-line"
-            }`}
-          >
-            {i < results.length ? "✓ " : ""}
-            {t(`drills.kinds.${k}.name`)}
-          </li>
-        ))}
-      </ol>
-      {kind && (
-        <section aria-labelledby="drill-title" className="flex flex-col gap-3">
-          <h2 id="drill-title" className="font-display text-h3">
-            {t(`drills.kinds.${kind}.name`)}
-          </h2>
+    <WritingWorkspace
+      summary={`${t(`drills.kinds.${kind}.name`)} · ${t(`drills.kinds.${kind}.intro`)}`}
+      label={t(`drills.kinds.${kind}.name`)}
+      task={
+        <div className="flex flex-col gap-4">
+          <p className="text-ink-muted">
+            {t("drills.intro", { count: plan.length })}{" "}
+            {weak.length > 0 &&
+              t("drills.because", {
+                list: weak
+                  .slice(0, 2)
+                  .map((w) => t(`errors.${w}`))
+                  .join("、"),
+              })}
+          </p>
+          {steps}
           <p className="text-supporting text-ink-muted">
             {t(`drills.kinds.${kind}.intro`)}
           </p>
-          <div key={`${kind}-${results.length}`}>{drill}</div>
-        </section>
-      )}
-      <p className="text-supporting">
-        <Link href="/writing/notebook" className="underline">
-          {t("drills.toNotebook")}
-        </Link>
-      </p>
-    </div>
+          <p className="text-supporting">
+            <Link href="/writing/notebook" className="underline">
+              {t("drills.toNotebook")}
+            </Link>
+          </p>
+        </div>
+      }
+    >
+      <h2 id="drill-title" className="shrink-0 font-display text-h3">
+        {t(`drills.kinds.${kind}.name`)}
+      </h2>
+      <div key={`${kind}-${results.length}`}>{drill}</div>
+    </WritingWorkspace>
   );
 }

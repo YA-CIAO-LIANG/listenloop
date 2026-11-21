@@ -4376,6 +4376,13 @@
       "pattern": "句型",
       "mastered": "已掌握",
       "next": "{date} 複習（第 {stage} 次）"
+    },
+    "workspace": {
+      "more": "展開題目",
+      "less": "收合",
+      "task": "題目",
+      "answer": "作答",
+      "taskAgain": "題目與評分重點"
     }
   },
   "writingTasks": {
