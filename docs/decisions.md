@@ -3773,3 +3773,12 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 第一版 96.88 分（錄製 32 次，US$0.017）。沒通過的 2 筆都是自我傷害訊息被 Azure 內容過濾擋下（模型沒有回答），已用上述的本機檢查與專線補強；eval 仍照實計分。
   - 合併門檻和寫作 eval 一樣：`npm run eval:check` 要 ≥ main。
 - 要改時看哪裡：`lib/writing/chat/`（提示詞、清理、安全、總結、限制、eval）、`app/writing/chat/actions.ts`、`components/writing/chat/`、`lib/payments/price-floor.ts` 的 `CHAT_TURN_COST`、`supabase/migrations/20261130000000_writing_chat_sessions.sql`。
+
+## D198 寫作第二階段的 AI 虛擬使用者測試與 QA（2026-11-21，Joe 的修改清單第六項）
+
+- 新增任務 T24～T26（聽寫回譯「看中文寫英文」、自訂題目＋之後批改、未滿 18 歲的聊天），兩輪。
+- F1（嚴重度 3）：手機上聊天視窗被頁面標題和說明擠到只剩三行。改成聊天開始時，視窗佔滿可見高度並捲到頂端（`useFitToViewport` 的 `full` 選項：高度等於可見高度，第一次算好高度後才捲動，避免在頁面還不夠長時捲不上去）。E2E 在 iPhone 15、Pixel 7、電腦檢查視窗高度至少是畫面的 90%，輸入框在畫面內。
+- F2（嚴重度 3）：聽寫回譯按「檢查」後，結果和「下一句」被作答區切掉。改成「下一句」緊接在結果第一行下方，結果出現時自動捲進作答區的可見範圍。
+- 聊天訊息裡可點的單字小於 24px，屬於 WCAG 2.5.8 的句中目標例外，接受。
+- QA 第 67 輪：沒有新問題。手機的一行題目摘要被截斷是刻意設計。
+- 要改時看哪裡：`components/writing/WritingWorkspace.tsx`、`components/writing/chat/ChatRoom.tsx`、`components/writing/BackTranslation.tsx`、`usability/tasks.spec.ts`。

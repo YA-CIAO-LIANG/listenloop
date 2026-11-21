@@ -168,13 +168,25 @@ export function BackTranslation({
         )}
       </div>
       {result && (
-        <div role="status" className="flex shrink-0 flex-col gap-3">
+        <div
+          role="status"
+          ref={(element) =>
+            // The result and "Next" in view inside the answer column.
+            element?.scrollIntoView({ block: "nearest" })
+          }
+          className="flex shrink-0 flex-col gap-3"
+        >
           <p className={result.right ? "text-success" : ""}>
             {result.right ? t("right") : t("close")}{" "}
             <span className="tabular-nums">
               {t("score", { percent: Math.round(result.score * 100) })}
             </span>
           </p>
+          <div>
+            <Button variant="primary" onClick={next}>
+              {index + 1 >= items.length ? t("finish") : t("next")}
+            </Button>
+          </div>
           {result.mode === "listen-zh" ? (
             <dl className="grid gap-1 text-supporting">
               <dt className="text-ink-muted">{t("meaning")}</dt>
@@ -195,11 +207,6 @@ export function BackTranslation({
           {item.source === "fix" && (
             <p className="text-supporting text-ink-muted">{t("fromFix")}</p>
           )}
-          <div>
-            <Button variant="primary" onClick={next}>
-              {index + 1 >= items.length ? t("finish") : t("next")}
-            </Button>
-          </div>
         </div>
       )}
     </WritingWorkspace>
