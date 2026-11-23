@@ -148,7 +148,7 @@ jobs:
       # End-to-end tests against the build above (YouTube blocked in tests).
       - if: steps.scope.outputs.e2e == 'true'
         run: npm run test:e2e
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-traces
