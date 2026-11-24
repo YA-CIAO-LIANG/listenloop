@@ -62,11 +62,7 @@ export default async function WritingPage() {
           <ButtonLink href="/writing/notebook" variant="secondary" size="sm">
             {t("notebook.title")}
           </ButtonLink>
-          <ButtonLink
-            href="/account#writing-settings"
-            variant="ghost"
-            size="sm"
-          >
+          <ButtonLink href="/writing/settings" variant="ghost" size="sm">
             {tSettings("settingsTitle")}
           </ButtonLink>
         </div>

@@ -1,5 +1,11 @@
 import { devices, type Page } from "@playwright/test";
-import { expect, setToday, signInWithEmail, test } from "./fixtures";
+import {
+  checkBackAnswer,
+  expect,
+  setToday,
+  signInWithEmail,
+  test,
+} from "./fixtures";
 
 /**
  * The daily back-translation as it goes (D199): every answer saved at
@@ -50,10 +56,14 @@ const at = (page: Page, n: number, total?: number) =>
 async function answer(page: Page, text = "something else entirely") {
   const box = page.locator("#back-answer");
   await box.fill(text);
-  const check = page.getByRole("button", { name: "檢查", exact: true });
+  const check = page.getByRole("button", { name: /^檢查/ }).first();
+  // The workspace fits itself to the screen a frame after it appears.
+  await expect(page.getByTestId("writing-workspace")).toHaveAttribute(
+    "style",
+    /height/,
+  );
   const before = await check.boundingBox();
-  await check.click();
-  await expect(page.getByText(/寫對了|差一點/)).toBeVisible();
+  await checkBackAnswer(page);
   // Next takes Check's place: the same spot every sentence.
   const next = page.getByRole("button", {
     name: /^(下一句|完成今天的練習|完成額外練習)$/,
@@ -128,6 +138,10 @@ for (const device of ["desktop", "Pixel 7"] as const) {
           await page.getByText("展開題目").click();
         }
         await page.getByRole("button", { name: "第 1 句（寫錯）" }).click();
+        // Chosen from the folded task on a phone: it folds again.
+        if (device !== "desktop") {
+          await expect(page.getByText("展開題目")).toBeVisible();
+        }
         await expect(page.locator("#back-answer")).toHaveValue(
           "something else entirely",
         );
@@ -231,7 +245,7 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       await expect(page.getByText(/寫對 0／1 句/)).toBeVisible();
 
       // Off in the writing settings: the rules only.
-      await page.goto("/account#writing-settings");
+      await page.goto("/writing/settings");
       await page
         .getByRole("checkbox", { name: /額外練習不使用 AI 批改/ })
         .check();
@@ -249,8 +263,7 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       if (device !== "desktop")
         await page.getByText("收合", { exact: true }).click();
       await page.locator("#back-answer").fill("not the same at all");
-      await page.getByRole("button", { name: "檢查", exact: true }).click();
-      await expect(page.getByText(/寫對了|差一點/)).toBeVisible();
+      await checkBackAnswer(page);
       await expect(page.getByText(/AI 會在這組結束時一起批改/)).toHaveCount(0);
     });
   });

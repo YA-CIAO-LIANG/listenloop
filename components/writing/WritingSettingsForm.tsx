@@ -63,6 +63,59 @@ export function WritingSettingsForm() {
         ))}
       </fieldset>
       <fieldset className="flex flex-col gap-2">
+        <legend className="font-medium">{t("coach.title")}</legend>
+        <p className="text-supporting text-ink-muted">{t("coach.intro")}</p>
+        {(["confidence", "scaffold", "selfExplain", "day30"] as const).map(
+          (name) => (
+            <label key={name} className={row}>
+              <input
+                type="checkbox"
+                checked={settings[name]}
+                onChange={(e) =>
+                  saveSettings({ ...current, [name]: e.target.checked })
+                }
+                className={radio}
+              />
+              <span>
+                {t(`coach.${name}.label`)}
+                <span className="block text-supporting text-ink-muted">
+                  {t(`coach.${name}.hint`)}
+                </span>
+              </span>
+            </label>
+          ),
+        )}
+        <label className={row}>
+          <input
+            type="checkbox"
+            checked={settings.bedtime}
+            onChange={(e) =>
+              saveSettings({ ...current, bedtime: e.target.checked })
+            }
+            className={radio}
+          />
+          <span>
+            {t("coach.bedtime.label")}
+            <span className="block text-supporting text-ink-muted">
+              {t("coach.bedtime.hint")}
+            </span>
+          </span>
+        </label>
+        <label className="ml-7 flex flex-wrap items-center gap-2 text-supporting">
+          {t("coach.bedtime.at")}
+          <input
+            type="time"
+            value={settings.bedtimeAt}
+            disabled={!settings.bedtime}
+            onChange={(e) =>
+              /^\d\d:\d\d$/.test(e.target.value) &&
+              saveSettings({ ...current, bedtimeAt: e.target.value })
+            }
+            className="min-h-8 rounded-base border border-line bg-surface px-2 disabled:opacity-50 pointer-coarse:min-h-11"
+          />
+        </label>
+      </fieldset>
+      <fieldset className="flex flex-col gap-2">
         <legend className="font-medium">{t("extra")}</legend>
         <label className={row}>
           <input

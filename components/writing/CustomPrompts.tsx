@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
-import type { CycleDay } from "@/lib/cycle";
+import type { WritingDayNumber } from "@/lib/writing/progress";
 import {
   CUSTOM_KINDS,
   customWritingPrompt,
@@ -124,7 +124,7 @@ export function CustomPromptDay({
   signedIn,
 }: {
   id: string;
-  day: CycleDay;
+  day: WritingDayNumber;
   signedIn: boolean;
 }) {
   const t = useTranslations("writing");

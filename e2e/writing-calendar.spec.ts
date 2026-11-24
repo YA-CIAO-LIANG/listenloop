@@ -1,6 +1,12 @@
 import AxeBuilder from "@axe-core/playwright";
 import { devices, type Page } from "@playwright/test";
-import { expect, setToday, signInWithEmail, test } from "./fixtures";
+import {
+  checkBackAnswer,
+  expect,
+  setToday,
+  signInWithEmail,
+  test,
+} from "./fixtures";
 
 /**
  * The writing calendar (D201): on /writing, each day's finished cycle
@@ -28,7 +34,7 @@ async function dayOneAndTwo(page: Page) {
   });
   for (let step = 0; step < 10 && !(await done.isVisible()); step++) {
     await page.locator("#back-answer").fill("My perfect weekend");
-    await page.getByRole("button", { name: "檢查", exact: true }).click();
+    await checkBackAnswer(page);
     await page
       .getByRole("button", { name: /^(下一句|完成今天的練習)$/ })
       .click();
@@ -37,7 +43,7 @@ async function dayOneAndTwo(page: Page) {
   // One set of extra practice, ended early.
   await page.getByRole("button", { name: "額外練習" }).click();
   await page.locator("#back-answer").fill("My weekend");
-  await page.getByRole("button", { name: "檢查", exact: true }).click();
+  await checkBackAnswer(page);
   await page.getByRole("button", { name: "結束額外練習" }).click();
   await expect(
     page.getByRole("heading", { name: "額外練習完成了！" }),

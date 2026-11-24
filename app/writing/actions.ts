@@ -67,7 +67,7 @@ export async function reviewEssay(input: {
   if (!user) return { ok: false, reason: "signIn" };
   const prompt = taskFor(input);
   const essay = typeof input?.essay === "string" ? input.essay.trim() : "";
-  if (!prompt || (input.day !== 1 && input.day !== 7) || !essay) {
+  if (!prompt || ![1, 7, 30].includes(input.day) || !essay) {
     return { ok: false, reason: "invalid" };
   }
   if (await featurePaused(user, "aiGenerate")) {

@@ -63,6 +63,8 @@ type WritingData = {
   saveCustom(prompt: CustomPrompt): void;
   /** Adds or changes one chat (D197). */
   saveChat(chat: ChatRecord): void;
+  /** Changes the calendar's log (D201), e.g. the evening review (D203). */
+  updateLog(change: (log: WritingLog) => WritingLog): void;
 };
 
 const WritingContext = createContext<WritingData>({
@@ -73,6 +75,7 @@ const WritingContext = createContext<WritingData>({
   saveSettings: () => {},
   saveCustom: () => {},
   saveChat: () => {},
+  updateLog: () => {},
 });
 
 /** The account the device's data last belonged to (lib/sync/sync.ts). */
@@ -132,6 +135,7 @@ export function WritingProvider({
       const after = change(before);
       if (after === before) return;
       saveLocalLog(storage, after);
+      setVersion((v) => v + 1);
       void cloud?.saveLog(after).catch((e: unknown) => console.warn(e));
     },
     [cloud],
@@ -210,6 +214,7 @@ export function WritingProvider({
       saveSettings,
       saveCustom,
       saveChat,
+      updateLog,
     }),
     [
       cloud,
@@ -219,6 +224,7 @@ export function WritingProvider({
       saveSettings,
       saveCustom,
       saveChat,
+      updateLog,
     ],
   );
   return <WritingContext value={value}>{children}</WritingContext>;

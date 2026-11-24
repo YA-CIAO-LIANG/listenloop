@@ -21,6 +21,17 @@ export type WritingSettings = {
   dictation: DictationMode;
   /** Extra practice's answers checked by the AI when signed in (D200). */
   extraAi: boolean;
+  /** How sure, asked before each back-translation answer (D202). */
+  confidence: boolean;
+  /** Hints for a sentence's first tries, fewer each time (D202). */
+  scaffold: boolean;
+  /** A wrong answer: "where I think it went wrong" first (D202). */
+  selfExplain: boolean;
+  /** The evening review, and from what time ("HH:MM"), D203. */
+  bedtime: boolean;
+  bedtimeAt: string;
+  /** Day 30's rewrite of a finished cycle's prompt (D203). */
+  day30: boolean;
   /** ISO time of the last change. */
   at: string;
 };
@@ -31,6 +42,12 @@ export const DEFAULT_WRITING_SETTINGS: WritingSettings = {
   review: "ai",
   dictation: "listen-write",
   extraAi: true,
+  confidence: true,
+  scaffold: true,
+  selfExplain: true,
+  bedtime: true,
+  bedtimeAt: "21:30",
+  day30: true,
   at: new Date(0).toISOString(),
 };
 
@@ -43,6 +60,16 @@ export function parseWritingSettings(value: unknown): WritingSettings {
     review: REVIEW_MODES.find((m) => m === v.review) ?? "ai",
     dictation: DICTATION_MODES.find((m) => m === v.dictation) ?? "listen-write",
     extraAi: v.extraAi !== false,
+    confidence: v.confidence !== false,
+    scaffold: v.scaffold !== false,
+    selfExplain: v.selfExplain !== false,
+    bedtime: v.bedtime !== false,
+    bedtimeAt:
+      typeof v.bedtimeAt === "string" &&
+      /^([01]\d|2[0-3]):[0-5]\d$/.test(v.bedtimeAt)
+        ? v.bedtimeAt
+        : DEFAULT_WRITING_SETTINGS.bedtimeAt,
+    day30: v.day30 !== false,
     at:
       typeof v.at === "string" && !Number.isNaN(Date.parse(v.at))
         ? v.at

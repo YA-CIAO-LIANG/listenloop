@@ -1,5 +1,5 @@
 import { CYCLE_DAYS, type CycleDay, type DayStatus } from "@/lib/cycle";
-import { isLaterDay, isLocalDate, type LocalDate } from "@/lib/dates";
+import { addDays, isLaterDay, isLocalDate, type LocalDate } from "@/lib/dates";
 import type { BackRun } from "./back-translation";
 import type { WritingFeedback } from "./feedback";
 import { compareMetrics } from "./metrics";
@@ -111,9 +111,43 @@ export type WritingProgress = {
     7?: EssayDay;
   };
   history: WritingWeek[];
+  /**
+   * Day 30's rewrite of a finished week's prompt (D203), for `week`: 30
+   * days after Day 1, the same prompt again without looking back.
+   */
+  day30?: EssayDay & { week: number };
+  /** The week whose Day 30 the learner chose to skip (D203). */
+  day30Skipped?: number;
   /** ISO time of the last change, for merging devices. */
   updatedAt: string;
 };
+
+/** A day's page: the week's seven, and Day 30's rewrite (D203). */
+export type WritingDayNumber = CycleDay | 30;
+
+/** Day 30 comes this many days after Day 1 (D203). */
+export const DAY30_AFTER = 29;
+
+/** This week's Day 30 rewrite, when there is one (D203). */
+export const day30Of = (progress: WritingProgress | null | undefined) =>
+  progress?.day30?.week === progress?.week ? progress?.day30 : undefined;
+
+/**
+ * Whether Day 30's rewrite is open (D203): the week finished (Day 7
+ * done), 29 days or more since Day 1, not yet written or skipped.
+ * `"early"`: finished, but not day 30 yet.
+ */
+export function day30State(
+  progress: WritingProgress | null | undefined,
+  today: LocalDate,
+): "open" | "early" | "done" | null {
+  if (!progress?.days[7]?.done || !progress.days[1]?.date) return null;
+  if (day30Of(progress)?.done) return "done";
+  if (progress.day30Skipped === progress.week) return null;
+  return today >= addDays(progress.days[1].date, DAY30_AFTER)
+    ? "open"
+    : "early";
+}
 
 export const WRITING_KEY_PREFIX = "ll-writing:v1:";
 export const writingKey = (promptId: string) =>
@@ -174,6 +208,12 @@ export function parseWritingProgress(value: unknown): WritingProgress | null {
     history: Array.isArray(value.history)
       ? (value.history as WritingWeek[])
       : [],
+    ...(isObject(value.day30) && Number.isInteger(value.day30.week)
+      ? { day30: value.day30 as WritingProgress["day30"] }
+      : {}),
+    ...(Number.isInteger(value.day30Skipped)
+      ? { day30Skipped: value.day30Skipped as number }
+      : {}),
     updatedAt:
       typeof value.updatedAt === "string"
         ? value.updatedAt
@@ -344,5 +384,12 @@ export function mergeWritingProgress(
     if (!history.some((w) => w.week === week.week)) history.push(week);
   }
   history.sort((x, y) => x.week - y.week);
-  return settleWritingWeek({ ...newer, days, history });
+  // Day 30 (D203): a written one wins over none.
+  const day30 = newer.day30?.done ? newer.day30 : (older.day30 ?? newer.day30);
+  return settleWritingWeek({
+    ...newer,
+    days,
+    history,
+    ...(day30 ? { day30 } : {}),
+  });
 }

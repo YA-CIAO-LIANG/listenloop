@@ -268,11 +268,11 @@ flowchart LR
    - The word count, suggested time, and a timer are shown. The timer is a guide; it never stops you.
    - Drafts save every 5 seconds and when you leave the page.
    - Signed in, you get AI feedback: the score with reasons, the 3 most important issues highlighted on your essay, and what you did well. Smaller points are under "More suggestions".
-   - Signed in, you can also choose "Save only, no review": no allowance used; score yourself against the rubric, or skip it. "Ask the AI to review" on the finished page later uses one of that week's reviews. Change the default in Account → Writing settings.
+   - Signed in, you can also choose "Save only, no review": no allowance used; score yourself against the rubric, or skip it. "Ask the AI to review" on the finished page later uses one of that week's reviews. Change the default in Writing settings (top of the writing page, `/writing/settings`; also on the account page).
    - Signed out, you score your essay against the rubric yourself and pick up to 3 things to work on.
 3. **Days 2–6, back-translation**:
    - 5–8 sentences a day, about 10 minutes. With an AI review, your corrected Day 1 sentences and the model's key sentences; without one, the model's sentences.
-   - Three ways (switch in Account → Writing settings): hear English and write English (default), read Chinese and write English (with an English hint), hear English and write the meaning in Chinese.
+   - Three ways (switch in Writing settings (top of the writing page, `/writing/settings`; also on the account page)): hear English and write English (default), read Chinese and write English (with an English hint), hear English and write the meaning in Chinese.
    - The first sentence plays on arrival; replay or loop it. It's checked like listening dictation, with wrong words marked.
    - "Sentence 3 of 8" and a progress bar sit on top. Each answer is saved at once (in your account when signed in, else in this browser), so leaving, reloading, or trying another exercise first, you come back to the sentence you were at. Answered sentences open again from the list, but can't be redone.
    - Check and Next stay in the same place under the answer box, above a phone's keyboard.
@@ -287,6 +287,13 @@ flowchart LR
    - Set the pass rule on the prompt's page; the default is that Day 7 scores higher than Day 1.
    - You can download a share card that shows only the scores.
 
+- **Learning helps** (each backed by research, see `docs/writingloop/learning-science.md` §10–15; each can be turned off in Writing settings, and with them on each day's practice stays within 20 minutes):
+  - **How sure**: in back-translation, Check is one of three buttons, sure, fairly sure, or not sure (pressing one checks). Sentences you were sure of but got wrong come first in your notebook; right but not sure ones go there too.
+  - **Hints that fade**: a sentence's first try shows each word's first letter and the word count (inside the answer box on a phone); the second only the count; then none.
+  - **Self-explanation**: when wrong, write one line about where you think it went wrong (Chinese is fine) before the answer shows; at most twice a set, and you can skip.
+  - **Evening review**: on days you practised writing, after the time you set (21:30 by default), the home and writing pages show "Evening review (about 3 minutes)": write three sentences you learned today from memory, then compare them with today's.
+  - **Day 30**: after a seven-day cycle, on the 30th day from Day 1 today's tasks invite you to write the same prompt again (you can skip); the result compares days 1, 7, and 30: score, words, sentence length, and word variety.
+- **Writing settings** (`/writing/settings`, signed in or not): what submitting an essay does, how back-translation works, the learning helps, and extra practice's AI check.
 - **Writing calendar** (`/writing`): a month at a time. Each date's color is the writing tasks finished, its yellow glow the writing time (the same steps as the practice calendar), and small marks under it an essay, a chat, and extra practice. Choose a day for its time, the tasks finished (with links), extra practice and chats, and its average accuracy.
 
 5. **Your own prompts** (`/writing/new`): write on your own topic, or choose a diary or free writing; the title can be left empty (it's named by kind and date). Your own prompts have no model essay, so days 2–6 use your own sentences, as corrected when there's an AI review. Only you can see them.

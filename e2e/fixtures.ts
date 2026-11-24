@@ -123,3 +123,21 @@ async function signInAs(
     },
   ]);
 }
+
+/**
+ * Checks the back-translation answer in the box (D195, D202): picks
+ * "fairly sure" when asked how sure, presses Check, and skips "where it
+ * went wrong" when it's asked. Leaves the result on screen.
+ */
+export async function checkBackAnswer(page: Page) {
+  // How sure is the Check itself when asked (D202).
+  const sure = page.getByRole("button", { name: "檢查：有點確定" });
+  if (await sure.isVisible()) await sure.click();
+  else await page.getByRole("button", { name: "檢查", exact: true }).click();
+  await page
+    .getByText(/寫對了|差一點/)
+    .first()
+    .waitFor();
+  const skip = page.getByRole("button", { name: "略過", exact: true });
+  if (await skip.isVisible()) await skip.click();
+}

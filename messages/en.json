@@ -4151,7 +4151,8 @@
         "4": "Back-translation",
         "5": "Back-translation",
         "6": "Back-translation",
-        "7": "Rewrite"
+        "7": "Rewrite",
+        "30": "Write it again"
       },
       "done": "Done",
       "open": "Open",
@@ -4179,7 +4180,9 @@
       "weekPassed": "passed",
       "weekRepeat": "not passed",
       "day1Score": "Day 1 score: {score} out of 100",
-      "weekMetrics": "Week {week} · compared on words, sentence length, and word variety"
+      "weekMetrics": "Week {week} · compared on words, sentence length, and word variety",
+      "day30Early": "Day 30's rewrite opens on {date}.",
+      "day30Closed": "Day 30's rewrite opens after the seven-day cycle is finished."
     },
     "essay": {
       "noPeek": "Write your own version first. The model essay appears after you submit: trying first, then seeing a model, helps it stick.",
@@ -4213,7 +4216,8 @@
       "saveOnly": "Save only, no review",
       "savedOnly": "This essay is saved, without a review or your own score.",
       "reviewLater": "Want the AI’s view? An AI review uses one of this week’s reviews.",
-      "reviewNow": "Ask the AI to review"
+      "reviewNow": "Ask the AI to review",
+      "day30": "Day 30: write the same prompt again, without your earlier essays or the model. Then days 1, 7, and 30 are compared."
     },
     "feedback": {
       "score": "Overall score",
@@ -4515,7 +4519,54 @@
       },
       "aiWhy": "The AI says:",
       "aiBetter": "More natural:",
-      "acceptedTitle": "Written another way, right by the AI ({count})"
+      "acceptedTitle": "Written another way, right by the AI ({count})",
+      "hintLabel": "Hint:",
+      "hintWords": "({count} words)",
+      "explainSkip": "Skip",
+      "explainShow": "Show the answer",
+      "sureLabel": "How sure? Choose to check:",
+      "sure": {
+        "sure": "Sure",
+        "maybe": "Fairly sure",
+        "unsure": "Not sure"
+      },
+      "sureNeeded": "Press how sure you are (sure, fairly sure, not sure) to check.",
+      "explainLabel": "Think first: where do you think it went wrong?",
+      "explainPlaceholder": "One sentence is enough, in Chinese if you like, e.g. \"the verb tense\" or \"a word missing\"",
+      "youThought": "Your thought:",
+      "youWereSure": "You chose: {level, select, sure {quite sure} maybe {fairly sure} other {not sure}}.",
+      "sureButWrong": "Sentences you were sure of but got wrong come first in your notebook.",
+      "unsureButRight": "Right but not sure: this one goes to your notebook too, to practise again.",
+      "sureCheck": "Check: {level, select, sure {quite sure} maybe {fairly sure} other {not sure}}"
+    },
+    "bedtime": {
+      "title": "Evening review",
+      "intro": "Without looking at anything, write three English sentences you practised today from memory, then compare them with today's sentences. Recalling once before bed helps you remember what you learned today.",
+      "nothing": "No writing practice today yet, so there's nothing to review.",
+      "toWriting": "Go to writing practice",
+      "prompt": "Write {count} sentences you learned today from memory",
+      "line": "Sentence {n}",
+      "compare": "Compare with today's sentences",
+      "later": "Later",
+      "result": "Recalled {count} of {total}",
+      "resultNote": "Ticked: the sentences you wrote (most of the words right counts). The ones you didn't recall come back in your notebook or practice.",
+      "recalled": "(recalled)",
+      "done": "Done"
+    },
+    "long": {
+      "title": "Days 1, 7, and 30",
+      "table": "Scores and measures of the three essays",
+      "measure": "Measure",
+      "day1": "Day 1",
+      "day7": "Day 7",
+      "day30": "Day 30",
+      "score": "Score",
+      "words": "Words",
+      "sentenceWords": "Average sentence length (words)",
+      "diversity": "Word variety",
+      "change": "Day 30's score against Day 1: {change}.",
+      "noScore": "Some days have no score: look at the words, sentence length, and word variety instead.",
+      "note": "What you can still write a month later is what you've really learned. Some of the progress on the same prompt may come from remembering it, and AI scores vary, so a few points either way don't always mean real change."
     }
   },
   "writingTasks": {
@@ -4527,7 +4578,13 @@
     "open": "Open",
     "notebook": "Writing notebook",
     "reviews": "{count, plural, one {# review} other {# reviews}} due",
-    "review": "Review"
+    "review": "Review",
+    "day30": "Day 30: write the same prompt again and see a month's progress.",
+    "day30Start": "Write it again",
+    "day30Skip": "Skip",
+    "bedtime": "Evening review (about 3 minutes)",
+    "bedtimeHint": "Write three sentences you learned today from memory.",
+    "bedtimeStart": "Start the review"
   },
   "writingStats": {
     "title": "Writing",
@@ -4617,7 +4674,33 @@
     },
     "extra": "Extra practice",
     "extraNoAi": "Don't use the AI check in extra practice",
-    "extraNoAiHint": "The rules only, nothing counted toward your weekly AI checks. By default the AI judges answers that differ from the sentence."
+    "extraNoAiHint": "The rules only, nothing counted toward your weekly AI checks. By default the AI judges answers that differ from the sentence.",
+    "coach": {
+      "title": "Learning helps",
+      "intro": "These ways of practising are backed by research (see the user guide), and each can be turned off. With them on, each day's practice stays within 20 minutes.",
+      "confidence": {
+        "label": "Say how sure before checking",
+        "hint": "Before checking each sentence, choose sure, fairly sure, or not sure. Sentences you were sure of but got wrong are reviewed first."
+      },
+      "scaffold": {
+        "label": "Hints that fade",
+        "hint": "A sentence's first try shows each word's first letter and the word count, the second only the count, then no hints."
+      },
+      "selfExplain": {
+        "label": "When wrong, think where first",
+        "hint": "When an answer is wrong, write one line about where you think it went wrong (Chinese is fine), then see the answer. At most twice a set; you can skip."
+      },
+      "day30": {
+        "label": "Write it again on day 30",
+        "hint": "After a seven-day cycle, on the 30th day from Day 1 you're invited to write the same prompt again and compare days 1, 7, and 30."
+      },
+      "bedtime": {
+        "label": "Evening review (about 3 minutes)",
+        "hint": "On days you practised writing, after the time you set, the home and writing pages remind you to write three sentences you learned today from memory.",
+        "at": "Remind me at"
+      }
+    },
+    "pageIntro": "Your writing practice settings. Signed out, they stay in this browser; signed in, they go to your account too, on every device."
   },
   "writingCustom": {
     "heading": "My prompts",
@@ -4809,7 +4892,8 @@
       "noTask": "no writing task finished",
       "essay": "wrote an essay",
       "chats": "chat practice {count, plural, one {# time} other {# times}}",
-      "extras": "extra practice {count, plural, one {# set} other {# sets}}"
+      "extras": "extra practice {count, plural, one {# set} other {# sets}}",
+      "review": "did the evening review"
     },
     "accuracy": "{percent}% accuracy",
     "score": "score {percent}",
@@ -4819,9 +4903,10 @@
       "extra": "Extra practice"
     },
     "none": "No writing practice this day.",
-    "taskLine": "{title}, day {day}: {kind, select, essay {an essay} rewrite {the rewrite} other {back-translation}}",
+    "taskLine": "{title}, day {day}: {kind, select, essay {an essay} rewrite {the rewrite} day30 {written again} other {back-translation}}",
     "extraLine": "{title}, extra practice ({percent}% accuracy)",
     "chatLine": "Chat practice, {count, plural, one {# time} other {# times}}",
-    "dayAccuracy": "Average accuracy that day: {percent}%"
+    "dayAccuracy": "Average accuracy that day: {percent}%",
+    "reviewLine": "Evening review"
   }
 }

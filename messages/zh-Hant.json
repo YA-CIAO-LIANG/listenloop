@@ -4149,7 +4149,8 @@
         "4": "聽寫回譯",
         "5": "聽寫回譯",
         "6": "聽寫回譯",
-        "7": "重寫"
+        "7": "重寫",
+        "30": "再寫一次"
       },
       "done": "已完成",
       "open": "可以開始",
@@ -4177,7 +4178,9 @@
       "weekPassed": "通過",
       "weekRepeat": "未通過",
       "day1Score": "第 1 天的分數：{score} 分（滿分 100）",
-      "weekMetrics": "第 {week} 週 · 依字數、句子長度、用字多樣性比較"
+      "weekMetrics": "第 {week} 週 · 依字數、句子長度、用字多樣性比較",
+      "day30Early": "第 30 天的重寫在 {date} 開放。",
+      "day30Closed": "完成 7 天循環後，第 30 天才能再寫一次。"
     },
     "essay": {
       "noPeek": "先寫出你自己的版本。範例文章在你送出後才會出現：先自己想過，再看範例，會記得更牢。",
@@ -4211,7 +4214,8 @@
       "saveOnly": "只儲存，不批改",
       "savedOnly": "這篇文章已儲存，沒有批改，也沒有自評。",
       "reviewLater": "想知道 AI 怎麼看？請 AI 批改會用掉本週 1 次 AI 批改。",
-      "reviewNow": "請 AI 批改"
+      "reviewNow": "請 AI 批改",
+      "day30": "第 30 天：不看之前的文章和範文，重寫同一個題目。寫完會比較第 1、7、30 天。"
     },
     "feedback": {
       "score": "整體分數",
@@ -4513,7 +4517,54 @@
       },
       "aiWhy": "AI 說明：",
       "aiBetter": "更自然的說法：",
-      "acceptedTitle": "用字不同，但 AI 判斷正確（{count}）"
+      "acceptedTitle": "用字不同，但 AI 判斷正確（{count}）",
+      "hintLabel": "提示：",
+      "hintWords": "（{count} 個字）",
+      "explainSkip": "略過",
+      "explainShow": "看答案",
+      "sureLabel": "有多確定？選了就檢查：",
+      "sure": {
+        "sure": "很確定",
+        "maybe": "有點確定",
+        "unsure": "不確定"
+      },
+      "sureNeeded": "按下你有多確定（很確定／有點確定／不確定），就會檢查。",
+      "explainLabel": "先想一想：你覺得錯在哪裡？",
+      "explainPlaceholder": "一句就好，中文也可以，例如「動詞時態」「少了一個字」",
+      "youThought": "你的想法：",
+      "youWereSure": "你選了：{level, select, sure {很確定} maybe {有點確定} other {不確定}}。",
+      "sureButWrong": "很確定卻寫錯的句子，會優先出現在錯誤本。",
+      "unsureButRight": "寫對了但不確定，這句也會加入錯誤本，之後再練一次。",
+      "sureCheck": "檢查：{level, select, sure {很確定} maybe {有點確定} other {不確定}}"
+    },
+    "bedtime": {
+      "title": "睡前回顧",
+      "intro": "先不看任何內容，從記憶寫出今天練過的 3 個英文句子。寫完再對照今天的句子。睡前回想一次，對記住今天學的內容有幫助。",
+      "nothing": "今天還沒有寫作練習，沒有句子可以回顧。",
+      "toWriting": "去寫作練習",
+      "prompt": "從記憶寫出今天學到的 {count} 個句子",
+      "line": "第 {n} 句",
+      "compare": "對照今天的句子",
+      "later": "晚點再做",
+      "result": "想起來 {count}／{total} 句",
+      "resultNote": "打勾的是你寫出來的句子（大部分的字對就算）。沒想起來的句子，明天的錯誤本或練習會再遇到。",
+      "recalled": "（想起來了）",
+      "done": "完成"
+    },
+    "long": {
+      "title": "第 1、7、30 天的比較",
+      "table": "三次寫作的分數與指標",
+      "measure": "項目",
+      "day1": "第 1 天",
+      "day7": "第 7 天",
+      "day30": "第 30 天",
+      "score": "分數",
+      "words": "字數",
+      "sentenceWords": "平均句長（字）",
+      "diversity": "用字多樣性",
+      "change": "和第 1 天比，第 30 天的分數變化：{change}。",
+      "noScore": "有些天沒有分數，可以看字數、句長和用字多樣性的變化。",
+      "note": "一個月後還寫得出來，才是真正學會的部分。同一題重寫的進步，可能有一部分來自記得題目；AI 評分也有誤差，幾分的差距不一定代表真的進步或退步。"
     }
   },
   "writingTasks": {
@@ -4525,7 +4576,13 @@
     "open": "查看",
     "notebook": "寫作錯誤本",
     "reviews": "{count} 項要複習",
-    "review": "複習"
+    "review": "複習",
+    "day30": "第 30 天：再寫一次同一個題目，看看一個月後的進步。",
+    "day30Start": "再寫一次",
+    "day30Skip": "略過",
+    "bedtime": "睡前回顧（約 3 分鐘）",
+    "bedtimeHint": "從記憶寫出今天學到的 3 個句子。",
+    "bedtimeStart": "開始回顧"
   },
   "writingStats": {
     "title": "寫作",
@@ -4615,7 +4672,33 @@
     },
     "extra": "額外練習",
     "extraNoAi": "額外練習不使用 AI 批改",
-    "extraNoAiHint": "只用規則比對，不計入每週的 AI 批改額度。預設會用 AI 判斷和原句不一樣的答案。"
+    "extraNoAiHint": "只用規則比對，不計入每週的 AI 批改額度。預設會用 AI 判斷和原句不一樣的答案。",
+    "coach": {
+      "title": "學習輔助",
+      "intro": "這些練習方式有研究支持（說明見使用手冊），都可以關掉。開著時，每天的練習仍在 20 分鐘以內。",
+      "confidence": {
+        "label": "送出前選信心度",
+        "hint": "每句檢查前選「很確定／有點確定／不確定」。很確定卻寫錯的句子會優先複習。"
+      },
+      "scaffold": {
+        "label": "提示逐漸減少",
+        "hint": "同一句第一次練習時顯示首字母和字數，第二次只顯示字數，之後不給提示。"
+      },
+      "selfExplain": {
+        "label": "寫錯時先想想錯在哪裡",
+        "hint": "寫錯時先寫一句你覺得錯在哪裡（中文也可以），再看答案；每組最多 2 次，可以略過。"
+      },
+      "day30": {
+        "label": "第 30 天再寫一次",
+        "hint": "完成 7 天循環後，從第 1 天起算的第 30 天，邀請你再寫同一個題目，比較第 1、7、30 天。"
+      },
+      "bedtime": {
+        "label": "睡前回顧（約 3 分鐘）",
+        "hint": "當天有寫作練習時，在設定的時間之後，首頁和寫作頁會提醒你從記憶寫出今天學到的 3 個句子。",
+        "at": "提醒時間"
+      }
+    },
+    "pageIntro": "寫作練習的設定。沒有登入時存在這個瀏覽器；登入後也會存進帳號，換裝置也一樣。"
   },
   "writingCustom": {
     "heading": "我的題目",
@@ -4807,7 +4890,8 @@
       "noTask": "沒有完成寫作任務",
       "essay": "寫了一篇文章",
       "chats": "聊天練習 {count} 次",
-      "extras": "額外練習 {count} 組"
+      "extras": "額外練習 {count} 組",
+      "review": "做了睡前回顧"
     },
     "accuracy": "正確率 {percent}%",
     "score": "{percent} 分",
@@ -4817,9 +4901,10 @@
       "extra": "額外練習"
     },
     "none": "這天沒有寫作練習。",
-    "taskLine": "{title}・第 {day} 天 {kind, select, essay {寫文章} rewrite {重寫} other {聽寫回譯}}",
+    "taskLine": "{title}・第 {day} 天 {kind, select, essay {寫文章} rewrite {重寫} day30 {再寫一次} other {聽寫回譯}}",
     "extraLine": "{title}・額外練習（正確率 {percent}%）",
     "chatLine": "聊天練習 {count} 次",
-    "dayAccuracy": "當天平均正確率 {percent}%"
+    "dayAccuracy": "當天平均正確率 {percent}%",
+    "reviewLine": "睡前回顧"
   }
 }

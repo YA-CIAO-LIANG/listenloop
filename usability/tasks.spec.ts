@@ -1245,7 +1245,7 @@ test("T24 free: Day 2 back-translation, reading the Chinese, then more practice 
   );
   await setToday(page, "2026-11-16");
   await step(page, "t24-back", "1-settings", async () => {
-    await page.goto("/account#writing-settings");
+    await page.goto("/writing/settings");
     await dismissNotices(page);
     await page.getByRole("radio", { name: /看中文 → 寫出英文/ }).check();
   });
@@ -1267,7 +1267,7 @@ test("T24 free: Day 2 back-translation, reading the Chinese, then more practice 
     await page
       .getByRole("textbox", { name: "這句的英文" })
       .fill("My perfect weekend would start slowly.");
-    await page.getByRole("button", { name: "檢查" }).click();
+    await page.getByRole("button", { name: "檢查：有點確定" }).click();
   });
   await step(page, "t24-back", "5-more", () =>
     page.getByRole("heading", { name: "更多練習" }).scrollIntoViewIfNeeded(),
