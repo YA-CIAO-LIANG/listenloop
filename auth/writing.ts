@@ -18,3 +18,20 @@ export async function writingReviewsThisWeek(userId: string): Promise<number> {
     .gte("created_at", usageWeek(new Date()).start);
   return count ?? 0;
 }
+
+/**
+ * AI checks of extra practice (D200) this week, from Monday 00:00 Taiwan
+ * time: the api_calls log's successful "back-check" calls.
+ */
+export async function backChecksThisWeek(userId: string): Promise<number> {
+  const admin = getAdminSupabase();
+  if (!admin) return 0;
+  const { count } = await admin
+    .from("api_calls")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .eq("operation", "back-check")
+    .is("error", null)
+    .gte("created_at", usageWeek(new Date()).start);
+  return count ?? 0;
+}

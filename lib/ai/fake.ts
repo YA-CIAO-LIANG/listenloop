@@ -2,6 +2,7 @@ import { splitLine } from "@/lib/custom-practice/split";
 import { countChars } from "@/lib/usage";
 import { fakeWritingReview } from "@/lib/writing/fake-review";
 import { fakeChatTurn } from "@/lib/writing/chat/fake-chat";
+import { fakeBackCheck } from "@/lib/writing/back-check/fake";
 import {
   ProviderError,
   type Billed,
@@ -68,6 +69,19 @@ export const fakeLanguage: LanguageProvider = {
   // A rule-based chat partner (D197).
   async chatTurn(input) {
     return free(fakeChatTurn(input), [input.message]);
+  },
+  // A rule-based back-translation check (D200); an answer with
+  // "broken" fails like a provider error.
+  async checkBack(input) {
+    if (input.items.some((i) => /broken/i.test(i.answer))) {
+      throw new ProviderError("failed", "fake: server error", undefined, {
+        status: 500,
+      });
+    }
+    return free(
+      fakeBackCheck(input),
+      input.items.flatMap((i) => [i.reference, i.answer]),
+    );
   },
   // Every translation passes (D115).
   async auditTranslations({ pairs }) {

@@ -97,6 +97,14 @@ const ROWS: [string, (l: PlanLimits, column: Column) => string, string][] = [
     "每週一 00:00",
   ],
   [
+    "額外練習的 AI 批改（WritingLoop，D200）",
+    (l) =>
+      l.backChecksPerWeek === null
+        ? unlimited
+        : `每週 ${l.backChecksPerWeek} 次`,
+    "每週一 00:00",
+  ],
+  [
     "每篇寫作字數",
     (l) =>
       l.writingWords === null

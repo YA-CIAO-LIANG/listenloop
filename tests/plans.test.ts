@@ -38,6 +38,7 @@ const limited: Record<PlanId, PlanLimits> = {
     writingReviewsPerWeek: 2,
     writingWords: 400,
     chatMinutesPerWeek: 5,
+    backChecksPerWeek: 7,
   },
 };
 

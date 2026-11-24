@@ -278,6 +278,7 @@ flowchart LR
    - Check and Next stay in the same place under the answer box, above a phone's keyboard.
    - At the end: how many were right, the average accuracy, and what was wrong in each sentence. Sentences written wrong go to your notebook, for 1, 3, and 7 days later.
    - **Extra practice**: afterwards, another set of sentences (none from today's set), with its own progress; end it whenever you like. It never changes the day's result.
+   - **Extra practice's AI check** (signed in): the rules first, and exactly right answers count at once; answers that differ are judged together by the AI at the end of the set (one call a set) for meaning and grammar, with a more natural way and why. Another wording that keeps the meaning and grammar counts as right. Sets a week: 7 on Free, Plus, and Student, 14 on Pro, shown under My quota; when they're used, the rules check alone and the practice goes on. Turn it off in Writing settings ("Don't use the AI check in extra practice").
    - Want more? Pick a drill under "More practice": fix your sentences, pattern practice, sentence combining, paraphrasing, paragraph order, rebuilding from memory, listen-then-write. These don't change the day's progress.
 4. **Day 7, rewrite**:
    - Write the same prompt again, without Day 1 or the model.

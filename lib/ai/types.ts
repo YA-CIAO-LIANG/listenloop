@@ -1,3 +1,4 @@
+import type { BackCheckInput } from "@/lib/writing/back-check/types";
 import type { ChatTurnInput } from "@/lib/writing/chat/types";
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
 import type { WritingReviewInput } from "@/lib/writing/prompts";
@@ -134,6 +135,12 @@ export interface LanguageProvider {
    * quiet correction in one call. Optional like reviewWriting.
    */
   chatTurn?(input: ChatTurnInput): Promise<Billed<unknown>>;
+  /**
+   * Back-translation answers judged (extra practice, D200): meaning,
+   * grammar, a better way, why: `{ items: [{ i, meaning, grammar,
+   * better, why }] }`. Unchecked: lib/writing/back-check/clean.ts.
+   */
+  checkBack?(input: BackCheckInput): Promise<Billed<unknown>>;
 }
 
 /** Sentence pairs to check (D115). */

@@ -1,5 +1,10 @@
 import { normalizeWords } from "../scoring/normalize";
 import { scoreDictation } from "../scoring/dictation";
+import {
+  judgedRight,
+  type BackCheckItem,
+  type BackJudgement,
+} from "./back-check/types";
 import type { DictationMode } from "./settings";
 import { fixInContext, splitSentences } from "./drills";
 import type { WritingFeedback } from "./feedback";
@@ -252,7 +257,69 @@ export function checkBack(
 /** One sentence answered: what was written and how it was checked. */
 export type BackAnswer = BackResult & {
   answer: string;
+  /**
+   * Extra practice (D200): waiting for the AI check at the end of the
+   * set (the rules didn't find it exactly right).
+   */
+  pending?: boolean;
+  /** The AI's judgement, once checked; `right` then follows it. */
+  ai?: BackJudgement;
 };
+
+/**
+ * Exactly right by the rules (D200): every word (English), or the
+ * reference meaning itself (Chinese). Only other answers go to the AI.
+ */
+export function exactBack(
+  item: BackItem,
+  result: Pick<BackResult, "mode" | "score">,
+  answer: string,
+): boolean {
+  if (result.mode === "listen-zh") {
+    const plain = (t: string) => t.replace(/[\s\p{P}\p{S}]/gu, "");
+    return !!item.zh && plain(item.zh) === plain(answer);
+  }
+  return result.score >= 1;
+}
+
+/** The set's answers waiting for the AI, as the check takes them. */
+export function pendingChecks(run: BackRun): BackCheckItem[] {
+  return run.items.flatMap((item, i) => {
+    const a = run.answers[i];
+    if (!a?.pending) return [];
+    return [
+      {
+        i,
+        mode: a.mode,
+        reference: item.en,
+        meaning: item.zh ?? "",
+        answer: a.answer,
+      },
+    ];
+  });
+}
+
+/**
+ * The AI's judgements put on a set's answers (D200): each judged answer
+ * right or not by them; answers left pending (no judgement came back)
+ * keep the rules' result.
+ */
+export function applyChecks(
+  run: BackRun,
+  judgements: readonly { i: number; judgement: BackJudgement }[],
+): BackRun {
+  const byIndex = new Map(judgements.map((j) => [j.i, j.judgement]));
+  return {
+    ...run,
+    answers: run.answers.map((a, i) => {
+      if (!a?.pending) return a;
+      const ai = byIndex.get(i);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { pending, ...rest } = a;
+      return ai ? { ...rest, ai, right: judgedRight(ai) } : rest;
+    }),
+  };
+}
 
 /**
  * A set of sentences as the learner goes through it (D199): the

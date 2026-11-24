@@ -17,7 +17,7 @@ import {
 import { getAdminSupabase } from "./admin";
 import { creationAllowance } from "./creation-quota";
 import { revisesToday, storedUploadBytes } from "./quota";
-import { writingReviewsThisWeek } from "./writing";
+import { backChecksThisWeek, writingReviewsThisWeek } from "./writing";
 import { chatMinutesThisWeek } from "./chat";
 import { usageWeek } from "@/lib/usage-report";
 import { referralSummary } from "./referral";
@@ -36,7 +36,8 @@ export type QuotaRow = {
     | "storageMegabytes"
     | "dailyAi"
     | "writingReviewsPerWeek"
-    | "chatMinutesPerWeek";
+    | "chatMinutesPerWeek"
+    | "backChecksPerWeek";
   used: number;
   /** null: unlimited. */
   max: number | null;
@@ -80,6 +81,7 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     referral,
     writingReviews,
     chatMinutes,
+    backChecks,
   ] = await Promise.all([
     creationAllowance({ user }),
     revisesToday(user.id),
@@ -104,6 +106,7 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     referralSummary(user.id),
     writingReviewsThisWeek(user.id),
     chatMinutesThisWeek(user.id),
+    backChecksThisWeek(user.id),
   ]);
   const limits = allowance.plans[plan];
   const tomorrow = nextUsageDay(now).toISOString();
@@ -157,6 +160,14 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     used: chatMinutes,
     max: limits.chatMinutesPerWeek,
     unit: "minutes",
+    resetsAt: usageWeek(now).end,
+  });
+  // AI checks of extra practice, shown apart (D200).
+  rows.push({
+    id: "backChecksPerWeek",
+    used: backChecks,
+    max: limits.backChecksPerWeek,
+    unit: "times",
     resetsAt: usageWeek(now).end,
   });
   if (settings) {

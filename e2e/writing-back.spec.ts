@@ -185,3 +185,73 @@ for (const device of ["desktop", "Pixel 7"] as const) {
     });
   }
 }
+
+for (const device of ["desktop", "Pixel 7"] as const) {
+  test.describe(`${device}, extra practice's AI check (D200)`, () => {
+    if (device !== "desktop") {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { defaultBrowserType, ...rest } = devices[device];
+      test.use(rest);
+    }
+
+    test("checked at the end of the set; off in settings; a failure keeps the rules", async ({
+      page,
+    }) => {
+      test.setTimeout(150_000);
+      const tag = device === "desktop" ? "desk" : "pixel";
+      await signInWithEmail(
+        page,
+        `e2e-extra-ai-${tag}`,
+        `extra-ai-${tag}@example.com`,
+      );
+      await dayOne(page);
+      await at(page, 1);
+      const total = await totalSentences(page);
+      for (let n = 1; n <= total; n++) await answer(page);
+
+      // On: an answer unlike the sentence waits for the AI, checked at
+      // the end in one call.
+      await page.getByRole("button", { name: "額外練習" }).click();
+      await at(page, 1);
+      await answer(page, "My weekend starts slowly");
+      await page.getByRole("button", { name: "結束額外練習" }).click();
+      await expect(
+        page.getByText("AI 已批改 1 句。", { exact: false }),
+      ).toBeVisible();
+      await expect(page.getByText("AI 說明：").first()).toBeVisible();
+
+      // A failed check: the rules' results stand, the practice goes on.
+      await page.getByRole("button", { name: "再練一組" }).click();
+      await at(page, 1);
+      await answer(page, "a broken answer");
+      await page.getByRole("button", { name: "結束額外練習" }).click();
+      await expect(
+        page.getByText("AI 批改沒有成功，這組用規則比對。"),
+      ).toBeVisible();
+      await expect(page.getByText(/寫對 0／1 句/)).toBeVisible();
+
+      // Off in the writing settings: the rules only.
+      await page.goto("/account#writing-settings");
+      await page
+        .getByRole("checkbox", { name: /額外練習不使用 AI 批改/ })
+        .check();
+      await page.goto(`/writing/${PROMPT}/day/2`);
+      await page
+        .getByRole("button", { name: /^(再練一組|額外練習)$/ })
+        .first()
+        .click();
+      if (device !== "desktop") await page.getByText("展開題目").click();
+      await expect(
+        page
+          .getByText(/額外練習不使用 AI 批改，只用規則比對/)
+          .filter({ visible: true }),
+      ).toBeVisible();
+      if (device !== "desktop")
+        await page.getByText("收合", { exact: true }).click();
+      await page.locator("#back-answer").fill("not the same at all");
+      await page.getByRole("button", { name: "檢查", exact: true }).click();
+      await expect(page.getByText(/寫對了|差一點/)).toBeVisible();
+      await expect(page.getByText(/AI 會在這組結束時一起批改/)).toHaveCount(0);
+    });
+  });
+}

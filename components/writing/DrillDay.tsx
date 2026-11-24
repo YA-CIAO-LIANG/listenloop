@@ -1,11 +1,18 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { toLocalDate } from "@/lib/dates";
 import { wordDiff } from "@/lib/scoring/word-diff";
 import {
+  checkExtraAnswers,
+  type BackCheckResult,
+} from "@/app/writing/back-check-actions";
+import {
   answerRun,
+  applyChecks,
+  exactBack,
+  pendingChecks,
   backNotebookItems,
   backTranslationItems,
   extraBackItems,
@@ -79,12 +86,19 @@ export function DrillDay({
   const progress = useWritingProgress(prompt.id);
   const settings = useWritingSettings();
   const notebook = useNotebook();
-  const { saveProgress, saveNotebook } = useWritingData();
+  const { cloud, saveProgress, saveNotebook } = useWritingData();
   const record = progress?.days[day];
   const [view, setView] = useState<View>("day");
   // Answering here now: the last sentence's result shows before the
   // set's result, though the set is saved as done already.
   const [live, setLive] = useState(false);
+  const [check, setCheck] = useState<CheckState | null>(null);
+  // Another view (extra practice, a drill, the result) starts at the top,
+  // not where the last one was scrolled to; before the workspace fits
+  // itself to the screen (its effect runs after this layout effect).
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [view]);
   usePracticeTimer(writingTimeId(prompt.id), false, {
     active: Boolean(progress) && (!record?.done || view === "extra"),
   });
@@ -136,6 +150,7 @@ export function DrillDay({
   };
 
   const startExtra = () => {
+    setCheck(null);
     const current = record?.extra;
     if (current && !current.done) {
       setView("extra");
@@ -155,22 +170,53 @@ export function DrillDay({
     }
     setView("extra");
   };
+  // The AI checks extra practice when signed in and not turned off (D200).
+  const aiOn = Boolean(cloud) && settings.extraAi;
   const answerExtra = (index: number, answer: BackAnswer) => {
     const extra = record?.extra;
-    if (!record || !extra) return;
-    const next = answerRun(extra, index, answer);
+    const item = extra?.items[index];
+    if (!record || !extra || !item) return;
+    const pending = aiOn && !exactBack(item, answer, answer.answer);
+    const next = answerRun(
+      extra,
+      index,
+      pending ? { ...answer, pending: true } : answer,
+    );
     setLive(true);
     if (next !== extra)
       saveDay({ ...record, extra: { ...next, round: extra.round } });
   };
-  const endExtra = () => {
+  const endExtra = async () => {
     const extra = record?.extra;
-    if (record && extra) {
-      if (!extra.done) saveDay({ ...record, extra: { ...extra, done: true } });
-      toNotebook(extra);
-    }
     setLive(false);
     setView("extraDone");
+    if (!record || !extra) return;
+    let ended: BackRun & { round: number } = { ...extra, done: true };
+    if (!extra.done) saveDay({ ...record, extra: ended });
+    const pending = pendingChecks(ended);
+    if (pending.length > 0) {
+      // All of the set's answers that need it, in one call; whatever
+      // stops it, the rules' results stand and the practice goes on.
+      setCheck({ state: "checking" });
+      const result: BackCheckResult = await checkExtraAnswers({
+        items: pending,
+      }).catch(() => ({ ok: false, reason: "failed" }) as const);
+      ended = {
+        ...applyChecks(ended, result.ok ? result.judgements : []),
+        round: ended.round,
+      };
+      saveDay({ ...record, extra: ended });
+      setCheck(
+        result.ok
+          ? {
+              state: "done",
+              count: result.judgements.length,
+              left: result.left,
+            }
+          : { state: "off", reason: result.reason, max: result.max },
+      );
+    }
+    toNotebook(ended);
   };
 
   if (
@@ -235,6 +281,7 @@ export function DrillDay({
         <RunResult
           run={extra}
           extra
+          check={check}
           onExtra={startExtra}
           onBack={() => setView("summary")}
         />
@@ -250,9 +297,18 @@ export function DrillDay({
         onAnswer={answerExtra}
         onFinish={endExtra}
         aside={
-          <p className="text-supporting text-ink-muted">
-            {t("back.extraNote")}
-          </p>
+          <>
+            <p className="text-supporting text-ink-muted">
+              {t("back.extraNote")}
+            </p>
+            <p className="text-supporting text-ink-muted">
+              {!cloud
+                ? t("back.aiSignIn")
+                : settings.extraAi
+                  ? t("back.aiOn")
+                  : t("back.aiOff")}
+            </p>
+          </>
         }
       />
     );
@@ -263,6 +319,7 @@ export function DrillDay({
       <RunResult
         run={record.extra}
         extra
+        check={check}
         onExtra={startExtra}
         onBack={() => setView("summary")}
       />
@@ -354,12 +411,15 @@ export function DrillDay({
 function RunResult({
   run,
   extra = false,
+  check = null,
   continueExtra,
   onExtra,
   onBack,
 }: {
   run: BackRun;
   extra?: boolean;
+  /** Extra practice: the AI check of its answers (D200). */
+  check?: CheckState | null;
   /** Extra practice left half done: where it is. */
   continueExtra?: { n: number; total: number };
   onExtra: () => void;
@@ -371,6 +431,11 @@ function RunResult({
   const wrong = run.items.flatMap((item, i) => {
     const answer = run.answers[i];
     return answer && !answer.right ? [{ item, answer }] : [];
+  });
+  // Written another way, and right by the AI: worth seeing too.
+  const accepted = run.items.flatMap((item, i) => {
+    const answer = run.answers[i];
+    return answer?.ai && answer.right ? [{ item, answer }] : [];
   });
   return (
     <div className="flex flex-col gap-6">
@@ -385,6 +450,19 @@ function RunResult({
             percent: summary.percent,
           })}
         </p>
+        {check && (
+          <p className="text-supporting" aria-live="polite">
+            {check.state === "checking"
+              ? t("back.aiChecking")
+              : check.state === "done"
+                ? `${t("back.aiDone", { count: check.count })}${
+                    check.left === null
+                      ? ""
+                      : t("back.aiLeft", { left: check.left })
+                  }`
+                : t(`back.aiStopped.${check.reason}`, { max: check.max ?? 0 })}
+          </p>
+        )}
       </Card>
       {wrong.length > 0 && (
         <section aria-labelledby="back-wrong" className="flex flex-col gap-3">
@@ -409,12 +487,40 @@ function RunResult({
                 ) : (
                   <WordDiffView diff={wordDiff(item.en, answer.answer)} />
                 )}
+                <AiNote answer={answer} />
               </li>
             ))}
           </ul>
           <p className="text-supporting text-ink-muted">
             {t("back.toNotebook", { count: wrong.length })}
           </p>
+        </section>
+      )}
+      {accepted.length > 0 && (
+        <section aria-labelledby="back-ok" className="flex flex-col gap-3">
+          <h3 id="back-ok" className="font-medium">
+            {t("back.acceptedTitle", { count: accepted.length })}
+          </h3>
+          <ul className="flex flex-col gap-4">
+            {accepted.map(({ item, answer }, i) => (
+              <li
+                key={i}
+                className="flex flex-col gap-1 border-b border-line pb-3 text-supporting"
+              >
+                <p>
+                  <span className="text-ink-muted">{t("back.youWrote")}：</span>
+                  <span lang={answer.mode === "listen-zh" ? "zh-Hant" : "en"}>
+                    {answer.answer}
+                  </span>
+                </p>
+                <p>
+                  <span className="text-ink-muted">{t("back.english")}：</span>
+                  <span lang="en">{item.en}</span>
+                </p>
+                <AiNote answer={answer} />
+              </li>
+            ))}
+          </ul>
         </section>
       )}
       <div className="flex flex-wrap gap-3">
@@ -549,5 +655,35 @@ function ExtraDrill({
         </div>
       )}
     </WritingWorkspace>
+  );
+}
+
+/** Where extra practice's AI check is (D200). */
+type CheckState =
+  | { state: "checking" }
+  | { state: "done"; count: number; left: number | null }
+  | {
+      state: "off";
+      reason: Exclude<BackCheckResult, { ok: true }>["reason"];
+      max?: number;
+    };
+
+/** The AI's reason and a better way, under an answer it checked (D200). */
+function AiNote({ answer }: { answer: BackAnswer }) {
+  const t = useTranslations("writing.back");
+  if (!answer.ai) return null;
+  return (
+    <div className="flex flex-col gap-1 text-supporting">
+      <p>
+        <span className="text-ink-muted">{t("aiWhy")}</span>{" "}
+        <span lang="zh-Hant">{answer.ai.why}</span>
+      </p>
+      {answer.ai.better && (
+        <p>
+          <span className="text-ink-muted">{t("aiBetter")}</span>{" "}
+          <span lang="en">{answer.ai.better}</span>
+        </p>
+      )}
+    </div>
   );
 }

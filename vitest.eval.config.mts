@@ -13,6 +13,7 @@ export default defineConfig({
       "scripts/eval.eval.ts",
       "scripts/writing-eval.eval.ts",
       "scripts/chat-eval.eval.ts",
+      "scripts/back-eval.eval.ts",
     ],
     environment: "node",
     setupFiles: ["tests/setup-network.ts"],
