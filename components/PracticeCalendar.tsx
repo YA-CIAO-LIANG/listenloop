@@ -22,6 +22,11 @@ import { isCustomPracticeId, titleLang } from "@/lib/practice-material";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import type { RewardStore } from "@/lib/storage/reward-store";
 import { videoTitleLine } from "@/lib/video-library";
+import {
+  isWritingTimeId,
+  writingCalendar,
+  type WritingCalendarDay,
+} from "@/lib/writing/log";
 import { useCustomPracticeTitles } from "./useCustomPracticeTitles";
 import { Button } from "./Button";
 import { Card } from "./Card";
@@ -30,12 +35,52 @@ import { glowStyle } from "./practice-rings";
 import { Skeleton } from "./Skeleton";
 import { useStores } from "./StoresProvider";
 import { useToday } from "./useToday";
+import { useCustomTitles } from "./writing/CustomPrompts";
+import {
+  useAllWritingProgress,
+  useChats,
+  useWritingLog,
+} from "./writing/WritingProvider";
 
 type PracticeCalendarProps = {
   /** Injected in tests; default to localStorage. */
   progress?: ProgressStore;
   rewards?: RewardStore;
+  /** Official writing prompts' titles, for writing's lines (D201). */
+  writingTitles?: Record<string, string>;
 };
+
+/** What the calendar shows (D201): both, listening, or writing. */
+export const CALENDAR_FILTERS = ["all", "listening", "writing"] as const;
+export type CalendarFilter = (typeof CALENDAR_FILTERS)[number];
+
+/** A writing day's finished cycle days, as lines (D201). */
+function WritingLines({
+  day,
+  titles,
+}: {
+  day: WritingCalendarDay | undefined;
+  titles: Record<string, string>;
+}) {
+  const t = useTranslations("calendar");
+  if (!day?.tasks.length) return null;
+  return (
+    <ul className="space-y-1">
+      {day.tasks.map((task) => (
+        <li key={task.id}>
+          <span aria-hidden="true" className="text-success">
+            ✓{" "}
+          </span>
+          {t("writingLine", {
+            title:
+              (task.promptId && titles[task.promptId]) || t("writingPrompt"),
+            day: task.day ?? 0,
+          })}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 /** Days of one month as LocalDates, padded with nulls to start on Sunday. */
 function monthCells(year: number, month: number): (LocalDate | null)[] {
@@ -53,14 +98,22 @@ function monthCells(year: number, month: number): (LocalDate | null)[] {
 function TaskList({
   tasks,
   customTitles,
+  writing,
+  writingTitles = {},
 }: {
   tasks: PracticeTask[];
   customTitles: Record<string, string>;
+  /** The day's writing (D201), when the filter shows it. */
+  writing?: WritingCalendarDay;
+  writingTitles?: Record<string, string>;
 }) {
   const t = useTranslations("calendar");
   const tDay = useTranslations("practice.day");
-  if (tasks.length === 0) {
+  if (tasks.length === 0 && !writing?.tasks.length) {
     return <p className="text-ink-muted">{t("none")}</p>;
+  }
+  if (tasks.length === 0) {
+    return <WritingLines day={writing} titles={writingTitles} />;
   }
   return (
     <ul className="space-y-1">
@@ -84,6 +137,11 @@ function TaskList({
           })}
         </li>
       ))}
+      {writing?.tasks.length ? (
+        <li>
+          <WritingLines day={writing} titles={writingTitles} />
+        </li>
+      ) : null}
     </ul>
   );
 }
@@ -133,6 +191,7 @@ export function PracticeCalendar(props: PracticeCalendarProps) {
 function CalendarMonth({
   progress,
   rewards,
+  writingTitles,
   today,
 }: PracticeCalendarProps & { today: LocalDate }) {
   const t = useTranslations("calendar");
@@ -148,8 +207,24 @@ function CalendarMonth({
   const [tasks, setTasks] = useState<Map<LocalDate, PracticeTask[]> | null>(
     null,
   );
-  // Practice minutes per day (D181), as the stats page counts them.
-  const [minutes, setMinutes] = useState<Map<LocalDate, number>>(new Map());
+  // Practice minutes per day (D181), as the stats page counts them; by
+  // what the filter shows (D201).
+  const [minutes, setMinutes] = useState<
+    Record<CalendarFilter, Map<LocalDate, number>>
+  >({ all: new Map(), listening: new Map(), writing: new Map() });
+  const [filter, setFilter] = useState<CalendarFilter>("all");
+  // Writing's days (D201): the cycle days finished, from its own log.
+  const writingLog = useWritingLog();
+  const writingProgress = useAllWritingProgress();
+  const chats = useChats();
+  const writingDays = useMemo(
+    () =>
+      writingLog && writingProgress && chats
+        ? writingCalendar(writingLog, writingProgress, chats)
+        : new Map<LocalDate, WritingCalendarDay>(),
+    [writingLog, writingProgress, chats],
+  );
+  const writingNames = { ...writingTitles, ...useCustomTitles() };
   const [shown, setShown] = useState({
     year: Number(today.slice(0, 4)),
     month: Number(today.slice(5, 7)) - 1,
@@ -163,16 +238,32 @@ function CalendarMonth({
     Promise.all([stores.progress.list(), stores.rewards.getActivity()])
       .then(([progresses, activity]) => ({
         byDate: tasksByDate(activity, progresses),
-        time: new Map(
-          Object.entries(activity.days).map(([date, day]) => [
-            date,
-            practiceMinutes(day),
+        time: Object.fromEntries(
+          CALENDAR_FILTERS.map((which) => [
+            which,
+            new Map(
+              Object.entries(activity.days).map(([date, day]) => [
+                date,
+                practiceMinutes(
+                  day,
+                  which === "all"
+                    ? undefined
+                    : which === "writing"
+                      ? isWritingTimeId
+                      : (id) => !isWritingTimeId(id),
+                ),
+              ]),
+            ),
           ]),
-        ),
+        ) as Record<CalendarFilter, Map<LocalDate, number>>,
       }))
       .catch(() => ({
         byDate: new Map<LocalDate, PracticeTask[]>(),
-        time: new Map<LocalDate, number>(),
+        time: {
+          all: new Map<LocalDate, number>(),
+          listening: new Map<LocalDate, number>(),
+          writing: new Map<LocalDate, number>(),
+        },
       }))
       .then(({ byDate, time }) => {
         if (cancelled) return;
@@ -184,8 +275,13 @@ function CalendarMonth({
     };
   }, [stores]);
 
-  const tasksOn = (date: LocalDate) => tasks?.get(date) ?? [];
-  const minutesOn = (date: LocalDate) => minutes.get(date) ?? 0;
+  const tasksOn = (date: LocalDate) =>
+    filter === "writing" ? [] : (tasks?.get(date) ?? []);
+  const writingOn = (date: LocalDate) =>
+    filter === "listening" ? undefined : writingDays.get(date);
+  const countOn = (date: LocalDate) =>
+    tasksOn(date).length + (writingOn(date)?.tasks.length ?? 0);
+  const minutesOn = (date: LocalDate) => minutes[filter].get(date) ?? 0;
   /** "Practiced 1 hr 12 min", or "No practice time". */
   const timeText = (date: LocalDate) => {
     const total = minutesOn(date);
@@ -262,6 +358,25 @@ function CalendarMonth({
         </div>
       </div>
 
+      {/* All | Listening | Writing (D201). */}
+      <div
+        role="group"
+        aria-label={t("filter.label")}
+        className="flex flex-wrap gap-1"
+      >
+        {CALENDAR_FILTERS.map((which) => (
+          <Button
+            key={which}
+            size="sm"
+            variant={filter === which ? "secondary" : "ghost"}
+            aria-pressed={filter === which}
+            onClick={() => setFilter(which)}
+          >
+            {t(`filter.${which}`)}
+          </Button>
+        ))}
+      </div>
+
       <table
         id={tableId}
         className="w-full table-fixed text-center text-supporting tabular-nums"
@@ -292,7 +407,7 @@ function CalendarMonth({
             >
               {week.map((date, d) => {
                 if (!date) return <td key={d} />;
-                const count = tasksOn(date).length;
+                const count = countOn(date);
                 const level = heatLevel(count);
                 const ring = ringLevel(minutesOn(date));
                 const isToday = date === today;
@@ -357,6 +472,8 @@ function CalendarMonth({
                         <TaskList
                           tasks={tasksOn(date)}
                           customTitles={customTitles}
+                          writing={writingOn(date)}
+                          writingTitles={writingNames}
                         />
                       </div>
                     )}
@@ -429,7 +546,12 @@ function CalendarMonth({
           {selected === today ? ` · ${t("today")}` : ""}
         </h3>
         <p data-testid="calendar-day-time">{timeText(selected)}</p>
-        <TaskList tasks={tasksOn(selected)} customTitles={customTitles} />
+        <TaskList
+          tasks={tasksOn(selected)}
+          customTitles={customTitles}
+          writing={writingOn(selected)}
+          writingTitles={writingNames}
+        />
       </section>
     </Card>
   );

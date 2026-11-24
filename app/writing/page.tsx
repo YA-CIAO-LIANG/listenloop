@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { writingPrompts } from "@/data/writing";
 import { ButtonLink } from "@/components/ButtonLink";
 import { WritingLibrary } from "@/components/writing/WritingLibrary";
+import { WritingCalendar } from "@/components/writing/WritingCalendar";
 import { WritingTasks } from "@/components/writing/WritingTasks";
 import { CustomPromptList } from "@/components/writing/CustomPrompts";
 
@@ -71,6 +72,8 @@ export default async function WritingPage() {
         </div>
       </header>
       <WritingTasks titles={titles} />
+      {/* Its own calendar (D201): the home page's shows both. */}
+      <WritingCalendar titles={titles} />
       <CustomPromptList />
       <Suspense fallback={null}>
         <WritingLibrary prompts={prompts} />

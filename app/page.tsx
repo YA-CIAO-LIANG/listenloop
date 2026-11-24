@@ -36,6 +36,7 @@ export function generateMetadata() {
  */
 export default function Home() {
   const t = useTranslations();
+  const locale = useLocale();
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
       <h1 className="font-display text-hero">{t("common.appName")}</h1>
@@ -61,7 +62,7 @@ export default function Home() {
         <OnboardingStart />
         <ProgressGate place="home" signedOut={<ProductIntro />}>
           <FixedReportsNotice />
-          <HomeProgress />
+          <HomeProgress writingTitles={writingTitlesFor(locale)} />
           {/* Today's writing next to listening (WritingLoop, D187). */}
           <HomeWritingTasks />
         </ProgressGate>
@@ -89,14 +90,18 @@ async function Library() {
   );
 }
 
-/** Prompts in progress with today's day, by their title here. */
-function HomeWritingTasks() {
-  const locale = useLocale();
-  const titles = Object.fromEntries(
+/** Official writing prompts' titles in the page's language. */
+function writingTitlesFor(locale: string): Record<string, string> {
+  return Object.fromEntries(
     writingPrompts.map((p) => [
       p.id,
       locale === "en" ? p.title.en : p.title.zh,
     ]),
   );
-  return <WritingTasks titles={titles} />;
+}
+
+/** Prompts in progress with today's day, by their title here. */
+function HomeWritingTasks() {
+  const locale = useLocale();
+  return <WritingTasks titles={writingTitlesFor(locale)} />;
 }

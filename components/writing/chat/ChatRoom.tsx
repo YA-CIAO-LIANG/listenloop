@@ -1,6 +1,9 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { writingTimeId } from "@/lib/writing/progress";
+import { CHAT_TIME_ID } from "@/lib/writing/log";
+import { usePracticeTimer } from "../../usePracticeTimer";
 import {
   Fragment,
   useEffect,
@@ -166,6 +169,8 @@ export function ChatRoom({
   const t = useTranslations("writingChat");
   const ref = useRef<HTMLDivElement>(null);
   useFitToViewport(ref, { full: true });
+  // Chatting is writing practice: its time shows on the calendars (D201).
+  usePracticeTimer(writingTimeId(CHAT_TIME_ID), false);
   const list = useRef<HTMLOListElement>(null);
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
     { from: "them", text: opening, at: startedAt },

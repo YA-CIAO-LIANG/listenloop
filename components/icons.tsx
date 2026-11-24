@@ -139,3 +139,61 @@ export function FlagIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+/** An essay written (the writing calendar, D201). */
+export function PenIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.25}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M10.5 2.5l3 3L6 13H3v-3z" />
+      <path d="M9 4l3 3" />
+    </svg>
+  );
+}
+
+/** A chat practice (the writing calendar, D201). */
+export function ChatIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.25}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M2.5 3.5h11v7H7l-3 2.5v-2.5H2.5z" />
+    </svg>
+  );
+}
+
+/** Extra practice: another round (the writing calendar, D201). */
+export function RepeatIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.25}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...props}
+    >
+      <path d="M3 7a5 5 0 0 1 8.5-3.5L13 5" />
+      <path d="M13 2v3h-3" />
+      <path d="M13 9a5 5 0 0 1-8.5 3.5L3 11" />
+      <path d="M3 14v-3h3" />
+    </svg>
+  );
+}

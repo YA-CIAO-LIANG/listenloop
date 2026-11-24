@@ -82,11 +82,19 @@ export function mergeDayTime(a: DayTime, b: DayTime): DayTime {
  */
 export const REVIEW_TIME_KEY = "review";
 
-/** A day's practice time in seconds, every device and material added. */
-export function daySeconds(day: DayActivity | undefined): number {
+/**
+ * A day's practice time in seconds, every device and material added; or
+ * only the materials `which` keeps (listening or writing, D201).
+ */
+export function daySeconds(
+  day: DayActivity | undefined,
+  which: (material: string) => boolean = () => true,
+): number {
   let total = 0;
   for (const device of Object.values(day?.time ?? {})) {
-    for (const seconds of Object.values(device)) total += seconds;
+    for (const [material, seconds] of Object.entries(device)) {
+      if (which(material)) total += seconds;
+    }
   }
   return total;
 }
@@ -95,8 +103,10 @@ export function daySeconds(day: DayActivity | undefined): number {
  * A day's practice time in whole minutes (rounded): what the calendar's
  * rings and the stats page both show, so their numbers agree (D181).
  */
-export const practiceMinutes = (day: DayActivity | undefined): number =>
-  Math.round(daySeconds(day) / 60);
+export const practiceMinutes = (
+  day: DayActivity | undefined,
+  which?: (material: string) => boolean,
+): number => Math.round(daySeconds(day, which) / 60);
 
 /** Seconds per material on a day, devices added up. */
 export function secondsByMaterial(

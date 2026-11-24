@@ -20,6 +20,12 @@ import {
   type CustomPrompt,
 } from "./custom";
 import {
+  LOG_KEY,
+  mergeWritingLogs,
+  parseWritingLog,
+  type WritingLog,
+} from "./log";
+import {
   mergeWritingSettings,
   parseWritingSettings,
   SETTINGS_KEY,
@@ -43,7 +49,8 @@ import {
  * - `wdraft-<promptId>-<day>`: an unsent draft;
  * - `writing-settings`: the learner's settings (D194);
  * - `writing-custom`: the learner's own prompts (D196);
- * - `writing-chats`: past chats (D197).
+ * - `writing-chats`: past chats (D197);
+ * - `writing-log`: the writing calendar's log (D201).
  * Prompt ids are at most 40 characters, so keys fit the column's 50.
  */
 export const DRAFT_KEY_PREFIX = "ll-writing-draft:v1:";
@@ -57,12 +64,14 @@ const CLOUD_NOTEBOOK = "writing-notebook";
 const CLOUD_SETTINGS = "writing-settings";
 const CLOUD_CUSTOM = "writing-custom";
 const CLOUD_CHATS = "writing-chats";
+const CLOUD_LOG = "writing-log";
 /** Documents under "writing-" that aren't a prompt's progress. */
 const NOT_PROGRESS = new Set([
   CLOUD_NOTEBOOK,
   CLOUD_SETTINGS,
   CLOUD_CUSTOM,
   CLOUD_CHATS,
+  CLOUD_LOG,
 ]);
 
 /** Every writing key in this browser, for clearing after sign-out (D138). */
@@ -72,7 +81,8 @@ export const isWritingStorageKey = (key: string) =>
   key === NOTEBOOK_KEY ||
   key === SETTINGS_KEY ||
   key === CUSTOM_KEY ||
-  key === CHATS_KEY;
+  key === CHATS_KEY ||
+  key === LOG_KEY;
 
 function read(storage: Storage, key: string): unknown {
   try {
@@ -156,6 +166,14 @@ export function loadLocalChats(storage: Storage): ChatRecord[] {
 
 export function saveLocalChats(storage: Storage, chats: ChatRecord[]) {
   write(storage, CHATS_KEY, { chats });
+}
+
+export function loadLocalLog(storage: Storage): WritingLog {
+  return parseWritingLog(read(storage, LOG_KEY));
+}
+
+export function saveLocalLog(storage: Storage, log: WritingLog) {
+  write(storage, LOG_KEY, log);
 }
 
 export type Draft = { text: string; at: string };
@@ -244,6 +262,10 @@ export function writingCloud(client: () => Promise<Supabase>, userId: string) {
       return parseChats(await get(CLOUD_CHATS));
     },
     saveChats: (chats: ChatRecord[]) => put(CLOUD_CHATS, { chats }),
+    async getLog(): Promise<WritingLog> {
+      return parseWritingLog(await get(CLOUD_LOG));
+    },
+    saveLog: (log: WritingLog) => put(CLOUD_LOG, log),
     async getDraft(promptId: string, day: number): Promise<Draft | null> {
       const value = (await get(cloudDraftKey(promptId, day))) as Draft | null;
       return value && typeof value.text === "string" ? value : null;
@@ -274,14 +296,21 @@ export async function syncWriting(
   storage: Storage,
   cloud: WritingCloud,
 ): Promise<boolean> {
-  const [remote, remoteNotebook, remoteSettings, remoteCustom, remoteChats] =
-    await Promise.all([
-      cloud.listProgress(),
-      cloud.getNotebook(),
-      cloud.getSettings(),
-      cloud.getCustom(),
-      cloud.getChats(),
-    ]);
+  const [
+    remote,
+    remoteNotebook,
+    remoteSettings,
+    remoteCustom,
+    remoteChats,
+    remoteLog,
+  ] = await Promise.all([
+    cloud.listProgress(),
+    cloud.getNotebook(),
+    cloud.getSettings(),
+    cloud.getCustom(),
+    cloud.getChats(),
+    cloud.getLog(),
+  ]);
   let changed = false;
   const local = listLocalProgress(storage);
   const ids = new Set([...local, ...remote].map((p) => p.promptId));
@@ -334,6 +363,15 @@ export async function syncWriting(
   }
   if (JSON.stringify(chats) !== JSON.stringify(remoteChats)) {
     uploads.push(cloud.saveChats(chats));
+  }
+  const localLog = loadLocalLog(storage);
+  const log = mergeWritingLogs(localLog, remoteLog);
+  if (JSON.stringify(log) !== JSON.stringify(localLog)) {
+    saveLocalLog(storage, log);
+    changed = true;
+  }
+  if (JSON.stringify(log) !== JSON.stringify(remoteLog)) {
+    uploads.push(cloud.saveLog(log));
   }
   await Promise.all(uploads);
   return changed;
