@@ -78,7 +78,8 @@ for (const device of ["desktop", "iPhone 15", "Pixel 7"] as const) {
       await page.goto(`/writing/${PROMPT}/day/2`);
       const replay = page.getByRole("button", { name: "重播" });
       const box = page.getByRole("textbox", { name: "聽到的英文句子" });
-      const check = page.getByRole("button", { name: "檢查" });
+      // How sure is the Check (D202): its buttons stay in view too.
+      const check = page.getByRole("button", { name: "檢查：很確定" });
       await expect(box).toBeVisible();
       for (const element of [replay, box, check]) {
         await expect(element).toBeInViewport();

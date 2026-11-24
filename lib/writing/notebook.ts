@@ -36,6 +36,8 @@ export type NotebookEntry = {
   added: LocalDate;
   /** ISO time of the last change, for merging devices. */
   at: string;
+  /** Reviewed before the rest when due: a sure but wrong answer (D202). */
+  priority?: boolean;
 };
 
 export type Notebook = { entries: Record<string, NotebookEntry> };
@@ -93,8 +95,11 @@ export function dueToday(
 ): NotebookEntry[] {
   return Object.values(notebook.entries)
     .filter((e) => !isMastered(e) && e.due <= today)
-    .sort((a, b) =>
-      a.due === b.due ? a.id.localeCompare(b.id) : a.due < b.due ? -1 : 1,
+    .sort(
+      (a, b) =>
+        // Sure but wrong first (hypercorrection, D202), then oldest due.
+        Number(!!b.priority) - Number(!!a.priority) ||
+        (a.due === b.due ? a.id.localeCompare(b.id) : a.due < b.due ? -1 : 1),
     )
     .slice(0, REVIEWS_PER_DAY);
 }
@@ -137,6 +142,7 @@ export function parseNotebook(value: unknown): Notebook {
       due: o.due,
       added: o.added,
       at: typeof o.at === "string" ? o.at : new Date(0).toISOString(),
+      ...(o.priority === true ? { priority: true } : {}),
     };
   }
   return { entries };

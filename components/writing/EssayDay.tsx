@@ -11,6 +11,7 @@ import {
   patternItems,
 } from "@/lib/writing/notebook";
 import {
+  day30Of,
   newWritingProgress,
   resettleWritingWeek,
   settleWritingWeek,
@@ -33,6 +34,7 @@ import { FeedbackView, SelfScoreView } from "./FeedbackView";
 import { ModelEssay } from "./ModelEssay";
 import { SelfScoreForm } from "./SelfScoreForm";
 import { PromptTask } from "./PromptTask";
+import { LongResult } from "./LongResult";
 import { WeekResult } from "./WeekResult";
 import { WritingWorkspace } from "./WritingWorkspace";
 import {
@@ -61,7 +63,8 @@ export function EssayDay({
   title,
 }: {
   prompt: WritingPrompt;
-  day: 1 | 7;
+  /** 30: the rewrite a month on (D203), kept apart from the week's days. */
+  day: 1 | 7 | 30;
   signedIn: boolean;
   title: string;
 }) {
@@ -69,7 +72,7 @@ export function EssayDay({
   const tPlans = useTranslations("plans");
   const progress = useWritingProgress(prompt.id);
   const { cloud, saveProgress, saveNotebook } = useWritingData();
-  const record = progress?.days[day];
+  const record = day === 30 ? day30Of(progress) : progress?.days[day];
   const done = Boolean(record?.done);
 
   const [text, setText] = useState("");
@@ -162,14 +165,30 @@ export function EssayDay({
   const rubric = WRITING_TYPE_CONFIG[prompt.type].rubric;
   const words = countWords(text);
 
+  /** The progress with this day's essay in its place. */
+  const withDay = (
+    base: NonNullable<typeof progress>,
+    dayRecord: EssayDayRecord,
+  ) =>
+    day === 30
+      ? {
+          ...base,
+          day30: { ...dayRecord, week: base.week },
+          updatedAt: new Date().toISOString(),
+        }
+      : {
+          ...base,
+          days: { ...base.days, [day]: dayRecord },
+          updatedAt: new Date().toISOString(),
+        };
+
   const finish = (dayRecord: EssayDayRecord) => {
     const today = toLocalDate(new Date());
     const base = progress ?? newWritingProgress(prompt.id, today);
-    const next = settleWritingWeek({
-      ...base,
-      days: { ...base.days, [day]: dayRecord },
-      updatedAt: new Date().toISOString(),
-    });
+    const next =
+      day === 30
+        ? withDay(base, dayRecord)
+        : settleWritingWeek(withDay(base, dayRecord));
     saveProgress(next);
     saveLocalDraft(window.localStorage, prompt.id, day, null);
     void cloud?.removeDraft(prompt.id, day).catch(() => {});
@@ -225,11 +244,9 @@ export function EssayDay({
       }
       const reviewed = { ...record, feedback: result.feedback };
       saveProgress(
-        resettleWritingWeek({
-          ...progress,
-          days: { ...progress.days, [day]: reviewed },
-          updatedAt: new Date().toISOString(),
-        }),
+        day === 30
+          ? withDay(progress, reviewed)
+          : resettleWritingWeek(withDay(progress, reviewed)),
       );
       toNotebook(reviewed, false);
     } catch {
@@ -359,6 +376,7 @@ export function EssayDay({
         {day === 7 && progress && (
           <WeekResult prompt={prompt} progress={progress} title={title} />
         )}
+        {day === 30 && progress && <LongResult progress={progress} />}
         <ModelEssay prompt={prompt} />
         {day === 1 && (
           <Card className="flex flex-wrap items-center justify-between gap-3">
@@ -385,7 +403,11 @@ export function EssayDay({
   const notes = (
     <>
       <p className="text-supporting text-ink-muted">
-        {day === 1 ? t("essay.noPeek") : t("essay.noLookBack")}
+        {day === 1
+          ? t("essay.noPeek")
+          : day === 30
+            ? t("essay.day30")
+            : t("essay.noLookBack")}
       </p>
       {!signedIn && (
         <p className="text-supporting">

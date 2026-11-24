@@ -1,6 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { devices, type Page } from "@playwright/test";
 import {
+  checkBackAnswer,
   expect,
   setToday,
   signInAsAdmin,
@@ -93,8 +94,7 @@ async function doDrills(page: Page) {
     await expect(box.or(done)).toBeVisible();
     if (await done.isVisible()) break;
     await box.fill("My perfect weekend would start slowly.");
-    await page.getByRole("button", { name: "檢查" }).click();
-    await expect(page.getByText(/寫對了|差一點/)).toBeVisible();
+    await checkBackAnswer(page);
     await page
       .getByRole("button", { name: /^(下一句|完成今天的練習)$/ })
       .click();
@@ -303,14 +303,14 @@ test("save without a review, then ask the AI later (D194)", async ({
   await expect(page.getByRole("heading", { name: "整體分數" })).toBeVisible();
 });
 
-test("the default can be save only, set on the account page (D194)", async ({
+test("the default can be save only, set in the writing settings (D194)", async ({
   page,
 }) => {
   await signInWithEmail(page, "e2e-no-review-2", "no-review-2@example.com");
   await setToday(page, day(1));
   await page.goto("/writing");
   await page.getByRole("link", { name: "寫作設定" }).click();
-  await expect(page).toHaveURL(/\/account#writing-settings$/);
+  await expect(page).toHaveURL(/\/writing\/settings$/);
   await page.getByRole("radio", { name: /只儲存，不批改/ }).check();
   await page.goto(`/writing/${PROMPT}/day/1`);
   await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
@@ -378,7 +378,7 @@ test("back-translation in each mode, and more practice (D195)", async ({
   ).toBeVisible();
   const box = page.getByRole("textbox", { name: "聽到的英文句子" });
   await box.fill("I would not do anything at all");
-  await box.press("Enter");
+  await checkBackAnswer(page);
   // Checked like dictation: the sentence, the mistakes marked.
   await expect(page.getByText("差一點，看看哪裡不一樣。")).toBeVisible();
   await expect(page.getByText("正確答案").first()).toBeVisible();
@@ -397,7 +397,7 @@ test("back-translation in each mode, and more practice (D195)", async ({
   await page.getByRole("radio", { name: /聽英文 → 寫中文意思/ }).check();
   await page.goto(`/writing/${PROMPT}/day/2`);
   await page.getByRole("textbox", { name: "這句的中文意思" }).fill("週末");
-  await page.getByRole("button", { name: "檢查" }).click();
+  await checkBackAnswer(page);
   await expect(page.getByText("參考意思", { exact: true })).toBeVisible();
 
   // More practice: any of the seven, not part of the day.
@@ -463,7 +463,7 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       await page
         .getByRole("textbox", { name: "聽到的英文句子" })
         .fill("On Saturday he goes to the park with me.");
-      await page.getByRole("button", { name: "檢查" }).click();
+      await checkBackAnswer(page);
       await expect(
         page.getByText("這是你第 1 天寫的句子，修正後的版本。"),
       ).toBeVisible();

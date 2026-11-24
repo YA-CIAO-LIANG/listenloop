@@ -5,7 +5,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { getSignedInUser } from "@/auth/session";
 import { getWritingPrompt } from "@/data/writing";
 import { WritingDay } from "@/components/writing/WritingDay";
-import type { CycleDay } from "@/lib/cycle";
+import type { WritingDayNumber } from "@/lib/writing/progress";
 import { CustomPromptDay } from "@/components/writing/CustomPrompts";
 import { isCustomPromptId } from "@/lib/writing/custom";
 
@@ -38,14 +38,17 @@ export default async function WritingDayPage({
   const { id, day: rawDay } = await params;
   const prompt = getWritingPrompt(id);
   const day = Number(rawDay);
-  if (!Number.isInteger(day) || day < 1 || day > 7) notFound();
+  // Days 1–7, and Day 30's rewrite (D203).
+  if (!Number.isInteger(day) || ((day < 1 || day > 7) && day !== 30)) {
+    notFound();
+  }
   if (isCustomPromptId(id)) {
     const user = await getSignedInUser();
     return (
       <main className="mx-auto flex w-full max-w-content flex-1 flex-col gap-4 px-4 py-4 split:gap-6 split:px-6 split:py-8">
         <CustomPromptDay
           id={id}
-          day={day as CycleDay}
+          day={day as WritingDayNumber}
           signedIn={user !== null}
         />
       </main>
@@ -70,11 +73,11 @@ export default async function WritingDayPage({
       </nav>
       <h1 className="font-display text-h2 split:text-h1">
         {t("overview.dayN", { day })} ·{" "}
-        {t(`overview.dayName.${day as CycleDay}`)}
+        {t(`overview.dayName.${day as WritingDayNumber}`)}
       </h1>
       <WritingDay
         prompt={prompt}
-        day={day as CycleDay}
+        day={day as WritingDayNumber}
         signedIn={user !== null}
         title={title}
       />

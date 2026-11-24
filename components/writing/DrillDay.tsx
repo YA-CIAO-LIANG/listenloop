@@ -11,6 +11,9 @@ import {
 import {
   answerRun,
   applyChecks,
+  explainRun,
+  hintLevel,
+  timesSeen,
   exactBack,
   pendingChecks,
   backNotebookItems,
@@ -120,6 +123,18 @@ export function DrillDay({
     if (items.length) saveNotebook(addToNotebook(notebook, items, today()));
   };
 
+  // The learning-science helps, each switchable in the settings (D202).
+  const coachFor = (current: BackRun) => ({
+    confidence: settings.confidence,
+    selfExplain: settings.selfExplain,
+    hint: settings.scaffold
+      ? (index: number) =>
+          hintLevel(
+            timesSeen(progress.days, current.items[index]?.en ?? "", current),
+          )
+      : undefined,
+  });
+
   const answerDay = (index: number, answer: BackAnswer) => {
     const back = answerRun(run, index, answer);
     if (back === run) return;
@@ -147,6 +162,20 @@ export function DrillDay({
       ],
     });
     toNotebook(back);
+  };
+
+  const explainDay = (index: number, text: string) => {
+    const latest = record?.back;
+    if (!record || !latest) return;
+    const back = explainRun(latest, index, text);
+    if (back !== latest) saveDay({ ...record, back });
+  };
+  const explainExtra = (index: number, text: string) => {
+    const extra = record?.extra;
+    if (!record || !extra) return;
+    const next = explainRun(extra, index, text);
+    if (next !== extra)
+      saveDay({ ...record, extra: { ...next, round: extra.round } });
   };
 
   const startExtra = () => {
@@ -294,6 +323,8 @@ export function DrillDay({
         run={extra}
         mode={settings.dictation}
         extra={{ onEnd: endExtra }}
+        coach={coachFor(extra)}
+        onExplain={explainExtra}
         onAnswer={answerExtra}
         onFinish={endExtra}
         aside={
@@ -392,6 +423,8 @@ export function DrillDay({
         run={run}
         mode={settings.dictation}
         intro={reviewed ? t("back.fromReview") : t("back.fromModel")}
+        coach={coachFor(run)}
+        onExplain={explainDay}
         onAnswer={answerDay}
         onFinish={() => {
           setLive(false);

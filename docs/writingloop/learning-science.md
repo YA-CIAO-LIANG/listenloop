@@ -10,25 +10,31 @@ WritingLoop 是 ListenLoop 裡的 7 天英文寫作循環，目標使用者是�
 
 ## 功能與原理對照表
 
-| 功能                                          | 主要原理                         | 次要原理                     |
-| --------------------------------------------- | -------------------------------- | ---------------------------- |
-| Day 1 先寫自己的版本，再看範文                | 生成效應、預先測試／有效失敗     | 回饋研究                     |
-| 範文在送出後才解鎖                            | 預先測試／有效失敗               | 提取練習                     |
-| AI 回饋只標出前 3 個問題＋1～2 個優點         | 認知負荷、回饋研究（聚焦式回饋） | 刻意練習                     |
-| 較小的問題收在「更多建議」                    | 認知負荷                         | 回饋研究                     |
-| Day 2～6 每天聽寫回譯 5～8 句（D195）         | 提取練習、輸出假說               | 生成效應、分散練習           |
-| 聽寫回譯的句子：自己被改過的句子＋範文重點句  | 刻意練習、輸出假說（注意到落差） | 間隔重複                     |
-| 「更多練習」：7 種練習由學習者自己選          | 刻意練習                         | 自主性                       |
-| 改自己的錯句（先自己改，再看答案）            | 生成效應、提取練習               | 回饋研究                     |
-| 句型模仿、句子合併、改寫（paraphrase）        | 刻意練習、生成效應               | 寫作教學研究（句子合併）     |
-| 段落重組（連貫與轉折詞）                      | 生成效應                         | 刻意練習                     |
-| 讀 30 秒、蓋住、憑記憶重寫                    | 提取練習                         | 生成效應                     |
-| 聽 ListenLoop 音檔後寫摘要                    | 提取練習、生成效應               | 與聽力練習連結               |
-| 每次練習都立即回饋                            | 回饋研究                         | 提取練習（回饋加強測驗效果） |
-| 錯誤類型混在一起出題                          | 交錯練習                         | 提取練習                     |
-| 錯題本：錯誤與好用句型在 1、3、7 天後再出現   | 間隔重複                         | 提取練習                     |
-| 每天 10～15 分鐘、連續多天                    | 分散練習、睡眠鞏固               | 認知負荷                     |
-| Day 7 不看 Day 1 和範文，重寫同一題、比較分數 | 提取練習                         | 刻意練習（看得見的進步）     |
+| 功能                                           | 主要原理                         | 次要原理                     |
+| ---------------------------------------------- | -------------------------------- | ---------------------------- |
+| Day 1 先寫自己的版本，再看範文                 | 生成效應、預先測試／有效失敗     | 回饋研究                     |
+| 範文在送出後才解鎖                             | 預先測試／有效失敗               | 提取練習                     |
+| AI 回饋只標出前 3 個問題＋1～2 個優點          | 認知負荷、回饋研究（聚焦式回饋） | 刻意練習                     |
+| 較小的問題收在「更多建議」                     | 認知負荷                         | 回饋研究                     |
+| Day 2～6 每天聽寫回譯 5～8 句（D195）          | 提取練習、輸出假說               | 生成效應、分散練習           |
+| 聽寫回譯的句子：自己被改過的句子＋範文重點句   | 刻意練習、輸出假說（注意到落差） | 間隔重複                     |
+| 「更多練習」：7 種練習由學習者自己選           | 刻意練習                         | 自主性                       |
+| 改自己的錯句（先自己改，再看答案）             | 生成效應、提取練習               | 回饋研究                     |
+| 句型模仿、句子合併、改寫（paraphrase）         | 刻意練習、生成效應               | 寫作教學研究（句子合併）     |
+| 段落重組（連貫與轉折詞）                       | 生成效應                         | 刻意練習                     |
+| 讀 30 秒、蓋住、憑記憶重寫                     | 提取練習                         | 生成效應                     |
+| 聽 ListenLoop 音檔後寫摘要                     | 提取練習、生成效應               | 與聽力練習連結               |
+| 每次練習都立即回饋                             | 回饋研究                         | 提取練習（回饋加強測驗效果） |
+| 錯誤類型混在一起出題                           | 交錯練習                         | 提取練習                     |
+| 錯題本：錯誤與好用句型在 1、3、7 天後再出現    | 間隔重複                         | 提取練習                     |
+| 每天 10～15 分鐘、連續多天                     | 分散練習、睡眠鞏固               | 認知負荷                     |
+| Day 7 不看 Day 1 和範文，重寫同一題、比較分數  | 提取練習                         | 刻意練習（看得見的進步）     |
+| 聽寫回譯送出前選信心度（D202）                 | 超矯正效應                       | 後設認知                     |
+| 提示逐漸減少：首字母＋字數 → 字數 → 無（D202） | 鷹架逐漸撤除                     | 專業反轉效應                 |
+| 寫錯時先寫「我覺得錯在哪裡」（D202）           | 自我解釋                         | 生成效應                     |
+| 睡前回顧：從記憶寫出今天的 3 個句子（D203）    | 睡眠鞏固、提取練習               | 分散練習                     |
+| 第 30 天延遲重寫，比較第 1、7、30 天（D203）   | 學習與表現的區別、保留間隔       | 合意難度                     |
+| 額外練習的 AI 批改（D200）                     | 回饋研究                         | 提取練習                     |
 
 ## 1. 生成效應（generation effect）與預先測試
 
@@ -295,6 +301,173 @@ WritingLoop 是 ListenLoop 裡的 7 天英文寫作循環，目標使用者是�
 - Long, M. H. (1996). The role of the linguistic environment in second language acquisition. In W. C. Ritchie & T. K. Bhatia (Eds.), _Handbook of second language acquisition_ (pp. 413–468). Academic Press.
 - Lyster, R., & Ranta, L. (1997). Corrective feedback and learner uptake: Negotiation of form in communicative classrooms. _Studies in Second Language Acquisition, 19_(1), 37–66. https://doi.org/10.1017/S0272263197001034
 - Li, S. (2010). The effectiveness of corrective feedback in SLA: A meta-analysis. _Language Learning, 60_(2), 309–365. https://doi.org/10.1111/j.1467-9922.2010.00561.x
+
+## 10. 信心度與超矯正效應（D202）
+
+### 原理說明
+
+- **超矯正效應（hypercorrection effect）**：Butterfield 與 Metcalfe（2001）發現，學習者很有信心卻答錯的題目，看到正確答案後，反而比沒信心答錯的題目更容易被改正並記住。Metcalfe（2017）的回顧認為，這和「出乎意料」引起的注意力有關。
+- **很有信心的錯誤會再回來**：Butler、Fazio 與 Marsh（2011）發現超矯正效應在一週後仍然存在，但部分很有信心的錯誤會「回來」。也就是說，這類錯誤值得在之後再複習一次。
+- **答對但不確定的題目也需要回饋**：Butler、Karpicke 與 Roediger（2008）發現，答對但信心低的題目，有回饋時比較記得住；沒有回饋時，這些「猜對」的答案容易忘記。
+
+### 在 WritingLoop 怎麼用
+
+- 聽寫回譯每一句送出前，選「很確定／有點確定／不確定」（一個點選，約 1～2 秒）。
+- 送出後，結果旁邊會顯示當時選的信心，讓學習者看到自己的判斷準不準（後設認知）。
+- 加入錯誤本時：
+  - **很確定卻寫錯**的句子排在最前面（優先複習），結果頁也會特別標示。
+  - **寫對但不確定**的句子也加入錯誤本，之後再練一次。
+- 可以在寫作設定關閉；關閉時不顯示信心選項，錯誤本照原本的規則。
+
+### 限制與注意
+
+- 原始研究多半用常識問答題（例如「哪個國家的首都是…」），和寫出一整句英文不同。這裡借用的是「依信心決定複習順序」的原則。
+- 超矯正效應不代表「很有信心的錯誤比較不嚴重」，只代表看到答案後比較容易改；所以仍要安排複習。
+- 自評信心本身就有誤差。這個功能只影響複習順序，不影響分數。
+
+### 參考文獻
+
+- Butterfield, B., & Metcalfe, J. (2001). Errors committed with high confidence are hypercorrected. _Journal of Experimental Psychology: Learning, Memory, and Cognition, 27_(6), 1491–1494. https://doi.org/10.1037/0278-7393.27.6.1491
+- Butler, A. C., Karpicke, J. D., & Roediger, H. L., III. (2008). Correcting a metacognitive error: Feedback increases retention of low-confidence correct responses. _Journal of Experimental Psychology: Learning, Memory, and Cognition, 34_(4), 918–928. https://doi.org/10.1037/0278-7393.34.4.918
+- Butler, A. C., Fazio, L. K., & Marsh, E. J. (2011). The hypercorrection effect persists over a week, but high-confidence errors return. _Psychonomic Bulletin & Review, 18_(6), 1238–1244. https://doi.org/10.3758/s13423-011-0173-y
+- Metcalfe, J. (2017). Learning from errors. _Annual Review of Psychology, 68_, 465–489. https://doi.org/10.1146/annurev-psych-010416-044022
+
+## 11. 鷹架逐漸撤除（D202）
+
+### 原理說明
+
+- **鷹架（scaffolding）**：Wood、Bruner 與 Ross（1976）用這個詞描述有經驗的人在學習者還做不到時提供支持，並在學習者能力提升後逐步撤除。van de Pol、Volman 與 Beishuizen（2010）的回顧把「撤除」（fading）列為鷹架的核心特徵之一。
+- **從範例到獨立解題的漸進撤除**：Renkl 與 Atkinson（2003）主張，從完整範例逐步減少提示、到學習者自己完成，比突然從範例跳到獨立作答更好。
+- **專業反轉效應（expertise reversal effect）**：Kalyuga 等人（2003）指出，對初學者有幫助的提示，對已經熟練的人反而可能是多餘的負擔。所以提示要隨熟練度減少。
+
+### 在 WritingLoop 怎麼用
+
+- 同一個句子第一次練習時，給比較多的提示：字數和每個字的首字母（例如「M___ p___ w___（6 個字）」）。
+- 第二次只給字數；第三次起不給提示。
+- 次數依同一題目中這一句之前作答的次數計算（當天任務、額外練習都算）。
+- 「聽英文寫中文意思」不給英文提示，因為答案是中文。
+- 可以在寫作設定關閉，關閉時都不給提示。
+
+### 限制與注意
+
+- 鷹架研究多半是數學、科學的解題或師生互動，不是寫句子。這裡用的是「提示隨熟練度減少」的原則。
+- 首字母提示可能讓學習者只是填空、少了真正的提取。所以只在第一次給，之後就撤除。
+- 撤除的速度（3 次）是實務上的選擇，沒有研究指定最佳次數。
+
+### 參考文獻
+
+- Wood, D., Bruner, J. S., & Ross, G. (1976). The role of tutoring in problem solving. _Journal of Child Psychology and Psychiatry, 17_(2), 89–100. https://doi.org/10.1111/j.1469-7610.1976.tb00381.x
+- Renkl, A., & Atkinson, R. K. (2003). Structuring the transition from example study to problem solving in cognitive skill acquisition: A cognitive load perspective. _Educational Psychologist, 38_(1), 15–22. https://doi.org/10.1207/S15326985EP3801_3
+- Kalyuga, S., Ayres, P., Chandler, P., & Sweller, J. (2003). The expertise reversal effect. _Educational Psychologist, 38_(1), 23–31. https://doi.org/10.1207/S15326985EP3801_4
+- van de Pol, J., Volman, M., & Beishuizen, J. (2010). Scaffolding in teacher–student interaction: A decade of research. _Educational Psychology Review, 22_(3), 271–296. https://doi.org/10.1007/s10648-010-9127-6
+
+## 12. 自我解釋（D202）
+
+### 原理說明
+
+- Chi 等人（1989）發現，學得比較好的學生在讀範例時，會主動向自己解釋每一步「為什麼」。Chi 等人（1994）進一步證實，**引導**學習者自我解釋，也能提升理解。
+- Bisra 等人（2018）的後設分析整理了 64 篇研究，發現引導自我解釋整體有中等效果（約 g = 0.55），在不同年齡和學科都有。
+
+### 在 WritingLoop 怎麼用
+
+- 聽寫回譯寫錯時，先請學習者用一句話寫「我覺得錯在哪裡」（中文也可以），再看答案和逐字比對。
+- 寫完的說明會和答案一起顯示，方便對照自己猜得對不對。
+- 可以按「略過」直接看答案。
+- 每組最多問 2 次，避免拉長每天的時間。
+- 可以在寫作設定關閉。
+
+### 限制與注意
+
+- 後設分析裡大部分研究是讀範例、解題或讀說明文，不是外語寫作。
+- 自我解釋需要時間。學習者如果只是隨便打幾個字，效果會打折扣。所以只問最多 2 次，而且可以略過。
+- 在完全不知道哪裡錯（例如聽不出來的字）時，學習者可能寫不出解釋。這時「略過」是合理的選擇，介面不責備。
+
+### 參考文獻
+
+- Chi, M. T. H., Bassok, M., Lewis, M. W., Reimann, P., & Glaser, R. (1989). Self-explanations: How students study and use examples in learning to solve problems. _Cognitive Science, 13_(2), 145–182. https://doi.org/10.1207/s15516709cog1302_1
+- Chi, M. T. H., de Leeuw, N., Chiu, M.-H., & LaVancher, C. (1994). Eliciting self-explanations improves understanding. _Cognitive Science, 18_(3), 439–477. https://doi.org/10.1207/s15516709cog1803_3
+- Bisra, K., Liu, Q., Nesbit, J. C., Salimi, F., & Winne, P. H. (2018). Inducing self-explanation: A meta-analysis. _Educational Psychology Review, 30_(3), 703–725. https://doi.org/10.1007/s10648-018-9434-x
+
+## 13. 睡前回顧（D203）
+
+### 原理說明
+
+- **睡眠與記憶鞏固**：Diekelmann 與 Born（2010）的回顧整理了睡眠幫助記憶鞏固的證據。Gais、Lucas 與 Born（2006）發現，學習後很快就睡覺的組別，比學習後保持清醒一段時間的組別記得更好。
+- **睡前提取＋睡眠**：Mazza 等人（2016）讓受試者在兩段練習之間睡覺，發現重新學習更快、一週後和六個月後都記得更多。
+- **自由回想**：從記憶中寫出學過的內容，是提取練習的一種（第 2 節）。
+
+### 在 WritingLoop 怎麼用
+
+- 在設定的時間之後（預設 21:30，可以改時間或關閉），當天有做寫作練習時，寫作頁和首頁的今日任務會出現「睡前回顧（約 3 分鐘）」。
+- 回顧時先不看任何內容，從記憶寫出今天學到的 3 個句子；寫完再顯示今天練過的句子，對照哪些想起來了。
+- 做完會記在寫作日曆。
+
+### 限制與注意
+
+- 睡眠研究多半在實驗室裡學單字對或簡單材料，而且效果因人而異。這裡只說「睡前回想一次對記憶有幫助」，**不說「睡覺時大腦會幫你學英文」**這類說法（見「不使用的神經迷思」）。
+- 目前是在 App 裡提醒（打開寫作頁或首頁時出現），不會主動推播。推播提醒要另外設定伺服器排程，列為之後的建議。
+- 對作息不規律的人，「睡前」不一定是固定時間，所以可以自己設定時間。
+
+### 參考文獻
+
+- Diekelmann, S., & Born, J. (2010). The memory function of sleep. _Nature Reviews Neuroscience, 11_(2), 114–126. https://doi.org/10.1038/nrn2762
+- Gais, S., Lucas, B., & Born, J. (2006). Sleep after learning aids memory recall. _Learning & Memory, 13_(3), 259–262. https://doi.org/10.1101/lm.132106
+- Mazza, S., Gerbier, E., Gustin, M.-P., Kasikci, Z., Koenig, O., Toppino, T. C., & Magnin, M. (2016). Relearn faster and retain longer: Along with practice, sleep makes perfect. _Psychological Science, 27_(10), 1321–1330. https://doi.org/10.1177/0956797616659930
+
+## 14. 第 30 天延遲重寫（D203）
+
+### 原理說明
+
+- **學習和表現不同**：Soderstrom 與 Bjork（2015）的回顧指出，練習當下的表現（performance）不一定代表長期學習（learning）。要知道學到多少，要隔一段時間再測。
+- **保留間隔**：Cepeda 等人（2008）研究不同的學習間隔和測驗時間，發現想要記得越久，就要隔越久再複習。一個月後再寫一次，是一次長間隔的提取，也是一次真正的「長期進步」檢查。
+- **合意難度（desirable difficulties）**：Bjork 與 Bjork（2011）指出，當下比較難的練習（例如隔很久再回想），常常帶來比較好的長期學習。
+
+### 在 WritingLoop 怎麼用
+
+- 完成 7 天循環後，從第 1 天起算的第 30 天（第 1 天日期加 29 天）起，今日任務會邀請學習者再寫一次同一個題目。不看之前的文章和範文。
+- 寫完用和第 1、7 天相同的方式評分（AI 批改或自評），結果頁並排比較第 1、7、30 天的分數，以及字數、平均句長、用字多樣性。
+- 可以略過，也可以在設定關閉。
+
+### 限制與注意
+
+- 30 天是實務上的選擇（大約一個月），研究沒有指定寫作的最佳間隔。
+- 同一題重寫，分數進步可能部分來自記得題目和範文，不完全代表整體寫作能力進步（見「產品文案的規則」第 3 點）。
+- AI 評分本身有誤差，第 1、7、30 天的差距如果只有幾分，不一定代表真的進步或退步。
+
+### 參考文獻
+
+- Soderstrom, N. C., & Bjork, R. A. (2015). Learning versus performance: An integrative review. _Perspectives on Psychological Science, 10_(2), 176–199. https://doi.org/10.1177/1745691615569000
+- Cepeda, N. J., Vul, E., Rohrer, D., Wixted, J. T., & Pashler, H. (2008). Spacing effects in learning: A temporal ridgeline of optimal retention. _Psychological Science, 19_(11), 1095–1102. https://doi.org/10.1111/j.1467-9280.2008.02209.x
+- Bjork, E. L., & Bjork, R. A. (2011). Making things hard on yourself, but in a good way: Creating desirable difficulties to enhance learning. In M. A. Gernsbacher, R. W. Pew, L. M. Hough, & J. R. Pomerantz (Eds.), _Psychology and the real world: Essays illustrating fundamental contributions to society_ (pp. 56–64). Worth Publishers.
+
+## 15. 新功能的優先順序與每日時間
+
+依「效益（研究證據與對寫作的相關程度）」與「成本（開發、每天多花的時間、API 費用）」排序：
+
+| 順序 | 功能             | 證據                     | 每天多花的時間                    | API 費用                    | 做法                   |
+| ---- | ---------------- | ------------------------ | --------------------------------- | --------------------------- | ---------------------- |
+| 1    | 鷹架逐漸撤除     | 中（原則明確，形式不同） | 0（反而可能縮短第一次作答的時間） | 無                          | 自動，依練習次數       |
+| 2    | 信心度評分       | 中（常識題為主）         | 每句 1～2 秒，約 10 秒            | 無                          | 每句送出前點選         |
+| 3    | 自我解釋         | 中高（後設分析）         | 每組最多 2 次，約 40 秒           | 無                          | 寫錯時先寫一句再看答案 |
+| 4    | 睡前回顧         | 中（實驗室為主）         | 約 3 分鐘                         | 無                          | App 內提醒，規則比對   |
+| 5    | 第 30 天延遲重寫 | 中（學習與表現）         | 那一天寫一篇（可略過）            | 選用（AI 批改計入每週額度） | 今日任務邀請           |
+
+**每日時間**：第 2～6 天的聽寫回譯約 10 分鐘，加上信心度、自我解釋約 1 分鐘、錯誤本複習（每天最多 5 題）約 3 分鐘、睡前回顧約 3 分鐘，合計約 17 分鐘，不超過 20 分鐘。額外練習不算在內。第 1、7 天寫文章的建議時間由題目決定（考試題型較長），新功能在這兩天只會多出睡前回顧。
+
+## 16. 其他有研究支持、但這次只列為建議的功能
+
+以下功能需要真實 API 花費、會改變產品方向，或需要伺服器排程。依規則只列建議，沒有實作。
+
+| 建議                                  | 依據                                                                                  | 預期效果                               | 成本                                                |
+| ------------------------------------- | ------------------------------------------------------------------------------------- | -------------------------------------- | --------------------------------------------------- |
+| 實作意圖（「我會在 ___ 之後練習」）   | Gollwitzer（1999）；Gollwitzer 與 Sheeran（2006）的後設分析，對達成目標有中到大的效果 | 提高每天練習的持續度                   | 低（不需 API），但會改變首頁的流程，需要 Joe 決定   |
+| 睡前回顧的推播提醒                    | 同第 13 節                                                                            | 沒有打開 App 的人也會回顧              | 需要伺服器排程與推播設定（沿用聽力的提醒基礎設施）  |
+| AI 判斷睡前回顧寫出的句子是否意思正確 | 回饋研究（第 7 節）                                                                   | 用字不同但意思對的句子也能算「想起來」 | 每次約 US$0.001，計入額度                           |
+| 同儕互評（班級內互相看文章）          | Topping（1998）的回顧，同儕評量在寫作上有正面效果                                     | 多一種回饋來源、讀別人的文章           | 改變產品方向（公開文章、隱私、檢舉），需要 Joe 決定 |
+
+- Gollwitzer, P. M. (1999). Implementation intentions: Strong effects of simple plans. _American Psychologist, 54_(7), 493–503. https://doi.org/10.1037/0003-066X.54.7.493
+- Gollwitzer, P. M., & Sheeran, P. (2006). Implementation intentions and goal achievement: A meta-analysis of effects and processes. _Advances in Experimental Social Psychology, 38_, 69–119. https://doi.org/10.1016/S0065-2601(06)38002-1
+- Topping, K. (1998). Peer assessment between students in colleges and universities. _Review of Educational Research, 68_(3), 249–276. https://doi.org/10.3102/00346543068003249
 
 ## 不使用的神經迷思
 

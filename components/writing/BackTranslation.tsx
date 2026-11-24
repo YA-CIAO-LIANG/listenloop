@@ -4,11 +4,15 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useState, type KeyboardEvent, type ReactNode } from "react";
 import { writingSentenceAudioUrl } from "@/app/writing/audio-actions";
+import { toLocalDate } from "@/lib/dates";
 import { wordDiff } from "@/lib/scoring/word-diff";
 import {
   checkBack,
+  CONFIDENCE,
   itemMode,
   nextIndex,
+  sentenceHint,
+  type Confidence,
   type BackAnswer,
   type BackRun,
 } from "@/lib/writing/back-translation";
@@ -21,6 +25,8 @@ import { WritingWorkspace } from "./WritingWorkspace";
 
 /** The pause between plays when looping a sentence. */
 const LOOP_GAP_MS = 1_500;
+/** "Where it went wrong" is asked at most this often a set (D202). */
+export const SELF_EXPLAIN_PER_SET = 2;
 
 /**
  * A set of back-translation sentences (聽寫回譯, D195, D199): each
@@ -44,6 +50,8 @@ export function BackTranslation({
   onAnswer,
   onFinish,
   aside,
+  coach = {},
+  onExplain,
 }: {
   promptId: string;
   run: BackRun;
@@ -57,6 +65,18 @@ export function BackTranslation({
   onFinish: () => void;
   /** More for the task column (extra practice's notes). */
   aside?: ReactNode;
+  /**
+   * The learning-science helps (D202), each on unless turned off in the
+   * writing settings: how sure (asked before checking), fading hints
+   * (the level for each sentence), and "where it went wrong" first.
+   */
+  coach?: {
+    confidence?: boolean;
+    hint?: (index: number) => 0 | 1 | 2;
+    selfExplain?: boolean;
+  };
+  /** The learner's "where it went wrong" (or "" when skipped). */
+  onExplain?: (index: number, text: string) => void;
 }) {
   const t = useTranslations("writing.back");
   const total = run.items.length;
@@ -67,6 +87,10 @@ export function BackTranslation({
   const [checked, setChecked] = useState<number | null>(null);
   const [answer, setAnswer] = useState("");
   const [loop, setLoop] = useState(false);
+  const [needSure, setNeedSure] = useState(false);
+  // A wrong answer waiting for "where I think it went wrong" (D202).
+  const [explaining, setExplaining] = useState<number | null>(null);
+  const [thought, setThought] = useState("");
   const index = Math.min(opened ?? checked ?? current, total - 1);
   const item = run.items[index];
   const result = run.answers[index] ?? null;
@@ -83,14 +107,47 @@ export function BackTranslation({
 
   if (!item) return null;
   const allDone = current >= total;
+  // Fading hints (D202): never for the meaning in Chinese.
+  const hint =
+    coach.hint && asked !== "listen-zh"
+      ? sentenceHint(item.en, coach.hint(index))
+      : null;
 
-  const check = () => {
+  // At most two "where it went wrong" a set: a minute, not more (D202).
+  const explained = run.answers.filter((a) => a?.explain !== undefined).length;
+  const check = (sure?: Confidence) => {
     if (result || !answer.trim()) return;
+    if (coach.confidence && !sure) {
+      setNeedSure(true);
+      return;
+    }
     setLoop(false);
-    onAnswer(index, { ...checkBack(item, mode, answer), answer });
+    const checkedAnswer: BackAnswer = {
+      ...checkBack(item, mode, answer),
+      answer,
+      date: toLocalDate(new Date()),
+      ...(coach.confidence && sure ? { confidence: sure } : {}),
+    };
+    onAnswer(index, checkedAnswer);
+    if (
+      coach.selfExplain &&
+      onExplain &&
+      !checkedAnswer.right &&
+      explained < SELF_EXPLAIN_PER_SET
+    ) {
+      setExplaining(index);
+      setThought("");
+    }
     setChecked(index);
     setOpened(null);
     setAnswer("");
+    setNeedSure(false);
+  };
+  const explain = (text: string) => {
+    if (explaining === null) return;
+    onExplain?.(explaining, text.trim());
+    setExplaining(null);
+    setThought("");
   };
   const next = () => {
     setLoop(false);
@@ -102,10 +159,13 @@ export function BackTranslation({
     // Enter checks (or goes on); Shift+Enter is a new line.
     if (e.key !== "Enter" || e.shiftKey || e.nativeEvent.isComposing) return;
     e.preventDefault();
-    if (result) next();
+    if (explaining === index) explain(thought);
+    else if (result) next();
+    // Asked how sure: Enter says to choose (the choice is the check).
     else check();
   };
   const open = (n: number) => {
+    if (explaining !== null) explain(thought);
     setLoop(false);
     setChecked(null);
     setOpened(n === current ? null : n);
@@ -125,7 +185,12 @@ export function BackTranslation({
             <li key={n}>
               <button
                 type="button"
-                onClick={() => open(n)}
+                onClick={(e) => {
+                  // On a phone the list is in the folded task: fold it
+                  // again, so the sentence chosen is what shows.
+                  e.currentTarget.closest("details")?.removeAttribute("open");
+                  open(n);
+                }}
                 disabled={!reachable}
                 aria-current={n === index ? "step" : undefined}
                 aria-label={t("go", {
@@ -177,6 +242,25 @@ export function BackTranslation({
           {item.zh}
         </p>
       )}
+      {hint && !result && (
+        // Phones: in the box's placeholder (no row less for the box);
+        // still read out from here.
+        <p
+          id="back-hint"
+          className="text-supporting max-wide:sr-only"
+          data-testid="back-hint"
+        >
+          <span className="text-ink-muted">{t("hintLabel")}</span>{" "}
+          {hint.letters && (
+            <span lang="en" className="font-medium tracking-wide">
+              {hint.letters}{" "}
+            </span>
+          )}
+          <span className="text-ink-muted">
+            {t("hintWords", { count: hint.words })}
+          </span>
+        </p>
+      )}
       <div className="flex flex-wrap items-center gap-2">
         <Button
           size="sm"
@@ -210,23 +294,69 @@ export function BackTranslation({
     </div>
   );
 
-  // One button, always in the same place beside the box: Check, then
-  // Next (or Finish), then back to the sentence to do.
-  const action = !result ? (
-    <Button variant="primary" onClick={check} disabled={!answer.trim()}>
-      {t("check")}
-    </Button>
-  ) : (
-    <Button variant="primary" onClick={next}>
-      {!allDone && opened !== null
-        ? t("backTo", { n: current + 1 })
-        : allDone
-          ? extra
-            ? t("finishExtra")
-            : t("finish")
-          : t("next")}
-    </Button>
-  );
+  // One button, always in the same place under the box: Check, then
+  // Next (or Finish), then back to the sentence to do. Before Check, how
+  // sure (D202); after a wrong answer, "where it went wrong" first.
+  const action =
+    explaining === index ? (
+      <>
+        <Button variant="ghost" onClick={() => explain("")}>
+          {t("explainSkip")}
+        </Button>
+        <Button variant="primary" onClick={() => explain(thought)}>
+          {t("explainShow")}
+        </Button>
+      </>
+    ) : !result ? (
+      <>
+        {coach.confidence ? (
+          // How sure is the Check itself (D202): chosen before the
+          // result shows, one tap, no extra row on a phone.
+          <div
+            role="group"
+            aria-labelledby="sure-label"
+            aria-describedby={needSure ? "sure-needed" : undefined}
+            className="flex flex-wrap items-center justify-end gap-2"
+          >
+            <span
+              id="sure-label"
+              className="text-supporting text-ink-muted max-split:sr-only"
+            >
+              {t("sureLabel")}
+            </span>
+            {CONFIDENCE.map((level) => (
+              <Button
+                key={level}
+                variant={level === "sure" ? "primary" : "secondary"}
+                onClick={() => check(level)}
+                disabled={!answer.trim()}
+                aria-label={t("sureCheck", { level })}
+              >
+                {t(`sure.${level}`)}
+              </Button>
+            ))}
+          </div>
+        ) : (
+          <Button
+            variant="primary"
+            onClick={() => check()}
+            disabled={!answer.trim()}
+          >
+            {t("check")}
+          </Button>
+        )}
+      </>
+    ) : (
+      <Button variant="primary" onClick={next}>
+        {!allDone && opened !== null
+          ? t("backTo", { n: current + 1 })
+          : allDone
+            ? extra
+              ? t("finishExtra")
+              : t("finish")
+            : t("next")}
+      </Button>
+    );
 
   return (
     <WritingWorkspace
@@ -246,7 +376,7 @@ export function BackTranslation({
           <p className="text-supporting text-ink-muted">{t("rules")}</p>
           {aside}
           <p className="text-supporting">
-            <Link href="/account#writing-settings" className="underline">
+            <Link href="/writing/settings" className="underline">
               {t("changeMode")}
             </Link>
           </p>
@@ -272,11 +402,37 @@ export function BackTranslation({
           spellCheck={false}
           autoCapitalize={asked === "listen-zh" ? "off" : "sentences"}
           autoComplete="off"
-          placeholder={t(`modes.${asked}.label`)}
+          placeholder={
+            hint && !result
+              ? `${hint.letters ? `${hint.letters} ` : ""}${t("hintWords", { count: hint.words })}`
+              : t(`modes.${asked}.label`)
+          }
+          aria-describedby={hint && !result ? "back-hint" : undefined}
           className="min-h-14 w-full min-w-0 flex-1 resize-none rounded-base border border-line bg-surface p-3 text-sentence focus:border-ink"
         />
       </div>
-      {result && (
+      {needSure && !result && (
+        <p id="sure-needed" role="alert" className="shrink-0 text-supporting">
+          {t("sureNeeded")}
+        </p>
+      )}
+      {result && explaining === index && (
+        <div role="status" className="flex shrink-0 flex-col gap-2">
+          <p className={result.right ? "text-success" : ""}>{t("close")}</p>
+          <label htmlFor="back-explain" className="font-medium">
+            {t("explainLabel")}
+          </label>
+          <textarea
+            id="back-explain"
+            rows={2}
+            value={thought}
+            onChange={(e) => setThought(e.target.value)}
+            placeholder={t("explainPlaceholder")}
+            className="w-full resize-none rounded-base border border-line bg-surface p-3 focus:border-ink"
+          />
+        </div>
+      )}
+      {result && explaining !== index && (
         <div
           role="status"
           ref={(element) =>
@@ -307,6 +463,23 @@ export function BackTranslation({
                 </p>
               )}
             </>
+          )}
+          {result.explain ? (
+            <p className="text-supporting">
+              <span className="text-ink-muted">{t("youThought")}</span>{" "}
+              {result.explain}
+            </p>
+          ) : null}
+          {result.confidence && (
+            <p className="text-supporting text-ink-muted">
+              {t("youWereSure", { level: result.confidence })}
+            </p>
+          )}
+          {result.confidence === "sure" && !result.right && (
+            <p className="text-supporting">{t("sureButWrong")}</p>
+          )}
+          {result.confidence === "unsure" && result.right && (
+            <p className="text-supporting">{t("unsureButRight")}</p>
           )}
           {result.pending && (
             <p className="text-supporting text-ink-muted">{t("aiLater")}</p>

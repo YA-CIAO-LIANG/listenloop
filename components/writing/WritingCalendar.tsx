@@ -12,6 +12,7 @@ import {
 } from "@/lib/practice-rings";
 import { practiceMinutes } from "@/lib/practice-time";
 import {
+  isEssayDay,
   isWritingTimeId,
   writingCalendar,
   type WritingCalendarDay,
@@ -54,6 +55,7 @@ const EMPTY: WritingCalendarDay = {
   extras: [],
   chats: 0,
   essay: false,
+  review: false,
   accuracy: null,
 };
 
@@ -177,6 +179,7 @@ function CalendarMonth({
       ...(d.essay ? [t("sr.essay")] : []),
       ...(d.chats ? [t("sr.chats", { count: d.chats })] : []),
       ...(d.extras.length ? [t("sr.extras", { count: d.extras.length })] : []),
+      ...(d.review ? [t("sr.review")] : []),
       ...(d.accuracy !== null
         ? [t("dayAccuracy", { percent: d.accuracy })]
         : []),
@@ -354,7 +357,8 @@ function CalendarMonth({
         <p>{timeText(selected)}</p>
         {chosen.tasks.length === 0 &&
         chosen.extras.length === 0 &&
-        chosen.chats === 0 ? (
+        chosen.chats === 0 &&
+        !chosen.review ? (
           <p className="text-ink-muted">{t("none")}</p>
         ) : (
           <ul className="space-y-1">
@@ -379,6 +383,14 @@ function CalendarMonth({
                 </Link>
               </li>
             ))}
+            {chosen.review && (
+              <li>
+                <span aria-hidden="true" className="text-success">
+                  ✓{" "}
+                </span>
+                {t("reviewLine")}
+              </li>
+            )}
             {chosen.chats > 0 && (
               <li>
                 <ChatIcon className="mr-1 inline size-3.5 text-accent-ink" />
@@ -401,7 +413,7 @@ function CalendarMonth({
 
 function TaskLine({ entry, title }: { entry: WritingLogEntry; title: string }) {
   const t = useTranslations("writingCalendar");
-  const essay = entry.day === 1 || entry.day === 7;
+  const essay = isEssayDay(entry.day);
   return (
     <li>
       <span aria-hidden="true" className="text-success">

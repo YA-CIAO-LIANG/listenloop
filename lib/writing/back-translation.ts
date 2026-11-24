@@ -1,3 +1,4 @@
+import type { LocalDate } from "../dates";
 import { normalizeWords } from "../scoring/normalize";
 import { scoreDictation } from "../scoring/dictation";
 import {
@@ -254,9 +255,19 @@ export function checkBack(
   return { mode: asked, score, right: score >= BACK_PASS };
 }
 
+/** How sure the learner was before checking (D202). */
+export const CONFIDENCE = ["sure", "maybe", "unsure"] as const;
+export type Confidence = (typeof CONFIDENCE)[number];
+
 /** One sentence answered: what was written and how it was checked. */
 export type BackAnswer = BackResult & {
   answer: string;
+  /** Chosen before checking, when asked (D202). */
+  confidence?: Confidence;
+  /** "Where I think it went wrong", written before the answer (D202). */
+  explain?: string;
+  /** The learner's date when answered (D203: today's sentences). */
+  date?: LocalDate;
   /**
    * Extra practice (D200): waiting for the AI check at the end of the
    * set (the rules didn't find it exactly right).
@@ -361,6 +372,18 @@ export function answerRun(
   };
 }
 
+/** The run with the learner's "where it went wrong" on an answer (D202). */
+export function explainRun(run: BackRun, index: number, text: string): BackRun {
+  const answer = run.answers[index];
+  if (!answer || answer.explain !== undefined) return run;
+  return {
+    ...run,
+    answers: run.answers.map((a, i) =>
+      i === index && a ? { ...a, explain: text.slice(0, 300) } : a,
+    ),
+  };
+}
+
 /** A run's result: sentences right of those answered, and the mean score. */
 export function runSummary(run: BackRun): {
   right: number;
@@ -432,7 +455,11 @@ export function extraBackItems({
 export function backNotebookItems(promptId: string, run: BackRun) {
   return run.items.flatMap((item, i) => {
     const answer = run.answers[i];
-    if (!answer || answer.right) return [];
+    // Wrong; or right but unsure, which is forgotten without another
+    // look (D202, learning-science.md §10).
+    if (!answer || (answer.right && answer.confidence !== "unsure")) {
+      return [];
+    }
     return [
       {
         id: `b:${promptId}:${textKey(item.en)}`,
@@ -441,9 +468,65 @@ export function backNotebookItems(promptId: string, run: BackRun) {
         text: item.zh ?? "",
         answer: item.en,
         note: answer.answer,
+        // Sure but wrong: reviewed first (hypercorrection, D202).
+        ...(!answer.right && answer.confidence === "sure"
+          ? { priority: true }
+          : {}),
       },
     ];
   });
+}
+
+/**
+ * How often a sentence was answered before in this prompt's week (D202):
+ * in each day's set and extra practice, except `current` (the set being
+ * done now).
+ */
+export function timesSeen(
+  days: Record<number, unknown>,
+  en: string,
+  current?: BackRun,
+): number {
+  const k = key(en);
+  let seen = 0;
+  for (const value of Object.values(days)) {
+    const day = value as { back?: BackRun; extra?: BackRun } | undefined;
+    for (const run of [day?.back, day?.extra]) {
+      if (!run || run === current) continue;
+      run.items.forEach((item, i) => {
+        if (run.answers[i] && key(item.en) === k) seen += 1;
+      });
+    }
+  }
+  return seen;
+}
+
+/**
+ * Hints fade (D202): the first try shows the word count and each word's
+ * first letter, the second only the count, later none.
+ */
+export const hintLevel = (seen: number): 0 | 1 | 2 =>
+  seen <= 0 ? 2 : seen === 1 ? 1 : 0;
+
+/** The hint for a sentence at a level: its words, first letters shown. */
+export function sentenceHint(
+  en: string,
+  level: 0 | 1 | 2,
+): { words: number; letters: string } | null {
+  if (level === 0) return null;
+  const words = en.split(/\s+/).filter(Boolean);
+  return {
+    words: words.length,
+    letters:
+      level === 2
+        ? words
+            .map((w) => {
+              const letter = /[a-z0-9]/i.exec(w)?.[0] ?? "";
+              return `${letter}${"_".repeat(Math.min(3, Math.max(1, w.replace(/[^a-z0-9']/gi, "").length - 1)))}`;
+            })
+            .join(" ")
+        : "",
+  };
 }
 
 /** A short, stable id for a sentence. */

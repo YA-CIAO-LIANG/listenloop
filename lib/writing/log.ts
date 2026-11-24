@@ -2,6 +2,7 @@ import { isLocalDate, toLocalDate, type LocalDate } from "@/lib/dates";
 import { runSummary, type BackRun } from "./back-translation";
 import type { ChatRecord } from "./chat/history";
 import {
+  day30Of,
   essayPercent,
   type DrillDay,
   type EssayDay,
@@ -23,7 +24,8 @@ import {
 export type WritingLogEntry = {
   /** Stable, so the same thing is never logged twice. */
   id: string;
-  kind: "task" | "extra" | "chat";
+  /** "review": the evening review done that day (D203). */
+  kind: "task" | "extra" | "chat" | "review";
   date: LocalDate;
   promptId?: string;
   week?: number;
@@ -39,7 +41,7 @@ export type WritingLog = { entries: Record<string, WritingLogEntry> };
 export const LOG_KEY = "ll-writing-log:v1";
 export const emptyLog = (): WritingLog => ({ entries: {} });
 
-const KINDS = new Set(["task", "extra", "chat"]);
+const KINDS = new Set(["task", "extra", "chat", "review"]);
 
 export function parseWritingLog(value: unknown): WritingLog {
   const raw = (value as { entries?: unknown } | null)?.entries;
@@ -75,6 +77,10 @@ export function mergeWritingLogs(a: WritingLog, b: WritingLog): WritingLog {
   return { entries };
 }
 
+/** Days 1, 7, and 30 are essays (D203). */
+export const isEssayDay = (day: number | undefined) =>
+  day === 1 || day === 7 || day === 30;
+
 const taskId = (promptId: string, week: number, day: number) =>
   `t:${promptId}:${week}:${day}`;
 const extraId = (promptId: string, week: number, day: number, round: number) =>
@@ -82,7 +88,7 @@ const extraId = (promptId: string, week: number, day: number, round: number) =>
 
 /** A day's score: an essay's percent, or the back-translation's accuracy. */
 function dayPercent(day: number, record: EssayDay | DrillDay): number | null {
-  if (day === 1 || day === 7) return essayPercent(record as EssayDay);
+  if (isEssayDay(day)) return essayPercent(record as EssayDay);
   const back = (record as DrillDay).back;
   return back ? runSummary(back).percent : null;
 }
@@ -93,8 +99,9 @@ export function progressEntries(
   now: Date = new Date(),
 ): WritingLogEntry[] {
   const out: WritingLogEntry[] = [];
-  for (const day of [1, 2, 3, 4, 5, 6, 7] as const) {
-    const record = progress.days[day];
+  const day30 = day30Of(progress);
+  for (const day of [1, 2, 3, 4, 5, 6, 7, 30] as const) {
+    const record = day === 30 ? day30 : progress.days[day];
     if (!record?.done || !record.date) continue;
     const percent = dayPercent(day, record);
     out.push({
@@ -186,8 +193,10 @@ export type WritingCalendarDay = {
   tasks: WritingLogEntry[];
   extras: WritingLogEntry[];
   chats: number;
-  /** Day 1 or 7 done: an essay written. */
+  /** Day 1, 7, or 30 done: an essay written. */
   essay: boolean;
+  /** The evening review done (D203). */
+  review: boolean;
   /** Mean accuracy of the day's back-translation and extra sets. */
   accuracy: number | null;
 };
@@ -220,13 +229,16 @@ export function writingCalendar(
       extras: [],
       chats: 0,
       essay: false,
+      review: false,
       accuracy: null,
     };
     if (e.kind === "task") {
       day.tasks.push(e);
-      if (e.day === 1 || e.day === 7) day.essay = true;
+      if (isEssayDay(e.day)) day.essay = true;
     } else if (e.kind === "extra") {
       day.extras.push(e);
+    } else if (e.kind === "review") {
+      day.review = true;
     } else {
       day.chats += 1;
     }
@@ -239,7 +251,7 @@ export function writingCalendar(
         (a.day ?? 0) - (b.day ?? 0),
     );
     const scored = [
-      ...day.tasks.filter((t) => t.day !== 1 && t.day !== 7),
+      ...day.tasks.filter((t) => !isEssayDay(t.day)),
       ...day.extras,
     ]
       .map((e) => e.percent)

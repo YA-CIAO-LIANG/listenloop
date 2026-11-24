@@ -3886,3 +3886,47 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 單元測試：完成的天數和分數、保留第一次的日期、額外練習記在結束的那天且重新批改會更新、新的一週後日誌保留舊的天數、聊天只算一次、解析與合併、依教材篩選時間。
   - E2E（電腦、Pixel 7；英文＋深色）：寫作日曆的螢幕閱讀器標籤、當天內容和連結、前一天的文章、axe、首頁的三種切換。
 - 要改時看哪裡：`lib/writing/log.ts`、`components/writing/WritingCalendar.tsx`、`components/PracticeCalendar.tsx`、`components/writing/WritingProvider.tsx`、`lib/practice-time.ts`、`docs/design-system.md`。
+
+## D202 學習科學的新功能（一）：信心度、提示逐漸減少、自我解釋、公開的寫作設定頁（2026-11-24，Joe 的寫作改善清單第四項）
+
+- **研究與排序**：在 `docs/writingloop/learning-science.md` 新增第 10～16 節。每個功能都寫出原理、怎麼用、限制和參考文獻，並依效益和成本排序。不使用神經迷思；文案不寫「睡覺時大腦會幫你學」這類說法。
+- **信心度**（第 10 節，超矯正效應）：
+  - 一開始做成「先選信心，再按檢查」，但 iPhone 15 上多出的一列把作答框擠到沒有高度（E2E 抓到）。改成「檢查」本身就是三個按鈕「很確定／有點確定／不確定」，按下就檢查。信心一樣是在看到結果前選的，但少一列、也少點一下。
+  - 按 Enter 時會提示要選信心。
+  - 結果裡顯示「你選了：…」。
+  - 錯誤本：很確定卻寫錯的句子標成優先（`priority`），到期時排在最前面；寫對但不確定的句子也加入錯誤本（Butler 等人 2008：低信心的正確答案沒有回饋容易忘記）。
+- **提示逐漸減少**（第 11 節，鷹架撤除）：
+  - 同一題目中，同一句之前作答過 0 次：顯示首字母（每個字最多 3 個底線）和字數；1 次：只顯示字數；2 次以上：不給提示（`timesSeen`、`hintLevel`、`sentenceHint`）。
+  - 「聽英文寫中文意思」不給英文提示。
+  - 電腦上提示是控制區的一行。手機上放在作答框的 placeholder，並用 `aria-describedby` 讓螢幕閱讀器讀到，不會多佔一列。
+- **自我解釋**（第 12 節）：
+  - 寫錯時，結果先不顯示，請學習者寫一句「我覺得錯在哪裡」（中文可），按「看答案」或「略過」。每組最多 2 次（`SELF_EXPLAIN_PER_SET`），約多 40 秒。
+  - 寫的內容存在那一題（`explain`，最多 300 字），結果裡顯示「你的想法」。
+- **每日時間**：聽寫回譯約 10 分鐘＋信心度與自我解釋約 1 分鐘＋錯誤本最多 5 題約 3 分鐘＋睡前回顧約 3 分鐘，約 17 分鐘，不超過 20 分鐘（第 15 節）。
+- **寫作設定頁**：
+  - 新增 `/writing/settings`，沒登入也能用（存在瀏覽器，登入時同步到帳號）。原本設定只在帳號頁，沒登入的人改不了聽寫方式和新功能；這是做 E2E 時發現的。
+  - 寫作頁與聽寫回譯裡的「寫作設定」連結都改到這裡；帳號頁仍保留同一個表單。
+  - 新增「學習輔助」區：信心度、提示逐漸減少、自我解釋、第 30 天再寫一次、睡前回顧（含提醒時間）。全部預設開啟，都可以關閉。
+- **其他修正**：手機上從「展開題目」裡點回某一句時，題目區會自動收合，避免版面被推下去。
+- 要改時看哪裡：`lib/writing/back-translation.ts`（`CONFIDENCE`、`timesSeen`、`hintLevel`、`sentenceHint`、`explainRun`、`backNotebookItems`）、`components/writing/BackTranslation.tsx`、`components/writing/DrillDay.tsx` 的 `coachFor`、`lib/writing/notebook.ts` 的 `priority`、`lib/writing/settings.ts`、`app/writing/settings/page.tsx`。
+
+## D203 學習科學的新功能（二）：睡前回顧、第 30 天延遲重寫（2026-11-24，Joe 的寫作改善清單第四項）
+
+- **睡前回顧**（learning-science.md 第 13 節）：
+  - 設定：開關和提醒時間（`bedtime`、`bedtimeAt`，預設開、21:30）。
+  - 提醒方式是 App 內提醒：過了設定時間、當天有練過的句子、今天還沒做回顧時，首頁和寫作頁的今日任務會出現「睡前回顧（約 3 分鐘）」。推播需要伺服器排程，列在第 16 節的建議，沒有實作。
+  - `/writing/review`：先不看任何內容，寫 3 個句子；按「對照今天的句子」後，列出今天練過的句子（今天作答的每一句，靠每題新記的 `date`；加上今天加入錯誤本的句子），寫出的句子大部分的字對（≥ 60%）就算想起來。
+  - 完成後記在寫作日誌（`review`），寫作日曆會顯示，今天不再提醒。
+  - 不呼叫 AI。用 AI 判斷同義句子列為建議。
+- **第 30 天延遲重寫**（第 14 節）：
+  - 「完成 7 天循環後的第 30 天」解讀為：第 7 天完成之後，從第 1 天起算的第 30 天（第 1 天日期加 29 天）。這樣三次寫作是第 1、7、30 天，和 Joe 寫的比較一致。
+  - 進度新增 `day30`（帶 `week`，只屬於那一週）和 `day30Skipped`。開始新的一週後，舊一週的第 30 天不再邀請。
+  - 今日任務出現邀請，可以「再寫一次」或「略過」。`/writing/<id>/day/30` 用和第 1、7 天相同的寫作頁（草稿、AI 批改或自評、之後再請 AI 批改），不看之前的文章和範文。
+  - 結果頁的 `LongResult` 並排比較第 1、7、30 天的分數、字數、平均句長、用字多樣性和三篇文章，並說明同一題重寫的進步不完全代表整體能力。
+  - 不影響週結算。AI 批改照常計入每週批改額度（學習者自己選要不要批改），不另外花錢。
+  - 還沒到第 30 天打開這頁時，會顯示哪一天開放。
+- **測試**：
+  - 單元測試：信心度與錯誤本優先順序、提示逐漸減少、自我解釋、設定、今天的句子、睡前提醒的條件、回想比對、第 30 天的開放條件、解析與合併。
+  - E2E `e2e/writing-coach.spec.ts`（電腦、Pixel 7）：信心度＋提示＋自我解釋（最多 2 次、可以略過），在設定關閉後都不出現；早上沒有提醒、22:00 有提醒，回顧後日曆有記錄；第 30 天邀請、重寫、自評、第 1、7、30 天比較，之後不再邀請。
+  - 既有的寫作 E2E 改用共用的 `checkBackAnswer`。
+- 要改時看哪裡：`lib/writing/bedtime.ts`、`components/writing/BedtimeReview.tsx`、`app/writing/review/page.tsx`、`lib/writing/progress.ts`（`day30State`、`DAY30_AFTER`）、`components/writing/EssayDay.tsx`、`components/writing/LongResult.tsx`、`components/writing/WritingTasks.tsx`、`components/writing/WritingDay.tsx`。
