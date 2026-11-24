@@ -4410,7 +4410,11 @@
       "mastered": "已掌握",
       "next": "{date} 複習（第 {stage} 次）",
       "fromChinese": "看中文，寫出英文",
-      "chat": "聊天"
+      "chat": "聊天",
+      "fromSound": "聽這句，寫出來",
+      "youWrote": "上次寫的：",
+      "back": "聽寫回譯",
+      "play": "播放句子"
     },
     "workspace": {
       "more": "展開題目",
@@ -4456,7 +4460,27 @@
           "label": "這句的中文意思",
           "intro": "聽英文句子，用中文寫出意思。意思對就好，不用逐字一樣；寫完會顯示參考意思。"
         }
-      }
+      },
+      "sentences": "今天的句子",
+      "go": "第 {n} 句（{state, select, right {寫對} wrong {寫錯} other {還沒寫}}）",
+      "progress": "完成的句子",
+      "progressText": "完成 {done}／{total} 句",
+      "endExtra": "結束額外練習",
+      "backTo": "回到第 {n} 句",
+      "finishExtra": "完成額外練習",
+      "extraTitle": "額外練習：另一組句子",
+      "noExtra": "今天能練的句子都練過了，明天會有新的句子。",
+      "toResult": "回到今天的結果",
+      "extraNote": "額外練習有自己的進度，不會改變今天的結果；隨時可以結束。",
+      "extraDoneTitle": "額外練習完成了！",
+      "runResult": "寫對 {right}／{answered} 句，平均正確率 {percent}%",
+      "wrongTitle": "聽錯或寫錯的地方（{count}）",
+      "youWrote": "你寫的",
+      "toNotebook": "這 {count} 句已加入錯誤本，1、3、7 天後會再出現。",
+      "continueExtra": "繼續額外練習（第 {n}／{total} 句）",
+      "extraAgain": "再練一組",
+      "extra": "額外練習",
+      "home": "回首頁"
     }
   },
   "writingTasks": {

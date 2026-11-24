@@ -1,5 +1,6 @@
 import { CYCLE_DAYS, type CycleDay, type DayStatus } from "@/lib/cycle";
 import { isLaterDay, isLocalDate, type LocalDate } from "@/lib/dates";
+import type { BackRun } from "./back-translation";
 import type { WritingFeedback } from "./feedback";
 import { compareMetrics } from "./metrics";
 import type { CriterionScore } from "./rubrics";
@@ -60,6 +61,18 @@ export type DrillDay = {
   done: boolean;
   date?: LocalDate;
   drills: DrillResult[];
+  /**
+   * The day's back-translation as it goes (D199): its sentences and each
+   * answer, saved at once, so leaving and coming back carries on where
+   * it was. Absent before D199.
+   */
+  back?: BackRun;
+  /**
+   * Extra practice after the day (D199): another set of sentences, its
+   * own answers; never changes the day's result. `round` counts the sets
+   * started that day.
+   */
+  extra?: BackRun & { round: number };
 };
 
 export type PassRule = { kind: "beat" } | { kind: "target"; percent: number };

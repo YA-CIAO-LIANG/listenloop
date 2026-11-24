@@ -3,7 +3,19 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toLocalDate } from "@/lib/dates";
-import { backTranslationItems } from "@/lib/writing/back-translation";
+import { wordDiff } from "@/lib/scoring/word-diff";
+import {
+  answerRun,
+  backNotebookItems,
+  backTranslationItems,
+  extraBackItems,
+  newRun,
+  nextIndex,
+  runSummary,
+  type BackAnswer,
+  type BackRun,
+} from "@/lib/writing/back-translation";
+import { addToNotebook } from "@/lib/writing/notebook";
 import {
   fixItems,
   rebuildParagraph,
@@ -13,6 +25,7 @@ import {
 import {
   EXERCISE_KINDS,
   writingTimeId,
+  type DrillDay as DrillDayRecord,
   type ExerciseKind,
 } from "@/lib/writing/progress";
 import type { WritingPrompt } from "@/lib/writing/types";
@@ -20,6 +33,7 @@ import { Button } from "../Button";
 import { ButtonLink } from "../ButtonLink";
 import { Card } from "../Card";
 import { usePracticeTimer } from "../usePracticeTimer";
+import { WordDiffView } from "../WordDiffView";
 import { BackTranslation } from "./BackTranslation";
 import {
   CombineDrill,
@@ -31,6 +45,7 @@ import {
   ReorderDrill,
 } from "./Drills";
 import {
+  useNotebook,
   useWritingData,
   useWritingProgress,
   useWritingSettings,
@@ -40,12 +55,18 @@ import { WritingWorkspace } from "./WritingWorkspace";
 /** The listening video for the listen-then-write drill. */
 const DEFAULT_LISTEN_VIDEO = "sintel";
 
+type View = "day" | "summary" | "extra" | "extraDone" | ExerciseKind;
+
 /**
- * Days 2–6 (D195): the day's back-translation, 5–8 sentences from Day 1
- * (the learner's corrected sentences and the model's key sentences),
- * about 10 minutes, in the mode chosen in the writing settings. The
- * other seven drills are under "More practice", chosen by the learner;
- * they don't count toward the day.
+ * Days 2–6 (D195, D199): the day's back-translation, 5–8 sentences from
+ * Day 1 (the learner's corrected sentences and the model's key
+ * sentences), about 10 minutes, in the mode chosen in the writing
+ * settings. Each answer is saved at once (this browser, and the account
+ * when signed in), so leaving, reloading, or trying another exercise
+ * comes back to the sentence it was at. When the day is done: its
+ * result, the mistakes, what went to the notebook, and extra practice
+ * (another set, its own progress, never changing the day's result). The
+ * other seven drills are under "More practice".
  */
 export function DrillDay({
   prompt,
@@ -57,24 +78,116 @@ export function DrillDay({
   const t = useTranslations("writing");
   const progress = useWritingProgress(prompt.id);
   const settings = useWritingSettings();
-  const { saveProgress } = useWritingData();
+  const notebook = useNotebook();
+  const { saveProgress, saveNotebook } = useWritingData();
   const record = progress?.days[day];
-  const [extra, setExtra] = useState<ExerciseKind | null>(null);
+  const [view, setView] = useState<View>("day");
+  // Answering here now: the last sentence's result shows before the
+  // set's result, though the set is saved as done already.
+  const [live, setLive] = useState(false);
   usePracticeTimer(writingTimeId(prompt.id), false, {
-    active: Boolean(progress) && !record?.done,
+    active: Boolean(progress) && (!record?.done || view === "extra"),
   });
-  if (!progress || !settings) return null;
+  if (!progress || !settings || !notebook) return null;
   const day1 = progress.days[1];
-  const items = backTranslationItems({ prompt, day1, day });
   const reviewed = Boolean(day1?.feedback && !day1.feedback.declined);
+  const run =
+    record?.back ?? newRun(backTranslationItems({ prompt, day1, day }));
+  const today = () => toLocalDate(new Date());
 
-  if (extra) {
+  const saveDay = (next: DrillDayRecord) =>
+    saveProgress({
+      ...progress,
+      days: { ...progress.days, [day]: next },
+      updatedAt: new Date().toISOString(),
+    });
+  const toNotebook = (from: BackRun) => {
+    const items = backNotebookItems(prompt.id, from);
+    if (items.length) saveNotebook(addToNotebook(notebook, items, today()));
+  };
+
+  const answerDay = (index: number, answer: BackAnswer) => {
+    const back = answerRun(run, index, answer);
+    if (back === run) return;
+    setLive(true);
+    if (!back.done) {
+      saveDay({ done: false, drills: [], ...record, back });
+      return;
+    }
+    // The last sentence: the day is done now, whether or not "Finish" is
+    // pressed (leaving here still counts the day).
+    const summary = runSummary(back);
+    saveDay({
+      ...record,
+      back,
+      done: true,
+      date: today(),
+      drills: [
+        {
+          kind: "back",
+          done: true,
+          right: summary.right,
+          total: summary.total,
+          correct: summary.right === summary.total,
+        },
+      ],
+    });
+    toNotebook(back);
+  };
+
+  const startExtra = () => {
+    const current = record?.extra;
+    if (current && !current.done) {
+      setView("extra");
+      return;
+    }
+    const round = (current?.round ?? 0) + 1;
+    const items = extraBackItems({
+      prompt,
+      day1,
+      day,
+      round,
+      exclude: run.items,
+      seen: current?.items,
+    });
+    if (record && items.length) {
+      saveDay({ ...record, extra: { ...newRun(items), round } });
+    }
+    setView("extra");
+  };
+  const answerExtra = (index: number, answer: BackAnswer) => {
+    const extra = record?.extra;
+    if (!record || !extra) return;
+    const next = answerRun(extra, index, answer);
+    setLive(true);
+    if (next !== extra)
+      saveDay({ ...record, extra: { ...next, round: extra.round } });
+  };
+  const endExtra = () => {
+    const extra = record?.extra;
+    if (record && extra) {
+      if (!extra.done) saveDay({ ...record, extra: { ...extra, done: true } });
+      toNotebook(extra);
+    }
+    setLive(false);
+    setView("extraDone");
+  };
+
+  if (
+    view === "fix" ||
+    view === "pattern" ||
+    view === "combine" ||
+    view === "paraphrase" ||
+    view === "reorder" ||
+    view === "rebuild" ||
+    view === "listen"
+  ) {
     return (
       <ExtraDrill
         prompt={prompt}
         day={day}
-        kind={extra}
-        onBack={() => setExtra(null)}
+        kind={view}
+        onBack={() => setView("day")}
       />
     );
   }
@@ -94,11 +207,7 @@ export function DrillDay({
               kind === "listen" || prompt.model.en.length > 0,
         ).map((kind) => (
           <li key={kind}>
-            <Button
-              size="sm"
-              variant="secondary"
-              onClick={() => setExtra(kind)}
-            >
+            <Button size="sm" variant="secondary" onClick={() => setView(kind)}>
               {t(`drills.kinds.${kind}.name`)}
             </Button>
           </li>
@@ -107,41 +216,112 @@ export function DrillDay({
     </section>
   );
 
-  if (record?.done) {
-    const back = record.drills.find((d) => d.kind === "back");
-    return (
-      <div className="flex flex-col gap-8">
-        <Card role="status" className="flex flex-col gap-2">
-          <p className="font-medium">{t("drills.dayDone")}</p>
-          {back?.total ? (
-            <p className="text-supporting tabular-nums">
-              {t("back.dayResult", {
-                right: back.right ?? 0,
-                total: back.total,
-              })}
-            </p>
-          ) : (
-            <ul className="text-supporting">
-              {record.drills.map((d, i) => (
-                <li key={i}>
-                  {d.correct ? "✓" : "…"} {t(`drills.kinds.${d.kind}.name`)}
-                </li>
-              ))}
-            </ul>
-          )}
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/writing/notebook" variant="secondary" size="sm">
-              {t("notebook.title")}
-            </ButtonLink>
-            <ButtonLink
-              href={`/writing/${prompt.id}`}
-              variant="ghost"
-              size="sm"
-            >
-              {t("essay.toOverview")}
-            </ButtonLink>
+  if (view === "extra" && record?.done) {
+    const extra = record.extra;
+    if (!extra || extra.items.length === 0) {
+      return (
+        <Card role="status" className="flex flex-col gap-3">
+          <p>{t("back.noExtra")}</p>
+          <div>
+            <Button variant="primary" onClick={() => setView("summary")}>
+              {t("back.toResult")}
+            </Button>
           </div>
         </Card>
+      );
+    }
+    if (extra.done && !live) {
+      return (
+        <RunResult
+          run={extra}
+          extra
+          onExtra={startExtra}
+          onBack={() => setView("summary")}
+        />
+      );
+    }
+    return (
+      <BackTranslation
+        key={`extra-${extra.round}`}
+        promptId={prompt.id}
+        run={extra}
+        mode={settings.dictation}
+        extra={{ onEnd: endExtra }}
+        onAnswer={answerExtra}
+        onFinish={endExtra}
+        aside={
+          <p className="text-supporting text-ink-muted">
+            {t("back.extraNote")}
+          </p>
+        }
+      />
+    );
+  }
+
+  if (view === "extraDone" && record?.extra) {
+    return (
+      <RunResult
+        run={record.extra}
+        extra
+        onExtra={startExtra}
+        onBack={() => setView("summary")}
+      />
+    );
+  }
+
+  if (record?.done && !(view === "day" && live)) {
+    const back = record.drills.find((d) => d.kind === "back");
+    const extra = record.extra;
+    return (
+      <div className="flex flex-col gap-8">
+        {record.back ? (
+          <RunResult
+            run={record.back}
+            onExtra={startExtra}
+            continueExtra={
+              extra && !extra.done
+                ? { n: nextIndex(extra) + 1, total: extra.items.length }
+                : undefined
+            }
+          />
+        ) : (
+          // Done before D199: only the count was kept.
+          <Card role="status" className="flex flex-col gap-2">
+            <p className="font-medium">{t("drills.dayDone")}</p>
+            {back?.total ? (
+              <p className="text-supporting tabular-nums">
+                {t("back.dayResult", {
+                  right: back.right ?? 0,
+                  total: back.total,
+                })}
+              </p>
+            ) : (
+              <ul className="text-supporting">
+                {record.drills.map((d, i) => (
+                  <li key={i}>
+                    {d.correct ? "✓" : "…"} {t(`drills.kinds.${d.kind}.name`)}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink
+                href="/writing/notebook"
+                variant="secondary"
+                size="sm"
+              >
+                {t("notebook.title")}
+              </ButtonLink>
+              <ButtonLink
+                href={`/writing/${prompt.id}`}
+                variant="ghost"
+                size="sm"
+              >
+                {t("essay.toOverview")}
+              </ButtonLink>
+            </div>
+          </Card>
+        )}
         {more}
       </div>
     );
@@ -152,33 +332,112 @@ export function DrillDay({
       <BackTranslation
         key={day}
         promptId={prompt.id}
-        items={items}
+        run={run}
         mode={settings.dictation}
         intro={reviewed ? t("back.fromReview") : t("back.fromModel")}
-        onDone={(results) =>
-          saveProgress({
-            ...progress,
-            days: {
-              ...progress.days,
-              [day]: {
-                done: true,
-                date: toLocalDate(new Date()),
-                drills: [
-                  {
-                    kind: "back",
-                    done: true,
-                    right: results.filter((r) => r.right).length,
-                    total: results.length,
-                    correct: results.every((r) => r.right),
-                  },
-                ],
-              },
-            },
-            updatedAt: new Date().toISOString(),
-          })
-        }
+        onAnswer={answerDay}
+        onFinish={() => {
+          setLive(false);
+          setView("summary");
+        }}
       />
       {more}
+    </div>
+  );
+}
+
+/**
+ * A set's result (D199): how many were right and the mean accuracy, each
+ * sentence written wrong with its differences, what went to the
+ * notebook; then on to extra practice, the notebook, or home.
+ */
+function RunResult({
+  run,
+  extra = false,
+  continueExtra,
+  onExtra,
+  onBack,
+}: {
+  run: BackRun;
+  extra?: boolean;
+  /** Extra practice left half done: where it is. */
+  continueExtra?: { n: number; total: number };
+  onExtra: () => void;
+  /** Extra practice: back to the day's result. */
+  onBack?: () => void;
+}) {
+  const t = useTranslations("writing");
+  const summary = runSummary(run);
+  const wrong = run.items.flatMap((item, i) => {
+    const answer = run.answers[i];
+    return answer && !answer.right ? [{ item, answer }] : [];
+  });
+  return (
+    <div className="flex flex-col gap-6">
+      <Card role="status" className="flex flex-col gap-2">
+        <h2 className="font-display text-h3">
+          {extra ? t("back.extraDoneTitle") : t("drills.dayDone")}
+        </h2>
+        <p className="tabular-nums">
+          {t("back.runResult", {
+            right: summary.right,
+            answered: summary.answered,
+            percent: summary.percent,
+          })}
+        </p>
+      </Card>
+      {wrong.length > 0 && (
+        <section aria-labelledby="back-wrong" className="flex flex-col gap-3">
+          <h3 id="back-wrong" className="font-medium">
+            {t("back.wrongTitle", { count: wrong.length })}
+          </h3>
+          <ul className="flex flex-col gap-4">
+            {wrong.map(({ item, answer }, i) => (
+              <li
+                key={i}
+                className="flex flex-col gap-1 border-b border-line pb-3"
+              >
+                {answer.mode === "listen-zh" ? (
+                  <dl className="grid gap-1 text-supporting">
+                    <dt className="text-ink-muted">{t("back.youWrote")}</dt>
+                    <dd lang="zh-Hant">{answer.answer}</dd>
+                    <dt className="text-ink-muted">{t("back.meaning")}</dt>
+                    <dd lang="zh-Hant">{item.zh}</dd>
+                    <dt className="text-ink-muted">{t("back.english")}</dt>
+                    <dd lang="en">{item.en}</dd>
+                  </dl>
+                ) : (
+                  <WordDiffView diff={wordDiff(item.en, answer.answer)} />
+                )}
+              </li>
+            ))}
+          </ul>
+          <p className="text-supporting text-ink-muted">
+            {t("back.toNotebook", { count: wrong.length })}
+          </p>
+        </section>
+      )}
+      <div className="flex flex-wrap gap-3">
+        <Button variant="primary" onClick={onExtra}>
+          {continueExtra
+            ? t("back.continueExtra", continueExtra)
+            : extra
+              ? t("back.extraAgain")
+              : t("back.extra")}
+        </Button>
+        <ButtonLink href="/writing/notebook" variant="secondary">
+          {t("notebook.title")}
+        </ButtonLink>
+        {onBack ? (
+          <Button variant="ghost" onClick={onBack}>
+            {t("back.toResult")}
+          </Button>
+        ) : (
+          <ButtonLink href="/" variant="ghost">
+            {t("back.home")}
+          </ButtonLink>
+        )}
+      </div>
     </div>
   );
 }
@@ -261,12 +520,15 @@ function ExtraDrill({
           <p className="text-supporting text-ink-muted">
             {t("drills.extraNote")}
           </p>
-          <div>
-            <Button size="sm" variant="ghost" onClick={onBack}>
-              {t("drills.backToDay")}
-            </Button>
-          </div>
         </div>
+      }
+      actions={
+        // Always in view (on a phone the task column is folded away).
+        done === null && (
+          <Button size="sm" variant="ghost" onClick={onBack}>
+            {t("drills.backToDay")}
+          </Button>
+        )
       }
     >
       <h2 id="drill-title" className="shrink-0 font-display text-h3">

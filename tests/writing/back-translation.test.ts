@@ -3,7 +3,13 @@ import { writingPrompts } from "@/data/writing";
 import {
   BACK_MAX,
   BACK_MIN,
+  answerRun,
+  backNotebookItems,
   backTranslationItems,
+  extraBackItems,
+  newRun,
+  nextIndex,
+  runSummary,
   checkBack,
   fixedSentences,
   itemMode,
@@ -153,5 +159,103 @@ describe("checking an answer", () => {
     expect(itemMode(own, "read-zh")).toBe("listen-write");
     expect(itemMode(own, "listen-zh")).toBe("listen-write");
     expect(itemMode(item, "read-zh")).toBe("read-zh");
+  });
+});
+
+describe("a set as it goes (D199)", () => {
+  const items = backTranslationItems({ prompt, day1: undefined, day: 2 });
+  const right = (en: string) => ({
+    ...checkBack({ en, source: "model" }, "listen-write", en),
+    answer: en,
+  });
+
+  it("saves each answer, carries on at the first one left, keeps first answers", () => {
+    let run = newRun(items);
+    expect(nextIndex(run)).toBe(0);
+    run = answerRun(run, 0, right(items[0].en));
+    run = answerRun(run, 1, {
+      ...checkBack(items[1], "listen-write", "no"),
+      answer: "no",
+    });
+    expect(nextIndex(run)).toBe(2);
+    expect(run.done).toBeUndefined();
+    // A second answer to the same sentence doesn't count.
+    expect(answerRun(run, 1, right(items[1].en))).toBe(run);
+    // Out of range: nothing changes.
+    expect(answerRun(run, 99, right("x"))).toBe(run);
+    for (let i = 2; i < items.length; i++)
+      run = answerRun(run, i, right(items[i].en));
+    expect(run.done).toBe(true);
+    expect(nextIndex(run)).toBe(items.length);
+    const summary = runSummary(run);
+    expect(summary).toMatchObject({
+      right: items.length - 1,
+      answered: items.length,
+      total: items.length,
+    });
+    expect(summary.percent).toBeLessThan(100);
+  });
+
+  it("the wrong ones go to the notebook, with the Chinese and what was written", () => {
+    let run = newRun(items);
+    run = answerRun(run, 0, {
+      ...checkBack(items[0], "listen-write", "nothing like it"),
+      answer: "nothing like it",
+    });
+    run = answerRun(run, 1, right(items[1].en));
+    const notes = backNotebookItems(prompt.id, run);
+    expect(notes).toHaveLength(1);
+    expect(notes[0]).toMatchObject({
+      kind: "back",
+      answer: items[0].en,
+      text: items[0].zh,
+      note: "nothing like it",
+    });
+    expect(notes[0].id).toBe(backNotebookItems(prompt.id, run)[0].id);
+  });
+
+  it("extra practice: new sentences, never the day's, next set different", () => {
+    const today = new Set(items.map((i) => i.en));
+    const first = extraBackItems({
+      prompt,
+      day1: { essay: ESSAY, feedback: REVIEW },
+      day: 2,
+      round: 1,
+      exclude: items,
+    });
+    expect(first.length).toBeGreaterThan(0);
+    expect(first.some((i) => today.has(i.en))).toBe(false);
+    const second = extraBackItems({
+      prompt,
+      day1: { essay: ESSAY, feedback: REVIEW },
+      day: 2,
+      round: 2,
+      exclude: items,
+      seen: first,
+    });
+    expect(second.some((i) => today.has(i.en))).toBe(false);
+    if (second.length && first.length) {
+      expect(second.map((i) => i.en)).not.toEqual(first.map((i) => i.en));
+    }
+  });
+
+  it("extra practice: nothing when the day used every sentence", () => {
+    const tiny = {
+      model: {
+        en: ["I like long walks in the park."],
+        zh: ["我喜歡在公園散步。"],
+      },
+      patterns: [],
+    };
+    const day = backTranslationItems({ prompt: tiny, day1: undefined, day: 2 });
+    expect(
+      extraBackItems({
+        prompt: tiny,
+        day1: undefined,
+        day: 2,
+        round: 1,
+        exclude: day,
+      }),
+    ).toEqual([]);
   });
 });

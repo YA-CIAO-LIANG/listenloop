@@ -137,6 +137,17 @@ function modelPool(prompt: Pick<WritingPrompt, "model" | "patterns">) {
   );
 }
 
+/** The learner's own Day 1 sentences that fit. */
+function ownSentences(essay: string): BackItem[] {
+  return unique(
+    essay
+      .split(/\n+/)
+      .flatMap(splitSentences)
+      .map((en) => ({ en: en.trim(), source: "own" as const }))
+      .filter((item) => fitting(item.en)),
+  );
+}
+
 /** Takes `count` items from `pool`, starting at `offset`, wrapping. */
 function rotate<T>(pool: readonly T[], offset: number, count: number): T[] {
   if (pool.length === 0) return [];
@@ -165,13 +176,7 @@ export function backTranslationItems({
   const fixes = fixedSentences(day1?.essay ?? "", day1?.feedback);
   const reviewed = Boolean(day1?.feedback && !day1.feedback.declined);
   const model = modelPool(prompt);
-  const own = unique(
-    (day1?.essay ?? "")
-      .split(/\n+/)
-      .flatMap(splitSentences)
-      .map((en) => ({ en: en.trim(), source: "own" as const }))
-      .filter((item) => fitting(item.en)),
-  );
+  const own = ownSentences(day1?.essay ?? "");
   // No model essay (a custom prompt): the learner's sentences only.
   const others = model.length > 0 ? model : reviewed ? [] : own;
   const fixCount = Math.min(
@@ -242,4 +247,141 @@ export function checkBack(
   }
   const score = scoreDictation(item.en, answer).accuracy;
   return { mode: asked, score, right: score >= BACK_PASS };
+}
+
+/** One sentence answered: what was written and how it was checked. */
+export type BackAnswer = BackResult & {
+  answer: string;
+};
+
+/**
+ * A set of sentences as the learner goes through it (D199): the
+ * sentences fixed when it starts (so a later AI review doesn't shift
+ * them), and one answer slot each, filled in order.
+ */
+export type BackRun = {
+  items: BackItem[];
+  answers: (BackAnswer | null)[];
+  /** Ended: every sentence answered, or extra practice ended early. */
+  done?: boolean;
+};
+
+export const newRun = (items: readonly BackItem[]): BackRun => ({
+  items: [...items],
+  answers: items.map(() => null),
+});
+
+/** The first sentence still to answer (items.length when none is left). */
+export function nextIndex(run: BackRun): number {
+  const i = run.items.findIndex((_, n) => !run.answers[n]);
+  return i === -1 ? run.items.length : i;
+}
+
+/** The run with sentence `index` answered (a first answer is kept). */
+export function answerRun(
+  run: BackRun,
+  index: number,
+  answer: BackAnswer,
+): BackRun {
+  if (index < 0 || index >= run.items.length || run.answers[index]) return run;
+  const answers = run.items.map((_, n) =>
+    n === index ? answer : (run.answers[n] ?? null),
+  );
+  return {
+    ...run,
+    answers,
+    ...(answers.every(Boolean) ? { done: true } : {}),
+  };
+}
+
+/** A run's result: sentences right of those answered, and the mean score. */
+export function runSummary(run: BackRun): {
+  right: number;
+  answered: number;
+  total: number;
+  percent: number;
+} {
+  const answered = run.answers.filter((a): a is BackAnswer => !!a);
+  return {
+    right: answered.filter((a) => a.right).length,
+    answered: answered.length,
+    total: run.items.length,
+    percent: answered.length
+      ? Math.round(
+          (answered.reduce((sum, a) => sum + a.score, 0) / answered.length) *
+            100,
+        )
+      : 0,
+  };
+}
+
+const key = (en: string) => normalizeWords(en).join(" ");
+
+/**
+ * Extra practice (D199): another set of sentences from the same pool
+ * (the learner's fixes, the model's or own sentences), never the ones of
+ * the day itself, and not the earlier extra sets of that day until the
+ * pool runs out. Empty when the day already used every sentence.
+ */
+export function extraBackItems({
+  prompt,
+  day1,
+  day,
+  round,
+  exclude,
+  seen = [],
+}: {
+  prompt: Pick<WritingPrompt, "model" | "patterns">;
+  day1: { essay: string; feedback?: WritingFeedback } | undefined;
+  day: 2 | 3 | 4 | 5 | 6;
+  /** 1 for the first extra set of the day, 2 for the next… */
+  round: number;
+  /** The day's own sentences. */
+  exclude: readonly BackItem[];
+  /** Sentences of the earlier extra sets. */
+  seen?: readonly BackItem[];
+}): BackItem[] {
+  const fixes = fixedSentences(day1?.essay ?? "", day1?.feedback);
+  const reviewed = Boolean(day1?.feedback && !day1.feedback.declined);
+  const model = modelPool(prompt);
+  const own = ownSentences(day1?.essay ?? "");
+  const pool = unique([
+    ...fixes,
+    ...(model.length > 0 ? model : reviewed ? [] : own),
+  ]);
+  const today = new Set(exclude.map((i) => key(i.en)));
+  const fresh = pool.filter((i) => !today.has(key(i.en)));
+  const earlier = new Set(seen.map((i) => key(i.en)));
+  const unseen = fresh.filter((i) => !earlier.has(key(i.en)));
+  const from = unseen.length > 0 ? unseen : fresh;
+  return rotate(from, (day - 2 + round - 1) * BACK_PER_DAY, BACK_PER_DAY);
+}
+
+/**
+ * The sentences written back wrong, for the notebook (D199): written
+ * again from the Chinese (or from the sound, without it) 1, 3, and 7
+ * days later.
+ */
+export function backNotebookItems(promptId: string, run: BackRun) {
+  return run.items.flatMap((item, i) => {
+    const answer = run.answers[i];
+    if (!answer || answer.right) return [];
+    return [
+      {
+        id: `b:${promptId}:${textKey(item.en)}`,
+        kind: "back" as const,
+        promptId,
+        text: item.zh ?? "",
+        answer: item.en,
+        note: answer.answer,
+      },
+    ];
+  });
+}
+
+/** A short, stable id for a sentence. */
+function textKey(text: string): string {
+  let h = 5381;
+  for (const ch of key(text)) h = ((h << 5) + h + ch.charCodeAt(0)) | 0;
+  return (h >>> 0).toString(36);
 }
