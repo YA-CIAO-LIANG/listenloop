@@ -184,6 +184,8 @@ for (const device of ["desktop", "Pixel 7"] as const) {
           page.getByRole("heading", { name: "額外練習完成了！" }),
         ).toBeVisible();
         await expect(page.getByText(/寫對 0／1 句/)).toBeVisible();
+        // Signed in, the AI checks the set first: wait for it to finish.
+        await expect(page.getByText("AI 批改中…")).toHaveCount(0);
         await page.getByRole("button", { name: "回到今天的結果" }).click();
         await expect(
           page.getByText(new RegExp(`寫對 0／${total} 句`)),
