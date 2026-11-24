@@ -18,6 +18,12 @@ import {
 import type { Notebook } from "@/lib/writing/notebook";
 import type { WritingProgress } from "@/lib/writing/progress";
 import type { WritingSettings } from "@/lib/writing/settings";
+import { toLocalDate } from "@/lib/dates";
+import {
+  chatEntry,
+  logProgressChange,
+  type WritingLog,
+} from "@/lib/writing/log";
 import { mergeCustomPrompts, type CustomPrompt } from "@/lib/writing/custom";
 import { mergeChats, type ChatRecord } from "@/lib/writing/chat/history";
 import {
@@ -26,8 +32,10 @@ import {
   loadLocalNotebook,
   loadLocalChats,
   loadLocalCustom,
+  loadLocalLog,
   loadLocalProgress,
   loadLocalSettings,
+  saveLocalLog,
   saveLocalNotebook,
   saveLocalChats,
   saveLocalCustom,
@@ -116,13 +124,30 @@ export function WritingProvider({
     };
   }, [cloud, userId]);
 
+  /** Adds to the calendar's log what changed (D201); saves it if so. */
+  const updateLog = useCallback(
+    (change: (log: WritingLog) => WritingLog) => {
+      const storage = window.localStorage;
+      const before = loadLocalLog(storage);
+      const after = change(before);
+      if (after === before) return;
+      saveLocalLog(storage, after);
+      void cloud?.saveLog(after).catch((e: unknown) => console.warn(e));
+    },
+    [cloud],
+  );
+
   const saveProgress = useCallback(
     (progress: WritingProgress) => {
+      const before = loadLocalProgress(window.localStorage, progress.promptId);
       saveLocalProgress(window.localStorage, progress);
+      updateLog((log) =>
+        logProgressChange(log, before, progress, toLocalDate(new Date())),
+      );
       setVersion((v) => v + 1);
       void cloud?.saveProgress(progress).catch((e: unknown) => console.warn(e));
     },
-    [cloud],
+    [cloud, updateLog],
   );
   const saveNotebook = useCallback(
     (notebook: Notebook) => {
@@ -161,10 +186,19 @@ export function WritingProvider({
         { ...chat, updatedAt: new Date().toISOString() },
       ]);
       saveLocalChats(window.localStorage, all);
+      // A chat with a message goes on the calendar (D201).
+      if (!chat.deleted && chat.messages.some((m) => m.from === "me")) {
+        const entry = chatEntry(chat);
+        updateLog((log) =>
+          log.entries[entry.id]
+            ? log
+            : { entries: { ...log.entries, [entry.id]: entry } },
+        );
+      }
       setVersion((v) => v + 1);
       void cloud?.saveChats(all).catch((e: unknown) => console.warn(e));
     },
-    [cloud],
+    [cloud, updateLog],
   );
 
   const value = useMemo(
@@ -272,6 +306,17 @@ export function useChats(): ChatRecord[] | undefined {
       mounted
         ? loadLocalChats(window.localStorage).filter((c) => !c.deleted)
         : undefined,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [mounted, version],
+  );
+}
+
+/** The writing calendar's log (D201). */
+export function useWritingLog(): WritingLog | undefined {
+  const { version } = useWritingData();
+  const mounted = useMounted();
+  return useMemo(
+    () => (mounted ? loadLocalLog(window.localStorage) : undefined),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [mounted, version],
   );

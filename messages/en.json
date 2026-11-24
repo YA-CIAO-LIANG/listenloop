@@ -139,7 +139,15 @@
     "minutes": "{n} min",
     "ringLegend": "Practice time",
     "atLeastMinutes": "{n, plural, one {# minute} other {# minutes}} or more",
-    "atLeastHours": "{n, plural, one {# hour} other {# hours}} or more"
+    "atLeastHours": "{n, plural, one {# hour} other {# hours}} or more",
+    "filter": {
+      "label": "Calendar shows",
+      "all": "All",
+      "listening": "Listening",
+      "writing": "Writing"
+    },
+    "writingLine": "Writing: {title}, day {day}",
+    "writingPrompt": "Writing prompt"
   },
   "today": {
     "title": "Today’s tasks",
@@ -4786,5 +4794,34 @@
       "delete": "Delete",
       "deleteConfirm": "Delete this chat?"
     }
+  },
+  "writingCalendar": {
+    "title": "Writing calendar",
+    "loading": "Loading the writing calendar…",
+    "caption": "Writing calendar: the writing tasks finished each day, the time practiced, and marks for an essay, chat practice, and extra practice. Choose a day to see what was done.",
+    "today": "today",
+    "noTime": "No writing practice time",
+    "time": "Writing practice {duration}",
+    "untitled": "Writing prompt",
+    "dayN": "day {n}",
+    "sr": {
+      "tasks": "finished {list}",
+      "noTask": "no writing task finished",
+      "essay": "wrote an essay",
+      "chats": "chat practice {count, plural, one {# time} other {# times}}",
+      "extras": "extra practice {count, plural, one {# set} other {# sets}}"
+    },
+    "accuracy": "{percent}% accuracy",
+    "score": "score {percent}",
+    "legend": {
+      "essay": "Essay",
+      "chat": "Chat practice",
+      "extra": "Extra practice"
+    },
+    "none": "No writing practice this day.",
+    "taskLine": "{title}, day {day}: {kind, select, essay {an essay} rewrite {the rewrite} other {back-translation}}",
+    "extraLine": "{title}, extra practice ({percent}% accuracy)",
+    "chatLine": "Chat practice, {count, plural, one {# time} other {# times}}",
+    "dayAccuracy": "Average accuracy that day: {percent}%"
   }
 }

@@ -163,7 +163,7 @@ Shown after a dictation answer or a shadowed sentence:
 
 ## 8. Progress and stats
 
-- **Home** (signed in): practice calendar → today's tasks → official library. The calendar's colors are tasks finished; a yellow glow around a date is the time practiced: a step each at 15 min, 30 min, 1 hour, 2 hours, and 3 hours, brighter and wider for longer, with a legend below.
+- **Home** (signed in): practice calendar → today's tasks → official library. The calendar's colors are tasks finished; a yellow glow around a date is the time practiced: a step each at 15 min, 30 min, 1 hour, 2 hours, and 3 hours, brighter and wider for longer, with a legend below. Switch it between All, Listening, and Writing to see one kind's tasks and time.
 - **My misheard words** (`/review`): words you mishear in dictation are listed automatically and come back in today's tasks the next day, 3 days later, and 7 days later; fill the word back into its sentence (with the Chinese and, for audio materials, the sound). Three right in a row and it's learned. Each word plays its sound when it comes up; "Replay" and "Loop" (again every 1.5 seconds) play it more. After answering you see its part of speech, Chinese, IPA, an example with its Chinese, and "From ‘material’, sentence N"; "Hear the sentence" opens listening mode at that sentence.
 - **Progress** (header): every material you're practicing, which day, the full calendar; remove ones you don't want (removed on your other devices too).
 - **Stats** (header):
@@ -286,6 +286,9 @@ flowchart LR
    - It also compares words, average sentence length, and word variety. When neither day has a score (no review, no self-score), these three decide: two improved means passed.
    - Set the pass rule on the prompt's page; the default is that Day 7 scores higher than Day 1.
    - You can download a share card that shows only the scores.
+
+- **Writing calendar** (`/writing`): a month at a time. Each date's color is the writing tasks finished, its yellow glow the writing time (the same steps as the practice calendar), and small marks under it an essay, a chat, and extra practice. Choose a day for its time, the tasks finished (with links), extra practice and chats, and its average accuracy.
+
 5. **Your own prompts** (`/writing/new`): write on your own topic, or choose a diary or free writing; the title can be left empty (it's named by kind and date). Your own prompts have no model essay, so days 2–6 use your own sentences, as corrected when there's an AI review. Only you can see them.
 6. **Chat practice** (`/writing/chat`, signed in):
    - Choose the time (5, 10, or 20 minutes), the situation and partner (classmate, professor, coworker, barista, roommate, online friend, job interviewer, or your own), and your partner's level, then text in English.

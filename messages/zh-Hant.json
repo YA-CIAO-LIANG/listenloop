@@ -139,7 +139,15 @@
     "minutes": "{n} 分",
     "ringLegend": "練習時間",
     "atLeastMinutes": "{n} 分鐘以上",
-    "atLeastHours": "{n} 小時以上"
+    "atLeastHours": "{n} 小時以上",
+    "filter": {
+      "label": "日曆顯示",
+      "all": "全部",
+      "listening": "聽力",
+      "writing": "寫作"
+    },
+    "writingLine": "寫作：{title}・第 {day} 天",
+    "writingPrompt": "寫作題目"
   },
   "today": {
     "title": "今日任務",
@@ -4784,5 +4792,34 @@
       "delete": "刪除",
       "deleteConfirm": "確定要刪除這段對話嗎？"
     }
+  },
+  "writingCalendar": {
+    "title": "寫作日曆",
+    "loading": "正在讀取寫作日曆…",
+    "caption": "寫作日曆：每一天完成的寫作任務、練習時間，以及寫文章、聊天練習、額外練習的標記。選一天可以看當天的內容。",
+    "today": "今天",
+    "noTime": "沒有寫作練習時間",
+    "time": "寫作練習 {duration}",
+    "untitled": "寫作題目",
+    "dayN": "第 {n} 天",
+    "sr": {
+      "tasks": "完成{list}",
+      "noTask": "沒有完成寫作任務",
+      "essay": "寫了一篇文章",
+      "chats": "聊天練習 {count} 次",
+      "extras": "額外練習 {count} 組"
+    },
+    "accuracy": "正確率 {percent}%",
+    "score": "{percent} 分",
+    "legend": {
+      "essay": "寫文章",
+      "chat": "聊天練習",
+      "extra": "額外練習"
+    },
+    "none": "這天沒有寫作練習。",
+    "taskLine": "{title}・第 {day} 天 {kind, select, essay {寫文章} rewrite {重寫} other {聽寫回譯}}",
+    "extraLine": "{title}・額外練習（正確率 {percent}%）",
+    "chatLine": "聊天練習 {count} 次",
+    "dayAccuracy": "當天平均正確率 {percent}%"
   }
 }

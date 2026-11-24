@@ -3859,3 +3859,30 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 假供應者用規則模擬，答案含 "broken" 時模擬失敗。
 - **其他修正**：切換畫面時（今天的練習、額外練習、結果、更多練習）先捲回頁首，再讓作答區計算高度。原本從捲到下方的結果頁進入額外練習時，作答區太高，第一次「檢查」時按鈕會跳動。
 - 要改時看哪裡：`lib/writing/back-check/`、`app/writing/back-check-actions.ts`、`lib/writing/back-translation.ts`（`exactBack`、`pendingChecks`、`applyChecks`）、`components/writing/DrillDay.tsx`、`lib/plans.ts` 的 `backChecksPerWeek`、`lib/payments/price-floor.ts` 的 `BACK_CHECK_COST`。
+
+## D201 寫作日曆與首頁日曆的「全部｜聽力｜寫作」（2026-11-24，Joe 的寫作改善清單第三項）
+
+- **寫作的紀錄**（`lib/writing/log.ts`）：
+  - 新增一份寫作日誌，記錄完成的循環天數（含分數或正確率）、結束的額外練習組（含正確率）、聊天練習。
+  - 和其他寫作資料一樣，存在這個瀏覽器（`ll-writing-log:v1`）和帳號（`writing-log` 文件，RLS 只有本人），同步時逐筆合併。
+  - 為什麼不直接從進度算：重新開始一週會清掉各天的紀錄，聊天紀錄也只保留最近 20 段，日曆的歷史會不見。
+  - 記錄集中在 `WritingProvider`：存進度時比對前後，把新完成的天數和新結束的額外練習寫進日誌；聊天在存檔時寫進去（至少要有一則自己的訊息）。
+  - 顯示時，日誌和目前各週的完成日期、保留的聊天合併，所以日誌開始前的練習也看得到。
+  - 寫作日誌不寫進聽力共用的 `ll-activity:v1` 任務清單，避免影響聽力的連續天數、獎勵和統計。
+- **練習時間**：
+  - 寫作原本就把時間記在 `w-<promptId>`。這次聊天練習也開始計時（`w-chat`）。
+  - `daySeconds`、`practiceMinutes` 加上選填的篩選條件，寫作只算 `w-` 開頭的時間；不傳條件時和原本完全一樣。
+- **寫作日曆**（`/writing`，`components/writing/WritingCalendar.tsx`）：
+  - 月檢視，和練習日曆相同的熱度色（完成的循環天數）、光暈（寫作練習時間，門檻和顏色規則沿用 D181～D183）、今天加底線。
+  - 圓點下方有寫文章、聊天、額外練習三個小圖示（新增 `PenIcon`、`ChatIcon`、`RepeatIcon`），旁邊有圖例。
+  - 選一天會顯示練習時間、完成的天數（連到那一天，附分數或正確率）、額外練習（連到那一天，附正確率）、聊天（連到聊天頁），以及當天平均正確率（聽寫回譯和額外練習的平均）。
+  - 無障礙：每一天的按鈕 `aria-label` 會唸出日期、完成第幾天、練習時間、文章、聊天次數、額外練習組數、正確率；選取日期的內容用 `aria-live`。
+  - 支援中英文、深淺色。手機上整個月都顯示（每格最多 48px 寬，觸控最小 44px 高）。
+- **首頁日曆**：
+  - 維持聽力和寫作合併；寫作完成的天數也算進熱度色，清單加上「寫作：題目・第 n 天」。
+  - 新增「全部｜聽力｜寫作」切換（預設「全部」），熱度、光暈、當天清單都跟著切換。
+  - 不傳寫作資料的地方（例如學習進度頁）照常顯示聽力，寫作的題目名稱會用「寫作題目」代替。
+- **測試**：
+  - 單元測試：完成的天數和分數、保留第一次的日期、額外練習記在結束的那天且重新批改會更新、新的一週後日誌保留舊的天數、聊天只算一次、解析與合併、依教材篩選時間。
+  - E2E（電腦、Pixel 7；英文＋深色）：寫作日曆的螢幕閱讀器標籤、當天內容和連結、前一天的文章、axe、首頁的三種切換。
+- 要改時看哪裡：`lib/writing/log.ts`、`components/writing/WritingCalendar.tsx`、`components/PracticeCalendar.tsx`、`components/writing/WritingProvider.tsx`、`lib/practice-time.ts`、`docs/design-system.md`。
