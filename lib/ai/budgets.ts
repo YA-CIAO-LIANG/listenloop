@@ -24,7 +24,8 @@ export type LanguageOperation =
   | "news"
   | "audit"
   | "writing"
-  | "chat";
+  | "chat"
+  | "back-check";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -155,6 +156,23 @@ export function writingBudget(input: {
  * a short reply, one correction, a phrase, and a few glossary words out,
  * plus the model's reasoning.
  */
+/**
+ * Back-translation answers judged together (D200): about 70 tokens of
+ * judgement each (the minimal reasoning is part of the output).
+ */
+export function backCheckBudget(input: {
+  items: { reference: string; meaning: string; answer: string }[];
+}): LanguageBudget {
+  return {
+    operation: "back-check",
+    inputChars: input.items.reduce(
+      (sum, i) => sum + i.reference.length + i.meaning.length + i.answer.length,
+      0,
+    ),
+    maxOutputTokens: 400 + 200 * input.items.length,
+  };
+}
+
 export function chatBudget(input: {
   history: { text: string }[];
   message: string;

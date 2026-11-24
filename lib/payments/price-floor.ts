@@ -115,6 +115,45 @@ export const PLAN_CHAT_EXTRA: Readonly<Record<PaidPlan, number>> = {
 export const chatMonthCost = (perWeek: number) =>
   perWeek * WEEKS_PER_MONTH * chatMinuteCost();
 
+/**
+ * One AI check of extra practice (D200): a set's answers that the rules
+ * didn't find exactly right, judged in one call. Measured on the eval's
+ * recording (24 calls: one answer about 545 tokens in and 85 out, three
+ * answers 638 in and 199 out on gpt-5-mini), with room for a whole set
+ * of 6: 900 in and 500 out, about US$0.0012, NT$0.039.
+ */
+export const BACK_CHECK_COST = {
+  inputTokens: 900,
+  outputTokens: 500,
+  usdPerMillionIn: 0.25,
+  usdPerMillionOut: 2.0,
+} as const;
+
+/** NT$ one AI check of extra practice costs at most (D200). */
+export function backCheckCost(): number {
+  const c = BACK_CHECK_COST;
+  const usd =
+    (c.inputTokens * c.usdPerMillionIn + c.outputTokens * c.usdPerMillionOut) /
+    1_000_000;
+  return usd * CLASS_COST.twdPerUsd;
+}
+
+/**
+ * Checks a week each paid plan has beyond the free plan's (D200); the
+ * free plan's are a free-tier cost every account has, like its chat.
+ */
+export const PLAN_BACK_CHECK_EXTRA: Readonly<Record<PaidPlan, number>> = {
+  plus:
+    (PLANS.paid.backChecksPerWeek ?? 0) - (PLANS.free.backChecksPerWeek ?? 0),
+  student:
+    (PLANS.paid.backChecksPerWeek ?? 0) - (PLANS.free.backChecksPerWeek ?? 0),
+  pro: (PLANS.pro.backChecksPerWeek ?? 0) - (PLANS.free.backChecksPerWeek ?? 0),
+};
+
+/** NT$ a month of `perWeek` checks, all used (the worst case). */
+export const backCheckMonthCost = (perWeek: number) =>
+  perWeek * WEEKS_PER_MONTH * backCheckCost();
+
 /** What's ours of a payment: without the tax inside it, less the fee. */
 const kept = (paid: number) =>
   paid / (1 + TW_BUSINESS_TAX) - paid * ECPAY_FEE_RATE;
@@ -131,12 +170,15 @@ export function worstCaseMargin(
   writingPerWeek = 0,
   /** Chat minutes a week beyond the free plan's, all used (D197). */
   chatPerWeek = 0,
+  /** Extra practice checks a week beyond the free plan's (D200). */
+  backPerWeek = 0,
 ): number {
   return (
     kept(paid) / PERIOD_MONTHS[period] -
     minutes * classCostPerMinute() -
     writingMonthCost(writingPerWeek) -
-    chatMonthCost(chatPerWeek)
+    chatMonthCost(chatPerWeek) -
+    backCheckMonthCost(backPerWeek)
   );
 }
 
@@ -149,6 +191,7 @@ export function minimumMonthly(
   minutes: number,
   writingPerWeek = 0,
   chatPerWeek = 0,
+  backPerWeek = 0,
 ): number {
   let monthly = 1;
   while (
@@ -160,6 +203,7 @@ export function minimumMonthly(
           minutes,
           writingPerWeek,
           chatPerWeek,
+          backPerWeek,
         ) >= PRICE_FLOOR.minMarginPerMonth,
     )
   ) {
@@ -191,6 +235,7 @@ export function worstCaseTable(): {
           minutes,
           PLAN_WRITING_REVIEWS[plan],
           PLAN_CHAT_EXTRA[plan],
+          PLAN_BACK_CHECK_EXTRA[plan],
         ),
       };
     }),

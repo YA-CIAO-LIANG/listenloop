@@ -99,6 +99,14 @@ export type PlanLimits = {
    * quarter of the monthly price and the price floor (D185, D197).
    */
   chatMinutesPerWeek: number | null;
+  /**
+   * AI checks of extra practice's back-translation a week, from Monday
+   * 00:00 Taiwan time (D200): one check judges a whole set's answers in
+   * one call. Sized like the chat: the free plan's are a free-tier cost;
+   * what a paid plan adds keeps the price floor and a quarter of its
+   * monthly price. Used up: the rules check alone.
+   */
+  backChecksPerWeek: number | null;
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
@@ -126,6 +134,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     writingReviewsPerWeek: 2,
     writingWords: 400,
     chatMinutesPerWeek: 5,
+    backChecksPerWeek: 7,
   },
   // Plus (D102): 40 minutes a month.
   paid: {
@@ -151,6 +160,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     writingReviewsPerWeek: 3,
     writingWords: 600,
     chatMinutesPerWeek: 5,
+    backChecksPerWeek: 7,
   },
   // Pro (D102): 120 minutes a month, up to 10 minutes each, and Plus.
   pro: {
@@ -176,6 +186,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     writingReviewsPerWeek: 6,
     writingWords: 1_000,
     chatMinutesPerWeek: 20,
+    backChecksPerWeek: 14,
   },
   admin: {
     createPractices: true,
@@ -200,6 +211,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     writingReviewsPerWeek: null,
     writingWords: null,
     chatMinutesPerWeek: null,
+    backChecksPerWeek: null,
   },
 };
 
@@ -236,6 +248,8 @@ export type PlanAction =
   | { kind: "writing-words"; words: number }
   /** Starting a chat of `minutes` with `thisWeek` minutes used (D197). */
   | { kind: "chat-minutes"; thisWeek: number; minutes: number }
+  /** Another AI check of extra practice, after `thisWeek` (D200). */
+  | { kind: "back-check"; thisWeek: number }
   /** Another revise today, after `today` of them (D161). */
   | { kind: "revise"; today: number }
   | {
@@ -347,6 +361,12 @@ export function can(
             max: limits.chatMinutesPerWeek,
           }
         : { ok: true };
+    case "back-check":
+      return over(
+        "backChecksPerWeek",
+        limits.backChecksPerWeek,
+        action.thisWeek,
+      );
     case "writing-words":
       return limits.writingWords !== null && action.words > limits.writingWords
         ? { ok: false, limit: "writingWords", max: limits.writingWords }

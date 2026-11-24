@@ -308,6 +308,9 @@ export function BackTranslation({
               )}
             </>
           )}
+          {result.pending && (
+            <p className="text-supporting text-ink-muted">{t("aiLater")}</p>
+          )}
           {item.source === "fix" && (
             <p className="text-supporting text-ink-muted">{t("fromFix")}</p>
           )}

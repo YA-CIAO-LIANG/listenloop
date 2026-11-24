@@ -15,6 +15,7 @@ import {
   minimumMonthly,
   PLAN_MINUTES,
   PLAN_WRITING_REVIEWS,
+  PLAN_BACK_CHECK_EXTRA,
   PLAN_CHAT_EXTRA,
 } from "@/lib/payments/price-floor";
 
@@ -48,6 +49,7 @@ export async function startPriceExperiment(
     PLAN_MINUTES[raw.plan],
     PLAN_WRITING_REVIEWS[raw.plan],
     PLAN_CHAT_EXTRA[raw.plan],
+    PLAN_BACK_CHECK_EXTRA[raw.plan],
   );
   if (variants.some((v) => v.monthly < min)) {
     return { ok: false, reason: "belowFloor", min };

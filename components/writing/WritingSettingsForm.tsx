@@ -6,15 +6,16 @@ import { useWritingData, useWritingSettings } from "./WritingProvider";
 
 /**
  * Writing settings: what submitting an essay does by default when signed
- * in, AI review or save only (D194), and the daily back-translation's
- * mode (D195). Saved at once, in this browser and the account.
+ * in, AI review or save only (D194), the daily back-translation's mode
+ * (D195), and whether extra practice uses the AI check (D200). Saved at once, in this browser and the account.
  */
 export function WritingSettingsForm() {
   const t = useTranslations("writingSettings");
   const settings = useWritingSettings();
   const { saveSettings } = useWritingData();
   if (!settings) return null;
-  const current = { review: settings.review, dictation: settings.dictation };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { at, ...current } = settings;
   const radio = "mt-1 size-4 shrink-0 accent-accent";
   const row = "tap flex min-h-8 items-start gap-3 pointer-coarse:min-h-11";
   return (
@@ -60,6 +61,25 @@ export function WritingSettingsForm() {
             </span>
           </label>
         ))}
+      </fieldset>
+      <fieldset className="flex flex-col gap-2">
+        <legend className="font-medium">{t("extra")}</legend>
+        <label className={row}>
+          <input
+            type="checkbox"
+            checked={!settings.extraAi}
+            onChange={(e) =>
+              saveSettings({ ...current, extraAi: !e.target.checked })
+            }
+            className={radio}
+          />
+          <span>
+            {t("extraNoAi")}
+            <span className="block text-supporting text-ink-muted">
+              {t("extraNoAiHint")}
+            </span>
+          </span>
+        </label>
       </fieldset>
     </div>
   );
