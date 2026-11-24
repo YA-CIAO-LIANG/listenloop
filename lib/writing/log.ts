@@ -197,6 +197,8 @@ export type WritingCalendarDay = {
   essay: boolean;
   /** The evening review done (D203). */
   review: boolean;
+  /** Back-translation sentences answered that day, done or not. */
+  sentences: number;
   /** Mean accuracy of the day's back-translation and extra sets. */
   accuracy: number | null;
 };
@@ -230,6 +232,7 @@ export function writingCalendar(
       chats: 0,
       essay: false,
       review: false,
+      sentences: 0,
       accuracy: null,
     };
     if (e.kind === "task") {
@@ -243,6 +246,30 @@ export function writingCalendar(
       day.chats += 1;
     }
     days.set(e.date, day);
+  }
+  // Sentences answered each day, a day not finished too (usability
+  // round 1, F4): the calendar shows the practice.
+  for (const p of progresses) {
+    for (const n of [2, 3, 4, 5, 6] as const) {
+      const record = p.days[n];
+      for (const run of [record?.back, record?.extra]) {
+        for (const a of run?.answers ?? []) {
+          const date = a?.date ?? (a ? record?.date : undefined);
+          if (!date) continue;
+          const day = days.get(date) ?? {
+            tasks: [],
+            extras: [],
+            chats: 0,
+            essay: false,
+            review: false,
+            sentences: 0,
+            accuracy: null,
+          };
+          day.sentences += 1;
+          days.set(date, day);
+        }
+      }
+    }
   }
   for (const day of days.values()) {
     day.tasks.sort(

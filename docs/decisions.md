@@ -3930,3 +3930,17 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - E2E `e2e/writing-coach.spec.ts`（電腦、Pixel 7）：信心度＋提示＋自我解釋（最多 2 次、可以略過），在設定關閉後都不出現；早上沒有提醒、22:00 有提醒，回顧後日曆有記錄；第 30 天邀請、重寫、自評、第 1、7、30 天比較，之後不再邀請。
   - 既有的寫作 E2E 改用共用的 `checkBackAnswer`。
 - 要改時看哪裡：`lib/writing/bedtime.ts`、`components/writing/BedtimeReview.tsx`、`app/writing/review/page.tsx`、`lib/writing/progress.ts`（`day30State`、`DAY30_AFTER`）、`components/writing/EssayDay.tsx`、`components/writing/LongResult.tsx`、`components/writing/WritingTasks.tsx`、`components/writing/WritingDay.tsx`。
+
+## D204 寫作的 AI 模擬使用者測試（三輪）與修正（2026-11-24，Joe 的寫作改善清單第五項）
+
+- 新增角色 P14（英文初級的成人學習者），以及任務 T27～T33：中途離開與額外練習、學習輔助、美西時區的寫作日曆、付費的額外練習 AI 批改與額度、睡前回顧、第 30 天重寫、只用鍵盤。三輪結果見 `docs/usability-ai-test.md`。
+- 修正（全部是嚴重度 2）：
+  - F1：手機上也顯示信心度按鈕的說明。
+  - F2：結果頁的下一步按鈕移到錯誤清單上方。
+  - F3：結果頁和前一個有結果的天數比較正確率。
+  - F4：寫作日曆也算當天作答、但還沒做完的句子（`sentences`）。
+  - F5：寫作設定在讀到資料前，先用預設值顯示停用的表單，避免版面位移。CLS 從 0.267 降到 0，Lighthouse 手機效能 78 → 91。
+  - F6：額外練習的 AI 說明不再推動按鈕（同 F2）。
+- 每輪都量 Lighthouse 手機分數（第 1 輪漏掉，第 2 輪起補上）。寫作的主要頁面效能 91～92，無障礙和最佳實務都是 100。
+- 停止條件：第 3 輪沒有嚴重度 2 以上的問題，模擬 SUS 87。沒有修改被要求改回。
+- 要改時看哪裡：`usability/tasks.spec.ts`（T27～T33）、`docs/personas.md`、`components/writing/DrillDay.tsx` 的 `RunResult`、`lib/writing/log.ts`、`components/writing/WritingSettingsForm.tsx`。

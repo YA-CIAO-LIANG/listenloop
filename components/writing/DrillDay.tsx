@@ -118,6 +118,15 @@ export function DrillDay({
       days: { ...progress.days, [day]: next },
       updatedAt: new Date().toISOString(),
     });
+  // The last earlier day with a result, to compare with (round 1, F3).
+  const previousResult = (() => {
+    for (let d = day - 1; d >= 2; d--) {
+      const back = progress.days[d as DrillDayNumber]?.back;
+      if (back?.done) return { day: d, percent: runSummary(back).percent };
+    }
+    return undefined;
+  })();
+
   const toNotebook = (from: BackRun) => {
     const items = backNotebookItems(prompt.id, from);
     if (items.length) saveNotebook(addToNotebook(notebook, items, today()));
@@ -365,6 +374,7 @@ export function DrillDay({
         {record.back ? (
           <RunResult
             run={record.back}
+            previous={previousResult}
             onExtra={startExtra}
             continueExtra={
               extra && !extra.done
@@ -445,6 +455,7 @@ function RunResult({
   run,
   extra = false,
   check = null,
+  previous,
   continueExtra,
   onExtra,
   onBack,
@@ -453,6 +464,8 @@ function RunResult({
   extra?: boolean;
   /** Extra practice: the AI check of its answers (D200). */
   check?: CheckState | null;
+  /** The day before's result, to see the change (round 1, F3). */
+  previous?: { day: number; percent: number };
   /** Extra practice left half done: where it is. */
   continueExtra?: { n: number; total: number };
   onExtra: () => void;
@@ -496,7 +509,41 @@ function RunResult({
                 : t(`back.aiStopped.${check.reason}`, { max: check.max ?? 0 })}
           </p>
         )}
+        {previous && (
+          <p className="text-supporting tabular-nums">
+            {t("back.compare", {
+              day: previous.day,
+              percent: previous.percent,
+              change:
+                summary.percent - previous.percent > 0
+                  ? `+${summary.percent - previous.percent}`
+                  : `${summary.percent - previous.percent}`,
+            })}
+          </p>
+        )}
       </Card>
+      {/* What's next before the details, so it's in reach on a phone. */}
+      <div className="flex flex-wrap gap-3">
+        <Button variant="primary" onClick={onExtra}>
+          {continueExtra
+            ? t("back.continueExtra", continueExtra)
+            : extra
+              ? t("back.extraAgain")
+              : t("back.extra")}
+        </Button>
+        <ButtonLink href="/writing/notebook" variant="secondary">
+          {t("notebook.title")}
+        </ButtonLink>
+        {onBack ? (
+          <Button variant="ghost" onClick={onBack}>
+            {t("back.toResult")}
+          </Button>
+        ) : (
+          <ButtonLink href="/" variant="ghost">
+            {t("back.home")}
+          </ButtonLink>
+        )}
+      </div>
       {wrong.length > 0 && (
         <section aria-labelledby="back-wrong" className="flex flex-col gap-3">
           <h3 id="back-wrong" className="font-medium">
@@ -556,27 +603,6 @@ function RunResult({
           </ul>
         </section>
       )}
-      <div className="flex flex-wrap gap-3">
-        <Button variant="primary" onClick={onExtra}>
-          {continueExtra
-            ? t("back.continueExtra", continueExtra)
-            : extra
-              ? t("back.extraAgain")
-              : t("back.extra")}
-        </Button>
-        <ButtonLink href="/writing/notebook" variant="secondary">
-          {t("notebook.title")}
-        </ButtonLink>
-        {onBack ? (
-          <Button variant="ghost" onClick={onBack}>
-            {t("back.toResult")}
-          </Button>
-        ) : (
-          <ButtonLink href="/" variant="ghost">
-            {t("back.home")}
-          </ButtonLink>
-        )}
-      </div>
     </div>
   );
 }
