@@ -1,7 +1,11 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { DICTATION_MODES, REVIEW_MODES } from "@/lib/writing/settings";
+import {
+  DEFAULT_WRITING_SETTINGS,
+  DICTATION_MODES,
+  REVIEW_MODES,
+} from "@/lib/writing/settings";
 import { useWritingData, useWritingSettings } from "./WritingProvider";
 
 /**
@@ -11,15 +15,21 @@ import { useWritingData, useWritingSettings } from "./WritingProvider";
  */
 export function WritingSettingsForm() {
   const t = useTranslations("writingSettings");
-  const settings = useWritingSettings();
+  const stored = useWritingSettings();
   const { saveSettings } = useWritingData();
-  if (!settings) return null;
+  // Before the browser reads them: the defaults, disabled, so the page
+  // doesn't shift when they arrive (Lighthouse CLS, usability round 2).
+  const settings = stored ?? DEFAULT_WRITING_SETTINGS;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { at, ...current } = settings;
   const radio = "mt-1 size-4 shrink-0 accent-accent";
   const row = "tap flex min-h-8 items-start gap-3 pointer-coarse:min-h-11";
   return (
-    <div className="flex flex-col gap-8">
+    <fieldset
+      disabled={!stored}
+      aria-busy={!stored}
+      className="flex min-w-0 flex-col gap-8"
+    >
       <fieldset className="flex flex-col gap-2">
         <legend className="font-medium">{t("review")}</legend>
         {REVIEW_MODES.map((mode) => (
@@ -134,6 +144,6 @@ export function WritingSettingsForm() {
           </span>
         </label>
       </fieldset>
-    </div>
+    </fieldset>
   );
 }

@@ -1339,3 +1339,304 @@ test("T26 free: a 5-minute chat as a teen, a tip, ending early (P13 學測作文
     page.getByRole("button", { name: "提早結束" }).click(),
   );
 });
+
+/** Writes back one sentence of the day (fairly sure; skips "why"). */
+async function backOne(page: Page, text = "something else entirely") {
+  await page.locator("#back-answer").fill(text);
+  await page.getByRole("button", { name: "檢查：有點確定" }).click();
+  const skip = page.getByRole("button", { name: "略過", exact: true });
+  if (await skip.isVisible()) await skip.click();
+  await page
+    .getByRole("button", { name: /^(下一句|完成今天的練習|完成額外練習)$/ })
+    .click();
+}
+
+/** A guest's Day 1, saved only, so Day 2 opens the next day. */
+async function guestDayOne(page: Page) {
+  await page.goto("/writing/daily-perfect-weekend/day/1");
+  await dismissNotices(page);
+  await page
+    .getByRole("textbox", { name: "你的文章" })
+    .fill(
+      "My perfect weekend would start slowly. On Saturday I would go to the park with my sister, and we would eat lunch by the river.",
+    );
+  // A guest scores it; signed in, it's saved without a review.
+  const self = page.getByRole("button", { name: "送出並自己評分" });
+  const save = page.getByRole("button", { name: "只儲存，不批改" }).first();
+  await self.or(save).first().click();
+  await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+}
+
+test("T27 free, phone: Day 2 in short breaks — leave at sentence 3, come back, finish, extra practice, leave again (P4 上班族)", async ({
+  page,
+}) => {
+  const device = test.info().project.name;
+  await signInWithEmail(
+    page,
+    `ux-break-${device}`,
+    `ux-break-${device}@example.com`,
+  );
+  await setToday(page, "2026-11-16");
+  await guestDayOne(page);
+  await setToday(page, "2026-11-17");
+  await step(page, "t27-break", "1-day2", () =>
+    page.goto("/writing/daily-perfect-weekend/day/2"),
+  );
+  await step(page, "t27-break", "2-two-done", async () => {
+    await backOne(page);
+    await backOne(page);
+  });
+  await step(page, "t27-break", "3-back-later", async () => {
+    await page.goto("/");
+    await page.goto("/writing/daily-perfect-weekend/day/2");
+    await expect(
+      page.getByRole("progressbar", { name: /^第 3／/ }),
+    ).toBeVisible();
+  });
+  await step(page, "t27-break", "4-result", async () => {
+    for (let i = 0; i < 8; i++) {
+      if (
+        await page
+          .getByRole("heading", { name: /今天的練習完成了/ })
+          .isVisible()
+      )
+        break;
+      await backOne(page);
+    }
+  });
+  await step(page, "t27-break", "5-extra", async () => {
+    await page.getByRole("button", { name: "額外練習" }).click();
+    await backOne(page);
+  });
+  await step(page, "t27-break", "6-extra-resumed", async () => {
+    await page.reload();
+    await page.getByRole("button", { name: /繼續額外練習/ }).click();
+  });
+  await step(page, "t27-break", "7-extra-ended", async () => {
+    await page.getByRole("button", { name: "結束額外練習" }).click();
+    await expect(
+      page.getByRole("heading", { name: "額外練習完成了！" }),
+    ).toBeVisible();
+  });
+});
+
+test("T28 guest: the learning helps on a first try — hints, how sure, where it went wrong; settings (P14 英文初級成人)", async ({
+  page,
+}) => {
+  await setToday(page, "2026-11-16");
+  await guestDayOne(page);
+  await setToday(page, "2026-11-17");
+  await step(page, "t28-helps", "1-day2-hint", () =>
+    page.goto("/writing/daily-perfect-weekend/day/2"),
+  );
+  await step(page, "t28-helps", "2-sure-wrong", async () => {
+    await page.locator("#back-answer").fill("My weekend is start slow");
+    await page.getByRole("button", { name: "檢查：很確定" }).click();
+    await expect(
+      page.getByRole("textbox", { name: /你覺得錯在哪裡/ }),
+    ).toBeVisible();
+  });
+  await step(page, "t28-helps", "3-explained", async () => {
+    await page
+      .getByRole("textbox", { name: /你覺得錯在哪裡/ })
+      .fill("動詞好像不對");
+    await page.getByRole("button", { name: "看答案" }).click();
+  });
+  await step(page, "t28-helps", "4-settings", async () => {
+    await page.goto("/writing/settings");
+    await page
+      .getByRole("heading", { name: "學習輔助" })
+      .scrollIntoViewIfNeeded()
+      .catch(() => {});
+    await page.getByText("學習輔助").first().scrollIntoViewIfNeeded();
+  });
+});
+
+test.describe("US Pacific", () => {
+  // A learner in the US (D139): the calendar keeps their own dates.
+  test.use({ timezoneId: "America/Los_Angeles" });
+  test("T29 free, US Pacific: the writing calendar and the home calendar's filter (P12 留學生寫 Email)", async ({
+    page,
+  }) => {
+    const device = test.info().project.name;
+    await page.emulateMedia({ colorScheme: "dark" });
+    await signInWithEmail(
+      page,
+      `ux-wcal-${device}`,
+      `ux-wcal-${device}@example.com`,
+    );
+    await setToday(page, "2026-11-16");
+    await guestDayOne(page);
+    await setToday(page, "2026-11-17");
+    await page.goto("/writing/daily-perfect-weekend/day/2");
+    for (let i = 0; i < 8; i++) {
+      if (
+        await page
+          .getByRole("heading", { name: /今天的練習完成了/ })
+          .isVisible()
+      )
+        break;
+      await backOne(page);
+    }
+    await step(page, "t29-calendar", "1-writing-calendar", async () => {
+      await page.goto("/writing");
+      await page.getByTestId("writing-calendar").scrollIntoViewIfNeeded();
+    });
+    await step(page, "t29-calendar", "2-day-before", () =>
+      page
+        .getByTestId("writing-calendar")
+        .getByRole("button", { name: /^11月16日/ })
+        .click(),
+    );
+    await step(page, "t29-calendar", "3-home-writing", async () => {
+      await page.goto("/");
+      await page
+        .getByRole("group", { name: "日曆顯示" })
+        .getByRole("button", { name: "寫作" })
+        .click();
+    });
+  });
+});
+
+test("T30 paid: extra practice with the AI check, then My quota (P11 IELTS 大學生)", async ({
+  page,
+}) => {
+  await signInAsPaid(page);
+  await setToday(page, "2026-11-23");
+  await page.goto("/writing/daily-perfect-weekend/day/1");
+  // The paid account is shared by the three devices: Day 1 may be done.
+  await page.waitForLoadState("networkidle");
+  if (
+    await page
+      .getByRole("textbox", { name: "你的文章" })
+      .isVisible()
+      .catch(() => false)
+  ) {
+    await guestDayOne(page);
+  }
+  await setToday(page, "2026-11-24");
+  await step(page, "t30-ai", "1-day2", async () => {
+    await page.goto("/writing/daily-perfect-weekend/day/2");
+    await dismissNotices(page);
+    for (let i = 0; i < 8; i++) {
+      if (
+        await page
+          .getByRole("heading", { name: /今天的練習完成了/ })
+          .isVisible()
+      )
+        break;
+      await backOne(page);
+    }
+  });
+  await step(page, "t30-ai", "2-extra", async () => {
+    await page
+      .getByRole("button", { name: /^(額外練習|再練一組|繼續額外練習.*)$/ })
+      .click();
+    await backOne(page, "My weekend starts slowly");
+  });
+  await step(page, "t30-ai", "3-checked", async () => {
+    await page.getByRole("button", { name: "結束額外練習" }).click();
+    await expect(page.getByText(/AI 已批改|AI 批改/).first()).toBeVisible();
+  });
+  await step(page, "t30-ai", "4-quota", () => page.goto("/account/usage"));
+});
+
+test("T31 guest, phone: the evening review at 22:00 (P13 學測作文高三生)", async ({
+  page,
+}) => {
+  await setToday(page, "2026-11-16");
+  await guestDayOne(page);
+  await setToday(page, "2026-11-17");
+  await page.goto("/writing/daily-perfect-weekend/day/2");
+  await backOne(page, "My perfect weekend would start slowly.");
+  await page.clock.setFixedTime(new Date("2026-11-17T22:05:00+08:00"));
+  await step(page, "t31-bedtime", "1-reminder", () => page.goto("/writing"));
+  await step(page, "t31-bedtime", "2-review", () =>
+    page.getByRole("link", { name: "開始回顧" }).click(),
+  );
+  await step(page, "t31-bedtime", "3-result", async () => {
+    await page
+      .getByRole("textbox", { name: "第 1 句" })
+      .fill("my perfect weekend would start slowly");
+    await page.getByRole("button", { name: "對照今天的句子" }).click();
+  });
+});
+
+test("T32 guest: Day 30 — write it again and compare days 1, 7, and 30 (P11 IELTS 大學生)", async ({
+  page,
+}) => {
+  await setToday(page, "2026-11-30");
+  await page.goto("/writing");
+  await page.evaluate(() => {
+    const essay = (text: string, date: string, percent: number) => ({
+      done: true,
+      date,
+      essay: text,
+      self: { criteria: [], percent, weak: [] },
+    });
+    localStorage.setItem(
+      "ll-writing:v1:daily-perfect-weekend",
+      JSON.stringify({
+        promptId: "daily-perfect-weekend",
+        week: 1,
+        startedAt: "2026-11-01",
+        status: "passed",
+        rule: { kind: "beat" },
+        days: {
+          1: essay("My weekend is good. I go park.", "2026-11-01", 50),
+          7: essay(
+            "My perfect weekend would start slowly, and then I would go to the park.",
+            "2026-11-07",
+            70,
+          ),
+        },
+        history: [],
+        updatedAt: "2026-11-07T10:00:00.000Z",
+      }),
+    );
+  });
+  await step(page, "t32-day30", "1-invite", () => page.reload());
+  await step(page, "t32-day30", "2-write", () =>
+    page.getByRole("link", { name: "再寫一次" }).click(),
+  );
+  await step(page, "t32-day30", "3-compare", async () => {
+    await page
+      .getByRole("textbox", { name: "你的文章" })
+      .fill(
+        "My perfect weekend would start slowly. First, I would sleep late, and then my family and I would cook a big breakfast together.",
+      );
+    await page.getByRole("button", { name: "送出並自己評分" }).click();
+    for (const select of await page.getByRole("combobox").all())
+      await select.selectOption("4");
+    await page.getByRole("button", { name: "完成評分" }).click();
+    await page
+      .getByRole("heading", { name: "第 1、7、30 天的比較" })
+      .scrollIntoViewIfNeeded();
+  });
+});
+
+test("T33 guest, keyboard only: Day 2 with Enter and the confidence buttons; the calendar's day names (P6 無障礙)", async ({
+  page,
+}) => {
+  await setToday(page, "2026-11-16");
+  await guestDayOne(page);
+  await setToday(page, "2026-11-17");
+  await step(page, "t33-keys", "1-day2", () =>
+    page.goto("/writing/daily-perfect-weekend/day/2"),
+  );
+  await step(page, "t33-keys", "2-enter-asks", async () => {
+    await page.locator("#back-answer").fill("My perfect weekend");
+    await page.locator("#back-answer").press("Enter");
+    await expect(
+      page.getByRole("alert").filter({ hasText: "按下你有多確定" }),
+    ).toBeVisible();
+  });
+  await step(page, "t33-keys", "3-tab-to-sure", async () => {
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+  });
+  await step(page, "t33-keys", "4-calendar", async () => {
+    await page.goto("/writing");
+    await page.getByTestId("writing-calendar").scrollIntoViewIfNeeded();
+  });
+});

@@ -4537,7 +4537,8 @@
       "youWereSure": "You chose: {level, select, sure {quite sure} maybe {fairly sure} other {not sure}}.",
       "sureButWrong": "Sentences you were sure of but got wrong come first in your notebook.",
       "unsureButRight": "Right but not sure: this one goes to your notebook too, to practise again.",
-      "sureCheck": "Check: {level, select, sure {quite sure} maybe {fairly sure} other {not sure}}"
+      "sureCheck": "Check: {level, select, sure {quite sure} maybe {fairly sure} other {not sure}}",
+      "compare": "Against day {day} ({percent}%): {change} points"
     },
     "bedtime": {
       "title": "Evening review",
@@ -4907,6 +4908,7 @@
     "extraLine": "{title}, extra practice ({percent}% accuracy)",
     "chatLine": "Chat practice, {count, plural, one {# time} other {# times}}",
     "dayAccuracy": "Average accuracy that day: {percent}%",
-    "reviewLine": "Evening review"
+    "reviewLine": "Evening review",
+    "sentences": "{count, plural, one {# sentence} other {# sentences}} written back"
   }
 }

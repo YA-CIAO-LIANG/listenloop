@@ -56,6 +56,7 @@ const EMPTY: WritingCalendarDay = {
   chats: 0,
   essay: false,
   review: false,
+  sentences: 0,
   accuracy: null,
 };
 
@@ -180,6 +181,7 @@ function CalendarMonth({
       ...(d.chats ? [t("sr.chats", { count: d.chats })] : []),
       ...(d.extras.length ? [t("sr.extras", { count: d.extras.length })] : []),
       ...(d.review ? [t("sr.review")] : []),
+      ...(d.sentences ? [t("sentences", { count: d.sentences })] : []),
       ...(d.accuracy !== null
         ? [t("dayAccuracy", { percent: d.accuracy })]
         : []),
@@ -358,7 +360,8 @@ function CalendarMonth({
         {chosen.tasks.length === 0 &&
         chosen.extras.length === 0 &&
         chosen.chats === 0 &&
-        !chosen.review ? (
+        !chosen.review &&
+        !chosen.sentences ? (
           <p className="text-ink-muted">{t("none")}</p>
         ) : (
           <ul className="space-y-1">
@@ -383,6 +386,9 @@ function CalendarMonth({
                 </Link>
               </li>
             ))}
+            {chosen.sentences > 0 && (
+              <li>{t("sentences", { count: chosen.sentences })}</li>
+            )}
             {chosen.review && (
               <li>
                 <span aria-hidden="true" className="text-success">

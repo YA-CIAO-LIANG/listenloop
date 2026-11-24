@@ -133,6 +133,19 @@ describe("the calendar's days", () => {
     expect(day2.accuracy).toBe(75);
   });
 
+  it("counts sentences answered on a day not finished (usability F4)", () => {
+    const p = week();
+    const back = answered([true]);
+    back.answers = back.answers.map((a) => a && { ...a, date: "2026-11-13" });
+    const unfinished = {
+      ...p,
+      days: { ...p.days, 3: { done: false, drills: [], back } },
+    };
+    const days = writingCalendar(emptyLog(), [unfinished], []);
+    expect(days.get("2026-11-13")).toMatchObject({ sentences: 1, tasks: [] });
+    expect(days.get("2026-11-12")?.sentences).toBe(2);
+  });
+
   it("the log keeps days a new week cleared", () => {
     const log = logProgressChange(emptyLog(), null, week(), "2026-11-12", NOW);
     const restarted = { ...week(), week: 2, days: {} };

@@ -320,7 +320,7 @@ export function BackTranslation({
           >
             <span
               id="sure-label"
-              className="text-supporting text-ink-muted max-split:sr-only"
+              className="w-full text-right text-supporting text-ink-muted split:w-auto"
             >
               {t("sureLabel")}
             </span>

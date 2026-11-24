@@ -4535,7 +4535,8 @@
       "youWereSure": "你選了：{level, select, sure {很確定} maybe {有點確定} other {不確定}}。",
       "sureButWrong": "很確定卻寫錯的句子，會優先出現在錯誤本。",
       "unsureButRight": "寫對了但不確定，這句也會加入錯誤本，之後再練一次。",
-      "sureCheck": "檢查：{level, select, sure {很確定} maybe {有點確定} other {不確定}}"
+      "sureCheck": "檢查：{level, select, sure {很確定} maybe {有點確定} other {不確定}}",
+      "compare": "和第 {day} 天（{percent}%）比：{change} 個百分點"
     },
     "bedtime": {
       "title": "睡前回顧",
@@ -4905,6 +4906,7 @@
     "extraLine": "{title}・額外練習（正確率 {percent}%）",
     "chatLine": "聊天練習 {count} 次",
     "dayAccuracy": "當天平均正確率 {percent}%",
-    "reviewLine": "睡前回顧"
+    "reviewLine": "睡前回顧",
+    "sentences": "聽寫回譯寫了 {count} 句"
   }
 }
