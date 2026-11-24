@@ -87,6 +87,7 @@ export function WritingWorkspace({
   children,
   label,
   summaryLang,
+  actions,
 }: {
   /** "en" when the summary is the English task. */
   summaryLang?: string;
@@ -100,6 +101,11 @@ export function WritingWorkspace({
   children: ReactNode;
   /** The answer column's name for screen readers. */
   label?: string;
+  /**
+   * The main button(s), fixed under the answer column (not scrolled with
+   * it): the same place every step, above a phone's keyboard (D199).
+   */
+  actions?: ReactNode;
 }) {
   const t = useTranslations("writing.workspace");
   const ref = useRef<HTMLDivElement>(null);
@@ -140,6 +146,11 @@ export function WritingWorkspace({
         <div className="flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto">
           {children}
         </div>
+        {actions && (
+          <div className="flex shrink-0 flex-wrap justify-end gap-2">
+            {actions}
+          </div>
+        )}
       </section>
     </div>
   );

@@ -4412,7 +4412,11 @@
       "mastered": "Mastered",
       "next": "Review on {date} (round {stage})",
       "fromChinese": "Write it in English",
-      "chat": "Chat"
+      "chat": "Chat",
+      "fromSound": "Listen and write it",
+      "youWrote": "Last time you wrote:",
+      "back": "Back-translation",
+      "play": "Play the sentence"
     },
     "workspace": {
       "more": "Show task",
@@ -4458,7 +4462,27 @@
           "label": "The meaning in Chinese",
           "intro": "Listen and write what it means in Chinese. The meaning matters, not the exact words; the model meaning shows after."
         }
-      }
+      },
+      "sentences": "Today's sentences",
+      "go": "Sentence {n} ({state, select, right {written right} wrong {written wrong} other {not done yet}})",
+      "progress": "Sentences done",
+      "progressText": "{done} of {total} sentences done",
+      "endExtra": "End extra practice",
+      "backTo": "Back to sentence {n}",
+      "finishExtra": "Finish extra practice",
+      "extraTitle": "Extra practice: another set of sentences",
+      "noExtra": "You've practised every sentence there is for today. New ones come tomorrow.",
+      "toResult": "Back to today's result",
+      "extraNote": "Extra practice keeps its own progress and never changes today's result. End it whenever you like.",
+      "extraDoneTitle": "Extra practice done!",
+      "runResult": "{right} of {answered} right, {percent}% accuracy on average",
+      "wrongTitle": "What you misheard or miswrote ({count})",
+      "youWrote": "You wrote",
+      "toNotebook": "These {count} went to your notebook. They come back in 1, 3, and 7 days.",
+      "continueExtra": "Continue extra practice (sentence {n} of {total})",
+      "extraAgain": "Another set",
+      "extra": "Extra practice",
+      "home": "Back to home"
     }
   },
   "writingTasks": {

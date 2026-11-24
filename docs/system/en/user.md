@@ -274,6 +274,10 @@ flowchart LR
    - 5–8 sentences a day, about 10 minutes. With an AI review, your corrected Day 1 sentences and the model's key sentences; without one, the model's sentences.
    - Three ways (switch in Account → Writing settings): hear English and write English (default), read Chinese and write English (with an English hint), hear English and write the meaning in Chinese.
    - The first sentence plays on arrival; replay or loop it. It's checked like listening dictation, with wrong words marked.
+   - "Sentence 3 of 8" and a progress bar sit on top. Each answer is saved at once (in your account when signed in, else in this browser), so leaving, reloading, or trying another exercise first, you come back to the sentence you were at. Answered sentences open again from the list, but can't be redone.
+   - Check and Next stay in the same place under the answer box, above a phone's keyboard.
+   - At the end: how many were right, the average accuracy, and what was wrong in each sentence. Sentences written wrong go to your notebook, for 1, 3, and 7 days later.
+   - **Extra practice**: afterwards, another set of sentences (none from today's set), with its own progress; end it whenever you like. It never changes the day's result.
    - Want more? Pick a drill under "More practice": fix your sentences, pattern practice, sentence combining, paraphrasing, paragraph order, rebuilding from memory, listen-then-write. These don't change the day's progress.
 4. **Day 7, rewrite**:
    - Write the same prompt again, without Day 1 or the model.

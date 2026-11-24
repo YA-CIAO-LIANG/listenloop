@@ -85,7 +85,9 @@ async function writeEssay(
 
 /** Writes back each of the day's sentences until the day is done (D195). */
 async function doDrills(page: Page) {
-  const done = page.getByText("今天的練習完成了！明天再來。");
+  const done = page.getByRole("heading", {
+    name: "今天的練習完成了！明天再來。",
+  });
   const box = page.getByRole("textbox", { name: "聽到的英文句子" });
   for (let step = 0; step < 10; step++) {
     await expect(box.or(done)).toBeVisible();
@@ -98,7 +100,7 @@ async function doDrills(page: Page) {
       .click();
   }
   await expect(done).toBeVisible();
-  await expect(page.getByText(/聽寫回譯：\d+ 句中寫對 \d+ 句/)).toBeVisible();
+  await expect(page.getByText(/寫對 \d+／\d+ 句，平均正確率/)).toBeVisible();
 }
 
 async function wholeWeek(page: Page, role: Role, device: string) {

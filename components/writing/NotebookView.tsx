@@ -9,9 +9,11 @@ import {
   reviewEntry,
   type NotebookEntry,
 } from "@/lib/writing/notebook";
+import { writingSentenceAudioUrl } from "@/app/writing/audio-actions";
 import { Button } from "../Button";
 import { Card } from "../Card";
 import { useToday } from "../useToday";
+import { useWordSound } from "../useWordSound";
 import { useNotebook, useWritingData } from "./WritingProvider";
 
 /**
@@ -60,16 +62,27 @@ export function NotebookView() {
             <p className="text-supporting text-ink-muted">
               {current.kind === "error"
                 ? t("fixThis")
-                : current.kind === "chat"
+                : current.kind === "chat" ||
+                    (current.kind === "back" && current.text)
                   ? t("fromChinese")
-                  : t("useThis")}
+                  : current.kind === "back"
+                    ? t("fromSound")
+                    : t("useThis")}
             </p>
-            <p
-              lang={current.kind === "chat" ? "zh-Hant" : "en"}
-              className="font-medium"
-            >
-              {current.text}
-            </p>
+            {current.kind === "back" && !current.text ? (
+              <HearSentence promptId={current.promptId} en={current.answer} />
+            ) : (
+              <p
+                lang={
+                  current.kind === "chat" || current.kind === "back"
+                    ? "zh-Hant"
+                    : "en"
+                }
+                className="font-medium"
+              >
+                {current.text}
+              </p>
+            )}
             {current.kind === "pattern" && (
               <p className="text-supporting text-ink-muted">{current.note}</p>
             )}
@@ -102,8 +115,16 @@ export function NotebookView() {
                     {current.answer}
                   </span>
                 </p>
-                {current.kind !== "pattern" && current.note && (
-                  <p className="text-supporting">{current.note}</p>
+                {current.kind === "back" && current.note ? (
+                  <p className="text-supporting">
+                    <span className="text-ink-muted">{t("youWrote")}</span>{" "}
+                    <span lang="en">{current.note}</span>
+                  </p>
+                ) : (
+                  current.kind !== "pattern" &&
+                  current.note && (
+                    <p className="text-supporting">{current.note}</p>
+                  )
                 )}
                 <div className="flex flex-wrap gap-3">
                   <Button
@@ -145,10 +166,14 @@ export function NotebookView() {
                         : t("mistake")
                       : entry.kind === "chat"
                         ? t("chat")
-                        : t("pattern")}
+                        : entry.kind === "back"
+                          ? t("back")
+                          : t("pattern")}
                   </span>
                   <span lang="en">
-                    {entry.kind === "chat" ? entry.answer : entry.text}
+                    {entry.kind === "chat" || entry.kind === "back"
+                      ? entry.answer
+                      : entry.text}
                   </span>
                 </span>
                 <span className="text-ink-muted tabular-nums">
@@ -161,6 +186,29 @@ export function NotebookView() {
           </ul>
         </section>
       )}
+    </div>
+  );
+}
+
+/** A sentence to write from its sound (D199): played on request. */
+function HearSentence({ promptId, en }: { promptId: string; en: string }) {
+  const t = useTranslations("writing.notebook");
+  const sound = useWordSound(promptId, en, {
+    loop: false,
+    gapMs: 0,
+    audioUrl: writingSentenceAudioUrl,
+    autoplay: false,
+  });
+  return (
+    <div>
+      <Button
+        size="sm"
+        variant="secondary"
+        onClick={sound.play}
+        disabled={!sound.ready}
+      >
+        {t("play")}
+      </Button>
     </div>
   );
 }
