@@ -36,38 +36,25 @@
       "pattern": "About a week before it begins, we …",
       "zh": "用時間片語說明習俗的時間點",
       "example": "About a week before it begins, we clean the whole house from top to bottom.",
-      "keys": [
-        "before",
-        "we"
-      ]
+      "keys": ["before", "we"]
     },
     {
       "pattern": "…, because the word for … sounds like …",
       "zh": "解釋諧音由來，讓外國讀者看懂文化",
       "example": "We always eat fish, because the word for fish sounds like the word for having extra.",
-      "keys": [
-        "because",
-        "sounds like"
-      ]
+      "keys": ["because", "sounds like"]
     },
     {
       "pattern": "the most meaningful part is not … but …",
       "zh": "最有意義的不是……，而是……",
       "example": "For me, the most meaningful part is not the red envelopes but the time with my family.",
-      "keys": [
-        "most meaningful",
-        "not",
-        "but"
-      ]
+      "keys": ["most meaningful", "not", "but"]
     },
     {
       "pattern": "Even after I …, I hope to …",
       "zh": "即使……之後，我仍希望……",
       "example": "Even after I move abroad, I hope to come home for this holiday every year.",
-      "keys": [
-        "even after",
-        "hope to"
-      ]
+      "keys": ["even after", "hope to"]
     }
   ],
   "combine": [

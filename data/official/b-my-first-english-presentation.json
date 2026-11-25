@@ -1,710 +1,650 @@
 {
- "slug": "b-my-first-english-presentation",
- "series": "category",
- "title": "My First Presentation in English",
- "titleZh": "我的第一次英文簡報",
- "subtitle": "在美國科技公司上台腦袋空白後，我學到清楚比完美重要",
- "format": "monologue",
- "accent": "us",
- "meta": {
-  "category": "talks-stories",
-  "scenario": "personal-growth",
-  "level": "intermediate",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Two years ago, I gave my first presentation in English, and it was a disaster.",
-   "zh": "兩年前，我第一次用英文做簡報，結果是一場災難。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "presentation",
-      "inSentence": "my first presentation",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "簡報；報告",
-      "ipa": "/ˌpriːzenˈteɪʃn/",
-      "collocations": [
-       "give a presentation",
-       "make a presentation"
-      ],
-      "examples": [
-       {
-        "en": "I have to give a presentation on Monday.",
-        "zh": "我星期一要做簡報。"
-       }
-      ]
-     },
-     {
-      "term": "disaster",
-      "inSentence": "a disaster",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "災難；徹底失敗",
-      "ipa": "/dɪˈzæstər/",
-      "collocations": [
-       "a complete disaster",
-       "natural disaster"
-      ],
-      "examples": [
-       {
-        "en": "The party was a disaster.",
-        "zh": "那場派對是一場災難。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "it was a disaster",
-      "soundsLike": "i-twə-zə disaster",
-      "note": "was 和 a 都弱讀，連成一串。"
-     }
-    ]
-   }
+  "slug": "b-my-first-english-presentation",
+  "series": "category",
+  "title": "My First Presentation in English",
+  "titleZh": "我的第一次英文簡報",
+  "subtitle": "在美國科技公司上台腦袋空白後，我學到清楚比完美重要",
+  "format": "monologue",
+  "accent": "us",
+  "meta": {
+    "category": "talks-stories",
+    "scenario": "personal-growth",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "I had just started working at a tech company in California.",
-   "zh": "當時我剛開始在加州一家科技公司上班。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "tech company",
-      "inSentence": "a tech company",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "科技公司",
-      "ipa": "/tek ˈkʌmpəni/",
-      "collocations": [
-       "work at a tech company",
-       "a big tech company"
-      ],
-      "examples": [
-       {
-        "en": "My cousin works at a tech company.",
-        "zh": "我表哥在科技公司上班。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "past perfect",
-      "quote": "I had just started working",
-      "explanation": "had just + 過去分詞表示「在過去某時間點之前剛剛發生」。",
-      "examples": [
-       {
-        "en": "She had just left when I arrived.",
-        "zh": "我到的時候她剛走。"
-       }
-      ],
-      "pitfall": "不要說 I have just started，這裡在講過去的故事。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "I knew my project well, but when I stood up in front of twenty people, my mind went blank.",
-   "zh": "我很了解自己的專案，但當我在二十個人面前站起來時，腦袋一片空白。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "my mind went blank",
-      "note": "「腦袋一片空白」，緊張時的經典說法。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "go blank",
-      "inSentence": "my mind went blank",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "腦袋一片空白",
-      "ipa": "/ɡəʊ blæŋk/",
-      "collocations": [
-       "my mind went blank",
-       "go blank"
-      ],
-      "examples": [
-       {
-        "en": "In the exam, my mind went blank.",
-        "zh": "考試時我腦袋一片空白。"
-       }
-      ]
-     },
-     {
-      "term": "in front of",
-      "inSentence": "in front of twenty people",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "在……面前",
-      "ipa": "/ɪn frʌnt əv/",
-      "collocations": [
-       "in front of the class",
-       "in front of everyone"
-      ],
-      "examples": [
-       {
-        "en": "I don't like singing in front of people.",
-        "zh": "我不喜歡在別人面前唱歌。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "stood up in front of",
-      "soundsLike": "stoo-dup-in-fron-tə",
-      "note": "stood up 連讀，front of 的 t 和 of 連在一起。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "I forgot simple words, I spoke too fast, and I kept saying sorry.",
-   "zh": "我忘了簡單的單字，講太快，還一直說抱歉。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "keep",
-      "inSentence": "kept saying sorry",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "一直；不斷（+ V-ing）",
-      "ipa": "/kiːp/",
-      "collocations": [
-       "keep trying",
-       "keep talking"
-      ],
-      "examples": [
-       {
-        "en": "He kept checking his phone.",
-        "zh": "他一直看手機。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "keep + V-ing",
-      "quote": "kept saying sorry",
-      "explanation": "keep 後接動名詞，表示「一直重複做某事」。",
-      "examples": [
-       {
-        "en": "She kept laughing during the movie.",
-        "zh": "她看電影時一直笑。"
-       }
-      ],
-      "pitfall": "不要說 kept to say，keep 後面接 V-ing。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Afterward, I was sure everyone thought I wasn't good enough for the job.",
-   "zh": "之後，我很確定大家都覺得我不夠格做這份工作。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "afterward",
-      "inSentence": "Afterward",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "之後；後來",
-      "ipa": "/ˈæftərwərd/",
-      "collocations": [
-       "soon afterward",
-       "right afterward"
-      ],
-      "examples": [
-       {
-        "en": "We had dinner, and afterward we watched a movie.",
-        "zh": "我們吃了晚餐，之後看了電影。"
-       }
-      ]
-     },
-     {
-      "term": "good enough",
-      "inSentence": "good enough for the job",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "夠好的；夠格的",
-      "ipa": "/ɡʊd ɪˈnʌf/",
-      "collocations": [
-       "good enough for",
-       "not good enough"
-      ],
-      "examples": [
-       {
-        "en": "Is my English good enough for the interview?",
-        "zh": "我的英文夠好去面試嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Then my manager, a quiet woman from Ohio, asked me to have coffee with her.",
-   "zh": "後來我的主管，一位來自俄亥俄州、話不多的女士，約我一起喝咖啡。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "manager",
-      "inSentence": "my manager",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "主管；經理",
-      "ipa": "/ˈmænɪdʒər/",
-      "collocations": [
-       "my manager",
-       "project manager"
-      ],
-      "examples": [
-       {
-        "en": "I asked my manager for a day off.",
-        "zh": "我向主管請了一天假。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "asked me to",
-      "soundsLike": "ask-mee-də",
-      "note": "asked 的 -ed 唸 /t/，to 弱讀成 /də/。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "She told me something I still remember every day.",
-   "zh": "她告訴我一件我到現在每天都還記得的事。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "remember",
-      "inSentence": "still remember",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "記得",
-      "ipa": "/rɪˈmembər/",
-      "collocations": [
-       "still remember",
-       "remember to"
-      ],
-      "examples": [
-       {
-        "en": "I still remember my first day at school.",
-        "zh": "我還記得我上學的第一天。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "She said nobody cared about my accent, they only cared whether my idea was clear.",
-   "zh": "她說沒有人在意我的口音，大家只在意我的想法清不清楚。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "nobody cared about my accent",
-      "note": "故事的轉折點：口音不是重點。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "accent",
-      "inSentence": "my accent",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "口音",
-      "ipa": "/ˈæksent/",
-      "collocations": [
-       "a strong accent",
-       "British accent"
-      ],
-      "examples": [
-       {
-        "en": "He speaks English with a Taiwanese accent.",
-        "zh": "他講英文帶有台灣口音。"
-       }
-      ]
-     },
-     {
-      "term": "care about",
-      "inSentence": "cared about",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "在意；關心",
-      "ipa": "/ker əˈbaʊt/",
-      "collocations": [
-       "care about",
-       "don't care about"
-      ],
-      "examples": [
-       {
-        "en": "I really care about my grades.",
-        "zh": "我很在意我的成績。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "whether for yes/no in indirect speech",
-      "quote": "whether my idea was clear",
-      "explanation": "間接問句中用 whether 表示「是否」，後面用直述句語序。",
-      "examples": [
-       {
-        "en": "I don't know whether he's coming.",
-        "zh": "我不知道他會不會來。"
-       }
-      ],
-      "pitfall": "不要寫成 whether was my idea clear。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "So I changed how I prepared.",
-   "zh": "所以我改變了準備的方式。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "prepare",
-      "inSentence": "prepared",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "準備",
-      "ipa": "/prɪˈper/",
-      "collocations": [
-       "prepare for",
-       "be prepared"
-      ],
-      "examples": [
-       {
-        "en": "I need to prepare for the meeting.",
-        "zh": "我得為會議做準備。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Instead of memorizing a script, I wrote down three key points and practiced explaining them to my roommate.",
-   "zh": "我不再背講稿，而是寫下三個重點，並練習講給我室友聽。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "memorize",
-      "inSentence": "memorizing a script",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "背誦；記住",
-      "ipa": "/ˈmeməraɪz/",
-      "collocations": [
-       "memorize words",
-       "memorize a speech"
-      ],
-      "examples": [
-       {
-        "en": "I memorized ten new words today.",
-        "zh": "我今天背了十個新單字。"
-       }
-      ]
-     },
-     {
-      "term": "key point",
-      "inSentence": "three key points",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "重點",
-      "ipa": "/kiː pɔɪnt/",
-      "collocations": [
-       "key point",
-       "main points"
-      ],
-      "examples": [
-       {
-        "en": "Write down the key points.",
-        "zh": "把重點寫下來。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "instead of + V-ing",
-      "quote": "Instead of memorizing a script",
-      "explanation": "instead of 是介系詞片語，後面接名詞或動名詞，表示「不……而是……」。",
-      "examples": [
-       {
-        "en": "Instead of taking a taxi, we walked.",
-        "zh": "我們沒搭計程車，而是走路。"
-       }
-      ],
-      "pitfall": "instead of 後面不能直接接原形動詞，要用 V-ing。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "Instead of memorizing a script,",
-      "role": "modifier",
-      "zh": "我不再背講稿，"
-     },
-     {
-      "text": "I wrote down three key points",
-      "role": "main",
-      "zh": "而是寫下三個重點，"
-     },
-     {
-      "text": "and practiced explaining them to my roommate.",
-      "role": "main",
-      "zh": "並練習講給室友聽。"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "I also learned to slow down and pause after each important sentence.",
-   "zh": "我也學會放慢速度，在每個重要的句子後停頓一下。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "slow down and pause",
-      "note": "放慢、停頓，是簡報的關鍵技巧。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "pause",
-      "inSentence": "pause",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "停頓；暫停",
-      "ipa": "/pɔːz/",
-      "collocations": [
-       "pause for a moment",
-       "pause the video"
-      ],
-      "examples": [
-       {
-        "en": "Pause the video for a second.",
-        "zh": "把影片暫停一下。"
-       }
-      ]
-     },
-     {
-      "term": "slow down",
-      "inSentence": "slow down",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "放慢",
-      "ipa": "/sloʊ daʊn/",
-      "collocations": [
-       "slow down a bit",
-       "please slow down"
-      ],
-      "examples": [
-       {
-        "en": "Please slow down, I can't follow you.",
-        "zh": "請說慢一點，我跟不上。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "My next presentation wasn't perfect, but people asked real questions, and I could answer them.",
-   "zh": "我下一次的簡報並不完美，但大家問了真正的問題，而我回答得出來。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "perfect",
-      "inSentence": "perfect",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "完美的",
-      "ipa": "/ˈpɜːrfɪkt/",
-      "collocations": [
-       "not perfect",
-       "perfect timing"
-      ],
-      "examples": [
-       {
-        "en": "Nobody is perfect.",
-        "zh": "沒有人是完美的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [
-     {
-      "text": "My next presentation wasn't perfect,",
-      "role": "main",
-      "zh": "我下一次的簡報並不完美，"
-     },
-     {
-      "text": "but people asked real questions,",
-      "role": "main",
-      "zh": "但大家問了真正的問題，"
-     },
-     {
-      "text": "and I could answer them.",
-      "role": "main",
-      "zh": "而我回答得出來。"
-     }
-    ],
-    "connected": [
-     {
-      "text": "wasn't perfect",
-      "soundsLike": "wuz-n-perfect",
-      "note": "wasn't 的 t 在子音前不發音。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "If you're scared of speaking English in public, remember that clear is more important than perfect.",
-   "zh": "如果你害怕在大家面前說英文，記住：清楚比完美更重要。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "clear is more important than perfect",
-      "note": "整個故事的結論。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "in public",
-      "inSentence": "in public",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "公開地；在眾人面前",
-      "ipa": "/ɪn ˈpʌblɪk/",
-      "collocations": [
-       "speak in public",
-       "in public places"
-      ],
-      "examples": [
-       {
-        "en": "She doesn't like to sing in public.",
-        "zh": "她不喜歡在公開場合唱歌。"
-       }
-      ]
-     },
-     {
-      "term": "be scared of",
-      "inSentence": "scared of speaking",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "害怕",
-      "ipa": "/bi skerd əv/",
-      "collocations": [
-       "scared of dogs",
-       "scared of failing"
-      ],
-      "examples": [
-       {
-        "en": "I used to be scared of the dark.",
-        "zh": "我以前怕黑。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "scared of",
-      "soundsLike": "scare-dəv",
-      "note": "scared 的 d 和 of 連讀，of 弱讀。"
-     }
-    ]
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Two years ago, I gave my first presentation in English, and it was a disaster.",
+      "zh": "兩年前，我第一次用英文做簡報，結果是一場災難。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "presentation",
+            "inSentence": "my first presentation",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "簡報；報告",
+            "ipa": "/ˌpriːzenˈteɪʃn/",
+            "collocations": ["give a presentation", "make a presentation"],
+            "examples": [
+              {
+                "en": "I have to give a presentation on Monday.",
+                "zh": "我星期一要做簡報。"
+              }
+            ]
+          },
+          {
+            "term": "disaster",
+            "inSentence": "a disaster",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "災難；徹底失敗",
+            "ipa": "/dɪˈzæstər/",
+            "collocations": ["a complete disaster", "natural disaster"],
+            "examples": [
+              {
+                "en": "The party was a disaster.",
+                "zh": "那場派對是一場災難。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "it was a disaster",
+            "soundsLike": "i-twə-zə disaster",
+            "note": "was 和 a 都弱讀，連成一串。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I had just started working at a tech company in California.",
+      "zh": "當時我剛開始在加州一家科技公司上班。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "tech company",
+            "inSentence": "a tech company",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "科技公司",
+            "ipa": "/tek ˈkʌmpəni/",
+            "collocations": ["work at a tech company", "a big tech company"],
+            "examples": [
+              {
+                "en": "My cousin works at a tech company.",
+                "zh": "我表哥在科技公司上班。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past perfect",
+            "quote": "I had just started working",
+            "explanation": "had just + 過去分詞表示「在過去某時間點之前剛剛發生」。",
+            "examples": [
+              {
+                "en": "She had just left when I arrived.",
+                "zh": "我到的時候她剛走。"
+              }
+            ],
+            "pitfall": "不要說 I have just started，這裡在講過去的故事。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I knew my project well, but when I stood up in front of twenty people, my mind went blank.",
+      "zh": "我很了解自己的專案，但當我在二十個人面前站起來時，腦袋一片空白。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "my mind went blank",
+            "note": "「腦袋一片空白」，緊張時的經典說法。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "go blank",
+            "inSentence": "my mind went blank",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "腦袋一片空白",
+            "ipa": "/ɡəʊ blæŋk/",
+            "collocations": ["my mind went blank", "go blank"],
+            "examples": [
+              {
+                "en": "In the exam, my mind went blank.",
+                "zh": "考試時我腦袋一片空白。"
+              }
+            ]
+          },
+          {
+            "term": "in front of",
+            "inSentence": "in front of twenty people",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "在……面前",
+            "ipa": "/ɪn frʌnt əv/",
+            "collocations": ["in front of the class", "in front of everyone"],
+            "examples": [
+              {
+                "en": "I don't like singing in front of people.",
+                "zh": "我不喜歡在別人面前唱歌。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "stood up in front of",
+            "soundsLike": "stoo-dup-in-fron-tə",
+            "note": "stood up 連讀，front of 的 t 和 of 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I forgot simple words, I spoke too fast, and I kept saying sorry.",
+      "zh": "我忘了簡單的單字，講太快，還一直說抱歉。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "keep",
+            "inSentence": "kept saying sorry",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "一直；不斷（+ V-ing）",
+            "ipa": "/kiːp/",
+            "collocations": ["keep trying", "keep talking"],
+            "examples": [
+              {
+                "en": "He kept checking his phone.",
+                "zh": "他一直看手機。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "keep + V-ing",
+            "quote": "kept saying sorry",
+            "explanation": "keep 後接動名詞，表示「一直重複做某事」。",
+            "examples": [
+              {
+                "en": "She kept laughing during the movie.",
+                "zh": "她看電影時一直笑。"
+              }
+            ],
+            "pitfall": "不要說 kept to say，keep 後面接 V-ing。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Afterward, I was sure everyone thought I wasn't good enough for the job.",
+      "zh": "之後，我很確定大家都覺得我不夠格做這份工作。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "afterward",
+            "inSentence": "Afterward",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "之後；後來",
+            "ipa": "/ˈæftərwərd/",
+            "collocations": ["soon afterward", "right afterward"],
+            "examples": [
+              {
+                "en": "We had dinner, and afterward we watched a movie.",
+                "zh": "我們吃了晚餐，之後看了電影。"
+              }
+            ]
+          },
+          {
+            "term": "good enough",
+            "inSentence": "good enough for the job",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "夠好的；夠格的",
+            "ipa": "/ɡʊd ɪˈnʌf/",
+            "collocations": ["good enough for", "not good enough"],
+            "examples": [
+              {
+                "en": "Is my English good enough for the interview?",
+                "zh": "我的英文夠好去面試嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Then my manager, a quiet woman from Ohio, asked me to have coffee with her.",
+      "zh": "後來我的主管，一位來自俄亥俄州、話不多的女士，約我一起喝咖啡。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "manager",
+            "inSentence": "my manager",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "主管；經理",
+            "ipa": "/ˈmænɪdʒər/",
+            "collocations": ["my manager", "project manager"],
+            "examples": [
+              {
+                "en": "I asked my manager for a day off.",
+                "zh": "我向主管請了一天假。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "asked me to",
+            "soundsLike": "ask-mee-də",
+            "note": "asked 的 -ed 唸 /t/，to 弱讀成 /də/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "She told me something I still remember every day.",
+      "zh": "她告訴我一件我到現在每天都還記得的事。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "remember",
+            "inSentence": "still remember",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "記得",
+            "ipa": "/rɪˈmembər/",
+            "collocations": ["still remember", "remember to"],
+            "examples": [
+              {
+                "en": "I still remember my first day at school.",
+                "zh": "我還記得我上學的第一天。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "She said nobody cared about my accent, they only cared whether my idea was clear.",
+      "zh": "她說沒有人在意我的口音，大家只在意我的想法清不清楚。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "nobody cared about my accent",
+            "note": "故事的轉折點：口音不是重點。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "accent",
+            "inSentence": "my accent",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "口音",
+            "ipa": "/ˈæksent/",
+            "collocations": ["a strong accent", "British accent"],
+            "examples": [
+              {
+                "en": "He speaks English with a Taiwanese accent.",
+                "zh": "他講英文帶有台灣口音。"
+              }
+            ]
+          },
+          {
+            "term": "care about",
+            "inSentence": "cared about",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "在意；關心",
+            "ipa": "/ker əˈbaʊt/",
+            "collocations": ["care about", "don't care about"],
+            "examples": [
+              {
+                "en": "I really care about my grades.",
+                "zh": "我很在意我的成績。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "whether for yes/no in indirect speech",
+            "quote": "whether my idea was clear",
+            "explanation": "間接問句中用 whether 表示「是否」，後面用直述句語序。",
+            "examples": [
+              {
+                "en": "I don't know whether he's coming.",
+                "zh": "我不知道他會不會來。"
+              }
+            ],
+            "pitfall": "不要寫成 whether was my idea clear。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "So I changed how I prepared.",
+      "zh": "所以我改變了準備的方式。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "prepare",
+            "inSentence": "prepared",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "準備",
+            "ipa": "/prɪˈper/",
+            "collocations": ["prepare for", "be prepared"],
+            "examples": [
+              {
+                "en": "I need to prepare for the meeting.",
+                "zh": "我得為會議做準備。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Instead of memorizing a script, I wrote down three key points and practiced explaining them to my roommate.",
+      "zh": "我不再背講稿，而是寫下三個重點，並練習講給我室友聽。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "memorize",
+            "inSentence": "memorizing a script",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "背誦；記住",
+            "ipa": "/ˈmeməraɪz/",
+            "collocations": ["memorize words", "memorize a speech"],
+            "examples": [
+              {
+                "en": "I memorized ten new words today.",
+                "zh": "我今天背了十個新單字。"
+              }
+            ]
+          },
+          {
+            "term": "key point",
+            "inSentence": "three key points",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "重點",
+            "ipa": "/kiː pɔɪnt/",
+            "collocations": ["key point", "main points"],
+            "examples": [
+              {
+                "en": "Write down the key points.",
+                "zh": "把重點寫下來。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "instead of + V-ing",
+            "quote": "Instead of memorizing a script",
+            "explanation": "instead of 是介系詞片語，後面接名詞或動名詞，表示「不……而是……」。",
+            "examples": [
+              {
+                "en": "Instead of taking a taxi, we walked.",
+                "zh": "我們沒搭計程車，而是走路。"
+              }
+            ],
+            "pitfall": "instead of 後面不能直接接原形動詞，要用 V-ing。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Instead of memorizing a script,",
+            "role": "modifier",
+            "zh": "我不再背講稿，"
+          },
+          {
+            "text": "I wrote down three key points",
+            "role": "main",
+            "zh": "而是寫下三個重點，"
+          },
+          {
+            "text": "and practiced explaining them to my roommate.",
+            "role": "main",
+            "zh": "並練習講給室友聽。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "I also learned to slow down and pause after each important sentence.",
+      "zh": "我也學會放慢速度，在每個重要的句子後停頓一下。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "slow down and pause",
+            "note": "放慢、停頓，是簡報的關鍵技巧。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "pause",
+            "inSentence": "pause",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "停頓；暫停",
+            "ipa": "/pɔːz/",
+            "collocations": ["pause for a moment", "pause the video"],
+            "examples": [
+              {
+                "en": "Pause the video for a second.",
+                "zh": "把影片暫停一下。"
+              }
+            ]
+          },
+          {
+            "term": "slow down",
+            "inSentence": "slow down",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "放慢",
+            "ipa": "/sloʊ daʊn/",
+            "collocations": ["slow down a bit", "please slow down"],
+            "examples": [
+              {
+                "en": "Please slow down, I can't follow you.",
+                "zh": "請說慢一點，我跟不上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My next presentation wasn't perfect, but people asked real questions, and I could answer them.",
+      "zh": "我下一次的簡報並不完美，但大家問了真正的問題，而我回答得出來。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "perfect",
+            "inSentence": "perfect",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "完美的",
+            "ipa": "/ˈpɜːrfɪkt/",
+            "collocations": ["not perfect", "perfect timing"],
+            "examples": [
+              {
+                "en": "Nobody is perfect.",
+                "zh": "沒有人是完美的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "My next presentation wasn't perfect,",
+            "role": "main",
+            "zh": "我下一次的簡報並不完美，"
+          },
+          {
+            "text": "but people asked real questions,",
+            "role": "main",
+            "zh": "但大家問了真正的問題，"
+          },
+          {
+            "text": "and I could answer them.",
+            "role": "main",
+            "zh": "而我回答得出來。"
+          }
+        ],
+        "connected": [
+          {
+            "text": "wasn't perfect",
+            "soundsLike": "wuz-n-perfect",
+            "note": "wasn't 的 t 在子音前不發音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "If you're scared of speaking English in public, remember that clear is more important than perfect.",
+      "zh": "如果你害怕在大家面前說英文，記住：清楚比完美更重要。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "clear is more important than perfect",
+            "note": "整個故事的結論。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "in public",
+            "inSentence": "in public",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "公開地；在眾人面前",
+            "ipa": "/ɪn ˈpʌblɪk/",
+            "collocations": ["speak in public", "in public places"],
+            "examples": [
+              {
+                "en": "She doesn't like to sing in public.",
+                "zh": "她不喜歡在公開場合唱歌。"
+              }
+            ]
+          },
+          {
+            "term": "be scared of",
+            "inSentence": "scared of speaking",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "害怕",
+            "ipa": "/bi skerd əv/",
+            "collocations": ["scared of dogs", "scared of failing"],
+            "examples": [
+              {
+                "en": "I used to be scared of the dark.",
+                "zh": "我以前怕黑。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "scared of",
+            "soundsLike": "scare-dəv",
+            "note": "scared 的 d 和 of 連讀，of 弱讀。"
+          }
+        ]
+      }
+    }
+  ]
 }

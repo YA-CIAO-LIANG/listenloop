@@ -39,45 +39,31 @@
       "pattern": "Both choices have merit, but in my opinion, …",
       "zh": "先承認兩邊都有道理，再表明自己的立場",
       "example": "Both choices have merit, but in my opinion, promoting current employees is usually the better approach for two main reasons.",
-      "keys": [
-        "both",
-        "but in my opinion"
-      ]
+      "keys": ["both", "but in my opinion"]
     },
     {
       "pattern": "…, by contrast, might …",
       "zh": "用 by contrast 帶出對比的另一方",
       "example": "An outside hire, by contrast, might need several months just to learn the company's systems, and mistakes made during that period can be costly.",
-      "keys": [
-        "by contrast",
-        "might"
-      ]
+      "keys": ["by contrast", "might"]
     },
     {
       "pattern": "When …, they are more likely to …",
       "zh": "說明某個條件帶來的可能結果",
       "example": "When employees see that hard work can lead to a better position, they are more likely to stay with the company and give their best effort.",
-      "keys": [
-        "when",
-        "more likely to"
-      ]
+      "keys": ["when", "more likely to"]
     },
     {
       "pattern": "Admittedly, … However, …",
       "zh": "讓步再反駁：承認對方的優點，再說明為什麼不足以改變結論",
       "example": "Admittedly, outside candidates can bring fresh ideas and skills that a company lacks.",
-      "keys": [
-        "admittedly"
-      ]
+      "keys": ["admittedly"]
     },
     {
       "pattern": "… only when …",
       "zh": "結論加上條件：只有在……時才……",
       "example": "Therefore, I believe companies should look inside first and hire from outside only when no suitable internal candidate exists.",
-      "keys": [
-        "therefore",
-        "only when"
-      ]
+      "keys": ["therefore", "only when"]
     }
   ],
   "combine": [

@@ -778,6 +778,17 @@ export const CATEGORIES = [
         "monologue",
         "an article by a U.S. federal agency such as NASA or the National Park Service (public domain)",
       ),
+      s("myth", "monologue", "a Greek or Norse myth retold for learners"),
+      s(
+        "classic-poem",
+        "monologue",
+        "a short public-domain poem (published before 1929) and what it means",
+      ),
+      s(
+        "historic-letter",
+        "monologue",
+        "a famous public-domain letter, read and explained for learners",
+      ),
     ],
   },
   {
@@ -802,6 +813,26 @@ export const CATEGORIES = [
         "senior-passage",
         "monologue",
         "a short passage on a senior high school topic (Taiwan's curriculum themes)",
+      ),
+      s(
+        "junior-story",
+        "monologue",
+        "a short story for junior high school students",
+      ),
+      s(
+        "junior-notice",
+        "monologue",
+        "a school announcement or notice for junior high school students",
+      ),
+      s(
+        "senior-story",
+        "monologue",
+        "a short story for senior high school students",
+      ),
+      s(
+        "senior-speech",
+        "monologue",
+        "a short student speech, for example at an assembly or a club",
       ),
     ],
   },

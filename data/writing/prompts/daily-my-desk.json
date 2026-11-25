@@ -36,36 +36,25 @@
       "pattern": "It is not very …, but it is …",
       "zh": "雖然不太……，卻是……",
       "example": "It is not very big, but it is my favorite place in the house.",
-      "keys": [
-        "not very",
-        "but"
-      ]
+      "keys": ["not very", "but"]
     },
     {
       "pattern": "On the left, there is …",
       "zh": "用方位＋there is 描述位置",
       "example": "On the left, there is a lamp and a small plant.",
-      "keys": [
-        "on the left",
-        "there is"
-      ]
+      "keys": ["on the left", "there is"]
     },
     {
       "pattern": "…, and next to it there are …",
       "zh": "在……旁邊有……",
       "example": "In the middle, there is my laptop, and next to it there are three notebooks.",
-      "keys": [
-        "next to",
-        "there are"
-      ]
+      "keys": ["next to", "there are"]
     },
     {
       "pattern": "… shows that I am …",
       "zh": "說明某物透露出自己的個性",
       "example": "I think my desk shows that I am a calm and organized person.",
-      "keys": [
-        "shows that"
-      ]
+      "keys": ["shows that"]
     }
   ],
   "combine": [
@@ -77,10 +66,7 @@
       "answer": "My desk is not very big, but it is my favorite place in the house."
     },
     {
-      "parts": [
-        "It is usually tidy.",
-        "I cannot focus when it is messy."
-      ],
+      "parts": ["It is usually tidy.", "I cannot focus when it is messy."],
       "answer": "It is usually tidy, because I cannot focus when it is messy."
     }
   ],

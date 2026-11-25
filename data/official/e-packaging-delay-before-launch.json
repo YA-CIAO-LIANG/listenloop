@@ -1,816 +1,750 @@
 {
- "slug": "e-packaging-delay-before-launch",
- "series": "exam",
- "title": "A Packaging Delay Before Launch",
- "titleZh": "上市前包裝延誤",
- "subtitle": "多益風格同事對話：包裝供應商延遲交貨，兩人討論如何調整出貨與上市活動",
- "format": "dialogue",
- "accent": "in",
- "meta": {
-  "category": "exam",
-  "scenario": "toeic-conversation",
-  "level": "advanced",
-  "exam": "toeic",
-  "examTarget": "toeic-900"
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Have you seen the update from the packaging supplier? They're saying the boxes won't arrive until the twentieth.",
-   "zh": "你看到包裝供應商的最新消息了嗎？他們說箱子要到 20 號才會到。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "won't arrive until the twentieth",
-      "note": "問題點：包裝要到 20 號才到貨。not ... until 是多益常考句型。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "supplier",
-      "inSentence": "supplier",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "供應商",
-      "ipa": "/səˈplaɪə/",
-      "collocations": [
-       "packaging supplier",
-       "main supplier"
-      ],
-      "examples": [
-       {
-        "en": "We changed suppliers last year.",
-        "zh": "我們去年換了供應商。"
-       }
-      ]
-     },
-     {
-      "term": "update",
-      "inSentence": "update",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "最新消息；更新",
-      "ipa": "/ˈʌpdeɪt/",
-      "collocations": [
-       "an update on",
-       "send an update"
-      ],
-      "examples": [
-       {
-        "en": "Can you give me an update on the project?",
-        "zh": "你可以跟我說一下專案的最新進度嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "not ... until",
-      "quote": "won't arrive until the twentieth",
-      "explanation": "not ... until 表示「直到…才…」，強調要等到那個時間點才會發生。",
-      "examples": [
-       {
-        "en": "The shop doesn't open until ten.",
-        "zh": "那家店十點才開。"
-       }
-      ],
-      "pitfall": "不要理解成「到 20 號之前會到」，意思剛好相反。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "e-packaging-delay-before-launch",
+  "series": "exam",
+  "title": "A Packaging Delay Before Launch",
+  "titleZh": "上市前包裝延誤",
+  "subtitle": "多益風格同事對話：包裝供應商延遲交貨，兩人討論如何調整出貨與上市活動",
+  "format": "dialogue",
+  "accent": "in",
+  "meta": {
+    "category": "exam",
+    "scenario": "toeic-conversation",
+    "level": "advanced",
+    "exam": "toeic",
+    "examTarget": "toeic-900"
   },
-  {
-   "en": "I have, and frankly, it couldn't have come at a worse time, given that the launch event is on the eighteenth.",
-   "zh": "看到了，老實說，時機實在糟到不能再糟，因為上市活動是在 18 號。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [
-     {
-      "text": "given that the launch event is on the eighteenth",
-      "note": "衝突來源：活動在 18 號，包裝 20 號才到。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "frankly",
-      "inSentence": "frankly",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "坦白說",
-      "ipa": "/ˈfræŋkli/",
-      "collocations": [
-       "frankly speaking",
-       "to put it frankly"
-      ],
-      "examples": [
-       {
-        "en": "Frankly, I don't like the design.",
-        "zh": "坦白說，我不喜歡這個設計。"
-       }
-      ]
-     },
-     {
-      "term": "given that",
-      "inSentence": "given that",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "考慮到；鑒於",
-      "ipa": "/ˈɡɪvən ðæt/",
-      "collocations": [
-       "given that it's late"
-      ],
-      "examples": [
-       {
-        "en": "Given that it's raining, let's stay in.",
-        "zh": "考慮到在下雨，我們待在室內吧。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "couldn't have + comparative",
-      "quote": "it couldn't have come at a worse time",
-      "explanation": "couldn't have + 過去分詞 + 比較級，意思是「不可能更…了」，也就是「最糟的時機」。",
-      "examples": [
-       {
-        "en": "The weather couldn't have been better.",
-        "zh": "天氣好得不能再好了。"
-       }
-      ],
-      "pitfall": "這是最高級的意思，不是「不能來」。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "I have, and frankly,",
-      "role": "connector",
-      "zh": "看到了，老實說，"
-     },
-     {
-      "text": "it couldn't have come at a worse time,",
-      "role": "main",
-      "zh": "時機糟到不能再糟，"
-     },
-     {
-      "text": "given that the launch event is on the eighteenth.",
-      "role": "subordinate",
-      "zh": "因為上市活動在 18 號。"
-     }
-    ],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "Is there any chance we could ship the first batch in plain boxes and swap them later?",
-   "zh": "我們有沒有可能先用素面箱子出第一批貨，之後再換掉？",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "batch",
-      "inSentence": "batch",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "一批",
-      "ipa": "/bætʃ/",
-      "collocations": [
-       "first batch",
-       "a batch of"
-      ],
-      "examples": [
-       {
-        "en": "The first batch sold out quickly.",
-        "zh": "第一批貨很快就賣完了。"
-       }
-      ]
-     },
-     {
-      "term": "swap",
-      "inSentence": "swap",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "替換；交換",
-      "ipa": "/swɒp/",
-      "collocations": [
-       "swap A for B",
-       "swap seats"
-      ],
-      "examples": [
-       {
-        "en": "Can we swap seats?",
-        "zh": "我們可以換位子嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "Is there any",
-      "soundsLike": "izzerenny",
-      "note": "Is there 的 th 弱化，和 any 連成一串。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Technically, yes, but the retailers were promised the branded packaging, and a couple of them have already built displays around it.",
-   "zh": "技術上可以，但我們已經向零售商承諾會用品牌包裝，而且其中幾家已經圍繞它設計好陳列了。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "retailer",
-      "inSentence": "retailers",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "零售商",
-      "ipa": "/ˈriːteɪlə/",
-      "collocations": [
-       "online retailer",
-       "major retailers"
-      ],
-      "examples": [
-       {
-        "en": "The retailer cut its prices.",
-        "zh": "那家零售商降價了。"
-       }
-      ]
-     },
-     {
-      "term": "branded",
-      "inSentence": "branded",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "有品牌標誌的",
-      "ipa": "/ˈbrændɪd/",
-      "collocations": [
-       "branded goods",
-       "branded packaging"
-      ],
-      "examples": [
-       {
-        "en": "They gave out branded pens.",
-        "zh": "他們發送印有品牌的筆。"
-       }
-      ]
-     },
-     {
-      "term": "display",
-      "inSentence": "displays",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "陳列；展示",
-      "ipa": "/dɪˈspleɪ/",
-      "collocations": [
-       "window display",
-       "on display"
-      ],
-      "examples": [
-       {
-        "en": "The shop has a beautiful window display.",
-        "zh": "這家店的櫥窗陳列很漂亮。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "Passive with two objects",
-      "quote": "the retailers were promised the branded packaging",
-      "explanation": "promise 可以接兩個受詞；被動時把「人」當主詞：retailers were promised + 東西。",
-      "examples": [
-       {
-        "en": "I was given a second chance.",
-        "zh": "我獲得了第二次機會。"
-       }
-      ],
-      "pitfall": "不要漏掉 were：the retailers promised the packaging 意思會變成零售商做出承諾。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "Technically, yes,",
-      "role": "connector",
-      "zh": "技術上可以，"
-     },
-     {
-      "text": "but the retailers were promised the branded packaging,",
-      "role": "main",
-      "zh": "但零售商被承諾了品牌包裝，"
-     },
-     {
-      "text": "and a couple of them have already built displays around it.",
-      "role": "main",
-      "zh": "而且其中幾家已經圍繞它做好陳列。"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "Right, so going out in plain cardboard might cost us goodwill we can't really afford to lose.",
-   "zh": "對，所以用素面紙箱出貨可能會讓我們失去商譽，而那是我們實在承擔不起的。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "goodwill",
-      "inSentence": "goodwill",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "商譽；好感",
-      "ipa": "/ˌɡʊdˈwɪl/",
-      "collocations": [
-       "build goodwill",
-       "lose goodwill"
-      ],
-      "examples": [
-       {
-        "en": "The free gifts created a lot of goodwill.",
-        "zh": "免費贈品帶來了很多好感。"
-       }
-      ]
-     },
-     {
-      "term": "can't afford to",
-      "inSentence": "can't really afford to",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "承擔不起；不能冒險",
-      "ipa": "/kɑːnt əˈfɔːd tuː/",
-      "collocations": [
-       "can't afford to wait"
-      ],
-      "examples": [
-       {
-        "en": "We can't afford to make mistakes now.",
-        "zh": "我們現在不能犯錯。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "Gerund as subject",
-      "quote": "going out in plain cardboard",
-      "explanation": "動名詞片語當主詞，表示「用素面紙箱出貨這件事」，動詞用單數。",
-      "examples": [
-       {
-        "en": "Working late every day is tiring.",
-        "zh": "每天加班很累。"
-       }
-      ],
-      "pitfall": "不要寫成 Go out in plain cardboard might...。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Exactly. What I'd suggest instead is that we keep the launch event as planned but push the shipping date back by a week.",
-   "zh": "沒錯。我建議的做法是上市活動照原計畫進行，但出貨日延後一週。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [
-     {
-      "text": "push the shipping date back by a week",
-      "note": "解決方案：活動照常，出貨延後一週。多益常問「男子建議什麼」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "push back",
-      "inSentence": "push the shipping date back",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "延後",
-      "ipa": "/pʊʃ bæk/",
-      "collocations": [
-       "push back a meeting"
-      ],
-      "examples": [
-       {
-        "en": "The meeting was pushed back to Friday.",
-        "zh": "會議延到星期五。"
-       }
-      ]
-     },
-     {
-      "term": "as planned",
-      "inSentence": "as planned",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "按照計畫",
-      "ipa": "/æz plænd/",
-      "collocations": [
-       "go ahead as planned"
-      ],
-      "examples": [
-       {
-        "en": "The trip went ahead as planned.",
-        "zh": "旅行照原計畫進行。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "suggest that + base verb",
-      "quote": "is that we keep the launch event",
-      "explanation": "suggest 後的 that 子句常用原形動詞（假設語氣），所以是 we keep，不是 we will keep。",
-      "examples": [
-       {
-        "en": "I suggest that he take a break.",
-        "zh": "我建議他休息一下。"
-       }
-      ],
-      "pitfall": "主詞是第三人稱時也用原形：he take，不是 he takes。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "Exactly.",
-      "role": "connector",
-      "zh": "沒錯。"
-     },
-     {
-      "text": "What I'd suggest instead",
-      "role": "subordinate",
-      "zh": "我建議的做法"
-     },
-     {
-      "text": "is that we keep the launch event as planned",
-      "role": "main",
-      "zh": "是上市活動照原計畫進行"
-     },
-     {
-      "text": "but push the shipping date back by a week.",
-      "role": "main",
-      "zh": "但出貨日延後一週。"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "That way the press coverage still happens on schedule, and customers can pre-order in the meantime.",
-   "zh": "這樣一來媒體報導還是能如期進行，而顧客在這段期間可以先預購。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "press coverage",
-      "inSentence": "press coverage",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "媒體報導",
-      "ipa": "/pres ˈkʌvərɪdʒ/",
-      "collocations": [
-       "get press coverage"
-      ],
-      "examples": [
-       {
-        "en": "The event got a lot of press coverage.",
-        "zh": "這場活動獲得大量媒體報導。"
-       }
-      ]
-     },
-     {
-      "term": "in the meantime",
-      "inSentence": "in the meantime",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "在這段期間",
-      "ipa": "/ɪn ðə ˈmiːntaɪm/",
-      "collocations": [
-       "in the meantime, ..."
-      ],
-      "examples": [
-       {
-        "en": "Dinner is almost ready. In the meantime, have a drink.",
-        "zh": "晚餐快好了，先喝點東西吧。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "That way",
-      "soundsLike": "tha' way",
-      "note": "That 的 t 不除阻，直接接 way。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "And if we offer free delivery on pre-orders, it might soften the disappointment of the wait.",
-   "zh": "而且如果我們提供預購免運，或許能減輕顧客等待的失望。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "soften",
-      "inSentence": "soften",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "減輕；緩和",
-      "ipa": "/ˈsɒfən/",
-      "collocations": [
-       "soften the blow",
-       "soften the impact"
-      ],
-      "examples": [
-       {
-        "en": "A kind word can soften bad news.",
-        "zh": "一句好話能緩和壞消息的衝擊。"
-       }
-      ]
-     },
-     {
-      "term": "disappointment",
-      "inSentence": "disappointment",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "失望",
-      "ipa": "/ˌdɪsəˈpɔɪntmənt/",
-      "collocations": [
-       "to my disappointment"
-      ],
-      "examples": [
-       {
-        "en": "The result was a big disappointment.",
-        "zh": "結果非常令人失望。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I like that, although finance will want to know what the free delivery would cost us.",
-   "zh": "我喜歡這個點子，不過財務部會想知道免運要花我們多少錢。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "finance will want to know",
-      "note": "新的顧慮：財務部要看成本。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "finance",
-      "inSentence": "finance",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "財務部門",
-      "ipa": "/ˈfaɪnæns/",
-      "collocations": [
-       "finance department",
-       "check with finance"
-      ],
-      "examples": [
-       {
-        "en": "Check the budget with finance.",
-        "zh": "跟財務部確認預算。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "although = but",
-      "quote": "although finance will want to know",
-      "explanation": "although 放在句子後半，語氣接近 but，帶出保留或顧慮。",
-      "examples": [
-       {
-        "en": "It's a good plan, although it's expensive.",
-        "zh": "這計畫不錯，不過很貴。"
-       }
-      ],
-      "pitfall": "although 和 but 不能同時用在同一句裡。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Fair point. I'll put together some rough figures this afternoon, based on last year's order volumes.",
-   "zh": "有道理。我今天下午會根據去年的訂單量，整理一些粗估的數字。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "put together",
-      "inSentence": "put together",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "整理；彙整",
-      "ipa": "/pʊt təˈɡeðə/",
-      "collocations": [
-       "put together a report"
-      ],
-      "examples": [
-       {
-        "en": "She put together a short presentation.",
-        "zh": "她整理了一份簡短的簡報。"
-       }
-      ]
-     },
-     {
-      "term": "rough figures",
-      "inSentence": "rough figures",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "粗估數字",
-      "ipa": "/rʌf ˈfɪɡəz/",
-      "collocations": [
-       "rough estimate"
-      ],
-      "examples": [
-       {
-        "en": "Just give me some rough figures.",
-        "zh": "給我一些大概的數字就好。"
-       }
-      ]
-     },
-     {
-      "term": "volume",
-      "inSentence": "volumes",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "量；數量",
-      "ipa": "/ˈvɒljuːm/",
-      "collocations": [
-       "sales volume",
-       "order volume"
-      ],
-      "examples": [
-       {
-        "en": "Order volumes rose in December.",
-        "zh": "十二月的訂單量增加了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Great. Could you also draft a short note to the retailers explaining the new timeline?",
-   "zh": "太好了。你可以也草擬一封給零售商的簡短說明，解釋新的時程嗎？",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "draft a short note to the retailers",
-      "note": "女子的請求：寫給零售商的通知，考題常問「女子要求男子做什麼」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "draft",
-      "inSentence": "draft",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "草擬",
-      "ipa": "/drɑːft/",
-      "collocations": [
-       "draft an email",
-       "first draft"
-      ],
-      "examples": [
-       {
-        "en": "I'll draft a reply this morning.",
-        "zh": "我今天早上會草擬回覆。"
-       }
-      ]
-     },
-     {
-      "term": "timeline",
-      "inSentence": "timeline",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "時程",
-      "ipa": "/ˈtaɪmlaɪn/",
-      "collocations": [
-       "project timeline",
-       "tight timeline"
-      ],
-      "examples": [
-       {
-        "en": "The timeline is very tight.",
-        "zh": "時程非常緊。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Sure, I'll have both ready before tomorrow's management meeting, so we can get sign-off there.",
-   "zh": "沒問題，我會在明天的主管會議前把兩份都準備好，這樣就能在會上取得核准。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "sign-off",
-      "inSentence": "sign-off",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "（正式）核准",
-      "ipa": "/ˈsaɪn ɒf/",
-      "collocations": [
-       "get sign-off",
-       "final sign-off"
-      ],
-      "examples": [
-       {
-        "en": "We need sign-off from the director.",
-        "zh": "我們需要總監核准。"
-       }
-      ]
-     },
-     {
-      "term": "management",
-      "inSentence": "management",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "管理階層",
-      "ipa": "/ˈmænɪdʒmənt/",
-      "collocations": [
-       "management meeting",
-       "senior management"
-      ],
-      "examples": [
-       {
-        "en": "Management approved the plan.",
-        "zh": "管理階層核准了這項計畫。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "get sign-off",
-      "soundsLike": "ge' sign-off",
-      "note": "get 的 t 不除阻，幾乎聽不到。"
-     }
-    ]
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Have you seen the update from the packaging supplier? They're saying the boxes won't arrive until the twentieth.",
+      "zh": "你看到包裝供應商的最新消息了嗎？他們說箱子要到 20 號才會到。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "won't arrive until the twentieth",
+            "note": "問題點：包裝要到 20 號才到貨。not ... until 是多益常考句型。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "supplier",
+            "inSentence": "supplier",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "供應商",
+            "ipa": "/səˈplaɪə/",
+            "collocations": ["packaging supplier", "main supplier"],
+            "examples": [
+              {
+                "en": "We changed suppliers last year.",
+                "zh": "我們去年換了供應商。"
+              }
+            ]
+          },
+          {
+            "term": "update",
+            "inSentence": "update",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "最新消息；更新",
+            "ipa": "/ˈʌpdeɪt/",
+            "collocations": ["an update on", "send an update"],
+            "examples": [
+              {
+                "en": "Can you give me an update on the project?",
+                "zh": "你可以跟我說一下專案的最新進度嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "not ... until",
+            "quote": "won't arrive until the twentieth",
+            "explanation": "not ... until 表示「直到…才…」，強調要等到那個時間點才會發生。",
+            "examples": [
+              {
+                "en": "The shop doesn't open until ten.",
+                "zh": "那家店十點才開。"
+              }
+            ],
+            "pitfall": "不要理解成「到 20 號之前會到」，意思剛好相反。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I have, and frankly, it couldn't have come at a worse time, given that the launch event is on the eighteenth.",
+      "zh": "看到了，老實說，時機實在糟到不能再糟，因為上市活動是在 18 號。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "given that the launch event is on the eighteenth",
+            "note": "衝突來源：活動在 18 號，包裝 20 號才到。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "frankly",
+            "inSentence": "frankly",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "坦白說",
+            "ipa": "/ˈfræŋkli/",
+            "collocations": ["frankly speaking", "to put it frankly"],
+            "examples": [
+              {
+                "en": "Frankly, I don't like the design.",
+                "zh": "坦白說，我不喜歡這個設計。"
+              }
+            ]
+          },
+          {
+            "term": "given that",
+            "inSentence": "given that",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "考慮到；鑒於",
+            "ipa": "/ˈɡɪvən ðæt/",
+            "collocations": ["given that it's late"],
+            "examples": [
+              {
+                "en": "Given that it's raining, let's stay in.",
+                "zh": "考慮到在下雨，我們待在室內吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "couldn't have + comparative",
+            "quote": "it couldn't have come at a worse time",
+            "explanation": "couldn't have + 過去分詞 + 比較級，意思是「不可能更…了」，也就是「最糟的時機」。",
+            "examples": [
+              {
+                "en": "The weather couldn't have been better.",
+                "zh": "天氣好得不能再好了。"
+              }
+            ],
+            "pitfall": "這是最高級的意思，不是「不能來」。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I have, and frankly,",
+            "role": "connector",
+            "zh": "看到了，老實說，"
+          },
+          {
+            "text": "it couldn't have come at a worse time,",
+            "role": "main",
+            "zh": "時機糟到不能再糟，"
+          },
+          {
+            "text": "given that the launch event is on the eighteenth.",
+            "role": "subordinate",
+            "zh": "因為上市活動在 18 號。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Is there any chance we could ship the first batch in plain boxes and swap them later?",
+      "zh": "我們有沒有可能先用素面箱子出第一批貨，之後再換掉？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "batch",
+            "inSentence": "batch",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "一批",
+            "ipa": "/bætʃ/",
+            "collocations": ["first batch", "a batch of"],
+            "examples": [
+              {
+                "en": "The first batch sold out quickly.",
+                "zh": "第一批貨很快就賣完了。"
+              }
+            ]
+          },
+          {
+            "term": "swap",
+            "inSentence": "swap",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "替換；交換",
+            "ipa": "/swɒp/",
+            "collocations": ["swap A for B", "swap seats"],
+            "examples": [
+              {
+                "en": "Can we swap seats?",
+                "zh": "我們可以換位子嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "Is there any",
+            "soundsLike": "izzerenny",
+            "note": "Is there 的 th 弱化，和 any 連成一串。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Technically, yes, but the retailers were promised the branded packaging, and a couple of them have already built displays around it.",
+      "zh": "技術上可以，但我們已經向零售商承諾會用品牌包裝，而且其中幾家已經圍繞它設計好陳列了。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "retailer",
+            "inSentence": "retailers",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "零售商",
+            "ipa": "/ˈriːteɪlə/",
+            "collocations": ["online retailer", "major retailers"],
+            "examples": [
+              {
+                "en": "The retailer cut its prices.",
+                "zh": "那家零售商降價了。"
+              }
+            ]
+          },
+          {
+            "term": "branded",
+            "inSentence": "branded",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "有品牌標誌的",
+            "ipa": "/ˈbrændɪd/",
+            "collocations": ["branded goods", "branded packaging"],
+            "examples": [
+              {
+                "en": "They gave out branded pens.",
+                "zh": "他們發送印有品牌的筆。"
+              }
+            ]
+          },
+          {
+            "term": "display",
+            "inSentence": "displays",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "陳列；展示",
+            "ipa": "/dɪˈspleɪ/",
+            "collocations": ["window display", "on display"],
+            "examples": [
+              {
+                "en": "The shop has a beautiful window display.",
+                "zh": "這家店的櫥窗陳列很漂亮。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Passive with two objects",
+            "quote": "the retailers were promised the branded packaging",
+            "explanation": "promise 可以接兩個受詞；被動時把「人」當主詞：retailers were promised + 東西。",
+            "examples": [
+              {
+                "en": "I was given a second chance.",
+                "zh": "我獲得了第二次機會。"
+              }
+            ],
+            "pitfall": "不要漏掉 were：the retailers promised the packaging 意思會變成零售商做出承諾。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Technically, yes,",
+            "role": "connector",
+            "zh": "技術上可以，"
+          },
+          {
+            "text": "but the retailers were promised the branded packaging,",
+            "role": "main",
+            "zh": "但零售商被承諾了品牌包裝，"
+          },
+          {
+            "text": "and a couple of them have already built displays around it.",
+            "role": "main",
+            "zh": "而且其中幾家已經圍繞它做好陳列。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Right, so going out in plain cardboard might cost us goodwill we can't really afford to lose.",
+      "zh": "對，所以用素面紙箱出貨可能會讓我們失去商譽，而那是我們實在承擔不起的。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "goodwill",
+            "inSentence": "goodwill",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "商譽；好感",
+            "ipa": "/ˌɡʊdˈwɪl/",
+            "collocations": ["build goodwill", "lose goodwill"],
+            "examples": [
+              {
+                "en": "The free gifts created a lot of goodwill.",
+                "zh": "免費贈品帶來了很多好感。"
+              }
+            ]
+          },
+          {
+            "term": "can't afford to",
+            "inSentence": "can't really afford to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "承擔不起；不能冒險",
+            "ipa": "/kɑːnt əˈfɔːd tuː/",
+            "collocations": ["can't afford to wait"],
+            "examples": [
+              {
+                "en": "We can't afford to make mistakes now.",
+                "zh": "我們現在不能犯錯。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Gerund as subject",
+            "quote": "going out in plain cardboard",
+            "explanation": "動名詞片語當主詞，表示「用素面紙箱出貨這件事」，動詞用單數。",
+            "examples": [
+              {
+                "en": "Working late every day is tiring.",
+                "zh": "每天加班很累。"
+              }
+            ],
+            "pitfall": "不要寫成 Go out in plain cardboard might...。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Exactly. What I'd suggest instead is that we keep the launch event as planned but push the shipping date back by a week.",
+      "zh": "沒錯。我建議的做法是上市活動照原計畫進行，但出貨日延後一週。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "push the shipping date back by a week",
+            "note": "解決方案：活動照常，出貨延後一週。多益常問「男子建議什麼」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "push back",
+            "inSentence": "push the shipping date back",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "延後",
+            "ipa": "/pʊʃ bæk/",
+            "collocations": ["push back a meeting"],
+            "examples": [
+              {
+                "en": "The meeting was pushed back to Friday.",
+                "zh": "會議延到星期五。"
+              }
+            ]
+          },
+          {
+            "term": "as planned",
+            "inSentence": "as planned",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "按照計畫",
+            "ipa": "/æz plænd/",
+            "collocations": ["go ahead as planned"],
+            "examples": [
+              {
+                "en": "The trip went ahead as planned.",
+                "zh": "旅行照原計畫進行。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "suggest that + base verb",
+            "quote": "is that we keep the launch event",
+            "explanation": "suggest 後的 that 子句常用原形動詞（假設語氣），所以是 we keep，不是 we will keep。",
+            "examples": [
+              {
+                "en": "I suggest that he take a break.",
+                "zh": "我建議他休息一下。"
+              }
+            ],
+            "pitfall": "主詞是第三人稱時也用原形：he take，不是 he takes。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Exactly.",
+            "role": "connector",
+            "zh": "沒錯。"
+          },
+          {
+            "text": "What I'd suggest instead",
+            "role": "subordinate",
+            "zh": "我建議的做法"
+          },
+          {
+            "text": "is that we keep the launch event as planned",
+            "role": "main",
+            "zh": "是上市活動照原計畫進行"
+          },
+          {
+            "text": "but push the shipping date back by a week.",
+            "role": "main",
+            "zh": "但出貨日延後一週。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "That way the press coverage still happens on schedule, and customers can pre-order in the meantime.",
+      "zh": "這樣一來媒體報導還是能如期進行，而顧客在這段期間可以先預購。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "press coverage",
+            "inSentence": "press coverage",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "媒體報導",
+            "ipa": "/pres ˈkʌvərɪdʒ/",
+            "collocations": ["get press coverage"],
+            "examples": [
+              {
+                "en": "The event got a lot of press coverage.",
+                "zh": "這場活動獲得大量媒體報導。"
+              }
+            ]
+          },
+          {
+            "term": "in the meantime",
+            "inSentence": "in the meantime",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "在這段期間",
+            "ipa": "/ɪn ðə ˈmiːntaɪm/",
+            "collocations": ["in the meantime, ..."],
+            "examples": [
+              {
+                "en": "Dinner is almost ready. In the meantime, have a drink.",
+                "zh": "晚餐快好了，先喝點東西吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "That way",
+            "soundsLike": "tha' way",
+            "note": "That 的 t 不除阻，直接接 way。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "And if we offer free delivery on pre-orders, it might soften the disappointment of the wait.",
+      "zh": "而且如果我們提供預購免運，或許能減輕顧客等待的失望。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "soften",
+            "inSentence": "soften",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "減輕；緩和",
+            "ipa": "/ˈsɒfən/",
+            "collocations": ["soften the blow", "soften the impact"],
+            "examples": [
+              {
+                "en": "A kind word can soften bad news.",
+                "zh": "一句好話能緩和壞消息的衝擊。"
+              }
+            ]
+          },
+          {
+            "term": "disappointment",
+            "inSentence": "disappointment",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "失望",
+            "ipa": "/ˌdɪsəˈpɔɪntmənt/",
+            "collocations": ["to my disappointment"],
+            "examples": [
+              {
+                "en": "The result was a big disappointment.",
+                "zh": "結果非常令人失望。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I like that, although finance will want to know what the free delivery would cost us.",
+      "zh": "我喜歡這個點子，不過財務部會想知道免運要花我們多少錢。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "finance will want to know",
+            "note": "新的顧慮：財務部要看成本。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "finance",
+            "inSentence": "finance",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "財務部門",
+            "ipa": "/ˈfaɪnæns/",
+            "collocations": ["finance department", "check with finance"],
+            "examples": [
+              {
+                "en": "Check the budget with finance.",
+                "zh": "跟財務部確認預算。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "although = but",
+            "quote": "although finance will want to know",
+            "explanation": "although 放在句子後半，語氣接近 but，帶出保留或顧慮。",
+            "examples": [
+              {
+                "en": "It's a good plan, although it's expensive.",
+                "zh": "這計畫不錯，不過很貴。"
+              }
+            ],
+            "pitfall": "although 和 but 不能同時用在同一句裡。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Fair point. I'll put together some rough figures this afternoon, based on last year's order volumes.",
+      "zh": "有道理。我今天下午會根據去年的訂單量，整理一些粗估的數字。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "put together",
+            "inSentence": "put together",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "整理；彙整",
+            "ipa": "/pʊt təˈɡeðə/",
+            "collocations": ["put together a report"],
+            "examples": [
+              {
+                "en": "She put together a short presentation.",
+                "zh": "她整理了一份簡短的簡報。"
+              }
+            ]
+          },
+          {
+            "term": "rough figures",
+            "inSentence": "rough figures",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "粗估數字",
+            "ipa": "/rʌf ˈfɪɡəz/",
+            "collocations": ["rough estimate"],
+            "examples": [
+              {
+                "en": "Just give me some rough figures.",
+                "zh": "給我一些大概的數字就好。"
+              }
+            ]
+          },
+          {
+            "term": "volume",
+            "inSentence": "volumes",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "量；數量",
+            "ipa": "/ˈvɒljuːm/",
+            "collocations": ["sales volume", "order volume"],
+            "examples": [
+              {
+                "en": "Order volumes rose in December.",
+                "zh": "十二月的訂單量增加了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Great. Could you also draft a short note to the retailers explaining the new timeline?",
+      "zh": "太好了。你可以也草擬一封給零售商的簡短說明，解釋新的時程嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "draft a short note to the retailers",
+            "note": "女子的請求：寫給零售商的通知，考題常問「女子要求男子做什麼」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "draft",
+            "inSentence": "draft",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "草擬",
+            "ipa": "/drɑːft/",
+            "collocations": ["draft an email", "first draft"],
+            "examples": [
+              {
+                "en": "I'll draft a reply this morning.",
+                "zh": "我今天早上會草擬回覆。"
+              }
+            ]
+          },
+          {
+            "term": "timeline",
+            "inSentence": "timeline",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "時程",
+            "ipa": "/ˈtaɪmlaɪn/",
+            "collocations": ["project timeline", "tight timeline"],
+            "examples": [
+              {
+                "en": "The timeline is very tight.",
+                "zh": "時程非常緊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Sure, I'll have both ready before tomorrow's management meeting, so we can get sign-off there.",
+      "zh": "沒問題，我會在明天的主管會議前把兩份都準備好，這樣就能在會上取得核准。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "sign-off",
+            "inSentence": "sign-off",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（正式）核准",
+            "ipa": "/ˈsaɪn ɒf/",
+            "collocations": ["get sign-off", "final sign-off"],
+            "examples": [
+              {
+                "en": "We need sign-off from the director.",
+                "zh": "我們需要總監核准。"
+              }
+            ]
+          },
+          {
+            "term": "management",
+            "inSentence": "management",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "管理階層",
+            "ipa": "/ˈmænɪdʒmənt/",
+            "collocations": ["management meeting", "senior management"],
+            "examples": [
+              {
+                "en": "Management approved the plan.",
+                "zh": "管理階層核准了這項計畫。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "get sign-off",
+            "soundsLike": "ge' sign-off",
+            "note": "get 的 t 不除阻，幾乎聽不到。"
+          }
+        ]
+      }
+    }
+  ]
 }

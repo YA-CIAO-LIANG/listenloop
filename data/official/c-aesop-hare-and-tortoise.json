@@ -1,692 +1,638 @@
 {
- "slug": "c-aesop-hare-and-tortoise",
- "series": "classics",
- "title": "The Hare and the Tortoise",
- "titleZh": "龜兔賽跑",
- "subtitle": "改寫自伊索寓言：驕傲的野兔與一步一步前進的烏龜",
- "format": "monologue",
- "accent": "gb",
- "meta": {
-  "category": "classics",
-  "scenario": "fable",
-  "level": "beginner",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "public-domain",
-  "name": "Three Hundred Aesop's Fables (tr. George Fyler Townsend, 1867)",
+  "slug": "c-aesop-hare-and-tortoise",
+  "series": "classics",
   "title": "The Hare and the Tortoise",
-  "url": "https://www.gutenberg.org/ebooks/21",
-  "basis": "Townsend's translation was published in 1867; public domain in the U.S. (pre-1929).",
-  "adapted": true
- },
- "sentences": [
-  {
-   "en": "A hare once laughed at a tortoise for walking so slowly.",
-   "zh": "從前有一隻野兔嘲笑烏龜走得太慢。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "hare",
-      "inSentence": "hare",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "野兔",
-      "ipa": "/heə/",
-      "collocations": [
-       "a wild hare"
-      ],
-      "examples": [
-       {
-        "en": "A hare can run very fast.",
-        "zh": "野兔可以跑得非常快。"
-       }
-      ]
-     },
-     {
-      "term": "laugh at",
-      "inSentence": "laughed at",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "嘲笑",
-      "ipa": "/lɑːf ət/",
-      "collocations": [
-       "laugh at someone",
-       "laugh at a joke"
-      ],
-      "examples": [
-       {
-        "en": "Don't laugh at people's mistakes.",
-        "zh": "不要嘲笑別人的錯誤。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "titleZh": "龜兔賽跑",
+  "subtitle": "改寫自伊索寓言：驕傲的野兔與一步一步前進的烏龜",
+  "format": "monologue",
+  "accent": "gb",
+  "meta": {
+    "category": "classics",
+    "scenario": "fable",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "\"You are the slowest animal in the forest,\" he said with a smile.",
-   "zh": "「你是森林裡最慢的動物，」他笑著說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "the slowest",
-      "note": "最高級 slowest，前面要加 the。"
-     },
-     {
-      "text": "with a smile",
-      "note": "with a smile 表示「帶著微笑」，這裡帶有嘲笑的意味。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "forest",
-      "inSentence": "forest",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "森林",
-      "ipa": "/ˈfɒrɪst/",
-      "collocations": [
-       "in the forest",
-       "rain forest"
-      ],
-      "examples": [
-       {
-        "en": "We got lost in the forest.",
-        "zh": "我們在森林裡迷路了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "public-domain",
+    "name": "Three Hundred Aesop's Fables (tr. George Fyler Townsend, 1867)",
+    "title": "The Hare and the Tortoise",
+    "url": "https://www.gutenberg.org/ebooks/21",
+    "basis": "Townsend's translation was published in 1867; public domain in the U.S. (pre-1929).",
+    "adapted": true
   },
-  {
-   "en": "The tortoise smiled back and said, \"Let's have a race, and we'll see who wins.\"",
-   "zh": "烏龜也笑了笑，說：「我們來比賽，看看誰會贏。」",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "tortoise",
-      "inSentence": "tortoise",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "陸龜；烏龜",
-      "ipa": "/ˈtɔːtəs/",
-      "collocations": [
-       "a slow tortoise"
-      ],
-      "examples": [
-       {
-        "en": "The tortoise hid inside its shell.",
-        "zh": "烏龜縮進殼裡。"
-       }
-      ]
-     },
-     {
-      "term": "have a race",
-      "inSentence": "have a race",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "比賽跑步",
-      "ipa": "/hæv ə reɪs/",
-      "collocations": [
-       "win a race",
-       "lose a race"
-      ],
-      "examples": [
-       {
-        "en": "Let's have a race to the tree.",
-        "zh": "我們比賽看誰先跑到那棵樹。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "The hare thought this was a very funny idea, but he agreed.",
-   "zh": "野兔覺得這個主意很好笑，但他還是答應了。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "agree",
-      "inSentence": "agreed",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "同意；答應",
-      "ipa": "/əˈɡriː/",
-      "collocations": [
-       "agree with",
-       "agree to"
-      ],
-      "examples": [
-       {
-        "en": "My parents agreed to let me go.",
-        "zh": "我爸媽答應讓我去。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "The next morning, all the animals came to watch the race.",
-   "zh": "第二天早上，所有動物都來看比賽。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "The next morning",
-      "note": "the next morning 是「隔天早上」，不需要加介系詞 on。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "come to watch",
-      "inSentence": "came to watch",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "來觀看",
-      "ipa": "/kʌm tə wɒtʃ/",
-      "collocations": [
-       "come to see"
-      ],
-      "examples": [
-       {
-        "en": "Many fans came to watch the game.",
-        "zh": "很多球迷來看比賽。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "As soon as it began, the hare ran far ahead and quickly disappeared from sight.",
-   "zh": "比賽一開始，野兔就遠遠跑在前面，很快就看不見了。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "disappear from sight",
-      "inSentence": "disappeared from sight",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "從視線中消失",
-      "ipa": "/ˌdɪsəˈpɪə frəm saɪt/",
-      "collocations": [
-       "out of sight"
-      ],
-      "examples": [
-       {
-        "en": "The plane soon disappeared from sight.",
-        "zh": "飛機很快就從視線中消失了。"
-       }
-      ]
-     },
-     {
-      "term": "ahead",
-      "inSentence": "ahead",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "在前面",
-      "ipa": "/əˈhed/",
-      "collocations": [
-       "run ahead",
-       "go ahead"
-      ],
-      "examples": [
-       {
-        "en": "You go ahead; I'll catch up.",
-        "zh": "你先走，我會跟上。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "as soon as",
-      "quote": "As soon as it began",
-      "explanation": "as soon as 引導時間子句，表示「一…就…」。",
-      "examples": [
-       {
-        "en": "Call me as soon as you arrive.",
-        "zh": "你一到就打電話給我。"
-       }
-      ],
-      "pitfall": "子句講未來時用現在式：as soon as you arrive，不是 will arrive。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Halfway to the finish line, he stopped and looked behind him.",
-   "zh": "跑到終點的一半時，他停下來往後看。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "halfway",
-      "inSentence": "Halfway",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "在半路；一半",
-      "ipa": "/ˌhɑːfˈweɪ/",
-      "collocations": [
-       "halfway through",
-       "halfway home"
-      ],
-      "examples": [
-       {
-        "en": "We stopped halfway to have lunch.",
-        "zh": "我們在半路停下來吃午餐。"
-       }
-      ]
-     },
-     {
-      "term": "finish line",
-      "inSentence": "finish line",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "終點線",
-      "ipa": "/ˈfɪnɪʃ laɪn/",
-      "collocations": [
-       "cross the finish line"
-      ],
-      "examples": [
-       {
-        "en": "She crossed the finish line first.",
-        "zh": "她第一個衝過終點線。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "The tortoise was nowhere to be seen, so he lay down under a tree for a short nap.",
-   "zh": "烏龜連影子都看不到，所以他躺在樹下小睡一下。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "nowhere to be seen",
-      "inSentence": "nowhere to be seen",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "到處都看不到",
-      "ipa": "/ˈnəʊweə tə bi siːn/",
-      "collocations": [
-       "nowhere to be found"
-      ],
-      "examples": [
-       {
-        "en": "When I got there, my friend was nowhere to be seen.",
-        "zh": "我到的時候，朋友連個影子都沒有。"
-       }
-      ]
-     },
-     {
-      "term": "nap",
-      "inSentence": "nap",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "小睡；午睡",
-      "ipa": "/næp/",
-      "collocations": [
-       "take a nap",
-       "a short nap"
-      ],
-      "examples": [
-       {
-        "en": "I usually take a nap after lunch.",
-        "zh": "我午餐後通常會小睡一下。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "lie / lay",
-      "quote": "he lay down",
-      "explanation": "lie（躺）的過去式是 lay；lay（放置）的過去式是 laid。這裡是「躺下」。",
-      "examples": [
-       {
-        "en": "I lay in bed and read a book.",
-        "zh": "我躺在床上看書。"
-       }
-      ],
-      "pitfall": "不要寫成 he laid down，laid 是「放置東西」的過去式。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Meanwhile, the tortoise kept walking, one small step at a time.",
-   "zh": "在此同時，烏龜繼續走著，一次一小步。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "meanwhile",
-      "inSentence": "Meanwhile",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "在此同時",
-      "ipa": "/ˈmiːnwaɪl/",
-      "collocations": [
-       "in the meanwhile"
-      ],
-      "examples": [
-       {
-        "en": "Meanwhile, Dad was cooking dinner.",
-        "zh": "在此同時，爸爸正在煮晚餐。"
-       }
-      ]
-     },
-     {
-      "term": "one step at a time",
-      "inSentence": "one small step at a time",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "一步一步來",
-      "ipa": "/wʌn step ət ə taɪm/",
-      "collocations": [
-       "take it one step at a time"
-      ],
-      "examples": [
-       {
-        "en": "Learn new words one step at a time.",
-        "zh": "學新單字要一步一步來。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "keep + V-ing",
-      "quote": "kept walking",
-      "explanation": "keep 後面接動名詞，表示「持續做某事」。",
-      "examples": [
-       {
-        "en": "Keep trying and you will get better.",
-        "zh": "持續努力，你就會進步。"
-       }
-      ],
-      "pitfall": "不要寫成 kept to walk，keep 後面接 V-ing。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "He never stopped, and he never looked back.",
-   "zh": "他從不停下，也從不回頭。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "look back",
-      "inSentence": "looked back",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "回頭看",
-      "ipa": "/lʊk bæk/",
-      "collocations": [
-       "never look back",
-       "look back on"
-      ],
-      "examples": [
-       {
-        "en": "She walked away and never looked back.",
-        "zh": "她走了，再也沒回頭。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "When the hare finally woke up, the sun was already going down.",
-   "zh": "野兔終於醒來時，太陽已經快下山了。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "wake up",
-      "inSentence": "woke up",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "醒來",
-      "ipa": "/weɪk ʌp/",
-      "collocations": [
-       "wake up early"
-      ],
-      "examples": [
-       {
-        "en": "I woke up at six this morning.",
-        "zh": "我今天早上六點醒來。"
-       }
-      ]
-     },
-     {
-      "term": "go down",
-      "inSentence": "going down",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "（太陽）落下",
-      "ipa": "/ɡəʊ daʊn/",
-      "collocations": [
-       "the sun goes down"
-      ],
-      "examples": [
-       {
-        "en": "We went home when the sun went down.",
-        "zh": "太陽下山時我們就回家了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "woke up",
-      "soundsLike": "woe-kup",
-      "note": "woke 的 k 和 up 連在一起。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "He jumped to his feet and ran as fast as he could.",
-   "zh": "他一躍而起，用最快的速度奔跑。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "jump to one's feet",
-      "inSentence": "jumped to his feet",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "一躍而起",
-      "ipa": "/dʒʌmp tə wʌnz fiːt/",
-      "collocations": [
-       "get to your feet"
-      ],
-      "examples": [
-       {
-        "en": "When she heard the news, she jumped to her feet.",
-        "zh": "她一聽到消息就跳了起來。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "But when he reached the finish line, the tortoise was already there, waiting for him.",
-   "zh": "但當他抵達終點時，烏龜早已在那裡等著他了。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "reach",
-      "inSentence": "reached",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "抵達；到達",
-      "ipa": "/riːtʃ/",
-      "collocations": [
-       "reach the top",
-       "reach home"
-      ],
-      "examples": [
-       {
-        "en": "We reached the hotel at midnight.",
-        "zh": "我們半夜抵達飯店。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "participle clause",
-      "quote": "waiting for him",
-      "explanation": "V-ing 分詞片語補充說明同時發生的狀態：烏龜在那裡，而且正在等他。",
-      "examples": [
-       {
-        "en": "She sat by the window, reading a book.",
-        "zh": "她坐在窗邊看書。"
-       }
-      ],
-      "pitfall": "reach 後面直接接地點，不要說 reached to the finish line。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"Slow and steady wins the race,\" said the tortoise kindly.",
-   "zh": "「穩紮穩打，才能贏得比賽，」烏龜和氣地說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "slow and steady wins the race",
-      "inSentence": "Slow and steady wins the race",
-      "kind": "idiom",
-      "pos": "idiom",
-      "zh": "穩紮穩打才會成功",
-      "ipa": "/ˌsləʊ ən ˈstedi wɪnz ðə reɪs/",
-      "collocations": [
-       "slow and steady"
-      ],
-      "examples": [
-       {
-        "en": "Don't rush your studies; slow and steady wins the race.",
-        "zh": "念書別急，穩紮穩打才會成功。"
-       }
-      ]
-     },
-     {
-      "term": "steady",
-      "inSentence": "steady",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "穩定的；平穩的",
-      "ipa": "/ˈstedi/",
-      "collocations": [
-       "steady progress",
-       "a steady job"
-      ],
-      "examples": [
-       {
-        "en": "She made steady progress in English.",
-        "zh": "她的英文穩定進步。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "A hare once laughed at a tortoise for walking so slowly.",
+      "zh": "從前有一隻野兔嘲笑烏龜走得太慢。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "hare",
+            "inSentence": "hare",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "野兔",
+            "ipa": "/heə/",
+            "collocations": ["a wild hare"],
+            "examples": [
+              {
+                "en": "A hare can run very fast.",
+                "zh": "野兔可以跑得非常快。"
+              }
+            ]
+          },
+          {
+            "term": "laugh at",
+            "inSentence": "laughed at",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "嘲笑",
+            "ipa": "/lɑːf ət/",
+            "collocations": ["laugh at someone", "laugh at a joke"],
+            "examples": [
+              {
+                "en": "Don't laugh at people's mistakes.",
+                "zh": "不要嘲笑別人的錯誤。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"You are the slowest animal in the forest,\" he said with a smile.",
+      "zh": "「你是森林裡最慢的動物，」他笑著說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "the slowest",
+            "note": "最高級 slowest，前面要加 the。"
+          },
+          {
+            "text": "with a smile",
+            "note": "with a smile 表示「帶著微笑」，這裡帶有嘲笑的意味。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "forest",
+            "inSentence": "forest",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "森林",
+            "ipa": "/ˈfɒrɪst/",
+            "collocations": ["in the forest", "rain forest"],
+            "examples": [
+              {
+                "en": "We got lost in the forest.",
+                "zh": "我們在森林裡迷路了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The tortoise smiled back and said, \"Let's have a race, and we'll see who wins.\"",
+      "zh": "烏龜也笑了笑，說：「我們來比賽，看看誰會贏。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "tortoise",
+            "inSentence": "tortoise",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "陸龜；烏龜",
+            "ipa": "/ˈtɔːtəs/",
+            "collocations": ["a slow tortoise"],
+            "examples": [
+              {
+                "en": "The tortoise hid inside its shell.",
+                "zh": "烏龜縮進殼裡。"
+              }
+            ]
+          },
+          {
+            "term": "have a race",
+            "inSentence": "have a race",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "比賽跑步",
+            "ipa": "/hæv ə reɪs/",
+            "collocations": ["win a race", "lose a race"],
+            "examples": [
+              {
+                "en": "Let's have a race to the tree.",
+                "zh": "我們比賽看誰先跑到那棵樹。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The hare thought this was a very funny idea, but he agreed.",
+      "zh": "野兔覺得這個主意很好笑，但他還是答應了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "agree",
+            "inSentence": "agreed",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "同意；答應",
+            "ipa": "/əˈɡriː/",
+            "collocations": ["agree with", "agree to"],
+            "examples": [
+              {
+                "en": "My parents agreed to let me go.",
+                "zh": "我爸媽答應讓我去。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The next morning, all the animals came to watch the race.",
+      "zh": "第二天早上，所有動物都來看比賽。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "The next morning",
+            "note": "the next morning 是「隔天早上」，不需要加介系詞 on。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "come to watch",
+            "inSentence": "came to watch",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "來觀看",
+            "ipa": "/kʌm tə wɒtʃ/",
+            "collocations": ["come to see"],
+            "examples": [
+              {
+                "en": "Many fans came to watch the game.",
+                "zh": "很多球迷來看比賽。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "As soon as it began, the hare ran far ahead and quickly disappeared from sight.",
+      "zh": "比賽一開始，野兔就遠遠跑在前面，很快就看不見了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "disappear from sight",
+            "inSentence": "disappeared from sight",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "從視線中消失",
+            "ipa": "/ˌdɪsəˈpɪə frəm saɪt/",
+            "collocations": ["out of sight"],
+            "examples": [
+              {
+                "en": "The plane soon disappeared from sight.",
+                "zh": "飛機很快就從視線中消失了。"
+              }
+            ]
+          },
+          {
+            "term": "ahead",
+            "inSentence": "ahead",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "在前面",
+            "ipa": "/əˈhed/",
+            "collocations": ["run ahead", "go ahead"],
+            "examples": [
+              {
+                "en": "You go ahead; I'll catch up.",
+                "zh": "你先走，我會跟上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "as soon as",
+            "quote": "As soon as it began",
+            "explanation": "as soon as 引導時間子句，表示「一…就…」。",
+            "examples": [
+              {
+                "en": "Call me as soon as you arrive.",
+                "zh": "你一到就打電話給我。"
+              }
+            ],
+            "pitfall": "子句講未來時用現在式：as soon as you arrive，不是 will arrive。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Halfway to the finish line, he stopped and looked behind him.",
+      "zh": "跑到終點的一半時，他停下來往後看。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "halfway",
+            "inSentence": "Halfway",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "在半路；一半",
+            "ipa": "/ˌhɑːfˈweɪ/",
+            "collocations": ["halfway through", "halfway home"],
+            "examples": [
+              {
+                "en": "We stopped halfway to have lunch.",
+                "zh": "我們在半路停下來吃午餐。"
+              }
+            ]
+          },
+          {
+            "term": "finish line",
+            "inSentence": "finish line",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "終點線",
+            "ipa": "/ˈfɪnɪʃ laɪn/",
+            "collocations": ["cross the finish line"],
+            "examples": [
+              {
+                "en": "She crossed the finish line first.",
+                "zh": "她第一個衝過終點線。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The tortoise was nowhere to be seen, so he lay down under a tree for a short nap.",
+      "zh": "烏龜連影子都看不到，所以他躺在樹下小睡一下。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "nowhere to be seen",
+            "inSentence": "nowhere to be seen",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "到處都看不到",
+            "ipa": "/ˈnəʊweə tə bi siːn/",
+            "collocations": ["nowhere to be found"],
+            "examples": [
+              {
+                "en": "When I got there, my friend was nowhere to be seen.",
+                "zh": "我到的時候，朋友連個影子都沒有。"
+              }
+            ]
+          },
+          {
+            "term": "nap",
+            "inSentence": "nap",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "小睡；午睡",
+            "ipa": "/næp/",
+            "collocations": ["take a nap", "a short nap"],
+            "examples": [
+              {
+                "en": "I usually take a nap after lunch.",
+                "zh": "我午餐後通常會小睡一下。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "lie / lay",
+            "quote": "he lay down",
+            "explanation": "lie（躺）的過去式是 lay；lay（放置）的過去式是 laid。這裡是「躺下」。",
+            "examples": [
+              {
+                "en": "I lay in bed and read a book.",
+                "zh": "我躺在床上看書。"
+              }
+            ],
+            "pitfall": "不要寫成 he laid down，laid 是「放置東西」的過去式。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Meanwhile, the tortoise kept walking, one small step at a time.",
+      "zh": "在此同時，烏龜繼續走著，一次一小步。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "meanwhile",
+            "inSentence": "Meanwhile",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "在此同時",
+            "ipa": "/ˈmiːnwaɪl/",
+            "collocations": ["in the meanwhile"],
+            "examples": [
+              {
+                "en": "Meanwhile, Dad was cooking dinner.",
+                "zh": "在此同時，爸爸正在煮晚餐。"
+              }
+            ]
+          },
+          {
+            "term": "one step at a time",
+            "inSentence": "one small step at a time",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "一步一步來",
+            "ipa": "/wʌn step ət ə taɪm/",
+            "collocations": ["take it one step at a time"],
+            "examples": [
+              {
+                "en": "Learn new words one step at a time.",
+                "zh": "學新單字要一步一步來。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "keep + V-ing",
+            "quote": "kept walking",
+            "explanation": "keep 後面接動名詞，表示「持續做某事」。",
+            "examples": [
+              {
+                "en": "Keep trying and you will get better.",
+                "zh": "持續努力，你就會進步。"
+              }
+            ],
+            "pitfall": "不要寫成 kept to walk，keep 後面接 V-ing。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He never stopped, and he never looked back.",
+      "zh": "他從不停下，也從不回頭。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "look back",
+            "inSentence": "looked back",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "回頭看",
+            "ipa": "/lʊk bæk/",
+            "collocations": ["never look back", "look back on"],
+            "examples": [
+              {
+                "en": "She walked away and never looked back.",
+                "zh": "她走了，再也沒回頭。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "When the hare finally woke up, the sun was already going down.",
+      "zh": "野兔終於醒來時，太陽已經快下山了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "wake up",
+            "inSentence": "woke up",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "醒來",
+            "ipa": "/weɪk ʌp/",
+            "collocations": ["wake up early"],
+            "examples": [
+              {
+                "en": "I woke up at six this morning.",
+                "zh": "我今天早上六點醒來。"
+              }
+            ]
+          },
+          {
+            "term": "go down",
+            "inSentence": "going down",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "（太陽）落下",
+            "ipa": "/ɡəʊ daʊn/",
+            "collocations": ["the sun goes down"],
+            "examples": [
+              {
+                "en": "We went home when the sun went down.",
+                "zh": "太陽下山時我們就回家了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "woke up",
+            "soundsLike": "woe-kup",
+            "note": "woke 的 k 和 up 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "He jumped to his feet and ran as fast as he could.",
+      "zh": "他一躍而起，用最快的速度奔跑。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "jump to one's feet",
+            "inSentence": "jumped to his feet",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "一躍而起",
+            "ipa": "/dʒʌmp tə wʌnz fiːt/",
+            "collocations": ["get to your feet"],
+            "examples": [
+              {
+                "en": "When she heard the news, she jumped to her feet.",
+                "zh": "她一聽到消息就跳了起來。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "But when he reached the finish line, the tortoise was already there, waiting for him.",
+      "zh": "但當他抵達終點時，烏龜早已在那裡等著他了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "reach",
+            "inSentence": "reached",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "抵達；到達",
+            "ipa": "/riːtʃ/",
+            "collocations": ["reach the top", "reach home"],
+            "examples": [
+              {
+                "en": "We reached the hotel at midnight.",
+                "zh": "我們半夜抵達飯店。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "participle clause",
+            "quote": "waiting for him",
+            "explanation": "V-ing 分詞片語補充說明同時發生的狀態：烏龜在那裡，而且正在等他。",
+            "examples": [
+              {
+                "en": "She sat by the window, reading a book.",
+                "zh": "她坐在窗邊看書。"
+              }
+            ],
+            "pitfall": "reach 後面直接接地點，不要說 reached to the finish line。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Slow and steady wins the race,\" said the tortoise kindly.",
+      "zh": "「穩紮穩打，才能贏得比賽，」烏龜和氣地說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "slow and steady wins the race",
+            "inSentence": "Slow and steady wins the race",
+            "kind": "idiom",
+            "pos": "idiom",
+            "zh": "穩紮穩打才會成功",
+            "ipa": "/ˌsləʊ ən ˈstedi wɪnz ðə reɪs/",
+            "collocations": ["slow and steady"],
+            "examples": [
+              {
+                "en": "Don't rush your studies; slow and steady wins the race.",
+                "zh": "念書別急，穩紮穩打才會成功。"
+              }
+            ]
+          },
+          {
+            "term": "steady",
+            "inSentence": "steady",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "穩定的；平穩的",
+            "ipa": "/ˈstedi/",
+            "collocations": ["steady progress", "a steady job"],
+            "examples": [
+              {
+                "en": "She made steady progress in English.",
+                "zh": "她的英文穩定進步。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

@@ -36,34 +36,25 @@
       "pattern": "Besides …ing, she …",
       "zh": "除了……之外，還……",
       "example": "Besides selling food, she quietly takes care of many people around her.",
-      "keys": [
-        "besides"
-      ]
+      "keys": ["besides"]
     },
     {
       "pattern": "If one of them …, she …",
       "zh": "條件句：描述她固定的做法",
       "example": "If one of them does not come for breakfast, she calls or visits to make sure they are fine.",
-      "keys": [
-        "if",
-        "make sure"
-      ]
+      "keys": ["if", "make sure"]
     },
     {
       "pattern": "Thanks to her, …",
       "zh": "多虧了她……（說明正面影響）",
       "example": "Thanks to her, our street feels safer and warmer.",
-      "keys": [
-        "thanks to"
-      ]
+      "keys": ["thanks to"]
     },
     {
       "pattern": "She has taught me that …",
       "zh": "她讓我明白……（結尾的體悟）",
       "example": "She has taught me that helping others does not require a big plan, only a caring heart.",
-      "keys": [
-        "has taught me that"
-      ]
+      "keys": ["has taught me that"]
     }
   ],
   "combine": [

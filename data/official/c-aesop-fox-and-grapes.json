@@ -1,755 +1,701 @@
 {
- "slug": "c-aesop-fox-and-grapes",
- "series": "classics",
- "title": "The Fox and the Grapes",
- "titleZh": "狐狸與葡萄",
- "subtitle": "改寫自伊索寓言：吃不到葡萄的狐狸，說葡萄是酸的",
- "format": "monologue",
- "accent": "gb",
- "meta": {
-  "category": "classics",
-  "scenario": "fable",
-  "level": "beginner",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "public-domain",
-  "name": "Three Hundred Aesop's Fables (tr. George Fyler Townsend, 1867)",
+  "slug": "c-aesop-fox-and-grapes",
+  "series": "classics",
   "title": "The Fox and the Grapes",
-  "url": "https://www.gutenberg.org/ebooks/21",
-  "basis": "Townsend's translation was published in 1867; public domain in the U.S. (pre-1929).",
-  "adapted": true
- },
- "sentences": [
-  {
-   "en": "One hot summer day, a hungry fox was walking through a farm.",
-   "zh": "一個炎熱的夏日，一隻飢餓的狐狸正走過一座農場。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "One hot summer day",
-      "note": "故事常見開頭，用來交代時間背景。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "hungry",
-      "inSentence": "hungry",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "飢餓的",
-      "ipa": "/ˈhʌŋɡri/",
-      "collocations": [
-       "feel hungry",
-       "go hungry"
-      ],
-      "examples": [
-       {
-        "en": "I'm always hungry after swimming.",
-        "zh": "我游完泳總是很餓。"
-       }
-      ]
-     },
-     {
-      "term": "walk through",
-      "inSentence": "walking through",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "走過；穿過",
-      "ipa": "/wɔːk θruː/",
-      "collocations": [
-       "walk through the park"
-      ],
-      "examples": [
-       {
-        "en": "We walked through the market together.",
-        "zh": "我們一起走過市場。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "titleZh": "狐狸與葡萄",
+  "subtitle": "改寫自伊索寓言：吃不到葡萄的狐狸，說葡萄是酸的",
+  "format": "monologue",
+  "accent": "gb",
+  "meta": {
+    "category": "classics",
+    "scenario": "fable",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "He had not eaten anything since the morning, and his stomach was making loud noises.",
-   "zh": "他從早上到現在什麼都沒吃，肚子咕嚕咕嚕叫得很大聲。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "stomach",
-      "inSentence": "stomach",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "胃；肚子",
-      "ipa": "/ˈstʌmək/",
-      "collocations": [
-       "empty stomach",
-       "stomach ache"
-      ],
-      "examples": [
-       {
-        "en": "Don't take this medicine on an empty stomach.",
-        "zh": "不要空腹吃這個藥。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "past perfect with since",
-      "quote": "had not eaten anything since the morning",
-      "explanation": "過去完成式 had + p.p. 表示「到過去某個時間點為止」一直沒做某事，搭配 since 說明從什麼時候開始。",
-      "examples": [
-       {
-        "en": "She had not slept since Monday.",
-        "zh": "她從星期一起就沒睡過覺。"
-       }
-      ],
-      "pitfall": "不要寫成 had not eat，had 後面要接過去分詞 eaten。"
-     }
-    ],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "had not eaten anything",
-      "soundsLike": "had nod-eaten-ny-thing",
-      "note": "not 的 t 和後面的母音連在一起，聽起來像輕輕的 d。"
-     }
-    ]
-   }
+  "source": {
+    "kind": "public-domain",
+    "name": "Three Hundred Aesop's Fables (tr. George Fyler Townsend, 1867)",
+    "title": "The Fox and the Grapes",
+    "url": "https://www.gutenberg.org/ebooks/21",
+    "basis": "Townsend's translation was published in 1867; public domain in the U.S. (pre-1929).",
+    "adapted": true
   },
-  {
-   "en": "Suddenly, he saw a bunch of ripe purple grapes hanging over a high wall.",
-   "zh": "突然，他看到一串成熟的紫色葡萄垂掛在一道高牆上方。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "a bunch of",
-      "inSentence": "a bunch of",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "一串；一束",
-      "ipa": "/ə bʌntʃ əv/",
-      "collocations": [
-       "a bunch of grapes",
-       "a bunch of flowers"
-      ],
-      "examples": [
-       {
-        "en": "He gave her a bunch of roses.",
-        "zh": "他送她一束玫瑰。"
-       }
-      ]
-     },
-     {
-      "term": "ripe",
-      "inSentence": "ripe",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "成熟的",
-      "ipa": "/raɪp/",
-      "collocations": [
-       "ripe fruit",
-       "ripe bananas"
-      ],
-      "examples": [
-       {
-        "en": "These mangoes are not ripe yet.",
-        "zh": "這些芒果還沒熟。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"Those grapes look sweet and juicy,\" he said to himself.",
-   "zh": "「那些葡萄看起來又甜又多汁，」他自言自語。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "juicy",
-      "inSentence": "juicy",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "多汁的",
-      "ipa": "/ˈdʒuːsi/",
-      "collocations": [
-       "juicy fruit",
-       "juicy steak"
-      ],
-      "examples": [
-       {
-        "en": "This watermelon is really juicy.",
-        "zh": "這顆西瓜真的很多汁。"
-       }
-      ]
-     },
-     {
-      "term": "say to oneself",
-      "inSentence": "said to himself",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "自言自語；心裡想",
-      "ipa": "/seɪ tə wʌnˈself/",
-      "collocations": [
-       "say to yourself"
-      ],
-      "examples": [
-       {
-        "en": "\"I can do this,\" she said to herself.",
-        "zh": "「我做得到，」她對自己說。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"They are just what I need on a day like this.\"",
-   "zh": "「在這樣的日子裡，這正是我需要的。」",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "on a day like this",
-      "note": "like this 表示「像這樣的」，指炎熱又飢餓的這一天。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "just what I need",
-      "inSentence": "just what I need",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "正是我需要的",
-      "ipa": "/dʒʌst wɒt aɪ niːd/",
-      "collocations": [
-       "just what I wanted"
-      ],
-      "examples": [
-       {
-        "en": "A cup of tea is just what I need.",
-        "zh": "一杯茶正是我需要的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "He stepped back, ran as fast as he could, and jumped high into the air.",
-   "zh": "他往後退，用最快的速度跑，然後高高跳到空中。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "step back",
-      "inSentence": "stepped back",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "往後退一步",
-      "ipa": "/step bæk/",
-      "collocations": [
-       "step back from"
-      ],
-      "examples": [
-       {
-        "en": "Please step back from the door.",
-        "zh": "請離門遠一點。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "as ... as one can",
-      "quote": "as fast as he could",
-      "explanation": "as + 形容詞／副詞 + as + 主詞 + can/could，表示「盡可能地…」。過去式用 could。",
-      "examples": [
-       {
-        "en": "Come back as soon as you can.",
-        "zh": "請盡快回來。"
-       }
-      ],
-      "pitfall": "不要說 as fast as he can 來描述過去的事，時態要一致改成 could。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "But his mouth closed on nothing, and he fell back onto the ground.",
-   "zh": "但他的嘴什麼也沒咬到，又摔回地上。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "closed on nothing",
-      "note": "嘴巴「合上卻什麼也沒咬到」，生動描寫撲空。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "fall back",
-      "inSentence": "fell back",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "跌回；落回",
-      "ipa": "/fɔːl bæk/",
-      "collocations": [
-       "fall back onto",
-       "fall back on"
-      ],
-      "examples": [
-       {
-        "en": "The ball fell back onto the grass.",
-        "zh": "球落回草地上。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "He tried again and again, jumping a little higher each time.",
-   "zh": "他一次又一次地嘗試，每次都跳得高一點。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "a little higher each time",
-      "note": "比較級 higher 加上 each time，表示「每次都更高一點」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "again and again",
-      "inSentence": "again and again",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "一再地；反覆地",
-      "ipa": "/əˈɡen ən əˈɡen/",
-      "collocations": [
-       "try again and again"
-      ],
-      "examples": [
-       {
-        "en": "She read the letter again and again.",
-        "zh": "她把信讀了一遍又一遍。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Still, the grapes were always just out of his reach.",
-   "zh": "但葡萄始終就在他碰不到的地方。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "Still,",
-      "note": "句首的 Still 意思是「儘管如此」，不是「仍然靜止」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "out of reach",
-      "inSentence": "out of his reach",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "搆不到；拿不到",
-      "ipa": "/aʊt əv riːtʃ/",
-      "collocations": [
-       "out of reach",
-       "within reach"
-      ],
-      "examples": [
-       {
-        "en": "Keep medicine out of children's reach.",
-        "zh": "藥品要放在孩子拿不到的地方。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "out of his",
-      "soundsLike": "ow-tə-viz",
-      "note": "out of 連讀，his 的 h 弱化，聽起來像 tə-viz。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "At last, he was too tired to jump any more.",
-   "zh": "最後，他累到再也跳不動了。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "at last",
-      "inSentence": "At last",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "最後；終於",
-      "ipa": "/ət lɑːst/",
-      "collocations": [
-       "at long last"
-      ],
-      "examples": [
-       {
-        "en": "At last, the rain stopped.",
-        "zh": "雨終於停了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "too ... to",
-      "quote": "too tired to jump",
-      "explanation": "too + 形容詞 + to + 原形動詞，表示「太…而不能…」，本身就帶有否定意思。",
-      "examples": [
-       {
-        "en": "The box is too heavy to lift.",
-        "zh": "這個箱子太重了，搬不動。"
-       }
-      ],
-      "pitfall": "不要再加 not：too tired not to jump 意思完全不同。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "He sat down, looked up at the grapes, and shook his head.",
-   "zh": "他坐下來，抬頭看著葡萄，搖了搖頭。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "shake one's head",
-      "inSentence": "shook his head",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "搖頭",
-      "ipa": "/ʃeɪk wʌnz hed/",
-      "collocations": [
-       "shake your head",
-       "nod your head"
-      ],
-      "examples": [
-       {
-        "en": "He shook his head and said no.",
-        "zh": "他搖搖頭說不要。"
-       }
-      ]
-     },
-     {
-      "term": "look up at",
-      "inSentence": "looked up at",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "抬頭看",
-      "ipa": "/lʊk ʌp ət/",
-      "collocations": [
-       "look up at the sky"
-      ],
-      "examples": [
-       {
-        "en": "The children looked up at the stars.",
-        "zh": "孩子們抬頭看星星。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Then he turned away with his nose in the air.",
-   "zh": "接著他擺出一副高傲的樣子，轉身離開。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "with one's nose in the air",
-      "inSentence": "with his nose in the air",
-      "kind": "idiom",
-      "pos": "idiom",
-      "zh": "擺出高傲的樣子",
-      "ipa": "/wɪð wʌnz nəʊz ɪn ði eə/",
-      "collocations": [
-       "walk off with your nose in the air"
-      ],
-      "examples": [
-       {
-        "en": "She walked past us with her nose in the air.",
-        "zh": "她一臉高傲地從我們旁邊走過。"
-       }
-      ]
-     },
-     {
-      "term": "turn away",
-      "inSentence": "turned away",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "轉身離開；把臉轉開",
-      "ipa": "/tɜːn əˈweɪ/",
-      "collocations": [
-       "turn away from"
-      ],
-      "examples": [
-       {
-        "en": "He turned away and said nothing.",
-        "zh": "他把臉轉開，什麼也沒說。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"I don't really want those grapes,\" he said.",
-   "zh": "「我其實不想要那些葡萄，」他說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "don't really",
-      "note": "really 放在否定句中語氣變得委婉，有「其實並不」的意思。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "not really",
-      "inSentence": "don't really want",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "其實不…；不太…",
-      "ipa": "/nɒt ˈrɪəli/",
-      "collocations": [
-       "don't really know",
-       "not really sure"
-      ],
-      "examples": [
-       {
-        "en": "I don't really like spicy food.",
-        "zh": "我其實不太喜歡辣的食物。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"I'm sure they are sour anyway.\"",
-   "zh": "「反正我確定它們是酸的。」",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "sour",
-      "inSentence": "sour",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "酸的",
-      "ipa": "/ˈsaʊə/",
-      "collocations": [
-       "taste sour",
-       "go sour"
-      ],
-      "examples": [
-       {
-        "en": "This milk has gone sour.",
-        "zh": "這牛奶已經酸掉了。"
-       }
-      ]
-     },
-     {
-      "term": "anyway",
-      "inSentence": "anyway",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "反正；無論如何",
-      "ipa": "/ˈeniweɪ/",
-      "collocations": [
-       "anyway, let's go"
-      ],
-      "examples": [
-       {
-        "en": "It was too expensive anyway.",
-        "zh": "反正它也太貴了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "It is easy to say you don't like something when you can't have it.",
-   "zh": "得不到的東西，說自己不喜歡是很容易的。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "can't have",
-      "inSentence": "can't have it",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "得不到",
-      "ipa": "/kɑːnt hæv/",
-      "collocations": [
-       "can't have everything"
-      ],
-      "examples": [
-       {
-        "en": "You can't have everything you want.",
-        "zh": "你不可能得到想要的一切。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "it is + adj. + to V",
-      "quote": "It is easy to say",
-      "explanation": "It 是虛主詞，真正的主詞是後面的 to say...，避免句子頭重腳輕。",
-      "examples": [
-       {
-        "en": "It is hard to wake up early in winter.",
-        "zh": "冬天要早起很難。"
-       }
-      ],
-      "pitfall": "不要寫成 To say ... is easy 太長的句子，口語中多用 It is easy to...。"
-     }
-    ],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "can't have it",
-      "soundsLike": "carn-ha-vit",
-      "note": "英式 can't 讀 /kɑːnt/，have it 連讀成 ha-vit。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "People still call this \"sour grapes\" today.",
-   "zh": "直到今天，人們仍把這種心態叫做「酸葡萄」。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "call this \"sour grapes\"",
-      "note": "call + 受詞 + 名稱，表示「把…稱為…」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "sour grapes",
-      "inSentence": "sour grapes",
-      "kind": "idiom",
-      "pos": "idiom",
-      "zh": "酸葡萄心理",
-      "ipa": "/ˌsaʊə ˈɡreɪps/",
-      "collocations": [
-       "it's just sour grapes"
-      ],
-      "examples": [
-       {
-        "en": "He says he never wanted the job, but that's just sour grapes.",
-        "zh": "他說他從來不想要那份工作，但那只是酸葡萄心理。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "One hot summer day, a hungry fox was walking through a farm.",
+      "zh": "一個炎熱的夏日，一隻飢餓的狐狸正走過一座農場。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "One hot summer day",
+            "note": "故事常見開頭，用來交代時間背景。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "hungry",
+            "inSentence": "hungry",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "飢餓的",
+            "ipa": "/ˈhʌŋɡri/",
+            "collocations": ["feel hungry", "go hungry"],
+            "examples": [
+              {
+                "en": "I'm always hungry after swimming.",
+                "zh": "我游完泳總是很餓。"
+              }
+            ]
+          },
+          {
+            "term": "walk through",
+            "inSentence": "walking through",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "走過；穿過",
+            "ipa": "/wɔːk θruː/",
+            "collocations": ["walk through the park"],
+            "examples": [
+              {
+                "en": "We walked through the market together.",
+                "zh": "我們一起走過市場。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He had not eaten anything since the morning, and his stomach was making loud noises.",
+      "zh": "他從早上到現在什麼都沒吃，肚子咕嚕咕嚕叫得很大聲。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "stomach",
+            "inSentence": "stomach",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "胃；肚子",
+            "ipa": "/ˈstʌmək/",
+            "collocations": ["empty stomach", "stomach ache"],
+            "examples": [
+              {
+                "en": "Don't take this medicine on an empty stomach.",
+                "zh": "不要空腹吃這個藥。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past perfect with since",
+            "quote": "had not eaten anything since the morning",
+            "explanation": "過去完成式 had + p.p. 表示「到過去某個時間點為止」一直沒做某事，搭配 since 說明從什麼時候開始。",
+            "examples": [
+              {
+                "en": "She had not slept since Monday.",
+                "zh": "她從星期一起就沒睡過覺。"
+              }
+            ],
+            "pitfall": "不要寫成 had not eat，had 後面要接過去分詞 eaten。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "had not eaten anything",
+            "soundsLike": "had nod-eaten-ny-thing",
+            "note": "not 的 t 和後面的母音連在一起，聽起來像輕輕的 d。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Suddenly, he saw a bunch of ripe purple grapes hanging over a high wall.",
+      "zh": "突然，他看到一串成熟的紫色葡萄垂掛在一道高牆上方。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "a bunch of",
+            "inSentence": "a bunch of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一串；一束",
+            "ipa": "/ə bʌntʃ əv/",
+            "collocations": ["a bunch of grapes", "a bunch of flowers"],
+            "examples": [
+              {
+                "en": "He gave her a bunch of roses.",
+                "zh": "他送她一束玫瑰。"
+              }
+            ]
+          },
+          {
+            "term": "ripe",
+            "inSentence": "ripe",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "成熟的",
+            "ipa": "/raɪp/",
+            "collocations": ["ripe fruit", "ripe bananas"],
+            "examples": [
+              {
+                "en": "These mangoes are not ripe yet.",
+                "zh": "這些芒果還沒熟。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Those grapes look sweet and juicy,\" he said to himself.",
+      "zh": "「那些葡萄看起來又甜又多汁，」他自言自語。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "juicy",
+            "inSentence": "juicy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "多汁的",
+            "ipa": "/ˈdʒuːsi/",
+            "collocations": ["juicy fruit", "juicy steak"],
+            "examples": [
+              {
+                "en": "This watermelon is really juicy.",
+                "zh": "這顆西瓜真的很多汁。"
+              }
+            ]
+          },
+          {
+            "term": "say to oneself",
+            "inSentence": "said to himself",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "自言自語；心裡想",
+            "ipa": "/seɪ tə wʌnˈself/",
+            "collocations": ["say to yourself"],
+            "examples": [
+              {
+                "en": "\"I can do this,\" she said to herself.",
+                "zh": "「我做得到，」她對自己說。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"They are just what I need on a day like this.\"",
+      "zh": "「在這樣的日子裡，這正是我需要的。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "on a day like this",
+            "note": "like this 表示「像這樣的」，指炎熱又飢餓的這一天。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "just what I need",
+            "inSentence": "just what I need",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "正是我需要的",
+            "ipa": "/dʒʌst wɒt aɪ niːd/",
+            "collocations": ["just what I wanted"],
+            "examples": [
+              {
+                "en": "A cup of tea is just what I need.",
+                "zh": "一杯茶正是我需要的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He stepped back, ran as fast as he could, and jumped high into the air.",
+      "zh": "他往後退，用最快的速度跑，然後高高跳到空中。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "step back",
+            "inSentence": "stepped back",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "往後退一步",
+            "ipa": "/step bæk/",
+            "collocations": ["step back from"],
+            "examples": [
+              {
+                "en": "Please step back from the door.",
+                "zh": "請離門遠一點。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "as ... as one can",
+            "quote": "as fast as he could",
+            "explanation": "as + 形容詞／副詞 + as + 主詞 + can/could，表示「盡可能地…」。過去式用 could。",
+            "examples": [
+              {
+                "en": "Come back as soon as you can.",
+                "zh": "請盡快回來。"
+              }
+            ],
+            "pitfall": "不要說 as fast as he can 來描述過去的事，時態要一致改成 could。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "But his mouth closed on nothing, and he fell back onto the ground.",
+      "zh": "但他的嘴什麼也沒咬到，又摔回地上。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "closed on nothing",
+            "note": "嘴巴「合上卻什麼也沒咬到」，生動描寫撲空。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "fall back",
+            "inSentence": "fell back",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "跌回；落回",
+            "ipa": "/fɔːl bæk/",
+            "collocations": ["fall back onto", "fall back on"],
+            "examples": [
+              {
+                "en": "The ball fell back onto the grass.",
+                "zh": "球落回草地上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He tried again and again, jumping a little higher each time.",
+      "zh": "他一次又一次地嘗試，每次都跳得高一點。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "a little higher each time",
+            "note": "比較級 higher 加上 each time，表示「每次都更高一點」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "again and again",
+            "inSentence": "again and again",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一再地；反覆地",
+            "ipa": "/əˈɡen ən əˈɡen/",
+            "collocations": ["try again and again"],
+            "examples": [
+              {
+                "en": "She read the letter again and again.",
+                "zh": "她把信讀了一遍又一遍。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Still, the grapes were always just out of his reach.",
+      "zh": "但葡萄始終就在他碰不到的地方。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "Still,",
+            "note": "句首的 Still 意思是「儘管如此」，不是「仍然靜止」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "out of reach",
+            "inSentence": "out of his reach",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "搆不到；拿不到",
+            "ipa": "/aʊt əv riːtʃ/",
+            "collocations": ["out of reach", "within reach"],
+            "examples": [
+              {
+                "en": "Keep medicine out of children's reach.",
+                "zh": "藥品要放在孩子拿不到的地方。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "out of his",
+            "soundsLike": "ow-tə-viz",
+            "note": "out of 連讀，his 的 h 弱化，聽起來像 tə-viz。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "At last, he was too tired to jump any more.",
+      "zh": "最後，他累到再也跳不動了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "at last",
+            "inSentence": "At last",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "最後；終於",
+            "ipa": "/ət lɑːst/",
+            "collocations": ["at long last"],
+            "examples": [
+              {
+                "en": "At last, the rain stopped.",
+                "zh": "雨終於停了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "too ... to",
+            "quote": "too tired to jump",
+            "explanation": "too + 形容詞 + to + 原形動詞，表示「太…而不能…」，本身就帶有否定意思。",
+            "examples": [
+              {
+                "en": "The box is too heavy to lift.",
+                "zh": "這個箱子太重了，搬不動。"
+              }
+            ],
+            "pitfall": "不要再加 not：too tired not to jump 意思完全不同。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He sat down, looked up at the grapes, and shook his head.",
+      "zh": "他坐下來，抬頭看著葡萄，搖了搖頭。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "shake one's head",
+            "inSentence": "shook his head",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "搖頭",
+            "ipa": "/ʃeɪk wʌnz hed/",
+            "collocations": ["shake your head", "nod your head"],
+            "examples": [
+              {
+                "en": "He shook his head and said no.",
+                "zh": "他搖搖頭說不要。"
+              }
+            ]
+          },
+          {
+            "term": "look up at",
+            "inSentence": "looked up at",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "抬頭看",
+            "ipa": "/lʊk ʌp ət/",
+            "collocations": ["look up at the sky"],
+            "examples": [
+              {
+                "en": "The children looked up at the stars.",
+                "zh": "孩子們抬頭看星星。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Then he turned away with his nose in the air.",
+      "zh": "接著他擺出一副高傲的樣子，轉身離開。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "with one's nose in the air",
+            "inSentence": "with his nose in the air",
+            "kind": "idiom",
+            "pos": "idiom",
+            "zh": "擺出高傲的樣子",
+            "ipa": "/wɪð wʌnz nəʊz ɪn ði eə/",
+            "collocations": ["walk off with your nose in the air"],
+            "examples": [
+              {
+                "en": "She walked past us with her nose in the air.",
+                "zh": "她一臉高傲地從我們旁邊走過。"
+              }
+            ]
+          },
+          {
+            "term": "turn away",
+            "inSentence": "turned away",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "轉身離開；把臉轉開",
+            "ipa": "/tɜːn əˈweɪ/",
+            "collocations": ["turn away from"],
+            "examples": [
+              {
+                "en": "He turned away and said nothing.",
+                "zh": "他把臉轉開，什麼也沒說。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"I don't really want those grapes,\" he said.",
+      "zh": "「我其實不想要那些葡萄，」他說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "don't really",
+            "note": "really 放在否定句中語氣變得委婉，有「其實並不」的意思。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "not really",
+            "inSentence": "don't really want",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "其實不…；不太…",
+            "ipa": "/nɒt ˈrɪəli/",
+            "collocations": ["don't really know", "not really sure"],
+            "examples": [
+              {
+                "en": "I don't really like spicy food.",
+                "zh": "我其實不太喜歡辣的食物。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"I'm sure they are sour anyway.\"",
+      "zh": "「反正我確定它們是酸的。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "sour",
+            "inSentence": "sour",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "酸的",
+            "ipa": "/ˈsaʊə/",
+            "collocations": ["taste sour", "go sour"],
+            "examples": [
+              {
+                "en": "This milk has gone sour.",
+                "zh": "這牛奶已經酸掉了。"
+              }
+            ]
+          },
+          {
+            "term": "anyway",
+            "inSentence": "anyway",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "反正；無論如何",
+            "ipa": "/ˈeniweɪ/",
+            "collocations": ["anyway, let's go"],
+            "examples": [
+              {
+                "en": "It was too expensive anyway.",
+                "zh": "反正它也太貴了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It is easy to say you don't like something when you can't have it.",
+      "zh": "得不到的東西，說自己不喜歡是很容易的。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "can't have",
+            "inSentence": "can't have it",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "得不到",
+            "ipa": "/kɑːnt hæv/",
+            "collocations": ["can't have everything"],
+            "examples": [
+              {
+                "en": "You can't have everything you want.",
+                "zh": "你不可能得到想要的一切。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "it is + adj. + to V",
+            "quote": "It is easy to say",
+            "explanation": "It 是虛主詞，真正的主詞是後面的 to say...，避免句子頭重腳輕。",
+            "examples": [
+              {
+                "en": "It is hard to wake up early in winter.",
+                "zh": "冬天要早起很難。"
+              }
+            ],
+            "pitfall": "不要寫成 To say ... is easy 太長的句子，口語中多用 It is easy to...。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "can't have it",
+            "soundsLike": "carn-ha-vit",
+            "note": "英式 can't 讀 /kɑːnt/，have it 連讀成 ha-vit。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "People still call this \"sour grapes\" today.",
+      "zh": "直到今天，人們仍把這種心態叫做「酸葡萄」。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "call this \"sour grapes\"",
+            "note": "call + 受詞 + 名稱，表示「把…稱為…」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "sour grapes",
+            "inSentence": "sour grapes",
+            "kind": "idiom",
+            "pos": "idiom",
+            "zh": "酸葡萄心理",
+            "ipa": "/ˌsaʊə ˈɡreɪps/",
+            "collocations": ["it's just sour grapes"],
+            "examples": [
+              {
+                "en": "He says he never wanted the job, but that's just sour grapes.",
+                "zh": "他說他從來不想要那份工作，但那只是酸葡萄心理。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

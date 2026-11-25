@@ -53,7 +53,10 @@
   ],
   "combine": [
     {
-      "parts": ["My older brother swims very well.", "He promised to teach me."],
+      "parts": [
+        "My older brother swims very well.",
+        "He promised to teach me."
+      ],
       "answer": "My older brother swims very well, and he promised to teach me."
     },
     {
@@ -67,10 +70,7 @@
   "paraphrase": [
     {
       "sentence": "I want to improve my reading.",
-      "answers": [
-        "I want to read better.",
-        "I hope to become a better reader."
-      ]
+      "answers": ["I want to read better.", "I hope to become a better reader."]
     },
     {
       "sentence": "This summer will be busy but fun.",

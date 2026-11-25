@@ -36,49 +36,34 @@
       "pattern": "It is run by …",
       "zh": "被動語態：由……經營",
       "example": "It is run by an old couple, and it opens at four o'clock every afternoon.",
-      "keys": [
-        "is run by"
-      ]
+      "keys": ["is run by"]
     },
     {
       "pattern": "…, which is great for …",
       "zh": "用 which 補充說明前面整句話",
       "example": "It costs less than one hundred dollars, which is great for a student like me.",
-      "keys": [
-        "which is"
-      ]
+      "keys": ["which is"]
     },
     {
       "pattern": "not only because … but also because …",
       "zh": "不只因為……，也因為……（列出兩個理由）",
       "example": "I like this stall not only because the food is good but also because the owners are friendly.",
-      "keys": [
-        "not only because",
-        "but also because"
-      ]
+      "keys": ["not only because", "but also because"]
     },
     {
       "pattern": "… feels like …",
       "zh": "感覺像……（打比方）",
       "example": "Eating there feels like eating at home.",
-      "keys": [
-        "feels like"
-      ]
+      "keys": ["feels like"]
     }
   ],
   "combine": [
     {
-      "parts": [
-        "The dumplings are juicy.",
-        "The soup is a little spicy."
-      ],
+      "parts": ["The dumplings are juicy.", "The soup is a little spicy."],
       "answer": "The dumplings are juicy, and the soup is a little spicy."
     },
     {
-      "parts": [
-        "There are only three tables.",
-        "People often wait in line."
-      ],
+      "parts": ["There are only three tables.", "People often wait in line."],
       "answer": "There are only three tables, so people often wait in line."
     }
   ],

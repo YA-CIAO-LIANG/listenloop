@@ -36,50 +36,34 @@
       "pattern": "… started badly and only got worse.",
       "zh": "開頭點出主題：一開始就很糟，而且越來越糟",
       "example": "Today started badly and only got worse.",
-      "keys": [
-        "only got worse"
-      ]
+      "keys": ["only got worse"]
     },
     {
       "pattern": "By the time I …, … had already …",
       "zh": "等到……時，某事早已……（過去完成式）",
       "example": "By the time I reached the bus stop, the bus had already left.",
-      "keys": [
-        "by the time",
-        "had already"
-      ]
+      "keys": ["by the time", "had already"]
     },
     {
       "pattern": "I realized that I had …",
       "zh": "發現自己之前做了某事（過去完成式）",
       "example": "I realized that I had left my report on my desk at home, so I had to ask my teacher for one more day.",
-      "keys": [
-        "realized that",
-        "had"
-      ]
+      "keys": ["realized that", "had"]
     },
     {
       "pattern": "Looking back, …",
       "zh": "回頭來看……（帶出反思）",
       "example": "Looking back, none of these problems was serious.",
-      "keys": [
-        "looking back"
-      ]
+      "keys": ["looking back"]
     }
   ],
   "combine": [
     {
-      "parts": [
-        "My alarm did not go off.",
-        "I woke up forty minutes late."
-      ],
+      "parts": ["My alarm did not go off.", "I woke up forty minutes late."],
       "answer": "My alarm did not go off, so I woke up forty minutes late."
     },
     {
-      "parts": [
-        "I reached the bus stop.",
-        "The bus had already left."
-      ],
+      "parts": ["I reached the bus stop.", "The bus had already left."],
       "answer": "By the time I reached the bus stop, the bus had already left."
     }
   ],

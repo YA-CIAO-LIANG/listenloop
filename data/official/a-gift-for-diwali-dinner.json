@@ -1,623 +1,573 @@
 {
- "slug": "a-gift-for-diwali-dinner",
- "series": "category",
- "title": "A Gift for a Diwali Dinner",
- "titleZh": "排燈節晚餐該送什麼？",
- "subtitle": "在印度工作的台灣人，請教同事到別人家作客的送禮禮節",
- "format": "dialogue",
- "accent": "in",
- "meta": {
-  "category": "culture",
-  "scenario": "gift-giving",
-  "level": "intermediate",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Priya, can I ask you something before Saturday?",
-   "zh": "普莉雅，週六之前我可以問你一件事嗎？",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "ask someone something",
-      "inSentence": "ask you something",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "問某人一件事",
-      "ipa": "/ɑːsk ˈsʌmθɪŋ/",
-      "collocations": [
-       "can I ask you something"
-      ],
-      "examples": [
-       {
-        "en": "Can I ask you something personal?",
-        "zh": "我可以問你一件私人的事嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "a-gift-for-diwali-dinner",
+  "series": "category",
+  "title": "A Gift for a Diwali Dinner",
+  "titleZh": "排燈節晚餐該送什麼？",
+  "subtitle": "在印度工作的台灣人，請教同事到別人家作客的送禮禮節",
+  "format": "dialogue",
+  "accent": "in",
+  "meta": {
+    "category": "culture",
+    "scenario": "gift-giving",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "Your parents invited me to their Diwali dinner, and I have no idea what to bring.",
-   "zh": "你爸媽邀請我參加他們的排燈節晚餐，我完全不知道該帶什麼。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "invite",
-      "inSentence": "invited",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "邀請",
-      "ipa": "/ɪnˈvaɪt/",
-      "collocations": [
-       "invite someone to",
-       "be invited"
-      ],
-      "examples": [
-       {
-        "en": "She invited me to her wedding.",
-        "zh": "她邀請我參加她的婚禮。"
-       }
-      ]
-     },
-     {
-      "term": "have no idea",
-      "inSentence": "have no idea",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "完全不知道",
-      "ipa": "/hæv nəʊ aɪˈdɪə/",
-      "collocations": [
-       "have no idea what",
-       "have no idea why"
-      ],
-      "examples": [
-       {
-        "en": "I have no idea where my keys are.",
-        "zh": "我完全不知道我的鑰匙在哪。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "what to + verb",
-      "quote": "what to bring",
-      "explanation": "疑問詞 + to + 原形動詞，可當名詞用，表示「該……什麼」。",
-      "examples": [
-       {
-        "en": "I don't know what to say.",
-        "zh": "我不知道該說什麼。"
-       }
-      ],
-      "pitfall": "不要寫成 what to brings 或 what bring。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "That's sweet of you to ask, but honestly, you don't need anything fancy.",
-   "zh": "你會問真貼心，不過說真的，你不需要帶什麼高級的東西。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "That's sweet of you",
-      "note": "感謝對方的體貼時常用，sweet 在這裡是「貼心」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "fancy",
-      "inSentence": "fancy",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "高級的；花俏的",
-      "ipa": "/ˈfænsi/",
-      "collocations": [
-       "a fancy restaurant",
-       "nothing fancy"
-      ],
-      "examples": [
-       {
-        "en": "We had a simple dinner, nothing fancy.",
-        "zh": "我們吃了一頓簡單的晚餐，沒什麼特別的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "A box of sweets or some dried fruit is the most common gift during the festival.",
-   "zh": "一盒甜點或一些果乾是節慶期間最常見的禮物。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "dried fruit",
-      "inSentence": "dried fruit",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "果乾",
-      "ipa": "/draɪd fruːt/",
-      "collocations": [
-       "a box of dried fruit",
-       "dried fruit and nuts"
-      ],
-      "examples": [
-       {
-        "en": "My grandma always keeps dried fruit at home.",
-        "zh": "我奶奶家裡總是備著果乾。"
-       }
-      ]
-     },
-     {
-      "term": "festival",
-      "inSentence": "festival",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "節慶；節日",
-      "ipa": "/ˈfestɪvl/",
-      "collocations": [
-       "a music festival",
-       "during the festival"
-      ],
-      "examples": [
-       {
-        "en": "The town holds a lantern festival every year.",
-        "zh": "這個小鎮每年都舉辦燈會。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "A box of",
-      "soundsLike": "uh-BOK-suv",
-      "note": "box 和 of 連讀，of 弱讀成 /əv/。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "In Taiwan, we usually bring fruit too, but we avoid giving clocks or umbrellas.",
-   "zh": "在台灣，我們通常也會帶水果，但我們會避免送時鐘或雨傘。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "avoid",
-      "inSentence": "avoid",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "避免",
-      "ipa": "/əˈvɔɪd/",
-      "collocations": [
-       "avoid doing",
-       "avoid mistakes"
-      ],
-      "examples": [
-       {
-        "en": "Try to avoid eating late at night.",
-        "zh": "盡量避免深夜吃東西。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "avoid + V-ing",
-      "quote": "avoid giving clocks",
-      "explanation": "avoid 後面要接動名詞（V-ing），不接 to + 動詞。",
-      "examples": [
-       {
-        "en": "She avoids driving in the rain.",
-        "zh": "她避免在雨天開車。"
-       }
-      ],
-      "pitfall": "不要說 avoid to give。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Really, why is that?",
-   "zh": "真的嗎，為什麼？",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "why is that",
-      "note": "追問原因的自然說法，語氣好奇而不是質疑。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "really",
-      "inSentence": "really",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "真的嗎（表示驚訝）",
-      "ipa": "/ˈrɪəli/",
-      "collocations": [
-       "really?",
-       "really good"
-      ],
-      "examples": [
-       {
-        "en": "Really? I didn't know that.",
-        "zh": "真的嗎？我之前不知道。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "The words sound like ending or separating, so they feel unlucky.",
-   "zh": "這些詞聽起來像「送終」或「分離」，所以感覺不吉利。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "unlucky",
-      "inSentence": "unlucky",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "不吉利的；倒楣的",
-      "ipa": "/ʌnˈlʌki/",
-      "collocations": [
-       "an unlucky number",
-       "feel unlucky"
-      ],
-      "examples": [
-       {
-        "en": "Some people think thirteen is unlucky.",
-        "zh": "有些人覺得 13 不吉利。"
-       }
-      ]
-     },
-     {
-      "term": "separate",
-      "inSentence": "separating",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "分開；分離",
-      "ipa": "/ˈsepəreɪt/",
-      "collocations": [
-       "separate from",
-       "separate the rubbish"
-      ],
-      "examples": [
-       {
-        "en": "Please separate the paper from the plastic.",
-        "zh": "請把紙類和塑膠分開。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "That's interesting, we have a few rules like that as well.",
-   "zh": "真有趣，我們也有一些類似的規矩。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "as well",
-      "inSentence": "as well",
-      "kind": "phrase",
-      "pos": "adv.",
-      "zh": "也",
-      "ipa": "/əz wel/",
-      "collocations": [
-       "me as well",
-       "as well as"
-      ],
-      "examples": [
-       {
-        "en": "I'd like a cup of tea as well.",
-        "zh": "我也想要一杯茶。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "For example, people often give money in amounts that end in one, like five hundred and one.",
-   "zh": "例如，大家送錢時常常讓金額的尾數是 1，像是 501。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "amount",
-      "inSentence": "amounts",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "金額；數量",
-      "ipa": "/əˈmaʊnt/",
-      "collocations": [
-       "a small amount",
-       "the amount of"
-      ],
-      "examples": [
-       {
-        "en": "He paid the full amount.",
-        "zh": "他付了全額。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "that clause after a noun",
-      "quote": "amounts that end in one",
-      "explanation": "that 引導關係子句修飾 amounts，說明是哪一種金額。",
-      "examples": [
-       {
-        "en": "I want a phone that has a good camera.",
-        "zh": "我想要一支相機好的手機。"
-       }
-      ],
-      "pitfall": "描述數字的尾數時用 end in 最自然；end with 多用在活動或故事的結尾。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "For example,",
-      "role": "connector",
-      "zh": "例如"
-     },
-     {
-      "text": "people often give money",
-      "role": "main",
-      "zh": "大家常常送錢"
-     },
-     {
-      "text": "in amounts that end in one,",
-      "role": "modifier",
-      "zh": "金額的尾數是 1"
-     },
-     {
-      "text": "like five hundred and one.",
-      "role": "modifier",
-      "zh": "像是 501"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "Oh, so the extra one means good luck?",
-   "zh": "喔，所以多出來的 1 代表好運嗎？",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "extra",
-      "inSentence": "extra",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "額外的；多出來的",
-      "ipa": "/ˈekstrə/",
-      "collocations": [
-       "an extra bed",
-       "extra time"
-      ],
-      "examples": [
-       {
-        "en": "Can I have an extra towel?",
-        "zh": "可以多給我一條毛巾嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Exactly, it shows the blessing will keep growing.",
-   "zh": "沒錯，這代表祝福會一直增長下去。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "blessing",
-      "inSentence": "blessing",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "祝福",
-      "ipa": "/ˈblesɪŋ/",
-      "collocations": [
-       "a blessing for",
-       "give a blessing"
-      ],
-      "examples": [
-       {
-        "en": "The new baby is a real blessing.",
-        "zh": "這個新生寶寶真是一份祝福。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Also, my mother will probably give you something when you leave, so just accept it with a smile.",
-   "zh": "還有，你離開的時候我媽媽大概會送你東西，所以你就笑著收下吧。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "accept",
-      "inSentence": "accept",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "接受；收下",
-      "ipa": "/əkˈsept/",
-      "collocations": [
-       "accept a gift",
-       "accept an offer"
-      ],
-      "examples": [
-       {
-        "en": "Please accept this small gift.",
-        "zh": "請收下這份小禮物。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "give you",
-      "soundsLike": "GIV-yuh",
-      "note": "give 和 you 連讀，you 弱讀成 /jə/。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Got it, sweets, a big smile, and no clocks.",
-   "zh": "了解，甜點、大大的笑容，還有不能送時鐘。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "got it",
-      "inSentence": "Got it",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "了解；知道了",
-      "ipa": "/ɡɒt ɪt/",
-      "collocations": [
-       "I got it",
-       "got it, thanks"
-      ],
-      "examples": [
-       {
-        "en": "Got it, I'll call you later.",
-        "zh": "知道了，我晚點打給你。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Perfect, and come hungry, because my mum cooks enough for twenty people!",
-   "zh": "完美，記得空著肚子來，因為我媽煮的分量夠 20 個人吃！",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "enough for twenty people",
-      "note": "誇張的說法，表示媽媽準備的食物非常多。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "come hungry",
-      "inSentence": "come hungry",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "空著肚子來",
-      "ipa": "/kʌm ˈhʌŋɡri/",
-      "collocations": [
-       "come hungry",
-       "arrive hungry"
-      ],
-      "examples": [
-       {
-        "en": "It's a buffet, so come hungry.",
-        "zh": "這是吃到飽，所以空著肚子來吧。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Priya, can I ask you something before Saturday?",
+      "zh": "普莉雅，週六之前我可以問你一件事嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "ask someone something",
+            "inSentence": "ask you something",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "問某人一件事",
+            "ipa": "/ɑːsk ˈsʌmθɪŋ/",
+            "collocations": ["can I ask you something"],
+            "examples": [
+              {
+                "en": "Can I ask you something personal?",
+                "zh": "我可以問你一件私人的事嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Your parents invited me to their Diwali dinner, and I have no idea what to bring.",
+      "zh": "你爸媽邀請我參加他們的排燈節晚餐，我完全不知道該帶什麼。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "invite",
+            "inSentence": "invited",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "邀請",
+            "ipa": "/ɪnˈvaɪt/",
+            "collocations": ["invite someone to", "be invited"],
+            "examples": [
+              {
+                "en": "She invited me to her wedding.",
+                "zh": "她邀請我參加她的婚禮。"
+              }
+            ]
+          },
+          {
+            "term": "have no idea",
+            "inSentence": "have no idea",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "完全不知道",
+            "ipa": "/hæv nəʊ aɪˈdɪə/",
+            "collocations": ["have no idea what", "have no idea why"],
+            "examples": [
+              {
+                "en": "I have no idea where my keys are.",
+                "zh": "我完全不知道我的鑰匙在哪。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "what to + verb",
+            "quote": "what to bring",
+            "explanation": "疑問詞 + to + 原形動詞，可當名詞用，表示「該……什麼」。",
+            "examples": [
+              {
+                "en": "I don't know what to say.",
+                "zh": "我不知道該說什麼。"
+              }
+            ],
+            "pitfall": "不要寫成 what to brings 或 what bring。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's sweet of you to ask, but honestly, you don't need anything fancy.",
+      "zh": "你會問真貼心，不過說真的，你不需要帶什麼高級的東西。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "That's sweet of you",
+            "note": "感謝對方的體貼時常用，sweet 在這裡是「貼心」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "fancy",
+            "inSentence": "fancy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "高級的；花俏的",
+            "ipa": "/ˈfænsi/",
+            "collocations": ["a fancy restaurant", "nothing fancy"],
+            "examples": [
+              {
+                "en": "We had a simple dinner, nothing fancy.",
+                "zh": "我們吃了一頓簡單的晚餐，沒什麼特別的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "A box of sweets or some dried fruit is the most common gift during the festival.",
+      "zh": "一盒甜點或一些果乾是節慶期間最常見的禮物。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "dried fruit",
+            "inSentence": "dried fruit",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "果乾",
+            "ipa": "/draɪd fruːt/",
+            "collocations": ["a box of dried fruit", "dried fruit and nuts"],
+            "examples": [
+              {
+                "en": "My grandma always keeps dried fruit at home.",
+                "zh": "我奶奶家裡總是備著果乾。"
+              }
+            ]
+          },
+          {
+            "term": "festival",
+            "inSentence": "festival",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "節慶；節日",
+            "ipa": "/ˈfestɪvl/",
+            "collocations": ["a music festival", "during the festival"],
+            "examples": [
+              {
+                "en": "The town holds a lantern festival every year.",
+                "zh": "這個小鎮每年都舉辦燈會。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "A box of",
+            "soundsLike": "uh-BOK-suv",
+            "note": "box 和 of 連讀，of 弱讀成 /əv/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "In Taiwan, we usually bring fruit too, but we avoid giving clocks or umbrellas.",
+      "zh": "在台灣，我們通常也會帶水果，但我們會避免送時鐘或雨傘。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "avoid",
+            "inSentence": "avoid",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "避免",
+            "ipa": "/əˈvɔɪd/",
+            "collocations": ["avoid doing", "avoid mistakes"],
+            "examples": [
+              {
+                "en": "Try to avoid eating late at night.",
+                "zh": "盡量避免深夜吃東西。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "avoid + V-ing",
+            "quote": "avoid giving clocks",
+            "explanation": "avoid 後面要接動名詞（V-ing），不接 to + 動詞。",
+            "examples": [
+              {
+                "en": "She avoids driving in the rain.",
+                "zh": "她避免在雨天開車。"
+              }
+            ],
+            "pitfall": "不要說 avoid to give。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Really, why is that?",
+      "zh": "真的嗎，為什麼？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "why is that",
+            "note": "追問原因的自然說法，語氣好奇而不是質疑。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "really",
+            "inSentence": "really",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "真的嗎（表示驚訝）",
+            "ipa": "/ˈrɪəli/",
+            "collocations": ["really?", "really good"],
+            "examples": [
+              {
+                "en": "Really? I didn't know that.",
+                "zh": "真的嗎？我之前不知道。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The words sound like ending or separating, so they feel unlucky.",
+      "zh": "這些詞聽起來像「送終」或「分離」，所以感覺不吉利。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "unlucky",
+            "inSentence": "unlucky",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "不吉利的；倒楣的",
+            "ipa": "/ʌnˈlʌki/",
+            "collocations": ["an unlucky number", "feel unlucky"],
+            "examples": [
+              {
+                "en": "Some people think thirteen is unlucky.",
+                "zh": "有些人覺得 13 不吉利。"
+              }
+            ]
+          },
+          {
+            "term": "separate",
+            "inSentence": "separating",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "分開；分離",
+            "ipa": "/ˈsepəreɪt/",
+            "collocations": ["separate from", "separate the rubbish"],
+            "examples": [
+              {
+                "en": "Please separate the paper from the plastic.",
+                "zh": "請把紙類和塑膠分開。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's interesting, we have a few rules like that as well.",
+      "zh": "真有趣，我們也有一些類似的規矩。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "as well",
+            "inSentence": "as well",
+            "kind": "phrase",
+            "pos": "adv.",
+            "zh": "也",
+            "ipa": "/əz wel/",
+            "collocations": ["me as well", "as well as"],
+            "examples": [
+              {
+                "en": "I'd like a cup of tea as well.",
+                "zh": "我也想要一杯茶。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "For example, people often give money in amounts that end in one, like five hundred and one.",
+      "zh": "例如，大家送錢時常常讓金額的尾數是 1，像是 501。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "amount",
+            "inSentence": "amounts",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "金額；數量",
+            "ipa": "/əˈmaʊnt/",
+            "collocations": ["a small amount", "the amount of"],
+            "examples": [
+              {
+                "en": "He paid the full amount.",
+                "zh": "他付了全額。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "that clause after a noun",
+            "quote": "amounts that end in one",
+            "explanation": "that 引導關係子句修飾 amounts，說明是哪一種金額。",
+            "examples": [
+              {
+                "en": "I want a phone that has a good camera.",
+                "zh": "我想要一支相機好的手機。"
+              }
+            ],
+            "pitfall": "描述數字的尾數時用 end in 最自然；end with 多用在活動或故事的結尾。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "For example,",
+            "role": "connector",
+            "zh": "例如"
+          },
+          {
+            "text": "people often give money",
+            "role": "main",
+            "zh": "大家常常送錢"
+          },
+          {
+            "text": "in amounts that end in one,",
+            "role": "modifier",
+            "zh": "金額的尾數是 1"
+          },
+          {
+            "text": "like five hundred and one.",
+            "role": "modifier",
+            "zh": "像是 501"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Oh, so the extra one means good luck?",
+      "zh": "喔，所以多出來的 1 代表好運嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "extra",
+            "inSentence": "extra",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "額外的；多出來的",
+            "ipa": "/ˈekstrə/",
+            "collocations": ["an extra bed", "extra time"],
+            "examples": [
+              {
+                "en": "Can I have an extra towel?",
+                "zh": "可以多給我一條毛巾嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Exactly, it shows the blessing will keep growing.",
+      "zh": "沒錯，這代表祝福會一直增長下去。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "blessing",
+            "inSentence": "blessing",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "祝福",
+            "ipa": "/ˈblesɪŋ/",
+            "collocations": ["a blessing for", "give a blessing"],
+            "examples": [
+              {
+                "en": "The new baby is a real blessing.",
+                "zh": "這個新生寶寶真是一份祝福。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Also, my mother will probably give you something when you leave, so just accept it with a smile.",
+      "zh": "還有，你離開的時候我媽媽大概會送你東西，所以你就笑著收下吧。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "accept",
+            "inSentence": "accept",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "接受；收下",
+            "ipa": "/əkˈsept/",
+            "collocations": ["accept a gift", "accept an offer"],
+            "examples": [
+              {
+                "en": "Please accept this small gift.",
+                "zh": "請收下這份小禮物。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "give you",
+            "soundsLike": "GIV-yuh",
+            "note": "give 和 you 連讀，you 弱讀成 /jə/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Got it, sweets, a big smile, and no clocks.",
+      "zh": "了解，甜點、大大的笑容，還有不能送時鐘。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "got it",
+            "inSentence": "Got it",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "了解；知道了",
+            "ipa": "/ɡɒt ɪt/",
+            "collocations": ["I got it", "got it, thanks"],
+            "examples": [
+              {
+                "en": "Got it, I'll call you later.",
+                "zh": "知道了，我晚點打給你。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Perfect, and come hungry, because my mum cooks enough for twenty people!",
+      "zh": "完美，記得空著肚子來，因為我媽煮的分量夠 20 個人吃！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "enough for twenty people",
+            "note": "誇張的說法，表示媽媽準備的食物非常多。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "come hungry",
+            "inSentence": "come hungry",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "空著肚子來",
+            "ipa": "/kʌm ˈhʌŋɡri/",
+            "collocations": ["come hungry", "arrive hungry"],
+            "examples": [
+              {
+                "en": "It's a buffet, so come hungry.",
+                "zh": "這是吃到飽，所以空著肚子來吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

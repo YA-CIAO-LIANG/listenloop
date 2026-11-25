@@ -1,1016 +1,947 @@
 {
- "slug": "s-career-exploration-day",
- "series": "school",
- "title": "What I Learned on Career Day",
- "titleZh": "職涯探索日的收穫",
- "subtitle": "一位語言治療師的分享，讓想當工程師的高中生重新思考未來",
- "format": "monologue",
- "accent": "us",
- "meta": {
-  "category": "school",
-  "scenario": "senior-passage",
-  "level": "advanced",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Last Friday, our school held a career exploration day, and dozens of professionals came to share their work with us.",
-   "zh": "上週五，我們學校舉辦了職涯探索日，有幾十位專業人士來跟我們分享他們的工作。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "career exploration",
-      "inSentence": "career exploration",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "職涯探索",
-      "ipa": "/kəˈrɪr ˌɛkspləˈreɪʃən/",
-      "collocations": [
-       "career exploration day",
-       "career exploration program"
-      ],
-      "examples": [
-       {
-        "en": "Career exploration starts in high school.",
-        "zh": "職涯探索從高中就開始了。"
-       }
-      ]
-     },
-     {
-      "term": "professional",
-      "inSentence": "professionals",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "專業人士",
-      "ipa": "/prəˈfɛʃənəl/",
-      "collocations": [
-       "health professionals",
-       "a young professional"
-      ],
-      "examples": [
-       {
-        "en": "She talked to several professionals.",
-        "zh": "她跟幾位專業人士談過。"
-       }
-      ]
-     },
-     {
-      "term": "dozens of",
-      "inSentence": "dozens of",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "幾十個；許多",
-      "ipa": "/ˈdʌzənz ʌv/",
-      "collocations": [
-       "dozens of people",
-       "dozens of times"
-      ],
-      "examples": [
-       {
-        "en": "Dozens of fans waited outside.",
-        "zh": "幾十個粉絲在外面等。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [
-     {
-      "text": "Last Friday",
-      "role": "modifier",
-      "zh": "上週五"
-     },
-     {
-      "text": "our school held a career exploration day",
-      "role": "main",
-      "zh": "我們學校舉辦了職涯探索日"
-     },
-     {
-      "text": "and dozens of professionals came",
-      "role": "main",
-      "zh": "幾十位專業人士來了"
-     },
-     {
-      "text": "to share their work with us",
-      "role": "modifier",
-      "zh": "跟我們分享他們的工作"
-     }
-    ],
-    "connected": [
-     {
-      "text": "dozens of",
-      "soundsLike": "dozen-zuv",
-      "note": "of 弱讀，和 dozens 連在一起念。"
-     }
-    ]
-   }
+  "slug": "s-career-exploration-day",
+  "series": "school",
+  "title": "What I Learned on Career Day",
+  "titleZh": "職涯探索日的收穫",
+  "subtitle": "一位語言治療師的分享，讓想當工程師的高中生重新思考未來",
+  "format": "monologue",
+  "accent": "us",
+  "meta": {
+    "category": "school",
+    "scenario": "senior-passage",
+    "level": "advanced",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "Before that day, I thought I wanted to be an engineer, mostly because my older brother is one.",
-   "zh": "在那天之前，我以為自己想當工程師，主要是因為我哥哥就是工程師。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "engineer",
-      "inSentence": "engineer",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "工程師",
-      "ipa": "/ˌɛndʒəˈnɪr/",
-      "collocations": [
-       "software engineer",
-       "become an engineer"
-      ],
-      "examples": [
-       {
-        "en": "My aunt is a software engineer.",
-        "zh": "我阿姨是軟體工程師。"
-       }
-      ]
-     },
-     {
-      "term": "mostly",
-      "inSentence": "mostly",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "主要地；大多",
-      "ipa": "/ˈmoʊstli/",
-      "collocations": [
-       "mostly because",
-       "mostly sunny"
-      ],
-      "examples": [
-       {
-        "en": "I study mostly at night.",
-        "zh": "我大多在晚上念書。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "one replacing a noun",
-      "quote": "my older brother is one",
-      "explanation": "one 代替前面提過的單數可數名詞 an engineer，避免重複。",
-      "examples": [
-       {
-        "en": "I need a pen. Do you have one?",
-        "zh": "我需要一支筆，你有嗎？"
-       }
-      ],
-      "pitfall": "代替特定的那一個要用 it，不定的一個才用 one。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "However, the session that surprised me most was given by a speech therapist.",
-   "zh": "然而，最讓我驚訝的一場分享，是由一位語言治療師主講的。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "session",
-      "inSentence": "session",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "（一場）講座；時段",
-      "ipa": "/ˈsɛʃən/",
-      "collocations": [
-       "a Q and A session",
-       "a training session"
-      ],
-      "examples": [
-       {
-        "en": "The morning session lasts two hours.",
-        "zh": "上午的場次持續兩小時。"
-       }
-      ]
-     },
-     {
-      "term": "speech therapist",
-      "inSentence": "speech therapist",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "語言治療師",
-      "ipa": "/ˈspitʃ ˌθɛrəpɪst/",
-      "collocations": [
-       "see a speech therapist",
-       "work as a speech therapist"
-      ],
-      "examples": [
-       {
-        "en": "The speech therapist helped my cousin.",
-        "zh": "語言治療師幫助了我表弟。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "passive with by",
-      "quote": "was given by a speech therapist",
-      "explanation": "被動式 was ＋過去分詞＋ by，強調「由誰」來做。",
-      "examples": [
-       {
-        "en": "This song was written by my sister.",
-        "zh": "這首歌是我姊姊寫的。"
-       }
-      ],
-      "pitfall": "the session 是單數，所以用 was。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "She helps children and older adults who have trouble speaking or swallowing.",
-   "zh": "她幫助說話或吞嚥有困難的孩童和長者。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "swallow",
-      "inSentence": "swallowing",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "吞嚥",
-      "ipa": "/ˈswɑloʊ/",
-      "collocations": [
-       "swallow food",
-       "hard to swallow"
-      ],
-      "examples": [
-       {
-        "en": "Chew well before you swallow.",
-        "zh": "吞下去之前要好好咀嚼。"
-       }
-      ]
-     },
-     {
-      "term": "older adult",
-      "inSentence": "older adults",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "年長者",
-      "ipa": "/ˈoʊldɚ əˈdʌlt/",
-      "collocations": [
-       "older adults",
-       "care for older adults"
-      ],
-      "examples": [
-       {
-        "en": "The class is for older adults.",
-        "zh": "這堂課是給長者上的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "have trouble + V-ing",
-      "quote": "have trouble speaking",
-      "explanation": "have trouble ＋ V-ing，表示「做某事有困難」。",
-      "examples": [
-       {
-        "en": "I have trouble waking up early.",
-        "zh": "我很難早起。"
-       }
-      ],
-      "pitfall": "不要說 have trouble to speak。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "She showed us a short video of a little boy saying his first clear sentence after months of practice.",
-   "zh": "她給我們看了一段影片，影片中的小男孩經過好幾個月的練習，終於說出第一句清楚的句子。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "clear",
-      "inSentence": "clear sentence",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "清楚的",
-      "ipa": "/klɪr/",
-      "collocations": [
-       "a clear voice",
-       "make it clear"
-      ],
-      "examples": [
-       {
-        "en": "Her answer was short and clear.",
-        "zh": "她的回答簡短又清楚。"
-       }
-      ]
-     },
-     {
-      "term": "practice",
-      "inSentence": "months of practice",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "練習",
-      "ipa": "/ˈpræktɪs/",
-      "collocations": [
-       "years of practice",
-       "with practice"
-      ],
-      "examples": [
-       {
-        "en": "With practice, you'll get better.",
-        "zh": "多練習你就會進步。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "participle phrase",
-      "quote": "a little boy saying his first clear sentence",
-      "explanation": "V-ing 片語放在名詞後面修飾，等於 who was saying，表示「正在做…的」。",
-      "examples": [
-       {
-        "en": "I saw a girl reading under a tree.",
-        "zh": "我看到一個女孩在樹下看書。"
-       }
-      ],
-      "pitfall": "不要寫成 a little boy says。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "She showed us a short video",
-      "role": "main",
-      "zh": "她給我們看一段短片"
-     },
-     {
-      "text": "of a little boy",
-      "role": "modifier",
-      "zh": "一個小男孩的"
-     },
-     {
-      "text": "saying his first clear sentence",
-      "role": "modifier",
-      "zh": "說出他第一句清楚的句子"
-     },
-     {
-      "text": "after months of practice",
-      "role": "modifier",
-      "zh": "經過好幾個月練習之後"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "His mother was in tears, and honestly, so were a few of us.",
-   "zh": "他媽媽感動得流下眼淚，老實說，我們之中也有幾個人哭了。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "in tears",
-      "inSentence": "in tears",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "流著淚",
-      "ipa": "/ɪn tɪrz/",
-      "collocations": [
-       "be in tears",
-       "burst into tears"
-      ],
-      "examples": [
-       {
-        "en": "She was in tears after the movie.",
-        "zh": "看完電影她哭了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "so + auxiliary + subject",
-      "quote": "so were a few of us",
-      "explanation": "so ＋助動詞或 be 動詞＋主詞，表示「…也是」，要倒裝。",
-      "examples": [
-       {
-        "en": "I was tired, and so was she.",
-        "zh": "我很累，她也是。"
-       }
-      ],
-      "pitfall": "不要說 so a few of us were。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "She explained that the job requires patience, good listening skills, and a solid understanding of science.",
-   "zh": "她解釋說，這份工作需要耐心、良好的傾聽能力，以及扎實的科學知識。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "require",
-      "inSentence": "requires",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "需要；要求",
-      "ipa": "/rɪˈkwaɪɚ/",
-      "collocations": [
-       "require skill",
-       "be required to"
-      ],
-      "examples": [
-       {
-        "en": "This job requires a driver's license.",
-        "zh": "這份工作需要駕照。"
-       }
-      ]
-     },
-     {
-      "term": "patience",
-      "inSentence": "patience",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "耐心",
-      "ipa": "/ˈpeɪʃəns/",
-      "collocations": [
-       "have patience",
-       "lose patience"
-      ],
-      "examples": [
-       {
-        "en": "Teaching kids takes patience.",
-        "zh": "教小孩需要耐心。"
-       }
-      ]
-     },
-     {
-      "term": "solid",
-      "inSentence": "solid understanding",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "扎實的",
-      "ipa": "/ˈsɑlɪd/",
-      "collocations": [
-       "a solid understanding",
-       "solid skills"
-      ],
-      "examples": [
-       {
-        "en": "He has a solid base in math.",
-        "zh": "他的數學基礎很扎實。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [
-     {
-      "text": "She explained that the job requires",
-      "role": "main",
-      "zh": "她解釋這份工作需要"
-     },
-     {
-      "text": "patience",
-      "role": "modifier",
-      "zh": "耐心"
-     },
-     {
-      "text": "good listening skills",
-      "role": "modifier",
-      "zh": "良好的傾聽能力"
-     },
-     {
-      "text": "and a solid understanding of science",
-      "role": "modifier",
-      "zh": "以及扎實的科學知識"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "I had never considered a career in health care, but suddenly it felt meaningful to me.",
-   "zh": "我以前從沒考慮過從事醫療相關的工作，但那一刻突然覺得很有意義。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "consider",
-      "inSentence": "considered",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "考慮",
-      "ipa": "/kənˈsɪdɚ/",
-      "collocations": [
-       "consider doing",
-       "consider a career"
-      ],
-      "examples": [
-       {
-        "en": "Have you considered studying abroad?",
-        "zh": "你有考慮過出國讀書嗎？"
-       }
-      ]
-     },
-     {
-      "term": "meaningful",
-      "inSentence": "meaningful",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "有意義的",
-      "ipa": "/ˈminɪŋfəl/",
-      "collocations": [
-       "meaningful work",
-       "a meaningful life"
-      ],
-      "examples": [
-       {
-        "en": "Volunteering is meaningful to her.",
-        "zh": "當志工對她來說很有意義。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "past perfect with never",
-      "quote": "I had never considered",
-      "explanation": "had never ＋過去分詞，表示「在過去某時間點之前從來沒有…」。",
-      "examples": [
-       {
-        "en": "I had never seen snow before that trip.",
-        "zh": "那趟旅行之前我從沒看過雪。"
-       }
-      ],
-      "pitfall": "health care 是醫療照護，不可數，不加 s。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "After the talk, I asked her what she wished she had known in high school.",
-   "zh": "演講結束後，我問她有什麼事是她希望自己高中時就知道的。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "talk",
-      "inSentence": "the talk",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "演講；講座",
-      "ipa": "/tɔk/",
-      "collocations": [
-       "give a talk",
-       "a short talk"
-      ],
-      "examples": [
-       {
-        "en": "He gave a talk on climate change.",
-        "zh": "他做了一場關於氣候變遷的演講。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "wish + past perfect",
-      "quote": "she wished she had known",
-      "explanation": "wish ＋過去完成式，表示對過去的遺憾：「真希望當時就…」。",
-      "examples": [
-       {
-        "en": "I wish I had studied harder.",
-        "zh": "真希望我當時更用功。"
-       }
-      ],
-      "pitfall": "不要說 she wished she knows。"
-     },
-     {
-      "point": "indirect question",
-      "quote": "what she wished",
-      "explanation": "問句放進 asked her 後面，用直述句順序。",
-      "examples": [
-       {
-        "en": "I asked him where he lived.",
-        "zh": "我問他住在哪裡。"
-       }
-      ],
-      "pitfall": "不要說 asked her what did she wish。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "After the talk",
-      "role": "modifier",
-      "zh": "演講結束後"
-     },
-     {
-      "text": "I asked her",
-      "role": "main",
-      "zh": "我問她"
-     },
-     {
-      "text": "what she wished",
-      "role": "subordinate",
-      "zh": "她希望"
-     },
-     {
-      "text": "she had known in high school",
-      "role": "subordinate",
-      "zh": "自己高中時就知道的事"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "She said she wished she had tried more things instead of worrying about choosing the perfect path.",
-   "zh": "她說，她希望自己當初多嘗試各種事物，而不是一直擔心要選出完美的路。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "instead of",
-      "inSentence": "instead of",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "而不是",
-      "ipa": "/ɪnˈstɛd ʌv/",
-      "collocations": [
-       "instead of doing",
-       "instead of sb"
-      ],
-      "examples": [
-       {
-        "en": "Let's walk instead of taking the bus.",
-        "zh": "我們用走的，不要搭公車。"
-       }
-      ]
-     },
-     {
-      "term": "path",
-      "inSentence": "path",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "道路；方向",
-      "ipa": "/pæθ/",
-      "collocations": [
-       "career path",
-       "the right path"
-      ],
-      "examples": [
-       {
-        "en": "Everyone has their own path.",
-        "zh": "每個人都有自己的路。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "instead of + V-ing",
-      "quote": "instead of worrying",
-      "explanation": "instead of 是介系詞片語，後面接 V-ing。",
-      "examples": [
-       {
-        "en": "He played games instead of studying.",
-        "zh": "他沒念書，而是在打電動。"
-       }
-      ],
-      "pitfall": "不要說 instead of worry。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "She said she wished",
-      "role": "main",
-      "zh": "她說她希望"
-     },
-     {
-      "text": "she had tried more things",
-      "role": "subordinate",
-      "zh": "當初多嘗試各種事物"
-     },
-     {
-      "text": "instead of worrying about",
-      "role": "modifier",
-      "zh": "而不是擔心"
-     },
-     {
-      "text": "choosing the perfect path",
-      "role": "modifier",
-      "zh": "選出完美的路"
-     }
-    ],
-    "connected": [
-     {
-      "text": "instead of",
-      "soundsLike": "in-ste-duv",
-      "note": "instead 的 d 和 of 連在一起念。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Her advice made me rethink how I'm planning my future.",
-   "zh": "她的建議讓我重新思考自己是怎麼規劃未來的。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "rethink",
-      "inSentence": "rethink",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "重新思考",
-      "ipa": "/riˈθɪŋk/",
-      "collocations": [
-       "rethink a plan",
-       "rethink your choice"
-      ],
-      "examples": [
-       {
-        "en": "We need to rethink our plan.",
-        "zh": "我們需要重新思考計畫。"
-       }
-      ]
-     },
-     {
-      "term": "advice",
-      "inSentence": "advice",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "建議",
-      "ipa": "/ədˈvaɪs/",
-      "collocations": [
-       "give advice",
-       "a piece of advice"
-      ],
-      "examples": [
-       {
-        "en": "Thanks for your advice.",
-        "zh": "謝謝你的建議。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "make + object + base verb",
-      "quote": "made me rethink",
-      "explanation": "make ＋人＋原形動詞，表示「讓某人去做…」。",
-      "examples": [
-       {
-        "en": "The story made me laugh.",
-        "zh": "這個故事讓我笑了。"
-       }
-      ],
-      "pitfall": "advice 不可數，不說 an advice 或 advices。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I'm not giving up on engineering yet, but I've signed up to volunteer at a rehabilitation center this winter.",
-   "zh": "我還沒有放棄工程，但我已經報名今年冬天到一間復健中心當志工。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "give up on",
-      "inSentence": "giving up on",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "放棄（某事、某人）",
-      "ipa": "/ɡɪv ʌp ɑn/",
-      "collocations": [
-       "give up on a dream",
-       "don't give up on me"
-      ],
-      "examples": [
-       {
-        "en": "Never give up on your goals.",
-        "zh": "永遠不要放棄你的目標。"
-       }
-      ]
-     },
-     {
-      "term": "rehabilitation",
-      "inSentence": "rehabilitation center",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "復健",
-      "ipa": "/ˌriəˌbɪləˈteɪʃən/",
-      "collocations": [
-       "rehabilitation center",
-       "physical rehabilitation"
-      ],
-      "examples": [
-       {
-        "en": "He spent a month in rehabilitation.",
-        "zh": "他做了一個月的復健。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "present perfect for a recent action",
-      "quote": "I've signed up",
-      "explanation": "現在完成式表示已經完成、而且結果跟現在有關（已經報名好了）。",
-      "examples": [
-       {
-        "en": "I've finished my report.",
-        "zh": "我的報告寫完了。"
-       }
-      ],
-      "pitfall": "sign up to ＋原形動詞；sign up for ＋名詞。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "I'm not giving up on engineering yet",
-      "role": "main",
-      "zh": "我還沒有放棄工程"
-     },
-     {
-      "text": "but I've signed up",
-      "role": "main",
-      "zh": "但我已經報名"
-     },
-     {
-      "text": "to volunteer at a rehabilitation center",
-      "role": "modifier",
-      "zh": "到復健中心當志工"
-     },
-     {
-      "text": "this winter",
-      "role": "modifier",
-      "zh": "今年冬天"
-     }
-    ],
-    "connected": [
-     {
-      "text": "giving up on",
-      "soundsLike": "givin-gup-pon",
-      "note": "三個字連在一起念，聽起來像一個長字。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Whatever I choose in the end, I want it to be a decision I've actually explored, not just a guess.",
-   "zh": "不管最後選了什麼，我都希望那是我真正探索過後做的決定，而不只是猜測。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "in the end",
-      "inSentence": "in the end",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "最後；最終",
-      "ipa": "/ɪn ði ɛnd/",
-      "collocations": [
-       "in the end",
-       "at the end of"
-      ],
-      "examples": [
-       {
-        "en": "In the end, we stayed home.",
-        "zh": "最後我們待在家裡。"
-       }
-      ]
-     },
-     {
-      "term": "explore",
-      "inSentence": "explored",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "探索",
-      "ipa": "/ɪkˈsplɔr/",
-      "collocations": [
-       "explore options",
-       "explore the city"
-      ],
-      "examples": [
-       {
-        "en": "Take time to explore your interests.",
-        "zh": "花點時間探索你的興趣。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "whatever = no matter what",
-      "quote": "Whatever I choose",
-      "explanation": "whatever 引導讓步子句，意思是「不管…什麼」。",
-      "examples": [
-       {
-        "en": "Whatever you do, don't give up.",
-        "zh": "不管你做什麼，都不要放棄。"
-       }
-      ],
-      "pitfall": "不要說 Whatever I choose it。"
-     },
-     {
-      "point": "want + object + to V",
-      "quote": "I want it to be a decision",
-      "explanation": "want ＋受詞＋ to V，表示「希望某事物成為…」。",
-      "examples": [
-       {
-        "en": "I want this trip to be fun.",
-        "zh": "我希望這趟旅行很好玩。"
-       }
-      ],
-      "pitfall": "不要說 I want that it is a decision。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "Whatever I choose in the end",
-      "role": "subordinate",
-      "zh": "不管最後選什麼"
-     },
-     {
-      "text": "I want it to be a decision",
-      "role": "main",
-      "zh": "我希望那是一個決定"
-     },
-     {
-      "text": "I've actually explored",
-      "role": "modifier",
-      "zh": "我真正探索過的"
-     },
-     {
-      "text": "not just a guess",
-      "role": "modifier",
-      "zh": "而不只是猜測"
-     }
-    ],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Last Friday, our school held a career exploration day, and dozens of professionals came to share their work with us.",
+      "zh": "上週五，我們學校舉辦了職涯探索日，有幾十位專業人士來跟我們分享他們的工作。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "career exploration",
+            "inSentence": "career exploration",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "職涯探索",
+            "ipa": "/kəˈrɪr ˌɛkspləˈreɪʃən/",
+            "collocations": [
+              "career exploration day",
+              "career exploration program"
+            ],
+            "examples": [
+              {
+                "en": "Career exploration starts in high school.",
+                "zh": "職涯探索從高中就開始了。"
+              }
+            ]
+          },
+          {
+            "term": "professional",
+            "inSentence": "professionals",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "專業人士",
+            "ipa": "/prəˈfɛʃənəl/",
+            "collocations": ["health professionals", "a young professional"],
+            "examples": [
+              {
+                "en": "She talked to several professionals.",
+                "zh": "她跟幾位專業人士談過。"
+              }
+            ]
+          },
+          {
+            "term": "dozens of",
+            "inSentence": "dozens of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "幾十個；許多",
+            "ipa": "/ˈdʌzənz ʌv/",
+            "collocations": ["dozens of people", "dozens of times"],
+            "examples": [
+              {
+                "en": "Dozens of fans waited outside.",
+                "zh": "幾十個粉絲在外面等。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "Last Friday",
+            "role": "modifier",
+            "zh": "上週五"
+          },
+          {
+            "text": "our school held a career exploration day",
+            "role": "main",
+            "zh": "我們學校舉辦了職涯探索日"
+          },
+          {
+            "text": "and dozens of professionals came",
+            "role": "main",
+            "zh": "幾十位專業人士來了"
+          },
+          {
+            "text": "to share their work with us",
+            "role": "modifier",
+            "zh": "跟我們分享他們的工作"
+          }
+        ],
+        "connected": [
+          {
+            "text": "dozens of",
+            "soundsLike": "dozen-zuv",
+            "note": "of 弱讀，和 dozens 連在一起念。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Before that day, I thought I wanted to be an engineer, mostly because my older brother is one.",
+      "zh": "在那天之前，我以為自己想當工程師，主要是因為我哥哥就是工程師。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "engineer",
+            "inSentence": "engineer",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "工程師",
+            "ipa": "/ˌɛndʒəˈnɪr/",
+            "collocations": ["software engineer", "become an engineer"],
+            "examples": [
+              {
+                "en": "My aunt is a software engineer.",
+                "zh": "我阿姨是軟體工程師。"
+              }
+            ]
+          },
+          {
+            "term": "mostly",
+            "inSentence": "mostly",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "主要地；大多",
+            "ipa": "/ˈmoʊstli/",
+            "collocations": ["mostly because", "mostly sunny"],
+            "examples": [
+              {
+                "en": "I study mostly at night.",
+                "zh": "我大多在晚上念書。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "one replacing a noun",
+            "quote": "my older brother is one",
+            "explanation": "one 代替前面提過的單數可數名詞 an engineer，避免重複。",
+            "examples": [
+              {
+                "en": "I need a pen. Do you have one?",
+                "zh": "我需要一支筆，你有嗎？"
+              }
+            ],
+            "pitfall": "代替特定的那一個要用 it，不定的一個才用 one。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "However, the session that surprised me most was given by a speech therapist.",
+      "zh": "然而，最讓我驚訝的一場分享，是由一位語言治療師主講的。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "session",
+            "inSentence": "session",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（一場）講座；時段",
+            "ipa": "/ˈsɛʃən/",
+            "collocations": ["a Q and A session", "a training session"],
+            "examples": [
+              {
+                "en": "The morning session lasts two hours.",
+                "zh": "上午的場次持續兩小時。"
+              }
+            ]
+          },
+          {
+            "term": "speech therapist",
+            "inSentence": "speech therapist",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "語言治療師",
+            "ipa": "/ˈspitʃ ˌθɛrəpɪst/",
+            "collocations": [
+              "see a speech therapist",
+              "work as a speech therapist"
+            ],
+            "examples": [
+              {
+                "en": "The speech therapist helped my cousin.",
+                "zh": "語言治療師幫助了我表弟。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "passive with by",
+            "quote": "was given by a speech therapist",
+            "explanation": "被動式 was ＋過去分詞＋ by，強調「由誰」來做。",
+            "examples": [
+              {
+                "en": "This song was written by my sister.",
+                "zh": "這首歌是我姊姊寫的。"
+              }
+            ],
+            "pitfall": "the session 是單數，所以用 was。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "She helps children and older adults who have trouble speaking or swallowing.",
+      "zh": "她幫助說話或吞嚥有困難的孩童和長者。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "swallow",
+            "inSentence": "swallowing",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "吞嚥",
+            "ipa": "/ˈswɑloʊ/",
+            "collocations": ["swallow food", "hard to swallow"],
+            "examples": [
+              {
+                "en": "Chew well before you swallow.",
+                "zh": "吞下去之前要好好咀嚼。"
+              }
+            ]
+          },
+          {
+            "term": "older adult",
+            "inSentence": "older adults",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "年長者",
+            "ipa": "/ˈoʊldɚ əˈdʌlt/",
+            "collocations": ["older adults", "care for older adults"],
+            "examples": [
+              {
+                "en": "The class is for older adults.",
+                "zh": "這堂課是給長者上的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "have trouble + V-ing",
+            "quote": "have trouble speaking",
+            "explanation": "have trouble ＋ V-ing，表示「做某事有困難」。",
+            "examples": [
+              {
+                "en": "I have trouble waking up early.",
+                "zh": "我很難早起。"
+              }
+            ],
+            "pitfall": "不要說 have trouble to speak。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "She showed us a short video of a little boy saying his first clear sentence after months of practice.",
+      "zh": "她給我們看了一段影片，影片中的小男孩經過好幾個月的練習，終於說出第一句清楚的句子。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "clear",
+            "inSentence": "clear sentence",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "清楚的",
+            "ipa": "/klɪr/",
+            "collocations": ["a clear voice", "make it clear"],
+            "examples": [
+              {
+                "en": "Her answer was short and clear.",
+                "zh": "她的回答簡短又清楚。"
+              }
+            ]
+          },
+          {
+            "term": "practice",
+            "inSentence": "months of practice",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "練習",
+            "ipa": "/ˈpræktɪs/",
+            "collocations": ["years of practice", "with practice"],
+            "examples": [
+              {
+                "en": "With practice, you'll get better.",
+                "zh": "多練習你就會進步。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "participle phrase",
+            "quote": "a little boy saying his first clear sentence",
+            "explanation": "V-ing 片語放在名詞後面修飾，等於 who was saying，表示「正在做…的」。",
+            "examples": [
+              {
+                "en": "I saw a girl reading under a tree.",
+                "zh": "我看到一個女孩在樹下看書。"
+              }
+            ],
+            "pitfall": "不要寫成 a little boy says。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "She showed us a short video",
+            "role": "main",
+            "zh": "她給我們看一段短片"
+          },
+          {
+            "text": "of a little boy",
+            "role": "modifier",
+            "zh": "一個小男孩的"
+          },
+          {
+            "text": "saying his first clear sentence",
+            "role": "modifier",
+            "zh": "說出他第一句清楚的句子"
+          },
+          {
+            "text": "after months of practice",
+            "role": "modifier",
+            "zh": "經過好幾個月練習之後"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "His mother was in tears, and honestly, so were a few of us.",
+      "zh": "他媽媽感動得流下眼淚，老實說，我們之中也有幾個人哭了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "in tears",
+            "inSentence": "in tears",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "流著淚",
+            "ipa": "/ɪn tɪrz/",
+            "collocations": ["be in tears", "burst into tears"],
+            "examples": [
+              {
+                "en": "She was in tears after the movie.",
+                "zh": "看完電影她哭了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "so + auxiliary + subject",
+            "quote": "so were a few of us",
+            "explanation": "so ＋助動詞或 be 動詞＋主詞，表示「…也是」，要倒裝。",
+            "examples": [
+              {
+                "en": "I was tired, and so was she.",
+                "zh": "我很累，她也是。"
+              }
+            ],
+            "pitfall": "不要說 so a few of us were。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "She explained that the job requires patience, good listening skills, and a solid understanding of science.",
+      "zh": "她解釋說，這份工作需要耐心、良好的傾聽能力，以及扎實的科學知識。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "require",
+            "inSentence": "requires",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "需要；要求",
+            "ipa": "/rɪˈkwaɪɚ/",
+            "collocations": ["require skill", "be required to"],
+            "examples": [
+              {
+                "en": "This job requires a driver's license.",
+                "zh": "這份工作需要駕照。"
+              }
+            ]
+          },
+          {
+            "term": "patience",
+            "inSentence": "patience",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "耐心",
+            "ipa": "/ˈpeɪʃəns/",
+            "collocations": ["have patience", "lose patience"],
+            "examples": [
+              {
+                "en": "Teaching kids takes patience.",
+                "zh": "教小孩需要耐心。"
+              }
+            ]
+          },
+          {
+            "term": "solid",
+            "inSentence": "solid understanding",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "扎實的",
+            "ipa": "/ˈsɑlɪd/",
+            "collocations": ["a solid understanding", "solid skills"],
+            "examples": [
+              {
+                "en": "He has a solid base in math.",
+                "zh": "他的數學基礎很扎實。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "She explained that the job requires",
+            "role": "main",
+            "zh": "她解釋這份工作需要"
+          },
+          {
+            "text": "patience",
+            "role": "modifier",
+            "zh": "耐心"
+          },
+          {
+            "text": "good listening skills",
+            "role": "modifier",
+            "zh": "良好的傾聽能力"
+          },
+          {
+            "text": "and a solid understanding of science",
+            "role": "modifier",
+            "zh": "以及扎實的科學知識"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "I had never considered a career in health care, but suddenly it felt meaningful to me.",
+      "zh": "我以前從沒考慮過從事醫療相關的工作，但那一刻突然覺得很有意義。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "consider",
+            "inSentence": "considered",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "考慮",
+            "ipa": "/kənˈsɪdɚ/",
+            "collocations": ["consider doing", "consider a career"],
+            "examples": [
+              {
+                "en": "Have you considered studying abroad?",
+                "zh": "你有考慮過出國讀書嗎？"
+              }
+            ]
+          },
+          {
+            "term": "meaningful",
+            "inSentence": "meaningful",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "有意義的",
+            "ipa": "/ˈminɪŋfəl/",
+            "collocations": ["meaningful work", "a meaningful life"],
+            "examples": [
+              {
+                "en": "Volunteering is meaningful to her.",
+                "zh": "當志工對她來說很有意義。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past perfect with never",
+            "quote": "I had never considered",
+            "explanation": "had never ＋過去分詞，表示「在過去某時間點之前從來沒有…」。",
+            "examples": [
+              {
+                "en": "I had never seen snow before that trip.",
+                "zh": "那趟旅行之前我從沒看過雪。"
+              }
+            ],
+            "pitfall": "health care 是醫療照護，不可數，不加 s。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "After the talk, I asked her what she wished she had known in high school.",
+      "zh": "演講結束後，我問她有什麼事是她希望自己高中時就知道的。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "talk",
+            "inSentence": "the talk",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "演講；講座",
+            "ipa": "/tɔk/",
+            "collocations": ["give a talk", "a short talk"],
+            "examples": [
+              {
+                "en": "He gave a talk on climate change.",
+                "zh": "他做了一場關於氣候變遷的演講。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "wish + past perfect",
+            "quote": "she wished she had known",
+            "explanation": "wish ＋過去完成式，表示對過去的遺憾：「真希望當時就…」。",
+            "examples": [
+              {
+                "en": "I wish I had studied harder.",
+                "zh": "真希望我當時更用功。"
+              }
+            ],
+            "pitfall": "不要說 she wished she knows。"
+          },
+          {
+            "point": "indirect question",
+            "quote": "what she wished",
+            "explanation": "問句放進 asked her 後面，用直述句順序。",
+            "examples": [
+              {
+                "en": "I asked him where he lived.",
+                "zh": "我問他住在哪裡。"
+              }
+            ],
+            "pitfall": "不要說 asked her what did she wish。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "After the talk",
+            "role": "modifier",
+            "zh": "演講結束後"
+          },
+          {
+            "text": "I asked her",
+            "role": "main",
+            "zh": "我問她"
+          },
+          {
+            "text": "what she wished",
+            "role": "subordinate",
+            "zh": "她希望"
+          },
+          {
+            "text": "she had known in high school",
+            "role": "subordinate",
+            "zh": "自己高中時就知道的事"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "She said she wished she had tried more things instead of worrying about choosing the perfect path.",
+      "zh": "她說，她希望自己當初多嘗試各種事物，而不是一直擔心要選出完美的路。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "instead of",
+            "inSentence": "instead of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "而不是",
+            "ipa": "/ɪnˈstɛd ʌv/",
+            "collocations": ["instead of doing", "instead of sb"],
+            "examples": [
+              {
+                "en": "Let's walk instead of taking the bus.",
+                "zh": "我們用走的，不要搭公車。"
+              }
+            ]
+          },
+          {
+            "term": "path",
+            "inSentence": "path",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "道路；方向",
+            "ipa": "/pæθ/",
+            "collocations": ["career path", "the right path"],
+            "examples": [
+              {
+                "en": "Everyone has their own path.",
+                "zh": "每個人都有自己的路。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "instead of + V-ing",
+            "quote": "instead of worrying",
+            "explanation": "instead of 是介系詞片語，後面接 V-ing。",
+            "examples": [
+              {
+                "en": "He played games instead of studying.",
+                "zh": "他沒念書，而是在打電動。"
+              }
+            ],
+            "pitfall": "不要說 instead of worry。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "She said she wished",
+            "role": "main",
+            "zh": "她說她希望"
+          },
+          {
+            "text": "she had tried more things",
+            "role": "subordinate",
+            "zh": "當初多嘗試各種事物"
+          },
+          {
+            "text": "instead of worrying about",
+            "role": "modifier",
+            "zh": "而不是擔心"
+          },
+          {
+            "text": "choosing the perfect path",
+            "role": "modifier",
+            "zh": "選出完美的路"
+          }
+        ],
+        "connected": [
+          {
+            "text": "instead of",
+            "soundsLike": "in-ste-duv",
+            "note": "instead 的 d 和 of 連在一起念。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Her advice made me rethink how I'm planning my future.",
+      "zh": "她的建議讓我重新思考自己是怎麼規劃未來的。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "rethink",
+            "inSentence": "rethink",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "重新思考",
+            "ipa": "/riˈθɪŋk/",
+            "collocations": ["rethink a plan", "rethink your choice"],
+            "examples": [
+              {
+                "en": "We need to rethink our plan.",
+                "zh": "我們需要重新思考計畫。"
+              }
+            ]
+          },
+          {
+            "term": "advice",
+            "inSentence": "advice",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "建議",
+            "ipa": "/ədˈvaɪs/",
+            "collocations": ["give advice", "a piece of advice"],
+            "examples": [
+              {
+                "en": "Thanks for your advice.",
+                "zh": "謝謝你的建議。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "make + object + base verb",
+            "quote": "made me rethink",
+            "explanation": "make ＋人＋原形動詞，表示「讓某人去做…」。",
+            "examples": [
+              {
+                "en": "The story made me laugh.",
+                "zh": "這個故事讓我笑了。"
+              }
+            ],
+            "pitfall": "advice 不可數，不說 an advice 或 advices。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'm not giving up on engineering yet, but I've signed up to volunteer at a rehabilitation center this winter.",
+      "zh": "我還沒有放棄工程，但我已經報名今年冬天到一間復健中心當志工。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "give up on",
+            "inSentence": "giving up on",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "放棄（某事、某人）",
+            "ipa": "/ɡɪv ʌp ɑn/",
+            "collocations": ["give up on a dream", "don't give up on me"],
+            "examples": [
+              {
+                "en": "Never give up on your goals.",
+                "zh": "永遠不要放棄你的目標。"
+              }
+            ]
+          },
+          {
+            "term": "rehabilitation",
+            "inSentence": "rehabilitation center",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "復健",
+            "ipa": "/ˌriəˌbɪləˈteɪʃən/",
+            "collocations": [
+              "rehabilitation center",
+              "physical rehabilitation"
+            ],
+            "examples": [
+              {
+                "en": "He spent a month in rehabilitation.",
+                "zh": "他做了一個月的復健。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "present perfect for a recent action",
+            "quote": "I've signed up",
+            "explanation": "現在完成式表示已經完成、而且結果跟現在有關（已經報名好了）。",
+            "examples": [
+              {
+                "en": "I've finished my report.",
+                "zh": "我的報告寫完了。"
+              }
+            ],
+            "pitfall": "sign up to ＋原形動詞；sign up for ＋名詞。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I'm not giving up on engineering yet",
+            "role": "main",
+            "zh": "我還沒有放棄工程"
+          },
+          {
+            "text": "but I've signed up",
+            "role": "main",
+            "zh": "但我已經報名"
+          },
+          {
+            "text": "to volunteer at a rehabilitation center",
+            "role": "modifier",
+            "zh": "到復健中心當志工"
+          },
+          {
+            "text": "this winter",
+            "role": "modifier",
+            "zh": "今年冬天"
+          }
+        ],
+        "connected": [
+          {
+            "text": "giving up on",
+            "soundsLike": "givin-gup-pon",
+            "note": "三個字連在一起念，聽起來像一個長字。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Whatever I choose in the end, I want it to be a decision I've actually explored, not just a guess.",
+      "zh": "不管最後選了什麼，我都希望那是我真正探索過後做的決定，而不只是猜測。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "in the end",
+            "inSentence": "in the end",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "最後；最終",
+            "ipa": "/ɪn ði ɛnd/",
+            "collocations": ["in the end", "at the end of"],
+            "examples": [
+              {
+                "en": "In the end, we stayed home.",
+                "zh": "最後我們待在家裡。"
+              }
+            ]
+          },
+          {
+            "term": "explore",
+            "inSentence": "explored",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "探索",
+            "ipa": "/ɪkˈsplɔr/",
+            "collocations": ["explore options", "explore the city"],
+            "examples": [
+              {
+                "en": "Take time to explore your interests.",
+                "zh": "花點時間探索你的興趣。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "whatever = no matter what",
+            "quote": "Whatever I choose",
+            "explanation": "whatever 引導讓步子句，意思是「不管…什麼」。",
+            "examples": [
+              {
+                "en": "Whatever you do, don't give up.",
+                "zh": "不管你做什麼，都不要放棄。"
+              }
+            ],
+            "pitfall": "不要說 Whatever I choose it。"
+          },
+          {
+            "point": "want + object + to V",
+            "quote": "I want it to be a decision",
+            "explanation": "want ＋受詞＋ to V，表示「希望某事物成為…」。",
+            "examples": [
+              {
+                "en": "I want this trip to be fun.",
+                "zh": "我希望這趟旅行很好玩。"
+              }
+            ],
+            "pitfall": "不要說 I want that it is a decision。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Whatever I choose in the end",
+            "role": "subordinate",
+            "zh": "不管最後選什麼"
+          },
+          {
+            "text": "I want it to be a decision",
+            "role": "main",
+            "zh": "我希望那是一個決定"
+          },
+          {
+            "text": "I've actually explored",
+            "role": "modifier",
+            "zh": "我真正探索過的"
+          },
+          {
+            "text": "not just a guess",
+            "role": "modifier",
+            "zh": "而不只是猜測"
+          }
+        ],
+        "connected": []
+      }
+    }
+  ]
 }

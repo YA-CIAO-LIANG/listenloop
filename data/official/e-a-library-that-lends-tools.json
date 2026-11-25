@@ -1,829 +1,773 @@
 {
- "slug": "e-a-library-that-lends-tools",
- "series": "exam",
- "title": "A Library That Lends Tools",
- "titleZh": "借工具的圖書館",
- "subtitle": "全民英檢中高級風格短講：社區廣播介紹一間出借工具、教人修東西的圖書館",
- "format": "monologue",
- "accent": "gb",
- "meta": {
-  "category": "exam",
-  "scenario": "gept-short-talk",
-  "level": "advanced",
-  "exam": "gept",
-  "examTarget": "gept-high-intermediate"
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Welcome back to Community Matters, the programme where we look at small ideas making a big difference.",
-   "zh": "歡迎回到《社區大小事》，這個節目專門介紹帶來大改變的小點子。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "programme",
-      "inSentence": "programme",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "節目（英式拼法，美式為 program）",
-      "ipa": "/ˈprəʊɡræm/",
-      "collocations": [
-       "radio programme",
-       "TV programme"
-      ],
-      "examples": [
-       {
-        "en": "My favourite programme is on tonight.",
-        "zh": "我最喜歡的節目今晚播出。"
-       }
-      ]
-     },
-     {
-      "term": "make a difference",
-      "inSentence": "making a big difference",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "帶來改變；有影響",
-      "ipa": "/meɪk ə ˈdɪfrəns/",
-      "collocations": [
-       "make a real difference"
-      ],
-      "examples": [
-       {
-        "en": "Small changes can make a difference.",
-        "zh": "小小的改變也能帶來影響。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "e-a-library-that-lends-tools",
+  "series": "exam",
+  "title": "A Library That Lends Tools",
+  "titleZh": "借工具的圖書館",
+  "subtitle": "全民英檢中高級風格短講：社區廣播介紹一間出借工具、教人修東西的圖書館",
+  "format": "monologue",
+  "accent": "gb",
+  "meta": {
+    "category": "exam",
+    "scenario": "gept-short-talk",
+    "level": "advanced",
+    "exam": "gept",
+    "examTarget": "gept-high-intermediate"
   },
-  {
-   "en": "Today I'd like to tell you about something that opened in our town last spring: a library that lends tools instead of books.",
-   "zh": "今天我想跟大家介紹去年春天在我們鎮上開幕的地方：一間出借工具而不是書的圖書館。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [
-     {
-      "text": "a library that lends tools instead of books",
-      "note": "短講主題：工具圖書館。中高級考題常問「這段談話主要在介紹什麼」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "lend",
-      "inSentence": "lends",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "借出",
-      "ipa": "/lend/",
-      "collocations": [
-       "lend someone something",
-       "lend money"
-      ],
-      "examples": [
-       {
-        "en": "Could you lend me your umbrella?",
-        "zh": "你可以借我雨傘嗎？"
-       }
-      ]
-     },
-     {
-      "term": "instead of",
-      "inSentence": "instead of",
-      "kind": "phrase",
-      "pos": "prep.",
-      "zh": "而不是；代替",
-      "ipa": "/ɪnˈsted əv/",
-      "collocations": [
-       "instead of going"
-      ],
-      "examples": [
-       {
-        "en": "I had tea instead of coffee.",
-        "zh": "我喝了茶，沒喝咖啡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [
-     {
-      "text": "Today I'd like to tell you about something",
-      "role": "main",
-      "zh": "今天我想跟大家介紹一個地方"
-     },
-     {
-      "text": "that opened in our town last spring:",
-      "role": "modifier",
-      "zh": "去年春天在我們鎮上開幕："
-     },
-     {
-      "text": "a library that lends tools instead of books.",
-      "role": "modifier",
-      "zh": "一間出借工具而不是書的圖書館。"
-     }
-    ],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "Most of us own tools that we use once or twice a year, and the rest of the time they just sit in a cupboard.",
-   "zh": "我們大多數人都有一年只用一兩次的工具，其他時間它們就只是躺在櫃子裡。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "the rest of",
-      "inSentence": "the rest of the time",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "其餘的",
-      "ipa": "/ðə rest əv/",
-      "collocations": [
-       "the rest of the day"
-      ],
-      "examples": [
-       {
-        "en": "I spent the rest of the day reading.",
-        "zh": "那天剩下的時間我都在看書。"
-       }
-      ]
-     },
-     {
-      "term": "cupboard",
-      "inSentence": "cupboard",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "櫥櫃",
-      "ipa": "/ˈkʌbəd/",
-      "collocations": [
-       "kitchen cupboard"
-      ],
-      "examples": [
-       {
-        "en": "The cups are in the cupboard.",
-        "zh": "杯子在櫥櫃裡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "cupboard",
-      "soundsLike": "cubberd",
-      "note": "cupboard 的 p 不發音，唸作 /ˈkʌbəd/。"
-     },
-     {
-      "text": "once or twice",
-      "soundsLike": "wunsa twice",
-      "note": "or 弱讀成 /ə/，和 once 連在一起。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "At the tool library, members pay a small annual fee and can borrow anything from ladders to sewing machines for up to a week.",
-   "zh": "在工具圖書館，會員只要付一筆小小的年費，就能借用從梯子到縫紉機的任何東西，最長一週。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [
-     {
-      "text": "for up to a week",
-      "note": "借用期限：最長一週。up to 表示「最多到」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "annual fee",
-      "inSentence": "annual fee",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "年費",
-      "ipa": "/ˈænjuəl fiː/",
-      "collocations": [
-       "pay an annual fee"
-      ],
-      "examples": [
-       {
-        "en": "The gym has an annual fee.",
-        "zh": "這間健身房要收年費。"
-       }
-      ]
-     },
-     {
-      "term": "sewing machine",
-      "inSentence": "sewing machines",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "縫紉機",
-      "ipa": "/ˈsəʊɪŋ məˈʃiːn/",
-      "collocations": [
-       "use a sewing machine"
-      ],
-      "examples": [
-       {
-        "en": "My grandmother still uses a sewing machine.",
-        "zh": "我奶奶還在用縫紉機。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "anything from A to B",
-      "quote": "anything from ladders to sewing machines",
-      "explanation": "anything from A to B 用兩個例子表示範圍很廣，「從 A 到 B 什麼都有」。",
-      "examples": [
-       {
-        "en": "The shop sells anything from pens to sofas.",
-        "zh": "這家店從筆到沙發什麼都賣。"
-       }
-      ],
-      "pitfall": "from 和 to 後面接名詞，不要接動詞。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "At the tool library,",
-      "role": "modifier",
-      "zh": "在工具圖書館，"
-     },
-     {
-      "text": "members pay a small annual fee",
-      "role": "main",
-      "zh": "會員付一筆小小的年費"
-     },
-     {
-      "text": "and can borrow anything from ladders to sewing machines",
-      "role": "main",
-      "zh": "就能借用從梯子到縫紉機的任何東西"
-     },
-     {
-      "text": "for up to a week.",
-      "role": "modifier",
-      "zh": "最長一週。"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "The project was started by a retired carpenter who was tired of seeing perfectly good equipment thrown away.",
-   "zh": "這個計畫是由一位退休木匠發起的，他看不下去還能用的設備就這樣被丟掉。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "a retired carpenter",
-      "note": "創辦人身分：退休木匠，是常考的人物細節。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "carpenter",
-      "inSentence": "carpenter",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "木匠",
-      "ipa": "/ˈkɑːpəntə/",
-      "collocations": [
-       "skilled carpenter"
-      ],
-      "examples": [
-       {
-        "en": "The carpenter made a new table.",
-        "zh": "木匠做了一張新桌子。"
-       }
-      ]
-     },
-     {
-      "term": "be tired of",
-      "inSentence": "was tired of",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "厭倦；受夠了",
-      "ipa": "/bi ˈtaɪəd əv/",
-      "collocations": [
-       "tired of waiting"
-      ],
-      "examples": [
-       {
-        "en": "I'm tired of eating the same food.",
-        "zh": "我吃膩了同樣的食物。"
-       }
-      ]
-     },
-     {
-      "term": "equipment",
-      "inSentence": "equipment",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "設備；器材",
-      "ipa": "/ɪˈkwɪpmənt/",
-      "collocations": [
-       "sports equipment",
-       "a piece of equipment"
-      ],
-      "examples": [
-       {
-        "en": "The lab has new equipment.",
-        "zh": "實驗室有新的設備。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "see + object + past participle",
-      "quote": "seeing perfectly good equipment thrown away",
-      "explanation": "see + 受詞 + 過去分詞，表示看見某物「被…」：設備被丟掉。",
-      "examples": [
-       {
-        "en": "I saw the old house pulled down.",
-        "zh": "我看著那棟老房子被拆掉。"
-       }
-      ],
-      "pitfall": "equipment 是不可數名詞，不能加 s。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "He began by collecting donations from neighbours, and within six months he had more than four hundred items on the shelves.",
-   "zh": "他一開始先向鄰居募集捐贈，六個月內架上就有超過 400 件物品。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "donation",
-      "inSentence": "donations",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "捐贈；捐款",
-      "ipa": "/dəʊˈneɪʃən/",
-      "collocations": [
-       "make a donation",
-       "collect donations"
-      ],
-      "examples": [
-       {
-        "en": "The school collected donations for the flood victims.",
-        "zh": "學校為水災災民募集捐款。"
-       }
-      ]
-     },
-     {
-      "term": "neighbour",
-      "inSentence": "neighbours",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "鄰居（英式拼法，美式為 neighbor）",
-      "ipa": "/ˈneɪbə/",
-      "collocations": [
-       "next-door neighbour"
-      ],
-      "examples": [
-       {
-        "en": "Our neighbours are very friendly.",
-        "zh": "我們的鄰居很友善。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "begin by + V-ing",
-      "quote": "began by collecting",
-      "explanation": "begin by + V-ing 表示「以…作為開始」，說明第一步做了什麼。",
-      "examples": [
-       {
-        "en": "Let's begin by reviewing last week's lesson.",
-        "zh": "我們先從複習上週的課開始。"
-       }
-      ],
-      "pitfall": "by 是介系詞，後面要接 V-ing，不能接 to collect。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "What surprised him most, though, was not how many people borrowed things, but how many came back to ask for advice.",
-   "zh": "不過，最讓他驚訝的，不是有多少人來借東西，而是有多少人回來向他請教。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [
-     {
-      "text": "how many came back to ask for advice",
-      "note": "轉折重點：真正的驚喜是有人來請教，引出下一句的修理工作坊。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "ask for advice",
-      "inSentence": "ask for advice",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "徵詢意見；請教",
-      "ipa": "/ɑːsk fɔːr ədˈvaɪs/",
-      "collocations": [
-       "ask someone for advice"
-      ],
-      "examples": [
-       {
-        "en": "I asked my teacher for advice.",
-        "zh": "我向老師請教。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "not A but B",
-      "quote": "not how many people borrowed things, but how many came back",
-      "explanation": "not A but B 表示「不是 A，而是 B」，重點放在 B。",
-      "examples": [
-       {
-        "en": "The problem is not money but time.",
-        "zh": "問題不是錢，而是時間。"
-       }
-      ],
-      "pitfall": "A 和 B 的形式要對稱：這裡兩邊都是 how many 子句。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "What surprised him most, though,",
-      "role": "subordinate",
-      "zh": "不過，最讓他驚訝的"
-     },
-     {
-      "text": "was not how many people borrowed things,",
-      "role": "main",
-      "zh": "不是有多少人來借東西，"
-     },
-     {
-      "text": "but how many came back to ask for advice.",
-      "role": "main",
-      "zh": "而是有多少人回來請教。"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "So now, on the first Saturday of each month, volunteers run free repair workshops where people learn to fix bikes, lamps and even clothes.",
-   "zh": "所以現在，每個月的第一個星期六，志工會舉辦免費的修理工作坊，讓大家學習修腳踏車、檯燈，甚至衣服。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "volunteer",
-      "inSentence": "volunteers",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "志工",
-      "ipa": "/ˌvɒlənˈtɪə/",
-      "collocations": [
-       "work as a volunteer"
-      ],
-      "examples": [
-       {
-        "en": "Volunteers cleaned the beach.",
-        "zh": "志工清理了海灘。"
-       }
-      ]
-     },
-     {
-      "term": "workshop",
-      "inSentence": "workshops",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "工作坊",
-      "ipa": "/ˈwɜːkʃɒp/",
-      "collocations": [
-       "run a workshop",
-       "writing workshop"
-      ],
-      "examples": [
-       {
-        "en": "I went to a photography workshop.",
-        "zh": "我參加了一個攝影工作坊。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [
-     {
-      "text": "So now, on the first Saturday of each month,",
-      "role": "modifier",
-      "zh": "所以現在，每個月的第一個星期六，"
-     },
-     {
-      "text": "volunteers run free repair workshops",
-      "role": "main",
-      "zh": "志工舉辦免費修理工作坊"
-     },
-     {
-      "text": "where people learn to fix bikes, lamps and even clothes.",
-      "role": "modifier",
-      "zh": "讓大家學修腳踏車、檯燈甚至衣服。"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "Of course, there have been a few problems along the way.",
-   "zh": "當然，這一路上也出過一些問題。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "along the way",
-      "inSentence": "along the way",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "在過程中；一路上",
-      "ipa": "/əˈlɒŋ ðə weɪ/",
-      "collocations": [
-       "learn along the way"
-      ],
-      "examples": [
-       {
-        "en": "We made a few friends along the way.",
-        "zh": "我們在過程中交了幾個朋友。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Some items have come back damaged, and one or two have never come back at all.",
-   "zh": "有些物品還回來時已經損壞，還有一兩件根本沒還回來。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "damaged",
-      "inSentence": "damaged",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "損壞的",
-      "ipa": "/ˈdæmɪdʒd/",
-      "collocations": [
-       "badly damaged",
-       "damaged goods"
-      ],
-      "examples": [
-       {
-        "en": "The box arrived damaged.",
-        "zh": "箱子送到時已經損壞了。"
-       }
-      ]
-     },
-     {
-      "term": "at all",
-      "inSentence": "at all",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "根本；一點也（用於否定句）",
-      "ipa": "/ət ˈɔːl/",
-      "collocations": [
-       "not at all",
-       "never ... at all"
-      ],
-      "examples": [
-       {
-        "en": "He didn't sleep at all.",
-        "zh": "他根本沒睡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "at all",
-      "soundsLike": "a-tall",
-      "note": "at 的 t 和 all 連在一起。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Even so, the organisers say the benefits far outweigh the losses, both for the environment and for people's wallets.",
-   "zh": "即使如此，主辦者說好處遠遠超過損失，對環境和大家的荷包都是。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "the benefits far outweigh the losses",
-      "note": "主辦者的結論：利大於弊。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "outweigh",
-      "inSentence": "outweigh",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "超過；比…更重要",
-      "ipa": "/ˌaʊtˈweɪ/",
-      "collocations": [
-       "far outweigh",
-       "outweigh the risks"
-      ],
-      "examples": [
-       {
-        "en": "The benefits outweigh the costs.",
-        "zh": "好處大於成本。"
-       }
-      ]
-     },
-     {
-      "term": "organiser",
-      "inSentence": "organisers",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "主辦者（英式拼法，美式為 organizer）",
-      "ipa": "/ˈɔːɡənaɪzə/",
-      "collocations": [
-       "event organiser"
-      ],
-      "examples": [
-       {
-        "en": "The organisers thanked everyone.",
-        "zh": "主辦單位感謝大家。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "Even so",
-      "quote": "Even so",
-      "explanation": "even so 是轉折連接詞，意思是「即使如此」，承認前面的問題後提出相反結論。",
-      "examples": [
-       {
-        "en": "It was raining. Even so, we went out.",
-        "zh": "那時在下雨，即使如此我們還是出門了。"
-       }
-      ],
-      "pitfall": "even so 不能用來連接兩個子句，前面要先斷句或用分號。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "If you'd like to get involved, either as a member or a volunteer, you'll find the library behind the old fire station on Mill Road.",
-   "zh": "如果你想參與，不論是當會員還是志工，圖書館就在磨坊路舊消防局的後面。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "get involved",
-      "inSentence": "get involved",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "參與",
-      "ipa": "/ɡet ɪnˈvɒlvd/",
-      "collocations": [
-       "get involved in"
-      ],
-      "examples": [
-       {
-        "en": "Students can get involved in many clubs.",
-        "zh": "學生可以參加很多社團。"
-       }
-      ]
-     },
-     {
-      "term": "fire station",
-      "inSentence": "fire station",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "消防局",
-      "ipa": "/ˈfaɪə ˈsteɪʃən/",
-      "collocations": [
-       "the local fire station"
-      ],
-      "examples": [
-       {
-        "en": "The fire station is next to the school.",
-        "zh": "消防局就在學校旁邊。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [
-     {
-      "text": "If you'd like to get involved,",
-      "role": "subordinate",
-      "zh": "如果你想參與，"
-     },
-     {
-      "text": "either as a member or a volunteer,",
-      "role": "modifier",
-      "zh": "不論是會員或志工，"
-     },
-     {
-      "text": "you'll find the library",
-      "role": "main",
-      "zh": "你可以找到圖書館"
-     },
-     {
-      "text": "behind the old fire station on Mill Road.",
-      "role": "modifier",
-      "zh": "在磨坊路舊消防局後面。"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "That's all for this week, and as always, thanks for listening.",
-   "zh": "這週的節目就到這裡，一如往常，謝謝收聽。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "as always",
-      "inSentence": "as always",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "一如往常",
-      "ipa": "/æz ˈɔːlweɪz/",
-      "collocations": [
-       "as always, ..."
-      ],
-      "examples": [
-       {
-        "en": "As always, the food was great.",
-        "zh": "跟往常一樣，食物很棒。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Welcome back to Community Matters, the programme where we look at small ideas making a big difference.",
+      "zh": "歡迎回到《社區大小事》，這個節目專門介紹帶來大改變的小點子。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "programme",
+            "inSentence": "programme",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "節目（英式拼法，美式為 program）",
+            "ipa": "/ˈprəʊɡræm/",
+            "collocations": ["radio programme", "TV programme"],
+            "examples": [
+              {
+                "en": "My favourite programme is on tonight.",
+                "zh": "我最喜歡的節目今晚播出。"
+              }
+            ]
+          },
+          {
+            "term": "make a difference",
+            "inSentence": "making a big difference",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "帶來改變；有影響",
+            "ipa": "/meɪk ə ˈdɪfrəns/",
+            "collocations": ["make a real difference"],
+            "examples": [
+              {
+                "en": "Small changes can make a difference.",
+                "zh": "小小的改變也能帶來影響。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Today I'd like to tell you about something that opened in our town last spring: a library that lends tools instead of books.",
+      "zh": "今天我想跟大家介紹去年春天在我們鎮上開幕的地方：一間出借工具而不是書的圖書館。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "a library that lends tools instead of books",
+            "note": "短講主題：工具圖書館。中高級考題常問「這段談話主要在介紹什麼」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "lend",
+            "inSentence": "lends",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "借出",
+            "ipa": "/lend/",
+            "collocations": ["lend someone something", "lend money"],
+            "examples": [
+              {
+                "en": "Could you lend me your umbrella?",
+                "zh": "你可以借我雨傘嗎？"
+              }
+            ]
+          },
+          {
+            "term": "instead of",
+            "inSentence": "instead of",
+            "kind": "phrase",
+            "pos": "prep.",
+            "zh": "而不是；代替",
+            "ipa": "/ɪnˈsted əv/",
+            "collocations": ["instead of going"],
+            "examples": [
+              {
+                "en": "I had tea instead of coffee.",
+                "zh": "我喝了茶，沒喝咖啡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "Today I'd like to tell you about something",
+            "role": "main",
+            "zh": "今天我想跟大家介紹一個地方"
+          },
+          {
+            "text": "that opened in our town last spring:",
+            "role": "modifier",
+            "zh": "去年春天在我們鎮上開幕："
+          },
+          {
+            "text": "a library that lends tools instead of books.",
+            "role": "modifier",
+            "zh": "一間出借工具而不是書的圖書館。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Most of us own tools that we use once or twice a year, and the rest of the time they just sit in a cupboard.",
+      "zh": "我們大多數人都有一年只用一兩次的工具，其他時間它們就只是躺在櫃子裡。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "the rest of",
+            "inSentence": "the rest of the time",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "其餘的",
+            "ipa": "/ðə rest əv/",
+            "collocations": ["the rest of the day"],
+            "examples": [
+              {
+                "en": "I spent the rest of the day reading.",
+                "zh": "那天剩下的時間我都在看書。"
+              }
+            ]
+          },
+          {
+            "term": "cupboard",
+            "inSentence": "cupboard",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "櫥櫃",
+            "ipa": "/ˈkʌbəd/",
+            "collocations": ["kitchen cupboard"],
+            "examples": [
+              {
+                "en": "The cups are in the cupboard.",
+                "zh": "杯子在櫥櫃裡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "cupboard",
+            "soundsLike": "cubberd",
+            "note": "cupboard 的 p 不發音，唸作 /ˈkʌbəd/。"
+          },
+          {
+            "text": "once or twice",
+            "soundsLike": "wunsa twice",
+            "note": "or 弱讀成 /ə/，和 once 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "At the tool library, members pay a small annual fee and can borrow anything from ladders to sewing machines for up to a week.",
+      "zh": "在工具圖書館，會員只要付一筆小小的年費，就能借用從梯子到縫紉機的任何東西，最長一週。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "for up to a week",
+            "note": "借用期限：最長一週。up to 表示「最多到」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "annual fee",
+            "inSentence": "annual fee",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "年費",
+            "ipa": "/ˈænjuəl fiː/",
+            "collocations": ["pay an annual fee"],
+            "examples": [
+              {
+                "en": "The gym has an annual fee.",
+                "zh": "這間健身房要收年費。"
+              }
+            ]
+          },
+          {
+            "term": "sewing machine",
+            "inSentence": "sewing machines",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "縫紉機",
+            "ipa": "/ˈsəʊɪŋ məˈʃiːn/",
+            "collocations": ["use a sewing machine"],
+            "examples": [
+              {
+                "en": "My grandmother still uses a sewing machine.",
+                "zh": "我奶奶還在用縫紉機。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "anything from A to B",
+            "quote": "anything from ladders to sewing machines",
+            "explanation": "anything from A to B 用兩個例子表示範圍很廣，「從 A 到 B 什麼都有」。",
+            "examples": [
+              {
+                "en": "The shop sells anything from pens to sofas.",
+                "zh": "這家店從筆到沙發什麼都賣。"
+              }
+            ],
+            "pitfall": "from 和 to 後面接名詞，不要接動詞。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "At the tool library,",
+            "role": "modifier",
+            "zh": "在工具圖書館，"
+          },
+          {
+            "text": "members pay a small annual fee",
+            "role": "main",
+            "zh": "會員付一筆小小的年費"
+          },
+          {
+            "text": "and can borrow anything from ladders to sewing machines",
+            "role": "main",
+            "zh": "就能借用從梯子到縫紉機的任何東西"
+          },
+          {
+            "text": "for up to a week.",
+            "role": "modifier",
+            "zh": "最長一週。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "The project was started by a retired carpenter who was tired of seeing perfectly good equipment thrown away.",
+      "zh": "這個計畫是由一位退休木匠發起的，他看不下去還能用的設備就這樣被丟掉。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "a retired carpenter",
+            "note": "創辦人身分：退休木匠，是常考的人物細節。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "carpenter",
+            "inSentence": "carpenter",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "木匠",
+            "ipa": "/ˈkɑːpəntə/",
+            "collocations": ["skilled carpenter"],
+            "examples": [
+              {
+                "en": "The carpenter made a new table.",
+                "zh": "木匠做了一張新桌子。"
+              }
+            ]
+          },
+          {
+            "term": "be tired of",
+            "inSentence": "was tired of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "厭倦；受夠了",
+            "ipa": "/bi ˈtaɪəd əv/",
+            "collocations": ["tired of waiting"],
+            "examples": [
+              {
+                "en": "I'm tired of eating the same food.",
+                "zh": "我吃膩了同樣的食物。"
+              }
+            ]
+          },
+          {
+            "term": "equipment",
+            "inSentence": "equipment",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "設備；器材",
+            "ipa": "/ɪˈkwɪpmənt/",
+            "collocations": ["sports equipment", "a piece of equipment"],
+            "examples": [
+              {
+                "en": "The lab has new equipment.",
+                "zh": "實驗室有新的設備。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "see + object + past participle",
+            "quote": "seeing perfectly good equipment thrown away",
+            "explanation": "see + 受詞 + 過去分詞，表示看見某物「被…」：設備被丟掉。",
+            "examples": [
+              {
+                "en": "I saw the old house pulled down.",
+                "zh": "我看著那棟老房子被拆掉。"
+              }
+            ],
+            "pitfall": "equipment 是不可數名詞，不能加 s。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He began by collecting donations from neighbours, and within six months he had more than four hundred items on the shelves.",
+      "zh": "他一開始先向鄰居募集捐贈，六個月內架上就有超過 400 件物品。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "donation",
+            "inSentence": "donations",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "捐贈；捐款",
+            "ipa": "/dəʊˈneɪʃən/",
+            "collocations": ["make a donation", "collect donations"],
+            "examples": [
+              {
+                "en": "The school collected donations for the flood victims.",
+                "zh": "學校為水災災民募集捐款。"
+              }
+            ]
+          },
+          {
+            "term": "neighbour",
+            "inSentence": "neighbours",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "鄰居（英式拼法，美式為 neighbor）",
+            "ipa": "/ˈneɪbə/",
+            "collocations": ["next-door neighbour"],
+            "examples": [
+              {
+                "en": "Our neighbours are very friendly.",
+                "zh": "我們的鄰居很友善。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "begin by + V-ing",
+            "quote": "began by collecting",
+            "explanation": "begin by + V-ing 表示「以…作為開始」，說明第一步做了什麼。",
+            "examples": [
+              {
+                "en": "Let's begin by reviewing last week's lesson.",
+                "zh": "我們先從複習上週的課開始。"
+              }
+            ],
+            "pitfall": "by 是介系詞，後面要接 V-ing，不能接 to collect。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "What surprised him most, though, was not how many people borrowed things, but how many came back to ask for advice.",
+      "zh": "不過，最讓他驚訝的，不是有多少人來借東西，而是有多少人回來向他請教。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "how many came back to ask for advice",
+            "note": "轉折重點：真正的驚喜是有人來請教，引出下一句的修理工作坊。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "ask for advice",
+            "inSentence": "ask for advice",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "徵詢意見；請教",
+            "ipa": "/ɑːsk fɔːr ədˈvaɪs/",
+            "collocations": ["ask someone for advice"],
+            "examples": [
+              {
+                "en": "I asked my teacher for advice.",
+                "zh": "我向老師請教。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "not A but B",
+            "quote": "not how many people borrowed things, but how many came back",
+            "explanation": "not A but B 表示「不是 A，而是 B」，重點放在 B。",
+            "examples": [
+              {
+                "en": "The problem is not money but time.",
+                "zh": "問題不是錢，而是時間。"
+              }
+            ],
+            "pitfall": "A 和 B 的形式要對稱：這裡兩邊都是 how many 子句。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "What surprised him most, though,",
+            "role": "subordinate",
+            "zh": "不過，最讓他驚訝的"
+          },
+          {
+            "text": "was not how many people borrowed things,",
+            "role": "main",
+            "zh": "不是有多少人來借東西，"
+          },
+          {
+            "text": "but how many came back to ask for advice.",
+            "role": "main",
+            "zh": "而是有多少人回來請教。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "So now, on the first Saturday of each month, volunteers run free repair workshops where people learn to fix bikes, lamps and even clothes.",
+      "zh": "所以現在，每個月的第一個星期六，志工會舉辦免費的修理工作坊，讓大家學習修腳踏車、檯燈，甚至衣服。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "volunteer",
+            "inSentence": "volunteers",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "志工",
+            "ipa": "/ˌvɒlənˈtɪə/",
+            "collocations": ["work as a volunteer"],
+            "examples": [
+              {
+                "en": "Volunteers cleaned the beach.",
+                "zh": "志工清理了海灘。"
+              }
+            ]
+          },
+          {
+            "term": "workshop",
+            "inSentence": "workshops",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "工作坊",
+            "ipa": "/ˈwɜːkʃɒp/",
+            "collocations": ["run a workshop", "writing workshop"],
+            "examples": [
+              {
+                "en": "I went to a photography workshop.",
+                "zh": "我參加了一個攝影工作坊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "So now, on the first Saturday of each month,",
+            "role": "modifier",
+            "zh": "所以現在，每個月的第一個星期六，"
+          },
+          {
+            "text": "volunteers run free repair workshops",
+            "role": "main",
+            "zh": "志工舉辦免費修理工作坊"
+          },
+          {
+            "text": "where people learn to fix bikes, lamps and even clothes.",
+            "role": "modifier",
+            "zh": "讓大家學修腳踏車、檯燈甚至衣服。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Of course, there have been a few problems along the way.",
+      "zh": "當然，這一路上也出過一些問題。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "along the way",
+            "inSentence": "along the way",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "在過程中；一路上",
+            "ipa": "/əˈlɒŋ ðə weɪ/",
+            "collocations": ["learn along the way"],
+            "examples": [
+              {
+                "en": "We made a few friends along the way.",
+                "zh": "我們在過程中交了幾個朋友。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Some items have come back damaged, and one or two have never come back at all.",
+      "zh": "有些物品還回來時已經損壞，還有一兩件根本沒還回來。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "damaged",
+            "inSentence": "damaged",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "損壞的",
+            "ipa": "/ˈdæmɪdʒd/",
+            "collocations": ["badly damaged", "damaged goods"],
+            "examples": [
+              {
+                "en": "The box arrived damaged.",
+                "zh": "箱子送到時已經損壞了。"
+              }
+            ]
+          },
+          {
+            "term": "at all",
+            "inSentence": "at all",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "根本；一點也（用於否定句）",
+            "ipa": "/ət ˈɔːl/",
+            "collocations": ["not at all", "never ... at all"],
+            "examples": [
+              {
+                "en": "He didn't sleep at all.",
+                "zh": "他根本沒睡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "at all",
+            "soundsLike": "a-tall",
+            "note": "at 的 t 和 all 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Even so, the organisers say the benefits far outweigh the losses, both for the environment and for people's wallets.",
+      "zh": "即使如此，主辦者說好處遠遠超過損失，對環境和大家的荷包都是。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "the benefits far outweigh the losses",
+            "note": "主辦者的結論：利大於弊。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "outweigh",
+            "inSentence": "outweigh",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "超過；比…更重要",
+            "ipa": "/ˌaʊtˈweɪ/",
+            "collocations": ["far outweigh", "outweigh the risks"],
+            "examples": [
+              {
+                "en": "The benefits outweigh the costs.",
+                "zh": "好處大於成本。"
+              }
+            ]
+          },
+          {
+            "term": "organiser",
+            "inSentence": "organisers",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "主辦者（英式拼法，美式為 organizer）",
+            "ipa": "/ˈɔːɡənaɪzə/",
+            "collocations": ["event organiser"],
+            "examples": [
+              {
+                "en": "The organisers thanked everyone.",
+                "zh": "主辦單位感謝大家。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Even so",
+            "quote": "Even so",
+            "explanation": "even so 是轉折連接詞，意思是「即使如此」，承認前面的問題後提出相反結論。",
+            "examples": [
+              {
+                "en": "It was raining. Even so, we went out.",
+                "zh": "那時在下雨，即使如此我們還是出門了。"
+              }
+            ],
+            "pitfall": "even so 不能用來連接兩個子句，前面要先斷句或用分號。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "If you'd like to get involved, either as a member or a volunteer, you'll find the library behind the old fire station on Mill Road.",
+      "zh": "如果你想參與，不論是當會員還是志工，圖書館就在磨坊路舊消防局的後面。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "get involved",
+            "inSentence": "get involved",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "參與",
+            "ipa": "/ɡet ɪnˈvɒlvd/",
+            "collocations": ["get involved in"],
+            "examples": [
+              {
+                "en": "Students can get involved in many clubs.",
+                "zh": "學生可以參加很多社團。"
+              }
+            ]
+          },
+          {
+            "term": "fire station",
+            "inSentence": "fire station",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "消防局",
+            "ipa": "/ˈfaɪə ˈsteɪʃən/",
+            "collocations": ["the local fire station"],
+            "examples": [
+              {
+                "en": "The fire station is next to the school.",
+                "zh": "消防局就在學校旁邊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "If you'd like to get involved,",
+            "role": "subordinate",
+            "zh": "如果你想參與，"
+          },
+          {
+            "text": "either as a member or a volunteer,",
+            "role": "modifier",
+            "zh": "不論是會員或志工，"
+          },
+          {
+            "text": "you'll find the library",
+            "role": "main",
+            "zh": "你可以找到圖書館"
+          },
+          {
+            "text": "behind the old fire station on Mill Road.",
+            "role": "modifier",
+            "zh": "在磨坊路舊消防局後面。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's all for this week, and as always, thanks for listening.",
+      "zh": "這週的節目就到這裡，一如往常，謝謝收聽。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "as always",
+            "inSentence": "as always",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一如往常",
+            "ipa": "/æz ˈɔːlweɪz/",
+            "collocations": ["as always, ..."],
+            "examples": [
+              {
+                "en": "As always, the food was great.",
+                "zh": "跟往常一樣，食物很棒。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

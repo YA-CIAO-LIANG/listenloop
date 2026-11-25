@@ -36,53 +36,34 @@
       "pattern": "For weeks, I had wanted to …, but …",
       "zh": "過去完成式：一直想做某事，卻……",
       "example": "For weeks, I had wanted to speak, but I was always too shy.",
-      "keys": [
-        "had wanted to",
-        "but"
-      ]
+      "keys": ["had wanted to", "but"]
     },
     {
       "pattern": "… was beating fast when I …",
       "zh": "過去進行式＋when：描寫當下的緊張",
       "example": "My heart was beating fast when I raised my hand.",
-      "keys": [
-        "was beating",
-        "when"
-      ]
+      "keys": ["was beating", "when"]
     },
     {
       "pattern": "It was only …, but I felt …",
       "zh": "雖然只是……，但我覺得……",
       "example": "It was only one question, but I felt very proud of myself.",
-      "keys": [
-        "only",
-        "but",
-        "felt"
-      ]
+      "keys": ["only", "but", "felt"]
     },
     {
       "pattern": "… will help me become …",
       "zh": "說明這件事帶來的幫助",
       "example": "Small steps like this will help me become more confident.",
-      "keys": [
-        "help me",
-        "become"
-      ]
+      "keys": ["help me", "become"]
     }
   ],
   "combine": [
     {
-      "parts": [
-        "She smiled.",
-        "She said it was a great question."
-      ],
+      "parts": ["She smiled.", "She said it was a great question."],
       "answer": "She smiled and said it was a great question."
     },
     {
-      "parts": [
-        "My voice was a little quiet.",
-        "She understood me."
-      ],
+      "parts": ["My voice was a little quiet.", "She understood me."],
       "answer": "My voice was a little quiet, but she understood me."
     }
   ],

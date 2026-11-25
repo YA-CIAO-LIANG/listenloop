@@ -75,7 +75,10 @@
   "paraphrase": [
     {
       "sentence": "Jason shouted for help.",
-      "answers": ["Jason called out for help.", "Jason yelled for someone to help."]
+      "answers": [
+        "Jason called out for help.",
+        "Jason yelled for someone to help."
+      ]
     },
     {
       "sentence": "Everyone could do something to protect the sea.",

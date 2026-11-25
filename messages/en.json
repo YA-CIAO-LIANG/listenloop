@@ -2555,7 +2555,14 @@
       "senior-dialogue": "Senior high: dialogues",
       "senior-passage": "Senior high: passages",
       "gsat-dialogue": "Short conversations",
-      "gsat-short-talk": "Short talks and reports"
+      "gsat-short-talk": "Short talks and reports",
+      "myth": "Myths",
+      "classic-poem": "Classic poems",
+      "historic-letter": "Historic letters",
+      "junior-story": "Junior high: stories",
+      "junior-notice": "Junior high: announcements",
+      "senior-story": "Senior high: stories",
+      "senior-speech": "Senior high: student speeches"
     },
     "exams": {
       "toefl": "TOEFL iBT-style",

@@ -1,777 +1,714 @@
 {
- "slug": "s-pen-pal-letter",
- "series": "school",
- "title": "A Letter to My Pen Pal",
- "titleZh": "寫給筆友的信",
- "subtitle": "台南國一生 Mei 寫信給英國筆友，介紹自己和農曆新年",
- "format": "monologue",
- "accent": "gb",
- "meta": {
-  "category": "school",
-  "scenario": "junior-passage",
-  "level": "beginner",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Dear Emily, thank you for your letter and the lovely postcard of London.",
-   "zh": "親愛的 Emily，謝謝你的來信，還有那張漂亮的倫敦明信片。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "thank you for",
-      "note": "thank you for ＋名詞或 V-ing，表示「謝謝你的…」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "postcard",
-      "inSentence": "postcard",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "明信片",
-      "ipa": "/ˈpəʊstkɑːd/",
-      "collocations": [
-       "send a postcard",
-       "a postcard of"
-      ],
-      "examples": [
-       {
-        "en": "I sent my aunt a postcard.",
-        "zh": "我寄了一張明信片給阿姨。"
-       }
-      ]
-     },
-     {
-      "term": "lovely",
-      "inSentence": "lovely",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "可愛的；漂亮的",
-      "ipa": "/ˈlʌvli/",
-      "collocations": [
-       "a lovely day",
-       "lovely weather"
-      ],
-      "examples": [
-       {
-        "en": "What a lovely dress!",
-        "zh": "好漂亮的洋裝！"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "s-pen-pal-letter",
+  "series": "school",
+  "title": "A Letter to My Pen Pal",
+  "titleZh": "寫給筆友的信",
+  "subtitle": "台南國一生 Mei 寫信給英國筆友，介紹自己和農曆新年",
+  "format": "monologue",
+  "accent": "gb",
+  "meta": {
+    "category": "school",
+    "scenario": "junior-passage",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "My name is Mei, and I'm thirteen years old.",
-   "zh": "我叫 Mei，今年十三歲。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "years old",
-      "inSentence": "thirteen years old",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "…歲",
-      "ipa": "/jɪəz əʊld/",
-      "collocations": [
-       "ten years old",
-       "how old"
-      ],
-      "examples": [
-       {
-        "en": "My brother is eight years old.",
-        "zh": "我弟弟八歲。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "I live in Tainan, a city in the south of Taiwan with lots of old temples and delicious street food.",
-   "zh": "我住在台南，那是台灣南部的一座城市，有很多古老的廟宇和好吃的小吃。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "temple",
-      "inSentence": "temples",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "廟；寺廟",
-      "ipa": "/ˈtempl/",
-      "collocations": [
-       "visit a temple",
-       "an old temple"
-      ],
-      "examples": [
-       {
-        "en": "There is a temple near my house.",
-        "zh": "我家附近有一間廟。"
-       }
-      ]
-     },
-     {
-      "term": "street food",
-      "inSentence": "street food",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "小吃；路邊攤食物",
-      "ipa": "/ˈstriːt fuːd/",
-      "collocations": [
-       "try street food",
-       "local street food"
-      ],
-      "examples": [
-       {
-        "en": "Taiwan is famous for its street food.",
-        "zh": "台灣以小吃聞名。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "appositive",
-      "quote": "Tainan, a city in the south of Taiwan",
-      "explanation": "逗號後面的名詞片語是「同位語」，用來補充說明前面的 Tainan。",
-      "examples": [
-       {
-        "en": "This is Ken, my best friend.",
-        "zh": "這是 Ken，我最好的朋友。"
-       }
-      ],
-      "pitfall": "同位語前要加逗號，不要寫成 Tainan a city。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "I live in Tainan",
-      "role": "main",
-      "zh": "我住在台南"
-     },
-     {
-      "text": "a city in the south of Taiwan",
-      "role": "modifier",
-      "zh": "台灣南部的一座城市"
-     },
-     {
-      "text": "with lots of old temples",
-      "role": "modifier",
-      "zh": "有很多古老的廟宇"
-     },
-     {
-      "text": "and delicious street food",
-      "role": "modifier",
-      "zh": "和好吃的小吃"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "I'm in my first year of junior high school.",
-   "zh": "我現在是國中一年級。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "my first year",
-      "note": "用 first year 表示「一年級」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "junior high school",
-      "inSentence": "junior high school",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "國中",
-      "ipa": "/ˌdʒuːniə ˈhaɪ skuːl/",
-      "collocations": [
-       "go to junior high school",
-       "junior high student"
-      ],
-      "examples": [
-       {
-        "en": "My sister goes to junior high school.",
-        "zh": "我姊姊讀國中。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "My favourite subject is art, because I love drawing animals.",
-   "zh": "我最喜歡的科目是美術，因為我很愛畫動物。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "favourite",
-      "note": "英式拼法有 u；美式拼成 favorite。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "favourite",
-      "inSentence": "favourite",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "最喜歡的",
-      "ipa": "/ˈfeɪvərɪt/",
-      "collocations": [
-       "my favourite food",
-       "favourite colour"
-      ],
-      "examples": [
-       {
-        "en": "Blue is my favourite colour.",
-        "zh": "藍色是我最喜歡的顏色。"
-       }
-      ]
-     },
-     {
-      "term": "subject",
-      "inSentence": "subject",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "科目",
-      "ipa": "/ˈsʌbdʒɪkt/",
-      "collocations": [
-       "school subject",
-       "favourite subject"
-      ],
-      "examples": [
-       {
-        "en": "Maths is a hard subject for me.",
-        "zh": "數學對我來說是很難的科目。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Every morning, I ride my bike to school with my best friend.",
-   "zh": "每天早上，我都和最好的朋友一起騎腳踏車上學。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "Every morning",
-      "note": "表示習慣，所以用現在簡單式 ride。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "ride a bike",
-      "inSentence": "ride my bike",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "騎腳踏車",
-      "ipa": "/raɪd ə baɪk/",
-      "collocations": [
-       "ride a bike",
-       "ride to school"
-      ],
-      "examples": [
-       {
-        "en": "I ride my bike to the park.",
-        "zh": "我騎腳踏車去公園。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "After school, I often help my grandma at her small breakfast shop.",
-   "zh": "放學後，我常常去奶奶的小早餐店幫忙。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "breakfast shop",
-      "inSentence": "breakfast shop",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "早餐店",
-      "ipa": "/ˈbrekfəst ʃɒp/",
-      "collocations": [
-       "run a breakfast shop",
-       "a local breakfast shop"
-      ],
-      "examples": [
-       {
-        "en": "The breakfast shop opens at six.",
-        "zh": "早餐店六點開門。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "position of frequency adverbs",
-      "quote": "I often help",
-      "explanation": "often、always、usually 這類頻率副詞放在一般動詞前面、be 動詞後面。",
-      "examples": [
-       {
-        "en": "She is always late.",
-        "zh": "她總是遲到。"
-       }
-      ],
-      "pitfall": "不要說 I help often my grandma。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "She makes the best rice balls in our neighbourhood.",
-   "zh": "她做的飯糰是我們這一帶最好吃的。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "rice ball",
-      "inSentence": "rice balls",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "飯糰",
-      "ipa": "/ˈraɪs bɔːl/",
-      "collocations": [
-       "make rice balls",
-       "a rice ball"
-      ],
-      "examples": [
-       {
-        "en": "I had a rice ball for breakfast.",
-        "zh": "我早餐吃了一個飯糰。"
-       }
-      ]
-     },
-     {
-      "term": "neighbourhood",
-      "inSentence": "neighbourhood",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "鄰近地區；社區",
-      "ipa": "/ˈneɪbəhʊd/",
-      "collocations": [
-       "in our neighbourhood",
-       "a quiet neighbourhood"
-      ],
-      "examples": [
-       {
-        "en": "Our neighbourhood is very quiet.",
-        "zh": "我們這一區很安靜。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "superlative + in",
-      "quote": "the best rice balls in our neighbourhood",
-      "explanation": "最高級 the best 後面接 in ＋地方，表示「在某範圍裡最…」。",
-      "examples": [
-       {
-        "en": "He is the tallest boy in our class.",
-        "zh": "他是我們班最高的男生。"
-       }
-      ],
-      "pitfall": "範圍是地方或團體時用 in，不用 of。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "In your letter, you asked me about Chinese New Year.",
-   "zh": "你在信裡問我關於農曆新年的事。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "Chinese New Year",
-      "note": "英文常用 Chinese New Year 或 Lunar New Year 表示農曆新年。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "ask about",
-      "inSentence": "asked me about",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "詢問有關…",
-      "ipa": "/ɑːsk əˈbaʊt/",
-      "collocations": [
-       "ask about",
-       "ask sb about"
-      ],
-      "examples": [
-       {
-        "en": "She asked me about my trip.",
-        "zh": "她問我旅行的事。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "It's the biggest holiday of the year here, and families get together for a huge dinner.",
-   "zh": "這是我們這裡一年中最盛大的節日，家人會團聚吃一頓豐盛的大餐。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "get together",
-      "inSentence": "get together",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "聚在一起；團聚",
-      "ipa": "/ɡet təˈɡeðə/",
-      "collocations": [
-       "get together with",
-       "get together for"
-      ],
-      "examples": [
-       {
-        "en": "Let's get together this weekend.",
-        "zh": "我們這週末聚一聚吧。"
-       }
-      ]
-     },
-     {
-      "term": "huge",
-      "inSentence": "huge",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "巨大的；非常多的",
-      "ipa": "/hjuːdʒ/",
-      "collocations": [
-       "a huge meal",
-       "a huge house"
-      ],
-      "examples": [
-       {
-        "en": "They live in a huge house.",
-        "zh": "他們住在一間很大的房子。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "get together",
-      "soundsLike": "ge-together",
-      "note": "get 的 t 在 together 前常不發出來。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Children also receive red envelopes with money inside.",
-   "zh": "小孩子還會收到裝著錢的紅包。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "with money inside",
-      "note": "with ＋名詞＋副詞，補充說明「裡面有錢」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "red envelope",
-      "inSentence": "red envelopes",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "紅包",
-      "ipa": "/red ˈenvələʊp/",
-      "collocations": [
-       "give red envelopes",
-       "get a red envelope"
-      ],
-      "examples": [
-       {
-        "en": "Grandpa gave me a red envelope.",
-        "zh": "爺爺給了我一個紅包。"
-       }
-      ]
-     },
-     {
-      "term": "receive",
-      "inSentence": "receive",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "收到",
-      "ipa": "/rɪˈsiːv/",
-      "collocations": [
-       "receive a gift",
-       "receive a letter"
-      ],
-      "examples": [
-       {
-        "en": "I received your email.",
-        "zh": "我收到你的電子郵件了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Next time, could you tell me how people in England celebrate Christmas?",
-   "zh": "下次你可以告訴我英國人怎麼過聖誕節嗎？",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "celebrate",
-      "inSentence": "celebrate",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "慶祝",
-      "ipa": "/ˈselɪbreɪt/",
-      "collocations": [
-       "celebrate a birthday",
-       "celebrate Christmas"
-      ],
-      "examples": [
-       {
-        "en": "We celebrated Dad's birthday at home.",
-        "zh": "我們在家幫爸爸慶生。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "indirect question",
-      "quote": "how people in England celebrate Christmas",
-      "explanation": "問句放在另一句裡面時，要用直述句的順序：主詞在動詞前面，不加 do。",
-      "examples": [
-       {
-        "en": "Do you know where she lives?",
-        "zh": "你知道她住哪裡嗎？"
-       }
-      ],
-      "pitfall": "不要說 tell me how do people celebrate。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I've put a photo of my school in this letter, so you can see what it looks like.",
-   "zh": "我在信裡放了一張我們學校的照片，讓你看看它長什麼樣子。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "look like",
-      "inSentence": "looks like",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "看起來像",
-      "ipa": "/lʊk laɪk/",
-      "collocations": [
-       "what it looks like",
-       "look like sb"
-      ],
-      "examples": [
-       {
-        "en": "You look like your mum.",
-        "zh": "你長得像你媽媽。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "what ... looks like",
-      "quote": "what it looks like",
-      "explanation": "What does it look like? 放進句子裡變成 what it looks like，意思是「它長什麼樣子」。",
-      "examples": [
-       {
-        "en": "I don't know what he looks like.",
-        "zh": "我不知道他長什麼樣子。"
-       }
-      ],
-      "pitfall": "不要說 what it looks，少了 like 意思就不對。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I'm looking forward to hearing from you soon.",
-   "zh": "期待很快收到你的回信。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "look forward to",
-      "inSentence": "looking forward to",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "期待",
-      "ipa": "/lʊk ˈfɔːwəd tuː/",
-      "collocations": [
-       "look forward to seeing you",
-       "look forward to it"
-      ],
-      "examples": [
-       {
-        "en": "I'm looking forward to the holiday.",
-        "zh": "我很期待假期。"
-       }
-      ]
-     },
-     {
-      "term": "hear from",
-      "inSentence": "hearing from you",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "收到…的消息",
-      "ipa": "/hɪə frɒm/",
-      "collocations": [
-       "hear from you",
-       "hear from sb"
-      ],
-      "examples": [
-       {
-        "en": "Have you heard from Jack?",
-        "zh": "你有 Jack 的消息嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "look forward to + V-ing",
-      "quote": "looking forward to hearing",
-      "explanation": "這裡的 to 是介系詞，後面要接名詞或 V-ing。",
-      "examples": [
-       {
-        "en": "We look forward to meeting you.",
-        "zh": "我們期待和你見面。"
-       }
-      ],
-      "pitfall": "常誤寫成 look forward to hear。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Best wishes, Mei.",
-   "zh": "祝好，Mei",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "best wishes",
-      "inSentence": "Best wishes",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "祝好（信件結尾）",
-      "ipa": "/best ˈwɪʃɪz/",
-      "collocations": [
-       "best wishes",
-       "with best wishes"
-      ],
-      "examples": [
-       {
-        "en": "Best wishes for the new year.",
-        "zh": "祝新年一切順利。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Dear Emily, thank you for your letter and the lovely postcard of London.",
+      "zh": "親愛的 Emily，謝謝你的來信，還有那張漂亮的倫敦明信片。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "thank you for",
+            "note": "thank you for ＋名詞或 V-ing，表示「謝謝你的…」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "postcard",
+            "inSentence": "postcard",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "明信片",
+            "ipa": "/ˈpəʊstkɑːd/",
+            "collocations": ["send a postcard", "a postcard of"],
+            "examples": [
+              {
+                "en": "I sent my aunt a postcard.",
+                "zh": "我寄了一張明信片給阿姨。"
+              }
+            ]
+          },
+          {
+            "term": "lovely",
+            "inSentence": "lovely",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "可愛的；漂亮的",
+            "ipa": "/ˈlʌvli/",
+            "collocations": ["a lovely day", "lovely weather"],
+            "examples": [
+              {
+                "en": "What a lovely dress!",
+                "zh": "好漂亮的洋裝！"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My name is Mei, and I'm thirteen years old.",
+      "zh": "我叫 Mei，今年十三歲。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "years old",
+            "inSentence": "thirteen years old",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "…歲",
+            "ipa": "/jɪəz əʊld/",
+            "collocations": ["ten years old", "how old"],
+            "examples": [
+              {
+                "en": "My brother is eight years old.",
+                "zh": "我弟弟八歲。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I live in Tainan, a city in the south of Taiwan with lots of old temples and delicious street food.",
+      "zh": "我住在台南，那是台灣南部的一座城市，有很多古老的廟宇和好吃的小吃。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "temple",
+            "inSentence": "temples",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "廟；寺廟",
+            "ipa": "/ˈtempl/",
+            "collocations": ["visit a temple", "an old temple"],
+            "examples": [
+              {
+                "en": "There is a temple near my house.",
+                "zh": "我家附近有一間廟。"
+              }
+            ]
+          },
+          {
+            "term": "street food",
+            "inSentence": "street food",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "小吃；路邊攤食物",
+            "ipa": "/ˈstriːt fuːd/",
+            "collocations": ["try street food", "local street food"],
+            "examples": [
+              {
+                "en": "Taiwan is famous for its street food.",
+                "zh": "台灣以小吃聞名。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "appositive",
+            "quote": "Tainan, a city in the south of Taiwan",
+            "explanation": "逗號後面的名詞片語是「同位語」，用來補充說明前面的 Tainan。",
+            "examples": [
+              {
+                "en": "This is Ken, my best friend.",
+                "zh": "這是 Ken，我最好的朋友。"
+              }
+            ],
+            "pitfall": "同位語前要加逗號，不要寫成 Tainan a city。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I live in Tainan",
+            "role": "main",
+            "zh": "我住在台南"
+          },
+          {
+            "text": "a city in the south of Taiwan",
+            "role": "modifier",
+            "zh": "台灣南部的一座城市"
+          },
+          {
+            "text": "with lots of old temples",
+            "role": "modifier",
+            "zh": "有很多古老的廟宇"
+          },
+          {
+            "text": "and delicious street food",
+            "role": "modifier",
+            "zh": "和好吃的小吃"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'm in my first year of junior high school.",
+      "zh": "我現在是國中一年級。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "my first year",
+            "note": "用 first year 表示「一年級」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "junior high school",
+            "inSentence": "junior high school",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "國中",
+            "ipa": "/ˌdʒuːniə ˈhaɪ skuːl/",
+            "collocations": ["go to junior high school", "junior high student"],
+            "examples": [
+              {
+                "en": "My sister goes to junior high school.",
+                "zh": "我姊姊讀國中。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My favourite subject is art, because I love drawing animals.",
+      "zh": "我最喜歡的科目是美術，因為我很愛畫動物。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "favourite",
+            "note": "英式拼法有 u；美式拼成 favorite。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "favourite",
+            "inSentence": "favourite",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "最喜歡的",
+            "ipa": "/ˈfeɪvərɪt/",
+            "collocations": ["my favourite food", "favourite colour"],
+            "examples": [
+              {
+                "en": "Blue is my favourite colour.",
+                "zh": "藍色是我最喜歡的顏色。"
+              }
+            ]
+          },
+          {
+            "term": "subject",
+            "inSentence": "subject",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "科目",
+            "ipa": "/ˈsʌbdʒɪkt/",
+            "collocations": ["school subject", "favourite subject"],
+            "examples": [
+              {
+                "en": "Maths is a hard subject for me.",
+                "zh": "數學對我來說是很難的科目。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Every morning, I ride my bike to school with my best friend.",
+      "zh": "每天早上，我都和最好的朋友一起騎腳踏車上學。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Every morning",
+            "note": "表示習慣，所以用現在簡單式 ride。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "ride a bike",
+            "inSentence": "ride my bike",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "騎腳踏車",
+            "ipa": "/raɪd ə baɪk/",
+            "collocations": ["ride a bike", "ride to school"],
+            "examples": [
+              {
+                "en": "I ride my bike to the park.",
+                "zh": "我騎腳踏車去公園。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "After school, I often help my grandma at her small breakfast shop.",
+      "zh": "放學後，我常常去奶奶的小早餐店幫忙。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "breakfast shop",
+            "inSentence": "breakfast shop",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "早餐店",
+            "ipa": "/ˈbrekfəst ʃɒp/",
+            "collocations": ["run a breakfast shop", "a local breakfast shop"],
+            "examples": [
+              {
+                "en": "The breakfast shop opens at six.",
+                "zh": "早餐店六點開門。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "position of frequency adverbs",
+            "quote": "I often help",
+            "explanation": "often、always、usually 這類頻率副詞放在一般動詞前面、be 動詞後面。",
+            "examples": [
+              {
+                "en": "She is always late.",
+                "zh": "她總是遲到。"
+              }
+            ],
+            "pitfall": "不要說 I help often my grandma。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "She makes the best rice balls in our neighbourhood.",
+      "zh": "她做的飯糰是我們這一帶最好吃的。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "rice ball",
+            "inSentence": "rice balls",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "飯糰",
+            "ipa": "/ˈraɪs bɔːl/",
+            "collocations": ["make rice balls", "a rice ball"],
+            "examples": [
+              {
+                "en": "I had a rice ball for breakfast.",
+                "zh": "我早餐吃了一個飯糰。"
+              }
+            ]
+          },
+          {
+            "term": "neighbourhood",
+            "inSentence": "neighbourhood",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "鄰近地區；社區",
+            "ipa": "/ˈneɪbəhʊd/",
+            "collocations": ["in our neighbourhood", "a quiet neighbourhood"],
+            "examples": [
+              {
+                "en": "Our neighbourhood is very quiet.",
+                "zh": "我們這一區很安靜。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "superlative + in",
+            "quote": "the best rice balls in our neighbourhood",
+            "explanation": "最高級 the best 後面接 in ＋地方，表示「在某範圍裡最…」。",
+            "examples": [
+              {
+                "en": "He is the tallest boy in our class.",
+                "zh": "他是我們班最高的男生。"
+              }
+            ],
+            "pitfall": "範圍是地方或團體時用 in，不用 of。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "In your letter, you asked me about Chinese New Year.",
+      "zh": "你在信裡問我關於農曆新年的事。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Chinese New Year",
+            "note": "英文常用 Chinese New Year 或 Lunar New Year 表示農曆新年。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "ask about",
+            "inSentence": "asked me about",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "詢問有關…",
+            "ipa": "/ɑːsk əˈbaʊt/",
+            "collocations": ["ask about", "ask sb about"],
+            "examples": [
+              {
+                "en": "She asked me about my trip.",
+                "zh": "她問我旅行的事。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It's the biggest holiday of the year here, and families get together for a huge dinner.",
+      "zh": "這是我們這裡一年中最盛大的節日，家人會團聚吃一頓豐盛的大餐。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "get together",
+            "inSentence": "get together",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "聚在一起；團聚",
+            "ipa": "/ɡet təˈɡeðə/",
+            "collocations": ["get together with", "get together for"],
+            "examples": [
+              {
+                "en": "Let's get together this weekend.",
+                "zh": "我們這週末聚一聚吧。"
+              }
+            ]
+          },
+          {
+            "term": "huge",
+            "inSentence": "huge",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "巨大的；非常多的",
+            "ipa": "/hjuːdʒ/",
+            "collocations": ["a huge meal", "a huge house"],
+            "examples": [
+              {
+                "en": "They live in a huge house.",
+                "zh": "他們住在一間很大的房子。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "get together",
+            "soundsLike": "ge-together",
+            "note": "get 的 t 在 together 前常不發出來。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Children also receive red envelopes with money inside.",
+      "zh": "小孩子還會收到裝著錢的紅包。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "with money inside",
+            "note": "with ＋名詞＋副詞，補充說明「裡面有錢」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "red envelope",
+            "inSentence": "red envelopes",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "紅包",
+            "ipa": "/red ˈenvələʊp/",
+            "collocations": ["give red envelopes", "get a red envelope"],
+            "examples": [
+              {
+                "en": "Grandpa gave me a red envelope.",
+                "zh": "爺爺給了我一個紅包。"
+              }
+            ]
+          },
+          {
+            "term": "receive",
+            "inSentence": "receive",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "收到",
+            "ipa": "/rɪˈsiːv/",
+            "collocations": ["receive a gift", "receive a letter"],
+            "examples": [
+              {
+                "en": "I received your email.",
+                "zh": "我收到你的電子郵件了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Next time, could you tell me how people in England celebrate Christmas?",
+      "zh": "下次你可以告訴我英國人怎麼過聖誕節嗎？",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "celebrate",
+            "inSentence": "celebrate",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "慶祝",
+            "ipa": "/ˈselɪbreɪt/",
+            "collocations": ["celebrate a birthday", "celebrate Christmas"],
+            "examples": [
+              {
+                "en": "We celebrated Dad's birthday at home.",
+                "zh": "我們在家幫爸爸慶生。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "indirect question",
+            "quote": "how people in England celebrate Christmas",
+            "explanation": "問句放在另一句裡面時，要用直述句的順序：主詞在動詞前面，不加 do。",
+            "examples": [
+              {
+                "en": "Do you know where she lives?",
+                "zh": "你知道她住哪裡嗎？"
+              }
+            ],
+            "pitfall": "不要說 tell me how do people celebrate。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I've put a photo of my school in this letter, so you can see what it looks like.",
+      "zh": "我在信裡放了一張我們學校的照片，讓你看看它長什麼樣子。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "look like",
+            "inSentence": "looks like",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "看起來像",
+            "ipa": "/lʊk laɪk/",
+            "collocations": ["what it looks like", "look like sb"],
+            "examples": [
+              {
+                "en": "You look like your mum.",
+                "zh": "你長得像你媽媽。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "what ... looks like",
+            "quote": "what it looks like",
+            "explanation": "What does it look like? 放進句子裡變成 what it looks like，意思是「它長什麼樣子」。",
+            "examples": [
+              {
+                "en": "I don't know what he looks like.",
+                "zh": "我不知道他長什麼樣子。"
+              }
+            ],
+            "pitfall": "不要說 what it looks，少了 like 意思就不對。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'm looking forward to hearing from you soon.",
+      "zh": "期待很快收到你的回信。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "look forward to",
+            "inSentence": "looking forward to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "期待",
+            "ipa": "/lʊk ˈfɔːwəd tuː/",
+            "collocations": [
+              "look forward to seeing you",
+              "look forward to it"
+            ],
+            "examples": [
+              {
+                "en": "I'm looking forward to the holiday.",
+                "zh": "我很期待假期。"
+              }
+            ]
+          },
+          {
+            "term": "hear from",
+            "inSentence": "hearing from you",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "收到…的消息",
+            "ipa": "/hɪə frɒm/",
+            "collocations": ["hear from you", "hear from sb"],
+            "examples": [
+              {
+                "en": "Have you heard from Jack?",
+                "zh": "你有 Jack 的消息嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "look forward to + V-ing",
+            "quote": "looking forward to hearing",
+            "explanation": "這裡的 to 是介系詞，後面要接名詞或 V-ing。",
+            "examples": [
+              {
+                "en": "We look forward to meeting you.",
+                "zh": "我們期待和你見面。"
+              }
+            ],
+            "pitfall": "常誤寫成 look forward to hear。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Best wishes, Mei.",
+      "zh": "祝好，Mei",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "best wishes",
+            "inSentence": "Best wishes",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "祝好（信件結尾）",
+            "ipa": "/best ˈwɪʃɪz/",
+            "collocations": ["best wishes", "with best wishes"],
+            "examples": [
+              {
+                "en": "Best wishes for the new year.",
+                "zh": "祝新年一切順利。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

@@ -1,921 +1,846 @@
 {
- "slug": "s-social-media-habits",
- "series": "school",
- "title": "Too Much Time on My Phone",
- "titleZh": "滑手機的時間太多了",
- "subtitle": "Eric 滑短影音到凌晨，Vivian 分享她減少螢幕時間的方法",
- "format": "dialogue",
- "accent": "us",
- "meta": {
-  "category": "school",
-  "scenario": "senior-dialogue",
-  "level": "intermediate",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Eric, you look exhausted this morning.",
-   "zh": "Eric，你今天早上看起來累壞了。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "look exhausted",
-      "note": "look ＋形容詞：看起來…"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "exhausted",
-      "inSentence": "exhausted",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "精疲力盡的",
-      "ipa": "/ɪɡˈzɔstɪd/",
-      "collocations": [
-       "feel exhausted",
-       "completely exhausted"
-      ],
-      "examples": [
-       {
-        "en": "I was exhausted after the game.",
-        "zh": "比賽完我累壞了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "s-social-media-habits",
+  "series": "school",
+  "title": "Too Much Time on My Phone",
+  "titleZh": "滑手機的時間太多了",
+  "subtitle": "Eric 滑短影音到凌晨，Vivian 分享她減少螢幕時間的方法",
+  "format": "dialogue",
+  "accent": "us",
+  "meta": {
+    "category": "school",
+    "scenario": "senior-dialogue",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "Yeah, I was scrolling through short videos until almost two in the morning.",
-   "zh": "對啊，我一直滑短影音，滑到快凌晨兩點。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "scroll through",
-      "inSentence": "scrolling through",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "滑動瀏覽",
-      "ipa": "/skroʊl θru/",
-      "collocations": [
-       "scroll through photos",
-       "scroll through the news"
-      ],
-      "examples": [
-       {
-        "en": "She scrolled through her messages.",
-        "zh": "她滑著看自己的訊息。"
-       }
-      ]
-     },
-     {
-      "term": "short video",
-      "inSentence": "short videos",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "短影音",
-      "ipa": "/ʃɔrt ˈvɪdioʊ/",
-      "collocations": [
-       "watch short videos",
-       "post a short video"
-      ],
-      "examples": [
-       {
-        "en": "He makes short videos about cooking.",
-        "zh": "他拍料理短影音。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "past continuous",
-      "quote": "I was scrolling",
-      "explanation": "過去進行式 was ＋ V-ing，描述過去一段時間「一直在做」的事。",
-      "examples": [
-       {
-        "en": "I was reading when you called.",
-        "zh": "你打來時我正在看書。"
-       }
-      ],
-      "pitfall": "two in the morning 是凌晨兩點，不是早上兩點。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "I only meant to watch a few, but I completely lost track of time.",
-   "zh": "我本來只打算看幾支，結果完全忘了時間。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "lose track of time",
-      "inSentence": "lost track of time",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "忘了時間",
-      "ipa": "/luz træk ʌv taɪm/",
-      "collocations": [
-       "lose track of time",
-       "keep track of time"
-      ],
-      "examples": [
-       {
-        "en": "We talked so much that we lost track of time.",
-        "zh": "我們聊到忘了時間。"
-       }
-      ]
-     },
-     {
-      "term": "mean to",
-      "inSentence": "meant to",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "本來打算",
-      "ipa": "/min tu/",
-      "collocations": [
-       "mean to do",
-       "didn't mean to"
-      ],
-      "examples": [
-       {
-        "en": "I didn't mean to hurt you.",
-        "zh": "我不是故意傷害你的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "lost track of",
-      "soundsLike": "los-track-uh",
-      "note": "lost 的 t 被省略，of 弱讀成 uh。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "That happens to me too, because the app just keeps recommending more.",
-   "zh": "我也會這樣，因為那個 app 一直推薦更多影片。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "recommend",
-      "inSentence": "recommending",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "推薦",
-      "ipa": "/ˌrɛkəˈmɛnd/",
-      "collocations": [
-       "recommend a book",
-       "highly recommend"
-      ],
-      "examples": [
-       {
-        "en": "Can you recommend a good movie?",
-        "zh": "你可以推薦一部好看的電影嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "keep + V-ing",
-      "quote": "keeps recommending",
-      "explanation": "keep ＋ V-ing 表示「一直、不斷地做」。",
-      "examples": [
-       {
-        "en": "He keeps asking the same question.",
-        "zh": "他一直問同一個問題。"
-       }
-      ],
-      "pitfall": "不要說 keeps to recommend。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Have you ever checked your screen time in your phone settings?",
-   "zh": "你有沒有看過手機設定裡的螢幕使用時間？",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "screen time",
-      "inSentence": "screen time",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "螢幕使用時間",
-      "ipa": "/ˈskrin taɪm/",
-      "collocations": [
-       "reduce screen time",
-       "daily screen time"
-      ],
-      "examples": [
-       {
-        "en": "Kids need less screen time.",
-        "zh": "孩子需要少一點螢幕時間。"
-       }
-      ]
-     },
-     {
-      "term": "settings",
-      "inSentence": "settings",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "（裝置的）設定",
-      "ipa": "/ˈsɛtɪŋz/",
-      "collocations": [
-       "phone settings",
-       "change the settings"
-      ],
-      "examples": [
-       {
-        "en": "Go to settings and turn it off.",
-        "zh": "到設定裡把它關掉。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "Have you ever + p.p.",
-      "quote": "Have you ever checked",
-      "explanation": "Have you ever ＋過去分詞，問「到目前為止有沒有做過」。",
-      "examples": [
-       {
-        "en": "Have you ever been to Japan?",
-        "zh": "你去過日本嗎？"
-       }
-      ],
-      "pitfall": "不要說 Did you ever checked。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I checked it last week, and it said I averaged six hours a day.",
-   "zh": "我上週看過，上面說我平均一天用六個小時。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "six hours a day",
-      "note": "a day 表示「每天」，數量＋ a ＋時間單位。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "average",
-      "inSentence": "averaged",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "平均為",
-      "ipa": "/ˈævərɪdʒ/",
-      "collocations": [
-       "average six hours",
-       "on average"
-      ],
-      "examples": [
-       {
-        "en": "She averages eight hours of sleep.",
-        "zh": "她平均睡八小時。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "checked it",
-      "soundsLike": "check-tit",
-      "note": "checked 的 t 音和 it 連在一起念。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Honestly, I was shocked and a little embarrassed.",
-   "zh": "說真的，我很震驚，也有點不好意思。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "shocked",
-      "inSentence": "shocked",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "震驚的",
-      "ipa": "/ʃɑkt/",
-      "collocations": [
-       "shocked by",
-       "shocked to hear"
-      ],
-      "examples": [
-       {
-        "en": "We were shocked by the news.",
-        "zh": "那則消息讓我們很震驚。"
-       }
-      ]
-     },
-     {
-      "term": "embarrassed",
-      "inSentence": "embarrassed",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "尷尬的；不好意思的",
-      "ipa": "/ɪmˈbærəst/",
-      "collocations": [
-       "feel embarrassed",
-       "embarrassed about"
-      ],
-      "examples": [
-       {
-        "en": "I felt embarrassed when I fell.",
-        "zh": "我跌倒時覺得很尷尬。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Six hours is almost as long as a full school day!",
-   "zh": "六個小時幾乎跟上一整天課一樣長耶！",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "full",
-      "inSentence": "a full school day",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "整整的；完整的",
-      "ipa": "/fʊl/",
-      "collocations": [
-       "a full day",
-       "full-time"
-      ],
-      "examples": [
-       {
-        "en": "We spent a full day at the beach.",
-        "zh": "我們在海邊待了一整天。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "as ... as",
-      "quote": "as long as",
-      "explanation": "as ＋形容詞＋ as 表示「跟…一樣…」。",
-      "examples": [
-       {
-        "en": "My bag is as heavy as yours.",
-        "zh": "我的包包跟你的一樣重。"
-       }
-      ],
-      "pitfall": "一段時間當主詞視為單數，所以是 Six hours is。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I used to have the same problem, so I set a daily limit of one hour for social media.",
-   "zh": "我以前也有一樣的問題，所以我幫社群媒體設了每天一小時的使用上限。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "daily limit",
-      "inSentence": "daily limit",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "每日上限",
-      "ipa": "/ˈdeɪli ˈlɪmɪt/",
-      "collocations": [
-       "set a daily limit",
-       "reach the limit"
-      ],
-      "examples": [
-       {
-        "en": "The app has a daily limit.",
-        "zh": "這個 app 有每日使用上限。"
-       }
-      ]
-     },
-     {
-      "term": "social media",
-      "inSentence": "social media",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "社群媒體",
-      "ipa": "/ˌsoʊʃəl ˈmidiə/",
-      "collocations": [
-       "on social media",
-       "use social media"
-      ],
-      "examples": [
-       {
-        "en": "She posts photos on social media.",
-        "zh": "她在社群媒體上發照片。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "used to",
-      "quote": "I used to have",
-      "explanation": "used to ＋原形動詞，表示「以前常…（現在不再）」。",
-      "examples": [
-       {
-        "en": "I used to live in Taichung.",
-        "zh": "我以前住在台中。"
-       }
-      ],
-      "pitfall": "不要和 be used to ＋ V-ing「習慣於」搞混。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "I used to have the same problem",
-      "role": "main",
-      "zh": "我以前也有一樣的問題"
-     },
-     {
-      "text": "so I set a daily limit",
-      "role": "main",
-      "zh": "所以我設了每日上限"
-     },
-     {
-      "text": "of one hour",
-      "role": "modifier",
-      "zh": "一小時的"
-     },
-     {
-      "text": "for social media",
-      "role": "modifier",
-      "zh": "給社群媒體"
-     }
-    ],
-    "connected": [
-     {
-      "text": "used to",
-      "soundsLike": "yus-tuh",
-      "note": "used to 常念成 yus-tuh，d 不發音。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Didn't you find it hard to stick to?",
-   "zh": "你不覺得很難堅持下去嗎？",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "stick to",
-      "inSentence": "stick to",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "堅持；遵守",
-      "ipa": "/stɪk tu/",
-      "collocations": [
-       "stick to a plan",
-       "stick to the rules"
-      ],
-      "examples": [
-       {
-        "en": "It's hard to stick to a diet.",
-        "zh": "節食很難堅持。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "find + it + adj. + to V",
-      "quote": "find it hard to stick to",
-      "explanation": "find it ＋形容詞＋ to V，表示「覺得做某事很…」，it 是虛受詞。",
-      "examples": [
-       {
-        "en": "I find it easy to talk to her.",
-        "zh": "我覺得跟她聊天很輕鬆。"
-       }
-      ],
-      "pitfall": "不要漏掉 it，不說 find hard to。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "It was hard for the first week, but leaving my phone outside my bedroom helped a lot.",
-   "zh": "第一週很難，但把手機放在房間外面幫助很大。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "help a lot",
-      "inSentence": "helped a lot",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "很有幫助",
-      "ipa": "/hɛlp ə lɑt/",
-      "collocations": [
-       "help a lot",
-       "help a little"
-      ],
-      "examples": [
-       {
-        "en": "Your notes helped a lot.",
-        "zh": "你的筆記幫了大忙。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "gerund as subject",
-      "quote": "leaving my phone outside my bedroom helped",
-      "explanation": "動名詞 V-ing 可以當主詞，視為單數。",
-      "examples": [
-       {
-        "en": "Swimming is good exercise.",
-        "zh": "游泳是很好的運動。"
-       }
-      ],
-      "pitfall": "不要說 Leave my phone outside helped，主詞要用 V-ing。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "It was hard for the first week",
-      "role": "main",
-      "zh": "第一週很難"
-     },
-     {
-      "text": "but leaving my phone",
-      "role": "connector",
-      "zh": "但把手機放在"
-     },
-     {
-      "text": "outside my bedroom",
-      "role": "modifier",
-      "zh": "房間外面"
-     },
-     {
-      "text": "helped a lot",
-      "role": "main",
-      "zh": "幫助很大"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "Now I fall asleep faster, and I actually finish my homework before dinner.",
-   "zh": "現在我比較快睡著，而且真的能在晚餐前寫完作業。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "fall asleep",
-      "inSentence": "fall asleep",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "睡著",
-      "ipa": "/fɔl əˈslip/",
-      "collocations": [
-       "fall asleep quickly",
-       "can't fall asleep"
-      ],
-      "examples": [
-       {
-        "en": "I fell asleep on the bus.",
-        "zh": "我在公車上睡著了。"
-       }
-      ]
-     },
-     {
-      "term": "actually",
-      "inSentence": "actually",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "實際上；真的",
-      "ipa": "/ˈæktʃuəli/",
-      "collocations": [
-       "actually,",
-       "I actually"
-      ],
-      "examples": [
-       {
-        "en": "I actually liked the movie.",
-        "zh": "我其實滿喜歡那部電影的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "fall asleep",
-      "soundsLike": "fa-lasleep",
-      "note": "fall 的 l 和 asleep 連在一起念。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Maybe I should try that, especially with the mock exams coming up.",
-   "zh": "也許我該試試看，尤其是模擬考快到了。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "mock exam",
-      "inSentence": "mock exams",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "模擬考",
-      "ipa": "/mɑk ɪɡˈzæm/",
-      "collocations": [
-       "take a mock exam",
-       "mock exam results"
-      ],
-      "examples": [
-       {
-        "en": "Our mock exam is next Tuesday.",
-        "zh": "我們的模擬考在下週二。"
-       }
-      ]
-     },
-     {
-      "term": "come up",
-      "inSentence": "coming up",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "即將到來",
-      "ipa": "/kʌm ʌp/",
-      "collocations": [
-       "coming up soon",
-       "come up next"
-      ],
-      "examples": [
-       {
-        "en": "My birthday is coming up.",
-        "zh": "我的生日快到了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "with + noun + V-ing",
-      "quote": "with the mock exams coming up",
-      "explanation": "with ＋名詞＋ V-ing 表示伴隨的情況，常用來說明原因。",
-      "examples": [
-       {
-        "en": "With the weather getting cold, I wear a coat.",
-        "zh": "天氣變冷了，所以我穿大衣。"
-       }
-      ],
-      "pitfall": "不要說 with the mock exams are coming up。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Start small, like no phone for the last hour before bed.",
-   "zh": "先從小地方開始，像是睡前最後一小時不碰手機。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "start small",
-      "inSentence": "Start small",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "從小處開始",
-      "ipa": "/stɑrt smɔl/",
-      "collocations": [
-       "start small",
-       "think big, start small"
-      ],
-      "examples": [
-       {
-        "en": "If you want to run, start small.",
-        "zh": "如果你想跑步，先從少量開始。"
-       }
-      ]
-     },
-     {
-      "term": "before bed",
-      "inSentence": "before bed",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "睡前",
-      "ipa": "/bɪˈfɔr bɛd/",
-      "collocations": [
-       "before bed",
-       "go to bed"
-      ],
-      "examples": [
-       {
-        "en": "I read a little before bed.",
-        "zh": "我睡前會看一點書。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Okay, I'll give it a try tonight, and you can check on me tomorrow.",
-   "zh": "好，我今晚就試試看，明天你可以來檢查我有沒有做到。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "give it a try",
-      "inSentence": "give it a try",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "試試看",
-      "ipa": "/ɡɪv ɪt ə traɪ/",
-      "collocations": [
-       "give it a try",
-       "worth a try"
-      ],
-      "examples": [
-       {
-        "en": "It looks hard, but I'll give it a try.",
-        "zh": "看起來很難，但我會試試看。"
-       }
-      ]
-     },
-     {
-      "term": "check on",
-      "inSentence": "check on me",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "查看（某人）的狀況",
-      "ipa": "/tʃɛk ɑn/",
-      "collocations": [
-       "check on sb",
-       "check on the baby"
-      ],
-      "examples": [
-       {
-        "en": "Can you check on the cat?",
-        "zh": "你可以去看一下貓嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "give it a",
-      "soundsLike": "gi-vi-da",
-      "note": "give 的 v 和 it 連起來，t 變成輕快的 d 音。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Deal, but I'm not going to take your phone away!",
-   "zh": "一言為定，但我可不會沒收你的手機喔！",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "deal",
-      "inSentence": "Deal",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "一言為定（口語）",
-      "ipa": "/dil/",
-      "collocations": [
-       "It's a deal",
-       "Deal"
-      ],
-      "examples": [
-       {
-        "en": "You wash, I'll dry. Deal?",
-        "zh": "你洗我擦，一言為定？"
-       }
-      ]
-     },
-     {
-      "term": "take away",
-      "inSentence": "take your phone away",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "拿走；沒收",
-      "ipa": "/teɪk əˈweɪ/",
-      "collocations": [
-       "take sth away",
-       "take away from"
-      ],
-      "examples": [
-       {
-        "en": "The teacher took his phone away.",
-        "zh": "老師沒收了他的手機。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "going to",
-      "soundsLike": "gonna",
-      "note": "口語中 going to 常念成 gonna。"
-     }
-    ]
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Eric, you look exhausted this morning.",
+      "zh": "Eric，你今天早上看起來累壞了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "look exhausted",
+            "note": "look ＋形容詞：看起來…"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "exhausted",
+            "inSentence": "exhausted",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "精疲力盡的",
+            "ipa": "/ɪɡˈzɔstɪd/",
+            "collocations": ["feel exhausted", "completely exhausted"],
+            "examples": [
+              {
+                "en": "I was exhausted after the game.",
+                "zh": "比賽完我累壞了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yeah, I was scrolling through short videos until almost two in the morning.",
+      "zh": "對啊，我一直滑短影音，滑到快凌晨兩點。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "scroll through",
+            "inSentence": "scrolling through",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "滑動瀏覽",
+            "ipa": "/skroʊl θru/",
+            "collocations": [
+              "scroll through photos",
+              "scroll through the news"
+            ],
+            "examples": [
+              {
+                "en": "She scrolled through her messages.",
+                "zh": "她滑著看自己的訊息。"
+              }
+            ]
+          },
+          {
+            "term": "short video",
+            "inSentence": "short videos",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "短影音",
+            "ipa": "/ʃɔrt ˈvɪdioʊ/",
+            "collocations": ["watch short videos", "post a short video"],
+            "examples": [
+              {
+                "en": "He makes short videos about cooking.",
+                "zh": "他拍料理短影音。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past continuous",
+            "quote": "I was scrolling",
+            "explanation": "過去進行式 was ＋ V-ing，描述過去一段時間「一直在做」的事。",
+            "examples": [
+              {
+                "en": "I was reading when you called.",
+                "zh": "你打來時我正在看書。"
+              }
+            ],
+            "pitfall": "two in the morning 是凌晨兩點，不是早上兩點。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I only meant to watch a few, but I completely lost track of time.",
+      "zh": "我本來只打算看幾支，結果完全忘了時間。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "lose track of time",
+            "inSentence": "lost track of time",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "忘了時間",
+            "ipa": "/luz træk ʌv taɪm/",
+            "collocations": ["lose track of time", "keep track of time"],
+            "examples": [
+              {
+                "en": "We talked so much that we lost track of time.",
+                "zh": "我們聊到忘了時間。"
+              }
+            ]
+          },
+          {
+            "term": "mean to",
+            "inSentence": "meant to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "本來打算",
+            "ipa": "/min tu/",
+            "collocations": ["mean to do", "didn't mean to"],
+            "examples": [
+              {
+                "en": "I didn't mean to hurt you.",
+                "zh": "我不是故意傷害你的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "lost track of",
+            "soundsLike": "los-track-uh",
+            "note": "lost 的 t 被省略，of 弱讀成 uh。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "That happens to me too, because the app just keeps recommending more.",
+      "zh": "我也會這樣，因為那個 app 一直推薦更多影片。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "recommend",
+            "inSentence": "recommending",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "推薦",
+            "ipa": "/ˌrɛkəˈmɛnd/",
+            "collocations": ["recommend a book", "highly recommend"],
+            "examples": [
+              {
+                "en": "Can you recommend a good movie?",
+                "zh": "你可以推薦一部好看的電影嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "keep + V-ing",
+            "quote": "keeps recommending",
+            "explanation": "keep ＋ V-ing 表示「一直、不斷地做」。",
+            "examples": [
+              {
+                "en": "He keeps asking the same question.",
+                "zh": "他一直問同一個問題。"
+              }
+            ],
+            "pitfall": "不要說 keeps to recommend。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Have you ever checked your screen time in your phone settings?",
+      "zh": "你有沒有看過手機設定裡的螢幕使用時間？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "screen time",
+            "inSentence": "screen time",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "螢幕使用時間",
+            "ipa": "/ˈskrin taɪm/",
+            "collocations": ["reduce screen time", "daily screen time"],
+            "examples": [
+              {
+                "en": "Kids need less screen time.",
+                "zh": "孩子需要少一點螢幕時間。"
+              }
+            ]
+          },
+          {
+            "term": "settings",
+            "inSentence": "settings",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（裝置的）設定",
+            "ipa": "/ˈsɛtɪŋz/",
+            "collocations": ["phone settings", "change the settings"],
+            "examples": [
+              {
+                "en": "Go to settings and turn it off.",
+                "zh": "到設定裡把它關掉。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Have you ever + p.p.",
+            "quote": "Have you ever checked",
+            "explanation": "Have you ever ＋過去分詞，問「到目前為止有沒有做過」。",
+            "examples": [
+              {
+                "en": "Have you ever been to Japan?",
+                "zh": "你去過日本嗎？"
+              }
+            ],
+            "pitfall": "不要說 Did you ever checked。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I checked it last week, and it said I averaged six hours a day.",
+      "zh": "我上週看過，上面說我平均一天用六個小時。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "six hours a day",
+            "note": "a day 表示「每天」，數量＋ a ＋時間單位。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "average",
+            "inSentence": "averaged",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "平均為",
+            "ipa": "/ˈævərɪdʒ/",
+            "collocations": ["average six hours", "on average"],
+            "examples": [
+              {
+                "en": "She averages eight hours of sleep.",
+                "zh": "她平均睡八小時。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "checked it",
+            "soundsLike": "check-tit",
+            "note": "checked 的 t 音和 it 連在一起念。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Honestly, I was shocked and a little embarrassed.",
+      "zh": "說真的，我很震驚，也有點不好意思。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "shocked",
+            "inSentence": "shocked",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "震驚的",
+            "ipa": "/ʃɑkt/",
+            "collocations": ["shocked by", "shocked to hear"],
+            "examples": [
+              {
+                "en": "We were shocked by the news.",
+                "zh": "那則消息讓我們很震驚。"
+              }
+            ]
+          },
+          {
+            "term": "embarrassed",
+            "inSentence": "embarrassed",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "尷尬的；不好意思的",
+            "ipa": "/ɪmˈbærəst/",
+            "collocations": ["feel embarrassed", "embarrassed about"],
+            "examples": [
+              {
+                "en": "I felt embarrassed when I fell.",
+                "zh": "我跌倒時覺得很尷尬。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Six hours is almost as long as a full school day!",
+      "zh": "六個小時幾乎跟上一整天課一樣長耶！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "full",
+            "inSentence": "a full school day",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "整整的；完整的",
+            "ipa": "/fʊl/",
+            "collocations": ["a full day", "full-time"],
+            "examples": [
+              {
+                "en": "We spent a full day at the beach.",
+                "zh": "我們在海邊待了一整天。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "as ... as",
+            "quote": "as long as",
+            "explanation": "as ＋形容詞＋ as 表示「跟…一樣…」。",
+            "examples": [
+              {
+                "en": "My bag is as heavy as yours.",
+                "zh": "我的包包跟你的一樣重。"
+              }
+            ],
+            "pitfall": "一段時間當主詞視為單數，所以是 Six hours is。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I used to have the same problem, so I set a daily limit of one hour for social media.",
+      "zh": "我以前也有一樣的問題，所以我幫社群媒體設了每天一小時的使用上限。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "daily limit",
+            "inSentence": "daily limit",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "每日上限",
+            "ipa": "/ˈdeɪli ˈlɪmɪt/",
+            "collocations": ["set a daily limit", "reach the limit"],
+            "examples": [
+              {
+                "en": "The app has a daily limit.",
+                "zh": "這個 app 有每日使用上限。"
+              }
+            ]
+          },
+          {
+            "term": "social media",
+            "inSentence": "social media",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "社群媒體",
+            "ipa": "/ˌsoʊʃəl ˈmidiə/",
+            "collocations": ["on social media", "use social media"],
+            "examples": [
+              {
+                "en": "She posts photos on social media.",
+                "zh": "她在社群媒體上發照片。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "used to",
+            "quote": "I used to have",
+            "explanation": "used to ＋原形動詞，表示「以前常…（現在不再）」。",
+            "examples": [
+              {
+                "en": "I used to live in Taichung.",
+                "zh": "我以前住在台中。"
+              }
+            ],
+            "pitfall": "不要和 be used to ＋ V-ing「習慣於」搞混。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I used to have the same problem",
+            "role": "main",
+            "zh": "我以前也有一樣的問題"
+          },
+          {
+            "text": "so I set a daily limit",
+            "role": "main",
+            "zh": "所以我設了每日上限"
+          },
+          {
+            "text": "of one hour",
+            "role": "modifier",
+            "zh": "一小時的"
+          },
+          {
+            "text": "for social media",
+            "role": "modifier",
+            "zh": "給社群媒體"
+          }
+        ],
+        "connected": [
+          {
+            "text": "used to",
+            "soundsLike": "yus-tuh",
+            "note": "used to 常念成 yus-tuh，d 不發音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Didn't you find it hard to stick to?",
+      "zh": "你不覺得很難堅持下去嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "stick to",
+            "inSentence": "stick to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "堅持；遵守",
+            "ipa": "/stɪk tu/",
+            "collocations": ["stick to a plan", "stick to the rules"],
+            "examples": [
+              {
+                "en": "It's hard to stick to a diet.",
+                "zh": "節食很難堅持。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "find + it + adj. + to V",
+            "quote": "find it hard to stick to",
+            "explanation": "find it ＋形容詞＋ to V，表示「覺得做某事很…」，it 是虛受詞。",
+            "examples": [
+              {
+                "en": "I find it easy to talk to her.",
+                "zh": "我覺得跟她聊天很輕鬆。"
+              }
+            ],
+            "pitfall": "不要漏掉 it，不說 find hard to。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It was hard for the first week, but leaving my phone outside my bedroom helped a lot.",
+      "zh": "第一週很難，但把手機放在房間外面幫助很大。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "help a lot",
+            "inSentence": "helped a lot",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "很有幫助",
+            "ipa": "/hɛlp ə lɑt/",
+            "collocations": ["help a lot", "help a little"],
+            "examples": [
+              {
+                "en": "Your notes helped a lot.",
+                "zh": "你的筆記幫了大忙。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "gerund as subject",
+            "quote": "leaving my phone outside my bedroom helped",
+            "explanation": "動名詞 V-ing 可以當主詞，視為單數。",
+            "examples": [
+              {
+                "en": "Swimming is good exercise.",
+                "zh": "游泳是很好的運動。"
+              }
+            ],
+            "pitfall": "不要說 Leave my phone outside helped，主詞要用 V-ing。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "It was hard for the first week",
+            "role": "main",
+            "zh": "第一週很難"
+          },
+          {
+            "text": "but leaving my phone",
+            "role": "connector",
+            "zh": "但把手機放在"
+          },
+          {
+            "text": "outside my bedroom",
+            "role": "modifier",
+            "zh": "房間外面"
+          },
+          {
+            "text": "helped a lot",
+            "role": "main",
+            "zh": "幫助很大"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Now I fall asleep faster, and I actually finish my homework before dinner.",
+      "zh": "現在我比較快睡著，而且真的能在晚餐前寫完作業。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "fall asleep",
+            "inSentence": "fall asleep",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "睡著",
+            "ipa": "/fɔl əˈslip/",
+            "collocations": ["fall asleep quickly", "can't fall asleep"],
+            "examples": [
+              {
+                "en": "I fell asleep on the bus.",
+                "zh": "我在公車上睡著了。"
+              }
+            ]
+          },
+          {
+            "term": "actually",
+            "inSentence": "actually",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "實際上；真的",
+            "ipa": "/ˈæktʃuəli/",
+            "collocations": ["actually,", "I actually"],
+            "examples": [
+              {
+                "en": "I actually liked the movie.",
+                "zh": "我其實滿喜歡那部電影的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "fall asleep",
+            "soundsLike": "fa-lasleep",
+            "note": "fall 的 l 和 asleep 連在一起念。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Maybe I should try that, especially with the mock exams coming up.",
+      "zh": "也許我該試試看，尤其是模擬考快到了。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "mock exam",
+            "inSentence": "mock exams",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "模擬考",
+            "ipa": "/mɑk ɪɡˈzæm/",
+            "collocations": ["take a mock exam", "mock exam results"],
+            "examples": [
+              {
+                "en": "Our mock exam is next Tuesday.",
+                "zh": "我們的模擬考在下週二。"
+              }
+            ]
+          },
+          {
+            "term": "come up",
+            "inSentence": "coming up",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "即將到來",
+            "ipa": "/kʌm ʌp/",
+            "collocations": ["coming up soon", "come up next"],
+            "examples": [
+              {
+                "en": "My birthday is coming up.",
+                "zh": "我的生日快到了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "with + noun + V-ing",
+            "quote": "with the mock exams coming up",
+            "explanation": "with ＋名詞＋ V-ing 表示伴隨的情況，常用來說明原因。",
+            "examples": [
+              {
+                "en": "With the weather getting cold, I wear a coat.",
+                "zh": "天氣變冷了，所以我穿大衣。"
+              }
+            ],
+            "pitfall": "不要說 with the mock exams are coming up。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Start small, like no phone for the last hour before bed.",
+      "zh": "先從小地方開始，像是睡前最後一小時不碰手機。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "start small",
+            "inSentence": "Start small",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "從小處開始",
+            "ipa": "/stɑrt smɔl/",
+            "collocations": ["start small", "think big, start small"],
+            "examples": [
+              {
+                "en": "If you want to run, start small.",
+                "zh": "如果你想跑步，先從少量開始。"
+              }
+            ]
+          },
+          {
+            "term": "before bed",
+            "inSentence": "before bed",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "睡前",
+            "ipa": "/bɪˈfɔr bɛd/",
+            "collocations": ["before bed", "go to bed"],
+            "examples": [
+              {
+                "en": "I read a little before bed.",
+                "zh": "我睡前會看一點書。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Okay, I'll give it a try tonight, and you can check on me tomorrow.",
+      "zh": "好，我今晚就試試看，明天你可以來檢查我有沒有做到。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "give it a try",
+            "inSentence": "give it a try",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "試試看",
+            "ipa": "/ɡɪv ɪt ə traɪ/",
+            "collocations": ["give it a try", "worth a try"],
+            "examples": [
+              {
+                "en": "It looks hard, but I'll give it a try.",
+                "zh": "看起來很難，但我會試試看。"
+              }
+            ]
+          },
+          {
+            "term": "check on",
+            "inSentence": "check on me",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "查看（某人）的狀況",
+            "ipa": "/tʃɛk ɑn/",
+            "collocations": ["check on sb", "check on the baby"],
+            "examples": [
+              {
+                "en": "Can you check on the cat?",
+                "zh": "你可以去看一下貓嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "give it a",
+            "soundsLike": "gi-vi-da",
+            "note": "give 的 v 和 it 連起來，t 變成輕快的 d 音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Deal, but I'm not going to take your phone away!",
+      "zh": "一言為定，但我可不會沒收你的手機喔！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "deal",
+            "inSentence": "Deal",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "一言為定（口語）",
+            "ipa": "/dil/",
+            "collocations": ["It's a deal", "Deal"],
+            "examples": [
+              {
+                "en": "You wash, I'll dry. Deal?",
+                "zh": "你洗我擦，一言為定？"
+              }
+            ]
+          },
+          {
+            "term": "take away",
+            "inSentence": "take your phone away",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "拿走；沒收",
+            "ipa": "/teɪk əˈweɪ/",
+            "collocations": ["take sth away", "take away from"],
+            "examples": [
+              {
+                "en": "The teacher took his phone away.",
+                "zh": "老師沒收了他的手機。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "going to",
+            "soundsLike": "gonna",
+            "note": "口語中 going to 常念成 gonna。"
+          }
+        ]
+      }
+    }
+  ]
 }

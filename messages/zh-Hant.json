@@ -2555,7 +2555,14 @@
       "senior-dialogue": "高中：對話",
       "senior-passage": "高中：短文",
       "gsat-dialogue": "簡短對話",
-      "gsat-short-talk": "短文與廣播"
+      "gsat-short-talk": "短文與廣播",
+      "myth": "神話",
+      "classic-poem": "經典詩歌",
+      "historic-letter": "歷史名信",
+      "junior-story": "國中：短篇故事",
+      "junior-notice": "國中：校園廣播與公告",
+      "senior-story": "高中：短篇故事",
+      "senior-speech": "高中：學生演講"
     },
     "exams": {
       "toefl": "托福 TOEFL iBT 風格",

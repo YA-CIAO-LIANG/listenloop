@@ -1,715 +1,655 @@
 {
- "slug": "a-proposal-translation-tools",
- "series": "category",
- "title": "A Proposal on Translation Tools",
- "titleZh": "翻譯工具研究計畫",
- "subtitle": "研究生簡報計畫：學生用機器翻譯寫英文作業的影響",
- "format": "monologue",
- "accent": "gb",
- "meta": {
-  "category": "academic-writing",
-  "scenario": "research-proposal",
-  "level": "advanced",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Good afternoon, everyone, today I'd like to present my research proposal for next year.",
-   "zh": "大家午安，今天我想介紹我明年的研究計畫。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "proposal",
-      "inSentence": "research proposal",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "計畫書；提案",
-      "ipa": "/prəˈpəʊzl/",
-      "collocations": [
-       "research proposal",
-       "submit a proposal"
-      ],
-      "examples": [
-       {
-        "en": "She submitted her proposal last week.",
-        "zh": "她上週提交了計畫書。"
-       }
-      ]
-     },
-     {
-      "term": "present",
-      "inSentence": "present",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "發表；介紹",
-      "ipa": "/prɪˈzent/",
-      "collocations": [
-       "present a paper",
-       "present findings"
-      ],
-      "examples": [
-       {
-        "en": "He will present his results at the conference.",
-        "zh": "他會在研討會上發表研究結果。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "a-proposal-translation-tools",
+  "series": "category",
+  "title": "A Proposal on Translation Tools",
+  "titleZh": "翻譯工具研究計畫",
+  "subtitle": "研究生簡報計畫：學生用機器翻譯寫英文作業的影響",
+  "format": "monologue",
+  "accent": "gb",
+  "meta": {
+    "category": "academic-writing",
+    "scenario": "research-proposal",
+    "level": "advanced",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "My central question is simple: how does machine translation affect the way university students write in English?",
-   "zh": "我的核心問題很簡單：機器翻譯如何影響大學生用英文寫作的方式？",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "machine translation",
-      "inSentence": "machine translation",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "機器翻譯",
-      "ipa": "/məˈʃiːn trænzˈleɪʃn/",
-      "collocations": [
-       "use machine translation",
-       "machine translation tools"
-      ],
-      "examples": [
-       {
-        "en": "Machine translation has improved a lot.",
-        "zh": "機器翻譯進步了很多。"
-       }
-      ]
-     },
-     {
-      "term": "affect",
-      "inSentence": "affect",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "影響",
-      "ipa": "/əˈfekt/",
-      "collocations": [
-       "affect the result",
-       "be affected by"
-      ],
-      "examples": [
-       {
-        "en": "Lack of sleep affects your memory.",
-        "zh": "睡眠不足會影響記憶力。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "the way + clause",
-      "quote": "the way university students write",
-      "explanation": "the way 後面直接接子句，表示「……的方式」，不需要再加 how。",
-      "examples": [
-       {
-        "en": "I like the way she explains things.",
-        "zh": "我喜歡她解釋事情的方式。"
-       }
-      ],
-      "pitfall": "不要說 the way how students write。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "My central question is simple:",
-      "role": "main",
-      "zh": "我的核心問題很簡單"
-     },
-     {
-      "text": "how does machine translation affect",
-      "role": "main",
-      "zh": "機器翻譯如何影響"
-     },
-     {
-      "text": "the way university students write in English?",
-      "role": "modifier",
-      "zh": "大學生用英文寫作的方式"
-     }
-    ],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "Many students in Taiwan now draft their essays in Chinese and then translate them with an online tool.",
-   "zh": "現在台灣很多學生先用中文寫論文草稿，再用線上工具翻譯。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "draft",
-      "inSentence": "draft",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "擬草稿",
-      "ipa": "/drɑːft/",
-      "collocations": [
-       "draft an essay",
-       "draft a letter"
-      ],
-      "examples": [
-       {
-        "en": "I drafted the email twice before sending it.",
-        "zh": "那封郵件我寫了兩次草稿才寄出。"
-       }
-      ]
-     },
-     {
-      "term": "essay",
-      "inSentence": "essays",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "論文；短文",
-      "ipa": "/ˈeseɪ/",
-      "collocations": [
-       "write an essay",
-       "essay topic"
-      ],
-      "examples": [
-       {
-        "en": "Our essay is due on Monday.",
-        "zh": "我們的論文週一要交。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Teachers often worry that this habit weakens their students' grammar and vocabulary.",
-   "zh": "老師們常擔心這個習慣會削弱學生的文法和字彙能力。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "often worry that",
-      "note": "worry that + 子句，說明擔心的內容。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "weaken",
-      "inSentence": "weakens",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "削弱",
-      "ipa": "/ˈwiːkən/",
-      "collocations": [
-       "weaken the body",
-       "weaken a skill"
-      ],
-      "examples": [
-       {
-        "en": "Stress can weaken your immune system.",
-        "zh": "壓力會削弱免疫系統。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "However, there is very little evidence about what actually happens during the writing process.",
-   "zh": "然而，關於寫作過程中實際發生了什麼，相關證據非常少。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "evidence",
-      "inSentence": "evidence",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "證據",
-      "ipa": "/ˈevɪdəns/",
-      "collocations": [
-       "little evidence",
-       "evidence for"
-      ],
-      "examples": [
-       {
-        "en": "There is no evidence that it works.",
-        "zh": "沒有證據顯示它有效。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "very little with uncountable nouns",
-      "quote": "very little evidence",
-      "explanation": "little 接不可數名詞，表示「幾乎沒有」；a little 則是「有一些」。",
-      "examples": [
-       {
-        "en": "We have very little time left.",
-        "zh": "我們剩下的時間很少。"
-       }
-      ],
-      "pitfall": "evidence 不可數，不要說 very few evidences。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "To find out, I plan to work with forty second-year students over one semester.",
-   "zh": "為了找出答案，我計畫在一個學期內和 40 位大二學生合作。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "semester",
-      "inSentence": "semester",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "學期",
-      "ipa": "/sɪˈmestə/",
-      "collocations": [
-       "this semester",
-       "spring semester"
-      ],
-      "examples": [
-       {
-        "en": "I'm taking five courses this semester.",
-        "zh": "我這學期修五門課。"
-       }
-      ]
-     },
-     {
-      "term": "plan to",
-      "inSentence": "plan to work",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "計畫做某事",
-      "ipa": "/plæn tuː/",
-      "collocations": [
-       "plan to study",
-       "plan to travel"
-      ],
-      "examples": [
-       {
-        "en": "We plan to visit Japan in spring.",
-        "zh": "我們計畫春天去日本。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Half of them will write with translation tools, and the other half will write without them.",
-   "zh": "其中一半會使用翻譯工具寫作，另一半則不用。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "the other half",
-      "inSentence": "the other half",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "另一半",
-      "ipa": "/ði ˈʌðə hɑːf/",
-      "collocations": [
-       "the other half of",
-       "half and the other half"
-      ],
-      "examples": [
-       {
-        "en": "Half the class went home, and the other half stayed.",
-        "zh": "班上一半的人回家，另一半留下。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "Half of them",
-      "soundsLike": "HAHF-ə-vəm",
-      "note": "of 弱讀成 /əv/，them 弱讀成 /ðəm/ 或 /əm/，三個字連在一起。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "I will record their screens while they write, so that I can see exactly when and why they turn to the tool.",
-   "zh": "我會在他們寫作時錄下螢幕畫面，這樣就能清楚看到他們在什麼時候、為什麼求助於工具。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "record",
-      "inSentence": "record",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "錄下；記錄",
-      "ipa": "/rɪˈkɔːd/",
-      "collocations": [
-       "record a video",
-       "record data"
-      ],
-      "examples": [
-       {
-        "en": "The app records how long you sleep.",
-        "zh": "這個應用程式會記錄你睡多久。"
-       }
-      ]
-     },
-     {
-      "term": "turn to",
-      "inSentence": "turn to the tool",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "求助於；轉向",
-      "ipa": "/tɜːn tuː/",
-      "collocations": [
-       "turn to a friend",
-       "turn to the internet"
-      ],
-      "examples": [
-       {
-        "en": "When I'm stuck, I turn to my teacher.",
-        "zh": "卡住時我會去找老師幫忙。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "so that for purpose",
-      "quote": "so that I can see exactly",
-      "explanation": "so that + 子句表示目的，子句裡常用 can 或 will。",
-      "examples": [
-       {
-        "en": "Speak slowly so that everyone can follow.",
-        "zh": "說慢一點，讓大家都跟得上。"
-       }
-      ],
-      "pitfall": "不要和 so 混淆：so that 是「為了」，單獨的 so 是「所以」。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "I will record their screens",
-      "role": "main",
-      "zh": "我會錄下他們的螢幕"
-     },
-     {
-      "text": "while they write,",
-      "role": "subordinate",
-      "zh": "在他們寫作的時候"
-     },
-     {
-      "text": "so that I can see exactly",
-      "role": "subordinate",
-      "zh": "這樣就能清楚看到"
-     },
-     {
-      "text": "when and why they turn to the tool.",
-      "role": "subordinate",
-      "zh": "他們在什麼時候、為什麼求助工具"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "After that, I will interview a smaller group about their choices.",
-   "zh": "之後，我會訪談一個較小的群組，了解他們的選擇。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "interview",
-      "inSentence": "interview",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "訪談；面談",
-      "ipa": "/ˈɪntəvjuː/",
-      "collocations": [
-       "interview someone",
-       "interview a group"
-      ],
-      "examples": [
-       {
-        "en": "The reporter interviewed three students.",
-        "zh": "記者訪問了三位學生。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I expect the results to be mixed rather than simply positive or negative.",
-   "zh": "我預期結果會是好壞參半，而不是單純正面或負面。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "mixed",
-      "inSentence": "mixed",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "好壞參半的；混合的",
-      "ipa": "/mɪkst/",
-      "collocations": [
-       "mixed results",
-       "mixed feelings"
-      ],
-      "examples": [
-       {
-        "en": "The film got mixed reviews.",
-        "zh": "這部電影評價褒貶不一。"
-       }
-      ]
-     },
-     {
-      "term": "rather than",
-      "inSentence": "rather than",
-      "kind": "phrase",
-      "pos": "conj.",
-      "zh": "而不是",
-      "ipa": "/ˈrɑːðə ðæn/",
-      "collocations": [
-       "rather than wait",
-       "walk rather than drive"
-      ],
-      "examples": [
-       {
-        "en": "I'd like tea rather than coffee.",
-        "zh": "我想喝茶而不是咖啡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "For example, the tool might help weaker writers express complex ideas, while stronger writers may rely on it less.",
-   "zh": "例如，工具也許能幫助寫作較弱的學生表達複雜的想法，而寫作較強的學生可能比較少依賴它。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "rely on",
-      "inSentence": "rely on it",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "依賴",
-      "ipa": "/rɪˈlaɪ ɒn/",
-      "collocations": [
-       "rely on someone",
-       "rely heavily on"
-      ],
-      "examples": [
-       {
-        "en": "You can't rely on the bus here.",
-        "zh": "這裡的公車靠不住。"
-       }
-      ]
-     },
-     {
-      "term": "complex",
-      "inSentence": "complex",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "複雜的",
-      "ipa": "/ˈkɒmpleks/",
-      "collocations": [
-       "a complex idea",
-       "complex problem"
-      ],
-      "examples": [
-       {
-        "en": "It's a complex issue with no easy answer.",
-        "zh": "這是個沒有簡單答案的複雜議題。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "while for contrast",
-      "quote": "while stronger writers may rely on it less",
-      "explanation": "while 在這裡表示對比，意思是「而」，不是「當……的時候」。",
-      "examples": [
-       {
-        "en": "My brother loves sport, while I prefer books.",
-        "zh": "我哥哥熱愛運動，而我比較喜歡書。"
-       }
-      ],
-      "pitfall": "表對比的 while 前面通常加逗號。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "For example,",
-      "role": "connector",
-      "zh": "例如"
-     },
-     {
-      "text": "the tool might help weaker writers express complex ideas,",
-      "role": "main",
-      "zh": "工具也許能幫助較弱的寫作者表達複雜的想法"
-     },
-     {
-      "text": "while stronger writers may rely on it less.",
-      "role": "subordinate",
-      "zh": "而較強的寫作者可能比較少依賴它"
-     }
-    ],
-    "connected": []
-   }
-  },
-  {
-   "en": "I hope the findings will help teachers give clearer advice on using these tools responsibly.",
-   "zh": "我希望研究結果能幫助老師針對如何負責任地使用這些工具，給出更清楚的建議。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "findings",
-      "inSentence": "findings",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "研究結果",
-      "ipa": "/ˈfaɪndɪŋz/",
-      "collocations": [
-       "research findings",
-       "key findings"
-      ],
-      "examples": [
-       {
-        "en": "The findings were published last year.",
-        "zh": "研究結果去年發表了。"
-       }
-      ]
-     },
-     {
-      "term": "responsibly",
-      "inSentence": "responsibly",
-      "kind": "word",
-      "pos": "adv.",
-      "zh": "負責任地",
-      "ipa": "/rɪˈspɒnsəbli/",
-      "collocations": [
-       "act responsibly",
-       "use responsibly"
-      ],
-      "examples": [
-       {
-        "en": "Please drink responsibly.",
-        "zh": "請理性飲酒。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Thank you, and I'd be happy to hear your comments.",
-   "zh": "謝謝大家，也很樂意聽聽各位的意見。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "I'd be happy to hear",
-      "note": "簡報結尾邀請聽眾提問或給意見的禮貌說法。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "comment",
-      "inSentence": "comments",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "意見；評論",
-      "ipa": "/ˈkɒment/",
-      "collocations": [
-       "make a comment",
-       "any comments"
-      ],
-      "examples": [
-       {
-        "en": "Do you have any comments on my draft?",
-        "zh": "你對我的草稿有什麼意見嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Good afternoon, everyone, today I'd like to present my research proposal for next year.",
+      "zh": "大家午安，今天我想介紹我明年的研究計畫。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "proposal",
+            "inSentence": "research proposal",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "計畫書；提案",
+            "ipa": "/prəˈpəʊzl/",
+            "collocations": ["research proposal", "submit a proposal"],
+            "examples": [
+              {
+                "en": "She submitted her proposal last week.",
+                "zh": "她上週提交了計畫書。"
+              }
+            ]
+          },
+          {
+            "term": "present",
+            "inSentence": "present",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "發表；介紹",
+            "ipa": "/prɪˈzent/",
+            "collocations": ["present a paper", "present findings"],
+            "examples": [
+              {
+                "en": "He will present his results at the conference.",
+                "zh": "他會在研討會上發表研究結果。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My central question is simple: how does machine translation affect the way university students write in English?",
+      "zh": "我的核心問題很簡單：機器翻譯如何影響大學生用英文寫作的方式？",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "machine translation",
+            "inSentence": "machine translation",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "機器翻譯",
+            "ipa": "/məˈʃiːn trænzˈleɪʃn/",
+            "collocations": [
+              "use machine translation",
+              "machine translation tools"
+            ],
+            "examples": [
+              {
+                "en": "Machine translation has improved a lot.",
+                "zh": "機器翻譯進步了很多。"
+              }
+            ]
+          },
+          {
+            "term": "affect",
+            "inSentence": "affect",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "影響",
+            "ipa": "/əˈfekt/",
+            "collocations": ["affect the result", "be affected by"],
+            "examples": [
+              {
+                "en": "Lack of sleep affects your memory.",
+                "zh": "睡眠不足會影響記憶力。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "the way + clause",
+            "quote": "the way university students write",
+            "explanation": "the way 後面直接接子句，表示「……的方式」，不需要再加 how。",
+            "examples": [
+              {
+                "en": "I like the way she explains things.",
+                "zh": "我喜歡她解釋事情的方式。"
+              }
+            ],
+            "pitfall": "不要說 the way how students write。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "My central question is simple:",
+            "role": "main",
+            "zh": "我的核心問題很簡單"
+          },
+          {
+            "text": "how does machine translation affect",
+            "role": "main",
+            "zh": "機器翻譯如何影響"
+          },
+          {
+            "text": "the way university students write in English?",
+            "role": "modifier",
+            "zh": "大學生用英文寫作的方式"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Many students in Taiwan now draft their essays in Chinese and then translate them with an online tool.",
+      "zh": "現在台灣很多學生先用中文寫論文草稿，再用線上工具翻譯。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "draft",
+            "inSentence": "draft",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "擬草稿",
+            "ipa": "/drɑːft/",
+            "collocations": ["draft an essay", "draft a letter"],
+            "examples": [
+              {
+                "en": "I drafted the email twice before sending it.",
+                "zh": "那封郵件我寫了兩次草稿才寄出。"
+              }
+            ]
+          },
+          {
+            "term": "essay",
+            "inSentence": "essays",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "論文；短文",
+            "ipa": "/ˈeseɪ/",
+            "collocations": ["write an essay", "essay topic"],
+            "examples": [
+              {
+                "en": "Our essay is due on Monday.",
+                "zh": "我們的論文週一要交。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Teachers often worry that this habit weakens their students' grammar and vocabulary.",
+      "zh": "老師們常擔心這個習慣會削弱學生的文法和字彙能力。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "often worry that",
+            "note": "worry that + 子句，說明擔心的內容。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "weaken",
+            "inSentence": "weakens",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "削弱",
+            "ipa": "/ˈwiːkən/",
+            "collocations": ["weaken the body", "weaken a skill"],
+            "examples": [
+              {
+                "en": "Stress can weaken your immune system.",
+                "zh": "壓力會削弱免疫系統。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "However, there is very little evidence about what actually happens during the writing process.",
+      "zh": "然而，關於寫作過程中實際發生了什麼，相關證據非常少。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "evidence",
+            "inSentence": "evidence",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "證據",
+            "ipa": "/ˈevɪdəns/",
+            "collocations": ["little evidence", "evidence for"],
+            "examples": [
+              {
+                "en": "There is no evidence that it works.",
+                "zh": "沒有證據顯示它有效。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "very little with uncountable nouns",
+            "quote": "very little evidence",
+            "explanation": "little 接不可數名詞，表示「幾乎沒有」；a little 則是「有一些」。",
+            "examples": [
+              {
+                "en": "We have very little time left.",
+                "zh": "我們剩下的時間很少。"
+              }
+            ],
+            "pitfall": "evidence 不可數，不要說 very few evidences。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "To find out, I plan to work with forty second-year students over one semester.",
+      "zh": "為了找出答案，我計畫在一個學期內和 40 位大二學生合作。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "semester",
+            "inSentence": "semester",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "學期",
+            "ipa": "/sɪˈmestə/",
+            "collocations": ["this semester", "spring semester"],
+            "examples": [
+              {
+                "en": "I'm taking five courses this semester.",
+                "zh": "我這學期修五門課。"
+              }
+            ]
+          },
+          {
+            "term": "plan to",
+            "inSentence": "plan to work",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "計畫做某事",
+            "ipa": "/plæn tuː/",
+            "collocations": ["plan to study", "plan to travel"],
+            "examples": [
+              {
+                "en": "We plan to visit Japan in spring.",
+                "zh": "我們計畫春天去日本。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Half of them will write with translation tools, and the other half will write without them.",
+      "zh": "其中一半會使用翻譯工具寫作，另一半則不用。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "the other half",
+            "inSentence": "the other half",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "另一半",
+            "ipa": "/ði ˈʌðə hɑːf/",
+            "collocations": ["the other half of", "half and the other half"],
+            "examples": [
+              {
+                "en": "Half the class went home, and the other half stayed.",
+                "zh": "班上一半的人回家，另一半留下。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "Half of them",
+            "soundsLike": "HAHF-ə-vəm",
+            "note": "of 弱讀成 /əv/，them 弱讀成 /ðəm/ 或 /əm/，三個字連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I will record their screens while they write, so that I can see exactly when and why they turn to the tool.",
+      "zh": "我會在他們寫作時錄下螢幕畫面，這樣就能清楚看到他們在什麼時候、為什麼求助於工具。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "record",
+            "inSentence": "record",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "錄下；記錄",
+            "ipa": "/rɪˈkɔːd/",
+            "collocations": ["record a video", "record data"],
+            "examples": [
+              {
+                "en": "The app records how long you sleep.",
+                "zh": "這個應用程式會記錄你睡多久。"
+              }
+            ]
+          },
+          {
+            "term": "turn to",
+            "inSentence": "turn to the tool",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "求助於；轉向",
+            "ipa": "/tɜːn tuː/",
+            "collocations": ["turn to a friend", "turn to the internet"],
+            "examples": [
+              {
+                "en": "When I'm stuck, I turn to my teacher.",
+                "zh": "卡住時我會去找老師幫忙。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "so that for purpose",
+            "quote": "so that I can see exactly",
+            "explanation": "so that + 子句表示目的，子句裡常用 can 或 will。",
+            "examples": [
+              {
+                "en": "Speak slowly so that everyone can follow.",
+                "zh": "說慢一點，讓大家都跟得上。"
+              }
+            ],
+            "pitfall": "不要和 so 混淆：so that 是「為了」，單獨的 so 是「所以」。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I will record their screens",
+            "role": "main",
+            "zh": "我會錄下他們的螢幕"
+          },
+          {
+            "text": "while they write,",
+            "role": "subordinate",
+            "zh": "在他們寫作的時候"
+          },
+          {
+            "text": "so that I can see exactly",
+            "role": "subordinate",
+            "zh": "這樣就能清楚看到"
+          },
+          {
+            "text": "when and why they turn to the tool.",
+            "role": "subordinate",
+            "zh": "他們在什麼時候、為什麼求助工具"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "After that, I will interview a smaller group about their choices.",
+      "zh": "之後，我會訪談一個較小的群組，了解他們的選擇。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "interview",
+            "inSentence": "interview",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "訪談；面談",
+            "ipa": "/ˈɪntəvjuː/",
+            "collocations": ["interview someone", "interview a group"],
+            "examples": [
+              {
+                "en": "The reporter interviewed three students.",
+                "zh": "記者訪問了三位學生。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I expect the results to be mixed rather than simply positive or negative.",
+      "zh": "我預期結果會是好壞參半，而不是單純正面或負面。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "mixed",
+            "inSentence": "mixed",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "好壞參半的；混合的",
+            "ipa": "/mɪkst/",
+            "collocations": ["mixed results", "mixed feelings"],
+            "examples": [
+              {
+                "en": "The film got mixed reviews.",
+                "zh": "這部電影評價褒貶不一。"
+              }
+            ]
+          },
+          {
+            "term": "rather than",
+            "inSentence": "rather than",
+            "kind": "phrase",
+            "pos": "conj.",
+            "zh": "而不是",
+            "ipa": "/ˈrɑːðə ðæn/",
+            "collocations": ["rather than wait", "walk rather than drive"],
+            "examples": [
+              {
+                "en": "I'd like tea rather than coffee.",
+                "zh": "我想喝茶而不是咖啡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "For example, the tool might help weaker writers express complex ideas, while stronger writers may rely on it less.",
+      "zh": "例如，工具也許能幫助寫作較弱的學生表達複雜的想法，而寫作較強的學生可能比較少依賴它。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "rely on",
+            "inSentence": "rely on it",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "依賴",
+            "ipa": "/rɪˈlaɪ ɒn/",
+            "collocations": ["rely on someone", "rely heavily on"],
+            "examples": [
+              {
+                "en": "You can't rely on the bus here.",
+                "zh": "這裡的公車靠不住。"
+              }
+            ]
+          },
+          {
+            "term": "complex",
+            "inSentence": "complex",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "複雜的",
+            "ipa": "/ˈkɒmpleks/",
+            "collocations": ["a complex idea", "complex problem"],
+            "examples": [
+              {
+                "en": "It's a complex issue with no easy answer.",
+                "zh": "這是個沒有簡單答案的複雜議題。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "while for contrast",
+            "quote": "while stronger writers may rely on it less",
+            "explanation": "while 在這裡表示對比，意思是「而」，不是「當……的時候」。",
+            "examples": [
+              {
+                "en": "My brother loves sport, while I prefer books.",
+                "zh": "我哥哥熱愛運動，而我比較喜歡書。"
+              }
+            ],
+            "pitfall": "表對比的 while 前面通常加逗號。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "For example,",
+            "role": "connector",
+            "zh": "例如"
+          },
+          {
+            "text": "the tool might help weaker writers express complex ideas,",
+            "role": "main",
+            "zh": "工具也許能幫助較弱的寫作者表達複雜的想法"
+          },
+          {
+            "text": "while stronger writers may rely on it less.",
+            "role": "subordinate",
+            "zh": "而較強的寫作者可能比較少依賴它"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "I hope the findings will help teachers give clearer advice on using these tools responsibly.",
+      "zh": "我希望研究結果能幫助老師針對如何負責任地使用這些工具，給出更清楚的建議。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "findings",
+            "inSentence": "findings",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "研究結果",
+            "ipa": "/ˈfaɪndɪŋz/",
+            "collocations": ["research findings", "key findings"],
+            "examples": [
+              {
+                "en": "The findings were published last year.",
+                "zh": "研究結果去年發表了。"
+              }
+            ]
+          },
+          {
+            "term": "responsibly",
+            "inSentence": "responsibly",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "負責任地",
+            "ipa": "/rɪˈspɒnsəbli/",
+            "collocations": ["act responsibly", "use responsibly"],
+            "examples": [
+              {
+                "en": "Please drink responsibly.",
+                "zh": "請理性飲酒。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Thank you, and I'd be happy to hear your comments.",
+      "zh": "謝謝大家，也很樂意聽聽各位的意見。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "I'd be happy to hear",
+            "note": "簡報結尾邀請聽眾提問或給意見的禮貌說法。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "comment",
+            "inSentence": "comments",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "意見；評論",
+            "ipa": "/ˈkɒment/",
+            "collocations": ["make a comment", "any comments"],
+            "examples": [
+              {
+                "en": "Do you have any comments on my draft?",
+                "zh": "你對我的草稿有什麼意見嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

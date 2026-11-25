@@ -36,51 +36,34 @@
       "pattern": "…, and at first I felt …",
       "zh": "一開始覺得……（為後面的心情轉變鋪路）",
       "example": "I did not have any plans, and at first I felt a little bored.",
-      "keys": [
-        "at first",
-        "felt"
-      ]
+      "keys": ["at first", "felt"]
     },
     {
       "pattern": "In the afternoon, I decided to …",
       "zh": "用時間片語開頭，說明決定做的事",
       "example": "In the afternoon, I decided to cook noodles with my younger brother.",
-      "keys": [
-        "in the afternoon",
-        "decided to"
-      ]
+      "keys": ["in the afternoon", "decided to"]
     },
     {
       "pattern": "…, but …",
       "zh": "用 but 帶出出乎意料的好結果",
       "example": "We made a big mess in the kitchen, but the noodles tasted great.",
-      "keys": [
-        "but"
-      ]
+      "keys": ["but"]
     },
     {
       "pattern": "Sometimes … is exactly what I need.",
       "zh": "結尾：有時候……正是我需要的",
       "example": "Sometimes a rainy day is exactly what I need.",
-      "keys": [
-        "sometimes",
-        "exactly what"
-      ]
+      "keys": ["sometimes", "exactly what"]
     }
   ],
   "combine": [
     {
-      "parts": [
-        "It rained all day.",
-        "I stayed at home."
-      ],
+      "parts": ["It rained all day.", "I stayed at home."],
       "answer": "It rained all day, so I stayed at home."
     },
     {
-      "parts": [
-        "It was a quiet day.",
-        "It was a good one."
-      ],
+      "parts": ["It was a quiet day.", "It was a good one."],
       "answer": "It was a quiet day, but it was a good one."
     }
   ],

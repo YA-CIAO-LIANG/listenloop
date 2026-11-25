@@ -1,747 +1,681 @@
 {
- "slug": "s-typhoon-day",
- "series": "school",
- "title": "A Typhoon Day Off",
- "titleZh": "颱風假",
- "subtitle": "一個國中生的颱風假：停電、燭光和全家人的笑聲",
- "format": "monologue",
- "accent": "us",
- "meta": {
-  "category": "school",
-  "scenario": "junior-passage",
-  "level": "beginner",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Last night, the news said that a strong typhoon was coming to Taiwan.",
-   "zh": "昨天晚上，新聞說有一個強烈颱風要來台灣。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "typhoon",
-      "inSentence": "typhoon",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "颱風",
-      "ipa": "/taɪˈfun/",
-      "collocations": [
-       "a strong typhoon",
-       "typhoon day"
-      ],
-      "examples": [
-       {
-        "en": "The typhoon brought a lot of rain.",
-        "zh": "颱風帶來了很多雨。"
-       }
-      ]
-     },
-     {
-      "term": "news",
-      "inSentence": "the news",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "新聞",
-      "ipa": "/nuz/",
-      "collocations": [
-       "watch the news",
-       "on the news"
-      ],
-      "examples": [
-       {
-        "en": "I saw it on the news.",
-        "zh": "我在新聞上看到的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "reported speech: tense",
-      "quote": "said that a strong typhoon was coming",
-      "explanation": "轉述過去說的話時，that 子句的時態常跟著往前退一步：is coming 變成 was coming。",
-      "examples": [
-       {
-        "en": "She said that she was tired.",
-        "zh": "她說她很累。"
-       }
-      ],
-      "pitfall": "news 是不可數名詞，後面動詞用單數，不說 the news say。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "s-typhoon-day",
+  "series": "school",
+  "title": "A Typhoon Day Off",
+  "titleZh": "颱風假",
+  "subtitle": "一個國中生的颱風假：停電、燭光和全家人的笑聲",
+  "format": "monologue",
+  "accent": "us",
+  "meta": {
+    "category": "school",
+    "scenario": "junior-passage",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "At ten o'clock, the city announced that there would be no school today.",
-   "zh": "十點的時候，市政府宣布今天停課。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "announce",
-      "inSentence": "announced",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "宣布",
-      "ipa": "/əˈnaʊns/",
-      "collocations": [
-       "announce that",
-       "announce the news"
-      ],
-      "examples": [
-       {
-        "en": "The principal announced the winners.",
-        "zh": "校長宣布了得獎者。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "there would be",
-      "quote": "there would be no school",
-      "explanation": "would 是 will 的過去式，用在過去說的話裡表示「將會」。there will be 轉述後變成 there would be。",
-      "examples": [
-       {
-        "en": "He said there would be a test on Monday.",
-        "zh": "他說星期一會有考試。"
-       }
-      ],
-      "pitfall": "no school 是「不用上課」，不要說 no have school。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "My little brother jumped up and down with joy.",
-   "zh": "我弟弟高興得跳上跳下。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "jump up and down",
-      "inSentence": "jumped up and down",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "跳上跳下",
-      "ipa": "/dʒʌmp ʌp ənd daʊn/",
-      "collocations": [
-       "jump up and down",
-       "jump for joy"
-      ],
-      "examples": [
-       {
-        "en": "The kids jumped up and down at the zoo.",
-        "zh": "孩子們在動物園裡又蹦又跳。"
-       }
-      ]
-     },
-     {
-      "term": "with joy",
-      "inSentence": "with joy",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "高興地",
-      "ipa": "/wɪð dʒɔɪ/",
-      "collocations": [
-       "cry with joy",
-       "shout with joy"
-      ],
-      "examples": [
-       {
-        "en": "She cried with joy.",
-        "zh": "她高興得哭了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "But my mom reminded us that a typhoon day is not a holiday.",
-   "zh": "但媽媽提醒我們，颱風假可不是出去玩的假日。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "remind",
-      "inSentence": "reminded",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "提醒",
-      "ipa": "/rɪˈmaɪnd/",
-      "collocations": [
-       "remind sb to",
-       "remind sb that"
-      ],
-      "examples": [
-       {
-        "en": "Please remind me to call Grandma.",
-        "zh": "請提醒我打電話給奶奶。"
-       }
-      ]
-     },
-     {
-      "term": "holiday",
-      "inSentence": "holiday",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "假日；節日",
-      "ipa": "/ˈhɑləˌdeɪ/",
-      "collocations": [
-       "a public holiday",
-       "on holiday"
-      ],
-      "examples": [
-       {
-        "en": "Monday is a holiday.",
-        "zh": "星期一放假。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "remind + person + that",
-      "quote": "reminded us that",
-      "explanation": "remind 後面先接人，再接 that 子句，表示「提醒某人某事」。",
-      "examples": [
-       {
-        "en": "Dad reminded me that the bus was late.",
-        "zh": "爸爸提醒我公車誤點了。"
-       }
-      ],
-      "pitfall": "不要漏掉受詞，不說 my mom reminded that。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "This morning, the wind was very loud, and heavy rain hit our windows.",
-   "zh": "今天早上，風聲很大，大雨打在我們家的窗戶上。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "heavy rain",
-      "note": "下大雨用 heavy，不用 big。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "heavy rain",
-      "inSentence": "heavy rain",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "大雨；豪雨",
-      "ipa": "/ˈhɛvi reɪn/",
-      "collocations": [
-       "heavy rain",
-       "heavy snow"
-      ],
-      "examples": [
-       {
-        "en": "Heavy rain closed the road.",
-        "zh": "豪雨讓道路封閉了。"
-       }
-      ]
-     },
-     {
-      "term": "loud",
-      "inSentence": "loud",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "大聲的",
-      "ipa": "/laʊd/",
-      "collocations": [
-       "loud noise",
-       "too loud"
-      ],
-      "examples": [
-       {
-        "en": "The music is too loud.",
-        "zh": "音樂太大聲了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "From the window, I could see trees bending in the strong wind.",
-   "zh": "從窗戶看出去，我看見樹在強風中被吹得彎下腰。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "bend",
-      "inSentence": "bending",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "彎曲",
-      "ipa": "/bɛnd/",
-      "collocations": [
-       "bend down",
-       "bend over"
-      ],
-      "examples": [
-       {
-        "en": "Bend your knees a little.",
-        "zh": "膝蓋稍微彎一點。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "see + object + V-ing",
-      "quote": "see trees bending",
-      "explanation": "see ＋受詞＋V-ing，表示看到某事「正在進行」。",
-      "examples": [
-       {
-        "en": "I saw a cat sleeping on the car.",
-        "zh": "我看到一隻貓在車上睡覺。"
-       }
-      ],
-      "pitfall": "不要寫成 see trees are bending。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "We stayed inside and moved the plants away from the balcony.",
-   "zh": "我們待在室內，還把盆栽從陽台搬走。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "balcony",
-      "inSentence": "balcony",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "陽台",
-      "ipa": "/ˈbælkəni/",
-      "collocations": [
-       "on the balcony",
-       "a small balcony"
-      ],
-      "examples": [
-       {
-        "en": "We dry clothes on the balcony.",
-        "zh": "我們在陽台晾衣服。"
-       }
-      ]
-     },
-     {
-      "term": "move away from",
-      "inSentence": "moved the plants away from",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "把…從…移開",
-      "ipa": "/muv əˈweɪ frʌm/",
-      "collocations": [
-       "move away from",
-       "move it away"
-      ],
-      "examples": [
-       {
-        "en": "Move the chair away from the door.",
-        "zh": "把椅子從門邊移開。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "stayed inside",
-      "soundsLike": "stay-din-side",
-      "note": "stayed 的 d 和 inside 連在一起念。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "My dad checked the flashlights and filled some bottles with water, just in case.",
-   "zh": "爸爸檢查了手電筒，還裝了幾瓶水，以防萬一。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "flashlight",
-      "inSentence": "flashlights",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "手電筒",
-      "ipa": "/ˈflæʃˌlaɪt/",
-      "collocations": [
-       "turn on a flashlight",
-       "a small flashlight"
-      ],
-      "examples": [
-       {
-        "en": "Bring a flashlight for the camp.",
-        "zh": "露營要帶手電筒。"
-       }
-      ]
-     },
-     {
-      "term": "just in case",
-      "inSentence": "just in case",
-      "kind": "idiom",
-      "pos": "phr.",
-      "zh": "以防萬一",
-      "ipa": "/dʒʌst ɪn keɪs/",
-      "collocations": [
-       "just in case",
-       "in case of"
-      ],
-      "examples": [
-       {
-        "en": "Take an umbrella, just in case.",
-        "zh": "帶把傘吧，以防萬一。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "fill A with B",
-      "quote": "filled some bottles with water",
-      "explanation": "fill A with B 是「把 A 裝滿 B」。",
-      "examples": [
-       {
-        "en": "She filled the box with toys.",
-        "zh": "她把箱子裝滿玩具。"
-       }
-      ],
-      "pitfall": "介系詞用 with，不用 by 或 of。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "In the afternoon, the power went out for about two hours.",
-   "zh": "下午停電了大約兩個小時。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "go out",
-      "inSentence": "went out",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "（電、燈）熄滅；停電",
-      "ipa": "/ɡoʊ aʊt/",
-      "collocations": [
-       "the power goes out",
-       "the lights went out"
-      ],
-      "examples": [
-       {
-        "en": "The lights went out during the storm.",
-        "zh": "暴風雨時燈全熄了。"
-       }
-      ]
-     },
-     {
-      "term": "power",
-      "inSentence": "power",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "電力",
-      "ipa": "/ˈpaʊɚ/",
-      "collocations": [
-       "power outage",
-       "the power is back"
-      ],
-      "examples": [
-       {
-        "en": "We had no power last night.",
-        "zh": "我們昨晚停電了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "went out",
-      "soundsLike": "wen-tout",
-      "note": "went 的 t 和 out 連在一起念。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Without the internet, we played card games by candlelight.",
-   "zh": "沒有網路，我們就在燭光下玩撲克牌。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "by candlelight",
-      "note": "by 表示「藉著（某種光）」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "card game",
-      "inSentence": "card games",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "紙牌遊戲；撲克牌遊戲",
-      "ipa": "/kɑrd ɡeɪm/",
-      "collocations": [
-       "play card games",
-       "a card game"
-      ],
-      "examples": [
-       {
-        "en": "Let's play a card game.",
-        "zh": "我們來玩撲克牌吧。"
-       }
-      ]
-     },
-     {
-      "term": "candlelight",
-      "inSentence": "candlelight",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "燭光",
-      "ipa": "/ˈkændəlˌlaɪt/",
-      "collocations": [
-       "by candlelight",
-       "in the candlelight"
-      ],
-      "examples": [
-       {
-        "en": "We ate dinner by candlelight.",
-        "zh": "我們在燭光下吃晚餐。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "It was the first time in months that our whole family sat together and laughed so much.",
-   "zh": "這是好幾個月來，我們全家第一次坐在一起，笑得這麼開心。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "whole",
-      "inSentence": "whole family",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "整個的；全部的",
-      "ipa": "/hoʊl/",
-      "collocations": [
-       "the whole family",
-       "the whole day"
-      ],
-      "examples": [
-       {
-        "en": "I slept the whole afternoon.",
-        "zh": "我睡了一整個下午。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "It was the first time ... that",
-      "quote": "It was the first time in months that",
-      "explanation": "It was the first time that ＋子句，表示「這是第一次…」。in months 是「好幾個月以來」。",
-      "examples": [
-       {
-        "en": "It was the first time I saw snow.",
-        "zh": "那是我第一次看到雪。"
-       }
-      ],
-      "pitfall": "in months 不是「在幾個月裡」，而是「好幾個月以來」。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "It was the first time in months",
-      "role": "main",
-      "zh": "這是好幾個月來第一次"
-     },
-     {
-      "text": "that our whole family sat together",
-      "role": "subordinate",
-      "zh": "我們全家坐在一起"
-     },
-     {
-      "text": "and laughed so much",
-      "role": "subordinate",
-      "zh": "還笑得這麼開心"
-     }
-    ],
-    "connected": [
-     {
-      "text": "sat together",
-      "soundsLike": "sa-together",
-      "note": "sat 的 t 在 together 前幾乎不發音。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "By evening, the rain had stopped, and the power was back on.",
-   "zh": "到了傍晚，雨已經停了，電也來了。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "be back on",
-      "inSentence": "was back on",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "（電等）恢復",
-      "ipa": "/bi bæk ɑn/",
-      "collocations": [
-       "the power is back on",
-       "the lights are back on"
-      ],
-      "examples": [
-       {
-        "en": "The internet is back on now.",
-        "zh": "網路現在恢復了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "by + time + past perfect",
-      "quote": "By evening, the rain had stopped",
-      "explanation": "by ＋過去時間，表示「到那時之前已經…」，常配過去完成式 had ＋過去分詞。",
-      "examples": [
-       {
-        "en": "By nine, I had finished my homework.",
-        "zh": "九點以前我已經寫完作業了。"
-       }
-      ],
-      "pitfall": "by 是「在…之前」，不是「在…旁邊」。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Tomorrow, I will go back to school, but I will remember this quiet, cozy typhoon day.",
-   "zh": "明天我就要回學校了，但我會記得這個安靜又溫馨的颱風天。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "cozy",
-      "inSentence": "cozy",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "溫暖舒適的",
-      "ipa": "/ˈkoʊzi/",
-      "collocations": [
-       "a cozy room",
-       "cozy and warm"
-      ],
-      "examples": [
-       {
-        "en": "Our living room is small but cozy.",
-        "zh": "我們的客廳很小但很舒適。"
-       }
-      ]
-     },
-     {
-      "term": "go back to",
-      "inSentence": "go back to school",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "回到",
-      "ipa": "/ɡoʊ bæk tu/",
-      "collocations": [
-       "go back to school",
-       "go back home"
-      ],
-      "examples": [
-       {
-        "en": "I want to go back to bed.",
-        "zh": "我想回床上睡覺。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Last night, the news said that a strong typhoon was coming to Taiwan.",
+      "zh": "昨天晚上，新聞說有一個強烈颱風要來台灣。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "typhoon",
+            "inSentence": "typhoon",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "颱風",
+            "ipa": "/taɪˈfun/",
+            "collocations": ["a strong typhoon", "typhoon day"],
+            "examples": [
+              {
+                "en": "The typhoon brought a lot of rain.",
+                "zh": "颱風帶來了很多雨。"
+              }
+            ]
+          },
+          {
+            "term": "news",
+            "inSentence": "the news",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "新聞",
+            "ipa": "/nuz/",
+            "collocations": ["watch the news", "on the news"],
+            "examples": [
+              {
+                "en": "I saw it on the news.",
+                "zh": "我在新聞上看到的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "reported speech: tense",
+            "quote": "said that a strong typhoon was coming",
+            "explanation": "轉述過去說的話時，that 子句的時態常跟著往前退一步：is coming 變成 was coming。",
+            "examples": [
+              {
+                "en": "She said that she was tired.",
+                "zh": "她說她很累。"
+              }
+            ],
+            "pitfall": "news 是不可數名詞，後面動詞用單數，不說 the news say。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "At ten o'clock, the city announced that there would be no school today.",
+      "zh": "十點的時候，市政府宣布今天停課。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "announce",
+            "inSentence": "announced",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "宣布",
+            "ipa": "/əˈnaʊns/",
+            "collocations": ["announce that", "announce the news"],
+            "examples": [
+              {
+                "en": "The principal announced the winners.",
+                "zh": "校長宣布了得獎者。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "there would be",
+            "quote": "there would be no school",
+            "explanation": "would 是 will 的過去式，用在過去說的話裡表示「將會」。there will be 轉述後變成 there would be。",
+            "examples": [
+              {
+                "en": "He said there would be a test on Monday.",
+                "zh": "他說星期一會有考試。"
+              }
+            ],
+            "pitfall": "no school 是「不用上課」，不要說 no have school。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My little brother jumped up and down with joy.",
+      "zh": "我弟弟高興得跳上跳下。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "jump up and down",
+            "inSentence": "jumped up and down",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "跳上跳下",
+            "ipa": "/dʒʌmp ʌp ənd daʊn/",
+            "collocations": ["jump up and down", "jump for joy"],
+            "examples": [
+              {
+                "en": "The kids jumped up and down at the zoo.",
+                "zh": "孩子們在動物園裡又蹦又跳。"
+              }
+            ]
+          },
+          {
+            "term": "with joy",
+            "inSentence": "with joy",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "高興地",
+            "ipa": "/wɪð dʒɔɪ/",
+            "collocations": ["cry with joy", "shout with joy"],
+            "examples": [
+              {
+                "en": "She cried with joy.",
+                "zh": "她高興得哭了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "But my mom reminded us that a typhoon day is not a holiday.",
+      "zh": "但媽媽提醒我們，颱風假可不是出去玩的假日。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "remind",
+            "inSentence": "reminded",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "提醒",
+            "ipa": "/rɪˈmaɪnd/",
+            "collocations": ["remind sb to", "remind sb that"],
+            "examples": [
+              {
+                "en": "Please remind me to call Grandma.",
+                "zh": "請提醒我打電話給奶奶。"
+              }
+            ]
+          },
+          {
+            "term": "holiday",
+            "inSentence": "holiday",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "假日；節日",
+            "ipa": "/ˈhɑləˌdeɪ/",
+            "collocations": ["a public holiday", "on holiday"],
+            "examples": [
+              {
+                "en": "Monday is a holiday.",
+                "zh": "星期一放假。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "remind + person + that",
+            "quote": "reminded us that",
+            "explanation": "remind 後面先接人，再接 that 子句，表示「提醒某人某事」。",
+            "examples": [
+              {
+                "en": "Dad reminded me that the bus was late.",
+                "zh": "爸爸提醒我公車誤點了。"
+              }
+            ],
+            "pitfall": "不要漏掉受詞，不說 my mom reminded that。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "This morning, the wind was very loud, and heavy rain hit our windows.",
+      "zh": "今天早上，風聲很大，大雨打在我們家的窗戶上。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "heavy rain",
+            "note": "下大雨用 heavy，不用 big。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "heavy rain",
+            "inSentence": "heavy rain",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "大雨；豪雨",
+            "ipa": "/ˈhɛvi reɪn/",
+            "collocations": ["heavy rain", "heavy snow"],
+            "examples": [
+              {
+                "en": "Heavy rain closed the road.",
+                "zh": "豪雨讓道路封閉了。"
+              }
+            ]
+          },
+          {
+            "term": "loud",
+            "inSentence": "loud",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "大聲的",
+            "ipa": "/laʊd/",
+            "collocations": ["loud noise", "too loud"],
+            "examples": [
+              {
+                "en": "The music is too loud.",
+                "zh": "音樂太大聲了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "From the window, I could see trees bending in the strong wind.",
+      "zh": "從窗戶看出去，我看見樹在強風中被吹得彎下腰。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "bend",
+            "inSentence": "bending",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "彎曲",
+            "ipa": "/bɛnd/",
+            "collocations": ["bend down", "bend over"],
+            "examples": [
+              {
+                "en": "Bend your knees a little.",
+                "zh": "膝蓋稍微彎一點。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "see + object + V-ing",
+            "quote": "see trees bending",
+            "explanation": "see ＋受詞＋V-ing，表示看到某事「正在進行」。",
+            "examples": [
+              {
+                "en": "I saw a cat sleeping on the car.",
+                "zh": "我看到一隻貓在車上睡覺。"
+              }
+            ],
+            "pitfall": "不要寫成 see trees are bending。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "We stayed inside and moved the plants away from the balcony.",
+      "zh": "我們待在室內，還把盆栽從陽台搬走。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "balcony",
+            "inSentence": "balcony",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "陽台",
+            "ipa": "/ˈbælkəni/",
+            "collocations": ["on the balcony", "a small balcony"],
+            "examples": [
+              {
+                "en": "We dry clothes on the balcony.",
+                "zh": "我們在陽台晾衣服。"
+              }
+            ]
+          },
+          {
+            "term": "move away from",
+            "inSentence": "moved the plants away from",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "把…從…移開",
+            "ipa": "/muv əˈweɪ frʌm/",
+            "collocations": ["move away from", "move it away"],
+            "examples": [
+              {
+                "en": "Move the chair away from the door.",
+                "zh": "把椅子從門邊移開。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "stayed inside",
+            "soundsLike": "stay-din-side",
+            "note": "stayed 的 d 和 inside 連在一起念。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "My dad checked the flashlights and filled some bottles with water, just in case.",
+      "zh": "爸爸檢查了手電筒，還裝了幾瓶水，以防萬一。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "flashlight",
+            "inSentence": "flashlights",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "手電筒",
+            "ipa": "/ˈflæʃˌlaɪt/",
+            "collocations": ["turn on a flashlight", "a small flashlight"],
+            "examples": [
+              {
+                "en": "Bring a flashlight for the camp.",
+                "zh": "露營要帶手電筒。"
+              }
+            ]
+          },
+          {
+            "term": "just in case",
+            "inSentence": "just in case",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "以防萬一",
+            "ipa": "/dʒʌst ɪn keɪs/",
+            "collocations": ["just in case", "in case of"],
+            "examples": [
+              {
+                "en": "Take an umbrella, just in case.",
+                "zh": "帶把傘吧，以防萬一。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "fill A with B",
+            "quote": "filled some bottles with water",
+            "explanation": "fill A with B 是「把 A 裝滿 B」。",
+            "examples": [
+              {
+                "en": "She filled the box with toys.",
+                "zh": "她把箱子裝滿玩具。"
+              }
+            ],
+            "pitfall": "介系詞用 with，不用 by 或 of。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "In the afternoon, the power went out for about two hours.",
+      "zh": "下午停電了大約兩個小時。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "go out",
+            "inSentence": "went out",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "（電、燈）熄滅；停電",
+            "ipa": "/ɡoʊ aʊt/",
+            "collocations": ["the power goes out", "the lights went out"],
+            "examples": [
+              {
+                "en": "The lights went out during the storm.",
+                "zh": "暴風雨時燈全熄了。"
+              }
+            ]
+          },
+          {
+            "term": "power",
+            "inSentence": "power",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "電力",
+            "ipa": "/ˈpaʊɚ/",
+            "collocations": ["power outage", "the power is back"],
+            "examples": [
+              {
+                "en": "We had no power last night.",
+                "zh": "我們昨晚停電了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "went out",
+            "soundsLike": "wen-tout",
+            "note": "went 的 t 和 out 連在一起念。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Without the internet, we played card games by candlelight.",
+      "zh": "沒有網路，我們就在燭光下玩撲克牌。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "by candlelight",
+            "note": "by 表示「藉著（某種光）」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "card game",
+            "inSentence": "card games",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "紙牌遊戲；撲克牌遊戲",
+            "ipa": "/kɑrd ɡeɪm/",
+            "collocations": ["play card games", "a card game"],
+            "examples": [
+              {
+                "en": "Let's play a card game.",
+                "zh": "我們來玩撲克牌吧。"
+              }
+            ]
+          },
+          {
+            "term": "candlelight",
+            "inSentence": "candlelight",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "燭光",
+            "ipa": "/ˈkændəlˌlaɪt/",
+            "collocations": ["by candlelight", "in the candlelight"],
+            "examples": [
+              {
+                "en": "We ate dinner by candlelight.",
+                "zh": "我們在燭光下吃晚餐。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It was the first time in months that our whole family sat together and laughed so much.",
+      "zh": "這是好幾個月來，我們全家第一次坐在一起，笑得這麼開心。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "whole",
+            "inSentence": "whole family",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "整個的；全部的",
+            "ipa": "/hoʊl/",
+            "collocations": ["the whole family", "the whole day"],
+            "examples": [
+              {
+                "en": "I slept the whole afternoon.",
+                "zh": "我睡了一整個下午。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "It was the first time ... that",
+            "quote": "It was the first time in months that",
+            "explanation": "It was the first time that ＋子句，表示「這是第一次…」。in months 是「好幾個月以來」。",
+            "examples": [
+              {
+                "en": "It was the first time I saw snow.",
+                "zh": "那是我第一次看到雪。"
+              }
+            ],
+            "pitfall": "in months 不是「在幾個月裡」，而是「好幾個月以來」。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "It was the first time in months",
+            "role": "main",
+            "zh": "這是好幾個月來第一次"
+          },
+          {
+            "text": "that our whole family sat together",
+            "role": "subordinate",
+            "zh": "我們全家坐在一起"
+          },
+          {
+            "text": "and laughed so much",
+            "role": "subordinate",
+            "zh": "還笑得這麼開心"
+          }
+        ],
+        "connected": [
+          {
+            "text": "sat together",
+            "soundsLike": "sa-together",
+            "note": "sat 的 t 在 together 前幾乎不發音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "By evening, the rain had stopped, and the power was back on.",
+      "zh": "到了傍晚，雨已經停了，電也來了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "be back on",
+            "inSentence": "was back on",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "（電等）恢復",
+            "ipa": "/bi bæk ɑn/",
+            "collocations": ["the power is back on", "the lights are back on"],
+            "examples": [
+              {
+                "en": "The internet is back on now.",
+                "zh": "網路現在恢復了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "by + time + past perfect",
+            "quote": "By evening, the rain had stopped",
+            "explanation": "by ＋過去時間，表示「到那時之前已經…」，常配過去完成式 had ＋過去分詞。",
+            "examples": [
+              {
+                "en": "By nine, I had finished my homework.",
+                "zh": "九點以前我已經寫完作業了。"
+              }
+            ],
+            "pitfall": "by 是「在…之前」，不是「在…旁邊」。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Tomorrow, I will go back to school, but I will remember this quiet, cozy typhoon day.",
+      "zh": "明天我就要回學校了，但我會記得這個安靜又溫馨的颱風天。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "cozy",
+            "inSentence": "cozy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "溫暖舒適的",
+            "ipa": "/ˈkoʊzi/",
+            "collocations": ["a cozy room", "cozy and warm"],
+            "examples": [
+              {
+                "en": "Our living room is small but cozy.",
+                "zh": "我們的客廳很小但很舒適。"
+              }
+            ]
+          },
+          {
+            "term": "go back to",
+            "inSentence": "go back to school",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "回到",
+            "ipa": "/ɡoʊ bæk tu/",
+            "collocations": ["go back to school", "go back home"],
+            "examples": [
+              {
+                "en": "I want to go back to bed.",
+                "zh": "我想回床上睡覺。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

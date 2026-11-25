@@ -1,574 +1,528 @@
 {
- "slug": "e-lift-repairs-this-weekend",
- "series": "exam",
- "title": "Lift Repairs This Weekend",
- "titleZh": "本週末電梯維修",
- "subtitle": "多益風格公告：大樓管理處說明週末電梯停用、替代方式與注意事項",
- "format": "monologue",
- "accent": "au",
- "meta": {
-  "category": "exam",
-  "scenario": "toeic-announcement",
-  "level": "beginner",
-  "exam": "toeic",
-  "examTarget": "toeic-550"
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Good morning, everyone, this is a message from the building manager.",
-   "zh": "大家早安，這是大樓管理員發布的訊息。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "a message from the building manager",
-      "note": "多益常考「說話者是誰」：大樓管理員。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "building manager",
-      "inSentence": "building manager",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "大樓管理員",
-      "ipa": "/ˈbɪldɪŋ ˈmænɪdʒə/",
-      "collocations": [
-       "contact the building manager"
-      ],
-      "examples": [
-       {
-        "en": "The building manager fixed the door.",
-        "zh": "大樓管理員修好了門。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "e-lift-repairs-this-weekend",
+  "series": "exam",
+  "title": "Lift Repairs This Weekend",
+  "titleZh": "本週末電梯維修",
+  "subtitle": "多益風格公告：大樓管理處說明週末電梯停用、替代方式與注意事項",
+  "format": "monologue",
+  "accent": "au",
+  "meta": {
+    "category": "exam",
+    "scenario": "toeic-announcement",
+    "level": "beginner",
+    "exam": "toeic",
+    "examTarget": "toeic-550"
   },
-  {
-   "en": "The main lift in this building will be closed this Saturday and Sunday for repairs.",
-   "zh": "本大樓的主要電梯將在這個星期六和星期日停用維修。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "closed this Saturday and Sunday for repairs",
-      "note": "公告主旨：週末電梯維修。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "lift",
-      "inSentence": "lift",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "電梯（英式、澳式，美式為 elevator）",
-      "ipa": "/lɪft/",
-      "collocations": [
-       "take the lift",
-       "main lift"
-      ],
-      "examples": [
-       {
-        "en": "Let's take the lift to the fifth floor.",
-        "zh": "我們搭電梯到五樓吧。"
-       }
-      ]
-     },
-     {
-      "term": "repair",
-      "inSentence": "repairs",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "修理",
-      "ipa": "/rɪˈpeə/",
-      "collocations": [
-       "closed for repairs",
-       "make repairs"
-      ],
-      "examples": [
-       {
-        "en": "The road is closed for repairs.",
-        "zh": "這條路因維修而封閉。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "Workers will start at eight in the morning and finish by six in the evening.",
-   "zh": "工人會在早上八點開工，晚上六點前完工。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "finish by",
-      "inSentence": "finish by six",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "在…之前完成",
-      "ipa": "/ˈfɪnɪʃ baɪ/",
-      "collocations": [
-       "finish by Friday"
-      ],
-      "examples": [
-       {
-        "en": "Please finish the report by noon.",
-        "zh": "請在中午前完成報告。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "During this time, please use the stairs or the small lift near the back entrance.",
-   "zh": "在這段時間，請使用樓梯或後門入口附近的小電梯。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "the small lift near the back entrance",
-      "note": "替代方案：考題常問「聽眾應該怎麼做」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "during",
-      "inSentence": "During",
-      "kind": "word",
-      "pos": "prep.",
-      "zh": "在…期間",
-      "ipa": "/ˈdjʊərɪŋ/",
-      "collocations": [
-       "during the day",
-       "during this time"
-      ],
-      "examples": [
-       {
-        "en": "Please turn off your phone during the meeting.",
-        "zh": "開會期間請關掉手機。"
-       }
-      ]
-     },
-     {
-      "term": "entrance",
-      "inSentence": "entrance",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "入口",
-      "ipa": "/ˈentrəns/",
-      "collocations": [
-       "main entrance",
-       "back entrance"
-      ],
-      "examples": [
-       {
-        "en": "Meet me at the main entrance.",
-        "zh": "在大門口跟我碰面。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "The small lift can only carry four people at a time, so please be patient.",
-   "zh": "小電梯一次只能載四個人，所以請耐心等候。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "at a time",
-      "inSentence": "at a time",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "一次",
-      "ipa": "/æt ə taɪm/",
-      "collocations": [
-       "one at a time"
-      ],
-      "examples": [
-       {
-        "en": "Please come in one at a time.",
-        "zh": "請一次進來一位。"
-       }
-      ]
-     },
-     {
-      "term": "patient",
-      "inSentence": "patient",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "有耐心的",
-      "ipa": "/ˈpeɪʃənt/",
-      "collocations": [
-       "be patient",
-       "patient with"
-      ],
-      "examples": [
-       {
-        "en": "Thank you for being patient.",
-        "zh": "謝謝你耐心等候。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "at a time",
-      "soundsLike": "a-da time",
-      "note": "at 的 t 在母音前常變成輕輕的 d 音，和 a 連在一起。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "If you need to move heavy boxes or furniture this weekend, please call the front desk first.",
-   "zh": "如果您這個週末需要搬運重的箱子或家具，請先打電話給服務台。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "furniture",
-      "inSentence": "furniture",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "家具",
-      "ipa": "/ˈfɜːnɪtʃə/",
-      "collocations": [
-       "a piece of furniture",
-       "office furniture"
-      ],
-      "examples": [
-       {
-        "en": "We bought new furniture for the office.",
-        "zh": "我們幫辦公室買了新家具。"
-       }
-      ]
-     },
-     {
-      "term": "front desk",
-      "inSentence": "front desk",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "服務台；櫃檯",
-      "ipa": "/frʌnt desk/",
-      "collocations": [
-       "call the front desk"
-      ],
-      "examples": [
-       {
-        "en": "Leave your key at the front desk.",
-        "zh": "把鑰匙留在櫃檯。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "If + present, imperative",
-      "quote": "If you need to move heavy boxes",
-      "explanation": "If 子句用現在式，主要子句用祈使句（please call），是公告中常見的指示句型。",
-      "examples": [
-       {
-        "en": "If you have questions, please ask me.",
-        "zh": "如果有問題，請問我。"
-       }
-      ],
-      "pitfall": "If 子句不要用 will：If you will need 是錯的。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "We can arrange a time for you to use the service lift in the car park.",
-   "zh": "我們可以幫您安排時間，使用停車場裡的貨梯。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "arrange",
-      "inSentence": "arrange",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "安排",
-      "ipa": "/əˈreɪndʒ/",
-      "collocations": [
-       "arrange a meeting",
-       "arrange a time"
-      ],
-      "examples": [
-       {
-        "en": "Can you arrange a taxi for me?",
-        "zh": "你可以幫我安排計程車嗎？"
-       }
-      ]
-     },
-     {
-      "term": "service lift",
-      "inSentence": "service lift",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "貨梯；工作電梯",
-      "ipa": "/ˈsɜːvɪs lɪft/",
-      "collocations": [
-       "use the service lift"
-      ],
-      "examples": [
-       {
-        "en": "Deliveries must use the service lift.",
-        "zh": "送貨必須使用貨梯。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Also, the stairs on the east side will be cleaned on Saturday morning, so the floor may be wet.",
-   "zh": "另外，東側的樓梯星期六早上會清潔，所以地板可能是濕的。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "the floor may be wet",
-      "note": "附帶的注意事項，題目可能問「星期六早上會發生什麼事」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "wet",
-      "inSentence": "wet",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "濕的",
-      "ipa": "/wet/",
-      "collocations": [
-       "wet floor",
-       "get wet"
-      ],
-      "examples": [
-       {
-        "en": "Be careful, the floor is wet.",
-        "zh": "小心，地板是濕的。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "Future passive",
-      "quote": "will be cleaned",
-      "explanation": "will be + 過去分詞是未來式被動語態，重點在樓梯「被清潔」，不在誰清潔。",
-      "examples": [
-       {
-        "en": "The room will be painted next week.",
-        "zh": "這個房間下週會粉刷。"
-       }
-      ],
-      "pitfall": "不要漏掉 be：will cleaned 是錯的。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Please take care and watch for the yellow signs.",
-   "zh": "請小心，並注意黃色的告示牌。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "watch for",
-      "inSentence": "watch for",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "注意；留意",
-      "ipa": "/wɒtʃ fɔː/",
-      "collocations": [
-       "watch for traffic"
-      ],
-      "examples": [
-       {
-        "en": "Watch for cars when you cross.",
-        "zh": "過馬路時要注意車子。"
-       }
-      ]
-     },
-     {
-      "term": "sign",
-      "inSentence": "signs",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "告示牌；標誌",
-      "ipa": "/saɪn/",
-      "collocations": [
-       "warning sign",
-       "follow the signs"
-      ],
-      "examples": [
-       {
-        "en": "Follow the signs to the exit.",
-        "zh": "跟著標誌走到出口。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "The main lift will open again on Monday at seven.",
-   "zh": "主要電梯將在星期一七點重新開放。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "on Monday at seven",
-      "note": "重新開放的時間，是多益常考的細節。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "open again",
-      "inSentence": "open again",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "重新開放",
-      "ipa": "/ˈəʊpən əˈɡen/",
-      "collocations": [
-       "open again soon"
-      ],
-      "examples": [
-       {
-        "en": "The museum will open again in May.",
-        "zh": "博物館將在五月重新開放。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "We're sorry for any trouble, and thank you for your understanding.",
-   "zh": "造成不便，我們深感抱歉，感謝您的體諒。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "thank you for your understanding",
-      "inSentence": "thank you for your understanding",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "感謝您的體諒",
-      "ipa": "/θæŋk juː fɔː jɔːr ˌʌndəˈstændɪŋ/",
-      "collocations": [
-       "thank you for your patience"
-      ],
-      "examples": [
-       {
-        "en": "The train is late. Thank you for your understanding.",
-        "zh": "列車誤點，感謝您的體諒。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "If you have any questions, please email the building office.",
-   "zh": "如果有任何問題，請寄電子郵件到大樓辦公室。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "email",
-      "inSentence": "email",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "寄電子郵件給",
-      "ipa": "/ˈiːmeɪl/",
-      "collocations": [
-       "email someone",
-       "email me"
-      ],
-      "examples": [
-       {
-        "en": "Please email me the file.",
-        "zh": "請把檔案用電子郵件寄給我。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Good morning, everyone, this is a message from the building manager.",
+      "zh": "大家早安，這是大樓管理員發布的訊息。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "a message from the building manager",
+            "note": "多益常考「說話者是誰」：大樓管理員。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "building manager",
+            "inSentence": "building manager",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "大樓管理員",
+            "ipa": "/ˈbɪldɪŋ ˈmænɪdʒə/",
+            "collocations": ["contact the building manager"],
+            "examples": [
+              {
+                "en": "The building manager fixed the door.",
+                "zh": "大樓管理員修好了門。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The main lift in this building will be closed this Saturday and Sunday for repairs.",
+      "zh": "本大樓的主要電梯將在這個星期六和星期日停用維修。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "closed this Saturday and Sunday for repairs",
+            "note": "公告主旨：週末電梯維修。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "lift",
+            "inSentence": "lift",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "電梯（英式、澳式，美式為 elevator）",
+            "ipa": "/lɪft/",
+            "collocations": ["take the lift", "main lift"],
+            "examples": [
+              {
+                "en": "Let's take the lift to the fifth floor.",
+                "zh": "我們搭電梯到五樓吧。"
+              }
+            ]
+          },
+          {
+            "term": "repair",
+            "inSentence": "repairs",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "修理",
+            "ipa": "/rɪˈpeə/",
+            "collocations": ["closed for repairs", "make repairs"],
+            "examples": [
+              {
+                "en": "The road is closed for repairs.",
+                "zh": "這條路因維修而封閉。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Workers will start at eight in the morning and finish by six in the evening.",
+      "zh": "工人會在早上八點開工，晚上六點前完工。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "finish by",
+            "inSentence": "finish by six",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "在…之前完成",
+            "ipa": "/ˈfɪnɪʃ baɪ/",
+            "collocations": ["finish by Friday"],
+            "examples": [
+              {
+                "en": "Please finish the report by noon.",
+                "zh": "請在中午前完成報告。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "During this time, please use the stairs or the small lift near the back entrance.",
+      "zh": "在這段時間，請使用樓梯或後門入口附近的小電梯。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "the small lift near the back entrance",
+            "note": "替代方案：考題常問「聽眾應該怎麼做」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "during",
+            "inSentence": "During",
+            "kind": "word",
+            "pos": "prep.",
+            "zh": "在…期間",
+            "ipa": "/ˈdjʊərɪŋ/",
+            "collocations": ["during the day", "during this time"],
+            "examples": [
+              {
+                "en": "Please turn off your phone during the meeting.",
+                "zh": "開會期間請關掉手機。"
+              }
+            ]
+          },
+          {
+            "term": "entrance",
+            "inSentence": "entrance",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "入口",
+            "ipa": "/ˈentrəns/",
+            "collocations": ["main entrance", "back entrance"],
+            "examples": [
+              {
+                "en": "Meet me at the main entrance.",
+                "zh": "在大門口跟我碰面。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The small lift can only carry four people at a time, so please be patient.",
+      "zh": "小電梯一次只能載四個人，所以請耐心等候。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "at a time",
+            "inSentence": "at a time",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一次",
+            "ipa": "/æt ə taɪm/",
+            "collocations": ["one at a time"],
+            "examples": [
+              {
+                "en": "Please come in one at a time.",
+                "zh": "請一次進來一位。"
+              }
+            ]
+          },
+          {
+            "term": "patient",
+            "inSentence": "patient",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "有耐心的",
+            "ipa": "/ˈpeɪʃənt/",
+            "collocations": ["be patient", "patient with"],
+            "examples": [
+              {
+                "en": "Thank you for being patient.",
+                "zh": "謝謝你耐心等候。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "at a time",
+            "soundsLike": "a-da time",
+            "note": "at 的 t 在母音前常變成輕輕的 d 音，和 a 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "If you need to move heavy boxes or furniture this weekend, please call the front desk first.",
+      "zh": "如果您這個週末需要搬運重的箱子或家具，請先打電話給服務台。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "furniture",
+            "inSentence": "furniture",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "家具",
+            "ipa": "/ˈfɜːnɪtʃə/",
+            "collocations": ["a piece of furniture", "office furniture"],
+            "examples": [
+              {
+                "en": "We bought new furniture for the office.",
+                "zh": "我們幫辦公室買了新家具。"
+              }
+            ]
+          },
+          {
+            "term": "front desk",
+            "inSentence": "front desk",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "服務台；櫃檯",
+            "ipa": "/frʌnt desk/",
+            "collocations": ["call the front desk"],
+            "examples": [
+              {
+                "en": "Leave your key at the front desk.",
+                "zh": "把鑰匙留在櫃檯。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "If + present, imperative",
+            "quote": "If you need to move heavy boxes",
+            "explanation": "If 子句用現在式，主要子句用祈使句（please call），是公告中常見的指示句型。",
+            "examples": [
+              {
+                "en": "If you have questions, please ask me.",
+                "zh": "如果有問題，請問我。"
+              }
+            ],
+            "pitfall": "If 子句不要用 will：If you will need 是錯的。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "We can arrange a time for you to use the service lift in the car park.",
+      "zh": "我們可以幫您安排時間，使用停車場裡的貨梯。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "arrange",
+            "inSentence": "arrange",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "安排",
+            "ipa": "/əˈreɪndʒ/",
+            "collocations": ["arrange a meeting", "arrange a time"],
+            "examples": [
+              {
+                "en": "Can you arrange a taxi for me?",
+                "zh": "你可以幫我安排計程車嗎？"
+              }
+            ]
+          },
+          {
+            "term": "service lift",
+            "inSentence": "service lift",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "貨梯；工作電梯",
+            "ipa": "/ˈsɜːvɪs lɪft/",
+            "collocations": ["use the service lift"],
+            "examples": [
+              {
+                "en": "Deliveries must use the service lift.",
+                "zh": "送貨必須使用貨梯。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Also, the stairs on the east side will be cleaned on Saturday morning, so the floor may be wet.",
+      "zh": "另外，東側的樓梯星期六早上會清潔，所以地板可能是濕的。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "the floor may be wet",
+            "note": "附帶的注意事項，題目可能問「星期六早上會發生什麼事」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "wet",
+            "inSentence": "wet",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "濕的",
+            "ipa": "/wet/",
+            "collocations": ["wet floor", "get wet"],
+            "examples": [
+              {
+                "en": "Be careful, the floor is wet.",
+                "zh": "小心，地板是濕的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Future passive",
+            "quote": "will be cleaned",
+            "explanation": "will be + 過去分詞是未來式被動語態，重點在樓梯「被清潔」，不在誰清潔。",
+            "examples": [
+              {
+                "en": "The room will be painted next week.",
+                "zh": "這個房間下週會粉刷。"
+              }
+            ],
+            "pitfall": "不要漏掉 be：will cleaned 是錯的。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Please take care and watch for the yellow signs.",
+      "zh": "請小心，並注意黃色的告示牌。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "watch for",
+            "inSentence": "watch for",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "注意；留意",
+            "ipa": "/wɒtʃ fɔː/",
+            "collocations": ["watch for traffic"],
+            "examples": [
+              {
+                "en": "Watch for cars when you cross.",
+                "zh": "過馬路時要注意車子。"
+              }
+            ]
+          },
+          {
+            "term": "sign",
+            "inSentence": "signs",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "告示牌；標誌",
+            "ipa": "/saɪn/",
+            "collocations": ["warning sign", "follow the signs"],
+            "examples": [
+              {
+                "en": "Follow the signs to the exit.",
+                "zh": "跟著標誌走到出口。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The main lift will open again on Monday at seven.",
+      "zh": "主要電梯將在星期一七點重新開放。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "on Monday at seven",
+            "note": "重新開放的時間，是多益常考的細節。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "open again",
+            "inSentence": "open again",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "重新開放",
+            "ipa": "/ˈəʊpən əˈɡen/",
+            "collocations": ["open again soon"],
+            "examples": [
+              {
+                "en": "The museum will open again in May.",
+                "zh": "博物館將在五月重新開放。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "We're sorry for any trouble, and thank you for your understanding.",
+      "zh": "造成不便，我們深感抱歉，感謝您的體諒。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "thank you for your understanding",
+            "inSentence": "thank you for your understanding",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "感謝您的體諒",
+            "ipa": "/θæŋk juː fɔː jɔːr ˌʌndəˈstændɪŋ/",
+            "collocations": ["thank you for your patience"],
+            "examples": [
+              {
+                "en": "The train is late. Thank you for your understanding.",
+                "zh": "列車誤點，感謝您的體諒。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "If you have any questions, please email the building office.",
+      "zh": "如果有任何問題，請寄電子郵件到大樓辦公室。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "email",
+            "inSentence": "email",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "寄電子郵件給",
+            "ipa": "/ˈiːmeɪl/",
+            "collocations": ["email someone", "email me"],
+            "examples": [
+              {
+                "en": "Please email me the file.",
+                "zh": "請把檔案用電子郵件寄給我。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

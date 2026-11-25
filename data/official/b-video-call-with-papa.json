@@ -1,651 +1,591 @@
 {
- "slug": "b-video-call-with-papa",
- "series": "category",
- "title": "A Video Call with Dad",
- "titleZh": "和爸爸視訊",
- "subtitle": "在台灣念書的印度留學生，跟爸爸聊颱風、牛肉麵和中文課",
- "format": "dialogue",
- "accent": "in",
- "meta": {
-  "category": "relationships",
-  "scenario": "family-video-call",
-  "level": "beginner",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "original"
- },
- "sentences": [
-  {
-   "en": "Priya! Can you hear me? Your face is frozen.",
-   "zh": "普莉雅！聽得到嗎？你的畫面卡住了。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "Can you hear me?",
-      "note": "視訊通話最常說的第一句。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "frozen",
-      "inSentence": "frozen",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "（畫面）卡住的；結冰的",
-      "ipa": "/ˈfrəʊzn/",
-      "collocations": [
-       "the screen is frozen",
-       "frozen food"
-      ],
-      "examples": [
-       {
-        "en": "The video is frozen again.",
-        "zh": "影片又卡住了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "b-video-call-with-papa",
+  "series": "category",
+  "title": "A Video Call with Dad",
+  "titleZh": "和爸爸視訊",
+  "subtitle": "在台灣念書的印度留學生，跟爸爸聊颱風、牛肉麵和中文課",
+  "format": "dialogue",
+  "accent": "in",
+  "meta": {
+    "category": "relationships",
+    "scenario": "family-video-call",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "Hi, Papa! Is it better now? I moved closer to the window.",
-   "zh": "嗨，爸！現在有好一點嗎？我移到比較靠近窗戶的地方了。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "closer",
-      "inSentence": "closer to the window",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "更靠近的",
-      "ipa": "/ˈkləʊsə/",
-      "collocations": [
-       "move closer",
-       "closer to"
-      ],
-      "examples": [
-       {
-        "en": "Come closer, I can't hear you.",
-        "zh": "靠近一點，我聽不到你。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "original"
   },
-  {
-   "en": "Yes, much better. How are you, my dear?",
-   "zh": "嗯，好多了。你好嗎，親愛的？",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "much better",
-      "inSentence": "much better",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "好多了",
-      "ipa": "/mʌtʃ ˈbetə/",
-      "collocations": [
-       "feel much better",
-       "much better now"
-      ],
-      "examples": [
-       {
-        "en": "I feel much better today.",
-        "zh": "我今天覺得好多了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I'm good, just a little tired. I had three classes today.",
-   "zh": "我很好，只是有點累。我今天上了三堂課。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "tired",
-      "inSentence": "a little tired",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "累的；疲倦的",
-      "ipa": "/ˈtaɪəd/",
-      "collocations": [
-       "a little tired",
-       "get tired"
-      ],
-      "examples": [
-       {
-        "en": "I'm too tired to cook tonight.",
-        "zh": "我今晚累到不想煮飯。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Are you eating well? Your mother is worried.",
-   "zh": "你有好好吃飯嗎？你媽媽很擔心。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "eating well",
-      "note": "「吃得好、好好吃飯」，家人常問的關心話。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "worried",
-      "inSentence": "worried",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "擔心的",
-      "ipa": "/ˈwʌrid/",
-      "collocations": [
-       "be worried about",
-       "look worried"
-      ],
-      "examples": [
-       {
-        "en": "Don't be worried, I'm fine.",
-        "zh": "別擔心，我很好。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Tell her not to worry! The food here is amazing.",
-   "zh": "叫她不用擔心！這裡的食物超好吃。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "Tell her not to worry",
-      "note": "tell + 人 + not to + 動詞，「叫某人不要……」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "amazing",
-      "inSentence": "amazing",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "很棒的；驚人的",
-      "ipa": "/əˈmeɪzɪŋ/",
-      "collocations": [
-       "amazing food",
-       "an amazing view"
-      ],
-      "examples": [
-       {
-        "en": "The view from the top was amazing.",
-        "zh": "山頂的景色很棒。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Last night I tried beef noodle soup at the night market.",
-   "zh": "昨天晚上我在夜市吃了牛肉麵。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "night market",
-      "inSentence": "the night market",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "夜市",
-      "ipa": "/naɪt ˈmɑːkɪt/",
-      "collocations": [
-       "go to the night market",
-       "night market food"
-      ],
-      "examples": [
-       {
-        "en": "We walked around the night market after dinner.",
-        "zh": "我們晚餐後去逛夜市。"
-       }
-      ]
-     },
-     {
-      "term": "try",
-      "inSentence": "tried",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "嘗試；試吃",
-      "ipa": "/traɪ/",
-      "collocations": [
-       "try new food",
-       "try it"
-      ],
-      "examples": [
-       {
-        "en": "You should try the mango ice.",
-        "zh": "你應該試試芒果冰。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Was it spicy? You never liked spicy food.",
-   "zh": "會辣嗎？你以前從來不喜歡吃辣。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "spicy",
-      "inSentence": "spicy",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "辣的",
-      "ipa": "/ˈspaɪsi/",
-      "collocations": [
-       "spicy food",
-       "too spicy"
-      ],
-      "examples": [
-       {
-        "en": "This curry is too spicy for me.",
-        "zh": "這個咖哩對我來說太辣了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Only a little. I'm getting used to it.",
-   "zh": "只有一點點。我漸漸習慣了。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "getting used to",
-      "note": "「漸漸習慣」，to 後面接名詞或動名詞。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "get used to",
-      "inSentence": "getting used to it",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "逐漸習慣",
-      "ipa": "/ɡet juːst tuː/",
-      "collocations": [
-       "get used to it",
-       "get used to the weather"
-      ],
-      "examples": [
-       {
-        "en": "I'm getting used to the cold.",
-        "zh": "我漸漸習慣寒冷了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "And the weather? Our news says there's a typhoon.",
-   "zh": "那天氣呢？我們這邊的新聞說有颱風。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "typhoon",
-      "inSentence": "a typhoon",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "颱風",
-      "ipa": "/taɪˈfuːn/",
-      "collocations": [
-       "typhoon day",
-       "a strong typhoon"
-      ],
-      "examples": [
-       {
-        "en": "Schools closed because of the typhoon.",
-        "zh": "因為颱風，學校停課了。"
-       }
-      ]
-     },
-     {
-      "term": "weather",
-      "inSentence": "the weather",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "天氣",
-      "ipa": "/ˈweðə/",
-      "collocations": [
-       "the weather is",
-       "bad weather"
-      ],
-      "examples": [
-       {
-        "en": "The weather is nice today.",
-        "zh": "今天天氣很好。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Yes, it's raining hard, so classes are cancelled tomorrow.",
-   "zh": "對，雨下得很大，所以明天停課。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "cancel",
-      "inSentence": "cancelled",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "取消",
-      "ipa": "/ˈkænsl/",
-      "collocations": [
-       "cancel a class",
-       "be cancelled"
-      ],
-      "examples": [
-       {
-        "en": "The flight was cancelled.",
-        "zh": "班機被取消了。"
-       }
-      ]
-     },
-     {
-      "term": "rain hard",
-      "inSentence": "raining hard",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "雨下得很大",
-      "ipa": "/reɪn hɑːd/",
-      "collocations": [
-       "raining hard",
-       "rain heavily"
-      ],
-      "examples": [
-       {
-        "en": "It's raining hard, take an umbrella.",
-        "zh": "雨下很大，帶把傘吧。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "I'll stay in my room and study Chinese.",
-   "zh": "我會待在房間裡念中文。",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "stay in",
-      "inSentence": "stay in my room",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "待在（室內）",
-      "ipa": "/steɪ ɪn/",
-      "collocations": [
-       "stay in tonight",
-       "stay in bed"
-      ],
-      "examples": [
-       {
-        "en": "I want to stay in and watch a film.",
-        "zh": "我想待在家看電影。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Good girl. How is your Chinese class going?",
-   "zh": "乖女兒。你的中文課上得怎麼樣？",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "How is your Chinese class going?",
-      "note": "How is ... going? 是問進展的常用句型。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "go",
-      "inSentence": "going",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "進行；進展",
-      "ipa": "/ɡəʊ/",
-      "collocations": [
-       "how is it going",
-       "go well"
-      ],
-      "examples": [
-       {
-        "en": "How is your new job going?",
-        "zh": "你的新工作怎麼樣？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Slowly, but I can order bubble tea in Chinese now!",
-   "zh": "慢慢來，但我現在可以用中文點珍珠奶茶了！",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "Slowly, but",
-      "note": "先說缺點再用 but 帶出進步。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "order",
-      "inSentence": "order bubble tea",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "點（餐、飲料）",
-      "ipa": "/ˈɔːdə/",
-      "collocations": [
-       "order food",
-       "order a drink"
-      ],
-      "examples": [
-       {
-        "en": "Can I order now?",
-        "zh": "我現在可以點餐嗎？"
-       }
-      ]
-     },
-     {
-      "term": "bubble tea",
-      "inSentence": "bubble tea",
-      "kind": "phrase",
-      "pos": "n.",
-      "zh": "珍珠奶茶",
-      "ipa": "/ˈbʌbl tiː/",
-      "collocations": [
-       "a cup of bubble tea",
-       "order bubble tea"
-      ],
-      "examples": [
-       {
-        "en": "Let's get bubble tea after class.",
-        "zh": "下課後去買珍奶吧。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Ha! That's very important. We are proud of you.",
-   "zh": "哈！那很重要。我們以你為榮。",
-   "speaker": 1,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "proud of",
-      "inSentence": "proud of you",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "以……為榮",
-      "ipa": "/praʊd ɒv/",
-      "collocations": [
-       "proud of you",
-       "be proud of"
-      ],
-      "examples": [
-       {
-        "en": "Your parents must be proud of you.",
-        "zh": "你爸媽一定以你為榮。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Thanks, Papa. I miss you both. Let's talk again on Sunday, okay?",
-   "zh": "謝謝，爸。我想你們兩個。我們星期天再聊，好嗎？",
-   "speaker": 0,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "miss",
-      "inSentence": "miss you both",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "想念",
-      "ipa": "/mɪs/",
-      "collocations": [
-       "miss you",
-       "miss home"
-      ],
-      "examples": [
-       {
-        "en": "I miss my family a lot.",
-        "zh": "我很想念我的家人。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Priya! Can you hear me? Your face is frozen.",
+      "zh": "普莉雅！聽得到嗎？你的畫面卡住了。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Can you hear me?",
+            "note": "視訊通話最常說的第一句。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "frozen",
+            "inSentence": "frozen",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "（畫面）卡住的；結冰的",
+            "ipa": "/ˈfrəʊzn/",
+            "collocations": ["the screen is frozen", "frozen food"],
+            "examples": [
+              {
+                "en": "The video is frozen again.",
+                "zh": "影片又卡住了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Hi, Papa! Is it better now? I moved closer to the window.",
+      "zh": "嗨，爸！現在有好一點嗎？我移到比較靠近窗戶的地方了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "closer",
+            "inSentence": "closer to the window",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "更靠近的",
+            "ipa": "/ˈkləʊsə/",
+            "collocations": ["move closer", "closer to"],
+            "examples": [
+              {
+                "en": "Come closer, I can't hear you.",
+                "zh": "靠近一點，我聽不到你。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, much better. How are you, my dear?",
+      "zh": "嗯，好多了。你好嗎，親愛的？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "much better",
+            "inSentence": "much better",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "好多了",
+            "ipa": "/mʌtʃ ˈbetə/",
+            "collocations": ["feel much better", "much better now"],
+            "examples": [
+              {
+                "en": "I feel much better today.",
+                "zh": "我今天覺得好多了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'm good, just a little tired. I had three classes today.",
+      "zh": "我很好，只是有點累。我今天上了三堂課。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "tired",
+            "inSentence": "a little tired",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "累的；疲倦的",
+            "ipa": "/ˈtaɪəd/",
+            "collocations": ["a little tired", "get tired"],
+            "examples": [
+              {
+                "en": "I'm too tired to cook tonight.",
+                "zh": "我今晚累到不想煮飯。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Are you eating well? Your mother is worried.",
+      "zh": "你有好好吃飯嗎？你媽媽很擔心。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "eating well",
+            "note": "「吃得好、好好吃飯」，家人常問的關心話。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "worried",
+            "inSentence": "worried",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "擔心的",
+            "ipa": "/ˈwʌrid/",
+            "collocations": ["be worried about", "look worried"],
+            "examples": [
+              {
+                "en": "Don't be worried, I'm fine.",
+                "zh": "別擔心，我很好。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Tell her not to worry! The food here is amazing.",
+      "zh": "叫她不用擔心！這裡的食物超好吃。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Tell her not to worry",
+            "note": "tell + 人 + not to + 動詞，「叫某人不要……」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "amazing",
+            "inSentence": "amazing",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "很棒的；驚人的",
+            "ipa": "/əˈmeɪzɪŋ/",
+            "collocations": ["amazing food", "an amazing view"],
+            "examples": [
+              {
+                "en": "The view from the top was amazing.",
+                "zh": "山頂的景色很棒。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Last night I tried beef noodle soup at the night market.",
+      "zh": "昨天晚上我在夜市吃了牛肉麵。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "night market",
+            "inSentence": "the night market",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "夜市",
+            "ipa": "/naɪt ˈmɑːkɪt/",
+            "collocations": ["go to the night market", "night market food"],
+            "examples": [
+              {
+                "en": "We walked around the night market after dinner.",
+                "zh": "我們晚餐後去逛夜市。"
+              }
+            ]
+          },
+          {
+            "term": "try",
+            "inSentence": "tried",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "嘗試；試吃",
+            "ipa": "/traɪ/",
+            "collocations": ["try new food", "try it"],
+            "examples": [
+              {
+                "en": "You should try the mango ice.",
+                "zh": "你應該試試芒果冰。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Was it spicy? You never liked spicy food.",
+      "zh": "會辣嗎？你以前從來不喜歡吃辣。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "spicy",
+            "inSentence": "spicy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "辣的",
+            "ipa": "/ˈspaɪsi/",
+            "collocations": ["spicy food", "too spicy"],
+            "examples": [
+              {
+                "en": "This curry is too spicy for me.",
+                "zh": "這個咖哩對我來說太辣了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Only a little. I'm getting used to it.",
+      "zh": "只有一點點。我漸漸習慣了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "getting used to",
+            "note": "「漸漸習慣」，to 後面接名詞或動名詞。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "get used to",
+            "inSentence": "getting used to it",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "逐漸習慣",
+            "ipa": "/ɡet juːst tuː/",
+            "collocations": ["get used to it", "get used to the weather"],
+            "examples": [
+              {
+                "en": "I'm getting used to the cold.",
+                "zh": "我漸漸習慣寒冷了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "And the weather? Our news says there's a typhoon.",
+      "zh": "那天氣呢？我們這邊的新聞說有颱風。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "typhoon",
+            "inSentence": "a typhoon",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "颱風",
+            "ipa": "/taɪˈfuːn/",
+            "collocations": ["typhoon day", "a strong typhoon"],
+            "examples": [
+              {
+                "en": "Schools closed because of the typhoon.",
+                "zh": "因為颱風，學校停課了。"
+              }
+            ]
+          },
+          {
+            "term": "weather",
+            "inSentence": "the weather",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "天氣",
+            "ipa": "/ˈweðə/",
+            "collocations": ["the weather is", "bad weather"],
+            "examples": [
+              {
+                "en": "The weather is nice today.",
+                "zh": "今天天氣很好。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, it's raining hard, so classes are cancelled tomorrow.",
+      "zh": "對，雨下得很大，所以明天停課。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "cancel",
+            "inSentence": "cancelled",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "取消",
+            "ipa": "/ˈkænsl/",
+            "collocations": ["cancel a class", "be cancelled"],
+            "examples": [
+              {
+                "en": "The flight was cancelled.",
+                "zh": "班機被取消了。"
+              }
+            ]
+          },
+          {
+            "term": "rain hard",
+            "inSentence": "raining hard",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "雨下得很大",
+            "ipa": "/reɪn hɑːd/",
+            "collocations": ["raining hard", "rain heavily"],
+            "examples": [
+              {
+                "en": "It's raining hard, take an umbrella.",
+                "zh": "雨下很大，帶把傘吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'll stay in my room and study Chinese.",
+      "zh": "我會待在房間裡念中文。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "stay in",
+            "inSentence": "stay in my room",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "待在（室內）",
+            "ipa": "/steɪ ɪn/",
+            "collocations": ["stay in tonight", "stay in bed"],
+            "examples": [
+              {
+                "en": "I want to stay in and watch a film.",
+                "zh": "我想待在家看電影。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Good girl. How is your Chinese class going?",
+      "zh": "乖女兒。你的中文課上得怎麼樣？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "How is your Chinese class going?",
+            "note": "How is ... going? 是問進展的常用句型。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "go",
+            "inSentence": "going",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "進行；進展",
+            "ipa": "/ɡəʊ/",
+            "collocations": ["how is it going", "go well"],
+            "examples": [
+              {
+                "en": "How is your new job going?",
+                "zh": "你的新工作怎麼樣？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Slowly, but I can order bubble tea in Chinese now!",
+      "zh": "慢慢來，但我現在可以用中文點珍珠奶茶了！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Slowly, but",
+            "note": "先說缺點再用 but 帶出進步。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "order",
+            "inSentence": "order bubble tea",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "點（餐、飲料）",
+            "ipa": "/ˈɔːdə/",
+            "collocations": ["order food", "order a drink"],
+            "examples": [
+              {
+                "en": "Can I order now?",
+                "zh": "我現在可以點餐嗎？"
+              }
+            ]
+          },
+          {
+            "term": "bubble tea",
+            "inSentence": "bubble tea",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "珍珠奶茶",
+            "ipa": "/ˈbʌbl tiː/",
+            "collocations": ["a cup of bubble tea", "order bubble tea"],
+            "examples": [
+              {
+                "en": "Let's get bubble tea after class.",
+                "zh": "下課後去買珍奶吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Ha! That's very important. We are proud of you.",
+      "zh": "哈！那很重要。我們以你為榮。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "proud of",
+            "inSentence": "proud of you",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "以……為榮",
+            "ipa": "/praʊd ɒv/",
+            "collocations": ["proud of you", "be proud of"],
+            "examples": [
+              {
+                "en": "Your parents must be proud of you.",
+                "zh": "你爸媽一定以你為榮。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Thanks, Papa. I miss you both. Let's talk again on Sunday, okay?",
+      "zh": "謝謝，爸。我想你們兩個。我們星期天再聊，好嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "miss",
+            "inSentence": "miss you both",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "想念",
+            "ipa": "/mɪs/",
+            "collocations": ["miss you", "miss home"],
+            "examples": [
+              {
+                "en": "I miss my family a lot.",
+                "zh": "我很想念我的家人。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
 }

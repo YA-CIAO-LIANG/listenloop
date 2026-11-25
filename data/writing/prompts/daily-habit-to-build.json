@@ -38,43 +38,30 @@
       "pattern": "The habit I most want to build is …",
       "zh": "開門見山點出主題",
       "example": "The habit I most want to build is going to bed before midnight.",
-      "keys": [
-        "most want to"
-      ]
+      "keys": ["most want to"]
     },
     {
       "pattern": "As a result, …",
       "zh": "因此、結果……（說明造成的影響）",
       "example": "As a result, I feel sleepy in morning classes and drink too much coffee.",
-      "keys": [
-        "as a result"
-      ]
+      "keys": ["as a result"]
     },
     {
       "pattern": "Instead of …ing, I will …",
       "zh": "我會……，而不是……（用新行為取代舊習慣）",
       "example": "Instead of scrolling, I will read a few pages of a novel.",
-      "keys": [
-        "instead of",
-        "will"
-      ]
+      "keys": ["instead of", "will"]
     },
     {
       "pattern": "…, but I believe that …",
       "zh": "雖然……，但我相信……（結尾表達決心）",
       "example": "Building a habit is not easy, but I believe that small steps can lead to big changes.",
-      "keys": [
-        "but",
-        "i believe that"
-      ]
+      "keys": ["but", "i believe that"]
     }
   ],
   "combine": [
     {
-      "parts": [
-        "I fell asleep during a quiz.",
-        "I could not finish it."
-      ],
+      "parts": ["I fell asleep during a quiz.", "I could not finish it."],
       "answer": "I fell asleep during a quiz and could not finish it."
     },
     {

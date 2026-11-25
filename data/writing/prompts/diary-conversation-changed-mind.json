@@ -36,50 +36,34 @@
       "pattern": "Until today, I thought …",
       "zh": "直到今天以前，我都以為……（帶出想法的改變）",
       "example": "Until today, I thought my grandmother's stories were boring.",
-      "keys": [
-        "until today",
-        "thought"
-      ]
+      "keys": ["until today", "thought"]
     },
     {
       "pattern": "She told me that she had …",
       "zh": "間接引述＋過去完成式：轉述更早發生的事",
       "example": "She told me that she had left school at twelve to work in a tea factory.",
-      "keys": [
-        "told me that",
-        "had"
-      ]
+      "keys": ["told me that", "had"]
     },
     {
       "pattern": "She said she used to …",
       "zh": "used to：過去常做、現在不再做的事",
       "example": "She said she used to read her brother's old textbooks at night because she wanted to keep learning.",
-      "keys": [
-        "used to"
-      ]
+      "keys": ["used to"]
     },
     {
       "pattern": "… so that I …",
       "zh": "說明目的：為了讓……",
       "example": "Next weekend, I plan to record her stories so that I never forget them.",
-      "keys": [
-        "so that"
-      ]
+      "keys": ["so that"]
     }
   ],
   "combine": [
     {
-      "parts": [
-        "I helped her clean the cupboards.",
-        "We had a long talk."
-      ],
+      "parts": ["I helped her clean the cupboards.", "We had a long talk."],
       "answer": "I helped her clean the cupboards, and we had a long talk."
     },
     {
-      "parts": [
-        "I was surprised.",
-        "I had never asked her about it."
-      ],
+      "parts": ["I was surprised.", "I had never asked her about it."],
       "answer": "I was surprised, because I had never asked her about it."
     }
   ],

@@ -1,774 +1,724 @@
 {
- "slug": "c-carroll-mad-tea-party",
- "series": "classics",
- "title": "A Mad Tea-Party",
- "titleZh": "瘋狂的茶會",
- "subtitle": "改寫自《愛麗絲夢遊仙境》：沒有答案的謎語與奇怪的茶會",
- "format": "monologue",
- "accent": "gb",
- "meta": {
-  "category": "classics",
-  "scenario": "classic-story",
-  "level": "intermediate",
-  "exam": null,
-  "examTarget": null
- },
- "source": {
-  "kind": "public-domain",
-  "name": "Alice's Adventures in Wonderland by Lewis Carroll (1865)",
-  "title": "Chapter VII: A Mad Tea-Party",
-  "url": "https://www.gutenberg.org/ebooks/11",
-  "basis": "Published 1865; public domain in the U.S. (pre-1929).",
-  "adapted": true
- },
- "sentences": [
-  {
-   "en": "Alice came to a house in the woods, where a long table had been set out under a tree.",
-   "zh": "愛麗絲來到樹林裡的一棟房子，樹下擺著一張長桌。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "set out",
-      "inSentence": "set out",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "擺好；陳列",
-      "ipa": "/set aʊt/",
-      "collocations": [
-       "set out the plates",
-       "set out chairs"
-      ],
-      "examples": [
-       {
-        "en": "Mum set out cups for the guests.",
-        "zh": "媽媽為客人擺好了杯子。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "past perfect passive",
-      "quote": "had been set out",
-      "explanation": "had been + p.p. 是過去完成被動式：愛麗絲到之前，桌子就已經被擺好了。",
-      "examples": [
-       {
-        "en": "The tickets had been sold before we arrived.",
-        "zh": "我們到之前票就已經賣完了。"
-       }
-      ],
-      "pitfall": "不要漏掉 been 寫成 had set out，那樣意思變成主詞自己擺。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "slug": "c-carroll-mad-tea-party",
+  "series": "classics",
+  "title": "A Mad Tea-Party",
+  "titleZh": "瘋狂的茶會",
+  "subtitle": "改寫自《愛麗絲夢遊仙境》：沒有答案的謎語與奇怪的茶會",
+  "format": "monologue",
+  "accent": "gb",
+  "meta": {
+    "category": "classics",
+    "scenario": "classic-story",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
   },
-  {
-   "en": "The March Hare and the Hatter were having tea there, with a sleepy Dormouse sitting between them.",
-   "zh": "三月兔和帽匠正在那裡喝茶，一隻愛睏的睡鼠坐在他們中間。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "have tea",
-      "inSentence": "having tea",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "喝下午茶",
-      "ipa": "/hæv tiː/",
-      "collocations": [
-       "afternoon tea",
-       "have tea with"
-      ],
-      "examples": [
-       {
-        "en": "We had tea with my grandmother on Sunday.",
-        "zh": "我們星期天和奶奶一起喝下午茶。"
-       }
-      ]
-     },
-     {
-      "term": "sleepy",
-      "inSentence": "sleepy",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "想睡的；愛睏的",
-      "ipa": "/ˈsliːpi/",
-      "collocations": [
-       "feel sleepy"
-      ],
-      "examples": [
-       {
-        "en": "I always feel sleepy after lunch.",
-        "zh": "我午餐後總是很想睡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "with + object + V-ing",
-      "quote": "with a sleepy Dormouse sitting between them",
-      "explanation": "with + 受詞 + V-ing 描述同時存在的情況，常用來補充畫面細節。",
-      "examples": [
-       {
-        "en": "She sat there with her cat sleeping on her lap.",
-        "zh": "她坐在那裡，貓在她腿上睡覺。"
-       }
-      ],
-      "pitfall": "不要寫成 with a Dormouse sat，表示主動進行要用 V-ing。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
+  "source": {
+    "kind": "public-domain",
+    "name": "Alice's Adventures in Wonderland by Lewis Carroll (1865)",
+    "title": "Chapter VII: A Mad Tea-Party",
+    "url": "https://www.gutenberg.org/ebooks/11",
+    "basis": "Published 1865; public domain in the U.S. (pre-1929).",
+    "adapted": true
   },
-  {
-   "en": "The table was large, but the three of them were all crowded together at one corner.",
-   "zh": "桌子很大，但他們三個全擠在一個角落。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [
-     {
-      "text": "the three of them",
-      "note": "the + 數字 + of them 表示「他們（這幾個）」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "crowded together",
-      "inSentence": "crowded together",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "擠在一起",
-      "ipa": "/ˈkraʊdɪd təˈɡeðə/",
-      "collocations": [
-       "crowded room",
-       "crowded together"
-      ],
-      "examples": [
-       {
-        "en": "The students crowded together under the roof to stay dry.",
-        "zh": "學生們擠在屋簷下避雨。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "three of them",
-      "soundsLike": "three-ə-ðəm",
-      "note": "of 弱讀成 ə，them 的 th 很輕。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "\"No room! No room!\" they cried when they saw Alice coming.",
-   "zh": "「沒位子了！沒位子了！」他們看見愛麗絲走過來就大喊。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "saw Alice coming",
-      "note": "see + 受詞 + V-ing，表示看到動作正在進行。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "room",
-      "inSentence": "No room",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "空間；位置（不可數）",
-      "ipa": "/ruːm/",
-      "collocations": [
-       "make room",
-       "no room for"
-      ],
-      "examples": [
-       {
-        "en": "Is there room for one more?",
-        "zh": "還有位子再坐一個人嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"There's plenty of room!\" said Alice angrily, and she sat down in a large armchair.",
-   "zh": "「明明有很多位子！」愛麗絲生氣地說，然後在一張大扶手椅上坐下。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "plenty of",
-      "inSentence": "plenty of room",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "很多；充足的",
-      "ipa": "/ˈplenti əv/",
-      "collocations": [
-       "plenty of time",
-       "plenty of food"
-      ],
-      "examples": [
-       {
-        "en": "Don't worry, we have plenty of time.",
-        "zh": "別擔心，我們時間很充裕。"
-       }
-      ]
-     },
-     {
-      "term": "armchair",
-      "inSentence": "armchair",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "扶手椅",
-      "ipa": "/ˈɑːmtʃeə/",
-      "collocations": [
-       "sit in an armchair"
-      ],
-      "examples": [
-       {
-        "en": "Grandpa fell asleep in his armchair.",
-        "zh": "爺爺在扶手椅上睡著了。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"Have some wine,\" the March Hare said in an encouraging tone.",
-   "zh": "「喝點酒吧，」三月兔用鼓勵的語氣說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "encouraging",
-      "inSentence": "encouraging",
-      "kind": "word",
-      "pos": "adj.",
-      "zh": "鼓勵的",
-      "ipa": "/ɪnˈkʌrɪdʒɪŋ/",
-      "collocations": [
-       "encouraging words"
-      ],
-      "examples": [
-       {
-        "en": "My coach always gives encouraging advice.",
-        "zh": "我的教練總是給鼓勵的建議。"
-       }
-      ]
-     },
-     {
-      "term": "in a ... tone",
-      "inSentence": "in an encouraging tone",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "用…的語氣",
-      "ipa": "/təʊn/",
-      "collocations": [
-       "in a friendly tone",
-       "in an angry tone"
-      ],
-      "examples": [
-       {
-        "en": "She spoke in a calm tone.",
-        "zh": "她用平靜的語氣說話。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Alice looked all round the table, but there was nothing on it but tea.",
-   "zh": "愛麗絲把整張桌子看了一遍，但桌上除了茶什麼都沒有。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "look round",
-      "inSentence": "looked all round",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "環顧（英式）",
-      "ipa": "/lʊk raʊnd/",
-      "collocations": [
-       "look round the room"
-      ],
-      "examples": [
-       {
-        "en": "She looked round the shop for a gift.",
-        "zh": "她在店裡四處看，想找個禮物。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "nothing but",
-      "quote": "nothing on it but tea",
-      "explanation": "nothing but 表示「只有；除了…什麼都沒有」，這裡的 but 等於 except。",
-      "examples": [
-       {
-        "en": "He eats nothing but noodles.",
-        "zh": "他只吃麵。"
-       }
-      ],
-      "pitfall": "這裡的 but 不是「但是」，不要翻成轉折。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"I don't see any wine,\" she remarked.",
-   "zh": "「我沒看到有酒啊，」她說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "remark",
-      "inSentence": "remarked",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "說；評論",
-      "ipa": "/rɪˈmɑːk/",
-      "collocations": [
-       "remark on"
-      ],
-      "examples": [
-       {
-        "en": "\"It's cold today,\" he remarked.",
-        "zh": "「今天好冷，」他說。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"There isn't any,\" said the March Hare.",
-   "zh": "「本來就沒有，」三月兔說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "There isn't any",
-      "note": "any 後面省略了 wine，口語中常把重複的名詞省掉。"
-     }
-    ],
-    "vocab": [],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"Then it wasn't very polite of you to offer it,\" said Alice.",
-   "zh": "「那你請我喝，就不太有禮貌了，」愛麗絲說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "offer",
-      "inSentence": "offer it",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "提供；請（人吃喝）",
-      "ipa": "/ˈɒfə/",
-      "collocations": [
-       "offer help",
-       "offer a drink"
-      ],
-      "examples": [
-       {
-        "en": "He offered me a cup of coffee.",
-        "zh": "他請我喝一杯咖啡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "it is + adj. + of someone + to V",
-      "quote": "it wasn't very polite of you to offer it",
-      "explanation": "評論某人的行為時用 of + 人：It is kind of you to help。",
-      "examples": [
-       {
-        "en": "It was nice of you to call me.",
-        "zh": "你打電話給我，真貼心。"
-       }
-      ],
-      "pitfall": "描述人的特質用 of；描述事情對人的影響用 for，例如 It is hard for me to...。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"It wasn't very polite of you to sit down without being invited,\" replied the March Hare.",
-   "zh": "「你沒被邀請就坐下，也不太有禮貌，」三月兔回答。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "invite",
-      "inSentence": "invited",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "邀請",
-      "ipa": "/ɪnˈvaɪt/",
-      "collocations": [
-       "invite someone to"
-      ],
-      "examples": [
-       {
-        "en": "They invited us to their wedding.",
-        "zh": "他們邀請我們參加婚禮。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "without being + p.p.",
-      "quote": "without being invited",
-      "explanation": "介系詞 without 後面接動名詞；被動要用 being + p.p.。",
-      "examples": [
-       {
-        "en": "He left without being seen.",
-        "zh": "他離開時沒被人看見。"
-       }
-      ],
-      "pitfall": "不要寫成 without invited，介系詞後面不能直接接過去分詞。"
-     }
-    ],
-    "chunks": [],
-    "connected": [
-     {
-      "text": "sit down",
-      "soundsLike": "si-down",
-      "note": "sit 的 t 和 down 的 d 相連，t 幾乎不發音。"
-     }
-    ]
-   }
-  },
-  {
-   "en": "Then the Hatter opened his eyes very wide and asked a strange riddle.",
-   "zh": "接著帽匠把眼睛睜得大大的，問了一個奇怪的謎語。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "opened his eyes very wide",
-      "note": "wide 在這裡是副詞，表示「睜得很大」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "riddle",
-      "inSentence": "riddle",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "謎語",
-      "ipa": "/ˈrɪdl/",
-      "collocations": [
-       "ask a riddle",
-       "solve a riddle"
-      ],
-      "examples": [
-       {
-        "en": "Can you solve this riddle?",
-        "zh": "你能解開這個謎語嗎？"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"Why is a raven like a writing-desk?\"",
-   "zh": "「為什麼烏鴉像寫字桌？」",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [
-     {
-      "text": "like",
-      "note": "這裡的 like 是介系詞「像」，不是動詞「喜歡」。"
-     }
-    ],
-    "vocab": [
-     {
-      "term": "raven",
-      "inSentence": "raven",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "渡鴉；烏鴉",
-      "ipa": "/ˈreɪvn/",
-      "collocations": [
-       "a black raven"
-      ],
-      "examples": [
-       {
-        "en": "A raven sat on the old fence.",
-        "zh": "一隻烏鴉停在舊籬笆上。"
-       }
-      ]
-     },
-     {
-      "term": "writing-desk",
-      "inSentence": "writing-desk",
-      "kind": "word",
-      "pos": "n.",
-      "zh": "寫字桌",
-      "ipa": "/ˈraɪtɪŋ desk/",
-      "collocations": [
-       "an old writing-desk"
-      ],
-      "examples": [
-       {
-        "en": "He kept his letters in a writing-desk.",
-        "zh": "他把信放在寫字桌裡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Alice thought hard, but she could not find the answer.",
-   "zh": "愛麗絲努力想，卻找不到答案。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "think hard",
-      "inSentence": "thought hard",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "努力思考",
-      "ipa": "/θɪŋk hɑːd/",
-      "collocations": [
-       "think hard about"
-      ],
-      "examples": [
-       {
-        "en": "Think hard before you answer.",
-        "zh": "回答前要仔細想想。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"I give up,\" she said at last. \"What's the answer?\"",
-   "zh": "「我放棄了，」她終於說。「答案是什麼？」",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "easy",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "give up",
-      "inSentence": "give up",
-      "kind": "phrase",
-      "pos": "phr.",
-      "zh": "放棄",
-      "ipa": "/ɡɪv ʌp/",
-      "collocations": [
-       "give up on",
-       "never give up"
-      ],
-      "examples": [
-       {
-        "en": "Don't give up so easily.",
-        "zh": "不要這麼輕易放棄。"
-       }
-      ]
-     }
-    ],
-    "grammar": [],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "\"I haven't the slightest idea,\" said the Hatter.",
-   "zh": "「我一點頭緒也沒有，」帽匠說。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "medium",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "not have the slightest idea",
-      "inSentence": "haven't the slightest idea",
-      "kind": "idiom",
-      "pos": "idiom",
-      "zh": "完全不知道",
-      "ipa": "/ðə ˈslaɪtɪst aɪˈdɪə/",
-      "collocations": [
-       "not the slightest idea"
-      ],
-      "examples": [
-       {
-        "en": "I haven't the slightest idea where my keys are.",
-        "zh": "我完全不知道我的鑰匙在哪裡。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "British haven't = don't have",
-      "quote": "I haven't the slightest idea",
-      "explanation": "英式英文可以用 haven't 直接表示「沒有」，等於美式的 I don't have。",
-      "examples": [
-       {
-        "en": "I haven't a clue.",
-        "zh": "我毫無頭緒。"
-       }
-      ],
-      "pitfall": "這是比較舊式或英式的說法；日常美式口語多用 I don't have any idea。"
-     }
-    ],
-    "chunks": [],
-    "connected": []
-   }
-  },
-  {
-   "en": "Alice sighed and thought that they could do something better with their time than ask riddles with no answers.",
-   "zh": "愛麗絲嘆了口氣，心想他們可以把時間花在比問沒有答案的謎語更好的事情上。",
-   "speaker": null,
-   "notes": {
-    "v": 2,
-    "difficulty": "hard",
-    "highlights": [],
-    "vocab": [
-     {
-      "term": "sigh",
-      "inSentence": "sighed",
-      "kind": "word",
-      "pos": "v.",
-      "zh": "嘆氣",
-      "ipa": "/saɪ/",
-      "collocations": [
-       "sigh deeply",
-       "sigh with relief"
-      ],
-      "examples": [
-       {
-        "en": "She sighed and closed the book.",
-        "zh": "她嘆了口氣，把書闔上。"
-       }
-      ]
-     }
-    ],
-    "grammar": [
-     {
-      "point": "better ... than",
-      "quote": "something better with their time than ask riddles",
-      "explanation": "better ... than 比較兩件事；than 後面可直接接原形動詞，和前面的 do 對應。",
-      "examples": [
-       {
-        "en": "You could do better than copy his answers.",
-        "zh": "你可以做得比抄他的答案更好。"
-       }
-      ],
-      "pitfall": "than 後面不要接 to ask，要和前面的 do 用同樣的原形動詞。"
-     }
-    ],
-    "chunks": [
-     {
-      "text": "Alice sighed and thought",
-      "role": "main",
-      "zh": "愛麗絲嘆了口氣，心想"
-     },
-     {
-      "text": "that they could do something better with their time",
-      "role": "subordinate",
-      "zh": "他們可以把時間用在更好的事情上"
-     },
-     {
-      "text": "than ask riddles with no answers",
-      "role": "modifier",
-      "zh": "而不是問沒有答案的謎語"
-     }
-    ],
-    "connected": []
-   }
-  }
- ]
+  "sentences": [
+    {
+      "en": "Alice came to a house in the woods, where a long table had been set out under a tree.",
+      "zh": "愛麗絲來到樹林裡的一棟房子，樹下擺著一張長桌。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "set out",
+            "inSentence": "set out",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "擺好；陳列",
+            "ipa": "/set aʊt/",
+            "collocations": ["set out the plates", "set out chairs"],
+            "examples": [
+              {
+                "en": "Mum set out cups for the guests.",
+                "zh": "媽媽為客人擺好了杯子。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past perfect passive",
+            "quote": "had been set out",
+            "explanation": "had been + p.p. 是過去完成被動式：愛麗絲到之前，桌子就已經被擺好了。",
+            "examples": [
+              {
+                "en": "The tickets had been sold before we arrived.",
+                "zh": "我們到之前票就已經賣完了。"
+              }
+            ],
+            "pitfall": "不要漏掉 been 寫成 had set out，那樣意思變成主詞自己擺。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The March Hare and the Hatter were having tea there, with a sleepy Dormouse sitting between them.",
+      "zh": "三月兔和帽匠正在那裡喝茶，一隻愛睏的睡鼠坐在他們中間。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "have tea",
+            "inSentence": "having tea",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "喝下午茶",
+            "ipa": "/hæv tiː/",
+            "collocations": ["afternoon tea", "have tea with"],
+            "examples": [
+              {
+                "en": "We had tea with my grandmother on Sunday.",
+                "zh": "我們星期天和奶奶一起喝下午茶。"
+              }
+            ]
+          },
+          {
+            "term": "sleepy",
+            "inSentence": "sleepy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "想睡的；愛睏的",
+            "ipa": "/ˈsliːpi/",
+            "collocations": ["feel sleepy"],
+            "examples": [
+              {
+                "en": "I always feel sleepy after lunch.",
+                "zh": "我午餐後總是很想睡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "with + object + V-ing",
+            "quote": "with a sleepy Dormouse sitting between them",
+            "explanation": "with + 受詞 + V-ing 描述同時存在的情況，常用來補充畫面細節。",
+            "examples": [
+              {
+                "en": "She sat there with her cat sleeping on her lap.",
+                "zh": "她坐在那裡，貓在她腿上睡覺。"
+              }
+            ],
+            "pitfall": "不要寫成 with a Dormouse sat，表示主動進行要用 V-ing。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The table was large, but the three of them were all crowded together at one corner.",
+      "zh": "桌子很大，但他們三個全擠在一個角落。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "the three of them",
+            "note": "the + 數字 + of them 表示「他們（這幾個）」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "crowded together",
+            "inSentence": "crowded together",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "擠在一起",
+            "ipa": "/ˈkraʊdɪd təˈɡeðə/",
+            "collocations": ["crowded room", "crowded together"],
+            "examples": [
+              {
+                "en": "The students crowded together under the roof to stay dry.",
+                "zh": "學生們擠在屋簷下避雨。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "three of them",
+            "soundsLike": "three-ə-ðəm",
+            "note": "of 弱讀成 ə，them 的 th 很輕。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "\"No room! No room!\" they cried when they saw Alice coming.",
+      "zh": "「沒位子了！沒位子了！」他們看見愛麗絲走過來就大喊。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "saw Alice coming",
+            "note": "see + 受詞 + V-ing，表示看到動作正在進行。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "room",
+            "inSentence": "No room",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "空間；位置（不可數）",
+            "ipa": "/ruːm/",
+            "collocations": ["make room", "no room for"],
+            "examples": [
+              {
+                "en": "Is there room for one more?",
+                "zh": "還有位子再坐一個人嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"There's plenty of room!\" said Alice angrily, and she sat down in a large armchair.",
+      "zh": "「明明有很多位子！」愛麗絲生氣地說，然後在一張大扶手椅上坐下。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "plenty of",
+            "inSentence": "plenty of room",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "很多；充足的",
+            "ipa": "/ˈplenti əv/",
+            "collocations": ["plenty of time", "plenty of food"],
+            "examples": [
+              {
+                "en": "Don't worry, we have plenty of time.",
+                "zh": "別擔心，我們時間很充裕。"
+              }
+            ]
+          },
+          {
+            "term": "armchair",
+            "inSentence": "armchair",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "扶手椅",
+            "ipa": "/ˈɑːmtʃeə/",
+            "collocations": ["sit in an armchair"],
+            "examples": [
+              {
+                "en": "Grandpa fell asleep in his armchair.",
+                "zh": "爺爺在扶手椅上睡著了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Have some wine,\" the March Hare said in an encouraging tone.",
+      "zh": "「喝點酒吧，」三月兔用鼓勵的語氣說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "encouraging",
+            "inSentence": "encouraging",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "鼓勵的",
+            "ipa": "/ɪnˈkʌrɪdʒɪŋ/",
+            "collocations": ["encouraging words"],
+            "examples": [
+              {
+                "en": "My coach always gives encouraging advice.",
+                "zh": "我的教練總是給鼓勵的建議。"
+              }
+            ]
+          },
+          {
+            "term": "in a ... tone",
+            "inSentence": "in an encouraging tone",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "用…的語氣",
+            "ipa": "/təʊn/",
+            "collocations": ["in a friendly tone", "in an angry tone"],
+            "examples": [
+              {
+                "en": "She spoke in a calm tone.",
+                "zh": "她用平靜的語氣說話。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Alice looked all round the table, but there was nothing on it but tea.",
+      "zh": "愛麗絲把整張桌子看了一遍，但桌上除了茶什麼都沒有。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "look round",
+            "inSentence": "looked all round",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "環顧（英式）",
+            "ipa": "/lʊk raʊnd/",
+            "collocations": ["look round the room"],
+            "examples": [
+              {
+                "en": "She looked round the shop for a gift.",
+                "zh": "她在店裡四處看，想找個禮物。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "nothing but",
+            "quote": "nothing on it but tea",
+            "explanation": "nothing but 表示「只有；除了…什麼都沒有」，這裡的 but 等於 except。",
+            "examples": [
+              {
+                "en": "He eats nothing but noodles.",
+                "zh": "他只吃麵。"
+              }
+            ],
+            "pitfall": "這裡的 but 不是「但是」，不要翻成轉折。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"I don't see any wine,\" she remarked.",
+      "zh": "「我沒看到有酒啊，」她說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "remark",
+            "inSentence": "remarked",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "說；評論",
+            "ipa": "/rɪˈmɑːk/",
+            "collocations": ["remark on"],
+            "examples": [
+              {
+                "en": "\"It's cold today,\" he remarked.",
+                "zh": "「今天好冷，」他說。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"There isn't any,\" said the March Hare.",
+      "zh": "「本來就沒有，」三月兔說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "There isn't any",
+            "note": "any 後面省略了 wine，口語中常把重複的名詞省掉。"
+          }
+        ],
+        "vocab": [],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Then it wasn't very polite of you to offer it,\" said Alice.",
+      "zh": "「那你請我喝，就不太有禮貌了，」愛麗絲說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "offer",
+            "inSentence": "offer it",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "提供；請（人吃喝）",
+            "ipa": "/ˈɒfə/",
+            "collocations": ["offer help", "offer a drink"],
+            "examples": [
+              {
+                "en": "He offered me a cup of coffee.",
+                "zh": "他請我喝一杯咖啡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "it is + adj. + of someone + to V",
+            "quote": "it wasn't very polite of you to offer it",
+            "explanation": "評論某人的行為時用 of + 人：It is kind of you to help。",
+            "examples": [
+              {
+                "en": "It was nice of you to call me.",
+                "zh": "你打電話給我，真貼心。"
+              }
+            ],
+            "pitfall": "描述人的特質用 of；描述事情對人的影響用 for，例如 It is hard for me to...。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"It wasn't very polite of you to sit down without being invited,\" replied the March Hare.",
+      "zh": "「你沒被邀請就坐下，也不太有禮貌，」三月兔回答。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "invite",
+            "inSentence": "invited",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "邀請",
+            "ipa": "/ɪnˈvaɪt/",
+            "collocations": ["invite someone to"],
+            "examples": [
+              {
+                "en": "They invited us to their wedding.",
+                "zh": "他們邀請我們參加婚禮。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "without being + p.p.",
+            "quote": "without being invited",
+            "explanation": "介系詞 without 後面接動名詞；被動要用 being + p.p.。",
+            "examples": [
+              {
+                "en": "He left without being seen.",
+                "zh": "他離開時沒被人看見。"
+              }
+            ],
+            "pitfall": "不要寫成 without invited，介系詞後面不能直接接過去分詞。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "sit down",
+            "soundsLike": "si-down",
+            "note": "sit 的 t 和 down 的 d 相連，t 幾乎不發音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Then the Hatter opened his eyes very wide and asked a strange riddle.",
+      "zh": "接著帽匠把眼睛睜得大大的，問了一個奇怪的謎語。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "opened his eyes very wide",
+            "note": "wide 在這裡是副詞，表示「睜得很大」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "riddle",
+            "inSentence": "riddle",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "謎語",
+            "ipa": "/ˈrɪdl/",
+            "collocations": ["ask a riddle", "solve a riddle"],
+            "examples": [
+              {
+                "en": "Can you solve this riddle?",
+                "zh": "你能解開這個謎語嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Why is a raven like a writing-desk?\"",
+      "zh": "「為什麼烏鴉像寫字桌？」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "like",
+            "note": "這裡的 like 是介系詞「像」，不是動詞「喜歡」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "raven",
+            "inSentence": "raven",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "渡鴉；烏鴉",
+            "ipa": "/ˈreɪvn/",
+            "collocations": ["a black raven"],
+            "examples": [
+              {
+                "en": "A raven sat on the old fence.",
+                "zh": "一隻烏鴉停在舊籬笆上。"
+              }
+            ]
+          },
+          {
+            "term": "writing-desk",
+            "inSentence": "writing-desk",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "寫字桌",
+            "ipa": "/ˈraɪtɪŋ desk/",
+            "collocations": ["an old writing-desk"],
+            "examples": [
+              {
+                "en": "He kept his letters in a writing-desk.",
+                "zh": "他把信放在寫字桌裡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Alice thought hard, but she could not find the answer.",
+      "zh": "愛麗絲努力想，卻找不到答案。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "think hard",
+            "inSentence": "thought hard",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "努力思考",
+            "ipa": "/θɪŋk hɑːd/",
+            "collocations": ["think hard about"],
+            "examples": [
+              {
+                "en": "Think hard before you answer.",
+                "zh": "回答前要仔細想想。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"I give up,\" she said at last. \"What's the answer?\"",
+      "zh": "「我放棄了，」她終於說。「答案是什麼？」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "give up",
+            "inSentence": "give up",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "放棄",
+            "ipa": "/ɡɪv ʌp/",
+            "collocations": ["give up on", "never give up"],
+            "examples": [
+              {
+                "en": "Don't give up so easily.",
+                "zh": "不要這麼輕易放棄。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"I haven't the slightest idea,\" said the Hatter.",
+      "zh": "「我一點頭緒也沒有，」帽匠說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "not have the slightest idea",
+            "inSentence": "haven't the slightest idea",
+            "kind": "idiom",
+            "pos": "idiom",
+            "zh": "完全不知道",
+            "ipa": "/ðə ˈslaɪtɪst aɪˈdɪə/",
+            "collocations": ["not the slightest idea"],
+            "examples": [
+              {
+                "en": "I haven't the slightest idea where my keys are.",
+                "zh": "我完全不知道我的鑰匙在哪裡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "British haven't = don't have",
+            "quote": "I haven't the slightest idea",
+            "explanation": "英式英文可以用 haven't 直接表示「沒有」，等於美式的 I don't have。",
+            "examples": [
+              {
+                "en": "I haven't a clue.",
+                "zh": "我毫無頭緒。"
+              }
+            ],
+            "pitfall": "這是比較舊式或英式的說法；日常美式口語多用 I don't have any idea。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Alice sighed and thought that they could do something better with their time than ask riddles with no answers.",
+      "zh": "愛麗絲嘆了口氣，心想他們可以把時間花在比問沒有答案的謎語更好的事情上。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "sigh",
+            "inSentence": "sighed",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "嘆氣",
+            "ipa": "/saɪ/",
+            "collocations": ["sigh deeply", "sigh with relief"],
+            "examples": [
+              {
+                "en": "She sighed and closed the book.",
+                "zh": "她嘆了口氣，把書闔上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "better ... than",
+            "quote": "something better with their time than ask riddles",
+            "explanation": "better ... than 比較兩件事；than 後面可直接接原形動詞，和前面的 do 對應。",
+            "examples": [
+              {
+                "en": "You could do better than copy his answers.",
+                "zh": "你可以做得比抄他的答案更好。"
+              }
+            ],
+            "pitfall": "than 後面不要接 to ask，要和前面的 do 用同樣的原形動詞。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Alice sighed and thought",
+            "role": "main",
+            "zh": "愛麗絲嘆了口氣，心想"
+          },
+          {
+            "text": "that they could do something better with their time",
+            "role": "subordinate",
+            "zh": "他們可以把時間用在更好的事情上"
+          },
+          {
+            "text": "than ask riddles with no answers",
+            "role": "modifier",
+            "zh": "而不是問沒有答案的謎語"
+          }
+        ],
+        "connected": []
+      }
+    }
+  ]
 }
