@@ -54,7 +54,7 @@ Every material (built-in videos, official materials, your own, shared ones) foll
 | Review and reminders | My misheard words (spaced review, D108), level test (D109), progress share card (D110), practice reminders (PWA push, D111), offline audio (D112), reporting a sentence (D113)        | `/review`, `/level-test`, account page                                 |
 | By topic             | Public topic pages (SEO, D116)                                                                                                                                                        | `/learn`, `/learn/<category>`                                          |
 | Account              | Google, LINE, email and password (D101); data download, account deletion (D60)                                                                                                        | `/login`, `/account`                                                   |
-| Plans                | Free, Plus, Pro, class plan (fake door, D102, D105); waiting list                                                                                                                     | `/pricing`, `/pricing/classroom`                                       |
+| Plans                | Free; Listening, Writing, All-in-One × Student, Plus, Pro; class plans (fake door, D102, D105, D210); waiting list                                                                    | `/pricing`, `/pricing/classroom`                                       |
 | Classroom            | Classes, invites, assignments, progress dashboard, CSV, announcements (D103)                                                                                                          | `/classroom`                                                           |
 | Admin                | Overview, users, official materials, shared materials, reports, usage and limits, events, errors, feedback, paying interest, revenue forecast, revenue, retention, system docs        | `/admin/*`                                                             |
 
@@ -659,45 +659,56 @@ All speech so far is within Azure F0's free tier. Live numbers: `/admin/usage` o
 
 ## 7. Plans and permissions
 
-### 7.1 What each plan can do (`lib/plans.ts`)
+### 7.1 What each plan can do (`lib/plans.ts`, D210)
 
-| Item                                 | Free                        | Plus (`paid`)                      | Pro                                  | Class plan (teacher)                          | Admin    |
-| ------------------------------------ | --------------------------- | ---------------------------------- | ------------------------------------ | --------------------------------------------- | -------- |
-| Official materials, videos, the loop | ✓                           | ✓                                  | ✓                                    | ✓                                             | ✓        |
-| Shared materials                     | Preview (first 3 sentences) | Practice in full                   | Practice in full                     | Practice in full                              | In full  |
-| Your own materials                   | 2 minutes a week (2 each)   | 40 minutes a month, 5 minutes each | 120 minutes a month, 10 minutes each | 45/70/105 minutes by tier (whichever is more) | No limit |
-| YouTube materials                    | —                           | ✓                                  | ✓                                    | By personal plan                              | ✓        |
-| Playback speed                       | —                           | ✓                                  | ✓                                    | By personal plan                              | ✓        |
-| Full stats                           | Basics                      | ✓                                  | ✓                                    | By personal plan                              | ✓        |
-| Custom pass rules                    | Defaults                    | ✓                                  | ✓                                    | By personal plan (assignments can carry them) | ✓        |
-| Priority, batch PDF                  | —                           | —                                  | ✓ (label)                            | —                                             | ✓        |
-| Classes (create, assign, reports)    | Join a class                | Join a class                       | Join a class                         | 40 students                                   | 100      |
+Paid plans come in three lines (Listening, Writing, All-in-One) × three tiers (Student, Plus, Pro). A line's parts are at its tier; the rest are the free plan's. Every number is in `docs/quotas.md` (made from the code).
 
-- The account plan is `profiles.plan` (`free` / `paid` / `pro`); the class plan is `profiles.classroom_seats`.
-- The student plan (D144): the same as Plus at NT$119 / NT$1,190 (D185) (`lib/payments/pricing.ts`). School email domains are in `lib/student.ts`; signing in with one makes `/auth/callback` write `profiles.student_verified_at`, good for a year. A fake door for now: subscribing only records interest (`intent_events`, `waitlist.plan = 'student'`).
-- Code asks only `can(plan, action)`; changing a plan means editing `PLANS` (D54).
+| Item                                 | Free                        | Listening (Student / Plus / Pro)    | Writing (Student / Plus / Pro) | All-in-One   | Class plan (teacher)                                   | Admin    |
+| ------------------------------------ | --------------------------- | ----------------------------------- | ------------------------------ | ------------ | ------------------------------------------------------ | -------- |
+| Official materials, videos, the loop | ✓                           | ✓                                   | ✓                              | ✓            | ✓                                                      | ✓        |
+| Shared materials                     | Preview (first 3 sentences) | In full                             | Preview                        | In full      | In full                                                | In full  |
+| Your own materials                   | 300 words a week            | 2,400 / 3,000 / 9,000 words a month | 300 words a week               | As Listening | 6,750 / 10,500 / 15,750 words a month (listening line) | No limit |
+| Uploads, speed, custom pass rules    | —                           | ✓                                   | —                              | ✓            | By personal plan                                       | ✓        |
+| Priority, batch PDF                  | —                           | Pro                                 | —                              | Pro          | —                                                      | ✓        |
+| AI essay reviews a week              | 2                           | 2                                   | 7 / 7 / 19                     | As Writing   | 2 per student (writing line)                           | No limit |
+| AI checks of extra practice a week   | 7                           | 7                                   | 21 / 21 / 56                   | As Writing   | 7 / 5 / 3 per student (writing line)                   | No limit |
+| Chat messages a week                 | 10                          | 10                                  | 135 / 135 / 360                | As Writing   | 15 per student on Small (writing line)                 | No limit |
+| Full stats                           | Basics                      | ✓                                   | ✓                              | ✓            | By personal plan                                       | ✓        |
+| Classes (create, assign, reports)    | Join a class                | Join a class                        | Join a class                   | Join a class | 15 / 40 / 100 students                                 | 100      |
+
+- The account plan is `profiles.plan`: `free`; All-in-One keeps the old ids `student` / `paid` (Plus) / `pro`; Listening and Writing are `listening-*` and `writing-*`. `planParts` and `accountPlanFor` convert; `isPayingPlan` says who pays.
+- The class plan is `profiles.classroom_seats` and `profiles.classroom_line` (`all` by default). A writing line's allowance for its students comes from `getClassWriting` in `auth/quota.ts`, the larger of the class's and the student's own.
+- The student tier (D144): school email domains are in `lib/student.ts`; signing in with one makes `/auth/callback` write `profiles.student_verified_at`, good for a year. A fake door for now: subscribing only records interest (`intent_events`, `waitlist.plan`, `waitlist.plan_line`).
+- Code asks only `can(plan, action)`; changing a plan means editing `LISTENING_TIERS` and `WRITING_TIERS` in `lib/plans.ts` (D54, D210).
 
 ### 7.2 Counting allowances
 
-- **Minutes a week (free)**: the seconds in `practice_creations` this week (from Monday 00:00, Taiwan time); a new one must fit in what's left (D143).
-- **Minutes a month**: the seconds in `practice_creations` this month (Taiwan time; a trigger records `estimated_seconds` when a practice is added, and deleting the practice keeps the record, so minutes don't come back, D143); text at 150 words a minute (D142), YouTube by the excerpt's length (D102).
-- **Characters per material**: 2,000 on Free and Plus, 10,000 on Pro (technical limit).
+- **Units** (D209): your own materials in English words (`lib/units.ts`, 150 a minute); chats in messages actually sent; essay reviews in essays; extra practice's checks in sets.
+- **Words a week (free)**: the seconds in `practice_creations` this week (from Monday 00:00, Taiwan time), as words; a new one must fit in what's left (D143).
+- **Words a month**: the seconds in `practice_creations` this month (Taiwan time) as words (a trigger records `estimated_seconds` when a practice is added, and deleting it keeps the record, so words don't come back); a text's seconds are its words ÷ 150 × 60 already, YouTube and recordings go by their length.
+- **Chat**: the `writing_chat_sessions.messages` of this week's chats, checked when a chat starts and before each message.
+- **Characters per material**: 2,000 up to Plus listening, 10,000 on Pro (technical limit).
 - Checked before every AI step and on saving (`auth/creation-quota.ts`).
 
 ### 7.3 Previewing and practicing shared materials (D106)
 
 - `/explore` lists only what people shared; official materials are only in the home library.
-- Who may practice, what the preview shows, sending practice links back to it, the week under way: see 5.12 and `can_practice`.
-- Prices:
+- Who may practice, what the preview shows, sending practice links back to it, the week under way: see 5.12 and `can_practice` (Listening, All-in-One, and class plans practice in full).
 
-| Plan            | Monthly | Yearly (× 10) | A month on average |
-| --------------- | ------- | ------------- | ------------------ |
-| Plus            | NT$149  | NT$1,490      | NT$124             |
-| Pro             | NT$319  | NT$3,190      | NT$266             |
-| Student         | NT$119  | NT$1,190      | NT$99              |
-| Class: Small    | NT$349  | NT$3,490      | NT$291             |
-| Class: Standard | NT$549  | NT$5,490      | NT$458             |
-| Class: Large    | NT$800  | NT$8,000      | NT$667             |
+### 7.4 Prices and costs (D210)
+
+Prices are Joe's final decision; ask Joe before changing any (`lib/payments/pricing.ts`). A year is always 10 × the month.
+
+| Line                             | Student                      | Plus                             | Pro                             |
+| -------------------------------- | ---------------------------- | -------------------------------- | ------------------------------- |
+| Listening                        | NT$90 / NT$900               | NT$149 / NT$1,490                | NT$299 / NT$2,990               |
+| Writing                          | NT$119 / NT$1,190            | NT$149 / NT$1,490                | NT$249 / NT$2,490               |
+| All-in-One                       | NT$189 / NT$1,890            | NT$269 / NT$2,690 (most popular) | NT$499 / NT$4,990               |
+| Class (Small / Standard / Large) | Listening NT$349 / 549 / 800 | Writing NT$299 / 449 / 690       | All-in-One NT$599 / 899 / 1,390 |
+
+- Cost caps: at full use, AI and voice cost at most 30% (Plus, class), 40% (Student), or 45% (Pro) of the yearly price's month (`lib/payments/costs.ts`, `tests/plan-costs.test.ts`).
+- Price per unit: on every line, each allowance's price ÷ amount is lowest on Pro, then Student, then Plus (`tests/plan-lines.test.ts`).
+- Price experiments are paused (`PRICE_EXPERIMENTS_PAUSED`); their data is kept.
 
 ---
 

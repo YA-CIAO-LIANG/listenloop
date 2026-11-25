@@ -67,8 +67,10 @@ test("price experiments are paused: nothing to start, everyone sees the code's p
   await expect(page.getByText("目前沒有進行中的實驗")).toBeVisible();
   await expect(page.getByRole("button", { name: "開始實驗" })).toHaveCount(0);
   // Every line's price, from the code.
-  await expect(page.getByText("Plus・聽寫全方位")).toBeVisible();
-  await expect(page.getByText("學生・聽力")).toBeVisible();
+  await expect(
+    page.getByText("Plus・聽寫全方位", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("學生・聽力", { exact: true })).toBeVisible();
 
   const visitor = await browser.newContext();
   const visitorPage = await visitor.newPage();
@@ -87,7 +89,7 @@ test("the price survey: after 30 s on the pricing page, once, skippable", async 
 }) => {
   await page.clock.install();
   await page.goto("/pricing");
-  const survey = page.getByRole("region", { name: /Plus 值多少錢/ });
+  const survey = page.getByRole("region", { name: /Plus・聽寫全方位值多少錢/ });
   await expect(survey).toHaveCount(0);
   await page.clock.runFor(31_000);
   await expect(survey).toBeVisible();

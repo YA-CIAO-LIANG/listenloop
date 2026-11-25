@@ -4123,3 +4123,11 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 評估後不實作：Azure Batch API（半價）只適用管理員的官方教材批次，不影響使用者方案的成本，列為建議。
 - **測試**：`tests/plan-lines.test.ts`（價格、額度、三條線單價順序、線的組成、id 對應）、`tests/plan-costs.test.ts`（校正後的單位成本、每個方案在上限內、Joe 的估算也在上限內）、`tests/pricing-display.test.ts`（省多少、便宜幾 %、Pro 的單位節省、換算、建立頁的推薦）、`tests/price-floor.test.ts`、`tests/forecast.test.ts`、`tests/quotas-doc.test.ts`（成本表）；E2E `quota`（定價頁三條線切換、我的額度依線分組、寫作方案的升級提示、後台方案選單）、`payments`、`student-plan`、`classroom`、`plans`、`price-experiments`（暫停）、`revenue-forecast`。
 - 要改時看哪裡：`lib/plans.ts`（額度）、`lib/payments/pricing.ts`（價格，要先問 Joe）、`lib/payments/costs.ts`（單位成本、上限）、`lib/classroom.ts`（班級方案）、`lib/pricing-display.ts`、`components/PricingPlans.tsx`、`components/ClassPricing.tsx`、`components/UpsellToAll.tsx`、`auth/quota.ts`、`lib/price-experiments.ts`、`supabase/migrations/20261203000000_plan_lines.sql`、`docs/quotas.md`。
+
+## D211 服務條款、退款政策、手冊與介面文字配合三條方案線（2026-11-24，Joe 的價格與額度決定第五項第 10 點）
+
+- **服務條款第 7 節**：改成三條線（聽力、寫作、聽寫全方位）× 學生、Plus、Pro，加上班級方案的三條線；寫明只訂閱一條線時另一邊是免費版、額度的單位（字、篇、組、則）與重設週期、練習不扣額度；公開教材的完整練習改成「聽力、聽寫全方位與班級方案」（寫作方案只能預覽，因為這是聽力功能）。最後更新日改為 2026-11-24。
+- **退款政策**：舉例改成新的價格（Plus・聽寫全方位年繳 NT$2,690、學生・聽力年繳 NT$900），「沒用完的分鐘數」改成「字數、篇數、組數與則數」。
+- **介面文字**：原本寫「Plus 以上方案的功能」的地方（語速、上傳音檔、自訂通關、YouTube、公開教材），改成「聽力與聽寫全方位方案的功能」；完整學習分析改成「付費方案的功能」；FAQ 的免費方案與自建教材改成字數；價格問卷改成以「Plus・聽寫全方位」為例。
+- **手冊**：使用手冊（方案說明、自建教材、寫作額度、聊天以則計算）、管理員手冊（方案選單、班級方案的線、付費意願的 `upsell_view`、收益試算的成本表）、系統文件（權限表、額度計算、價格與成本）、`docs/payments.md` 的價格表、行銷信件的價格說明。
+- 要改時看哪裡：`messages/*.json` 的 `terms`、`refund`、`faq`、`plans.limits`；`docs/system/*/user.md`、`admin.md`、`system.md`；`docs/payments.md`。

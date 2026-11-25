@@ -189,14 +189,14 @@ flowchart LR
 
 ## 6. Managing users
 
-| Action              | How                                            | Notes                                                                                                         |
-| ------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Find someone        | Users list: number, sign-up date, last active  | No emails in the dashboard. To find someone by email, look up their user id in Supabase's Authentication page |
-| Make / unmake admin | Buttons on the user's page                     | Not your own account; `ADMIN_EMAILS` accounts can't be demoted                                                |
-| Disable / restore   | User's page, confirm twice                     | Disabled accounts are treated as signed out and banned in Auth; issued tokens expire within an hour           |
-| Switch plan         | Plan menu on the user's page (Free, Plus, Pro) | For testing; subscriptions will update it later. Audited                                                      |
-| See activity        | Bottom of the user's page, or Events by number | Only the needed fields, no text                                                                               |
-| Delete an account   | The user does it on their account page         | Admins don't delete for them; if they can't sign in, ask them to use the feedback page                        |
+| Action              | How                                                                                                   | Notes                                                                                                         |
+| ------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Find someone        | Users list: number, sign-up date, last active                                                         | No emails in the dashboard. To find someone by email, look up their user id in Supabase's Authentication page |
+| Make / unmake admin | Buttons on the user's page                                                                            | Not your own account; `ADMIN_EMAILS` accounts can't be demoted                                                |
+| Disable / restore   | User's page, confirm twice                                                                            | Disabled accounts are treated as signed out and banned in Auth; issued tokens expire within an hour           |
+| Switch plan         | Plan menu on the user's page (Free, or Listening / Writing / All-in-One × Student / Plus / Pro, D210) | For testing; subscriptions will update it later. Audited                                                      |
+| See activity        | Bottom of the user's page, or Events by number                                                        | Only the needed fields, no text                                                                               |
+| Delete an account   | The user does it on their account page                                                                | Admins don't delete for them; if they can't sign in, ask them to use the feedback page                        |
 
 ### 6.1 Sign-ups and invites (`/admin/beta`, D132)
 
@@ -217,12 +217,12 @@ flowchart LR
 ## 7. Turning on class plans
 
 1. The teacher signs in once (making the account).
-2. "Admin → Users → the teacher's number" → "Class plan" → **40 students** → save (audited).
+2. "Admin → Users → the teacher's number" → "Class plan" → **40 students**, then its "Line" (Listening, Writing, or All-in-One, All-in-One by default) → save (audited).
 3. The teacher goes to header "Classroom" → "Classes I teach", creates a class, and gets an 8-character invite code.
 4. Choose "None" to turn it off. Other sizes turned on under D103 (10 / 20 / 80 / 100) still work.
 5. Admins can create classes without a class plan (trials, demos), up to 100 students each.
 
-Choose a tier: Small (15 students, 45 minutes a month), Standard (40, 70 minutes), or Large (100, 105 minutes). The teacher's minutes replace their personal plan's when they're more, and they can practice shared materials in full (D173).
+Choose a size and a line (D210): Small (15 students), Standard (40), or Large (100). Listening and All-in-One give the teacher 6,750 / 10,500 / 15,750 words a month (replacing their personal plan's when more); Writing and All-in-One give each student 2 essay reviews and 7 / 5 / 3 sets of extra practice checks a week (plus 15 chat messages on Small), or their own plan's when larger. A class plan's teacher practices shared materials in full and has a paid plan's daily AI limit.
 
 ---
 
@@ -237,21 +237,24 @@ Choose a tier: Small (15 students, 45 minutes a month), Standard (40, 70 minutes
 | subscribe_click | Pressed "Subscribe"                                     |
 | waitlist_join   | Joined the waiting list                                 |
 | unlock_click    | Pressed an unlock on a feature (colors, shared preview) |
+| upsell_view     | Saw the “Upgrade to All-in-One” prompt (D210)           |
 
 **How to read it**:
 
 - **Conversion**: each step over the one before. Few pricing views turning into subscribe clicks suggests the price or plan isn't appealing; few clicks turning into joins may mean "coming soon" disappoints.
 - **Sources**: which entry point brings the most pricing views (for example `trial-used`, `speed`, `shared-preview`). The busiest ones show what users want most.
-- **Plans and periods**: Plus vs Pro, monthly vs yearly, for choosing defaults and prices.
+- **Plans and periods**: plans are recorded as line-tier (`all-plus`, `listening-student`…), and monthly vs yearly, for choosing defaults and prices.
+- **All-in-One prompts**: by the feature that prompted them (`essay-review`, `upload`…): which feature most makes people on one line want both.
 - Signed-out visitors count once each via a random cookie; no personal data.
 
 ### 8.2 Revenue forecast (`/admin/forecast`)
 
-- Every number can be changed: subscribers per plan and period, prices, AI cost, business tax, payment fees, servers.
+- Every number can be changed: subscribers per plan and period for 18 plans (9 personal, 9 class), prices, how much of the allowances is used, a cost factor, business tax, payment fees, servers.
 - Defaults (D184):
   - prices include Taiwan's 5% business tax, taken out before the margin;
   - payments through ECPay at about 2.9% (about 2.75% a card payment, plus tax on the fee), no fixed fee; the contract has the real rate;
-  - AI cost a minute = language models (this month's actual cost ÷ minutes created this month, evals left out) + paid voice (about NT$1.16, the price once past Azure's free tier).
+  - AI and voice use the calibrated unit costs (D210, `lib/payments/costs.ts`): NT$1.02 per 150 words of one's own listening (AI text 0.48 + voice 0.54), NT$0.135 an essay review, NT$0.040 a set of extra practice checks, NT$0.025 a chat message; a cost factor of 1 keeps them as calibrated.
+- The table below lists each plan's cost at full use and at typical use (30%, 50%) against its cap (Plus and class 30%, Student 40%, Pro 45%), in red when over.
 - It shows monthly revenue (tax included, with the tax in it), prepaid cash (yearly plans pay up front), gross margin (after tax), and profit, live.
 - Use it with the interest numbers times a sensible conversion (for example 10–30% of the waiting list) to estimate the first month.
 
@@ -354,14 +357,14 @@ When something goes wrong, contain it first, then find the cause. The full steps
 
 ## 12. Questions
 
-| Question                                   | Answer                                                                                                                                  |
-| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
-| A user can't create materials              | Check their plan and trial (user page) and whether the site's monthly cap is used up (overview)                                         |
-| A user can't see a shared material in full | The free plan previews only (D106); switch them to Plus on their page to test                                                           |
-| An official material won't publish         | Read the check's reasons; usually a missing Chinese title or subtitle                                                                   |
-| Changing a plan or price                   | Plans in `lib/plans.ts`; change only monthly prices (`lib/payments/pricing.ts`), yearly is 10 × automatically; ask Claude Code for a PR |
-| A user reports an "error code"             | Search it (the digest) on the errors page                                                                                               |
-| A refund                                   | Revenue page, confirm twice; test data only for now                                                                                     |
+| Question                                   | Answer                                                                                                                                                                                                             |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A user can't create materials              | Check their plan and trial (user page) and whether the site's monthly cap is used up (overview)                                                                                                                    |
+| A user can't see a shared material in full | Free and Writing plans preview only (D106, D210); switch them to a Listening or All-in-One plan on their page to test                                                                                              |
+| An official material won't publish         | Read the check's reasons; usually a missing Chinese title or subtitle                                                                                                                                              |
+| Changing a plan or price                   | Allowances in `lib/plans.ts`; change only monthly prices (`lib/payments/pricing.ts`, Joe decides first), yearly is 10 × automatically; the tests check the cost caps and the price order; ask Claude Code for a PR |
+| A user reports an "error code"             | Search it (the digest) on the errors page                                                                                                                                                                          |
+| A refund                                   | Revenue page, confirm twice; test data only for now                                                                                                                                                                |
 
 ## 13. Writing (WritingLoop, D187)
 

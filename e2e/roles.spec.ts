@@ -78,7 +78,9 @@ test("a paying learner: no weekly limit, Plus marked, full stats", async ({
   await expect(
     page.getByRole("heading", { name: "學習分析", level: 1 }),
   ).toBeVisible();
-  await expect(page.getByText(/Plus 以上方案的功能/)).toHaveCount(0);
+  await expect(page.getByText(/付費方案的功能|全方位方案的功能/)).toHaveCount(
+    0,
+  );
 });
 
 test("an admin: the dashboard, usage, and creating without limits", async ({

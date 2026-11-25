@@ -52,7 +52,7 @@ ListenLoop is an English listening practice site: pick one material and spend 7 
 
 - Header "Shared": materials other people shared (official materials aren't here).
 - **Free plan or signed out**: **preview** both titles, the subtitle, category, level, length, accent, and the first 3 sentences in English and Chinese, and listen to the first sentence.
-- **Plus, Pro, class plans**: practice them in full. "Upgrade to practice this material" shows the plans.
+- **Listening, All-in-One, and class plans**: practice them in full. "Upgrade to practice this material" shows the plans.
 - A shared material your teacher assigns can be practiced for free.
 
 ---
@@ -84,12 +84,12 @@ flowchart LR
    - misheard or missed words are colored and underlined; extra words are struck through.
 4. Below are the Chinese translation and the notes. "Next sentence" continues.
 
-| Button / feature | What it does                                                                       |
-| ---------------- | ---------------------------------------------------------------------------------- |
-| Replay           | Hear the sentence again                                                            |
-| Loop             | Plays the sentence again 1.5 seconds after it ends, until you answer               |
-| Speed            | Audio materials: 0.75×, 1×, 1.25× (Plus and above); slow scores × 90%, fast × 105% |
-| Captions         | For YouTube videos, press the player's CC button to turn captions off              |
+| Button / feature | What it does                                                                                       |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| Replay           | Hear the sentence again                                                                            |
+| Loop             | Plays the sentence again 1.5 seconds after it ends, until you answer                               |
+| Speed            | Audio materials: 0.75×, 1×, 1.25× (Listening and All-in-One plans); slow scores × 90%, fast × 105% |
+| Captions         | For YouTube videos, press the player's CC button to turn captions off                              |
 
 - Score: matched words ÷ (the sentence's words or yours, whichever is more). Typing lots of extra words lowers it.
 - Numbers can be digits or words (5 = five); contractions are fine (don't = do not).
@@ -145,7 +145,7 @@ Shown after a dictation answer or a shadowed sentence:
 - No test, just listening: the whole text plays through, the current sentence highlighted; select any sentence to play from there.
 - **Subtitles**: none, English, both, or Chinese; your choice is remembered.
 - **Three passes**: one button plays the whole text three times: first with nothing, then the English, then both languages.
-- **Repeat**: one sentence or the whole text. Audio materials can change speed (Plus and above).
+- **Repeat**: one sentence or the whole text. Audio materials can change speed (Listening and All-in-One plans).
 - **Lock screen**: audio materials keep playing with the phone locked or in another app, with pause and previous/next on the lock screen. YouTube videos can't play in the background (YouTube's terms).
 - Day 1's misheard words are highlighted. Listening counts toward practice time, but doesn't finish the day's task; while the audio plays it keeps counting in another tab or on a locked screen, and stops when paused (D183).
 - Keyboard: Space plays or pauses; the arrow keys go to the previous or next sentence.
@@ -169,15 +169,15 @@ Shown after a dictation answer or a shadowed sentence:
 - **Stats** (header):
   - Streak and practice time a day (dictation, shadowing, listening, the vocabulary quiz, and the misheard-words review; only while the page is in front and you've acted in the last 2 minutes or audio is playing, listening mode in the background included; the same numbers as the calendar's glow);
   - Accuracy over time (weighted and raw), each material's Day 1 and Day 7;
-  - Your 10 most-misheard words, categories and levels you practice (full charts on Plus and above);
-  - **Vocabulary quiz**: quizzes taken, average accuracy, words mastered (both steps right last time, no hint); the trend on Plus and above;
+  - Your 10 most-misheard words, categories and levels you practice (full charts on the paid plans);
+  - **Vocabulary quiz**: quizzes taken, average accuracy, words mastered (both steps right last time, no hint); the trend on the paid plans;
   - **Points**: +10 for each day, +2 for each perfect sentence, +5 for streaks; points unlock accent colors and background themes.
 
 ---
 
 ## 9. Making your own materials
 
-Header "My materials" → "Create". The free plan makes 2 minutes a week (two of a minute or one of two; it resets Monday 00:00 Taiwan time, and the create page shows what's left and when it resets; deleting a material doesn't give minutes back); Plus gets 40 minutes a month, Pro 120.
+Header "My materials" → "Create". Allowances count English words (about 150 a minute): the free plan makes 300 words a week (it resets Monday 00:00 Taiwan time, and the create page shows what's left and when it resets; deleting a material doesn't give words back); Listening and All-in-One plans make 2,400 (Student), 3,000 (Plus), or 9,000 (Pro) a month. Checking the sentences shows how many words this material uses and how many are left this month.
 
 ```mermaid
 flowchart LR
@@ -194,7 +194,7 @@ flowchart LR
    - The name can stay empty: AI files the text under the closest category, or Other when none fits. The review step after splitting shows its choice, and you can change it from the menu.
    - With both the name and "What do you want to practice?" empty, AI picks an everyday topic itself.
    - You can still pick one of the categories and scenarios from the category menu.
-3. **Upload audio** (Plus and above): choose your own English MP3 or MP4 (Plus: up to 100 MB and 5 minutes a file; Pro: 200 MB and 10 minutes). For a video, only the sound is taken out, in your browser; the picture is never uploaded. AI writes it down with each sentence's times; you can play each sentence, fix its words and times, join or remove sentences, then translate and create. Practicing plays your original recording. It starts private; to share it, you must confirm you own the recording or have permission.
+3. **Upload audio** (Listening and All-in-One plans): choose your own English MP3 or MP4 (Student and Plus: up to 100 MB and 5 minutes a file; Pro: 200 MB and 10 minutes). For a video, only the sound is taken out, in your browser; the picture is never uploaded. AI writes it down with each sentence's times; you can play each sentence, fix its words and times, join or remove sentences, then translate and create. Practicing plays your original recording. It starts private; to share it, you must confirm you own the recording or have permission.
 4. **Review sentences**: you see the sentence count and the estimated length (from the actual words, at about 150 words a minute). Edit English and Chinese, merge, split; or type an instruction like "use simpler words" and "Undo" if you don't like it.
 5. **Voices**: American, British, Australian, Indian; female and male; try each one.
 6. **After creating**: you see an estimate (calibrated from the site's recent real times); if it's over a minute you can leave and find it in My materials later. If it stopped, "Finish preparing".
@@ -215,15 +215,25 @@ flowchart LR
 
 ## 11. Plans
 
-| Plan    | Price (monthly / yearly)                            | What's included                                                                                                                                                                                                                                                                                     |
-| ------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Free    | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, 2 minutes of your own materials a week (up to 2 minutes each), basic stats                                                                                                                           |
-| Plus    | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                                                                                                                                                                      |
-| Student | NT$119 / NT$1,190                                   | Listening and the other paid features as in Plus; its own AI writing allowances, a little more than Free (see Allowance under writing). Signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew |
-| Pro     | NT$319 / NT$3,190                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                                                                                                                                                                             |
-| Class   | Small NT$349, Standard NT$549, Large NT$800 a month | 15, 40, or 100 students; assignments and progress, CSV, announcements; 45/70/105 minutes a month for the teacher                                                                                                                                                                                    |
+Paid plans come in three lines (D210), each in three tiers (Student, Plus, Pro):
 
-- Yearly = 10 × monthly: **2 months free**, on every plan (D173).
+- **Listening**: words of your own listening materials a month, plus listening features (audio uploads, playback speed, custom pass rules, shared materials in full); writing stays at the free trial.
+- **Writing**: AI essay reviews, AI checks of extra practice, and chat messages each week; listening stays as on Free.
+- **All-in-One**: the same tier's listening and writing, every allowance in full, for less than buying both (Plus is marked "most popular").
+
+| Line       | Student (monthly / yearly)                                     | Plus (monthly / yearly)                                        | Pro (monthly / yearly)                                                       |
+| ---------- | -------------------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Listening  | NT$90 / NT$900: 2,400 words a month                            | NT$149 / NT$1,490: 3,000 words a month                         | NT$299 / NT$2,990: 9,000 words a month, 10 minutes each, priority, batch PDF |
+| Writing    | NT$119 / NT$1,190: 7 essays, 21 sets, 135 chat messages a week | NT$149 / NT$1,490: 7 essays, 21 sets, 135 chat messages a week | NT$249 / NT$2,490: 19 essays, 56 sets, 360 chat messages a week              |
+| All-in-One | NT$189 / NT$1,890: listening + writing                         | NT$269 / NT$2,690: listening + writing                         | NT$499 / NT$4,990: listening + writing                                       |
+
+- **Free**: every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, 300 words of your own a week (about 2 minutes), basic stats; for writing, 2 AI essay reviews, 10 chat messages, and 7 AI checks of extra practice a week.
+- **Units**: your own materials count English words (about 150 a minute); chats count the messages you send (the 5/10/20 minutes you pick only bound that chat); essay reviews count essays; extra practice's checks count sets.
+- **Practicing never uses your allowance**: official materials and the ones you've made are unlimited; only making new materials and the AI reviews and chats count.
+- **Student**: signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew.
+- **Class plans**: Small (15), Standard (40), Large (100), each as listening, writing, or All-in-One. Listening gives the teacher 6,750/10,500/15,750 words a month; writing gives each student 2 essay reviews and 7/5/3 sets a week (plus 15 chat messages on Small). A teacher's assignment isn't counted separately: its reviews use the student's allowance.
+- Yearly = 10 × monthly: **2 months free**, on every plan. Allowances still reset every month (writing every week) and don't carry over.
+- The pricing page switches between lines and monthly/yearly; My quota shows listening and writing apart. Someone on one line who reaches the other's limit sees "Upgrade to All-in-One".
 - Paid plans are **coming soon**: "Subscribe" adds you to the waiting list; nothing is charged.
 - Refunds: in full within 7 days of the first payment; a yearly plan cancelled early refunds the unused whole months (`/refund`).
 
@@ -278,7 +288,7 @@ flowchart LR
    - Check and Next stay in the same place under the answer box, above a phone's keyboard.
    - At the end: how many were right, the average accuracy, and what was wrong in each sentence. Sentences written wrong go to your notebook, for 1, 3, and 7 days later.
    - **Extra practice**: afterwards, another set of sentences (none from today's set), with its own progress; end it whenever you like. It never changes the day's result.
-   - **Extra practice's AI check** (signed in): the rules first, and exactly right answers count at once; answers that differ are judged together by the AI at the end of the set (one call a set) for meaning and grammar, with a more natural way and why. Another wording that keeps the meaning and grammar counts as right. The result has two lines, "Meaning: right / not the same as the sentence" and "Grammar: correct / has a mistake", each with its reason. Sets a week: 7 on Free, 9 on Student, 10 on Plus, 11 on Pro, shown under My quota; when they're used, the rules check alone and the practice goes on. Turn it off in Writing settings ("Don't use the AI check in extra practice").
+   - **Extra practice's AI check** (signed in): the rules first, and exactly right answers count at once; answers that differ are judged together by the AI at the end of the set (one call a set) for meaning and grammar, with a more natural way and why. Another wording that keeps the meaning and grammar counts as right. The result has two lines, "Meaning: right / not the same as the sentence" and "Grammar: correct / has a mistake", each with its reason. Sets a week: 7 on Free; 21 on Student and Plus and 56 on Pro for the Writing and All-in-One plans (a Listening plan has Free's 7), shown under My quota; when they're used, the rules check alone and the practice goes on. Turn it off in Writing settings ("Don't use the AI check in extra practice").
    - Want more? Pick a drill under "More practice": fix your sentences, pattern practice, sentence combining, paraphrasing, paragraph order, rebuilding from memory, listen-then-write. These don't change the day's progress.
 4. **Day 7, rewrite**:
    - Write the same prompt again, without Day 1 or the model.
@@ -301,11 +311,11 @@ flowchart LR
    - Choose the time (5, 10, or 20 minutes), the situation and partner (classmate, professor, coworker, barista, roommate, online friend, job interviewer, or your own), and your partner's level, then text in English.
    - Your partner replies as usual; a message with a mistake gets a small "Tip" underneath, opened to see the correction, why, and a more natural way. Tap any word of their messages for its meaning or a dictionary.
    - When time's up or you end early: your 3 main mistakes, 3 natural phrases, and the whole conversation; mistakes and phrases go to the notebook, reviewed after 1, 3, and 7 days by writing the English from the Chinese.
-   - Chat minutes a week: 5 on Free and Student, 15 on Plus, 20 on Pro; minutes not used when you end early are given back.
+   - Chat messages a week (D209): 10 on Free; 135 on Student and Plus and 360 on Pro for the Writing and All-in-One plans. The messages you send count; the minutes you pick only bound that chat.
    - The AI won't role-play romance, sex, violence, or anything illegal; under-18s can turn on age-appropriate rules. If you mention hurting yourself, the practice stops and helplines are shown (Taiwan 1925 and 1995, US 988). You can report an inappropriate reply.
    - Only you can see your chats; delete them under Past chats.
 7. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.
-8. **Allowance**: AI reviews a week are 2 on Free, 3 on Student, 5 on Plus, and 6 on Pro. AI scores are estimates, not official results.
+8. **Allowance**: AI essay reviews a week are 2 on Free; 7 on Student and Plus and 19 on Pro for the Writing and All-in-One plans (a Listening plan has Free's 2). AI scores are estimates, not official results.
 9. **Privacy**: only you can see your writing. Admins never see it, and it's never used to train AI.
 
 ---

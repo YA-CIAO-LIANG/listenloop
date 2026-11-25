@@ -1176,7 +1176,7 @@
   },
   "explore": {
     "title": "Shared materials",
-    "intro": "Practices people have shared, each with the same seven-day loop. Anyone can preview the first three sentences; Plus, Pro, and class plans can practice them in full. Official materials are in the library on the home page.",
+    "intro": "Practices others have shared, each on the seven-day loop. Everyone can preview the first three sentences; Listening, All-in-One, and class plans practice them in full. Official materials are in the library on the home page.",
     "none": "No shared practices yet.",
     "searchLabel": "Search titles",
     "searchPlaceholder": "For example: interview",
@@ -1477,7 +1477,7 @@
     "duration": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",
     "youtubeNoKey": {
       "title": "No YouTube API key yet",
-      "body": "Only admins see this note; learners don’t see “YouTube link” until it’s set up. Once YOUTUBE_API_KEY is set and the site is redeployed, Plus and higher plans and admins can use it. Check it with the setup check and connection test on “API usage”.",
+      "body": "Only admins see this; others don't see “YouTube link” until it's set up. Set YOUTUBE_API_KEY and redeploy, and the Listening and All-in-One plans and admins can use it. Check it under API usage's setup check and connection test.",
       "link": "Go to the setup check"
     }
   },
@@ -1491,17 +1491,17 @@
       "activePractices": "You already have {max} practices in progress, your plan’s limit. Finish or remove one before starting another.",
       "charsPerPractice": "The text is over your plan’s limit of {max, number} characters per practice.",
       "practicesTotal": "The free plan lets you try {max} practice of your own, and you've made it.",
-      "customRules": "Custom pass rules are part of the paid plans.",
+      "customRules": "Custom pass rules are part of the Listening and All-in-One plans.",
       "maxPracticeSeconds": "Your plan allows practices up to {max, number} seconds long.",
-      "youtubePractices": "Making practices from YouTube videos is part of the paid plans.",
+      "youtubePractices": "Making practices from YouTube videos is part of the Listening and All-in-One plans.",
       "wordsPerMonth": "You’ve made {max, number} words of practices this month, your plan’s limit. It resets on the 1st.",
       "wordsPerWeek": "The free plan makes {max, number} words of materials a week, and this week's are used up.",
-      "playbackSpeed": "Playback speed is part of Plus and Pro.",
-      "fullStats": "The full stats are part of Plus and Pro.",
-      "priority": "Priority generation is part of Pro.",
-      "batchPdf": "Batch PDFs are part of Pro.",
-      "sharedPractices": "Practicing shared materials in full is part of Plus, Pro, and class plans.",
-      "uploadAudio": "Making practices from your own recordings is a Plus feature.",
+      "playbackSpeed": "Playback speed is part of the Listening and All-in-One plans.",
+      "fullStats": "The full stats are part of the paid plans.",
+      "priority": "Priority generation is part of Pro Listening and Pro All-in-One.",
+      "batchPdf": "Batch PDFs are part of Pro Listening and Pro All-in-One.",
+      "sharedPractices": "Practicing shared materials in full is part of the Listening, All-in-One, and class plans.",
+      "uploadAudio": "Making practices from your own recordings is part of the Listening and All-in-One plans.",
       "uploadMegabytes": "The file is too big: your plan allows up to {max, number} MB a file.",
       "storageMegabytes": "Your recordings use all of your plan's {max, number} MB of storage. Delete recordings you don't need, or upgrade.",
       "revisesPerDay": "You've revised with an instruction {max} times today, your plan's limit; it resets at midnight (Taiwan time).",
@@ -2312,7 +2312,7 @@
         "paused": "Price experiments are paused; a new one can't start."
       },
       "surveyTitle": "Price sensitivity survey (Van Westendorp)",
-      "surveyIntro": "After Day 7, or 30 seconds on the pricing page, people are asked 4 questions (a monthly price for Plus). Once per device, and skippable.",
+      "surveyIntro": "After Day 7, or 30 seconds on the pricing page, people are asked 4 questions (a price a month, for Plus All-in-One); once per device, and skippable.",
       "survey": {
         "responses": "Answers",
         "few": "Worth reading from {n}",
@@ -2574,7 +2574,7 @@
   },
   "terms": {
     "title": "Terms of Service",
-    "updated": "Last updated: November 13, 2026",
+    "updated": "Last updated: November 24, 2026",
     "intro": "Welcome to ListenLoop (the “Service”), a seven-day loop for English listening practice. By using the Service you agree to these terms; if you don’t, please stop using it.",
     "sections": [
       {
@@ -2625,8 +2625,8 @@
       {
         "title": "7. Paid plan and subscriptions",
         "paragraphs": [
-          "Paid plans (Student, Plus, Pro, and the class plans for teachers: Small, Standard, and Large) are subscriptions billed monthly or yearly (a year costs ten months), at the prices on the Plans and pricing page. A yearly plan’s allowance resets every month and doesn’t carry over. The student plan is verified by signing in with a school Google account and lasts a year; if it isn’t renewed, the period already paid can be used to the end, but it won’t renew at the student price. A third-party payment service handles payment.",
-          "Shared materials (practices other users share) can be practiced in full on Plus, Pro, and class plans; on the free plan or signed out, you can preview the first three sentences and listen to the first. You can always practice the materials you share yourself. A shared material you were already practicing when this rule began can be finished for that week.",
+          "Paid plans come in three lines: Listening, Writing, and All-in-One, each in Student, Plus, and Pro tiers; teachers have class plans (Small, Standard, and Large, in the same three lines). They are subscriptions billed monthly or yearly (a year costs ten months), at the prices and with the allowances on the Plans and pricing page. A Listening plan's writing is the free trial; a Writing plan's listening is the free plan's. Your own listening materials are counted in English words (reset monthly); the AI writing reviews and chats in essays, sets, and messages (reset weekly). A yearly plan's allowances still reset every month (writing every week) and don't carry over. Practicing official materials and the ones you've made is unlimited and uses no allowance. The student tier is verified by signing in with a school Google account and lasts a year; if it isn't renewed, the period already paid can be used to the end, but it won't renew at the student price. A third-party payment service handles payment.",
+          "Shared materials (practices other users share) can be practiced in full on Listening, All-in-One, and class plans; on the free plan, a Writing plan, or signed out, you can preview the first three sentences and listen to the first. You can always practice the materials you share yourself. A shared material you were already practicing when this rule began can be finished for that week.",
           "Subscriptions renew automatically: at the end of each period, your payment method is charged for the next, until you cancel. Cancel any time on the Account page; you keep the paid plan until the period ends.",
           "Refunds follow the refund policy: a full refund within 7 days of the first payment; a yearly plan ended early refunds its unused whole months. If prices change, we’ll announce it on the site and show it under \"Plan and billing\" on the account page before the next period starts, and you can cancel before the change applies.",
           "When a subscription ends or you return to the free plan, your materials and progress are kept; you just can't add new materials."
@@ -2782,7 +2782,7 @@
     "fast": "Done at fast speed",
     "raw": "Raw accuracy {score}",
     "weighted": "Weighted accuracy",
-    "locked": "Playback speed (0.75×, 1.25×) is part of Plus and Pro; playing at 1×.",
+    "locked": "Playback speed (0.75×, 1.25×) is part of the Listening and All-in-One plans; playing at 1×.",
     "seePlans": "See plans"
   },
   "stats": {
@@ -2834,7 +2834,7 @@
     "count": "Materials",
     "table": "Show the data table",
     "lockedTitle": "Full stats",
-    "lockedBody": "Accuracy over time, Day 1 against Day 7, your most misheard words, and categories and levels are part of Plus and Pro.",
+    "lockedBody": "Accuracy trends, Day 1 vs Day 7, the most-missed words, and the category and level breakdown are part of the paid plans.",
     "seePlans": "See plans",
     "quizTitle": "Vocabulary quiz",
     "quizCount": "Quizzes",
@@ -2944,7 +2944,7 @@
   },
   "refund": {
     "title": "Refund policy",
-    "updated": "Last updated: November 9, 2026",
+    "updated": "Last updated: November 24, 2026",
     "intro": "ListenLoop's paid plan is a digital service that renews automatically. This page explains how to cancel and when you can get a refund.",
     "sections": [
       {
@@ -2962,8 +2962,8 @@
       {
         "title": "3. Ending a yearly plan early",
         "paragraphs": [
-          "After 7 days, you can still end a yearly plan early: the unused whole months are refunded at that plan’s own monthly rate. For example, Plus yearly at NT$1,490 used for 3 months and a few days refunds 8 × NT$1,490 ÷ 12 ≈ NT$993; the student plan’s year at NT$1,190 refunds 8 × NT$1,190 ÷ 12 ≈ NT$793 in the same case. The month already started isn’t refunded.",
-          "A yearly plan’s allowance still resets every month; unused minutes don’t carry over or turn into refunds."
+          "After 7 days, you can still end a yearly plan early: the unused whole months are refunded at that plan’s own monthly rate. For example, Plus All-in-One yearly at NT$2,690 used for 3 months and a few days refunds 8 × NT$2,690 ÷ 12 ≈ NT$1,793; Student Listening yearly at NT$900 refunds 8 × NT$900 ÷ 12 = NT$600 in the same case. The month already started isn’t refunded.",
+          "A yearly plan’s allowances still reset every month (writing every week); unused words, essays, sets, and messages don’t carry over or turn into refunds."
         ]
       },
       {
@@ -3418,7 +3418,7 @@
     "listen": "Listen to sentence 1",
     "stop": "Stop",
     "locked": "The rest of the sentences, the notes, the handout, and the 7-day practice open when you upgrade.",
-    "plans": "Plus, Pro, and class plans can practice every shared material in full; official materials are always free.",
+    "plans": "Listening, All-in-One, and class plans can practice everyone's shared materials in full; official materials are always free.",
     "upgrade": "Upgrade to practice this material"
   },
   "review": {
@@ -3670,7 +3670,7 @@
     "settingsTitle": "How you practice"
   },
   "upload": {
-    "paidOnly": "Making practices from your own MP3 or MP4 is a Plus feature: AI writes down the recording with each sentence's times, then translates and explains it; you practice with your original recording.",
+    "paidOnly": "Making materials from your own MP3 or MP4 is part of the Listening and All-in-One plans: AI writes down the recording with each sentence's timing, then translates and explains; you practice with your own recording.",
     "seePlans": "See plans",
     "fileLabel": "Choose an MP3 or MP4 file",
     "fileHint": "Up to {mb} MB and {length}, in English. For a video, only the sound is taken out in your browser; the picture is never uploaded.",
@@ -4012,7 +4012,7 @@
       },
       "free": {
         "question": "Is it free?",
-        "answer": "Official materials and the 7-day loop are free. The free plan can also make 2 minutes of your own AI materials a week (two of 1 minute or one of 2 minutes). Paid plans (Plus and Pro) add more minutes, uploading your own audio, playback speed, full practice of shared materials, and more. They're coming soon: join the waiting list; nothing is charged now."
+        "answer": "Official materials and the 7-day loop are free. The free plan can also make 300 words (about 2 minutes) of your own AI materials a week, with 2 AI essay reviews to try each week. Paid plans come in three lines (Listening, Writing, All-in-One) with more words of your own, uploading your own audio, playback speed, full practice of shared materials, more AI essay reviews and chats, and more. They're coming soon: join the waiting list; nothing is charged now."
       },
       "signIn": {
         "question": "Do I have to sign in?",
@@ -4052,7 +4052,7 @@
       },
       "create": {
         "question": "Can I make materials from my own text?",
-        "answer": "Yes. Signed in, go to My materials and paste English or Chinese text (Chinese is translated first), choose a voice and accent, and AI makes the audio and handout. The free plan has 2 minutes a week; Plus has 40 minutes a month and can also make materials from your own MP3 or MP4 recordings; Pro has 120 minutes a month. Materials can be private or shared publicly."
+        "answer": "Yes. Signed in, go to My materials and paste English or Chinese text (Chinese is translated first), choose a voice and accent, and AI makes the audio and handout. Allowances count English words: the free plan has 300 a week; Listening and All-in-One plans have 2,400 to 9,000 a month (by tier) and can also make materials from your own MP3 or MP4 recordings. Making one shows how many words it uses and how many are left this month. Materials can be private or shared publicly."
       },
       "level": {
         "question": "Which material should I start with?",
@@ -4106,7 +4106,7 @@
     "dismiss": "Got it"
   },
   "priceSurvey": {
-    "title": "What is Plus worth? 4 questions",
+    "title": "What is Plus All-in-One worth? 4 questions",
     "intro": "Picture Plus All-in-One (full practice of shared materials, 3,000 words of your own a month, audio uploads, speed, 7 AI essay reviews and 135 chat messages a week, full stats). Give a price a month for each; there are no right answers. Asked only once, and you can skip it.",
     "perMonth": "a month",
     "questions": {
