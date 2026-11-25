@@ -95,7 +95,9 @@ test("an admin: the dashboard, usage, and creating without limits", async ({
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   await page.goto("/materials/new");
   await expect(page.getByTestId("week-allowance")).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "Plus 方案" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "Plus・聽力" })).toHaveCount(
+    0,
+  );
   await page.goto("/materials");
   await expect(
     page.getByRole("link", { name: /待處理的檢舉|檢舉/ }).first(),

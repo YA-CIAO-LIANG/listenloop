@@ -1,10 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { can, PLANS } from "@/lib/plans";
-import {
-  PLAN_WRITING_REVIEWS,
-  worstCaseMargin,
-  writingReviewCost,
-} from "@/lib/payments/price-floor";
+import { UNIT_COSTS } from "@/lib/payments/costs";
 
 describe("WritingLoop's allowances (D187)", () => {
   it("lets every plan finish a seven-day cycle (Day 1 and Day 7 reviews)", () => {
@@ -30,12 +26,11 @@ describe("WritingLoop's allowances (D187)", () => {
     );
   });
 
-  it("puts the reviews in the price floor (D185)", () => {
-    expect(writingReviewCost()).toBeGreaterThan(0.05);
-    expect(writingReviewCost()).toBeLessThan(0.5);
-    expect(PLAN_WRITING_REVIEWS.pro).toBeGreaterThan(PLAN_WRITING_REVIEWS.plus);
-    expect(worstCaseMargin(1190, "year", 40, 3)).toBeLessThan(
-      worstCaseMargin(1190, "year", 40),
+  it("costs a review as measured (D210)", () => {
+    expect(UNIT_COSTS.essay).toBeGreaterThan(0.05);
+    expect(UNIT_COSTS.essay).toBeLessThan(0.5);
+    expect(PLANS.pro.writingReviewsPerWeek!).toBeGreaterThan(
+      PLANS.paid.writingReviewsPerWeek!,
     );
   });
 });

@@ -1,5 +1,16 @@
 import { cache } from "react";
-import { PLANS, planFor, type PlanId, type PlanLimits } from "@/lib/plans";
+import {
+  classStudentWriting,
+  isClassSeats,
+  type ClassTier,
+} from "@/lib/classroom";
+import {
+  isPlanLine,
+  PLANS,
+  planFor,
+  type PlanId,
+  type PlanLimits,
+} from "@/lib/plans";
 import { parseOverride, withOverrides, type QuotaOverride } from "@/lib/quota";
 import { UPLOADS_BUCKET } from "@/lib/supabase/config";
 import { usageDay } from "@/lib/usage";
@@ -24,18 +35,111 @@ export const getQuotaOverrides = cache(
   },
 );
 
-/** The plan table with this account's plan adjusted (for `can`). */
+type StudentWriting = ClassTier["perStudent"];
+
+/**
+ * The writing AI a learner's class plans give them a week (D210): for
+ * each class they're in whose teacher's plan has writing, the most of
+ * each allowance. Null when none.
+ */
+export const getClassWriting = cache(
+  async (userId: string): Promise<StudentWriting | null> => {
+    const admin = getAdminSupabase();
+    if (!admin) return null;
+    const { data: memberships } = await admin
+      .from("class_members")
+      .select("classes!inner(teacher_id, archived_at)")
+      .eq("user_id", userId);
+    const teachers = [
+      ...new Set(
+        (memberships ?? []).flatMap((m) => {
+          const c = m.classes as unknown as {
+            teacher_id: string;
+            archived_at: string | null;
+          } | null;
+          return c && c.archived_at === null ? [c.teacher_id] : [];
+        }),
+      ),
+    ];
+    if (teachers.length === 0) return null;
+    const { data: profiles } = await admin
+      .from("profiles")
+      .select("classroom_seats, classroom_line")
+      .in("user_id", teachers);
+    let best: StudentWriting | null = null;
+    for (const p of profiles ?? []) {
+      const given = classStudentWriting(
+        isClassSeats(p.classroom_seats) ? p.classroom_seats : null,
+        isPlanLine(p.classroom_line) ? p.classroom_line : "all",
+      );
+      if (!given) continue;
+      best = best
+        ? {
+            essaysPerWeek: Math.max(best.essaysPerWeek, given.essaysPerWeek),
+            backChecksPerWeek: Math.max(
+              best.backChecksPerWeek,
+              given.backChecksPerWeek,
+            ),
+            chatMessagesPerWeek: Math.max(
+              best.chatMessagesPerWeek,
+              given.chatMessagesPerWeek,
+            ),
+          }
+        : given;
+    }
+    return best;
+  },
+);
+
+/** The larger of a plan's limit and a class's (null is unlimited). */
+const atLeast = (own: number | null, given: number) =>
+  own === null ? null : Math.max(own, given);
+
+/** A plan's limits with a class plan's writing for its students (D210). */
+export function withClassWriting(
+  limits: PlanLimits,
+  given: StudentWriting | null,
+): PlanLimits {
+  if (!given) return limits;
+  return {
+    ...limits,
+    writingReviewsPerWeek: atLeast(
+      limits.writingReviewsPerWeek,
+      given.essaysPerWeek,
+    ),
+    backChecksPerWeek: atLeast(
+      limits.backChecksPerWeek,
+      given.backChecksPerWeek,
+    ),
+    chatMessagesPerWeek: atLeast(
+      limits.chatMessagesPerWeek,
+      given.chatMessagesPerWeek,
+    ),
+  };
+}
+
+/**
+ * The plan table with this account's plan adjusted (for `can`): a class
+ * plan's writing for its students (D210), then an admin's changes (D161).
+ */
 export async function plansFor(
   user: SignedInUser,
   base: Readonly<Record<PlanId, PlanLimits>> = PLANS,
 ): Promise<Readonly<Record<PlanId, PlanLimits>>> {
   const plan = planFor(user);
   if (plan === "admin") return base;
-  const overrides = await getQuotaOverrides(user.id);
-  if (overrides.length === 0) return base;
+  const [overrides, classWriting] = await Promise.all([
+    getQuotaOverrides(user.id),
+    getClassWriting(user.id),
+  ]);
+  if (overrides.length === 0 && !classWriting) return base;
   return {
     ...base,
-    [plan]: withOverrides(base[plan], overrides, new Date()),
+    [plan]: withOverrides(
+      withClassWriting(base[plan], classWriting),
+      overrides,
+      new Date(),
+    ),
   };
 }
 

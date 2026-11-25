@@ -52,6 +52,7 @@ describe("getSignedInUser", () => {
       plan: "free",
       practicesCreated: 0,
       classroomSeats: null,
+      classroomLine: "all",
       studentVerifiedAt: null,
       signedInAt: null,
       aiSuspended: null,

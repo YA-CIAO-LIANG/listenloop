@@ -1,39 +1,29 @@
+import { CLASS_TIERS, classPrice } from "./classroom";
+import {
+  classCostRows,
+  personalCostRows,
+  type CostRow,
+} from "./payments/costs";
 import {
   BILLING_PERIODS,
-  PAID_PLANS,
   PERIOD_MONTHS,
   PLAN_PRICES,
   type BillingPeriod,
-  type PaidPlan,
 } from "./payments/pricing";
-import {
-  CLASS_COST,
-  CLASS_TIERS,
-  classPrice,
-  type ClassTierId,
-} from "./classroom";
-import { PLANS } from "./plans";
-import { WORDS_PER_MINUTE } from "./units";
+import type { PlanLine, PlanTier } from "./plans";
 
 /**
- * The plans the forecast counts (D173): the personal ones, and each class
- * tier (its teacher's minutes; students use their own plan).
+ * The plans the forecast counts (D173, D210): every personal line and
+ * tier ("all-plus"), and every class size and line ("class-small-all").
  */
-export const FORECAST_PLANS = [
-  ...PAID_PLANS,
-  "classSmall",
-  "classStandard",
-  "classLarge",
-] as const;
-export type ForecastPlan = (typeof FORECAST_PLANS)[number];
+export const COST_ROWS: readonly CostRow[] = [
+  ...personalCostRows(),
+  ...classCostRows(CLASS_TIERS),
+];
+export const FORECAST_PLANS = COST_ROWS.map((row) => row.id);
+export type ForecastPlan = string;
 
-const CLASS_PLAN_TIER: Readonly<Record<string, ClassTierId>> = {
-  classSmall: "small",
-  classStandard: "standard",
-  classLarge: "large",
-};
-const tierOf = (plan: ForecastPlan) =>
-  CLASS_TIERS.find((tier) => tier.id === CLASS_PLAN_TIER[plan]);
+const rowOf = (plan: ForecastPlan) => COST_ROWS.find((row) => row.id === plan)!;
 
 /**
  * The admin's revenue forecast (D102, D184): a month of a business with
@@ -46,10 +36,13 @@ export type ForecastInput = {
   /** Subscribers per plan and period, and the price each pays. */
   subscribers: Record<ForecastPlan, Record<BillingPeriod, number>>;
   prices: Record<ForecastPlan, Record<BillingPeriod, number>>;
-  /** Share of the monthly minutes people actually use, 0–1. */
+  /** Share of the allowances people actually use, 0–1. */
   usage: Record<ForecastPlan, number>;
-  /** AI cost to make one minute of practice (text, notes, voice), NT$. */
-  aiPerMinute: number;
+  /**
+   * The calibrated AI and voice costs (lib/payments/costs.ts) times this:
+   * 1 as measured; more to see what dearer AI would do.
+   */
+  costScale: number;
   /** Business tax included in the prices, 0–1 (5% in Taiwan). */
   taxRate: number;
   /** Payment fees: a share of each payment, plus a fixed amount, NT$. */
@@ -77,17 +70,6 @@ export type ForecastResult = {
   subscribers: number;
 };
 
-const MINUTES: Readonly<Record<ForecastPlan, number>> = {
-  plus: (PLANS.paid.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
-  pro: (PLANS.pro.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
-  // Plus at a student price (D144).
-  student: (PLANS.paid.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
-  // A class plan's teacher (D173).
-  classSmall: tierOf("classSmall")?.minutes ?? 0,
-  classStandard: tierOf("classStandard")?.minutes ?? 0,
-  classLarge: tierOf("classLarge")?.minutes ?? 0,
-};
-
 /**
  * Defaults for ECPay (綠界, D184): about 2.75% a card payment, plus 5%
  * tax on that fee ≈ 2.9%, no fixed fee; the real rate is in the contract.
@@ -95,49 +77,37 @@ const MINUTES: Readonly<Record<ForecastPlan, number>> = {
 export const ECPAY_FEE_RATE = 0.029;
 export const TW_BUSINESS_TAX = 0.05;
 
-/**
- * Voice a minute of practice costs once past the free tier, NT$ (D184):
- * the measured characters a minute at the higher paid voice price, the
- * same worst case as the class plans (D173).
- */
-export function voicePerMinute(twdPerUsd: number = CLASS_COST.twdPerUsd) {
-  return (
-    ((CLASS_COST.voiceCharsPerMinute * CLASS_COST.voiceUsdPerMillionChars) /
-      1_000_000) *
-    twdPerUsd
-  );
-}
-
-/** Operations that are voice, priced by voicePerMinute instead. */
-const VOICE_OPERATIONS = new Set(["speech", "transcribe"]);
-
-/**
- * US$ of language-model calls among `calls` (D184): evals (`eval:…`, not
- * a learner's practice) and voice (counted by voicePerMinute, free today
- * on Azure F0 so logged as 0) are left out.
- */
-export function languageCostUsd(
-  calls: readonly { operation: string; cost_micros: number | null }[],
-): number {
-  return (
-    calls
-      .filter(
-        (c) =>
-          !c.operation.startsWith("eval:") &&
-          !VOICE_OPERATIONS.has(c.operation),
-      )
-      .reduce((sum, c) => sum + (c.cost_micros ?? 0), 0) / 1e6
-  );
-}
-
 const priceOf = (plan: ForecastPlan, period: BillingPeriod): number => {
-  const tier = tierOf(plan);
-  return tier
-    ? classPrice(tier, period)
-    : PLAN_PRICES[plan as PaidPlan][period].amount;
+  const row = rowOf(plan);
+  if (row.kind === "class") {
+    const tier = CLASS_TIERS.find((t) => t.id === row.tier)!;
+    return classPrice(tier, period, row.line);
+  }
+  return PLAN_PRICES[row.line][row.tier as PlanTier][period].amount;
 };
 
-export function defaultForecastInput(aiPerMinute: number): ForecastInput {
+/** Default subscribers: most on the "all" line, yearly a little ahead. */
+const DEFAULT_PEOPLE: Readonly<
+  Record<PlanLine, Readonly<Record<string, Record<BillingPeriod, number>>>>
+> = {
+  listening: {
+    student: { month: 5, year: 5 },
+    plus: { month: 10, year: 15 },
+    pro: { month: 2, year: 3 },
+  },
+  writing: {
+    student: { month: 5, year: 5 },
+    plus: { month: 10, year: 15 },
+    pro: { month: 2, year: 3 },
+  },
+  all: {
+    student: { month: 5, year: 10 },
+    plus: { month: 20, year: 40 },
+    pro: { month: 3, year: 8 },
+  },
+};
+
+export function defaultForecastInput(): ForecastInput {
   const grid = <T>(value: (plan: ForecastPlan, period: BillingPeriod) => T) =>
     Object.fromEntries(
       FORECAST_PLANS.map((plan) => [
@@ -146,28 +116,26 @@ export function defaultForecastInput(aiPerMinute: number): ForecastInput {
       ]),
     ) as Record<ForecastPlan, Record<BillingPeriod, T>>;
   return {
-    subscribers: grid(
-      (plan, period) =>
-        ({
-          plus: { month: 30, year: 60 },
-          pro: { month: 5, year: 12 },
-          student: { month: 10, year: 10 },
-          // Cram schools and teachers mostly pay by the school year.
-          classSmall: { month: 2, year: 3 },
-          classStandard: { month: 1, year: 3 },
-          classLarge: { month: 0, year: 1 },
-        })[plan][period],
-    ),
+    subscribers: grid((plan, period) => {
+      const row = rowOf(plan);
+      if (row.kind === "personal") {
+        return DEFAULT_PEOPLE[row.line][row.tier][period];
+      }
+      // Cram schools and teachers mostly pay by the school year.
+      return row.line === "all" && period === "year"
+        ? row.tier === "large"
+          ? 1
+          : 2
+        : 0;
+    }),
     prices: grid(priceOf),
-    usage: {
-      plus: 0.4,
-      pro: 0.4,
-      student: 0.4,
-      classSmall: 0.6,
-      classStandard: 0.6,
-      classLarge: 0.6,
-    },
-    aiPerMinute,
+    usage: Object.fromEntries(
+      FORECAST_PLANS.map((plan) => [
+        plan,
+        rowOf(plan).kind === "class" ? 0.6 : 0.4,
+      ]),
+    ),
+    costScale: 1,
     taxRate: TW_BUSINESS_TAX,
     feeRate: ECPAY_FEE_RATE,
     feeFixed: 0,
@@ -190,7 +158,11 @@ export function forecast(input: ForecastInput): ForecastResult {
       revenue += (people * price) / months;
       cash += people * price;
       fees += (people / months) * (price * input.feeRate + input.feeFixed);
-      aiCost += people * MINUTES[plan] * input.usage[plan] * input.aiPerMinute;
+      aiCost +=
+        people *
+        rowOf(plan).fullCost *
+        Math.max(0, input.usage[plan] ?? 0) *
+        Math.max(0, input.costScale);
     }
   }
   const serverCost = input.serverMonthly;

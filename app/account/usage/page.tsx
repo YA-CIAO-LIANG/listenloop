@@ -14,7 +14,26 @@ import {
   referralUrl,
 } from "@/lib/referral";
 import { SITE_URL } from "@/lib/site";
+import { planLabel, type PlanNameTranslator } from "@/lib/plan-names";
+import { lineHasListening, lineHasWriting, planParts } from "@/lib/plans";
+import { UpsellToAll } from "@/components/UpsellToAll";
 import { secondsToWords, WORDS_PER_MINUTE } from "@/lib/units";
+
+/** The meters by part (D210): what the plan's line includes. */
+const QUOTA_GROUPS: readonly (readonly [
+  "listening" | "writing" | "other",
+  readonly QuotaRow["id"][],
+])[] = [
+  [
+    "listening",
+    ["wordsPerWeek", "wordsPerMonth", "revisesPerDay", "storageMegabytes"],
+  ],
+  [
+    "writing",
+    ["writingReviewsPerWeek", "backChecksPerWeek", "chatMessagesPerWeek"],
+  ],
+  ["other", ["dailyAi"]],
+];
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("quota");
@@ -31,11 +50,14 @@ export default async function QuotaPage() {
   if (!user) redirect("/login?next=/account/usage");
   // A friend's Day 1 since the last visit counts before the numbers show.
   await settleReferralsFor(user.id);
-  const [t, format, report] = await Promise.all([
+  const [t, tPlans, format, report] = await Promise.all([
     getTranslations("quota"),
+    getTranslations("planNames"),
     getFormatter(),
     quotaReport(user),
   ]);
+  const tn = tPlans as unknown as PlanNameTranslator;
+  const parts = planParts(report.plan);
   // In the learner's own time zone (D139; the formatter's default), as
   // "11/16 週一 00:00", like the create page (D170).
   const when = (iso: string) =>
@@ -61,7 +83,7 @@ export default async function QuotaPage() {
       </Link>
       <h1 className="mt-6 font-display text-h1">{t("title")}</h1>
       <p className="mt-4 max-w-reading text-ink-muted">
-        {t("intro", { plan: t(`plans.${report.plan}`) })}
+        {t("intro", { plan: planLabel(report.plan, tn) })}
       </p>
 
       {report.aiSuspended !== null && (
@@ -70,69 +92,106 @@ export default async function QuotaPage() {
         </p>
       )}
 
-      <ul className="mt-8 max-w-practice space-y-4">
-        {report.rows.map((row) => {
-          const share = usageShare(row.used, row.max);
-          const warn = share !== null && share >= QUOTA_WARN_SHARE;
-          const left =
-            row.max === null ? null : Math.max(0, row.max - row.used);
-          return (
-            <li key={row.id}>
-              <Card>
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h2 className="font-medium">{t(`rows.${row.id}`)}</h2>
-                  <p className="text-supporting tabular-nums">
-                    {row.max === null
-                      ? t("unlimitedUsed", { used: amount(row, row.used) })
-                      : t("usedOf", {
-                          used: amount(row, row.used),
-                          max: amount(row, row.max),
-                        })}
-                  </p>
-                </div>
-                {share !== null && (
-                  <div
-                    role="meter"
-                    aria-label={t(`rows.${row.id}`)}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-valuenow={Math.round(share * 100)}
-                    className="mt-3 h-1 w-full overflow-hidden rounded-full bg-line"
-                  >
-                    <div
-                      className={`h-full ${warn ? "bg-error" : "bg-accent"}`}
-                      style={{ width: `${Math.round(share * 100)}%` }}
-                    />
-                  </div>
-                )}
-                <p className="mt-2 text-supporting text-ink-muted">
-                  {left !== null && t("left", { left: amount(row, left) })}
-                  {left !== null && " · "}
-                  {row.resetsAt
-                    ? t("resets", { at: when(row.resetsAt) })
-                    : t("noReset")}
-                </p>
-                {warn && (
-                  <p className="mt-2 text-supporting font-medium text-error">
-                    {share >= 1 ? t("usedUp") : t("almost")}
-                  </p>
-                )}
-                {/* Used up: what to do next, not a dead end (D170). */}
-                {share !== null && share >= 1 && report.plan !== "admin" && (
-                  <p className="mt-1 text-supporting">
-                    <Link
-                      href="/pricing?from=quota"
-                      className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
-                    >
-                      {t("upgrade")}
-                    </Link>
-                  </p>
-                )}
-              </Card>
-            </li>
-          );
-        })}
-      </ul>
+      {QUOTA_GROUPS.map(([group, ids]) => {
+        const rows = report.rows.filter((row) => ids.includes(row.id));
+        if (rows.length === 0) return null;
+        const part = group === "other" ? null : group;
+        const free =
+          part !== null &&
+          parts !== null &&
+          !(part === "listening"
+            ? lineHasListening(parts.line)
+            : lineHasWriting(parts.line));
+        return (
+          <section
+            key={group}
+            aria-labelledby={`quota-${group}`}
+            className="mt-10 max-w-practice"
+          >
+            <h2 id={`quota-${group}`} className="font-display text-h2">
+              {t(`groups.${group}`)}
+            </h2>
+            {free && (
+              <p className="mt-2 text-supporting text-ink-muted">
+                {t(`groupsFree.${part}`)}
+              </p>
+            )}
+            {part && (
+              <div className="mt-2">
+                <UpsellToAll need={part} feature="quota" />
+              </div>
+            )}
+            <ul className="mt-4 space-y-4">
+              {rows.map((row) => {
+                const share = usageShare(row.used, row.max);
+                const warn = share !== null && share >= QUOTA_WARN_SHARE;
+                const left =
+                  row.max === null ? null : Math.max(0, row.max - row.used);
+                return (
+                  <li key={row.id}>
+                    <Card>
+                      <div className="flex flex-wrap items-baseline justify-between gap-2">
+                        <h3 className="font-medium">{t(`rows.${row.id}`)}</h3>
+                        <p className="text-supporting tabular-nums">
+                          {row.max === null
+                            ? t("unlimitedUsed", {
+                                used: amount(row, row.used),
+                              })
+                            : t("usedOf", {
+                                used: amount(row, row.used),
+                                max: amount(row, row.max),
+                              })}
+                        </p>
+                      </div>
+                      {share !== null && (
+                        <div
+                          role="meter"
+                          aria-label={t(`rows.${row.id}`)}
+                          aria-valuemin={0}
+                          aria-valuemax={100}
+                          aria-valuenow={Math.round(share * 100)}
+                          className="mt-3 h-1 w-full overflow-hidden rounded-full bg-line"
+                        >
+                          <div
+                            className={`h-full ${warn ? "bg-error" : "bg-accent"}`}
+                            style={{ width: `${Math.round(share * 100)}%` }}
+                          />
+                        </div>
+                      )}
+                      <p className="mt-2 text-supporting text-ink-muted">
+                        {left !== null &&
+                          t("left", { left: amount(row, left) })}
+                        {left !== null && " · "}
+                        {row.resetsAt
+                          ? t("resets", { at: when(row.resetsAt) })
+                          : t("noReset")}
+                      </p>
+                      {warn && (
+                        <p className="mt-2 text-supporting font-medium text-error">
+                          {share >= 1 ? t("usedUp") : t("almost")}
+                        </p>
+                      )}
+                      {/* Used up: what to do next, not a dead end (D170). */}
+                      {share !== null &&
+                        share >= 1 &&
+                        report.plan !== "admin" && (
+                          <p className="mt-1 text-supporting">
+                            <Link
+                              href="/pricing?from=quota"
+                              className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+                            >
+                              {t("upgrade")}
+                            </Link>
+                          </p>
+                        )}
+                    </Card>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        );
+      })}
 
       {report.overrides.length > 0 && (
         <section

@@ -253,12 +253,18 @@ describe("weekly messages and limits (D209)", () => {
     expect(can("admin", { kind: "chat-message", thisWeek: 999 }).ok).toBe(true);
   });
 
-  it("nobody's chat allowance shrank: each plan has its old minutes' messages", () => {
+  it("nobody's chat allowance shrank: each plan has at least its old minutes' messages", () => {
     // Minutes before D209: free 5, student 5, Plus 15, Pro 20.
     expect(PLANS.free.chatMessagesPerWeek).toBe(maxMessages(5));
-    expect(PLANS.student.chatMessagesPerWeek).toBe(maxMessages(5));
-    expect(PLANS.paid.chatMessagesPerWeek).toBe(maxMessages(15));
-    expect(PLANS.pro.chatMessagesPerWeek).toBe(maxMessages(20));
+    expect(PLANS.student.chatMessagesPerWeek).toBeGreaterThanOrEqual(
+      maxMessages(5),
+    );
+    expect(PLANS.paid.chatMessagesPerWeek).toBeGreaterThanOrEqual(
+      maxMessages(15),
+    );
+    expect(PLANS.pro.chatMessagesPerWeek).toBeGreaterThanOrEqual(
+      maxMessages(20),
+    );
   });
 
   it("caps messages and counts minutes used", () => {
@@ -272,36 +278,10 @@ describe("weekly messages and limits (D209)", () => {
   });
 });
 
-describe("chat minutes and the price (D197)", () => {
-  it("every paid plan stays above the price floor with its chat minutes", async () => {
-    const { worstCaseTable, PRICE_FLOOR, PLAN_CHAT_EXTRA } =
-      await import("@/lib/payments/price-floor");
-    for (const row of worstCaseTable()) {
-      expect(row.margin, `${row.plan} ${row.period}`).toBeGreaterThanOrEqual(
-        PRICE_FLOOR.minMarginPerMonth,
-      );
-    }
-    expect(PLAN_CHAT_EXTRA.pro).toBeGreaterThan(0);
-  });
-
-  it("a plan's chat costs at most a quarter of its monthly price", async () => {
-    const { chatMonthCost } = await import("@/lib/payments/price-floor");
-    const { PLAN_PRICES, PERIOD_MONTHS } =
-      await import("@/lib/payments/pricing");
-    const minutes = {
-      plus: PLANS.paid.chatMessagesPerWeek!,
-      student: PLANS.paid.chatMessagesPerWeek!,
-      pro: PLANS.pro.chatMessagesPerWeek!,
-    };
-    for (const plan of ["plus", "student", "pro"] as const) {
-      for (const period of ["month", "year"] as const) {
-        const monthly =
-          PLAN_PRICES[plan][period].amount / PERIOD_MONTHS[period];
-        expect(
-          chatMonthCost(minutes[plan]),
-          `${plan} ${period}`,
-        ).toBeLessThanOrEqual(monthly * 0.25);
-      }
-    }
+describe("chat messages and the price (D197, D210)", () => {
+  it("costs each message as measured, with room for a long chat", async () => {
+    const { UNIT_COSTS } = await import("@/lib/payments/costs");
+    expect(UNIT_COSTS.chatMessage).toBeGreaterThan(0.01);
+    expect(UNIT_COSTS.chatMessage).toBeLessThan(0.03);
   });
 });

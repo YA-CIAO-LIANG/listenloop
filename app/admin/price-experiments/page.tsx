@@ -15,7 +15,11 @@ import {
 import { ScrollRegion } from "@/components/ScrollRegion";
 import { StatTile } from "@/components/StatTile";
 import { PAID_PLANS, PLAN_PRICES, type PaidPlan } from "@/lib/payments/pricing";
+import { planLabel, type PlanNameTranslator } from "@/lib/plan-names";
+import { accountPlanFor, PLAN_LINES } from "@/lib/plans";
 import {
+  EXPERIMENT_LINE,
+  PRICE_EXPERIMENTS_PAUSED,
   effectivePrices,
   EXPERIMENT_LIMITS,
   revenuePerVisitor,
@@ -37,18 +41,27 @@ export async function generateMetadata(): Promise<Metadata> {
  */
 export default async function AdminPriceExperimentsPage() {
   await connection();
-  const [t, tNames, format, reports, overrides, answers] = await Promise.all([
-    getTranslations("admin.priceExperiments"),
-    getTranslations("plansPage.names"),
-    getFormatter(),
-    getExperimentReports(),
-    getPriceOverrides(),
-    getPriceSurveyAnswers(),
-  ]);
-  const prices = effectivePrices(PLAN_PRICES, overrides);
+  const [t, tNames, tPlans, format, reports, overrides, answers] =
+    await Promise.all([
+      getTranslations("admin.priceExperiments"),
+      getTranslations("plansPage.names"),
+      getTranslations("planNames"),
+      getFormatter(),
+      getExperimentReports(),
+      getPriceOverrides(),
+      getPriceSurveyAnswers(),
+    ]);
+  const tn = tPlans as unknown as PlanNameTranslator;
+  // While paused, nobody sees an applied price (D210).
+  const prices = PRICE_EXPERIMENTS_PAUSED
+    ? PLAN_PRICES
+    : effectivePrices(PLAN_PRICES, overrides);
   const day = { year: "numeric", month: "numeric", day: "numeric" } as const;
   const current = Object.fromEntries(
-    PAID_PLANS.map((plan) => [plan, prices[plan].month.amount]),
+    PAID_PLANS.map((plan) => [
+      plan,
+      prices[EXPERIMENT_LINE][plan].month.amount,
+    ]),
   ) as Record<PaidPlan, number>;
   const running = reports.find((r) => r.status === "running") ?? null;
   const past = reports.filter((r) => r.status === "ended");
@@ -64,6 +77,14 @@ export default async function AdminPriceExperimentsPage() {
       <div className="space-y-4">
         <h1 className="font-display text-h1">{t("title")}</h1>
         <p className="max-w-reading text-ink-muted">{t("intro")}</p>
+        {PRICE_EXPERIMENTS_PAUSED && (
+          <p
+            role="status"
+            className="max-w-reading rounded-base border border-line surface-card p-4"
+          >
+            {t("paused")}
+          </p>
+        )}
       </div>
 
       <section aria-labelledby="prices-now" className="space-y-4">
@@ -71,25 +92,41 @@ export default async function AdminPriceExperimentsPage() {
           {t("nowTitle")}
         </h2>
         <ul className="space-y-2">
-          {PAID_PLANS.map((plan) => {
-            const applied = overrides.some((o) => o.plan === plan);
-            return (
-              <li key={plan} className="flex flex-wrap items-center gap-3">
-                <span className="w-28 font-medium">{tNames(plan)}</span>
-                <span className="tabular-nums">
-                  {t("perMonth", { price: nt(current[plan]) })}
-                </span>
-                <span className="text-supporting text-ink-muted">
-                  {applied
-                    ? t("applied", {
-                        price: nt(PLAN_PRICES[plan].month.amount),
-                      })
-                    : t("default")}
-                </span>
-                {applied && <ClearOverrideButton plan={plan} />}
-              </li>
-            );
-          })}
+          {PLAN_LINES.flatMap((line) =>
+            PAID_PLANS.map((plan) => {
+              const applied =
+                !PRICE_EXPERIMENTS_PAUSED &&
+                line === EXPERIMENT_LINE &&
+                overrides.some((o) => o.plan === plan);
+              return (
+                <li
+                  key={`${line}-${plan}`}
+                  className="flex flex-wrap items-center gap-3"
+                >
+                  <span className="w-44 font-medium">
+                    {planLabel(accountPlanFor(line, plan), tn)}
+                  </span>
+                  <span className="tabular-nums">
+                    {t("perMonth", {
+                      price: nt(
+                        line === EXPERIMENT_LINE
+                          ? current[plan]
+                          : PLAN_PRICES[line][plan].month.amount,
+                      ),
+                    })}
+                  </span>
+                  <span className="text-supporting text-ink-muted">
+                    {applied
+                      ? t("applied", {
+                          price: nt(PLAN_PRICES[line][plan].month.amount),
+                        })
+                      : t("default")}
+                  </span>
+                  {applied && <ClearOverrideButton plan={plan} />}
+                </li>
+              );
+            }),
+          )}
         </ul>
       </section>
 
@@ -200,14 +237,16 @@ export default async function AdminPriceExperimentsPage() {
         ) : (
           <>
             <p className="max-w-reading text-ink-muted">{t("none")}</p>
-            <StartExperimentForm
-              current={current}
-              names={
-                Object.fromEntries(
-                  PAID_PLANS.map((plan) => [plan, tNames(plan)]),
-                ) as Record<PaidPlan, string>
-              }
-            />
+            {!PRICE_EXPERIMENTS_PAUSED && (
+              <StartExperimentForm
+                current={current}
+                names={
+                  Object.fromEntries(
+                    PAID_PLANS.map((plan) => [plan, tNames(plan)]),
+                  ) as Record<PaidPlan, string>
+                }
+              />
+            )}
           </>
         )}
       </section>

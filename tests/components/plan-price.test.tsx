@@ -16,7 +16,10 @@ describe("PlanPrice", () => {
 
   it("shows a yearly plan as its average a month, the total paid once under it", () => {
     renderWithIntl(
-      <PlanPrice total={PLAN_PRICES.plus.year.amount} period="year" />,
+      <PlanPrice
+        total={PLAN_PRICES.listening.plus.year.amount}
+        period="year"
+      />,
     );
     expect(screen.getByText("NT$124").className).toContain("text-h2");
     const note = screen.getByText(/年繳 NT\$1,490，一次付清，/);
@@ -27,23 +30,25 @@ describe("PlanPrice", () => {
   it("fits a table cell on one line", () => {
     renderWithIntl(
       <PlanPrice
-        total={PLAN_PRICES.pro.year.amount}
+        total={PLAN_PRICES.listening.pro.year.amount}
         period="year"
         size="inline"
       />,
     );
-    expect(screen.getByText(/NT\$266／月/).textContent).toBe(
-      "NT$266／月 （年繳 NT$3,190）",
+    expect(screen.getByText(/NT\$249／月/).textContent).toBe(
+      "NT$249／月 （年繳 NT$2,990）",
     );
   });
 
-  it("is what the upgrade card shows for Plus", () => {
+  it("is what the upgrade card shows for Plus listening (D210)", () => {
     renderWithIntl(
       <PaidPlanCard
         block={{ limit: "practicesTotal", max: 1 }}
+        plan="free"
         joined={false}
       />,
     );
+    expect(screen.getByText("Plus・聽力")).toBeTruthy();
     expect(screen.getByText("NT$124")).toBeTruthy();
     expect(screen.queryByText(/即將推出/)).toBeNull();
   });

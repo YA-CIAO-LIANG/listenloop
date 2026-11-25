@@ -2,7 +2,12 @@ import { cache } from "react";
 import { isAdminEmail } from "@/lib/admin";
 import { signedInAt } from "@/lib/auth/recent";
 import type { Role } from "@/lib/accounts";
-import { isAccountPlan, type AccountPlan } from "@/lib/plans";
+import {
+  isAccountPlan,
+  isPlanLine,
+  type AccountPlan,
+  type PlanLine,
+} from "@/lib/plans";
 import { getAdminSupabase } from "./admin";
 import { getServerSupabase } from "./server";
 
@@ -19,6 +24,8 @@ export type SignedInUser = {
   practicesCreated: number;
   /** A teacher's class plan: its seats (D103), or null without one. */
   classroomSeats: number | null;
+  /** That class plan's line (D210): listening, writing, or both. */
+  classroomLine?: PlanLine;
   /** Last sign-in with a school email (D144), or null; good for a year. */
   studentVerifiedAt?: string | null;
   /** When this session signed in (seconds), for risky actions (D159). */
@@ -45,7 +52,7 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
   const { data: profile } = await supabase
     .from("profiles")
     .select(
-      "number, role, status, plan, practices_created, classroom_seats, beta_admitted_at, student_verified_at, ai_suspended_at, ai_suspended_reason",
+      "number, role, status, plan, practices_created, classroom_seats, classroom_line, beta_admitted_at, student_verified_at, ai_suspended_at, ai_suspended_reason",
     )
     .eq("user_id", id)
     .maybeSingle();
@@ -80,6 +87,9 @@ export const getSignedInUser = cache(async (): Promise<SignedInUser | null> => {
     plan: isAccountPlan(profile?.plan) ? profile.plan : "free",
     practicesCreated: profile?.practices_created ?? 0,
     classroomSeats: profile?.classroom_seats ?? null,
+    classroomLine: isPlanLine(profile?.classroom_line)
+      ? profile.classroom_line
+      : "all",
     studentVerifiedAt: profile?.student_verified_at ?? null,
     signedInAt: signedInAt(claims),
     aiSuspended: profile?.ai_suspended_at

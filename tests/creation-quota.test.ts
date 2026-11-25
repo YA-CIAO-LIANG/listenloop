@@ -121,7 +121,7 @@ describe("referral bonus minutes (D177)", () => {
     const { plans, bonusLeftSeconds } = await creationAllowance(
       user("paid") as never,
     );
-    expect(plans.paid.wordsPerMonth).toBe(6300);
+    expect(plans.paid.wordsPerMonth).toBe(3300);
     expect(bonusLeftSeconds).toBe(120);
   });
 

@@ -118,6 +118,11 @@ type CreatePracticeFormProps = {
   sitePace?: number | null;
   /** Records the real time it took (D142). */
   recordTime?: typeof recordGenerationTime;
+  /**
+   * Words of the plan's allowance left (D210), to show what this
+   * practice will use; null words: unlimited. Absent for official ones.
+   */
+  allowance?: { leftWords: number | null; period: "week" | "month" } | null;
 };
 
 type FormError =
@@ -162,6 +167,7 @@ export function CreatePracticeForm({
   aiRevise = true,
   sitePace = null,
   recordTime = recordGenerationTime,
+  allowance = null,
 }: CreatePracticeFormProps) {
   const tPlans = useTranslations("plans");
   const tSpeakers = useTranslations("speakers");
@@ -619,6 +625,22 @@ export function CreatePracticeForm({
               perMinute: WORDS_PER_MINUTE,
             })}
           </p>
+          {/* What it uses of the plan's words (D210). */}
+          {allowance && allowance.leftWords !== null && (
+            <p
+              data-testid="allowance-use"
+              className={`mt-1 text-supporting ${
+                countWords(rows.map((row) => row.en)) > allowance.leftWords
+                  ? "text-error"
+                  : "text-ink-muted"
+              }`}
+            >
+              {t(`allowanceUse.${allowance.period}`, {
+                words: countWords(rows.map((row) => row.en)),
+                left: allowance.leftWords,
+              })}
+            </p>
+          )}
         </div>
         {/* AI changes the English by an instruction (D96). */}
         {aiRevise && (

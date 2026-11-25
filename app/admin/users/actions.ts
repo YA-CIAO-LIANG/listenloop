@@ -8,7 +8,7 @@ import { isAccountStatus, isRole } from "@/lib/accounts";
 import { isAdminEmail } from "@/lib/admin";
 import { isUuid } from "@/lib/custom-practice/organize";
 import { CLASS_TIERS } from "@/lib/classroom";
-import { isAccountPlan } from "@/lib/plans";
+import { isAccountPlan, isPlanLine } from "@/lib/plans";
 
 export type UserChangeResult =
   | { ok: true }
@@ -103,12 +103,13 @@ export async function changeUser(
 
 /**
  * Turns a teacher's class plan on (a tier's seats, CLASS_TIERS, D173) or off
- * (null) by hand, for trying Classroom before payments open (D103, D105);
- * audited.
+ * (null) by hand, for trying Classroom before payments open (D103, D105),
+ * with its line (D210: listening, writing, or both); audited.
  */
 export async function setClassroomSeats(
   userId: unknown,
   seats: unknown,
+  line: unknown = "all",
 ): Promise<UserChangeResult> {
   // Risky: a sign-in within 30 minutes (D159).
   const [actor, admin] = [await getRecentAdmin(), getAdminSupabase()];
@@ -118,25 +119,30 @@ export async function setClassroomSeats(
     seats === null
       ? null
       : (CLASS_TIERS.find((tier) => tier.seats === seats)?.seats ?? undefined);
-  if (!isUuid(userId) || tierSeats === undefined) {
+  if (!isUuid(userId) || tierSeats === undefined || !isPlanLine(line)) {
     return { ok: false, reason: "invalid" };
   }
   const { data: profile } = await admin
     .from("profiles")
-    .select("number, classroom_seats")
+    .select("number, classroom_seats, classroom_line")
     .eq("user_id", userId)
     .maybeSingle();
   if (!profile) return { ok: false, reason: "not-found" };
   const { error } = await admin
     .from("profiles")
-    .update({ classroom_seats: tierSeats })
+    .update({ classroom_seats: tierSeats, classroom_line: line })
     .eq("user_id", userId);
   if (error) return { ok: false, reason: "failed" };
   await logAudit(
     actor.id,
     "user.classroom",
     { type: "user", id: `user-${profile.number}` },
-    { from: profile.classroom_seats, to: tierSeats },
+    {
+      from: profile.classroom_seats,
+      to: tierSeats,
+      fromLine: profile.classroom_line,
+      toLine: line,
+    },
   );
   revalidatePath("/admin/users", "layout");
   return { ok: true };

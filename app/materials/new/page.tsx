@@ -10,6 +10,8 @@ import { CreatePracticeForm } from "@/components/CreatePracticeForm";
 import { youtubeEnabled } from "@/auth/youtube";
 import { YOUTUBE_LINK_PRACTICES_ENABLED } from "@/lib/features";
 import { PaidPlanCard } from "@/components/PaidPlanCard";
+import { planFor } from "@/lib/plans";
+import { secondsToWords } from "@/lib/units";
 import { WeekAllowanceNote } from "@/components/WeekAllowanceNote";
 import { ButtonLink } from "@/components/ButtonLink";
 import { featurePaused } from "@/auth/site-switches";
@@ -53,7 +55,27 @@ export default async function NewMaterialPage({
   // ?official=1: an admin making an official material (D80).
   const official =
     (await searchParams).official === "1" && creator.user.role === "admin";
-  const { check: allowed, week } = await creationAllowance(creator);
+  const {
+    check: allowed,
+    week,
+    plans,
+    made,
+  } = await creationAllowance(creator);
+  // Words left of the plan's week or month (D209, D210), for the form.
+  const limits = plans[planFor(creator.user)];
+  const allowanceLeft =
+    week !== null
+      ? { leftWords: secondsToWords(week.leftSeconds), period: "week" as const }
+      : {
+          leftWords:
+            limits.wordsPerMonth === null
+              ? null
+              : Math.max(
+                  0,
+                  limits.wordsPerMonth - secondsToWords(made.seconds),
+                ),
+          period: "month" as const,
+        };
   const [joined, view] = allowed.ok
     ? [false, null]
     : await Promise.all([onWaitlist(), getPriceView()]);
@@ -125,6 +147,7 @@ export default async function NewMaterialPage({
           <CreatePracticeForm
             official={official}
             sitePace={await getGenerationPace()}
+            allowance={official ? null : allowanceLeft}
             // Speech to text set up (D130); the plan is checked inside.
             upload={
               !official &&
@@ -147,6 +170,7 @@ export default async function NewMaterialPage({
         ) : (
           <PaidPlanCard
             block={{ limit: allowed.limit, max: allowed.max }}
+            plan={planFor(creator.user)}
             joined={joined}
             prices={view?.prices}
           />

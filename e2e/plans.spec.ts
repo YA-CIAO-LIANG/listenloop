@@ -19,11 +19,12 @@ test("past this week's free minutes, the create page offers the paid plan's wait
   await expect(page.getByTestId("week-allowance")).toContainText(
     /本週的已經用完，\d+\/\d+（週一）\s?00:00 重設/,
   );
-  const card = page.getByRole("region", { name: "Plus 方案" });
+  // Free: Plus listening is offered (D210).
+  const card = page.getByRole("region", { name: "Plus・聽力" });
   await expect(card).toContainText(
     "免費方案每週可以建立 300 字的教材，本週已經用完。",
   );
-  await expect(card).toContainText("每月自建 6,000 字的教材");
+  await expect(card).toContainText("每月自建 3,000 字的教材");
   await expect(card).toContainText("每份最多約 750 字");
   await expect(card).toContainText(
     "NT$124／月年繳 NT$1,490，一次付清，省 2 個月",

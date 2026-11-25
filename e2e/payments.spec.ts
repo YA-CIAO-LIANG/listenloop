@@ -4,63 +4,71 @@ import { expect, signInAsAdmin, signInAsBuyer, test } from "./fixtures";
  * Payments with the fake provider (D85): no money, no network. The fake
  * checkout's webhooks are signed and go through the real handler.
  */
-test("signed out, pricing shows Free, Plus, and Pro, yearly first at ten months (D102, D105)", async ({
+test("signed out, pricing shows Free and the line's tiers, all-in-one and yearly first at ten months (D102, D105, D210)", async ({
   page,
 }) => {
   await page.goto("/pricing?from=stats");
   await expect(page.getByRole("heading", { name: "方案與價格" })).toBeVisible();
-  const plus = page.getByRole("listitem").filter({ hasText: "訂閱 Plus" });
-  // Yearly is the default: 10 × monthly, no percentages (D105). The big
-  // number is always a month's price; the yearly total is under it (D128).
+  const plus = page
+    .getByRole("listitem")
+    .filter({ hasText: "訂閱 Plus・聽寫全方位" });
+  // Yearly is the default: 10 × monthly (D105). The big number is always
+  // a month's price; the yearly total is under it (D128).
   await expect(
     page.getByRole("radio", { name: "年繳 · 省 2 個月" }),
   ).toBeChecked();
-  await expect(plus.getByText("NT$124", { exact: true })).toHaveClass(
+  await expect(plus.getByText("NT$224", { exact: true })).toHaveClass(
     /text-h2/,
   );
   await expect(
-    plus.getByText("年繳 NT$1,490，一次付清，省 2 個月"),
+    plus.getByText("年繳 NT$2,690，一次付清，省 2 個月"),
   ).toBeVisible();
-  // Plus is marked the most popular (D173), and only Plus.
+  // Plus all-in-one is the most popular (D210), and only it.
   await expect(plus.getByText("最受歡迎", { exact: true })).toBeVisible();
   await expect(page.getByText("最受歡迎", { exact: true })).toHaveCount(1);
-  const pro = page.getByRole("listitem").filter({ hasText: "訂閱 Pro" });
-  await expect(pro.getByText("NT$266", { exact: true })).toHaveClass(/text-h2/);
-  await expect(pro.getByText(/年繳 NT\$3,190，一次付清/)).toBeVisible();
+  const pro = page
+    .getByRole("listitem")
+    .filter({ hasText: "訂閱 Pro・聽寫全方位" });
+  await expect(pro.getByText("NT$416", { exact: true })).toHaveClass(/text-h2/);
+  await expect(pro.getByText(/年繳 NT\$4,990，一次付清/)).toBeVisible();
   // The comparison table has the same prices a month.
+  const table = page.getByRole("table", { name: "方案比較：聽寫全方位" });
   await expect(
-    page.getByRole("table", { name: "方案比較" }).getByRole("row", {
-      name: /^價格 NT\$0／月 NT\$124／月.*NT\$1,490.*NT\$266／月/,
+    table.getByRole("row", {
+      name: /^價格 NT\$0／月 NT\$158／月.*NT\$224／月.*NT\$416／月/,
     }),
   ).toBeVisible();
   await expect(page.getByText("兩年")).toHaveCount(0);
-  await expect(page.locator("main")).not.toContainText("%");
+  await expect(page.locator("main")).not.toContainText("折");
   await page.getByText("月繳", { exact: true }).click();
-  await expect(plus.getByText("NT$149", { exact: true })).toHaveClass(
+  await expect(plus.getByText("NT$269", { exact: true })).toHaveClass(
     /text-h2/,
   );
   await expect(plus.getByText(/一次付清/)).toHaveCount(0);
   await expect(
-    page.getByRole("table", { name: "方案比較" }).getByRole("row", {
-      name: /單份最長 2 分鐘 5 分鐘 10 分鐘/,
+    table.getByRole("row", {
+      name: /單份最長 2 分鐘 5 分鐘 5 分鐘 10 分鐘/,
     }),
   ).toBeVisible();
 
   // Subscribing is a fake door: coming soon, join the list after signing in.
-  await plus.getByRole("button", { name: "訂閱 Plus" }).click();
-  const dialog = page.getByRole("dialog", { name: "Plus · 月繳" });
+  await plus.getByRole("button", { name: "訂閱 Plus・聽寫全方位" }).click();
+  const dialog = page.getByRole("dialog", { name: "Plus・聽寫全方位 · 月繳" });
   await expect(dialog.getByText(/付費方案即將推出/)).toBeVisible();
   await expect(
     dialog.getByRole("link", { name: "登入後加入名單" }),
-  ).toHaveAttribute("href", /plan%3Dplus%26period%3Dmonth%26from%3Dstats/);
+  ).toHaveAttribute(
+    "href",
+    /line%3Dall%26plan%3Dplus%26period%3Dmonth%26from%3Dstats/,
+  );
 });
 
 test("signed in, the fake door joins the waiting list with the plan and period (D102)", async ({
   page,
 }) => {
   await signInAsBuyer(page, "e2e-waitlist");
-  await page.goto("/pricing?plan=pro&period=year&from=youtube");
-  const dialog = page.getByRole("dialog", { name: "Pro · 年繳" });
+  await page.goto("/pricing?line=writing&plan=pro&period=year&from=youtube");
+  const dialog = page.getByRole("dialog", { name: "Pro・寫作 · 年繳" });
   await dialog.getByRole("button", { name: "加入名單" }).click();
   await expect(dialog.getByText("已加入名單")).toBeVisible();
 });
@@ -75,7 +83,8 @@ test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
   await page.goto("/checkout/fake?interval=month");
 
   await expect(page.getByRole("heading", { name: "測試結帳" })).toBeVisible();
-  await expect(page.getByText("NT$149", { exact: true })).toBeVisible();
+  // Checkout sells Plus all-in-one, the account plan "paid" (D210).
+  await expect(page.getByText("NT$269", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: "模擬付款成功" }).click();
 
   await expect(page.getByRole("heading", { name: "付款完成" })).toBeVisible();
@@ -85,8 +94,8 @@ test("subscribe, cancel renewal, renew again; then an admin refunds", async ({
   const billing = page.locator("#billing");
   await expect(billing.getByText(/^Plus.*月繳/)).toBeVisible();
   await expect(billing.getByText(/下次扣款日/)).toBeVisible();
-  await expect(billing.getByText("NT$149／月")).toBeVisible();
-  await expect(billing.getByRole("cell", { name: /NT\$149/ })).toBeVisible();
+  await expect(billing.getByText("NT$269／月")).toBeVisible();
+  await expect(billing.getByRole("cell", { name: /NT\$269/ })).toBeVisible();
 
   await billing.getByRole("button", { name: "取消續訂" }).click();
   await expect(billing.getByText(/已取消續訂，付費方案用到/)).toBeVisible();

@@ -4,11 +4,14 @@ import { ScrollRegion } from "./ScrollRegion";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import {
+  COST_ROWS,
   forecast,
   FORECAST_PLANS,
   type ForecastInput,
   type ForecastPlan,
 } from "@/lib/forecast";
+import { planLabel, type PlanNameTranslator } from "@/lib/plan-names";
+import { accountPlanFor, type PlanTier } from "@/lib/plans";
 import { BILLING_PERIODS, type BillingPeriod } from "@/lib/payments/pricing";
 import { StatTile } from "./StatTile";
 
@@ -16,12 +19,25 @@ const inputClassName =
   "h-10 w-24 rounded-base border border-line bg-surface px-2 text-right tabular-nums focus-visible:border-accent pointer-coarse:min-h-11";
 
 /**
- * The revenue forecast (D102, D184): every number editable, the month's
- * result recomputed as you type. Nothing is saved.
+ * The revenue forecast (D102, D184, D210): every number editable, the
+ * month's result recomputed as you type. Nothing is saved. Below it, each
+ * plan's AI and voice cost at full and typical use against its cap.
  */
 export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
   const t = useTranslations("admin.forecast");
+  const tn = useTranslations("planNames") as unknown as PlanNameTranslator;
   const format = useFormatter();
+  const name = (plan: ForecastPlan) => {
+    const row = COST_ROWS.find((r) => r.id === plan)!;
+    return row.kind === "personal"
+      ? planLabel(accountPlanFor(row.line, row.tier as PlanTier), tn)
+      : t("classFormat", {
+          size: t(`sizes.${row.tier as "small" | "standard" | "large"}`),
+          line: tn(`lines.${row.line}`),
+        });
+  };
+  const pct = (n: number) =>
+    format.number(n, { style: "percent", maximumFractionDigits: 1 });
   const [input, setInput] = useState(initial);
   const result = forecast(input);
   const nt = (n: number) => `NT$${format.number(Math.round(n))}`;
@@ -92,14 +108,14 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
               (["subscribers", "prices"] as const).map((key) => (
                 <tr key={`${plan}-${key}`} className="border-b border-line">
                   <th scope="row" className="py-2 pr-4 font-normal">
-                    {t(`rows.${key}`, { plan: t(`names.${plan}`) })}
+                    {t(`rows.${key}`, { plan: name(plan) })}
                   </th>
                   {BILLING_PERIODS.map((period) => (
                     <td key={period} className="px-2 py-2">
                       <input
                         type="number"
                         min={0}
-                        aria-label={`${t(`rows.${key}`, { plan: t(`names.${plan}`) })} · ${t(`periods.${period}`)}`}
+                        aria-label={`${t(`rows.${key}`, { plan: name(plan) })} · ${t(`periods.${period}`)}`}
                         value={input[key][plan][period]}
                         onChange={(event) =>
                           setGrid(key, plan, period, event.target.value)
@@ -121,9 +137,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
         </legend>
         {FORECAST_PLANS.map((plan) => (
           <label key={plan} className="space-y-1">
-            <span className="block">
-              {t("usage", { plan: t(`names.${plan}`) })}
-            </span>
+            <span className="block">{t("usage", { plan: name(plan) })}</span>
             <input
               type="number"
               min={0}
@@ -141,7 +155,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
         ))}
         {(
           [
-            ["aiPerMinute", 100, 1],
+            ["costScale", 1, 0.1],
             ["taxRate", 100, 1],
             ["feeRate", 100, 0.1],
             ["feeFixed", 1, 1],
@@ -154,11 +168,7 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
               type="number"
               min={0}
               step={step}
-              value={
-                key === "aiPerMinute"
-                  ? input[key]
-                  : Math.round(input[key] * scale * 100) / 100
-              }
+              value={Math.round(input[key] * scale * 100) / 100}
               onChange={(event) =>
                 setInput((c) => ({
                   ...c,
@@ -172,6 +182,60 @@ export function ForecastCalculator({ initial }: { initial: ForecastInput }) {
       </fieldset>
       <p className="max-w-reading text-supporting text-ink-muted">
         {t("notes")}
+      </p>
+
+      <ScrollRegion label={t("costTitle")}>
+        <table className="w-full min-w-160 text-left text-supporting">
+          <caption className="mb-3 text-left font-display text-h3">
+            {t("costTitle")}
+          </caption>
+          <thead>
+            <tr className="border-b border-line">
+              {(
+                [
+                  "plan",
+                  "costBase",
+                  "costFull",
+                  "costTypical30",
+                  "costTypical50",
+                  "costCap",
+                ] as const
+              ).map((key) => (
+                <th
+                  key={key}
+                  scope="col"
+                  className="px-2 py-2 font-medium first:pl-0"
+                >
+                  {t(key)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {COST_ROWS.map((row) => (
+              <tr key={row.id} className="border-b border-line tabular-nums">
+                <th scope="row" className="py-2 pr-2 font-normal">
+                  {name(row.id)}
+                </th>
+                <td className="px-2 py-2">{nt(row.base)}</td>
+                <td
+                  className={`px-2 py-2 ${row.fullShare > row.cap ? "text-error" : ""}`}
+                >
+                  {nt(row.fullCost)}（{pct(row.fullShare)}）
+                </td>
+                {row.typical.map((typical) => (
+                  <td key={typical.use} className="px-2 py-2">
+                    {nt(typical.cost)}（{pct(typical.share)}）
+                  </td>
+                ))}
+                <td className="px-2 py-2">{pct(row.cap)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </ScrollRegion>
+      <p className="max-w-reading text-supporting text-ink-muted">
+        {t("costNote")}
       </p>
     </div>
   );

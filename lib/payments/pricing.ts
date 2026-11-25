@@ -1,8 +1,11 @@
+import { isPlanTier, PLAN_TIERS, type PlanLine, type PlanTier } from "../plans";
+
 /**
- * The paid plan's prices (D85), in one place: the pricing page, checkout,
- * and the fake provider all read them. Amounts are in the currency's
- * smallest unit (NT$ has none, so NT$149 is 149). What the plan includes
- * is PLANS.paid (lib/plans.ts); changing a price means editing this only.
+ * The paid plans' prices (D85, D210), in one place: the pricing page,
+ * checkout, and the fake provider all read them. Amounts are in the
+ * currency's smallest unit (NT$ has none, so NT$149 is 149). What each
+ * plan includes is in lib/plans.ts; changing a price means editing this
+ * only, and only after Joe decides (D210).
  */
 export const BILLING_INTERVALS = ["month", "year"] as const;
 export type BillingInterval = (typeof BILLING_INTERVALS)[number];
@@ -37,9 +40,6 @@ const monthlyAndYearly = (
   year: { amount: yearlyFromMonthly(monthly), currency },
 });
 
-/** Plus, as checkout and the fake provider charge it (D85). */
-export const PRICES = monthlyAndYearly(149);
-
 /** Days of free trial before the first charge (none for now). */
 export const TRIAL_DAYS = 0;
 
@@ -61,21 +61,21 @@ export function formatPrice(
     : formatNumber(amount / 100, currency);
 }
 
-// --- Plans and pricing (D102, D105): Plus and Pro, monthly or yearly. ----
+// --- Plans and pricing (D102, D105, D210): three lines, three tiers. ---
 
 /**
- * The paid plans on the pricing page. "plus" is the account plan "paid";
- * "student" is Plus at a student price (D144).
+ * The paid tiers on the pricing page, in every line (D210). "plus" is the
+ * account plan "paid" on the "all" line.
  */
-export const PAID_PLANS = ["plus", "pro", "student"] as const;
-export type PaidPlan = (typeof PAID_PLANS)[number];
+export const PAID_PLANS = PLAN_TIERS;
+export type PaidPlan = PlanTier;
 
 export const isPaidPlan = (value: unknown): value is PaidPlan =>
-  (PAID_PLANS as readonly unknown[]).includes(value);
+  isPlanTier(value);
 
 /**
  * Billing periods: a month, or a year paid ahead (D105: no two-year
- * period). A year still resets the monthly minutes each month.
+ * period). A year still resets the monthly allowances each month.
  */
 export const BILLING_PERIODS = BILLING_INTERVALS;
 export type BillingPeriod = (typeof BILLING_PERIODS)[number];
@@ -89,43 +89,61 @@ export const PERIOD_MONTHS: Readonly<Record<BillingPeriod, number>> = {
 };
 
 /**
- * Monthly prices in NT$ (D102, D173; Pro and student raised by D185 so a
- * subscriber who uses every minute still earns the price floor,
- * lib/payments/price-floor.ts); the yearly ones follow (D105). The most
- * popular plan is marked on the pricing page.
+ * Monthly prices in NT$ by line and tier (D210, Joe 2026-11-24: final; any
+ * change is Joe's to make first). The yearly ones follow (D105). What
+ * each includes is in lib/plans.ts.
  */
-export const PLAN_MONTHLY: Readonly<Record<PaidPlan, number>> = {
-  plus: PRICES.month.amount,
-  pro: 319,
-  student: 119,
+export const PLAN_MONTHLY: Readonly<
+  Record<PlanLine, Readonly<Record<PaidPlan, number>>>
+> = {
+  listening: { student: 90, plus: 149, pro: 299 },
+  writing: { student: 119, plus: 149, pro: 249 },
+  all: { student: 189, plus: 269, pro: 499 },
 };
 
-/**
- * Every plan's year is 10 × its month (D105); the student plan's earlier
- * exception (NT$990, D144) was dropped by Joe on 2026-11-14 (D173).
- */
-export const PLAN_PRICES: Readonly<
+type LinePrices = Readonly<
   Record<PaidPlan, Readonly<Record<BillingPeriod, Price>>>
-> = {
-  plus: monthlyAndYearly(PLAN_MONTHLY.plus),
-  pro: monthlyAndYearly(PLAN_MONTHLY.pro),
-  student: monthlyAndYearly(PLAN_MONTHLY.student),
+>;
+
+/** Every plan's year is 10 × its month (D105, D173). */
+export const PLAN_PRICES: Readonly<Record<PlanLine, LinePrices>> = {
+  listening: linePrices(PLAN_MONTHLY.listening),
+  writing: linePrices(PLAN_MONTHLY.writing),
+  all: linePrices(PLAN_MONTHLY.all),
 };
+
+function linePrices(monthly: Readonly<Record<PaidPlan, number>>): LinePrices {
+  return {
+    student: monthlyAndYearly(monthly.student),
+    plus: monthlyAndYearly(monthly.plus),
+    pro: monthlyAndYearly(monthly.pro),
+  };
+}
+
+/**
+ * What checkout and the fake provider charge: the account plan "paid",
+ * Plus on the "all" line (D85, D210). Paying isn't open yet.
+ */
+export const PRICES = PLAN_PRICES.all.plus;
 
 /**
  * Whole months a year saves against paying monthly: 2 under the
  * ten-months rule (D105).
  */
-export function monthsSaved(plan: PaidPlan): number {
-  const { month, year } = PLAN_PRICES[plan];
+export function monthsSaved(plan: PaidPlan, line: PlanLine = "all"): number {
+  const { month, year } = PLAN_PRICES[line][plan];
   return Math.floor((month.amount * 12 - year.amount) / month.amount);
 }
 
-/** The period selected when the pricing page opens (D173). */
+/** The line and period selected when the pricing page opens (D210). */
+export const DEFAULT_LINE: PlanLine = "all";
 export const DEFAULT_PERIOD: BillingPeriod = "year";
 
-/** The plan marked "most popular" on the pricing page (D173). */
-export const POPULAR_PLAN: PaidPlan = "plus";
+/** The plan marked "most popular" on the pricing page (D210). */
+export const POPULAR_PLAN: { line: PlanLine; tier: PaidPlan } = {
+  line: "all",
+  tier: "plus",
+};
 
 /**
  * Refund for a prepaid period cancelled early (D102): within REFUND_DAYS
@@ -137,8 +155,9 @@ export function prepaidRefund(
   period: BillingPeriod,
   daysSincePayment: number,
   monthsUsed: number,
+  line: PlanLine = "all",
 ): number {
-  const paid = PLAN_PRICES[plan][period].amount;
+  const paid = PLAN_PRICES[line][plan][period].amount;
   if (daysSincePayment <= REFUND_DAYS) return paid;
   const unused = Math.max(0, PERIOD_MONTHS[period] - Math.ceil(monthsUsed));
   return Math.min(paid, Math.round((paid / PERIOD_MONTHS[period]) * unused));

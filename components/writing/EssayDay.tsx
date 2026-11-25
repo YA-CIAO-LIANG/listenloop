@@ -42,6 +42,7 @@ import {
   useWritingProgress,
   useWritingSettings,
 } from "./WritingProvider";
+import { UpsellToAll } from "@/components/UpsellToAll";
 
 /** Drafts are saved this often while typing (D187). */
 export const AUTOSAVE_MS = 5_000;
@@ -363,6 +364,9 @@ export function EssayDay({
                     {errorText(error)}
                   </p>
                 )}
+                {error && !error.ok && error.reason === "plan" && (
+                  <UpsellToAll need="writing" feature="essay-review" />
+                )}
                 {declined?.feedback && (
                   <FeedbackView
                     essay={declined.essay}
@@ -519,6 +523,9 @@ export function EssayDay({
           className="flex shrink-0 flex-col gap-2"
         >
           <p className="text-error">{errorText(error)}</p>
+          {error.reason === "plan" && (
+            <UpsellToAll need="writing" feature="essay-review" />
+          )}
           {aiUnavailable && (
             <div>
               <Button

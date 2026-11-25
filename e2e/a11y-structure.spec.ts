@@ -68,6 +68,8 @@ async function check(page: Page, paths: string[]) {
 }
 
 test("public pages: landmarks, headings, axe", async ({ page }) => {
+  // Many pages in one test; slower than 30 s under a full parallel run.
+  test.setTimeout(60_000);
   await check(page, [
     "/",
     "/level-test",

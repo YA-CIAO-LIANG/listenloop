@@ -192,8 +192,9 @@ describe("transcribeAudio (D130)", () => {
     expect(result.heard).toHaveLength(2);
     expect(result.heard[0]).toMatchObject({ start: 1, end: 4 });
     expect(result.heard[0].text).toMatch(/\.$/);
-    // Each piece counts against the month: Plus has 40 minutes.
-    expect(state.allowAudio).toHaveBeenCalledWith(3000, 2_400_000);
+    // Each piece counts against the month: Plus all-in-one has 3,000
+    // words, 20 minutes (D210).
+    expect(state.allowAudio).toHaveBeenCalledWith(3000, 1_200_000);
     expect(state.logs).toHaveLength(2);
   });
 

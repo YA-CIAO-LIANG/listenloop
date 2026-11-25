@@ -1257,6 +1257,7 @@ export type Database = {
           ai_suspended_reason: string | null;
           beta_admitted_at: string | null;
           beta_admitted_via: string | null;
+          classroom_line: string;
           classroom_seats: number | null;
           created_at: string;
           last_seen_at: string | null;
@@ -1274,6 +1275,7 @@ export type Database = {
           ai_suspended_reason?: string | null;
           beta_admitted_at?: string | null;
           beta_admitted_via?: string | null;
+          classroom_line?: string;
           classroom_seats?: number | null;
           created_at?: string;
           last_seen_at?: string | null;
@@ -1291,6 +1293,7 @@ export type Database = {
           ai_suspended_reason?: string | null;
           beta_admitted_at?: string | null;
           beta_admitted_via?: string | null;
+          classroom_line?: string;
           classroom_seats?: number | null;
           created_at?: string;
           last_seen_at?: string | null;
@@ -1860,6 +1863,7 @@ export type Database = {
           billing_period: string | null;
           created_at: string;
           plan: string | null;
+          plan_line: string | null;
           seen_amount: number | null;
           seen_currency: string | null;
           seen_experiment_id: string | null;
@@ -1871,6 +1875,7 @@ export type Database = {
           billing_period?: string | null;
           created_at?: string;
           plan?: string | null;
+          plan_line?: string | null;
           seen_amount?: number | null;
           seen_currency?: string | null;
           seen_experiment_id?: string | null;
@@ -1882,6 +1887,7 @@ export type Database = {
           billing_period?: string | null;
           created_at?: string;
           plan?: string | null;
+          plan_line?: string | null;
           seen_amount?: number | null;
           seen_currency?: string | null;
           seen_experiment_id?: string | null;

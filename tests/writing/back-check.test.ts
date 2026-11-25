@@ -273,35 +273,10 @@ describe("weekly checks and cost (D200)", () => {
     expect(can("admin", { kind: "back-check", thisWeek: 1_000 }).ok).toBe(true);
   });
 
-  it("every paid plan keeps the price floor with its checks", async () => {
-    const { worstCaseTable, PRICE_FLOOR, PLAN_BACK_CHECK_EXTRA } =
-      await import("@/lib/payments/price-floor");
-    for (const row of worstCaseTable()) {
-      expect(row.margin, `${row.plan} ${row.period}`).toBeGreaterThanOrEqual(
-        PRICE_FLOOR.minMarginPerMonth,
-      );
-    }
-    expect(PLAN_BACK_CHECK_EXTRA.pro).toBeGreaterThan(0);
-  });
-
-  it("a plan's AI writing costs (reviews, chat, checks) stay within a quarter of its monthly price", async () => {
-    const { backCheckMonthCost, chatMonthCost, writingMonthCost } =
-      await import("@/lib/payments/price-floor");
-    const { PLAN_PRICES, PERIOD_MONTHS } =
-      await import("@/lib/payments/pricing");
-    const limits = { plus: PLANS.paid, student: PLANS.paid, pro: PLANS.pro };
-    for (const plan of ["plus", "student", "pro"] as const) {
-      const l = limits[plan];
-      const cost =
-        writingMonthCost(l.writingReviewsPerWeek!) +
-        chatMonthCost(l.chatMessagesPerWeek!) +
-        backCheckMonthCost(l.backChecksPerWeek!);
-      for (const period of ["month", "year"] as const) {
-        const monthly =
-          PLAN_PRICES[plan][period].amount / PERIOD_MONTHS[period];
-        expect(cost, `${plan} ${period}`).toBeLessThanOrEqual(monthly * 0.25);
-      }
-    }
+  it("is costed with the plans (D210: tests/plan-costs.test.ts)", async () => {
+    const { UNIT_COSTS } = await import("@/lib/payments/costs");
+    expect(UNIT_COSTS.backCheck).toBeGreaterThan(0);
+    expect(UNIT_COSTS.backCheck).toBeLessThan(0.1);
   });
 });
 

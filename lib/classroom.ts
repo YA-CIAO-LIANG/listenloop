@@ -1,6 +1,8 @@
 import { topMissedWords, type MaterialInfo } from "./analytics";
 import { lastDoneDay, officialScore } from "./cycle";
+import type { ClassAllowanceTier } from "./payments/costs";
 import { yearlyFromMonthly, type BillingPeriod } from "./payments/pricing";
+import { lineHasListening, lineHasWriting, type PlanLine } from "./plans";
 import { parseProgress, type Progress } from "./progress";
 
 /**
@@ -9,61 +11,55 @@ import { parseProgress, type Progress } from "./progress";
  */
 
 /**
- * Class plans (D173, Joe 2026-11-14): three tiers by class size, each
- * billed monthly or yearly (10 × monthly, like every plan in
- * lib/payments/pricing.ts). `seats` is the most students a class may
- * hold; `minutes` the teacher's own monthly minutes of practices, set so
- * that a teacher using all of them costs at most CLASS_COST.maxShare of
- * the monthly price in AI and voice (classMinutesCost, checked by tests).
+ * Class plans (D173, D210, Joe 2026-11-24): three sizes, each sold as
+ * listening, writing, or both ("all"), billed monthly or yearly (10 ×
+ * monthly, like every plan in lib/payments/pricing.ts). `seats` is the
+ * most students a class may hold. Listening gives the teacher `words` of
+ * their own practices a month; writing gives each student `perStudent`
+ * AI a week (a teacher's assignment uses the student's). "all" is both,
+ * not discounted. Within COST_CAPS.class of the yearly price at full use
+ * (lib/payments/costs.ts, tests/plan-costs.test.ts).
  */
 export const CLASS_TIER_IDS = ["small", "standard", "large"] as const;
 export type ClassTierId = (typeof CLASS_TIER_IDS)[number];
 
-export type ClassTier = {
-  id: ClassTierId;
-  seats: number;
-  monthly: number;
-  minutes: number;
-};
+export type ClassTier = ClassAllowanceTier;
 
 export const CLASS_TIERS: readonly ClassTier[] = [
-  { id: "small", seats: 15, monthly: 349, minutes: 45 },
-  { id: "standard", seats: 40, monthly: 549, minutes: 70 },
-  { id: "large", seats: 100, monthly: 800, minutes: 105 },
+  {
+    id: "small",
+    seats: 15,
+    monthly: { listening: 349, writing: 299, all: 599 },
+    words: 6_750,
+    perStudent: {
+      essaysPerWeek: 2,
+      backChecksPerWeek: 7,
+      chatMessagesPerWeek: 15,
+    },
+  },
+  {
+    id: "standard",
+    seats: 40,
+    monthly: { listening: 549, writing: 449, all: 899 },
+    words: 10_500,
+    perStudent: {
+      essaysPerWeek: 2,
+      backChecksPerWeek: 5,
+      chatMessagesPerWeek: 0,
+    },
+  },
+  {
+    id: "large",
+    seats: 100,
+    monthly: { listening: 800, writing: 690, all: 1_390 },
+    words: 15_750,
+    perStudent: {
+      essaysPerWeek: 2,
+      backChecksPerWeek: 3,
+      chatMessagesPerWeek: 0,
+    },
+  },
 ];
-
-/**
- * What one minute of a made practice costs (D173), measured on the live
- * site's api_calls to 2026-11-14 (78 practices, 92.7 minutes):
- * - language model (translate, notes, segment, compose, revise…):
- *   US$2.018 → US$0.0218 a minute;
- * - voice: 112,045 characters → 1,209 a minute, priced as if paid at
- *   US$30 per million (Chirp 3 HD, the higher of our voices; Azure F0
- *   is free today) → US$0.0363 a minute.
- * Uploading a recording instead (speech to text, US$1 an hour paid) is
- * cheaper, so text is the worst case. NT$ at TWD_PER_USD.
- */
-export const CLASS_COST = {
-  languageUsdPerMinute: 0.0218,
-  voiceCharsPerMinute: 1209,
-  voiceUsdPerMillionChars: 30,
-  twdPerUsd: 32,
-  /** A full month of the teacher's minutes may cost this share of the price. */
-  maxShare: 0.25,
-} as const;
-
-/** NT$ that one minute of a made practice costs at most (D173). */
-export function classCostPerMinute(): number {
-  const voice =
-    (CLASS_COST.voiceCharsPerMinute * CLASS_COST.voiceUsdPerMillionChars) /
-    1_000_000;
-  return (CLASS_COST.languageUsdPerMinute + voice) * CLASS_COST.twdPerUsd;
-}
-
-/** NT$ a teacher's whole month of minutes costs on `tier`. */
-export function classMinutesCost(tier: ClassTier): number {
-  return tier.minutes * classCostPerMinute();
-}
 
 /**
  * Seat counts an account may hold: the three tiers, and earlier grants
@@ -83,14 +79,40 @@ export function classTierFor(seats: number): ClassTier {
   );
 }
 
-/** A tier's price for a period. */
-export function classPrice(tier: ClassTier, period: BillingPeriod): number {
-  return period === "year" ? yearlyFromMonthly(tier.monthly) : tier.monthly;
+/** A tier's price for a line and period (D210). */
+export function classPrice(
+  tier: ClassTier,
+  period: BillingPeriod,
+  line: PlanLine = "all",
+): number {
+  const monthly = tier.monthly[line];
+  return period === "year" ? yearlyFromMonthly(monthly) : monthly;
 }
 
-/** A teacher's monthly minutes of their own practices (D103, D173). */
-export function classMinutes(seats: ClassSeats | null): number | null {
-  return seats === null ? null : classTierFor(seats).minutes;
+/**
+ * A teacher's monthly words of their own practices (D103, D173, D209):
+ * the class plan's, when its line has listening.
+ */
+export function classWords(
+  seats: ClassSeats | null,
+  line: PlanLine = "all",
+): number | null {
+  return seats === null || !lineHasListening(line)
+    ? null
+    : classTierFor(seats).words;
+}
+
+/**
+ * What a class plan gives each of its students a week for writing (D210):
+ * null when its line has no writing.
+ */
+export function classStudentWriting(
+  seats: ClassSeats | null,
+  line: PlanLine,
+): ClassTier["perStudent"] | null {
+  return seats === null || !lineHasWriting(line)
+    ? null
+    : classTierFor(seats).perStudent;
 }
 
 /** Invite codes: 8 letters and digits, no 0/O or 1/I to misread. */

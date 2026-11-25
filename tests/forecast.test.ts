@@ -1,13 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { classCostPerMinute, CLASS_COST } from "@/lib/classroom";
 import {
+  COST_ROWS,
   defaultForecastInput,
   ECPAY_FEE_RATE,
   forecast,
   FORECAST_PLANS,
-  languageCostUsd,
   TW_BUSINESS_TAX,
-  voicePerMinute,
   type ForecastInput,
 } from "@/lib/forecast";
 import { BILLING_PERIODS } from "@/lib/payments/pricing";
@@ -33,29 +31,42 @@ function only(
   return { ...base, subscribers };
 }
 
-describe("revenue forecast (D102, D184)", () => {
-  const base = { ...defaultForecastInput(1), serverMonthly: 0 };
+const fullCost = (plan: string) =>
+  COST_ROWS.find((row) => row.id === plan)!.fullCost;
+
+describe("revenue forecast (D102, D184, D210)", () => {
+  const base = { ...defaultForecastInput(), serverMonthly: 0 };
+
+  it("has every personal and class plan of the three lines", () => {
+    expect(FORECAST_PLANS).toHaveLength(18);
+    expect(FORECAST_PLANS).toContain("all-plus");
+    expect(FORECAST_PLANS).toContain("listening-student");
+    expect(FORECAST_PLANS).toContain("class-large-writing");
+  });
 
   it("defaults to ECPay's fee and Taiwan's 5% tax inside the price", () => {
     expect(base.feeRate).toBe(ECPAY_FEE_RATE);
     expect(base.feeFixed).toBe(0);
     expect(base.taxRate).toBe(TW_BUSINESS_TAX);
     expect(TW_BUSINESS_TAX).toBe(0.05);
+    expect(base.costScale).toBe(1);
   });
 
   it("takes the tax out of a Plus month, then fees and AI", () => {
-    const r = forecast(only(base, "plus", "month", 1));
-    expect(r.revenue).toBe(149);
-    expect(r.tax).toBeCloseTo(149 - 149 / 1.05);
-    expect(r.fees).toBeCloseTo(149 * ECPAY_FEE_RATE);
-    // 40 minutes × 40% used × NT$1 a minute.
-    expect(r.aiCost).toBeCloseTo(16);
-    expect(r.net).toBeCloseTo(149 / 1.05 - 149 * ECPAY_FEE_RATE - 16);
-    expect(r.grossMargin).toBeCloseTo(r.net / (149 / 1.05));
+    const r = forecast(only(base, "all-plus", "month", 1));
+    expect(r.revenue).toBe(269);
+    expect(r.tax).toBeCloseTo(269 - 269 / 1.05);
+    expect(r.fees).toBeCloseTo(269 * ECPAY_FEE_RATE);
+    // The plan's full-use cost × 40% used.
+    expect(r.aiCost).toBeCloseTo(fullCost("all-plus") * 0.4);
+    expect(r.net).toBeCloseTo(
+      269 / 1.05 - 269 * ECPAY_FEE_RATE - fullCost("all-plus") * 0.4,
+    );
+    expect(r.grossMargin).toBeCloseTo(r.net / (269 / 1.05));
   });
 
   it("spreads a year over 12 months, fees included", () => {
-    const r = forecast(only(base, "student", "year", 12));
+    const r = forecast(only(base, "writing-student", "year", 12));
     expect(r.revenue).toBeCloseTo(1190);
     expect(r.cash).toBe(12 * 1190);
     expect(r.fees).toBeCloseTo(1190 * ECPAY_FEE_RATE);
@@ -63,7 +74,7 @@ describe("revenue forecast (D102, D184)", () => {
 
   it("charges a fixed fee per payment when one is set", () => {
     const r = forecast({
-      ...only(base, "plus", "year", 12),
+      ...only(base, "listening-plus", "year", 12),
       feeRate: 0,
       feeFixed: 16,
     });
@@ -72,29 +83,27 @@ describe("revenue forecast (D102, D184)", () => {
   });
 
   it("without tax, the margin is on the whole price", () => {
-    const r = forecast({ ...only(base, "plus", "month", 1), taxRate: 0 });
+    const r = forecast({
+      ...only(base, "listening-plus", "month", 1),
+      taxRate: 0,
+    });
     expect(r.tax).toBe(0);
     expect(r.grossMargin).toBeCloseTo(r.net / 149);
   });
 
-  it("prices the voice like the class plans' worst case (D173)", () => {
-    const voice = voicePerMinute(CLASS_COST.twdPerUsd);
-    expect(voice).toBeCloseTo((1209 * 30 * 32) / 1_000_000);
-    expect(CLASS_COST.languageUsdPerMinute * 32 + voice).toBeCloseTo(
-      classCostPerMinute(),
-    );
+  it("scales the calibrated costs by the cost factor", () => {
+    const one = forecast(only(base, "all-pro", "month", 1));
+    const two = forecast({
+      ...only(base, "all-pro", "month", 1),
+      costScale: 2,
+    });
+    expect(two.aiCost).toBeCloseTo(one.aiCost * 2);
   });
 
-  it("counts language models only: no evals, no voice", () => {
-    expect(
-      languageCostUsd([
-        { operation: "annotate", cost_micros: 1_000_000 },
-        { operation: "translate", cost_micros: 500_000 },
-        { operation: "eval:annotate", cost_micros: 9_000_000 },
-        { operation: "speech", cost_micros: 2_000_000 },
-        { operation: "transcribe", cost_micros: 3_000_000 },
-        { operation: "segment", cost_micros: null },
-      ]),
-    ).toBeCloseTo(1.5);
+  it("prices class plans by size and line", () => {
+    const r = forecast(only(base, "class-standard-writing", "month", 1));
+    expect(r.revenue).toBe(449);
+    // Class plans default to 60% used.
+    expect(r.aiCost).toBeCloseTo(fullCost("class-standard-writing") * 0.6);
   });
 });

@@ -1,17 +1,20 @@
 import { describe, expect, it } from "vitest";
-import { classCostPerMinute } from "@/lib/classroom";
+import { allowanceCost, planAllowance } from "@/lib/payments/costs";
 import {
   minimumMonthly,
-  PLAN_MINUTES,
   PRICE_FLOOR,
   worstCaseMargin,
   worstCaseTable,
 } from "@/lib/payments/price-floor";
 import { PLAN_MONTHLY } from "@/lib/payments/pricing";
+import { PLAN_LINES, PLAN_TIERS } from "@/lib/plans";
 
-describe("the price floor (D185)", () => {
-  it("keeps every plan and period above it when every minute is used", () => {
-    const under = worstCaseTable()
+describe("the price floor (D185, beside the cost caps of D210)", () => {
+  it("keeps every plan and period above it when every allowance is used", () => {
+    const rows = worstCaseTable();
+    // 9 personal plans and 9 class plans, monthly and yearly.
+    expect(rows).toHaveLength(36);
+    const under = rows
       .filter((row) => row.margin < PRICE_FLOOR.minMarginPerMonth)
       .map(
         (row) =>
@@ -20,28 +23,24 @@ describe("the price floor (D185)", () => {
     expect(under).toEqual([]);
   });
 
-  it("takes out tax, ECPay's fee, and the minutes' cost", () => {
-    // Student, yearly: NT$1,190 → a month of it, less 5% tax and 2.9% fee,
-    // less 40 minutes at the worst-case cost.
-    const margin = worstCaseMargin(1190, "year", 40);
-    const kept = 1190 / 1.05 - 1190 * 0.029;
-    expect(margin).toBeCloseTo(kept / 12 - 40 * classCostPerMinute());
+  it("takes out tax, ECPay's fee, and the allowances' cost", () => {
+    // Student listening, yearly: NT$900 → a month of it, less 5% tax and
+    // 2.9% fee, less 2,400 words at the calibrated cost.
+    const allowance = planAllowance("listening", "student");
+    const margin = worstCaseMargin(900, "year", allowance);
+    const kept = 900 / 1.05 - 900 * 0.029;
+    expect(margin).toBeCloseTo(kept / 12 - allowanceCost(allowance));
     expect(margin).toBeGreaterThan(15);
   });
 
-  it("would have caught the old prices", () => {
-    // NT$900 a year for 40 minutes lost about NT$5 a month a subscriber.
-    expect(worstCaseMargin(900, "year", 40)).toBeLessThan(0);
-    expect(worstCaseMargin(2990, "year", 120)).toBeLessThan(15);
-  });
-
-  it("names the lowest monthly price for each plan's minutes", () => {
-    expect(minimumMonthly(PLAN_MINUTES.plus)).toBe(117);
-    expect(minimumMonthly(PLAN_MINUTES.pro)).toBe(310);
-    for (const plan of ["plus", "student", "pro"] as const) {
-      expect(PLAN_MONTHLY[plan]).toBeGreaterThanOrEqual(
-        minimumMonthly(PLAN_MINUTES[plan]),
-      );
+  it("names a lowest monthly price under every plan's price", () => {
+    for (const line of PLAN_LINES) {
+      for (const tier of PLAN_TIERS) {
+        expect(
+          PLAN_MONTHLY[line][tier],
+          `${line}-${tier}`,
+        ).toBeGreaterThanOrEqual(minimumMonthly(planAllowance(line, tier)));
+      }
     }
   });
 });

@@ -987,7 +987,11 @@
       "accountBody": "To protect the service, AI features are paused for your account for now; your materials can still be practised. If you think this is a mistake, tell us through Feedback.",
       "accountContact": "Contact us"
     },
-    "listSeparator": ", "
+    "listSeparator": ", ",
+    "allowanceUse": {
+      "week": "This practice uses about {words, number} words of your allowance; {left, number} are left this week.",
+      "month": "This practice uses about {words, number} words of your allowance; {left, number} are left this month."
+    }
   },
   "editPractice": {
     "titlesLegend": "Titles",
@@ -1511,7 +1515,6 @@
     "weekUsed": "The free plan makes {total, number} words of materials a week. This week's are used up; they reset {reset}.",
     "seePractices": "See your progress",
     "paid": {
-      "title": "Plus",
       "perMonth": "{max, number} words of your own practices a month",
       "everything": "Every official material and feature",
       "free": "You're on the free plan: every official material and feature, plus {words, number} words of your own materials a week.",
@@ -1660,18 +1663,13 @@
         "reauth": "For safety, this needs a sign-in within the last 30 minutes. Sign out from \"Account\" at the top right, sign in again, and retry."
       },
       "planIs": "Plan: {plan}",
-      "plans": {
-        "free": "Free",
-        "paid": "Plus",
-        "student": "Student",
-        "pro": "Pro"
-      },
       "planLabel": "Plan",
       "classroom": "Class plan (for trying)",
       "classroomNone": "None",
       "classroomSeats": "{seats} students",
       "classroomFailed": "Couldn’t save.",
-      "quotaTitle": "Quota"
+      "quotaTitle": "Quota",
+      "classroomLine": "Line"
     },
     "events": {
       "title": "Activity",
@@ -1855,7 +1853,8 @@
         "interval_switch": "Switched period",
         "subscribe_click": "Pressed subscribe",
         "waitlist_join": "Joined the list",
-        "unlock_click": "Pressed a color unlock"
+        "unlock_click": "Pressed a color unlock",
+        "upsell_view": "Saw the all-in-one upgrade"
       },
       "base": "Base",
       "rate": "{rate} of base",
@@ -1865,12 +1864,11 @@
       "periodsTitle": "Subscribe presses: billing period",
       "sourcesTitle": "Where they came from",
       "unlocksTitle": "Color unlocks: source",
-      "empty": "Nothing yet."
+      "empty": "Nothing yet.",
+      "upsellsTitle": "“Upgrade to All-in-One” prompts (by the feature that prompted them)"
     },
     "forecast": {
       "title": "Revenue forecast",
-      "introMeasured": "Every number can be changed; results update as you type and aren't saved. AI cost defaults to NT${perMinute} a minute: language models NT${language} (this month's real spend ÷ minutes of practices made this month, evals left out), plus voice NT${voice} (the paid price once past the free tier); rate {rate}.",
-      "introFallback": "Every number can be changed; results update as you type and aren't saved. AI cost defaults to NT${perMinute} a minute: not enough data this month, so language models use the 8 November official batch's real spend, NT${language}, plus voice NT${voice} (the paid price once past the free tier); rate {rate}.",
       "revenue": "Monthly revenue (tax incl.)",
       "cash": "Cash up front",
       "cashNote": "What these subscribers pay when they sign up",
@@ -1884,14 +1882,6 @@
         "month": "Monthly",
         "year": "Yearly"
       },
-      "names": {
-        "plus": "Plus",
-        "pro": "Pro",
-        "student": "Student",
-        "classSmall": "Small class",
-        "classStandard": "Standard class",
-        "classLarge": "Large class"
-      },
       "rows": {
         "subscribers": "{plan} subscribers",
         "prices": "{plan} price (NT$)"
@@ -1899,14 +1889,28 @@
       "assumptions": "Assumptions",
       "usage": "{plan} allowance used (%)",
       "fields": {
-        "aiPerMinute": "AI cost (NT$ per minute made)",
         "feeRate": "Payment fee (%)",
         "feeFixed": "Fixed fee per payment (NT$)",
         "serverMonthly": "Hosting (NT$ a month)",
-        "taxRate": "Business tax (%, inside prices)"
+        "taxRate": "Business tax (%, inside prices)",
+        "costScale": "Cost factor (1 = the calibrated unit costs)"
       },
       "notes": "Default assumptions: prices include Taiwan's 5% business tax (consumer prices are shown with tax), taken out before the margin; payments through ECPay, about 2.75% a card payment plus 5% tax on that fee, about 2.9%, no fixed fee (the real rate is in the ECPay contract; change it here); 40% of the minutes used (most people don't use them all); voice is on Azure's free F0 tier today but more subscribers will pass it, so the AI cost always includes the paid voice price; servers NT$1,500 a month (Vercel Pro US$20 plus Supabase Pro US$25, needed for commercial use).",
-      "perMonthTax": "Includes {tax} business tax; long plans spread by month"
+      "perMonthTax": "Includes {tax} business tax; long plans spread by month",
+      "intro": "Every number can be changed; the result updates as you type and isn't saved. Costs use the calibrated unit costs (D210, `lib/payments/costs.ts`): NT${perMinute} per 150 words (about a minute) of one's own listening (AI text plus paid voice), NT${essay} per essay review, NT${check} per set of extra practice checks, NT${message} per chat message; NT${rate} to US$1.",
+      "classFormat": "{size} · {line}",
+      "sizes": {
+        "small": "Small class (15)",
+        "standard": "Standard class (40)",
+        "large": "Large class (100)"
+      },
+      "costTitle": "AI and voice cost per plan (a subscriber a month)",
+      "costBase": "Yearly price a month",
+      "costFull": "Every allowance used",
+      "costTypical30": "Typical use (30%)",
+      "costTypical50": "Typical use (50%)",
+      "costCap": "Cost cap",
+      "costNote": "In brackets: the cost as a share of the yearly price a month (monthly × 10 ÷ 12), payment fees not included. Caps: Plus and class plans 30%, student 40%, Pro 45% (D210); over the cap shows in red, and the tests stop such settings. Voice is priced at the paid rate; Azure F0's 0.5 million free characters a month are a site-wide saving on top."
     },
     "docs": {
       "title": "System docs",
@@ -2304,7 +2308,8 @@
         "running": "An experiment is already running; end it first.",
         "failed": "That didn't work. Please try again.",
         "reauth": "This needs a sign-in within the last 30 minutes. Please sign in again.",
-        "belowFloor": "A price is under the floor of NT${min}: even if every subscriber uses all their minutes, each must still earn at least NT$15 a month after business tax, fees, and AI cost (D185)."
+        "belowFloor": "A price is under the floor of NT${min}: even if every subscriber uses all their minutes, each must still earn at least NT$15 a month after business tax, fees, and AI cost (D185).",
+        "paused": "Price experiments are paused; a new one can't start."
       },
       "surveyTitle": "Price sensitivity survey (Van Westendorp)",
       "surveyIntro": "After Day 7, or 30 seconds on the pricing page, people are asked 4 questions (a monthly price for Plus). Once per device, and skippable.",
@@ -2321,7 +2326,8 @@
           "tooExpensive": "Too expensive"
         },
         "howToRead": "How to read it: \"too cheap\" and \"a bargain\" fall as the price rises; \"expensive\" and \"too expensive\" rise. The range starts where \"too cheap\" meets \"not a bargain\" and ends where \"too expensive\" meets \"not expensive\"; the optimal point is where as many find it too cheap as too expensive. Pick a price inside the range, then confirm it with a price experiment."
-      }
+      },
+      "paused": "Price experiments are paused (D210): since the plans became three lines (listening, writing, all-in-one), existing experiments and their data are kept, but none applies to anyone and no new one can start. Joe decides whether to begin again (`PRICE_EXPERIMENTS_PAUSED` in `lib/price-experiments.ts`)."
     }
   },
   "events": {
@@ -2911,12 +2917,6 @@
   "billing": {
     "title": "Plan and payments",
     "plan": "Current plan",
-    "plans": {
-      "free": "Free",
-      "paid": "Plus",
-      "student": "Student",
-      "pro": "Pro"
-    },
     "byAdmin": "{plan} (set by an admin)",
     "interval": {
       "month": "Monthly",
@@ -3187,7 +3187,7 @@
       "month": "Monthly",
       "year": "Yearly"
     },
-    "monthlyReset": "On a yearly plan, the allowance still resets every month; it doesn’t carry over.",
+    "monthlyReset": "On a yearly plan the allowances still reset every month (writing every week) and don't carry over.",
     "names": {
       "free": "Free",
       "plus": "Plus",
@@ -3197,10 +3197,7 @@
     "current": "Your plan",
     "perMonthSuffix": " / month",
     "summaries": {
-      "free": "Every official lesson and feature, basic stats, and 300 words of your own materials a week (about 2 minutes). For writing, each week: {reviews} AI reviews, {chat} chat messages, and {checks} AI checks of extra practice.",
-      "plus": "Every shared material in full, 6,000 words of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules. More AI for writing than Free, each week: {reviews} reviews, {chat} chat messages, and {checks} AI checks of extra practice.",
-      "pro": "18,000 words a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus. The most AI for writing, each week: {reviews} reviews, {chat} chat messages, and {checks} AI checks of extra practice.",
-      "student": "Listening and the other paid features as in Plus, at a student price. A little more AI for writing than Free, each week: {reviews} reviews, {chat} chat messages, and {checks} AI checks of extra practice."
+      "free": "Every official lesson and feature, basic stats, and {words, number} words of your own materials a week (about 2 minutes). A writing trial each week: {reviews} AI essay reviews, {chat} chat messages, and {checks} AI checks of extra practice."
     },
     "student": {
       "verified": "Verified as a student until {until}.",
@@ -3212,7 +3209,7 @@
       "forYou": "For you"
     },
     "subscribe": "Subscribe to {plan}",
-    "compareTitle": "Compare plans",
+    "compareTitle": "Compare plans: {line}",
     "feature": "Feature",
     "features": {
       "official": "Official lessons and the 7-day loop",
@@ -3227,10 +3224,10 @@
       "priority": "Priority generation",
       "batchPdf": "Batch PDFs",
       "writing": "Writing practice (7-day loop, notebook)",
-      "writingReviews": "AI writing reviews",
+      "writingReviews": "AI essay reviews",
       "writingWords": "Words per essay",
-      "chatMinutes": "Chat practice (AI conversation, quiet corrections; counted in messages)",
-      "backChecks": "AI check of extra practice (one per set)"
+      "backChecks": "AI check of extra practice (one per set)",
+      "chatMessages": "Chat practice (AI conversation, quiet corrections; counted in messages)"
     },
     "yes": "✓",
     "no": "—",
@@ -3260,10 +3257,43 @@
     "priceRow": "Price",
     "uploadSize": "✓ ({mb} MB a file)",
     "popular": "Most popular",
-    "timesPerWeek": "{n} a week",
     "setsPerWeek": "{n} sets a week",
     "words": "{n} words",
-    "messagesPerWeek": "{n} messages a week"
+    "messagesPerWeek": "{n} messages a week",
+    "lineLegend": "Plan",
+    "lineIntro": {
+      "listening": "Listening: words of your own listening materials a month, plus uploads, playback speed, custom pass rules, and more; writing stays at the free trial.",
+      "writing": "Writing: AI essay reviews, AI checks of extra practice, and chat messages each week; listening stays as on Free.",
+      "all": "All-in-One: the same tier's listening and writing, every allowance in full, for less than buying both."
+    },
+    "unlimitedPractice": "Practicing official materials and the ones you've made is unlimited and never uses your allowance; only making new materials and the AI reviews and chats count.",
+    "allowance": {
+      "words": "{words, number} words of your own materials a month: about {texts} short texts of 150 words (about {minutes} minutes of audio)",
+      "listeningPlus": "Your own recordings, playback speed, every shared material in full, custom pass rules, up to 5 minutes each",
+      "listeningPro": "Your own recordings, playback speed, every shared material in full, custom pass rules, up to 10 minutes each, priority generation, batch PDFs",
+      "listeningFree": "Listening as on Free ({words, number} words of your own a week)",
+      "essays": "{n} AI essay reviews a week (about {perDay} a day)",
+      "sets": "{n} AI checks of extra practice a week (about {perDay} sets a day)",
+      "messages": "{n} chat messages a week (about {chats} chats of 10 minutes)",
+      "writingFree": "Writing: the free trial ({n} AI essay reviews a week)"
+    },
+    "savings": {
+      "bundle": "NT${amount} a month less than buying both",
+      "student": "{percent} less than Plus",
+      "pro": "Best value: {percent} less than Plus per unit of allowance"
+    },
+    "overviewTitle": "Allowances on every line",
+    "overview": {
+      "plan": "Plan",
+      "price": "Price",
+      "words": "Your own listening",
+      "essays": "AI essay reviews",
+      "sets": "AI checks of extra practice",
+      "messages": "Chat messages",
+      "freeListening": "As on Free ({words, number} words a week)",
+      "freeWriting": "Free trial ({n} a week)"
+    },
+    "essaysPerWeek": "{n} a week"
   },
   "classroom": {
     "title": "My classes",
@@ -3362,9 +3392,8 @@
   },
   "classPricing": {
     "title": "Class plans",
-    "intro": "For teachers: make classes, assign materials, see each student's progress and improvement, and export a CSV. Three sizes by class, each with the teacher's own monthly minutes of practices.",
+    "intro": "For teachers: make classes, assign materials, see each student's progress and improvement, and export a CSV. Three sizes, each as listening, writing, or All-in-One.",
     "seats": "Up to {seats} students a class",
-    "minutes": "{minutes} minutes a month of the teacher’s own practices",
     "subscribe": "Subscribe to {tier}",
     "note": "Before class plans open, an admin can turn one on for a trial.",
     "offerTitle": "{tier} · {period}",
@@ -3375,7 +3404,12 @@
       "small": "Small class",
       "standard": "Standard class",
       "large": "Large class"
-    }
+    },
+    "name": "{tier} · {line}",
+    "words": "{words, number} words a month of the teacher’s own materials: about {texts} short texts of 150 words",
+    "writing": "Each student, each week: {essays} AI essay reviews and {sets} AI checks of extra practice",
+    "writingWithChat": "Each student, each week: {essays} AI essay reviews, {sets} AI checks of extra practice, and {messages} chat messages",
+    "lines": "Listening: the teacher’s own words of materials. Writing: each student’s writing AI (a teacher’s assignment isn’t counted separately: its reviews use the student’s allowance; a student whose own plan has more keeps the larger). All-in-One: both, every allowance in full."
   },
   "sharedPreview": {
     "label": "Shared material preview",
@@ -3879,13 +3913,6 @@
     "title": "My quota",
     "back": "Account",
     "intro": "You're on {plan}. Here's how much of each allowance you've used, and when it resets. Allowances always reset at midnight Taiwan time, shown here in your device's time zone.",
-    "plans": {
-      "free": "the free plan",
-      "paid": "Plus",
-      "student": "the student plan",
-      "pro": "Pro",
-      "admin": "admin (unlimited)"
-    },
     "suspended": "AI features are paused for your account for now; your materials can still be practised. If you think this is a mistake, tell us through Feedback.",
     "rows": {
       "wordsPerWeek": "Words of materials made this week",
@@ -3893,7 +3920,7 @@
       "revisesPerDay": "Revisions with an instruction today",
       "storageMegabytes": "Storage for recordings",
       "dailyAi": "AI use today",
-      "writingReviewsPerWeek": "AI writing reviews this week",
+      "writingReviewsPerWeek": "AI essay reviews this week",
       "chatMessagesPerWeek": "Chat messages this week",
       "backChecksPerWeek": "AI checks of extra practice this week"
     },
@@ -3903,7 +3930,8 @@
       "percent": "{n}%",
       "words": "{n} words",
       "messages": "{n} messages",
-      "sets": "{n} sets"
+      "sets": "{n} sets",
+      "essays": "{n} essays"
     },
     "usedOf": "{used} of {max} used",
     "unlimitedUsed": "{used} used (unlimited)",
@@ -3948,7 +3976,16 @@
       "rules": "Accounts from the same device, or many sign-ups in one day, don't count, and your own link doesn't work for you. Classmates on the same school network are fine. Invite links don't add sign-up places."
     },
     "words": "{n} words",
-    "wordsAbout": "{n} words (about {minutes} min)"
+    "wordsAbout": "{n} words (about {minutes} min)",
+    "groups": {
+      "listening": "Listening",
+      "writing": "Writing",
+      "other": "Other"
+    },
+    "groupsFree": {
+      "listening": "Your plan doesn't include listening; these are the free plan's.",
+      "writing": "Your plan doesn't include writing; these are the free trial's."
+    }
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
@@ -4070,7 +4107,7 @@
   },
   "priceSurvey": {
     "title": "What is Plus worth? 4 questions",
-    "intro": "Picture Plus (full practice of shared materials, 40 minutes of your own a month, audio uploads, speed, full stats). Give a price a month for each; there are no right answers. Asked only once, and you can skip it.",
+    "intro": "Picture Plus All-in-One (full practice of shared materials, 3,000 words of your own a month, audio uploads, speed, 7 AI essay reviews and 135 chat messages a week, full stats). Give a price a month for each; there are no right answers. Asked only once, and you can skip it.",
     "perMonth": "a month",
     "questions": {
       "tooExpensive": "At what price would it be too expensive to consider at all?",
@@ -4925,5 +4962,25 @@
     "dayAccuracy": "Average accuracy that day: {percent}%",
     "reviewLine": "Evening review",
     "sentences": "{count, plural, one {# sentence} other {# sentences}} written back"
+  },
+  "planNames": {
+    "free": "Free",
+    "admin": "Admin (no limits)",
+    "format": "{tier} · {line}",
+    "tiers": {
+      "student": "Student",
+      "plus": "Plus",
+      "pro": "Pro"
+    },
+    "lines": {
+      "listening": "Listening",
+      "writing": "Writing",
+      "all": "All-in-One"
+    }
+  },
+  "upsellAll": {
+    "listening": "You're on a writing plan, so listening is as on Free. Upgrade to All-in-One for the same tier's listening allowance and features, for less than buying both.",
+    "writing": "You're on a listening plan, so writing is the free trial. Upgrade to All-in-One for the same tier's writing AI, for less than buying both.",
+    "link": "Upgrade to All-in-One"
   }
 }

@@ -38,7 +38,7 @@ export default async function AdminInterestPage() {
     ? await admin
         .from("intent_events")
         .select(
-          "created_at, user_id, visitor_id, step, plan, billing_interval, source",
+          "created_at, user_id, visitor_id, step, plan, billing_interval, source, item",
         )
         .gte("created_at", since)
         .order("created_at")
@@ -58,6 +58,8 @@ export default async function AdminInterestPage() {
     ["periods", shares(rows, "subscribe_click", "billing_interval")],
     ["sources", shares(rows, "pricing_view", "source")],
     ["unlocks", shares(rows, "unlock_click", "source")],
+    // "Upgrade to all-in-one" prompts, by what prompted them (D210).
+    ["upsells", shares(rows, "upsell_view", "item")],
   ] as const;
 
   return (

@@ -42,7 +42,14 @@ export type QuotaRow = {
   used: number;
   /** null: unlimited. */
   max: number | null;
-  unit: "words" | "messages" | "times" | "sets" | "megabytes" | "percent";
+  unit:
+    | "words"
+    | "messages"
+    | "essays"
+    | "times"
+    | "sets"
+    | "megabytes"
+    | "percent";
   /** ISO time it resets; null for storage (it frees up when deleted). */
   resetsAt: string | null;
 };
@@ -152,7 +159,7 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     id: "writingReviewsPerWeek",
     used: writingReviews,
     max: limits.writingReviewsPerWeek,
-    unit: "times",
+    unit: "essays",
     resetsAt: usageWeek(now).end,
   });
   // Chat practice messages (D197, D209).
@@ -172,7 +179,11 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     resetsAt: usageWeek(now).end,
   });
   if (settings) {
-    const cap = dailyCostLimit(settings, plan, "manual");
+    const cap = dailyCostLimit(
+      settings,
+      plan === "free" && user.classroomSeats !== null ? "paid" : plan,
+      "manual",
+    );
     const spent = Number(todayCost.data?.micros ?? 0);
     rows.push({
       id: "dailyAi",

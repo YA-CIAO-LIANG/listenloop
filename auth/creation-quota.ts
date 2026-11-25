@@ -1,4 +1,4 @@
-import { classMinutes, isClassSeats } from "@/lib/classroom";
+import { classWords, isClassSeats } from "@/lib/classroom";
 import {
   can,
   needsCount,
@@ -15,7 +15,7 @@ import {
   withBonus,
   type CreationRecord,
 } from "@/lib/referral";
-import { WORDS_PER_MINUTE, wordsToSeconds } from "@/lib/units";
+import { wordsToSeconds } from "@/lib/units";
 import { usagePeriodStarts, usageWeek } from "@/lib/usage-report";
 import { plansFor } from "./quota";
 import { getReferralGrants } from "./referral";
@@ -87,15 +87,13 @@ export async function creationAllowance({
   const made = supabase
     ? await createdSince(supabase, user.id, monthStart, week.start, bonusFrom)
     : { count: 0, seconds: 0, weekSeconds: 0, rows: [] };
-  // A teacher's class plan brings its own monthly minutes (D103), when
-  // more than their own plan's.
-  const classMinutesMonthly = classMinutes(
+  // A teacher's class plan brings its own monthly allowance (D103), when
+  // more than their own plan's: in words, when its line has listening
+  // (D209, D210).
+  const classMonthly = classWords(
     isClassSeats(user.classroomSeats) ? user.classroomSeats : null,
+    user.classroomLine ?? "all",
   );
-  const classMonthly =
-    classMinutesMonthly === null
-      ? null
-      : classMinutesMonthly * WORDS_PER_MINUTE;
   const own = PLANS[plan];
   const classPlans =
     classMonthly !== null &&
