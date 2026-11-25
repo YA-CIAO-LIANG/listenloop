@@ -775,8 +775,8 @@ test("T13 student plan: verified by a school account, price, waiting list (P8 �
   await step(page, "t13-student", "3-offer", async () => {
     await page
       .getByRole("listitem")
-      .filter({ hasText: "訂閱 學生方案" })
-      .getByRole("button", { name: "訂閱 學生方案" })
+      .filter({ hasText: "訂閱 學生・聽寫全方位" })
+      .getByRole("button", { name: "訂閱 學生・聽寫全方位" })
       .click();
     await expect(page.getByRole("dialog")).toBeVisible();
   });
@@ -992,73 +992,19 @@ test("T18 paid and free: pricing as each sees it, Plus most popular, class tiers
   await step(page, "t18-pricing", "4-terms", () => page.goto("/terms"));
 });
 
-test("T19 price experiment: an admin tries Plus prices, each visitor keeps one, the waiting list keeps it (管理員 Joe, P4 上班族, P3 留學生, P1 國中生)", async ({
+test("T19 price experiments are paused: the admin sees why, visitors see the code's prices (管理員 Joe, P4 上班族, D210)", async ({
   page,
-  browser,
 }) => {
   await signInAsAdmin(page);
-  await step(page, "t19-price-test", "1-admin-new", () =>
+  await step(page, "t19-price-test", "1-admin-page", () =>
     page.goto("/admin/price-experiments"),
   );
-  await step(page, "t19-price-test", "2-admin-started", async () => {
-    await page.getByLabel("第 2 組").fill("199");
-    await page.getByLabel("第 3 組").fill("249");
-    await page.getByRole("button", { name: "開始實驗" }).click();
-    await expect(page.getByRole("table", { name: "各組的轉換" })).toBeVisible();
+  await step(page, "t19-price-test", "2-paused", async () => {
+    await expect(
+      page.getByRole("status").filter({ hasText: "價格實驗已暫停" }),
+    ).toBeVisible();
   });
-  const guest = await browser.newContext({
-    ...test.info().project.use,
-    locale: "zh-TW",
-  });
-  try {
-    const visitor = await guest.newPage();
-    await step(visitor, "t19-price-test", "3-guest-pricing", () =>
-      visitor.goto("/pricing"),
-    );
-    await step(visitor, "t19-price-test", "4-guest-again", () =>
-      visitor.reload(),
-    );
-    await step(visitor, "t19-price-test", "5-guest-monthly", () =>
-      visitor.getByText("月繳", { exact: true }).click(),
-    );
-    // Signed in: the waiting list with the price this person saw.
-    await signInWithEmail(
-      visitor,
-      `e2e-ux-price-${test.info().project.name}`,
-      `ux-price-${test.info().project.name}@example.com`,
-    );
-    await step(visitor, "t19-price-test", "6-learner-pricing", () =>
-      visitor.goto("/pricing"),
-    );
-    await step(visitor, "t19-price-test", "7-learner-waitlist", async () => {
-      await visitor
-        .getByRole("listitem")
-        .filter({ hasText: "訂閱 Plus" })
-        .getByRole("button", { name: "訂閱 Plus" })
-        .click();
-      await visitor.getByRole("button", { name: "加入名單" }).click();
-      await expect(visitor.getByText(/已加入名單/)).toBeVisible();
-    });
-    await step(visitor, "t19-price-test", "8-learner-create-upgrade", () =>
-      visitor.goto("/materials/new"),
-    );
-    await step(page, "t19-price-test", "9-admin-results", () => page.reload());
-  } finally {
-    // End it and go back to the code's prices, for the next device.
-    await page.goto("/admin/price-experiments");
-    if (await page.getByRole("button", { name: "結束實驗" }).count()) {
-      await page.getByLabel("結束時套用").selectOption("none");
-      page.once("dialog", (dialog) => void dialog.accept());
-      await page.getByRole("button", { name: "結束實驗" }).click();
-      await step(page, "t19-price-test", "10-admin-ended", () =>
-        expect(page.getByText("目前沒有進行中的實驗")).toBeVisible(),
-      );
-    }
-    if (await page.getByRole("button", { name: "恢復預設" }).count()) {
-      await page.getByRole("button", { name: "恢復預設" }).click();
-    }
-    await guest.close();
-  }
+  await step(page, "t19-price-test", "3-pricing", () => page.goto("/pricing"));
 });
 
 test("T20 price survey: after 30 s on the pricing page, answer or skip, and the admin's curves (P4 上班族, P2 高中生, 管理員 Joe)", async ({
@@ -1073,7 +1019,7 @@ test("T20 price survey: after 30 s on the pricing page, answer or skip, and the 
     const visitor = await guest.newPage();
     await visitor.clock.install();
     await visitor.goto("/pricing");
-    const survey = visitor.getByRole("region", { name: /Plus 值多少錢/ });
+    const survey = visitor.getByRole("region", { name: /值多少錢/ });
     await step(visitor, "t20-price-survey", "1-survey-shows", async () => {
       await visitor.clock.runFor(31_000);
       await expect(survey).toBeVisible();
@@ -1097,7 +1043,7 @@ test("T20 price survey: after 30 s on the pricing page, answer or skip, and the 
   await signInAsLearner(page);
   await page.clock.install();
   await page.goto("/pricing");
-  const survey = page.getByRole("region", { name: /Plus 值多少錢/ });
+  const survey = page.getByRole("region", { name: /值多少錢/ });
   await step(page, "t20-price-survey", "4-learner-survey", async () => {
     await page.clock.runFor(31_000);
     await expect(survey).toBeVisible();
@@ -1638,5 +1584,88 @@ test("T33 guest, keyboard only: Day 2 with Enter and the confidence buttons; the
   await step(page, "t33-keys", "4-calendar", async () => {
     await page.goto("/writing");
     await page.getByTestId("writing-calendar").scrollIntoViewIfNeeded();
+  });
+});
+
+for (const [zone, label] of [
+  ["Asia/Taipei", "Taiwan"],
+  ["America/Chicago", "US Central"],
+] as const) {
+  test.describe(label, () => {
+    test.use({ timezoneId: zone });
+
+    test(`T34 Beta tester, ${label}: the guide, sign up, level test, Day 1's first sentence, notes, writing Day 1, report a problem (P3 留學生, P15 多益大學生, P8 高三生, P4 上班族, P14 英文初級成人)`, async ({
+      page,
+    }) => {
+      const device = test.info().project.name;
+      const id = `ux-beta-${label.replace(" ", "")}-${device}`;
+      const t = `t34-beta-${label.replace(" ", "").toLowerCase()}`;
+      await setToday(page, "2026-11-26");
+      await step(page, t, "1-guide", async () => {
+        await page.goto("/beta");
+        await expect(
+          page.getByRole("heading", { name: "Beta 測試者須知" }),
+        ).toBeVisible();
+      });
+      await signInWithEmail(page, id, `${id}@example.com`);
+      await step(page, t, "2-home-after-sign-up", async () => {
+        await page.goto("/");
+        await dismissNotices(page);
+      });
+      await step(page, t, "3-level-test", async () => {
+        await page.goto("/level-test");
+        await page.getByRole("button", { name: "開始測驗" }).click();
+        const field = page.getByLabel("你聽到的句子");
+        await field.fill("can I see your passport");
+        await field.press("Enter");
+        await expect(page.getByText("建議的程度")).toBeVisible();
+      });
+      await step(page, t, "4-day1-first-sentence", async () => {
+        await page.goto("/videos/sintel/day/1");
+        await dismissNotices(page);
+        const input = page.getByRole("textbox", { name: "你聽到的句子" });
+        await input.fill(sintel.sentences[0].en);
+        await page.getByRole("button", { name: "送出" }).click();
+        await expect(page.getByText(/這句正確率/)).toBeVisible();
+      });
+      await step(page, t, "5-writing-day1", async () => {
+        await page.goto("/writing");
+        await dismissNotices(page);
+        await page
+          .getByRole("group", { name: "題目類型" })
+          .getByRole("button", { name: "考試" })
+          .click();
+        await page
+          .getByRole("link", { name: /TOEIC|多益/ })
+          .first()
+          .click();
+      });
+      await step(page, t, "6-report-from-menu", async () => {
+        await page.getByRole("button", { name: /帳號/ }).first().click();
+        await page.getByRole("link", { name: "回報問題" }).click();
+        await expect(page).toHaveURL(/\/feedback\?from=/);
+        await expect(page.getByRole("textbox")).toBeVisible();
+      });
+    });
+  });
+}
+
+test("T35 guest: find the new classics, junior and senior high, and GSAT-style materials, and the new writing prompts (P8 高三生, P1 國中生, P15 多益大學生)", async ({
+  page,
+}) => {
+  await step(page, "t35-series", "1-learn-index", () => page.goto("/learn"));
+  await step(page, "t35-series", "2-learn-classics", () =>
+    page.goto("/learn/classics"),
+  );
+  await step(page, "t35-series", "3-learn-school", () =>
+    page.goto("/learn/school"),
+  );
+  await step(page, "t35-series", "4-writing-diary", async () => {
+    await page.goto("/writing");
+    await dismissNotices(page);
+    await page
+      .getByRole("group", { name: "題目類型" })
+      .getByRole("button", { name: "日常短文" })
+      .click();
   });
 });
