@@ -72,13 +72,13 @@ it(
     const monthStart = new Date();
     monthStart.setUTCDate(1);
     monthStart.setUTCHours(0, 0, 0, 0);
-    const { data: month } = await admin
-      .from("api_calls")
-      .select("chars")
-      .eq("operation", "speech")
-      .like("provider", "azure-%")
-      .gte("created_at", monthStart.toISOString());
-    const used = (month ?? []).reduce((sum, row) => sum + (row.chars ?? 0), 0);
+    // Summed in the database: a plain select returns at most 1,000 rows,
+    // which undercounts a busy month (2026-11-25).
+    const { data: totals } = await admin.rpc("api_usage_totals", {
+      day_start: monthStart.toISOString(),
+      month_start: monthStart.toISOString(),
+    });
+    const used = totals?.[0]?.month_azure_speech_chars ?? Infinity;
     console.log(
       `${sentences.length} sentences, ${todo.length} to make (${chars} characters); F0 this month: ${used} used, stop at ${F0_STOP}.`,
     );

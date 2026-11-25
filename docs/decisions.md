@@ -4139,7 +4139,7 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **回報入口**：頁尾第一個連結改成「意見回饋」（加粗，最容易看到）；登入後「帳號」選單加「回報問題」，連到 `/feedback?from=<目前頁面>`，回報會帶上頁面。不加浮動按鈕：會蓋到練習頁的底部操作列與 YouTube 播放器（YouTube 條款不可覆蓋）。
 - **後台 `/admin/beta-test`**：測試者表格新增「最後使用」（`profiles.last_seen_at`）與「回報的問題」（意見回饋、單句回報、教材檢舉的數量）。原本已有註冊時間、進度（第幾週第幾天）、最後練習、需要追蹤（超過 2 天沒練習）。
 - **邀請碼**：用秘密金鑰直接在正式資料庫新增 5 組（每組 10 次、14 天到期，備註「Beta 第 N 批」），和後台「建立邀請」的格式相同。邀請進來的人計入 50 人名額，但不被上限擋（D132）。
-- **AI 全站每月上限**：US$8 → **US$15**（`usage_settings.site_monthly_micros`，後台 `/admin/usage` 可改回）。理由：50 位免費使用者用滿額度時，AI 費用約 US$11.7/月（自建聽力 US$6.4、寫作 US$5.3），會撞到 US$8；Azure 學生額度還有 US$99.5。方案額度與價格都沒有改。
+- **AI 全站每月上限**：US$8 → **US$15**（`usage_settings.site_monthly_micros`，後台 `/admin/usage` 可改回）。理由：50 位免費使用者用滿額度時，AI 費用約 US$11.7/月（自建聽力 US$6.4、寫作 US$5.3），會撞到 US$8；Azure 學生額度還有約 US$97.6。方案額度與價格都沒有改。
 - **要改時**：`components/BetaGuide.tsx`、`messages/*.json` 的 `beta.guide`、`components/SiteFooter.tsx`、`components/AccountMenu.tsx`、`app/admin/beta-test/page.tsx`。
 
 ## D213 官方教材擴充：經典名篇、國高中程度、學測風格聽力；多益、國中程度、日記寫作題目；教材由 Claude 直接撰寫（2026-11-25，Joe 指定 P1）
@@ -4164,3 +4164,5 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - It was the first time 改用過去完成式。
 
   已發布的教材用 `SYNC=1 npm run official:written` 同步到正式站：只更新內容不同的句子，英文改過的 7 句重新產生語音（547 字元）。`tests/official-written.test.ts` 新增一條規則：講解引用的字（單字、文法、重點、意群、連音）一定要出現在句子裡，避免英文改了、講解沒跟著改。
+
+- **用量加總（2026-11-25 補）**：一般的 select 最多回傳 1,000 筆，`scripts/cost-report.mts` 的 Azure 學生額度剩餘（顯示 US$99.64，實際約 US$97.56）和 `scripts/writing-audio.record.ts` 的 F0 本月用量（顯示 7 萬，實際 22 萬）都少算了。兩者改用資料庫函式 `api_usage_totals` 加總（後台 `/admin/usage` 本來就用它）。`official:written` 不讀月用量，只計算這次執行送出的字元。
