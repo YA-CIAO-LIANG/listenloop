@@ -2,6 +2,7 @@ import { parseActivity } from "./activity";
 import { cleanInviteCode, newInviteCode } from "./beta";
 import { isLocalDate, type LocalDate } from "./dates";
 import type { PlanLimits } from "./plans";
+import { secondsToWords } from "./units";
 import { parseProgress } from "./progress";
 
 /**
@@ -223,12 +224,15 @@ export function bonusPool({
   return { leftSeconds, extraSeconds: leftSeconds + takenNow };
 }
 
-/** Which allowance bonus minutes add to: the week's, else the month's. */
+/**
+ * Which allowance bonus minutes add to: the week's, else the month's
+ * (in words since D209; a bonus minute is WORDS_PER_MINUTE words).
+ */
 export function bonusLimit(
   limits: PlanLimits,
-): "minutesPerWeek" | "minutesPerMonth" | null {
-  if (limits.minutesPerWeek !== null) return "minutesPerWeek";
-  if (limits.minutesPerMonth !== null) return "minutesPerMonth";
+): "wordsPerWeek" | "wordsPerMonth" | null {
+  if (limits.wordsPerWeek !== null) return "wordsPerWeek";
+  if (limits.wordsPerMonth !== null) return "wordsPerMonth";
   return null;
 }
 
@@ -239,7 +243,7 @@ export function withBonus(
 ): PlanLimits {
   const limit = bonusLimit(limits);
   if (limit === null || extraSeconds <= 0) return limits;
-  return { ...limits, [limit]: limits[limit]! + extraSeconds / 60 };
+  return { ...limits, [limit]: limits[limit]! + secondsToWords(extraSeconds) };
 }
 
 /** What "My quota" shows about the program. */

@@ -318,7 +318,7 @@ describe("downgrading (D72, D85)", () => {
         createdTotal: 12,
         secondsThisWeek: 120,
       }),
-    ).toMatchObject({ ok: false, limit: "minutesPerWeek" });
+    ).toMatchObject({ ok: false, limit: "wordsPerWeek" });
   });
 });
 

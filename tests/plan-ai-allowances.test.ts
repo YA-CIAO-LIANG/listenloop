@@ -17,7 +17,7 @@ import { PLAN_PRICES } from "@/lib/payments/pricing";
  */
 const AI = [
   "writingReviewsPerWeek",
-  "chatMinutesPerWeek",
+  "chatMessagesPerWeek",
   "backChecksPerWeek",
 ] as const;
 
@@ -65,7 +65,7 @@ describe("AI writing allowances by plan (D207)", () => {
     const margin = worstCaseMargin(
       PLAN_PRICES.student.year.amount,
       "year",
-      PLANS.student.minutesPerMonth ?? 0,
+      (PLANS.student.wordsPerMonth ?? 0) / 150,
       PLAN_WRITING_REVIEWS.student,
       PLAN_CHAT_EXTRA.student,
       PLAN_BACK_CHECK_EXTRA.student,

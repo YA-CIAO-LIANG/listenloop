@@ -4059,3 +4059,22 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **F7（嚴重度 2）**：定價頁比較表和 `docs/quotas.md` 的額外練習 AI 批改寫「每週 n 次」，方案卡和額度頁寫「組」。統一成「每週 n 組」（`plansPage.setsPerWeek`、`lib/quota-table.ts`），E2E 檢查比較表那一列。
 - **寫作日曆的日期按鈕**：在 360／375px 是 40～42×50px，和練習日曆是同一個設計，比照 D88 接受。
 - 要改時看哪裡：`components/PricingPlans.tsx`、`lib/quota-table.ts`、`docs/usability-ai-test.md`、`docs/qa-log.md`。
+
+## D209 額度的單位：自建聽力用「字」、聊天用「則」（2026-11-24，Joe 的價格與額度決定第二項）
+
+- **Joe 的決定**：自建聽力教材的額度用英文字數計算與顯示（1 分鐘約 150 字，寫在集中設定）；聊天練習用「則訊息」，開始前仍可選 5、10、20 分鐘，但扣的是實際送出的訊息數；作文批改用「篇」、額外練習用「組」；既有使用者已用的分鐘數換算成字數，不能讓任何人的剩餘額度變少。
+- **換算基準**：`lib/units.ts` 的 `WORDS_PER_MINUTE = 150`（`lib/custom-practice/generation.ts` 也改從這裡讀）。用正式站的紀錄驗證：78 份文字教材共 20,540 字、音檔 8,098 秒，每分鐘 152 字。
+- **用量照舊存秒數、換算成字數**：
+  - `practice_creations.seconds` 本來就是「字數 ÷ 150 × 60」（`estimateSeconds`），所以「已用字數 = 秒數 × 150 ÷ 60」正好是原本的字數，不用改資料。上傳錄音和 YouTube 教材用音檔長度換算。
+  - `lib/plans.ts` 的 `minutesPerWeek`／`minutesPerMonth` 改成 `wordsPerWeek`／`wordsPerMonth`，數字是原本的分鐘 × 150：免費每週 300 字、Plus 與學生每月 6,000 字、Pro 每月 18,000 字。每個人的額度和剩餘額度都和原本完全相同（只是單位不同）。
+  - 免費方案「本週只剩多少」的提示（`weekWordsLeft`，原本是 `weekSecondsLeft`）改用字數。
+  - 每份教材的最長長度（`maxPracticeSeconds`）是長度限制，不是額度，仍用秒數判斷；「我的額度」顯示成「750 字（約 5 分鐘）」。
+- **管理員的額度調整**：改用字數（「每週字數」「每月字數」）。migration `20261202000000_quota_words.sql` 只放寬 `quota_overrides.limit_name` 的檢查，允許 `wordsPerWeek`、`wordsPerMonth`；舊的分鐘數紀錄照樣有效，讀取時乘以 150（`lib/quota.ts` 的 `parseOverride`）。正式站目前沒有任何調整紀錄（2026-11-24 查詢）。
+- **邀請朋友的額度**：資料庫仍存分鐘數（`referral_rewards.minutes`），加到額度時換算成字數，頁面顯示「各得 300 字」。
+- **聊天改用訊息則數**：
+  - `chatMinutesPerWeek` 改成 `chatMessagesPerWeek`，數字是原本的分鐘 × 每分鐘最多 2 則（`MESSAGES_PER_MINUTE`）：免費 10 則、學生 10 則、Plus 30 則、Pro 40 則。原本一次 5 分鐘的聊天最多也是 10 則，所以能聊的量不變。
+  - 已用量 = 本週所有聊天實際送出的訊息數（`writing_chat_sessions.messages`，本來就有記錄），不再是「選的分鐘數，提早結束退回」。同樣的使用情形，剩餘額度只會變多（例如聊 5 分鐘只送 3 則，原本算 5 分鐘，現在算 3 則）。
+  - 開始聊天時只要本週還有 1 則就能開始；每則訊息送出前再檢查一次，用完時這次聊天結束並說明原因。選的分鐘數仍是這次聊天的時間與訊息上限（`maxMessages`）。
+  - 聊天設定頁加一行說明「每週的額度扣的是你實際送出的訊息數」。
+- **測試**：`tests/plans.test.ts`、`tests/pricing-plans.test.ts`（字數）、`tests/writing/chat.test.ts`（每個方案的則數等於原本分鐘的則數）、`tests/quota.test.ts`（舊分鐘紀錄換算）、`tests/creation-quota.test.ts`、`tests/referral.test.ts`；E2E `writing-chat`（提早結束後還能再聊、「我的額度」顯示已用 1 則）、`quota`、`plans`、`roles`、`referral`。
+- 要改時看哪裡：`lib/units.ts`、`lib/plans.ts`、`lib/quota.ts`、`auth/chat.ts`、`app/writing/chat/actions.ts`、`auth/quota-report.ts`、`docs/quotas.md`。

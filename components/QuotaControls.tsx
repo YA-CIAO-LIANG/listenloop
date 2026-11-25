@@ -76,8 +76,8 @@ export function QuotaControls({
     hint: useId(),
     aiReason: useId(),
   };
-  const [limit, setLimit] = useState<OverridableLimit>("minutesPerWeek");
-  const [extra, setExtra] = useState("5");
+  const [limit, setLimit] = useState<OverridableLimit>("wordsPerWeek");
+  const [extra, setExtra] = useState("300");
   const [days, setDays] = useState("7");
   const [reason, setReason] = useState("");
   const [aiReason, setAiReason] = useState("");

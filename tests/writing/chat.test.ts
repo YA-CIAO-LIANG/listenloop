@@ -241,18 +241,24 @@ describe("past chats", () => {
   });
 });
 
-describe("weekly minutes and limits", () => {
-  it("free has at least one 5-minute chat a week", () => {
-    expect(PLANS.free.chatMinutesPerWeek).toBeGreaterThanOrEqual(5);
-    expect(
-      can("free", { kind: "chat-minutes", thisWeek: 0, minutes: 5 }).ok,
-    ).toBe(true);
-    expect(
-      can("free", { kind: "chat-minutes", thisWeek: 0, minutes: 10 }),
-    ).toMatchObject({ ok: false, limit: "chatMinutesPerWeek" });
-    expect(
-      can("admin", { kind: "chat-minutes", thisWeek: 999, minutes: 20 }).ok,
-    ).toBe(true);
+describe("weekly messages and limits (D209)", () => {
+  it("free has a 5-minute chat's messages a week, counted one by one", () => {
+    expect(PLANS.free.chatMessagesPerWeek).toBe(maxMessages(5));
+    expect(can("free", { kind: "chat-message", thisWeek: 9 }).ok).toBe(true);
+    expect(can("free", { kind: "chat-message", thisWeek: 10 })).toMatchObject({
+      ok: false,
+      limit: "chatMessagesPerWeek",
+      max: 10,
+    });
+    expect(can("admin", { kind: "chat-message", thisWeek: 999 }).ok).toBe(true);
+  });
+
+  it("nobody's chat allowance shrank: each plan has its old minutes' messages", () => {
+    // Minutes before D209: free 5, student 5, Plus 15, Pro 20.
+    expect(PLANS.free.chatMessagesPerWeek).toBe(maxMessages(5));
+    expect(PLANS.student.chatMessagesPerWeek).toBe(maxMessages(5));
+    expect(PLANS.paid.chatMessagesPerWeek).toBe(maxMessages(15));
+    expect(PLANS.pro.chatMessagesPerWeek).toBe(maxMessages(20));
   });
 
   it("caps messages and counts minutes used", () => {
@@ -283,9 +289,9 @@ describe("chat minutes and the price (D197)", () => {
     const { PLAN_PRICES, PERIOD_MONTHS } =
       await import("@/lib/payments/pricing");
     const minutes = {
-      plus: PLANS.paid.chatMinutesPerWeek!,
-      student: PLANS.paid.chatMinutesPerWeek!,
-      pro: PLANS.pro.chatMinutesPerWeek!,
+      plus: PLANS.paid.chatMessagesPerWeek!,
+      student: PLANS.paid.chatMessagesPerWeek!,
+      pro: PLANS.pro.chatMessagesPerWeek!,
     };
     for (const plan of ["plus", "student", "pro"] as const) {
       for (const period of ["month", "year"] as const) {

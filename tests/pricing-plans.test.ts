@@ -34,18 +34,18 @@ describe("prices (D102)", () => {
 });
 
 describe("plans (D102)", () => {
-  it("free makes 2 minutes a week (D143); Plus 40 and Pro 120 minutes a month", () => {
+  it("free makes 300 words a week (D143); Plus 6,000 and Pro 18,000 words a month (D209)", () => {
     expect(PLANS.free).toMatchObject({
       practicesTotal: null,
-      minutesPerWeek: 2,
+      wordsPerWeek: 300,
       maxPracticeSeconds: 120,
     });
     expect(PLANS.paid).toMatchObject({
-      minutesPerMonth: 40,
+      wordsPerMonth: 6000,
       maxPracticeSeconds: 300,
     });
     expect(PLANS.pro).toMatchObject({
-      minutesPerMonth: 120,
+      wordsPerMonth: 18000,
       maxPracticeSeconds: 600,
     });
     expect(
@@ -53,7 +53,7 @@ describe("plans (D102)", () => {
     ).toBe(true);
     expect(
       can("paid", { kind: "create-practice", secondsThisMonth: 40 * 60 }),
-    ).toEqual({ ok: false, limit: "minutesPerMonth", max: 40 });
+    ).toEqual({ ok: false, limit: "wordsPerMonth", max: 6000 });
     expect(
       can("pro", { kind: "create-practice", secondsThisMonth: 100 * 60 }).ok,
     ).toBe(true);

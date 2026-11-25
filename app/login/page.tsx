@@ -10,6 +10,7 @@ import { getSignedInUser } from "@/auth/session";
 import { LoginForm } from "@/components/LoginForm";
 import { safeNextPath } from "@/lib/auth/redirect";
 import { REFERRAL_BONUS_MINUTES } from "@/lib/referral";
+import { WORDS_PER_MINUTE } from "@/lib/units";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("login");
@@ -59,7 +60,7 @@ export default async function LoginPage({ searchParams }: PageProps<"/login">) {
       {/* A friend's referral link (D177). */}
       {referred && (
         <p role="status" className="mt-4 max-w-reading">
-          {t("referred", { minutes: REFERRAL_BONUS_MINUTES })}
+          {t("referred", { words: REFERRAL_BONUS_MINUTES * WORDS_PER_MINUTE })}
         </p>
       )}
       <BetaNote className="mt-4" />

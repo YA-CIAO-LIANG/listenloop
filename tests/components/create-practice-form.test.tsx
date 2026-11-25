@@ -685,7 +685,7 @@ describe("CreatePracticeForm", () => {
     fireEvent.click(screen.getByLabelText("AI 生成"));
     await click("生成文字");
     expect(screen.getByRole("alert").textContent).toContain(
-      "本週只剩 40 秒可以建立",
+      "本週只剩 40 字可以建立",
     );
   });
 

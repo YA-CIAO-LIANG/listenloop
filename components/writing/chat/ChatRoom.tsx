@@ -234,7 +234,11 @@ export function ChatRoom({
       });
       if (!result.ok) {
         setError(result);
-        if (result.reason === "ended" || result.reason === "tooMany") {
+        if (
+          result.reason === "ended" ||
+          result.reason === "tooMany" ||
+          result.reason === "plan"
+        ) {
           finish([...before, mine]);
         }
         return;

@@ -33,9 +33,7 @@ vi.mock("@/auth/quota", async () => {
 });
 vi.mock("@/auth/creation-quota", () => ({
   creationAllowed: async () =>
-    state.quota
-      ? { ok: true }
-      : { ok: false, limit: "minutesPerMonth", max: 40 },
+    state.quota ? { ok: true } : { ok: false, limit: "wordsPerMonth", max: 40 },
 }));
 vi.mock("@/auth/creator", () => ({
   getCreator: async () => ({
@@ -174,7 +172,7 @@ describe("startAudioUpload (D130)", () => {
     ).toEqual({
       ok: false,
       reason: "plan",
-      limit: "minutesPerMonth",
+      limit: "wordsPerMonth",
       max: 40,
     });
     expect(state.uploadUrls).toEqual([]);

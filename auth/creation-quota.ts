@@ -15,6 +15,7 @@ import {
   withBonus,
   type CreationRecord,
 } from "@/lib/referral";
+import { WORDS_PER_MINUTE, wordsToSeconds } from "@/lib/units";
 import { usagePeriodStarts, usageWeek } from "@/lib/usage-report";
 import { plansFor } from "./quota";
 import { getReferralGrants } from "./referral";
@@ -25,7 +26,8 @@ import { getServerSupabase } from "./server";
 export type WeekAllowance = {
   usedSeconds: number;
   leftSeconds: number;
-  minutes: number;
+  /** The week's allowance in words (D209). */
+  words: number;
   /** ISO instant: next Monday 00:00 Taiwan time. */
   resetsAt: string;
 };
@@ -87,24 +89,28 @@ export async function creationAllowance({
     : { count: 0, seconds: 0, weekSeconds: 0, rows: [] };
   // A teacher's class plan brings its own monthly minutes (D103), when
   // more than their own plan's.
-  const classMonthly = classMinutes(
+  const classMinutesMonthly = classMinutes(
     isClassSeats(user.classroomSeats) ? user.classroomSeats : null,
   );
+  const classMonthly =
+    classMinutesMonthly === null
+      ? null
+      : classMinutesMonthly * WORDS_PER_MINUTE;
   const own = PLANS[plan];
   const classPlans =
     classMonthly !== null &&
-    (own.minutesPerMonth === null ||
-      own.minutesPerWeek !== null ||
+    (own.wordsPerMonth === null ||
+      own.wordsPerWeek !== null ||
       own.practicesTotal !== null ||
-      own.minutesPerMonth < classMonthly) &&
+      own.wordsPerMonth < classMonthly) &&
     plan !== "admin"
       ? {
           ...PLANS,
           [plan]: {
             ...own,
             practicesTotal: null,
-            minutesPerWeek: null,
-            minutesPerMonth: classMonthly,
+            wordsPerWeek: null,
+            wordsPerMonth: classMonthly,
             maxPracticeSeconds: Math.max(own.maxPracticeSeconds ?? 0, 300),
           },
         }
@@ -118,9 +124,9 @@ export async function creationAllowance({
       ? bonusPool({
           grants,
           creations: made.rows,
-          baseSeconds: adjusted[plan][limit]! * 60,
+          baseSeconds: wordsToSeconds(adjusted[plan][limit]!),
           periodOf: (iso) =>
-            limit === "minutesPerWeek"
+            limit === "wordsPerWeek"
               ? usageWeek(new Date(iso)).start
               : usagePeriodStarts(new Date(iso)).monthStart,
           now,
@@ -155,12 +161,12 @@ export async function creationAllowance({
     },
     bonusLeftSeconds: bonus ? Math.round(bonus.leftSeconds) : null,
     week:
-      left === null || limits.minutesPerWeek === null
+      left === null || limits.wordsPerWeek === null
         ? null
         : {
             usedSeconds: Math.round(made.weekSeconds),
             leftSeconds: left,
-            minutes: limits.minutesPerWeek,
+            words: limits.wordsPerWeek,
             resetsAt: week.end,
           },
   };

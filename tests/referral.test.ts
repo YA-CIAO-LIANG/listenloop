@@ -240,8 +240,9 @@ describe("the bonus pool", () => {
   });
 
   it("adds to the week's minutes on the free plan, the month's on paid", () => {
-    expect(withBonus(PLANS.free, 120).minutesPerWeek).toBe(4);
-    expect(withBonus(PLANS.paid, 120).minutesPerMonth).toBe(42);
+    // 120 seconds are 300 words (D209).
+    expect(withBonus(PLANS.free, 120).wordsPerWeek).toBe(600);
+    expect(withBonus(PLANS.paid, 120).wordsPerMonth).toBe(6300);
     expect(withBonus(PLANS.admin, 120)).toBe(PLANS.admin);
   });
 });

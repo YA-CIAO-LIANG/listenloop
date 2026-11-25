@@ -78,13 +78,13 @@ test("a friend who signs up through the link and finishes Day 1 earns both 2 min
     })
     .toBeGreaterThan(0);
 
-  // The friend: 2 more minutes this week.
+  // The friend: 2 more minutes (300 words, D209) this week.
   await page.goto("/account/usage");
   const week = page
     .getByRole("listitem")
-    .filter({ hasText: "本週建立教材的分鐘數" });
-  await expect(week).toContainText("/ 4 分鐘");
-  await expect(stat(page, "獲得的分鐘數")).toContainText("2 分鐘");
+    .filter({ hasText: "本週建立教材的字數" });
+  await expect(week).toContainText("/ 600 字");
+  await expect(stat(page, "獲得的字數")).toContainText("300 字");
 
   // The referrer: one friend signed up and finished Day 1, 2 minutes.
   await signOut(page);
@@ -92,11 +92,11 @@ test("a friend who signs up through the link and finishes Day 1 earns both 2 min
   await page.goto("/account/usage");
   await expect(stat(page, "用連結註冊")).toContainText("1 人");
   await expect(stat(page, "完成第 1 天")).toContainText("1 人");
-  await expect(stat(page, "獲得的分鐘數")).toContainText("2 分鐘");
-  await expect(stat(page, "還能用的分鐘數")).toContainText("2 分鐘");
+  await expect(stat(page, "獲得的字數")).toContainText("300 字");
+  await expect(stat(page, "還能用的字數")).toContainText("300 字");
   await expect(
-    page.getByRole("listitem").filter({ hasText: "本週建立教材的分鐘數" }),
-  ).toContainText("/ 4 分鐘");
+    page.getByRole("listitem").filter({ hasText: "本週建立教材的字數" }),
+  ).toContainText("/ 600 字");
 });
 
 test("a code that isn't anyone's goes to the home page", async ({ page }) => {

@@ -110,7 +110,7 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       ).toHaveCount(0);
     });
 
-    test("ending early, then this week's minutes", async ({ page }) => {
+    test("ending early, then this week's messages (D209)", async ({ page }) => {
       await signInWithEmail(
         page,
         `e2e-chat-early-${who}`,
@@ -125,14 +125,16 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       await expect(
         page.getByRole("heading", { name: "這次聊天的整理" }),
       ).toBeVisible();
-      // The free plan's 5 minutes: one minute counted, so another
-      // 5-minute chat doesn't fit this week.
+      // Only the message sent counts (D209): another chat still starts,
+      // and the quota page shows 1 of the free plan's 10 messages.
       await page.getByRole("button", { name: "再聊一次" }).click();
       await page.getByRole("radio", { name: "5 分鐘" }).check();
       await page.getByRole("button", { name: "開始聊天" }).click();
+      await expect(page.getByTestId("chat-room")).toBeVisible();
+      await page.goto("/account/usage");
       await expect(
-        page.getByRole("alert").filter({ hasText: "分鐘聊天練習不夠" }),
-      ).toContainText("分鐘聊天練習不夠這次的長度");
+        page.getByRole("listitem").filter({ hasText: "本週的聊天訊息" }),
+      ).toContainText("已用 1 則 / 10 則");
     });
 
     test("self-harm stops the practice and offers help", async ({ page }) => {

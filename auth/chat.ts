@@ -3,8 +3,8 @@ import { getAdminSupabase } from "./admin";
 
 /**
  * Chat practice sessions (D197), written by the server only: one row
- * per chat, the chosen minutes counted at the start, the unused part
- * given back at the end.
+ * per chat with its chosen minutes and the messages sent. The weekly
+ * allowance counts messages (D209).
  */
 export type ChatSession = {
   id: string;
@@ -15,19 +15,16 @@ export type ChatSession = {
   ended_at: string | null;
 };
 
-/** Minutes counted this week (Monday 00:00 Taiwan time). */
-export async function chatMinutesThisWeek(userId: string): Promise<number> {
+/** Messages sent this week (Monday 00:00 Taiwan time, D209). */
+export async function chatMessagesThisWeek(userId: string): Promise<number> {
   const admin = getAdminSupabase();
   if (!admin) return 0;
   const { data } = await admin
     .from("writing_chat_sessions")
-    .select("minutes, used_minutes")
+    .select("messages")
     .eq("user_id", userId)
     .gte("started_at", usageWeek(new Date()).start);
-  return (data ?? []).reduce(
-    (sum, row) => sum + (row.used_minutes ?? row.minutes),
-    0,
-  );
+  return (data ?? []).reduce((sum, row) => sum + (row.messages ?? 0), 0);
 }
 
 export async function startChatSession(

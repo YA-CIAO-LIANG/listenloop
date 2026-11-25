@@ -21,10 +21,10 @@ test("past this week's free minutes, the create page offers the paid plan's wait
   );
   const card = page.getByRole("region", { name: "Plus 方案" });
   await expect(card).toContainText(
-    "免費方案每週可以建立 2 分鐘的教材，本週已經用完。",
+    "免費方案每週可以建立 300 字的教材，本週已經用完。",
   );
-  await expect(card).toContainText("每月自建 40 分鐘的教材");
-  await expect(card).toContainText("每份最長 5 分鐘");
+  await expect(card).toContainText("每月自建 6,000 字的教材");
+  await expect(card).toContainText("每份最多約 750 字");
   await expect(card).toContainText(
     "NT$124／月年繳 NT$1,490，一次付清，省 2 個月",
   );
@@ -58,7 +58,7 @@ test("a free learner sees the week's minutes left and when they reset (D143)", a
   await signInAsLearner(page);
   await page.goto("/materials/new");
   await expect(page.getByTestId("week-allowance")).toContainText(
-    /每週可以建立 2 分鐘.*本週還剩 2 分鐘，\d+\/\d+（週一）\s?00:00 重設/,
+    /每週可以建立 300 字.*本週還剩 300 字，\d+\/\d+（週一）\s?00:00 重設/,
   );
   await expect(page.getByRole("button", { name: /斷句/ })).toBeVisible();
 });

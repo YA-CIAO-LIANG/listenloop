@@ -3,7 +3,7 @@
 import { getTranslations } from "next-intl/server";
 import { getAdminSupabase } from "@/auth/admin";
 import {
-  chatMinutesThisWeek,
+  chatMessagesThisWeek,
   countChatMessage,
   endChatSession,
   getChatSession,
@@ -51,15 +51,15 @@ export type StartChatResult =
       ok: true;
       sessionId: string;
       startedAt: string;
-      /** Minutes left this week after this chat; null: no limit. */
+      /** Messages left this week; null: no limit (D209). */
       left: number | null;
     }
   | { ok: false; reason: Refusal; block?: PlanBlock };
 
 /**
- * Starts a chat (D197): signed in, within the plan's weekly chat minutes
- * (the chosen length counts now; what isn't used is given back by
- * endChat). The conversation itself never reaches the database.
+ * Starts a chat (D197): signed in, with at least one of the plan's weekly
+ * messages left (D209: each message sent counts; the chosen length only
+ * bounds this chat). The conversation itself never reaches the database.
  */
 export async function startChat(input: {
   minutes: number;
@@ -80,24 +80,20 @@ export async function startChat(input: {
   }
   const plan = planFor(user);
   const plans = await plansFor(user);
-  const used = await chatMinutesThisWeek(user.id);
-  const allowed = can(
-    plan,
-    { kind: "chat-minutes", thisWeek: used, minutes },
-    plans,
-  );
+  const used = await chatMessagesThisWeek(user.id);
+  const allowed = can(plan, { kind: "chat-message", thisWeek: used }, plans);
   if (!allowed.ok) return { ok: false, reason: "plan", block: allowed };
   if (!(await allowAction("ai", user.id))) {
     return { ok: false, reason: "busy" };
   }
   const sessionId = await startChatSession(user.id, minutes);
   if (!sessionId) return { ok: false, reason: "unavailable" };
-  const max = plans[plan].chatMinutesPerWeek;
+  const max = plans[plan].chatMessagesPerWeek;
   return {
     ok: true,
     sessionId,
     startedAt: new Date().toISOString(),
-    left: max === null ? null : Math.max(0, max - used - minutes),
+    left: max === null ? null : Math.max(0, max - used),
   };
 }
 
@@ -107,6 +103,8 @@ export type ChatReplyResult =
       ok: false;
       reason: Refusal | "ended" | "tooMany" | "limit" | "filtered" | "failed";
       limit?: UsageBlock;
+      /** For "plan": the weekly messages are used up (D209). */
+      block?: PlanBlock;
     };
 
 const clip = (value: unknown, max: number) =>
@@ -179,6 +177,13 @@ export async function sendChat(input: {
   if (user.aiSuspended != null && user.role !== "admin") {
     return { ok: false, reason: "suspended" };
   }
+  // Each message counts against the week's (D209).
+  const allowed = can(
+    planFor(user),
+    { kind: "chat-message", thisWeek: await chatMessagesThisWeek(user.id) },
+    await plansFor(user),
+  );
+  if (!allowed.ok) return { ok: false, reason: "plan", block: allowed };
   if (!(await allowAction("ai", user.id))) {
     return { ok: false, reason: "busy" };
   }
@@ -230,7 +235,7 @@ export async function sendChat(input: {
   return { ok: true, turn };
 }
 
-/** Ends a chat: the minutes not used go back to this week's (D197). */
+/** Ends a chat (D197); its messages stay counted (D209). */
 export async function endChat(input: { sessionId: string }): Promise<void> {
   const user = await getSignedInUser();
   if (!user || typeof input?.sessionId !== "string") return;

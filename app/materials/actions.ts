@@ -654,7 +654,7 @@ export async function generatePracticeText(
   if (!long.ok) {
     return {
       ok: false,
-      reason: long.limit === "weekSecondsLeft" ? "weekLeft" : "tooLong",
+      reason: long.limit === "weekWordsLeft" ? "weekLeft" : "tooLong",
       max: long.max,
     };
   }

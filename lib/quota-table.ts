@@ -6,6 +6,7 @@ import { PLANS, type PlanLimits } from "./plans";
 import { RATE_LIMITS } from "./rate-limits";
 import { UPLOAD_LIMITS } from "./upload-audio";
 import { DEFAULT_USAGE_SETTINGS, dailyCostLimit } from "./usage";
+import { WORDS_PER_MINUTE } from "./units";
 
 /**
  * The quota table in docs/quotas.md (D161), made from the settings the
@@ -26,6 +27,7 @@ type Column = (typeof COLUMNS)[number][1];
 const usd = (micros: number) => `US$${(micros / 1e6).toFixed(2)}`;
 const none = "—";
 const unlimited = "不限";
+const num = (n: number) => n.toLocaleString("en-US");
 
 function limitsOf(column: Column): PlanLimits {
   if (column !== "class") return PLANS[column];
@@ -34,17 +36,17 @@ function limitsOf(column: Column): PlanLimits {
   return {
     ...PLANS.paid,
     // Shown as each tier's minutes by `minutes` below (D173).
-    minutesPerMonth: CLASS_TIERS[1].minutes,
+    wordsPerMonth: CLASS_TIERS[1].minutes * WORDS_PER_MINUTE,
     maxPracticeSeconds: Math.max(PLANS.paid.maxPracticeSeconds ?? 0, 300),
   };
 }
 
 function minutes(l: PlanLimits, column?: Column): string {
   if (column === "class") {
-    return `每月 ${CLASS_TIERS.map((tier) => tier.minutes).join("／")} 分鐘（小班／標準班／大班）`;
+    return `每月 ${CLASS_TIERS.map((tier) => num(tier.minutes * WORDS_PER_MINUTE)).join("／")} 字（小班／標準班／大班）`;
   }
-  if (l.minutesPerWeek !== null) return `每週 ${l.minutesPerWeek} 分鐘`;
-  if (l.minutesPerMonth !== null) return `每月 ${l.minutesPerMonth} 分鐘`;
+  if (l.wordsPerWeek !== null) return `每週 ${num(l.wordsPerWeek)} 字`;
+  if (l.wordsPerMonth !== null) return `每月 ${num(l.wordsPerMonth)} 字`;
   return unlimited;
 }
 
@@ -91,9 +93,9 @@ const ROWS: [string, (l: PlanLimits, column: Column) => string, string][] = [
   [
     "聊天練習（WritingLoop，D197）",
     (l) =>
-      l.chatMinutesPerWeek === null
+      l.chatMessagesPerWeek === null
         ? unlimited
-        : `每週 ${l.chatMinutesPerWeek} 分鐘`,
+        : `每週 ${l.chatMessagesPerWeek} 則`,
     "每週一 00:00",
   ],
   [

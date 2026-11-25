@@ -1,3 +1,4 @@
+import { WORDS_PER_MINUTE } from "@/lib/units";
 import { PRACTICE_LIMITS } from "./draft";
 import { cleanSubtitle } from "./subtitle";
 
@@ -42,8 +43,9 @@ export const CUSTOM_LENGTH = { min: 15, max: 600 } as const;
 /**
  * English read aloud runs about this many words a minute (D36, D142): the
  * length shown for a text, checked against the plan, and asked of the AI.
+ * Kept with the quota units (lib/units.ts, D209).
  */
-export const WORDS_PER_MINUTE = 150;
+export { WORDS_PER_MINUTE };
 
 /** The words in English sentences. */
 export function countWords(sentences: readonly string[]): number {
