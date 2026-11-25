@@ -303,7 +303,7 @@
       }
     },
     {
-      "en": "That early, why do we need to leave so soon?",
+      "en": "That early? Why do we need to leave so soon?",
       "zh": "那麼早，為什麼要那麼早出發？",
       "speaker": 1,
       "notes": {
@@ -333,8 +333,8 @@
       }
     },
     {
-      "en": "The car parks fill up fast, and it gets hot in the afternoon.",
-      "zh": "停車場很快就會滿，而且下午會變得很熱。",
+      "en": "The trail gets crowded later, and it gets hot in the afternoon.",
+      "zh": "步道晚一點會很擁擠，而且下午會變得很熱。",
       "speaker": 0,
       "notes": {
         "v": 2,
@@ -342,32 +342,17 @@
         "highlights": [],
         "vocab": [
           {
-            "term": "fill up",
-            "inSentence": "fill up",
-            "kind": "phrase",
-            "pos": "phr.",
-            "zh": "填滿；客滿",
-            "ipa": "/fɪl ʌp/",
-            "collocations": ["fill up fast", "fill up the tank"],
+            "term": "crowded",
+            "inSentence": "crowded",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "擁擠的",
+            "ipa": "/ˈkraʊdɪd/",
+            "collocations": ["a crowded train", "get crowded"],
             "examples": [
               {
-                "en": "The restaurant fills up quickly on Fridays.",
-                "zh": "那家餐廳週五很快就客滿。"
-              }
-            ]
-          },
-          {
-            "term": "car park",
-            "inSentence": "car parks",
-            "kind": "phrase",
-            "pos": "n.",
-            "zh": "停車場",
-            "ipa": "/ˈkɑː pɑːk/",
-            "collocations": ["a multi-storey car park", "free car park"],
-            "examples": [
-              {
-                "en": "The car park is behind the shopping centre.",
-                "zh": "停車場在購物中心後面。"
+                "en": "The market gets crowded on weekends.",
+                "zh": "市場週末會變得很擁擠。"
               }
             ]
           }
@@ -524,7 +509,7 @@
         ],
         "grammar": [
           {
-            "point": "first conditional",
+            "point": "zero conditional",
             "quote": "if it rains, the rocks get really slippery",
             "explanation": "if + 現在式，主要子句用現在式，表示一般會發生的結果。",
             "examples": [

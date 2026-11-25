@@ -36,6 +36,29 @@ describe("data/official (D213)", () => {
     }
   });
 
+  it.each(materials)("$f quotes only words in each sentence", ({ m }) => {
+    const words = (text: string) =>
+      text
+        .toLowerCase()
+        .replace(/[^a-z0-9' ]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    for (const s of m.sentences) {
+      const en = ` ${words(s.en)} `;
+      const n = s.notes;
+      const quotes: string[] = [
+        ...n.vocab.map((v: { inSentence: string }) => v.inSentence),
+        ...n.grammar.map((g: { quote: string }) => g.quote),
+        ...n.highlights.map((h: { text: string }) => h.text),
+        ...n.chunks.map((c: { text: string }) => c.text),
+        ...n.connected.map((c: { text: string }) => c.text),
+      ];
+      for (const quote of quotes) {
+        expect(en, `${s.en} ⟵ "${quote}"`).toContain(` ${words(quote)} `);
+      }
+    }
+  });
+
   it("has unique titles", () => {
     const titles = materials.map(({ m }) => m.title);
     expect(new Set(titles).size).toBe(titles.length);

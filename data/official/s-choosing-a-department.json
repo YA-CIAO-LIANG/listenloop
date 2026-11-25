@@ -308,7 +308,7 @@
         "highlights": [],
         "vocab": [
           {
-            "term": "can't put it down",
+            "term": "couldn't put it down",
             "inSentence": "couldn't put it down",
             "kind": "idiom",
             "pos": "phr.",
@@ -502,7 +502,7 @@
             "pos": "phr.",
             "zh": "被錄取；進入",
             "ipa": "/ɡɛt ɪn/",
-            "collocations": ["get in to a school", "hard to get in"],
+            "collocations": ["get into a school", "hard to get in"],
             "examples": [
               {
                 "en": "She worked hard and got in.",

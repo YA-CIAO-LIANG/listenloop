@@ -23,8 +23,8 @@
   },
   "sentences": [
     {
-      "en": "On a bright autumn day, a family of ants was busy drying the grain they had collected in summer.",
-      "zh": "在一個晴朗的秋日，一群螞蟻正忙著曬乾他們夏天收集的穀物。",
+      "en": "On a bright winter day, a family of ants was busy drying the grain they had collected in summer.",
+      "zh": "在一個晴朗的冬日，一群螞蟻正忙著曬乾他們夏天收集的穀物。",
       "speaker": null,
       "notes": {
         "v": 2,
@@ -47,17 +47,17 @@
             ]
           },
           {
-            "term": "autumn",
-            "inSentence": "autumn",
+            "term": "collect",
+            "inSentence": "collected",
             "kind": "word",
-            "pos": "n.",
-            "zh": "秋天（英式）",
-            "ipa": "/ˈɔːtəm/",
-            "collocations": ["in autumn", "autumn leaves"],
+            "pos": "v.",
+            "zh": "收集；採集",
+            "ipa": "/kəˈlekt/",
+            "collocations": ["collect food", "collect data"],
             "examples": [
               {
-                "en": "The leaves turn red in autumn.",
-                "zh": "秋天葉子會變紅。"
+                "en": "We collected old books for the library.",
+                "zh": "我們為圖書館收集了舊書。"
               }
             ]
           }

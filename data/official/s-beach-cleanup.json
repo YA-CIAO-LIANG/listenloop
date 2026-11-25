@@ -294,7 +294,7 @@
             "inSentence": "foam",
             "kind": "word",
             "pos": "n.",
-            "zh": "泡沫塑料；保麗龍",
+            "zh": "保麗龍；發泡塑膠",
             "ipa": "/fəʊm/",
             "collocations": ["foam box", "a piece of foam"],
             "examples": [
@@ -452,8 +452,8 @@
             "collocations": ["takeaway food", "takeaway coffee"],
             "examples": [
               {
-                "en": "Let's get takeaway tonight.",
-                "zh": "我們今晚買外帶吧。"
+                "en": "I ordered a takeaway coffee.",
+                "zh": "我點了一杯外帶咖啡。"
               }
             ]
           }

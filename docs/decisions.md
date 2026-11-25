@@ -4156,3 +4156,11 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **要改時**：教材內容改 `data/official/*.json` 後，到後台「官方教材」改正式站的那一份（腳本只新增、不覆蓋）；規則在 `lib/official-written.ts`；新類別在 `lib/categories.ts` 與翻譯檔的 `categories`、`learn.intros`。
 - **AI 不會把使用者的教材歸到新系列**：經典名篇、國高中程度是 ListenLoop 自己整理的官方系列（`OFFICIAL_SERIES`），不列在 AI 猜類別的清單（`GUESSABLE_CATEGORIES`）。這樣寫作提示詞不變，錄好的 eval 仍然有效，不需要重新錄製（真的 API）。
 - **Migration（2026-11-25 補）**：`practices.exam` 有資料庫檢查，只允許 toefl、ielts、toeic、gept，學測的 3 份第一次存檔失敗。`20261204000000_exam_gsat.sql` 只放寬檢查（加上 `gsat`），既有資料都不受影響，已套用到正式資料庫，3 份重跑後都發布了。這種「新增考試」要同時改 `lib/categories.ts` 和這個檢查。
+- **校對（2026-11-25 補）**：3 個獨立的校對 agent 逐句檢查 57 份聽力與 22 份寫作，找到 33 項真正的錯誤，全部修正，包括：
+  - NASA 月球每年遠離約 3.8 公分（原本寫 2.5）；
+  - 螞蟻與蚱蜢的季節前後矛盾；
+  - 大陸用語「學術不端」「泡沫塑料」；
+  - IPA 與詞條不符、文法點名稱錯誤、例句不自然；
+  - It was the first time 改用過去完成式。
+
+  已發布的教材用 `SYNC=1 npm run official:written` 同步到正式站：只更新內容不同的句子，英文改過的 7 句重新產生語音（547 字元）。`tests/official-written.test.ts` 新增一條規則：講解引用的字（單字、文法、重點、意群、連音）一定要出現在句子裡，避免英文改了、講解沒跟著改。

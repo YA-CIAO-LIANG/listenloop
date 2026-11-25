@@ -8,6 +8,8 @@
  *
  *   npm run official:written                    # prints the plan
  *   OFFICIAL_WRITTEN_YES=1 npm run official:written   # makes them
+ *   SYNC=1 OFFICIAL_WRITTEN_YES=1 npm run official:written  # also updates
+ *     published ones from their corrected files
  *
  * A material that already exists (same owner, same English title) is
  * skipped, so a stopped run can simply be started again. Stops before
@@ -42,6 +44,15 @@ import { batchMeterOptions } from "./cost-guard";
 const BUDGET_CHARS = Number(process.env.SPEECH_BUDGET) || 0;
 const DIR = "data/official";
 const env = (name: string) => process.env[name] ?? "";
+/** JSON with sorted keys: the database's jsonb reorders them. */
+const canonical = (value: unknown): string =>
+  JSON.stringify(value, (_key, v) =>
+    v && typeof v === "object" && !Array.isArray(v)
+      ? Object.fromEntries(
+          Object.entries(v).sort(([a], [b]) => a.localeCompare(b)),
+        )
+      : v,
+  );
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 it(
@@ -85,6 +96,7 @@ it(
       m.meta.category === "school" ||
       m.meta.exam === "gsat";
     const todo: WrittenOfficial[] = [];
+    const existingIds = new Map<WrittenOfficial, string>();
     for (const m of materials.filter(
       (m) => env("ONLY_KNOWN") !== "1" || !fresh(m),
     )) {
@@ -96,8 +108,10 @@ it(
         .eq("title_en", m.title)
         .limit(1)
         .maybeSingle();
-      if (existing) console.log(`skip ${m.slug}: exists`);
-      else todo.push(m);
+      if (existing) {
+        existingIds.set(m, existing.id);
+        console.log(`skip ${m.slug}: exists`);
+      } else todo.push(m);
     }
     const chars = todo.reduce(
       (sum, m) => sum + m.sentences.reduce((n, s) => n + s.en.length, 0),
@@ -123,6 +137,72 @@ it(
     };
     const report: string[] = [];
     let spent = 0;
+    // SYNC=1: bring published ones up to date with their files (corrected
+    // Chinese, notes, titles; a corrected English sentence is voiced again).
+    if (env("SYNC") === "1") {
+      for (const [m, id] of existingIds) {
+        const { data: rows } = await admin
+          .from("practice_sentences")
+          .select("i, en, zh, notes, speaker")
+          .eq("practice_id", id)
+          .order("i");
+        if (!rows || rows.length !== m.sentences.length) {
+          report.push(`${m.slug}: not synced (sentence count differs)`);
+          continue;
+        }
+        let changed = 0;
+        for (const [i, s] of m.sentences.entries()) {
+          const row = rows[i];
+          const enChanged = row.en !== s.en;
+          if (
+            !enChanged &&
+            row.zh === s.zh &&
+            canonical(row.notes) === canonical(s.notes)
+          ) {
+            continue;
+          }
+          changed += 1;
+          let audio: { audio_path: string } | Record<string, never> = {};
+          if (enChanged) {
+            spent += s.en.length;
+            if (spent > BUDGET_CHARS) {
+              report.push(`${m.slug}: sentence ${i} not voiced (budget)`);
+              continue;
+            }
+            const voiceId = parseVoiceId(
+              m.format === "dialogue" && s.speaker === 1
+                ? `${m.accent}-male`
+                : `${m.accent}-female`,
+            )!;
+            const batch = await voiceSentences(deps, voiceId, [
+              { i, en: s.en },
+            ]);
+            const done = batch.done[0];
+            if (!done) {
+              report.push(`${m.slug}: sentence ${i} voice failed`);
+              continue;
+            }
+            audio = { audio_path: done.path };
+          }
+          await admin
+            .from("practice_sentences")
+            .update({ en: s.en, zh: s.zh, notes: s.notes, ...audio })
+            .eq("practice_id", id)
+            .eq("i", i);
+        }
+        const joined = joinNotes(m.sentences.map((s) => s.notes));
+        await admin
+          .from("practices")
+          .update({
+            title_zh: m.titleZh,
+            subtitle: m.subtitle,
+            vocab: joined.vocab,
+            grammar: joined.grammar,
+          })
+          .eq("id", id);
+        if (changed) report.push(`${m.slug}: synced ${changed} sentences`);
+      }
+    }
     for (const m of todo) {
       const need = m.sentences.reduce((n, s) => n + s.en.length, 0);
       if (spent + need > BUDGET_CHARS) {

@@ -622,7 +622,7 @@
     },
     {
       "en": "They did, and it was treated as academic misconduct, even though he said he hadn't meant to cheat.",
-      "zh": "有，而且被當作學術不端處理，雖然他說他不是故意作弊。",
+      "zh": "有，而且被當作違反學術倫理處理，雖然他說他不是故意作弊。",
       "speaker": 0,
       "notes": {
         "v": 2,
@@ -634,13 +634,13 @@
             "inSentence": "academic misconduct",
             "kind": "phrase",
             "pos": "n.",
-            "zh": "學術不端；學術違規",
+            "zh": "違反學術倫理；學術不當行為",
             "ipa": "/ˌækəˈdemɪk mɪsˈkɒndʌkt/",
             "collocations": ["academic misconduct", "a case of misconduct"],
             "examples": [
               {
                 "en": "Copying an essay is academic misconduct.",
-                "zh": "抄襲論文屬於學術不端。"
+                "zh": "抄襲論文屬於違反學術倫理的行為。"
               }
             ]
           },
@@ -683,7 +683,7 @@
           {
             "text": "and it was treated as academic misconduct,",
             "role": "main",
-            "zh": "而且被當作學術不端處理，"
+            "zh": "而且被當作違反學術倫理處理，"
           },
           {
             "text": "even though he said he hadn't meant to cheat.",

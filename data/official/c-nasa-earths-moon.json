@@ -346,8 +346,8 @@
       }
     },
     {
-      "en": "The Moon is also moving away from Earth very slowly, by about two and a half centimeters a year.",
-      "zh": "月球也正非常緩慢地遠離地球，每年大約遠離 2.5 公分。",
+      "en": "The Moon is also moving away from Earth very slowly, by about three point eight centimeters a year.",
+      "zh": "月球也正非常緩慢地遠離地球，每年大約遠離 3.8 公分。",
       "speaker": null,
       "notes": {
         "v": 2,
@@ -373,8 +373,8 @@
         "grammar": [
           {
             "point": "by for amount of change",
-            "quote": "by about two and a half centimeters a year",
-            "explanation": "介系詞 by 表示變化的幅度：「每年遠離約 2.5 公分」。",
+            "quote": "by about three point eight centimeters a year",
+            "explanation": "介系詞 by 表示變化的幅度：「每年遠離約 3.8 公分」。",
             "examples": [
               {
                 "en": "Prices went up by ten percent.",
