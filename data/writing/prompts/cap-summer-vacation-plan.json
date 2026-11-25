@@ -1,0 +1,84 @@
+{
+  "id": "cap-summer-vacation-plan",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "My Plan for Summer Vacation",
+    "zh": "我的暑假計畫"
+  },
+  "subtitle": "國中程度引導式短文：用未來式寫出三件暑假想做的事",
+  "task": "Summer vacation is coming. Write a short passage of 60–100 words about your plan for the vacation. In your passage, (1) write about three things you want to do, (2) give a reason for at least one of them, and (3) say how you feel about the coming vacation.",
+  "taskZh": "暑假快到了。寫一篇 60–100 字的英文短文介紹你的暑假計畫：(1) 寫出三件你想做的事，(2) 至少說明其中一件事的原因，(3) 說說你對這個暑假的感覺。",
+  "words": { "min": 60, "max": 100 },
+  "minutes": 15,
+  "focus": [
+    "內容：寫出三件事，並說明原因與感受",
+    "文法：用 want to、plan to、be going to、hope to 表達未來的計畫",
+    "組織：用 First、Second、Third 把三件事排列清楚",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "This summer vacation, I want to do three things. First, I plan to read at least five English storybooks because I want to improve my reading. Second, I am going to learn how to swim. My older brother swims very well, and he promised to teach me. Third, I hope to visit my grandparents in Hualien for a week. They live near the sea, so we can ride bikes along the coast together. I think this summer will be busy but fun."
+    ],
+    "zh": [
+      "這個暑假，我想做三件事。第一，我打算讀至少 5 本英文故事書，因為我想加強閱讀能力。第二，我要學游泳。我哥哥很會游泳，他答應要教我。第三，我希望去花蓮的爺爺奶奶家住一個星期。他們住在海邊，所以我們可以一起沿著海岸騎腳踏車。我想這個暑假會很忙，但也會很好玩。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "First, I plan to … because …",
+      "zh": "說出第一件計畫，並說明原因",
+      "example": "First, I plan to read at least five English storybooks because I want to improve my reading.",
+      "keys": ["first", "plan to", "because"]
+    },
+    {
+      "pattern": "I am going to learn how to …",
+      "zh": "用 be going to 說出要學的事",
+      "example": "Second, I am going to learn how to swim.",
+      "keys": ["am going to", "how to"]
+    },
+    {
+      "pattern": "Third, I hope to …",
+      "zh": "用 hope to 說出希望做到的事",
+      "example": "Third, I hope to visit my grandparents in Hualien for a week.",
+      "keys": ["third", "i hope to"]
+    },
+    {
+      "pattern": "I think … will be … but …",
+      "zh": "結尾說出對未來的感覺",
+      "example": "I think this summer will be busy but fun.",
+      "keys": ["i think", "will be", "but"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My older brother swims very well.",
+        "He promised to teach me."
+      ],
+      "answer": "My older brother swims very well, and he promised to teach me."
+    },
+    {
+      "parts": [
+        "They live near the sea.",
+        "We can ride bikes along the coast together."
+      ],
+      "answer": "They live near the sea, so we can ride bikes along the coast together."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I want to improve my reading.",
+      "answers": ["I want to read better.", "I hope to become a better reader."]
+    },
+    {
+      "sentence": "This summer will be busy but fun.",
+      "answers": [
+        "I will be busy this summer, but I will have fun.",
+        "This summer will be full of things to do, and it will be fun."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,101 @@
+{
+  "id": "ielts-task2-online-shopping-high-streets",
+  "type": "ielts-task2",
+  "level": "advanced",
+  "title": {
+    "en": "Online Shopping and Local Shops",
+    "zh": "網購與在地商店"
+  },
+  "subtitle": "原創模擬題：利大於弊還是弊大於利型議論文",
+  "task": "More and more people now buy everyday goods such as food, clothes and household items online rather than in local shops. Do the advantages of this development outweigh the disadvantages? Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "越來越多人在網路上購買食物、衣服、日用品等生活用品，而不是在住家附近的商店購買。這個趨勢是利大於弊，還是弊大於利？請說明理由並舉例。至少寫 250 字。",
+  "words": { "min": 250, "max": 320 },
+  "minutes": 40,
+  "focus": [
+    "Task Response：明確回答「利是否大於弊」，結論與開頭一致",
+    "Coherence and Cohesion：優點段、缺點段分明，轉折詞自然",
+    "Lexical Resource：用精準的字描述經濟、社會與環境影響",
+    "Grammatical Range and Accuracy：讓步句、關係子句與被動語態正確"
+  ],
+  "model": {
+    "en": [
+      "In recent years, a growing number of people have begun to buy groceries, clothes and household items online instead of visiting local shops. Although this trend offers clear benefits to consumers, I believe its disadvantages for communities are more significant.",
+      "Admittedly, online shopping is convenient and often cheaper. Busy workers can order what they need in a few minutes and have it delivered to their door, which saves both time and travel costs. Moreover, large online retailers can offer a far wider range of products than any single neighbourhood store. For people with limited mobility, such as the elderly or disabled, this service can be genuinely life-changing.",
+      "However, these advantages come at a considerable cost. When residents stop shopping locally, small businesses lose income and many are eventually forced to close. As a result, high streets that were once lively become rows of empty shops, and the jobs they provided disappear as well. Local shops also serve a social function that websites cannot replace. A chat with a familiar shopkeeper may be the only conversation some older people have in a day, and busy shopping streets make neighbourhoods feel safer and more connected.",
+      "Furthermore, the environmental impact of home delivery should not be ignored. Every parcel requires packaging, and delivery vans travelling to scattered addresses add to traffic and air pollution.",
+      "In conclusion, while online shopping undeniably makes daily life easier for many people, I would argue that the loss of local businesses, community life and environmental quality outweighs these gains. Governments should therefore support small shops so that both ways of shopping can survive side by side."
+    ],
+    "zh": [
+      "近年來，越來越多人在網路上購買食品、衣服和日用品，而不是去住家附近的商店。雖然這個趨勢對消費者有明顯的好處，但我認為它對社區造成的壞處更為重大。",
+      "誠然，網購方便，而且往往比較便宜。忙碌的上班族幾分鐘內就能訂好需要的東西並宅配到家，省下時間也省下交通費。此外，大型網路零售商能提供的商品種類，遠比任何一家社區商店多。對行動不便的人來說，例如長者或身心障礙者，這項服務真的能改變生活。",
+      "然而，這些好處要付出相當大的代價。當居民不再在地消費，小店家就會失去收入，許多店最終被迫關門。結果，曾經熱鬧的商店街變成一排排空店面，這些店提供的工作機會也跟著消失。在地商店還有網站無法取代的社交功能。對某些長者來說，和熟悉的老闆閒聊幾句，可能是他們一天中唯一的對話，而熱鬧的商店街也讓社區感覺更安全、人與人更緊密。",
+      "再者，宅配對環境的影響也不容忽視。每個包裹都需要包裝，而開往分散地址的送貨車也加重了交通與空氣污染。",
+      "總而言之，雖然網購無疑讓許多人的日常生活更便利，但我認為失去在地商家、社區生活和環境品質的代價，超過了這些好處。因此，政府應該支持小商店，讓兩種購物方式都能並存。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Although this trend offers …, I believe its disadvantages … are more significant.",
+      "zh": "開頭段：讓步後清楚表明「弊大於利」的立場",
+      "example": "Although this trend offers clear benefits to consumers, I believe its disadvantages for communities are more significant.",
+      "keys": ["although", "i believe", "more significant"]
+    },
+    {
+      "pattern": "…, which saves both … and …",
+      "zh": "用非限定關係子句補充前一件事帶來的好處",
+      "example": "Busy workers can order what they need in a few minutes and have it delivered to their door, which saves both time and travel costs.",
+      "keys": ["which saves", "both"]
+    },
+    {
+      "pattern": "However, these advantages come at a considerable cost.",
+      "zh": "段落主題句：從優點轉向代價",
+      "example": "However, these advantages come at a considerable cost.",
+      "keys": ["however", "come at a considerable cost"]
+    },
+    {
+      "pattern": "… should not be ignored.",
+      "zh": "強調另一個不能忽視的面向",
+      "example": "Furthermore, the environmental impact of home delivery should not be ignored.",
+      "keys": ["furthermore", "should not be ignored"]
+    },
+    {
+      "pattern": "While …, I would argue that … outweighs …",
+      "zh": "結論段：權衡利弊後重申立場",
+      "example": "In conclusion, while online shopping undeniably makes daily life easier for many people, I would argue that the loss of local businesses, community life and environmental quality outweighs these gains.",
+      "keys": ["while", "i would argue that", "outweighs"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Residents stop shopping locally.",
+        "Small businesses lose income and many are forced to close."
+      ],
+      "answer": "When residents stop shopping locally, small businesses lose income and many are forced to close."
+    },
+    {
+      "parts": [
+        "High streets were once lively.",
+        "They become rows of empty shops."
+      ],
+      "answer": "High streets that were once lively become rows of empty shops."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Online shopping is convenient and often cheaper.",
+      "answers": [
+        "Buying things online saves effort and is frequently less expensive.",
+        "Shopping on the internet is easy and usually costs less."
+      ]
+    },
+    {
+      "sentence": "Many are eventually forced to close.",
+      "answers": [
+        "Many of them have to shut down in the end.",
+        "A lot of them eventually go out of business."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,95 @@
+{
+  "id": "toefl-courses-outside-major",
+  "type": "toefl",
+  "level": "intermediate",
+  "title": {
+    "en": "Courses Outside Your Major?",
+    "zh": "該不該必修主修以外的課？"
+  },
+  "subtitle": "原創模擬題：學術討論題，談大學是否該要求跨領域選課",
+  "task": "Your professor is teaching a class on higher education. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Morgan: Many universities require students to take several courses outside their major, such as a science course for literature students or an art course for engineering students. Do you think universities should keep this requirement, or should students be free to focus only on their major? Why?\n\nKenji: I think students should focus on their major. Tuition is expensive, and every required course outside our field takes time away from the skills we will actually use in our careers.\n\nSofia: I support the requirement. Employers today want people who can think in different ways, and courses in other fields give us that broader view.\n\nWrite at least 100 words.",
+  "taskZh": "高等教育課的教授提問：許多大學要求學生修幾門主修以外的課（例如文學系修科學課、工程系修藝術課），這項規定該保留，還是讓學生只專注在主修？Kenji 認為學費很貴、跨領域課佔用學習專業技能的時間；Sofia 支持這項規定，認為雇主重視能用不同角度思考的人。請寫一則貼文表態、提出理由，並對討論有新的貢獻。至少寫 100 字。",
+  "words": { "min": 100, "max": 160 },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應兩位同學的看法，再提出新的觀點或折衷方案",
+    "用具體的例子支持看法",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "I believe universities should require students to take some courses outside their major, although the number should be limited. Sofia makes a good point that employers value people with broad knowledge, and I would add that many new ideas come from combining different fields. For instance, a friend of mine studies computer science, but a required psychology course inspired her to design an app that helps people manage stress.",
+      "That said, Kenji is right that tuition is expensive and time is limited. A reasonable compromise would be to require two or three courses instead of a long list. Universities could also let students choose these courses freely, so that they explore subjects they are truly curious about rather than ones they take only to meet a requirement."
+    ],
+    "zh": [
+      "我認為大學應該要求學生修一些主修以外的課，不過數量應該有限。Sofia 說雇主重視知識廣博的人，這點說得很好；我還想補充，很多新點子都來自不同領域的結合。例如，我有個朋友讀資訊工程，但一門必修的心理學課啟發她設計了一個幫助人們管理壓力的 App。",
+      "話雖如此，Kenji 說學費很貴、時間有限，這也沒錯。合理的折衷方案是只要求修兩、三門課，而不是一長串的清單。大學也可以讓學生自由選擇這些課，這樣他們就能探索自己真正好奇的科目，而不是只為了符合規定而修課。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I believe …, although …",
+      "zh": "表態並加上限制條件，讓立場更有層次",
+      "example": "I believe universities should require students to take some courses outside their major, although the number should be limited.",
+      "keys": ["i believe", "although"]
+    },
+    {
+      "pattern": "… makes a good point that …, and I would add that …",
+      "zh": "肯定同學的觀點，再補充自己的新想法",
+      "example": "Sofia makes a good point that employers value people with broad knowledge, and I would add that many new ideas come from combining different fields.",
+      "keys": ["makes a good point that", "i would add that"]
+    },
+    {
+      "pattern": "That said, … is right that …",
+      "zh": "轉折：承認另一位同學的疑慮也有道理",
+      "example": "That said, Kenji is right that tuition is expensive and time is limited.",
+      "keys": ["that said", "is right that"]
+    },
+    {
+      "pattern": "A reasonable compromise would be to … instead of …",
+      "zh": "提出折衷方案",
+      "example": "A reasonable compromise would be to require two or three courses instead of a long list.",
+      "keys": ["a reasonable compromise would be to", "instead of"]
+    },
+    {
+      "pattern": "…, so that … rather than …",
+      "zh": "說明做法的目的，並和另一種情況對比",
+      "example": "Universities could also let students choose these courses freely, so that they explore subjects they are truly curious about rather than ones they take only to meet a requirement.",
+      "keys": ["so that", "rather than"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "A friend of mine studies computer science.",
+        "A required psychology course inspired her to design an app."
+      ],
+      "answer": "A friend of mine studies computer science, but a required psychology course inspired her to design an app."
+    },
+    {
+      "parts": [
+        "Universities should require some courses outside the major.",
+        "The number should be limited."
+      ],
+      "answer": "Universities should require some courses outside the major, although the number should be limited."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Many new ideas come from combining different fields.",
+      "answers": [
+        "Mixing different fields often leads to new ideas.",
+        "New ideas often appear when different subjects meet."
+      ]
+    },
+    {
+      "sentence": "Time is limited.",
+      "answers": [
+        "Students do not have unlimited time.",
+        "There is only so much time available."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

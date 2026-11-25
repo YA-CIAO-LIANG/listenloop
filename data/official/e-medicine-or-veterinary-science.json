@@ -1,0 +1,831 @@
+{
+  "slug": "e-medicine-or-veterinary-science",
+  "series": "exam",
+  "title": "Medicine or Veterinary Science?",
+  "titleZh": "醫學系還是獸醫系？",
+  "subtitle": "學測風格對話：模擬考成績夠上醫學系，但她真正想念的是獸醫，該怎麼跟爸媽說？",
+  "format": "dialogue",
+  "accent": "us",
+  "meta": {
+    "category": "exam",
+    "scenario": "gsat-dialogue",
+    "level": "advanced",
+    "exam": "gsat",
+    "examTarget": "gsat-top"
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "I just got back my mock exam results, and honestly, I'm more confused than ever.",
+      "zh": "我剛拿到模擬考成績，老實說，我比以前更迷惘了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "more confused than ever",
+            "note": "開場點出情緒：成績出來反而更迷惘，引出後面的煩惱。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "mock exam",
+            "inSentence": "mock exam",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "模擬考",
+            "ipa": "/mɑk ɪɡˈzæm/",
+            "collocations": ["take a mock exam", "mock exam results"],
+            "examples": [
+              {
+                "en": "We have a mock exam every month.",
+                "zh": "我們每個月都有模擬考。"
+              }
+            ]
+          },
+          {
+            "term": "confused",
+            "inSentence": "confused",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "困惑的；迷惘的",
+            "ipa": "/kənˈfjuzd/",
+            "collocations": ["feel confused", "confused about"],
+            "examples": [
+              {
+                "en": "I'm confused about the instructions.",
+                "zh": "我搞不懂這些說明。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "more ... than ever",
+            "quote": "more confused than ever",
+            "explanation": "比較級 + than ever 表示「比以往任何時候都更…」。",
+            "examples": [
+              {
+                "en": "She is busier than ever.",
+                "zh": "她比以往都忙。"
+              }
+            ],
+            "pitfall": "不要寫成 more confused than before ever。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Why? I heard you did really well, especially in English.",
+      "zh": "為什麼？我聽說你考得很好，尤其是英文。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "do well",
+            "inSentence": "did really well",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "表現好；考得好",
+            "ipa": "/du wɛl/",
+            "collocations": ["do well in", "do well on a test"],
+            "examples": [
+              {
+                "en": "He did well on the math test.",
+                "zh": "他數學考得很好。"
+              }
+            ]
+          },
+          {
+            "term": "especially",
+            "inSentence": "especially",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "尤其；特別是",
+            "ipa": "/ɪˈspɛʃəli/",
+            "collocations": ["especially in"],
+            "examples": [
+              {
+                "en": "I love fruit, especially mangoes.",
+                "zh": "我很愛水果，尤其是芒果。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's the problem. My scores are high enough for the medical school my parents keep talking about.",
+      "zh": "問題就在這裡。我的分數夠上爸媽一直掛在嘴邊的醫學系。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "high enough for the medical school",
+            "note": "衝突點：分數夠上醫學系，那是爸媽的期望。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "medical school",
+            "inSentence": "medical school",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "醫學院；醫學系",
+            "ipa": "/ˈmɛdɪkəl skul/",
+            "collocations": ["go to medical school"],
+            "examples": [
+              {
+                "en": "She got into medical school.",
+                "zh": "她考上醫學系了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "adjective + enough for",
+            "quote": "high enough for",
+            "explanation": "形容詞 + enough 表示「足夠…」，enough 要放在形容詞後面。",
+            "examples": [
+              {
+                "en": "The room is big enough for ten people.",
+                "zh": "這個房間夠十個人用。"
+              }
+            ],
+            "pitfall": "不要說 enough high，enough 修飾形容詞時放在後面。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "keep talking about",
+            "soundsLike": "kee-ptalkin' about",
+            "note": "keep 的 p 不除阻，talking 的 -ing 常唸成 /ɪn/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "And I'm guessing that's not what you actually want.",
+      "zh": "我猜那不是你真正想要的吧。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "actually",
+            "inSentence": "actually",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "實際上；真正地",
+            "ipa": "/ˈæktʃuəli/",
+            "collocations": ["what you actually want"],
+            "examples": [
+              {
+                "en": "What do you actually think?",
+                "zh": "你真正的想法是什麼？"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "what-clause as object",
+            "quote": "what you actually want",
+            "explanation": "what 引導名詞子句，意思是「你真正想要的東西」，在句中當補語。",
+            "examples": [
+              {
+                "en": "This is what I need.",
+                "zh": "這就是我需要的。"
+              }
+            ],
+            "pitfall": "名詞子句用直述語序：what you want，不是 what do you want。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Not really. I've been volunteering at the animal shelter since tenth grade, and what I'd love to study is veterinary science.",
+      "zh": "不算是。我從高一就在動物收容所當志工，我真正想念的是獸醫系。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "what I'd love to study is veterinary science",
+            "note": "她真正的志向：獸醫。學測常問「女生想念什麼」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "animal shelter",
+            "inSentence": "animal shelter",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "動物收容所",
+            "ipa": "/ˈænəməl ˈʃɛltər/",
+            "collocations": ["volunteer at an animal shelter"],
+            "examples": [
+              {
+                "en": "We adopted our cat from an animal shelter.",
+                "zh": "我們的貓是從收容所領養的。"
+              }
+            ]
+          },
+          {
+            "term": "veterinary science",
+            "inSentence": "veterinary science",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "獸醫學",
+            "ipa": "/ˈvɛtərəˌnɛri ˈsaɪəns/",
+            "collocations": ["study veterinary science"],
+            "examples": [
+              {
+                "en": "He wants to study veterinary science.",
+                "zh": "他想念獸醫系。"
+              }
+            ]
+          },
+          {
+            "term": "volunteer",
+            "inSentence": "volunteering",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "當志工",
+            "ipa": "/ˌvɑlənˈtɪr/",
+            "collocations": ["volunteer at", "volunteer to help"],
+            "examples": [
+              {
+                "en": "I volunteer at the library on weekends.",
+                "zh": "我週末在圖書館當志工。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Present perfect continuous",
+            "quote": "I've been volunteering at the animal shelter since tenth grade",
+            "explanation": "現在完成進行式 have been + V-ing + since，強調從過去一直持續到現在的動作。",
+            "examples": [
+              {
+                "en": "She has been learning piano since she was six.",
+                "zh": "她從六歲就開始學鋼琴，一直到現在。"
+              }
+            ],
+            "pitfall": "不要用現在進行式：I'm volunteering since tenth grade 是錯的。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Not really.",
+            "role": "connector",
+            "zh": "不算是。"
+          },
+          {
+            "text": "I've been volunteering at the animal shelter",
+            "role": "main",
+            "zh": "我一直在動物收容所當志工"
+          },
+          {
+            "text": "since tenth grade,",
+            "role": "modifier",
+            "zh": "從高一開始，"
+          },
+          {
+            "text": "and what I'd love to study",
+            "role": "subordinate",
+            "zh": "而我真正想念的"
+          },
+          {
+            "text": "is veterinary science.",
+            "role": "main",
+            "zh": "是獸醫系。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Have you told your parents that, or have you just been hinting at it?",
+      "zh": "你有跟爸媽說過嗎？還是只是一直在暗示？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "hint at",
+            "inSentence": "hinting at",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "暗示",
+            "ipa": "/hɪnt æt/",
+            "collocations": ["hint at something"],
+            "examples": [
+              {
+                "en": "He hinted at a surprise.",
+                "zh": "他暗示會有驚喜。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "told your",
+            "soundsLike": "tol-jer",
+            "note": "told 的 d 和 your 連音，變成 /dʒ/ 的聲音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Mostly hinting, I suppose, because I don't want them to think I'm throwing away a good opportunity.",
+      "zh": "我想大多是暗示吧，因為我不想讓他們覺得我在浪費一個好機會。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "throw away",
+            "inSentence": "throwing away",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "丟掉；白白浪費",
+            "ipa": "/θroʊ əˈweɪ/",
+            "collocations": ["throw away a chance"],
+            "examples": [
+              {
+                "en": "Don't throw away this chance.",
+                "zh": "別浪費這個機會。"
+              }
+            ]
+          },
+          {
+            "term": "opportunity",
+            "inSentence": "opportunity",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "機會",
+            "ipa": "/ˌɑpərˈtunəti/",
+            "collocations": ["a good opportunity", "miss an opportunity"],
+            "examples": [
+              {
+                "en": "This job is a great opportunity.",
+                "zh": "這份工作是很好的機會。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "want + object + to V",
+            "quote": "want them to think",
+            "explanation": "want + 受詞 + to + 原形動詞，表示「希望某人做某事」。",
+            "examples": [
+              {
+                "en": "My parents want me to study law.",
+                "zh": "我爸媽希望我念法律。"
+              }
+            ],
+            "pitfall": "不要寫成 want that they think。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Mostly hinting, I suppose,",
+            "role": "main",
+            "zh": "我想大多是暗示吧，"
+          },
+          {
+            "text": "because I don't want them to think",
+            "role": "subordinate",
+            "zh": "因為我不想讓他們覺得"
+          },
+          {
+            "text": "I'm throwing away a good opportunity.",
+            "role": "subordinate",
+            "zh": "我在浪費一個好機會。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "But from what you've told me, you'd be giving up something that matters more to you.",
+      "zh": "但照你跟我說的，你放棄的會是對你更重要的東西。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "something that matters more to you",
+            "note": "男生的觀點：真正重要的是她自己的興趣。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "give up",
+            "inSentence": "giving up",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "放棄",
+            "ipa": "/ɡɪv ʌp/",
+            "collocations": ["give up a dream", "never give up"],
+            "examples": [
+              {
+                "en": "Don't give up your dream.",
+                "zh": "不要放棄你的夢想。"
+              }
+            ]
+          },
+          {
+            "term": "matter",
+            "inSentence": "matters",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "重要",
+            "ipa": "/ˈmætər/",
+            "collocations": ["matter to someone"],
+            "examples": [
+              {
+                "en": "Your health matters most.",
+                "zh": "你的健康最重要。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "what you've",
+            "soundsLike": "whatcha've",
+            "note": "what 的 t 和 you 連在一起，變成 /tʃ/ 的聲音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I know. I guess I'm worried they'll see it as a less respectable choice.",
+      "zh": "我知道。我想我是擔心他們會覺得那是比較不體面的選擇。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "respectable",
+            "inSentence": "respectable",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "體面的；受人尊重的",
+            "ipa": "/rɪˈspɛktəbəl/",
+            "collocations": ["respectable job"],
+            "examples": [
+              {
+                "en": "He has a respectable job at a bank.",
+                "zh": "他在銀行有份體面的工作。"
+              }
+            ]
+          },
+          {
+            "term": "see as",
+            "inSentence": "see it as",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "把…看作",
+            "ipa": "/si æz/",
+            "collocations": ["see something as"],
+            "examples": [
+              {
+                "en": "Many people see failure as a lesson.",
+                "zh": "很多人把失敗當作一堂課。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Why don't you show them your learning portfolio? It's full of the work you've done at the shelter.",
+      "zh": "你何不給他們看你的學習歷程檔案？裡面全是你在收容所做的事。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "show them your learning portfolio",
+            "note": "建議一：用學習歷程檔案證明自己的投入。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "learning portfolio",
+            "inSentence": "learning portfolio",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "學習歷程檔案",
+            "ipa": "/ˈlɝnɪŋ pɔrtˈfoʊlioʊ/",
+            "collocations": ["upload to a learning portfolio"],
+            "examples": [
+              {
+                "en": "I added my science project to my learning portfolio.",
+                "zh": "我把科展作品放進學習歷程檔案。"
+              }
+            ]
+          },
+          {
+            "term": "be full of",
+            "inSentence": "full of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "充滿",
+            "ipa": "/bi fʊl əv/",
+            "collocations": ["full of energy"],
+            "examples": [
+              {
+                "en": "The box is full of old photos.",
+                "zh": "盒子裡全是舊照片。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Why don't you ...?",
+            "quote": "Why don't you show them",
+            "explanation": "Why don't you + 原形動詞？不是真的問原因，而是提出建議：「你何不…」。",
+            "examples": [
+              {
+                "en": "Why don't you take a break?",
+                "zh": "你何不休息一下？"
+              }
+            ],
+            "pitfall": "回答時不要用 Because，可以說 Good idea 或 Maybe I will。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's actually a good point. It would prove this isn't just a passing interest.",
+      "zh": "這倒是個好主意。那可以證明這不只是一時的興趣。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "passing interest",
+            "inSentence": "passing interest",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "一時的興趣",
+            "ipa": "/ˈpæsɪŋ ˈɪntrəst/",
+            "collocations": ["just a passing interest"],
+            "examples": [
+              {
+                "en": "Music was more than a passing interest for him.",
+                "zh": "音樂對他來說不只是一時的興趣。"
+              }
+            ]
+          },
+          {
+            "term": "prove",
+            "inSentence": "prove",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "證明",
+            "ipa": "/pruv/",
+            "collocations": ["prove that", "prove yourself"],
+            "examples": [
+              {
+                "en": "The photos prove that he was there.",
+                "zh": "這些照片證明他當時在場。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "You could also invite them to the university open day next month, so they can talk to the professors themselves.",
+      "zh": "你也可以邀他們參加下個月的大學校系開放日，讓他們親自跟教授聊聊。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "the university open day next month",
+            "note": "建議二：帶爸媽去開放日，聽教授怎麼說。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "open day",
+            "inSentence": "open day",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "（學校的）開放參觀日",
+            "ipa": "/ˈoʊpən deɪ/",
+            "collocations": ["university open day"],
+            "examples": [
+              {
+                "en": "We visited three schools on open day.",
+                "zh": "開放日那天我們參觀了三所學校。"
+              }
+            ]
+          },
+          {
+            "term": "professor",
+            "inSentence": "professors",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "教授",
+            "ipa": "/prəˈfɛsər/",
+            "collocations": ["talk to a professor"],
+            "examples": [
+              {
+                "en": "The professor answered all our questions.",
+                "zh": "教授回答了我們所有的問題。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "so (that) for purpose",
+            "quote": "so they can talk to the professors themselves",
+            "explanation": "so + 子句（常搭配 can）表示目的：「好讓他們可以…」。",
+            "examples": [
+              {
+                "en": "Speak louder so everyone can hear you.",
+                "zh": "大聲一點，讓大家都聽得到。"
+              }
+            ],
+            "pitfall": "表目的時子句裡常用 can／could，不要用 will。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "You could also invite them",
+            "role": "main",
+            "zh": "你也可以邀請他們"
+          },
+          {
+            "text": "to the university open day next month,",
+            "role": "modifier",
+            "zh": "參加下個月的大學開放日，"
+          },
+          {
+            "text": "so they can talk to the professors themselves.",
+            "role": "subordinate",
+            "zh": "讓他們親自跟教授聊聊。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Hearing it from experts might reassure them more than anything I could say.",
+      "zh": "由專家來說，可能比我說什麼都更能讓他們放心。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "reassure",
+            "inSentence": "reassure",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "使安心；使放心",
+            "ipa": "/ˌriəˈʃʊr/",
+            "collocations": ["reassure someone that"],
+            "examples": [
+              {
+                "en": "The doctor reassured me that it wasn't serious.",
+                "zh": "醫生要我放心，說沒什麼大礙。"
+              }
+            ]
+          },
+          {
+            "term": "expert",
+            "inSentence": "experts",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "專家",
+            "ipa": "/ˈɛkspɝt/",
+            "collocations": ["an expert in", "ask an expert"],
+            "examples": [
+              {
+                "en": "Experts say we should sleep more.",
+                "zh": "專家說我們應該多睡一點。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Gerund as subject",
+            "quote": "Hearing it from experts",
+            "explanation": "動名詞片語當主詞，表示「聽專家說這件事」，後面接單數動詞。",
+            "examples": [
+              {
+                "en": "Reading before bed helps me relax.",
+                "zh": "睡前閱讀幫助我放鬆。"
+              }
+            ],
+            "pitfall": "不要用原形動詞當主詞：Hear it from experts might... 是錯的。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Exactly. Just be honest with them, and give them a chance to understand.",
+      "zh": "沒錯。對他們誠實就好，也給他們一個理解的機會。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "be honest with",
+            "inSentence": "be honest with",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "對…誠實",
+            "ipa": "/bi ˈɑnɪst wɪð/",
+            "collocations": ["be honest with yourself"],
+            "examples": [
+              {
+                "en": "You should be honest with your friends.",
+                "zh": "你應該對朋友誠實。"
+              }
+            ]
+          },
+          {
+            "term": "give someone a chance",
+            "inSentence": "give them a chance",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "給某人機會",
+            "ipa": "/ɡɪv ə tʃæns/",
+            "collocations": ["give me a chance"],
+            "examples": [
+              {
+                "en": "Please give me a chance to explain.",
+                "zh": "請給我一個解釋的機會。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

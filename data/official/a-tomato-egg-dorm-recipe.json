@@ -1,0 +1,573 @@
+{
+  "slug": "a-tomato-egg-dorm-recipe",
+  "series": "category",
+  "title": "Tomato and Egg in Ten Minutes",
+  "titleZh": "十分鐘番茄炒蛋",
+  "subtitle": "留學生在宿舍廚房示範，一步步做出家鄉味番茄炒蛋",
+  "format": "monologue",
+  "accent": "us",
+  "meta": {
+    "category": "food",
+    "scenario": "recipe",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "When I moved into my dorm, the first dish I learned to cook was tomato and egg.",
+      "zh": "我搬進宿舍時，學會煮的第一道菜是番茄炒蛋。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "move into",
+            "inSentence": "moved into",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "搬進",
+            "ipa": "/muv ˈɪntu/",
+            "collocations": ["move into a dorm", "move into a new apartment"],
+            "examples": [
+              {
+                "en": "We moved into a new apartment last month.",
+                "zh": "我們上個月搬進新公寓。"
+              }
+            ]
+          },
+          {
+            "term": "dorm",
+            "inSentence": "dorm",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "宿舍",
+            "ipa": "/dɔrm/",
+            "collocations": ["live in a dorm", "dorm room"],
+            "examples": [
+              {
+                "en": "My dorm room is very small.",
+                "zh": "我的宿舍房間很小。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It's cheap, it's fast, and it tastes like home.",
+      "zh": "它便宜、快速，而且吃起來有家的味道。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "taste like",
+            "inSentence": "tastes like",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "嚐起來像",
+            "ipa": "/teɪst laɪk/",
+            "collocations": ["taste like chicken", "taste like home"],
+            "examples": [
+              {
+                "en": "This soup tastes like my mom's.",
+                "zh": "這湯喝起來很像我媽煮的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "You only need three eggs, two tomatoes, some salt, a little sugar, and oil.",
+      "zh": "你只需要三顆蛋、兩顆番茄、一些鹽、一點糖和油。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "some salt, a little sugar",
+            "note": "some 和 a little 都接不可數名詞，表示「一些」「少量」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "a little",
+            "inSentence": "a little sugar",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一點點",
+            "ipa": "/ə ˈlɪtl/",
+            "collocations": ["a little salt", "a little more"],
+            "examples": [
+              {
+                "en": "Add a little milk to the coffee.",
+                "zh": "在咖啡裡加一點牛奶。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "First, cut the tomatoes into small pieces.",
+      "zh": "首先，把番茄切成小塊。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "cut into pieces",
+            "inSentence": "cut the tomatoes into small pieces",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "切成小塊",
+            "ipa": "/kʌt ˈɪntu ˈpisɪz/",
+            "collocations": ["cut into pieces", "cut into slices"],
+            "examples": [
+              {
+                "en": "Cut the cake into eight pieces.",
+                "zh": "把蛋糕切成八塊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Then crack the eggs into a bowl and beat them with a pinch of salt.",
+      "zh": "然後把蛋打進碗裡，加一小撮鹽打散。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "crack",
+            "inSentence": "crack the eggs",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "打（蛋）；敲開",
+            "ipa": "/kræk/",
+            "collocations": ["crack an egg", "crack open"],
+            "examples": [
+              {
+                "en": "Crack two eggs into the pan.",
+                "zh": "把兩顆蛋打進鍋子裡。"
+              }
+            ]
+          },
+          {
+            "term": "beat",
+            "inSentence": "beat them",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "攪打；打散",
+            "ipa": "/bit/",
+            "collocations": ["beat the eggs", "beat well"],
+            "examples": [
+              {
+                "en": "Beat the eggs until they're smooth.",
+                "zh": "把蛋打到滑順。"
+              }
+            ]
+          },
+          {
+            "term": "a pinch of",
+            "inSentence": "a pinch of salt",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一小撮",
+            "ipa": "/ə pɪntʃ əv/",
+            "collocations": ["a pinch of salt", "a pinch of pepper"],
+            "examples": [
+              {
+                "en": "Add a pinch of pepper at the end.",
+                "zh": "最後加一小撮胡椒。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Heat some oil in a pan and pour in the eggs.",
+      "zh": "在平底鍋裡把油燒熱，然後倒入蛋液。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "pour",
+            "inSentence": "pour in",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "倒",
+            "ipa": "/pɔr/",
+            "collocations": ["pour in", "pour water"],
+            "examples": [
+              {
+                "en": "Pour the milk into a glass.",
+                "zh": "把牛奶倒進玻璃杯。"
+              }
+            ]
+          },
+          {
+            "term": "pan",
+            "inSentence": "a pan",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "平底鍋",
+            "ipa": "/pæn/",
+            "collocations": ["frying pan", "heat a pan"],
+            "examples": [
+              {
+                "en": "Put the pan on the stove.",
+                "zh": "把平底鍋放到爐子上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Stir them gently, and take them out while they're still soft.",
+      "zh": "輕輕攪拌，趁蛋還軟嫩的時候盛起來。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "gently",
+            "inSentence": "gently",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "輕輕地；溫和地",
+            "ipa": "/ˈdʒɛntli/",
+            "collocations": ["stir gently", "speak gently"],
+            "examples": [
+              {
+                "en": "Close the door gently.",
+                "zh": "輕輕把門關上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "while for time",
+            "quote": "while they're still soft",
+            "explanation": "while 引導時間子句，表示「趁……的時候」。",
+            "examples": [
+              {
+                "en": "Eat the noodles while they're hot.",
+                "zh": "趁麵還熱的時候吃。"
+              }
+            ],
+            "pitfall": "while 後面通常接主詞加動詞，例如 while they are；不要寫成 while they soft。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Next, add a little more oil and cook the tomatoes for about two minutes.",
+      "zh": "接著，再加一點油，把番茄炒大約兩分鐘。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "about",
+            "inSentence": "about two minutes",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "大約",
+            "ipa": "/əˈbaʊt/",
+            "collocations": ["about ten people", "about an hour"],
+            "examples": [
+              {
+                "en": "The trip takes about an hour.",
+                "zh": "這趟車程大約一小時。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "add a little",
+            "soundsLike": "ad-uh-LIT-l",
+            "note": "add 和 a 連讀，little 的 t 在美式發音中常唸成輕快的 /d/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "When they get soft and juicy, add a spoonful of sugar and some salt.",
+      "zh": "番茄變軟、出汁之後，加一湯匙糖和一些鹽。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "juicy",
+            "inSentence": "juicy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "多汁的",
+            "ipa": "/ˈdʒusi/",
+            "collocations": ["juicy fruit", "a juicy steak"],
+            "examples": [
+              {
+                "en": "These peaches are really juicy.",
+                "zh": "這些桃子很多汁。"
+              }
+            ]
+          },
+          {
+            "term": "spoonful",
+            "inSentence": "a spoonful of sugar",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "一匙的量",
+            "ipa": "/ˈspunfʊl/",
+            "collocations": ["a spoonful of", "two spoonfuls"],
+            "examples": [
+              {
+                "en": "Add a spoonful of honey to your tea.",
+                "zh": "在茶裡加一匙蜂蜜。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The sugar makes the sauce less sour.",
+      "zh": "糖可以讓醬汁沒那麼酸。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "makes the sauce less sour",
+            "note": "make + 受詞 + 形容詞：讓某物變得……。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "sour",
+            "inSentence": "sour",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "酸的",
+            "ipa": "/saʊər/",
+            "collocations": ["taste sour", "sour fruit"],
+            "examples": [
+              {
+                "en": "Lemons are very sour.",
+                "zh": "檸檬很酸。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Finally, put the eggs back in the pan and mix everything together.",
+      "zh": "最後，把蛋放回鍋裡，全部拌在一起。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "put back",
+            "inSentence": "put the eggs back",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "放回去",
+            "ipa": "/pʊt bæk/",
+            "collocations": ["put it back", "put back on the shelf"],
+            "examples": [
+              {
+                "en": "Please put the book back on the shelf.",
+                "zh": "請把書放回架上。"
+              }
+            ]
+          },
+          {
+            "term": "mix",
+            "inSentence": "mix everything together",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "混合；攪拌",
+            "ipa": "/mɪks/",
+            "collocations": ["mix together", "mix well"],
+            "examples": [
+              {
+                "en": "Mix the flour and water together.",
+                "zh": "把麵粉和水混合在一起。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Cook it for one more minute, and it's ready.",
+      "zh": "再炒一分鐘就完成了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "ready",
+            "inSentence": "ready",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "準備好的",
+            "ipa": "/ˈrɛdi/",
+            "collocations": ["get ready", "ready to eat"],
+            "examples": [
+              {
+                "en": "Dinner is ready!",
+                "zh": "晚餐好了！"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I like to eat it over a bowl of hot rice.",
+      "zh": "我喜歡把它淋在一碗熱騰騰的白飯上吃。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "over rice",
+            "inSentence": "over a bowl of hot rice",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "蓋在飯上",
+            "ipa": "/ˈoʊvər raɪs/",
+            "collocations": ["curry over rice", "eat over rice"],
+            "examples": [
+              {
+                "en": "He likes chicken over rice.",
+                "zh": "他喜歡吃雞肉飯。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My roommate from Ohio tried it last week, and now she asks me to make it every Sunday.",
+      "zh": "我那個來自俄亥俄州的室友上週吃過之後，現在每個星期天都要我做。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "roommate",
+            "inSentence": "roommate",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "室友",
+            "ipa": "/ˈrumˌmeɪt/",
+            "collocations": ["my roommate", "share with a roommate"],
+            "examples": [
+              {
+                "en": "My roommate and I cook together.",
+                "zh": "我和室友一起煮飯。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "ask someone to do",
+            "quote": "asks me to make it",
+            "explanation": "ask + 人 + to + 原形動詞，表示「請某人做某事」。",
+            "examples": [
+              {
+                "en": "My teacher asked me to read aloud.",
+                "zh": "老師請我大聲唸出來。"
+              }
+            ],
+            "pitfall": "不要說 asks me make it，to 不能省略。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

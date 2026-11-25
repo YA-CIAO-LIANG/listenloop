@@ -1,0 +1,666 @@
+{
+  "slug": "b-weekend-hike-and-dumplings",
+  "series": "category",
+  "title": "Weekend Plans: A Hike and Dumplings",
+  "titleZh": "週末計畫：健行和包水餃",
+  "subtitle": "在美國的台灣留學生和朋友約週末，學道地口語",
+  "format": "dialogue",
+  "accent": "us",
+  "meta": {
+    "category": "casual-american",
+    "scenario": "weekend-plans",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Hey Amy, what are you up to this weekend?",
+      "zh": "嘿，艾咪，你這週末要做什麼？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "what are you up to",
+            "note": "美式口語，「你在忙什麼、打算做什麼」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "be up to",
+            "inSentence": "what are you up to",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "在做；打算做",
+            "ipa": "/biː ʌp tuː/",
+            "collocations": ["what are you up to", "up to anything"],
+            "examples": [
+              {
+                "en": "What are you up to tonight?",
+                "zh": "你今晚要幹嘛？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Nothing much yet. I just want to get out of the dorm.",
+      "zh": "還沒什麼計畫。我只想離開宿舍出去走走。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "get out of",
+            "inSentence": "get out of the dorm",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "離開；出去",
+            "ipa": "/ɡet aʊt əv/",
+            "collocations": ["get out of the house", "get out of bed"],
+            "examples": [
+              {
+                "en": "I need to get out of the house.",
+                "zh": "我需要出門透透氣。"
+              }
+            ]
+          },
+          {
+            "term": "dorm",
+            "inSentence": "the dorm",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "宿舍",
+            "ipa": "/dɔːrm/",
+            "collocations": ["dorm room", "live in a dorm"],
+            "examples": [
+              {
+                "en": "My dorm is next to the library.",
+                "zh": "我的宿舍在圖書館旁邊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Are you down for a hike on Saturday morning?",
+      "zh": "星期六早上要不要去健行？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Are you down for",
+            "note": "美式口語，「你要不要一起……？」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "be down for",
+            "inSentence": "Are you down for",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "願意參加；有興趣（口語）",
+            "ipa": "/biː daʊn fɔːr/",
+            "collocations": ["down for a movie", "are you down"],
+            "examples": [
+              {
+                "en": "I'm down for pizza tonight.",
+                "zh": "我今晚想吃披薩。"
+              }
+            ]
+          },
+          {
+            "term": "hike",
+            "inSentence": "a hike",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "健行；登山",
+            "ipa": "/haɪk/",
+            "collocations": ["go for a hike", "a long hike"],
+            "examples": [
+              {
+                "en": "We went for a hike by the lake.",
+                "zh": "我們去湖邊健行。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Sure, but not too early, okay?",
+      "zh": "好啊，但不要太早，好嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "early",
+            "inSentence": "too early",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "早的",
+            "ipa": "/ˈɜːrli/",
+            "collocations": ["too early", "early morning"],
+            "examples": [
+              {
+                "en": "It's too early to get up.",
+                "zh": "現在起床太早了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "How about nine? It's only twenty minutes away by car.",
+      "zh": "九點怎麼樣？開車只要 20 分鐘。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "away",
+            "inSentence": "twenty minutes away",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "距離……遠",
+            "ipa": "/əˈweɪ/",
+            "collocations": ["ten minutes away", "far away"],
+            "examples": [
+              {
+                "en": "The beach is an hour away.",
+                "zh": "海灘在一小時車程外。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Nine works. Should I bring anything?",
+      "zh": "九點可以。我需要帶什麼嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Nine works.",
+            "note": "「九點可以」，work 表示「時間行得通」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "work",
+            "inSentence": "works",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "（時間、方法）可行",
+            "ipa": "/wɜːrk/",
+            "collocations": ["that works", "works for me"],
+            "examples": [
+              {
+                "en": "Does Monday work for you?",
+                "zh": "星期一你可以嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Just water, a snack, and good shoes. The trail gets muddy.",
+      "zh": "帶水、點心和一雙好走的鞋就好。那條步道會變得很泥濘。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "trail",
+            "inSentence": "The trail",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "步道；小徑",
+            "ipa": "/treɪl/",
+            "collocations": ["hiking trail", "on the trail"],
+            "examples": [
+              {
+                "en": "This trail goes to the top.",
+                "zh": "這條步道通往山頂。"
+              }
+            ]
+          },
+          {
+            "term": "muddy",
+            "inSentence": "muddy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "泥濘的",
+            "ipa": "/ˈmʌdi/",
+            "collocations": ["muddy shoes", "get muddy"],
+            "examples": [
+              {
+                "en": "My shoes got muddy in the rain.",
+                "zh": "我的鞋在雨中變得都是泥。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Got it. What about Sunday? Any plans?",
+      "zh": "了解。那星期天呢？有什麼計畫嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "plan",
+            "inSentence": "plans",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "計畫",
+            "ipa": "/plæn/",
+            "collocations": ["any plans", "make plans"],
+            "examples": [
+              {
+                "en": "Do you have any plans tonight?",
+                "zh": "你今晚有什麼計畫嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Not really. I'll probably just chill and watch a game.",
+      "zh": "沒有耶。我大概就放鬆一下，看場比賽。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "chill",
+            "note": "美式口語，「放鬆、耍廢」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "chill",
+            "inSentence": "just chill",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "放鬆；耍廢（口語）",
+            "ipa": "/tʃɪl/",
+            "collocations": ["chill at home", "chill out"],
+            "examples": [
+              {
+                "en": "Let's just chill this weekend.",
+                "zh": "我們這週末就放鬆一下吧。"
+              }
+            ]
+          },
+          {
+            "term": "probably",
+            "inSentence": "probably",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "大概；可能",
+            "ipa": "/ˈprɑːbəbli/",
+            "collocations": ["probably not", "most probably"],
+            "examples": [
+              {
+                "en": "I'll probably be late.",
+                "zh": "我大概會遲到。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Want to come over and make dumplings instead?",
+      "zh": "要不要改來我這裡一起包水餃？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Want to come over",
+            "note": "口語省略了 Do you，「要不要過來？」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "come over",
+            "inSentence": "come over",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "過來（某人家）",
+            "ipa": "/kʌm ˈoʊvər/",
+            "collocations": ["come over for dinner", "come over tonight"],
+            "examples": [
+              {
+                "en": "Can you come over after class?",
+                "zh": "你下課後可以過來嗎？"
+              }
+            ]
+          },
+          {
+            "term": "dumpling",
+            "inSentence": "dumplings",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "水餃；餃子",
+            "ipa": "/ˈdʌmplɪŋ/",
+            "collocations": ["make dumplings", "pork dumplings"],
+            "examples": [
+              {
+                "en": "My grandma makes the best dumplings.",
+                "zh": "我奶奶包的水餃最好吃。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My mom taught me her recipe before I left Taiwan.",
+      "zh": "我離開台灣前，我媽教了我她的食譜。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "recipe",
+            "inSentence": "her recipe",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "食譜",
+            "ipa": "/ˈresəpi/",
+            "collocations": ["family recipe", "follow a recipe"],
+            "examples": [
+              {
+                "en": "Can I have the recipe for this cake?",
+                "zh": "可以給我這個蛋糕的食譜嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Wait, are those the dumplings you brought to the party last month?",
+      "zh": "等等，就是你上個月帶去派對的那種水餃嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "bring",
+            "inSentence": "brought",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "帶來",
+            "ipa": "/brɪŋ/",
+            "collocations": ["bring food", "bring a friend"],
+            "examples": [
+              {
+                "en": "Can I bring my roommate?",
+                "zh": "我可以帶我室友去嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "brought to the",
+            "soundsLike": "brau-tə the",
+            "note": "brought 的 t 和 to 合在一起，只發一次 t。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Yes, everyone ate them in ten minutes.",
+      "zh": "對，大家十分鐘就吃光了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "everyone",
+            "inSentence": "everyone",
+            "kind": "word",
+            "pos": "pron.",
+            "zh": "每個人；大家",
+            "ipa": "/ˈevriwʌn/",
+            "collocations": ["everyone else", "hi everyone"],
+            "examples": [
+              {
+                "en": "Everyone loved the food.",
+                "zh": "大家都很愛那些食物。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "No way, I loved them! I'm totally in.",
+      "zh": "不會吧，我超愛的！我一定去。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "I'm totally in",
+            "note": "「算我一份」，答應邀請的口語。"
+          },
+          {
+            "text": "No way",
+            "note": "這裡表示驚喜興奮，不是拒絕。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "be in",
+            "inSentence": "I'm totally in",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "加入；算我一份（口語）",
+            "ipa": "/biː ɪn/",
+            "collocations": ["I'm in", "count me in"],
+            "examples": [
+              {
+                "en": "Pizza tonight? I'm in!",
+                "zh": "今晚吃披薩？算我一份！"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I can't cook, but I can bring drinks and dessert.",
+      "zh": "我不會煮飯，但我可以帶飲料和甜點。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "dessert",
+            "inSentence": "dessert",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "甜點",
+            "ipa": "/dɪˈzɜːrt/",
+            "collocations": ["for dessert", "dessert menu"],
+            "examples": [
+              {
+                "en": "What's for dessert?",
+                "zh": "甜點是什麼？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Perfect. Come by around five, and I'll show you how to fold them.",
+      "zh": "太好了。五點左右過來，我教你怎麼包。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "come by",
+            "inSentence": "Come by",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "順道過來",
+            "ipa": "/kʌm baɪ/",
+            "collocations": ["come by later", "come by my office"],
+            "examples": [
+              {
+                "en": "Come by anytime.",
+                "zh": "隨時過來坐坐。"
+              }
+            ]
+          },
+          {
+            "term": "fold",
+            "inSentence": "fold them",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "摺；包（水餃）",
+            "ipa": "/foʊld/",
+            "collocations": ["fold paper", "fold dumplings"],
+            "examples": [
+              {
+                "en": "Fold the paper in half.",
+                "zh": "把紙對摺。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Sounds like a plan. This is going to be a great weekend!",
+      "zh": "就這麼說定了。這會是個很棒的週末！",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "Sounds like a plan",
+            "note": "「就這麼辦」，敲定計畫時的口語。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "sound like a plan",
+            "inSentence": "Sounds like a plan",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "聽起來不錯，就這麼辦",
+            "ipa": "/saʊnd laɪk ə plæn/",
+            "collocations": ["sounds like a plan", "that sounds good"],
+            "examples": [
+              {
+                "en": "Dinner at seven? Sounds like a plan.",
+                "zh": "七點吃晚餐？就這麼說定。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

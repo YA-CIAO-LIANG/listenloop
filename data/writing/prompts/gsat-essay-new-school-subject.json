@@ -1,0 +1,95 @@
+{
+  "id": "gsat-essay-new-school-subject",
+  "type": "gsat",
+  "level": "intermediate",
+  "title": {
+    "en": "A New Subject for My School",
+    "zh": "我想新增的一門課"
+  },
+  "subtitle": "原創模擬題（學測風格）：提出一門新課程並說明理由的兩段式作文",
+  "task": "If you could add one new subject to your school's schedule, what would it be? Write an English composition of about 120–180 words in two paragraphs. In the first paragraph, name the subject and describe what students would learn and do in the class. In the second paragraph, explain why you think this subject is important for high school students.",
+  "taskZh": "如果你可以在學校的課表上新增一門課，你會選什麼？請寫一篇約 120–180 字、兩段的英文作文。第一段說明是哪一門課，以及學生在課堂上會學什麼、做什麼；第二段說明你為什麼認為這門課對高中生很重要。",
+  "words": { "min": 120, "max": 180 },
+  "minutes": 25,
+  "focus": [
+    "內容：第一段課程內容具體，第二段理由有說服力",
+    "組織：兩段分工清楚，主題句明確",
+    "文法句構：假設語氣（If I could …, I would …）正確",
+    "字彙拼字：用字精確、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "If I could add one new subject to our school's schedule, I would choose a class on personal finance. In this class, students would learn how to make a monthly budget, compare bank accounts, and understand how credit cards and loans work. Instead of just listening to lectures, we could practice with real-life situations, such as planning a trip on a limited budget or deciding whether to buy a new phone in installments.",
+      "I believe this subject is important because most of us will soon have to manage money on our own. Many of my friends receive pocket money every week, but by Thursday it is often gone, and they have no idea where it went. Without basic money skills, young people can easily fall into debt after they enter college or start working. A personal finance class would not only help us avoid such problems but also teach us to plan for our future. In my opinion, knowing how to handle money is just as important as solving math problems."
+    ],
+    "zh": [
+      "如果我可以在學校的課表上新增一門課，我會選擇個人理財課。在這門課裡，學生會學習如何編列每月預算、比較不同的銀行帳戶，並了解信用卡和貸款是怎麼運作的。我們不只是聽老師講課，還可以用真實生活中的情境來練習，例如用有限的預算規劃一趟旅行，或決定要不要分期付款買新手機。",
+      "我認為這門課很重要，因為我們大多數人很快就得自己管理金錢。我有很多朋友每週都會拿到零用錢，但常常到了星期四就花光了，而且完全不知道錢花到哪裡去。沒有基本的理財能力，年輕人上大學或開始工作後很容易負債。個人理財課不但能幫助我們避免這些問題，也能教我們規劃未來。依我看，懂得如何管理金錢，和會解數學題一樣重要。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "If I could …, I would …",
+      "zh": "與現在事實相反的假設：如果我可以……，我會……",
+      "example": "If I could add one new subject to our school's schedule, I would choose a class on personal finance.",
+      "keys": ["if i could", "i would"]
+    },
+    {
+      "pattern": "Instead of just …ing, we could …, such as …",
+      "zh": "對比兩種做法，並用 such as 舉例",
+      "example": "Instead of just listening to lectures, we could practice with real-life situations, such as planning a trip on a limited budget or deciding whether to buy a new phone in installments.",
+      "keys": ["instead of", "such as"]
+    },
+    {
+      "pattern": "Without …, … can easily …",
+      "zh": "說明缺少某樣東西會造成的後果",
+      "example": "Without basic money skills, young people can easily fall into debt after they enter college or start working.",
+      "keys": ["without", "can easily"]
+    },
+    {
+      "pattern": "… would not only … but also …",
+      "zh": "不但……而且……（說明兩個好處）",
+      "example": "A personal finance class would not only help us avoid such problems but also teach us to plan for our future.",
+      "keys": ["not only", "but also"]
+    },
+    {
+      "pattern": "… is just as important as …",
+      "zh": "結尾用同等比較強調重要性",
+      "example": "In my opinion, knowing how to handle money is just as important as solving math problems.",
+      "keys": ["in my opinion", "just as important as"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Many of my friends receive pocket money every week.",
+        "By Thursday it is often gone."
+      ],
+      "answer": "Many of my friends receive pocket money every week, but by Thursday it is often gone."
+    },
+    {
+      "parts": [
+        "This subject is important.",
+        "Most of us will soon have to manage money on our own."
+      ],
+      "answer": "This subject is important because most of us will soon have to manage money on our own."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "They have no idea where it went.",
+      "answers": [
+        "They do not know how they spent it.",
+        "They cannot say where the money went."
+      ]
+    },
+    {
+      "sentence": "Young people can easily fall into debt.",
+      "answers": [
+        "It is easy for young people to owe money.",
+        "Young people may end up borrowing more than they can pay back."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

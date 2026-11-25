@@ -1,0 +1,736 @@
+{
+  "slug": "b-hotel-room-complaint",
+  "series": "category",
+  "title": "A Polite Complaint at the Hotel",
+  "titleZh": "在飯店客氣地抱怨",
+  "subtitle": "房間有菸味又在電梯旁？用得體的英文要求換房",
+  "format": "dialogue",
+  "accent": "au",
+  "meta": {
+    "category": "travel",
+    "scenario": "hotel",
+    "level": "advanced",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Good evening, welcome back, is everything all right with your room?",
+      "zh": "晚安，歡迎回來，您的房間一切都還好嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "all right",
+            "inSentence": "all right",
+            "kind": "phrase",
+            "pos": "adj.",
+            "zh": "沒問題的；還好的",
+            "ipa": "/ɔːl ˈraɪt/",
+            "collocations": ["is everything all right", "it's all right"],
+            "examples": [
+              {
+                "en": "Is everything all right with your meal?",
+                "zh": "您的餐點都還好嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'm afraid not, and I'm sorry to bother you, but there are a couple of problems I was hoping you could help with.",
+      "zh": "恐怕不太好，抱歉打擾您，不過有幾個問題希望您能幫忙處理。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "I was hoping you could",
+            "note": "用過去進行式提出請求，比 can you 更客氣。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "bother",
+            "inSentence": "bother you",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "打擾；麻煩",
+            "ipa": "/ˈbɒðə/",
+            "collocations": ["sorry to bother you", "don't bother"],
+            "examples": [
+              {
+                "en": "Sorry to bother you, but where's the lift?",
+                "zh": "抱歉打擾，請問電梯在哪裡？"
+              }
+            ]
+          },
+          {
+            "term": "a couple of",
+            "inSentence": "a couple of problems",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "幾個；兩三個",
+            "ipa": "/ə ˈkʌpl əv/",
+            "collocations": ["a couple of days", "a couple of things"],
+            "examples": [
+              {
+                "en": "I'll be back in a couple of minutes.",
+                "zh": "我過幾分鐘就回來。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past continuous for polite requests",
+            "quote": "I was hoping you could help with",
+            "explanation": "用 I was hoping 代替 I hope，時態往過去退，讓請求聽起來更委婉、不給壓力。",
+            "examples": [
+              {
+                "en": "I was wondering if you could help me.",
+                "zh": "不知道您能不能幫我一下。"
+              }
+            ],
+            "pitfall": "這裡的過去式不是指過去的時間，而是表示禮貌。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I'm afraid not,",
+            "role": "main",
+            "zh": "恐怕不太好，"
+          },
+          {
+            "text": "and I'm sorry to bother you,",
+            "role": "main",
+            "zh": "抱歉打擾您，"
+          },
+          {
+            "text": "but there are a couple of problems",
+            "role": "main",
+            "zh": "但有幾個問題"
+          },
+          {
+            "text": "I was hoping you could help with.",
+            "role": "subordinate",
+            "zh": "希望您能幫忙。"
+          }
+        ],
+        "connected": [
+          {
+            "text": "a couple of problems",
+            "soundsLike": "ə kʌ-plə problems",
+            "note": "of 弱讀成 /ə/，和 couple 黏在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Of course, what seems to be the trouble?",
+      "zh": "當然，請問是什麼狀況呢？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "what seems to be the trouble",
+            "note": "服務業詢問問題時很客氣的說法。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "trouble",
+            "inSentence": "the trouble",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "問題；麻煩",
+            "ipa": "/ˈtrʌbl/",
+            "collocations": ["what's the trouble", "have trouble with"],
+            "examples": [
+              {
+                "en": "What seems to be the trouble with your car?",
+                "zh": "您的車有什麼問題？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Well, I specifically booked a non-smoking room, but the moment I opened the door, it smelt strongly of cigarettes.",
+      "zh": "嗯，我特別訂了禁菸房，可是我一打開門，就聞到很重的菸味。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "specifically",
+            "inSentence": "specifically booked",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "特別地；明確地",
+            "ipa": "/spəˈsɪfɪkli/",
+            "collocations": ["specifically ask for", "specifically designed"],
+            "examples": [
+              {
+                "en": "I specifically asked for no sugar.",
+                "zh": "我特別說了不要加糖。"
+              }
+            ]
+          },
+          {
+            "term": "smell of",
+            "inSentence": "smelt strongly of cigarettes",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "有……的味道",
+            "ipa": "/smel əv/",
+            "collocations": ["smell of smoke", "smell of coffee"],
+            "examples": [
+              {
+                "en": "The kitchen smelt of garlic.",
+                "zh": "廚房有大蒜味。"
+              }
+            ]
+          },
+          {
+            "term": "non-smoking",
+            "inSentence": "a non-smoking room",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "禁菸的",
+            "ipa": "/ˌnɒn ˈsməʊkɪŋ/",
+            "collocations": ["non-smoking room", "non-smoking area"],
+            "examples": [
+              {
+                "en": "Is this a non-smoking area?",
+                "zh": "這裡是禁菸區嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "the moment + clause",
+            "quote": "the moment I opened the door",
+            "explanation": "the moment 可當連接詞，表示「一……就……」，等於 as soon as。",
+            "examples": [
+              {
+                "en": "The moment she arrived, it started to rain.",
+                "zh": "她一到就開始下雨。"
+              }
+            ],
+            "pitfall": "the moment 後面直接接子句，不要再加 when。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Well, I specifically booked a non-smoking room,",
+            "role": "main",
+            "zh": "嗯，我特別訂了禁菸房，"
+          },
+          {
+            "text": "but the moment I opened the door,",
+            "role": "subordinate",
+            "zh": "可是我一打開門，"
+          },
+          {
+            "text": "it smelt strongly of cigarettes.",
+            "role": "main",
+            "zh": "就聞到很重的菸味。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Oh dear, I'm terribly sorry about that, it definitely shouldn't have happened.",
+      "zh": "哎呀，真的非常抱歉，這種事絕對不該發生。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "terribly",
+            "inSentence": "terribly sorry",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "非常；極度地",
+            "ipa": "/ˈterəbli/",
+            "collocations": ["terribly sorry", "terribly important"],
+            "examples": [
+              {
+                "en": "I'm terribly sorry for the delay.",
+                "zh": "非常抱歉延誤了。"
+              }
+            ]
+          },
+          {
+            "term": "definitely",
+            "inSentence": "definitely",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "絕對；肯定",
+            "ipa": "/ˈdefɪnətli/",
+            "collocations": ["definitely not", "I'll definitely"],
+            "examples": [
+              {
+                "en": "I'll definitely come next time.",
+                "zh": "下次我一定來。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "shouldn't have + past participle",
+            "quote": "shouldn't have happened",
+            "explanation": "shouldn't have + 過去分詞表示「過去本來不應該發生（但發生了）」，常用來道歉或表達遺憾。",
+            "examples": [
+              {
+                "en": "You shouldn't have paid for me.",
+                "zh": "你不該幫我付錢的。"
+              }
+            ],
+            "pitfall": "不要說 shouldn't happened，have 不能省略。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "shouldn't have happened",
+            "soundsLike": "shoud-n-tə happened",
+            "note": "have 弱讀成 /ə/，聽起來像 shouldn't-a。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "On top of that, the room is right next to the lift, so I could hear it going up and down all night.",
+      "zh": "除此之外，房間就在電梯旁邊，所以我整晚都聽得到它上上下下的聲音。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "On top of that",
+            "note": "「除此之外、更糟的是」，用來追加問題。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "on top of that",
+            "inSentence": "On top of that",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "除此之外；再加上",
+            "ipa": "/ɒn tɒp əv ðæt/",
+            "collocations": ["on top of that", "on top of everything"],
+            "examples": [
+              {
+                "en": "It rained, and on top of that, I lost my umbrella.",
+                "zh": "下雨了，更糟的是我還把傘弄丟了。"
+              }
+            ]
+          },
+          {
+            "term": "lift",
+            "inSentence": "the lift",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "電梯（英、澳）",
+            "ipa": "/lɪft/",
+            "collocations": ["take the lift", "next to the lift"],
+            "examples": [
+              {
+                "en": "Let's take the lift to the fifth floor.",
+                "zh": "我們搭電梯到五樓吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "hear + object + V-ing",
+            "quote": "hear it going up and down",
+            "explanation": "hear + 受詞 + V-ing 表示聽到某個「正在進行」的動作。",
+            "examples": [
+              {
+                "en": "I heard the baby crying.",
+                "zh": "我聽到嬰兒在哭。"
+              }
+            ],
+            "pitfall": "hear it go 是聽到完整動作，hear it going 強調持續的過程。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "On top of that,",
+            "role": "connector",
+            "zh": "除此之外，"
+          },
+          {
+            "text": "the room is right next to the lift,",
+            "role": "main",
+            "zh": "房間就在電梯旁邊，"
+          },
+          {
+            "text": "so I could hear it going up and down all night.",
+            "role": "main",
+            "zh": "所以我整晚都聽到它上上下下。"
+          }
+        ],
+        "connected": [
+          {
+            "text": "next to the lift",
+            "soundsLike": "nex-tə the lift",
+            "note": "next 的 t 和 to 合併，只發一次。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I've got an early flight on Thursday, so I'd really appreciate a quieter room if one's available.",
+      "zh": "我星期四要搭一早的班機，所以如果有比較安靜的房間，我會非常感激。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "appreciate",
+            "inSentence": "I'd really appreciate",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "感激；感謝",
+            "ipa": "/əˈpriːʃieɪt/",
+            "collocations": ["really appreciate", "appreciate your help"],
+            "examples": [
+              {
+                "en": "I appreciate your help.",
+                "zh": "感謝你的幫忙。"
+              }
+            ]
+          },
+          {
+            "term": "available",
+            "inSentence": "if one's available",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "可用的；有空的",
+            "ipa": "/əˈveɪləbl/",
+            "collocations": ["is available", "available rooms"],
+            "examples": [
+              {
+                "en": "Is this seat available?",
+                "zh": "這個位子有人坐嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "one replacing a noun",
+            "quote": "if one's available",
+            "explanation": "one's = one is，one 代替前面的 a quieter room，避免重複。",
+            "examples": [
+              {
+                "en": "If you need a pen, I have one.",
+                "zh": "如果你需要筆，我有一支。"
+              }
+            ],
+            "pitfall": "複數名詞要用 ones，不要用 one。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I've got an early flight on Thursday,",
+            "role": "main",
+            "zh": "我星期四要搭一早的班機，"
+          },
+          {
+            "text": "so I'd really appreciate a quieter room",
+            "role": "main",
+            "zh": "所以我會很感激能換一間比較安靜的房間，"
+          },
+          {
+            "text": "if one's available.",
+            "role": "subordinate",
+            "zh": "如果有空房的話。"
+          }
+        ],
+        "connected": [
+          {
+            "text": "I've got an early",
+            "soundsLike": "ai-vgo-tə-nearly",
+            "note": "got 的 t 彈舌，an 和 early 連在一起，聽起來像 an early 變一個字。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Let me have a look at what we've got.",
+      "zh": "讓我看一下我們還有什麼房間。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "have a look",
+            "inSentence": "have a look",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "看一看",
+            "ipa": "/hæv ə lʊk/",
+            "collocations": ["have a look at", "take a look"],
+            "examples": [
+              {
+                "en": "Can I have a look at the menu?",
+                "zh": "我可以看一下菜單嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "have a look at",
+            "soundsLike": "ha-və-loo-kat",
+            "note": "have a 連讀，look 的 k 和 at 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Right, we're actually quite full this week, but I can move you to a corner room on the eighth floor at no extra charge.",
+      "zh": "好的，我們這週其實滿滿的，不過我可以幫您換到八樓的邊間，不另外收費。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "at no extra charge",
+            "note": "「不額外收費」，飯店常用語。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "at no extra charge",
+            "inSentence": "at no extra charge",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "不額外收費",
+            "ipa": "/æt nəʊ ˈekstrə tʃɑːdʒ/",
+            "collocations": ["at no extra charge", "free of charge"],
+            "examples": [
+              {
+                "en": "We'll deliver it at no extra charge.",
+                "zh": "我們免費幫你送貨。"
+              }
+            ]
+          },
+          {
+            "term": "corner room",
+            "inSentence": "a corner room",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "邊間；轉角房",
+            "ipa": "/ˈkɔːnə ruːm/",
+            "collocations": ["a corner room", "corner office"],
+            "examples": [
+              {
+                "en": "Corner rooms usually have more windows.",
+                "zh": "邊間通常窗戶比較多。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "Right, we're actually quite full this week,",
+            "role": "main",
+            "zh": "好的，我們這週其實滿滿的，"
+          },
+          {
+            "text": "but I can move you to a corner room on the eighth floor",
+            "role": "main",
+            "zh": "不過我可以幫您換到八樓的邊間，"
+          },
+          {
+            "text": "at no extra charge.",
+            "role": "modifier",
+            "zh": "不另外收費。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "It's further from the lift, and it has a lovely view of the river.",
+      "zh": "它離電梯比較遠，而且看得到很漂亮的河景。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "further",
+            "inSentence": "further from the lift",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "更遠的",
+            "ipa": "/ˈfɜːðə/",
+            "collocations": ["further away", "further from"],
+            "examples": [
+              {
+                "en": "The station is further than I thought.",
+                "zh": "車站比我想的還遠。"
+              }
+            ]
+          },
+          {
+            "term": "view",
+            "inSentence": "a lovely view",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "景色；視野",
+            "ipa": "/vjuː/",
+            "collocations": ["a view of", "sea view"],
+            "examples": [
+              {
+                "en": "Our room has a view of the mountains.",
+                "zh": "我們的房間看得到山景。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That sounds perfect, thank you for sorting it out so quickly.",
+      "zh": "聽起來太完美了，謝謝您這麼快就幫我處理好。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "sort out",
+            "inSentence": "sorting it out",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "處理好；解決",
+            "ipa": "/sɔːt aʊt/",
+            "collocations": ["sort it out", "sort things out"],
+            "examples": [
+              {
+                "en": "Thanks for sorting out the tickets.",
+                "zh": "謝謝你處理好票的事。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "sorting it out",
+            "soundsLike": "sor-ting-i-tout",
+            "note": "it 和 out 連讀，t 輕輕帶過。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Not at all, and I'll also send up a complimentary breakfast for the inconvenience.",
+      "zh": "別客氣，造成您的不便，我也會送一份免費早餐到您房間。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "for the inconvenience",
+            "note": "「為了（造成的）不便」，賠償時常說。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "complimentary",
+            "inSentence": "a complimentary breakfast",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "免費贈送的",
+            "ipa": "/ˌkɒmplɪˈmentri/",
+            "collocations": ["complimentary drink", "complimentary breakfast"],
+            "examples": [
+              {
+                "en": "The hotel offers complimentary coffee.",
+                "zh": "飯店提供免費咖啡。"
+              }
+            ]
+          },
+          {
+            "term": "inconvenience",
+            "inSentence": "the inconvenience",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "不便",
+            "ipa": "/ˌɪnkənˈviːniəns/",
+            "collocations": [
+              "sorry for the inconvenience",
+              "cause inconvenience"
+            ],
+            "examples": [
+              {
+                "en": "We apologise for the inconvenience.",
+                "zh": "造成不便，我們深感抱歉。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "send up a",
+            "soundsLike": "sen-du-pə",
+            "note": "send 的 d 和 up 連讀，a 弱讀。"
+          }
+        ]
+      }
+    }
+  ]
+}

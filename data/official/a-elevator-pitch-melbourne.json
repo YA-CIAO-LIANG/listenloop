@@ -1,0 +1,480 @@
+{
+  "slug": "a-elevator-pitch-melbourne",
+  "series": "category",
+  "title": "One Minute to Introduce Myself",
+  "titleZh": "一分鐘自我推銷",
+  "subtitle": "在墨爾本找工作的台灣設計師，於交流活動上做電梯簡報",
+  "format": "monologue",
+  "accent": "au",
+  "meta": {
+    "category": "business",
+    "scenario": "elevator-pitch",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Hi, I'm Mei, and I'm a user experience designer from Taiwan who recently moved to Melbourne.",
+      "zh": "嗨，我是小梅，是來自台灣的使用者體驗設計師，最近搬到墨爾本。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "user experience",
+            "inSentence": "user experience",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "使用者體驗",
+            "ipa": "/ˈjuːzər ɪkˈspɪəriəns/",
+            "collocations": [
+              "user experience designer",
+              "improve the user experience"
+            ],
+            "examples": [
+              {
+                "en": "Good user experience keeps customers coming back.",
+                "zh": "好的使用者體驗會讓顧客一再回來。"
+              }
+            ]
+          },
+          {
+            "term": "recently",
+            "inSentence": "recently",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "最近",
+            "ipa": "/ˈriːsntli/",
+            "collocations": ["recently moved", "until recently"],
+            "examples": [
+              {
+                "en": "I recently started a new job.",
+                "zh": "我最近開始了新工作。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Basically, I help companies make apps that older people can actually use.",
+      "zh": "簡單來說，我幫助公司做出長輩真的會用的應用程式。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "older people can actually use",
+            "note": "actually 強調「真的、實際上」，點出很多應用程式長輩其實不會用。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "basically",
+            "inSentence": "Basically",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "簡單來說；基本上",
+            "ipa": "/ˈbeɪsɪkli/",
+            "collocations": ["basically the same", "basically, I"],
+            "examples": [
+              {
+                "en": "Basically, we need more time.",
+                "zh": "簡單來說，我們需要更多時間。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It started with my grandmother, who wanted to video call me but kept pressing the wrong buttons.",
+      "zh": "一切從我奶奶開始，她想跟我視訊，卻一直按錯按鈕。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "press",
+            "inSentence": "pressing",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "按；壓",
+            "ipa": "/pres/",
+            "collocations": ["press a button", "press enter"],
+            "examples": [
+              {
+                "en": "Press the green button to start.",
+                "zh": "按綠色按鈕開始。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "non-defining relative clause",
+            "quote": "my grandmother, who wanted to video call me",
+            "explanation": "逗號後的 who 子句是補充說明，拿掉也不影響句子主要意思。",
+            "examples": [
+              {
+                "en": "My brother, who lives in Perth, is a nurse.",
+                "zh": "我哥哥住在伯斯，他是護理師。"
+              }
+            ],
+            "pitfall": "這種補充說明的子句不能用 that 代替 who。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I realised the problem wasn't her, it was the design.",
+      "zh": "我發現問題不在她，而是在設計。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "it was the design",
+            "note": "對比句型：the problem wasn't A, it was B，強調真正的原因。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "realise",
+            "inSentence": "realised",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "發現；意識到",
+            "ipa": "/ˈrɪəlaɪz/",
+            "collocations": ["realise a mistake", "suddenly realise"],
+            "examples": [
+              {
+                "en": "I realised I'd left my keys at home.",
+                "zh": "我發現我把鑰匙忘在家裡了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Since then, I've spent five years working on banking and health apps in Taipei.",
+      "zh": "從那時起，我花了五年在台北做銀行和健康類的應用程式。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "since then",
+            "inSentence": "Since then",
+            "kind": "phrase",
+            "pos": "adv.",
+            "zh": "從那時起",
+            "ipa": "/sɪns ðen/",
+            "collocations": ["ever since then", "since then, I"],
+            "examples": [
+              {
+                "en": "We met in 2020 and have been friends since then.",
+                "zh": "我們 2020 年認識，從那時起就是朋友。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "spend time + V-ing",
+            "quote": "I've spent five years working",
+            "explanation": "spend + 時間 + V-ing，表示「花時間做某事」。",
+            "examples": [
+              {
+                "en": "She spent the weekend cleaning her flat.",
+                "zh": "她花了整個週末打掃公寓。"
+              }
+            ],
+            "pitfall": "不要說 spend five years to work。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "In my last project, we tested the app with over a hundred seniors and made the screens much simpler.",
+      "zh": "在我上一個專案中，我們找了一百多位長者測試應用程式，並把畫面簡化許多。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "senior",
+            "inSentence": "seniors",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "長者；年長者",
+            "ipa": "/ˈsiːniə/",
+            "collocations": ["seniors' centre", "discounts for seniors"],
+            "examples": [
+              {
+                "en": "Seniors travel free on the bus.",
+                "zh": "長者搭公車免費。"
+              }
+            ]
+          },
+          {
+            "term": "test",
+            "inSentence": "tested",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "測試",
+            "ipa": "/test/",
+            "collocations": ["test a product", "test with users"],
+            "examples": [
+              {
+                "en": "We tested the new menu with customers.",
+                "zh": "我們拿新菜單給顧客試用。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "As a result, the number of support calls dropped by almost half.",
+      "zh": "結果，客服電話的數量減少了將近一半。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "as a result",
+            "inSentence": "As a result",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "結果；因此",
+            "ipa": "/æz ə rɪˈzʌlt/",
+            "collocations": ["as a result of", "as a result, we"],
+            "examples": [
+              {
+                "en": "It rained all day; as a result, the game was cancelled.",
+                "zh": "下了一整天雨，結果比賽取消了。"
+              }
+            ]
+          },
+          {
+            "term": "drop by",
+            "inSentence": "dropped by almost half",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "下降了（多少）",
+            "ipa": "/drɒp baɪ/",
+            "collocations": ["drop by ten per cent", "drop by half"],
+            "examples": [
+              {
+                "en": "Sales dropped by twenty per cent.",
+                "zh": "銷售額下降了兩成。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "dropped by",
+            "soundsLike": "DROPT-by",
+            "note": "dropped 的 -ed 唸成 /t/，並和 by 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Australia has an ageing population too, so I think this kind of work really matters here.",
+      "zh": "澳洲也面臨人口老化，所以我認為這類工作在這裡真的很重要。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "ageing population",
+            "inSentence": "ageing population",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "人口老化",
+            "ipa": "/ˈeɪdʒɪŋ ˌpɒpjuˈleɪʃn/",
+            "collocations": [
+              "an ageing population",
+              "deal with an ageing population"
+            ],
+            "examples": [
+              {
+                "en": "Japan has a rapidly ageing population.",
+                "zh": "日本人口快速老化。"
+              }
+            ]
+          },
+          {
+            "term": "matter",
+            "inSentence": "matters",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "重要；要緊",
+            "ipa": "/ˈmætə/",
+            "collocations": ["really matters", "it doesn't matter"],
+            "examples": [
+              {
+                "en": "Your health is what matters most.",
+                "zh": "你的健康最重要。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Right now, I'm looking for a team that cares about making technology fair for everyone.",
+      "zh": "現在我在找一個在乎讓科技對每個人都公平的團隊。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "care about",
+            "inSentence": "cares about",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "在乎；關心",
+            "ipa": "/keər əˈbaʊt/",
+            "collocations": ["care about people", "really care about"],
+            "examples": [
+              {
+                "en": "She really cares about the environment.",
+                "zh": "她真的很關心環境。"
+              }
+            ]
+          },
+          {
+            "term": "fair",
+            "inSentence": "fair",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "公平的",
+            "ipa": "/feə/",
+            "collocations": ["fair to everyone", "a fair price"],
+            "examples": [
+              {
+                "en": "The rules should be fair for everyone.",
+                "zh": "規則應該對每個人都公平。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "If that sounds like your company, I'd love to grab a coffee and hear what you're working on.",
+      "zh": "如果這聽起來像你們公司，我很想跟你喝杯咖啡，聽聽你們正在做什麼。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "grab a coffee",
+            "inSentence": "grab a coffee",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "（口語）喝杯咖啡",
+            "ipa": "/ɡræb ə ˈkɒfi/",
+            "collocations": ["grab a coffee", "grab lunch"],
+            "examples": [
+              {
+                "en": "Do you want to grab a coffee after the meeting?",
+                "zh": "開完會要不要去喝杯咖啡？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "I'd love to",
+            "soundsLike": "I'd-LUV-tə",
+            "note": "to 在句中弱讀成 /tə/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Here's my card, and thanks so much for listening.",
+      "zh": "這是我的名片，非常感謝你聽我說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "card",
+            "inSentence": "card",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "名片",
+            "ipa": "/kɑːd/",
+            "collocations": ["business card", "exchange cards"],
+            "examples": [
+              {
+                "en": "Can I have your card?",
+                "zh": "可以給我你的名片嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

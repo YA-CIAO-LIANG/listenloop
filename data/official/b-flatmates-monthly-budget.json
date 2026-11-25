@@ -1,0 +1,704 @@
+{
+  "slug": "b-flatmates-monthly-budget",
+  "series": "category",
+  "title": "Making a Budget with My Flatmate",
+  "titleZh": "和室友一起做預算",
+  "subtitle": "澳洲打工度假的室友，一起規劃每月生活費",
+  "format": "dialogue",
+  "accent": "au",
+  "meta": {
+    "category": "money-admin",
+    "scenario": "budgeting",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Josh, can we talk about money for a minute?",
+      "zh": "喬許，我們可以聊一下錢的事嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "for a minute",
+            "note": "「一下下」，讓請求聽起來不那麼正式。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "talk about",
+            "inSentence": "talk about money",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "談論；聊",
+            "ipa": "/tɔːk əˈbaʊt/",
+            "collocations": ["talk about money", "talk about it"],
+            "examples": [
+              {
+                "en": "Let's talk about the trip tonight.",
+                "zh": "我們今晚聊聊旅行的事吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Sure, Mei. Is something wrong?",
+      "zh": "當然，小美。有什麼問題嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Is something wrong?",
+            "note": "關心對方時最常用的問句。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "wrong",
+            "inSentence": "wrong",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "有問題的；不對勁的",
+            "ipa": "/rɒŋ/",
+            "collocations": ["something wrong", "go wrong"],
+            "examples": [
+              {
+                "en": "Is something wrong with your phone?",
+                "zh": "你的手機有什麼問題嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Not really, but I spent too much last month.",
+      "zh": "也不算，只是我上個月花太多錢了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "spent too much",
+            "note": "spend 的過去式 spent，「花太多（錢）」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "spend",
+            "inSentence": "spent too much",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "花（錢、時間）",
+            "ipa": "/spend/",
+            "collocations": ["spend money", "spend too much"],
+            "examples": [
+              {
+                "en": "I spend a lot on coffee.",
+                "zh": "我花很多錢在咖啡上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I want to make a budget for our flat.",
+      "zh": "我想幫我們的公寓做一份預算。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "make a budget",
+            "note": "「做預算」，動詞用 make。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "budget",
+            "inSentence": "a budget",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "預算",
+            "ipa": "/ˈbʌdʒɪt/",
+            "collocations": ["make a budget", "on a budget"],
+            "examples": [
+              {
+                "en": "We need a budget for the party.",
+                "zh": "我們需要為派對訂一個預算。"
+              }
+            ]
+          },
+          {
+            "term": "flat",
+            "inSentence": "our flat",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "公寓（英式、澳式用法）",
+            "ipa": "/flæt/",
+            "collocations": ["share a flat", "flatmate"],
+            "examples": [
+              {
+                "en": "My flat is near the station.",
+                "zh": "我的公寓在車站附近。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Good idea. What do we pay every month?",
+      "zh": "好主意。我們每個月要付哪些錢？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "every month",
+            "note": "「每個月」，前面不用加 in。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "pay",
+            "inSentence": "pay every month",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "支付；付錢",
+            "ipa": "/peɪ/",
+            "collocations": ["pay rent", "pay for"],
+            "examples": [
+              {
+                "en": "I pay my phone bill online.",
+                "zh": "我在網路上繳手機費。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Rent is the big one, then power, internet and food.",
+      "zh": "房租是大宗，接著是電費、網路費和伙食費。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "the big one",
+            "note": "「最大的那一筆」，口語說法。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "rent",
+            "inSentence": "Rent",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "房租",
+            "ipa": "/rent/",
+            "collocations": ["pay rent", "rent is due"],
+            "examples": [
+              {
+                "en": "The rent is due on Friday.",
+                "zh": "房租星期五要繳。"
+              }
+            ]
+          },
+          {
+            "term": "power",
+            "inSentence": "power",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "電力；電費（澳洲口語）",
+            "ipa": "/ˈpaʊə/",
+            "collocations": ["power bill", "power cut"],
+            "examples": [
+              {
+                "en": "The power bill was high this winter.",
+                "zh": "今年冬天的電費很高。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The power bill was really high in winter.",
+      "zh": "冬天的電費真的很高。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "bill",
+            "inSentence": "bill",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "帳單",
+            "ipa": "/bɪl/",
+            "collocations": ["power bill", "pay the bill"],
+            "examples": [
+              {
+                "en": "Can you pay the bill today?",
+                "zh": "你今天可以去繳帳單嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, so let's turn off the heater when we go out.",
+      "zh": "對，所以我們出門時把暖氣關掉吧。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "turn off",
+            "note": "「關掉（電器）」，相反是 turn on。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "turn off",
+            "inSentence": "turn off the heater",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "關掉",
+            "ipa": "/tɜːn ɒf/",
+            "collocations": ["turn off the lights", "turn off the TV"],
+            "examples": [
+              {
+                "en": "Please turn off the lights.",
+                "zh": "請把燈關掉。"
+              }
+            ]
+          },
+          {
+            "term": "heater",
+            "inSentence": "heater",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "暖氣機；電暖器",
+            "ipa": "/ˈhiːtə/",
+            "collocations": ["turn on the heater", "electric heater"],
+            "examples": [
+              {
+                "en": "The heater is too loud.",
+                "zh": "電暖器太吵了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "turn off the",
+            "soundsLike": "tur-nof-the",
+            "note": "turn 的 n 和 off 連在一起，聽起來像一個字。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "What about food? We both eat out a lot.",
+      "zh": "那伙食呢？我們兩個都很常在外面吃。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "eat out",
+            "inSentence": "eat out a lot",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "外食；在外面吃飯",
+            "ipa": "/iːt aʊt/",
+            "collocations": ["eat out a lot", "eat out tonight"],
+            "examples": [
+              {
+                "en": "We eat out every Friday.",
+                "zh": "我們每個星期五都外食。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I know. Cooking at home is much cheaper.",
+      "zh": "我知道。在家煮便宜多了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "much cheaper",
+            "note": "much 加強比較級，「便宜很多」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "cheap",
+            "inSentence": "cheaper",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "便宜的",
+            "ipa": "/tʃiːp/",
+            "collocations": ["much cheaper", "cheap food"],
+            "examples": [
+              {
+                "en": "The market is cheaper than the shop.",
+                "zh": "市場比商店便宜。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Let's cook dinner together four nights a week.",
+      "zh": "我們一個星期一起煮四個晚上的晚餐吧。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "together",
+            "inSentence": "together",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "一起",
+            "ipa": "/təˈɡeðə/",
+            "collocations": ["cook together", "work together"],
+            "examples": [
+              {
+                "en": "Let's study together tonight.",
+                "zh": "我們今晚一起念書吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "four nights a week",
+            "soundsLike": "four nights-a week",
+            "note": "nights 的 s 和 a 連讀，a 弱讀成 /ə/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Great. I can make my mum's beef noodle soup.",
+      "zh": "太好了。我可以煮我媽媽的牛肉麵。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "noodle soup",
+            "inSentence": "beef noodle soup",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "湯麵",
+            "ipa": "/ˈnuːdl suːp/",
+            "collocations": ["beef noodle soup", "a bowl of noodle soup"],
+            "examples": [
+              {
+                "en": "I had noodle soup for lunch.",
+                "zh": "我午餐吃了湯麵。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, please! And I'll do the shopping on Sundays.",
+      "zh": "好啊，拜託！那我星期天負責買菜。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "do the shopping",
+            "note": "「去採買」，固定說法用 do。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "do the shopping",
+            "inSentence": "do the shopping",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "採買日用品；買菜",
+            "ipa": "/duː ðə ˈʃɒpɪŋ/",
+            "collocations": ["do the shopping", "weekly shopping"],
+            "examples": [
+              {
+                "en": "My dad does the shopping on Saturdays.",
+                "zh": "我爸爸星期六去採買。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "So how much can we spend on food each week?",
+      "zh": "那我們每個星期伙食可以花多少？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "how much",
+            "note": "問金額或不可數的量。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "spend on",
+            "inSentence": "spend on food",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "花錢在……上",
+            "ipa": "/spend ɒn/",
+            "collocations": ["spend on food", "spend money on"],
+            "examples": [
+              {
+                "en": "How much do you spend on books?",
+                "zh": "你花多少錢買書？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "How about one hundred and twenty dollars for both of us?",
+      "zh": "我們兩個一共 120 元怎麼樣？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "How about",
+            "note": "提出建議的常用開頭。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "both of us",
+            "inSentence": "both of us",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "我們兩個",
+            "ipa": "/bəʊθ əv ʌs/",
+            "collocations": ["both of us", "for both of us"],
+            "examples": [
+              {
+                "en": "The pizza is enough for both of us.",
+                "zh": "這個披薩夠我們兩個吃。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "both of us",
+            "soundsLike": "bo-thə-vus",
+            "note": "of 弱讀成 /əv/，和前後的字連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Perfect. I'll write it all down in a shared note.",
+      "zh": "太好了。我會把這些都記在一個共用筆記裡。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "write down",
+            "inSentence": "write it all down",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "寫下來",
+            "ipa": "/raɪt daʊn/",
+            "collocations": ["write it down", "write down notes"],
+            "examples": [
+              {
+                "en": "Please write down your phone number.",
+                "zh": "請寫下你的電話號碼。"
+              }
+            ]
+          },
+          {
+            "term": "shared",
+            "inSentence": "shared note",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "共用的；共享的",
+            "ipa": "/ʃeəd/",
+            "collocations": ["shared note", "shared kitchen"],
+            "examples": [
+              {
+                "en": "We use a shared calendar.",
+                "zh": "我們用一個共用的行事曆。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "And at the end of the month, we can check it.",
+      "zh": "月底的時候，我們可以檢查一下。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "at the end of the month",
+            "note": "「月底」，介系詞用 at。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "check",
+            "inSentence": "check it",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "檢查；核對",
+            "ipa": "/tʃek/",
+            "collocations": ["check the list", "check again"],
+            "examples": [
+              {
+                "en": "Check your answers before you hand in.",
+                "zh": "交出去前先檢查答案。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Deal. Maybe we can save enough for a trip!",
+      "zh": "一言為定。也許我們可以存夠錢去旅行！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Deal.",
+            "note": "「成交、一言為定」，口語回答。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "save",
+            "inSentence": "save enough",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "存（錢）",
+            "ipa": "/seɪv/",
+            "collocations": ["save money", "save up for"],
+            "examples": [
+              {
+                "en": "I'm saving for a new laptop.",
+                "zh": "我在存錢買新筆電。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

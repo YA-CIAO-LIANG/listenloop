@@ -1,0 +1,81 @@
+{
+  "id": "cap-cooking-for-my-family",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "The First Time I Cooked for My Family",
+    "zh": "第一次為家人做飯"
+  },
+  "subtitle": "國中程度引導式短文：用過去式寫一次為家人做飯的經驗",
+  "task": "Write a short passage of 60–100 words about a time you cooked a meal for your family. Your passage should answer these questions: (1) When did you cook, and what did you make? (2) What happened while you were cooking or eating? (3) How did you feel, and what do you want to try next time?",
+  "taskZh": "寫一篇 60–100 字的英文短文，描述你為家人煮一餐的經驗。短文要回答三個問題：(1) 你什麼時候煮、煮了什麼？(2) 煮飯或吃飯時發生了什麼事？(3) 你的感受是什麼？下次想試著做什麼？",
+  "words": { "min": 60, "max": 100 },
+  "minutes": 15,
+  "focus": [
+    "內容：三個問題都要回答到，經過要有一點小插曲",
+    "文法：過去式動詞變化正確（buy → bought、make → made）",
+    "連接詞：用 but、so 表達轉折與結果",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "Last Mother's Day, I cooked dinner for my family for the first time. My father helped me buy some eggs, tomatoes, and vegetables at the market. In the kitchen, I made scrambled eggs with tomatoes and a simple vegetable soup. The eggs were a little too salty, but everyone still ate all of them. My mother smiled and said it was the best gift she had ever received. I was tired, but I felt really proud. Next time, I want to try making fried rice."
+    ],
+    "zh": [
+      "去年母親節，我第一次為家人煮晚餐。爸爸陪我去市場買了一些蛋、番茄和青菜。在廚房裡，我做了番茄炒蛋和一道簡單的青菜湯。炒蛋有點太鹹，但大家還是全部吃光了。媽媽笑著說，這是她收過最棒的禮物。我很累，但覺得非常驕傲。下次，我想試著做炒飯。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… for the first time",
+      "zh": "第一次做某件事",
+      "example": "Last Mother's Day, I cooked dinner for my family for the first time.",
+      "keys": ["for the first time"]
+    },
+    {
+      "pattern": "… helped me buy …",
+      "zh": "help + 人 + 原形動詞：幫某人做某事",
+      "example": "My father helped me buy some eggs, tomatoes, and vegetables at the market.",
+      "keys": ["helped me buy"]
+    },
+    {
+      "pattern": "…, but everyone still …",
+      "zh": "用 but … still 表達「雖然……還是……」",
+      "example": "The eggs were a little too salty, but everyone still ate all of them.",
+      "keys": ["but everyone still"]
+    },
+    {
+      "pattern": "Next time, I want to try …ing.",
+      "zh": "結尾說出下次想嘗試的事",
+      "example": "Next time, I want to try making fried rice.",
+      "keys": ["next time", "want to try"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I was tired.", "I felt really proud."],
+      "answer": "I was tired, but I felt really proud."
+    },
+    {
+      "parts": ["My mother smiled.", "She said it was the best gift."],
+      "answer": "My mother smiled and said it was the best gift."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The eggs were a little too salty.",
+      "answers": [
+        "I put a little too much salt in the eggs.",
+        "The eggs tasted a bit too salty."
+      ]
+    },
+    {
+      "sentence": "Everyone still ate all of them.",
+      "answers": [
+        "Everyone still finished them.",
+        "Nobody left any of them on the plate."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

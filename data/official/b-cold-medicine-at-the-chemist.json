@@ -1,0 +1,701 @@
+{
+  "slug": "b-cold-medicine-at-the-chemist",
+  "series": "category",
+  "title": "Buying Cold Medicine in Australia",
+  "titleZh": "在澳洲藥局買感冒藥",
+  "subtitle": "打工度假時感冒了，怎麼跟藥師說症狀、問用法",
+  "format": "dialogue",
+  "accent": "au",
+  "meta": {
+    "category": "daily-life",
+    "scenario": "pharmacy",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "G'day, what can I get for you?",
+      "zh": "你好，需要什麼嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "G'day",
+            "note": "澳洲招牌打招呼用語，等於 hello。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "g'day",
+            "inSentence": "G'day",
+            "kind": "word",
+            "pos": "interj.",
+            "zh": "你好（澳洲口語）",
+            "ipa": "/ɡəˈdeɪ/",
+            "collocations": ["g'day mate", "say g'day"],
+            "examples": [
+              {
+                "en": "G'day, how are you going?",
+                "zh": "你好，最近怎麼樣？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Hi, I think I've caught a cold, and I need something to help me get through work.",
+      "zh": "嗨，我好像感冒了，需要一點東西讓我撐過上班。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "get through work",
+            "note": "get through「撐過、熬過」一段困難時間。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "catch a cold",
+            "inSentence": "caught a cold",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "感冒",
+            "ipa": "/kætʃ ə kəʊld/",
+            "collocations": ["catch a cold", "have a cold"],
+            "examples": [
+              {
+                "en": "I caught a cold on the plane.",
+                "zh": "我在飛機上感冒了。"
+              }
+            ]
+          },
+          {
+            "term": "get through",
+            "inSentence": "get through work",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "撐過；度過",
+            "ipa": "/ɡet θruː/",
+            "collocations": ["get through the day", "get through it"],
+            "examples": [
+              {
+                "en": "Coffee helps me get through the morning.",
+                "zh": "咖啡讓我撐過早上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "present perfect for a present state",
+            "quote": "I've caught a cold",
+            "explanation": "I've caught a cold 用現在完成式，表示「已經感冒了，現在還在病中」。",
+            "examples": [
+              {
+                "en": "I've lost my keys.",
+                "zh": "我把鑰匙弄丟了。"
+              }
+            ],
+            "pitfall": "不要說 I catch a cold，那是習慣性的意思。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "No worries, what symptoms have you got?",
+      "zh": "沒問題，你有哪些症狀？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "No worries",
+            "note": "澳洲人最愛說的「沒問題、不客氣」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "symptom",
+            "inSentence": "symptoms",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "症狀",
+            "ipa": "/ˈsɪmptəm/",
+            "collocations": ["have symptoms", "cold symptoms"],
+            "examples": [
+              {
+                "en": "What are your symptoms?",
+                "zh": "你有什麼症狀？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "A sore throat, a blocked nose, and I've been sneezing all morning.",
+      "zh": "喉嚨痛、鼻塞，而且我整個早上一直打噴嚏。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "sore throat",
+            "inSentence": "A sore throat",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "喉嚨痛",
+            "ipa": "/sɔː θrəʊt/",
+            "collocations": ["have a sore throat", "soothe a sore throat"],
+            "examples": [
+              {
+                "en": "Warm water helps my sore throat.",
+                "zh": "溫水能舒緩我的喉嚨痛。"
+              }
+            ]
+          },
+          {
+            "term": "blocked nose",
+            "inSentence": "a blocked nose",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "鼻塞（英式、澳式）",
+            "ipa": "/blɒkt nəʊz/",
+            "collocations": ["a blocked nose", "a runny nose"],
+            "examples": [
+              {
+                "en": "I can't sleep with a blocked nose.",
+                "zh": "鼻塞讓我睡不著。"
+              }
+            ]
+          },
+          {
+            "term": "sneeze",
+            "inSentence": "sneezing",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "打噴嚏",
+            "ipa": "/sniːz/",
+            "collocations": ["keep sneezing", "sneeze loudly"],
+            "examples": [
+              {
+                "en": "Cover your mouth when you sneeze.",
+                "zh": "打噴嚏時要遮住嘴巴。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "sneezing all morning",
+            "soundsLike": "snee-zing-gall morning",
+            "note": "sneezing 的 /ŋ/ 和 all 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Any fever, or just feeling a bit run-down?",
+      "zh": "有發燒嗎？還是只是覺得有點虛弱沒力？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "fever",
+            "inSentence": "Any fever",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "發燒",
+            "ipa": "/ˈfiːvə/",
+            "collocations": ["have a fever", "a high fever"],
+            "examples": [
+              {
+                "en": "She stayed home with a fever.",
+                "zh": "她發燒待在家。"
+              }
+            ]
+          },
+          {
+            "term": "run-down",
+            "inSentence": "run-down",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "疲憊的；虛弱的",
+            "ipa": "/ˌrʌn ˈdaʊn/",
+            "collocations": ["feel run-down", "a bit run-down"],
+            "examples": [
+              {
+                "en": "I've been feeling run-down lately.",
+                "zh": "我最近一直覺得很累。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "feeling a bit",
+            "soundsLike": "fee-ling-ə-bit",
+            "note": "a 弱讀成 /ə/，夾在兩個字中間幾乎聽不到。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "No fever, I'm just tired.",
+      "zh": "沒發燒，只是很累。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "tired",
+            "inSentence": "tired",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "累的",
+            "ipa": "/ˈtaɪəd/",
+            "collocations": ["feel tired", "tired of"],
+            "examples": [
+              {
+                "en": "I'm tired after work.",
+                "zh": "我下班後很累。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Are you taking any other medicine, or are you allergic to anything?",
+      "zh": "你有在吃其他的藥嗎？或是對什麼東西過敏？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "allergic",
+            "inSentence": "allergic to anything",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "過敏的",
+            "ipa": "/əˈlɜːdʒɪk/",
+            "collocations": ["allergic to", "an allergic reaction"],
+            "examples": [
+              {
+                "en": "I'm allergic to peanuts.",
+                "zh": "我對花生過敏。"
+              }
+            ]
+          },
+          {
+            "term": "medicine",
+            "inSentence": "medicine",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "藥",
+            "ipa": "/ˈmedsn/",
+            "collocations": ["take medicine", "cold medicine"],
+            "examples": [
+              {
+                "en": "Take this medicine after meals.",
+                "zh": "飯後吃這個藥。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "allergic to + noun",
+            "quote": "allergic to anything",
+            "explanation": "allergic 後面固定接 to，再接造成過敏的東西。",
+            "examples": [
+              {
+                "en": "He's allergic to cats.",
+                "zh": "他對貓過敏。"
+              }
+            ],
+            "pitfall": "不要說 allergic with 或 allergic of。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "No, nothing, but I work at a café, so I can't feel sleepy.",
+      "zh": "沒有，什麼都沒有，但我在咖啡館上班，所以不能想睡覺。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "sleepy",
+            "inSentence": "feel sleepy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "想睡的",
+            "ipa": "/ˈsliːpi/",
+            "collocations": ["feel sleepy", "get sleepy"],
+            "examples": [
+              {
+                "en": "Warm milk makes me sleepy.",
+                "zh": "熱牛奶讓我想睡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Then I'd suggest these day tablets, because they won't make you drowsy.",
+      "zh": "那我建議這種白天吃的藥錠，因為它不會讓你昏昏欲睡。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "I'd suggest",
+            "note": "I would suggest，比 you should 更委婉的建議。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "drowsy",
+            "inSentence": "drowsy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "昏昏欲睡的",
+            "ipa": "/ˈdraʊzi/",
+            "collocations": ["make you drowsy", "feel drowsy"],
+            "examples": [
+              {
+                "en": "This medicine may make you drowsy.",
+                "zh": "這種藥可能讓你想睡。"
+              }
+            ]
+          },
+          {
+            "term": "tablet",
+            "inSentence": "tablets",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "藥錠；藥片",
+            "ipa": "/ˈtæblət/",
+            "collocations": ["take a tablet", "two tablets"],
+            "examples": [
+              {
+                "en": "Take two tablets with water.",
+                "zh": "配水吞兩顆藥錠。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "make + object + adjective",
+            "quote": "make you drowsy",
+            "explanation": "make 後面接受詞再接形容詞，表示「讓某人變得……」。",
+            "examples": [
+              {
+                "en": "Loud music makes me tired.",
+                "zh": "很吵的音樂讓我很累。"
+              }
+            ],
+            "pitfall": "不要說 make you to drowsy，make 後面不加 to。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Take two every six hours with food, and no more than eight in a day.",
+      "zh": "每六個小時配食物吃兩顆，一天不要超過八顆。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "no more than",
+            "note": "「不超過」，藥品說明常見。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "no more than",
+            "inSentence": "no more than eight",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "不超過",
+            "ipa": "/nəʊ mɔː ðæn/",
+            "collocations": ["no more than two", "no more than an hour"],
+            "examples": [
+              {
+                "en": "Wait no more than five minutes.",
+                "zh": "最多等五分鐘。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "every six hours",
+            "soundsLike": "ev-ree-sik-sowers",
+            "note": "six 的 /ks/ 和 hours 連在一起，h 不發音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Got it, and is there anything for my throat?",
+      "zh": "了解，那有可以治喉嚨的嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "throat",
+            "inSentence": "my throat",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "喉嚨",
+            "ipa": "/θrəʊt/",
+            "collocations": ["sore throat", "clear your throat"],
+            "examples": [
+              {
+                "en": "My throat feels dry.",
+                "zh": "我的喉嚨覺得很乾。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "These lozenges are good, just let one dissolve slowly in your mouth.",
+      "zh": "這種喉糖很好用，讓它在嘴裡慢慢溶化就好。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "lozenge",
+            "inSentence": "lozenges",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "喉糖；含片",
+            "ipa": "/ˈlɒzɪndʒ/",
+            "collocations": ["throat lozenge", "suck a lozenge"],
+            "examples": [
+              {
+                "en": "I always carry lozenges in winter.",
+                "zh": "我冬天總是帶著喉糖。"
+              }
+            ]
+          },
+          {
+            "term": "dissolve",
+            "inSentence": "dissolve slowly",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "溶解；溶化",
+            "ipa": "/dɪˈzɒlv/",
+            "collocations": ["dissolve in water", "let it dissolve"],
+            "examples": [
+              {
+                "en": "Let the sugar dissolve in the tea.",
+                "zh": "讓糖在茶裡溶化。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "let + object + bare infinitive",
+            "quote": "let one dissolve",
+            "explanation": "let 後面接受詞再接原形動詞，表示「讓……去做」。",
+            "examples": [
+              {
+                "en": "Let the soup cool down.",
+                "zh": "讓湯涼一下。"
+              }
+            ],
+            "pitfall": "不要說 let one to dissolve 或 let one dissolving。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "If you're not feeling better in three days, it's worth seeing a GP.",
+      "zh": "如果三天後還沒好轉，就值得去看一下家庭醫師。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "it's worth seeing",
+            "note": "be worth + V-ing「值得做……」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "GP",
+            "inSentence": "a GP",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "家庭醫師；一般科醫師（英、澳）",
+            "ipa": "/ˌdʒiː ˈpiː/",
+            "collocations": ["see a GP", "book a GP"],
+            "examples": [
+              {
+                "en": "I booked a GP for Monday.",
+                "zh": "我預約了星期一的家醫科。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "be worth + V-ing",
+            "quote": "it's worth seeing a GP",
+            "explanation": "be worth 後面接動名詞，表示「值得去做」。",
+            "examples": [
+              {
+                "en": "The museum is worth visiting.",
+                "zh": "那間博物館值得一去。"
+              }
+            ],
+            "pitfall": "不要說 worth to see，worth 後面用 V-ing。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "not feeling better",
+            "soundsLike": "no-feeling better",
+            "note": "not 的 t 在子音前停住不爆破。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Thanks so much, you've been really helpful.",
+      "zh": "非常感謝，你真的幫了大忙。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "helpful",
+            "inSentence": "really helpful",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "有幫助的",
+            "ipa": "/ˈhelpfl/",
+            "collocations": ["very helpful", "helpful advice"],
+            "examples": [
+              {
+                "en": "Thanks, that was helpful.",
+                "zh": "謝謝，那很有幫助。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "No worries, and get plenty of rest when you can.",
+      "zh": "不客氣，有空的時候要多休息喔。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "plenty of",
+            "inSentence": "plenty of rest",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "大量的；充足的",
+            "ipa": "/ˈplenti ɒv/",
+            "collocations": ["plenty of water", "plenty of time"],
+            "examples": [
+              {
+                "en": "Drink plenty of water.",
+                "zh": "多喝水。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "plenty of rest",
+            "soundsLike": "plen-tee-ə-vrest",
+            "note": "of 弱讀，v 和 rest 連在一起。"
+          }
+        ]
+      }
+    }
+  ]
+}

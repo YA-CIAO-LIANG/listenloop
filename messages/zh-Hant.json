@@ -452,6 +452,7 @@
     "shared": "公開練習",
     "backToExplore": "公開教材",
     "rewrittenFrom": "改寫自 {source} 的新聞稿〈<link>{title}</link>〉，由 ListenLoop 依事實以自己的話重寫成學習用短文。",
+    "classicSource": "出處：{source}〈<link>{title}</link>〉。屬於公有領域或美國聯邦政府的著作；ListenLoop 依原作節錄，或改寫成適合學習者的版本，並加上翻譯與講解。",
     "seoDescription": "{title}：免費英文聽力練習，共 {count} 句。第 1 天逐句聽寫、第 2～6 天跟讀、第 7 天再聽寫，附中英對照講義、單字與文法。",
     "officialMaterial": "官方教材",
     "backToLibrary": "官方教材庫"
@@ -2370,6 +2371,8 @@
       "leisure": "運動與休閒",
       "food": "美食與烹飪",
       "culture": "文化與節慶",
+      "classics": "經典名篇",
+      "school": "國高中程度",
       "exam": "考試聽力",
       "other": "其他"
     },
@@ -2541,13 +2544,32 @@
       "holiday-dinner": "節日晚餐作客",
       "lunar-new-year": "農曆新年",
       "gift-giving": "送禮習俗",
-      "tipping": "小費文化"
+      "tipping": "小費文化",
+      "fable": "寓言",
+      "fairy-tale": "童話",
+      "classic-story": "經典小說選段",
+      "historic-speech": "歷史演說與文件",
+      "public-article": "美國政府機構文章（NASA、國家公園）",
+      "junior-dialogue": "國中：對話",
+      "junior-passage": "國中：短文",
+      "senior-dialogue": "高中：對話",
+      "senior-passage": "高中：短文",
+      "gsat-dialogue": "簡短對話",
+      "gsat-short-talk": "短文與廣播",
+      "myth": "神話",
+      "classic-poem": "經典詩歌",
+      "historic-letter": "歷史名信",
+      "junior-story": "國中：短篇故事",
+      "junior-notice": "國中：校園廣播與公告",
+      "senior-story": "高中：短篇故事",
+      "senior-speech": "高中：學生演講"
     },
     "exams": {
       "toefl": "托福 TOEFL iBT 風格",
       "ielts": "雅思 IELTS 風格",
       "toeic": "多益 TOEIC 風格",
-      "gept": "全民英檢 GEPT 風格"
+      "gept": "全民英檢 GEPT 風格",
+      "gsat": "學測 GSAT 風格"
     },
     "targets": {
       "toefl-80": "約 80 分",
@@ -2561,7 +2583,10 @@
       "gept-elementary": "初級",
       "gept-intermediate": "中級",
       "gept-high-intermediate": "中高級",
-      "gept-advanced": "高級"
+      "gept-advanced": "高級",
+      "gsat-basic": "基礎",
+      "gsat-standard": "前標",
+      "gsat-top": "頂標"
     },
     "levels": {
       "beginner": "初級",
@@ -3559,7 +3584,9 @@
       "leisure": "運動、健身、課程報名與週末活動：輕鬆的休閒英文。",
       "food": "點餐、食譜、市場採買與餐桌文化：和美食有關的英文。",
       "culture": "節慶、傳統與各地文化：認識英語世界與多元文化的同時練習聽力。",
-      "exam": "托福、雅思、多益、全民英檢風格的原創聽力練習（不是真實考題）。用同一份教材練 7 天，把題型裡的每個字聽清楚。"
+      "classics": "伊索寓言、格林童話、愛麗絲夢遊仙境、福爾摩斯，以及林肯、甘迺迪的演說與 NASA、國家公園的文章：只選公有領域的經典，必要時改寫成適合學習者的版本，並標示出處。",
+      "school": "依國中與高中課綱常見主題原創的短文與對話：校園生活、家庭、環保、科技與文化。適合國高中生和準備會考、學測的同學。",
+      "exam": "托福、雅思、多益、全民英檢、學測風格的原創聽力練習（不是真實考題）。用同一份教材練 7 天，把題型裡的每個字聽清楚。"
     },
     "howTitle": "怎麼練：七天一個循環",
     "steps": {
@@ -4222,6 +4249,7 @@
     },
     "types": {
       "daily": "日常短文",
+      "diary": "日記",
       "email-formal": "正式 Email",
       "email-informal": "非正式 Email",
       "opinion": "意見文",
@@ -4234,7 +4262,9 @@
       "ielts-task2": "IELTS Task 2",
       "toefl": "TOEFL",
       "gept": "全民英檢",
-      "gsat": "學測英文作文"
+      "gsat": "學測英文作文",
+      "toeic": "多益寫作",
+      "cap": "會考程度短文"
     },
     "overview": {
       "days": "這一週",

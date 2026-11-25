@@ -1,0 +1,93 @@
+{
+  "id": "diary-first-week-new-place",
+  "type": "diary",
+  "level": "beginner",
+  "title": {
+    "en": "My First Week in a New Place",
+    "zh": "在新地方的第一週"
+  },
+  "subtitle": "記錄搬到新環境第一週的經歷與心情",
+  "task": "Write a diary entry about your first week in a new place, such as a new school, dorm, or city. What was hard, what surprised you, and how do you feel now?",
+  "taskZh": "寫一篇日記，記錄你在新環境（例如新學校、新宿舍或新城市）的第一週：什麼事情很難？什麼讓你驚訝？你現在的心情如何？",
+  "words": {
+    "min": 80,
+    "max": 150
+  },
+  "minutes": 15,
+  "focus": [
+    "用過去式寫這週發生的事，用現在式寫現在的心情",
+    "具體寫出遇到的困難與幫助",
+    "寫出心情的轉變"
+  ],
+  "model": {
+    "en": [
+      "This week I moved into my new dorm in Tainan. On the first night, I could not sleep because everything felt strange. I missed my family and my own bed.",
+      "The first few days were difficult. I got lost twice on campus, and I did not know where to buy dinner. Luckily, my roommate showed me a cheap noodle shop near the back gate. We ate there together three times this week.",
+      "Now I feel much better than I did on Monday. I still miss home, but I am starting to like my new life here."
+    ],
+    "zh": [
+      "這週我搬進了台南的新宿舍。第一個晚上，我因為一切都很陌生而睡不著。我很想念家人，也想念自己的床。",
+      "前幾天很辛苦。我在校園裡迷路了兩次，也不知道晚餐要去哪裡買。幸好，室友帶我去後門附近一家便宜的麵店。這週我們一起去那裡吃了三次。",
+      "現在我覺得比星期一好多了。我還是會想家，但我開始喜歡這裡的新生活了。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I could not … because …",
+      "zh": "說明做不到某事的原因",
+      "example": "On the first night, I could not sleep because everything felt strange.",
+      "keys": ["could not", "because"]
+    },
+    {
+      "pattern": "Luckily, …",
+      "zh": "幸好……（帶出轉機）",
+      "example": "Luckily, my roommate showed me a cheap noodle shop near the back gate.",
+      "keys": ["luckily"]
+    },
+    {
+      "pattern": "I feel much better than I did …",
+      "zh": "比較現在和過去的心情",
+      "example": "Now I feel much better than I did on Monday.",
+      "keys": ["better than"]
+    },
+    {
+      "pattern": "I still …, but I am starting to …",
+      "zh": "雖然還是……，但開始……",
+      "example": "I still miss home, but I am starting to like my new life here.",
+      "keys": ["still", "but", "starting to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I got lost twice on campus.",
+        "I did not know where to buy dinner."
+      ],
+      "answer": "I got lost twice on campus, and I did not know where to buy dinner."
+    },
+    {
+      "parts": [
+        "I still miss home.",
+        "I am starting to like my new life here."
+      ],
+      "answer": "I still miss home, but I am starting to like my new life here."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The first few days were difficult.",
+      "answers": [
+        "The first days were hard for me.",
+        "I had a tough time at the beginning."
+      ]
+    },
+    {
+      "sentence": "Everything felt strange.",
+      "answers": [
+        "Nothing felt familiar.",
+        "Everything seemed new and unfamiliar."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

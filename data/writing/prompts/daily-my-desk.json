@@ -1,0 +1,90 @@
+{
+  "id": "daily-my-desk",
+  "type": "daily",
+  "level": "beginner",
+  "title": {
+    "en": "My Desk",
+    "zh": "我的書桌"
+  },
+  "subtitle": "描述你的書桌，以及它怎麼反映你的生活",
+  "task": "Describe your desk or the place where you usually study. What is on it, how do you use it, and what does it say about you?",
+  "taskZh": "描述你的書桌或平常讀書的地方：上面有什麼？你怎麼使用它？它透露出你是什麼樣的人？",
+  "words": {
+    "min": 80,
+    "max": 150
+  },
+  "minutes": 15,
+  "focus": [
+    "用 There is／There are 和介系詞描述位置",
+    "描述要有條理（由左到右）",
+    "最後連結到自己的個性或習慣"
+  ],
+  "model": {
+    "en": [
+      "My desk is next to the window in my bedroom. It is not very big, but it is my favorite place in the house. In the morning, the sun shines on it, and I can see the mountains.",
+      "On the left, there is a lamp and a small plant. In the middle, there is my laptop, and next to it there are three notebooks. On the right, I keep a cup full of pens and a photo of my dog.",
+      "I study and draw at this desk every evening. It is usually tidy, because I cannot focus when it is messy. I think my desk shows that I am a calm and organized person."
+    ],
+    "zh": [
+      "我的書桌在臥室的窗邊。它不太大，卻是我在家裡最喜歡的地方。早上陽光會照在桌上，我還可以看到山。",
+      "左邊有一盞檯燈和一盆小植物。中間是我的筆電，旁邊放著三本筆記本。右邊有一個裝滿筆的杯子，還有一張我家狗狗的照片。",
+      "我每天晚上都在這張書桌讀書和畫畫。它通常很整齊，因為桌子一亂我就無法專心。我覺得我的書桌顯示出我是個冷靜又有條理的人。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "It is not very …, but it is …",
+      "zh": "雖然不太……，卻是……",
+      "example": "It is not very big, but it is my favorite place in the house.",
+      "keys": ["not very", "but"]
+    },
+    {
+      "pattern": "On the left, there is …",
+      "zh": "用方位＋there is 描述位置",
+      "example": "On the left, there is a lamp and a small plant.",
+      "keys": ["on the left", "there is"]
+    },
+    {
+      "pattern": "…, and next to it there are …",
+      "zh": "在……旁邊有……",
+      "example": "In the middle, there is my laptop, and next to it there are three notebooks.",
+      "keys": ["next to", "there are"]
+    },
+    {
+      "pattern": "… shows that I am …",
+      "zh": "說明某物透露出自己的個性",
+      "example": "I think my desk shows that I am a calm and organized person.",
+      "keys": ["shows that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My desk is not very big.",
+        "It is my favorite place in the house."
+      ],
+      "answer": "My desk is not very big, but it is my favorite place in the house."
+    },
+    {
+      "parts": ["It is usually tidy.", "I cannot focus when it is messy."],
+      "answer": "It is usually tidy, because I cannot focus when it is messy."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I cannot focus when it is messy.",
+      "answers": [
+        "A messy desk makes it hard for me to concentrate.",
+        "I find it hard to focus at a messy desk."
+      ]
+    },
+    {
+      "sentence": "It is my favorite place in the house.",
+      "answers": [
+        "I like it more than any other place at home.",
+        "No place in the house is better for me."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

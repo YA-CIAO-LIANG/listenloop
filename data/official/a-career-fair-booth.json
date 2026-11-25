@@ -1,0 +1,593 @@
+{
+  "slug": "a-career-fair-booth",
+  "series": "category",
+  "title": "Thirty Seconds at the Career Fair",
+  "titleZh": "徵才博覽會的三十秒",
+  "subtitle": "台灣留學生在校園徵才攤位前，向招募人員推銷自己",
+  "format": "dialogue",
+  "accent": "us",
+  "meta": {
+    "category": "career",
+    "scenario": "career-fair",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Hi there, thanks for stopping by our booth.",
+      "zh": "嗨，謝謝你來我們的攤位看看。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "thanks for stopping by",
+            "note": "招募人員開場的客套話，表示歡迎。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "stop by",
+            "inSentence": "stopping by",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "順道過來；順便拜訪",
+            "ipa": "/stɑp baɪ/",
+            "collocations": ["stop by the office", "stop by later"],
+            "examples": [
+              {
+                "en": "Feel free to stop by after class.",
+                "zh": "下課後歡迎順道過來。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Hi, I'm a senior in computer science, and I saw you're hiring software interns this summer.",
+      "zh": "嗨，我是資訊工程系大四生，我看到你們今年暑假在招軟體實習生。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "senior",
+            "inSentence": "a senior",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（大學）四年級生",
+            "ipa": "/ˈsinjɚ/",
+            "collocations": ["a senior in", "senior year"],
+            "examples": [
+              {
+                "en": "She is a senior in biology.",
+                "zh": "她是生物系大四生。"
+              }
+            ]
+          },
+          {
+            "term": "intern",
+            "inSentence": "interns",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "實習生",
+            "ipa": "/ˈɪntɝn/",
+            "collocations": ["summer intern", "hire interns"],
+            "examples": [
+              {
+                "en": "The company hires ten interns a year.",
+                "zh": "這家公司一年招十名實習生。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "present continuous for plans",
+            "quote": "you're hiring software interns this summer",
+            "explanation": "現在進行式加上未來時間（this summer），表示已經安排好的計畫。",
+            "examples": [
+              {
+                "en": "We're meeting the client next week.",
+                "zh": "我們下週要和客戶開會。"
+              }
+            ],
+            "pitfall": "不要說成 you hire this summer，聽起來像一般習慣。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's right, we have three openings on our mobile team.",
+      "zh": "沒錯，我們的行動應用團隊有三個職缺。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "opening",
+            "inSentence": "openings",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "職缺",
+            "ipa": "/ˈoʊpənɪŋ/",
+            "collocations": ["job opening", "have an opening"],
+            "examples": [
+              {
+                "en": "There's an opening in the marketing team.",
+                "zh": "行銷團隊有一個職缺。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Tell me a little about what you've built.",
+      "zh": "跟我說說你做過哪些東西。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Tell me a little about",
+            "note": "面試或徵才時常見的開放式問題，要準備好簡短回答。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "build",
+            "inSentence": "built",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "打造；開發（程式、產品）",
+            "ipa": "/bɪld/",
+            "collocations": ["build an app", "build a website"],
+            "examples": [
+              {
+                "en": "He built his first website in high school.",
+                "zh": "他高中時做了第一個網站。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Last year, my classmates and I made an app that helps students in Taipei find quiet places to study.",
+      "zh": "去年，我和同學做了一個應用程式，幫助台北的學生找到安靜的讀書地點。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "help someone do",
+            "inSentence": "helps students in Taipei find",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "幫助某人做某事",
+            "ipa": "/hɛlp/",
+            "collocations": ["help someone find", "help someone learn"],
+            "examples": [
+              {
+                "en": "This map helps tourists find the station.",
+                "zh": "這張地圖幫助觀光客找到車站。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "relative clause with that",
+            "quote": "an app that helps students",
+            "explanation": "that 引導關係子句，修飾前面的 app，說明它的功能。",
+            "examples": [
+              {
+                "en": "I have a friend that speaks five languages.",
+                "zh": "我有個朋友會說五種語言。"
+              }
+            ],
+            "pitfall": "that 後面的動詞要和先行詞一致：an app that helps，不是 help。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It shows how crowded each café or library is in real time.",
+      "zh": "它會即時顯示每間咖啡廳或圖書館有多擁擠。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "in real time",
+            "inSentence": "in real time",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "即時",
+            "ipa": "/ɪn ril taɪm/",
+            "collocations": ["update in real time", "track in real time"],
+            "examples": [
+              {
+                "en": "You can track your bus in real time.",
+                "zh": "你可以即時追蹤你的公車。"
+              }
+            ]
+          },
+          {
+            "term": "crowded",
+            "inSentence": "crowded",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "擁擠的",
+            "ipa": "/ˈkraʊdɪd/",
+            "collocations": ["crowded train", "get crowded"],
+            "examples": [
+              {
+                "en": "The night market gets crowded after eight.",
+                "zh": "夜市八點後就變得很擠。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "how crowded each",
+            "soundsLike": "how-CROW-did-each",
+            "note": "crowded 的 -ed 唸 /ɪd/，並和 each 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Oh, nice, how many people actually use it?",
+      "zh": "喔，不錯，實際上有多少人在用？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "actually",
+            "inSentence": "actually",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "實際上；真的",
+            "ipa": "/ˈæktʃuəli/",
+            "collocations": ["actually use", "actually work"],
+            "examples": [
+              {
+                "en": "Do you actually read the news every day?",
+                "zh": "你真的每天看新聞嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "About two thousand students a month, mostly during exam season.",
+      "zh": "每個月大約兩千名學生，大多是在考試期間。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "a month",
+            "note": "a 表示「每」，two thousand a month = 每月兩千。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "exam season",
+            "inSentence": "exam season",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "考試期間；考季",
+            "ipa": "/ɪɡˈzæm ˈsizən/",
+            "collocations": ["during exam season", "final exam season"],
+            "examples": [
+              {
+                "en": "The library is full during exam season.",
+                "zh": "考試期間圖書館都坐滿了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's impressive.",
+      "zh": "真厲害。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "impressive",
+            "inSentence": "impressive",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "令人印象深刻的",
+            "ipa": "/ɪmˈprɛsɪv/",
+            "collocations": ["very impressive", "an impressive result"],
+            "examples": [
+              {
+                "en": "Your presentation was really impressive.",
+                "zh": "你的簡報真的很令人印象深刻。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "What part of the project did you handle yourself?",
+      "zh": "這個專案你自己負責哪一部分？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "handle",
+            "inSentence": "handle",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "處理；負責",
+            "ipa": "/ˈhændəl/",
+            "collocations": ["handle a task", "handle problems"],
+            "examples": [
+              {
+                "en": "Who will handle the customer emails?",
+                "zh": "誰要負責處理客戶的電子郵件？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "did you",
+            "soundsLike": "DID-jə",
+            "note": "did 和 you 連讀時常變成 /dɪdʒə/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I designed the database and wrote most of the code that collects the data.",
+      "zh": "我設計了資料庫，並寫了大部分蒐集資料的程式碼。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "database",
+            "inSentence": "database",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "資料庫",
+            "ipa": "/ˈdeɪtəˌbeɪs/",
+            "collocations": ["design a database", "customer database"],
+            "examples": [
+              {
+                "en": "All the orders are stored in a database.",
+                "zh": "所有訂單都存在資料庫裡。"
+              }
+            ]
+          },
+          {
+            "term": "collect",
+            "inSentence": "collects",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "蒐集",
+            "ipa": "/kəˈlɛkt/",
+            "collocations": ["collect data", "collect feedback"],
+            "examples": [
+              {
+                "en": "We collect feedback after every class.",
+                "zh": "我們每堂課後都會蒐集回饋。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I also learned a lot about working with a team when deadlines get tight.",
+      "zh": "我也學到很多在截止日期很趕的時候如何和團隊合作。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "tight",
+            "inSentence": "get tight",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "（時間）緊迫的",
+            "ipa": "/taɪt/",
+            "collocations": ["tight deadline", "tight schedule"],
+            "examples": [
+              {
+                "en": "The schedule is tight this week.",
+                "zh": "這週的行程很緊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "when clause for situations",
+            "quote": "when deadlines get tight",
+            "explanation": "when 引導的子句說明在什麼情況下，這裡用現在式表示一般情況。",
+            "examples": [
+              {
+                "en": "I drink coffee when I feel tired.",
+                "zh": "我覺得累的時候會喝咖啡。"
+              }
+            ],
+            "pitfall": "get tight 是「變得緊迫」，不要寫成 got tight 來描述一般情況。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Great, could you send me your résumé and a link to the app?",
+      "zh": "很好，可以把你的履歷和應用程式的連結寄給我嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "résumé",
+            "inSentence": "résumé",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "履歷",
+            "ipa": "/ˈrɛzəˌmeɪ/",
+            "collocations": ["send a résumé", "update your résumé"],
+            "examples": [
+              {
+                "en": "Please attach your résumé to the email.",
+                "zh": "請把履歷附在電子郵件裡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "could you",
+            "soundsLike": "COULD-jə",
+            "note": "could 和 you 連讀，聽起來像 /kʊdʒə/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Here's my card, and the online application closes on Friday.",
+      "zh": "這是我的名片，線上申請週五截止。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "application",
+            "inSentence": "application",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "申請（表）",
+            "ipa": "/ˌæpləˈkeɪʃən/",
+            "collocations": ["online application", "submit an application"],
+            "examples": [
+              {
+                "en": "The application closes at midnight.",
+                "zh": "申請在午夜截止。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Thank you so much, I'll send everything tonight.",
+      "zh": "非常謝謝您，我今晚就把所有資料寄過去。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "I'll send everything tonight",
+            "note": "給出明確時間，展現積極、可靠的態度。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "tonight",
+            "inSentence": "tonight",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "今晚",
+            "ipa": "/təˈnaɪt/",
+            "collocations": ["tonight at eight", "call tonight"],
+            "examples": [
+              {
+                "en": "I'll finish the report tonight.",
+                "zh": "我今晚會完成報告。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

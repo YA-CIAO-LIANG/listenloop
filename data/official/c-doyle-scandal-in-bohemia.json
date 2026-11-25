@@ -1,0 +1,845 @@
+{
+  "slug": "c-doyle-scandal-in-bohemia",
+  "series": "classics",
+  "title": "Holmes Reads Watson at a Glance",
+  "titleZh": "福爾摩斯一眼看穿華生",
+  "subtitle": "改寫自〈波希米亞醜聞〉：福爾摩斯從一隻鞋看出華生的近況",
+  "format": "monologue",
+  "accent": "gb",
+  "meta": {
+    "category": "classics",
+    "scenario": "classic-story",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "public-domain",
+    "name": "The Adventures of Sherlock Holmes by Arthur Conan Doyle (1892; story first published 1891)",
+    "title": "A Scandal in Bohemia",
+    "url": "https://www.gutenberg.org/ebooks/1661",
+    "basis": "First published in The Strand Magazine in 1891; public domain in the U.S. (pre-1929).",
+    "adapted": true
+  },
+  "sentences": [
+    {
+      "en": "One night in March, I was walking home past Baker Street, where my old friend Sherlock Holmes lived.",
+      "zh": "三月的一個晚上，我走路回家時經過貝克街，我的老朋友福爾摩斯就住在那裡。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "past",
+            "inSentence": "past Baker Street",
+            "kind": "word",
+            "pos": "prep.",
+            "zh": "經過",
+            "ipa": "/pɑːst/",
+            "collocations": ["walk past", "drive past"],
+            "examples": [
+              {
+                "en": "I walk past the bakery every morning.",
+                "zh": "我每天早上都會經過那家麵包店。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "relative adverb where",
+            "quote": "where my old friend Sherlock Holmes lived",
+            "explanation": "where 引導關係子句，補充說明地點 Baker Street 的資訊。",
+            "examples": [
+              {
+                "en": "This is the town where I grew up.",
+                "zh": "這是我長大的小鎮。"
+              }
+            ],
+            "pitfall": "where 後面要接完整句子；不要寫成 where lived my friend。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I had not seen him for some time, so I decided to knock on his door.",
+      "zh": "我有一陣子沒見到他了，所以決定去敲他的門。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "for some time",
+            "inSentence": "for some time",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "有一陣子",
+            "ipa": "/fə sʌm taɪm/",
+            "collocations": ["for quite some time"],
+            "examples": [
+              {
+                "en": "I haven't heard from her for some time.",
+                "zh": "我有一陣子沒有她的消息了。"
+              }
+            ]
+          },
+          {
+            "term": "knock on",
+            "inSentence": "knock on his door",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "敲（門）",
+            "ipa": "/nɒk ɒn/",
+            "collocations": ["knock on the door"],
+            "examples": [
+              {
+                "en": "Please knock on the door before you come in.",
+                "zh": "進來之前請先敲門。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past perfect",
+            "quote": "I had not seen him",
+            "explanation": "had not + p.p. 表示「到那天為止」一直沒見面，是比故事當下更早的狀態。",
+            "examples": [
+              {
+                "en": "She had not eaten since breakfast.",
+                "zh": "她從早餐後就沒吃東西。"
+              }
+            ],
+            "pitfall": "不要用 have not seen，因為整個故事是用過去式在敘述。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He welcomed me with a wave of his hand and pointed to an armchair.",
+      "zh": "他揮了揮手歡迎我，指著一張扶手椅要我坐。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "a wave of the hand",
+            "inSentence": "a wave of his hand",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "揮一下手",
+            "ipa": "/weɪv/",
+            "collocations": ["with a wave", "give a wave"],
+            "examples": [
+              {
+                "en": "She said goodbye with a wave of her hand.",
+                "zh": "她揮揮手道別。"
+              }
+            ]
+          },
+          {
+            "term": "point to",
+            "inSentence": "pointed to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "指向",
+            "ipa": "/pɔɪnt tə/",
+            "collocations": ["point to the map"],
+            "examples": [
+              {
+                "en": "He pointed to the door.",
+                "zh": "他指了指門。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Then he stood in front of the fire and looked me over carefully.",
+      "zh": "然後他站在爐火前，仔細地把我從頭到腳打量了一番。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "look over",
+            "inSentence": "looked me over",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "仔細打量；查看",
+            "ipa": "/lʊk ˈəʊvə/",
+            "collocations": ["look someone over", "look over a report"],
+            "examples": [
+              {
+                "en": "The doctor looked me over and said I was fine.",
+                "zh": "醫生仔細檢查後說我沒事。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "separable phrasal verb",
+            "quote": "looked me over",
+            "explanation": "look over 是可分片語動詞，受詞是代名詞時要放中間：look me over。",
+            "examples": [
+              {
+                "en": "Please look it over before you sign.",
+                "zh": "簽名前請仔細看一下。"
+              }
+            ],
+            "pitfall": "不要寫成 looked over me，代名詞要放在動詞和介副詞中間。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Marriage suits you, Watson,\" he said. \"I think you have put on seven and a half pounds since I last saw you.\"",
+      "zh": "「華生，婚姻生活很適合你，」他說。「我想從上次見面到現在，你胖了七磅半。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "suit",
+            "inSentence": "suits you",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "適合（某人）",
+            "ipa": "/suːt/",
+            "collocations": ["suit you well"],
+            "examples": [
+              {
+                "en": "That colour really suits you.",
+                "zh": "那個顏色很適合你。"
+              }
+            ]
+          },
+          {
+            "term": "put on weight",
+            "inSentence": "put on seven and a half pounds",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "增加體重；變胖",
+            "ipa": "/pʊt ɒn weɪt/",
+            "collocations": ["put on a few kilos"],
+            "examples": [
+              {
+                "en": "I put on weight during the holidays.",
+                "zh": "我在假期中胖了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "present perfect with since",
+            "quote": "you have put on seven and a half pounds since I last saw you",
+            "explanation": "現在完成式 + since + 過去式，表示從過去某時到現在的變化。",
+            "examples": [
+              {
+                "en": "She has grown a lot since I last saw her.",
+                "zh": "從我上次見到她到現在，她長高了很多。"
+              }
+            ],
+            "pitfall": "since 後面的子句用過去式 saw，不要用 have seen。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "\"Marriage suits you, Watson,\" he said.",
+            "role": "main",
+            "zh": "「華生，婚姻很適合你，」他說"
+          },
+          {
+            "text": "I think you have put on seven and a half pounds",
+            "role": "main",
+            "zh": "我想你胖了七磅半"
+          },
+          {
+            "text": "since I last saw you.",
+            "role": "subordinate",
+            "zh": "從我上次見到你以來"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Seven,\" I answered, surprised.",
+      "zh": "「是七磅，」我驚訝地回答。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Seven",
+            "note": "華生只糾正數字，等於承認自己真的變胖了。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "surprised",
+            "inSentence": "surprised",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "驚訝的",
+            "ipa": "/səˈpraɪzd/",
+            "collocations": ["surprised at", "surprised to hear"],
+            "examples": [
+              {
+                "en": "I was surprised to see him there.",
+                "zh": "我很驚訝在那裡看到他。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"And you have gone back to work as a doctor, though you did not tell me.\"",
+      "zh": "「而且你又回去當醫生了，雖然你沒告訴我。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "go back to work",
+            "inSentence": "gone back to work",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "回去工作；重新工作",
+            "ipa": "/ɡəʊ bæk tə wɜːk/",
+            "collocations": ["go back to school"],
+            "examples": [
+              {
+                "en": "She went back to work after the baby was born.",
+                "zh": "寶寶出生後她回去上班了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "as + job",
+            "quote": "work as a doctor",
+            "explanation": "as + 職業，表示「以…的身分」。",
+            "examples": [
+              {
+                "en": "My sister works as a nurse.",
+                "zh": "我姐姐是護理師。"
+              }
+            ],
+            "pitfall": "不要寫成 work like a doctor，like 是「像」，意思不同。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"You have also been out in the rain lately, and you have a very careless servant girl.\"",
+      "zh": "「你最近還淋了雨，而且你家有個非常粗心的女傭。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "careless",
+            "inSentence": "careless",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "粗心的",
+            "ipa": "/ˈkeələs/",
+            "collocations": ["careless mistake"],
+            "examples": [
+              {
+                "en": "I made a careless mistake on the test.",
+                "zh": "我在考試中犯了粗心的錯誤。"
+              }
+            ]
+          },
+          {
+            "term": "lately",
+            "inSentence": "lately",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "最近",
+            "ipa": "/ˈleɪtli/",
+            "collocations": ["busy lately"],
+            "examples": [
+              {
+                "en": "Have you been sleeping well lately?",
+                "zh": "你最近睡得好嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "out in the",
+            "soundsLike": "ow-tin-thə",
+            "note": "out 的 t 和 in 連讀，the 弱讀。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I stared at him and asked how he could possibly know all of that.",
+      "zh": "我盯著他，問他到底怎麼可能知道這一切。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "stare at",
+            "inSentence": "stared at him",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "盯著看",
+            "ipa": "/steər ət/",
+            "collocations": ["stare at the screen"],
+            "examples": [
+              {
+                "en": "Stop staring at your phone.",
+                "zh": "別一直盯著手機了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "indirect question",
+            "quote": "how he could possibly know",
+            "explanation": "間接問句用直述句語序：how he could know，而不是 how could he know。",
+            "examples": [
+              {
+                "en": "She asked where I lived.",
+                "zh": "她問我住在哪裡。"
+              }
+            ],
+            "pitfall": "不要在間接問句裡把助動詞提到主詞前面。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "He laughed and rubbed his long, thin hands together.",
+      "zh": "他笑了笑，搓著他那雙細長的手。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "rub",
+            "inSentence": "rubbed",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "搓；摩擦",
+            "ipa": "/rʌb/",
+            "collocations": ["rub your hands", "rub your eyes"],
+            "examples": [
+              {
+                "en": "He rubbed his hands to keep warm.",
+                "zh": "他搓手取暖。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"It is simple,\" he said. \"Look at the inside of your left shoe, just where the firelight falls on it.\"",
+      "zh": "「很簡單，」他說。「看看你左腳鞋子的內側，就在爐火照到的地方。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "firelight",
+            "inSentence": "firelight",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "火光；爐火的光",
+            "ipa": "/ˈfaɪəlaɪt/",
+            "collocations": ["in the firelight"],
+            "examples": [
+              {
+                "en": "We read stories by firelight.",
+                "zh": "我們在火光下讀故事。"
+              }
+            ]
+          },
+          {
+            "term": "inside",
+            "inSentence": "the inside of",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "內側；裡面",
+            "ipa": "/ˌɪnˈsaɪd/",
+            "collocations": ["the inside of the box"],
+            "examples": [
+              {
+                "en": "The inside of the house was warm.",
+                "zh": "屋子裡面很溫暖。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "left shoe",
+            "soundsLike": "lef-shoe",
+            "note": "left 的 t 在 sh 前面幾乎不發音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "\"The leather has six cuts, almost parallel, made by someone who scraped off mud very carelessly.\"",
+      "zh": "「皮革上有六道幾乎平行的割痕，是有人很粗心地刮掉泥巴時留下的。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "parallel",
+            "inSentence": "parallel",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "平行的",
+            "ipa": "/ˈpærəlel/",
+            "collocations": ["parallel lines"],
+            "examples": [
+              {
+                "en": "Draw two parallel lines.",
+                "zh": "畫兩條平行線。"
+              }
+            ]
+          },
+          {
+            "term": "scrape off",
+            "inSentence": "scraped off",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "刮掉",
+            "ipa": "/skreɪp ɒf/",
+            "collocations": ["scrape off the paint"],
+            "examples": [
+              {
+                "en": "He scraped the ice off the car window.",
+                "zh": "他把車窗上的冰刮掉。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past participle as modifier",
+            "quote": "made by someone who scraped off mud",
+            "explanation": "made by... 是過去分詞片語，修飾前面的 cuts，表示「被…造成的」。",
+            "examples": [
+              {
+                "en": "This is a cake made by my grandma.",
+                "zh": "這是我奶奶做的蛋糕。"
+              }
+            ],
+            "pitfall": "不要寫成 which made by，省略關係代名詞時也要一起省掉 be 動詞。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "The leather has six cuts,",
+            "role": "main",
+            "zh": "皮革上有六道割痕"
+          },
+          {
+            "text": "almost parallel,",
+            "role": "modifier",
+            "zh": "幾乎平行"
+          },
+          {
+            "text": "made by someone",
+            "role": "modifier",
+            "zh": "是某人造成的"
+          },
+          {
+            "text": "who scraped off mud very carelessly.",
+            "role": "subordinate",
+            "zh": "那人很粗心地刮掉泥巴"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"So you were walking in bad weather, and your servant cleaned your shoes badly.\"",
+      "zh": "「所以你曾在惡劣的天氣裡走路，而你的僕人把你的鞋子清得很糟。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "So",
+            "note": "句首 So 表示推論的結果：所以由此可知。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "bad weather",
+            "inSentence": "bad weather",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "惡劣的天氣",
+            "ipa": "/bæd ˈweðə/",
+            "collocations": ["in bad weather"],
+            "examples": [
+              {
+                "en": "The flight was delayed because of bad weather.",
+                "zh": "班機因天候不佳而延誤。"
+              }
+            ]
+          },
+          {
+            "term": "servant",
+            "inSentence": "servant",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "僕人",
+            "ipa": "/ˈsɜːvənt/",
+            "collocations": ["a loyal servant"],
+            "examples": [
+              {
+                "en": "The old house once had three servants.",
+                "zh": "那棟老房子以前有三個僕人。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"As for your work, you smell of medicine, and there is a bulge in your hat where you keep your stethoscope.\"",
+      "zh": "「至於你的工作，你身上有藥味，而且你的帽子有一處鼓起來，那就是你放聽診器的地方。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "as for",
+            "inSentence": "As for",
+            "kind": "phrase",
+            "pos": "prep.",
+            "zh": "至於",
+            "ipa": "/æz fɔː/",
+            "collocations": ["as for me"],
+            "examples": [
+              {
+                "en": "As for dinner, let's eat out.",
+                "zh": "至於晚餐，我們出去吃吧。"
+              }
+            ]
+          },
+          {
+            "term": "smell of",
+            "inSentence": "smell of medicine",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "有…的味道",
+            "ipa": "/smel əv/",
+            "collocations": ["smell of smoke"],
+            "examples": [
+              {
+                "en": "His jacket smelled of smoke.",
+                "zh": "他的外套有煙味。"
+              }
+            ]
+          },
+          {
+            "term": "stethoscope",
+            "inSentence": "stethoscope",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "聽診器",
+            "ipa": "/ˈsteθəskəʊp/",
+            "collocations": ["use a stethoscope"],
+            "examples": [
+              {
+                "en": "The doctor listened to my heart with a stethoscope.",
+                "zh": "醫生用聽診器聽我的心跳。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "As for your work,",
+            "role": "connector",
+            "zh": "至於你的工作"
+          },
+          {
+            "text": "you smell of medicine,",
+            "role": "main",
+            "zh": "你身上有藥味"
+          },
+          {
+            "text": "and there is a bulge in your hat",
+            "role": "main",
+            "zh": "你的帽子有一處鼓起"
+          },
+          {
+            "text": "where you keep your stethoscope.",
+            "role": "subordinate",
+            "zh": "那是你放聽診器的地方"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "When he explained it, everything seemed so simple that I almost laughed.",
+      "zh": "聽他解釋之後，一切都顯得如此簡單，我差點笑出來。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "explain",
+            "inSentence": "explained",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "解釋",
+            "ipa": "/ɪkˈspleɪn/",
+            "collocations": ["explain to", "explain why"],
+            "examples": [
+              {
+                "en": "Can you explain this word to me?",
+                "zh": "你可以向我解釋這個字嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "so ... that",
+            "quote": "so simple that I almost laughed",
+            "explanation": "so + 形容詞 + that 表示結果：簡單到我差點笑出來。",
+            "examples": [
+              {
+                "en": "The film was so boring that I fell asleep.",
+                "zh": "電影無聊到我睡著了。"
+              }
+            ],
+            "pitfall": "so 和 that 中間只放形容詞或副詞，不要放名詞。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"You see, but you do not observe,\" Holmes told me, and I knew that was the difference between us.",
+      "zh": "「你只是看見，卻沒有觀察，」福爾摩斯對我說，我知道這就是我們之間的差別。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "You see, but you do not observe",
+            "note": "福爾摩斯的名言：see 是單純看到，observe 是有意識地觀察細節。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "observe",
+            "inSentence": "observe",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "觀察",
+            "ipa": "/əbˈzɜːv/",
+            "collocations": ["observe closely"],
+            "examples": [
+              {
+                "en": "Scientists observe animals in the wild.",
+                "zh": "科學家在野外觀察動物。"
+              }
+            ]
+          },
+          {
+            "term": "difference between",
+            "inSentence": "the difference between us",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "…之間的差別",
+            "ipa": "/ˈdɪfrəns bɪˈtwiːn/",
+            "collocations": ["the difference between A and B"],
+            "examples": [
+              {
+                "en": "What's the difference between these two phones?",
+                "zh": "這兩支手機有什麼差別？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

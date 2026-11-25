@@ -1,0 +1,626 @@
+{
+  "slug": "a-first-pottery-class",
+  "series": "category",
+  "title": "My First Pottery Class",
+  "titleZh": "第一堂陶藝課",
+  "subtitle": "下班後想培養新嗜好，報名陶藝體驗課",
+  "format": "dialogue",
+  "accent": "in",
+  "meta": {
+    "category": "leisure",
+    "scenario": "hobby-class",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Hello, is this the pottery class for beginners?",
+      "zh": "你好，這是初學者的陶藝課嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "pottery",
+            "inSentence": "pottery",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "陶藝；陶器",
+            "ipa": "/ˈpɒtəri/",
+            "collocations": ["pottery class", "make pottery"],
+            "examples": [
+              {
+                "en": "She makes pottery at the weekend.",
+                "zh": "她週末會做陶藝。"
+              }
+            ]
+          },
+          {
+            "term": "beginner",
+            "inSentence": "beginners",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "初學者",
+            "ipa": "/bɪˈɡɪnə/",
+            "collocations": ["for beginners", "a complete beginner"],
+            "examples": [
+              {
+                "en": "This yoga class is for beginners.",
+                "zh": "這堂瑜伽課是給初學者的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, it is, welcome!",
+      "zh": "對，沒錯，歡迎！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "welcome",
+            "inSentence": "welcome",
+            "kind": "word",
+            "pos": "interj.",
+            "zh": "歡迎",
+            "ipa": "/ˈwelkəm/",
+            "collocations": ["welcome to", "welcome back"],
+            "examples": [
+              {
+                "en": "Welcome to our home.",
+                "zh": "歡迎來我們家。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Have you ever tried pottery before?",
+      "zh": "你以前試過陶藝嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Have you ever",
+            "note": "詢問經驗的常用句型，後面接過去分詞。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "try",
+            "inSentence": "tried",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "嘗試",
+            "ipa": "/traɪ/",
+            "collocations": ["try something new", "try before"],
+            "examples": [
+              {
+                "en": "Have you tried this cake?",
+                "zh": "你吃過這個蛋糕嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "No, never, I work in an office all day, so I want to do something with my hands.",
+      "zh": "沒有，從來沒有，我整天都在辦公室工作，所以想做點動手的事。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "with my hands",
+            "inSentence": "with my hands",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "用雙手（動手做）",
+            "ipa": "/wɪð maɪ hændz/",
+            "collocations": ["work with your hands", "make with your hands"],
+            "examples": [
+              {
+                "en": "I like making things with my hands.",
+                "zh": "我喜歡動手做東西。"
+              }
+            ]
+          },
+          {
+            "term": "all day",
+            "inSentence": "all day",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一整天",
+            "ipa": "/ɔːl deɪ/",
+            "collocations": ["all day long", "work all day"],
+            "examples": [
+              {
+                "en": "It rained all day.",
+                "zh": "下了一整天的雨。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's a great reason.",
+      "zh": "這個理由很棒。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "reason",
+            "inSentence": "reason",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "理由；原因",
+            "ipa": "/ˈriːzn/",
+            "collocations": ["a good reason", "the reason for"],
+            "examples": [
+              {
+                "en": "What's the reason for the delay?",
+                "zh": "延誤的原因是什麼？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Many of my students come here to relax after work.",
+      "zh": "我很多學生都是下班後來這裡放鬆的。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "relax",
+            "inSentence": "relax",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "放鬆",
+            "ipa": "/rɪˈlæks/",
+            "collocations": ["relax at home", "just relax"],
+            "examples": [
+              {
+                "en": "I relax by listening to music.",
+                "zh": "我靠聽音樂來放鬆。"
+              }
+            ]
+          },
+          {
+            "term": "after work",
+            "inSentence": "after work",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "下班後",
+            "ipa": "/ˈɑːftə wɜːk/",
+            "collocations": ["meet after work", "go out after work"],
+            "examples": [
+              {
+                "en": "Let's get dinner after work.",
+                "zh": "下班後一起吃晚餐吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "How long is the course?",
+      "zh": "這個課程多長？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "course",
+            "inSentence": "course",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "課程",
+            "ipa": "/kɔːs/",
+            "collocations": ["take a course", "a short course"],
+            "examples": [
+              {
+                "en": "I'm taking an English course.",
+                "zh": "我正在上英文課程。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It's four weeks, every Thursday evening from seven to nine.",
+      "zh": "為期四週，每週四晚上 7 點到 9 點。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "evening",
+            "inSentence": "evening",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "傍晚；晚上",
+            "ipa": "/ˈiːvnɪŋ/",
+            "collocations": ["this evening", "every evening"],
+            "examples": [
+              {
+                "en": "We often walk in the evening.",
+                "zh": "我們常在晚上散步。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "In the first class, you'll learn to make a simple bowl.",
+      "zh": "第一堂課，你會學做一個簡單的碗。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "simple",
+            "inSentence": "simple",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "簡單的",
+            "ipa": "/ˈsɪmpl/",
+            "collocations": ["a simple design", "simple and easy"],
+            "examples": [
+              {
+                "en": "The recipe is very simple.",
+                "zh": "這個食譜很簡單。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "By the last week, you can paint your own cup and take it home.",
+      "zh": "到了最後一週，你可以彩繪自己的杯子並帶回家。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "by",
+            "inSentence": "By the last week",
+            "kind": "word",
+            "pos": "prep.",
+            "zh": "到……之前；到……時",
+            "ipa": "/baɪ/",
+            "collocations": ["by Friday", "by the end of"],
+            "examples": [
+              {
+                "en": "Please finish it by Monday.",
+                "zh": "請在週一前完成。"
+              }
+            ]
+          },
+          {
+            "term": "paint",
+            "inSentence": "paint your own cup",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "彩繪；上色",
+            "ipa": "/peɪnt/",
+            "collocations": ["paint a picture", "paint the wall"],
+            "examples": [
+              {
+                "en": "The children painted the eggs.",
+                "zh": "孩子們幫蛋上色。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That sounds fun, how much does it cost?",
+      "zh": "聽起來很好玩，費用是多少？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "cost",
+            "inSentence": "cost",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "花費；價錢是",
+            "ipa": "/kɒst/",
+            "collocations": ["cost a lot", "how much does it cost"],
+            "examples": [
+              {
+                "en": "How much does this bag cost?",
+                "zh": "這個包包多少錢？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It's four thousand rupees, and that includes the clay and the paint.",
+      "zh": "四千盧比，包含陶土和顏料。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "include",
+            "inSentence": "includes",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "包含",
+            "ipa": "/ɪnˈkluːd/",
+            "collocations": ["include tax", "be included"],
+            "examples": [
+              {
+                "en": "The price includes breakfast.",
+                "zh": "價格包含早餐。"
+              }
+            ]
+          },
+          {
+            "term": "clay",
+            "inSentence": "clay",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "黏土；陶土",
+            "ipa": "/kleɪ/",
+            "collocations": ["a lump of clay", "clay pot"],
+            "examples": [
+              {
+                "en": "The kids made animals out of clay.",
+                "zh": "孩子們用黏土做動物。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Great, do I need to bring anything?",
+      "zh": "太好了，我需要帶什麼東西嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "anything",
+            "inSentence": "anything",
+            "kind": "word",
+            "pos": "pron.",
+            "zh": "任何東西",
+            "ipa": "/ˈeniθɪŋ/",
+            "collocations": ["need anything", "anything else"],
+            "examples": [
+              {
+                "en": "Do you need anything from the shop?",
+                "zh": "你需要從店裡買什麼嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Just wear old clothes, because clay can get very messy.",
+      "zh": "只要穿舊衣服就好，因為陶土會弄得很髒亂。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "wear old clothes",
+            "note": "提醒穿可以弄髒的衣服，上手作課很實用。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "messy",
+            "inSentence": "messy",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "髒亂的；凌亂的",
+            "ipa": "/ˈmesi/",
+            "collocations": ["get messy", "a messy room"],
+            "examples": [
+              {
+                "en": "Cooking with kids gets messy.",
+                "zh": "和小孩一起煮飯會弄得一團亂。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "No problem, please sign me up for this Thursday.",
+      "zh": "沒問題，請幫我報名這週四的課。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "sign up",
+            "inSentence": "sign me up",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "報名",
+            "ipa": "/saɪn ʌp/",
+            "collocations": ["sign up for", "sign someone up"],
+            "examples": [
+              {
+                "en": "I signed up for a cooking class.",
+                "zh": "我報名了烹飪課。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Lovely, see you then, and don't worry if your first bowl looks funny.",
+      "zh": "好極了，到時見，如果你的第一個碗看起來怪怪的也別擔心。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "see you then",
+            "note": "約好時間後的道別語，then 指約定的那個時間。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "funny",
+            "inSentence": "looks funny",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "奇怪的；好笑的",
+            "ipa": "/ˈfʌni/",
+            "collocations": ["look funny", "smell funny"],
+            "examples": [
+              {
+                "en": "This milk smells funny.",
+                "zh": "這牛奶聞起來怪怪的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My very first one looked more like a hat!",
+      "zh": "我的第一個作品看起來比較像一頂帽子！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "very first",
+            "note": "very 加在 first 前面，強調「最最第一個」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "look like",
+            "inSentence": "looked more like",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "看起來像",
+            "ipa": "/lʊk laɪk/",
+            "collocations": ["look like rain", "look like your mum"],
+            "examples": [
+              {
+                "en": "That cloud looks like a rabbit.",
+                "zh": "那朵雲看起來像一隻兔子。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

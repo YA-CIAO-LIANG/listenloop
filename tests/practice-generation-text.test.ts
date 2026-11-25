@@ -80,12 +80,21 @@ describe("categories (D57)", () => {
       "leisure",
       "food",
       "culture",
+      // The series added on 2026-11-25 (D213).
+      "classics",
+      "school",
       "exam",
       "other",
     ]);
     const ids = allScenarioIds();
     expect(new Set(ids).size).toBe(ids.length);
-    expect(EXAMS.map((e) => e.id)).toEqual(["toefl", "ielts", "toeic", "gept"]);
+    expect(EXAMS.map((e) => e.id)).toEqual([
+      "toefl",
+      "ielts",
+      "toeic",
+      "gept",
+      "gsat",
+    ]);
   });
 
   it("gives every category at least 8 scenarios (D81)", () => {

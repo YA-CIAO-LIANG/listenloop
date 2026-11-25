@@ -1,0 +1,650 @@
+{
+  "slug": "c-aesop-grasshopper-and-ants",
+  "series": "classics",
+  "title": "The Grasshopper and the Ants",
+  "titleZh": "蚱蜢與螞蟻",
+  "subtitle": "改寫自伊索寓言：只顧唱歌的蚱蜢，冬天向螞蟻討食物",
+  "format": "monologue",
+  "accent": "au",
+  "meta": {
+    "category": "classics",
+    "scenario": "fable",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "public-domain",
+    "name": "Three Hundred Aesop's Fables (tr. George Fyler Townsend, 1867)",
+    "title": "The Grasshopper and the Ants",
+    "url": "https://www.gutenberg.org/ebooks/21",
+    "basis": "Townsend's translation was published in 1867; public domain in the U.S. (pre-1929).",
+    "adapted": true
+  },
+  "sentences": [
+    {
+      "en": "On a bright autumn day, a family of ants was busy drying the grain they had collected in summer.",
+      "zh": "在一個晴朗的秋日，一群螞蟻正忙著曬乾他們夏天收集的穀物。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "grain",
+            "inSentence": "grain",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "穀物；穀粒",
+            "ipa": "/ɡreɪn/",
+            "collocations": ["a grain of rice", "store grain"],
+            "examples": [
+              {
+                "en": "Farmers keep grain in a dry place.",
+                "zh": "農夫把穀物放在乾燥的地方。"
+              }
+            ]
+          },
+          {
+            "term": "autumn",
+            "inSentence": "autumn",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "秋天（英式）",
+            "ipa": "/ˈɔːtəm/",
+            "collocations": ["in autumn", "autumn leaves"],
+            "examples": [
+              {
+                "en": "The leaves turn red in autumn.",
+                "zh": "秋天葉子會變紅。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "be busy + V-ing",
+            "quote": "was busy drying",
+            "explanation": "be busy 後面接動名詞 V-ing，表示「忙著做某事」。",
+            "examples": [
+              {
+                "en": "She is busy doing her homework.",
+                "zh": "她正忙著寫作業。"
+              }
+            ],
+            "pitfall": "不要寫成 busy to dry，busy 後面接 V-ing。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "A thin, hungry grasshopper came by and watched them work.",
+      "zh": "一隻又瘦又餓的蚱蜢經過，看著他們工作。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "grasshopper",
+            "inSentence": "grasshopper",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "蚱蜢",
+            "ipa": "/ˈɡrɑːshɒpə/",
+            "collocations": ["a green grasshopper"],
+            "examples": [
+              {
+                "en": "A grasshopper jumped onto my shoe.",
+                "zh": "一隻蚱蜢跳到我的鞋子上。"
+              }
+            ]
+          },
+          {
+            "term": "come by",
+            "inSentence": "came by",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "經過；順道來訪",
+            "ipa": "/kʌm baɪ/",
+            "collocations": ["come by later"],
+            "examples": [
+              {
+                "en": "A friend came by to say hello.",
+                "zh": "一位朋友順道來打招呼。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Winter had come, and he had nothing left to eat.",
+      "zh": "冬天到了，他已經沒有東西可以吃了。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "nothing left",
+            "inSentence": "nothing left to eat",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "什麼都沒剩下",
+            "ipa": "/ˈnʌθɪŋ left/",
+            "collocations": ["nothing left to say", "have nothing left"],
+            "examples": [
+              {
+                "en": "After the party, there was nothing left to eat.",
+                "zh": "派對結束後，什麼吃的都沒剩。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "past perfect",
+            "quote": "Winter had come",
+            "explanation": "had + p.p. 表示在故事當下之前就已經發生的事：冬天早已來臨。",
+            "examples": [
+              {
+                "en": "When we arrived, the film had started.",
+                "zh": "我們到的時候，電影已經開始了。"
+              }
+            ],
+            "pitfall": "不要寫成 had came，come 的過去分詞是 come。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Could you please give me a little food?\" he asked in a weak voice.",
+      "zh": "「可以請你們給我一點食物嗎？」他用虛弱的聲音問。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "Could you please",
+            "note": "Could you please...? 是禮貌請求的常用句型。"
+          },
+          {
+            "text": "in a weak voice",
+            "note": "in a ... voice 描述說話的聲音，例如 in a low voice。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "weak",
+            "inSentence": "weak",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "虛弱的；無力的",
+            "ipa": "/wiːk/",
+            "collocations": ["feel weak", "a weak voice"],
+            "examples": [
+              {
+                "en": "He felt weak after the long illness.",
+                "zh": "他久病之後覺得很虛弱。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The ants stopped working and looked at him.",
+      "zh": "螞蟻們停下工作，看著他。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "stopped working",
+            "note": "stop + V-ing 是「停止正在做的事」；stop to V 則是「停下來去做另一件事」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "stop doing",
+            "inSentence": "stopped working",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "停止做某事",
+            "ipa": "/stɒp ˈduːɪŋ/",
+            "collocations": ["stop talking", "stop working"],
+            "examples": [
+              {
+                "en": "Please stop talking during the test.",
+                "zh": "考試時請不要講話。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Why didn't you store any food during the summer?\" one of them asked.",
+      "zh": "「你夏天的時候為什麼沒有儲存食物？」其中一隻問。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "store",
+            "inSentence": "store",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "儲存；存放",
+            "ipa": "/stɔː/",
+            "collocations": ["store food", "store data"],
+            "examples": [
+              {
+                "en": "Squirrels store nuts for the winter.",
+                "zh": "松鼠為冬天儲存堅果。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "one of + plural",
+            "quote": "one of them asked",
+            "explanation": "one of + 複數名詞／代名詞，動詞跟著 one 用單數。",
+            "examples": [
+              {
+                "en": "One of my friends lives in Perth.",
+                "zh": "我有一個朋友住在伯斯。"
+              }
+            ],
+            "pitfall": "不要寫成 one of them ask 或 one of friend，後面要用複數。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "didn't you",
+            "soundsLike": "didn-chu",
+            "note": "t 和 you 連在一起，聽起來像 chu。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "\"I didn't have time,\" the grasshopper replied.",
+      "zh": "「我沒有時間，」蚱蜢回答。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "reply",
+            "inSentence": "replied",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "回答；回覆",
+            "ipa": "/rɪˈplaɪ/",
+            "collocations": ["reply to", "reply quickly"],
+            "examples": [
+              {
+                "en": "She didn't reply to my message.",
+                "zh": "她沒回我的訊息。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"I was too busy singing all day long.\"",
+      "zh": "「我整天都忙著唱歌。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "too busy singing",
+            "note": "too busy + V-ing 表示「忙著做某事而無暇他顧」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "all day long",
+            "inSentence": "all day long",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "一整天",
+            "ipa": "/ɔːl deɪ lɒŋ/",
+            "collocations": ["all night long"],
+            "examples": [
+              {
+                "en": "It rained all day long.",
+                "zh": "雨下了一整天。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"The weather was warm, the flowers were beautiful, and life was wonderful.\"",
+      "zh": "「天氣暖和，花很漂亮，生活很美好。」",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "wonderful",
+            "inSentence": "wonderful",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "美好的；極好的",
+            "ipa": "/ˈwʌndəfl/",
+            "collocations": ["a wonderful time", "wonderful news"],
+            "examples": [
+              {
+                "en": "We had a wonderful time at the beach.",
+                "zh": "我們在海邊玩得很開心。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The ants looked at each other and laughed.",
+      "zh": "螞蟻們互相看了看，笑了出來。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "each other",
+            "inSentence": "each other",
+            "kind": "phrase",
+            "pos": "pron.",
+            "zh": "彼此；互相",
+            "ipa": "/iːtʃ ˈʌðə/",
+            "collocations": ["help each other", "know each other"],
+            "examples": [
+              {
+                "en": "The two friends hugged each other.",
+                "zh": "兩個朋友互相擁抱。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "\"Well, if you sang all summer, then you can dance all winter,\" they said.",
+      "zh": "「那好，既然你整個夏天都在唱歌，那冬天就去跳舞吧，」他們說。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "dance all winter",
+            "note": "螞蟻用「跳舞」回應「唱歌」，意思是「那你冬天就自己想辦法吧」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "all summer",
+            "inSentence": "all summer",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "整個夏天",
+            "ipa": "/ɔːl ˈsʌmə/",
+            "collocations": ["all winter", "all year"],
+            "examples": [
+              {
+                "en": "We stayed at my grandmother's house all summer.",
+                "zh": "我們整個夏天都待在外婆家。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "if meaning since",
+            "quote": "if you sang all summer",
+            "explanation": "這裡的 if 不是假設，而是「既然」，語氣帶著諷刺。",
+            "examples": [
+              {
+                "en": "If you finished your work, then you can go home.",
+                "zh": "既然你做完了，就可以回家。"
+              }
+            ],
+            "pitfall": "不要誤以為是假設語氣；這裡用的是一般過去式，說的是事實。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Then they went back to their work and carried the grain inside.",
+      "zh": "然後他們回去工作，把穀物搬進屋裡。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "go back to",
+            "inSentence": "went back to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "回到；重新開始",
+            "ipa": "/ɡəʊ bæk tə/",
+            "collocations": ["go back to work", "go back to sleep"],
+            "examples": [
+              {
+                "en": "After lunch, we went back to work.",
+                "zh": "午餐後我們回去工作。"
+              }
+            ]
+          },
+          {
+            "term": "carry",
+            "inSentence": "carried",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "搬運；攜帶",
+            "ipa": "/ˈkæri/",
+            "collocations": ["carry a bag", "carry inside"],
+            "examples": [
+              {
+                "en": "Can you help me carry these boxes?",
+                "zh": "你可以幫我搬這些箱子嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The grasshopper walked away slowly into the cold wind.",
+      "zh": "蚱蜢慢慢走進寒風裡。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "walk away",
+            "inSentence": "walked away",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "走開；離開",
+            "ipa": "/wɔːk əˈweɪ/",
+            "collocations": ["walk away from"],
+            "examples": [
+              {
+                "en": "He walked away without a word.",
+                "zh": "他一句話也沒說就走了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It is wise to prepare today for the needs of tomorrow.",
+      "zh": "今天就為明天的需要做好準備，是明智的。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "wise",
+            "inSentence": "wise",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "明智的；有智慧的",
+            "ipa": "/waɪz/",
+            "collocations": ["a wise choice", "wise words"],
+            "examples": [
+              {
+                "en": "It was wise to bring an umbrella.",
+                "zh": "帶傘是明智的。"
+              }
+            ]
+          },
+          {
+            "term": "prepare for",
+            "inSentence": "prepare today for",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "為…做準備",
+            "ipa": "/prɪˈpeə fə/",
+            "collocations": ["prepare for a test"],
+            "examples": [
+              {
+                "en": "We need to prepare for the typhoon.",
+                "zh": "我們得為颱風做準備。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "it is + adj. + to V",
+            "quote": "It is wise to prepare",
+            "explanation": "It 當虛主詞，真正的主詞是 to prepare...。",
+            "examples": [
+              {
+                "en": "It is important to drink enough water.",
+                "zh": "喝足夠的水很重要。"
+              }
+            ],
+            "pitfall": "不要省略 It 寫成 Is wise to...，英文句子一定要有主詞。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Work hard while the sun is shining, and you won't go hungry when winter comes.",
+      "zh": "趁著陽光普照時努力工作，冬天來時就不會挨餓。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "go hungry",
+            "inSentence": "go hungry",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "挨餓",
+            "ipa": "/ɡəʊ ˈhʌŋɡri/",
+            "collocations": ["never go hungry"],
+            "examples": [
+              {
+                "en": "No child should go hungry.",
+                "zh": "不該有任何孩子挨餓。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "imperative + and",
+            "quote": "Work hard while the sun is shining, and you won't",
+            "explanation": "祈使句 + and + 未來式，表示「只要做到…，就會…」。",
+            "examples": [
+              {
+                "en": "Study every day, and you will pass.",
+                "zh": "每天念書，你就會及格。"
+              }
+            ],
+            "pitfall": "when winter comes 講未來卻用現在式，不要寫成 when winter will come。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "won't go",
+            "soundsLike": "wohn-go",
+            "note": "won't 的 t 幾乎不發音，直接接 go。"
+          }
+        ]
+      }
+    }
+  ]
+}

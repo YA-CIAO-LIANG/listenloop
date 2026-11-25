@@ -452,6 +452,7 @@
     "shared": "Shared practice",
     "backToExplore": "Shared materials",
     "rewrittenFrom": "Rewritten from {source}'s release “<link>{title}</link>”: ListenLoop retold its facts in its own words for learners.",
+    "classicSource": "From {source}, “<link>{title}</link>”, a public-domain or U.S. government work. ListenLoop excerpted it or retold it for learners, and added the translation and notes.",
     "seoDescription": "{title}: free English listening practice in {count, plural, one {# sentence} other {# sentences}}. Dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, with a bilingual handout, vocabulary, and grammar notes.",
     "officialMaterial": "Official lesson",
     "backToLibrary": "Official library"
@@ -2370,6 +2371,8 @@
       "leisure": "Sports and leisure",
       "food": "Food and cooking",
       "culture": "Culture and festivals",
+      "classics": "Classics",
+      "school": "Junior & senior high",
       "exam": "Exam listening",
       "other": "Other"
     },
@@ -2541,13 +2544,32 @@
       "holiday-dinner": "A holiday dinner",
       "lunar-new-year": "Lunar New Year",
       "gift-giving": "Giving gifts",
-      "tipping": "Tipping"
+      "tipping": "Tipping",
+      "fable": "Fables",
+      "fairy-tale": "Fairy tales",
+      "classic-story": "Classic stories",
+      "historic-speech": "Historic speeches and documents",
+      "public-article": "U.S. government articles (NASA, National Parks)",
+      "junior-dialogue": "Junior high: dialogues",
+      "junior-passage": "Junior high: passages",
+      "senior-dialogue": "Senior high: dialogues",
+      "senior-passage": "Senior high: passages",
+      "gsat-dialogue": "Short conversations",
+      "gsat-short-talk": "Short talks and reports",
+      "myth": "Myths",
+      "classic-poem": "Classic poems",
+      "historic-letter": "Historic letters",
+      "junior-story": "Junior high: stories",
+      "junior-notice": "Junior high: announcements",
+      "senior-story": "Senior high: stories",
+      "senior-speech": "Senior high: student speeches"
     },
     "exams": {
       "toefl": "TOEFL iBT-style",
       "ielts": "IELTS-style",
       "toeic": "TOEIC-style",
-      "gept": "GEPT-style"
+      "gept": "GEPT-style",
+      "gsat": "GSAT-style (Taiwan)"
     },
     "targets": {
       "toefl-80": "About 80",
@@ -2561,7 +2583,10 @@
       "gept-elementary": "Elementary",
       "gept-intermediate": "Intermediate",
       "gept-high-intermediate": "High-Intermediate",
-      "gept-advanced": "Advanced"
+      "gept-advanced": "Advanced",
+      "gsat-basic": "Basic",
+      "gsat-standard": "Above average",
+      "gsat-top": "Top"
     },
     "levels": {
       "beginner": "Beginner",
@@ -3561,7 +3586,9 @@
       "leisure": "Sports, the gym, signing up for classes, weekend plans: relaxed English for free time.",
       "food": "Ordering, recipes, markets, and table manners: English about food.",
       "culture": "Festivals, traditions, and cultures around the world: learn about the English-speaking world while you practice.",
-      "exam": "Original practice in the style of the TOEFL, IELTS, TOEIC, and GEPT (not real test questions). Seven days with one material to hear every word of each task type."
+      "classics": "Aesop's fables, Grimm's fairy tales, Alice in Wonderland, Sherlock Holmes, speeches by Lincoln and Kennedy, and articles from NASA and the National Park Service: public-domain classics only, retold for learners where needed, with the source shown.",
+      "school": "Original passages and conversations on topics from Taiwan's junior and senior high school curriculum: school life, family, the environment, technology, and culture.",
+      "exam": "Original practice in the style of the TOEFL, IELTS, TOEIC, GEPT, and GSAT (not real test questions). Seven days with one material to hear every word of each task type."
     },
     "howTitle": "How it works: a 7-day loop",
     "steps": {
@@ -4224,6 +4251,7 @@
     },
     "types": {
       "daily": "Everyday writing",
+      "diary": "Diary",
       "email-formal": "Formal email",
       "email-informal": "Informal email",
       "opinion": "Opinion",
@@ -4236,7 +4264,9 @@
       "ielts-task2": "IELTS Task 2",
       "toefl": "TOEFL",
       "gept": "GEPT",
-      "gsat": "GSAT composition"
+      "gsat": "GSAT composition",
+      "toeic": "TOEIC writing",
+      "cap": "Junior high (CAP level)"
     },
     "overview": {
       "days": "This week",

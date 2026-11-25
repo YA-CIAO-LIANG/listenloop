@@ -1,0 +1,598 @@
+{
+  "slug": "b-uk-sim-card",
+  "series": "category",
+  "title": "Getting a SIM Card in the UK",
+  "titleZh": "在英國辦手機門號",
+  "subtitle": "剛到英國念碩士：簽約還是預付？流量怎麼選？",
+  "format": "dialogue",
+  "accent": "gb",
+  "meta": {
+    "category": "study-abroad",
+    "scenario": "phone-plan",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Hello, how can I help you today?",
+      "zh": "你好，今天有什麼需要幫忙的嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "help",
+            "inSentence": "help you",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "幫忙",
+            "ipa": "/help/",
+            "collocations": ["help you", "can I help"],
+            "examples": [
+              {
+                "en": "Can I help you find something?",
+                "zh": "需要我幫你找東西嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Hi, I just arrived in the UK, and I need a SIM card.",
+      "zh": "嗨，我剛到英國，需要一張 SIM 卡。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "arrive",
+            "inSentence": "arrived in the UK",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "抵達",
+            "ipa": "/əˈraɪv/",
+            "collocations": ["arrive in", "arrive at"],
+            "examples": [
+              {
+                "en": "We arrived in London at night.",
+                "zh": "我們晚上抵達倫敦。"
+              }
+            ]
+          },
+          {
+            "term": "SIM card",
+            "inSentence": "a SIM card",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "SIM 卡；手機卡",
+            "ipa": "/ˈsɪm kɑːd/",
+            "collocations": ["buy a SIM card", "new SIM card"],
+            "examples": [
+              {
+                "en": "I need a new SIM card for my phone.",
+                "zh": "我的手機需要一張新的 SIM 卡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Welcome! Are you a student here?",
+      "zh": "歡迎！你是這裡的學生嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "welcome",
+            "inSentence": "Welcome",
+            "kind": "word",
+            "pos": "interj.",
+            "zh": "歡迎",
+            "ipa": "/ˈwelkəm/",
+            "collocations": ["welcome to", "you're welcome"],
+            "examples": [
+              {
+                "en": "Welcome to our school!",
+                "zh": "歡迎來到我們學校！"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, I'm starting my master's next week.",
+      "zh": "對，我下週開始念碩士。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "master's",
+            "inSentence": "my master's",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "碩士學位",
+            "ipa": "/ˈmɑːstəz/",
+            "collocations": ["do a master's", "master's degree"],
+            "examples": [
+              {
+                "en": "She did her master's in London.",
+                "zh": "她在倫敦念碩士。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Great. Do you want a monthly contract or pay as you go?",
+      "zh": "好的。你想要按月簽約，還是預付儲值？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "pay as you go",
+            "note": "「用多少付多少」的預付方案，英國常見。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "contract",
+            "inSentence": "a monthly contract",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "合約",
+            "ipa": "/ˈkɒntrækt/",
+            "collocations": ["sign a contract", "a one-year contract"],
+            "examples": [
+              {
+                "en": "I signed a one-year contract.",
+                "zh": "我簽了一年的合約。"
+              }
+            ]
+          },
+          {
+            "term": "pay as you go",
+            "inSentence": "pay as you go",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "預付；用多少付多少",
+            "ipa": "/peɪ əz juː ɡəʊ/",
+            "collocations": ["pay as you go SIM", "pay as you go plan"],
+            "examples": [
+              {
+                "en": "I use a pay as you go phone.",
+                "zh": "我用的是預付卡手機。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "What's the difference?",
+      "zh": "有什麼差別？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "difference",
+            "inSentence": "the difference",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "差別；不同",
+            "ipa": "/ˈdɪfrəns/",
+            "collocations": ["what's the difference", "a big difference"],
+            "examples": [
+              {
+                "en": "Can you tell the difference?",
+                "zh": "你分得出差別嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "A contract is cheaper, but you need a UK bank account.",
+      "zh": "合約比較便宜，但你需要一個英國的銀行帳戶。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "bank account",
+            "inSentence": "a UK bank account",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "銀行帳戶",
+            "ipa": "/bæŋk əˈkaʊnt/",
+            "collocations": ["open a bank account", "bank account number"],
+            "examples": [
+              {
+                "en": "I opened a bank account last week.",
+                "zh": "我上週開了一個銀行帳戶。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "With pay as you go, you just top up when you need more.",
+      "zh": "預付的話，需要的時候再儲值就好。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "top up",
+            "note": "英式說法，「儲值、加值」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "top up",
+            "inSentence": "top up",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "儲值；加值",
+            "ipa": "/tɒp ʌp/",
+            "collocations": ["top up your phone", "top up online"],
+            "examples": [
+              {
+                "en": "I need to top up my travel card.",
+                "zh": "我得幫交通卡儲值了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I don't have a bank account yet, so pay as you go, please.",
+      "zh": "我還沒有銀行帳戶，所以請給我預付的。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "yet",
+            "inSentence": "yet",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "（否定句）還；尚未",
+            "ipa": "/jet/",
+            "collocations": ["not yet", "haven't ... yet"],
+            "examples": [
+              {
+                "en": "I haven't eaten yet.",
+                "zh": "我還沒吃。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Sure. How much data do you use?",
+      "zh": "好的。你用多少流量？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "data",
+            "inSentence": "data",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（手機）行動數據；流量",
+            "ipa": "/ˈdeɪtə/",
+            "collocations": ["mobile data", "use data"],
+            "examples": [
+              {
+                "en": "Videos use a lot of data.",
+                "zh": "看影片很耗流量。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "A lot! I watch videos on the bus and call my family.",
+      "zh": "很多！我會在公車上看影片，也會打給家人。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "call",
+            "inSentence": "call my family",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "打電話給",
+            "ipa": "/kɔːl/",
+            "collocations": ["call home", "call me back"],
+            "examples": [
+              {
+                "en": "I call my parents every Sunday.",
+                "zh": "我每個星期天打給爸媽。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Then this one is best: thirty gigabytes for fifteen pounds a month.",
+      "zh": "那這個最適合：一個月 15 英鎊，有 30 GB。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "pound",
+            "inSentence": "fifteen pounds",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "英鎊",
+            "ipa": "/paʊnd/",
+            "collocations": ["ten pounds", "pounds a month"],
+            "examples": [
+              {
+                "en": "The ticket costs five pounds.",
+                "zh": "這張票五英鎊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Can I call Taiwan with it too?",
+      "zh": "我也可以用它打電話回台灣嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "too",
+            "inSentence": "too",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "也",
+            "ipa": "/tuː/",
+            "collocations": ["me too", "you too"],
+            "examples": [
+              {
+                "en": "I want one too.",
+                "zh": "我也想要一個。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "International calls cost extra, but you can use apps on Wi-Fi for free.",
+      "zh": "國際電話要另外付費，但你可以連 Wi-Fi 用通訊軟體免費打。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "cost extra",
+            "note": "「要另外付錢」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "cost extra",
+            "inSentence": "cost extra",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "要額外付費",
+            "ipa": "/kɒst ˈekstrə/",
+            "collocations": ["cost extra", "pay extra"],
+            "examples": [
+              {
+                "en": "Breakfast costs extra.",
+                "zh": "早餐要另外付費。"
+              }
+            ]
+          },
+          {
+            "term": "for free",
+            "inSentence": "for free",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "免費地",
+            "ipa": "/fɔː friː/",
+            "collocations": ["get it for free", "for free"],
+            "examples": [
+              {
+                "en": "You can park here for free.",
+                "zh": "你可以免費停在這裡。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "cost extra",
+            "soundsLike": "cos-tekstra",
+            "note": "cost 的 t 和 extra 的 e 連讀。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Perfect, I'll take it.",
+      "zh": "太好了，我就要這個。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "I'll take it",
+            "note": "購物時決定買下的常用句。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "take",
+            "inSentence": "I'll take it",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "買下；要（某物）",
+            "ipa": "/teɪk/",
+            "collocations": ["I'll take it", "take this one"],
+            "examples": [
+              {
+                "en": "This jacket fits well. I'll take it.",
+                "zh": "這件外套很合身，我要買。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Lovely, let me put it in your phone and check it works.",
+      "zh": "好的，我幫你把卡裝進手機，確認一下能不能用。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "Lovely",
+            "note": "英式口語，常用來表示「好的、太好了」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "check",
+            "inSentence": "check it works",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "確認；檢查",
+            "ipa": "/tʃek/",
+            "collocations": ["check it works", "check again"],
+            "examples": [
+              {
+                "en": "Let me check the time.",
+                "zh": "我看一下時間。"
+              }
+            ]
+          },
+          {
+            "term": "put in",
+            "inSentence": "put it in your phone",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "放進；裝進",
+            "ipa": "/pʊt ɪn/",
+            "collocations": ["put it in", "put in the card"],
+            "examples": [
+              {
+                "en": "Put the card in the machine.",
+                "zh": "把卡片插進機器。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "put it in",
+            "soundsLike": "pu-ti-tin",
+            "note": "三個短字連成一串，t 都輕輕帶過。"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,649 @@
+{
+  "slug": "a-first-day-office-tour",
+  "series": "category",
+  "title": "My First Day in Sydney",
+  "titleZh": "在雪梨上班的第一天",
+  "subtitle": "剛到雪梨工作的台灣新人，跟著同事認識辦公室",
+  "format": "dialogue",
+  "accent": "au",
+  "meta": {
+    "category": "career",
+    "scenario": "first-day",
+    "level": "beginner",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Good morning, you must be Ken, the new designer.",
+      "zh": "早安，你一定是新來的設計師阿健吧。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "designer",
+            "inSentence": "designer",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "設計師",
+            "ipa": "/dɪˈzaɪnə/",
+            "collocations": ["graphic designer", "web designer"],
+            "examples": [
+              {
+                "en": "My sister is a web designer.",
+                "zh": "我姊姊是網頁設計師。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "must for a guess",
+            "quote": "you must be Ken",
+            "explanation": "must be 表示很有把握的推測：「你一定是……」。",
+            "examples": [
+              {
+                "en": "You must be tired after the flight.",
+                "zh": "搭完飛機你一定很累。"
+              }
+            ],
+            "pitfall": "這裡的 must 不是「必須」，而是推測。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, that's me, nice to meet you.",
+      "zh": "對，就是我，很高興認識你。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "that's me",
+            "note": "確認身分時的自然說法，比 I am Ken 更口語。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "nice to meet you",
+            "inSentence": "nice to meet you",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "很高興認識你",
+            "ipa": "/naɪs tə miːt juː/",
+            "collocations": ["nice to meet you too"],
+            "examples": [
+              {
+                "en": "Nice to meet you, I'm Amy.",
+                "zh": "很高興認識你，我是艾咪。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'm Sarah, and I'll show you around today.",
+      "zh": "我是莎拉，今天由我帶你四處看看。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "show someone around",
+            "inSentence": "show you around",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "帶某人參觀",
+            "ipa": "/ʃəʊ əˈraʊnd/",
+            "collocations": [
+              "show you around the office",
+              "show guests around"
+            ],
+            "examples": [
+              {
+                "en": "Can you show me around the campus?",
+                "zh": "你可以帶我參觀校園嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "This is your desk, right next to the window.",
+      "zh": "這是你的座位，就在窗戶旁邊。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "next to",
+            "inSentence": "next to",
+            "kind": "phrase",
+            "pos": "prep.",
+            "zh": "在……旁邊",
+            "ipa": "/nekst tuː/",
+            "collocations": ["right next to", "sit next to"],
+            "examples": [
+              {
+                "en": "The bank is next to the post office.",
+                "zh": "銀行在郵局旁邊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Wow, I can see the harbour from here!",
+      "zh": "哇，從這裡可以看到港口！",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "harbour",
+            "inSentence": "harbour",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "港口；港灣",
+            "ipa": "/ˈhɑːbə/",
+            "collocations": ["Sydney Harbour", "harbour view"],
+            "examples": [
+              {
+                "en": "We walked along the harbour at night.",
+                "zh": "我們晚上沿著港邊散步。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, it's the best seat in the office.",
+      "zh": "對啊，這是辦公室裡最好的位子。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "seat",
+            "inSentence": "seat",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "座位",
+            "ipa": "/siːt/",
+            "collocations": ["the best seat", "take a seat"],
+            "examples": [
+              {
+                "en": "Please take a seat.",
+                "zh": "請坐。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "The kitchen is down the hall, and there's free coffee and fruit.",
+      "zh": "茶水間在走廊盡頭，那裡有免費咖啡和水果。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "down the hall",
+            "inSentence": "down the hall",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "在走廊那頭",
+            "ipa": "/daʊn ðə hɔːl/",
+            "collocations": ["just down the hall", "walk down the hall"],
+            "examples": [
+              {
+                "en": "The toilets are down the hall on the left.",
+                "zh": "廁所在走廊那頭的左手邊。"
+              }
+            ]
+          },
+          {
+            "term": "free",
+            "inSentence": "free",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "免費的",
+            "ipa": "/friː/",
+            "collocations": ["free coffee", "free of charge"],
+            "examples": [
+              {
+                "en": "The museum is free on Sundays.",
+                "zh": "博物館週日免費。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Free coffee, that's great news for me.",
+      "zh": "免費咖啡，對我來說真是好消息。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "great news for me",
+            "note": "輕鬆幽默的回應，第一天和同事拉近距離。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "news",
+            "inSentence": "news",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "消息",
+            "ipa": "/njuːz/",
+            "collocations": ["good news", "great news"],
+            "examples": [
+              {
+                "en": "I have some good news for you.",
+                "zh": "我有個好消息要告訴你。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Our team has a short meeting every Monday at ten.",
+      "zh": "我們團隊每週一 10 點有一個簡短的會議。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "meeting",
+            "inSentence": "meeting",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "會議",
+            "ipa": "/ˈmiːtɪŋ/",
+            "collocations": ["have a meeting", "team meeting"],
+            "examples": [
+              {
+                "en": "We have a team meeting this afternoon.",
+                "zh": "我們今天下午有團隊會議。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Everyone shares what they're working on that week.",
+      "zh": "每個人都會分享自己那週在做的工作。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "what they're working on",
+            "note": "work on 是「進行、處理某項工作」，很常用。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "share",
+            "inSentence": "shares",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "分享",
+            "ipa": "/ʃeə/",
+            "collocations": ["share ideas", "share with"],
+            "examples": [
+              {
+                "en": "She shared her notes with the class.",
+                "zh": "她把筆記分享給全班。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Do I need to say something today?",
+      "zh": "我今天需要講些什麼嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "need to",
+            "inSentence": "need to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "需要",
+            "ipa": "/niːd tuː/",
+            "collocations": ["need to go", "need to finish"],
+            "examples": [
+              {
+                "en": "You need to sign this form.",
+                "zh": "你需要簽這份表格。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Just a quick hello, tell us where you're from and what you like doing.",
+      "zh": "簡單打個招呼就好，說說你從哪裡來、喜歡做什麼。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "quick",
+            "inSentence": "a quick hello",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "簡短的；快速的",
+            "ipa": "/kwɪk/",
+            "collocations": ["a quick question", "a quick look"],
+            "examples": [
+              {
+                "en": "Can I ask you a quick question?",
+                "zh": "我可以很快問你一個問題嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "what you like",
+            "soundsLike": "wotcha like",
+            "note": "what 和 you 連讀，聽起來像 /wɒtʃə/。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Easy, I'm from Taichung, and I love hiking and bubble tea.",
+      "zh": "簡單，我來自台中，我喜歡爬山和珍珠奶茶。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "hiking",
+            "inSentence": "hiking",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "健行；爬山",
+            "ipa": "/ˈhaɪkɪŋ/",
+            "collocations": ["go hiking", "hiking trail"],
+            "examples": [
+              {
+                "en": "We go hiking every weekend.",
+                "zh": "我們每個週末都去爬山。"
+              }
+            ]
+          },
+          {
+            "term": "bubble tea",
+            "inSentence": "bubble tea",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "珍珠奶茶",
+            "ipa": "/ˈbʌbl tiː/",
+            "collocations": ["a cup of bubble tea", "bubble tea shop"],
+            "examples": [
+              {
+                "en": "There's a bubble tea shop near my flat.",
+                "zh": "我公寓附近有一家珍奶店。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Perfect, then you'll get along with everyone here.",
+      "zh": "太好了，那你一定會和這裡的大家處得很好。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "get along with",
+            "inSentence": "get along with",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "和……相處融洽",
+            "ipa": "/ɡet əˈlɒŋ wɪð/",
+            "collocations": ["get along well", "get along with people"],
+            "examples": [
+              {
+                "en": "I get along with my roommate.",
+                "zh": "我和室友處得很好。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Great, I'm a little nervous, but I'm excited too.",
+      "zh": "好，我有點緊張，但也很興奮。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "nervous",
+            "inSentence": "nervous",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "緊張的",
+            "ipa": "/ˈnɜːvəs/",
+            "collocations": ["feel nervous", "nervous about"],
+            "examples": [
+              {
+                "en": "I always feel nervous before exams.",
+                "zh": "我考試前總是很緊張。"
+              }
+            ]
+          },
+          {
+            "term": "excited",
+            "inSentence": "excited",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "興奮的；期待的",
+            "ipa": "/ɪkˈsaɪtɪd/",
+            "collocations": ["excited about", "really excited"],
+            "examples": [
+              {
+                "en": "We're excited about the trip.",
+                "zh": "我們很期待這趟旅行。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Don't worry, everyone here is really friendly.",
+      "zh": "別擔心，這裡的每個人都很友善。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "friendly",
+            "inSentence": "friendly",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "友善的",
+            "ipa": "/ˈfrendli/",
+            "collocations": ["friendly people", "friendly to"],
+            "examples": [
+              {
+                "en": "The staff are very friendly.",
+                "zh": "員工都很友善。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "And we often have lunch together in the park across the road.",
+      "zh": "而且我們常常一起在對街的公園吃午餐。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "across the road",
+            "inSentence": "across the road",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "在馬路對面",
+            "ipa": "/əˈkrɒs ðə rəʊd/",
+            "collocations": ["just across the road", "live across the road"],
+            "examples": [
+              {
+                "en": "The café is across the road.",
+                "zh": "咖啡廳就在馬路對面。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "have lunch",
+            "soundsLike": "hav-lunch",
+            "note": "have 的 /v/ 和 lunch 連在一起，中間幾乎不停頓。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Let's go and meet the rest of the team now.",
+      "zh": "我們現在去見見團隊的其他成員吧。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "the rest of",
+            "inSentence": "the rest of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "其餘的",
+            "ipa": "/ðə rest əv/",
+            "collocations": ["the rest of the day", "the rest of the team"],
+            "examples": [
+              {
+                "en": "I'll be home for the rest of the week.",
+                "zh": "這週剩下的時間我都會在家。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,869 @@
+{
+  "slug": "e-how-cave-pearls-form",
+  "series": "exam",
+  "title": "How Cave Pearls Form",
+  "titleZh": "洞穴珍珠是怎麼形成的",
+  "subtitle": "托福風格地質學講課：石灰岩洞穴裡的小圓石，如何一層層長成「珍珠」",
+  "format": "monologue",
+  "accent": "us",
+  "meta": {
+    "category": "exam",
+    "scenario": "toefl-lecture-geology",
+    "level": "advanced",
+    "exam": "toefl",
+    "examTarget": "toefl-100"
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "So last time we looked at how limestone caves form, and today I want to focus on something much smaller inside them.",
+      "zh": "好，上次我們看了石灰岩洞穴是怎麼形成的，今天我想把焦點放在洞穴裡小得多的東西上。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "today I want to focus on",
+            "note": "講課開頭點出今天的主題，托福常考「這堂課主要在講什麼」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "limestone",
+            "inSentence": "limestone",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "石灰岩",
+            "ipa": "/ˈlaɪmˌstoʊn/",
+            "collocations": ["limestone cave", "limestone cliff"],
+            "examples": [
+              {
+                "en": "The temple is built of limestone.",
+                "zh": "這座神殿是用石灰岩蓋的。"
+              }
+            ]
+          },
+          {
+            "term": "focus on",
+            "inSentence": "focus on",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "專注於；聚焦在",
+            "ipa": "/ˈfoʊkəs ɑn/",
+            "collocations": ["focus on the details"],
+            "examples": [
+              {
+                "en": "Let's focus on the main idea.",
+                "zh": "我們先專注在主旨上。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "looked at",
+            "soundsLike": "look-tat",
+            "note": "looked 的 /t/ 和 at 連在一起。"
+          },
+          {
+            "text": "want to focus",
+            "soundsLike": "wanna focus",
+            "note": "want to 後接動詞，口語常說成 wanna。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Cave explorers sometimes find little round stones sitting in shallow pools, and they call them cave pearls.",
+      "zh": "洞穴探險者有時會在淺水池裡發現小圓石，他們稱之為洞穴珍珠。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "shallow",
+            "inSentence": "shallow",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "淺的",
+            "ipa": "/ˈʃæloʊ/",
+            "collocations": ["shallow water", "shallow pool"],
+            "examples": [
+              {
+                "en": "Children can swim in the shallow end.",
+                "zh": "小孩可以在淺水區游泳。"
+              }
+            ]
+          },
+          {
+            "term": "explorer",
+            "inSentence": "explorers",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "探險者",
+            "ipa": "/ɪkˈsplɔrər/",
+            "collocations": ["cave explorer", "early explorers"],
+            "examples": [
+              {
+                "en": "The explorers mapped the river.",
+                "zh": "探險者繪製了這條河的地圖。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Now, despite the name, they have nothing to do with oysters, and they aren't valuable in the way real pearls are.",
+      "zh": "不過，雖然叫這個名字，它們跟牡蠣毫無關係，也不像真正的珍珠那樣值錢。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "despite",
+            "inSentence": "despite",
+            "kind": "word",
+            "pos": "prep.",
+            "zh": "儘管；雖然",
+            "ipa": "/dɪˈspaɪt/",
+            "collocations": ["despite the name", "despite the rain"],
+            "examples": [
+              {
+                "en": "Despite the noise, he fell asleep.",
+                "zh": "儘管很吵，他還是睡著了。"
+              }
+            ]
+          },
+          {
+            "term": "have nothing to do with",
+            "inSentence": "have nothing to do with",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "與…無關",
+            "ipa": "/hæv ˈnʌθɪŋ tə du wɪð/",
+            "collocations": ["have nothing to do with me"],
+            "examples": [
+              {
+                "en": "This problem has nothing to do with you.",
+                "zh": "這個問題跟你無關。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "despite + noun",
+            "quote": "despite the name",
+            "explanation": "despite 是介系詞，後面接名詞或動名詞，不接完整子句。",
+            "examples": [
+              {
+                "en": "Despite feeling tired, she kept working.",
+                "zh": "儘管很累，她還是繼續工作。"
+              }
+            ],
+            "pitfall": "不要說 despite of；也不要寫 despite it is...，要改用 although。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "What they share with real pearls is their structure: thin layers built up around a tiny core, like the rings of an onion.",
+      "zh": "它們和真珍珠的共同點在於結構：薄薄的層層包覆在一個微小的核心外面，就像洋蔥一圈一圈的層。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "thin layers built up around a tiny core",
+            "note": "定義重點：層狀結構＋中心的核。講者用洋蔥打比方幫助理解。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "structure",
+            "inSentence": "structure",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "結構",
+            "ipa": "/ˈstrʌktʃər/",
+            "collocations": ["basic structure", "internal structure"],
+            "examples": [
+              {
+                "en": "The structure of the bridge is very strong.",
+                "zh": "這座橋的結構非常堅固。"
+              }
+            ]
+          },
+          {
+            "term": "core",
+            "inSentence": "core",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "核心",
+            "ipa": "/kɔr/",
+            "collocations": ["the core of", "inner core"],
+            "examples": [
+              {
+                "en": "The Earth has a hot core.",
+                "zh": "地球有一個炙熱的核心。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "What-clause as subject",
+            "quote": "What they share with real pearls is",
+            "explanation": "What 引導的名詞子句當主詞，意思是「它們和珍珠共有的東西」，後面用單數動詞 is。",
+            "examples": [
+              {
+                "en": "What I need is more time.",
+                "zh": "我需要的是更多時間。"
+              }
+            ],
+            "pitfall": "不要把 What 子句當成疑問句，不需要倒裝成 What do they share。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "What they share with real pearls",
+            "role": "subordinate",
+            "zh": "它們和真珍珠的共同點"
+          },
+          {
+            "text": "is their structure:",
+            "role": "main",
+            "zh": "是它們的結構："
+          },
+          {
+            "text": "thin layers built up around a tiny core,",
+            "role": "modifier",
+            "zh": "薄層包覆在微小的核心外，"
+          },
+          {
+            "text": "like the rings of an onion.",
+            "role": "modifier",
+            "zh": "就像洋蔥的一圈圈。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "So how does that happen underground, where there's no living animal doing the work?",
+      "zh": "那麼，在沒有任何生物負責製造的地底下，這是怎麼發生的呢？",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "underground",
+            "inSentence": "underground",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "在地下",
+            "ipa": "/ˌʌndərˈɡraʊnd/",
+            "collocations": ["live underground", "go underground"],
+            "examples": [
+              {
+                "en": "Some insects live underground.",
+                "zh": "有些昆蟲住在地底下。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Relative adverb where",
+            "quote": "where there's no living animal",
+            "explanation": "where 引導關係子句，補充說明 underground 這個地方的情況。",
+            "examples": [
+              {
+                "en": "We visited a town where nobody owns a car.",
+                "zh": "我們去了一個沒有人有車的小鎮。"
+              }
+            ],
+            "pitfall": "where 後面要接完整子句，不能直接接名詞。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It starts with water dripping from the ceiling, water that's carrying dissolved calcium carbonate picked up from the rock above.",
+      "zh": "一切從洞頂滴下的水開始，這些水帶著從上方岩石溶出的碳酸鈣。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "drip",
+            "inSentence": "dripping",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "滴下",
+            "ipa": "/drɪp/",
+            "collocations": ["drip from", "dripping tap"],
+            "examples": [
+              {
+                "en": "Water was dripping from the roof.",
+                "zh": "水從屋頂滴下來。"
+              }
+            ]
+          },
+          {
+            "term": "dissolve",
+            "inSentence": "dissolved",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "溶解",
+            "ipa": "/dɪˈzɑlv/",
+            "collocations": ["dissolve in water", "dissolved salt"],
+            "examples": [
+              {
+                "en": "Sugar dissolves quickly in hot tea.",
+                "zh": "糖在熱茶裡溶得很快。"
+              }
+            ]
+          },
+          {
+            "term": "calcium carbonate",
+            "inSentence": "calcium carbonate",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "碳酸鈣",
+            "ipa": "/ˈkælsiəm ˈkɑrbəˌneɪt/",
+            "collocations": ["made of calcium carbonate"],
+            "examples": [
+              {
+                "en": "Chalk is mostly calcium carbonate.",
+                "zh": "粉筆主要是碳酸鈣。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "It starts with water dripping from the ceiling,",
+            "role": "main",
+            "zh": "一切從洞頂滴下的水開始，"
+          },
+          {
+            "text": "water that's carrying dissolved calcium carbonate",
+            "role": "modifier",
+            "zh": "這些水帶著溶解的碳酸鈣"
+          },
+          {
+            "text": "picked up from the rock above.",
+            "role": "modifier",
+            "zh": "是從上方岩石帶來的。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "When a drop lands in the pool, it releases carbon dioxide, and some of the mineral comes out of solution and coats whatever lies at the bottom.",
+      "zh": "水滴落進水池時會釋放出二氧化碳，部分礦物就會從溶液中析出，包覆在池底的任何東西上。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "comes out of solution",
+            "note": "化學用語：溶解的物質重新變成固體析出，是整個過程的關鍵。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "release",
+            "inSentence": "releases",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "釋放",
+            "ipa": "/rɪˈlis/",
+            "collocations": ["release gas", "release energy"],
+            "examples": [
+              {
+                "en": "Plants release oxygen.",
+                "zh": "植物會釋放氧氣。"
+              }
+            ]
+          },
+          {
+            "term": "coat",
+            "inSentence": "coats",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "包覆；塗上一層",
+            "ipa": "/koʊt/",
+            "collocations": ["coat with", "be coated in"],
+            "examples": [
+              {
+                "en": "Dust coated the old books.",
+                "zh": "舊書上覆蓋著一層灰。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "whatever = anything that",
+            "quote": "whatever lies at the bottom",
+            "explanation": "whatever 引導名詞子句，意思是「任何…的東西」，在這裡當 coats 的受詞。",
+            "examples": [
+              {
+                "en": "Take whatever you need.",
+                "zh": "你需要什麼就拿什麼。"
+              }
+            ],
+            "pitfall": "whatever 本身就包含先行詞，不要再加 anything：anything whatever 是錯的。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "When a drop lands in the pool,",
+            "role": "subordinate",
+            "zh": "水滴落進水池時，"
+          },
+          {
+            "text": "it releases carbon dioxide,",
+            "role": "main",
+            "zh": "會釋放二氧化碳，"
+          },
+          {
+            "text": "and some of the mineral comes out of solution",
+            "role": "main",
+            "zh": "部分礦物從溶液中析出"
+          },
+          {
+            "text": "and coats whatever lies at the bottom.",
+            "role": "main",
+            "zh": "並包覆在池底的任何東西上。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Usually that's a grain of sand or a chip of rock, and it becomes the nucleus of the pearl.",
+      "zh": "通常那是一粒沙或一小片岩屑，它就成了珍珠的核心。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "grain",
+            "inSentence": "grain",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（沙、鹽等的）一粒",
+            "ipa": "/ɡreɪn/",
+            "collocations": ["a grain of sand", "a grain of rice"],
+            "examples": [
+              {
+                "en": "There was a grain of sand in my shoe.",
+                "zh": "我的鞋子裡有一粒沙。"
+              }
+            ]
+          },
+          {
+            "term": "nucleus",
+            "inSentence": "nucleus",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "核心；核",
+            "ipa": "/ˈnukliəs/",
+            "collocations": ["the nucleus of", "cell nucleus"],
+            "examples": [
+              {
+                "en": "A small team formed the nucleus of the company.",
+                "zh": "一個小團隊構成了公司的核心。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Here's the crucial part, though: the dripping also keeps the grain moving, rolling it just slightly.",
+      "zh": "不過關鍵在這裡：滴水也讓那粒沙持續移動，讓它微微滾動。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "Here's the crucial part",
+            "note": "講者提示重點，後面的內容很可能是考題。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "crucial",
+            "inSentence": "crucial",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "關鍵的；極重要的",
+            "ipa": "/ˈkruʃəl/",
+            "collocations": ["crucial part", "crucial role"],
+            "examples": [
+              {
+                "en": "Sleep is crucial for memory.",
+                "zh": "睡眠對記憶非常重要。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "keep + object + V-ing",
+            "quote": "keeps the grain moving",
+            "explanation": "keep + 受詞 + V-ing 表示「讓某物持續處於某狀態」。",
+            "examples": [
+              {
+                "en": "The music kept us dancing all night.",
+                "zh": "音樂讓我們跳了一整晚。"
+              }
+            ],
+            "pitfall": "不要寫成 keeps the grain to move。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "If the grain stayed still, the mineral would cement it to the floor of the pool, and you'd end up with a flat crust instead of a sphere.",
+      "zh": "如果那粒沙一直不動，礦物就會把它黏死在池底，最後只會得到一片扁平的硬殼，而不是一顆球。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "cement",
+            "inSentence": "cement",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "黏合；使牢固",
+            "ipa": "/sɪˈmɛnt/",
+            "collocations": ["cement together", "cement a friendship"],
+            "examples": [
+              {
+                "en": "Minerals cemented the sand into rock.",
+                "zh": "礦物把沙膠結成岩石。"
+              }
+            ]
+          },
+          {
+            "term": "end up with",
+            "inSentence": "end up with",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "最後得到",
+            "ipa": "/ɛnd ʌp wɪð/",
+            "collocations": ["end up with nothing"],
+            "examples": [
+              {
+                "en": "We ended up with too much food.",
+                "zh": "我們最後食物準備太多了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Second conditional",
+            "quote": "If the grain stayed still, the mineral would cement",
+            "explanation": "If + 過去式, would + 原形動詞，表示與事實相反的假設：沙其實會動，所以不會黏住。",
+            "examples": [
+              {
+                "en": "If I had a car, I would drive to work.",
+                "zh": "如果我有車，我就會開車上班。"
+              }
+            ],
+            "pitfall": "主要子句不要用 will；假設語氣要用 would。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "If the grain stayed still,",
+            "role": "subordinate",
+            "zh": "如果那粒沙不動，"
+          },
+          {
+            "text": "the mineral would cement it to the floor of the pool,",
+            "role": "main",
+            "zh": "礦物就會把它黏在池底，"
+          },
+          {
+            "text": "and you'd end up with a flat crust",
+            "role": "main",
+            "zh": "最後只會得到扁平的硬殼"
+          },
+          {
+            "text": "instead of a sphere.",
+            "role": "modifier",
+            "zh": "而不是一顆球。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Because it's turned constantly, the coating builds up more or less evenly on every side.",
+      "zh": "因為它不停被翻動，外層就會在每一面大致均勻地累積。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "constantly",
+            "inSentence": "constantly",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "不斷地",
+            "ipa": "/ˈkɑnstəntli/",
+            "collocations": ["constantly changing"],
+            "examples": [
+              {
+                "en": "Prices are constantly rising.",
+                "zh": "物價不斷上漲。"
+              }
+            ]
+          },
+          {
+            "term": "more or less",
+            "inSentence": "more or less",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "大致上；差不多",
+            "ipa": "/mɔr ɔr lɛs/",
+            "collocations": ["more or less the same"],
+            "examples": [
+              {
+                "en": "The work is more or less done.",
+                "zh": "工作大致上完成了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "builds up",
+            "soundsLike": "build-zup",
+            "note": "builds 的 /z/ 和 up 連音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "That's why geologists treat cave pearls as a record of conditions in the cave, since they only form where the dripping stays steady for long periods.",
+      "zh": "這就是為什麼地質學家把洞穴珍珠當成洞內環境的紀錄，因為它們只會在滴水長期保持穩定的地方形成。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [
+          {
+            "text": "a record of conditions in the cave",
+            "note": "講者說明這個現象的科學意義，常見於「為什麼重要」的題型。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "treat as",
+            "inSentence": "treat cave pearls as",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "把…視為",
+            "ipa": "/trit æz/",
+            "collocations": ["treat it as a joke"],
+            "examples": [
+              {
+                "en": "She treats every mistake as a lesson.",
+                "zh": "她把每個錯誤都當作一次教訓。"
+              }
+            ]
+          },
+          {
+            "term": "steady",
+            "inSentence": "steady",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "穩定的",
+            "ipa": "/ˈstɛdi/",
+            "collocations": ["steady rate", "stay steady"],
+            "examples": [
+              {
+                "en": "Prices have stayed steady this year.",
+                "zh": "今年價格一直很穩定。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [
+          {
+            "text": "That's why geologists treat cave pearls",
+            "role": "main",
+            "zh": "這就是地質學家把洞穴珍珠"
+          },
+          {
+            "text": "as a record of conditions in the cave,",
+            "role": "modifier",
+            "zh": "視為洞內環境紀錄的原因，"
+          },
+          {
+            "text": "since they only form",
+            "role": "subordinate",
+            "zh": "因為它們只會形成在"
+          },
+          {
+            "text": "where the dripping stays steady for long periods.",
+            "role": "subordinate",
+            "zh": "滴水長期穩定的地方。"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "If a cave is opened to tourists and the drips are disturbed, the pearls can stop growing altogether.",
+      "zh": "如果洞穴開放給觀光客、滴水被干擾，珍珠可能就會完全停止生長。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "disturb",
+            "inSentence": "disturbed",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "干擾；打擾",
+            "ipa": "/dɪˈstɝb/",
+            "collocations": ["disturb the balance", "do not disturb"],
+            "examples": [
+              {
+                "en": "Please don't disturb the birds.",
+                "zh": "請不要驚擾鳥兒。"
+              }
+            ]
+          },
+          {
+            "term": "altogether",
+            "inSentence": "altogether",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "完全地",
+            "ipa": "/ˌɔltəˈɡɛðər/",
+            "collocations": ["stop altogether"],
+            "examples": [
+              {
+                "en": "The noise stopped altogether.",
+                "zh": "噪音完全停了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "stop + V-ing",
+            "quote": "stop growing",
+            "explanation": "stop + V-ing 是「停止做某事」；stop + to V 是「停下來去做另一件事」。",
+            "examples": [
+              {
+                "en": "He stopped talking.",
+                "zh": "他不說話了。"
+              }
+            ],
+            "pitfall": "stop to grow 意思會變成「停下來為了生長」，不合理。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Next week, we'll look at how caves are managed to protect features like these.",
+      "zh": "下週，我們會來看洞穴是怎麼管理的，以保護像這樣的地景。",
+      "speaker": null,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "manage",
+            "inSentence": "managed",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "管理",
+            "ipa": "/ˈmænɪdʒ/",
+            "collocations": ["manage a park", "well managed"],
+            "examples": [
+              {
+                "en": "The forest is managed by the state.",
+                "zh": "這片森林由州政府管理。"
+              }
+            ]
+          },
+          {
+            "term": "feature",
+            "inSentence": "features",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（地形）特徵；地景",
+            "ipa": "/ˈfitʃər/",
+            "collocations": ["natural features", "key feature"],
+            "examples": [
+              {
+                "en": "The lake is the park's main feature.",
+                "zh": "這座湖是公園的主要景點。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

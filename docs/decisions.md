@@ -4141,3 +4141,17 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **邀請碼**：用秘密金鑰直接在正式資料庫新增 5 組（每組 10 次、14 天到期，備註「Beta 第 N 批」），和後台「建立邀請」的格式相同。邀請進來的人計入 50 人名額，但不被上限擋（D132）。
 - **AI 全站每月上限**：US$8 → **US$15**（`usage_settings.site_monthly_micros`，後台 `/admin/usage` 可改回）。理由：50 位免費使用者用滿額度時，AI 費用約 US$11.7/月（自建聽力 US$6.4、寫作 US$5.3），會撞到 US$8；Azure 學生額度還有 US$99.5。方案額度與價格都沒有改。
 - **要改時**：`components/BetaGuide.tsx`、`messages/*.json` 的 `beta.guide`、`components/SiteFooter.tsx`、`components/AccountMenu.tsx`、`app/admin/beta-test/page.tsx`。
+
+## D213 官方教材擴充：經典名篇、國高中程度、學測風格聽力；多益、國中程度、日記寫作題目；教材由 Claude 直接撰寫（2026-11-25，Joe 指定 P1）
+
+- **撰寫方式**：英文、中文翻譯、逐句講解（RichNotes v2）都由 Claude Code 直接寫在 `data/official/<slug>.json`，不呼叫付費語言模型；只有語音用 Azure Speech F0（免費額度）。腳本 `npm run official:written`（`scripts/official-written.record.ts`）存成官方草稿 → 產生語音 → 跑發布前檢查（`lib/official-check.ts`）→ 全部通過才發布，否則留在草稿。已存在（同擁有者、同英文標題）的跳過，可以重跑。語音在本月用量到 `F0_STOP` 前停下（Joe 指定：今晚最多 12 萬字元，保留至少 15 萬給 Beta 使用者）。
+- **檢查**：`tests/official-written.test.ts` 對每份檔案跑和批次教材一樣的發布前檢查（標題、副標題、翻譯、半形數字、人名一致、講解長度），再加上：講解經過清理後一項都不少（數量上限、引用的字一定在句子裡）、長度 120～320 字（約 1～2 分鐘）、對話每句有說話者、經典名篇一定有來源與授權依據、標題不重複。
+- **新類別與考試**（`lib/categories.ts`，只改設定與翻譯檔，資料庫不需要 migration）：
+  - 「經典名篇」`classics`：寓言、童話、經典小說選段、歷史演說與文件、美國政府機構文章。
+  - 「國高中程度」`school`：國中與高中的對話、短文。
+  - 考試聽力加「學測 GSAT 風格」`gsat`：簡短對話、短文與廣播；目標分成基礎（初級）、前標（中級）、頂標（高級）。
+- **經典名篇的出處**：教材頁原本的「改寫自 … 的新聞稿」只適合新聞；經典名篇改成「出處：作品〈標題〉。屬於公有領域或美國聯邦政府的著作；ListenLoop 依原作節錄或改寫……」（`video.classicSource`）。
+- **寫作題目**：新增 3 種題型——「日記」`diary`（分在日常組）、「多益寫作」`toeic`、「會考程度短文」`cap`（分在考試組）。這 3 種都用通用評分標準（`general`）：新增評分標準會改到批改提示詞，需要重新錄製寫作 eval（真的 API），今晚不做。國中會考英語科沒有寫作測驗，所以 `cap` 題目標示「國中程度」，不宣稱是會考題。
+- **版權**：來源與查證結果見 `docs/content-sources.md`。學測、分科測驗、會考試題依著作權法第 9 條第 1 項第 5 款不受著作權保護，但試題引用的文章仍受原著作權人保護、通常無法逐題確認，所以**這次不使用任何真實試題**，學測風格的教材與題目全部原創。
+- **要改時**：教材內容改 `data/official/*.json` 後，到後台「官方教材」改正式站的那一份（腳本只新增、不覆蓋）；規則在 `lib/official-written.ts`；新類別在 `lib/categories.ts` 與翻譯檔的 `categories`、`learn.intros`。
+- **AI 不會把使用者的教材歸到新系列**：經典名篇、國高中程度是 ListenLoop 自己整理的官方系列（`OFFICIAL_SERIES`），不列在 AI 猜類別的清單（`GUESSABLE_CATEGORIES`）。這樣寫作提示詞不變，錄好的 eval 仍然有效，不需要重新錄製（真的 API）。

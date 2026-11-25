@@ -1,0 +1,881 @@
+{
+  "slug": "s-choosing-a-department",
+  "series": "school",
+  "title": "Choosing a University Department",
+  "titleZh": "選擇大學科系",
+  "subtitle": "Daniel 在資工和心理之間猶豫，Grace 幫他想出折衷的方向",
+  "format": "dialogue",
+  "accent": "us",
+  "meta": {
+    "category": "school",
+    "scenario": "senior-dialogue",
+    "level": "intermediate",
+    "exam": null,
+    "examTarget": null
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Daniel, have you decided which department you're going to apply to?",
+      "zh": "Daniel，你決定要申請哪個科系了嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "department",
+            "inSentence": "department",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "（大學）科系",
+            "ipa": "/dɪˈpɑrtmənt/",
+            "collocations": ["the history department", "choose a department"],
+            "examples": [
+              {
+                "en": "She studies in the English department.",
+                "zh": "她讀英文系。"
+              }
+            ]
+          },
+          {
+            "term": "apply to",
+            "inSentence": "apply to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "申請（學校、科系）",
+            "ipa": "/əˈplaɪ tu/",
+            "collocations": ["apply to a university", "apply for a job"],
+            "examples": [
+              {
+                "en": "I applied to three universities.",
+                "zh": "我申請了三所大學。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "going to",
+            "soundsLike": "gonna",
+            "note": "口語中 going to 常念成 gonna。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Honestly, I'm still torn between computer science and psychology.",
+      "zh": "老實說，我還在資工和心理學之間猶豫不決。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "Honestly",
+            "note": "放句首表示「老實說」，口語很常用。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "torn between",
+            "inSentence": "torn between",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "在…之間左右為難",
+            "ipa": "/tɔrn bɪˈtwin/",
+            "collocations": ["torn between A and B", "feel torn"],
+            "examples": [
+              {
+                "en": "I'm torn between the red one and the blue one.",
+                "zh": "我在紅的和藍的之間猶豫不決。"
+              }
+            ]
+          },
+          {
+            "term": "psychology",
+            "inSentence": "psychology",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "心理學",
+            "ipa": "/saɪˈkɑlədʒi/",
+            "collocations": ["study psychology", "child psychology"],
+            "examples": [
+              {
+                "en": "She's majoring in psychology.",
+                "zh": "她主修心理學。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "My parents want me to study computer science because they think it leads to a stable job.",
+      "zh": "我爸媽希望我讀資工，因為他們覺得這樣比較能找到穩定的工作。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "stable",
+            "inSentence": "stable",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "穩定的",
+            "ipa": "/ˈsteɪbəl/",
+            "collocations": ["a stable job", "stable income"],
+            "examples": [
+              {
+                "en": "He wants a stable life.",
+                "zh": "他想要安穩的生活。"
+              }
+            ]
+          },
+          {
+            "term": "lead to",
+            "inSentence": "leads to",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "導致；通往",
+            "ipa": "/lid tu/",
+            "collocations": ["lead to success", "lead to problems"],
+            "examples": [
+              {
+                "en": "Hard work often leads to success.",
+                "zh": "努力常會帶來成功。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "want + object + to V",
+            "quote": "want me to study",
+            "explanation": "want ＋人＋ to ＋原形動詞，表示「希望某人做某事」。",
+            "examples": [
+              {
+                "en": "My teacher wants us to read more.",
+                "zh": "老師希望我們多閱讀。"
+              }
+            ],
+            "pitfall": "不要說 want that I study。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That makes sense, but what are you actually interested in?",
+      "zh": "這很合理，但你自己真正感興趣的是什麼？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "make sense",
+            "inSentence": "makes sense",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "有道理；合理",
+            "ipa": "/meɪk sɛns/",
+            "collocations": ["make sense to sb", "it makes sense"],
+            "examples": [
+              {
+                "en": "Your idea makes sense to me.",
+                "zh": "我覺得你的想法有道理。"
+              }
+            ]
+          },
+          {
+            "term": "be interested in",
+            "inSentence": "interested in",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "對…有興趣",
+            "ipa": "/ˈɪntrəstɪd ɪn/",
+            "collocations": ["be interested in", "become interested in"],
+            "examples": [
+              {
+                "en": "I'm interested in history.",
+                "zh": "我對歷史有興趣。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "interested in",
+            "soundsLike": "interes-ti-din",
+            "note": "interested 的 d 和 in 連在一起念。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "I've always been curious about why people make the choices they do.",
+      "zh": "我一直很好奇，人們為什麼會做出那樣的選擇。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "curious",
+            "inSentence": "curious about",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "好奇的",
+            "ipa": "/ˈkjʊriəs/",
+            "collocations": ["curious about", "a curious child"],
+            "examples": [
+              {
+                "en": "Cats are curious about everything.",
+                "zh": "貓對什麼都很好奇。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "present perfect with always",
+            "quote": "I've always been curious",
+            "explanation": "have always been 表示「從以前到現在一直都…」。",
+            "examples": [
+              {
+                "en": "She has always loved music.",
+                "zh": "她一直都很愛音樂。"
+              }
+            ],
+            "pitfall": "不要只用 I always curious，少了 be 動詞。"
+          },
+          {
+            "point": "do replacing a verb",
+            "quote": "the choices they do",
+            "explanation": "they do 代替 they make，避免重複前面的動詞。",
+            "examples": [
+              {
+                "en": "He works harder than I do.",
+                "zh": "他比我更努力工作。"
+              }
+            ],
+            "pitfall": "不要寫成 the choices they do make it。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "I've always been curious",
+            "role": "main",
+            "zh": "我一直很好奇"
+          },
+          {
+            "text": "about why people make the choices",
+            "role": "subordinate",
+            "zh": "人們為什麼做出那些選擇"
+          },
+          {
+            "text": "they do",
+            "role": "modifier",
+            "zh": "他們所做的"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Last summer I read a book on behavioral psychology, and I couldn't put it down.",
+      "zh": "去年暑假我讀了一本行為心理學的書，完全捨不得放下。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "can't put it down",
+            "inSentence": "couldn't put it down",
+            "kind": "idiom",
+            "pos": "phr.",
+            "zh": "（書）好看到捨不得放下",
+            "ipa": "/ˈkʊdənt pʊt ɪt daʊn/",
+            "collocations": ["couldn't put it down", "hard to put down"],
+            "examples": [
+              {
+                "en": "The novel was so good that I couldn't put it down.",
+                "zh": "那本小說好看到我停不下來。"
+              }
+            ]
+          },
+          {
+            "term": "behavioral",
+            "inSentence": "behavioral",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "行為的",
+            "ipa": "/bɪˈheɪvjərəl/",
+            "collocations": ["behavioral science", "behavioral problems"],
+            "examples": [
+              {
+                "en": "He studies behavioral science.",
+                "zh": "他研究行為科學。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "put it down",
+            "soundsLike": "pu-di-down",
+            "note": "美式發音中 t 夾在母音間會變成輕快的 d 音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Then why not look for a department that combines both interests?",
+      "zh": "那何不找一個能結合這兩種興趣的科系？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "combine",
+            "inSentence": "combines",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "結合",
+            "ipa": "/kəmˈbaɪn/",
+            "collocations": ["combine A and B", "combine with"],
+            "examples": [
+              {
+                "en": "This dish combines sweet and sour flavors.",
+                "zh": "這道菜結合了酸和甜的味道。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "why not + base verb",
+            "quote": "why not look for",
+            "explanation": "Why not ＋原形動詞是提出建議的口語說法。",
+            "examples": [
+              {
+                "en": "Why not take a break?",
+                "zh": "何不休息一下？"
+              }
+            ],
+            "pitfall": "不要加 to，不說 why not to look。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Some universities offer programs in cognitive science, where you study the mind and also learn to code.",
+      "zh": "有些大學有認知科學學程，你可以研究人的心智，同時也學寫程式。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "cognitive",
+            "inSentence": "cognitive science",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "認知的",
+            "ipa": "/ˈkɑɡnətɪv/",
+            "collocations": ["cognitive science", "cognitive skills"],
+            "examples": [
+              {
+                "en": "Sleep is important for cognitive health.",
+                "zh": "睡眠對認知健康很重要。"
+              }
+            ]
+          },
+          {
+            "term": "code",
+            "inSentence": "learn to code",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "寫程式",
+            "ipa": "/koʊd/",
+            "collocations": ["learn to code", "code a website"],
+            "examples": [
+              {
+                "en": "My brother can code games.",
+                "zh": "我哥哥會寫遊戲程式。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "relative adverb where",
+            "quote": "cognitive science, where you study",
+            "explanation": "where 引導關係子句，補充說明前面的學科或地方，意思是「在那裡（那個領域中）」。",
+            "examples": [
+              {
+                "en": "I visited Tainan, where my grandparents live.",
+                "zh": "我去了台南，我祖父母住在那裡。"
+              }
+            ],
+            "pitfall": "逗號後的 where 子句是補充說明，不能用 that 取代。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "Some universities offer programs",
+            "role": "main",
+            "zh": "有些大學提供學程"
+          },
+          {
+            "text": "in cognitive science",
+            "role": "modifier",
+            "zh": "認知科學的"
+          },
+          {
+            "text": "where you study the mind",
+            "role": "subordinate",
+            "zh": "在那裡你研究心智"
+          },
+          {
+            "text": "and also learn to code",
+            "role": "subordinate",
+            "zh": "也學寫程式"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "I've never heard of that, but is it hard to get in?",
+      "zh": "我從來沒聽過，不過那很難考進去嗎？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "hear of",
+            "inSentence": "heard of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "聽說過",
+            "ipa": "/hɪr ʌv/",
+            "collocations": ["never heard of", "have you heard of"],
+            "examples": [
+              {
+                "en": "Have you heard of this band?",
+                "zh": "你有聽過這個樂團嗎？"
+              }
+            ]
+          },
+          {
+            "term": "get in",
+            "inSentence": "get in",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "被錄取；進入",
+            "ipa": "/ɡɛt ɪn/",
+            "collocations": ["get in to a school", "hard to get in"],
+            "examples": [
+              {
+                "en": "She worked hard and got in.",
+                "zh": "她很努力，結果考上了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "get in",
+            "soundsLike": "ge-din",
+            "note": "get 的 t 在母音前常念成輕快的 d 音。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "It's competitive, so your learning portfolio really matters.",
+      "zh": "競爭很激烈，所以你的學習歷程檔案非常重要。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "competitive",
+            "inSentence": "competitive",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "競爭激烈的",
+            "ipa": "/kəmˈpɛtətɪv/",
+            "collocations": ["highly competitive", "a competitive market"],
+            "examples": [
+              {
+                "en": "Getting into that school is very competitive.",
+                "zh": "要考進那所學校競爭很激烈。"
+              }
+            ]
+          },
+          {
+            "term": "portfolio",
+            "inSentence": "learning portfolio",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "作品集；學習歷程檔案",
+            "ipa": "/pɔrtˈfoʊlioʊ/",
+            "collocations": ["learning portfolio", "build a portfolio"],
+            "examples": [
+              {
+                "en": "I added my science project to my portfolio.",
+                "zh": "我把科展作品加進學習歷程檔案。"
+              }
+            ]
+          },
+          {
+            "term": "matter",
+            "inSentence": "matters",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "要緊；重要",
+            "ipa": "/ˈmætɚ/",
+            "collocations": ["really matter", "it doesn't matter"],
+            "examples": [
+              {
+                "en": "Your health matters most.",
+                "zh": "你的健康最重要。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "You could write about that psychology book and the coding club you joined.",
+      "zh": "你可以寫你讀的那本心理學的書，還有你參加的程式設計社。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "coding club",
+            "inSentence": "coding club",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "程式設計社",
+            "ipa": "/ˈkoʊdɪŋ klʌb/",
+            "collocations": ["join a coding club", "the school coding club"],
+            "examples": [
+              {
+                "en": "Our coding club made a game app.",
+                "zh": "我們程式設計社做了一個遊戲 app。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "omitted relative pronoun",
+            "quote": "the coding club you joined",
+            "explanation": "關係代名詞當受詞時可以省略：the coding club (that) you joined。",
+            "examples": [
+              {
+                "en": "This is the book I bought.",
+                "zh": "這是我買的書。"
+              }
+            ],
+            "pitfall": "省略後不要再加 it，不說 the club you joined it。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "That's a great idea, but I still need to convince my parents.",
+      "zh": "這主意很棒，但我還是得說服我爸媽。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "still need to",
+            "note": "still 放在 need 前面，強調「仍然得」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "convince",
+            "inSentence": "convince",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "說服",
+            "ipa": "/kənˈvɪns/",
+            "collocations": ["convince sb to", "convince sb that"],
+            "examples": [
+              {
+                "en": "I convinced my mom to let me go.",
+                "zh": "我說服媽媽讓我去。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Why don't you show them the course list and the career paths of graduates?",
+      "zh": "你何不給他們看課程清單，還有畢業生的職涯發展？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "graduate",
+            "inSentence": "graduates",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "畢業生",
+            "ipa": "/ˈɡrædʒuət/",
+            "collocations": ["college graduates", "recent graduates"],
+            "examples": [
+              {
+                "en": "Many graduates work in tech.",
+                "zh": "很多畢業生在科技業工作。"
+              }
+            ]
+          },
+          {
+            "term": "career path",
+            "inSentence": "career paths",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "職涯發展；職業道路",
+            "ipa": "/kəˈrɪr pæθ/",
+            "collocations": ["choose a career path", "a clear career path"],
+            "examples": [
+              {
+                "en": "Teaching is a common career path.",
+                "zh": "教書是常見的職涯選擇。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "Why don't you ...?",
+            "quote": "Why don't you show them",
+            "explanation": "Why don't you ＋原形動詞？是委婉的建議，意思是「你何不…」。",
+            "examples": [
+              {
+                "en": "Why don't you call her?",
+                "zh": "你何不打給她？"
+              }
+            ],
+            "pitfall": "這不是在問原因，回答時不要說 Because…。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "When parents see real information, they usually worry less.",
+      "zh": "父母看到實際的資訊時，通常就比較不會擔心了。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "information",
+            "note": "不可數名詞，不加 s。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "worry",
+            "inSentence": "worry less",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "擔心",
+            "ipa": "/ˈwɝi/",
+            "collocations": ["worry about", "worry less"],
+            "examples": [
+              {
+                "en": "Don't worry about the test.",
+                "zh": "別擔心考試。"
+              }
+            ]
+          },
+          {
+            "term": "information",
+            "inSentence": "information",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "資訊",
+            "ipa": "/ˌɪnfɚˈmeɪʃən/",
+            "collocations": ["useful information", "more information"],
+            "examples": [
+              {
+                "en": "I need more information.",
+                "zh": "我需要更多資訊。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "You're right, so I'll talk to them this weekend and visit the university's open house next month.",
+      "zh": "你說得對，那我這週末會跟他們談談，下個月再去參加那所大學的校園開放日。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "hard",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "open house",
+            "inSentence": "open house",
+            "kind": "phrase",
+            "pos": "n.",
+            "zh": "（學校）開放參觀日",
+            "ipa": "/ˌoʊpən ˈhaʊs/",
+            "collocations": ["go to an open house", "hold an open house"],
+            "examples": [
+              {
+                "en": "The school holds an open house in March.",
+                "zh": "學校三月會舉辦開放參觀日。"
+              }
+            ]
+          },
+          {
+            "term": "talk to",
+            "inSentence": "talk to them",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "跟…談談",
+            "ipa": "/tɔk tu/",
+            "collocations": ["talk to sb", "talk to sb about"],
+            "examples": [
+              {
+                "en": "I need to talk to my coach.",
+                "zh": "我需要跟教練談談。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "will for decisions",
+            "quote": "I'll talk to them",
+            "explanation": "說話當下才做的決定用 will，常縮成 I'll。",
+            "examples": [
+              {
+                "en": "I'm thirsty, so I'll get some water.",
+                "zh": "我口渴了，我去拿點水。"
+              }
+            ],
+            "pitfall": "已經安排好的計畫比較常用 be going to。"
+          }
+        ],
+        "chunks": [
+          {
+            "text": "You're right",
+            "role": "main",
+            "zh": "你說得對"
+          },
+          {
+            "text": "so I'll talk to them this weekend",
+            "role": "main",
+            "zh": "那我這週末跟他們談"
+          },
+          {
+            "text": "and visit the university's open house",
+            "role": "main",
+            "zh": "並去大學的開放日"
+          },
+          {
+            "text": "next month",
+            "role": "modifier",
+            "zh": "下個月"
+          }
+        ],
+        "connected": []
+      }
+    },
+    {
+      "en": "Good luck, and let me know what they say!",
+      "zh": "祝你好運，再告訴我他們怎麼說！",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "let me know",
+            "inSentence": "let me know",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "告訴我；讓我知道",
+            "ipa": "/lɛt mi noʊ/",
+            "collocations": ["let me know if", "let me know what"],
+            "examples": [
+              {
+                "en": "Let me know when you arrive.",
+                "zh": "到了跟我說一聲。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

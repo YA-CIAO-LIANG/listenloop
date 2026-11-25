@@ -1,0 +1,589 @@
+{
+  "slug": "e-a-birthday-gift-for-mom",
+  "series": "exam",
+  "title": "A Birthday Gift for Mom",
+  "titleZh": "送媽媽的生日禮物",
+  "subtitle": "全民英檢初級風格對話：兩個朋友約週六一起去買媽媽的生日禮物",
+  "format": "dialogue",
+  "accent": "us",
+  "meta": {
+    "category": "exam",
+    "scenario": "gept-conversation",
+    "level": "beginner",
+    "exam": "gept",
+    "examTarget": "gept-elementary"
+  },
+  "source": {
+    "kind": "original"
+  },
+  "sentences": [
+    {
+      "en": "Hey, are you free on Saturday afternoon?",
+      "zh": "嘿，你星期六下午有空嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "free",
+            "inSentence": "free",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "有空的",
+            "ipa": "/fri/",
+            "collocations": ["be free on", "free time"],
+            "examples": [
+              {
+                "en": "Are you free tonight?",
+                "zh": "你今晚有空嗎？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I think so. Why do you ask?",
+      "zh": "應該有吧。你為什麼這樣問？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "I think so",
+            "inSentence": "I think so",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "我想是吧；應該是",
+            "ipa": "/aɪ θɪŋk soʊ/",
+            "collocations": ["I don't think so"],
+            "examples": [
+              {
+                "en": "Will it rain? I think so.",
+                "zh": "會下雨嗎？應該會吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "It's my mom's birthday next week, and I want to buy her a gift.",
+      "zh": "下週是我媽媽的生日，我想買禮物給她。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "my mom's birthday next week",
+            "note": "對話的目的：買媽媽的生日禮物。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "gift",
+            "inSentence": "gift",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "禮物",
+            "ipa": "/ɡɪft/",
+            "collocations": ["birthday gift", "buy someone a gift"],
+            "examples": [
+              {
+                "en": "This gift is for you.",
+                "zh": "這份禮物是給你的。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "buy + person + thing",
+            "quote": "buy her a gift",
+            "explanation": "buy 後面可以先接人、再接東西：buy her a gift，也可以說 buy a gift for her。",
+            "examples": [
+              {
+                "en": "My dad bought me a new bike.",
+                "zh": "我爸爸買了一台新腳踏車給我。"
+              }
+            ],
+            "pitfall": "說 buy a gift to her 是錯的，要用 for。"
+          }
+        ],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "want to buy",
+            "soundsLike": "wanna buy",
+            "note": "want to 後面接動詞，口語常說成 wanna。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "That's nice. What do you want to get her?",
+      "zh": "真好。你想送她什麼？",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "get",
+            "inSentence": "get her",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "買給；送給",
+            "ipa": "/ɡɛt/",
+            "collocations": ["get someone something"],
+            "examples": [
+              {
+                "en": "What did you get your sister?",
+                "zh": "你送你妹妹什麼？"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "I'm not sure yet. Last year I gave her a scarf, and she wore it all winter.",
+      "zh": "我還不確定。去年我送她一條圍巾，她整個冬天都戴著。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "scarf",
+            "inSentence": "scarf",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "圍巾",
+            "ipa": "/skɑrf/",
+            "collocations": ["wear a scarf", "wool scarf"],
+            "examples": [
+              {
+                "en": "It's cold, so wear a scarf.",
+                "zh": "天氣冷，戴條圍巾吧。"
+              }
+            ]
+          },
+          {
+            "term": "not sure yet",
+            "inSentence": "not sure yet",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "還不確定",
+            "ipa": "/nɑt ʃʊr jɛt/",
+            "collocations": ["I'm not sure yet"],
+            "examples": [
+              {
+                "en": "I'm not sure yet, but maybe.",
+                "zh": "我還不確定，不過也許吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "How about a plant? My mom loves the one I bought her.",
+      "zh": "送盆栽怎麼樣？我媽媽很喜歡我買給她的那盆。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "How about a plant?",
+            "note": "男生的建議：送植物。初級考題常問「男生建議什麼」。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "how about",
+            "inSentence": "How about",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "…怎麼樣（提出建議）",
+            "ipa": "/haʊ əˈbaʊt/",
+            "collocations": ["how about going", "how about this"],
+            "examples": [
+              {
+                "en": "How about pizza for dinner?",
+                "zh": "晚餐吃披薩怎麼樣？"
+              }
+            ]
+          },
+          {
+            "term": "plant",
+            "inSentence": "plant",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "植物；盆栽",
+            "ipa": "/plænt/",
+            "collocations": ["water a plant", "house plant"],
+            "examples": [
+              {
+                "en": "I water my plants every morning.",
+                "zh": "我每天早上幫植物澆水。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Good idea. She likes to take care of flowers on our balcony.",
+      "zh": "好主意。她喜歡照顧我們陽台上的花。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "take care of",
+            "inSentence": "take care of",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "照顧",
+            "ipa": "/teɪk kɛr əv/",
+            "collocations": ["take care of a pet"],
+            "examples": [
+              {
+                "en": "Can you take care of my dog this weekend?",
+                "zh": "你這週末可以幫我照顧狗嗎？"
+              }
+            ]
+          },
+          {
+            "term": "balcony",
+            "inSentence": "balcony",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "陽台",
+            "ipa": "/ˈbælkəni/",
+            "collocations": ["on the balcony"],
+            "examples": [
+              {
+                "en": "We eat breakfast on the balcony.",
+                "zh": "我們在陽台吃早餐。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "There's a flower shop near the train station, and it's not too expensive.",
+      "zh": "火車站附近有一家花店，而且不會太貴。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [
+          {
+            "text": "near the train station",
+            "note": "地點題：花店在火車站附近。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "expensive",
+            "inSentence": "expensive",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "昂貴的",
+            "ipa": "/ɪkˈspɛnsɪv/",
+            "collocations": ["too expensive", "not expensive"],
+            "examples": [
+              {
+                "en": "This bag is too expensive for me.",
+                "zh": "這個包包對我來說太貴了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Great. Can we meet there at two o'clock?",
+      "zh": "太好了。我們可以兩點在那裡碰面嗎？",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "meet",
+            "inSentence": "meet there",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "碰面",
+            "ipa": "/mit/",
+            "collocations": ["meet at", "meet someone"],
+            "examples": [
+              {
+                "en": "Let's meet at the park.",
+                "zh": "我們在公園碰面吧。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Sure, but I have a piano lesson until one thirty, so I might be a little late.",
+      "zh": "好啊，不過我鋼琴課上到一點半，所以可能會晚一點到。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [
+          {
+            "text": "I might be a little late",
+            "note": "可能遲到的原因是鋼琴課，常見的細節題。"
+          }
+        ],
+        "vocab": [
+          {
+            "term": "lesson",
+            "inSentence": "lesson",
+            "kind": "word",
+            "pos": "n.",
+            "zh": "課",
+            "ipa": "/ˈlɛsən/",
+            "collocations": ["piano lesson", "take lessons"],
+            "examples": [
+              {
+                "en": "She takes swimming lessons on Sunday.",
+                "zh": "她星期天上游泳課。"
+              }
+            ]
+          }
+        ],
+        "grammar": [
+          {
+            "point": "might for possibility",
+            "quote": "I might be a little late",
+            "explanation": "might + 原形動詞表示「可能會」，語氣比 will 不確定。",
+            "examples": [
+              {
+                "en": "It might rain tomorrow.",
+                "zh": "明天可能會下雨。"
+              }
+            ],
+            "pitfall": "might 後面要接原形：might is late 是錯的。"
+          }
+        ],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "No problem. I can wait for you at the coffee shop next door.",
+      "zh": "沒問題，我可以在隔壁的咖啡店等你。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "wait for",
+            "inSentence": "wait for",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "等待",
+            "ipa": "/weɪt fɔr/",
+            "collocations": ["wait for the bus"],
+            "examples": [
+              {
+                "en": "I'm waiting for my friend.",
+                "zh": "我在等我朋友。"
+              }
+            ]
+          },
+          {
+            "term": "next door",
+            "inSentence": "next door",
+            "kind": "phrase",
+            "pos": "adv.",
+            "zh": "在隔壁",
+            "ipa": "/nɛkst dɔr/",
+            "collocations": ["live next door"],
+            "examples": [
+              {
+                "en": "My aunt lives next door.",
+                "zh": "我阿姨住在隔壁。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "OK. After that, let's look for a birthday card too.",
+      "zh": "好。之後我們也去找張生日卡片吧。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "look for",
+            "inSentence": "look for",
+            "kind": "phrase",
+            "pos": "phr.",
+            "zh": "尋找",
+            "ipa": "/lʊk fɔr/",
+            "collocations": ["look for a job"],
+            "examples": [
+              {
+                "en": "I'm looking for my keys.",
+                "zh": "我在找我的鑰匙。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "Yes, she always keeps the cards we give her.",
+      "zh": "好啊，她總是會留著我們送她的卡片。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "keep",
+            "inSentence": "keeps",
+            "kind": "word",
+            "pos": "v.",
+            "zh": "保留；留著",
+            "ipa": "/kip/",
+            "collocations": ["keep a letter", "keep something"],
+            "examples": [
+              {
+                "en": "I keep all my old photos.",
+                "zh": "我留著所有的舊照片。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    },
+    {
+      "en": "She has a whole box of them in her room.",
+      "zh": "她房間裡有一整盒卡片。",
+      "speaker": 0,
+      "notes": {
+        "v": 2,
+        "difficulty": "medium",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "whole",
+            "inSentence": "whole",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "整個的",
+            "ipa": "/hoʊl/",
+            "collocations": ["the whole day", "a whole box"],
+            "examples": [
+              {
+                "en": "He ate the whole cake.",
+                "zh": "他把整個蛋糕吃掉了。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": [
+          {
+            "text": "box of them",
+            "soundsLike": "boxa them",
+            "note": "of 弱讀成 /ə/，和 box 連在一起。"
+          }
+        ]
+      }
+    },
+    {
+      "en": "Then let's write something really nice inside this time.",
+      "zh": "那這次我們在裡面寫些很棒的話吧。",
+      "speaker": 1,
+      "notes": {
+        "v": 2,
+        "difficulty": "easy",
+        "highlights": [],
+        "vocab": [
+          {
+            "term": "inside",
+            "inSentence": "inside",
+            "kind": "word",
+            "pos": "adv.",
+            "zh": "在裡面",
+            "ipa": "/ɪnˈsaɪd/",
+            "collocations": ["look inside", "write inside"],
+            "examples": [
+              {
+                "en": "Please wait inside.",
+                "zh": "請在裡面等。"
+              }
+            ]
+          }
+        ],
+        "grammar": [],
+        "chunks": [],
+        "connected": []
+      }
+    }
+  ]
+}

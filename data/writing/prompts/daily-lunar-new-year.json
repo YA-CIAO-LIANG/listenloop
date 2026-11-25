@@ -1,0 +1,93 @@
+{
+  "id": "daily-lunar-new-year",
+  "type": "daily",
+  "level": "intermediate",
+  "title": {
+    "en": "How I Spend Lunar New Year",
+    "zh": "我怎麼過農曆新年"
+  },
+  "subtitle": "描述你家過年的習俗，以及你最重視的部分",
+  "task": "Describe how you and your family spend Lunar New Year. What do you do before and during the holiday, and which part means the most to you?",
+  "taskZh": "描述你和家人怎麼過農曆新年：過年前和過年期間會做哪些事？哪個部分對你最有意義？",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "依時間順序介紹習俗",
+    "向不了解的讀者解釋文化細節",
+    "說明最有意義的部分與原因"
+  ],
+  "model": {
+    "en": [
+      "Lunar New Year is the most important holiday in my family. About a week before it begins, we clean the whole house from top to bottom. My father says that cleaning sweeps away the bad luck of the old year. We also put red paper with lucky words on our front door.",
+      "On New Year's Eve, all my relatives gather at my grandparents' house in Chiayi for a big dinner. We always eat fish, because the word for fish sounds like the word for having extra. After dinner, the adults give red envelopes to the children, and we stay up late to play games together.",
+      "For me, the most meaningful part is not the red envelopes but the time with my family. My cousins live in different cities, so this is the only time of year when we are all together. Even after I move abroad, I hope to come home for this holiday every year."
+    ],
+    "zh": [
+      "農曆新年是我們家最重要的節日。過年前大約一週，我們會把整個家從上到下打掃乾淨。爸爸說，大掃除能掃走舊的一年的霉運。我們也會在大門貼上寫著吉祥話的春聯。",
+      "除夕夜，所有親戚都會聚在嘉義的祖父母家吃年夜飯。我們一定會吃魚，因為「魚」聽起來像「餘」，代表年年有餘。吃完飯後，大人會發紅包給小孩，我們也會熬夜一起玩遊戲。",
+      "對我來說，最有意義的不是紅包，而是和家人相處的時光。我的堂表兄弟姊妹住在不同城市，所以這是一年中我們唯一能全部聚在一起的時候。就算以後出國，我也希望每年都能回家過年。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "About a week before it begins, we …",
+      "zh": "用時間片語說明習俗的時間點",
+      "example": "About a week before it begins, we clean the whole house from top to bottom.",
+      "keys": ["before", "we"]
+    },
+    {
+      "pattern": "…, because the word for … sounds like …",
+      "zh": "解釋諧音由來，讓外國讀者看懂文化",
+      "example": "We always eat fish, because the word for fish sounds like the word for having extra.",
+      "keys": ["because", "sounds like"]
+    },
+    {
+      "pattern": "the most meaningful part is not … but …",
+      "zh": "最有意義的不是……，而是……",
+      "example": "For me, the most meaningful part is not the red envelopes but the time with my family.",
+      "keys": ["most meaningful", "not", "but"]
+    },
+    {
+      "pattern": "Even after I …, I hope to …",
+      "zh": "即使……之後，我仍希望……",
+      "example": "Even after I move abroad, I hope to come home for this holiday every year.",
+      "keys": ["even after", "hope to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "We clean the whole house.",
+        "We put red paper with lucky words on our front door."
+      ],
+      "answer": "We clean the whole house and put red paper with lucky words on our front door."
+    },
+    {
+      "parts": [
+        "My cousins live in different cities.",
+        "This is the only time of year when we are all together."
+      ],
+      "answer": "My cousins live in different cities, so this is the only time of year when we are all together."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "We clean the whole house from top to bottom.",
+      "answers": [
+        "We clean every corner of the house.",
+        "We give the whole house a thorough cleaning."
+      ]
+    },
+    {
+      "sentence": "We stay up late to play games together.",
+      "answers": [
+        "We play games together until late at night.",
+        "We don't go to bed early because we play games together."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

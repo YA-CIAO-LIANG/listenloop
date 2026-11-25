@@ -1,0 +1,93 @@
+{
+  "id": "toeic-email-software-training",
+  "type": "toeic",
+  "level": "intermediate",
+  "title": {
+    "en": "Replying About a Training Session",
+    "zh": "回覆人資部的教育訓練通知"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：回覆電子郵件，提出兩個問題和一個請求",
+  "task": "Directions: Read the e-mail below. Respond to the e-mail as if you are an employee in the sales department. In your e-mail, ask TWO questions and make ONE request.\n\nFrom: Linda Park, Human Resources\nTo: All staff\nSubject: Training on the new scheduling system\n\nDear staff,\n\nNext month, we will start using a new online system to schedule meetings and book meeting rooms. To help everyone get used to it, we are planning training sessions for each department. If you have any questions or special needs, please reply to this e-mail by Friday.\n\nLinda Park",
+  "taskZh": "人資部的 Linda Park 寄信通知全體員工：公司下個月要改用新的線上系統安排會議、預約會議室，會為各部門舉辦教育訓練，有問題或需求請在星期五前回信。請以業務部員工的身分回信，信中要提出兩個問題和一個請求。",
+  "words": { "min": 90, "max": 140 },
+  "minutes": 10,
+  "focus": [
+    "任務完成：兩個問題、一個請求都要寫到，而且清楚好辨認",
+    "組織：開頭回應來信、中間提問與請求、最後道謝，分段清楚",
+    "語氣：商業書信要禮貌，用 could you、would it be possible 等委婉說法",
+    "文法與用字：問句語序正確、用字精確"
+  ],
+  "model": {
+    "en": [
+      "Dear Ms. Park,",
+      "Thank you for organizing training sessions on the new scheduling system. Our sales team books meeting rooms almost every day, so we are glad to have a chance to learn the system before it starts. I have two questions about the sessions. First, how long will each session take? Second, will the training be recorded for employees who are visiting clients that day?",
+      "I would also like to make one request. Since many of us often schedule meetings on our phones, could you include a short demonstration of the mobile version? That would help us use the system outside the office. Thank you again for your help.",
+      "Best regards, Kevin Chen, Sales Department"
+    ],
+    "zh": [
+      "Park 小姐您好：",
+      "謝謝您為新的排程系統安排教育訓練。我們業務部幾乎每天都要預約會議室，所以很高興能在系統上線前先學會使用。關於課程，我有兩個問題。第一，每堂課大約多久？第二，課程會不會錄影，讓當天外出拜訪客戶的同仁也能觀看？",
+      "另外，我想提出一個請求。因為我們很多人常用手機安排會議，能否請您在課程中加入行動版的簡短示範？這能幫助我們在辦公室外也順利使用這個系統。再次感謝您的協助。",
+      "業務部 陳凱文 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Thank you for organizing …",
+      "zh": "回信開頭：先感謝對方的安排",
+      "example": "Thank you for organizing training sessions on the new scheduling system.",
+      "keys": ["thank you for"]
+    },
+    {
+      "pattern": "I have two questions about …",
+      "zh": "預告要提問，讓讀者知道接下來的重點",
+      "example": "I have two questions about the sessions.",
+      "keys": ["i have two questions"]
+    },
+    {
+      "pattern": "First, …? Second, …?",
+      "zh": "用 First、Second 把問題分開列出",
+      "example": "Second, will the training be recorded for employees who are visiting clients that day?",
+      "keys": ["second", "will"]
+    },
+    {
+      "pattern": "Since …, could you …?",
+      "zh": "先說明原因，再禮貌地提出請求",
+      "example": "Since many of us often schedule meetings on our phones, could you include a short demonstration of the mobile version?",
+      "keys": ["since", "could you"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Our sales team books meeting rooms almost every day.",
+        "We are glad to learn the system before it starts."
+      ],
+      "answer": "Our sales team books meeting rooms almost every day, so we are glad to learn the system before it starts."
+    },
+    {
+      "parts": [
+        "Many of us schedule meetings on our phones.",
+        "Could you include a demonstration of the mobile version?"
+      ],
+      "answer": "Since many of us schedule meetings on our phones, could you include a demonstration of the mobile version?"
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "How long will each session take?",
+      "answers": [
+        "How long is each session?",
+        "How much time will each session last?"
+      ]
+    },
+    {
+      "sentence": "Thank you again for your help.",
+      "answers": [
+        "I really appreciate your help.",
+        "Thanks once more for your assistance."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}
