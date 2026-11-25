@@ -1076,12 +1076,22 @@ export const CATEGORY_IDS: readonly CategoryId[] = [
 ];
 
 /**
+ * Series of official materials only (D213): ListenLoop's own curated
+ * sets, never a guess for a learner's text (and left out of the
+ * composition prompt, so its recorded eval answers still hold).
+ */
+export const OFFICIAL_SERIES: readonly CategoryId[] = ["classics", "school"];
+
+/**
  * The categories AI may file a text under when the learner didn't name
  * one (D153): the general categories, or "other" when none fits. Exam
- * listening needs an exam and a target, so it's chosen, never guessed.
+ * listening needs an exam and a target, so it's chosen, never guessed;
+ * the official series (D213) are never guessed either.
  */
 export const GUESSABLE_CATEGORIES: readonly CategoryId[] = [
-  ...CATEGORIES.map((category) => category.id),
+  ...CATEGORIES.map((category) => category.id).filter(
+    (id) => !OFFICIAL_SERIES.includes(id),
+  ),
   OTHER_CATEGORY,
 ];
 
