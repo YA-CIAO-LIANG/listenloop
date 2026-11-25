@@ -1663,10 +1663,10 @@
       "plans": {
         "free": "Free",
         "paid": "Plus",
+        "student": "Student",
         "pro": "Pro"
       },
-      "makePaid": "Move to the paid plan",
-      "makeFree": "Move back to free",
+      "planLabel": "Plan",
       "classroom": "Class plan (for trying)",
       "classroomNone": "None",
       "classroomSeats": "{seats} students",
@@ -2914,9 +2914,10 @@
     "plans": {
       "free": "Free",
       "paid": "Plus",
+      "student": "Student",
       "pro": "Pro"
     },
-    "byAdmin": "Paid (set by an admin)",
+    "byAdmin": "{plan} (set by an admin)",
     "interval": {
       "month": "Monthly",
       "year": "Yearly"
@@ -3196,10 +3197,10 @@
     "current": "Your plan",
     "perMonthSuffix": " / month",
     "summaries": {
-      "free": "Every official lesson and feature, basic stats, 2 minutes of your own materials a week (two of a minute, or one of two), and 2 AI writing reviews a week.",
-      "plus": "Every shared material in full, 40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, custom pass rules, and 3 AI writing reviews a week.",
-      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, 6 AI writing reviews a week, and everything in Plus.",
-      "student": "Everything in Plus, at a student price."
+      "free": "Every official lesson and feature, basic stats, and 2 minutes of your own materials a week (two of a minute, or one of two). For writing, each week: {reviews} AI reviews, {chat} minutes of chat, and {checks} AI checks of extra practice.",
+      "plus": "Every shared material in full, 40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules. More AI for writing than Free, each week: {reviews} reviews, {chat} minutes of chat, and {checks} AI checks of extra practice.",
+      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus. The most AI for writing, each week: {reviews} reviews, {chat} minutes of chat, and {checks} AI checks of extra practice.",
+      "student": "Listening and the other paid features as in Plus, at a student price. A little more AI for writing than Free, each week: {reviews} reviews, {chat} minutes of chat, and {checks} AI checks of extra practice."
     },
     "student": {
       "verified": "Verified as a student until {until}.",
@@ -3880,6 +3881,7 @@
     "plans": {
       "free": "the free plan",
       "paid": "Plus",
+      "student": "the student plan",
       "pro": "Pro",
       "admin": "admin (unlimited)"
     },

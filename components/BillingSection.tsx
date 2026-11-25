@@ -3,7 +3,7 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { setCancelAtPeriodEnd } from "@/app/billing/actions";
 import type { Payment, Subscription } from "@/auth/billing";
 import { formatPrice, PLAN_PRICES, PRICES } from "@/lib/payments/pricing";
-import type { AccountPlan } from "@/lib/plans";
+import { isPayingPlan, type AccountPlan } from "@/lib/plans";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { PlanPrice } from "./PlanPrice";
@@ -60,18 +60,20 @@ export async function BillingSection({
       </h2>
       <p className="mt-4 text-supporting text-ink-muted">{t("plan")}</p>
       <p className="mt-1 flex flex-wrap items-center gap-2">
-        {plan === "paid" && !live ? t("byAdmin") : t(`plans.${plan}`)}
+        {(plan === "paid" || plan === "student") && !live
+          ? t("byAdmin", { plan: t(`plans.${plan}`) })
+          : t(`plans.${plan}`)}
         {live && <span>· {t(`interval.${subscription.interval}`)}</span>}
         {subscription?.test && <Tag>{t("test")}</Tag>}
       </p>
       {/* What the plan costs, a month first like everywhere (D128). */}
-      {live && (plan === "paid" || plan === "pro") && (
+      {live && isPayingPlan(plan) && (
         <p className="mt-1 text-supporting">
           <PlanPrice
             total={
-              PLAN_PRICES[plan === "pro" ? "pro" : "plus"][
-                subscription.interval
-              ].amount
+              PLAN_PRICES[
+                plan === "pro" ? "pro" : plan === "student" ? "student" : "plus"
+              ][subscription.interval].amount
             }
             period={subscription.interval}
             size="inline"

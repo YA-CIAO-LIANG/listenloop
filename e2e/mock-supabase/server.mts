@@ -121,8 +121,12 @@ const conflictKeys: Record<string, string[]> = {
   writing_chat_sessions: ["id"],
   feedback: ["id"],
 };
-// e2e-paid is on the paid plan from the start (paid features, D97).
-const plans = new Map<string, string>([["e2e-paid", "paid"]]);
+// e2e-paid is on the paid plan from the start (paid features, D97);
+// e2e-student-plan on the student plan (D207).
+const plans = new Map<string, string>([
+  ["e2e-paid", "paid"],
+  ["e2e-student-plan", "student"],
+]);
 
 /** The `column=eq.value` filters of a PostgREST request. */
 function eqFilters(params: URLSearchParams): [string, string][] {
@@ -587,7 +591,7 @@ function mayPractice(row: Row, sub: string | null): boolean {
   if (row.official || (sub && row.user_id === sub)) return true;
   if (sub === "e2e-admin") return true;
   const plan = sub ? plans.get(sub) : undefined;
-  return plan === "paid" || plan === "pro";
+  return plan === "paid" || plan === "student" || plan === "pro";
 }
 
 /** A request's body as text. */

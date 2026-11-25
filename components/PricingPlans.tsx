@@ -39,9 +39,19 @@ const linkClassName =
 const LIMITS = {
   plus: PLANS.paid,
   pro: PLANS.pro,
-  // Plus at a student price (D144).
-  student: PLANS.paid,
+  // Plus at a student price (D144), its own AI allowances (D207).
+  student: PLANS.student,
 } as const;
+
+/**
+ * A plan's AI writing allowances for its summary (D207), from PLANS so
+ * the words can't drift from the limits.
+ */
+const writingAllowances = (limits: (typeof PLANS)[keyof typeof PLANS]) => ({
+  reviews: limits.writingReviewsPerWeek ?? 0,
+  chat: limits.chatMinutesPerWeek ?? 0,
+  checks: limits.backChecksPerWeek ?? 0,
+});
 
 /** The comparison table's rows: what each plan has (D102). */
 const ALL_FEATURES = [
@@ -257,7 +267,9 @@ export function PricingPlans({
             {current === "free" && <Tag>{t("current")}</Tag>}
           </h2>
           <PlanPrice total={0} period="month" />
-          <p className="text-supporting">{t("summaries.free")}</p>
+          <p className="text-supporting">
+            {t("summaries.free", writingAllowances(PLANS.free))}
+          </p>
         </li>
         {/* A verified student sees their plan first (D179). */}
         {(verified
@@ -288,7 +300,9 @@ export function PricingPlans({
                 period={period}
                 monthsFree={monthsSaved(plan)}
               />
-              <p className="text-supporting">{t(`summaries.${plan}`)}</p>
+              <p className="text-supporting">
+                {t(`summaries.${plan}`, writingAllowances(LIMITS[plan]))}
+              </p>
               {/* Who can have it, and where this account stands (D144). */}
               {/* Signed out, the "how" below says it all (D179). */}
               {plan === "student" && student && (

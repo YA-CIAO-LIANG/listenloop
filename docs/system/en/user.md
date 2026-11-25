@@ -215,13 +215,13 @@ flowchart LR
 
 ## 11. Plans
 
-| Plan    | Price (monthly / yearly)                            | What's included                                                                                                                                                               |
-| ------- | --------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Free    | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, 2 minutes of your own materials a week (up to 2 minutes each), basic stats     |
-| Plus    | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                                                |
-| Student | NT$119 / NT$1,190                                   | The same as Plus. Signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew |
-| Pro     | NT$319 / NT$3,190                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                                                       |
-| Class   | Small NT$349, Standard NT$549, Large NT$800 a month | 15, 40, or 100 students; assignments and progress, CSV, announcements; 45/70/105 minutes a month for the teacher                                                              |
+| Plan    | Price (monthly / yearly)                            | What's included                                                                                                                                                                                                                                                                                     |
+| ------- | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Free    | NT$0                                                | Every official material and built-in video, the 7-day loop, handouts and PDF, shared previews, 2 minutes of your own materials a week (up to 2 minutes each), basic stats                                                                                                                           |
+| Plus    | NT$149 / NT$1,490                                   | Shared materials in full, 40 minutes of your own a month (5 minutes each), audio uploads, speed, full stats, custom pass rules                                                                                                                                                                      |
+| Student | NT$119 / NT$1,190                                   | Listening and the other paid features as in Plus; its own AI writing allowances, a little more than Free (see Allowance under writing). Signing in with a school (.edu, .edu.tw …) Google account verifies you automatically for a year; after that, sign in again with the school account to renew |
+| Pro     | NT$319 / NT$3,190                                   | All of Plus, 120 minutes a month (10 minutes each), priority, batch PDF                                                                                                                                                                                                                             |
+| Class   | Small NT$349, Standard NT$549, Large NT$800 a month | 15, 40, or 100 students; assignments and progress, CSV, announcements; 45/70/105 minutes a month for the teacher                                                                                                                                                                                    |
 
 - Yearly = 10 × monthly: **2 months free**, on every plan (D173).
 - Paid plans are **coming soon**: "Subscribe" adds you to the waiting list; nothing is charged.
@@ -278,7 +278,7 @@ flowchart LR
    - Check and Next stay in the same place under the answer box, above a phone's keyboard.
    - At the end: how many were right, the average accuracy, and what was wrong in each sentence. Sentences written wrong go to your notebook, for 1, 3, and 7 days later.
    - **Extra practice**: afterwards, another set of sentences (none from today's set), with its own progress; end it whenever you like. It never changes the day's result.
-   - **Extra practice's AI check** (signed in): the rules first, and exactly right answers count at once; answers that differ are judged together by the AI at the end of the set (one call a set) for meaning and grammar, with a more natural way and why. Another wording that keeps the meaning and grammar counts as right. The result has two lines, "Meaning: right / not the same as the sentence" and "Grammar: correct / has a mistake", each with its reason. Sets a week: 7 on Free, Plus, and Student, 11 on Pro, shown under My quota; when they're used, the rules check alone and the practice goes on. Turn it off in Writing settings ("Don't use the AI check in extra practice").
+   - **Extra practice's AI check** (signed in): the rules first, and exactly right answers count at once; answers that differ are judged together by the AI at the end of the set (one call a set) for meaning and grammar, with a more natural way and why. Another wording that keeps the meaning and grammar counts as right. The result has two lines, "Meaning: right / not the same as the sentence" and "Grammar: correct / has a mistake", each with its reason. Sets a week: 7 on Free, 9 on Student, 10 on Plus, 11 on Pro, shown under My quota; when they're used, the rules check alone and the practice goes on. Turn it off in Writing settings ("Don't use the AI check in extra practice").
    - Want more? Pick a drill under "More practice": fix your sentences, pattern practice, sentence combining, paraphrasing, paragraph order, rebuilding from memory, listen-then-write. These don't change the day's progress.
 4. **Day 7, rewrite**:
    - Write the same prompt again, without Day 1 or the model.
@@ -301,11 +301,11 @@ flowchart LR
    - Choose the time (5, 10, or 20 minutes), the situation and partner (classmate, professor, coworker, barista, roommate, online friend, job interviewer, or your own), and your partner's level, then text in English.
    - Your partner replies as usual; a message with a mistake gets a small "Tip" underneath, opened to see the correction, why, and a more natural way. Tap any word of their messages for its meaning or a dictionary.
    - When time's up or you end early: your 3 main mistakes, 3 natural phrases, and the whole conversation; mistakes and phrases go to the notebook, reviewed after 1, 3, and 7 days by writing the English from the Chinese.
-   - Chat minutes a week: 5 on Free, Plus, and Student, 20 on Pro; minutes not used when you end early are given back.
+   - Chat minutes a week: 5 on Free and Student, 15 on Plus, 20 on Pro; minutes not used when you end early are given back.
    - The AI won't role-play romance, sex, violence, or anything illegal; under-18s can turn on age-appropriate rules. If you mention hurting yourself, the practice stops and helplines are shown (Taiwan 1925 and 1995, US 988). You can report an inappropriate reply.
    - Only you can see your chats; delete them under Past chats.
 7. **My writing notebook** (`/writing/notebook`): your mistakes and the patterns you learned come back after 1, 3, and 7 days.
-8. **Allowance**: AI reviews a week are 2 on Free, 3 on Plus and Student, and 6 on Pro. AI scores are estimates, not official results.
+8. **Allowance**: AI reviews a week are 2 on Free, 3 on Student, 5 on Plus, and 6 on Pro. AI scores are estimates, not official results.
 9. **Privacy**: only you can see your writing. Admins never see it, and it's never used to train AI.
 
 ---

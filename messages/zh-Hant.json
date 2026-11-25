@@ -1663,10 +1663,10 @@
       "plans": {
         "free": "免費",
         "paid": "Plus",
+        "student": "學生",
         "pro": "Pro"
       },
-      "makePaid": "改成付費方案",
-      "makeFree": "改回免費方案",
+      "planLabel": "方案",
       "classroom": "班級方案（測試用）",
       "classroomNone": "無",
       "classroomSeats": "{seats} 人",
@@ -2912,9 +2912,10 @@
     "plans": {
       "free": "免費",
       "paid": "Plus",
+      "student": "學生",
       "pro": "Pro"
     },
-    "byAdmin": "付費（由管理員設定）",
+    "byAdmin": "{plan}（由管理員設定）",
     "interval": {
       "month": "月繳",
       "year": "年繳"
@@ -3194,10 +3195,10 @@
     "current": "目前方案",
     "perMonthSuffix": "／月",
     "summaries": {
-      "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘），寫作練習每週 2 次 AI 批改。",
-      "plus": "完整練習所有人分享的公開教材、每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關，寫作練習每週 3 次 AI 批改。",
-      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF、寫作練習每週 6 次 AI 批改，以及 Plus 的全部功能。",
-      "student": "Plus 的全部內容，學生價。"
+      "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘）。寫作每週 {reviews} 次 AI 批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。",
+      "plus": "完整練習所有人分享的公開教材、每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。寫作的 AI 額度比免費版多：每週 {reviews} 次批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。",
+      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。寫作的 AI 額度最多：每週 {reviews} 次批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。",
+      "student": "聽力和其他付費功能與 Plus 相同，學生價。寫作的 AI 額度比免費版稍多：每週 {reviews} 次批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。"
     },
     "student": {
       "verified": "已認證學生身分，有效到 {until}。",
@@ -3878,6 +3879,7 @@
     "plans": {
       "free": "免費方案",
       "paid": "Plus 方案",
+      "student": "學生方案",
       "pro": "Pro 方案",
       "admin": "管理員（不限）"
     },

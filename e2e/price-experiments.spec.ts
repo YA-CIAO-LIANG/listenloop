@@ -67,13 +67,13 @@ test("an admin runs a Plus price experiment; each visitor keeps one price", asyn
   await expect(page.getByText("目前沒有進行中的實驗")).toBeVisible();
   // The control is today's price; two more groups.
   await expect(page.getByLabel("對照組")).toHaveValue("149");
-  // Under the floor (D185): Plus's 40 minutes and 3 essay reviews a
-  // week (D187) need NT$119 a month.
+  // Under the floor (D185): Plus's 40 minutes and its AI writing
+  // allowances (D207) need NT$124 a month.
   await page.getByLabel("第 2 組").fill("99");
   await page.getByLabel("第 3 組").fill("249");
   await page.getByRole("button", { name: "開始實驗" }).click();
   await expect(
-    page.getByRole("alert").filter({ hasText: "保本價 NT$119" }),
+    page.getByRole("alert").filter({ hasText: "保本價 NT$124" }),
   ).toBeVisible();
   await page.getByLabel("第 2 組").fill("199");
   await page.getByRole("button", { name: "開始實驗" }).click();

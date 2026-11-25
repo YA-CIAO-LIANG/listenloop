@@ -14,7 +14,7 @@ import { DEFAULT_USAGE_SETTINGS, dailyCostLimit } from "./usage";
  */
 const COLUMNS = [
   ["免費", "free"],
-  ["學生（Plus 的額度）", "paid"],
+  ["學生", "student"],
   ["Plus", "paid"],
   ["Pro", "pro"],
   ["班級（老師）", "class"],
