@@ -101,7 +101,15 @@ export async function checkExtraAnswers(input: {
     { providers, meter: await creatorMeter(admin, user, "manual") },
     backCheckBudget(request),
     () => check.call(providers.language, request),
-    () => "back-check",
+    // A note that said the opposite of its verdict is dropped (the
+    // verdict stands) and counted in the usage log (D205).
+    (value) => {
+      let inconsistent = 0;
+      cleanBackCheck(value, request, () => (inconsistent += 1));
+      return inconsistent
+        ? `back-check · inconsistent ${inconsistent}`
+        : "back-check";
+    },
   );
   if (!result.ok) {
     if (result.reason === "limit") return { ok: false, reason: "limit" };

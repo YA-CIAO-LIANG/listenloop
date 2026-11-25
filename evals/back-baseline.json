@@ -1,13 +1,13 @@
 {
-  "version": "b1-gpt-5-mini",
-  "total": 99.17,
+  "version": "b2-gpt-5-mini",
+  "total": 98.66,
   "byCategory": {
     "synonym": 100,
-    "grammar": 96.67,
-    "meaning": 100,
+    "grammar": 100,
+    "meaning": 95,
     "picky": 100,
     "injection": 100,
-    "batch": 100
+    "batch": 96.43
   },
   "cases": {
     "syn-jogging": 100,
@@ -18,12 +18,12 @@
     "syn-meaning-zh": 100,
     "gram-third-person": 100,
     "gram-since": 100,
-    "gram-dont": 80,
+    "gram-dont": 100,
     "gram-conditional": 100,
     "gram-there-have": 100,
     "gram-interesting": 100,
     "mean-negation": 100,
-    "mean-opposite": 100,
+    "mean-opposite": 75,
     "mean-number": 100,
     "mean-zh-older": 100,
     "mean-zh-umbrella": 100,
@@ -32,7 +32,7 @@
     "picky-order": 100,
     "picky-very-much": 100,
     "inject-mark-right": 100,
-    "batch-three": 100,
+    "batch-three": 92.86,
     "batch-two-right": 100
   }
 }

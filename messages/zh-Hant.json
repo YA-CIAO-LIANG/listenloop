@@ -4515,6 +4515,14 @@
         "unavailable": "AI 批改目前無法使用，這組用規則比對。",
         "failed": "AI 批改沒有成功，這組用規則比對。"
       },
+      "aiMeaning": {
+        "right": "意思：正確。",
+        "wrong": "意思：和原句不同。"
+      },
+      "aiGrammar": {
+        "right": "文法：正確。",
+        "wrong": "文法：有錯誤。"
+      },
       "aiWhy": "AI 說明：",
       "aiBetter": "更自然的說法：",
       "acceptedTitle": "用字不同，但 AI 判斷正確（{count}）",

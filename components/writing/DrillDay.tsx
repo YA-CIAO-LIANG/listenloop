@@ -727,20 +727,56 @@ type CheckState =
       max?: number;
     };
 
-/** The AI's reason and a better way, under an answer it checked (D200). */
+/**
+ * The AI's verdicts, their notes, and a better way, under an answer it
+ * checked (D200). The verdict lines come from the fields (D205), so the
+ * words can't say the opposite of the result; checks before D205 have
+ * one reason.
+ */
 function AiNote({ answer }: { answer: BackAnswer }) {
   const t = useTranslations("writing.back");
-  if (!answer.ai) return null;
+  const ai = answer.ai;
+  if (!ai) return null;
+  const legacy = ai.meaningWhy === undefined && ai.grammarWhy === undefined;
   return (
     <div className="flex flex-col gap-1 text-supporting">
-      <p>
-        <span className="text-ink-muted">{t("aiWhy")}</span>{" "}
-        <span lang="zh-Hant">{answer.ai.why}</span>
-      </p>
-      {answer.ai.better && (
+      {legacy ? (
+        <p>
+          <span className="text-ink-muted">{t("aiWhy")}</span>{" "}
+          <span lang="zh-Hant">{ai.why}</span>
+        </p>
+      ) : (
+        <>
+          <p data-testid="ai-meaning">
+            <span className={ai.meaning ? "text-success" : "text-error"}>
+              {t(ai.meaning ? "aiMeaning.right" : "aiMeaning.wrong")}
+            </span>
+            {ai.meaningWhy && (
+              <>
+                {" "}
+                <span lang="zh-Hant">{ai.meaningWhy}</span>
+              </>
+            )}
+          </p>
+          {answer.mode !== "listen-zh" && (
+            <p data-testid="ai-grammar">
+              <span className={ai.grammar ? "text-success" : "text-error"}>
+                {t(ai.grammar ? "aiGrammar.right" : "aiGrammar.wrong")}
+              </span>
+              {ai.grammarWhy && (
+                <>
+                  {" "}
+                  <span lang="zh-Hant">{ai.grammarWhy}</span>
+                </>
+              )}
+            </p>
+          )}
+        </>
+      )}
+      {ai.better && (
         <p>
           <span className="text-ink-muted">{t("aiBetter")}</span>{" "}
-          <span lang="en">{answer.ai.better}</span>
+          <span lang="en">{ai.better}</span>
         </p>
       )}
     </div>

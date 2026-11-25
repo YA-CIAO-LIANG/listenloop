@@ -18,9 +18,10 @@ export function fakeBackCheck(input: BackCheckInput) {
         return {
           i: item.i,
           meaning,
+          meaningWhy: meaning ? "" : "（測試）少了原句的重要內容。",
           grammar: true,
+          grammarWhy: "",
           better: "",
-          why: meaning ? "（測試）意思正確。" : "（測試）意思和原句不同。",
         };
       }
       const ref = new Set(normalizeWords(item.reference));
@@ -31,13 +32,12 @@ export function fakeBackCheck(input: BackCheckInput) {
       return {
         i: item.i,
         meaning,
+        meaningWhy: meaning
+          ? "（測試）用字不同，但說的是同一件事。"
+          : "（測試）少了原句的重要內容。",
         grammar,
+        grammarWhy: grammar ? "" : "（測試）動詞形式不對。",
         better: grammar ? "" : item.reference,
-        why: !meaning
-          ? "（測試）少了原句的重要內容。"
-          : !grammar
-            ? "（測試）動詞形式不對。"
-            : "（測試）用字不同，但意思和文法都正確。",
       };
     }),
   };
