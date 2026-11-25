@@ -98,6 +98,10 @@ test("the pricing page shows each plan's AI writing allowances (D207)", async ({
     "每週 6 次",
     "每週 3 次",
   ]);
+  // Extra practice's checks are counted in sets, as on the cards.
+  await expect(
+    page.getByRole("row", { name: /^額外練習的 AI 批改/ }).getByRole("cell"),
+  ).toHaveText(["每週 7 組", "每週 10 組", "每週 11 組", "每週 9 組"]);
   await expect(
     page.getByText(/寫作的 AI 額度比免費版稍多：每週 3 次批改/),
   ).toBeVisible();

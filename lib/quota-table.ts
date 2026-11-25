@@ -101,7 +101,7 @@ const ROWS: [string, (l: PlanLimits, column: Column) => string, string][] = [
     (l) =>
       l.backChecksPerWeek === null
         ? unlimited
-        : `每週 ${l.backChecksPerWeek} 次`,
+        : `每週 ${l.backChecksPerWeek} 組`,
     "每週一 00:00",
   ],
   [
