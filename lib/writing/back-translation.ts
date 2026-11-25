@@ -89,7 +89,8 @@ export function modelSentencesAligned(
   );
 }
 
-const fitting = (en: string) => {
+/** A sentence the right length to write back (3–30 words). */
+export const fitting = (en: string) => {
   const words = en.split(/\s+/).filter(Boolean).length;
   return words >= BACK_MIN_WORDS && words <= BACK_MAX_WORDS;
 };

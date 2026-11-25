@@ -2,22 +2,22 @@
 
 由 `npm run eval` 產生，不要手動修改（D150）。分數來自錄好的回答（`tests/fixtures/eval/`），產生這份報告不呼叫任何 API。
 
-- 版本：`1ff1f11f3e4a`（模型 gpt-5-mini，評分標準第 1 版）
+- 版本：`00650429a4ad`（模型 gpt-5-mini，評分標準第 1 版）
 - 每筆 100 分：規則 60 分（依通過比例）＋ AI 評分 40 分（1～5 分換算）；沒有 AI 評分的案例只看規則。
-- 錄製這些回答的費用：US$0.0400
-- 合併判定：通過。總分 96.31 ≥ main 的 96.31
+- 錄製這些回答的費用：US$0.0404
+- 合併判定：通過。總分 96.37 ≥ main 的 96.31
 
 ## 總分
 
 | 類別 | 案例數 | main | 這個版本 | 差異 |
 | --- | --- | --- | --- | --- |
 | 斷句 | 8 | 100 | 100 | 0.00 |
-| 翻譯 | 12 | 97.5 | 97.5 | 0.00 |
+| 翻譯 | 13 | 97.5 | 97.69 | +0.19 |
 | 單字、文法與連音講解 | 12 | 94.17 | 94.17 | 0.00 |
 | AI 生成教材 | 8 | 92.99 | 92.99 | 0.00 |
 | 標題與摘要 | 4 | 100 | 100 | 0.00 |
 | 用指令修改 | 10 | 95.67 | 95.67 | 0.00 |
-| **全部** | 54 | 96.31 | **96.31** | 0.00 |
+| **全部** | 55 | 96.31 | **96.37** | +0.06 |
 
 ## 退步的案例
 
@@ -47,7 +47,7 @@
 | [`describe-platform`](#describe-platform) | 英文標題原樣保留，摘要用半形數字 | 100 | 5/5 |
 | [`describe-title-zh`](#describe-title-zh) | 中文標題原樣保留 | 100 | 5/5 |
 | [`revise-horror`](#revise-horror) | 改成恐怖風：整篇都要改，不能照抄 | 100 | 5/5 |
-| [`segment-long`](#segment-long) | 超過 25 字的長句在子句處切開 | 100 | — |
+| [`segment-abbreviations`](#segment-abbreviations) | 縮寫與時間不能切開（Dr.、Mr.、a.m.、U.S.） | 100 | — |
 
 ## 每個案例
 
@@ -594,6 +594,50 @@ AI 評分：**5/5**，翻譯忠實且自然，用詞（B車廂、12A號）符合
 {
   "lines": [
     "你的座位在B車廂的12A號。"
+  ]
+}
+```
+
+</details>
+
+### translate-learner-fixes
+
+**寫作批改後的句子：學習者自己的句子**（翻譯）：100 分
+
+規則：
+
+- ✓ valid
+- ✓ sameLineCount
+- ✓ noFullWidth
+- ✓ taiwanUsage
+- ✓ includes
+- ✓ includes
+- ✓ includes
+
+AI 評分標準：翻譯忠實、自然，是台灣的用語，台灣學生一看就懂。三句的意思各自完整，假設語氣（如果我有更多時間）要翻出來。
+
+AI 評分：**5/5**，翻譯忠實且自然，用詞符合台灣習慣（例如「加入學校的籃球隊」「上週末我和家人去陽明山健行」「要是我有更多時間，我會學吉他」），三句意思完整，且第三句正確表達假設語氣。
+
+<details><summary>輸入與結果</summary>
+
+```json
+{
+  "lines": [
+    "I am interested in joining the school basketball team.",
+    "Last weekend, my family and I went hiking on Yangmingshan.",
+    "If I had more time, I would learn to play the guitar."
+  ],
+  "from": "en",
+  "to": "zh-Hant"
+}
+```
+
+```json
+{
+  "lines": [
+    "我有興趣加入學校的籃球隊。",
+    "上週末我和家人去陽明山健行。",
+    "要是我有更多時間，我會學吉他。"
   ]
 }
 ```

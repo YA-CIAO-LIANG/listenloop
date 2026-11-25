@@ -8,12 +8,13 @@ import { getSignedInUser } from "@/auth/session";
 import { featurePaused } from "@/auth/site-switches";
 import { writingReviewsThisWeek } from "@/auth/writing";
 import { getWritingPrompt } from "@/data/writing";
-import { writingBudget } from "@/lib/ai/budgets";
+import { translateBudget, writingBudget } from "@/lib/ai/budgets";
 import { meteredLanguage } from "@/lib/ai/metered";
 import { getAiProviders } from "@/lib/ai/providers";
 import { can, planFor, type PlanBlock } from "@/lib/plans";
 import type { UsageBlock } from "@/lib/usage";
 import { cleanFeedback, type WritingFeedback } from "@/lib/writing/feedback";
+import { fixesToTranslate, withFixMeanings } from "@/lib/writing/fix-meanings";
 import { countWords } from "@/lib/writing/words";
 import {
   CUSTOM_KINDS,
@@ -105,8 +106,9 @@ export async function reviewEssay(input: {
     words: prompt.words,
     essay,
   };
+  const deps = { providers, meter: await creatorMeter(admin, user, "manual") };
   const result = await meteredLanguage(
-    { providers, meter: await creatorMeter(admin, user, "manual") },
+    deps,
     writingBudget(request),
     () => review.call(providers.language, request),
     (value) => {
@@ -126,8 +128,25 @@ export async function reviewEssay(input: {
       reason: result.reason === "busy" ? "busy" : "failed",
     };
   }
-  const feedback = cleanFeedback(result.value, essay, rubric);
-  if (!feedback) return { ok: false, reason: "failed" };
+  const cleaned = cleanFeedback(result.value, essay, rubric);
+  if (!cleaned) return { ok: false, reason: "failed" };
+  // Day 1's corrected sentences become Days 2–6's sentences: their
+  // Chinese meaning lets "read the Chinese" use them (D206). One small
+  // translation call, metered like any; without it they stay dictation.
+  let feedback = cleaned;
+  const fixes = input.day === 1 ? fixesToTranslate(essay, cleaned) : [];
+  if (fixes.length > 0) {
+    const texts = fixes.map((f) => f.en);
+    const meanings = await meteredLanguage(
+      deps,
+      translateBudget(texts),
+      () => providers.language.translate(texts, { from: "en", to: "zh-Hant" }),
+      () => "writing-fix-meanings",
+    );
+    if (meanings.ok && Array.isArray(meanings.value)) {
+      feedback = withFixMeanings(cleaned, fixes, meanings.value);
+    }
+  }
   const max = plans[plan].writingReviewsPerWeek;
   return {
     ok: true,

@@ -26,8 +26,8 @@ export type FeedbackIssue = {
   suggestion: string;
   /**
    * The corrected sentence's meaning in Chinese, for writing it again
-   * from its meaning (D195). Not asked of the model yet: adding it to
-   * the prompt lowered the writing eval (D195), so it waits for Joe.
+   * from its meaning (D195): translated right after a Day 1 review
+   * (lib/writing/fix-meanings.ts, D206), not asked of the review itself.
    */
   zh?: string;
 };

@@ -409,6 +409,28 @@ test("back-translation in each mode, and more practice (D195)", async ({
   await expect(page.getByRole("heading", { name: "更多練習" })).toBeVisible();
 });
 
+test("read the Chinese: your corrected sentences have their meaning (D206)", async ({
+  page,
+}) => {
+  await signInWithEmail(page, "e2e-fix-zh", "fix-zh@example.com");
+  await setToday(page, day(1));
+  await page.goto(`/writing/${PROMPT}/day/1`);
+  await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
+  await page.getByRole("button", { name: "送出，取得 AI 回饋" }).click();
+  await expect(page.getByRole("heading", { name: "範例文章" })).toBeVisible();
+  await page.goto("/writing/settings");
+  await page.getByRole("radio", { name: /看中文 → 寫出英文/ }).check();
+  await setToday(page, day(2));
+  await page.goto(`/writing/${PROMPT}/day/2`);
+  // The first sentences are your own, corrected; each shows its meaning
+  // (the fake translation) instead of turning into dictation.
+  await expect(page.getByText(/^\[zh-Hant\] 譯 /).first()).toBeVisible();
+  await expect(page.getByRole("textbox", { name: "這句的英文" })).toBeVisible();
+  await expect(
+    page.getByRole("textbox", { name: "聽到的英文句子" }),
+  ).toHaveCount(0);
+});
+
 for (const device of ["desktop", "Pixel 7"] as const) {
   test.describe(`custom prompts on ${device}`, () => {
     if (device !== "desktop") {

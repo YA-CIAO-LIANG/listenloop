@@ -167,7 +167,10 @@ export const fakeLanguage: LanguageProvider = {
   },
   async translate(texts, { to }) {
     return free(
-      texts.map((text) => `[${to}] ${text}`),
+      texts.map((text) =>
+        // Chinese has a Han character, as a real translation does (D206).
+        to === "zh-Hant" ? `[zh-Hant] 譯 ${text}` : `[${to}] ${text}`,
+      ),
       texts,
     );
   },

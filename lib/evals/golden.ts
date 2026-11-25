@@ -262,6 +262,28 @@ const TRANSLATE: EvalCase[] = [
     judge: FAITHFUL,
   },
   {
+    // WritingLoop's corrected sentences (D206): the learner's own topics,
+    // translated after a Day 1 review for "read the Chinese, write it".
+    id: "translate-learner-fixes",
+    operation: "translate",
+    title: "寫作批改後的句子：學習者自己的句子",
+    input: {
+      lines: [
+        "I am interested in joining the school basketball team.",
+        "Last weekend, my family and I went hiking on Yangmingshan.",
+        "If I had more time, I would learn to play the guitar.",
+      ],
+      ...toZh,
+    },
+    rules: [
+      ...translationRules,
+      { kind: "includes", line: 0, anyOf: ["籃球"] },
+      { kind: "includes", line: 1, anyOf: ["陽明山"] },
+      { kind: "includes", line: 2, anyOf: ["吉他"] },
+    ],
+    judge: `${FAITHFUL}三句的意思各自完整，假設語氣（如果我有更多時間）要翻出來。`,
+  },
+  {
     id: "translate-money",
     operation: "translate",
     title: "金額與折扣",

@@ -140,7 +140,7 @@ describe("translateSentences", () => {
   it("translates English into Chinese for the handout", async () => {
     expect(await translateSentences(["Hi.", "Bye."], "en")).toEqual({
       ok: true,
-      translations: ["[zh-Hant] Hi.", "[zh-Hant] Bye."],
+      translations: ["[zh-Hant] 譯 Hi.", "[zh-Hant] 譯 Bye."],
     });
   });
 
@@ -219,7 +219,7 @@ describe("createPractice", () => {
             practice_id: "p1",
             i: 1,
             en: "Nice.",
-            zh: "[zh-Hant] Nice.",
+            zh: "[zh-Hant] 譯 Nice.",
             speaker: null,
           },
         ],

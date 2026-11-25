@@ -52,12 +52,29 @@ export const WRITING_REVIEW_COST = {
   usdPerMillionOut: 2.0,
 } as const;
 
-/** NT$ one essay review costs (D187). */
+/**
+ * The Chinese meanings of a Day 1 review's corrected sentences (D206):
+ * one translation call of up to 8 sentences. The eval's recording of 3
+ * took 232 tokens in and 58 out; with room for 8: 400 in and 200 out,
+ * about US$0.0005, NT$0.016.
+ */
+export const FIX_MEANINGS_COST = {
+  inputTokens: 400,
+  outputTokens: 200,
+  usdPerMillionIn: 0.25,
+  usdPerMillionOut: 2.0,
+} as const;
+
+/** NT$ one essay review costs (D187), with its sentences' meanings (D206). */
 export function writingReviewCost(): number {
-  const c = WRITING_REVIEW_COST;
-  const usd =
-    (c.inputTokens * c.usdPerMillionIn + c.outputTokens * c.usdPerMillionOut) /
-    1_000_000;
+  const usd = [WRITING_REVIEW_COST, FIX_MEANINGS_COST].reduce(
+    (sum, c) =>
+      sum +
+      (c.inputTokens * c.usdPerMillionIn +
+        c.outputTokens * c.usdPerMillionOut) /
+        1_000_000,
+    0,
+  );
   return usd * CLASS_COST.twdPerUsd;
 }
 
