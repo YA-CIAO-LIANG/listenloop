@@ -525,7 +525,7 @@
       }
     },
     {
-      "en": "It was the first time in months that our whole family sat together and laughed so much.",
+      "en": "It was the first time in months that our whole family had sat together and laughed so much.",
       "zh": "這是好幾個月來，我們全家第一次坐在一起，笑得這麼開心。",
       "speaker": null,
       "notes": {
@@ -553,10 +553,10 @@
           {
             "point": "It was the first time ... that",
             "quote": "It was the first time in months that",
-            "explanation": "It was the first time that ＋子句，表示「這是第一次…」。in months 是「好幾個月以來」。",
+            "explanation": "It was the first time ＋子句，表示「那是…第一次」；子句一般用過去完成式（had ＋過去分詞），口語有時也用過去式。in months 是「好幾個月以來」。",
             "examples": [
               {
-                "en": "It was the first time I saw snow.",
+                "en": "It was the first time I had seen snow.",
                 "zh": "那是我第一次看到雪。"
               }
             ],
@@ -570,7 +570,7 @@
             "zh": "這是好幾個月來第一次"
           },
           {
-            "text": "that our whole family sat together",
+            "text": "that our whole family had sat together",
             "role": "subordinate",
             "zh": "我們全家坐在一起"
           },

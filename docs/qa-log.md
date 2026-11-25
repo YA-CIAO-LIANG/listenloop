@@ -360,3 +360,11 @@ Supabase 改為用到時才載入、翻譯依區域送出、練習頁與首頁�
 - `brokenLink` 4 筆：已知的假警報，假伺服器沒有這些教材；`/blog/toeic-listening` 的 3 個連結在正式站確認都回 200。
 - `slow` 1 筆：`/admin/fixes` 3.2 秒，只在機器負載高時出現，管理頁，接受。
 - 沒有需要修正的項目。
+
+### 第 70 輪・正式站（2026-11-25，未登入頁面，唯讀）
+
+- 45 項全部通過，9.4 分鐘。包含 `/beta`（測試者須知）、`/learn/classics`、`/learn/school`、新寫作題目。
+- `console` 9 筆：
+  - `/beta`、`/feedback` 的 4 種訊息來自 Cloudflare Turnstile 自己的 iframe：Turnstile 在自己的頁面試著連 `data:,`，被它自己的 CSP 擋下。錯誤訊息裡的 CSP 是 Cloudflare 的（`*.challenges.cloudflare.com`），不是我們的，驗證元件照常運作。接受。
+  - `/no-such-page` 的 404 是預期的。
+- `smallTarget`（寫作日曆，D88）與 `truncated`（第 1 天題目一行摘要，D193）同本機第 70 輪，接受。

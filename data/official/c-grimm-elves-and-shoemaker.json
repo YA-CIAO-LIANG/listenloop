@@ -591,8 +591,8 @@
       }
     },
     {
-      "en": "So the wife made them little shirts, coats, and shoes as a thank-you gift.",
-      "zh": "於是妻子做了小襯衫、小外套和小鞋子，當作謝禮。",
+      "en": "So the wife made them little shirts and coats, and the shoemaker made them tiny shoes.",
+      "zh": "於是妻子為他們做了小襯衫和小外套，鞋匠則做了小小的鞋子。",
       "speaker": null,
       "notes": {
         "v": 2,
@@ -605,17 +605,17 @@
         ],
         "vocab": [
           {
-            "term": "thank-you gift",
-            "inSentence": "thank-you gift",
-            "kind": "phrase",
-            "pos": "n.",
-            "zh": "謝禮",
-            "ipa": "/ˈθæŋk juː ɡɪft/",
-            "collocations": ["a small thank-you gift"],
+            "term": "tiny",
+            "inSentence": "tiny",
+            "kind": "word",
+            "pos": "adj.",
+            "zh": "極小的；小小的",
+            "ipa": "/ˈtaɪni/",
+            "collocations": ["a tiny room", "tiny shoes"],
             "examples": [
               {
-                "en": "We gave our teacher a thank-you gift.",
-                "zh": "我們送老師一份謝禮。"
+                "en": "The baby has tiny hands.",
+                "zh": "寶寶有一雙小小的手。"
               }
             ]
           }

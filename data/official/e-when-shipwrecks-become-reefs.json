@@ -139,7 +139,7 @@
                 "zh": "他們找到了沉沒的寶藏。"
               }
             ],
-            "pitfall": "名詞前用 sunken，被動句用 sunk：The ship was sunk."
+            "pitfall": "名詞前多用 sunken（a sunken ship），被動句用 sunk（The ship was sunk）；但強調「被人刻意弄沉」時，名詞前也會用 sunk，例如本講第 10 句的 newly sunk wrecks。"
           }
         ],
         "chunks": [],
@@ -653,8 +653,8 @@
             "explanation": "not A but B 表示「不是 A 而是 B」，merely 加強「只是」的語氣。",
             "examples": [
               {
-                "en": "He didn't win, but merely finished.",
-                "zh": "他沒有贏，只是跑完了。"
+                "en": "The plan didn't solve the problem but merely delayed it.",
+                "zh": "這個計畫沒有解決問題，只是把它延後而已。"
               }
             ],
             "pitfall": "but 後面的動詞要和前面的動詞形式一致。"

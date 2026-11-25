@@ -210,7 +210,7 @@
         "connected": [
           {
             "text": "sneezing all morning",
-            "soundsLike": "snee-zing-gall morning",
+            "soundsLike": "snee-zing-all morning",
             "note": "sneezing 的 /ŋ/ 和 all 連在一起。"
           }
         ]
@@ -356,8 +356,8 @@
       }
     },
     {
-      "en": "No, nothing, but I work at a café, so I can't feel sleepy.",
-      "zh": "沒有，什麼都沒有，但我在咖啡館上班，所以不能想睡覺。",
+      "en": "No, nothing, but I work at a café, so I can't afford to feel sleepy.",
+      "zh": "沒有，什麼都沒有，但我在咖啡館上班，所以可不能昏昏欲睡。",
       "speaker": 0,
       "notes": {
         "v": 2,
