@@ -14,7 +14,7 @@ ListenLoop 是一個英文聽力練習網站：選一段英文，**連續練 7 �
 ## 怎麼開始
 
 1. **打開邀請連結**：（我會私訊給你，例如 `https://listenloop-three.vercel.app/invite/XXXXXXXX`）。
-2. 用 **Google、LINE 或 Email** 註冊。邀請連結 14 天內有效，請在期限內註冊。
+2. 用 **Google 或 LINE** 註冊最快；也可以用 Email，但確認信有時會晚一點才收到。邀請連結 14 天內有效，請在期限內註冊。
 3. 建議用**手機的 Chrome**（跟讀需要麥克風；iPhone 用 Safari 也可以）。可以「加到主畫面」，像 App 一樣打開。
 
 ## 這 2 週要做的事
