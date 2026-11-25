@@ -754,6 +754,57 @@ export const CATEGORIES = [
       ),
     ],
   },
+  {
+    id: "classics",
+    scenarios: [
+      s("fable", "monologue", "a fable retold for learners (public domain)"),
+      s(
+        "fairy-tale",
+        "monologue",
+        "a fairy tale retold for learners (public domain)",
+      ),
+      s(
+        "classic-story",
+        "monologue",
+        "a scene from a classic novel or story, retold for learners (public domain)",
+      ),
+      s(
+        "historic-speech",
+        "monologue",
+        "a historic speech or document (public domain)",
+      ),
+      s(
+        "public-article",
+        "monologue",
+        "an article by a U.S. federal agency such as NASA or the National Park Service (public domain)",
+      ),
+    ],
+  },
+  {
+    id: "school",
+    scenarios: [
+      s(
+        "junior-dialogue",
+        "dialogue",
+        "a conversation on a junior high school topic (Taiwan's curriculum themes)",
+      ),
+      s(
+        "junior-passage",
+        "monologue",
+        "a short passage on a junior high school topic (Taiwan's curriculum themes)",
+      ),
+      s(
+        "senior-dialogue",
+        "dialogue",
+        "a conversation on a senior high school topic (Taiwan's curriculum themes)",
+      ),
+      s(
+        "senior-passage",
+        "monologue",
+        "a short passage on a senior high school topic (Taiwan's curriculum themes)",
+      ),
+    ],
+  },
 ] as const satisfies readonly { id: string; scenarios: readonly Scenario[] }[];
 
 /** A target an exam text is written for, with how to pitch it. */
@@ -927,6 +978,40 @@ export const EXAMS = [
         "gept-advanced",
         "advanced",
         "for the GEPT Advanced level (CEFR C1)",
+      ),
+    ],
+  },
+  {
+    id: "gsat",
+    style:
+      "in the style of the listening section of Taiwan's General Scholastic Ability Test (GSAT) English exam (format and difficulty only; the content is original, never a real test item)",
+    parts: [
+      s(
+        "gsat-dialogue",
+        "dialogue",
+        "a short conversation between two speakers about school or daily life",
+      ),
+      s(
+        "gsat-short-talk",
+        "monologue",
+        "a short talk, announcement, or radio report",
+      ),
+    ],
+    targets: [
+      target(
+        "gsat-basic",
+        "beginner",
+        "for a senior high school learner at a basic level (CEFR A2 to B1)",
+      ),
+      target(
+        "gsat-standard",
+        "intermediate",
+        "for a senior high school learner aiming at a high GSAT English score (CEFR B1)",
+      ),
+      target(
+        "gsat-top",
+        "advanced",
+        "for a senior high school learner aiming at the top GSAT English level (CEFR B1 to B2)",
       ),
     ],
   },

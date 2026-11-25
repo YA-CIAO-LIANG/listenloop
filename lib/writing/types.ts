@@ -9,6 +9,7 @@
 /** Prompt kinds, in the library's order (D187). */
 export const WRITING_TYPES = [
   "daily",
+  "diary",
   "email-formal",
   "email-informal",
   "opinion",
@@ -22,6 +23,8 @@ export const WRITING_TYPES = [
   "toefl",
   "gept",
   "gsat",
+  "toeic",
+  "cap",
 ] as const;
 export type WritingType = (typeof WRITING_TYPES)[number];
 
@@ -54,6 +57,7 @@ export const WRITING_TYPE_CONFIG: Readonly<
   Record<WritingType, WritingTypeConfig>
 > = {
   daily: { group: "daily", rubric: "general" },
+  diary: { group: "daily", rubric: "general" },
   "email-formal": { group: "email", rubric: "general" },
   "email-informal": { group: "email", rubric: "general" },
   opinion: { group: "opinion", rubric: "general" },
@@ -67,6 +71,10 @@ export const WRITING_TYPE_CONFIG: Readonly<
   toefl: { group: "exam", rubric: "toefl" },
   gept: { group: "exam", rubric: "gept" },
   gsat: { group: "exam", rubric: "gsat" },
+  // Scored by the general rubric: a new rubric would change the review
+  // prompt and need a new writing eval recording (D212).
+  toeic: { group: "exam", rubric: "general" },
+  cap: { group: "exam", rubric: "general" },
 };
 
 /** A useful sentence pattern from the model essay (3–5 per prompt). */
