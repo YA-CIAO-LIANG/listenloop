@@ -2,7 +2,7 @@
 
 ## Beta 上線報告（2026-11-25 凌晨，芝加哥時間）
 
-> **一句話**：P0 與 P1 都完成並合併（#280、#281，以及 Beta 第 1 輪修正 #282）。正式站可以開始 Beta：5 組邀請碼已建立、`/beta` 有測試者須知，57 份新聽力教材與 22 份新寫作題目已上線。**開放前，Joe 一定要先把 Google 登入改成「正式版」**（第 1 項）。
+> **一句話**：P0、P1、P2 都完成並合併（#280～#285）。正式站可以開始 Beta：5 組邀請碼已建立、`/beta` 有測試者須知，57 份新聽力教材與 22 份新寫作題目已上線。**開放前，Joe 一定要先把 Google 登入改成「正式版」**（第 1 項）。
 
 ### 1. 開放 Beta 前 Joe 必須親手做的事（依順序）
 
@@ -14,8 +14,9 @@
    5. 用一個**不在測試名單**的 Gmail 打開邀請連結登入，確認能建立帳號。
 2. **（建議）Microsoft Clarity**：Vercel 沒有 `NEXT_PUBLIC_CLARITY_PROJECT_ID`，所以看不到錄影與熱點圖。要的話：<https://clarity.microsoft.com> 建立專案（網址填正式站）→ 複製 Project ID → Vercel → Settings → Environment Variables 新增 `NEXT_PUBLIC_CLARITY_PROJECT_ID`（Production）→ Redeploy。設定後頁尾會出現「Cookie 設定」，訪客同意才載入。
 3. **（建議）`SUPABASE_SERVICE_ROLE_KEY` 改成 Sensitive**：Vercel 上它是「Config」類型（值看得到），建議刪掉重建成 Sensitive。
-4. **（知道就好）Email 註冊**：Supabase 內建寄信每小時只能寄少量確認信。請測試者優先用 **Google 或 LINE** 登入；要大量 Email 註冊需要自訂 SMTP（例如 Resend，需要網域）。
-5. **（知道就好）CodeQL alert #2、#3**：上次報告提過，仍待你標成 false positive。
+4. **（知道就好）Email 註冊**：Supabase 內建寄信每小時只能寄少量確認信。請測試者優先用 **Google** 登入（測試者須知已這樣寫）；要大量 Email 註冊需要自訂 SMTP（例如 Resend，需要網域）。
+5. **（選擇）LINE 登入**：程式已經做好（D101），但正式站沒有設定 `LINE_CHANNEL_ID`、`LINE_CHANNEL_SECRET`，所以登入頁沒有 LINE 按鈕。要開的話：LINE Developers 建立 LINE Login channel → callback 填 `https://listenloop-three.vercel.app/auth/line/callback` → 把兩個值設到 Vercel（Production）→ Redeploy。
+6. **（知道就好）CodeQL alert #2、#3**：上次報告提過，仍待你標成 false positive。
 
 Turnstile、Discord 通知、`CRON_SECRET`、每日備份都已經設定好，不用處理。
 
@@ -71,13 +72,22 @@ Turnstile、Discord 通知、`CRON_SECRET`、每日備份都已經設定好，�
 
 ### 5. 自我測試
 
-- **AI 可用性測試**：2 輪（b1 全部 35 個任務 × 3 台裝置；b2 重測），新增 T34「Beta 測試者完整流程」（台灣與美國中部時區）、T35「找到新教材」，新增角色 P15「準備多益的大學生」。Beta 流程在 3 台裝置、2 個時區都順利完成。
-- **qa-sweep**：第 70 輪（見 `docs/qa-log.md`），新增經典名篇、國高中、多益、國中、日記頁面。
+- **合併的 PR**：
+  - [#280](https://github.com/YA-CIAO-LIANG/listenloop/pull/280)（P0：須知頁、回報入口、Beta 測試頁、檢查清單）
+  - [#281](https://github.com/YA-CIAO-LIANG/listenloop/pull/281)（P1：教材與題目）
+  - [#282](https://github.com/YA-CIAO-LIANG/listenloop/pull/282)（第 1 輪修正、學測的資料庫檢查）
+  - [#283](https://github.com/YA-CIAO-LIANG/listenloop/pull/283)（逐句校對）
+  - [#284](https://github.com/YA-CIAO-LIANG/listenloop/pull/284)（用量加總、新手引導文字）
+  - #285（這份報告）
+- **AI 可用性測試**：4 輪——b1：全部任務 × 3 台裝置；b2、b3：重測；b4：合併後的 main，37 個任務 531 個步驟全部完成，0 個問題。新增 T34「Beta 測試者完整流程」（台灣與美國中部時區）、T35「找到新教材」，新增角色 P15「準備多益的大學生」。Beta 流程在 3 台裝置、2 個時區都順利完成。
+- **qa-sweep**：3 輪——第 70 輪（新增經典名篇、國高中、多益、國中、日記頁面）、第 70 輪正式站唯讀、第 71 輪（合併後的 main）。都沒有新的問題，見 `docs/qa-log.md`。
 - **修正的問題**：
   - 測試者須知寫「3 分鐘的程度測驗」，網站是 2 分鐘（嚴重度 2，已修正）。
   - 學測教材因資料庫的考試檢查無法存檔（已用只放寬檢查的 migration 修正）。
   - 經典名篇的出處原本會顯示「改寫自…的新聞稿」（已改成公有領域的出處說明）。
   - 測試腳本跟不上 D210 的方案名稱與價格實驗暫停（T13、T19、T20 已更新）。
+  - 新手引導對已登入的人說「不用登入就能開始」（嚴重度 1，已改）。
+  - `cost-report` 的 Azure 額度剩餘、寫作語音腳本的 F0 本月用量少算（select 只回傳 1,000 筆，已改在資料庫加總）。
 - **新教材校對**（#283）：3 個獨立的校對 agent 逐句檢查，找到並修正 33 項錯誤（例如 NASA 月球每年遠離 3.8 公分寫成 2.5、寓言的季節前後矛盾、大陸用語「學術不端」「泡沫塑料」、IPA 與詞條不符），已同步到正式站；英文改過的 7 句重新產生語音。並新增自動檢查：講解引用的字一定要出現在句子裡。
 - **正式站唯讀掃描**：未登入的 45 頁都通過，只有 Cloudflare Turnstile 自己 iframe 的 console 訊息（不是我們的 CSP，不影響使用）。
 - **嚴重度 1（列出，不修）**：寫作第 1 天的題目在手機上只顯示一行摘要（刻意設計，D193）；寫作日曆在 360px 的日期按鈕 40×50px（同練習日曆，D88）。
