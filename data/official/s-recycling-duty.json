@@ -1,0 +1,778 @@
+{
+ "slug": "s-recycling-duty",
+ "series": "school",
+ "title": "Recycling Duty at School",
+ "titleZh": "資源回收值日",
+ "subtitle": "輪到 Sophie 和 Ben 做資源回收，發現沒洗的便當盒",
+ "format": "dialogue",
+ "accent": "us",
+ "meta": {
+  "category": "school",
+  "scenario": "junior-dialogue",
+  "level": "beginner",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Ben, it's our turn to take out the recycling today.",
+   "zh": "Ben，今天輪到我們去倒資源回收。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "it's our turn to",
+      "note": "It's one's turn to ＋原形動詞：輪到某人做某事。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "turn",
+      "inSentence": "our turn",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "輪流的次序",
+      "ipa": "/tɝn/",
+      "collocations": [
+       "it's your turn",
+       "take turns"
+      ],
+      "examples": [
+       {
+        "en": "It's your turn to clean the board.",
+        "zh": "輪到你擦黑板了。"
+       }
+      ]
+     },
+     {
+      "term": "recycling",
+      "inSentence": "recycling",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "資源回收（物）",
+      "ipa": "/riˈsaɪklɪŋ/",
+      "collocations": [
+       "take out the recycling",
+       "recycling bin"
+      ],
+      "examples": [
+       {
+        "en": "Put the cans in the recycling.",
+        "zh": "把罐子放到回收裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Oh no, I almost forgot about that!",
+   "zh": "糟糕，我差點忘了這件事！",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "almost",
+      "inSentence": "almost",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "差一點；幾乎",
+      "ipa": "/ˈɔlmoʊst/",
+      "collocations": [
+       "almost forget",
+       "almost done"
+      ],
+      "examples": [
+       {
+        "en": "I almost missed the bus.",
+        "zh": "我差點錯過公車。"
+       }
+      ]
+     },
+     {
+      "term": "forget about",
+      "inSentence": "forgot about",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "忘了（某事）",
+      "ipa": "/fɚˈɡɛt əˈbaʊt/",
+      "collocations": [
+       "forget about it",
+       "forget about sb"
+      ],
+      "examples": [
+       {
+        "en": "Don't forget about the test.",
+        "zh": "別忘了考試的事。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "First, we need to sort everything into paper, plastic, and cans.",
+   "zh": "首先，我們要把所有東西分成紙類、塑膠和鐵鋁罐。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sort",
+      "inSentence": "sort everything into",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "分類",
+      "ipa": "/sɔrt/",
+      "collocations": [
+       "sort A into B",
+       "sort out"
+      ],
+      "examples": [
+       {
+        "en": "Sort the books into two piles.",
+        "zh": "把書分成兩堆。"
+       }
+      ]
+     },
+     {
+      "term": "plastic",
+      "inSentence": "plastic",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "塑膠",
+      "ipa": "/ˈplæstɪk/",
+      "collocations": [
+       "plastic bag",
+       "plastic bottle"
+      ],
+      "examples": [
+       {
+        "en": "This toy is made of plastic.",
+        "zh": "這個玩具是塑膠做的。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "sort everything",
+      "soundsLike": "sor-tevery-thing",
+      "note": "sort 的 t 和 everything 連在一起念。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Look, someone left a lunch box with food still inside it.",
+   "zh": "你看，有人丟了一個裡面還有食物的便當盒。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "lunch box",
+      "inSentence": "lunch box",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "便當盒；餐盒",
+      "ipa": "/ˈlʌntʃ ˌbɑks/",
+      "collocations": [
+       "a plastic lunch box",
+       "wash a lunch box"
+      ],
+      "examples": [
+       {
+        "en": "My lunch box is in my bag.",
+        "zh": "我的便當盒在書包裡。"
+       }
+      ]
+     },
+     {
+      "term": "leave",
+      "inSentence": "left",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "留下；丟下",
+      "ipa": "/liv/",
+      "collocations": [
+       "leave sth behind",
+       "leave a message"
+      ],
+      "examples": [
+       {
+        "en": "Who left this cup here?",
+        "zh": "誰把杯子留在這裡？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "with + noun + adverb",
+      "quote": "with food still inside it",
+      "explanation": "with ＋名詞＋副詞（或形容詞），用來描述東西的狀態。",
+      "examples": [
+       {
+        "en": "He left with the door open.",
+        "zh": "他走的時候門還開著。"
+       }
+      ],
+      "pitfall": "不要說 with food is inside。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's gross, and it can't be recycled like that.",
+   "zh": "好噁心，而且這樣是不能回收的。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "gross",
+      "inSentence": "gross",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "噁心的（口語）",
+      "ipa": "/ɡroʊs/",
+      "collocations": [
+       "That's gross",
+       "so gross"
+      ],
+      "examples": [
+       {
+        "en": "Old milk smells gross.",
+        "zh": "放太久的牛奶聞起來很噁心。"
+       }
+      ]
+     },
+     {
+      "term": "recycle",
+      "inSentence": "recycled",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "回收再利用",
+      "ipa": "/riˈsaɪkəl/",
+      "collocations": [
+       "recycle paper",
+       "be recycled"
+      ],
+      "examples": [
+       {
+        "en": "We recycle bottles at home.",
+        "zh": "我們在家會回收瓶子。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "modal passive",
+      "quote": "can't be recycled",
+      "explanation": "情態助動詞的被動式：can't ＋ be ＋過去分詞。",
+      "examples": [
+       {
+        "en": "This box can be used again.",
+        "zh": "這個箱子可以再用。"
+       }
+      ],
+      "pitfall": "be 後面要用過去分詞，不說 can't be recycle。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We have to rinse it with water first.",
+   "zh": "我們得先用水把它沖乾淨。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "rinse",
+      "inSentence": "rinse",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "沖洗",
+      "ipa": "/rɪns/",
+      "collocations": [
+       "rinse with water",
+       "rinse out"
+      ],
+      "examples": [
+       {
+        "en": "Rinse the cup before you use it.",
+        "zh": "用杯子前先沖一下。"
+       }
+      ]
+     },
+     {
+      "term": "have to",
+      "inSentence": "have to",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "必須",
+      "ipa": "/ˈhæf tu/",
+      "collocations": [
+       "have to go",
+       "don't have to"
+      ],
+      "examples": [
+       {
+        "en": "I have to go home now.",
+        "zh": "我現在必須回家了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Why do people throw things away without cleaning them?",
+   "zh": "為什麼大家丟東西前都不先洗乾淨？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "throw away",
+      "inSentence": "throw things away",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "丟掉",
+      "ipa": "/θroʊ əˈweɪ/",
+      "collocations": [
+       "throw it away",
+       "throw away trash"
+      ],
+      "examples": [
+       {
+        "en": "Don't throw away that box.",
+        "zh": "別把那個箱子丟掉。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "without + V-ing",
+      "quote": "without cleaning them",
+      "explanation": "without 是介系詞，後面接動詞要用 V-ing。",
+      "examples": [
+       {
+        "en": "She left without saying goodbye.",
+        "zh": "她沒說再見就走了。"
+       }
+      ],
+      "pitfall": "不要說 without clean。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It only takes a few seconds to wash a lunch box.",
+   "zh": "洗個便當盒只要幾秒鐘而已。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "second",
+      "inSentence": "seconds",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "秒",
+      "ipa": "/ˈsɛkənd/",
+      "collocations": [
+       "a few seconds",
+       "in seconds"
+      ],
+      "examples": [
+       {
+        "en": "Wait a few seconds.",
+        "zh": "等幾秒鐘。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "It takes + time + to V",
+      "quote": "It only takes a few seconds to wash",
+      "explanation": "It takes ＋時間＋ to ＋原形動詞，表示「做某事要花多少時間」。",
+      "examples": [
+       {
+        "en": "It takes ten minutes to walk there.",
+        "zh": "走路到那裡要十分鐘。"
+       }
+      ],
+      "pitfall": "主詞用 It，不說 Washing takes to。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Maybe they just don't know the rules.",
+   "zh": "也許他們只是不知道規則。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "just",
+      "note": "這裡的 just 是「只是」，語氣比較緩和。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "rule",
+      "inSentence": "rules",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "規則",
+      "ipa": "/rul/",
+      "collocations": [
+       "follow the rules",
+       "school rules"
+      ],
+      "examples": [
+       {
+        "en": "Please follow the rules.",
+        "zh": "請遵守規則。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Let's make a poster for our classroom to remind everyone.",
+   "zh": "我們來為教室做張海報提醒大家吧。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "remind",
+      "inSentence": "remind everyone",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "提醒",
+      "ipa": "/rɪˈmaɪnd/",
+      "collocations": [
+       "remind sb to",
+       "remind me"
+      ],
+      "examples": [
+       {
+        "en": "Remind me to bring my book.",
+        "zh": "提醒我帶書。"
+       }
+      ]
+     },
+     {
+      "term": "poster",
+      "inSentence": "poster",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "海報",
+      "ipa": "/ˈpoʊstɚ/",
+      "collocations": [
+       "make a poster",
+       "a big poster"
+      ],
+      "examples": [
+       {
+        "en": "The poster is on the wall.",
+        "zh": "海報在牆上。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Good idea, and we can draw a big smiling bottle on it.",
+   "zh": "好主意，我們還可以在上面畫一個大大的微笑瓶子。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "on it",
+      "note": "it 指的是前面說的海報。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "smiling",
+      "inSentence": "smiling bottle",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "微笑的",
+      "ipa": "/ˈsmaɪlɪŋ/",
+      "collocations": [
+       "a smiling face",
+       "smiling eyes"
+      ],
+      "examples": [
+       {
+        "en": "She drew a smiling sun.",
+        "zh": "她畫了一個微笑的太陽。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "By the way, what happens to all these plastic bottles after they leave school?",
+   "zh": "對了，這些塑膠瓶離開學校以後會怎麼樣？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "by the way",
+      "inSentence": "By the way",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "對了；順便一提",
+      "ipa": "/baɪ ðə weɪ/",
+      "collocations": [
+       "by the way",
+       "oh, by the way"
+      ],
+      "examples": [
+       {
+        "en": "By the way, where is my pen?",
+        "zh": "對了，我的筆在哪？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "what happens to",
+      "quote": "what happens to all these plastic bottles",
+      "explanation": "what happens to ＋名詞，問「某物會變成怎樣、發生什麼事」。",
+      "examples": [
+       {
+        "en": "What happened to your phone?",
+        "zh": "你的手機怎麼了？"
+       }
+      ],
+      "pitfall": "介系詞用 to，不說 what happens with。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Our teacher said some of them become new clothes or even bags.",
+   "zh": "老師說有些會變成新的衣服，甚至是包包。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "even",
+      "inSentence": "even",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "甚至",
+      "ipa": "/ˈivən/",
+      "collocations": [
+       "even more",
+       "or even"
+      ],
+      "examples": [
+       {
+        "en": "He can even cook dinner.",
+        "zh": "他甚至會煮晚餐。"
+       }
+      ]
+     },
+     {
+      "term": "become",
+      "inSentence": "become",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "變成",
+      "ipa": "/bɪˈkʌm/",
+      "collocations": [
+       "become a",
+       "become friends"
+      ],
+      "examples": [
+       {
+        "en": "Old paper can become new paper.",
+        "zh": "舊紙可以變成新紙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "some of them",
+      "soundsLike": "sum-uh-them",
+      "note": "of 弱讀成 uh，和 some 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Wow, so my next T-shirt might be made from our bottles!",
+   "zh": "哇，那我的下一件 T 恤說不定就是用我們的瓶子做的！",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "be made from",
+      "inSentence": "be made from",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "由…製成（看不出原料）",
+      "ipa": "/bi meɪd frʌm/",
+      "collocations": [
+       "be made from",
+       "be made of"
+      ],
+      "examples": [
+       {
+        "en": "Paper is made from wood.",
+        "zh": "紙是用木頭做的。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "might + passive",
+      "quote": "might be made from",
+      "explanation": "might ＋ be ＋過去分詞，表示「可能被…」。",
+      "examples": [
+       {
+        "en": "The game might be canceled.",
+        "zh": "比賽可能會取消。"
+       }
+      ],
+      "pitfall": "made from 看不出原料；made of 看得出原料，例如 a table made of wood。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Maybe, but now let's finish sorting before the bell rings.",
+   "zh": "說不定喔，不過現在我們先在鐘響前分類完吧。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "bell",
+      "inSentence": "the bell rings",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "鐘；鈴",
+      "ipa": "/bɛl/",
+      "collocations": [
+       "the bell rings",
+       "school bell"
+      ],
+      "examples": [
+       {
+        "en": "Class starts when the bell rings.",
+        "zh": "鐘響就開始上課。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "finish + V-ing",
+      "quote": "finish sorting",
+      "explanation": "finish 後面接動詞要用 V-ing。",
+      "examples": [
+       {
+        "en": "I finished reading the book.",
+        "zh": "我讀完那本書了。"
+       }
+      ],
+      "pitfall": "不要說 finish to sort。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

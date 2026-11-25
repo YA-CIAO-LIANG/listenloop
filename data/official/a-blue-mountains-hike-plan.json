@@ -1,0 +1,700 @@
+{
+ "slug": "a-blue-mountains-hike-plan",
+ "series": "category",
+ "title": "Planning a Blue Mountains Hike",
+ "titleZh": "規劃藍山健行",
+ "subtitle": "打工度假的台灣青年和澳洲朋友，討論週末去藍山健行",
+ "format": "dialogue",
+ "accent": "au",
+ "meta": {
+  "category": "leisure",
+  "scenario": "outdoor-activity",
+  "level": "intermediate",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Are you still keen to go hiking in the Blue Mountains this Saturday?",
+   "zh": "你這週六還想去藍山健行嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "Are you still keen",
+      "note": "澳洲和英國口語常用 keen 表示「想、有興趣」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "keen",
+      "inSentence": "keen",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "渴望的；有興趣的",
+      "ipa": "/kiːn/",
+      "collocations": [
+       "keen to go",
+       "keen on"
+      ],
+      "examples": [
+       {
+        "en": "I'm keen to try surfing.",
+        "zh": "我很想試試衝浪。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Definitely, I've been looking forward to it all week.",
+   "zh": "當然，我整個星期都在期待。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "look forward to",
+      "inSentence": "looking forward to",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "期待",
+      "ipa": "/lʊk ˈfɔːwəd tuː/",
+      "collocations": [
+       "look forward to seeing you",
+       "really look forward to"
+      ],
+      "examples": [
+       {
+        "en": "I'm looking forward to the holidays.",
+        "zh": "我很期待放假。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "look forward to + noun or V-ing",
+      "quote": "looking forward to it",
+      "explanation": "look forward to 的 to 是介系詞，後面接名詞、代名詞或 V-ing。",
+      "examples": [
+       {
+        "en": "I look forward to hearing from you.",
+        "zh": "期待收到你的回音。"
+       }
+      ],
+      "pitfall": "不要說 look forward to hear，要用 hearing。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Which trail were you thinking of?",
+   "zh": "你想走哪一條步道？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "trail",
+      "inSentence": "trail",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "步道；小徑",
+      "ipa": "/treɪl/",
+      "collocations": [
+       "hiking trail",
+       "follow the trail"
+      ],
+      "examples": [
+       {
+        "en": "The trail goes along the river.",
+        "zh": "這條步道沿著河走。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "There's a loop near Katoomba that takes about four hours, with great views of the valley.",
+   "zh": "卡頓巴附近有一條環狀步道，大約要走四個小時，可以看到很棒的山谷景色。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "loop",
+      "inSentence": "a loop",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "環狀路線",
+      "ipa": "/luːp/",
+      "collocations": [
+       "a loop trail",
+       "walk a loop"
+      ],
+      "examples": [
+       {
+        "en": "We walked a short loop around the lake.",
+        "zh": "我們沿著湖走了一小圈。"
+       }
+      ]
+     },
+     {
+      "term": "valley",
+      "inSentence": "valley",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "山谷",
+      "ipa": "/ˈvæli/",
+      "collocations": [
+       "a deep valley",
+       "valley view"
+      ],
+      "examples": [
+       {
+        "en": "The village sits in a green valley.",
+        "zh": "那個村莊位在綠色的山谷裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "takes about",
+      "soundsLike": "tay-ksa-BOUT",
+      "note": "takes 的 /s/ 和 about 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Some parts are quite steep, though, with lots of stairs.",
+   "zh": "不過有些路段很陡，有很多階梯。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "though",
+      "note": "though 放在句尾，表示「不過」，語氣比 but 更輕鬆。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "steep",
+      "inSentence": "steep",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "陡峭的",
+      "ipa": "/stiːp/",
+      "collocations": [
+       "a steep hill",
+       "steep stairs"
+      ],
+      "examples": [
+       {
+        "en": "The path to the top is very steep.",
+        "zh": "通往山頂的路非常陡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's fine, I used to climb mountains in Taiwan with my dad.",
+   "zh": "沒問題，我以前常跟我爸在台灣爬山。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "climb",
+      "inSentence": "climb mountains",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "攀爬；爬（山）",
+      "ipa": "/klaɪm/",
+      "collocations": [
+       "climb a mountain",
+       "climb the stairs"
+      ],
+      "examples": [
+       {
+        "en": "We climbed to the top of the hill.",
+        "zh": "我們爬到山頂。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "used to for past habits",
+      "quote": "I used to climb mountains",
+      "explanation": "used to + 原形動詞，表示過去的習慣，現在不一定還這樣做。",
+      "examples": [
+       {
+        "en": "She used to live in Tainan.",
+        "zh": "她以前住在台南。"
+       }
+      ],
+      "pitfall": "不要說 I used to climbing，那是 be used to 的用法，意思不同。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Great, then we should catch the early train from Central, around half past six.",
+   "zh": "太好了，那我們應該從中央車站搭早班火車，大約 6 點半。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "catch a train",
+      "inSentence": "catch the early train",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "趕搭火車",
+      "ipa": "/kætʃ ə treɪn/",
+      "collocations": [
+       "catch a bus",
+       "catch the last train"
+      ],
+      "examples": [
+       {
+        "en": "I need to catch the last train home.",
+        "zh": "我得趕搭末班車回家。"
+       }
+      ]
+     },
+     {
+      "term": "half past",
+      "inSentence": "half past six",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "（幾點）半",
+      "ipa": "/hɑːf pɑːst/",
+      "collocations": [
+       "half past seven",
+       "at half past"
+      ],
+      "examples": [
+       {
+        "en": "The film starts at half past eight.",
+        "zh": "電影 8 點半開始。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That early, why do we need to leave so soon?",
+   "zh": "那麼早，為什麼要那麼早出發？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "so soon",
+      "inSentence": "so soon",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "這麼早；這麼快",
+      "ipa": "/səʊ suːn/",
+      "collocations": [
+       "leave so soon",
+       "so soon after"
+      ],
+      "examples": [
+       {
+        "en": "Why are you leaving so soon?",
+        "zh": "你為什麼這麼早就要走？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The car parks fill up fast, and it gets hot in the afternoon.",
+   "zh": "停車場很快就會滿，而且下午會變得很熱。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fill up",
+      "inSentence": "fill up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "填滿；客滿",
+      "ipa": "/fɪl ʌp/",
+      "collocations": [
+       "fill up fast",
+       "fill up the tank"
+      ],
+      "examples": [
+       {
+        "en": "The restaurant fills up quickly on Fridays.",
+        "zh": "那家餐廳週五很快就客滿。"
+       }
+      ]
+     },
+     {
+      "term": "car park",
+      "inSentence": "car parks",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "停車場",
+      "ipa": "/ˈkɑː pɑːk/",
+      "collocations": [
+       "a multi-storey car park",
+       "free car park"
+      ],
+      "examples": [
+       {
+        "en": "The car park is behind the shopping centre.",
+        "zh": "停車場在購物中心後面。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Also, bring at least two litres of water, a hat, and some sunscreen.",
+   "zh": "另外，至少帶兩公升的水、一頂帽子和一些防曬乳。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "at least",
+      "inSentence": "at least",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "至少",
+      "ipa": "/ət liːst/",
+      "collocations": [
+       "at least once",
+       "at least two"
+      ],
+      "examples": [
+       {
+        "en": "Sleep at least seven hours a night.",
+        "zh": "每晚至少睡七小時。"
+       }
+      ]
+     },
+     {
+      "term": "sunscreen",
+      "inSentence": "sunscreen",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "防曬乳",
+      "ipa": "/ˈsʌnskriːn/",
+      "collocations": [
+       "put on sunscreen",
+       "wear sunscreen"
+      ],
+      "examples": [
+       {
+        "en": "Don't forget to put on sunscreen.",
+        "zh": "別忘了擦防曬乳。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Should I pack lunch, or is there a café on the way?",
+   "zh": "我該帶午餐，還是路上有咖啡店？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "pack lunch",
+      "inSentence": "pack lunch",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "帶便當；準備午餐",
+      "ipa": "/pæk lʌntʃ/",
+      "collocations": [
+       "pack a lunch",
+       "pack snacks"
+      ],
+      "examples": [
+       {
+        "en": "I pack lunch for work every day.",
+        "zh": "我每天都帶午餐去上班。"
+       }
+      ]
+     },
+     {
+      "term": "on the way",
+      "inSentence": "on the way",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "在路上；途中",
+      "ipa": "/ɒn ðə weɪ/",
+      "collocations": [
+       "on the way home",
+       "stop on the way"
+      ],
+      "examples": [
+       {
+        "en": "Let's buy coffee on the way.",
+        "zh": "我們路上買杯咖啡吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Bring sandwiches, there's nothing out there until we finish the walk.",
+   "zh": "帶三明治吧，在我們走完之前那裡什麼都沒有。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "until",
+      "inSentence": "until we finish",
+      "kind": "word",
+      "pos": "conj.",
+      "zh": "直到",
+      "ipa": "/ʌnˈtɪl/",
+      "collocations": [
+       "until then",
+       "wait until"
+      ],
+      "examples": [
+       {
+        "en": "Wait here until I come back.",
+        "zh": "在這裡等到我回來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "And check the weather on Friday night, because if it rains, the rocks get really slippery.",
+   "zh": "還有週五晚上要查一下天氣，因為如果下雨，岩石會變得非常滑。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "slippery",
+      "inSentence": "slippery",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "滑的",
+      "ipa": "/ˈslɪpəri/",
+      "collocations": [
+       "slippery floor",
+       "get slippery"
+      ],
+      "examples": [
+       {
+        "en": "Be careful, the floor is slippery.",
+        "zh": "小心，地板很滑。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "first conditional",
+      "quote": "if it rains, the rocks get really slippery",
+      "explanation": "if + 現在式，主要子句用現在式，表示一般會發生的結果。",
+      "examples": [
+       {
+        "en": "If you heat ice, it melts.",
+        "zh": "冰加熱就會融化。"
+       }
+      ],
+      "pitfall": "if 子句不要用 will：if it will rain 是錯的。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "And check the weather on Friday night,",
+      "role": "main",
+      "zh": "還有週五晚上要查一下天氣"
+     },
+     {
+      "text": "because if it rains,",
+      "role": "subordinate",
+      "zh": "因為如果下雨"
+     },
+     {
+      "text": "the rocks get really slippery.",
+      "role": "main",
+      "zh": "岩石會變得非常滑"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "No worries, I'll check the forecast and text you.",
+   "zh": "沒問題，我會看天氣預報再傳訊息給你。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "No worries",
+      "note": "澳洲人最常說的口頭禪之一，意思是「沒問題、不客氣」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "forecast",
+      "inSentence": "forecast",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "預報",
+      "ipa": "/ˈfɔːkɑːst/",
+      "collocations": [
+       "weather forecast",
+       "check the forecast"
+      ],
+      "examples": [
+       {
+        "en": "The forecast says it will be sunny.",
+        "zh": "預報說會是晴天。"
+       }
+      ]
+     },
+     {
+      "term": "text",
+      "inSentence": "text you",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "傳訊息給",
+      "ipa": "/tekst/",
+      "collocations": [
+       "text me",
+       "text someone back"
+      ],
+      "examples": [
+       {
+        "en": "Text me when you arrive.",
+        "zh": "到了傳訊息給我。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Perfect, it's going to be a ripper of a day!",
+   "zh": "太好了，這一定會是超棒的一天！",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "ripper",
+      "inSentence": "a ripper",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（澳洲口語）很棒的事物",
+      "ipa": "/ˈrɪpə/",
+      "collocations": [
+       "a ripper of a day",
+       "a ripper idea"
+      ],
+      "examples": [
+       {
+        "en": "That party was a ripper.",
+        "zh": "那個派對超讚。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

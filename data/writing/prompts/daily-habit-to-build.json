@@ -1,0 +1,105 @@
+{
+  "id": "daily-habit-to-build",
+  "type": "daily",
+  "level": "intermediate",
+  "title": {
+    "en": "A Habit I Want to Build",
+    "zh": "我想養成的習慣"
+  },
+  "subtitle": "說明一個想養成的好習慣，以及具體的計畫",
+  "task": "Write about a habit you want to build. What is the habit, why is it important to you, and what is your plan to make it last?",
+  "taskZh": "寫一個你想養成的習慣：是什麼習慣？為什麼對你重要？你打算怎麼做，讓它能持續下去？",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "說明動機要具體，不只說「對身體好」",
+    "用 be going to／plan to 寫出可行的步驟",
+    "段落之間有清楚的轉折"
+  ],
+  "model": {
+    "en": [
+      "The habit I most want to build is going to bed before midnight. At the moment, I often stay up until two o'clock watching videos or chatting with friends. As a result, I feel sleepy in morning classes and drink too much coffee.",
+      "This habit matters to me because my grades have started to drop. Last month, I fell asleep during a quiz and could not finish it. I realized that staying up late was costing me more than I thought.",
+      "To make the change last, I am going to start small. First, I will put my phone on the other side of the room at eleven thirty. Instead of scrolling, I will read a few pages of a novel. I also plan to write down what time I fall asleep every night, so I can see my progress.",
+      "Building a habit is not easy, but I believe that small steps can lead to big changes."
+    ],
+    "zh": [
+      "我最想養成的習慣是午夜前上床睡覺。目前，我常常熬夜到兩點，看影片或和朋友聊天。結果，我早上上課時總是很想睡，咖啡也喝得太多。",
+      "這個習慣對我很重要，因為我的成績開始退步了。上個月，我在小考時睡著，沒能寫完。我發現熬夜讓我付出的代價比我想像的還大。",
+      "為了讓改變持續下去，我打算從小地方開始。首先，我會在十一點半把手機放到房間的另一頭。我會讀幾頁小說，而不是一直滑手機。我也打算每天晚上記下自己幾點睡著，這樣就能看到進步。",
+      "養成習慣並不容易，但我相信小小的步驟能帶來大大的改變。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The habit I most want to build is …",
+      "zh": "開門見山點出主題",
+      "example": "The habit I most want to build is going to bed before midnight.",
+      "keys": [
+        "most want to"
+      ]
+    },
+    {
+      "pattern": "As a result, …",
+      "zh": "因此、結果……（說明造成的影響）",
+      "example": "As a result, I feel sleepy in morning classes and drink too much coffee.",
+      "keys": [
+        "as a result"
+      ]
+    },
+    {
+      "pattern": "Instead of …ing, I will …",
+      "zh": "我會……，而不是……（用新行為取代舊習慣）",
+      "example": "Instead of scrolling, I will read a few pages of a novel.",
+      "keys": [
+        "instead of",
+        "will"
+      ]
+    },
+    {
+      "pattern": "…, but I believe that …",
+      "zh": "雖然……，但我相信……（結尾表達決心）",
+      "example": "Building a habit is not easy, but I believe that small steps can lead to big changes.",
+      "keys": [
+        "but",
+        "i believe that"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I fell asleep during a quiz.",
+        "I could not finish it."
+      ],
+      "answer": "I fell asleep during a quiz and could not finish it."
+    },
+    {
+      "parts": [
+        "I often stay up until two o'clock.",
+        "I feel sleepy in morning classes."
+      ],
+      "answer": "I often stay up until two o'clock, so I feel sleepy in morning classes."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Staying up late was costing me more than I thought.",
+      "answers": [
+        "Going to bed late was hurting me more than I expected.",
+        "Late nights had a bigger cost than I realized."
+      ]
+    },
+    {
+      "sentence": "I am going to start small.",
+      "answers": [
+        "I will begin with small changes.",
+        "My plan is to take small steps first."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,716 @@
+{
+ "slug": "e-booking-a-pottery-course",
+ "series": "exam",
+ "title": "Booking a Pottery Course",
+ "titleZh": "報名陶藝課",
+ "subtitle": "雅思風格 Part 1 對話：打電話到藝術中心詢問陶藝課的時間、費用與停車",
+ "format": "dialogue",
+ "accent": "gb",
+ "meta": {
+  "category": "exam",
+  "scenario": "ielts-part1",
+  "level": "intermediate",
+  "exam": "ielts",
+  "examTarget": "ielts-5.5"
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Good morning, Riverside Arts Centre. How can I help you?",
+   "zh": "早安，河濱藝術中心，有什麼可以為您服務的嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "centre",
+      "inSentence": "Centre",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "中心（英式拼法，美式為 center）",
+      "ipa": "/ˈsentə/",
+      "collocations": [
+       "arts centre",
+       "sports centre"
+      ],
+      "examples": [
+       {
+        "en": "The leisure centre opens at eight.",
+        "zh": "休閒中心八點開門。"
+       }
+      ]
+     },
+     {
+      "term": "how can I help you",
+      "inSentence": "How can I help you",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "有什麼需要幫忙的嗎",
+      "ipa": "/haʊ kən aɪ help juː/",
+      "collocations": [
+       "how can I help"
+      ],
+      "examples": [
+       {
+        "en": "Hello, how can I help you today?",
+        "zh": "您好，今天有什麼需要幫忙的嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Hello, I'm calling about the beginners' pottery course I saw advertised in the local paper.",
+   "zh": "你好，我是打來詢問我在地方報紙上看到廣告的陶藝入門課。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "beginners' pottery course",
+      "note": "雅思 Part 1 常考的資訊：課程名稱與程度。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "pottery",
+      "inSentence": "pottery",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "陶藝；陶器",
+      "ipa": "/ˈpɒtəri/",
+      "collocations": [
+       "pottery class",
+       "make pottery"
+      ],
+      "examples": [
+       {
+        "en": "She sells handmade pottery.",
+        "zh": "她賣手工陶器。"
+       }
+      ]
+     },
+     {
+      "term": "advertise",
+      "inSentence": "advertised",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "登廣告",
+      "ipa": "/ˈædvətaɪz/",
+      "collocations": [
+       "advertise a job",
+       "see something advertised"
+      ],
+      "examples": [
+       {
+        "en": "The flat was advertised online.",
+        "zh": "這間公寓有在網路上刊登廣告。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "see + object + past participle",
+      "quote": "I saw advertised",
+      "explanation": "see + 受詞 + 過去分詞，表示看到某物「被…」。這裡受詞 course 移到前面，原本是 I saw the course advertised。",
+      "examples": [
+       {
+        "en": "I saw the house advertised in a magazine.",
+        "zh": "我在雜誌上看到這間房子的廣告。"
+       }
+      ],
+      "pitfall": "不要寫成 I saw advertising，意思會變成「我看到在登廣告的動作」。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Ah yes, that starts next month and runs for six weeks.",
+   "zh": "啊，對，那門課下個月開始，為期六週。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "runs for six weeks",
+      "note": "課程長度：六週。填空題常考數字。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "run for",
+      "inSentence": "runs for",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "持續（一段時間）",
+      "ipa": "/rʌn fɔː/",
+      "collocations": [
+       "run for a month"
+      ],
+      "examples": [
+       {
+        "en": "The play runs for two weeks.",
+        "zh": "這齣戲演出兩週。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Could you tell me which evening it's on? I work late on Mondays.",
+   "zh": "可以告訴我是哪天晚上上課嗎？我星期一要加班。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "work late",
+      "inSentence": "work late",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "工作到很晚；加班",
+      "ipa": "/wɜːk leɪt/",
+      "collocations": [
+       "work late on Fridays"
+      ],
+      "examples": [
+       {
+        "en": "I have to work late tonight.",
+        "zh": "我今晚得加班。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Indirect question",
+      "quote": "which evening it's on",
+      "explanation": "Could you tell me 後面接間接問句，要用直述句語序：主詞在動詞前面。",
+      "examples": [
+       {
+        "en": "Do you know where the station is?",
+        "zh": "你知道車站在哪裡嗎？"
+       }
+      ],
+      "pitfall": "不要說 Could you tell me which evening is it on。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It's on Wednesdays, from seven until half past nine.",
+   "zh": "是每週三，從七點到九點半。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "half past nine",
+      "note": "英式說法：九點半。聽到 past 要知道是「過了幾分」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "half past",
+      "inSentence": "half past nine",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "…點半",
+      "ipa": "/hɑːf pɑːst/",
+      "collocations": [
+       "half past six"
+      ],
+      "examples": [
+       {
+        "en": "The film starts at half past eight.",
+        "zh": "電影八點半開始。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's fine. And how much does the whole course cost?",
+   "zh": "可以。那整個課程要多少錢？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "cost",
+      "inSentence": "cost",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "花費；價錢為",
+      "ipa": "/kɒst/",
+      "collocations": [
+       "how much does it cost"
+      ],
+      "examples": [
+       {
+        "en": "How much does a ticket cost?",
+        "zh": "一張票多少錢？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It's 90 pounds, but students and over-sixties get a ten percent discount.",
+   "zh": "90 英鎊，但學生和 60 歲以上的人可以打九折。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "ten percent discount",
+      "note": "折扣條件與數字是雅思填空的典型考點。注意中文的「打九折」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "discount",
+      "inSentence": "discount",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "折扣",
+      "ipa": "/ˈdɪskaʊnt/",
+      "collocations": [
+       "get a discount",
+       "student discount"
+      ],
+      "examples": [
+       {
+        "en": "Students get a discount at the museum.",
+        "zh": "學生在博物館可享折扣。"
+       }
+      ]
+     },
+     {
+      "term": "over-sixties",
+      "inSentence": "over-sixties",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "60 歲以上的人",
+      "ipa": "/ˌəʊvə ˈsɪkstiz/",
+      "collocations": [
+       "the over-sixties"
+      ],
+      "examples": [
+       {
+        "en": "The pool has a session for the over-sixties.",
+        "zh": "游泳池有 60 歲以上的專屬時段。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I'm afraid I'm neither, so I'll pay the full price.",
+   "zh": "恐怕我兩者都不是，所以我付全額。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "neither",
+      "inSentence": "neither",
+      "kind": "word",
+      "pos": "pron.",
+      "zh": "兩者都不",
+      "ipa": "/ˈnaɪðə/",
+      "collocations": [
+       "neither of them"
+      ],
+      "examples": [
+       {
+        "en": "Neither of the answers is right.",
+        "zh": "兩個答案都不對。"
+       }
+      ]
+     },
+     {
+      "term": "full price",
+      "inSentence": "full price",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "原價；全額",
+      "ipa": "/fʊl praɪs/",
+      "collocations": [
+       "pay full price"
+      ],
+      "examples": [
+       {
+        "en": "I never pay full price for shoes.",
+        "zh": "我買鞋從不付原價。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That includes all the clay and the cost of firing your pieces in the kiln.",
+   "zh": "費用包含所有陶土，以及把你的作品放進窯裡燒製的費用。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "clay",
+      "inSentence": "clay",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "黏土；陶土",
+      "ipa": "/kleɪ/",
+      "collocations": [
+       "a lump of clay"
+      ],
+      "examples": [
+       {
+        "en": "The bowl is made of clay.",
+        "zh": "這個碗是陶土做的。"
+       }
+      ]
+     },
+     {
+      "term": "kiln",
+      "inSentence": "kiln",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "窯",
+      "ipa": "/kɪln/",
+      "collocations": [
+       "fire in a kiln"
+      ],
+      "examples": [
+       {
+        "en": "The pots stay in the kiln overnight.",
+        "zh": "陶器整晚都放在窯裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "cost of",
+      "soundsLike": "costov",
+      "note": "of 弱讀成 /əv/，和 cost 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Do I need to bring anything with me?",
+   "zh": "我需要帶什麼東西嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "bring",
+      "inSentence": "bring",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "帶來",
+      "ipa": "/brɪŋ/",
+      "collocations": [
+       "bring something with you"
+      ],
+      "examples": [
+       {
+        "en": "Remember to bring your passport.",
+        "zh": "記得帶護照。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Just an apron or some old clothes, because it can get quite messy.",
+   "zh": "只要一件圍裙或一些舊衣服就好，因為可能會弄得很髒。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "an apron or some old clothes",
+      "note": "要帶的東西，題目可能問「需要準備什麼」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "apron",
+      "inSentence": "apron",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "圍裙",
+      "ipa": "/ˈeɪprən/",
+      "collocations": [
+       "wear an apron"
+      ],
+      "examples": [
+       {
+        "en": "He put on an apron to cook.",
+        "zh": "他穿上圍裙做菜。"
+       }
+      ]
+     },
+     {
+      "term": "messy",
+      "inSentence": "messy",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "髒亂的",
+      "ipa": "/ˈmesi/",
+      "collocations": [
+       "get messy",
+       "a messy room"
+      ],
+      "examples": [
+       {
+        "en": "Painting with kids gets messy.",
+        "zh": "跟小孩一起畫畫會弄得很亂。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "get quite",
+      "soundsLike": "ge' quite",
+      "note": "get 的 t 不除阻，幾乎聽不到。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Right. And is there anywhere to park near the centre?",
+   "zh": "好。那中心附近有地方停車嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "park",
+      "inSentence": "park",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "停車",
+      "ipa": "/pɑːk/",
+      "collocations": [
+       "park near",
+       "somewhere to park"
+      ],
+      "examples": [
+       {
+        "en": "It's hard to park in the city.",
+        "zh": "在市區很難停車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "There's a small car park behind the building, but it's usually full by seven, so most people take the bus.",
+   "zh": "大樓後面有一個小停車場，但通常七點前就滿了，所以大部分人都搭公車。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "usually full by seven",
+      "note": "陷阱資訊：有停車場，但七點前就滿，所以建議搭公車。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "car park",
+      "inSentence": "car park",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "停車場（英式，美式為 parking lot）",
+      "ipa": "/ˈkɑː pɑːk/",
+      "collocations": [
+       "multi-storey car park"
+      ],
+      "examples": [
+       {
+        "en": "I left my car in the car park.",
+        "zh": "我把車停在停車場。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "There's a small car park behind the building,",
+      "role": "main",
+      "zh": "大樓後面有一個小停車場，"
+     },
+     {
+      "text": "but it's usually full by seven,",
+      "role": "main",
+      "zh": "但通常七點前就滿了，"
+     },
+     {
+      "text": "so most people take the bus.",
+      "role": "subordinate",
+      "zh": "所以大部分人都搭公車。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "OK, I'll keep that in mind. Can I book a place now?",
+   "zh": "好，我會記住的。我現在可以報名嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "keep in mind",
+      "inSentence": "keep that in mind",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "記住",
+      "ipa": "/kiːp ɪn maɪnd/",
+      "collocations": [
+       "keep it in mind"
+      ],
+      "examples": [
+       {
+        "en": "Keep in mind that the shop closes early.",
+        "zh": "記得那家店很早關。"
+       }
+      ]
+     },
+     {
+      "term": "book a place",
+      "inSentence": "book a place",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "預約名額；報名",
+      "ipa": "/bʊk ə pleɪs/",
+      "collocations": [
+       "book a place on a course"
+      ],
+      "examples": [
+       {
+        "en": "I've booked a place on the tour.",
+        "zh": "我已經預約了導覽的名額。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Certainly. Could I have your name and a contact number, please?",
+   "zh": "當然可以。請問您的姓名和聯絡電話是？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "contact number",
+      "inSentence": "contact number",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "聯絡電話",
+      "ipa": "/ˈkɒntækt ˈnʌmbə/",
+      "collocations": [
+       "leave a contact number"
+      ],
+      "examples": [
+       {
+        "en": "Please leave a contact number.",
+        "zh": "請留下聯絡電話。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "Could I have",
+      "soundsLike": "cud-eye-hav",
+      "note": "Could 的 d 和 I 連在一起。"
+     }
+    ]
+   }
+  }
+ ]
+}

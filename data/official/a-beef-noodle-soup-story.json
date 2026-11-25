@@ -1,0 +1,738 @@
+{
+ "slug": "a-beef-noodle-soup-story",
+ "series": "category",
+ "title": "The Story in a Bowl of Beef Noodle Soup",
+ "titleZh": "一碗牛肉麵裡的故事",
+ "subtitle": "住在台北的美食作家，談牛肉麵如何成為台灣的代表味道",
+ "format": "monologue",
+ "accent": "in",
+ "meta": {
+  "category": "food",
+  "scenario": "food-culture",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "If you ask people in Taipei which dish best represents the city, many of them will answer without hesitation: beef noodle soup.",
+   "zh": "如果你問台北人哪一道菜最能代表這座城市，很多人會毫不猶豫地回答：牛肉麵。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "represent",
+      "inSentence": "represents",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "代表",
+      "ipa": "/ˌreprɪˈzent/",
+      "collocations": [
+       "represent a country",
+       "best represents"
+      ],
+      "examples": [
+       {
+        "en": "This song represents our generation.",
+        "zh": "這首歌代表了我們這一代。"
+       }
+      ]
+     },
+     {
+      "term": "without hesitation",
+      "inSentence": "without hesitation",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "毫不猶豫地",
+      "ipa": "/wɪˈðaʊt ˌhezɪˈteɪʃn/",
+      "collocations": [
+       "answer without hesitation",
+       "agree without hesitation"
+      ],
+      "examples": [
+       {
+        "en": "She said yes without hesitation.",
+        "zh": "她毫不猶豫地答應了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "embedded question",
+      "quote": "which dish best represents the city",
+      "explanation": "間接問句放在句中當受詞，語序用直述句，不需要再用 does 倒裝。",
+      "examples": [
+       {
+        "en": "Do you know which bus goes to the airport?",
+        "zh": "你知道哪一班公車到機場嗎？"
+       }
+      ],
+      "pitfall": "不要說 which dish does best represent。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "If you ask people in Taipei",
+      "role": "subordinate",
+      "zh": "如果你問台北人"
+     },
+     {
+      "text": "which dish best represents the city,",
+      "role": "subordinate",
+      "zh": "哪一道菜最能代表這座城市"
+     },
+     {
+      "text": "many of them will answer without hesitation:",
+      "role": "main",
+      "zh": "很多人會毫不猶豫地回答"
+     },
+     {
+      "text": "beef noodle soup.",
+      "role": "main",
+      "zh": "牛肉麵"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "What surprises most visitors is that the dish is not especially old.",
+   "zh": "讓多數遊客驚訝的是，這道菜其實沒有那麼古老。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "especially",
+      "inSentence": "especially",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "特別地；尤其",
+      "ipa": "/ɪˈspeʃəli/",
+      "collocations": [
+       "not especially",
+       "especially when"
+      ],
+      "examples": [
+       {
+        "en": "The test was not especially difficult.",
+        "zh": "那個考試沒有特別難。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "what-clause as subject",
+      "quote": "What surprises most visitors",
+      "explanation": "What 引導的名詞子句當主詞，用來強調後面要說的重點。",
+      "examples": [
+       {
+        "en": "What I need is a long holiday.",
+        "zh": "我需要的是一個長假。"
+       }
+      ],
+      "pitfall": "動詞用單數：What surprises ... is，不是 are。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Most food historians link its rise to the years after nineteen forty-nine, when large numbers of people arrived from mainland China.",
+   "zh": "大多數飲食史學者將它的興起連結到 1949 年之後，那時大批人從中國大陸遷來。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "link something to",
+      "inSentence": "link its rise to",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "把……和……連結起來",
+      "ipa": "/lɪŋk tuː/",
+      "collocations": [
+       "be linked to",
+       "link A to B"
+      ],
+      "examples": [
+       {
+        "en": "Doctors link poor sleep to stress.",
+        "zh": "醫生把睡不好和壓力連結在一起。"
+       }
+      ]
+     },
+     {
+      "term": "historian",
+      "inSentence": "historians",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "歷史學家",
+      "ipa": "/hɪˈstɔːriən/",
+      "collocations": [
+       "food historian",
+       "a local historian"
+      ],
+      "examples": [
+       {
+        "en": "A local historian wrote a book about the temple.",
+        "zh": "一位地方史學者寫了一本關於這座廟的書。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "when as a relative adverb",
+      "quote": "when large numbers of people arrived",
+      "explanation": "when 在這裡修飾前面的時間（the years），補充那段時間發生的事。",
+      "examples": [
+       {
+        "en": "I remember the day when we first met.",
+        "zh": "我記得我們第一次見面的那天。"
+       }
+      ],
+      "pitfall": "前面有逗號時是補充說明，不能換成 that。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Most food historians link its rise",
+      "role": "main",
+      "zh": "大多數飲食史學者將它的興起連結到"
+     },
+     {
+      "text": "to the years after nineteen forty-nine,",
+      "role": "modifier",
+      "zh": "1949 年之後的那些年"
+     },
+     {
+      "text": "when large numbers of people arrived from mainland China.",
+      "role": "subordinate",
+      "zh": "那時大批人從中國大陸遷來"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Many of them were soldiers and their families, and they brought cooking traditions from provinces like Sichuan.",
+   "zh": "他們之中很多是軍人和他們的家人，他們帶來了四川等省份的烹飪傳統。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "province",
+      "inSentence": "provinces",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "省份",
+      "ipa": "/ˈprɒvɪns/",
+      "collocations": [
+       "a province of",
+       "northern provinces"
+      ],
+      "examples": [
+       {
+        "en": "Canada has ten provinces.",
+        "zh": "加拿大有十個省。"
+       }
+      ]
+     },
+     {
+      "term": "tradition",
+      "inSentence": "traditions",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "傳統",
+      "ipa": "/trəˈdɪʃn/",
+      "collocations": [
+       "cooking traditions",
+       "family tradition"
+      ],
+      "examples": [
+       {
+        "en": "It's a family tradition to eat dumplings.",
+        "zh": "吃餃子是我們家的傳統。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "In the military villages, people combined these flavours with local ingredients, especially the beef and the chilli bean paste that became popular in southern Taiwan.",
+   "zh": "在眷村裡，人們把這些風味和在地食材結合，尤其是牛肉，以及在南台灣流行起來的辣豆瓣醬。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "combine",
+      "inSentence": "combined",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "結合",
+      "ipa": "/kəmˈbaɪn/",
+      "collocations": [
+       "combine A with B",
+       "combined effort"
+      ],
+      "examples": [
+       {
+        "en": "She combines work with study.",
+        "zh": "她兼顧工作和念書。"
+       }
+      ]
+     },
+     {
+      "term": "ingredient",
+      "inSentence": "ingredients",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "食材；材料",
+      "ipa": "/ɪnˈɡriːdiənt/",
+      "collocations": [
+       "local ingredients",
+       "fresh ingredients"
+      ],
+      "examples": [
+       {
+        "en": "The chef only uses fresh ingredients.",
+        "zh": "這位主廚只用新鮮食材。"
+       }
+      ]
+     },
+     {
+      "term": "military village",
+      "inSentence": "military villages",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "眷村",
+      "ipa": "/ˈmɪlɪtri ˈvɪlɪdʒ/",
+      "collocations": [
+       "grow up in a military village"
+      ],
+      "examples": [
+       {
+        "en": "My grandfather grew up in a military village.",
+        "zh": "我爺爺在眷村長大。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "In the military villages,",
+      "role": "modifier",
+      "zh": "在眷村裡"
+     },
+     {
+      "text": "people combined these flavours with local ingredients,",
+      "role": "main",
+      "zh": "人們把這些風味和在地食材結合"
+     },
+     {
+      "text": "especially the beef and the chilli bean paste",
+      "role": "modifier",
+      "zh": "尤其是牛肉和辣豆瓣醬"
+     },
+     {
+      "text": "that became popular in southern Taiwan.",
+      "role": "subordinate",
+      "zh": "在南台灣流行起來的"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "The result was a rich, slightly spicy broth that tasted new and familiar at the same time.",
+   "zh": "成果是一碗濃郁、微辣的湯頭，嚐起來既新鮮又熟悉。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "broth",
+      "inSentence": "broth",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "湯頭；高湯",
+      "ipa": "/brɒθ/",
+      "collocations": [
+       "chicken broth",
+       "rich broth"
+      ],
+      "examples": [
+       {
+        "en": "The broth takes eight hours to cook.",
+        "zh": "這湯頭要熬八個小時。"
+       }
+      ]
+     },
+     {
+      "term": "familiar",
+      "inSentence": "familiar",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "熟悉的",
+      "ipa": "/fəˈmɪliə/",
+      "collocations": [
+       "look familiar",
+       "familiar with"
+      ],
+      "examples": [
+       {
+        "en": "Her face looks familiar.",
+        "zh": "她看起來很面熟。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "at the same time",
+      "soundsLike": "at-thuh-same-time",
+      "note": "the 在子音前弱讀成 /ðə/，整個片語唸得很快。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Interestingly, older Taiwanese families often did not eat beef at all.",
+   "zh": "有趣的是，較年長的台灣家庭以前往往根本不吃牛肉。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "did not eat beef",
+      "note": "過去台灣農家仰賴耕牛，許多人因此不吃牛肉。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "at all",
+      "inSentence": "at all",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "一點也（不）；根本（不）",
+      "ipa": "/ət ɔːl/",
+      "collocations": [
+       "not at all",
+       "nothing at all"
+      ],
+      "examples": [
+       {
+        "en": "I didn't sleep at all last night.",
+        "zh": "我昨晚根本沒睡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Farmers depended on cattle to work the fields, so eating them felt ungrateful.",
+   "zh": "農夫仰賴牛來耕田，所以吃牛肉讓人覺得忘恩負義。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "depend on",
+      "inSentence": "depended on",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "依靠；仰賴",
+      "ipa": "/dɪˈpend ɒn/",
+      "collocations": [
+       "depend on someone",
+       "depend on the weather"
+      ],
+      "examples": [
+       {
+        "en": "Our plans depend on the weather.",
+        "zh": "我們的計畫要看天氣。"
+       }
+      ]
+     },
+     {
+      "term": "ungrateful",
+      "inSentence": "ungrateful",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "忘恩負義的；不知感恩的",
+      "ipa": "/ʌnˈɡreɪtfl/",
+      "collocations": [
+       "feel ungrateful",
+       "an ungrateful child"
+      ],
+      "examples": [
+       {
+        "en": "Don't be ungrateful for your parents' help.",
+        "zh": "別對父母的幫忙不知感恩。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Beef noodle soup slowly changed those habits, and today you can find it in almost every neighbourhood.",
+   "zh": "牛肉麵慢慢改變了這些習慣，如今幾乎每個街區都找得到它。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "habit",
+      "inSentence": "habits",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "習慣",
+      "ipa": "/ˈhæbɪt/",
+      "collocations": [
+       "eating habits",
+       "change a habit"
+      ],
+      "examples": [
+       {
+        "en": "It's hard to change old habits.",
+        "zh": "舊習慣很難改。"
+       }
+      ]
+     },
+     {
+      "term": "neighbourhood",
+      "inSentence": "neighbourhood",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "社區；街區",
+      "ipa": "/ˈneɪbəhʊd/",
+      "collocations": [
+       "a quiet neighbourhood",
+       "in the neighbourhood"
+      ],
+      "examples": [
+       {
+        "en": "Is there a pharmacy in the neighbourhood?",
+        "zh": "這附近有藥局嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "There are clear, peppery versions, dark braised versions, and even tomato versions that taste a little sweet.",
+   "zh": "有清燉、帶胡椒味的，有深色紅燒的，甚至還有吃起來微甜的番茄口味。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "braised",
+      "inSentence": "braised",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "紅燒的；燉煮的",
+      "ipa": "/breɪzd/",
+      "collocations": [
+       "braised pork",
+       "braised beef"
+      ],
+      "examples": [
+       {
+        "en": "Braised pork rice is my favourite lunch.",
+        "zh": "滷肉飯是我最愛的午餐。"
+       }
+      ]
+     },
+     {
+      "term": "version",
+      "inSentence": "versions",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "版本；種類",
+      "ipa": "/ˈvɜːʃn/",
+      "collocations": [
+       "a new version",
+       "the original version"
+      ],
+      "examples": [
+       {
+        "en": "I prefer the spicy version.",
+        "zh": "我比較喜歡辣的版本。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Taipei even holds an annual festival where chefs compete for the title of best bowl.",
+   "zh": "台北甚至每年都舉辦一個節慶，讓廚師們爭奪「最佳一碗」的頭銜。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "annual",
+      "inSentence": "annual",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "一年一度的",
+      "ipa": "/ˈænjuəl/",
+      "collocations": [
+       "an annual event",
+       "annual report"
+      ],
+      "examples": [
+       {
+        "en": "The school holds an annual sports day.",
+        "zh": "學校每年舉辦運動會。"
+       }
+      ]
+     },
+     {
+      "term": "compete for",
+      "inSentence": "compete for",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "爭奪；競爭",
+      "ipa": "/kəmˈpiːt fɔː/",
+      "collocations": [
+       "compete for a prize",
+       "compete with"
+      ],
+      "examples": [
+       {
+        "en": "Ten teams competed for the cup.",
+        "zh": "十支隊伍爭奪獎盃。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "So the next time you sit down with a steaming bowl, remember that you are tasting a story of movement, memory, and change.",
+   "zh": "所以下次你坐下來面對一碗熱騰騰的牛肉麵時，記得你嚐到的是一段關於遷徙、記憶與改變的故事。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "steaming",
+      "inSentence": "steaming",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "熱騰騰的；冒著蒸氣的",
+      "ipa": "/ˈstiːmɪŋ/",
+      "collocations": [
+       "a steaming bowl",
+       "steaming hot"
+      ],
+      "examples": [
+       {
+        "en": "He handed me a steaming cup of tea.",
+        "zh": "他遞給我一杯熱騰騰的茶。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "the next time as a conjunction",
+      "quote": "the next time you sit down",
+      "explanation": "the next time 可直接當連接詞用，後面接子句，不需要再加 when。",
+      "examples": [
+       {
+        "en": "The next time you come, bring your sister.",
+        "zh": "下次你來的時候，帶你妹妹一起來。"
+       }
+      ],
+      "pitfall": "不要說 the next time when you sit down。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "So",
+      "role": "connector",
+      "zh": "所以"
+     },
+     {
+      "text": "the next time you sit down with a steaming bowl,",
+      "role": "subordinate",
+      "zh": "下次你坐下來面對一碗熱騰騰的麵時"
+     },
+     {
+      "text": "remember",
+      "role": "main",
+      "zh": "記得"
+     },
+     {
+      "text": "that you are tasting a story of movement, memory, and change.",
+      "role": "subordinate",
+      "zh": "你嚐到的是一段關於遷徙、記憶與改變的故事"
+     }
+    ],
+    "connected": []
+   }
+  }
+ ]
+}

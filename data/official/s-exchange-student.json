@@ -1,0 +1,993 @@
+{
+ "slug": "s-exchange-student",
+ "series": "school",
+ "title": "Our Exchange Student from Germany",
+ "titleZh": "來自德國的交換學生",
+ "subtitle": "德國交換生 Lukas 從害羞孤單到融入全班，也讓大家敢開口說英文",
+ "format": "monologue",
+ "accent": "gb",
+ "meta": {
+  "category": "school",
+  "scenario": "senior-passage",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "When Lukas joined our class in September, most of us were too shy to speak to him in English.",
+   "zh": "Lukas 九月加入我們班的時候，我們大多數人都太害羞，不敢用英文跟他說話。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "shy",
+      "inSentence": "shy",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "害羞的",
+      "ipa": "/ʃaɪ/",
+      "collocations": [
+       "too shy to",
+       "a shy smile"
+      ],
+      "examples": [
+       {
+        "en": "She was too shy to sing.",
+        "zh": "她太害羞了，不敢唱歌。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "too ... to",
+      "quote": "too shy to speak",
+      "explanation": "too ＋形容詞＋ to ＋原形動詞，表示「太…而不能…」，本身就帶否定意味。",
+      "examples": [
+       {
+        "en": "The box is too heavy to carry.",
+        "zh": "箱子太重搬不動。"
+       }
+      ],
+      "pitfall": "不要再加 not，不說 too shy not to speak。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "When Lukas joined our class in September",
+      "role": "subordinate",
+      "zh": "Lukas 九月加入我們班時"
+     },
+     {
+      "text": "most of us were too shy",
+      "role": "main",
+      "zh": "我們大多太害羞"
+     },
+     {
+      "text": "to speak to him in English",
+      "role": "modifier",
+      "zh": "不敢用英文跟他說話"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "He had come from Germany on a one-year exchange programme, and he could barely say hello in Chinese.",
+   "zh": "他是從德國來參加為期一年的交換計畫，當時幾乎連用中文打招呼都不太會。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "exchange programme",
+      "inSentence": "exchange programme",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "交換計畫",
+      "ipa": "/ɪksˈtʃeɪndʒ ˌprəʊɡræm/",
+      "collocations": [
+       "join an exchange programme",
+       "a student exchange programme"
+      ],
+      "examples": [
+       {
+        "en": "She went to Japan on an exchange programme.",
+        "zh": "她參加交換計畫去了日本。"
+       }
+      ]
+     },
+     {
+      "term": "barely",
+      "inSentence": "barely",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "幾乎不；勉強",
+      "ipa": "/ˈbeəli/",
+      "collocations": [
+       "barely know",
+       "can barely"
+      ],
+      "examples": [
+       {
+        "en": "I could barely hear him.",
+        "zh": "我幾乎聽不到他說話。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "past perfect",
+      "quote": "He had come from Germany",
+      "explanation": "過去完成式 had ＋過去分詞，表示比另一個過去時間（加入班級）更早發生的事。",
+      "examples": [
+       {
+        "en": "When I arrived, the film had started.",
+        "zh": "我到的時候電影已經開始了。"
+       }
+      ],
+      "pitfall": "barely 本身是否定，不要再加 not，不說 couldn't barely。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "He had come from Germany",
+      "role": "main",
+      "zh": "他從德國來"
+     },
+     {
+      "text": "on a one-year exchange programme",
+      "role": "modifier",
+      "zh": "參加為期一年的交換計畫"
+     },
+     {
+      "text": "and he could barely say hello",
+      "role": "main",
+      "zh": "而且他幾乎不會打招呼"
+     },
+     {
+      "text": "in Chinese",
+      "role": "modifier",
+      "zh": "用中文"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "For the first few weeks, he ate lunch alone and spent breaks studying a phrasebook.",
+   "zh": "最初幾週，他都一個人吃午餐，下課時間就在讀一本會話手冊。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "phrasebook",
+      "inSentence": "phrasebook",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（旅遊）會話手冊",
+      "ipa": "/ˈfreɪzbʊk/",
+      "collocations": [
+       "a travel phrasebook",
+       "a Japanese phrasebook"
+      ],
+      "examples": [
+       {
+        "en": "I bought a phrasebook before my trip.",
+        "zh": "我出發前買了一本會話手冊。"
+       }
+      ]
+     },
+     {
+      "term": "break",
+      "inSentence": "breaks",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "下課時間；休息",
+      "ipa": "/breɪk/",
+      "collocations": [
+       "take a break",
+       "lunch break"
+      ],
+      "examples": [
+       {
+        "en": "We play football during breaks.",
+        "zh": "我們下課時間會踢足球。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "spend + time + V-ing",
+      "quote": "spent breaks studying",
+      "explanation": "spend ＋時間＋ V-ing，表示「花時間做某事」。",
+      "examples": [
+       {
+        "en": "She spends weekends reading.",
+        "zh": "她週末都在看書。"
+       }
+      ],
+      "pitfall": "不要說 spent breaks to study。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Everything changed during the school sports day, when our relay team was one runner short.",
+   "zh": "一切在學校運動會那天有了轉變，當時我們的接力隊少了一名跑者。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "relay",
+      "inSentence": "relay team",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "接力賽",
+      "ipa": "/ˈriːleɪ/",
+      "collocations": [
+       "relay race",
+       "relay team"
+      ],
+      "examples": [
+       {
+        "en": "Our class won the relay race.",
+        "zh": "我們班贏了接力賽。"
+       }
+      ]
+     },
+     {
+      "term": "short",
+      "inSentence": "one runner short",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "短缺的；少了…",
+      "ipa": "/ʃɔːt/",
+      "collocations": [
+       "one person short",
+       "short of money"
+      ],
+      "examples": [
+       {
+        "en": "We're two players short.",
+        "zh": "我們少了兩個球員。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "non-defining when",
+      "quote": "sports day, when our relay team",
+      "explanation": "逗號後的 when 補充說明那一天發生的事，意思是「而就在那時」。",
+      "examples": [
+       {
+        "en": "I met her in 2020, when I lived in Taipei.",
+        "zh": "我在 2020 年認識她，那時我住在台北。"
+       }
+      ],
+      "pitfall": "one runner short 是「少一個跑者」，不是「一個矮的跑者」。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Everything changed",
+      "role": "main",
+      "zh": "一切都改變了"
+     },
+     {
+      "text": "during the school sports day",
+      "role": "modifier",
+      "zh": "在學校運動會那天"
+     },
+     {
+      "text": "when our relay team was one runner short",
+      "role": "subordinate",
+      "zh": "當時我們的接力隊少了一名跑者"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Lukas volunteered without hesitation, and he ran the final leg so fast that we came first.",
+   "zh": "Lukas 毫不猶豫地自願上場，而且他最後一棒跑得飛快，讓我們拿到了第一名。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "without hesitation",
+      "inSentence": "without hesitation",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "毫不猶豫地",
+      "ipa": "/wɪˈðaʊt ˌhezɪˈteɪʃn/",
+      "collocations": [
+       "without hesitation",
+       "answer without hesitation"
+      ],
+      "examples": [
+       {
+        "en": "She said yes without hesitation.",
+        "zh": "她毫不猶豫地答應了。"
+       }
+      ]
+     },
+     {
+      "term": "leg",
+      "inSentence": "final leg",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（接力賽的）一棒；一段",
+      "ipa": "/leɡ/",
+      "collocations": [
+       "the final leg",
+       "the first leg"
+      ],
+      "examples": [
+       {
+        "en": "I ran the second leg of the relay.",
+        "zh": "我跑接力賽的第二棒。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "so ... that",
+      "quote": "so fast that we came first",
+      "explanation": "so ＋副詞＋ that ＋子句，表示「太…以至於…」。",
+      "examples": [
+       {
+        "en": "He spoke so quickly that I missed it.",
+        "zh": "他說得太快，我沒聽到。"
+       }
+      ],
+      "pitfall": "came first 是「得第一名」，不是「先到」而已。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Lukas volunteered without hesitation",
+      "role": "main",
+      "zh": "Lukas 毫不猶豫地自願上場"
+     },
+     {
+      "text": "and he ran the final leg",
+      "role": "main",
+      "zh": "他跑了最後一棒"
+     },
+     {
+      "text": "so fast",
+      "role": "modifier",
+      "zh": "跑得非常快"
+     },
+     {
+      "text": "that we came first",
+      "role": "subordinate",
+      "zh": "讓我們得到第一名"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "After that, people started inviting him to play basketball and to join them at night markets.",
+   "zh": "從那之後，大家開始邀他一起打籃球、逛夜市。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "invite",
+      "inSentence": "inviting him",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "邀請",
+      "ipa": "/ɪnˈvaɪt/",
+      "collocations": [
+       "invite sb to",
+       "invite sb for dinner"
+      ],
+      "examples": [
+       {
+        "en": "They invited me to their party.",
+        "zh": "他們邀請我參加派對。"
+       }
+      ]
+     },
+     {
+      "term": "night market",
+      "inSentence": "night markets",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "夜市",
+      "ipa": "/ˈnaɪt ˌmɑːkɪt/",
+      "collocations": [
+       "go to a night market",
+       "night market food"
+      ],
+      "examples": [
+       {
+        "en": "Shilin Night Market is very busy.",
+        "zh": "士林夜市人很多。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "invite + object + to V",
+      "quote": "inviting him to play",
+      "explanation": "invite ＋人＋ to ＋原形動詞，表示「邀請某人做某事」。",
+      "examples": [
+       {
+        "en": "She invited me to watch a film.",
+        "zh": "她邀我去看電影。"
+       }
+      ],
+      "pitfall": "不要說 invite him playing。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We soon discovered that he was curious about everything, from temple festivals to the way we pay for things with our phones.",
+   "zh": "我們很快發現，他對什麼都好奇，從廟會到我們用手機付款的方式都是。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "discover",
+      "inSentence": "discovered",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "發現",
+      "ipa": "/dɪˈskʌvə/",
+      "collocations": [
+       "discover that",
+       "discover a secret"
+      ],
+      "examples": [
+       {
+        "en": "I discovered that I liked cooking.",
+        "zh": "我發現自己喜歡下廚。"
+       }
+      ]
+     },
+     {
+      "term": "temple festival",
+      "inSentence": "temple festivals",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "廟會",
+      "ipa": "/ˈtempl ˌfestɪvl/",
+      "collocations": [
+       "a local temple festival",
+       "go to a temple festival"
+      ],
+      "examples": [
+       {
+        "en": "There's a temple festival this weekend.",
+        "zh": "這週末有廟會。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "from A to B",
+      "quote": "from temple festivals to the way we pay",
+      "explanation": "from A to B 用來舉出範圍很廣的例子，意思是「從 A 到 B 都…」。",
+      "examples": [
+       {
+        "en": "She reads everything, from comics to science books.",
+        "zh": "她什麼都讀，從漫畫到科學書。"
+       }
+      ],
+      "pitfall": "B 是名詞片語 the way we pay...，不要寫成 to how we pay。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "We soon discovered",
+      "role": "main",
+      "zh": "我們很快發現"
+     },
+     {
+      "text": "that he was curious about everything",
+      "role": "subordinate",
+      "zh": "他對一切都很好奇"
+     },
+     {
+      "text": "from temple festivals",
+      "role": "modifier",
+      "zh": "從廟會"
+     },
+     {
+      "text": "to the way we pay for things with our phones",
+      "role": "modifier",
+      "zh": "到我們用手機付款的方式"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "In return, he taught us about German Christmas markets and why people there take recycling so seriously.",
+   "zh": "作為回報，他也教我們認識德國的聖誕市集，以及為什麼那裡的人那麼重視資源回收。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "in return",
+      "inSentence": "In return",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "作為回報",
+      "ipa": "/ɪn rɪˈtɜːn/",
+      "collocations": [
+       "in return for",
+       "give sth in return"
+      ],
+      "examples": [
+       {
+        "en": "She helped me, so I bought her lunch in return.",
+        "zh": "她幫了我，所以我請她吃午餐當回報。"
+       }
+      ]
+     },
+     {
+      "term": "take sth seriously",
+      "inSentence": "take recycling so seriously",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "認真看待某事",
+      "ipa": "/teɪk ˈsɪəriəsli/",
+      "collocations": [
+       "take it seriously",
+       "take sb seriously"
+      ],
+      "examples": [
+       {
+        "en": "He takes his health seriously.",
+        "zh": "他很注重自己的健康。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "indirect question",
+      "quote": "why people there take recycling so seriously",
+      "explanation": "why 引導的名詞子句當受詞，用直述句順序，不加 do。",
+      "examples": [
+       {
+        "en": "Tell me why you are late.",
+        "zh": "告訴我你為什麼遲到。"
+       }
+      ],
+      "pitfall": "不要說 why do people there take。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "In return",
+      "role": "connector",
+      "zh": "作為回報"
+     },
+     {
+      "text": "he taught us about German Christmas markets",
+      "role": "main",
+      "zh": "他教我們認識德國聖誕市集"
+     },
+     {
+      "text": "and why people there take recycling so seriously",
+      "role": "subordinate",
+      "zh": "以及那裡的人為何如此重視回收"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "What struck me most was how hard he worked at learning Chinese.",
+   "zh": "最讓我印象深刻的，是他學中文有多麼努力。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "strike",
+      "inSentence": "struck me",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "使印象深刻",
+      "ipa": "/straɪk/",
+      "collocations": [
+       "strike sb as",
+       "what struck me"
+      ],
+      "examples": [
+       {
+        "en": "What struck me was her kindness.",
+        "zh": "讓我印象深刻的是她的善良。"
+       }
+      ]
+     },
+     {
+      "term": "work at",
+      "inSentence": "worked at learning",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "努力做；致力於",
+      "ipa": "/wɜːk æt/",
+      "collocations": [
+       "work at sth",
+       "work hard at"
+      ],
+      "examples": [
+       {
+        "en": "You need to work at your writing.",
+        "zh": "你需要在寫作上多下功夫。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "what-clause as subject",
+      "quote": "What struck me most was",
+      "explanation": "What 引導的名詞子句可以當主詞，意思是「最…的事是」，動詞用單數。",
+      "examples": [
+       {
+        "en": "What I need is sleep.",
+        "zh": "我需要的是睡眠。"
+       }
+      ],
+      "pitfall": "不要說 The thing what struck me。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "By the end of the year, he could chat with the old lady who runs the noodle stall outside our school.",
+   "zh": "到了學年結束時，他已經能跟學校外面那家麵攤的阿姨聊天了。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "noodle stall",
+      "inSentence": "noodle stall",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "麵攤",
+      "ipa": "/ˈnuːdl stɔːl/",
+      "collocations": [
+       "a noodle stall",
+       "food stall"
+      ],
+      "examples": [
+       {
+        "en": "We had dinner at a noodle stall.",
+        "zh": "我們在麵攤吃晚餐。"
+       }
+      ]
+     },
+     {
+      "term": "run",
+      "inSentence": "runs",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "經營",
+      "ipa": "/rʌn/",
+      "collocations": [
+       "run a shop",
+       "run a business"
+      ],
+      "examples": [
+       {
+        "en": "My uncle runs a small café.",
+        "zh": "我舅舅經營一家小咖啡店。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "relative clause with who",
+      "quote": "the old lady who runs the noodle stall",
+      "explanation": "who 引導關係子句，修飾前面的人。",
+      "examples": [
+       {
+        "en": "I know the man who lives next door.",
+        "zh": "我認識住隔壁的那位先生。"
+       }
+      ],
+      "pitfall": "主詞是單數 lady，所以動詞是 runs。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "By the end of the year",
+      "role": "modifier",
+      "zh": "到了學年結束時"
+     },
+     {
+      "text": "he could chat with the old lady",
+      "role": "main",
+      "zh": "他能跟那位阿姨聊天"
+     },
+     {
+      "text": "who runs the noodle stall",
+      "role": "modifier",
+      "zh": "經營麵攤的"
+     },
+     {
+      "text": "outside our school",
+      "role": "modifier",
+      "zh": "在學校外面"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Watching his progress made me realise that making mistakes is simply part of learning a language.",
+   "zh": "看著他的進步，讓我體會到犯錯本來就是學語言的一部分。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "realise",
+      "inSentence": "realise",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "體會到；了解",
+      "ipa": "/ˈrɪəlaɪz/",
+      "collocations": [
+       "realise that",
+       "suddenly realise"
+      ],
+      "examples": [
+       {
+        "en": "I didn't realise it was so late.",
+        "zh": "我沒發現已經這麼晚了。"
+       }
+      ]
+     },
+     {
+      "term": "progress",
+      "inSentence": "progress",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "進步",
+      "ipa": "/ˈprəʊɡres/",
+      "collocations": [
+       "make progress",
+       "great progress"
+      ],
+      "examples": [
+       {
+        "en": "You've made great progress.",
+        "zh": "你進步很多。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "make + object + base verb",
+      "quote": "made me realise",
+      "explanation": "使役動詞 make ＋受詞＋原形動詞，表示「讓某人…」。",
+      "examples": [
+       {
+        "en": "The film made me cry.",
+        "zh": "這部電影讓我哭了。"
+       }
+      ],
+      "pitfall": "不要說 made me to realise。"
+     },
+     {
+      "point": "gerund as subject",
+      "quote": "making mistakes is",
+      "explanation": "動名詞片語當主詞時，動詞用單數。",
+      "examples": [
+       {
+        "en": "Learning English takes time.",
+        "zh": "學英文需要時間。"
+       }
+      ],
+      "pitfall": "mistakes 是複數，但主詞是 making，所以用 is。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Watching his progress",
+      "role": "main",
+      "zh": "看著他的進步"
+     },
+     {
+      "text": "made me realise",
+      "role": "main",
+      "zh": "讓我體會到"
+     },
+     {
+      "text": "that making mistakes",
+      "role": "subordinate",
+      "zh": "犯錯"
+     },
+     {
+      "text": "is simply part of learning a language",
+      "role": "subordinate",
+      "zh": "本來就是學語言的一部分"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Since he left, I've stopped worrying about my accent and started speaking up in English class.",
+   "zh": "他離開後，我不再擔心自己的口音，也開始在英文課上勇於發言。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "accent",
+      "inSentence": "accent",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "口音",
+      "ipa": "/ˈæksent/",
+      "collocations": [
+       "a strong accent",
+       "a British accent"
+      ],
+      "examples": [
+       {
+        "en": "He has a lovely Scottish accent.",
+        "zh": "他有很好聽的蘇格蘭口音。"
+       }
+      ]
+     },
+     {
+      "term": "speak up",
+      "inSentence": "speaking up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "大膽發言；大聲說",
+      "ipa": "/spiːk ʌp/",
+      "collocations": [
+       "speak up in class",
+       "speak up for"
+      ],
+      "examples": [
+       {
+        "en": "Don't be afraid to speak up.",
+        "zh": "別怕發言。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "stop + V-ing",
+      "quote": "stopped worrying",
+      "explanation": "stop ＋ V-ing 是「停止做某事」；stop ＋ to V 是「停下來去做另一件事」。",
+      "examples": [
+       {
+        "en": "He stopped to buy a drink.",
+        "zh": "他停下來去買飲料。"
+       }
+      ],
+      "pitfall": "這裡是不再擔心，不能寫成 stopped to worry。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We still message each other every week, and next summer I'm hoping to visit him in Munich.",
+   "zh": "我們現在每週還會互傳訊息，明年夏天我希望能去慕尼黑找他。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "message",
+      "inSentence": "message each other",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "傳訊息給",
+      "ipa": "/ˈmesɪdʒ/",
+      "collocations": [
+       "message sb",
+       "message each other"
+      ],
+      "examples": [
+       {
+        "en": "I'll message you later.",
+        "zh": "我晚點傳訊息給你。"
+       }
+      ]
+     },
+     {
+      "term": "hope to",
+      "inSentence": "hoping to visit",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "希望（做）",
+      "ipa": "/həʊp tuː/",
+      "collocations": [
+       "hope to see",
+       "hoping to"
+      ],
+      "examples": [
+       {
+        "en": "I'm hoping to study abroad.",
+        "zh": "我希望能出國讀書。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "message each other",
+      "soundsLike": "messa-jeach-other",
+      "note": "message 的尾音和 each 連在一起念。"
+     }
+    ]
+   }
+  }
+ ]
+}

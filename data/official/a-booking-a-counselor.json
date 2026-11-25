@@ -1,0 +1,742 @@
+{
+ "slug": "a-booking-a-counselor",
+ "series": "category",
+ "title": "Calling the Counseling Center",
+ "titleZh": "打電話到諮商中心",
+ "subtitle": "壓力很大的研究生第一次打電話預約心理諮商",
+ "format": "dialogue",
+ "accent": "us",
+ "meta": {
+  "category": "health",
+  "scenario": "counseling-booking",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Student Counseling Center, this is Daniel speaking, how can I help you?",
+   "zh": "學生諮商中心，我是丹尼爾，有什麼可以幫你的嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "this is Daniel speaking",
+      "note": "接電話時自我介紹的標準說法。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "counseling",
+      "inSentence": "Counseling",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "諮商；輔導",
+      "ipa": "/ˈkaʊnsəlɪŋ/",
+      "collocations": [
+       "counseling center",
+       "career counseling"
+      ],
+      "examples": [
+       {
+        "en": "The school offers free counseling.",
+        "zh": "學校提供免費諮商。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Hi, I've never done this before, so I'm not really sure how it works.",
+   "zh": "嗨，我以前從來沒做過這件事，所以不太確定流程是怎樣。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "not really sure",
+      "inSentence": "not really sure",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "不太確定",
+      "ipa": "/nɑt ˈrili ʃʊr/",
+      "collocations": [
+       "I'm not really sure",
+       "not really sure why"
+      ],
+      "examples": [
+       {
+        "en": "I'm not really sure where the station is.",
+        "zh": "我不太確定車站在哪裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "present perfect for experience",
+      "quote": "I've never done this before",
+      "explanation": "現在完成式加 never，表示「從來沒有過這種經驗」。",
+      "examples": [
+       {
+        "en": "I've never been to Japan.",
+        "zh": "我從來沒去過日本。"
+       }
+      ],
+      "pitfall": "美式口語偶爾會說 I never did this before，但談人生經驗時用完成式最標準。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "how it works",
+      "soundsLike": "how-i-TWORKS",
+      "note": "it 的 t 和 works 連在一起，聽起來很快。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "I'd like to talk to someone about stress, but I don't know if it's serious enough.",
+   "zh": "我想找人談談壓力的問題，但不知道我的狀況算不算嚴重。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "stress",
+      "inSentence": "stress",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "壓力",
+      "ipa": "/strɛs/",
+      "collocations": [
+       "deal with stress",
+       "under stress"
+      ],
+      "examples": [
+       {
+        "en": "Exercise helps me deal with stress.",
+        "zh": "運動幫助我應付壓力。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "if meaning whether",
+      "quote": "if it's serious enough",
+      "explanation": "在 know、ask 後面，if 等於 whether，意思是「是否」。",
+      "examples": [
+       {
+        "en": "I don't know if she's coming.",
+        "zh": "我不知道她會不會來。"
+       }
+      ],
+      "pitfall": "enough 放在形容詞後面：serious enough，不是 enough serious。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's a really common worry, and I'm glad you called.",
+   "zh": "這是很常見的擔心，我很高興你打來。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "I'm glad you called",
+      "note": "肯定對方主動求助，讓人安心的回應。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "common",
+      "inSentence": "common",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "常見的",
+      "ipa": "/ˈkɑmən/",
+      "collocations": [
+       "a common problem",
+       "very common"
+      ],
+      "examples": [
+       {
+        "en": "Headaches are very common.",
+        "zh": "頭痛很常見。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "You don't need a crisis to see a counselor; many students come in simply because they feel overwhelmed.",
+   "zh": "不需要遇到危機才能見諮商師；很多學生來，只是因為覺得快被壓垮了。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "crisis",
+      "inSentence": "crisis",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "危機",
+      "ipa": "/ˈkraɪsɪs/",
+      "collocations": [
+       "in a crisis",
+       "a crisis line"
+      ],
+      "examples": [
+       {
+        "en": "Call this number if you're in a crisis.",
+        "zh": "如果你處於危機中，打這支電話。"
+       }
+      ]
+     },
+     {
+      "term": "overwhelmed",
+      "inSentence": "overwhelmed",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "不知所措的；被壓得喘不過氣的",
+      "ipa": "/ˌoʊvərˈwɛlmd/",
+      "collocations": [
+       "feel overwhelmed",
+       "overwhelmed by work"
+      ],
+      "examples": [
+       {
+        "en": "I felt overwhelmed during finals week.",
+        "zh": "期末考那週我覺得快被壓垮了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "You don't need a crisis",
+      "role": "main",
+      "zh": "你不需要遇到危機"
+     },
+     {
+      "text": "to see a counselor;",
+      "role": "modifier",
+      "zh": "才能見諮商師"
+     },
+     {
+      "text": "many students come in simply",
+      "role": "main",
+      "zh": "很多學生來只是"
+     },
+     {
+      "text": "because they feel overwhelmed.",
+      "role": "subordinate",
+      "zh": "因為覺得快被壓垮了"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Could you tell me a little about what's been going on?",
+   "zh": "可以跟我說一點最近發生了什麼事嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [],
+    "grammar": [
+     {
+      "point": "present perfect continuous",
+      "quote": "what's been going on",
+      "explanation": "what has been going on，現在完成進行式，問「最近一直在發生的事」。",
+      "examples": [
+       {
+        "en": "What have you been doing lately?",
+        "zh": "你最近都在做什麼？"
+       }
+      ],
+      "pitfall": "不要說 what is going on 來問一段時間以來的狀況，語意會變成「現在」。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "Could you",
+      "soundsLike": "COULD-jə",
+      "note": "could 和 you 連讀，聽起來像 /kʊdʒə/。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Well, I'm an international student in my first year of a master's program, and I've been sleeping badly for about a month.",
+   "zh": "嗯，我是碩一的國際學生，大概一個月來一直睡不好。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "international student",
+      "inSentence": "international student",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "國際學生；留學生",
+      "ipa": "/ˌɪntərˈnæʃənəl ˈstudənt/",
+      "collocations": [
+       "an international student office"
+      ],
+      "examples": [
+       {
+        "en": "There are many international students in my class.",
+        "zh": "我班上有很多國際學生。"
+       }
+      ]
+     },
+     {
+      "term": "master's program",
+      "inSentence": "master's program",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "碩士班",
+      "ipa": "/ˈmæstərz ˈproʊɡræm/",
+      "collocations": [
+       "apply to a master's program"
+      ],
+      "examples": [
+       {
+        "en": "She's applying to a master's program in Canada.",
+        "zh": "她正在申請加拿大的碩士班。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "Well, I'm an international student",
+      "role": "main",
+      "zh": "嗯，我是國際學生"
+     },
+     {
+      "text": "in my first year of a master's program,",
+      "role": "modifier",
+      "zh": "碩士班一年級"
+     },
+     {
+      "text": "and I've been sleeping badly for about a month.",
+      "role": "main",
+      "zh": "大概一個月來一直睡不好"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "I keep thinking about deadlines, and I feel guilty whenever I take a break.",
+   "zh": "我一直想著截止期限，每次休息都會有罪惡感。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "guilty",
+      "inSentence": "guilty",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "有罪惡感的；內疚的",
+      "ipa": "/ˈɡɪlti/",
+      "collocations": [
+       "feel guilty",
+       "guilty about"
+      ],
+      "examples": [
+       {
+        "en": "I feel guilty about missing her party.",
+        "zh": "錯過她的派對讓我很內疚。"
+       }
+      ]
+     },
+     {
+      "term": "keep doing",
+      "inSentence": "keep thinking",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "一直做某事",
+      "ipa": "/kip ˈθɪŋkɪŋ/",
+      "collocations": [
+       "keep trying",
+       "keep talking"
+      ],
+      "examples": [
+       {
+        "en": "He kept checking his phone.",
+        "zh": "他一直看手機。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Thank you for sharing that, it sounds exhausting.",
+   "zh": "謝謝你願意說出來，聽起來真的很累。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "exhausting",
+      "inSentence": "exhausting",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "令人筋疲力盡的",
+      "ipa": "/ɪɡˈzɔstɪŋ/",
+      "collocations": [
+       "an exhausting day",
+       "really exhausting"
+      ],
+      "examples": [
+       {
+        "en": "Moving house is exhausting.",
+        "zh": "搬家真的很累人。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Our first available appointment with a counselor is next Tuesday at two, and it's free for all enrolled students.",
+   "zh": "我們最近可以預約諮商師的時段是下週二 2 點，所有在學學生都免費。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "available",
+      "inSentence": "available",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "可用的；有空的",
+      "ipa": "/əˈveɪləbəl/",
+      "collocations": [
+       "first available",
+       "available for"
+      ],
+      "examples": [
+       {
+        "en": "Is this seat available?",
+        "zh": "這個位子有人坐嗎？"
+       }
+      ]
+     },
+     {
+      "term": "enrolled",
+      "inSentence": "enrolled",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "已註冊的；在學的",
+      "ipa": "/ɪnˈroʊld/",
+      "collocations": [
+       "enrolled students",
+       "be enrolled in"
+      ],
+      "examples": [
+       {
+        "en": "She is enrolled in a nursing course.",
+        "zh": "她註冊了護理課程。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "Our first available appointment with a counselor",
+      "role": "main",
+      "zh": "我們最近可以預約諮商師的時段"
+     },
+     {
+      "text": "is next Tuesday at two,",
+      "role": "main",
+      "zh": "是下週二 2 點"
+     },
+     {
+      "text": "and it's free for all enrolled students.",
+      "role": "main",
+      "zh": "所有在學學生都免費"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "That works for me, but is it completely confidential?",
+   "zh": "那個時間我可以，不過談話內容是完全保密的嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "That works for me",
+      "note": "接受對方提出的時間，美式口語非常常用。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "confidential",
+      "inSentence": "confidential",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "機密的；保密的",
+      "ipa": "/ˌkɑnfəˈdɛnʃəl/",
+      "collocations": [
+       "strictly confidential",
+       "keep confidential"
+      ],
+      "examples": [
+       {
+        "en": "Your answers will be kept confidential.",
+        "zh": "你的回答會被保密。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I'm worried my professors might find out.",
+   "zh": "我擔心我的教授們會知道。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "find out",
+      "inSentence": "find out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "發現；得知",
+      "ipa": "/faɪnd aʊt/",
+      "collocations": [
+       "find out about",
+       "find out the truth"
+      ],
+      "examples": [
+       {
+        "en": "I found out about the party yesterday.",
+        "zh": "我昨天才知道有派對。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It is, we don't share anything with your department unless you give us written permission.",
+   "zh": "是的，除非你給我們書面同意，否則我們不會跟你的系上分享任何資訊。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "permission",
+      "inSentence": "written permission",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "許可；同意",
+      "ipa": "/pərˈmɪʃən/",
+      "collocations": [
+       "ask for permission",
+       "written permission"
+      ],
+      "examples": [
+       {
+        "en": "You need permission to use the lab.",
+        "zh": "你需要許可才能使用實驗室。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "unless",
+      "quote": "unless you give us written permission",
+      "explanation": "unless 表示「除非」，等於 if ... not。",
+      "examples": [
+       {
+        "en": "You can't enter unless you have a ticket.",
+        "zh": "除非你有票，否則不能進去。"
+       }
+      ],
+      "pitfall": "unless 後面不要再加 not：unless you don't give 意思會相反。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "In the meantime, if things suddenly feel much worse, you can call our twenty-four-hour line at any time.",
+   "zh": "在這段期間，如果狀況突然變得糟很多，你隨時可以打我們的 24 小時專線。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "in the meantime",
+      "inSentence": "In the meantime",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "在此期間",
+      "ipa": "/ɪn ðə ˈminˌtaɪm/",
+      "collocations": [
+       "in the meantime, relax"
+      ],
+      "examples": [
+       {
+        "en": "The doctor will be here soon; in the meantime, please wait.",
+        "zh": "醫生很快就到；在那之前請稍候。"
+       }
+      ]
+     },
+     {
+      "term": "at any time",
+      "inSentence": "at any time",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "隨時",
+      "ipa": "/æt ˈɛni taɪm/",
+      "collocations": [
+       "call at any time",
+       "at any time of day"
+      ],
+      "examples": [
+       {
+        "en": "You can cancel at any time.",
+        "zh": "你隨時可以取消。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "In the meantime,",
+      "role": "connector",
+      "zh": "在這段期間"
+     },
+     {
+      "text": "if things suddenly feel much worse,",
+      "role": "subordinate",
+      "zh": "如果狀況突然變得糟很多"
+     },
+     {
+      "text": "you can call our twenty-four-hour line",
+      "role": "main",
+      "zh": "你可以打我們的 24 小時專線"
+     },
+     {
+      "text": "at any time.",
+      "role": "modifier",
+      "zh": "隨時"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Okay, thank you, I already feel a little lighter just from making this call.",
+   "zh": "好，謝謝你，光是打了這通電話，我就已經覺得輕鬆一點了。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "just from making this call",
+      "note": "just from + V-ing：「光是做了……就」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "lighter",
+      "inSentence": "lighter",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "輕鬆一些的",
+      "ipa": "/ˈlaɪtər/",
+      "collocations": [
+       "feel lighter",
+       "a lighter mood"
+      ],
+      "examples": [
+       {
+        "en": "I felt lighter after talking to my mom.",
+        "zh": "跟媽媽聊完後我覺得輕鬆多了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

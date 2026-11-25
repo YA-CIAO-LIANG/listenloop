@@ -452,6 +452,7 @@
     "shared": "公開練習",
     "backToExplore": "公開教材",
     "rewrittenFrom": "改寫自 {source} 的新聞稿〈<link>{title}</link>〉，由 ListenLoop 依事實以自己的話重寫成學習用短文。",
+    "classicSource": "出處：{source}〈<link>{title}</link>〉。屬於公有領域或美國聯邦政府的著作；ListenLoop 依原作節錄，或改寫成適合學習者的版本，並加上翻譯與講解。",
     "seoDescription": "{title}：免費英文聽力練習，共 {count} 句。第 1 天逐句聽寫、第 2～6 天跟讀、第 7 天再聽寫，附中英對照講義、單字與文法。",
     "officialMaterial": "官方教材",
     "backToLibrary": "官方教材庫"

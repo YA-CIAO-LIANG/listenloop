@@ -1,0 +1,694 @@
+{
+ "slug": "b-declining-birthday-karaoke",
+ "series": "category",
+ "title": "Saying No to a Birthday Night Out",
+ "titleZh": "婉拒同事的生日聚會",
+ "subtitle": "考雅思前一晚的邀約，怎麼拒絕又不傷感情",
+ "format": "dialogue",
+ "accent": "gb",
+ "meta": {
+  "category": "relationships",
+  "scenario": "declining-invitation",
+  "level": "intermediate",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Iris, a few of us are going to a karaoke bar on Saturday night for my birthday.",
+   "zh": "艾芮絲，我們幾個人星期六晚上要去 KTV 幫我慶生。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "a few of us",
+      "note": "「我們幾個人」，邀請時很自然的說法。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "karaoke",
+      "inSentence": "a karaoke bar",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "卡拉 OK",
+      "ipa": "/ˌkæriˈəʊki/",
+      "collocations": [
+       "karaoke bar",
+       "sing karaoke"
+      ],
+      "examples": [
+       {
+        "en": "We sang karaoke until midnight.",
+        "zh": "我們唱卡拉 OK 唱到半夜。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "a few of us",
+      "soundsLike": "a fyoo-wə-vus",
+      "note": "of 弱讀成 /əv/，和前後連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Would you like to come along?",
+   "zh": "你想一起來嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "come along",
+      "inSentence": "come along",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "一起來；跟著來",
+      "ipa": "/kʌm əˈlɒŋ/",
+      "collocations": [
+       "come along with",
+       "you can come along"
+      ],
+      "examples": [
+       {
+        "en": "You're welcome to come along.",
+        "zh": "歡迎你一起來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Oh, happy early birthday, and thanks so much for thinking of me!",
+   "zh": "喔，提早祝你生日快樂，也很謝謝你想到我！",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "thanks so much for thinking of me",
+      "note": "婉拒前先感謝邀請，是英文的禮貌順序。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "think of",
+      "inSentence": "thinking of me",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "想到（某人）",
+      "ipa": "/θɪŋk ɒv/",
+      "collocations": [
+       "think of you",
+       "thanks for thinking of me"
+      ],
+      "examples": [
+       {
+        "en": "I thought of you when I saw this book.",
+        "zh": "我看到這本書時想到你。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I'd really love to, but I'm afraid I can't make it this time.",
+   "zh": "我真的很想去，但這次恐怕沒辦法。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "I'd really love to, but",
+      "note": "先表達意願再說 but，拒絕聽起來比較溫和。"
+     },
+     {
+      "text": "can't make it",
+      "note": "「沒辦法到場」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "make it",
+      "inSentence": "can't make it",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "趕到；能出席",
+      "ipa": "/meɪk ɪt/",
+      "collocations": [
+       "can't make it",
+       "make it on time"
+      ],
+      "examples": [
+       {
+        "en": "Sorry, I can't make it to the meeting.",
+        "zh": "抱歉，我沒辦法參加會議。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "I'm afraid (softening bad news)",
+      "quote": "I'm afraid I can't",
+      "explanation": "I'm afraid 在這裡不是「害怕」，而是委婉地帶出壞消息，類似中文「恐怕」。",
+      "examples": [
+       {
+        "en": "I'm afraid we're fully booked.",
+        "zh": "恐怕我們已經客滿了。"
+       }
+      ],
+      "pitfall": "不要直接說 I can't，少了緩衝會顯得太直接。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "I'd really love to",
+      "soundsLike": "aid rilly luv-tə",
+      "note": "to 在句尾弱讀成 /tə/。"
+     },
+     {
+      "text": "can't make it",
+      "soundsLike": "kahnt may-kit",
+      "note": "英式 can't 唸 /kɑːnt/，make 和 it 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Oh no, is everything all right?",
+   "zh": "喔不，一切都還好嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "all right",
+      "inSentence": "all right",
+      "kind": "phrase",
+      "pos": "adj.",
+      "zh": "沒問題的；還好的",
+      "ipa": "/ɔːl raɪt/",
+      "collocations": [
+       "is everything all right",
+       "feel all right"
+      ],
+      "examples": [
+       {
+        "en": "Are you all right? You look tired.",
+        "zh": "你還好嗎？你看起來很累。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Yes, it's nothing serious, I just have my IELTS exam on Sunday morning.",
+   "zh": "嗯，沒什麼大事，只是我星期天早上要考雅思。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "nothing serious",
+      "note": "「沒什麼大不了」，讓對方放心。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "serious",
+      "inSentence": "nothing serious",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "嚴重的",
+      "ipa": "/ˈsɪəriəs/",
+      "collocations": [
+       "nothing serious",
+       "a serious problem"
+      ],
+      "examples": [
+       {
+        "en": "Don't worry, it's nothing serious.",
+        "zh": "別擔心，不嚴重。"
+       }
+      ]
+     },
+     {
+      "term": "exam",
+      "inSentence": "exam",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "考試",
+      "ipa": "/ɪɡˈzæm/",
+      "collocations": [
+       "take an exam",
+       "pass an exam"
+      ],
+      "examples": [
+       {
+        "en": "I have a maths exam tomorrow.",
+        "zh": "我明天有數學考試。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "If I stay out late, I know I'll be exhausted, and I've been preparing for months.",
+   "zh": "如果我晚上待太晚，我知道我會累壞，而且我已經準備好幾個月了。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "exhausted",
+      "inSentence": "exhausted",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "筋疲力盡的",
+      "ipa": "/ɪɡˈzɔːstɪd/",
+      "collocations": [
+       "feel exhausted",
+       "completely exhausted"
+      ],
+      "examples": [
+       {
+        "en": "I was exhausted after the long flight.",
+        "zh": "長途飛行後我累壞了。"
+       }
+      ]
+     },
+     {
+      "term": "stay out late",
+      "inSentence": "stay out late",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "在外面待到很晚",
+      "ipa": "/steɪ aʊt leɪt/",
+      "collocations": [
+       "stay out late",
+       "stay out all night"
+      ],
+      "examples": [
+       {
+        "en": "My parents don't like me staying out late.",
+        "zh": "我爸媽不喜歡我在外面待太晚。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "present perfect continuous",
+      "quote": "I've been preparing for months",
+      "explanation": "have been + V-ing 表示從過去一直持續到現在的動作，常搭配 for + 一段時間。",
+      "examples": [
+       {
+        "en": "She's been working here for two years.",
+        "zh": "她已經在這裡工作兩年了。"
+       }
+      ],
+      "pitfall": "不要說 I'm preparing for months，持續一段時間要用現在完成進行式。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "If I stay out late,",
+      "role": "subordinate",
+      "zh": "如果我晚上待太晚，"
+     },
+     {
+      "text": "I know I'll be exhausted,",
+      "role": "main",
+      "zh": "我知道我會累壞，"
+     },
+     {
+      "text": "and I've been preparing for months.",
+      "role": "main",
+      "zh": "而且我已經準備好幾個月了。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "That makes total sense, and honestly, I'd do the same.",
+   "zh": "完全可以理解，老實說，換作是我也會這樣。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "That makes total sense",
+      "note": "「完全合理、能理解」，回應對方理由的好用句。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "make sense",
+      "inSentence": "makes total sense",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "合理；說得通",
+      "ipa": "/meɪk sens/",
+      "collocations": [
+       "make sense",
+       "that makes sense"
+      ],
+      "examples": [
+       {
+        "en": "Your plan makes sense to me.",
+        "zh": "我覺得你的計畫很合理。"
+       }
+      ]
+     },
+     {
+      "term": "honestly",
+      "inSentence": "honestly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "老實說",
+      "ipa": "/ˈɒnɪstli/",
+      "collocations": [
+       "honestly speaking",
+       "to be honest"
+      ],
+      "examples": [
+       {
+        "en": "Honestly, I prefer tea.",
+        "zh": "老實說，我比較喜歡茶。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "makes total sense",
+      "soundsLike": "mayk-stoh-tl sense",
+      "note": "makes 的 s 和 total 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Could I take you out for lunch next week instead, just the two of us?",
+   "zh": "那下星期改成我請你吃午餐好嗎？就我們兩個。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "take you out for lunch",
+      "note": "「請你出去吃午餐」，通常表示由說話者請客。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "take someone out",
+      "inSentence": "take you out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "帶某人出去（吃飯、玩），通常請客",
+      "ipa": "/teɪk ˈsʌmwʌn aʊt/",
+      "collocations": [
+       "take you out for dinner",
+       "take someone out"
+      ],
+      "examples": [
+       {
+        "en": "Let me take you out for dinner.",
+        "zh": "讓我請你吃晚餐吧。"
+       }
+      ]
+     },
+     {
+      "term": "instead",
+      "inSentence": "instead",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "作為替代；改為",
+      "ipa": "/ɪnˈsted/",
+      "collocations": [
+       "instead of",
+       "do something else instead"
+      ],
+      "examples": [
+       {
+        "en": "Let's walk instead of taking the bus.",
+        "zh": "我們用走的，不要搭公車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "take you out",
+      "soundsLike": "tay-kyoo-wout",
+      "note": "take 和 you 連讀，you 再和 out 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "My treat, of course.",
+   "zh": "當然是我請客。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "treat",
+      "inSentence": "My treat",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "請客；款待",
+      "ipa": "/triːt/",
+      "collocations": [
+       "my treat",
+       "it's on me"
+      ],
+      "examples": [
+       {
+        "en": "Put your wallet away, it's my treat.",
+        "zh": "把錢包收起來，我請客。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Ha, you don't have to do that, but I won't say no.",
+   "zh": "哈，你不用這樣啦，不過我不會拒絕的。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "I won't say no",
+      "note": "「我不會拒絕」，開玩笑地接受好意。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "say no",
+      "inSentence": "say no",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "拒絕",
+      "ipa": "/seɪ nəʊ/",
+      "collocations": [
+       "won't say no",
+       "hard to say no"
+      ],
+      "examples": [
+       {
+        "en": "It's hard to say no to free cake.",
+        "zh": "免費的蛋糕很難拒絕。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "How about Wednesday, after the team meeting?",
+   "zh": "星期三團隊會議後怎麼樣？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "team meeting",
+      "inSentence": "the team meeting",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "團隊會議",
+      "ipa": "/tiːm ˈmiːtɪŋ/",
+      "collocations": [
+       "weekly team meeting",
+       "have a team meeting"
+      ],
+      "examples": [
+       {
+        "en": "The team meeting starts at nine.",
+        "zh": "團隊會議九點開始。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Wednesday's perfect, and you can tell me all about the karaoke night.",
+   "zh": "星期三很好，然後你可以跟我分享 KTV 那晚的所有事。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "tell someone about",
+      "inSentence": "tell me all about",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "告訴某人關於……的事",
+      "ipa": "/tel ˈsʌmwʌn əˈbaʊt/",
+      "collocations": [
+       "tell me about it",
+       "tell me all about"
+      ],
+      "examples": [
+       {
+        "en": "Tell me all about your trip.",
+        "zh": "跟我說說你旅行的一切。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "tell me all about",
+      "soundsLike": "tel-mee-yawl-about",
+      "note": "me 和 all 之間會滑出一個 /j/ 音。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Deal, and good luck on Sunday, I'm sure you'll smash it.",
+   "zh": "一言為定，星期天祝你好運，我相信你一定會考得很好。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "smash it",
+      "note": "英式口語，「表現超好、大成功」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "smash it",
+      "inSentence": "you'll smash it",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "表現得非常好（英式口語）",
+      "ipa": "/smæʃ ɪt/",
+      "collocations": [
+       "smash it",
+       "totally smash it"
+      ],
+      "examples": [
+       {
+        "en": "Good luck with the interview, you'll smash it!",
+        "zh": "面試加油，你一定會表現超好！"
+       }
+      ]
+     },
+     {
+      "term": "good luck",
+      "inSentence": "good luck on Sunday",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "祝好運",
+      "ipa": "/ɡʊd lʌk/",
+      "collocations": [
+       "good luck with",
+       "good luck on"
+      ],
+      "examples": [
+       {
+        "en": "Good luck with your exam!",
+        "zh": "考試加油！"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

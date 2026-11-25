@@ -1,0 +1,900 @@
+{
+ "slug": "c-nasa-earths-moon",
+ "series": "classics",
+ "title": "Our Neighbor, the Moon",
+ "titleZh": "我們的鄰居：月球",
+ "subtitle": "改寫自 NASA 月球介紹：月球怎麼形成、離我們多遠",
+ "format": "monologue",
+ "accent": "us",
+ "meta": {
+  "category": "classics",
+  "scenario": "public-article",
+  "level": "intermediate",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "us-government",
+  "name": "NASA Science",
+  "title": "Moon Facts",
+  "url": "https://science.nasa.gov/moon/facts/",
+  "basis": "Work of the U.S. federal government (NASA), 17 U.S.C. §105; retold only from NASA's own text, not from third-party images or material on the page.",
+  "adapted": true
+ },
+ "sentences": [
+  {
+   "en": "The Moon is Earth's only natural satellite, and it has been with us for billions of years.",
+   "zh": "月球是地球唯一的天然衛星，它已經陪伴我們數十億年了。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "satellite",
+      "inSentence": "satellite",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "衛星",
+      "ipa": "/ˈsætəˌlaɪt/",
+      "collocations": [
+       "natural satellite",
+       "weather satellite"
+      ],
+      "examples": [
+       {
+        "en": "The satellite sends pictures back to Earth.",
+        "zh": "衛星把照片傳回地球。"
+       }
+      ]
+     },
+     {
+      "term": "billions of",
+      "inSentence": "billions of years",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "數十億的",
+      "ipa": "/ˈbɪljənz əv/",
+      "collocations": [
+       "millions of",
+       "billions of dollars"
+      ],
+      "examples": [
+       {
+        "en": "There are billions of stars in our galaxy.",
+        "zh": "我們的銀河系有數十億顆恆星。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "present perfect for duration",
+      "quote": "it has been with us for billions of years",
+      "explanation": "has been + for + 一段時間，表示從過去一直持續到現在。",
+      "examples": [
+       {
+        "en": "My family has lived in Taichung for ten years.",
+        "zh": "我家已經在台中住了十年。"
+       }
+      ],
+      "pitfall": "不要寫成 it is with us for billions of years，持續到現在要用現在完成式。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Scientists think it formed after a body about the size of Mars crashed into the young Earth.",
+   "zh": "科學家認為，它是在一個大約火星大小的天體撞上年輕的地球之後形成的。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "the size of Mars",
+      "note": "the size of + 名詞，表示「和…一樣大」，前面不用加 as。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "crash into",
+      "inSentence": "crashed into",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "撞上",
+      "ipa": "/kræʃ ˈɪntu/",
+      "collocations": [
+       "crash into a wall"
+      ],
+      "examples": [
+       {
+        "en": "A car crashed into the tree.",
+        "zh": "一輛車撞上了那棵樹。"
+       }
+      ]
+     },
+     {
+      "term": "form",
+      "inSentence": "formed",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "形成",
+      "ipa": "/fɔrm/",
+      "collocations": [
+       "form a group",
+       "be formed"
+      ],
+      "examples": [
+       {
+        "en": "Ice forms when water gets very cold.",
+        "zh": "水變得很冷時就會結冰。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "crashed into",
+      "soundsLike": "crash-tin-to",
+      "note": "crashed 的 -ed 讀 /t/，和 into 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Pieces from that crash came together and slowly became the Moon we see today.",
+   "zh": "那次撞擊產生的碎片聚集在一起，慢慢變成我們今天看到的月球。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "come together",
+      "inSentence": "came together",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "聚集；結合",
+      "ipa": "/kʌm təˈɡɛðər/",
+      "collocations": [
+       "come together as a team"
+      ],
+      "examples": [
+       {
+        "en": "The whole town came together to help.",
+        "zh": "全鎮的人都聚在一起幫忙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "omitted relative pronoun",
+      "quote": "the Moon we see today",
+      "explanation": "the Moon (that) we see today，關係代名詞當受詞時可以省略。",
+      "examples": [
+       {
+        "en": "This is the book I told you about.",
+        "zh": "這就是我跟你說過的那本書。"
+       }
+      ],
+      "pitfall": "當主詞的關係代名詞不能省略：the man who lives here 不能說 the man lives here。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "At first, the young Moon was covered by an ocean of hot, melted rock.",
+   "zh": "起初，年輕的月球被一片炙熱熔岩構成的海洋覆蓋。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "melted",
+      "inSentence": "melted rock",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "融化的；熔化的",
+      "ipa": "/ˈmɛltɪd/",
+      "collocations": [
+       "melted cheese",
+       "melted snow"
+      ],
+      "examples": [
+       {
+        "en": "The melted snow turned into a small river.",
+        "zh": "融化的雪變成了一條小河。"
+       }
+      ]
+     },
+     {
+      "term": "at first",
+      "inSentence": "At first",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "起初；一開始",
+      "ipa": "/æt fɜrst/",
+      "collocations": [
+       "at first glance"
+      ],
+      "examples": [
+       {
+        "en": "At first, I didn't like the city.",
+        "zh": "一開始我並不喜歡這座城市。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "be covered by/with",
+      "quote": "was covered by an ocean",
+      "explanation": "be covered by/with 表示「被…覆蓋」，是被動語態的常見用法。",
+      "examples": [
+       {
+        "en": "The mountain was covered with snow.",
+        "zh": "山上覆蓋著白雪。"
+       }
+      ],
+      "pitfall": "不要寫成 was cover by，被動要用過去分詞 covered。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Today, it travels around us at an average distance of about three hundred eighty-four thousand kilometers.",
+   "zh": "如今，它繞著我們運行，平均距離大約是 384,000 公里。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "three hundred eighty-four thousand",
+      "note": "大數字聽力要點：先聽 thousand 前面的部分，384 thousand 就是 384,000。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "average",
+      "inSentence": "average distance",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "平均的",
+      "ipa": "/ˈævərɪdʒ/",
+      "collocations": [
+       "on average",
+       "average speed"
+      ],
+      "examples": [
+       {
+        "en": "The average temperature here is 25 degrees.",
+        "zh": "這裡的平均氣溫是 25 度。"
+       }
+      ]
+     },
+     {
+      "term": "distance",
+      "inSentence": "distance",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "距離",
+      "ipa": "/ˈdɪstəns/",
+      "collocations": [
+       "a long distance",
+       "at a distance of"
+      ],
+      "examples": [
+       {
+        "en": "The distance between the two cities is 200 kilometers.",
+        "zh": "兩座城市之間的距離是 200 公里。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That gap is so wide that about thirty Earth-sized planets could fit in between.",
+   "zh": "這段距離寬到中間大約可以放進 30 顆地球大小的行星。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fit in",
+      "inSentence": "fit in between",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "放得進；容納",
+      "ipa": "/fɪt ɪn/",
+      "collocations": [
+       "fit in the box"
+      ],
+      "examples": [
+       {
+        "en": "Can all these books fit in your bag?",
+        "zh": "這些書全都放得進你的包包嗎？"
+       }
+      ]
+     },
+     {
+      "term": "gap",
+      "inSentence": "gap",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "間隔；空隙",
+      "ipa": "/ɡæp/",
+      "collocations": [
+       "a gap between",
+       "fill the gap"
+      ],
+      "examples": [
+       {
+        "en": "There is a small gap between the two buildings.",
+        "zh": "兩棟建築之間有一小段空隙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "so ... that",
+      "quote": "so wide that about thirty Earth-sized planets could fit",
+      "explanation": "so + 形容詞 + that 表示結果：寬到可以放進三十顆地球。",
+      "examples": [
+       {
+        "en": "The room was so small that only two people could sit.",
+        "zh": "房間小到只能坐兩個人。"
+       }
+      ],
+      "pitfall": "so 後面接形容詞，不要接名詞；名詞要用 such。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The Moon is also moving away from Earth very slowly, by about two and a half centimeters a year.",
+   "zh": "月球也正非常緩慢地遠離地球，每年大約遠離 2.5 公分。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "move away from",
+      "inSentence": "moving away from",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "遠離；離開",
+      "ipa": "/muv əˈweɪ frʌm/",
+      "collocations": [
+       "move away from home"
+      ],
+      "examples": [
+       {
+        "en": "Please move away from the edge.",
+        "zh": "請離邊緣遠一點。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "by for amount of change",
+      "quote": "by about two and a half centimeters a year",
+      "explanation": "介系詞 by 表示變化的幅度：「每年遠離約 2.5 公分」。",
+      "examples": [
+       {
+        "en": "Prices went up by ten percent.",
+        "zh": "價格上漲了百分之十。"
+       }
+      ],
+      "pitfall": "不要用 with 表示幅度，要用 by。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It is much smaller than our planet, less than a third as wide.",
+   "zh": "它比我們的星球小得多，寬度不到地球的三分之一。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "a third",
+      "inSentence": "a third",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "三分之一",
+      "ipa": "/ə θɜrd/",
+      "collocations": [
+       "a third of",
+       "two thirds"
+      ],
+      "examples": [
+       {
+        "en": "A third of the class was absent.",
+        "zh": "全班有三分之一的人缺席。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "fraction + as ... (as)",
+      "quote": "less than a third as wide",
+      "explanation": "分數 + as + 形容詞，表示倍數比較：寬度只有三分之一，後面省略了 as Earth。",
+      "examples": [
+       {
+        "en": "My room is half as big as yours.",
+        "zh": "我的房間只有你的一半大。"
+       }
+      ],
+      "pitfall": "much 用來加強比較級：much smaller，不要說 very smaller。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "If Earth were the size of a nickel, the Moon would be about as big as a coffee bean.",
+   "zh": "如果地球只有一枚五分錢硬幣那麼大，月球大概就像一顆咖啡豆那麼大。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "nickel",
+      "inSentence": "nickel",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（美國）五分錢硬幣",
+      "ipa": "/ˈnɪkəl/",
+      "collocations": [
+       "a nickel and a dime"
+      ],
+      "examples": [
+       {
+        "en": "The candy costs a nickel.",
+        "zh": "這顆糖要五分錢。"
+       }
+      ]
+     },
+     {
+      "term": "coffee bean",
+      "inSentence": "coffee bean",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "咖啡豆",
+      "ipa": "/ˈkɔfi bin/",
+      "collocations": [
+       "roasted coffee beans"
+      ],
+      "examples": [
+       {
+        "en": "These coffee beans come from Yunlin.",
+        "zh": "這些咖啡豆來自雲林。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "second conditional",
+      "quote": "If Earth were the size of a nickel, the Moon would be",
+      "explanation": "If + 過去式（be 動詞用 were），主要子句用 would，表示和事實相反的假設。",
+      "examples": [
+       {
+        "en": "If I were a bird, I would fly to you.",
+        "zh": "如果我是一隻鳥，我會飛到你身邊。"
+       }
+      ],
+      "pitfall": "假設語氣中 be 動詞所有人稱都可以用 were，正式說法不用 was。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Because the Moon has almost no air, rocks from space hit its surface again and again, leaving craters everywhere.",
+   "zh": "因為月球上幾乎沒有空氣，來自太空的岩石一再撞擊它的表面，到處留下隕石坑。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "crater",
+      "inSentence": "craters",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "坑洞；隕石坑",
+      "ipa": "/ˈkreɪtər/",
+      "collocations": [
+       "impact crater",
+       "volcanic crater"
+      ],
+      "examples": [
+       {
+        "en": "The meteor left a huge crater.",
+        "zh": "流星留下一個巨大的坑洞。"
+       }
+      ]
+     },
+     {
+      "term": "surface",
+      "inSentence": "surface",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "表面",
+      "ipa": "/ˈsɜrfəs/",
+      "collocations": [
+       "on the surface",
+       "the surface of"
+      ],
+      "examples": [
+       {
+        "en": "Leaves floated on the surface of the pond.",
+        "zh": "葉子漂浮在池塘水面上。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "participle of result",
+      "quote": "leaving craters everywhere",
+      "explanation": "句尾的 V-ing 分詞片語表示前面動作造成的結果。",
+      "examples": [
+       {
+        "en": "The storm hit the city, leaving many homes without power.",
+        "zh": "暴風雨襲擊城市，造成許多住家停電。"
+       }
+      ],
+      "pitfall": "不要寫成 and leaving，分詞片語前面不加 and。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Because the Moon has almost no air,",
+      "role": "subordinate",
+      "zh": "因為月球幾乎沒有空氣"
+     },
+     {
+      "text": "rocks from space hit its surface again and again,",
+      "role": "main",
+      "zh": "太空岩石一再撞擊它的表面"
+     },
+     {
+      "text": "leaving craters everywhere.",
+      "role": "modifier",
+      "zh": "到處留下坑洞"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "The dark patches we can see from Earth are called maria, which means \"seas\" in Latin.",
+   "zh": "我們從地球上看到的那些暗色斑塊叫做「月海」，在拉丁文中是「海」的意思。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "patch",
+      "inSentence": "patches",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "小塊區域；斑塊",
+      "ipa": "/pætʃ/",
+      "collocations": [
+       "a patch of grass",
+       "dark patches"
+      ],
+      "examples": [
+       {
+        "en": "There was a patch of ice on the road.",
+        "zh": "路上有一小塊結冰。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "which referring to a word",
+      "quote": "maria, which means \"seas\"",
+      "explanation": "非限定關係子句 , which... 補充說明前面的字 maria 是什麼意思。",
+      "examples": [
+       {
+        "en": "We had tteokbokki, which is a Korean dish.",
+        "zh": "我們吃了辣炒年糕，那是一道韓國菜。"
+       }
+      ],
+      "pitfall": "非限定用法前面要加逗號，而且不能用 that 取代 which。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "we can see",
+      "soundsLike": "wee-kən-see",
+      "note": "can 在肯定句弱讀成 kən。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "They are not really seas, though; they are huge basins that were filled with lava long ago.",
+   "zh": "不過它們並不是真的海，而是很久以前被熔岩填滿的巨大盆地。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "though",
+      "note": "放在句中或句尾的 though 表示「不過」，語氣比 but 柔和。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "lava",
+      "inSentence": "lava",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "熔岩",
+      "ipa": "/ˈlɑvə/",
+      "collocations": [
+       "hot lava",
+       "lava flow"
+      ],
+      "examples": [
+       {
+        "en": "Lava poured out of the volcano.",
+        "zh": "熔岩從火山湧出。"
+       }
+      ]
+     },
+     {
+      "term": "basin",
+      "inSentence": "basins",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "盆地",
+      "ipa": "/ˈbeɪsən/",
+      "collocations": [
+       "a river basin",
+       "the Taipei Basin"
+      ],
+      "examples": [
+       {
+        "en": "Taipei sits in a basin.",
+        "zh": "台北位在一個盆地裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "In full sunlight, the surface gets hotter than boiling water, but in the dark it drops to around minus one hundred seventy degrees Celsius.",
+   "zh": "在陽光直射下，月球表面比沸水還燙，但在黑暗中會降到攝氏零下 170 度左右。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "boiling",
+      "inSentence": "boiling water",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "沸騰的",
+      "ipa": "/ˈbɔɪlɪŋ/",
+      "collocations": [
+       "boiling water",
+       "boiling hot"
+      ],
+      "examples": [
+       {
+        "en": "Pour boiling water into the cup.",
+        "zh": "把滾水倒進杯子裡。"
+       }
+      ]
+     },
+     {
+      "term": "drop",
+      "inSentence": "drops to",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "下降",
+      "ipa": "/drɑp/",
+      "collocations": [
+       "drop to",
+       "drop by"
+      ],
+      "examples": [
+       {
+        "en": "The temperature dropped to five degrees last night.",
+        "zh": "昨晚氣溫降到五度。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "comparative with get",
+      "quote": "gets hotter than boiling water",
+      "explanation": "get + 比較級表示狀態的變化：變得比…更熱。",
+      "examples": [
+       {
+        "en": "It gets darker earlier in winter.",
+        "zh": "冬天天黑得比較早。"
+       }
+      ],
+      "pitfall": "minus 是「零下」，聽到 minus one hundred seventy 不要誤聽成正數。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "In full sunlight,",
+      "role": "modifier",
+      "zh": "在陽光直射下"
+     },
+     {
+      "text": "the surface gets hotter than boiling water,",
+      "role": "main",
+      "zh": "表面比沸水還燙"
+     },
+     {
+      "text": "but in the dark",
+      "role": "connector",
+      "zh": "但在黑暗中"
+     },
+     {
+      "text": "it drops to around minus one hundred seventy degrees Celsius.",
+      "role": "main",
+      "zh": "降到攝氏零下 170 度左右"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "The Moon also spins at the same speed as it travels around Earth.",
+   "zh": "月球自轉的速度也和它繞地球公轉的速度相同。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "spin",
+      "inSentence": "spins",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "旋轉；自轉",
+      "ipa": "/spɪn/",
+      "collocations": [
+       "spin around",
+       "spin fast"
+      ],
+      "examples": [
+       {
+        "en": "The Earth spins once every day.",
+        "zh": "地球每天自轉一圈。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "the same ... as",
+      "quote": "at the same speed as it travels",
+      "explanation": "the same + 名詞 + as + 子句，表示「和…一樣的…」。",
+      "examples": [
+       {
+        "en": "She wore the same dress as I did.",
+        "zh": "她穿了和我一樣的洋裝。"
+       }
+      ],
+      "pitfall": "不要寫成 the same speed with，要用 as。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That is why we always see the same side of it from here.",
+   "zh": "這就是為什麼我們在地球上總是看到它的同一面。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "that is why",
+      "inSentence": "That is why",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "這就是為什麼",
+      "ipa": "/ðæt ɪz waɪ/",
+      "collocations": [
+       "that's why"
+      ],
+      "examples": [
+       {
+        "en": "I missed the bus. That's why I was late.",
+        "zh": "我錯過了公車，所以才遲到。"
+       }
+      ]
+     },
+     {
+      "term": "side",
+      "inSentence": "the same side",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "一面；一邊",
+      "ipa": "/saɪd/",
+      "collocations": [
+       "the other side",
+       "the far side"
+      ],
+      "examples": [
+       {
+        "en": "Write your name on this side of the paper.",
+        "zh": "把名字寫在紙的這一面。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

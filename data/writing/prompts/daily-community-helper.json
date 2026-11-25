@@ -1,0 +1,103 @@
+{
+  "id": "daily-community-helper",
+  "type": "daily",
+  "level": "intermediate",
+  "title": {
+    "en": "Someone Who Helps My Community",
+    "zh": "守護社區的人"
+  },
+  "subtitle": "介紹一位默默為社區付出的人",
+  "task": "Write about a person who helps your community, such as a volunteer, a shop owner, or a neighbor. Describe what they do, give an example, and explain why their work matters.",
+  "taskZh": "介紹一位為社區付出的人，例如志工、店家老闆或鄰居：描述他做了什麼、舉一個具體例子，並說明他的付出為什麼重要。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "用具體例子支持描述",
+    "用現在式描述習慣、過去式描述例子",
+    "說明這個人對社區的影響"
+  ],
+  "model": {
+    "en": [
+      "In my neighborhood, there is a woman named Auntie Lin who runs a small breakfast shop. Every morning, she opens at six o'clock and greets everyone by name. Besides selling food, she quietly takes care of many people around her.",
+      "For example, she keeps an eye on the elderly people who live alone on our street. If one of them does not come for breakfast, she calls or visits to make sure they are fine. Last winter, she noticed that an old man had not come for two days. She went to his home and found that he was sick, so she called an ambulance.",
+      "Auntie Lin is not rich or famous, but her work matters a great deal. Thanks to her, our street feels safer and warmer. She has taught me that helping others does not require a big plan, only a caring heart."
+    ],
+    "zh": [
+      "我家附近有一位林阿姨，她開了一家小小的早餐店。每天早上，她六點開店，叫得出每位客人的名字。除了賣早餐，她也默默照顧著身邊許多人。",
+      "例如，她會留意我們這條街上獨居的長輩。如果其中有人沒來吃早餐，她會打電話或親自去看看，確認他們沒事。去年冬天，她注意到一位老先生已經兩天沒來了。她到他家去，發現他生病了，於是叫了救護車。",
+      "林阿姨既不富有也不出名，但她的付出非常重要。多虧了她，我們這條街感覺更安全、更溫暖。她讓我明白，幫助別人不需要什麼偉大的計畫，只需要一顆關心的心。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Besides …ing, she …",
+      "zh": "除了……之外，還……",
+      "example": "Besides selling food, she quietly takes care of many people around her.",
+      "keys": [
+        "besides"
+      ]
+    },
+    {
+      "pattern": "If one of them …, she …",
+      "zh": "條件句：描述她固定的做法",
+      "example": "If one of them does not come for breakfast, she calls or visits to make sure they are fine.",
+      "keys": [
+        "if",
+        "make sure"
+      ]
+    },
+    {
+      "pattern": "Thanks to her, …",
+      "zh": "多虧了她……（說明正面影響）",
+      "example": "Thanks to her, our street feels safer and warmer.",
+      "keys": [
+        "thanks to"
+      ]
+    },
+    {
+      "pattern": "She has taught me that …",
+      "zh": "她讓我明白……（結尾的體悟）",
+      "example": "She has taught me that helping others does not require a big plan, only a caring heart.",
+      "keys": [
+        "has taught me that"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "She went to his home.",
+        "She found that he was sick.",
+        "She called an ambulance."
+      ],
+      "answer": "She went to his home and found that he was sick, so she called an ambulance."
+    },
+    {
+      "parts": [
+        "Auntie Lin is not rich or famous.",
+        "Her work matters a great deal."
+      ],
+      "answer": "Auntie Lin is not rich or famous, but her work matters a great deal."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "She keeps an eye on the elderly people who live alone.",
+      "answers": [
+        "She watches over the older people who live by themselves.",
+        "She looks after the seniors who live alone."
+      ]
+    },
+    {
+      "sentence": "Our street feels safer and warmer.",
+      "answers": [
+        "Our street is a safer and friendlier place.",
+        "People on our street feel more secure and cared for."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

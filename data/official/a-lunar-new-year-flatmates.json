@@ -1,0 +1,627 @@
+{
+ "slug": "a-lunar-new-year-flatmates",
+ "series": "category",
+ "title": "Lunar New Year for My Flatmates",
+ "titleZh": "向室友介紹農曆新年",
+ "subtitle": "在英國留學的台灣學生，向室友說明過年的習俗",
+ "format": "monologue",
+ "accent": "gb",
+ "meta": {
+  "category": "culture",
+  "scenario": "lunar-new-year",
+  "level": "beginner",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Next week is Lunar New Year, and I'd like to tell you how my family celebrates it in Taiwan.",
+   "zh": "下週就是農曆新年了，我想跟你們說說我家在台灣是怎麼過年的。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "celebrate",
+      "inSentence": "celebrates",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "慶祝",
+      "ipa": "/ˈseləbreɪt/",
+      "collocations": [
+       "celebrate a birthday",
+       "celebrate together"
+      ],
+      "examples": [
+       {
+        "en": "We celebrated her birthday at a restaurant.",
+        "zh": "我們在餐廳幫她慶生。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "I'd like to",
+      "quote": "I'd like to tell you",
+      "explanation": "I'd like to 是 I would like to 的縮寫，比 I want to 更禮貌。",
+      "examples": [
+       {
+        "en": "I'd like to ask a question.",
+        "zh": "我想問一個問題。"
+       }
+      ],
+      "pitfall": "後面接原形動詞：I'd like to tell，不是 to telling。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It's the biggest holiday of the year for us.",
+   "zh": "對我們來說，這是一年中最重要的節日。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "holiday",
+      "inSentence": "holiday",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "節日；假期",
+      "ipa": "/ˈhɒlədeɪ/",
+      "collocations": [
+       "public holiday",
+       "the biggest holiday"
+      ],
+      "examples": [
+       {
+        "en": "Christmas is a big holiday in Britain.",
+        "zh": "聖誕節在英國是個重要的節日。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Before the new year, we clean the whole house from top to bottom.",
+   "zh": "新年之前，我們會把整間房子從上到下打掃乾淨。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "the whole house",
+      "note": "whole 表示「整個」，強調全部都要打掃。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "from top to bottom",
+      "inSentence": "from top to bottom",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "從上到下；徹底地",
+      "ipa": "/frəm tɒp tə ˈbɒtəm/",
+      "collocations": [
+       "clean from top to bottom"
+      ],
+      "examples": [
+       {
+        "en": "We searched the flat from top to bottom.",
+        "zh": "我們把公寓徹底找了一遍。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We believe cleaning sweeps away the bad luck from the old year.",
+   "zh": "我們相信打掃可以掃走舊的一年的霉運。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sweep away",
+      "inSentence": "sweeps away",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "掃除；掃走",
+      "ipa": "/swiːp əˈweɪ/",
+      "collocations": [
+       "sweep away dust",
+       "sweep away bad luck"
+      ],
+      "examples": [
+       {
+        "en": "The wind swept away the leaves.",
+        "zh": "風把落葉吹走了。"
+       }
+      ]
+     },
+     {
+      "term": "bad luck",
+      "inSentence": "bad luck",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "霉運；壞運氣",
+      "ipa": "/bæd lʌk/",
+      "collocations": [
+       "bring bad luck",
+       "bad luck for"
+      ],
+      "examples": [
+       {
+        "en": "Some people think black cats bring bad luck.",
+        "zh": "有些人認為黑貓會帶來霉運。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We also put red paper with lucky words on our front door.",
+   "zh": "我們也會在大門上貼寫著吉祥話的紅紙。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "lucky",
+      "inSentence": "lucky",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "吉祥的；幸運的",
+      "ipa": "/ˈlʌki/",
+      "collocations": [
+       "lucky number",
+       "lucky day"
+      ],
+      "examples": [
+       {
+        "en": "Eight is a lucky number in Taiwan.",
+        "zh": "在台灣，8 是幸運數字。"
+       }
+      ]
+     },
+     {
+      "term": "front door",
+      "inSentence": "front door",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "大門；前門",
+      "ipa": "/frʌnt dɔː/",
+      "collocations": [
+       "knock on the front door",
+       "lock the front door"
+      ],
+      "examples": [
+       {
+        "en": "Someone is at the front door.",
+        "zh": "有人在大門口。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "On New Year's Eve, the whole family eats a big dinner together.",
+   "zh": "除夕夜，全家人會一起吃一頓豐盛的晚餐。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "New Year's Eve",
+      "inSentence": "New Year's Eve",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "除夕；跨年夜",
+      "ipa": "/ˌnjuː jɪəz ˈiːv/",
+      "collocations": [
+       "on New Year's Eve"
+      ],
+      "examples": [
+       {
+        "en": "We watched fireworks on New Year's Eve.",
+        "zh": "我們跨年夜去看了煙火。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "There is always fish, because the word for fish sounds like the word for extra.",
+   "zh": "一定會有魚，因為「魚」聽起來像「餘」，也就是有剩餘。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sound like",
+      "inSentence": "sounds like",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "聽起來像",
+      "ipa": "/saʊnd laɪk/",
+      "collocations": [
+       "sounds like a plan",
+       "sound like someone"
+      ],
+      "examples": [
+       {
+        "en": "Your voice sounds like your mum's.",
+        "zh": "你的聲音聽起來很像你媽媽。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "because for reasons",
+      "quote": "because the word for fish sounds like",
+      "explanation": "because 後面接完整的句子，說明原因。",
+      "examples": [
+       {
+        "en": "I stayed home because it was raining.",
+        "zh": "因為下雨，我待在家。"
+       }
+      ],
+      "pitfall": "不要寫成 because of the word sounds，because of 後面只接名詞。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It means we hope to have more than enough in the coming year.",
+   "zh": "意思是我們希望來年能年年有餘。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "the coming year",
+      "note": "coming 在這裡是「即將到來的」，等於 next year。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "more than enough",
+      "inSentence": "more than enough",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "綽綽有餘",
+      "ipa": "/mɔː ðən ɪˈnʌf/",
+      "collocations": [
+       "more than enough time",
+       "more than enough food"
+      ],
+      "examples": [
+       {
+        "en": "Ten pounds is more than enough.",
+        "zh": "十英鎊綽綽有餘。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "After dinner, the adults give red envelopes to the children.",
+   "zh": "晚餐後，大人會發紅包給小孩。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "red envelope",
+      "inSentence": "red envelopes",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "紅包",
+      "ipa": "/red ˈenvələʊp/",
+      "collocations": [
+       "give a red envelope",
+       "get red envelopes"
+      ],
+      "examples": [
+       {
+        "en": "I got five red envelopes this year.",
+        "zh": "我今年拿到五個紅包。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "There's money inside, so of course the children love them!",
+   "zh": "裡面裝著錢，所以小孩當然很愛！",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "of course",
+      "inSentence": "of course",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "當然",
+      "ipa": "/əv kɔːs/",
+      "collocations": [
+       "yes, of course",
+       "of course not"
+      ],
+      "examples": [
+       {
+        "en": "Of course you can come with us.",
+        "zh": "你當然可以跟我們一起來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Some families stay up late, because staying up is good for your parents' health.",
+   "zh": "有些家庭會熬夜守歲，因為據說守歲可以讓父母長壽健康。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "good for your parents' health",
+      "note": "這是過年守歲的傳統說法，表達對父母的祝福。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "stay up",
+      "inSentence": "stay up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "熬夜；不睡覺",
+      "ipa": "/steɪ ʌp/",
+      "collocations": [
+       "stay up late",
+       "stay up all night"
+      ],
+      "examples": [
+       {
+        "en": "I stayed up late to finish my essay.",
+        "zh": "我熬夜把論文寫完。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "For the next few days, we visit our relatives and eat lots of snacks.",
+   "zh": "接下來的幾天，我們會去拜訪親戚，吃很多零食。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "relative",
+      "inSentence": "relatives",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "親戚",
+      "ipa": "/ˈrelətɪv/",
+      "collocations": [
+       "visit relatives",
+       "a close relative"
+      ],
+      "examples": [
+       {
+        "en": "We stayed with relatives in Tainan.",
+        "zh": "我們住在台南的親戚家。"
+       }
+      ]
+     },
+     {
+      "term": "snack",
+      "inSentence": "snacks",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "零食；點心",
+      "ipa": "/snæk/",
+      "collocations": [
+       "eat snacks",
+       "healthy snacks"
+      ],
+      "examples": [
+       {
+        "en": "Don't eat too many snacks before dinner.",
+        "zh": "晚餐前別吃太多零食。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "This year I can't fly home, so I'm going to cook dinner here instead.",
+   "zh": "今年我沒辦法飛回家，所以我打算改在這裡煮年夜飯。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "instead",
+      "inSentence": "instead",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "反而；改為",
+      "ipa": "/ɪnˈsted/",
+      "collocations": [
+       "instead of",
+       "do it instead"
+      ],
+      "examples": [
+       {
+        "en": "There was no tea, so I had coffee instead.",
+        "zh": "沒有茶了，所以我改喝咖啡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "be going to for plans",
+      "quote": "I'm going to cook dinner here",
+      "explanation": "be going to + 原形動詞，表示已經決定好的計畫。",
+      "examples": [
+       {
+        "en": "I'm going to visit my aunt on Sunday.",
+        "zh": "我週日要去看我阿姨。"
+       }
+      ],
+      "pitfall": "不要漏掉 be 動詞：I going to cook 是錯的。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Would you like to join me?",
+   "zh": "你們想加入我嗎？",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "Would you like to",
+      "note": "邀請別人時最常見、最禮貌的說法。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "join",
+      "inSentence": "join",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "加入；和……一起",
+      "ipa": "/dʒɔɪn/",
+      "collocations": [
+       "join us",
+       "join a club"
+      ],
+      "examples": [
+       {
+        "en": "Would you like to join us for lunch?",
+        "zh": "你要和我們一起吃午餐嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Just bring a smile, and maybe say Happy New Year in Chinese!",
+   "zh": "只要帶著笑容來，也許可以用中文說聲新年快樂！",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "bring",
+      "inSentence": "bring",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "帶來",
+      "ipa": "/brɪŋ/",
+      "collocations": [
+       "bring a friend",
+       "bring food"
+      ],
+      "examples": [
+       {
+        "en": "Can I bring my roommate?",
+        "zh": "我可以帶我室友來嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

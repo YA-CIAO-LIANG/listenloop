@@ -1,0 +1,783 @@
+{
+ "slug": "s-field-trip-museum",
+ "series": "school",
+ "title": "Getting Ready for the Field Trip",
+ "titleZh": "校外教學行前準備",
+ "subtitle": "明天要去科學博物館，Jenny 和 Leo 確認要帶什麼",
+ "format": "dialogue",
+ "accent": "au",
+ "meta": {
+  "category": "school",
+  "scenario": "junior-dialogue",
+  "level": "beginner",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Leo, are you ready for tomorrow's field trip to the science museum?",
+   "zh": "Leo，明天去科學博物館的校外教學，你準備好了嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "field trip",
+      "inSentence": "field trip",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "校外教學",
+      "ipa": "/ˈfiːld trɪp/",
+      "collocations": [
+       "go on a field trip",
+       "school field trip"
+      ],
+      "examples": [
+       {
+        "en": "We went on a field trip to the zoo.",
+        "zh": "我們去動物園校外教學。"
+       }
+      ]
+     },
+     {
+      "term": "museum",
+      "inSentence": "museum",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "博物館",
+      "ipa": "/mjuˈziːəm/",
+      "collocations": [
+       "science museum",
+       "visit a museum"
+      ],
+      "examples": [
+       {
+        "en": "The museum is closed on Mondays.",
+        "zh": "博物館週一休館。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Almost, but I still need to pack my bag tonight.",
+   "zh": "差不多了，不過我今晚還得整理背包。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "Almost",
+      "note": "回答「準備好了沒」時說 Almost，表示「差不多了」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "pack",
+      "inSentence": "pack my bag",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "打包；整理（行李）",
+      "ipa": "/pæk/",
+      "collocations": [
+       "pack a bag",
+       "pack lunch"
+      ],
+      "examples": [
+       {
+        "en": "Did you pack your swimsuit?",
+        "zh": "你泳衣裝了嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Remember, the bus leaves school at seven thirty sharp.",
+   "zh": "記得喔，遊覽車七點半準時從學校出發。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sharp",
+      "inSentence": "sharp",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "（時間）準時地",
+      "ipa": "/ʃɑːp/",
+      "collocations": [
+       "at eight sharp",
+       "at noon sharp"
+      ],
+      "examples": [
+       {
+        "en": "Class starts at eight sharp.",
+        "zh": "八點整準時上課。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "present simple for timetables",
+      "quote": "the bus leaves school at seven thirty",
+      "explanation": "時刻表、行程這種固定安排，可以用現在簡單式表示未來。",
+      "examples": [
+       {
+        "en": "The train leaves at six tomorrow.",
+        "zh": "火車明天六點開。"
+       }
+      ],
+      "pitfall": "不要以為說明天就一定要用 will。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Seven thirty? I'd better set two alarms, then.",
+   "zh": "七點半？那我最好設兩個鬧鐘。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "alarm",
+      "inSentence": "alarms",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "鬧鐘",
+      "ipa": "/əˈlɑːm/",
+      "collocations": [
+       "set an alarm",
+       "alarm clock"
+      ],
+      "examples": [
+       {
+        "en": "I set an alarm for six.",
+        "zh": "我設了六點的鬧鐘。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "had better",
+      "quote": "I'd better set",
+      "explanation": "had better ＋原形動詞，表示「最好…」，口語常縮成 I'd better。",
+      "examples": [
+       {
+        "en": "You'd better wear a jacket.",
+        "zh": "你最好穿件外套。"
+       }
+      ],
+      "pitfall": "後面不加 to，不說 I'd better to set。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "I'd better",
+      "soundsLike": "ai-better",
+      "note": "I'd 的 d 很輕，常常聽起來像 I better。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Our teacher said we should bring a packed lunch and a water bottle.",
+   "zh": "老師說我們要帶便當和水壺。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "packed lunch",
+      "inSentence": "packed lunch",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "（自己帶的）便當",
+      "ipa": "/pækt ˈlʌntʃ/",
+      "collocations": [
+       "bring a packed lunch",
+       "make a packed lunch"
+      ],
+      "examples": [
+       {
+        "en": "Mum made me a packed lunch.",
+        "zh": "媽媽幫我準備了便當。"
+       }
+      ]
+     },
+     {
+      "term": "water bottle",
+      "inSentence": "water bottle",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "水壺",
+      "ipa": "/ˈwɔːtə ˌbɒtl/",
+      "collocations": [
+       "fill a water bottle",
+       "bring a water bottle"
+      ],
+      "examples": [
+       {
+        "en": "Don't forget your water bottle.",
+        "zh": "別忘了你的水壺。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Can we buy snacks at the museum shop?",
+   "zh": "我們可以在博物館的商店買零食嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "snack",
+      "inSentence": "snacks",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "零食；點心",
+      "ipa": "/snæk/",
+      "collocations": [
+       "buy snacks",
+       "a healthy snack"
+      ],
+      "examples": [
+       {
+        "en": "I always have a snack after school.",
+        "zh": "我放學後都會吃點心。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Maybe, but we won't have much free time.",
+   "zh": "也許可以，但我們不會有太多自由時間。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "won't have much",
+      "note": "much 用在不可數名詞 time 前面。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "free time",
+      "inSentence": "free time",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "空閒時間",
+      "ipa": "/friː taɪm/",
+      "collocations": [
+       "in my free time",
+       "have free time"
+      ],
+      "examples": [
+       {
+        "en": "What do you do in your free time?",
+        "zh": "你空閒時都做什麼？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We have to stay with our group the whole time.",
+   "zh": "我們必須全程跟著自己的組別。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "stay with",
+      "inSentence": "stay with",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "跟…待在一起",
+      "ipa": "/steɪ wɪð/",
+      "collocations": [
+       "stay with me",
+       "stay with your group"
+      ],
+      "examples": [
+       {
+        "en": "Stay with your parents at the market.",
+        "zh": "在市場要跟著你爸媽。"
+       }
+      ]
+     },
+     {
+      "term": "the whole time",
+      "inSentence": "the whole time",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "全程；一直",
+      "ipa": "/ðə həʊl taɪm/",
+      "collocations": [
+       "the whole time",
+       "the whole day"
+      ],
+      "examples": [
+       {
+        "en": "It rained the whole time.",
+        "zh": "雨一直下個不停。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "In the morning, we'll watch a film about dinosaurs, and after lunch we'll visit the space exhibition.",
+   "zh": "早上我們會看一部關於恐龍的影片，午餐後再去參觀太空展。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "dinosaur",
+      "inSentence": "dinosaurs",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "恐龍",
+      "ipa": "/ˈdaɪnəsɔː/",
+      "collocations": [
+       "dinosaur bones",
+       "a big dinosaur"
+      ],
+      "examples": [
+       {
+        "en": "This dinosaur lived long ago.",
+        "zh": "這種恐龍生活在很久以前。"
+       }
+      ]
+     },
+     {
+      "term": "exhibition",
+      "inSentence": "exhibition",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "展覽",
+      "ipa": "/ˌeksɪˈbɪʃn/",
+      "collocations": [
+       "art exhibition",
+       "visit an exhibition"
+      ],
+      "examples": [
+       {
+        "en": "The exhibition opens next week.",
+        "zh": "展覽下週開幕。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "will for plans",
+      "quote": "we'll watch",
+      "explanation": "說明已經安排好的行程，可以用 will，口語常縮成 we'll。",
+      "examples": [
+       {
+        "en": "We'll meet at the gate.",
+        "zh": "我們會在門口集合。"
+       }
+      ],
+      "pitfall": "we'll 和 well 發音很像，要靠上下文判斷。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "In the morning",
+      "role": "modifier",
+      "zh": "早上"
+     },
+     {
+      "text": "we'll watch a film about dinosaurs",
+      "role": "main",
+      "zh": "我們會看一部恐龍影片"
+     },
+     {
+      "text": "and after lunch",
+      "role": "connector",
+      "zh": "然後午餐後"
+     },
+     {
+      "text": "we'll visit the space exhibition",
+      "role": "main",
+      "zh": "我們會參觀太空展"
+     }
+    ],
+    "connected": [
+     {
+      "text": "film about",
+      "soundsLike": "fil-mabout",
+      "note": "film 的 m 和 about 連在一起念。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Brilliant, because I love anything about planets and stars!",
+   "zh": "太棒了，只要跟行星和星星有關的我都愛！",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "anything about",
+      "note": "「任何跟…有關的東西」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "brilliant",
+      "inSentence": "Brilliant",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "太棒了（英、澳口語）",
+      "ipa": "/ˈbrɪliənt/",
+      "collocations": [
+       "a brilliant idea",
+       "That's brilliant"
+      ],
+      "examples": [
+       {
+        "en": "What a brilliant idea!",
+        "zh": "真是個好主意！"
+       }
+      ]
+     },
+     {
+      "term": "planet",
+      "inSentence": "planets",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "行星",
+      "ipa": "/ˈplænɪt/",
+      "collocations": [
+       "the planet Earth",
+       "other planets"
+      ],
+      "examples": [
+       {
+        "en": "Mars is a red planet.",
+        "zh": "火星是一顆紅色的行星。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Do we have to write a report afterwards?",
+   "zh": "之後我們需要寫報告嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "afterwards",
+      "inSentence": "afterwards",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "之後；後來",
+      "ipa": "/ˈɑːftəwədz/",
+      "collocations": [
+       "soon afterwards",
+       "right afterwards"
+      ],
+      "examples": [
+       {
+        "en": "We had dinner and went home afterwards.",
+        "zh": "我們吃完晚餐後就回家了。"
+       }
+      ]
+     },
+     {
+      "term": "report",
+      "inSentence": "report",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "報告",
+      "ipa": "/rɪˈpɔːt/",
+      "collocations": [
+       "write a report",
+       "book report"
+      ],
+      "examples": [
+       {
+        "en": "My report is due on Friday.",
+        "zh": "我的報告週五要交。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Yes, each group has to make a poster about one thing we learnt.",
+   "zh": "要，每一組都要針對我們學到的一件事做一張海報。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "poster",
+      "inSentence": "poster",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "海報",
+      "ipa": "/ˈpəʊstə/",
+      "collocations": [
+       "make a poster",
+       "put up a poster"
+      ],
+      "examples": [
+       {
+        "en": "We put the poster on the wall.",
+        "zh": "我們把海報貼在牆上。"
+       }
+      ]
+     },
+     {
+      "term": "learn",
+      "inSentence": "learnt",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "學到",
+      "ipa": "/lɜːn/",
+      "collocations": [
+       "learn about",
+       "learn from"
+      ],
+      "examples": [
+       {
+        "en": "I learnt a lot today.",
+        "zh": "我今天學到很多。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "each + singular noun",
+      "quote": "each group has",
+      "explanation": "each 後面接單數名詞，動詞也用單數，所以是 each group has。",
+      "examples": [
+       {
+        "en": "Each student has a locker.",
+        "zh": "每個學生都有一個置物櫃。"
+       }
+      ],
+      "pitfall": "不要說 each groups have。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Then let's sit together on the bus and plan our poster.",
+   "zh": "那我們在車上坐一起，順便規劃海報吧。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "let's sit together",
+      "note": "Let's ＋原形動詞，提出一起做的建議。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "plan",
+      "inSentence": "plan our poster",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "規劃；計畫",
+      "ipa": "/plæn/",
+      "collocations": [
+       "plan a trip",
+       "plan ahead"
+      ],
+      "examples": [
+       {
+        "en": "Let's plan our weekend.",
+        "zh": "我們來計畫週末吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Good idea, and don't forget your student ID card.",
+   "zh": "好主意，還有別忘了帶學生證。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "student ID card",
+      "inSentence": "student ID card",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "學生證",
+      "ipa": "/ˈstjuːdnt ˌaɪˈdiː kɑːd/",
+      "collocations": [
+       "show your ID card",
+       "lose an ID card"
+      ],
+      "examples": [
+       {
+        "en": "Please show your student ID card.",
+        "zh": "請出示你的學生證。"
+       }
+      ]
+     },
+     {
+      "term": "forget",
+      "inSentence": "forget",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "忘記",
+      "ipa": "/fəˈɡet/",
+      "collocations": [
+       "don't forget",
+       "forget to"
+      ],
+      "examples": [
+       {
+        "en": "Don't forget to call me.",
+        "zh": "別忘了打給我。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Got it, so I'll see you at the school gate tomorrow morning!",
+   "zh": "知道了，那明天早上校門口見！",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "Got it",
+      "inSentence": "Got it",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "知道了；了解",
+      "ipa": "/ˈɡɒt ɪt/",
+      "collocations": [
+       "Got it",
+       "I got it"
+      ],
+      "examples": [
+       {
+        "en": "Turn left at the shop. Got it?",
+        "zh": "在商店左轉，知道嗎？"
+       }
+      ]
+     },
+     {
+      "term": "school gate",
+      "inSentence": "school gate",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "校門",
+      "ipa": "/skuːl ɡeɪt/",
+      "collocations": [
+       "at the school gate",
+       "outside the school gate"
+      ],
+      "examples": [
+       {
+        "en": "Mum waits at the school gate.",
+        "zh": "媽媽在校門口等。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

@@ -168,24 +168,28 @@ export default async function VideoPage({ params }: PageProps<"/videos/[id]">) {
           className="mt-12 border-t border-line pt-6"
         />
       )}
-      {/* A news material says what it was rewritten from (D100). */}
+      {/* A news material says what it was rewritten from (D100); a
+          classic, the work it's from (D213). */}
       {material.rewrittenFrom && (
         <p className="mt-12 border-t border-line pt-6 text-supporting text-ink-muted">
-          {t.rich("rewrittenFrom", {
-            source: material.rewrittenFrom.name,
-            link: (chunks) => (
-              <a
-                href={material.rewrittenFrom!.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                lang="en"
-                className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
-              >
-                {chunks}
-              </a>
-            ),
-            title: material.rewrittenFrom.title,
-          })}
+          {t.rich(
+            material.rewrittenFrom.classic ? "classicSource" : "rewrittenFrom",
+            {
+              source: material.rewrittenFrom.name,
+              link: (chunks) => (
+                <a
+                  href={material.rewrittenFrom!.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  lang="en"
+                  className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+                >
+                  {chunks}
+                </a>
+              ),
+              title: material.rewrittenFrom.title,
+            },
+          )}
         </p>
       )}
       {!video && !material.mine && (

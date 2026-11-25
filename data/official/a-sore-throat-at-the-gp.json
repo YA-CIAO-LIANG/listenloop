@@ -1,0 +1,754 @@
+{
+ "slug": "a-sore-throat-at-the-gp",
+ "series": "category",
+ "title": "A Sore Throat Before Exams",
+ "titleZh": "考試前的喉嚨痛",
+ "subtitle": "在英國念書的學生去看家庭醫師，說明感冒症狀",
+ "format": "dialogue",
+ "accent": "gb",
+ "meta": {
+  "category": "health",
+  "scenario": "symptoms",
+  "level": "beginner",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Hello, come in and have a seat.",
+   "zh": "你好，請進，請坐。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "have a seat",
+      "inSentence": "have a seat",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "請坐",
+      "ipa": "/hæv ə siːt/",
+      "collocations": [
+       "please have a seat",
+       "have a seat here"
+      ],
+      "examples": [
+       {
+        "en": "Please have a seat, the doctor will see you soon.",
+        "zh": "請坐，醫生很快就會看你。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "What seems to be the problem today?",
+   "zh": "今天哪裡不舒服呢？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "What seems to be the problem",
+      "note": "醫生問診時最常用的開場問句。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "problem",
+      "inSentence": "problem",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "問題；毛病",
+      "ipa": "/ˈprɒbləm/",
+      "collocations": [
+       "a health problem",
+       "no problem"
+      ],
+      "examples": [
+       {
+        "en": "I have a problem with my phone.",
+        "zh": "我的手機有點問題。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I've had a sore throat and a bad cough for four days.",
+   "zh": "我喉嚨痛、咳得很厲害，已經四天了。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sore throat",
+      "inSentence": "sore throat",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "喉嚨痛",
+      "ipa": "/sɔː θrəʊt/",
+      "collocations": [
+       "have a sore throat",
+       "a bad sore throat"
+      ],
+      "examples": [
+       {
+        "en": "Drink warm water for a sore throat.",
+        "zh": "喉嚨痛就喝溫水。"
+       }
+      ]
+     },
+     {
+      "term": "cough",
+      "inSentence": "cough",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "咳嗽",
+      "ipa": "/kɒf/",
+      "collocations": [
+       "a bad cough",
+       "a dry cough"
+      ],
+      "examples": [
+       {
+        "en": "My cough is worse at night.",
+        "zh": "我晚上咳得比較嚴重。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "present perfect with for",
+      "quote": "I've had a sore throat",
+      "explanation": "現在完成式加 for + 一段時間，表示從過去持續到現在。",
+      "examples": [
+       {
+        "en": "I've lived here for two years.",
+        "zh": "我在這裡住兩年了。"
+       }
+      ],
+      "pitfall": "不要說 I have a sore throat for four days。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I'm sorry to hear that.",
+   "zh": "聽到你不舒服我很遺憾。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "I'm sorry to hear that",
+      "note": "聽到別人不舒服或遇到壞事時的禮貌回應，不是道歉。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "sorry to hear",
+      "inSentence": "sorry to hear",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "聽到……感到遺憾",
+      "ipa": "/ˈsɒri tə hɪə/",
+      "collocations": [
+       "sorry to hear that",
+       "sorry to hear about"
+      ],
+      "examples": [
+       {
+        "en": "I'm sorry to hear about your grandmother.",
+        "zh": "聽到你奶奶的事我很難過。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Do you have a temperature?",
+   "zh": "你有發燒嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "have a temperature",
+      "note": "英式英語常用 have a temperature 表示「發燒」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "temperature",
+      "inSentence": "temperature",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "發燒；體溫",
+      "ipa": "/ˈtemprətʃə/",
+      "collocations": [
+       "have a temperature",
+       "take your temperature"
+      ],
+      "examples": [
+       {
+        "en": "The nurse took my temperature.",
+        "zh": "護理師幫我量了體溫。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Yes, it was thirty-eight degrees last night.",
+   "zh": "有，昨晚是 38 度。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "degree",
+      "inSentence": "degrees",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "度",
+      "ipa": "/dɪˈɡriː/",
+      "collocations": [
+       "thirty degrees",
+       "degrees Celsius"
+      ],
+      "examples": [
+       {
+        "en": "It's twenty degrees outside.",
+        "zh": "外面是 20 度。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I also feel very tired, and my head hurts.",
+   "zh": "我也覺得非常累，而且頭很痛。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "hurt",
+      "inSentence": "hurts",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "痛",
+      "ipa": "/hɜːt/",
+      "collocations": [
+       "my head hurts",
+       "it hurts"
+      ],
+      "examples": [
+       {
+        "en": "My back hurts when I sit too long.",
+        "zh": "我坐太久背就會痛。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Let me have a look at your throat.",
+   "zh": "我看一下你的喉嚨。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "have a look at",
+      "inSentence": "have a look at",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "看一看",
+      "ipa": "/hæv ə lʊk æt/",
+      "collocations": [
+       "have a look at this",
+       "have a quick look"
+      ],
+      "examples": [
+       {
+        "en": "Can I have a look at your notes?",
+        "zh": "我可以看一下你的筆記嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Open wide and say ah.",
+   "zh": "嘴巴張大，說「啊」。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "open wide",
+      "inSentence": "Open wide",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "張大嘴巴",
+      "ipa": "/ˈəʊpən waɪd/",
+      "collocations": [
+       "open wide for the dentist"
+      ],
+      "examples": [
+       {
+        "en": "The dentist asked me to open wide.",
+        "zh": "牙醫要我嘴巴張大。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It's a little red, but it looks like a normal cold, not anything serious.",
+   "zh": "有一點紅，不過看起來是一般感冒，沒什麼嚴重的。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "cold",
+      "inSentence": "a normal cold",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "感冒",
+      "ipa": "/kəʊld/",
+      "collocations": [
+       "catch a cold",
+       "a bad cold"
+      ],
+      "examples": [
+       {
+        "en": "I caught a cold last week.",
+        "zh": "我上週感冒了。"
+       }
+      ]
+     },
+     {
+      "term": "serious",
+      "inSentence": "serious",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "嚴重的",
+      "ipa": "/ˈsɪəriəs/",
+      "collocations": [
+       "nothing serious",
+       "a serious problem"
+      ],
+      "examples": [
+       {
+        "en": "Don't worry, it's nothing serious.",
+        "zh": "別擔心，沒什麼嚴重的。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's good, because I have exams next week.",
+   "zh": "那太好了，因為我下週要考試。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "exam",
+      "inSentence": "exams",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "考試",
+      "ipa": "/ɪɡˈzæm/",
+      "collocations": [
+       "have exams",
+       "pass an exam"
+      ],
+      "examples": [
+       {
+        "en": "I passed all my exams.",
+        "zh": "我所有考試都過了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Then you need to rest and drink plenty of water.",
+   "zh": "那你需要好好休息，多喝水。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "rest",
+      "inSentence": "rest",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "休息",
+      "ipa": "/rest/",
+      "collocations": [
+       "rest at home",
+       "get some rest"
+      ],
+      "examples": [
+       {
+        "en": "You should rest for a few days.",
+        "zh": "你應該休息幾天。"
+       }
+      ]
+     },
+     {
+      "term": "plenty of",
+      "inSentence": "plenty of water",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "很多；充足的",
+      "ipa": "/ˈplenti əv/",
+      "collocations": [
+       "plenty of time",
+       "plenty of food"
+      ],
+      "examples": [
+       {
+        "en": "We have plenty of time.",
+        "zh": "我們時間很充裕。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "You can take paracetamol for the fever and the headache.",
+   "zh": "你可以吃乙醯胺酚這類的止痛藥來退燒和止頭痛。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fever",
+      "inSentence": "fever",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "發燒",
+      "ipa": "/ˈfiːvə/",
+      "collocations": [
+       "have a fever",
+       "a high fever"
+      ],
+      "examples": [
+       {
+        "en": "She stayed home with a fever.",
+        "zh": "她發燒待在家裡。"
+       }
+      ]
+     },
+     {
+      "term": "headache",
+      "inSentence": "headache",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "頭痛",
+      "ipa": "/ˈhedeɪk/",
+      "collocations": [
+       "have a headache",
+       "a bad headache"
+      ],
+      "examples": [
+       {
+        "en": "I have a terrible headache.",
+        "zh": "我頭痛得要命。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Try honey and warm water for your cough, too.",
+   "zh": "咳嗽的話，也可以試試溫開水加蜂蜜。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "honey",
+      "inSentence": "honey",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "蜂蜜",
+      "ipa": "/ˈhʌni/",
+      "collocations": [
+       "honey and lemon",
+       "a spoonful of honey"
+      ],
+      "examples": [
+       {
+        "en": "I put honey in my tea.",
+        "zh": "我在茶裡加蜂蜜。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Should I come back if it gets worse?",
+   "zh": "如果變嚴重的話，我應該再回來嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "get worse",
+      "inSentence": "gets worse",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "惡化；變得更糟",
+      "ipa": "/ɡet wɜːs/",
+      "collocations": [
+       "get worse and worse",
+       "get better"
+      ],
+      "examples": [
+       {
+        "en": "The rain is getting worse.",
+        "zh": "雨越下越大了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Yes, if you still have a fever after three days, or if you find it hard to breathe, call us straight away.",
+   "zh": "對，如果三天後還在發燒，或是覺得呼吸困難，馬上打電話給我們。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "straight away",
+      "inSentence": "straight away",
+      "kind": "phrase",
+      "pos": "adv.",
+      "zh": "馬上；立刻",
+      "ipa": "/streɪt əˈweɪ/",
+      "collocations": [
+       "call straight away",
+       "start straight away"
+      ],
+      "examples": [
+       {
+        "en": "I'll send it to you straight away.",
+        "zh": "我馬上寄給你。"
+       }
+      ]
+     },
+     {
+      "term": "breathe",
+      "inSentence": "breathe",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "呼吸",
+      "ipa": "/briːð/",
+      "collocations": [
+       "breathe in",
+       "hard to breathe"
+      ],
+      "examples": [
+       {
+        "en": "Breathe in slowly through your nose.",
+        "zh": "用鼻子慢慢吸氣。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "find it + adj + to do",
+      "quote": "find it hard to breathe",
+      "explanation": "find it + 形容詞 + to 動詞，表示「覺得做某事……」，it 是形式受詞。",
+      "examples": [
+       {
+        "en": "I find it easy to wake up early.",
+        "zh": "我覺得早起很容易。"
+       }
+      ],
+      "pitfall": "不要漏掉 it：I find hard to breathe 是錯的。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Okay, thank you, doctor, that really helps.",
+   "zh": "好的，謝謝醫生，這真的很有幫助。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "thank you, doctor",
+      "note": "英文直接稱呼醫生為 doctor，很自然也很禮貌。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "doctor",
+      "inSentence": "doctor",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "醫生",
+      "ipa": "/ˈdɒktə/",
+      "collocations": [
+       "see a doctor",
+       "family doctor"
+      ],
+      "examples": [
+       {
+        "en": "You should see a doctor.",
+        "zh": "你應該去看醫生。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Good luck with your exams, and get well soon.",
+   "zh": "祝你考試順利，早日康復。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "Good luck with",
+      "note": "good luck with + 名詞，祝對方某件事順利。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "get well soon",
+      "inSentence": "get well soon",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "早日康復",
+      "ipa": "/ɡet wel suːn/",
+      "collocations": [
+       "get well soon card"
+      ],
+      "examples": [
+       {
+        "en": "Get well soon, we miss you at work.",
+        "zh": "早日康復，我們在公司都很想你。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

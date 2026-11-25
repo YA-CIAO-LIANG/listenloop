@@ -1,0 +1,116 @@
+{
+  "id": "toeic-opinion-promote-from-within",
+  "type": "toeic",
+  "level": "advanced",
+  "title": {
+    "en": "Promote from Within or Hire from Outside?",
+    "zh": "內部升遷還是對外招聘？"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：意見論述題，談主管職缺該怎麼補",
+  "task": "Directions: Read the question below. You have 30 minutes to plan, write and revise your essay. Typically, an effective response will contain a minimum of 300 words.\n\nWhen a senior position becomes available, some companies prefer to promote one of their current employees, while others prefer to hire an experienced person from outside the company. Which approach do you think is better? Give reasons or examples to support your opinion.",
+  "taskZh": "公司出現主管職缺時，有些公司偏好從現有員工中升遷，有些則偏好從外部聘請有經驗的人。你認為哪一種做法比較好？請提出理由或例子支持你的看法。建議約 300 字，30 分鐘內完成構思、寫作與修改。",
+  "words": {
+    "min": 280,
+    "max": 350
+  },
+  "minutes": 30,
+  "focus": [
+    "立場：開頭就明確選邊，全文一致",
+    "論點：每段一個理由，搭配具體的職場例子",
+    "組織：First、Second、Admittedly、Therefore 讓段落分工清楚",
+    "文法與用字：比較句、條件句正確，商業字彙使用恰當"
+  ],
+  "model": {
+    "en": [
+      "When a manager leaves, a company must decide whether to promote someone from inside or bring in an experienced outsider. Both choices have merit, but in my opinion, promoting current employees is usually the better approach for two main reasons.",
+      "First, internal candidates already understand how the company works. They know its products, its customers and, perhaps most importantly, its people. For example, when my former supervisor at a logistics firm was promoted to department head, she was able to solve problems from her very first week because she knew exactly whom to call. An outside hire, by contrast, might need several months just to learn the company's systems, and mistakes made during that period can be costly. Promoting an insider avoids this risk and saves the company both time and money.",
+      "Second, promoting from within motivates the whole staff. When employees see that hard work can lead to a better position, they are more likely to stay with the company and give their best effort. If every senior role goes to an outsider, on the other hand, talented workers may feel that they have no future there and start looking for jobs elsewhere. Replacing them would cost far more than developing them. In addition, a company known for promoting its own staff finds it easier to attract ambitious young graduates in the first place. Loyal, experienced employees are one of the most valuable assets any business can have.",
+      "Admittedly, outside candidates can bring fresh ideas and skills that a company lacks. A new manager may notice inefficient habits that long-time employees no longer see. However, this benefit can also be gained through training programs or by hiring experts for specific projects. Therefore, I believe companies should look inside first and hire from outside only when no suitable internal candidate exists."
+    ],
+    "zh": [
+      "主管離職時，公司必須決定要從內部升遷，還是延攬有經驗的外部人才。兩種做法各有優點，但我認為，基於兩個主要理由，升遷現有員工通常是比較好的做法。",
+      "第一，內部人選已經了解公司如何運作。他們熟悉公司的產品、客戶，而或許最重要的是，熟悉公司裡的人。舉例來說，我以前在一家物流公司的主管升任部門主管時，從上任第一週就能解決問題，因為她很清楚該找誰。相較之下，外部聘來的人光是熟悉公司的系統可能就需要好幾個月，而這段期間犯的錯可能代價很高。升遷內部員工可以避免這種風險，替公司省下時間和金錢。",
+      "第二，內部升遷能激勵全體員工。當員工看到努力工作能換來更好的職位，他們更可能留在公司並全力以赴。反過來說，如果每個高階職位都給了外人，有能力的員工可能會覺得自己在這裡沒有前途，開始另謀出路。要替補他們的成本，遠比培養他們高得多。此外，以內部升遷聞名的公司，一開始就比較容易吸引有企圖心的年輕畢業生。忠誠又有經驗的員工，是任何企業最寶貴的資產之一。",
+      "誠然，外部人選能帶來公司缺乏的新想法與技能。新主管可能會注意到資深員工早已習以為常的低效率做法。然而，這個好處也能透過訓練課程，或針對特定專案聘請專家來達成。因此，我認為公司應該先從內部找人，只有在找不到合適的內部人選時，才向外招聘。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Both choices have merit, but in my opinion, …",
+      "zh": "先承認兩邊都有道理，再表明自己的立場",
+      "example": "Both choices have merit, but in my opinion, promoting current employees is usually the better approach for two main reasons.",
+      "keys": [
+        "both",
+        "but in my opinion"
+      ]
+    },
+    {
+      "pattern": "…, by contrast, might …",
+      "zh": "用 by contrast 帶出對比的另一方",
+      "example": "An outside hire, by contrast, might need several months just to learn the company's systems, and mistakes made during that period can be costly.",
+      "keys": [
+        "by contrast",
+        "might"
+      ]
+    },
+    {
+      "pattern": "When …, they are more likely to …",
+      "zh": "說明某個條件帶來的可能結果",
+      "example": "When employees see that hard work can lead to a better position, they are more likely to stay with the company and give their best effort.",
+      "keys": [
+        "when",
+        "more likely to"
+      ]
+    },
+    {
+      "pattern": "Admittedly, … However, …",
+      "zh": "讓步再反駁：承認對方的優點，再說明為什麼不足以改變結論",
+      "example": "Admittedly, outside candidates can bring fresh ideas and skills that a company lacks.",
+      "keys": [
+        "admittedly"
+      ]
+    },
+    {
+      "pattern": "… only when …",
+      "zh": "結論加上條件：只有在……時才……",
+      "example": "Therefore, I believe companies should look inside first and hire from outside only when no suitable internal candidate exists.",
+      "keys": [
+        "therefore",
+        "only when"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My former supervisor was promoted to department head.",
+        "She was able to solve problems from her first week."
+      ],
+      "answer": "When my former supervisor was promoted to department head, she was able to solve problems from her first week."
+    },
+    {
+      "parts": [
+        "Outside candidates can bring fresh ideas.",
+        "This benefit can also be gained through training programs."
+      ],
+      "answer": "Although outside candidates can bring fresh ideas, this benefit can also be gained through training programs."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Promoting from within motivates the whole staff.",
+      "answers": [
+        "Internal promotion encourages all employees to work harder.",
+        "Giving current employees better positions inspires the entire team."
+      ]
+    },
+    {
+      "sentence": "They may start looking for jobs elsewhere.",
+      "answers": [
+        "They might begin searching for work at other companies.",
+        "They may decide to leave for another employer."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

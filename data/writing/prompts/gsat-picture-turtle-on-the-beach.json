@@ -1,0 +1,89 @@
+{
+  "id": "gsat-picture-turtle-on-the-beach",
+  "type": "gsat",
+  "level": "intermediate",
+  "title": { "en": "A Turtle on the Beach", "zh": "海灘上的海龜" },
+  "subtitle": "原創模擬題（學測風格）：看圖寫作，描述經過並寫出後續與體會",
+  "task": "Read the descriptions of the three pictures below. Picture 1: A family arrives at a beach with a picnic basket and finds plastic bottles and bags scattered across the sand. Picture 2: The son, a high school boy, sees a sea turtle near the rocks. One of its legs is caught in an old fishing net. Picture 3: A lifeguard and the boy's father carefully cut the net while the boy watches, and the turtle crawls back toward the sea. Write an English composition of about 120–180 words in two paragraphs. In the first paragraph, describe what happens in the three pictures. In the second paragraph, describe what the boy does after that day and what he learns from the experience.",
+  "taskZh": "依照三張圖的文字描述寫一篇約 120–180 字、兩段的英文作文。圖一：一家人提著野餐籃到海灘，發現沙灘上散落著寶特瓶和塑膠袋。圖二：家中就讀高中的兒子在岩石旁看到一隻海龜，牠的一隻腳被舊漁網纏住。圖三：救生員和爸爸小心地剪開漁網，男孩在一旁看著，海龜爬回海裡。第一段描述三張圖的內容；第二段寫出男孩之後做了什麼，以及他從這次經驗學到什麼。",
+  "words": { "min": 120, "max": 180 },
+  "minutes": 30,
+  "focus": [
+    "內容：涵蓋三張圖的情節，第二段的行動與體會要具體",
+    "組織：兩段分工清楚，時間順序連貫",
+    "文法句構：過去式、過去進行式與過去完成式使用正確",
+    "字彙拼字：用字生動、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "On a sunny Sunday morning, Jason and his parents went to the beach for a picnic. As soon as they arrived, they were shocked to see plastic bottles and bags all over the sand. While his parents were looking for a clean spot, Jason walked toward the water and noticed something moving slowly near the rocks. It was a sea turtle, and one of its legs was caught in an old fishing net. Jason shouted for help, and a lifeguard soon came running. Together with Jason's father, he carefully cut the net, and the turtle finally crawled back into the sea.",
+      "That moment changed the way Jason thought about the ocean. Instead of having a picnic, the family spent the rest of the morning picking up trash along the beach. Back at school, Jason told his classmates about the turtle and suggested a monthly beach cleanup for their club. He realized that even a small piece of plastic could hurt a living creature, and that everyone could do something to protect the sea."
+    ],
+    "zh": [
+      "一個晴朗的星期天早上，Jason 和爸媽到海邊野餐。他們一到就嚇了一跳，因為沙灘上到處都是寶特瓶和塑膠袋。爸媽在找乾淨的地方時，Jason 走向水邊，注意到岩石旁有東西在慢慢移動。那是一隻海龜，牠的一隻腳被一張舊漁網纏住了。Jason 大聲求救，一位救生員很快就跑了過來。救生員和 Jason 的爸爸一起小心地剪開漁網，海龜終於爬回了海裡。",
+      "那一刻改變了 Jason 對海洋的看法。一家人沒有野餐，而是花了整個上午沿著海灘撿垃圾。回到學校後，Jason 跟同學說了海龜的事，並提議他們的社團每個月舉辦一次淨灘。他體會到，即使是一小塊塑膠也可能傷害一個生命，而每個人都能為保護海洋盡一份力。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "As soon as …, they were shocked to see …",
+      "zh": "一……就……，帶出第一眼看到的情景",
+      "example": "As soon as they arrived, they were shocked to see plastic bottles and bags all over the sand.",
+      "keys": ["as soon as", "shocked to see"]
+    },
+    {
+      "pattern": "While … were …ing, … noticed something …ing",
+      "zh": "用 while + 過去進行式描述同時發生的事",
+      "example": "While his parents were looking for a clean spot, Jason walked toward the water and noticed something moving slowly near the rocks.",
+      "keys": ["while", "noticed something"]
+    },
+    {
+      "pattern": "That moment changed the way … thought about …",
+      "zh": "第二段開頭：點出這件事帶來的轉變",
+      "example": "That moment changed the way Jason thought about the ocean.",
+      "keys": ["that moment changed the way"]
+    },
+    {
+      "pattern": "Instead of …ing, … spent … …ing",
+      "zh": "說明原本的計畫被另一件事取代",
+      "example": "Instead of having a picnic, the family spent the rest of the morning picking up trash along the beach.",
+      "keys": ["instead of", "spent"]
+    },
+    {
+      "pattern": "He realized that …, and that …",
+      "zh": "結尾寫出體會，用兩個 that 子句並列",
+      "example": "He realized that even a small piece of plastic could hurt a living creature, and that everyone could do something to protect the sea.",
+      "keys": ["he realized that", "and that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "It was a sea turtle.",
+        "One of its legs was caught in an old fishing net."
+      ],
+      "answer": "It was a sea turtle, and one of its legs was caught in an old fishing net."
+    },
+    {
+      "parts": [
+        "Jason told his classmates about the turtle.",
+        "He suggested a monthly beach cleanup."
+      ],
+      "answer": "Jason told his classmates about the turtle and suggested a monthly beach cleanup."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Jason shouted for help.",
+      "answers": ["Jason called out for help.", "Jason yelled for someone to help."]
+    },
+    {
+      "sentence": "Everyone could do something to protect the sea.",
+      "answers": [
+        "Everyone can help protect the ocean.",
+        "Each person can play a part in keeping the sea safe."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

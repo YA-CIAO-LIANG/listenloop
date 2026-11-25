@@ -1,0 +1,799 @@
+{
+ "slug": "b-sleep-and-memory",
+ "series": "category",
+ "title": "Why Sleep Helps You Remember",
+ "titleZh": "為什麼睡覺能幫你記憶",
+ "subtitle": "熬夜苦讀反而記不住？從記憶研究看考前該怎麼睡",
+ "format": "monologue",
+ "accent": "in",
+ "meta": {
+  "category": "science",
+  "scenario": "psychology",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Many students believe that staying up all night is the most efficient way to prepare for an exam.",
+   "zh": "很多學生認為，熬夜整晚是準備考試最有效率的方法。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "staying up all night",
+      "note": "「熬夜到天亮」，動名詞當主詞子句的主詞。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "stay up",
+      "inSentence": "staying up all night",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "熬夜；不睡覺",
+      "ipa": "/steɪ ʌp/",
+      "collocations": [
+       "stay up late",
+       "stay up all night"
+      ],
+      "examples": [
+       {
+        "en": "I stayed up late to finish my report.",
+        "zh": "我熬夜把報告寫完。"
+       }
+      ]
+     },
+     {
+      "term": "efficient",
+      "inSentence": "the most efficient way",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "有效率的",
+      "ipa": "/ɪˈfɪʃnt/",
+      "collocations": [
+       "efficient way",
+       "energy efficient"
+      ],
+      "examples": [
+       {
+        "en": "Taking the train is more efficient.",
+        "zh": "搭火車比較有效率。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "Many students believe",
+      "role": "main",
+      "zh": "很多學生認為，"
+     },
+     {
+      "text": "that staying up all night",
+      "role": "subordinate",
+      "zh": "熬夜整晚"
+     },
+     {
+      "text": "is the most efficient way to prepare for an exam.",
+      "role": "subordinate",
+      "zh": "是準備考試最有效率的方法。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Research on memory, however, suggests almost exactly the opposite.",
+   "zh": "然而，關於記憶的研究顯示的幾乎正好相反。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "however",
+      "note": "插在句中的 however 前後要加逗號，表示轉折。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "opposite",
+      "inSentence": "the opposite",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "相反的事物",
+      "ipa": "/ˈɒpəzɪt/",
+      "collocations": [
+       "exactly the opposite",
+       "the opposite of"
+      ],
+      "examples": [
+       {
+        "en": "He did the opposite of what I said.",
+        "zh": "他做的跟我說的完全相反。"
+       }
+      ]
+     },
+     {
+      "term": "suggest",
+      "inSentence": "suggests",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "顯示；暗示",
+      "ipa": "/səˈdʒest/",
+      "collocations": [
+       "research suggests",
+       "evidence suggests"
+      ],
+      "examples": [
+       {
+        "en": "The results suggest a clear link.",
+        "zh": "結果顯示有明確的關聯。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "When you learn something new during the day, your brain stores it only temporarily, a bit like a draft saved on a desktop.",
+   "zh": "當你白天學了新東西，大腦只是暫時儲存它，有點像存在桌面上的草稿。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "temporarily",
+      "inSentence": "temporarily",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "暫時地",
+      "ipa": "/ˈtemprərəli/",
+      "collocations": [
+       "temporarily closed",
+       "temporarily unavailable"
+      ],
+      "examples": [
+       {
+        "en": "The shop is temporarily closed.",
+        "zh": "這家店暫停營業。"
+       }
+      ]
+     },
+     {
+      "term": "store",
+      "inSentence": "stores",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "儲存",
+      "ipa": "/stɔː/",
+      "collocations": [
+       "store data",
+       "store information"
+      ],
+      "examples": [
+       {
+        "en": "The app stores your photos online.",
+        "zh": "這個應用程式把你的照片存在網路上。"
+       }
+      ]
+     },
+     {
+      "term": "draft",
+      "inSentence": "a draft",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "草稿",
+      "ipa": "/drɑːft/",
+      "collocations": [
+       "first draft",
+       "save a draft"
+      ],
+      "examples": [
+       {
+        "en": "Send me your first draft.",
+        "zh": "把你的初稿寄給我。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "past participle phrase",
+      "quote": "a draft saved on a desktop",
+      "explanation": "saved on a desktop 是被動意義的分詞片語，修飾 draft（= a draft which is saved）。",
+      "examples": [
+       {
+        "en": "I found a letter written by my grandfather.",
+        "zh": "我找到一封我祖父寫的信。"
+       }
+      ],
+      "pitfall": "不要寫成 a draft save on，要用過去分詞。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "When you learn something new during the day,",
+      "role": "subordinate",
+      "zh": "當你白天學了新東西，"
+     },
+     {
+      "text": "your brain stores it only temporarily,",
+      "role": "main",
+      "zh": "大腦只是暫時儲存它，"
+     },
+     {
+      "text": "a bit like a draft saved on a desktop.",
+      "role": "modifier",
+      "zh": "有點像存在桌面上的草稿。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "It's during sleep, especially deep sleep, that much of this information is moved into long-term memory.",
+   "zh": "正是在睡眠中，尤其是深層睡眠時，這些資訊很多才會被移到長期記憶裡。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "It's during sleep, especially deep sleep, that",
+      "note": "強調句型 It is ... that，強調「正是在睡眠時」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "long-term memory",
+      "inSentence": "long-term memory",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "長期記憶",
+      "ipa": "/ˌlɒŋ tɜːm ˈmeməri/",
+      "collocations": [
+       "long-term memory",
+       "short-term memory"
+      ],
+      "examples": [
+       {
+        "en": "Sleep helps build long-term memory.",
+        "zh": "睡眠有助於建立長期記憶。"
+       }
+      ]
+     },
+     {
+      "term": "deep sleep",
+      "inSentence": "deep sleep",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "深層睡眠；熟睡",
+      "ipa": "/diːp sliːp/",
+      "collocations": [
+       "fall into a deep sleep",
+       "deep sleep stage"
+      ],
+      "examples": [
+       {
+        "en": "He was in a deep sleep.",
+        "zh": "他睡得很熟。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "cleft sentence: It is ... that",
+      "quote": "It's during sleep, especially deep sleep, that",
+      "explanation": "It is + 被強調部分 + that + 句子其他部分，用來強調時間、地點或人。",
+      "examples": [
+       {
+        "en": "It was in Tainan that I first tried milkfish.",
+        "zh": "我是在台南第一次吃到虱目魚。"
+       }
+      ],
+      "pitfall": "被強調的是人時可用 who，但時間地點仍用 that，不要改成 when 或 where。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "It's during sleep,",
+      "role": "main",
+      "zh": "正是在睡眠中，"
+     },
+     {
+      "text": "especially deep sleep,",
+      "role": "modifier",
+      "zh": "尤其是深層睡眠，"
+     },
+     {
+      "text": "that much of this information is moved into long-term memory.",
+      "role": "subordinate",
+      "zh": "這些資訊很多才被移進長期記憶。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "In one well-known type of experiment, volunteers learn a list of word pairs in the evening.",
+   "zh": "在一種有名的實驗中，自願受試者在晚上背一串成對的單字。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "volunteer",
+      "inSentence": "volunteers",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "自願者；志工",
+      "ipa": "/ˌvɒlənˈtɪə/",
+      "collocations": [
+       "research volunteers",
+       "work as a volunteer"
+      ],
+      "examples": [
+       {
+        "en": "The study needed fifty volunteers.",
+        "zh": "這項研究需要五十位自願者。"
+       }
+      ]
+     },
+     {
+      "term": "experiment",
+      "inSentence": "experiment",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "實驗",
+      "ipa": "/ɪkˈsperɪmənt/",
+      "collocations": [
+       "do an experiment",
+       "a simple experiment"
+      ],
+      "examples": [
+       {
+        "en": "We did an experiment in chemistry class.",
+        "zh": "我們在化學課做了一個實驗。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "list of word pairs",
+      "soundsLike": "lis-tə-word pairs",
+      "note": "list 的 t 和 of 連讀，of 弱讀成 /ə/。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Half of them sleep normally, while the other half are kept awake.",
+   "zh": "一半的人正常睡覺，另一半的人則被要求保持清醒。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "awake",
+      "inSentence": "kept awake",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "醒著的",
+      "ipa": "/əˈweɪk/",
+      "collocations": [
+       "stay awake",
+       "keep someone awake"
+      ],
+      "examples": [
+       {
+        "en": "The coffee kept me awake all night.",
+        "zh": "咖啡讓我整晚睡不著。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "while for contrast",
+      "quote": "while the other half are kept awake",
+      "explanation": "while 在這裡不是「當……時」，而是表示對比「而、然而」。",
+      "examples": [
+       {
+        "en": "I like tea, while my brother likes coffee.",
+        "zh": "我喜歡茶，而我哥哥喜歡咖啡。"
+       }
+      ],
+      "pitfall": "表對比的 while 前通常加逗號，不要和表時間的 while 搞混。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The next day, the group that slept usually remembers noticeably more, even though both groups studied for the same amount of time.",
+   "zh": "隔天，有睡覺的那組通常記得明顯比較多，即使兩組讀書的時間一樣長。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "noticeably",
+      "inSentence": "noticeably more",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "明顯地",
+      "ipa": "/ˈnəʊtɪsəbli/",
+      "collocations": [
+       "noticeably better",
+       "noticeably different"
+      ],
+      "examples": [
+       {
+        "en": "The room was noticeably colder.",
+        "zh": "房間明顯變冷了。"
+       }
+      ]
+     },
+     {
+      "term": "amount of time",
+      "inSentence": "the same amount of time",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "時間長短；時間量",
+      "ipa": "/əˈmaʊnt əv taɪm/",
+      "collocations": [
+       "the same amount of time",
+       "a long amount of time"
+      ],
+      "examples": [
+       {
+        "en": "We spent the same amount of time on it.",
+        "zh": "我們花在上面的時間一樣多。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "The next day,",
+      "role": "connector",
+      "zh": "隔天，"
+     },
+     {
+      "text": "the group that slept usually remembers noticeably more,",
+      "role": "main",
+      "zh": "有睡覺的那組通常記得明顯比較多，"
+     },
+     {
+      "text": "even though both groups studied for the same amount of time.",
+      "role": "subordinate",
+      "zh": "即使兩組讀書的時間一樣長。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Sleep also seems to help the brain connect ideas, which is why a problem can feel easier after a good night's rest.",
+   "zh": "睡眠似乎也能幫助大腦連結各種想法，這就是為什麼一個問題在好好睡一晚後會感覺比較簡單。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "a good night's rest",
+      "note": "「一夜好眠」，所有格表示「一晚的」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "connect",
+      "inSentence": "connect ideas",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "連結；連接",
+      "ipa": "/kəˈnekt/",
+      "collocations": [
+       "connect ideas",
+       "connect to Wi-Fi"
+      ],
+      "examples": [
+       {
+        "en": "Try to connect the new words with pictures.",
+        "zh": "試著把新單字和圖片連結起來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "which is why",
+      "quote": "which is why a problem can feel easier",
+      "explanation": "which is why 承接前面整句，意思是「這就是為什麼……」，用來說明結果。",
+      "examples": [
+       {
+        "en": "She trains every day, which is why she's so fast.",
+        "zh": "她每天訓練，這就是她那麼快的原因。"
+       }
+      ],
+      "pitfall": "which is why 前面要加逗號，因為 which 指的是前面整句話。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Sleep also seems to help the brain connect ideas,",
+      "role": "main",
+      "zh": "睡眠似乎也能幫大腦連結想法，"
+     },
+     {
+      "text": "which is why a problem can feel easier",
+      "role": "subordinate",
+      "zh": "這就是為什麼一個問題會感覺比較簡單，"
+     },
+     {
+      "text": "after a good night's rest.",
+      "role": "modifier",
+      "zh": "在好好睡一晚之後。"
+     }
+    ],
+    "connected": [
+     {
+      "text": "a good night's rest",
+      "soundsLike": "ə good-nights-rest",
+      "note": "night's 的 s 和 rest 的 r 連在一起，聽起來很快。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "On the other hand, after a sleepless night, attention drops, reactions slow down, and mistakes become far more likely.",
+   "zh": "另一方面，一夜沒睡之後，注意力會下降、反應變慢，出錯的機率也高很多。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sleepless",
+      "inSentence": "a sleepless night",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "失眠的；沒睡的",
+      "ipa": "/ˈsliːpləs/",
+      "collocations": [
+       "a sleepless night",
+       "sleepless nights"
+      ],
+      "examples": [
+       {
+        "en": "I had a sleepless night before the interview.",
+        "zh": "面試前一晚我失眠了。"
+       }
+      ]
+     },
+     {
+      "term": "attention",
+      "inSentence": "attention drops",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "注意力",
+      "ipa": "/əˈtenʃn/",
+      "collocations": [
+       "pay attention",
+       "attention span"
+      ],
+      "examples": [
+       {
+        "en": "Please pay attention to the screen.",
+        "zh": "請注意螢幕。"
+       }
+      ]
+     },
+     {
+      "term": "likely",
+      "inSentence": "far more likely",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "可能的",
+      "ipa": "/ˈlaɪkli/",
+      "collocations": [
+       "more likely",
+       "likely to"
+      ],
+      "examples": [
+       {
+        "en": "Rain is likely this afternoon.",
+        "zh": "今天下午可能會下雨。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "On the other hand,",
+      "role": "connector",
+      "zh": "另一方面，"
+     },
+     {
+      "text": "after a sleepless night,",
+      "role": "modifier",
+      "zh": "一夜沒睡之後，"
+     },
+     {
+      "text": "attention drops, reactions slow down,",
+      "role": "main",
+      "zh": "注意力下降，反應變慢，"
+     },
+     {
+      "text": "and mistakes become far more likely.",
+      "role": "main",
+      "zh": "出錯的機率也高很多。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "So if you have a test tomorrow, a better plan is to review in short sessions, test yourself, and then go to bed at a reasonable hour.",
+   "zh": "所以如果你明天有考試，比較好的計畫是分成幾段短時間複習、自我測驗，然後在合理的時間上床睡覺。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "test yourself",
+      "note": "主動回想比重讀筆記更能加深記憶。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "session",
+      "inSentence": "short sessions",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "一段時間；一節",
+      "ipa": "/ˈseʃn/",
+      "collocations": [
+       "study session",
+       "practice session"
+      ],
+      "examples": [
+       {
+        "en": "We had a two-hour study session.",
+        "zh": "我們讀了兩個小時的書。"
+       }
+      ]
+     },
+     {
+      "term": "reasonable",
+      "inSentence": "a reasonable hour",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "合理的；適當的",
+      "ipa": "/ˈriːznəbl/",
+      "collocations": [
+       "a reasonable price",
+       "at a reasonable hour"
+      ],
+      "examples": [
+       {
+        "en": "Please call at a reasonable hour.",
+        "zh": "請在合理的時間打電話。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "So if you have a test tomorrow,",
+      "role": "subordinate",
+      "zh": "所以如果你明天有考試，"
+     },
+     {
+      "text": "a better plan is to review in short sessions,",
+      "role": "main",
+      "zh": "比較好的計畫是分段短時間複習，"
+     },
+     {
+      "text": "test yourself,",
+      "role": "main",
+      "zh": "自我測驗，"
+     },
+     {
+      "text": "and then go to bed at a reasonable hour.",
+      "role": "main",
+      "zh": "然後在合理的時間上床睡覺。"
+     }
+    ],
+    "connected": [
+     {
+      "text": "test yourself",
+      "soundsLike": "tes-chor-self",
+      "note": "test 的 t 和 yourself 的 y 結合成 /tʃ/。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Sleep is not time taken away from studying; it is part of studying.",
+   "zh": "睡覺不是從讀書時間裡被偷走的時間，而是讀書的一部分。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "it is part of studying",
+      "note": "結論句：把睡眠視為學習的一環。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "take away",
+      "inSentence": "taken away from studying",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "拿走；減少",
+      "ipa": "/teɪk əˈweɪ/",
+      "collocations": [
+       "take away from",
+       "take it away"
+      ],
+      "examples": [
+       {
+        "en": "Phones take away time from sleep.",
+        "zh": "手機佔掉了睡眠時間。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "semicolon joining two clauses",
+      "quote": "not time taken away from studying; it is part of studying",
+      "explanation": "分號連接兩個意思緊密的獨立子句，前句否定、後句給出正確說法。",
+      "examples": [
+       {
+        "en": "It isn't a problem; it's a chance to learn.",
+        "zh": "這不是問題，而是學習的機會。"
+       }
+      ],
+      "pitfall": "分號後面不需要大寫，也不要再加 and。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

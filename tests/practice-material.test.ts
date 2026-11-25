@@ -171,6 +171,27 @@ describe("materialFromCustomPractice", () => {
     ).toBeNull();
   });
 
+  it("says where a news material or a classic is from (D100, D213)", () => {
+    const source = {
+      source_name: "Aesop's Fables",
+      source_title: "The Fox and the Grapes",
+      source_url: "https://www.gutenberg.org/ebooks/21",
+    };
+    expect(
+      materialFromCustomPractice({ ...row, ...source }, url)?.rewrittenFrom,
+    ).toEqual({
+      name: "Aesop's Fables",
+      title: "The Fox and the Grapes",
+      url: "https://www.gutenberg.org/ebooks/21",
+    });
+    expect(
+      materialFromCustomPractice(
+        { ...row, ...source, category: "classics" },
+        url,
+      )?.rewrittenFrom?.classic,
+    ).toBe(true);
+  });
+
   it("isn't practicable until every sentence has audio", () => {
     const partial = {
       ...row,

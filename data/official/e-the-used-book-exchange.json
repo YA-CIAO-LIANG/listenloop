@@ -1,0 +1,665 @@
+{
+ "slug": "e-the-used-book-exchange",
+ "series": "exam",
+ "title": "The Used Book Exchange",
+ "titleZh": "二手書交換活動",
+ "subtitle": "學測風格短講：學生會廣播說明二手參考書交換的時間、規則與用意",
+ "format": "monologue",
+ "accent": "us",
+ "meta": {
+  "category": "exam",
+  "scenario": "gsat-short-talk",
+  "level": "intermediate",
+  "exam": "gsat",
+  "examTarget": "gsat-standard"
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Good morning, everyone. This is a message from the student council about next week's used book exchange.",
+   "zh": "大家早安。這是學生會關於下週二手書交換活動的廣播。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "next week's used book exchange",
+      "note": "廣播主題：二手書交換。學測常問「這段廣播的目的」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "student council",
+      "inSentence": "student council",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "學生會",
+      "ipa": "/ˈstudənt ˈkaʊnsəl/",
+      "collocations": [
+       "join the student council"
+      ],
+      "examples": [
+       {
+        "en": "She was elected to the student council.",
+        "zh": "她被選進學生會。"
+       }
+      ]
+     },
+     {
+      "term": "used",
+      "inSentence": "used",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "二手的；用過的",
+      "ipa": "/juzd/",
+      "collocations": [
+       "used books",
+       "used car"
+      ],
+      "examples": [
+       {
+        "en": "I bought a used bike online.",
+        "zh": "我在網路上買了一台二手腳踏車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Every year, many of us buy new reference books and practice tests, only to use them for a few months.",
+   "zh": "每年我們很多人都會買新的參考書和題本，結果只用了幾個月。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "reference book",
+      "inSentence": "reference books",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "參考書",
+      "ipa": "/ˈrɛfərəns bʊk/",
+      "collocations": [
+       "buy reference books"
+      ],
+      "examples": [
+       {
+        "en": "This reference book explains grammar clearly.",
+        "zh": "這本參考書把文法解釋得很清楚。"
+       }
+      ]
+     },
+     {
+      "term": "practice test",
+      "inSentence": "practice tests",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "模擬試題；題本",
+      "ipa": "/ˈpræktɪs tɛst/",
+      "collocations": [
+       "do a practice test"
+      ],
+      "examples": [
+       {
+        "en": "I did three practice tests last week.",
+        "zh": "我上週寫了三回模擬試題。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "only to + V",
+      "quote": "only to use them for a few months",
+      "explanation": "only to + 原形動詞，表示出乎意料或令人失望的結果：「結果卻只…」。",
+      "examples": [
+       {
+        "en": "He hurried to the station, only to miss the train.",
+        "zh": "他趕到車站，結果還是錯過了火車。"
+       }
+      ],
+      "pitfall": "only to 帶出的是結果，不是目的，不要理解成「為了」。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "So this year, we're giving those books a second life.",
+   "zh": "所以今年，我們要讓那些書重獲新生。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "a second life",
+      "inSentence": "a second life",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "第二次生命；重新被利用",
+      "ipa": "/ə ˈsɛkənd laɪf/",
+      "collocations": [
+       "give something a second life"
+      ],
+      "examples": [
+       {
+        "en": "Old jeans can get a second life as bags.",
+        "zh": "舊牛仔褲可以變成包包，重獲新生。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "From Monday to Wednesday, you can bring books you no longer need to the student activity center during lunch break.",
+   "zh": "從星期一到星期三，你可以在午休時間把不再需要的書帶到學生活動中心。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "From Monday to Wednesday",
+      "note": "第一階段：週一到週三收書。注意和下一階段的日期區分。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "no longer",
+      "inSentence": "no longer",
+      "kind": "phrase",
+      "pos": "adv.",
+      "zh": "不再",
+      "ipa": "/noʊ ˈlɔŋɡər/",
+      "collocations": [
+       "no longer need",
+       "no longer used"
+      ],
+      "examples": [
+       {
+        "en": "He no longer lives here.",
+        "zh": "他已經不住這裡了。"
+       }
+      ]
+     },
+     {
+      "term": "lunch break",
+      "inSentence": "lunch break",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "午休時間",
+      "ipa": "/lʌntʃ breɪk/",
+      "collocations": [
+       "during lunch break"
+      ],
+      "examples": [
+       {
+        "en": "I read a novel during lunch break.",
+        "zh": "我午休時間看小說。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "From Monday to Wednesday,",
+      "role": "modifier",
+      "zh": "從星期一到星期三，"
+     },
+     {
+      "text": "you can bring books you no longer need",
+      "role": "main",
+      "zh": "你可以把不再需要的書帶來"
+     },
+     {
+      "text": "to the student activity center",
+      "role": "modifier",
+      "zh": "到學生活動中心"
+     },
+     {
+      "text": "during lunch break.",
+      "role": "modifier",
+      "zh": "在午休時間。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Each book you donate will earn you one exchange ticket.",
+   "zh": "你每捐一本書，就能換得一張交換券。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "donate",
+      "inSentence": "donate",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "捐贈",
+      "ipa": "/ˈdoʊneɪt/",
+      "collocations": [
+       "donate money",
+       "donate books"
+      ],
+      "examples": [
+       {
+        "en": "We donated old clothes to the church.",
+        "zh": "我們把舊衣服捐給教會。"
+       }
+      ]
+     },
+     {
+      "term": "earn",
+      "inSentence": "earn you",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "使獲得；賺得",
+      "ipa": "/ɝn/",
+      "collocations": [
+       "earn points",
+       "earn money"
+      ],
+      "examples": [
+       {
+        "en": "Good grades earned her a prize.",
+        "zh": "好成績讓她得到一個獎。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Then on Thursday and Friday, you can use your tickets to choose books that other students have brought in.",
+   "zh": "接著在星期四和星期五，你可以用交換券挑選其他同學帶來的書。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "on Thursday and Friday",
+      "note": "第二階段：週四、週五用券換書。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "bring in",
+      "inSentence": "brought in",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "帶進來",
+      "ipa": "/brɪŋ ɪn/",
+      "collocations": [
+       "bring in food"
+      ],
+      "examples": [
+       {
+        "en": "Please bring in your homework tomorrow.",
+        "zh": "請明天把作業帶來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Relative clause with that",
+      "quote": "books that other students have brought in",
+      "explanation": "that 引導關係子句修飾 books，說明是「其他同學帶來的」書。",
+      "examples": [
+       {
+        "en": "This is the cake that my mom made.",
+        "zh": "這是我媽媽做的蛋糕。"
+       }
+      ],
+      "pitfall": "關係子句裡不要再重複受詞：that other students have brought them in 是錯的。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Please make sure your books are in good condition, with no missing pages.",
+   "zh": "請確認你的書狀況良好，沒有缺頁。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "make sure",
+      "inSentence": "make sure",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "確認；確保",
+      "ipa": "/meɪk ʃʊr/",
+      "collocations": [
+       "make sure that"
+      ],
+      "examples": [
+       {
+        "en": "Make sure you lock the door.",
+        "zh": "確認你有鎖門。"
+       }
+      ]
+     },
+     {
+      "term": "in good condition",
+      "inSentence": "in good condition",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "狀況良好",
+      "ipa": "/ɪn ɡʊd kənˈdɪʃən/",
+      "collocations": [
+       "keep in good condition"
+      ],
+      "examples": [
+       {
+        "en": "The old car is still in good condition.",
+        "zh": "這台舊車狀況還很好。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We can't accept books with answers written in them, since that wouldn't be fair to the next owner.",
+   "zh": "我們不收裡面寫了答案的書，因為那對下一位使用者不公平。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "books with answers written in them",
+      "note": "規則重點：寫過答案的書不收。學測常問「哪一種書不能交換」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "accept",
+      "inSentence": "accept",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "接受；收下",
+      "ipa": "/əkˈsɛpt/",
+      "collocations": [
+       "accept a gift",
+       "accept cash"
+      ],
+      "examples": [
+       {
+        "en": "This shop doesn't accept credit cards.",
+        "zh": "這家店不收信用卡。"
+       }
+      ]
+     },
+     {
+      "term": "fair",
+      "inSentence": "fair",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "公平的",
+      "ipa": "/fɛr/",
+      "collocations": [
+       "fair to someone",
+       "not fair"
+      ],
+      "examples": [
+       {
+        "en": "It's not fair to blame him.",
+        "zh": "怪他不公平。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "with + noun + past participle",
+      "quote": "with answers written in them",
+      "explanation": "with + 名詞 + 過去分詞，描述名詞的狀態：「裡面被寫了答案」。",
+      "examples": [
+       {
+        "en": "She sat with her eyes closed.",
+        "zh": "她閉著眼睛坐著。"
+       }
+      ],
+      "pitfall": "答案是「被寫上」的，所以用 written，不用 writing。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Any books left over at the end of the week will be given to a junior high school in the mountains.",
+   "zh": "週末剩下的書會送給一所山區的國中。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "left over",
+      "inSentence": "left over",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "剩下的",
+      "ipa": "/lɛft ˈoʊvər/",
+      "collocations": [
+       "food left over"
+      ],
+      "examples": [
+       {
+        "en": "Is there any pizza left over?",
+        "zh": "還有剩下的披薩嗎？"
+       }
+      ]
+     },
+     {
+      "term": "junior high school",
+      "inSentence": "junior high school",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "國中",
+      "ipa": "/ˈdʒunjər haɪ skul/",
+      "collocations": [
+       "go to junior high school"
+      ],
+      "examples": [
+       {
+        "en": "My brother is in junior high school.",
+        "zh": "我弟弟在念國中。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Future passive",
+      "quote": "will be given to",
+      "explanation": "will be + 過去分詞，表示未來「將被…」：書會被送出去。",
+      "examples": [
+       {
+        "en": "The prizes will be given out on Friday.",
+        "zh": "獎品將在星期五發放。"
+       }
+      ],
+      "pitfall": "不要寫成 will give to，書是被送的，要用被動。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Last year, more than three hundred students took part, and we hope to break that record this time.",
+   "zh": "去年有超過 300 位同學參加，我們希望這次能打破紀錄。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "take part",
+      "inSentence": "took part",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "參加",
+      "ipa": "/teɪk pɑrt/",
+      "collocations": [
+       "take part in"
+      ],
+      "examples": [
+       {
+        "en": "Everyone took part in the game.",
+        "zh": "每個人都參加了遊戲。"
+       }
+      ]
+     },
+     {
+      "term": "break a record",
+      "inSentence": "break that record",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "打破紀錄",
+      "ipa": "/breɪk ə ˈrɛkərd/",
+      "collocations": [
+       "set a record",
+       "world record"
+      ],
+      "examples": [
+       {
+        "en": "She broke the school record.",
+        "zh": "她打破了校紀錄。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "took part",
+      "soundsLike": "too-part",
+      "note": "took 的 k 不除阻，直接接 part。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "If you have any questions, feel free to stop by the council office on the second floor.",
+   "zh": "如果有任何問題，歡迎到二樓的學生會辦公室來。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "feel free to",
+      "inSentence": "feel free to",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "儘管；請隨意",
+      "ipa": "/fil fri tu/",
+      "collocations": [
+       "feel free to ask"
+      ],
+      "examples": [
+       {
+        "en": "Feel free to call me anytime.",
+        "zh": "隨時都可以打給我。"
+       }
+      ]
+     },
+     {
+      "term": "stop by",
+      "inSentence": "stop by",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "順道拜訪",
+      "ipa": "/stɑp baɪ/",
+      "collocations": [
+       "stop by the office"
+      ],
+      "examples": [
+       {
+        "en": "I'll stop by your house later.",
+        "zh": "我晚點會順路去你家。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Let's save some money and some trees together!",
+   "zh": "讓我們一起省點錢，也救救樹木吧！",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "save",
+      "inSentence": "save",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "節省；拯救",
+      "ipa": "/seɪv/",
+      "collocations": [
+       "save money",
+       "save energy"
+      ],
+      "examples": [
+       {
+        "en": "Turn off the lights to save energy.",
+        "zh": "關燈可以節省能源。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

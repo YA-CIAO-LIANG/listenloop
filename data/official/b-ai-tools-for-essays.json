@@ -1,0 +1,890 @@
+{
+ "slug": "b-ai-tools-for-essays",
+ "series": "category",
+ "title": "Using AI for Essays: Help or Shortcut?",
+ "titleZh": "用 AI 寫報告：幫手還是捷徑？",
+ "subtitle": "兩位留英研究生聊 AI 怎麼幫忙、又在哪裡出錯",
+ "format": "dialogue",
+ "accent": "gb",
+ "meta": {
+  "category": "tech",
+  "scenario": "ai-tools",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Be honest, how much of your last essay did you actually write yourself?",
+   "zh": "老實說，你上一篇論文到底有多少是你自己寫的？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "Be honest",
+      "note": "「老實說吧」，開玩笑地要求對方坦白。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "essay",
+      "inSentence": "your last essay",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "論文；短文",
+      "ipa": "/ˈeseɪ/",
+      "collocations": [
+       "write an essay",
+       "essay deadline"
+      ],
+      "examples": [
+       {
+        "en": "My essay is due on Friday.",
+        "zh": "我的論文星期五要交。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "how much of your",
+      "soundsLike": "how mu-chə-vyour",
+      "note": "of 弱讀成 /əv/，和 much 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "All of it, thank you very much, but I'll admit the AI helped me get started.",
+   "zh": "全部都是，非常感謝，不過我承認 AI 幫我起了個頭。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "thank you very much",
+      "note": "這裡帶點反諷，表示「別小看我」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "admit",
+      "inSentence": "I'll admit",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "承認",
+      "ipa": "/ədˈmɪt/",
+      "collocations": [
+       "admit a mistake",
+       "I have to admit"
+      ],
+      "examples": [
+       {
+        "en": "I admit I was wrong.",
+        "zh": "我承認我錯了。"
+       }
+      ]
+     },
+     {
+      "term": "get started",
+      "inSentence": "get started",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "開始；起步",
+      "ipa": "/ɡet ˈstɑːtɪd/",
+      "collocations": [
+       "get started on",
+       "let's get started"
+      ],
+      "examples": [
+       {
+        "en": "Let's get started on the project.",
+        "zh": "我們開始做專題吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "help + object + bare infinitive",
+      "quote": "helped me get started",
+      "explanation": "help 後面接受詞，再接原形動詞（to 可省略）：help me get、help me do。",
+      "examples": [
+       {
+        "en": "She helped me find the book.",
+        "zh": "她幫我找到了那本書。"
+       }
+      ],
+      "pitfall": "不要寫成 helped me getting started，help 後面不接 V-ing。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I asked it to suggest a structure, and then I threw most of it away because it was far too generic.",
+   "zh": "我請它建議一個架構，結果大部分我都丟掉了，因為內容實在太空泛。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "generic",
+      "inSentence": "far too generic",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "空泛的；一般性的",
+      "ipa": "/dʒəˈnerɪk/",
+      "collocations": [
+       "too generic",
+       "a generic answer"
+      ],
+      "examples": [
+       {
+        "en": "His answer was polite but generic.",
+        "zh": "他的回答很禮貌，但很空泛。"
+       }
+      ]
+     },
+     {
+      "term": "throw away",
+      "inSentence": "threw most of it away",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "丟掉",
+      "ipa": "/θrəʊ əˈweɪ/",
+      "collocations": [
+       "throw it away",
+       "throw away old notes"
+      ],
+      "examples": [
+       {
+        "en": "Don't throw away the receipt.",
+        "zh": "別把收據丟掉。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "far too + adjective",
+      "quote": "far too generic",
+      "explanation": "far too 是 too 的加強說法，「實在太……」，帶有負面意味。",
+      "examples": [
+       {
+        "en": "The room was far too small for us.",
+        "zh": "那個房間對我們來說實在太小了。"
+       }
+      ],
+      "pitfall": "不要說 very too，正確是 far too 或 much too。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "I asked it to suggest a structure,",
+      "role": "main",
+      "zh": "我請它建議一個架構，"
+     },
+     {
+      "text": "and then I threw most of it away",
+      "role": "main",
+      "zh": "然後大部分都丟掉了，"
+     },
+     {
+      "text": "because it was far too generic.",
+      "role": "subordinate",
+      "zh": "因為實在太空泛。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Fair enough, I mostly use it to check my grammar, since English isn't my first language either.",
+   "zh": "有道理，我主要用它檢查文法，因為英文也不是我的母語。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "Fair enough",
+      "note": "英式口語，「說得也是、有道理」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "first language",
+      "inSentence": "my first language",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "母語",
+      "ipa": "/fɜːst ˈlæŋɡwɪdʒ/",
+      "collocations": [
+       "first language",
+       "second language"
+      ],
+      "examples": [
+       {
+        "en": "Her first language is Mandarin.",
+        "zh": "她的母語是華語。"
+       }
+      ]
+     },
+     {
+      "term": "either",
+      "inSentence": "either",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "也（用於否定句）",
+      "ipa": "/ˈaɪðə/",
+      "collocations": [
+       "not ... either",
+       "me either"
+      ],
+      "examples": [
+       {
+        "en": "I don't like it either.",
+        "zh": "我也不喜歡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "either in negative sentences",
+      "quote": "isn't my first language either",
+      "explanation": "否定句的「也」用 either 放句尾，肯定句才用 too。",
+      "examples": [
+       {
+        "en": "I can't swim either.",
+        "zh": "我也不會游泳。"
+       }
+      ],
+      "pitfall": "不要說 isn't my first language too。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Fair enough,",
+      "role": "connector",
+      "zh": "有道理，"
+     },
+     {
+      "text": "I mostly use it to check my grammar,",
+      "role": "main",
+      "zh": "我主要用它檢查文法，"
+     },
+     {
+      "text": "since English isn't my first language either.",
+      "role": "subordinate",
+      "zh": "因為英文也不是我的母語。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "It catches the small errors I'd never spot on my own.",
+   "zh": "它能抓到那些我自己永遠看不出來的小錯誤。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "spot",
+      "inSentence": "spot",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "發現；看出",
+      "ipa": "/spɒt/",
+      "collocations": [
+       "spot a mistake",
+       "hard to spot"
+      ],
+      "examples": [
+       {
+        "en": "Can you spot the difference?",
+        "zh": "你看得出差別嗎？"
+       }
+      ]
+     },
+     {
+      "term": "on my own",
+      "inSentence": "on my own",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "靠自己；獨自",
+      "ipa": "/ɒn maɪ əʊn/",
+      "collocations": [
+       "on my own",
+       "live on your own"
+      ],
+      "examples": [
+       {
+        "en": "I fixed the bike on my own.",
+        "zh": "我自己修好了腳踏車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "catches the small errors",
+      "soundsLike": "ka-chiz the small errors",
+      "note": "catches 字尾 /ɪz/ 要唸出來，不要吞掉。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "That seems sensible, but have you noticed it sometimes changes what you meant, not just how you said it?",
+   "zh": "這聽起來很合理，不過你有沒有注意到，它有時候改的不只是你的說法，連你的意思都改了？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "not just how you said it",
+      "note": "not just A, B 的對比：改的不只是說法。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "sensible",
+      "inSentence": "sensible",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "明智的；合理的",
+      "ipa": "/ˈsensəbl/",
+      "collocations": [
+       "a sensible idea",
+       "sensible choice"
+      ],
+      "examples": [
+       {
+        "en": "That's a sensible plan.",
+        "zh": "那是個明智的計畫。"
+       }
+      ]
+     },
+     {
+      "term": "notice",
+      "inSentence": "noticed",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "注意到",
+      "ipa": "/ˈnəʊtɪs/",
+      "collocations": [
+       "notice a change",
+       "did you notice"
+      ],
+      "examples": [
+       {
+        "en": "Did you notice his new haircut?",
+        "zh": "你有注意到他的新髮型嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "what / how as noun clauses",
+      "quote": "what you meant, not just how you said it",
+      "explanation": "what you meant 和 how you said it 都是名詞子句，當 changes 的受詞，用直述句語序。",
+      "examples": [
+       {
+        "en": "I forgot what she said.",
+        "zh": "我忘了她說了什麼。"
+       }
+      ],
+      "pitfall": "名詞子句不倒裝：不要寫 what did you mean。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "That seems sensible,",
+      "role": "main",
+      "zh": "這聽起來很合理，"
+     },
+     {
+      "text": "but have you noticed",
+      "role": "main",
+      "zh": "但你有沒有注意到，"
+     },
+     {
+      "text": "it sometimes changes what you meant,",
+      "role": "subordinate",
+      "zh": "它有時候會改掉你的意思，"
+     },
+     {
+      "text": "not just how you said it?",
+      "role": "modifier",
+      "zh": "而不只是你的說法？"
+     }
+    ],
+    "connected": [
+     {
+      "text": "what you meant",
+      "soundsLike": "wha-chu meant",
+      "note": "what 的 t 和 you 結合成 /tʃ/ 音。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Yes, once it replaced a careful argument with something that sounded confident but was completely wrong.",
+   "zh": "有，有一次它把我一個很嚴謹的論點換成聽起來很有把握、但完全錯誤的東西。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "argument",
+      "inSentence": "a careful argument",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "論點；論證",
+      "ipa": "/ˈɑːɡjumənt/",
+      "collocations": [
+       "a strong argument",
+       "make an argument"
+      ],
+      "examples": [
+       {
+        "en": "Her argument was clear and logical.",
+        "zh": "她的論點清楚又有邏輯。"
+       }
+      ]
+     },
+     {
+      "term": "confident",
+      "inSentence": "sounded confident",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "有自信的；篤定的",
+      "ipa": "/ˈkɒnfɪdənt/",
+      "collocations": [
+       "sound confident",
+       "feel confident"
+      ],
+      "examples": [
+       {
+        "en": "He sounded confident in the interview.",
+        "zh": "他在面試中聽起來很有自信。"
+       }
+      ]
+     },
+     {
+      "term": "replace",
+      "inSentence": "replaced",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "取代；替換",
+      "ipa": "/rɪˈpleɪs/",
+      "collocations": [
+       "replace A with B",
+       "be replaced"
+      ],
+      "examples": [
+       {
+        "en": "We replaced the old printer with a new one.",
+        "zh": "我們把舊印表機換成新的。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "replace A with B",
+      "quote": "replaced a careful argument with something",
+      "explanation": "replace A with B 表示「用 B 取代 A」，被換掉的東西放在前面。",
+      "examples": [
+       {
+        "en": "She replaced sugar with honey.",
+        "zh": "她用蜂蜜取代了糖。"
+       }
+      ],
+      "pitfall": "不要把 A、B 順序弄反。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Yes, once it replaced a careful argument",
+      "role": "main",
+      "zh": "有，有一次它把一個嚴謹的論點換成了"
+     },
+     {
+      "text": "with something that sounded confident",
+      "role": "modifier",
+      "zh": "聽起來很有把握的東西，"
+     },
+     {
+      "text": "but was completely wrong.",
+      "role": "modifier",
+      "zh": "但其實完全錯誤。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Exactly, and last term a classmate submitted references that didn't even exist.",
+   "zh": "沒錯，而且上學期有個同學交出去的參考文獻根本不存在。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "didn't even exist",
+      "note": "even 加強語氣：「甚至根本不存在」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "reference",
+      "inSentence": "references",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "參考文獻；推薦信",
+      "ipa": "/ˈrefrəns/",
+      "collocations": [
+       "list of references",
+       "cite a reference"
+      ],
+      "examples": [
+       {
+        "en": "Check every reference before you submit.",
+        "zh": "交出去前檢查每一筆參考文獻。"
+       }
+      ]
+     },
+     {
+      "term": "submit",
+      "inSentence": "submitted",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "提交；繳交",
+      "ipa": "/səbˈmɪt/",
+      "collocations": [
+       "submit an essay",
+       "submit online"
+      ],
+      "examples": [
+       {
+        "en": "Submit your homework by noon.",
+        "zh": "中午前繳交作業。"
+       }
+      ]
+     },
+     {
+      "term": "exist",
+      "inSentence": "exist",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "存在",
+      "ipa": "/ɪɡˈzɪst/",
+      "collocations": [
+       "no longer exist",
+       "really exist"
+      ],
+      "examples": [
+       {
+        "en": "Does this café still exist?",
+        "zh": "這家咖啡館還在嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "didn't even exist",
+      "soundsLike": "didn-ee-vən ig-zist",
+      "note": "didn't 的 t 幾乎不發音，even 的 n 和 exist 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "That's terrifying, did the department find out?",
+   "zh": "太可怕了，系上有發現嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "find out",
+      "inSentence": "find out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "發現；查出",
+      "ipa": "/faɪnd aʊt/",
+      "collocations": [
+       "find out about",
+       "find out the truth"
+      ],
+      "examples": [
+       {
+        "en": "I found out the class was cancelled.",
+        "zh": "我發現那堂課被取消了。"
+       }
+      ]
+     },
+     {
+      "term": "department",
+      "inSentence": "the department",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（大學的）系",
+      "ipa": "/dɪˈpɑːtmənt/",
+      "collocations": [
+       "history department",
+       "head of department"
+      ],
+      "examples": [
+       {
+        "en": "The department sent us an email.",
+        "zh": "系上寄了一封信給我們。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "They did, and it was treated as academic misconduct, even though he said he hadn't meant to cheat.",
+   "zh": "有，而且被當作學術不端處理，雖然他說他不是故意作弊。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "academic misconduct",
+      "inSentence": "academic misconduct",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "學術不端；學術違規",
+      "ipa": "/ˌækəˈdemɪk mɪsˈkɒndʌkt/",
+      "collocations": [
+       "academic misconduct",
+       "a case of misconduct"
+      ],
+      "examples": [
+       {
+        "en": "Copying an essay is academic misconduct.",
+        "zh": "抄襲論文屬於學術不端。"
+       }
+      ]
+     },
+     {
+      "term": "cheat",
+      "inSentence": "cheat",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "作弊",
+      "ipa": "/tʃiːt/",
+      "collocations": [
+       "cheat on a test",
+       "caught cheating"
+      ],
+      "examples": [
+       {
+        "en": "He was caught cheating in the exam.",
+        "zh": "他考試作弊被抓到。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "past perfect in reported speech",
+      "quote": "he said he hadn't meant to cheat",
+      "explanation": "轉述過去說的話時，時態往後退一格：didn't mean 變成 hadn't meant。",
+      "examples": [
+       {
+        "en": "She said she had finished the report.",
+        "zh": "她說她已經完成報告了。"
+       }
+      ],
+      "pitfall": "主要動詞是 said 時，子句裡的時態通常要跟著往過去退。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "They did,",
+      "role": "main",
+      "zh": "有，"
+     },
+     {
+      "text": "and it was treated as academic misconduct,",
+      "role": "main",
+      "zh": "而且被當作學術不端處理，"
+     },
+     {
+      "text": "even though he said he hadn't meant to cheat.",
+      "role": "subordinate",
+      "zh": "雖然他說他不是故意作弊。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "So the lesson is that it's a useful assistant, but you're still responsible for every word.",
+   "zh": "所以教訓就是，它是個好用的助手，但每一個字你還是要自己負責。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "responsible for every word",
+      "note": "「為每個字負責」，這段對話的重點。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "responsible for",
+      "inSentence": "responsible for every word",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "對……負責",
+      "ipa": "/rɪˈspɒnsəbl fɔː/",
+      "collocations": [
+       "be responsible for",
+       "take responsibility"
+      ],
+      "examples": [
+       {
+        "en": "You're responsible for your own work.",
+        "zh": "你要對自己的作業負責。"
+       }
+      ]
+     },
+     {
+      "term": "assistant",
+      "inSentence": "a useful assistant",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "助手；助理",
+      "ipa": "/əˈsɪstənt/",
+      "collocations": [
+       "personal assistant",
+       "teaching assistant"
+      ],
+      "examples": [
+       {
+        "en": "The assistant answered my questions.",
+        "zh": "助理回答了我的問題。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "So the lesson is",
+      "role": "main",
+      "zh": "所以教訓是，"
+     },
+     {
+      "text": "that it's a useful assistant,",
+      "role": "subordinate",
+      "zh": "它是個好用的助手，"
+     },
+     {
+      "text": "but you're still responsible for every word.",
+      "role": "main",
+      "zh": "但每個字你還是要負責。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Right, and honestly, my own clumsy sentences sound more like me than its perfect ones.",
+   "zh": "對，而且老實說，我自己那些笨拙的句子，比它完美的句子更像我。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "sound more like me",
+      "note": "「聽起來更像我」，強調保有自己的聲音。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "clumsy",
+      "inSentence": "clumsy sentences",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "笨拙的",
+      "ipa": "/ˈklʌmzi/",
+      "collocations": [
+       "a clumsy sentence",
+       "feel clumsy"
+      ],
+      "examples": [
+       {
+        "en": "My first draft was a bit clumsy.",
+        "zh": "我的初稿有點笨拙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "ones replacing a plural noun",
+      "quote": "its perfect ones",
+      "explanation": "ones 代替前面提過的複數名詞 sentences，避免重複。",
+      "examples": [
+       {
+        "en": "I prefer the red shoes to the black ones.",
+        "zh": "比起黑色的鞋，我比較喜歡紅色的。"
+       }
+      ],
+      "pitfall": "單數名詞用 one，複數用 ones，不要混用。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "sound more like me",
+      "soundsLike": "soun more like me",
+      "note": "sound 的 d 在子音前常不發音。"
+     }
+    ]
+   }
+  }
+ ]
+}

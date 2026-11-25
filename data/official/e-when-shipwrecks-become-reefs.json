@@ -1,0 +1,897 @@
+{
+ "slug": "e-when-shipwrecks-become-reefs",
+ "series": "exam",
+ "title": "When Shipwrecks Become Reefs",
+ "titleZh": "當沉船變成珊瑚礁",
+ "subtitle": "雅思風格 Part 4 講課：沉船如何成為人工魚礁，以及學界的不同看法",
+ "format": "monologue",
+ "accent": "au",
+ "meta": {
+  "category": "exam",
+  "scenario": "ielts-part4",
+  "level": "advanced",
+  "exam": "ielts",
+  "examTarget": "ielts-7.5"
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Good afternoon. In today's lecture I'll be looking at what happens to a ship once it sinks, and in particular how wrecks can turn into artificial reefs.",
+   "zh": "午安。今天的講課我要探討船沉沒之後會發生什麼事，特別是沉船如何變成人工魚礁。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "in particular how wrecks can turn into artificial reefs",
+      "note": "講課主題句：Part 4 第一題常問講者要談什麼。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "wreck",
+      "inSentence": "wrecks",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "殘骸；沉船",
+      "ipa": "/rek/",
+      "collocations": [
+       "shipwreck",
+       "car wreck"
+      ],
+      "examples": [
+       {
+        "en": "Divers explored the wreck.",
+        "zh": "潛水員探索了那艘沉船。"
+       }
+      ]
+     },
+     {
+      "term": "artificial reef",
+      "inSentence": "artificial reefs",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "人工魚礁",
+      "ipa": "/ˌɑːtɪˈfɪʃəl riːf/",
+      "collocations": [
+       "create an artificial reef"
+      ],
+      "examples": [
+       {
+        "en": "Old trains were sunk to make an artificial reef.",
+        "zh": "舊火車被沉入海中做成人工魚礁。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "Good afternoon.",
+      "role": "connector",
+      "zh": "午安。"
+     },
+     {
+      "text": "In today's lecture I'll be looking at what happens to a ship",
+      "role": "main",
+      "zh": "今天的講課我要探討船會發生什麼事"
+     },
+     {
+      "text": "once it sinks,",
+      "role": "subordinate",
+      "zh": "在它沉沒之後，"
+     },
+     {
+      "text": "and in particular how wrecks can turn into artificial reefs.",
+      "role": "main",
+      "zh": "特別是沉船如何變成人工魚礁。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "You might assume that a sunken vessel is simply a form of pollution, and in some cases, that's exactly what it is.",
+   "zh": "你可能會以為沉船只是一種污染，而在某些情況下，它確實就是。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "assume",
+      "inSentence": "assume",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "以為；假定",
+      "ipa": "/əˈsjuːm/",
+      "collocations": [
+       "assume that",
+       "safe to assume"
+      ],
+      "examples": [
+       {
+        "en": "Don't assume everyone knows the rules.",
+        "zh": "別以為每個人都知道規則。"
+       }
+      ]
+     },
+     {
+      "term": "vessel",
+      "inSentence": "vessel",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "船隻",
+      "ipa": "/ˈvesəl/",
+      "collocations": [
+       "fishing vessel",
+       "cargo vessel"
+      ],
+      "examples": [
+       {
+        "en": "The vessel left port at dawn.",
+        "zh": "那艘船在黎明時離港。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Sunken as an adjective",
+      "quote": "a sunken vessel",
+      "explanation": "sunken 是 sink 的過去分詞形容詞用法，放在名詞前表示「沉沒的」。動詞過去分詞一般用 sunk。",
+      "examples": [
+       {
+        "en": "They found sunken treasure.",
+        "zh": "他們找到了沉沒的寶藏。"
+       }
+      ],
+      "pitfall": "名詞前用 sunken，被動句用 sunk：The ship was sunk."
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "However, if a ship has been properly cleaned of fuel and other hazardous materials beforehand, it can become remarkably productive habitat.",
+   "zh": "然而，如果船事先徹底清除了燃料和其他有害物質，它就能成為生產力驚人的棲地。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "properly cleaned of fuel and other hazardous materials beforehand",
+      "note": "關鍵條件：要先清除燃料與有害物質，才能成為好的棲地。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "hazardous",
+      "inSentence": "hazardous",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "有害的；危險的",
+      "ipa": "/ˈhæzədəs/",
+      "collocations": [
+       "hazardous waste",
+       "hazardous materials"
+      ],
+      "examples": [
+       {
+        "en": "Hazardous waste must be handled carefully.",
+        "zh": "有害廢棄物必須小心處理。"
+       }
+      ]
+     },
+     {
+      "term": "habitat",
+      "inSentence": "habitat",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "棲地",
+      "ipa": "/ˈhæbɪtæt/",
+      "collocations": [
+       "natural habitat",
+       "lose habitat"
+      ],
+      "examples": [
+       {
+        "en": "Wetlands are an important habitat for birds.",
+        "zh": "濕地是鳥類的重要棲地。"
+       }
+      ]
+     },
+     {
+      "term": "remarkably",
+      "inSentence": "remarkably",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "非常地；驚人地",
+      "ipa": "/rɪˈmɑːkəbli/",
+      "collocations": [
+       "remarkably well"
+      ],
+      "examples": [
+       {
+        "en": "The old car runs remarkably well.",
+        "zh": "這輛舊車跑得出奇地好。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "However,",
+      "role": "connector",
+      "zh": "然而，"
+     },
+     {
+      "text": "if a ship has been properly cleaned of fuel and other hazardous materials beforehand,",
+      "role": "subordinate",
+      "zh": "如果船事先徹底清除了燃料和其他有害物質，"
+     },
+     {
+      "text": "it can become remarkably productive habitat.",
+      "role": "main",
+      "zh": "它就能成為生產力驚人的棲地。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "The process begins within days, as bacteria and algae form a thin film over the hull.",
+   "zh": "這個過程在幾天內就開始了，細菌和藻類會在船身上形成一層薄膜。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "algae",
+      "inSentence": "algae",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "藻類",
+      "ipa": "/ˈældʒiː/",
+      "collocations": [
+       "green algae",
+       "algae bloom"
+      ],
+      "examples": [
+       {
+        "en": "Algae turned the pond green.",
+        "zh": "藻類讓池塘變成綠色。"
+       }
+      ]
+     },
+     {
+      "term": "hull",
+      "inSentence": "hull",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "船身；船體",
+      "ipa": "/hʌl/",
+      "collocations": [
+       "steel hull",
+       "the ship's hull"
+      ],
+      "examples": [
+       {
+        "en": "The hull was painted white.",
+        "zh": "船身被漆成白色。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "as = while / because",
+      "quote": "as bacteria and algae form",
+      "explanation": "as 在這裡表示「隨著…；在…的同時」，帶出和主要子句同時發生的過程。",
+      "examples": [
+       {
+        "en": "As the sun rose, the birds began to sing.",
+        "zh": "太陽升起時，鳥兒開始歌唱。"
+       }
+      ],
+      "pitfall": "as 有多種意思（因為、當、如同），要從上下文判斷。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "This film, in turn, attracts small grazing animals, which then draw in the fish that feed on them.",
+   "zh": "這層膜接著會吸引以啃食為生的小動物，而這些小動物又會引來以牠們為食的魚。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "in turn",
+      "note": "表示連鎖反應：A 引起 B，B 再引起 C。講課中描述過程時很常見。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "in turn",
+      "inSentence": "in turn",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "接著；轉而",
+      "ipa": "/ɪn tɜːn/",
+      "collocations": [
+       "which in turn"
+      ],
+      "examples": [
+       {
+        "en": "Rain feeds the grass, which in turn feeds the cows.",
+        "zh": "雨水滋養青草，青草再餵養牛群。"
+       }
+      ]
+     },
+     {
+      "term": "feed on",
+      "inSentence": "feed on",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "以…為食",
+      "ipa": "/fiːd ɒn/",
+      "collocations": [
+       "feed on insects"
+      ],
+      "examples": [
+       {
+        "en": "Owls feed on mice.",
+        "zh": "貓頭鷹以老鼠為食。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "This film, in turn,",
+      "role": "main",
+      "zh": "這層膜接著"
+     },
+     {
+      "text": "attracts small grazing animals,",
+      "role": "main",
+      "zh": "吸引啃食的小動物，"
+     },
+     {
+      "text": "which then draw in the fish",
+      "role": "modifier",
+      "zh": "牠們又引來魚"
+     },
+     {
+      "text": "that feed on them.",
+      "role": "modifier",
+      "zh": "以牠們為食的魚。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Within a few years, corals and sponges may have colonised the steel, and the wreck starts to function much like a natural reef.",
+   "zh": "幾年之內，珊瑚和海綿可能已經佈滿鋼板，沉船就開始發揮和天然礁石非常相似的功能。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "colonise",
+      "inSentence": "colonised",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "（生物）移居、佔據（英式拼法，美式為 colonize）",
+      "ipa": "/ˈkɒlənaɪz/",
+      "collocations": [
+       "colonise an area"
+      ],
+      "examples": [
+       {
+        "en": "Plants quickly colonised the empty land.",
+        "zh": "植物很快就佔據了那塊空地。"
+       }
+      ]
+     },
+     {
+      "term": "function",
+      "inSentence": "function",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "運作；起作用",
+      "ipa": "/ˈfʌŋkʃən/",
+      "collocations": [
+       "function as",
+       "function well"
+      ],
+      "examples": [
+       {
+        "en": "The room functions as an office.",
+        "zh": "這個房間當作辦公室使用。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "may have + past participle",
+      "quote": "may have colonised",
+      "explanation": "may have + 過去分詞在這裡表示「到那時可能已經…」，推測某時間點前完成的事。",
+      "examples": [
+       {
+        "en": "By then, they may have left.",
+        "zh": "到那時他們可能已經走了。"
+       }
+      ],
+      "pitfall": "不要寫成 may have colonise，have 後面要接過去分詞。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Researchers have found that the shape of the structure matters a great deal.",
+   "zh": "研究人員發現，結構的形狀非常重要。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "matter",
+      "inSentence": "matters",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "重要；有關係",
+      "ipa": "/ˈmætə/",
+      "collocations": [
+       "matter a lot",
+       "it doesn't matter"
+      ],
+      "examples": [
+       {
+        "en": "What you eat really matters.",
+        "zh": "你吃什麼真的很重要。"
+       }
+      ]
+     },
+     {
+      "term": "a great deal",
+      "inSentence": "a great deal",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "非常；很多",
+      "ipa": "/ə ɡreɪt diːl/",
+      "collocations": [
+       "a great deal of time"
+      ],
+      "examples": [
+       {
+        "en": "Her advice helped me a great deal.",
+        "zh": "她的建議幫了我很大的忙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Wrecks with plenty of openings and sheltered spaces tend to support a wider variety of species than flat, exposed surfaces do.",
+   "zh": "有許多開口和遮蔽空間的沉船，往往比平坦、暴露的表面能養活更多樣的物種。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "a wider variety of species",
+      "note": "比較的結論：結構複雜的沉船物種較多。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "sheltered",
+      "inSentence": "sheltered",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "有遮蔽的",
+      "ipa": "/ˈʃeltəd/",
+      "collocations": [
+       "sheltered bay",
+       "sheltered spot"
+      ],
+      "examples": [
+       {
+        "en": "We ate lunch in a sheltered spot.",
+        "zh": "我們在一個避風的地方吃午餐。"
+       }
+      ]
+     },
+     {
+      "term": "exposed",
+      "inSentence": "exposed",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "暴露的；無遮蔽的",
+      "ipa": "/ɪkˈspəʊzd/",
+      "collocations": [
+       "exposed to the wind"
+      ],
+      "examples": [
+       {
+        "en": "The hill is exposed to strong winds.",
+        "zh": "這座山丘直接受強風吹襲。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Comparative with do",
+      "quote": "than flat, exposed surfaces do",
+      "explanation": "比較句中用 do 代替前面的動詞 support，避免重複。",
+      "examples": [
+       {
+        "en": "She runs faster than I do.",
+        "zh": "她跑得比我快。"
+       }
+      ],
+      "pitfall": "do 要配合主詞：複數主詞用 do，單數用 does。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Wrecks with plenty of openings and sheltered spaces",
+      "role": "main",
+      "zh": "有很多開口和遮蔽空間的沉船"
+     },
+     {
+      "text": "tend to support a wider variety of species",
+      "role": "main",
+      "zh": "往往養活更多樣的物種"
+     },
+     {
+      "text": "than flat, exposed surfaces do.",
+      "role": "subordinate",
+      "zh": "比平坦、暴露的表面。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "That said, artificial reefs are not without their critics.",
+   "zh": "話雖如此，人工魚礁也有批評者。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "That said",
+      "note": "轉折訊號：接下來要講反面意見。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "that said",
+      "inSentence": "That said",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "話雖如此",
+      "ipa": "/ðæt sed/",
+      "collocations": [
+       "that said, ..."
+      ],
+      "examples": [
+       {
+        "en": "It's expensive. That said, it's worth it.",
+        "zh": "它很貴。話雖如此，還是值得。"
+       }
+      ]
+     },
+     {
+      "term": "critic",
+      "inSentence": "critics",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "批評者",
+      "ipa": "/ˈkrɪtɪk/",
+      "collocations": [
+       "harshest critic"
+      ],
+      "examples": [
+       {
+        "en": "The plan has many critics.",
+        "zh": "這個計畫有很多人批評。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "not without",
+      "quote": "not without their critics",
+      "explanation": "not without 是雙重否定，意思是「並非沒有」，也就是「確實有」。",
+      "examples": [
+       {
+        "en": "The trip was not without problems.",
+        "zh": "這趟旅行也不是沒出問題。"
+       }
+      ],
+      "pitfall": "不要理解成「沒有批評者」，雙重否定等於肯定。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Some ecologists argue that they don't actually increase the number of fish, but merely gather existing populations into one spot, where they're easier to catch.",
+   "zh": "有些生態學家認為，人工魚礁其實沒有增加魚的數量，只是把原有的族群集中到一個地方，讓牠們更容易被捕撈。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "merely gather existing populations into one spot",
+      "note": "批評的核心論點：只是聚集，不是增加。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "ecologist",
+      "inSentence": "ecologists",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "生態學家",
+      "ipa": "/iˈkɒlədʒɪst/",
+      "collocations": [
+       "marine ecologist"
+      ],
+      "examples": [
+       {
+        "en": "The ecologist studied the river.",
+        "zh": "那位生態學家研究這條河。"
+       }
+      ]
+     },
+     {
+      "term": "merely",
+      "inSentence": "merely",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "僅僅；只不過",
+      "ipa": "/ˈmɪəli/",
+      "collocations": [
+       "merely a few"
+      ],
+      "examples": [
+       {
+        "en": "It was merely a joke.",
+        "zh": "那只不過是個玩笑。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "not ... but merely",
+      "quote": "don't actually increase the number of fish, but merely gather",
+      "explanation": "not A but B 表示「不是 A 而是 B」，merely 加強「只是」的語氣。",
+      "examples": [
+       {
+        "en": "He didn't win, but merely finished.",
+        "zh": "他沒有贏，只是跑完了。"
+       }
+      ],
+      "pitfall": "but 後面的動詞要和前面的動詞形式一致。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Some ecologists argue",
+      "role": "main",
+      "zh": "有些生態學家認為"
+     },
+     {
+      "text": "that they don't actually increase the number of fish,",
+      "role": "subordinate",
+      "zh": "它們其實沒有增加魚的數量，"
+     },
+     {
+      "text": "but merely gather existing populations into one spot,",
+      "role": "subordinate",
+      "zh": "只是把原有族群集中到一處，"
+     },
+     {
+      "text": "where they're easier to catch.",
+      "role": "modifier",
+      "zh": "在那裡更容易被捕撈。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "This is a genuine concern, and it's one reason why fishing is often restricted around newly sunk wrecks.",
+   "zh": "這是一個確實存在的疑慮，也是新沉放的船骸周圍常常限制捕魚的原因之一。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "genuine",
+      "inSentence": "genuine",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "真正的；確實的",
+      "ipa": "/ˈdʒenjuɪn/",
+      "collocations": [
+       "genuine concern",
+       "genuine interest"
+      ],
+      "examples": [
+       {
+        "en": "She showed genuine interest in the project.",
+        "zh": "她對這個計畫展現真誠的興趣。"
+       }
+      ]
+     },
+     {
+      "term": "restrict",
+      "inSentence": "restricted",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "限制",
+      "ipa": "/rɪˈstrɪkt/",
+      "collocations": [
+       "restricted area",
+       "restrict access"
+      ],
+      "examples": [
+       {
+        "en": "Parking is restricted on this street.",
+        "zh": "這條街限制停車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "one reason why",
+      "quote": "one reason why fishing is often restricted",
+      "explanation": "reason why + 子句，說明某事的原因；why 也可以省略。",
+      "examples": [
+       {
+        "en": "That's the reason why I left.",
+        "zh": "這就是我離開的原因。"
+       }
+      ],
+      "pitfall": "不要寫成 the reason because。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "So, for your assignment, I'd like you to weigh up both positions, drawing on at least two case studies from the reading list.",
+   "zh": "所以，你們的作業是要權衡這兩種立場，並至少引用閱讀清單上的兩個案例研究。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "weigh up both positions",
+      "note": "作業要求：比較兩方觀點，是 Part 4 結尾常考的細節。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "weigh up",
+      "inSentence": "weigh up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "權衡；仔細考慮",
+      "ipa": "/weɪ ʌp/",
+      "collocations": [
+       "weigh up the options"
+      ],
+      "examples": [
+       {
+        "en": "We need to weigh up the costs.",
+        "zh": "我們需要權衡成本。"
+       }
+      ]
+     },
+     {
+      "term": "draw on",
+      "inSentence": "drawing on",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "引用；利用",
+      "ipa": "/drɔː ɒn/",
+      "collocations": [
+       "draw on experience"
+      ],
+      "examples": [
+       {
+        "en": "She drew on her own life for the novel.",
+        "zh": "她以自己的人生為小說取材。"
+       }
+      ]
+     },
+     {
+      "term": "case study",
+      "inSentence": "case studies",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "案例研究",
+      "ipa": "/keɪs ˈstʌdi/",
+      "collocations": [
+       "a detailed case study"
+      ],
+      "examples": [
+       {
+        "en": "The book includes three case studies.",
+        "zh": "這本書收錄了三個案例研究。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "So, for your assignment,",
+      "role": "connector",
+      "zh": "所以，你們的作業"
+     },
+     {
+      "text": "I'd like you to weigh up both positions,",
+      "role": "main",
+      "zh": "我希望你們權衡兩種立場，"
+     },
+     {
+      "text": "drawing on at least two case studies",
+      "role": "modifier",
+      "zh": "引用至少兩個案例研究"
+     },
+     {
+      "text": "from the reading list.",
+      "role": "modifier",
+      "zh": "取自閱讀清單。"
+     }
+    ],
+    "connected": []
+   }
+  }
+ ]
+}

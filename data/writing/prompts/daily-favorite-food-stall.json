@@ -1,0 +1,102 @@
+{
+  "id": "daily-favorite-food-stall",
+  "type": "daily",
+  "level": "beginner",
+  "title": {
+    "en": "My Favorite Food Stall",
+    "zh": "我最喜歡的小吃攤"
+  },
+  "subtitle": "介紹一個你常去的小吃攤和它的招牌美食",
+  "task": "Describe your favorite food stall or small restaurant. Where is it, what do you usually order, and why do you like it?",
+  "taskZh": "介紹你最喜歡的小吃攤或小餐館：它在哪裡？你通常點什麼？為什麼喜歡它？",
+  "words": {
+    "min": 80,
+    "max": 150
+  },
+  "minutes": 15,
+  "focus": [
+    "清楚回答「在哪裡、點什麼、為什麼」",
+    "用現在簡單式描述習慣",
+    "用形容詞寫出味道與氣氛"
+  ],
+  "model": {
+    "en": [
+      "My favorite food stall is a small dumpling stand near my school. It is run by an old couple, and it opens at four o'clock every afternoon. There are only three tables, so people often wait in line.",
+      "I usually order ten pork dumplings and a bowl of hot-and-sour soup. The dumplings are juicy, and the soup is a little spicy. It costs less than one hundred dollars, which is great for a student like me.",
+      "I like this stall not only because the food is good but also because the owners are friendly. They always remember my order. Eating there feels like eating at home."
+    ],
+    "zh": [
+      "我最喜歡的小吃攤是學校附近一家小小的水餃攤。它由一對老夫妻經營，每天下午四點開門。那裡只有三張桌子，所以常常要排隊。",
+      "我通常點十顆豬肉水餃和一碗酸辣湯。水餃很多汁，湯有一點辣。全部不到一百元，對像我這樣的學生來說很划算。",
+      "我喜歡這個攤子，不只因為東西好吃，也因為老闆很親切。他們總是記得我點什麼。在那裡吃飯，就像在家吃飯一樣。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "It is run by …",
+      "zh": "被動語態：由……經營",
+      "example": "It is run by an old couple, and it opens at four o'clock every afternoon.",
+      "keys": [
+        "is run by"
+      ]
+    },
+    {
+      "pattern": "…, which is great for …",
+      "zh": "用 which 補充說明前面整句話",
+      "example": "It costs less than one hundred dollars, which is great for a student like me.",
+      "keys": [
+        "which is"
+      ]
+    },
+    {
+      "pattern": "not only because … but also because …",
+      "zh": "不只因為……，也因為……（列出兩個理由）",
+      "example": "I like this stall not only because the food is good but also because the owners are friendly.",
+      "keys": [
+        "not only because",
+        "but also because"
+      ]
+    },
+    {
+      "pattern": "… feels like …",
+      "zh": "感覺像……（打比方）",
+      "example": "Eating there feels like eating at home.",
+      "keys": [
+        "feels like"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The dumplings are juicy.",
+        "The soup is a little spicy."
+      ],
+      "answer": "The dumplings are juicy, and the soup is a little spicy."
+    },
+    {
+      "parts": [
+        "There are only three tables.",
+        "People often wait in line."
+      ],
+      "answer": "There are only three tables, so people often wait in line."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It costs less than one hundred dollars.",
+      "answers": [
+        "It is under one hundred dollars.",
+        "You can eat there for less than one hundred dollars."
+      ]
+    },
+    {
+      "sentence": "They always remember my order.",
+      "answers": [
+        "They never forget what I like to eat.",
+        "They know my order by heart."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

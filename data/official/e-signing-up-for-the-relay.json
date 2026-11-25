@@ -1,0 +1,630 @@
+{
+ "slug": "e-signing-up-for-the-relay",
+ "series": "exam",
+ "title": "Signing Up for the Relay",
+ "titleZh": "報名大隊接力",
+ "subtitle": "學測風格對話：運動會要選接力選手，扭傷過腳踝的同學該不該報名？",
+ "format": "dialogue",
+ "accent": "us",
+ "meta": {
+  "category": "exam",
+  "scenario": "gsat-dialogue",
+  "level": "beginner",
+  "exam": "gsat",
+  "examTarget": "gsat-basic"
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Did you see the notice about sports day on the class board?",
+   "zh": "你有看到班上布告欄關於運動會的公告嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "notice",
+      "inSentence": "notice",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "公告；通知",
+      "ipa": "/ˈnoʊtɪs/",
+      "collocations": [
+       "put up a notice",
+       "notice board"
+      ],
+      "examples": [
+       {
+        "en": "There's a notice on the door.",
+        "zh": "門上有一張公告。"
+       }
+      ]
+     },
+     {
+      "term": "sports day",
+      "inSentence": "sports day",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "運動會",
+      "ipa": "/spɔrts deɪ/",
+      "collocations": [
+       "school sports day"
+      ],
+      "examples": [
+       {
+        "en": "Our sports day is in November.",
+        "zh": "我們的運動會在十一月。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Yeah, our homeroom teacher wants four runners for the relay race.",
+   "zh": "有啊，我們導師要找四個人跑接力賽。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "four runners for the relay race",
+      "note": "對話主題：接力賽要四名選手。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "homeroom teacher",
+      "inSentence": "homeroom teacher",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "導師",
+      "ipa": "/ˈhoʊmˌrum ˈtitʃər/",
+      "collocations": [
+       "our homeroom teacher"
+      ],
+      "examples": [
+       {
+        "en": "Our homeroom teacher is very kind.",
+        "zh": "我們的導師人很好。"
+       }
+      ]
+     },
+     {
+      "term": "relay race",
+      "inSentence": "relay race",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "接力賽",
+      "ipa": "/ˈrileɪ reɪs/",
+      "collocations": [
+       "run in a relay race"
+      ],
+      "examples": [
+       {
+        "en": "Our class won the relay race.",
+        "zh": "我們班贏了接力賽。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "You should sign up. You're the fastest runner in our class.",
+   "zh": "你應該報名。你是我們班跑最快的。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sign up",
+      "inSentence": "sign up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "報名",
+      "ipa": "/saɪn ʌp/",
+      "collocations": [
+       "sign up for",
+       "sign up online"
+      ],
+      "examples": [
+       {
+        "en": "I signed up for the dance club.",
+        "zh": "我報名了熱舞社。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Superlative",
+      "quote": "the fastest runner in our class",
+      "explanation": "the + 最高級 + in + 範圍，表示「在某範圍中最…」。",
+      "examples": [
+       {
+        "en": "She is the tallest girl in her class.",
+        "zh": "她是班上最高的女生。"
+       }
+      ],
+      "pitfall": "最高級前面要加 the，範圍用 in our class，不要用 of our class。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I don't know. I hurt my ankle playing basketball last month.",
+   "zh": "我不確定耶。我上個月打籃球扭傷了腳踝。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "I hurt my ankle",
+      "note": "猶豫的原因：腳踝受過傷。學測常問「男生為什麼猶豫」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "ankle",
+      "inSentence": "ankle",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "腳踝",
+      "ipa": "/ˈæŋkəl/",
+      "collocations": [
+       "hurt your ankle",
+       "twist an ankle"
+      ],
+      "examples": [
+       {
+        "en": "I twisted my ankle on the stairs.",
+        "zh": "我在樓梯上扭到腳踝。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "V-ing for the activity",
+      "quote": "playing basketball",
+      "explanation": "動詞 + V-ing 片語，說明受傷時「正在做的事」。",
+      "examples": [
+       {
+        "en": "He hurt his back lifting a box.",
+        "zh": "他搬箱子時傷了背。"
+       }
+      ],
+      "pitfall": "不要寫成 hurt my ankle when play basketball。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Oh, right, I remember that. Is it still bad?",
+   "zh": "喔，對耶，我記得那件事。現在還很嚴重嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "still",
+      "inSentence": "still",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "仍然；還",
+      "ipa": "/stɪl/",
+      "collocations": [
+       "still hurt",
+       "still there"
+      ],
+      "examples": [
+       {
+        "en": "Is it still raining?",
+        "zh": "還在下雨嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It feels much better now, but I haven't run fast since then.",
+   "zh": "現在好多了，但從那之後我就沒有跑快過。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "since then",
+      "inSentence": "since then",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "從那時以後",
+      "ipa": "/sɪns ðɛn/",
+      "collocations": [
+       "ever since then"
+      ],
+      "examples": [
+       {
+        "en": "I moved in 2020 and have lived here since then.",
+        "zh": "我 2020 年搬來，從那之後就住在這裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Present perfect with since",
+      "quote": "I haven't run fast since then",
+      "explanation": "現在完成式 + since，表示從過去某時間點一直到現在的狀態。",
+      "examples": [
+       {
+        "en": "I haven't seen him since June.",
+        "zh": "我從六月以後就沒見過他。"
+       }
+      ],
+      "pitfall": "有 since 時要用完成式，不要說 I didn't run fast since then。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Sports day is three weeks away, so you still have time to practice.",
+   "zh": "運動會還有三個星期，所以你還有時間練習。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "three weeks away",
+      "note": "時間細節：還有三週。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "away",
+      "inSentence": "three weeks away",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "（時間）還有…才到",
+      "ipa": "/əˈweɪ/",
+      "collocations": [
+       "two days away"
+      ],
+      "examples": [
+       {
+        "en": "My birthday is only a week away.",
+        "zh": "再一個禮拜就是我生日了。"
+       }
+      ]
+     },
+     {
+      "term": "practice",
+      "inSentence": "practice",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "練習",
+      "ipa": "/ˈpræktɪs/",
+      "collocations": [
+       "practice every day"
+      ],
+      "examples": [
+       {
+        "en": "I practice the piano every night.",
+        "zh": "我每天晚上練鋼琴。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's true. Maybe I can run on the school track after class.",
+   "zh": "說得也是。也許我可以放學後在學校操場跑步。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "track",
+      "inSentence": "track",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "跑道；操場",
+      "ipa": "/træk/",
+      "collocations": [
+       "running track",
+       "school track"
+      ],
+      "examples": [
+       {
+        "en": "We run four laps on the track.",
+        "zh": "我們在跑道上跑四圈。"
+       }
+      ]
+     },
+     {
+      "term": "after class",
+      "inSentence": "after class",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "下課後；放學後",
+      "ipa": "/ˈæftər klæs/",
+      "collocations": [
+       "stay after class"
+      ],
+      "examples": [
+       {
+        "en": "Let's play basketball after class.",
+        "zh": "放學後我們去打籃球吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I can practice with you. I want to join the relay too.",
+   "zh": "我可以陪你練。我也想參加接力。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "join",
+      "inSentence": "join",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "參加；加入",
+      "ipa": "/dʒɔɪn/",
+      "collocations": [
+       "join a team",
+       "join us"
+      ],
+      "examples": [
+       {
+        "en": "Do you want to join our team?",
+        "zh": "你想加入我們的隊伍嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "want to join",
+      "soundsLike": "wanna join",
+      "note": "want to 後面接動詞，口語常說成 wanna。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Really? I didn't know you liked running.",
+   "zh": "真的嗎？我不知道你喜歡跑步。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "like running",
+      "inSentence": "liked running",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "喜歡跑步",
+      "ipa": "/laɪk ˈrʌnɪŋ/",
+      "collocations": [
+       "like doing something"
+      ],
+      "examples": [
+       {
+        "en": "My brother likes swimming.",
+        "zh": "我弟弟喜歡游泳。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I started jogging by the river with my dad this summer.",
+   "zh": "我今年暑假開始和我爸在河濱慢跑。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "with my dad this summer",
+      "note": "女生開始跑步的原因與時間，可能是細節題。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "jog",
+      "inSentence": "jogging",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "慢跑",
+      "ipa": "/dʒɑɡ/",
+      "collocations": [
+       "go jogging",
+       "jog in the park"
+      ],
+      "examples": [
+       {
+        "en": "She goes jogging every morning.",
+        "zh": "她每天早上去慢跑。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Cool. Then let's put our names on the list before lunch.",
+   "zh": "好耶。那我們午餐前就把名字寫上名單吧。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "list",
+      "inSentence": "list",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "名單；清單",
+      "ipa": "/lɪst/",
+      "collocations": [
+       "on the list",
+       "make a list"
+      ],
+      "examples": [
+       {
+        "en": "Is my name on the list?",
+        "zh": "名單上有我的名字嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "put our",
+      "soundsLike": "pu-dour",
+      "note": "put 的 t 在母音前變成輕輕的 d 音，和 our 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "OK, and let's ask two more classmates to join us.",
+   "zh": "好，我們再找兩個同學一起參加吧。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "classmate",
+      "inSentence": "classmates",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "同學",
+      "ipa": "/ˈklæsˌmeɪt/",
+      "collocations": [
+       "my classmates"
+      ],
+      "examples": [
+       {
+        "en": "I studied with my classmates.",
+        "zh": "我和同學一起念書。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "ask + person + to V",
+      "quote": "ask two more classmates to join us",
+      "explanation": "ask + 人 + to + 原形動詞，表示「請某人做某事」。",
+      "examples": [
+       {
+        "en": "I asked my mom to wake me up.",
+        "zh": "我請我媽叫我起床。"
+       }
+      ],
+      "pitfall": "不要漏掉 to：ask them join 是錯的。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Good idea. With a good team, our class might win this year!",
+   "zh": "好主意。有一支好隊伍，我們班今年說不定會贏！",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "win",
+      "inSentence": "win",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "贏得；獲勝",
+      "ipa": "/wɪn/",
+      "collocations": [
+       "win a race",
+       "win first place"
+      ],
+      "examples": [
+       {
+        "en": "Our team won first place.",
+        "zh": "我們隊得了第一名。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

@@ -1,0 +1,898 @@
+{
+ "slug": "s-beach-cleanup",
+ "series": "school",
+ "title": "What I Found on the Beach",
+ "titleZh": "我在海灘上發現的東西",
+ "subtitle": "一場北海岸淨灘，讓一個高中生重新看待手搖杯和塑膠",
+ "format": "monologue",
+ "accent": "au",
+ "meta": {
+  "category": "school",
+  "scenario": "senior-passage",
+  "level": "intermediate",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Last Saturday, I joined a beach clean-up on the north coast with thirty other students from my school.",
+   "zh": "上週六，我和學校另外三十位同學一起參加了北海岸的淨灘活動。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "thirty other students",
+      "note": "other 放在數字後面，表示「另外的三十位」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "clean-up",
+      "inSentence": "clean-up",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "清掃活動",
+      "ipa": "/ˈkliːn ʌp/",
+      "collocations": [
+       "beach clean-up",
+       "a big clean-up"
+      ],
+      "examples": [
+       {
+        "en": "The park clean-up starts at nine.",
+        "zh": "公園清掃活動九點開始。"
+       }
+      ]
+     },
+     {
+      "term": "coast",
+      "inSentence": "coast",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "海岸",
+      "ipa": "/kəʊst/",
+      "collocations": [
+       "the north coast",
+       "along the coast"
+      ],
+      "examples": [
+       {
+        "en": "We drove along the coast.",
+        "zh": "我們沿著海岸開車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I signed up mainly to earn volunteer hours, but the experience changed the way I think about plastic.",
+   "zh": "我報名主要是為了累積志工時數，但這次經驗改變了我對塑膠的看法。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "volunteer hours",
+      "inSentence": "volunteer hours",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "志工時數",
+      "ipa": "/ˌvɒlənˈtɪər ˈaʊəz/",
+      "collocations": [
+       "earn volunteer hours",
+       "complete volunteer hours"
+      ],
+      "examples": [
+       {
+        "en": "We need twenty volunteer hours to graduate.",
+        "zh": "我們畢業需要二十小時的志工時數。"
+       }
+      ]
+     },
+     {
+      "term": "mainly",
+      "inSentence": "mainly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "主要地",
+      "ipa": "/ˈmeɪnli/",
+      "collocations": [
+       "mainly because",
+       "mainly for"
+      ],
+      "examples": [
+       {
+        "en": "I came mainly to see you.",
+        "zh": "我來主要是為了見你。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "the way + clause",
+      "quote": "the way I think about plastic",
+      "explanation": "the way ＋子句，表示「…的方式」，中間不用加 how。",
+      "examples": [
+       {
+        "en": "I like the way she sings.",
+        "zh": "我喜歡她唱歌的方式。"
+       }
+      ],
+      "pitfall": "不要說 the way how I think。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "I signed up mainly",
+      "role": "main",
+      "zh": "我報名主要是"
+     },
+     {
+      "text": "to earn volunteer hours",
+      "role": "modifier",
+      "zh": "為了累積志工時數"
+     },
+     {
+      "text": "but the experience changed",
+      "role": "main",
+      "zh": "但這次經驗改變了"
+     },
+     {
+      "text": "the way I think about plastic",
+      "role": "modifier",
+      "zh": "我對塑膠的看法"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "When we arrived, the beach looked fairly clean from a distance.",
+   "zh": "我們到的時候，從遠處看，海灘還算乾淨。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fairly",
+      "inSentence": "fairly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "相當地；還算",
+      "ipa": "/ˈfeəli/",
+      "collocations": [
+       "fairly clean",
+       "fairly easy"
+      ],
+      "examples": [
+       {
+        "en": "The test was fairly easy.",
+        "zh": "考試還算簡單。"
+       }
+      ]
+     },
+     {
+      "term": "from a distance",
+      "inSentence": "from a distance",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "從遠處",
+      "ipa": "/frɒm ə ˈdɪstəns/",
+      "collocations": [
+       "from a distance",
+       "in the distance"
+      ],
+      "examples": [
+       {
+        "en": "From a distance, it looked like a cat.",
+        "zh": "從遠處看，它像一隻貓。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "look + adjective",
+      "quote": "looked fairly clean",
+      "explanation": "look 當「看起來」時是連綴動詞，後面接形容詞，不接副詞。",
+      "examples": [
+       {
+        "en": "You look tired today.",
+        "zh": "你今天看起來很累。"
+       }
+      ],
+      "pitfall": "不要說 looked cleanly。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "However, once we started digging through the sand, we found rubbish almost everywhere.",
+   "zh": "然而，我們一開始翻動沙子，就發現幾乎到處都是垃圾。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "rubbish",
+      "inSentence": "rubbish",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "垃圾（英、澳用法）",
+      "ipa": "/ˈrʌbɪʃ/",
+      "collocations": [
+       "pick up rubbish",
+       "rubbish bin"
+      ],
+      "examples": [
+       {
+        "en": "Please put your rubbish in the bin.",
+        "zh": "請把垃圾丟進垃圾桶。"
+       }
+      ]
+     },
+     {
+      "term": "dig through",
+      "inSentence": "digging through",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "翻找；挖開",
+      "ipa": "/dɪɡ θruː/",
+      "collocations": [
+       "dig through the sand",
+       "dig through a drawer"
+      ],
+      "examples": [
+       {
+        "en": "She dug through her bag for her keys.",
+        "zh": "她在包包裡翻找鑰匙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "once = as soon as",
+      "quote": "once we started",
+      "explanation": "once 當連接詞，意思是「一旦…就…」。",
+      "examples": [
+       {
+        "en": "Once you start, you can't stop.",
+        "zh": "一旦開始，你就停不下來。"
+       }
+      ],
+      "pitfall": "這裡的 once 不是「一次」。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "There were bottle caps, plastic straws, and countless tiny pieces of foam.",
+   "zh": "有瓶蓋、塑膠吸管，還有數不清的細小保麗龍碎片。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "countless",
+      "inSentence": "countless",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "數不清的",
+      "ipa": "/ˈkaʊntləs/",
+      "collocations": [
+       "countless times",
+       "countless people"
+      ],
+      "examples": [
+       {
+        "en": "I've watched this film countless times.",
+        "zh": "這部電影我看了無數次。"
+       }
+      ]
+     },
+     {
+      "term": "foam",
+      "inSentence": "foam",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "泡沫塑料；保麗龍",
+      "ipa": "/fəʊm/",
+      "collocations": [
+       "foam box",
+       "a piece of foam"
+      ],
+      "examples": [
+       {
+        "en": "Foam boxes are hard to recycle.",
+        "zh": "保麗龍盒很難回收。"
+       }
+      ]
+     },
+     {
+      "term": "straw",
+      "inSentence": "plastic straws",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "吸管",
+      "ipa": "/strɔː/",
+      "collocations": [
+       "plastic straw",
+       "paper straw"
+      ],
+      "examples": [
+       {
+        "en": "Can I have a paper straw?",
+        "zh": "可以給我紙吸管嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "In just two hours, our group filled twelve large bags.",
+   "zh": "短短兩個小時內，我們這組就裝滿了十二個大袋子。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "In just two hours",
+      "note": "in ＋時間表示「在…之內」，just 強調時間很短。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "fill",
+      "inSentence": "filled",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "裝滿",
+      "ipa": "/fɪl/",
+      "collocations": [
+       "fill a bag",
+       "fill up"
+      ],
+      "examples": [
+       {
+        "en": "He filled the bottle with water.",
+        "zh": "他把瓶子裝滿水。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Some of the plastic was so old that we could no longer read the labels.",
+   "zh": "有些塑膠舊到我們已經看不清上面的標籤。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "label",
+      "inSentence": "labels",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "標籤",
+      "ipa": "/ˈleɪbl/",
+      "collocations": [
+       "read the label",
+       "a price label"
+      ],
+      "examples": [
+       {
+        "en": "Check the label before you buy it.",
+        "zh": "買之前先看標籤。"
+       }
+      ]
+     },
+     {
+      "term": "no longer",
+      "inSentence": "no longer",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "不再",
+      "ipa": "/nəʊ ˈlɒŋɡə/",
+      "collocations": [
+       "no longer need",
+       "no longer exist"
+      ],
+      "examples": [
+       {
+        "en": "He no longer lives here.",
+        "zh": "他已經不住這裡了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "so ... that",
+      "quote": "so old that",
+      "explanation": "so ＋形容詞＋ that ＋子句，表示「太…以至於…」。",
+      "examples": [
+       {
+        "en": "It was so hot that we stayed inside.",
+        "zh": "天氣熱到我們都待在室內。"
+       }
+      ],
+      "pitfall": "plastic 當材料時是不可數名詞，所以用 was。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The organiser told us that most of this waste comes from things we use only once, like drink cups and takeaway boxes.",
+   "zh": "主辦人告訴我們，這些垃圾大多來自我們只用一次的東西，像是飲料杯和外帶餐盒。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "organiser",
+      "inSentence": "organiser",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "主辦人；籌辦者",
+      "ipa": "/ˈɔːɡənaɪzə/",
+      "collocations": [
+       "event organiser",
+       "the main organiser"
+      ],
+      "examples": [
+       {
+        "en": "The organiser thanked all the volunteers.",
+        "zh": "主辦人感謝所有志工。"
+       }
+      ]
+     },
+     {
+      "term": "takeaway",
+      "inSentence": "takeaway boxes",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "外帶的",
+      "ipa": "/ˈteɪkəweɪ/",
+      "collocations": [
+       "takeaway food",
+       "takeaway coffee"
+      ],
+      "examples": [
+       {
+        "en": "Let's get takeaway tonight.",
+        "zh": "我們今晚買外帶吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "omitted relative pronoun",
+      "quote": "things we use only once",
+      "explanation": "things (that) we use only once，關係代名詞當受詞時常省略。",
+      "examples": [
+       {
+        "en": "This is the cake I made.",
+        "zh": "這是我做的蛋糕。"
+       }
+      ],
+      "pitfall": "most of this waste 視為不可數，動詞用 comes。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "The organiser told us",
+      "role": "main",
+      "zh": "主辦人告訴我們"
+     },
+     {
+      "text": "that most of this waste comes from things",
+      "role": "subordinate",
+      "zh": "這些垃圾大多來自那些東西"
+     },
+     {
+      "text": "we use only once",
+      "role": "modifier",
+      "zh": "我們只用一次的"
+     },
+     {
+      "text": "like drink cups and takeaway boxes",
+      "role": "modifier",
+      "zh": "像是飲料杯和外帶餐盒"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "That really hit me, because I buy bubble tea almost every day.",
+   "zh": "這句話讓我很震撼，因為我幾乎每天都買珍珠奶茶。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "hit",
+      "inSentence": "hit me",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "（突然）讓人深有感觸",
+      "ipa": "/hɪt/",
+      "collocations": [
+       "it hit me",
+       "really hit me"
+      ],
+      "examples": [
+       {
+        "en": "Then it hit me that I was wrong.",
+        "zh": "那時我才突然意識到自己錯了。"
+       }
+      ]
+     },
+     {
+      "term": "bubble tea",
+      "inSentence": "bubble tea",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "珍珠奶茶",
+      "ipa": "/ˈbʌbl tiː/",
+      "collocations": [
+       "a cup of bubble tea",
+       "order bubble tea"
+      ],
+      "examples": [
+       {
+        "en": "Taiwan is famous for bubble tea.",
+        "zh": "台灣以珍珠奶茶聞名。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "hit me",
+      "soundsLike": "hi-me",
+      "note": "hit 的 t 在 me 前面不完全發出來。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Since the clean-up, I've started carrying my own cup and a metal straw in my backpack.",
+   "zh": "淨灘之後，我開始在背包裡帶自己的杯子和金屬吸管。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "metal straw",
+      "inSentence": "metal straw",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "金屬吸管",
+      "ipa": "/ˈmetl strɔː/",
+      "collocations": [
+       "a metal straw",
+       "carry a metal straw"
+      ],
+      "examples": [
+       {
+        "en": "I wash my metal straw every night.",
+        "zh": "我每晚都會洗金屬吸管。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "since + present perfect",
+      "quote": "Since the clean-up, I've started",
+      "explanation": "since ＋過去的時間點，主要子句用現在完成式，表示從那時到現在。",
+      "examples": [
+       {
+        "en": "Since May, I've lived here.",
+        "zh": "從五月起我就住在這裡。"
+       }
+      ],
+      "pitfall": "不要說 Since the clean-up, I started。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "At first, my friends teased me about it, but now three of them do the same.",
+   "zh": "一開始朋友們還取笑我，但現在已經有三個人跟我一樣了。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "At first",
+      "note": "「一開始」，暗示後來情況改變了。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "tease",
+      "inSentence": "teased me",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "取笑；逗弄",
+      "ipa": "/tiːz/",
+      "collocations": [
+       "tease sb about",
+       "just teasing"
+      ],
+      "examples": [
+       {
+        "en": "Don't tease your little sister.",
+        "zh": "別捉弄你妹妹。"
+       }
+      ]
+     },
+     {
+      "term": "do the same",
+      "inSentence": "do the same",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "照做；做一樣的事",
+      "ipa": "/duː ðə seɪm/",
+      "collocations": [
+       "do the same",
+       "do the same thing"
+      ],
+      "examples": [
+       {
+        "en": "If you stand up, I'll do the same.",
+        "zh": "你站起來的話，我也照做。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I know that one person's habits won't save the ocean on their own.",
+   "zh": "我知道光靠一個人的習慣救不了海洋。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "on one's own",
+      "inSentence": "on their own",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "單獨；靠自己",
+      "ipa": "/ɒn wʌnz əʊn/",
+      "collocations": [
+       "on my own",
+       "on its own"
+      ],
+      "examples": [
+       {
+        "en": "She built the website on her own.",
+        "zh": "她自己架了這個網站。"
+       }
+      ]
+     },
+     {
+      "term": "habit",
+      "inSentence": "habits",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "習慣",
+      "ipa": "/ˈhæbɪt/",
+      "collocations": [
+       "a good habit",
+       "break a habit"
+      ],
+      "examples": [
+       {
+        "en": "Reading is a good habit.",
+        "zh": "閱讀是好習慣。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Still, small choices add up when enough people make them.",
+   "zh": "不過，當夠多人這麼做時，小小的選擇就會累積起來。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "add up",
+      "inSentence": "add up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "累積起來；積少成多",
+      "ipa": "/æd ʌp/",
+      "collocations": [
+       "it all adds up",
+       "add up quickly"
+      ],
+      "examples": [
+       {
+        "en": "Small savings add up over time.",
+        "zh": "小額存款久了就會積少成多。"
+       }
+      ]
+     },
+     {
+      "term": "still",
+      "inSentence": "Still",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "不過；儘管如此",
+      "ipa": "/stɪl/",
+      "collocations": [
+       "still,",
+       "but still"
+      ],
+      "examples": [
+       {
+        "en": "It was raining. Still, we went out.",
+        "zh": "那時在下雨，不過我們還是出門了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "add up",
+      "soundsLike": "a-dup",
+      "note": "add 的 d 和 up 連在一起念。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Next month, I'm planning to organise a clean-up for my own class, and I hope you'll come along.",
+   "zh": "下個月，我打算替我們班辦一場淨灘，希望你們也一起來。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "organise",
+      "inSentence": "organise",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "籌辦；組織",
+      "ipa": "/ˈɔːɡənaɪz/",
+      "collocations": [
+       "organise an event",
+       "organise a trip"
+      ],
+      "examples": [
+       {
+        "en": "Who organised the party?",
+        "zh": "派對是誰辦的？"
+       }
+      ]
+     },
+     {
+      "term": "come along",
+      "inSentence": "come along",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "一起來",
+      "ipa": "/kʌm əˈlɒŋ/",
+      "collocations": [
+       "come along with",
+       "you can come along"
+      ],
+      "examples": [
+       {
+        "en": "You can come along if you like.",
+        "zh": "你想的話可以一起來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "be planning to",
+      "quote": "I'm planning to organise",
+      "explanation": "be planning to ＋原形動詞，表示「正打算做」，語氣比 will 更像已經在準備。",
+      "examples": [
+       {
+        "en": "We're planning to visit Japan.",
+        "zh": "我們正打算去日本玩。"
+       }
+      ],
+      "pitfall": "英、澳拼法是 organise，美式是 organize。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Next month",
+      "role": "modifier",
+      "zh": "下個月"
+     },
+     {
+      "text": "I'm planning to organise a clean-up",
+      "role": "main",
+      "zh": "我打算辦一場淨灘"
+     },
+     {
+      "text": "for my own class",
+      "role": "modifier",
+      "zh": "替我們班"
+     },
+     {
+      "text": "and I hope you'll come along",
+      "role": "main",
+      "zh": "希望你們也一起來"
+     }
+    ],
+    "connected": []
+   }
+  }
+ ]
+}

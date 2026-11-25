@@ -452,6 +452,7 @@
     "shared": "Shared practice",
     "backToExplore": "Shared materials",
     "rewrittenFrom": "Rewritten from {source}'s release “<link>{title}</link>”: ListenLoop retold its facts in its own words for learners.",
+    "classicSource": "From {source}, “<link>{title}</link>”, a public-domain or U.S. government work. ListenLoop excerpted it or retold it for learners, and added the translation and notes.",
     "seoDescription": "{title}: free English listening practice in {count, plural, one {# sentence} other {# sentences}}. Dictate on Day 1, shadow on Days 2–6, dictate again on Day 7, with a bilingual handout, vocabulary, and grammar notes.",
     "officialMaterial": "Official lesson",
     "backToLibrary": "Official library"

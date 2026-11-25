@@ -1,0 +1,103 @@
+{
+  "id": "diary-day-went-wrong",
+  "type": "diary",
+  "level": "intermediate",
+  "title": {
+    "en": "A Day When Everything Went Wrong",
+    "zh": "諸事不順的一天"
+  },
+  "subtitle": "記錄一個接連出狀況的日子，以及你怎麼面對",
+  "task": "Write a diary entry about a day when things kept going wrong. Describe what happened in order, how you dealt with it, and what you learned by the end of the day.",
+  "taskZh": "寫一篇日記，記錄一個接連出狀況的日子：依時間順序寫出發生了什麼、你怎麼處理，以及一天結束時學到了什麼。",
+  "words": {
+    "min": 80,
+    "max": 150
+  },
+  "minutes": 20,
+  "focus": [
+    "用過去式與過去完成式交代事情先後",
+    "用時間轉折詞串起一連串事件",
+    "結尾有反思，不只是抱怨"
+  ],
+  "model": {
+    "en": [
+      "Today started badly and only got worse. My alarm did not go off, so I woke up forty minutes late. By the time I reached the bus stop, the bus had already left. I ran all the way to school in the rain.",
+      "Things did not improve after I arrived. I realized that I had left my report on my desk at home, so I had to ask my teacher for one more day. Then, at lunch, I spilled soup all over my shirt.",
+      "Looking back, none of these problems was serious. My teacher was kind, and a friend lent me a jacket. Tonight I set two alarms and put my report in my bag, so tomorrow should be better."
+    ],
+    "zh": [
+      "今天一開始就很糟，而且越來越糟。鬧鐘沒有響，所以我晚了四十分鐘才起床。等我到公車站時，公車早就開走了。我在雨中一路跑到學校。",
+      "到學校之後情況也沒有好轉。我發現報告忘在家裡的書桌上，只好請老師再給我一天。接著午餐時，我又把湯灑得整件襯衫都是。",
+      "回頭看，這些問題其實都不嚴重。老師很體諒，朋友也借了我一件外套。今晚我設了兩個鬧鐘，也把報告放進書包，所以明天應該會好一點。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… started badly and only got worse.",
+      "zh": "開頭點出主題：一開始就很糟，而且越來越糟",
+      "example": "Today started badly and only got worse.",
+      "keys": [
+        "only got worse"
+      ]
+    },
+    {
+      "pattern": "By the time I …, … had already …",
+      "zh": "等到……時，某事早已……（過去完成式）",
+      "example": "By the time I reached the bus stop, the bus had already left.",
+      "keys": [
+        "by the time",
+        "had already"
+      ]
+    },
+    {
+      "pattern": "I realized that I had …",
+      "zh": "發現自己之前做了某事（過去完成式）",
+      "example": "I realized that I had left my report on my desk at home, so I had to ask my teacher for one more day.",
+      "keys": [
+        "realized that",
+        "had"
+      ]
+    },
+    {
+      "pattern": "Looking back, …",
+      "zh": "回頭來看……（帶出反思）",
+      "example": "Looking back, none of these problems was serious.",
+      "keys": [
+        "looking back"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My alarm did not go off.",
+        "I woke up forty minutes late."
+      ],
+      "answer": "My alarm did not go off, so I woke up forty minutes late."
+    },
+    {
+      "parts": [
+        "I reached the bus stop.",
+        "The bus had already left."
+      ],
+      "answer": "By the time I reached the bus stop, the bus had already left."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "None of these problems was serious.",
+      "answers": [
+        "These problems were all quite small.",
+        "Nothing that happened was really a big deal."
+      ]
+    },
+    {
+      "sentence": "Today started badly and only got worse.",
+      "answers": [
+        "The day began badly, and things kept getting worse.",
+        "My day went from bad to worse."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

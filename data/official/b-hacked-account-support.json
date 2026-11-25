@@ -1,0 +1,701 @@
+{
+ "slug": "b-hacked-account-support",
+ "series": "category",
+ "title": "My Account Got Hacked",
+ "titleZh": "帳號被盜了怎麼辦",
+ "subtitle": "打給客服：改密碼、登出所有裝置、開啟兩步驟登入",
+ "format": "dialogue",
+ "accent": "in",
+ "meta": {
+  "category": "tech",
+  "scenario": "account-security",
+  "level": "intermediate",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Thank you for calling account support, how can I help you today?",
+   "zh": "感謝您致電帳號客服，今天有什麼可以為您服務的？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "support",
+      "inSentence": "account support",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "支援；客服",
+      "ipa": "/səˈpɔːt/",
+      "collocations": [
+       "customer support",
+       "technical support"
+      ],
+      "examples": [
+       {
+        "en": "I emailed customer support yesterday.",
+        "zh": "我昨天寫信給客服。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Hi, I think someone has hacked my account, because my friends are getting strange messages from me.",
+   "zh": "嗨，我覺得有人盜了我的帳號，因為我朋友一直收到我傳的奇怪訊息。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "hacked my account",
+      "note": "hack「入侵、盜用」，帳號被盜最常見的說法。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "hack",
+      "inSentence": "hacked my account",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "入侵；盜用（帳號）",
+      "ipa": "/hæk/",
+      "collocations": [
+       "get hacked",
+       "hack an account"
+      ],
+      "examples": [
+       {
+        "en": "My email got hacked last year.",
+        "zh": "我的電子信箱去年被盜了。"
+       }
+      ]
+     },
+     {
+      "term": "strange",
+      "inSentence": "strange messages",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "奇怪的",
+      "ipa": "/streɪndʒ/",
+      "collocations": [
+       "strange message",
+       "something strange"
+      ],
+      "examples": [
+       {
+        "en": "I heard a strange noise.",
+        "zh": "我聽到一個奇怪的聲音。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "present perfect for a recent result",
+      "quote": "someone has hacked my account",
+      "explanation": "has hacked 用現在完成式，強調「已經被盜，現在還受影響」。",
+      "examples": [
+       {
+        "en": "Someone has taken my umbrella.",
+        "zh": "有人拿走了我的傘。"
+       }
+      ],
+      "pitfall": "不用 someone hacks，這不是習慣性動作。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I'm sorry to hear that, but don't worry, we'll sort it out together.",
+   "zh": "很遺憾聽到這件事，不過別擔心，我們一起把它處理好。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "sort it out",
+      "note": "英式／印度英文常用，「解決、處理好」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "sort out",
+      "inSentence": "sort it out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "解決；處理",
+      "ipa": "/sɔːt aʊt/",
+      "collocations": [
+       "sort it out",
+       "sort out a problem"
+      ],
+      "examples": [
+       {
+        "en": "Let me sort out the tickets.",
+        "zh": "我來處理票的事。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "sort it out",
+      "soundsLike": "sor-ti-tout",
+      "note": "三個字連在一起，t 都輕輕帶過。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Can you still log in, or has the password been changed?",
+   "zh": "您還能登入嗎？還是密碼已經被改了？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "log in",
+      "inSentence": "log in",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "登入",
+      "ipa": "/lɒɡ ɪn/",
+      "collocations": [
+       "log in to",
+       "can't log in"
+      ],
+      "examples": [
+       {
+        "en": "I can't log in to my account.",
+        "zh": "我登入不了我的帳號。"
+       }
+      ]
+     },
+     {
+      "term": "password",
+      "inSentence": "the password",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "密碼",
+      "ipa": "/ˈpɑːswɜːd/",
+      "collocations": [
+       "change your password",
+       "a strong password"
+      ],
+      "examples": [
+       {
+        "en": "Don't share your password with anyone.",
+        "zh": "不要把密碼告訴任何人。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "passive present perfect",
+      "quote": "has the password been changed",
+      "explanation": "has + been + 過去分詞是現在完成式被動，重點在密碼「被改了」，不在誰改的。",
+      "examples": [
+       {
+        "en": "Has the meeting been cancelled?",
+        "zh": "會議被取消了嗎？"
+       }
+      ],
+      "pitfall": "不要說 has the password changed，那會變成密碼自己改變。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I can still log in on my phone, but it says my laptop was signed out.",
+   "zh": "我的手機還能登入，可是它顯示我的筆電被登出了。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sign out",
+      "inSentence": "signed out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "登出",
+      "ipa": "/saɪn aʊt/",
+      "collocations": [
+       "sign out of",
+       "be signed out"
+      ],
+      "examples": [
+       {
+        "en": "Remember to sign out on shared computers.",
+        "zh": "在公用電腦上記得登出。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Good, while you're still logged in, please change your password right away.",
+   "zh": "好，趁您還在登入狀態，請馬上更改密碼。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "right away",
+      "note": "「馬上、立刻」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "right away",
+      "inSentence": "right away",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "立刻；馬上",
+      "ipa": "/raɪt əˈweɪ/",
+      "collocations": [
+       "do it right away",
+       "reply right away"
+      ],
+      "examples": [
+       {
+        "en": "Please call me right away.",
+        "zh": "請馬上打給我。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "right away",
+      "soundsLike": "rai-də-way",
+      "note": "right 的 t 和 away 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Choose a long one that you don't use anywhere else.",
+   "zh": "選一個長一點、而且沒有在其他地方用過的密碼。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "anywhere else",
+      "inSentence": "anywhere else",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "其他任何地方",
+      "ipa": "/ˈeniweər els/",
+      "collocations": [
+       "anywhere else",
+       "not anywhere else"
+      ],
+      "examples": [
+       {
+        "en": "I can't find it anywhere else.",
+        "zh": "我在其他地方都找不到。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Okay, done. I used the same password for everything before, which was probably a mistake.",
+   "zh": "好，改好了。我以前每個地方都用同一組密碼，這大概是個錯誤。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "which was probably a mistake",
+      "note": "which 指前面整件事。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "mistake",
+      "inSentence": "a mistake",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "錯誤",
+      "ipa": "/mɪˈsteɪk/",
+      "collocations": [
+       "make a mistake",
+       "a big mistake"
+      ],
+      "examples": [
+       {
+        "en": "Everyone makes mistakes.",
+        "zh": "每個人都會犯錯。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "which referring to a whole clause",
+      "quote": "which was probably a mistake",
+      "explanation": "逗號後的 which 可以指前面整句話的內容，這裡指「每個地方都用同一組密碼」這件事。",
+      "examples": [
+       {
+        "en": "He was late again, which made the boss angry.",
+        "zh": "他又遲到了，這讓老闆很生氣。"
+       }
+      ],
+      "pitfall": "不要用 that 代替這種逗號後的 which。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It's very common, so don't be hard on yourself.",
+   "zh": "這很常見，所以別對自己太苛刻。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "don't be hard on yourself",
+      "note": "「別太自責」，安慰人的好用句。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "be hard on",
+      "inSentence": "be hard on yourself",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "對……嚴厲",
+      "ipa": "/biː hɑːd ɒn/",
+      "collocations": [
+       "be hard on yourself",
+       "too hard on"
+      ],
+      "examples": [
+       {
+        "en": "Don't be so hard on him, he's new.",
+        "zh": "別對他那麼嚴，他是新來的。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Next, go to security settings and tap sign out of all devices.",
+   "zh": "接著，到安全性設定，點選「登出所有裝置」。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "device",
+      "inSentence": "all devices",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "裝置",
+      "ipa": "/dɪˈvaɪs/",
+      "collocations": [
+       "mobile device",
+       "all devices"
+      ],
+      "examples": [
+       {
+        "en": "You can use the app on any device.",
+        "zh": "你可以在任何裝置上使用這個應用程式。"
+       }
+      ]
+     },
+     {
+      "term": "security settings",
+      "inSentence": "security settings",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "安全性設定",
+      "ipa": "/sɪˈkjʊərəti ˈsetɪŋz/",
+      "collocations": [
+       "check security settings",
+       "privacy settings"
+      ],
+      "examples": [
+       {
+        "en": "Check your security settings once a month.",
+        "zh": "每個月檢查一次安全性設定。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "sign out of all",
+      "soundsLike": "sai-nou-tə-vall",
+      "note": "sign、out、of、all 一路連讀，of 弱讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "That will kick the hacker out, wherever they are.",
+   "zh": "這樣不管駭客在哪裡，都會被踢出去。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "kick out",
+      "inSentence": "kick the hacker out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "把……踢出去；趕走",
+      "ipa": "/kɪk aʊt/",
+      "collocations": [
+       "kick someone out",
+       "get kicked out"
+      ],
+      "examples": [
+       {
+        "en": "The game kicked me out again.",
+        "zh": "遊戲又把我踢出去了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "All right, I see that option. Should I turn on two-step login as well?",
+   "zh": "好，我看到那個選項了。我也應該開啟兩步驟登入嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "two-step login",
+      "inSentence": "two-step login",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "兩步驟登入；雙重驗證",
+      "ipa": "/tuː step ˈlɒɡɪn/",
+      "collocations": [
+       "turn on two-step login",
+       "set up two-step login"
+      ],
+      "examples": [
+       {
+        "en": "Two-step login keeps your account safer.",
+        "zh": "兩步驟登入讓你的帳號更安全。"
+       }
+      ]
+     },
+     {
+      "term": "as well",
+      "inSentence": "as well",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "也",
+      "ipa": "/əz wel/",
+      "collocations": [
+       "as well as",
+       "me as well"
+      ],
+      "examples": [
+       {
+        "en": "Can I have a coffee as well?",
+        "zh": "我也可以要一杯咖啡嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Absolutely, after that, every new login will need a code sent to your phone.",
+   "zh": "當然，設好之後，每次新的登入都需要一組傳到您手機的驗證碼。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "code",
+      "inSentence": "a code",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "代碼；驗證碼",
+      "ipa": "/kəʊd/",
+      "collocations": [
+       "enter the code",
+       "verification code"
+      ],
+      "examples": [
+       {
+        "en": "Enter the code we sent to your phone.",
+        "zh": "輸入我們傳到你手機的驗證碼。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "past participle as modifier",
+      "quote": "a code sent to your phone",
+      "explanation": "sent to your phone 是省略的被動關係子句（= which is sent），修飾 code。",
+      "examples": [
+       {
+        "en": "I read the email sent by my teacher.",
+        "zh": "我讀了老師寄來的信。"
+       }
+      ],
+      "pitfall": "不要寫成 a code send to your phone，要用過去分詞 sent。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Finally, please tell your friends not to click any links in those messages.",
+   "zh": "最後，請告訴您的朋友不要點那些訊息裡的任何連結。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "link",
+      "inSentence": "links",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "連結",
+      "ipa": "/lɪŋk/",
+      "collocations": [
+       "click a link",
+       "send a link"
+      ],
+      "examples": [
+       {
+        "en": "Don't click links from strangers.",
+        "zh": "不要點陌生人傳來的連結。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I'll post a warning right now, thank you so much for your help.",
+   "zh": "我現在就發一則警告，非常謝謝您的幫忙。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "post",
+      "inSentence": "post a warning",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "發布；張貼",
+      "ipa": "/pəʊst/",
+      "collocations": [
+       "post a photo",
+       "post online"
+      ],
+      "examples": [
+       {
+        "en": "She posted a photo of her lunch.",
+        "zh": "她發了一張午餐的照片。"
+       }
+      ]
+     },
+     {
+      "term": "warning",
+      "inSentence": "a warning",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "警告",
+      "ipa": "/ˈwɔːnɪŋ/",
+      "collocations": [
+       "a warning sign",
+       "give a warning"
+      ],
+      "examples": [
+       {
+        "en": "There's a warning on the box.",
+        "zh": "盒子上有警告標示。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

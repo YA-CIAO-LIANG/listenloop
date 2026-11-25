@@ -41,8 +41,16 @@ export type PracticeMaterial = Pick<
   richNotes?: (RichNotes | null)[];
   /** An official material (D46): ours, so search engines may index it. */
   official?: boolean;
-  /** A news material (D100): the release its facts came from. */
-  rewrittenFrom?: { name: string; title: string; url: string };
+  /**
+   * A news material (D100): the release its facts came from; a classic
+   * (D213): the public-domain or U.S. government work it's from.
+   */
+  rewrittenFrom?: {
+    name: string;
+    title: string;
+    url: string;
+    classic?: boolean;
+  };
   /** A created practice's voice, e.g. "us-female" (word audio, D136). */
   voice?: string | null;
   /** A built-in video's main accent (D71). */
@@ -107,6 +115,8 @@ export type CustomPracticeRow = {
   source_name?: string | null;
   source_title?: string | null;
   source_url?: string | null;
+  /** Its category (D57); "classics" words its source differently (D213). */
+  category?: string | null;
   practice_sentences: {
     i: number;
     en: string;
@@ -229,6 +239,7 @@ export function materialFromCustomPractice(
             name: row.source_name,
             title: row.source_title,
             url: row.source_url,
+            ...(row.category === "classics" ? { classic: true } : {}),
           },
         }
       : {}),

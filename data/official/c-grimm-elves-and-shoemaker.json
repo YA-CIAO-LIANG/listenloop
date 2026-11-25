@@ -1,0 +1,769 @@
+{
+ "slug": "c-grimm-elves-and-shoemaker",
+ "series": "classics",
+ "title": "The Elves and the Shoemaker",
+ "titleZh": "小精靈與鞋匠",
+ "subtitle": "改寫自格林童話：半夜幫窮鞋匠做鞋的神秘小精靈",
+ "format": "monologue",
+ "accent": "au",
+ "meta": {
+  "category": "classics",
+  "scenario": "fairy-tale",
+  "level": "beginner",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "public-domain",
+  "name": "Grimm's Household Tales (tr. Margaret Hunt, 1884)",
+  "title": "The Elves (First Story)",
+  "url": "https://www.gutenberg.org/ebooks/5314",
+  "basis": "Margaret Hunt's translation was published in 1884; public domain in the U.S. (pre-1929).",
+  "adapted": true
+ },
+ "sentences": [
+  {
+   "en": "Once there was a shoemaker who worked hard but was still very poor.",
+   "zh": "從前有一位鞋匠，他工作很努力，卻還是很窮。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "Once there was",
+      "note": "童話故事的經典開頭，相當於中文的「從前從前」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "shoemaker",
+      "inSentence": "shoemaker",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "鞋匠",
+      "ipa": "/ˈʃuːmeɪkə/",
+      "collocations": [
+       "a village shoemaker"
+      ],
+      "examples": [
+       {
+        "en": "The shoemaker fixed my old boots.",
+        "zh": "鞋匠修好了我的舊靴子。"
+       }
+      ]
+     },
+     {
+      "term": "work hard",
+      "inSentence": "worked hard",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "努力工作",
+      "ipa": "/wɜːk hɑːd/",
+      "collocations": [
+       "work hard at"
+      ],
+      "examples": [
+       {
+        "en": "She works hard every day.",
+        "zh": "她每天都很努力工作。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "One evening, he had only enough leather left for one last pair of shoes.",
+   "zh": "一天晚上，他剩下的皮革只夠做最後一雙鞋。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "leather",
+      "inSentence": "leather",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "皮革",
+      "ipa": "/ˈleðə/",
+      "collocations": [
+       "leather shoes",
+       "a leather bag"
+      ],
+      "examples": [
+       {
+        "en": "This jacket is made of leather.",
+        "zh": "這件外套是皮革做的。"
+       }
+      ]
+     },
+     {
+      "term": "a pair of",
+      "inSentence": "pair of shoes",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "一雙；一對",
+      "ipa": "/ə peər əv/",
+      "collocations": [
+       "a pair of socks",
+       "a pair of glasses"
+      ],
+      "examples": [
+       {
+        "en": "I bought a new pair of shoes.",
+        "zh": "我買了一雙新鞋。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "enough + noun + for",
+      "quote": "only enough leather left for",
+      "explanation": "enough + 名詞 + for...，表示「足夠做…的量」；left 表示「剩下的」。",
+      "examples": [
+       {
+        "en": "We have enough rice left for dinner.",
+        "zh": "我們剩下的米夠煮晚餐。"
+       }
+      ],
+      "pitfall": "enough 修飾名詞時放在名詞前面；修飾形容詞時放後面，例如 big enough。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "He cut out the leather, left it on his table, and went to bed.",
+   "zh": "他把皮革裁好，放在桌上，就去睡覺了。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "went to bed",
+      "note": "go to bed 是「上床睡覺」，bed 前面不加 the。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "cut out",
+      "inSentence": "cut out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "裁剪；剪下",
+      "ipa": "/kʌt aʊt/",
+      "collocations": [
+       "cut out a picture"
+      ],
+      "examples": [
+       {
+        "en": "She cut out a heart from red paper.",
+        "zh": "她從紅紙剪出一顆愛心。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The next morning, he found a finished pair of shoes waiting for him.",
+   "zh": "第二天早上，他發現一雙做好的鞋子在那裡等著他。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "found a finished pair of shoes waiting",
+      "note": "find + 受詞 + V-ing，表示「發現某物處於某狀態」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "finished",
+      "inSentence": "finished",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "完成的；做好的",
+      "ipa": "/ˈfɪnɪʃt/",
+      "collocations": [
+       "the finished work"
+      ],
+      "examples": [
+       {
+        "en": "The finished cake looked amazing.",
+        "zh": "做好的蛋糕看起來很棒。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Every stitch was perfect, and the shoes were truly beautiful.",
+   "zh": "每一針都很完美，那雙鞋真的很漂亮。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "stitch",
+      "inSentence": "stitch",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（縫紉的）一針",
+      "ipa": "/stɪtʃ/",
+      "collocations": [
+       "a neat stitch"
+      ],
+      "examples": [
+       {
+        "en": "Grandma sewed every stitch by hand.",
+        "zh": "奶奶每一針都是手縫的。"
+       }
+      ]
+     },
+     {
+      "term": "truly",
+      "inSentence": "truly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "真正地；確實",
+      "ipa": "/ˈtruːli/",
+      "collocations": [
+       "truly sorry",
+       "truly amazing"
+      ],
+      "examples": [
+       {
+        "en": "I am truly sorry for being late.",
+        "zh": "我真的很抱歉遲到了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "A customer soon came in and paid a good price for them.",
+   "zh": "很快就有一位客人進來，用好價錢買下了它們。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "customer",
+      "inSentence": "customer",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "顧客",
+      "ipa": "/ˈkʌstəmə/",
+      "collocations": [
+       "a regular customer"
+      ],
+      "examples": [
+       {
+        "en": "The shop has many regular customers.",
+        "zh": "這家店有很多常客。"
+       }
+      ]
+     },
+     {
+      "term": "pay a good price",
+      "inSentence": "paid a good price",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "出好價錢",
+      "ipa": "/peɪ ə ɡʊd praɪs/",
+      "collocations": [
+       "pay a high price"
+      ],
+      "examples": [
+       {
+        "en": "He paid a good price for the old car.",
+        "zh": "他出了好價錢買那輛舊車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "With the money, the shoemaker bought leather for two more pairs.",
+   "zh": "鞋匠用這筆錢又買了夠做兩雙鞋的皮革。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "two more",
+      "inSentence": "two more pairs",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "再多兩個",
+      "ipa": "/tuː mɔː/",
+      "collocations": [
+       "one more",
+       "a few more"
+      ],
+      "examples": [
+       {
+        "en": "Can I have two more minutes?",
+        "zh": "可以再給我兩分鐘嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Again he cut it out at night, and again the shoes were ready by morning.",
+   "zh": "他又在晚上把皮革裁好，而鞋子又在早上之前做好了。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "ready",
+      "inSentence": "ready",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "準備好的",
+      "ipa": "/ˈredi/",
+      "collocations": [
+       "get ready",
+       "ready for"
+      ],
+      "examples": [
+       {
+        "en": "Dinner will be ready in ten minutes.",
+        "zh": "晚餐十分鐘後就好。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "by + time",
+      "quote": "by morning",
+      "explanation": "by + 時間表示「在…之前（最晚）」，不是「在…的時候」。",
+      "examples": [
+       {
+        "en": "Please finish the report by Friday.",
+        "zh": "請在星期五之前完成報告。"
+       }
+      ],
+      "pitfall": "不要和 until 混淆：until 是「一直持續到」，by 是「最晚在…之前完成」。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "This went on for weeks, and soon he was no longer poor.",
+   "zh": "這樣持續了好幾個星期，他很快就不再貧窮了。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "go on",
+      "inSentence": "went on",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "持續；繼續",
+      "ipa": "/ɡəʊ ɒn/",
+      "collocations": [
+       "go on for",
+       "go on with"
+      ],
+      "examples": [
+       {
+        "en": "The meeting went on for three hours.",
+        "zh": "會議持續了三小時。"
+       }
+      ]
+     },
+     {
+      "term": "no longer",
+      "inSentence": "no longer",
+      "kind": "phrase",
+      "pos": "adv.",
+      "zh": "不再",
+      "ipa": "/nəʊ ˈlɒŋɡə/",
+      "collocations": [
+       "no longer needed"
+      ],
+      "examples": [
+       {
+        "en": "He no longer lives here.",
+        "zh": "他已經不住這裡了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "went on",
+      "soundsLike": "wen-ton",
+      "note": "went 的 t 和 on 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "One night before Christmas, he said to his wife, \"Let's stay up and see who is helping us.\"",
+   "zh": "聖誕節前的一個晚上，他對妻子說：「我們別睡，看看是誰在幫我們。」",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "stay up",
+      "inSentence": "stay up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "熬夜；不睡覺",
+      "ipa": "/steɪ ʌp/",
+      "collocations": [
+       "stay up late",
+       "stay up all night"
+      ],
+      "examples": [
+       {
+        "en": "I stayed up late to finish my project.",
+        "zh": "我熬夜完成我的報告。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "embedded question",
+      "quote": "see who is helping us",
+      "explanation": "疑問詞 who 放在句子中間當名詞子句，who 本身就是主詞，後面直接接動詞。",
+      "examples": [
+       {
+        "en": "Let's find out who broke the window.",
+        "zh": "我們來查出是誰打破窗戶的。"
+       }
+      ],
+      "pitfall": "不要寫成 see who is he，名詞子句用直述句語序。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "They hid behind some coats in the corner of the room.",
+   "zh": "他們躲在房間角落的幾件外套後面。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "hide",
+      "inSentence": "hid",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "躲藏（過去式 hid）",
+      "ipa": "/haɪd/",
+      "collocations": [
+       "hide behind",
+       "hide from"
+      ],
+      "examples": [
+       {
+        "en": "The cat hid under the bed.",
+        "zh": "貓躲在床底下。"
+       }
+      ]
+     },
+     {
+      "term": "in the corner",
+      "inSentence": "in the corner",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "在角落",
+      "ipa": "/ɪn ðə ˈkɔːnə/",
+      "collocations": [
+       "in the corner of"
+      ],
+      "examples": [
+       {
+        "en": "There is a plant in the corner.",
+        "zh": "角落有一盆植物。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "At midnight, two tiny elves came in and began to sew very quickly.",
+   "zh": "到了半夜，兩個小小的精靈走進來，開始飛快地縫製。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "elf",
+      "inSentence": "elves",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "精靈（複數 elves）",
+      "ipa": "/elf/",
+      "collocations": [
+       "a little elf"
+      ],
+      "examples": [
+       {
+        "en": "The elf wore a green hat.",
+        "zh": "那個精靈戴著一頂綠帽子。"
+       }
+      ]
+     },
+     {
+      "term": "sew",
+      "inSentence": "sew",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "縫；縫紉",
+      "ipa": "/səʊ/",
+      "collocations": [
+       "sew a button",
+       "sew clothes"
+      ],
+      "examples": [
+       {
+        "en": "Can you sew this button back on?",
+        "zh": "你可以把這顆鈕扣縫回去嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "They wore no clothes at all, even though the night was cold.",
+   "zh": "雖然夜裡很冷，他們卻一件衣服都沒穿。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "not ... at all",
+      "inSentence": "no clothes at all",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "完全沒有",
+      "ipa": "/ət ɔːl/",
+      "collocations": [
+       "not at all",
+       "nothing at all"
+      ],
+      "examples": [
+       {
+        "en": "I didn't sleep at all last night.",
+        "zh": "我昨晚完全沒睡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "even though",
+      "quote": "even though the night was cold",
+      "explanation": "even though 表示「即使；雖然」，語氣比 although 更強。",
+      "examples": [
+       {
+        "en": "She went out even though it was raining.",
+        "zh": "雖然在下雨，她還是出門了。"
+       }
+      ],
+      "pitfall": "中文說「雖然…但是…」，英文用了 even though 就不要再加 but。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "So the wife made them little shirts, coats, and shoes as a thank-you gift.",
+   "zh": "於是妻子做了小襯衫、小外套和小鞋子，當作謝禮。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "made them little shirts",
+      "note": "make + 人 + 物，表示「為某人做某物」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "thank-you gift",
+      "inSentence": "thank-you gift",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "謝禮",
+      "ipa": "/ˈθæŋk juː ɡɪft/",
+      "collocations": [
+       "a small thank-you gift"
+      ],
+      "examples": [
+       {
+        "en": "We gave our teacher a thank-you gift.",
+        "zh": "我們送老師一份謝禮。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The elves put on their new clothes and danced happily out of the door.",
+   "zh": "精靈們穿上新衣服，開心地跳著舞走出門。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "put on",
+      "inSentence": "put on",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "穿上",
+      "ipa": "/pʊt ɒn/",
+      "collocations": [
+       "put on a coat",
+       "put on shoes"
+      ],
+      "examples": [
+       {
+        "en": "Put on your jacket; it's cold.",
+        "zh": "穿上外套，外面很冷。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "They never came back, but the shoemaker did well for the rest of his life.",
+   "zh": "他們再也沒有回來，但鞋匠這輩子都過得很好。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "do well",
+      "inSentence": "did well",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "過得好；成功",
+      "ipa": "/duː wel/",
+      "collocations": [
+       "do well in school"
+      ],
+      "examples": [
+       {
+        "en": "Her small business is doing well.",
+        "zh": "她的小生意經營得很好。"
+       }
+      ]
+     },
+     {
+      "term": "for the rest of one's life",
+      "inSentence": "for the rest of his life",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "餘生；這輩子",
+      "ipa": "/fə ðə rest əv wʌnz laɪf/",
+      "collocations": [
+       "the rest of the day"
+      ],
+      "examples": [
+       {
+        "en": "He remembered that day for the rest of his life.",
+        "zh": "他一輩子都記得那一天。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "rest of his",
+      "soundsLike": "res-tə-viz",
+      "note": "rest of 連讀，his 的 h 弱化。"
+     }
+    ]
+   }
+  }
+ ]
+}

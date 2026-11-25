@@ -1,0 +1,904 @@
+{
+ "slug": "c-grimm-frog-king",
+ "series": "classics",
+ "title": "The Frog King",
+ "titleZh": "青蛙王子",
+ "subtitle": "改寫自格林童話：掉進井裡的金球，與一個不得不守的承諾",
+ "format": "monologue",
+ "accent": "in",
+ "meta": {
+  "category": "classics",
+  "scenario": "fairy-tale",
+  "level": "intermediate",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "public-domain",
+  "name": "Grimm's Household Tales (tr. Margaret Hunt, 1884)",
+  "title": "The Frog-King, or Iron Henry",
+  "url": "https://www.gutenberg.org/ebooks/5314",
+  "basis": "Margaret Hunt's translation was published in 1884; public domain in the U.S. (pre-1929).",
+  "adapted": true
+ },
+ "sentences": [
+  {
+   "en": "Long ago, there lived a king whose youngest daughter was so beautiful that even the sun was amazed by her face.",
+   "zh": "很久以前，有一位國王，他最小的女兒美得連太陽看到她的臉都感到驚奇。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "be amazed by",
+      "inSentence": "was amazed by",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "對…感到驚奇",
+      "ipa": "/əˈmeɪzd baɪ/",
+      "collocations": [
+       "amazed at",
+       "amazed by"
+      ],
+      "examples": [
+       {
+        "en": "We were amazed by the view from the top.",
+        "zh": "我們被山頂的景色驚艷了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "so ... that",
+      "quote": "so beautiful that even the sun was amazed",
+      "explanation": "so + 形容詞 + that + 子句，表示「如此…以至於…」。",
+      "examples": [
+       {
+        "en": "It was so cold that the lake froze.",
+        "zh": "天氣冷到湖都結冰了。"
+       }
+      ],
+      "pitfall": "so 後面接形容詞；如果接名詞要用 such，例如 such a cold day。"
+     },
+     {
+      "point": "relative pronoun whose",
+      "quote": "a king whose youngest daughter",
+      "explanation": "whose 是所有格關係代名詞，表示「他的」，連接國王和他的女兒。",
+      "examples": [
+       {
+        "en": "I met a girl whose father is a pilot.",
+        "zh": "我認識一個爸爸是機師的女孩。"
+       }
+      ],
+      "pitfall": "不要寫成 who's（who is），whose 表示所屬。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Long ago, there lived a king",
+      "role": "main",
+      "zh": "很久以前有一位國王"
+     },
+     {
+      "text": "whose youngest daughter was so beautiful",
+      "role": "subordinate",
+      "zh": "他最小的女兒非常美麗"
+     },
+     {
+      "text": "that even the sun was amazed by her face",
+      "role": "subordinate",
+      "zh": "連太陽看到她的臉都驚奇"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Near the castle was a dark forest, and in the forest was an old well.",
+   "zh": "城堡附近有一座幽暗的森林，森林裡有一口古井。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "well",
+      "inSentence": "well",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "井",
+      "ipa": "/wel/",
+      "collocations": [
+       "an old well",
+       "a deep well"
+      ],
+      "examples": [
+       {
+        "en": "The village gets water from a well.",
+        "zh": "村子從井裡取水。"
+       }
+      ]
+     },
+     {
+      "term": "castle",
+      "inSentence": "castle",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "城堡",
+      "ipa": "/ˈkɑːsl/",
+      "collocations": [
+       "a castle wall"
+      ],
+      "examples": [
+       {
+        "en": "The king lived in a stone castle.",
+        "zh": "國王住在一座石造城堡裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "inversion after place",
+      "quote": "Near the castle was a dark forest",
+      "explanation": "地點副詞放句首時，主詞和動詞常倒裝，讓描述更有故事感。",
+      "examples": [
+       {
+        "en": "On the hill stood a small church.",
+        "zh": "山丘上矗立著一座小教堂。"
+       }
+      ],
+      "pitfall": "倒裝時動詞要跟真正的主詞一致：was a forest，不是 were。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "On hot days, the princess liked to sit by the well and play with her golden ball.",
+   "zh": "天氣熱的時候，公主喜歡坐在井邊玩她的金球。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "golden",
+      "inSentence": "golden",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "金色的；金製的",
+      "ipa": "/ˈɡəʊldən/",
+      "collocations": [
+       "a golden ring",
+       "golden hair"
+      ],
+      "examples": [
+       {
+        "en": "She has long golden hair.",
+        "zh": "她有一頭金色長髮。"
+       }
+      ]
+     },
+     {
+      "term": "by",
+      "inSentence": "by the well",
+      "kind": "word",
+      "pos": "prep.",
+      "zh": "在…旁邊",
+      "ipa": "/baɪ/",
+      "collocations": [
+       "by the window",
+       "by the sea"
+      ],
+      "examples": [
+       {
+        "en": "Let's sit by the window.",
+        "zh": "我們坐在窗邊吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "One day, the ball slipped from her hands and rolled straight into the deep water.",
+   "zh": "有一天，球從她手中滑落，直接滾進深深的水裡。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "slip",
+      "inSentence": "slipped from her hands",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "滑落；滑倒",
+      "ipa": "/slɪp/",
+      "collocations": [
+       "slip from",
+       "slip on ice"
+      ],
+      "examples": [
+       {
+        "en": "The glass slipped from my hand and broke.",
+        "zh": "杯子從我手中滑落摔破了。"
+       }
+      ]
+     },
+     {
+      "term": "roll",
+      "inSentence": "rolled",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "滾動",
+      "ipa": "/rəʊl/",
+      "collocations": [
+       "roll down",
+       "roll into"
+      ],
+      "examples": [
+       {
+        "en": "The coin rolled under the sofa.",
+        "zh": "硬幣滾到沙發底下。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "slipped from",
+      "soundsLike": "slip-from",
+      "note": "slipped 的 -ed 讀 /t/，接 from 時幾乎聽不到。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "She began to cry, louder and louder, until a voice asked what was wrong.",
+   "zh": "她開始哭，越哭越大聲，直到有個聲音問她怎麼了。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "what's wrong",
+      "inSentence": "what was wrong",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "怎麼了；出了什麼事",
+      "ipa": "/wɒt wəz rɒŋ/",
+      "collocations": [
+       "what's wrong with"
+      ],
+      "examples": [
+       {
+        "en": "You look upset. What's wrong?",
+        "zh": "你看起來很難過，怎麼了？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "comparative and comparative",
+      "quote": "louder and louder",
+      "explanation": "比較級 and 比較級，表示「越來越…」。",
+      "examples": [
+       {
+        "en": "The weather is getting hotter and hotter.",
+        "zh": "天氣越來越熱。"
+       }
+      ],
+      "pitfall": "多音節形容詞要說 more and more beautiful，不是 beautifuler。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It was a frog, sticking his ugly head out of the water.",
+   "zh": "那是一隻青蛙，正從水裡探出他醜陋的頭。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "stick out",
+      "inSentence": "sticking his ugly head out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "伸出；探出",
+      "ipa": "/stɪk aʊt/",
+      "collocations": [
+       "stick your head out",
+       "stick out your tongue"
+      ],
+      "examples": [
+       {
+        "en": "Don't stick your hand out of the bus window.",
+        "zh": "不要把手伸出公車窗外。"
+       }
+      ]
+     },
+     {
+      "term": "ugly",
+      "inSentence": "ugly",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "醜陋的",
+      "ipa": "/ˈʌɡli/",
+      "collocations": [
+       "an ugly face"
+      ],
+      "examples": [
+       {
+        "en": "The ugly duckling became a swan.",
+        "zh": "醜小鴨變成了天鵝。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "\"I can bring your ball back,\" said the frog, \"but what will you give me?\"",
+   "zh": "「我可以把你的球撿回來，」青蛙說，「但你要給我什麼？」",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "what will you give me",
+      "note": "青蛙在談條件，這是故事的轉折點。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "bring back",
+      "inSentence": "bring your ball back",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "帶回來；拿回來",
+      "ipa": "/brɪŋ bæk/",
+      "collocations": [
+       "bring it back"
+      ],
+      "examples": [
+       {
+        "en": "Please bring the book back tomorrow.",
+        "zh": "請明天把書帶回來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "\"If you let me be your friend, eat from your plate, and sleep in your little bed, I will dive down for it.\"",
+   "zh": "「如果你讓我當你的朋友、用你的盤子吃飯、睡在你的小床上，我就潛下去幫你撿。」",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "dive down",
+      "inSentence": "dive down",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "潛下去",
+      "ipa": "/daɪv daʊn/",
+      "collocations": [
+       "dive into",
+       "dive down to"
+      ],
+      "examples": [
+       {
+        "en": "The boy dived down to find the coin.",
+        "zh": "男孩潛下去找硬幣。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "first conditional",
+      "quote": "If you let me be your friend",
+      "explanation": "If + 現在式，主要子句用 will，表示真實可能發生的條件。",
+      "examples": [
+       {
+        "en": "If you help me, I will help you.",
+        "zh": "如果你幫我，我就幫你。"
+       }
+      ],
+      "pitfall": "if 子句不要用 will：不是 If you will let me。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "If you let me be your friend,",
+      "role": "subordinate",
+      "zh": "如果你讓我當你的朋友"
+     },
+     {
+      "text": "eat from your plate, and sleep in your little bed,",
+      "role": "subordinate",
+      "zh": "用你的盤子吃飯、睡你的小床"
+     },
+     {
+      "text": "I will dive down for it.",
+      "role": "main",
+      "zh": "我就潛下去幫你撿"
+     }
+    ],
+    "connected": [
+     {
+      "text": "let me be",
+      "soundsLike": "lemme-be",
+      "note": "let me 口語中常連成 lemme。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "The princess promised everything, but secretly she thought, \"What nonsense! A frog can't be anyone's friend.\"",
+   "zh": "公主什麼都答應了，心裡卻偷偷想：「真是胡說八道！青蛙怎麼可能當任何人的朋友。」",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "promised everything",
+      "note": "嘴上全部答應，心裡卻不當真，為後面的情節埋下伏筆。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "nonsense",
+      "inSentence": "nonsense",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "胡說；荒謬的話",
+      "ipa": "/ˈnɒnsəns/",
+      "collocations": [
+       "talk nonsense",
+       "what nonsense"
+      ],
+      "examples": [
+       {
+        "en": "Stop talking nonsense.",
+        "zh": "別胡說八道了。"
+       }
+      ]
+     },
+     {
+      "term": "secretly",
+      "inSentence": "secretly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "偷偷地；私下地",
+      "ipa": "/ˈsiːkrətli/",
+      "collocations": [
+       "secretly hope"
+      ],
+      "examples": [
+       {
+        "en": "She secretly hoped he would call.",
+        "zh": "她偷偷希望他會打電話來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "As soon as she had her ball, she ran home and forgot all about him.",
+   "zh": "她一拿到球，就跑回家，把青蛙忘得一乾二淨。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "forget all about",
+      "inSentence": "forgot all about him",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "完全忘記",
+      "ipa": "/fəˈɡet ɔːl əˈbaʊt/",
+      "collocations": [
+       "forget about"
+      ],
+      "examples": [
+       {
+        "en": "I forgot all about my dentist appointment.",
+        "zh": "我完全忘了要看牙醫。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "as soon as",
+      "quote": "As soon as she had her ball",
+      "explanation": "as soon as 表示「一…就…」，強調兩件事接連發生。",
+      "examples": [
+       {
+        "en": "As soon as I got home, it started to rain.",
+        "zh": "我一到家就下起雨來。"
+       }
+      ],
+      "pitfall": "不要和 as long as（只要）混淆。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "forgot all about",
+      "soundsLike": "fə-go-tɔː-lə-bout",
+      "note": "forgot all about 三個字連在一起念。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "The next evening, however, there was a knock at the castle door.",
+   "zh": "然而第二天傍晚，城堡大門傳來一陣敲門聲。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "knock",
+      "inSentence": "knock",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "敲門聲",
+      "ipa": "/nɒk/",
+      "collocations": [
+       "a knock at the door"
+      ],
+      "examples": [
+       {
+        "en": "There was a loud knock at the door.",
+        "zh": "門口傳來一陣很大的敲門聲。"
+       }
+      ]
+     },
+     {
+      "term": "however",
+      "inSentence": "however",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "然而；不過",
+      "ipa": "/haʊˈevə/",
+      "collocations": [
+       "however, ..."
+      ],
+      "examples": [
+       {
+        "en": "The food was good; the service, however, was slow.",
+        "zh": "食物很好，不過服務很慢。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "When the king heard the story, he said firmly, \"What you have promised, you must keep.\"",
+   "zh": "國王聽了事情的經過，堅定地說：「你答應過的事，就一定要做到。」",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "keep a promise",
+      "inSentence": "you must keep",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "遵守承諾",
+      "ipa": "/kiːp ə ˈprɒmɪs/",
+      "collocations": [
+       "keep a promise",
+       "break a promise"
+      ],
+      "examples": [
+       {
+        "en": "A good friend always keeps a promise.",
+        "zh": "好朋友總是信守承諾。"
+       }
+      ]
+     },
+     {
+      "term": "firmly",
+      "inSentence": "firmly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "堅定地",
+      "ipa": "/ˈfɜːmli/",
+      "collocations": [
+       "say firmly",
+       "firmly believe"
+      ],
+      "examples": [
+       {
+        "en": "She firmly said no.",
+        "zh": "她堅定地拒絕了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "fronted object clause",
+      "quote": "What you have promised, you must keep",
+      "explanation": "把受詞 What you have promised 移到句首，加強語氣，正常語序是 You must keep what you have promised。",
+      "examples": [
+       {
+        "en": "What you start, you should finish.",
+        "zh": "開始做的事，就應該做完。"
+       }
+      ],
+      "pitfall": "what 子句當受詞時用直述句語序：what you have promised，不是 what have you promised。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "So the princess let the frog eat from her plate, though she hated every moment of it.",
+   "zh": "於是公主讓青蛙用她的盤子吃東西，雖然她每一刻都討厭得要命。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "every moment",
+      "inSentence": "every moment of it",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "每一刻",
+      "ipa": "/ˈevri ˈməʊmənt/",
+      "collocations": [
+       "enjoy every moment"
+      ],
+      "examples": [
+       {
+        "en": "We enjoyed every moment of the trip.",
+        "zh": "這趟旅行我們每一刻都很享受。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "let + object + base verb",
+      "quote": "let the frog eat",
+      "explanation": "let 後面接受詞和原形動詞，表示「讓某人做某事」。",
+      "examples": [
+       {
+        "en": "My mum let me stay up late.",
+        "zh": "我媽讓我晚睡。"
+       }
+      ],
+      "pitfall": "不要寫成 let the frog to eat 或 let the frog eating。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "When he asked to sleep in her room, she became so angry that she threw him against the wall.",
+   "zh": "當他要求睡在她的房間時，她氣得把他往牆上一摔。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "throw against",
+      "inSentence": "threw him against the wall",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "把…往…上摔",
+      "ipa": "/θrəʊ əˈɡenst/",
+      "collocations": [
+       "throw a ball against"
+      ],
+      "examples": [
+       {
+        "en": "He threw the ball against the wall.",
+        "zh": "他把球往牆上丟。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "so ... that",
+      "quote": "so angry that she threw him",
+      "explanation": "so + 形容詞 + that，表示結果：生氣到做出某件事。",
+      "examples": [
+       {
+        "en": "He was so tired that he fell asleep at once.",
+        "zh": "他累到馬上就睡著了。"
+       }
+      ],
+      "pitfall": "不要寫成 so angry so she threw，so 後面要接 that。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "threw him",
+      "soundsLike": "threw-im",
+      "note": "him 的 h 在口語中常省略。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "But instead of falling down, he turned into a young prince with kind and beautiful eyes.",
+   "zh": "但他沒有掉下來，反而變成了一位有著溫柔美麗雙眼的年輕王子。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "turn into",
+      "inSentence": "turned into",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "變成",
+      "ipa": "/tɜːn ˈɪntuː/",
+      "collocations": [
+       "turn into a frog"
+      ],
+      "examples": [
+       {
+        "en": "The caterpillar turned into a butterfly.",
+        "zh": "毛毛蟲變成了蝴蝶。"
+       }
+      ]
+     },
+     {
+      "term": "instead of",
+      "inSentence": "instead of falling down",
+      "kind": "phrase",
+      "pos": "prep.",
+      "zh": "而不是；代替",
+      "ipa": "/ɪnˈsted əv/",
+      "collocations": [
+       "instead of going"
+      ],
+      "examples": [
+       {
+        "en": "Let's walk instead of taking a taxi.",
+        "zh": "我們走路吧，不要坐計程車。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "instead of",
+      "soundsLike": "in-ste-dəv",
+      "note": "instead 的 d 和 of 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "A wicked witch had put a spell on him, and only the princess could break it.",
+   "zh": "原來有個邪惡的女巫對他下了咒語，而只有公主能解開。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "put a spell on",
+      "inSentence": "put a spell on him",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "對…下咒語",
+      "ipa": "/pʊt ə spel ɒn/",
+      "collocations": [
+       "break a spell",
+       "cast a spell"
+      ],
+      "examples": [
+       {
+        "en": "The witch put a spell on the whole village.",
+        "zh": "女巫對整個村子下了咒語。"
+       }
+      ]
+     },
+     {
+      "term": "wicked",
+      "inSentence": "wicked",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "邪惡的",
+      "ipa": "/ˈwɪkɪd/",
+      "collocations": [
+       "a wicked witch"
+      ],
+      "examples": [
+       {
+        "en": "The wicked queen hated Snow White.",
+        "zh": "邪惡的皇后痛恨白雪公主。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "past perfect for earlier event",
+      "quote": "had put a spell on him",
+      "explanation": "過去完成式說明在故事事件之前更早發生的事：女巫早就下了咒。",
+      "examples": [
+       {
+        "en": "He was tired because he had worked all night.",
+        "zh": "他很累，因為他工作了一整夜。"
+       }
+      ],
+      "pitfall": "不要寫成 had putted，put 的過去分詞仍是 put。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

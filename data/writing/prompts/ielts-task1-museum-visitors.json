@@ -1,0 +1,105 @@
+{
+  "id": "ielts-task1-museum-visitors",
+  "type": "ielts-task1",
+  "level": "advanced",
+  "title": {
+    "en": "Visitors to Three Museums",
+    "zh": "三座博物館的參觀人數"
+  },
+  "subtitle": "原創模擬題：描述三座博物館十年間參觀人數的變化",
+  "task": "The table below shows the number of visitors to three museums in the city of Harrowgate between 2015 and 2025 (in thousands). Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+  "taskZh": "下表是 Harrowgate 市三座博物館在 2015 到 2025 年間的參觀人數（單位：千人）。請挑出主要特徵加以摘要，並在適當處比較。至少寫 150 字。城市與資料皆為虛構。",
+  "chart": {
+    "title": "Visitors to three museums in Harrowgate, 2015–2025 (thousands)",
+    "columns": ["Year", "Science Museum", "Art Gallery", "History Museum"],
+    "rows": [
+      ["2015", 420, 310, 260],
+      ["2017", 480, 300, 250],
+      ["2019", 550, 340, 230],
+      ["2021", 260, 150, 120],
+      ["2023", 500, 360, 210],
+      ["2025", 610, 410, 200]
+    ]
+  },
+  "words": { "min": 150, "max": 200 },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：先寫 Overview，點出整體趨勢與 2021 年的共同下滑",
+    "Coherence and Cohesion：依博物館或趨勢分段，不要逐年流水帳",
+    "Lexical Resource：上升、下降、波動、回升的說法要有變化",
+    "Grammatical Range and Accuracy：過去式、分詞構句與比較句正確"
+  ],
+  "model": {
+    "en": [
+      "The table shows how many people visited three museums in Harrowgate between 2015 and 2025, measured in thousands.",
+      "Overall, the science museum was the most popular attraction throughout the period, and both it and the art gallery ended the decade with more visitors than at the start. The history museum, in contrast, saw a gradual decline. All three experienced a sharp drop in 2021.",
+      "The science museum attracted 420,000 visitors in 2015, and this figure rose steadily to 550,000 by 2019. After falling by more than half to 260,000 in 2021, it recovered quickly and reached a peak of 610,000 in 2025. The art gallery followed a similar pattern on a smaller scale, fluctuating around 300,000 before dropping to 150,000 and then climbing to 410,000 by the end of the period.",
+      "The history museum, however, was the least visited throughout. Its numbers decreased slightly from 260,000 to 230,000 over the first four years, and after the slump in 2021, they never returned to their earlier level, finishing at just 200,000."
+    ],
+    "zh": [
+      "這張表格顯示 2015 到 2025 年間，Harrowgate 三座博物館的參觀人數，單位為千人。",
+      "整體而言，科學博物館在整段期間都是最受歡迎的景點，而它和美術館在十年結束時的參觀人數都比一開始多。相較之下，歷史博物館的人數逐漸減少。三座博物館在 2021 年都經歷了大幅下滑。",
+      "科學博物館在 2015 年吸引了 42 萬名參觀者，這個數字到 2019 年穩定上升至 55 萬。在 2021 年跌掉一半以上、降到 26 萬之後，它很快回升，並在 2025 年達到 61 萬的高峰。美術館的走勢類似、但規模較小，先在 30 萬上下波動，接著跌到 15 萬，到期末再攀升到 41 萬。",
+      "然而，歷史博物館在整段期間都是參觀人數最少的。它的人數在前四年從 26 萬小幅降到 23 萬，而在 2021 年的低谷之後，再也沒有回到先前的水準，最後只有 20 萬。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Overall, … was the most … throughout the period",
+      "zh": "總覽段：點出整段期間最突出的項目",
+      "example": "Overall, the science museum was the most popular attraction throughout the period, and both it and the art gallery ended the decade with more visitors than at the start.",
+      "keys": ["overall", "throughout the period"]
+    },
+    {
+      "pattern": "After falling by … to …, it recovered quickly and reached a peak of …",
+      "zh": "用 After + V-ing 描述先跌後漲的變化",
+      "example": "After falling by more than half to 260,000 in 2021, it recovered quickly and reached a peak of 610,000 in 2025.",
+      "keys": ["after falling", "reached a peak of"]
+    },
+    {
+      "pattern": "… followed a similar pattern on a smaller scale, …ing …",
+      "zh": "說明另一項的趨勢相似，再用分詞補充細節",
+      "example": "The art gallery followed a similar pattern on a smaller scale, fluctuating around 300,000 before dropping to 150,000 and then climbing to 410,000 by the end of the period.",
+      "keys": ["followed a similar pattern", "fluctuating"]
+    },
+    {
+      "pattern": "… never returned to … , finishing at …",
+      "zh": "描述沒有回升，並用分詞帶出最終數字",
+      "example": "Its numbers decreased slightly from 260,000 to 230,000 over the first four years, and after the slump in 2021, they never returned to their earlier level, finishing at just 200,000.",
+      "keys": ["never returned to", "finishing at"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The science museum attracted 420,000 visitors in 2015.",
+        "This figure rose steadily to 550,000 by 2019."
+      ],
+      "answer": "The science museum attracted 420,000 visitors in 2015, and this figure rose steadily to 550,000 by 2019."
+    },
+    {
+      "parts": [
+        "The history museum's numbers never returned to their earlier level.",
+        "They finished at just 200,000."
+      ],
+      "answer": "The history museum's numbers never returned to their earlier level, finishing at just 200,000."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "All three experienced a sharp drop in 2021.",
+      "answers": [
+        "Visitor numbers fell dramatically at all three museums in 2021.",
+        "In 2021, every museum saw a steep decline."
+      ]
+    },
+    {
+      "sentence": "The history museum was the least visited.",
+      "answers": [
+        "The history museum had the fewest visitors.",
+        "Fewer people went to the history museum than to the other two."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

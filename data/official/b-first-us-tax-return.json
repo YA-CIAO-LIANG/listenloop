@@ -1,0 +1,954 @@
+{
+ "slug": "b-first-us-tax-return",
+ "series": "category",
+ "title": "Filing Taxes for the First Time",
+ "titleZh": "第一次在美國報稅",
+ "subtitle": "研究生在國際學生辦公室問：沒什麼收入也要報稅嗎？",
+ "format": "dialogue",
+ "accent": "us",
+ "meta": {
+  "category": "money-admin",
+  "scenario": "tax-filing",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Hi, I'm a first-year grad student, and someone told me I have to file taxes even though I barely earned anything.",
+   "zh": "嗨，我是研究所一年級的學生，有人跟我說，就算我幾乎沒賺什麼錢，也還是要報稅。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "file taxes",
+      "note": "「報稅」，美國最常用的說法。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "file taxes",
+      "inSentence": "file taxes",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "報稅",
+      "ipa": "/faɪl ˈtæksɪz/",
+      "collocations": [
+       "file taxes",
+       "file a tax return"
+      ],
+      "examples": [
+       {
+        "en": "Most people file taxes in the spring.",
+        "zh": "大多數人在春天報稅。"
+       }
+      ]
+     },
+     {
+      "term": "barely",
+      "inSentence": "barely earned anything",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "幾乎沒有；勉強",
+      "ipa": "/ˈberli/",
+      "collocations": [
+       "barely know",
+       "barely enough"
+      ],
+      "examples": [
+       {
+        "en": "I barely slept last night.",
+        "zh": "我昨晚幾乎沒睡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "even though + clause",
+      "quote": "even though I barely earned anything",
+      "explanation": "even though 表示「雖然、即使（事實如此）」，後面接完整子句，語氣比 although 更強。",
+      "examples": [
+       {
+        "en": "She went to class even though she was sick.",
+        "zh": "她即使生病了還是去上課。"
+       }
+      ],
+      "pitfall": "even though 後面不能直接接名詞，要接子句；接名詞要用 despite。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Hi, I'm a first-year grad student,",
+      "role": "main",
+      "zh": "嗨，我是研究所一年級的學生，"
+     },
+     {
+      "text": "and someone told me I have to file taxes",
+      "role": "main",
+      "zh": "有人跟我說我必須報稅，"
+     },
+     {
+      "text": "even though I barely earned anything.",
+      "role": "subordinate",
+      "zh": "即使我幾乎沒賺什麼錢。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's a really common question, and the short answer is yes, almost every international student has to file something.",
+   "zh": "這是很常見的問題，簡單來說，是的，幾乎每個國際學生都得交一些文件。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "the short answer is",
+      "note": "先給結論的說法，後面常再補充細節。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "international student",
+      "inSentence": "international student",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "國際學生；外籍學生",
+      "ipa": "/ˌɪntərˈnæʃənl ˈstuːdnt/",
+      "collocations": [
+       "international student office",
+       "as an international student"
+      ],
+      "examples": [
+       {
+        "en": "There are many international students in my class.",
+        "zh": "我班上有很多國際學生。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "That's a really common question,",
+      "role": "main",
+      "zh": "這是很常見的問題，"
+     },
+     {
+      "text": "and the short answer is yes,",
+      "role": "main",
+      "zh": "簡單來說答案是肯定的，"
+     },
+     {
+      "text": "almost every international student has to file something.",
+      "role": "main",
+      "zh": "幾乎每個國際學生都得交一些東西。"
+     }
+    ],
+    "connected": [
+     {
+      "text": "short answer is",
+      "soundsLike": "shor-dan-sər-is",
+      "note": "short 的 t 在美式發音中常變成輕彈音，和 answer 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Even if I had no income at all?",
+   "zh": "即使我完全沒有收入也是嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "income",
+      "inSentence": "no income at all",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "收入",
+      "ipa": "/ˈɪnkʌm/",
+      "collocations": [
+       "monthly income",
+       "low income"
+      ],
+      "examples": [
+       {
+        "en": "His income comes from a part-time job.",
+        "zh": "他的收入來自一份兼職工作。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "at all",
+      "soundsLike": "a-dall",
+      "note": "at 的 t 彈舌化，和 all 連成一個音。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Yes, in that case you'd usually send in a simple form that just shows you were here as a student.",
+   "zh": "對，那種情況通常只要交一份簡單的表格，證明你是以學生身分在這裡。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "send in",
+      "note": "「寄出、提交（文件）」，常用於表格、申請。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "send in",
+      "inSentence": "send in a simple form",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "提交；寄出",
+      "ipa": "/send ɪn/",
+      "collocations": [
+       "send in a form",
+       "send in an application"
+      ],
+      "examples": [
+       {
+        "en": "Please send in your form by Friday.",
+        "zh": "請在星期五前交表格。"
+       }
+      ]
+     },
+     {
+      "term": "in that case",
+      "inSentence": "in that case",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "那樣的話",
+      "ipa": "/ɪn ðæt keɪs/",
+      "collocations": [
+       "in that case",
+       "in any case"
+      ],
+      "examples": [
+       {
+        "en": "It's raining. In that case, let's stay home.",
+        "zh": "下雨了。那樣的話，我們待在家吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "you'd = you would (typical result)",
+      "quote": "you'd usually send in",
+      "explanation": "you'd 是 you would 的縮寫，這裡表示「在那種情況下通常會……」，語氣比 you will 更委婉。",
+      "examples": [
+       {
+        "en": "In that case, you'd need a new visa.",
+        "zh": "那樣的話，你通常需要新的簽證。"
+       }
+      ],
+      "pitfall": "you'd 也可能是 you had，要看後面接原形動詞（would）還是過去分詞（had）。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Yes, in that case",
+      "role": "connector",
+      "zh": "對，那樣的話，"
+     },
+     {
+      "text": "you'd usually send in a simple form",
+      "role": "main",
+      "zh": "你通常要交一份簡單的表格，"
+     },
+     {
+      "text": "that just shows you were here as a student.",
+      "role": "subordinate",
+      "zh": "證明你是以學生身分待在這裡。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Actually, I worked at the campus library last semester.",
+   "zh": "其實我上學期在校內圖書館打工。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "semester",
+      "inSentence": "last semester",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "學期",
+      "ipa": "/sɪˈmestər/",
+      "collocations": [
+       "last semester",
+       "fall semester"
+      ],
+      "examples": [
+       {
+        "en": "I'm taking five classes this semester.",
+        "zh": "我這學期修五門課。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Then you should receive an income statement from the university by the end of January.",
+   "zh": "那你應該會在 1 月底前收到學校寄來的收入證明。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "by the end of January",
+      "note": "by 表示「在……之前」的期限。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "income statement",
+      "inSentence": "an income statement",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "收入證明；扣繳憑單",
+      "ipa": "/ˈɪnkʌm ˈsteɪtmənt/",
+      "collocations": [
+       "annual income statement",
+       "receive a statement"
+      ],
+      "examples": [
+       {
+        "en": "Keep your income statement in a safe place.",
+        "zh": "把收入證明放在安全的地方。"
+       }
+      ]
+     },
+     {
+      "term": "receive",
+      "inSentence": "receive",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "收到",
+      "ipa": "/rɪˈsiːv/",
+      "collocations": [
+       "receive an email",
+       "receive a letter"
+      ],
+      "examples": [
+       {
+        "en": "Did you receive my message?",
+        "zh": "你有收到我的訊息嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "end of January",
+      "soundsLike": "en-də-January",
+      "note": "of 弱讀成 /ə/，和 end 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Keep it somewhere safe, because you'll need the numbers on it.",
+   "zh": "把它收在安全的地方，因為你會需要上面的數字。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "somewhere safe",
+      "inSentence": "somewhere safe",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "安全的地方",
+      "ipa": "/ˈsʌmwer seɪf/",
+      "collocations": [
+       "keep it somewhere safe",
+       "put it somewhere safe"
+      ],
+      "examples": [
+       {
+        "en": "Put your passport somewhere safe.",
+        "zh": "把護照放在安全的地方。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Will I owe the government money, or could I actually get some back?",
+   "zh": "我會欠政府錢嗎？還是其實可以退回一些？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "get some back",
+      "note": "「拿回一些」，報稅時常指退稅。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "owe",
+      "inSentence": "owe the government money",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "欠（錢）",
+      "ipa": "/oʊ/",
+      "collocations": [
+       "owe money",
+       "owe someone"
+      ],
+      "examples": [
+       {
+        "en": "I owe my roommate twenty dollars.",
+        "zh": "我欠室友二十塊美金。"
+       }
+      ]
+     },
+     {
+      "term": "government",
+      "inSentence": "government",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "政府",
+      "ipa": "/ˈɡʌvərnmənt/",
+      "collocations": [
+       "local government",
+       "the federal government"
+      ],
+      "examples": [
+       {
+        "en": "The government changed the rules.",
+        "zh": "政府改了規定。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "or-question",
+      "quote": "or could I actually get some back",
+      "explanation": "用 or 連接兩個問句，讓對方在兩個可能中選一個回答。",
+      "examples": [
+       {
+        "en": "Should I call them, or will they email me?",
+        "zh": "我應該打電話給他們，還是他們會寄信給我？"
+       }
+      ],
+      "pitfall": "回答 or 問句不要只說 yes 或 no，要說出選哪一個。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "It depends on how much was taken out of your paychecks, but many students do get a small refund.",
+   "zh": "要看你的薪水被預扣了多少，不過很多學生確實會拿到一小筆退稅。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "do get",
+      "note": "do 放在動詞前面加強語氣：「確實會拿到」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "refund",
+      "inSentence": "a small refund",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "退款；退稅",
+      "ipa": "/ˈriːfʌnd/",
+      "collocations": [
+       "get a refund",
+       "tax refund"
+      ],
+      "examples": [
+       {
+        "en": "I got a refund for the broken headphones.",
+        "zh": "壞掉的耳機我拿到退款了。"
+       }
+      ]
+     },
+     {
+      "term": "paycheck",
+      "inSentence": "paychecks",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "薪資支票；薪水",
+      "ipa": "/ˈpeɪtʃek/",
+      "collocations": [
+       "monthly paycheck",
+       "first paycheck"
+      ],
+      "examples": [
+       {
+        "en": "I saved half of my first paycheck.",
+        "zh": "我把第一份薪水存了一半。"
+       }
+      ]
+     },
+     {
+      "term": "depend on",
+      "inSentence": "It depends on",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "取決於；視……而定",
+      "ipa": "/dɪˈpend ɑːn/",
+      "collocations": [
+       "it depends on",
+       "depend on the weather"
+      ],
+      "examples": [
+       {
+        "en": "It depends on the price.",
+        "zh": "要看價格而定。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "passive: was taken out",
+      "quote": "how much was taken out of your paychecks",
+      "explanation": "被動語態 was taken out 強調「錢被扣掉」，不提是誰扣的（其實是雇主）。",
+      "examples": [
+       {
+        "en": "Tax was taken out of my salary.",
+        "zh": "稅從我的薪水裡被扣掉了。"
+       }
+      ],
+      "pitfall": "不要說 how much took out，錢不會自己扣，要用被動。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "It depends on how much was taken out of your paychecks,",
+      "role": "main",
+      "zh": "要看你的薪水被預扣了多少，"
+     },
+     {
+      "text": "but many students do get a small refund.",
+      "role": "main",
+      "zh": "但很多學生確實會拿到一小筆退稅。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "That would be nice. So where do I actually start?",
+   "zh": "那就太好了。那我到底該從哪裡開始？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "start",
+      "inSentence": "start",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "開始",
+      "ipa": "/stɑːrt/",
+      "collocations": [
+       "start with",
+       "get started"
+      ],
+      "examples": [
+       {
+        "en": "Where should I start?",
+        "zh": "我應該從哪裡開始？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Our office gives international students free access to tax software that walks you through every step.",
+   "zh": "我們辦公室提供國際學生免費使用報稅軟體，它會一步一步引導你。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "walks you through",
+      "note": "walk someone through「一步步帶某人完成」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "walk someone through",
+      "inSentence": "walks you through every step",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "一步步引導某人",
+      "ipa": "/wɔːk ˈsʌmwʌn θruː/",
+      "collocations": [
+       "walk you through",
+       "walk me through it"
+      ],
+      "examples": [
+       {
+        "en": "Can you walk me through the form?",
+        "zh": "你可以帶我一步步填這張表嗎？"
+       }
+      ]
+     },
+     {
+      "term": "access",
+      "inSentence": "free access",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "使用權；取用的機會",
+      "ipa": "/ˈækses/",
+      "collocations": [
+       "free access",
+       "have access to"
+      ],
+      "examples": [
+       {
+        "en": "Students have free access to the gym.",
+        "zh": "學生可以免費使用健身房。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "relative clause with that",
+      "quote": "tax software that walks you through every step",
+      "explanation": "that 引導關係子句，修飾前面的 tax software，說明這個軟體的功能。",
+      "examples": [
+       {
+        "en": "I need an app that tracks my spending.",
+        "zh": "我需要一個可以記錄花費的應用程式。"
+       }
+      ],
+      "pitfall": "關係子句的動詞要跟先行詞一致：software 是單數，所以用 walks。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Our office gives international students",
+      "role": "main",
+      "zh": "我們辦公室提供國際學生"
+     },
+     {
+      "text": "free access to tax software",
+      "role": "main",
+      "zh": "免費使用報稅軟體，"
+     },
+     {
+      "text": "that walks you through every step.",
+      "role": "subordinate",
+      "zh": "它會一步步引導你。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "You answer questions about your visa and your income, and it fills in the forms for you.",
+   "zh": "你回答關於簽證和收入的問題，它就會幫你填好表格。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fill in",
+      "inSentence": "fills in the forms",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "填寫",
+      "ipa": "/fɪl ɪn/",
+      "collocations": [
+       "fill in a form",
+       "fill in the blanks"
+      ],
+      "examples": [
+       {
+        "en": "Please fill in your name here.",
+        "zh": "請在這裡填上你的名字。"
+       }
+      ]
+     },
+     {
+      "term": "visa",
+      "inSentence": "visa",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "簽證",
+      "ipa": "/ˈviːzə/",
+      "collocations": [
+       "student visa",
+       "apply for a visa"
+      ],
+      "examples": [
+       {
+        "en": "My student visa is valid for five years.",
+        "zh": "我的學生簽證有效期五年。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "fills in the",
+      "soundsLike": "fil-zin-the",
+      "note": "fills 的 s 和 in 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Is there a deadline I should be worried about?",
+   "zh": "有什麼截止日期是我應該擔心的嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "deadline",
+      "inSentence": "a deadline",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "截止日期",
+      "ipa": "/ˈdedlaɪn/",
+      "collocations": [
+       "meet a deadline",
+       "miss a deadline"
+      ],
+      "examples": [
+       {
+        "en": "The deadline is next Monday.",
+        "zh": "截止日期是下星期一。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "preposition at the end of a question",
+      "quote": "I should be worried about",
+      "explanation": "英文問句常把介系詞放在句尾，worried about 的 about 留在最後。",
+      "examples": [
+       {
+        "en": "What are you talking about?",
+        "zh": "你在說什麼？"
+       }
+      ],
+      "pitfall": "不要把 about 漏掉，否則 worried 後面沒有受詞。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Usually it's mid-April, but please don't leave it until the last week, because our workshops fill up fast.",
+   "zh": "通常是 4 月中，但請不要拖到最後一週，因為我們的說明會很快就會額滿。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "leave it until",
+      "note": "「把事情拖到……才做」。"
+     },
+     {
+      "text": "fill up fast",
+      "note": "「很快額滿」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "workshop",
+      "inSentence": "workshops",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "工作坊；說明會",
+      "ipa": "/ˈwɜːrkʃɑːp/",
+      "collocations": [
+       "attend a workshop",
+       "writing workshop"
+      ],
+      "examples": [
+       {
+        "en": "I signed up for a resume workshop.",
+        "zh": "我報名了履歷工作坊。"
+       }
+      ]
+     },
+     {
+      "term": "fill up",
+      "inSentence": "fill up fast",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "坐滿；額滿",
+      "ipa": "/fɪl ʌp/",
+      "collocations": [
+       "fill up fast",
+       "fill up the tank"
+      ],
+      "examples": [
+       {
+        "en": "The class filled up in one day.",
+        "zh": "這門課一天就額滿了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [
+     {
+      "text": "Usually it's mid-April,",
+      "role": "main",
+      "zh": "通常是 4 月中，"
+     },
+     {
+      "text": "but please don't leave it until the last week,",
+      "role": "main",
+      "zh": "但請不要拖到最後一週，"
+     },
+     {
+      "text": "because our workshops fill up fast.",
+      "role": "subordinate",
+      "zh": "因為我們的說明會很快就額滿。"
+     }
+    ],
+    "connected": [
+     {
+      "text": "don't leave it",
+      "soundsLike": "don-lee-vit",
+      "note": "don't 的 t 幾乎不發音，leave 和 it 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Got it. I'll sign up for one this week.",
+   "zh": "了解。我這週就去報名一場。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sign up for",
+      "inSentence": "sign up for one",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "報名",
+      "ipa": "/saɪn ʌp fɔːr/",
+      "collocations": [
+       "sign up for a class",
+       "sign up online"
+      ],
+      "examples": [
+       {
+        "en": "I signed up for a yoga class.",
+        "zh": "我報名了瑜伽課。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Good plan, and bring your passport and that income statement with you.",
+   "zh": "好計畫，記得帶護照和那份收入證明過來。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "passport",
+      "inSentence": "passport",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "護照",
+      "ipa": "/ˈpæspɔːrt/",
+      "collocations": [
+       "show your passport",
+       "passport number"
+      ],
+      "examples": [
+       {
+        "en": "Don't forget your passport.",
+        "zh": "別忘了你的護照。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

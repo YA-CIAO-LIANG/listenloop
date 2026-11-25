@@ -1,0 +1,685 @@
+{
+ "slug": "a-office-hours-feedback",
+ "series": "category",
+ "title": "Office Hours After a Low Grade",
+ "titleZh": "拿到低分後去找教授",
+ "subtitle": "留學生在教授的辦公時間，討論期中報告的評語和改進方法",
+ "format": "dialogue",
+ "accent": "in",
+ "meta": {
+  "category": "campus",
+  "scenario": "office-hours",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Professor Rao, thank you for seeing me, I know your office hours are usually busy.",
+   "zh": "饒教授，謝謝您抽空見我，我知道您的辦公時間通常很忙。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "thank you for seeing me",
+      "note": "去找教授時的禮貌開場，see 在這裡是「見面、接見」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "office hours",
+      "inSentence": "office hours",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "（教授的）辦公時間",
+      "ipa": "/ˈɒfɪs ˈaʊəz/",
+      "collocations": [
+       "during office hours",
+       "hold office hours"
+      ],
+      "examples": [
+       {
+        "en": "The professor holds office hours on Wednesdays.",
+        "zh": "教授每週三有辦公時間。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Not at all, please sit down, is this about the midterm paper?",
+   "zh": "別客氣，請坐，是關於期中報告的事嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "midterm",
+      "inSentence": "midterm paper",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "期中的",
+      "ipa": "/ˈmɪdtɜːm/",
+      "collocations": [
+       "midterm exam",
+       "midterm paper"
+      ],
+      "examples": [
+       {
+        "en": "I'm studying for my midterm.",
+        "zh": "我正在準備期中考。"
+       }
+      ]
+     },
+     {
+      "term": "not at all",
+      "inSentence": "Not at all",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "一點也不；別客氣",
+      "ipa": "/nɒt ət ɔːl/",
+      "collocations": [
+       "not at all tired",
+       "not at all, it's fine"
+      ],
+      "examples": [
+       {
+        "en": "Not at all, I'm happy to help.",
+        "zh": "別客氣，我很樂意幫忙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Yes, I got a C, and honestly, I'm not sure what I did wrong.",
+   "zh": "是的，我拿到 C，老實說，我不太確定自己哪裡做錯了。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "honestly",
+      "inSentence": "honestly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "老實說",
+      "ipa": "/ˈɒnɪstli/",
+      "collocations": [
+       "honestly speaking",
+       "to be honest"
+      ],
+      "examples": [
+       {
+        "en": "Honestly, I forgot about the meeting.",
+        "zh": "老實說，我忘了那場會議。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "what I did wrong",
+      "soundsLike": "wot-eye-did-RONG",
+      "note": "what 的 t 幾乎不發音，wrong 的 w 不發音，唸成 /rɒŋ/。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Your English was clear, and you clearly read a lot, which I appreciated.",
+   "zh": "你的英文很清楚，看得出來你讀了很多資料，這點我很欣賞。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "appreciate",
+      "inSentence": "appreciated",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "欣賞；感激",
+      "ipa": "/əˈpriːʃieɪt/",
+      "collocations": [
+       "appreciate your help",
+       "really appreciate"
+      ],
+      "examples": [
+       {
+        "en": "I really appreciate your advice.",
+        "zh": "我真的很感謝你的建議。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "which referring to a whole clause",
+      "quote": "which I appreciated",
+      "explanation": "which 前面有逗號時，可以指整個前面的句子，而不只是一個名詞。",
+      "examples": [
+       {
+        "en": "He arrived early, which surprised everyone.",
+        "zh": "他提早到了，這讓大家很驚訝。"
+       }
+      ],
+      "pitfall": "指整句時不能用 that，也不能用 what。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The main problem is that you summarised other people's arguments without making one of your own.",
+   "zh": "主要的問題是，你總結了別人的論點，卻沒有提出自己的論點。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "summarise",
+      "inSentence": "summarised",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "總結；摘要",
+      "ipa": "/ˈsʌməraɪz/",
+      "collocations": [
+       "summarise an article",
+       "summarise the main points"
+      ],
+      "examples": [
+       {
+        "en": "Please summarise the chapter in one page.",
+        "zh": "請用一頁總結這一章。"
+       }
+      ]
+     },
+     {
+      "term": "argument",
+      "inSentence": "arguments",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "論點；論證",
+      "ipa": "/ˈɑːɡjumənt/",
+      "collocations": [
+       "a strong argument",
+       "make an argument"
+      ],
+      "examples": [
+       {
+        "en": "Her argument was very convincing.",
+        "zh": "她的論點很有說服力。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "without + V-ing",
+      "quote": "without making one of your own",
+      "explanation": "without 是介系詞，後面接 V-ing，表示「沒有做某事」。",
+      "examples": [
+       {
+        "en": "He left without saying goodbye.",
+        "zh": "他沒說再見就走了。"
+       }
+      ],
+      "pitfall": "不要說 without make。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "The main problem is",
+      "role": "main",
+      "zh": "主要的問題是"
+     },
+     {
+      "text": "that you summarised other people's arguments",
+      "role": "subordinate",
+      "zh": "你總結了別人的論點"
+     },
+     {
+      "text": "without making one of your own.",
+      "role": "modifier",
+      "zh": "卻沒有提出自己的論點"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "I see, in my high school in Taiwan, we were mostly trained to explain what experts think.",
+   "zh": "我懂了，在台灣念高中時，我們大多被訓練去解釋專家的想法。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "train",
+      "inSentence": "trained",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "訓練",
+      "ipa": "/treɪn/",
+      "collocations": [
+       "be trained to",
+       "train staff"
+      ],
+      "examples": [
+       {
+        "en": "The staff are trained to help customers.",
+        "zh": "員工受過協助顧客的訓練。"
+       }
+      ]
+     },
+     {
+      "term": "expert",
+      "inSentence": "experts",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "專家",
+      "ipa": "/ˈekspɜːt/",
+      "collocations": [
+       "an expert in",
+       "ask an expert"
+      ],
+      "examples": [
+       {
+        "en": "She's an expert in marine biology.",
+        "zh": "她是海洋生物學專家。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's very common, and it's a useful skill, but here we also expect you to take a position and defend it.",
+   "zh": "這很常見，而且這是很有用的能力，但在這裡我們也期待你表明立場並為它辯護。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "take a position",
+      "inSentence": "take a position",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "表明立場",
+      "ipa": "/teɪk ə pəˈzɪʃn/",
+      "collocations": [
+       "take a clear position",
+       "take a position on"
+      ],
+      "examples": [
+       {
+        "en": "You need to take a position on the issue.",
+        "zh": "你需要對這個議題表明立場。"
+       }
+      ]
+     },
+     {
+      "term": "defend",
+      "inSentence": "defend it",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "為……辯護；捍衛",
+      "ipa": "/dɪˈfend/",
+      "collocations": [
+       "defend an idea",
+       "defend a thesis"
+      ],
+      "examples": [
+       {
+        "en": "She defended her thesis last month.",
+        "zh": "她上個月通過了論文口試。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "expect someone to do",
+      "quote": "expect you to take a position",
+      "explanation": "expect + 人 + to + 原形動詞，表示「期待某人做某事」。",
+      "examples": [
+       {
+        "en": "My parents expect me to call every week.",
+        "zh": "我爸媽期待我每週打電話。"
+       }
+      ],
+      "pitfall": "不要說 expect you taking。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "That's very common,",
+      "role": "main",
+      "zh": "這很常見"
+     },
+     {
+      "text": "and it's a useful skill,",
+      "role": "main",
+      "zh": "而且這是很有用的能力"
+     },
+     {
+      "text": "but here",
+      "role": "connector",
+      "zh": "但在這裡"
+     },
+     {
+      "text": "we also expect you to take a position and defend it.",
+      "role": "main",
+      "zh": "我們也期待你表明立場並為它辯護"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "So should I say whether I agree with the authors?",
+   "zh": "所以我應該說出我是否同意作者的看法嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "author",
+      "inSentence": "authors",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "作者",
+      "ipa": "/ˈɔːθə/",
+      "collocations": [
+       "the author of",
+       "a famous author"
+      ],
+      "examples": [
+       {
+        "en": "Who is the author of this book?",
+        "zh": "這本書的作者是誰？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "whether for yes-no choices",
+      "quote": "whether I agree with the authors",
+      "explanation": "whether 引導名詞子句，表示「是否」，常接在 say、know、decide 後面。",
+      "examples": [
+       {
+        "en": "I can't decide whether to go.",
+        "zh": "我無法決定要不要去。"
+       }
+      ],
+      "pitfall": "不要說 should I say do I agree，間接問句不需要倒裝。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Exactly, and more importantly, explain why, using evidence from the readings.",
+   "zh": "沒錯，更重要的是，要用閱讀資料裡的證據解釋原因。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "more importantly",
+      "inSentence": "more importantly",
+      "kind": "phrase",
+      "pos": "adv.",
+      "zh": "更重要的是",
+      "ipa": "/mɔːr ɪmˈpɔːtntli/",
+      "collocations": [
+       "more importantly, we",
+       "and more importantly"
+      ],
+      "examples": [
+       {
+        "en": "It's cheap, and more importantly, it's safe.",
+        "zh": "它很便宜，更重要的是很安全。"
+       }
+      ]
+     },
+     {
+      "term": "reading",
+      "inSentence": "readings",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "閱讀資料；指定讀物",
+      "ipa": "/ˈriːdɪŋ/",
+      "collocations": [
+       "weekly readings",
+       "required readings"
+      ],
+      "examples": [
+       {
+        "en": "Please finish the readings before class.",
+        "zh": "請在上課前讀完指定資料。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "You're also welcome to send me a one-paragraph outline of your final paper before you start writing.",
+   "zh": "你也可以在開始寫之前，把期末報告一段式的大綱寄給我。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "You're also welcome to",
+      "note": "be welcome to + 動詞：歡迎你做某事，是老師主動提供協助的說法。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "outline",
+      "inSentence": "outline",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "大綱",
+      "ipa": "/ˈaʊtlaɪn/",
+      "collocations": [
+       "an essay outline",
+       "write an outline"
+      ],
+      "examples": [
+       {
+        "en": "Write an outline before you start.",
+        "zh": "開始前先寫大綱。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That would really help, could I send it by next Friday?",
+   "zh": "那真的很有幫助，我可以在下週五前寄給您嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "by",
+      "inSentence": "by next Friday",
+      "kind": "word",
+      "pos": "prep.",
+      "zh": "在……之前（截止）",
+      "ipa": "/baɪ/",
+      "collocations": [
+       "by Monday",
+       "by the end of the week"
+      ],
+      "examples": [
+       {
+        "en": "Please reply by tomorrow.",
+        "zh": "請在明天前回覆。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "could I",
+      "soundsLike": "COOD-eye",
+      "note": "could 的 d 和 I 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Of course, and don't let one grade discourage you; most students improve a lot in their second paper.",
+   "zh": "當然，別讓一次成績打擊你；大多數學生在第二份報告都會進步很多。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "discourage",
+      "inSentence": "discourage you",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "使氣餒",
+      "ipa": "/dɪsˈkʌrɪdʒ/",
+      "collocations": [
+       "discourage someone",
+       "feel discouraged"
+      ],
+      "examples": [
+       {
+        "en": "Don't let one mistake discourage you.",
+        "zh": "別因為一個錯誤就灰心。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "let + object + base verb",
+      "quote": "don't let one grade discourage you",
+      "explanation": "let + 受詞 + 原形動詞，表示「讓某人或某事做……」。",
+      "examples": [
+       {
+        "en": "Don't let the rain stop you.",
+        "zh": "別讓下雨阻止你。"
+       }
+      ],
+      "pitfall": "不要說 let one grade to discourage you。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Of course,",
+      "role": "main",
+      "zh": "當然"
+     },
+     {
+      "text": "and don't let one grade discourage you;",
+      "role": "main",
+      "zh": "別讓一次成績打擊你"
+     },
+     {
+      "text": "most students improve a lot in their second paper.",
+      "role": "main",
+      "zh": "大多數學生在第二份報告都會進步很多"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Thank you, Professor, I feel much more confident now.",
+   "zh": "謝謝教授，我現在有信心多了。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "much more confident",
+      "note": "much 用來加強比較級，表示「……得多」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "confident",
+      "inSentence": "confident",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "有信心的",
+      "ipa": "/ˈkɒnfɪdənt/",
+      "collocations": [
+       "feel confident",
+       "confident about"
+      ],
+      "examples": [
+       {
+        "en": "I feel confident about the interview.",
+        "zh": "我對面試有信心。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

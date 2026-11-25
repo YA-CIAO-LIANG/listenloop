@@ -1,0 +1,103 @@
+{
+  "id": "diary-conversation-changed-mind",
+  "type": "diary",
+  "level": "intermediate",
+  "title": {
+    "en": "A Conversation That Changed My Mind",
+    "zh": "改變我想法的一段對話"
+  },
+  "subtitle": "記錄一次讓你改變看法的對話",
+  "task": "Write a diary entry about a conversation that changed your mind about something. What did you believe before, what did the other person say, and what do you think now?",
+  "taskZh": "寫一篇日記，記錄一段讓你改變想法的對話：你原本怎麼想？對方說了什麼？你現在又怎麼想？",
+  "words": {
+    "min": 80,
+    "max": 150
+  },
+  "minutes": 20,
+  "focus": [
+    "清楚對比「以前的想法」與「現在的想法」",
+    "用間接引述轉述對方說的話",
+    "用過去式敘事，用現在式寫現在的想法"
+  ],
+  "model": {
+    "en": [
+      "Until today, I thought my grandmother's stories were boring. Whenever she started talking about her childhood, I usually looked at my phone. This afternoon, however, I helped her clean the cupboards, and we had a long talk.",
+      "She told me that she had left school at twelve to work in a tea factory. She said she used to read her brother's old textbooks at night because she wanted to keep learning. I was surprised, because I had never asked her about it.",
+      "Now I realize that her stories are not boring at all. They are part of my family's history. Next weekend, I plan to record her stories so that I never forget them."
+    ],
+    "zh": [
+      "直到今天以前，我都覺得奶奶的故事很無聊。每次她開始講小時候的事，我通常都在滑手機。不過今天下午，我幫她整理櫥櫃，我們聊了很久。",
+      "她告訴我，她十二歲就離開學校，到茶廠工作。她說她以前晚上會讀哥哥的舊課本，因為她想繼續學習。我很驚訝，因為我從來沒問過她這些事。",
+      "現在我明白，她的故事一點也不無聊。它們是我們家族歷史的一部分。下個週末，我打算把她的故事錄下來，這樣我就永遠不會忘記。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Until today, I thought …",
+      "zh": "直到今天以前，我都以為……（帶出想法的改變）",
+      "example": "Until today, I thought my grandmother's stories were boring.",
+      "keys": [
+        "until today",
+        "thought"
+      ]
+    },
+    {
+      "pattern": "She told me that she had …",
+      "zh": "間接引述＋過去完成式：轉述更早發生的事",
+      "example": "She told me that she had left school at twelve to work in a tea factory.",
+      "keys": [
+        "told me that",
+        "had"
+      ]
+    },
+    {
+      "pattern": "She said she used to …",
+      "zh": "used to：過去常做、現在不再做的事",
+      "example": "She said she used to read her brother's old textbooks at night because she wanted to keep learning.",
+      "keys": [
+        "used to"
+      ]
+    },
+    {
+      "pattern": "… so that I …",
+      "zh": "說明目的：為了讓……",
+      "example": "Next weekend, I plan to record her stories so that I never forget them.",
+      "keys": [
+        "so that"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I helped her clean the cupboards.",
+        "We had a long talk."
+      ],
+      "answer": "I helped her clean the cupboards, and we had a long talk."
+    },
+    {
+      "parts": [
+        "I was surprised.",
+        "I had never asked her about it."
+      ],
+      "answer": "I was surprised, because I had never asked her about it."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Her stories are not boring at all.",
+      "answers": [
+        "Her stories are actually very interesting.",
+        "Her stories are far from boring."
+      ]
+    },
+    {
+      "sentence": "I usually looked at my phone.",
+      "answers": [
+        "I usually checked my phone instead of listening.",
+        "I often just played on my phone."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

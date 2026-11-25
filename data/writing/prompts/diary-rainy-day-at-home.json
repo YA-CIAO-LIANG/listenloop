@@ -1,0 +1,104 @@
+{
+  "id": "diary-rainy-day-at-home",
+  "type": "diary",
+  "level": "beginner",
+  "title": {
+    "en": "A Rainy Day at Home",
+    "zh": "在家的下雨天"
+  },
+  "subtitle": "記錄一個因為下雨而待在家的日子",
+  "task": "Write a diary entry about a rainy day you spent at home. What did you do, who were you with, and how did you feel at the end of the day?",
+  "taskZh": "寫一篇日記，記錄一個因為下雨而待在家的日子：你做了哪些事？和誰在一起？一天結束時有什麼感覺？",
+  "words": {
+    "min": 80,
+    "max": 150
+  },
+  "minutes": 15,
+  "focus": [
+    "用過去式記錄一天發生的事",
+    "依時間順序寫：早上、下午、晚上",
+    "寫出心情的變化"
+  ],
+  "model": {
+    "en": [
+      "Today it rained all day, so I stayed at home. I did not have any plans, and at first I felt a little bored. I watched the rain on the window and listened to music.",
+      "In the afternoon, I decided to cook noodles with my younger brother. We made a big mess in the kitchen, but the noodles tasted great. After lunch, we played cards and laughed a lot.",
+      "In the evening, I read a book that I had bought months ago. It was a quiet day, but it was a good one. Sometimes a rainy day is exactly what I need."
+    ],
+    "zh": [
+      "今天下了一整天的雨，所以我待在家裡。我沒有任何計畫，一開始覺得有點無聊。我看著窗上的雨滴，一邊聽音樂。",
+      "下午，我決定和弟弟一起煮麵。我們把廚房弄得一團亂，但麵很好吃。吃完午餐後，我們玩撲克牌，笑得很開心。",
+      "晚上，我讀了一本幾個月前買的書。今天很安靜，卻是很美好的一天。有時候，下雨天正是我需要的。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "…, and at first I felt …",
+      "zh": "一開始覺得……（為後面的心情轉變鋪路）",
+      "example": "I did not have any plans, and at first I felt a little bored.",
+      "keys": [
+        "at first",
+        "felt"
+      ]
+    },
+    {
+      "pattern": "In the afternoon, I decided to …",
+      "zh": "用時間片語開頭，說明決定做的事",
+      "example": "In the afternoon, I decided to cook noodles with my younger brother.",
+      "keys": [
+        "in the afternoon",
+        "decided to"
+      ]
+    },
+    {
+      "pattern": "…, but …",
+      "zh": "用 but 帶出出乎意料的好結果",
+      "example": "We made a big mess in the kitchen, but the noodles tasted great.",
+      "keys": [
+        "but"
+      ]
+    },
+    {
+      "pattern": "Sometimes … is exactly what I need.",
+      "zh": "結尾：有時候……正是我需要的",
+      "example": "Sometimes a rainy day is exactly what I need.",
+      "keys": [
+        "sometimes",
+        "exactly what"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "It rained all day.",
+        "I stayed at home."
+      ],
+      "answer": "It rained all day, so I stayed at home."
+    },
+    {
+      "parts": [
+        "It was a quiet day.",
+        "It was a good one."
+      ],
+      "answer": "It was a quiet day, but it was a good one."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "At first I felt a little bored.",
+      "answers": [
+        "In the beginning, I was a bit bored.",
+        "I was slightly bored at the start."
+      ]
+    },
+    {
+      "sentence": "The noodles tasted great.",
+      "answers": [
+        "The noodles were delicious.",
+        "The noodles were really good."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

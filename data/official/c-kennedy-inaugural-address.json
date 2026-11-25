@@ -1,0 +1,673 @@
+{
+ "slug": "c-kennedy-inaugural-address",
+ "series": "classics",
+ "title": "Ask Not What Your Country Can Do for You",
+ "titleZh": "別問國家能為你做什麼",
+ "subtitle": "原文節錄：甘迺迪 1961 年總統就職演說結尾",
+ "format": "monologue",
+ "accent": "us",
+ "meta": {
+  "category": "classics",
+  "scenario": "historic-speech",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "us-government",
+  "name": "John F. Kennedy, Inaugural Address, January 20, 1961",
+  "title": "President John F. Kennedy's Inaugural Address (1961)",
+  "url": "https://www.archives.gov/milestone-documents/president-john-f-kennedys-inaugural-address",
+  "basis": "Delivered by the President in his official capacity, a work of the U.S. federal government, 17 U.S.C. §105.",
+  "adapted": false
+ },
+ "sentences": [
+  {
+   "en": "In the long history of the world, only a few generations have been granted the role of defending freedom in its hour of maximum danger.",
+   "zh": "在世界漫長的歷史中，只有少數幾個世代，被賦予在自由最危急的時刻捍衛它的角色。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "generation",
+      "inSentence": "generations",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "世代；一代人",
+      "ipa": "/ˌdʒɛnəˈreɪʃən/",
+      "collocations": [
+       "future generations",
+       "the younger generation"
+      ],
+      "examples": [
+       {
+        "en": "We must protect the planet for future generations.",
+        "zh": "我們必須為後代保護地球。"
+       }
+      ]
+     },
+     {
+      "term": "grant",
+      "inSentence": "have been granted",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "給予；授予",
+      "ipa": "/ɡrænt/",
+      "collocations": [
+       "grant permission",
+       "be granted"
+      ],
+      "examples": [
+       {
+        "en": "She was granted a scholarship.",
+        "zh": "她獲得了一筆獎學金。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "present perfect passive",
+      "quote": "have been granted the role",
+      "explanation": "have been + p.p. 是現在完成式被動：到目前為止被賦予了某個角色。",
+      "examples": [
+       {
+        "en": "Only three students have been chosen for the trip.",
+        "zh": "只有三位學生被選中參加這趟旅行。"
+       }
+      ],
+      "pitfall": "不要漏掉 been，寫成 have granted 意思會變成「他們給予了」。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "In the long history of the world,",
+      "role": "modifier",
+      "zh": "在世界漫長的歷史中"
+     },
+     {
+      "text": "only a few generations have been granted the role",
+      "role": "main",
+      "zh": "只有少數世代被賦予這個角色"
+     },
+     {
+      "text": "of defending freedom",
+      "role": "modifier",
+      "zh": "捍衛自由"
+     },
+     {
+      "text": "in its hour of maximum danger.",
+      "role": "modifier",
+      "zh": "在它最危急的時刻"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "I do not shrink from this responsibility—I welcome it.",
+   "zh": "我不會逃避這份責任，我欣然接受它。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "I welcome it",
+      "note": "先否定再肯定的對比句，語氣有力，是演說常用技巧。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "shrink from",
+      "inSentence": "shrink from",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "逃避；退縮",
+      "ipa": "/ʃrɪŋk frʌm/",
+      "collocations": [
+       "shrink from a challenge"
+      ],
+      "examples": [
+       {
+        "en": "A good leader does not shrink from hard decisions.",
+        "zh": "好的領導者不會逃避困難的決定。"
+       }
+      ]
+     },
+     {
+      "term": "responsibility",
+      "inSentence": "responsibility",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "責任",
+      "ipa": "/rɪˌspɑnsəˈbɪləti/",
+      "collocations": [
+       "take responsibility",
+       "a sense of responsibility"
+      ],
+      "examples": [
+       {
+        "en": "Taking care of a pet is a big responsibility.",
+        "zh": "照顧寵物是很大的責任。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "I do not believe that any of us would exchange places with any other people or any other generation.",
+   "zh": "我不相信我們之中有任何人，會願意和其他任何民族或任何世代交換位置。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "exchange places with",
+      "inSentence": "exchange places with",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "和…交換位置",
+      "ipa": "/ɪksˈtʃeɪndʒ ˈpleɪsəz wɪð/",
+      "collocations": [
+       "change places with"
+      ],
+      "examples": [
+       {
+        "en": "I wouldn't exchange places with anyone.",
+        "zh": "我不會想和任何人交換位置。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "would for imagined choice",
+      "quote": "would exchange places",
+      "explanation": "would 表示假設情況下的意願：如果可以選，我們會不會想換？",
+      "examples": [
+       {
+        "en": "Would you live abroad if you could?",
+        "zh": "如果可以，你會想住在國外嗎？"
+       }
+      ],
+      "pitfall": "不要寫成 will exchange，這是假設的情境，用 would 比較自然。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "any of us",
+      "soundsLike": "eh-nee-ə-vus",
+      "note": "any of us 三個字連讀，of 弱讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "The energy, the faith, the devotion which we bring to this endeavor will light our country and all who serve it—and the glow from that fire can truly light the world.",
+   "zh": "我們為這項努力所投入的活力、信念與奉獻，將照亮我們的國家和所有為它服務的人，而那火焰的光芒，必能真正照亮全世界。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "endeavor",
+      "inSentence": "endeavor",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "努力；事業",
+      "ipa": "/ɪnˈdɛvər/",
+      "collocations": [
+       "a great endeavor",
+       "human endeavor"
+      ],
+      "examples": [
+       {
+        "en": "Space travel is a costly endeavor.",
+        "zh": "太空旅行是一項昂貴的事業。"
+       }
+      ]
+     },
+     {
+      "term": "glow",
+      "inSentence": "glow",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "光芒；微光",
+      "ipa": "/ɡloʊ/",
+      "collocations": [
+       "a warm glow",
+       "the glow of"
+      ],
+      "examples": [
+       {
+        "en": "We sat in the glow of the campfire.",
+        "zh": "我們坐在營火的光芒中。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "listing nouns for rhythm",
+      "quote": "The energy, the faith, the devotion which we bring",
+      "explanation": "連續三個名詞並列當主詞，每個都加 the，營造演說的節奏感；which we bring 修飾這三個名詞。",
+      "examples": [
+       {
+        "en": "The courage, the patience, the kindness she showed inspired us all.",
+        "zh": "她展現的勇氣、耐心與善良激勵了我們所有人。"
+       }
+      ],
+      "pitfall": "一般寫作會加 and：the energy, the faith, and the devotion；演說省略 and 是修辭。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "The energy, the faith, the devotion",
+      "role": "main",
+      "zh": "活力、信念與奉獻"
+     },
+     {
+      "text": "which we bring to this endeavor",
+      "role": "subordinate",
+      "zh": "我們為這項努力投入的"
+     },
+     {
+      "text": "will light our country and all who serve it",
+      "role": "main",
+      "zh": "將照亮國家與所有為它服務的人"
+     },
+     {
+      "text": "and the glow from that fire can truly light the world.",
+      "role": "main",
+      "zh": "而那火焰的光芒能真正照亮世界"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "And so, my fellow Americans: ask not what your country can do for you—ask what you can do for your country.",
+   "zh": "因此，我的美國同胞們：不要問國家能為你做什麼，要問你能為國家做什麼。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fellow",
+      "inSentence": "my fellow Americans",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "同伴的；同胞的",
+      "ipa": "/ˈfɛloʊ/",
+      "collocations": [
+       "fellow students",
+       "fellow citizens"
+      ],
+      "examples": [
+       {
+        "en": "He thanked his fellow workers.",
+        "zh": "他感謝他的同事們。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "ask not (old-style negative imperative)",
+      "quote": "ask not what your country can do for you",
+      "explanation": "ask not 是古典的否定祈使句，等於 do not ask，聽起來更莊重。",
+      "examples": [
+       {
+        "en": "Fear not, for help is coming.",
+        "zh": "別怕，救援就要來了。"
+       }
+      ],
+      "pitfall": "日常口語要說 Don't ask，不要模仿 ask not。"
+     },
+     {
+      "point": "chiasmus (reversed structure)",
+      "quote": "what your country can do for you—ask what you can do for your country",
+      "explanation": "前後兩句把 you 和 your country 的位置對調，形成交錯對稱，讓句子容易記住。",
+      "examples": [
+       {
+        "en": "Eat to live, not live to eat.",
+        "zh": "吃是為了活，不是活著為了吃。"
+       }
+      ],
+      "pitfall": "間接問句用直述語序：what you can do，不是 what can you do。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "And so, my fellow Americans:",
+      "role": "connector",
+      "zh": "因此，我的美國同胞們"
+     },
+     {
+      "text": "ask not what your country can do for you",
+      "role": "main",
+      "zh": "不要問國家能為你做什麼"
+     },
+     {
+      "text": "ask what you can do for your country.",
+      "role": "main",
+      "zh": "要問你能為國家做什麼"
+     }
+    ],
+    "connected": [
+     {
+      "text": "what your",
+      "soundsLike": "wət-chər",
+      "note": "what 的 t 和 your 連成 chər。"
+     },
+     {
+      "text": "can do for you",
+      "soundsLike": "kən-do-fər-you",
+      "note": "can 和 for 都弱讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "My fellow citizens of the world: ask not what America will do for you, but what together we can do for the freedom of man.",
+   "zh": "我的世界公民同胞們：不要問美國會為你們做什麼，而要問我們能一起為人類的自由做什麼。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "citizen",
+      "inSentence": "citizens",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "公民；市民",
+      "ipa": "/ˈsɪtəzən/",
+      "collocations": [
+       "citizens of the world",
+       "senior citizens"
+      ],
+      "examples": [
+       {
+        "en": "Every citizen has the right to vote.",
+        "zh": "每個公民都有投票權。"
+       }
+      ]
+     },
+     {
+      "term": "freedom",
+      "inSentence": "the freedom of man",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "自由",
+      "ipa": "/ˈfridəm/",
+      "collocations": [
+       "freedom of speech"
+      ],
+      "examples": [
+       {
+        "en": "Freedom of speech is important in a democracy.",
+        "zh": "言論自由在民主社會很重要。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "not ... but",
+      "quote": "ask not what America will do for you, but what together we can do",
+      "explanation": "not A but B 表示「不是 A，而是 B」，把重點放在 B。",
+      "examples": [
+       {
+        "en": "The goal is not to win, but to learn.",
+        "zh": "目標不是贏，而是學習。"
+       }
+      ],
+      "pitfall": "but 後面要接和前面相同形式的結構，這裡都是 what 子句。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "My fellow citizens of the world:",
+      "role": "connector",
+      "zh": "我的世界公民同胞們"
+     },
+     {
+      "text": "ask not what America will do for you,",
+      "role": "main",
+      "zh": "不要問美國會為你們做什麼"
+     },
+     {
+      "text": "but what together we can do for the freedom of man.",
+      "role": "main",
+      "zh": "而要問我們能一起為人類自由做什麼"
+     }
+    ],
+    "connected": [
+     {
+      "text": "what together",
+      "soundsLike": "wət-tə-geh-ther",
+      "note": "what 的 t 和 together 的 t 合併只念一次。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Finally, whether you are citizens of America or citizens of the world, ask of us here the same high standards of strength and sacrifice which we ask of you.",
+   "zh": "最後，無論你是美國公民還是世界公民，請以我們要求你們的同樣高的力量與犧牲標準，來要求我們。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sacrifice",
+      "inSentence": "sacrifice",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "犧牲",
+      "ipa": "/ˈsækrəˌfaɪs/",
+      "collocations": [
+       "make a sacrifice"
+      ],
+      "examples": [
+       {
+        "en": "Her parents made many sacrifices for her education.",
+        "zh": "她的父母為她的教育做出許多犧牲。"
+       }
+      ]
+     },
+     {
+      "term": "ask of",
+      "inSentence": "ask of us",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "向…要求",
+      "ipa": "/æsk əv/",
+      "collocations": [
+       "ask a lot of someone"
+      ],
+      "examples": [
+       {
+        "en": "The coach asks a lot of his players.",
+        "zh": "教練對球員要求很高。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "whether ... or",
+      "quote": "whether you are citizens of America or citizens of the world",
+      "explanation": "whether A or B 表示「無論是 A 還是 B」，引導讓步子句。",
+      "examples": [
+       {
+        "en": "Whether you win or lose, enjoy the game.",
+        "zh": "無論輸贏，都要享受比賽。"
+       }
+      ],
+      "pitfall": "不要寫成 whether ... and，要用 or 連接兩個選項。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Finally,",
+      "role": "connector",
+      "zh": "最後"
+     },
+     {
+      "text": "whether you are citizens of America or citizens of the world,",
+      "role": "subordinate",
+      "zh": "無論你是美國公民或世界公民"
+     },
+     {
+      "text": "ask of us here the same high standards of strength and sacrifice",
+      "role": "main",
+      "zh": "請以同樣高的力量與犧牲標準要求我們"
+     },
+     {
+      "text": "which we ask of you.",
+      "role": "subordinate",
+      "zh": "就是我們要求你們的那些標準"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "With a good conscience our only sure reward, with history the final judge of our deeds, let us go forth to lead the land we love, asking His blessing and His help, but knowing that here on earth God's work must truly be our own.",
+   "zh": "以良知為我們唯一確定的回報，以歷史為我們行為的最終評判，讓我們勇往直前，帶領我們所愛的國家，祈求上帝的祝福與幫助，但也明白，在這世上，上帝的工作必須真正由我們自己來完成。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "conscience",
+      "inSentence": "conscience",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "良心；良知",
+      "ipa": "/ˈkɑnʃəns/",
+      "collocations": [
+       "a clear conscience",
+       "a guilty conscience"
+      ],
+      "examples": [
+       {
+        "en": "I told the truth, so my conscience is clear.",
+        "zh": "我說了實話，所以問心無愧。"
+       }
+      ]
+     },
+     {
+      "term": "deed",
+      "inSentence": "deeds",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "行為；事蹟",
+      "ipa": "/did/",
+      "collocations": [
+       "good deeds"
+      ],
+      "examples": [
+       {
+        "en": "Do one good deed every day.",
+        "zh": "每天做一件好事。"
+       }
+      ]
+     },
+     {
+      "term": "go forth",
+      "inSentence": "go forth",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "向前邁進（正式）",
+      "ipa": "/ɡoʊ fɔrθ/",
+      "collocations": [
+       "go forth and"
+      ],
+      "examples": [
+       {
+        "en": "Go forth and do great things.",
+        "zh": "勇往直前，成就大事吧。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "absolute phrases with 'with'",
+      "quote": "With a good conscience our only sure reward",
+      "explanation": "with + 名詞 + 名詞補語，省略了 being：with a good conscience (being) our only sure reward，用來說明前提。",
+      "examples": [
+       {
+        "en": "With the exam over, we went out to celebrate.",
+        "zh": "考試結束了，我們出去慶祝。"
+       }
+      ],
+      "pitfall": "不要把 our only sure reward 當成主詞，它是 conscience 的補語。"
+     },
+     {
+      "point": "let us + V",
+      "quote": "let us go forth to lead the land we love",
+      "explanation": "let us + 原形動詞是正式的號召句型，口語常縮寫成 let's。",
+      "examples": [
+       {
+        "en": "Let us work together for a better future.",
+        "zh": "讓我們一起為更好的未來努力。"
+       }
+      ],
+      "pitfall": "let us 後面接原形動詞，不要寫成 let us to go。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "With a good conscience our only sure reward,",
+      "role": "modifier",
+      "zh": "以良知為唯一確定的回報"
+     },
+     {
+      "text": "with history the final judge of our deeds,",
+      "role": "modifier",
+      "zh": "以歷史為行為的最終評判"
+     },
+     {
+      "text": "let us go forth to lead the land we love,",
+      "role": "main",
+      "zh": "讓我們向前邁進，帶領我們所愛的國家"
+     },
+     {
+      "text": "asking His blessing and His help,",
+      "role": "modifier",
+      "zh": "祈求上帝的祝福與幫助"
+     },
+     {
+      "text": "but knowing that here on earth God's work must truly be our own.",
+      "role": "modifier",
+      "zh": "但明白世上的神工必須由我們自己完成"
+     }
+    ],
+    "connected": []
+   }
+  }
+ ]
+}

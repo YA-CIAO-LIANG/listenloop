@@ -42,6 +42,28 @@ import geptLetterThankHostFamily from "./prompts/gept-letter-thank-host-family.j
 import gsatEssayDayWithoutPhone from "./prompts/gsat-essay-day-without-phone.json";
 import gsatPictureRainyBusStop from "./prompts/gsat-picture-rainy-bus-stop.json";
 import gsatEssayGraduationTrip from "./prompts/gsat-essay-graduation-trip.json";
+import capAHelpfulClassmate from "./prompts/cap-a-helpful-classmate.json";
+import capCookingForMyFamily from "./prompts/cap-cooking-for-my-family.json";
+import capSummerVacationPlan from "./prompts/cap-summer-vacation-plan.json";
+import dailyCommunityHelper from "./prompts/daily-community-helper.json";
+import dailyFavoriteFoodStall from "./prompts/daily-favorite-food-stall.json";
+import dailyHabitToBuild from "./prompts/daily-habit-to-build.json";
+import dailyLunarNewYear from "./prompts/daily-lunar-new-year.json";
+import dailyMyDesk from "./prompts/daily-my-desk.json";
+import diaryConversationChangedMind from "./prompts/diary-conversation-changed-mind.json";
+import diaryDayWentWrong from "./prompts/diary-day-went-wrong.json";
+import diaryFirstWeekNewPlace from "./prompts/diary-first-week-new-place.json";
+import diaryRainyDayAtHome from "./prompts/diary-rainy-day-at-home.json";
+import diarySmallWinToday from "./prompts/diary-small-win-today.json";
+import geptEssayUsefulApp from "./prompts/gept-essay-useful-app.json";
+import gsatEssayNewSchoolSubject from "./prompts/gsat-essay-new-school-subject.json";
+import gsatPictureTurtleOnTheBeach from "./prompts/gsat-picture-turtle-on-the-beach.json";
+import ieltsTask1MuseumVisitors from "./prompts/ielts-task1-museum-visitors.json";
+import ieltsTask2OnlineShoppingHighStreets from "./prompts/ielts-task2-online-shopping-high-streets.json";
+import toeflCoursesOutsideMajor from "./prompts/toefl-courses-outside-major.json";
+import toeicEmailCateringOrder from "./prompts/toeic-email-catering-order.json";
+import toeicEmailSoftwareTraining from "./prompts/toeic-email-software-training.json";
+import toeicOpinionPromoteFromWithin from "./prompts/toeic-opinion-promote-from-within.json";
 
 /**
  * Every official writing prompt (D187), in library order. Imported
@@ -53,6 +75,16 @@ const all = [
   dailyPerfectWeekend,
   dailyMorningCommute,
   dailyPlaceInMyCity,
+  dailyCommunityHelper,
+  dailyFavoriteFoodStall,
+  dailyHabitToBuild,
+  dailyLunarNewYear,
+  dailyMyDesk,
+  diaryConversationChangedMind,
+  diaryDayWentWrong,
+  diaryFirstWeekNewPlace,
+  diaryRainyDayAtHome,
+  diarySmallWinToday,
   emailFormalLostLibraryBook,
   emailFormalRefundRequest,
   emailFormalInternshipInquiry,
@@ -80,18 +112,30 @@ const all = [
   ieltsTask1BottledTeaProcess,
   ieltsTask1CommuteModes,
   ieltsTask1LibraryServices,
+  ieltsTask1MuseumVisitors,
   ieltsTask2QuietPublicSpaces,
   ieltsTask2RepairOrReplace,
   ieltsTask2StreetFoodMarkets,
+  ieltsTask2OnlineShoppingHighStreets,
   toeflGroupOrSoloProjects,
   toeflDiningHallFoodWaste,
   toeflGreenRoofsOrStreetTrees,
+  toeflCoursesOutsideMajor,
   geptEssaySkillFromFamily,
   geptLetterBrokenElevator,
   geptLetterThankHostFamily,
+  geptEssayUsefulApp,
   gsatEssayDayWithoutPhone,
   gsatPictureRainyBusStop,
   gsatEssayGraduationTrip,
+  gsatEssayNewSchoolSubject,
+  gsatPictureTurtleOnTheBeach,
+  toeicEmailCateringOrder,
+  toeicEmailSoftwareTraining,
+  toeicOpinionPromoteFromWithin,
+  capAHelpfulClassmate,
+  capCookingForMyFamily,
+  capSummerVacationPlan,
 ] as unknown as WritingPrompt[];
 
 for (const prompt of all) {

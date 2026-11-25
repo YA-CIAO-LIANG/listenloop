@@ -1,0 +1,745 @@
+{
+ "slug": "s-school-club-choice",
+ "series": "school",
+ "title": "Choosing a School Club",
+ "titleZh": "選社團",
+ "subtitle": "新學期開始，Amy 幫猶豫不決的 Kevin 挑社團",
+ "format": "dialogue",
+ "accent": "us",
+ "meta": {
+  "category": "school",
+  "scenario": "junior-dialogue",
+  "level": "beginner",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Kevin, have you decided which club to join this semester?",
+   "zh": "Kevin，你決定這學期要參加哪個社團了嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "which club to join",
+      "note": "「疑問詞＋to＋原形動詞」，表示「該…哪一個」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "decide",
+      "inSentence": "decided",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "決定",
+      "ipa": "/dɪˈsaɪd/",
+      "collocations": [
+       "decide to",
+       "decide on"
+      ],
+      "examples": [
+       {
+        "en": "I decided to join the band.",
+        "zh": "我決定加入樂隊。"
+       }
+      ]
+     },
+     {
+      "term": "semester",
+      "inSentence": "semester",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "學期",
+      "ipa": "/səˈmɛstɚ/",
+      "collocations": [
+       "this semester",
+       "next semester"
+      ],
+      "examples": [
+       {
+        "en": "We have a new teacher this semester.",
+        "zh": "這學期我們有新老師。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Not yet, but I'm thinking about the basketball club or the guitar club.",
+   "zh": "還沒，不過我在考慮籃球社或吉他社。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "Not yet",
+      "note": "「還沒」，回答 have you…? 的常用短句。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "think about",
+      "inSentence": "thinking about",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "考慮",
+      "ipa": "/θɪŋk əˈbaʊt/",
+      "collocations": [
+       "think about doing",
+       "think about it"
+      ],
+      "examples": [
+       {
+        "en": "I'm thinking about learning Japanese.",
+        "zh": "我在考慮學日文。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Both sound fun, but the basketball club practices every Tuesday and Friday.",
+   "zh": "兩個聽起來都很好玩，不過籃球社每週二和週五都要練習。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "practice",
+      "inSentence": "practices",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "練習",
+      "ipa": "/ˈpræktɪs/",
+      "collocations": [
+       "practice every day",
+       "practice the piano"
+      ],
+      "examples": [
+       {
+        "en": "Our team practices after school.",
+        "zh": "我們隊放學後練習。"
+       }
+      ]
+     },
+     {
+      "term": "sound",
+      "inSentence": "sound fun",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "聽起來",
+      "ipa": "/saʊnd/",
+      "collocations": [
+       "sound fun",
+       "sound good"
+      ],
+      "examples": [
+       {
+        "en": "Your plan sounds great.",
+        "zh": "你的計畫聽起來很棒。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "both + plural verb",
+      "quote": "Both sound fun",
+      "explanation": "both 指「兩者都」，當主詞時動詞用複數形，所以是 sound 不是 sounds。",
+      "examples": [
+       {
+        "en": "Both of my sisters like music.",
+        "zh": "我的兩個姊姊都喜歡音樂。"
+       }
+      ],
+      "pitfall": "常誤寫成 Both sounds fun，多加了 s。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "That's a problem, because I take English lessons on Friday evenings.",
+   "zh": "那就麻煩了，因為我週五晚上要上英文課。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "on Friday evenings",
+      "note": "星期加 s 表示「每個週五晚上」的習慣。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "take lessons",
+      "inSentence": "take English lessons",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "上課；學（某種課）",
+      "ipa": "/teɪk ˈlɛsənz/",
+      "collocations": [
+       "take piano lessons",
+       "take swimming lessons"
+      ],
+      "examples": [
+       {
+        "en": "She takes dance lessons on Sundays.",
+        "zh": "她每週日上舞蹈課。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Then why not try the guitar club, which meets on Wednesday afternoons?",
+   "zh": "那何不試試吉他社？他們是週三下午上課。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "meet",
+      "inSentence": "meets",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "（社團）聚會、上課",
+      "ipa": "/mit/",
+      "collocations": [
+       "meet once a week",
+       "meet after school"
+      ],
+      "examples": [
+       {
+        "en": "The art club meets every Monday.",
+        "zh": "美術社每週一聚會。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "why not + base verb",
+      "quote": "why not try",
+      "explanation": "Why not ＋原形動詞，用來給建議，意思是「何不…」。",
+      "examples": [
+       {
+        "en": "Why not ask your teacher?",
+        "zh": "何不問問你的老師？"
+       }
+      ],
+      "pitfall": "後面不能加 to，不要說 why not to try。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "why not try",
+      "soundsLike": "why-nah-try",
+      "note": "not 的 t 在下一個子音前常不發出來。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "But I can't play the guitar at all.",
+   "zh": "可是我完全不會彈吉他。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "play the guitar",
+      "note": "彈樂器時，樂器前要加 the。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "not at all",
+      "inSentence": "can't play the guitar at all",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "完全不；一點也不",
+      "ipa": "/nɑt æt ɔl/",
+      "collocations": [
+       "not at all",
+       "not ... at all"
+      ],
+      "examples": [
+       {
+        "en": "I don't like spicy food at all.",
+        "zh": "我一點也不喜歡辣的食物。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Don't worry, because most new members are beginners just like you.",
+   "zh": "別擔心，大部分的新社員都跟你一樣是初學者。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "member",
+      "inSentence": "members",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "成員；社員",
+      "ipa": "/ˈmɛmbɚ/",
+      "collocations": [
+       "club member",
+       "new member"
+      ],
+      "examples": [
+       {
+        "en": "She is a member of the choir.",
+        "zh": "她是合唱團的團員。"
+       }
+      ]
+     },
+     {
+      "term": "beginner",
+      "inSentence": "beginners",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "初學者",
+      "ipa": "/bɪˈɡɪnɚ/",
+      "collocations": [
+       "a complete beginner",
+       "beginner class"
+      ],
+      "examples": [
+       {
+        "en": "This class is for beginners.",
+        "zh": "這堂課是給初學者的。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "just like you",
+      "soundsLike": "jus-like-you",
+      "note": "just 的 t 在 like 前面常被省略。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "My cousin joined last year, and now she can play ten songs.",
+   "zh": "我表姊去年加入，現在她已經會彈十首歌了。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "cousin",
+      "inSentence": "cousin",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "堂／表兄弟姊妹",
+      "ipa": "/ˈkʌzən/",
+      "collocations": [
+       "my cousin",
+       "older cousin"
+      ],
+      "examples": [
+       {
+        "en": "My cousin lives in Kaohsiung.",
+        "zh": "我表哥住在高雄。"
+       }
+      ]
+     },
+     {
+      "term": "join",
+      "inSentence": "joined",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "加入",
+      "ipa": "/dʒɔɪn/",
+      "collocations": [
+       "join a club",
+       "join us"
+      ],
+      "examples": [
+       {
+        "en": "Can I join your team?",
+        "zh": "我可以加入你們隊嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "past vs. present",
+      "quote": "joined last year, and now she can",
+      "explanation": "去年加入用過去式 joined；現在的能力用 can。用時間詞 last year、now 對比過去和現在。",
+      "examples": [
+       {
+        "en": "He was short last year, but now he is tall.",
+        "zh": "他去年很矮，但現在很高。"
+       }
+      ],
+      "pitfall": "有 last year 時不要用現在式 join。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Ten songs? That's amazing!",
+   "zh": "十首歌？太厲害了！",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "amazing",
+      "inSentence": "amazing",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "驚人的；太厲害了",
+      "ipa": "/əˈmeɪzɪŋ/",
+      "collocations": [
+       "That's amazing",
+       "an amazing idea"
+      ],
+      "examples": [
+       {
+        "en": "The view from the mountain is amazing.",
+        "zh": "山上的景色美極了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Do I need to buy my own guitar first?",
+   "zh": "我需要先買一把自己的吉他嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "own",
+      "inSentence": "my own",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "自己的",
+      "ipa": "/oʊn/",
+      "collocations": [
+       "my own room",
+       "on my own"
+      ],
+      "examples": [
+       {
+        "en": "I want my own bedroom.",
+        "zh": "我想要有自己的房間。"
+       }
+      ]
+     },
+     {
+      "term": "need to",
+      "inSentence": "need to",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "需要（做）",
+      "ipa": "/nid tu/",
+      "collocations": [
+       "need to go",
+       "don't need to"
+      ],
+      "examples": [
+       {
+        "en": "You need to finish your homework.",
+        "zh": "你需要把作業寫完。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "No, the club lends guitars to new members for the first month.",
+   "zh": "不用，社團第一個月會借吉他給新社員。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "lend",
+      "inSentence": "lends",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "借出（給別人）",
+      "ipa": "/lɛnd/",
+      "collocations": [
+       "lend A to B",
+       "lend me"
+      ],
+      "examples": [
+       {
+        "en": "Can you lend me your pen?",
+        "zh": "你可以借我你的筆嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "lend vs. borrow",
+      "quote": "lends guitars to new members",
+      "explanation": "lend 是「借出去」，句型 lend 物 to 人；borrow 是「借進來」，borrow 物 from 人。",
+      "examples": [
+       {
+        "en": "I borrowed a book from Amy.",
+        "zh": "我跟 Amy 借了一本書。"
+       }
+      ],
+      "pitfall": "不要說 Can I lend your pen? 想借別人的東西要用 borrow。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Great, so where can I sign up?",
+   "zh": "太好了，那我要去哪裡報名？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "sign up",
+      "inSentence": "sign up",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "報名；登記",
+      "ipa": "/saɪn ʌp/",
+      "collocations": [
+       "sign up for",
+       "sign up online"
+      ],
+      "examples": [
+       {
+        "en": "I signed up for the speech contest.",
+        "zh": "我報名了演講比賽。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "You can fill out a form at the student office before Friday.",
+   "zh": "你可以在星期五之前到學務處填一張表。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fill out",
+      "inSentence": "fill out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "填寫（表格）",
+      "ipa": "/fɪl aʊt/",
+      "collocations": [
+       "fill out a form",
+       "fill it out"
+      ],
+      "examples": [
+       {
+        "en": "Please fill out this form.",
+        "zh": "請填寫這張表格。"
+       }
+      ]
+     },
+     {
+      "term": "form",
+      "inSentence": "form",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "表格",
+      "ipa": "/fɔrm/",
+      "collocations": [
+       "application form",
+       "sign-up form"
+      ],
+      "examples": [
+       {
+        "en": "I lost my sign-up form.",
+        "zh": "我把報名表弄丟了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "fill out a",
+      "soundsLike": "fi-lou-ta",
+      "note": "子音結尾接母音開頭會連在一起念。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Thanks, Amy, and are you in the guitar club too?",
+   "zh": "謝謝你，Amy，那你也是吉他社的嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "be in a club",
+      "inSentence": "in the guitar club",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "是某社團的成員",
+      "ipa": "/bi ɪn ə klʌb/",
+      "collocations": [
+       "be in the band",
+       "be in a club"
+      ],
+      "examples": [
+       {
+        "en": "My sister is in the dance club.",
+        "zh": "我妹妹是熱舞社的。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "No, I'm in the drama club, but I'll come and watch your first concert!",
+   "zh": "不是，我是戲劇社的，但我會去看你的第一場演出！",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "drama",
+      "inSentence": "drama club",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "戲劇",
+      "ipa": "/ˈdrɑmə/",
+      "collocations": [
+       "drama club",
+       "drama class"
+      ],
+      "examples": [
+       {
+        "en": "We are practicing for the drama show.",
+        "zh": "我們正在為戲劇表演練習。"
+       }
+      ]
+     },
+     {
+      "term": "concert",
+      "inSentence": "concert",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "演奏會；音樂會",
+      "ipa": "/ˈkɑnsɚt/",
+      "collocations": [
+       "go to a concert",
+       "school concert"
+      ],
+      "examples": [
+       {
+        "en": "The concert starts at seven.",
+        "zh": "音樂會七點開始。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "come and + verb",
+      "quote": "come and watch",
+      "explanation": "口語常用 come and ＋原形動詞，表示「來做某事」。",
+      "examples": [
+       {
+        "en": "Come and see my new bike!",
+        "zh": "來看看我的新腳踏車！"
+       }
+      ],
+      "pitfall": "and 後面要用原形，不說 come and watched。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

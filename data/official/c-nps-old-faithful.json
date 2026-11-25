@@ -1,0 +1,824 @@
+{
+ "slug": "c-nps-old-faithful",
+ "series": "classics",
+ "title": "Old Faithful",
+ "titleZh": "老忠實泉",
+ "subtitle": "改寫自美國國家公園管理局：黃石公園最守時的間歇泉",
+ "format": "monologue",
+ "accent": "us",
+ "meta": {
+  "category": "classics",
+  "scenario": "public-article",
+  "level": "intermediate",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "us-government",
+  "name": "National Park Service, Yellowstone National Park",
+  "title": "Old Faithful Geyser",
+  "url": "https://www.nps.gov/articles/old-faithful-geyser.htm",
+  "basis": "Work of the U.S. federal government (National Park Service), 17 U.S.C. §105; retold only from the NPS's own text, not from credited photos or partner content.",
+  "adapted": true
+ },
+ "sentences": [
+  {
+   "en": "Old Faithful is probably the best-known geyser in Yellowstone National Park.",
+   "zh": "老忠實泉大概是黃石國家公園裡最有名的間歇泉。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "National Park",
+      "note": "national park 國家公園；美國的國家公園由聯邦政府管理。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "geyser",
+      "inSentence": "geyser",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "間歇泉",
+      "ipa": "/ˈɡaɪzər/",
+      "collocations": [
+       "a hot geyser",
+       "geyser basin"
+      ],
+      "examples": [
+       {
+        "en": "The geyser shoots water into the air.",
+        "zh": "間歇泉把水噴向空中。"
+       }
+      ]
+     },
+     {
+      "term": "best-known",
+      "inSentence": "best-known",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "最有名的",
+      "ipa": "/ˌbɛstˈnoʊn/",
+      "collocations": [
+       "best-known for"
+      ],
+      "examples": [
+       {
+        "en": "Taipei 101 is the city's best-known building.",
+        "zh": "台北 101 是這座城市最有名的建築。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "A geyser is a hot spring that shoots water and steam high into the air from time to time.",
+   "zh": "間歇泉是一種溫泉，會不時把水和蒸氣高高噴向空中。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "hot spring",
+      "inSentence": "hot spring",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "溫泉",
+      "ipa": "/hɑt sprɪŋ/",
+      "collocations": [
+       "Beitou hot springs"
+      ],
+      "examples": [
+       {
+        "en": "We visited a hot spring in Beitou.",
+        "zh": "我們去了北投的溫泉。"
+       }
+      ]
+     },
+     {
+      "term": "from time to time",
+      "inSentence": "from time to time",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "不時；偶爾",
+      "ipa": "/frʌm taɪm tə taɪm/",
+      "collocations": [
+       "from time to time"
+      ],
+      "examples": [
+       {
+        "en": "I still visit my old school from time to time.",
+        "zh": "我偶爾還會回母校看看。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "defining relative clause",
+      "quote": "a hot spring that shoots water",
+      "explanation": "that 引導限定關係子句，說明是「哪一種」溫泉。",
+      "examples": [
+       {
+        "en": "A dictionary is a book that explains words.",
+        "zh": "字典是解釋字詞的書。"
+       }
+      ],
+      "pitfall": "that 子句的動詞要跟 a hot spring 一致，用單數 shoots。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Old Faithful erupts more often than any of the other big geysers in the park.",
+   "zh": "老忠實泉噴發的頻率，比園區內其他任何大型間歇泉都高。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "erupt",
+      "inSentence": "erupts",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "噴發；爆發",
+      "ipa": "/ɪˈrʌpt/",
+      "collocations": [
+       "erupt again",
+       "volcano erupts"
+      ],
+      "examples": [
+       {
+        "en": "The volcano erupted last year.",
+        "zh": "那座火山去年噴發了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "comparative + than any of the other",
+      "quote": "more often than any of the other big geysers",
+      "explanation": "比較級 + than any of the other + 複數名詞，等於最高級的意思。",
+      "examples": [
+       {
+        "en": "She runs faster than any of the other girls.",
+        "zh": "她跑得比其他女生都快。"
+       }
+      ],
+      "pitfall": "要加 other，否則就把自己也比進去了。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Interestingly, it is not the largest geyser there, and it is not the most regular one either.",
+   "zh": "有趣的是，它並不是那裡最大的間歇泉，也不是最規律的。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "regular",
+      "inSentence": "regular",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "規律的；定期的",
+      "ipa": "/ˈrɛɡjələr/",
+      "collocations": [
+       "regular exercise",
+       "on a regular basis"
+      ],
+      "examples": [
+       {
+        "en": "Regular exercise keeps you healthy.",
+        "zh": "規律運動讓你保持健康。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "not ... either",
+      "quote": "it is not the most regular one either",
+      "explanation": "否定句的「也不」用 either 放句尾；肯定句才用 too。",
+      "examples": [
+       {
+        "en": "I don't like coffee, and my sister doesn't either.",
+        "zh": "我不喜歡咖啡，我姊姊也不喜歡。"
+       }
+      ],
+      "pitfall": "不要在否定句用 too：it is not regular too 是錯的。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "it is not",
+      "soundsLike": "i-diz-not",
+      "note": "美式 t 在母音間彈舌，聽起來像 d。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "On average, visitors wait about ninety minutes between eruptions.",
+   "zh": "平均來說，遊客每兩次噴發之間大約要等 90 分鐘。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "on average",
+      "inSentence": "On average",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "平均來說",
+      "ipa": "/ɑn ˈævərɪdʒ/",
+      "collocations": [
+       "on average"
+      ],
+      "examples": [
+       {
+        "en": "On average, I sleep seven hours a night.",
+        "zh": "我平均每晚睡七小時。"
+       }
+      ]
+     },
+     {
+      "term": "eruption",
+      "inSentence": "eruptions",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "噴發",
+      "ipa": "/ɪˈrʌpʃən/",
+      "collocations": [
+       "a volcanic eruption"
+      ],
+      "examples": [
+       {
+        "en": "The eruption lasted three days.",
+        "zh": "這次噴發持續了三天。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Sometimes the wait is as short as fifty minutes, and sometimes it is more than two hours.",
+   "zh": "有時只要等 50 分鐘，有時則要超過兩個小時。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "wait",
+      "inSentence": "the wait",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "等待的時間",
+      "ipa": "/weɪt/",
+      "collocations": [
+       "a long wait",
+       "worth the wait"
+      ],
+      "examples": [
+       {
+        "en": "The food was worth the wait.",
+        "zh": "這些食物值得等。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "as short as",
+      "quote": "as short as fifty minutes",
+      "explanation": "as + 形容詞 + as + 數字，強調數字之小（或大），例如 as short as、as much as。",
+      "examples": [
+       {
+        "en": "Tickets cost as little as 100 dollars.",
+        "zh": "票價最低只要 100 元。"
+       }
+      ],
+      "pitfall": "聽力時注意 fifty 和 fifteen 的重音：FIF-ty 重音在前，fif-TEEN 重音在後。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Each eruption lasts between one and a half and five minutes.",
+   "zh": "每次噴發持續 1 分半到 5 分鐘。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "between one and a half and five minutes",
+      "note": "between A and B；A 本身是 one and a half，所以出現兩個 and，要聽清楚斷句。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "last",
+      "inSentence": "lasts",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "持續",
+      "ipa": "/læst/",
+      "collocations": [
+       "last for",
+       "last long"
+      ],
+      "examples": [
+       {
+        "en": "The meeting lasted two hours.",
+        "zh": "會議持續了兩個小時。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "During that time, the geyser throws out thousands of gallons of boiling water.",
+   "zh": "在這段時間裡，間歇泉會噴出數千加侖的滾燙熱水。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "gallon",
+      "inSentence": "gallons",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "加侖（約 3.8 公升）",
+      "ipa": "/ˈɡælən/",
+      "collocations": [
+       "a gallon of milk"
+      ],
+      "examples": [
+       {
+        "en": "We bought a gallon of water for the trip.",
+        "zh": "我們為這趟旅行買了一加侖的水。"
+       }
+      ]
+     },
+     {
+      "term": "throw out",
+      "inSentence": "throws out",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "噴出；丟出",
+      "ipa": "/θroʊ aʊt/",
+      "collocations": [
+       "throw out the trash"
+      ],
+      "examples": [
+       {
+        "en": "The fire threw out a lot of smoke.",
+        "zh": "火冒出大量的煙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "thousands of",
+      "soundsLike": "thou-zən-zəv",
+      "note": "thousands 的 s 和 of 連讀，of 弱讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "The water can shoot more than fifty meters into the sky.",
+   "zh": "水柱可以衝上 50 多公尺的高空。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "shoot",
+      "inSentence": "shoot",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "噴射；快速衝出",
+      "ipa": "/ʃut/",
+      "collocations": [
+       "shoot up",
+       "shoot into"
+      ],
+      "examples": [
+       {
+        "en": "Fireworks shot into the night sky.",
+        "zh": "煙火衝上夜空。"
+       }
+      ]
+     },
+     {
+      "term": "more than",
+      "inSentence": "more than fifty meters",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "超過；多於",
+      "ipa": "/mɔr ðæn/",
+      "collocations": [
+       "more than half"
+      ],
+      "examples": [
+       {
+        "en": "More than half of the students passed.",
+        "zh": "超過一半的學生及格了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The geyser got its name in 1870, from members of the Washburn expedition.",
+   "zh": "這座間歇泉在 1870 年，由沃什本探險隊的成員命名。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "expedition",
+      "inSentence": "expedition",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "探險隊；遠征",
+      "ipa": "/ˌɛkspəˈdɪʃən/",
+      "collocations": [
+       "go on an expedition"
+      ],
+      "examples": [
+       {
+        "en": "They joined an expedition to the South Pole.",
+        "zh": "他們加入了前往南極的探險隊。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "year in speech",
+      "quote": "in 1870",
+      "explanation": "四位數年份要兩位兩位念：1870 念成 eighteen seventy。",
+      "examples": [
+       {
+        "en": "My grandfather was born in 1948.",
+        "zh": "我爺爺生於 1948 年（念作 nineteen forty-eight）。"
+       }
+      ],
+      "pitfall": "不要念成 one thousand eight hundred seventy。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "They called it Old Faithful because it kept erupting again and again, as if it were keeping a promise.",
+   "zh": "他們叫它「老忠實」，因為它一次又一次地噴發，彷彿在信守承諾。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "faithful",
+      "inSentence": "Faithful",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "忠實的；可靠的",
+      "ipa": "/ˈfeɪθfəl/",
+      "collocations": [
+       "a faithful friend",
+       "faithful to"
+      ],
+      "examples": [
+       {
+        "en": "My dog is a faithful friend.",
+        "zh": "我的狗是忠實的朋友。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "as if + were",
+      "quote": "as if it were keeping a promise",
+      "explanation": "as if 後面用假設語氣（were），表示「好像…一樣」，其實不是真的。",
+      "examples": [
+       {
+        "en": "He talks as if he were the boss.",
+        "zh": "他說話的樣子好像他是老闆。"
+       }
+      ],
+      "pitfall": "正式用法 as if 後面的 be 動詞用 were，不用 was。"
+     }
+    ],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "kept erupting",
+      "soundsLike": "kep-tə-rup-ting",
+      "note": "kept 的 t 和 erupting 連讀。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Today, the buildings around it are all kept about two hundred meters away, as required by federal law.",
+   "zh": "如今，周圍的建築物都依照聯邦法律的規定，和它保持大約 200 公尺的距離。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "federal",
+      "inSentence": "federal law",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "聯邦的",
+      "ipa": "/ˈfɛdərəl/",
+      "collocations": [
+       "federal government",
+       "federal law"
+      ],
+      "examples": [
+       {
+        "en": "Federal law protects national parks.",
+        "zh": "聯邦法律保護國家公園。"
+       }
+      ]
+     },
+     {
+      "term": "as required by",
+      "inSentence": "as required by",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "依照…的規定",
+      "ipa": "/æz rɪˈkwaɪərd baɪ/",
+      "collocations": [
+       "as required by law"
+      ],
+      "examples": [
+       {
+        "en": "Wear a helmet, as required by law.",
+        "zh": "依法規定要戴安全帽。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "passive with keep",
+      "quote": "are all kept about two hundred meters away",
+      "explanation": "keep + 受詞 + 補語的被動式：建築物被保持在一定距離外。",
+      "examples": [
+       {
+        "en": "The doors are kept locked at night.",
+        "zh": "門在晚上都保持上鎖。"
+       }
+      ],
+      "pitfall": "all 放在 be 動詞後面：are all kept，不要寫成 all are kept 後再加主詞。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Today, the buildings around it",
+      "role": "main",
+      "zh": "如今，周圍的建築物"
+     },
+     {
+      "text": "are all kept about two hundred meters away,",
+      "role": "main",
+      "zh": "都保持大約 200 公尺的距離"
+     },
+     {
+      "text": "as required by federal law.",
+      "role": "modifier",
+      "zh": "依照聯邦法律的規定"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "If you visit, always stay on the boardwalks and marked trails.",
+   "zh": "如果你去參觀，一定要待在木棧道和標示的步道上。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "boardwalk",
+      "inSentence": "boardwalks",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "木棧道",
+      "ipa": "/ˈbɔrdˌwɔk/",
+      "collocations": [
+       "walk on the boardwalk"
+      ],
+      "examples": [
+       {
+        "en": "We walked along the boardwalk by the river.",
+        "zh": "我們沿著河邊的木棧道散步。"
+       }
+      ]
+     },
+     {
+      "term": "trail",
+      "inSentence": "marked trails",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "步道；小徑",
+      "ipa": "/treɪl/",
+      "collocations": [
+       "hiking trail",
+       "marked trail"
+      ],
+      "examples": [
+       {
+        "en": "This trail leads to a waterfall.",
+        "zh": "這條步道通往一座瀑布。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "The water in hydrothermal areas is hot enough to burn you badly.",
+   "zh": "地熱區的水溫高到足以把你嚴重燙傷。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "hydrothermal",
+      "inSentence": "hydrothermal",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "地熱的；熱液的",
+      "ipa": "/ˌhaɪdroʊˈθɜrməl/",
+      "collocations": [
+       "hydrothermal area",
+       "hydrothermal feature"
+      ],
+      "examples": [
+       {
+        "en": "Yellowstone has many hydrothermal features.",
+        "zh": "黃石公園有許多地熱景觀。"
+       }
+      ]
+     },
+     {
+      "term": "burn",
+      "inSentence": "burn you",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "燙傷；燒傷",
+      "ipa": "/bɜrn/",
+      "collocations": [
+       "burn your hand",
+       "get burned"
+      ],
+      "examples": [
+       {
+        "en": "Be careful not to burn your hand.",
+        "zh": "小心不要燙到手。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "adj. + enough to",
+      "quote": "hot enough to burn you",
+      "explanation": "形容詞 + enough + to V，表示「足以…」；enough 放在形容詞後面。",
+      "examples": [
+       {
+        "en": "He is old enough to drive.",
+        "zh": "他已經到了可以開車的年紀。"
+       }
+      ],
+      "pitfall": "不要寫成 enough hot，enough 修飾形容詞時放在後面。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Keep children close, and remember that you are responsible for your own safety.",
+   "zh": "讓孩子待在身邊，並記住你要為自己的安全負責。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "be responsible for",
+      "inSentence": "are responsible for",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "對…負責",
+      "ipa": "/rɪˈspɑnsəbəl fɔr/",
+      "collocations": [
+       "responsible for safety"
+      ],
+      "examples": [
+       {
+        "en": "Each student is responsible for cleaning the classroom.",
+        "zh": "每位學生都要負責打掃教室。"
+       }
+      ]
+     },
+     {
+      "term": "keep close",
+      "inSentence": "Keep children close",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "讓…待在身邊",
+      "ipa": "/kip kloʊs/",
+      "collocations": [
+       "keep your bag close"
+      ],
+      "examples": [
+       {
+        "en": "Keep your bag close on the MRT.",
+        "zh": "搭捷運時包包要放在身邊。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "responsible for",
+      "soundsLike": "ree-spon-sə-bəl-fər",
+      "note": "for 在句中弱讀成 fər。"
+     }
+    ]
+   }
+  }
+ ]
+}

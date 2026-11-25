@@ -1,0 +1,88 @@
+{
+  "id": "gept-essay-useful-app",
+  "type": "gept",
+  "level": "intermediate",
+  "title": {
+    "en": "An App That Helps Me Every Day",
+    "zh": "每天幫助我的一個 App"
+  },
+  "subtitle": "原創模擬題（中級寫作風格）：介紹一個常用的 App 與它的優缺點",
+  "task": "Most people use apps on their phones every day. Write an essay of 120–160 words about an app you use often. In your essay, (1) describe what the app does, (2) explain how it has helped you, and (3) mention one weakness of the app and what you do about it.",
+  "taskZh": "大多數人每天都會用手機 App。請寫一篇 120–160 字的英文短文，介紹一個你常用的 App：(1) 說明它的功能，(2) 說明它怎麼幫助你，(3) 提出它的一個缺點，以及你怎麼因應。",
+  "words": { "min": 120, "max": 160 },
+  "minutes": 25,
+  "focus": [
+    "內容：功能、幫助、缺點三個要求都要寫到",
+    "組織：一個要求一段，段落之間用轉折詞連接",
+    "文法與用字：現在完成式與因果句正確，用字具體",
+    "拼字與標點：拼字正確，句子完整"
+  ],
+  "model": {
+    "en": [
+      "The app I use most often is a free vocabulary app called WordStep. Every day, it gives me ten new English words with example sentences and a short quiz. It also sends me a reminder at nine o'clock every night, so I never forget to practice.",
+      "This app has helped me a lot in the past year. Because I only study for fifteen minutes a day, learning new words no longer feels like a heavy task. My vocabulary has grown so much that I can now read short English news articles without a dictionary. Last month, I even got the highest score in my class on a reading test.",
+      "However, the app is not perfect. It teaches words one by one, but it does not give me many chances to use them in writing. To solve this problem, I have started keeping a notebook where I write a few sentences with the new words every weekend."
+    ],
+    "zh": [
+      "我最常用的 App 是一個叫 WordStep 的免費單字 App。它每天給我 10 個新的英文單字，附上例句和一個小測驗。它每天晚上 9 點也會提醒我，所以我從來不會忘記練習。",
+      "過去一年來，這個 App 幫了我很多。因為我每天只讀 15 分鐘，背新單字不再讓我覺得是沉重的負擔。我的字彙量進步很多，現在不用查字典就能讀懂簡短的英文新聞。上個月，我甚至在閱讀測驗中拿到全班最高分。",
+      "不過，這個 App 並不完美。它一次教一個字，卻沒有給我太多在寫作中使用這些字的機會。為了解決這個問題，我開始準備一本筆記本，每個週末用新學的單字寫幾個句子。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The … I use most often is …",
+      "zh": "開頭直接點出主題",
+      "example": "The app I use most often is a free vocabulary app called WordStep.",
+      "keys": ["i use most often is"]
+    },
+    {
+      "pattern": "Because …, … no longer feels like …",
+      "zh": "說明原因，以及前後感受的改變",
+      "example": "Because I only study for fifteen minutes a day, learning new words no longer feels like a heavy task.",
+      "keys": ["because", "no longer feels like"]
+    },
+    {
+      "pattern": "… so much that …",
+      "zh": "如此……以至於……（說明程度和結果）",
+      "example": "My vocabulary has grown so much that I can now read short English news articles without a dictionary.",
+      "keys": ["so much that"]
+    },
+    {
+      "pattern": "To solve this problem, I have started …ing …",
+      "zh": "針對缺點說明自己的解決方法",
+      "example": "To solve this problem, I have started keeping a notebook where I write a few sentences with the new words every weekend.",
+      "keys": ["to solve this problem", "i have started"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "It sends me a reminder every night.",
+        "I never forget to practice."
+      ],
+      "answer": "It sends me a reminder every night, so I never forget to practice."
+    },
+    {
+      "parts": [
+        "I keep a notebook.",
+        "I write a few sentences with the new words in it every weekend."
+      ],
+      "answer": "I keep a notebook where I write a few sentences with the new words every weekend."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The app is not perfect.",
+      "answers": ["The app has some weaknesses.", "The app still has problems."]
+    },
+    {
+      "sentence": "This app has helped me a lot.",
+      "answers": [
+        "This app has been very useful to me.",
+        "I have benefited a lot from this app."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

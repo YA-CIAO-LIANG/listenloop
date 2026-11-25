@@ -1,0 +1,99 @@
+{
+  "id": "toeic-email-catering-order",
+  "type": "toeic",
+  "level": "advanced",
+  "title": {
+    "en": "Confirming a Catering Order",
+    "zh": "回覆外燴公司的訂餐確認"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：回覆電子郵件，提供兩項資訊並提出一個問題",
+  "task": "Directions: Read the e-mail below. Respond to the e-mail as if you are the person organizing the event. In your e-mail, give TWO pieces of information about the event and ask ONE question.\n\nFrom: Green Table Catering\nTo: Grace Wu\nSubject: Your lunch order for March 14\n\nDear Ms. Wu,\n\nThank you for choosing Green Table Catering for your company's training workshop. Before we can confirm your order, we need a few more details about the event. Please reply at your earliest convenience.\n\nBest wishes,\nOrder Team, Green Table Catering",
+  "taskZh": "你為公司 3 月 14 日的教育訓練向外燴公司 Green Table Catering 訂了午餐，對方來信說確認訂單前還需要一些活動細節。請以活動承辦人 Grace Wu 的身分回信，提供兩項關於活動的資訊，並提出一個問題。",
+  "words": { "min": 100, "max": 150 },
+  "minutes": 10,
+  "focus": [
+    "任務完成：兩項資訊、一個問題都要明確，數字與地點具體",
+    "組織：用 First、Second 列出資訊，問題另起一段",
+    "語氣：正式而有禮，請求用 would it be possible 等委婉說法",
+    "文法與用字：未來式、條件句與商業用語正確"
+  ],
+  "model": {
+    "en": [
+      "Dear Green Table Catering Team,",
+      "Thank you for your quick reply regarding our training workshop on March 14. I am happy to provide the details you need. First, we are expecting 45 participants, about eight of whom follow a vegetarian diet. Second, the workshop will take place in Conference Room B on the fifth floor of our building, and lunch should be ready to serve by 12:15, when the morning session ends.",
+      "I also have one question. Since our company is trying to reduce waste, would it be possible to serve the meal in reusable containers instead of individual lunch boxes? If this option costs more, please let me know the price difference before you confirm the order. I look forward to hearing from you.",
+      "Kind regards, Grace Wu, Training Coordinator, Brightway Logistics"
+    ],
+    "zh": [
+      "Green Table Catering 團隊您好：",
+      "謝謝您很快回覆我們 3 月 14 日教育訓練的相關事宜。我很樂意提供您需要的資訊。首先，我們預計有 45 位學員參加，其中約 8 位吃素。其次，訓練將在本公司大樓 5 樓的 B 會議室舉行，午餐需要在上午課程結束的 12:15 前準備好上菜。",
+      "另外，我有一個問題。由於本公司正在努力減少垃圾，請問能否用可重複使用的容器盛裝餐點，而不是一人一個便當盒？如果這個選項費用較高，請在確認訂單前告訴我價差。期待您的回覆。",
+      "Brightway Logistics 教育訓練專員 吳佳穎 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Thank you for your quick reply regarding …",
+      "zh": "回信開頭：感謝對方回覆並點出主題",
+      "example": "Thank you for your quick reply regarding our training workshop on March 14.",
+      "keys": ["thank you for", "regarding"]
+    },
+    {
+      "pattern": "…, about eight of whom …",
+      "zh": "用 of whom 補充其中一部分人的情況",
+      "example": "First, we are expecting 45 participants, about eight of whom follow a vegetarian diet.",
+      "keys": ["first", "of whom"]
+    },
+    {
+      "pattern": "Would it be possible to … instead of …?",
+      "zh": "委婉地詢問能否改用另一種做法",
+      "example": "Since our company is trying to reduce waste, would it be possible to serve the meal in reusable containers instead of individual lunch boxes?",
+      "keys": ["would it be possible to", "instead of"]
+    },
+    {
+      "pattern": "If …, please let me know … before …",
+      "zh": "設想可能的情況，並請對方事先告知",
+      "example": "If this option costs more, please let me know the price difference before you confirm the order.",
+      "keys": ["if", "please let me know", "before"]
+    },
+    {
+      "pattern": "I look forward to hearing from you.",
+      "zh": "正式書信的結尾：期待您的回覆",
+      "example": "I look forward to hearing from you.",
+      "keys": ["look forward to hearing from you"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "We are expecting 45 participants.",
+        "About eight of them follow a vegetarian diet."
+      ],
+      "answer": "We are expecting 45 participants, about eight of whom follow a vegetarian diet."
+    },
+    {
+      "parts": [
+        "Lunch should be ready to serve by 12:15.",
+        "The morning session ends at that time."
+      ],
+      "answer": "Lunch should be ready to serve by 12:15, when the morning session ends."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The workshop will take place in Conference Room B.",
+      "answers": [
+        "The workshop will be held in Conference Room B.",
+        "Conference Room B is where the workshop will be."
+      ]
+    },
+    {
+      "sentence": "Please let me know the price difference.",
+      "answers": [
+        "Please tell me how much more it would cost.",
+        "Could you inform me of the difference in price?"
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

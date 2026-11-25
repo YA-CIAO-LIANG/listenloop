@@ -1,0 +1,817 @@
+{
+ "slug": "e-changing-a-lab-section",
+ "series": "exam",
+ "title": "Changing a Lab Section",
+ "titleZh": "更換實驗課時段",
+ "subtitle": "托福風格校園對話：打工時間和化學實驗課撞期，學生到系辦換組",
+ "format": "dialogue",
+ "accent": "us",
+ "meta": {
+  "category": "exam",
+  "scenario": "toefl-campus",
+  "level": "intermediate",
+  "exam": "toefl",
+  "examTarget": "toefl-80"
+ },
+ "source": {
+  "kind": "original"
+ },
+ "sentences": [
+  {
+   "en": "Hi, is this where I can ask about switching my chemistry lab section?",
+   "zh": "你好，請問換化學實驗課的時段是在這裡問嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [
+     {
+      "text": "switching my chemistry lab section",
+      "note": "開場就點出來意：換實驗課時段，是托福校園對話常見的主題句。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "switch",
+      "inSentence": "switching",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "更換；轉換",
+      "ipa": "/swɪtʃ/",
+      "collocations": [
+       "switch to",
+       "switch sections"
+      ],
+      "examples": [
+       {
+        "en": "I switched to the morning class.",
+        "zh": "我換到早上的班了。"
+       }
+      ]
+     },
+     {
+      "term": "section",
+      "inSentence": "section",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（課程的）班別、時段",
+      "ipa": "/ˈsɛkʃən/",
+      "collocations": [
+       "lab section",
+       "discussion section"
+      ],
+      "examples": [
+       {
+        "en": "Which section of biology are you in?",
+        "zh": "你上的是生物課的哪一班？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Yes, it is. What seems to be the problem with the one you're in now?",
+   "zh": "對，是這裡。你現在那一組有什麼問題嗎？",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "what seems to be the problem",
+      "inSentence": "What seems to be the problem",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "有什麼問題嗎（客氣的問法）",
+      "ipa": "/wʌt simz tə bi ðə ˈprɑbləm/",
+      "collocations": [
+       "what seems to be the trouble"
+      ],
+      "examples": [
+       {
+        "en": "What seems to be the problem with your laptop?",
+        "zh": "你的筆電有什麼問題嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "the one you're in",
+      "soundsLike": "the one yer in",
+      "note": "you're 弱讀成 /jər/，和 in 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "I got a part-time job at the campus library, and my shift starts at two on Thursdays.",
+   "zh": "我在校園圖書館找到一份兼職，星期四的班是兩點開始。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "my shift starts at two on Thursdays",
+      "note": "衝突的關鍵資訊：週四兩點要上班。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "part-time",
+      "inSentence": "part-time",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "兼職的",
+      "ipa": "/ˌpɑrtˈtaɪm/",
+      "collocations": [
+       "part-time job",
+       "work part-time"
+      ],
+      "examples": [
+       {
+        "en": "Many students work part-time.",
+        "zh": "很多學生都在打工。"
+       }
+      ]
+     },
+     {
+      "term": "shift",
+      "inSentence": "shift",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "輪班；班次",
+      "ipa": "/ʃɪft/",
+      "collocations": [
+       "night shift",
+       "work a shift"
+      ],
+      "examples": [
+       {
+        "en": "My shift ends at ten.",
+        "zh": "我的班十點結束。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "got a",
+      "soundsLike": "gotta",
+      "note": "got 的 t 閃音化，和 a 連成 /ˈɡɑɾə/。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "And your lab runs Thursday afternoons, I'm guessing.",
+   "zh": "我猜，你的實驗課是在星期四下午吧。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "run",
+      "inSentence": "runs",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "（活動、課程）進行；舉行",
+      "ipa": "/rʌn/",
+      "collocations": [
+       "run from ... to ...",
+       "run late"
+      ],
+      "examples": [
+       {
+        "en": "The workshop runs every Monday.",
+        "zh": "工作坊每週一舉行。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Tag-like comment at the end",
+      "quote": "I'm guessing",
+      "explanation": "把 I'm guessing 放在句尾，是口語中表示「我猜是這樣吧」的附加說法，語氣比較輕鬆。",
+      "examples": [
+       {
+        "en": "You're new here, I'm guessing.",
+        "zh": "我猜你是新來的吧。"
+       }
+      ],
+      "pitfall": "不要寫成 I'm guess；guess 在這裡要用進行式 guessing。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Exactly, from one to four, so there's no way I can do both.",
+   "zh": "沒錯，從一點到四點，所以我不可能兩個都顧到。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "there's no way",
+      "inSentence": "there's no way",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "不可能",
+      "ipa": "/ðɛrz noʊ weɪ/",
+      "collocations": [
+       "there's no way I can",
+       "no way"
+      ],
+      "examples": [
+       {
+        "en": "There's no way I can finish this today.",
+        "zh": "我今天不可能做完這個。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "from one to four",
+      "soundsLike": "frum wun ta four",
+      "note": "from、to 都是功能字，弱讀成 /frəm/、/tə/。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Well, the Tuesday morning section still has a couple of open seats.",
+   "zh": "嗯，星期二早上那一組還有幾個空位。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "a couple of open seats",
+      "note": "解決方案出現：週二早上還有空位。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "a couple of",
+      "inSentence": "a couple of",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "兩三個；幾個",
+      "ipa": "/ə ˈkʌpəl əv/",
+      "collocations": [
+       "a couple of days",
+       "a couple of times"
+      ],
+      "examples": [
+       {
+        "en": "I'll be back in a couple of minutes.",
+        "zh": "我幾分鐘後回來。"
+       }
+      ]
+     },
+     {
+      "term": "open seat",
+      "inSentence": "open seats",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "空位；名額",
+      "ipa": "/ˈoʊpən sit/",
+      "collocations": [
+       "have open seats"
+      ],
+      "examples": [
+       {
+        "en": "Are there any open seats in this class?",
+        "zh": "這堂課還有名額嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "couple of",
+      "soundsLike": "cuppla",
+      "note": "of 弱讀成 /ə/，和 couple 連成一個音。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "Tuesday morning would be perfect, actually, since I don't have any classes until noon.",
+   "zh": "其實星期二早上剛好，因為我中午以前都沒有課。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "actually",
+      "inSentence": "actually",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "其實；事實上",
+      "ipa": "/ˈæktʃuəli/",
+      "collocations": [
+       "actually, I ..."
+      ],
+      "examples": [
+       {
+        "en": "Actually, I prefer tea.",
+        "zh": "其實我比較喜歡茶。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "since = because",
+      "quote": "since I don't have any classes",
+      "explanation": "since 在這裡表示原因，等於 because，常用於說明對方也能理解的理由。",
+      "examples": [
+       {
+        "en": "Let's eat in, since it's raining.",
+        "zh": "既然在下雨，我們就在家吃吧。"
+       }
+      ],
+      "pitfall": "since 也可表示「自從」，要看後面接的是原因還是時間點。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Before I move you, though, you'll need a signature from your lab instructor.",
+   "zh": "不過在幫你換之前，你需要實驗課老師的簽名。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [
+     {
+      "text": "you'll need a signature",
+      "note": "轉折：換組有條件，這是考題常問的「下一步要做什麼」。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "signature",
+      "inSentence": "signature",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "簽名",
+      "ipa": "/ˈsɪɡnətʃər/",
+      "collocations": [
+       "get a signature",
+       "need a signature"
+      ],
+      "examples": [
+       {
+        "en": "The form needs your signature.",
+        "zh": "這張表需要你的簽名。"
+       }
+      ]
+     },
+     {
+      "term": "instructor",
+      "inSentence": "instructor",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "授課老師；講師",
+      "ipa": "/ɪnˈstrʌktər/",
+      "collocations": [
+       "lab instructor",
+       "course instructor"
+      ],
+      "examples": [
+       {
+        "en": "Ask your instructor for help.",
+        "zh": "去請你的老師幫忙。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "though at the end",
+      "quote": "though",
+      "explanation": "though 放在句中或句尾當副詞，意思是「不過」，用來帶出轉折。",
+      "examples": [
+       {
+        "en": "The food was good. It was expensive, though.",
+        "zh": "東西很好吃，不過很貴。"
+       }
+      ],
+      "pitfall": "句尾的 though 前面要加逗號，不能直接接子句。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Oh, I didn't realize that. Is it just a formality?",
+   "zh": "喔，我不知道要這樣。這只是走個形式嗎？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "realize",
+      "inSentence": "realize",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "意識到；知道",
+      "ipa": "/ˈriəˌlaɪz/",
+      "collocations": [
+       "didn't realize",
+       "realize that"
+      ],
+      "examples": [
+       {
+        "en": "I didn't realize it was so late.",
+        "zh": "我沒發現已經這麼晚了。"
+       }
+      ]
+     },
+     {
+      "term": "formality",
+      "inSentence": "formality",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "形式上的手續",
+      "ipa": "/fɔrˈmæləti/",
+      "collocations": [
+       "just a formality"
+      ],
+      "examples": [
+       {
+        "en": "The interview is just a formality.",
+        "zh": "面試只是走個形式。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Mostly, but each instructor tracks the experiments you've already finished, so the records have to be transferred.",
+   "zh": "大致上是，但每位老師都會記錄你已經做完的實驗，所以紀錄必須轉過去。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "track",
+      "inSentence": "tracks",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "追蹤；記錄",
+      "ipa": "/træk/",
+      "collocations": [
+       "track progress",
+       "keep track of"
+      ],
+      "examples": [
+       {
+        "en": "The app tracks how much you walk.",
+        "zh": "這個 app 會記錄你走了多少路。"
+       }
+      ]
+     },
+     {
+      "term": "transfer",
+      "inSentence": "transferred",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "轉移；轉交",
+      "ipa": "/trænsˈfɝ/",
+      "collocations": [
+       "transfer records",
+       "transfer to"
+      ],
+      "examples": [
+       {
+        "en": "My file was transferred to the new office.",
+        "zh": "我的資料已轉到新辦公室。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "Passive with have to",
+      "quote": "have to be transferred",
+      "explanation": "have to be + 過去分詞表示「必須被…」，強調動作要完成，而不是誰來做。",
+      "examples": [
+       {
+        "en": "The forms have to be signed today.",
+        "zh": "這些表格今天一定要簽好。"
+       }
+      ],
+      "pitfall": "不要漏掉 be，寫成 have to transferred 是錯的。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Mostly,",
+      "role": "connector",
+      "zh": "大致上是，"
+     },
+     {
+      "text": "but each instructor tracks the experiments",
+      "role": "main",
+      "zh": "但每位老師都會記錄實驗"
+     },
+     {
+      "text": "you've already finished,",
+      "role": "modifier",
+      "zh": "你已經完成的"
+     },
+     {
+      "text": "so the records have to be transferred.",
+      "role": "subordinate",
+      "zh": "所以紀錄必須轉過去。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "That makes sense. I've already done two experiments with my current group.",
+   "zh": "有道理。我已經跟現在的組員做了兩個實驗。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "make sense",
+      "inSentence": "makes sense",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "合理；說得通",
+      "ipa": "/meɪk sɛns/",
+      "collocations": [
+       "that makes sense",
+       "make sense of"
+      ],
+      "examples": [
+       {
+        "en": "Your plan makes sense to me.",
+        "zh": "我覺得你的計畫很合理。"
+       }
+      ]
+     },
+     {
+      "term": "current",
+      "inSentence": "current",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "現在的；目前的",
+      "ipa": "/ˈkɝənt/",
+      "collocations": [
+       "current job",
+       "current address"
+      ],
+      "examples": [
+       {
+        "en": "What is your current address?",
+        "zh": "你現在的地址是什麼？"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "Then bring the signed form back here by Friday, and I'll hold one of those seats for you until then.",
+   "zh": "那你星期五以前把簽好的表拿回來這裡，在那之前我會幫你保留一個位子。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [
+     {
+      "text": "by Friday",
+      "note": "期限是星期五，by 表示「在…之前」，聽力題常考。"
+     }
+    ],
+    "vocab": [
+     {
+      "term": "hold",
+      "inSentence": "hold",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "保留",
+      "ipa": "/hoʊld/",
+      "collocations": [
+       "hold a seat",
+       "hold a room"
+      ],
+      "examples": [
+       {
+        "en": "Can you hold this table for us?",
+        "zh": "你可以幫我們保留這張桌子嗎？"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "by vs. until",
+      "quote": "by Friday",
+      "explanation": "by 是「最晚在…之前完成」，until 是「一直持續到…」。這句兩個都用到了。",
+      "examples": [
+       {
+        "en": "Finish it by noon. I'll wait until noon.",
+        "zh": "中午前做完。我會等到中午。"
+       }
+      ],
+      "pitfall": "別把 by Friday 說成 until Friday，意思會變成「一直帶著表到週五」。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Then bring the signed form back here",
+      "role": "main",
+      "zh": "那就把簽好的表拿回這裡"
+     },
+     {
+      "text": "by Friday,",
+      "role": "modifier",
+      "zh": "在星期五以前，"
+     },
+     {
+      "text": "and I'll hold one of those seats for you",
+      "role": "main",
+      "zh": "我會幫你保留一個位子"
+     },
+     {
+      "text": "until then.",
+      "role": "modifier",
+      "zh": "直到那時。"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Great, and where do I get the form?",
+   "zh": "太好了，那表格要去哪裡拿？",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "form",
+      "inSentence": "form",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "表格",
+      "ipa": "/fɔrm/",
+      "collocations": [
+       "fill out a form",
+       "sign a form"
+      ],
+      "examples": [
+       {
+        "en": "Please fill out this form.",
+        "zh": "請填寫這張表格。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "You can download it from the department website, or just take one from the tray by the door.",
+   "zh": "你可以從系上網站下載，或直接在門邊的文件盤拿一張。",
+   "speaker": 1,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "department",
+      "inSentence": "department",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "（大學的）系；部門",
+      "ipa": "/dɪˈpɑrtmənt/",
+      "collocations": [
+       "department office",
+       "history department"
+      ],
+      "examples": [
+       {
+        "en": "The math department is on the third floor.",
+        "zh": "數學系在三樓。"
+       }
+      ]
+     },
+     {
+      "term": "tray",
+      "inSentence": "tray",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "盤子；文件盤",
+      "ipa": "/treɪ/",
+      "collocations": [
+       "paper tray",
+       "a tray of food"
+      ],
+      "examples": [
+       {
+        "en": "Leave your homework in the tray.",
+        "zh": "把作業放在文件盤裡。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": [
+     {
+      "text": "take one",
+      "soundsLike": "tay-kwun",
+      "note": "take 的 k 和 one 連在一起。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "I'll take one now. Thanks so much for your help.",
+   "zh": "那我現在拿一張。非常謝謝你的幫忙。",
+   "speaker": 0,
+   "notes": {
+    "v": 2,
+    "difficulty": "easy",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "thanks so much",
+      "inSentence": "Thanks so much",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "非常感謝",
+      "ipa": "/θæŋks soʊ mʌtʃ/",
+      "collocations": [
+       "thanks so much for"
+      ],
+      "examples": [
+       {
+        "en": "Thanks so much for coming.",
+        "zh": "非常謝謝你來。"
+       }
+      ]
+     }
+    ],
+    "grammar": [],
+    "chunks": [],
+    "connected": []
+   }
+  }
+ ]
+}

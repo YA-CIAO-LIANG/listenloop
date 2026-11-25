@@ -72,7 +72,7 @@ export const WRITING_TYPE_CONFIG: Readonly<
   gept: { group: "exam", rubric: "gept" },
   gsat: { group: "exam", rubric: "gsat" },
   // Scored by the general rubric: a new rubric would change the review
-  // prompt and need a new writing eval recording (D212).
+  // prompt and need a new writing eval recording (D213).
   toeic: { group: "exam", rubric: "general" },
   cap: { group: "exam", rubric: "general" },
 };

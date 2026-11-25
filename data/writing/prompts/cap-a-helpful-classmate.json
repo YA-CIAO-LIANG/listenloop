@@ -1,0 +1,81 @@
+{
+  "id": "cap-a-helpful-classmate",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "A Classmate Who Helped Me",
+    "zh": "一位幫助過我的同學"
+  },
+  "subtitle": "國中程度引導式短文：回答三個問題，寫一位幫助過你的同學",
+  "task": "Write a short passage of 60–100 words about a classmate who once helped you. Your passage should answer these questions: (1) Who is this classmate? (2) How did he or she help you? (3) How did you feel, and what did you do after that?",
+  "taskZh": "寫一篇 60–100 字的英文短文，介紹一位曾經幫助過你的同學。短文要回答三個問題：(1) 這位同學是誰？(2) 他／她怎麼幫助你？(3) 你當時有什麼感受？之後你做了什麼？",
+  "words": { "min": 60, "max": 100 },
+  "minutes": 15,
+  "focus": [
+    "內容：三個問題都要回答到",
+    "文法：過去發生的事用過去式，動詞變化正確",
+    "連接詞：用 because、when、so 讓句子連貫",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "My classmate Kevin sits next to me in class. Last semester, I was sick for a week and missed many math lessons. When I came back to school, I felt worried because I did not understand the new lessons. Kevin lent me his notes and explained the hard parts to me after school. Thanks to his help, I got a good grade on the next test. I felt very thankful, so I bought him a cup of bubble tea. Now I also try to help others when they need it."
+    ],
+    "zh": [
+      "我的同學凱文上課時坐在我旁邊。上學期，我生病了一個星期，錯過了很多堂數學課。我回到學校時很擔心，因為我聽不懂新教的內容。凱文把他的筆記借給我，還在放學後教我比較難的部分。多虧他的幫忙，我下一次考試考得很好。我非常感謝他，所以請他喝了一杯珍珠奶茶。現在，別人需要幫忙時，我也會試著幫助他們。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "When I …, I felt … because …",
+      "zh": "說明某個時候的感受和原因",
+      "example": "When I came back to school, I felt worried because I did not understand the new lessons.",
+      "keys": ["when i", "i felt", "because"]
+    },
+    {
+      "pattern": "lent me … and explained … to me",
+      "zh": "用 and 連接兩個幫忙的動作",
+      "example": "Kevin lent me his notes and explained the hard parts to me after school.",
+      "keys": ["lent me", "and explained"]
+    },
+    {
+      "pattern": "Thanks to …, I …",
+      "zh": "多虧了……，我才……",
+      "example": "Thanks to his help, I got a good grade on the next test.",
+      "keys": ["thanks to"]
+    },
+    {
+      "pattern": "I felt …, so I …",
+      "zh": "先說感受，再用 so 說出因此做了什麼",
+      "example": "I felt very thankful, so I bought him a cup of bubble tea.",
+      "keys": ["i felt", "so i"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I was sick for a week.", "I missed many math lessons."],
+      "answer": "I was sick for a week and missed many math lessons."
+    },
+    {
+      "parts": ["I felt very thankful.", "I bought him a cup of bubble tea."],
+      "answer": "I felt very thankful, so I bought him a cup of bubble tea."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I got a good grade on the next test.",
+      "answers": [
+        "I did well on the next test.",
+        "I got a high score on the next test."
+      ]
+    },
+    {
+      "sentence": "I did not understand the new lessons.",
+      "answers": [
+        "The new lessons were hard for me to understand.",
+        "I could not follow the new lessons."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

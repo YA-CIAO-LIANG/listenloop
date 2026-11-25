@@ -1,0 +1,1015 @@
+{
+ "slug": "c-lincoln-gettysburg-address",
+ "series": "classics",
+ "title": "The Gettysburg Address",
+ "titleZh": "蓋茲堡演說",
+ "subtitle": "原文節錄：林肯 1863 年蓋茲堡演說全文（布利斯版本）",
+ "format": "monologue",
+ "accent": "us",
+ "meta": {
+  "category": "classics",
+  "scenario": "historic-speech",
+  "level": "advanced",
+  "exam": null,
+  "examTarget": null
+ },
+ "source": {
+  "kind": "public-domain",
+  "name": "Abraham Lincoln, Gettysburg Address (Bliss copy), November 19, 1863",
+  "title": "Gettysburg Address",
+  "url": "https://www.loc.gov/exhibits/gettysburg-address/",
+  "basis": "Delivered and published 1863; public domain.",
+  "adapted": false
+ },
+ "sentences": [
+  {
+   "en": "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.",
+   "zh": "八十七年前，我們的先輩在這片大陸上建立了一個新的國家，它孕育於自由之中，並致力於人人生而平等的理念。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "score",
+      "inSentence": "Four score",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "二十（古語）",
+      "ipa": "/skɔr/",
+      "collocations": [
+       "four score",
+       "three score"
+      ],
+      "examples": [
+       {
+        "en": "Four score is eighty.",
+        "zh": "四個二十就是八十。"
+       }
+      ]
+     },
+     {
+      "term": "bring forth",
+      "inSentence": "brought forth",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "創造；產生（文言）",
+      "ipa": "/brɪŋ fɔrθ/",
+      "collocations": [
+       "bring forth new ideas"
+      ],
+      "examples": [
+       {
+        "en": "The spring brought forth new flowers.",
+        "zh": "春天帶來了新的花朵。"
+       }
+      ]
+     },
+     {
+      "term": "proposition",
+      "inSentence": "proposition",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "主張；命題",
+      "ipa": "/ˌprɑpəˈzɪʃən/",
+      "collocations": [
+       "the proposition that"
+      ],
+      "examples": [
+       {
+        "en": "We start from the proposition that everyone can learn.",
+        "zh": "我們從「人人都能學習」這個前提出發。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "past participle phrases",
+      "quote": "conceived in Liberty, and dedicated to the proposition",
+      "explanation": "conceived 和 dedicated 都是過去分詞，補充說明 a new nation 的特質。",
+      "examples": [
+       {
+        "en": "It was a school built by volunteers and run by parents.",
+        "zh": "那是一所由志工興建、家長經營的學校。"
+       }
+      ],
+      "pitfall": "不要誤以為 conceived 是主要動詞；主要動詞是 brought forth。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Four score and seven years ago",
+      "role": "modifier",
+      "zh": "八十七年前"
+     },
+     {
+      "text": "our fathers brought forth on this continent, a new nation,",
+      "role": "main",
+      "zh": "我們的先輩在這片大陸上建立了新國家"
+     },
+     {
+      "text": "conceived in Liberty,",
+      "role": "modifier",
+      "zh": "孕育於自由"
+     },
+     {
+      "text": "and dedicated to the proposition",
+      "role": "modifier",
+      "zh": "並致力於這個理念"
+     },
+     {
+      "text": "that all men are created equal.",
+      "role": "subordinate",
+      "zh": "人人生而平等"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "Now we are engaged in a great civil war, testing whether that nation, or any nation so conceived and so dedicated, can long endure.",
+   "zh": "如今我們正投入一場偉大的內戰，考驗著那個國家，或任何如此孕育、如此奉獻的國家，能否長久存續。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "be engaged in",
+      "inSentence": "are engaged in",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "從事；投入於",
+      "ipa": "/ɪnˈɡeɪdʒd ɪn/",
+      "collocations": [
+       "engaged in a war",
+       "engaged in research"
+      ],
+      "examples": [
+       {
+        "en": "The two teams were engaged in a long debate.",
+        "zh": "兩隊陷入一場漫長的辯論。"
+       }
+      ]
+     },
+     {
+      "term": "endure",
+      "inSentence": "endure",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "持久；存續",
+      "ipa": "/ɪnˈdʊr/",
+      "collocations": [
+       "long endure",
+       "endure pain"
+      ],
+      "examples": [
+       {
+        "en": "Their friendship endured for fifty years.",
+        "zh": "他們的友誼持續了五十年。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "whether clause",
+      "quote": "testing whether that nation ... can long endure",
+      "explanation": "whether 引導名詞子句，表示「是否」，作為 testing 的受詞。",
+      "examples": [
+       {
+        "en": "The test shows whether you are ready.",
+        "zh": "這個測驗顯示你是否準備好了。"
+       }
+      ],
+      "pitfall": "whether 子句用直述句語序：whether it can endure，不是 whether can it endure。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "Now we are engaged in a great civil war,",
+      "role": "main",
+      "zh": "如今我們投入一場偉大的內戰"
+     },
+     {
+      "text": "testing whether that nation,",
+      "role": "modifier",
+      "zh": "考驗那個國家"
+     },
+     {
+      "text": "or any nation so conceived and so dedicated,",
+      "role": "modifier",
+      "zh": "或任何如此孕育、如此奉獻的國家"
+     },
+     {
+      "text": "can long endure.",
+      "role": "subordinate",
+      "zh": "能否長久存續"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "We are met on a great battle-field of that war.",
+   "zh": "我們聚集在這場戰爭的一個偉大戰場上。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "battle-field",
+      "inSentence": "battle-field",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "戰場",
+      "ipa": "/ˈbætlˌfild/",
+      "collocations": [
+       "on the battlefield"
+      ],
+      "examples": [
+       {
+        "en": "Many soldiers died on that battlefield.",
+        "zh": "許多士兵死在那個戰場上。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "old-fashioned 'are met'",
+      "quote": "We are met",
+      "explanation": "We are met 是古典用法，等於現代的 We have met 或 We have gathered，表示「我們聚集於此」。",
+      "examples": [
+       {
+        "en": "We are gathered here today to remember them.",
+        "zh": "我們今天聚集在此紀念他們。"
+       }
+      ],
+      "pitfall": "這不是被動語態「被遇見」，現代口語不要模仿這個說法。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "We have come to dedicate a portion of that field, as a final resting place for those who here gave their lives that that nation might live.",
+   "zh": "我們來此，是為了將這片戰場的一部分，獻給在此為國捐軀、讓國家得以存續的人們，作為他們最後的安息之地。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "portion",
+      "inSentence": "portion",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "部分",
+      "ipa": "/ˈpɔrʃən/",
+      "collocations": [
+       "a large portion of"
+      ],
+      "examples": [
+       {
+        "en": "A portion of the money goes to charity.",
+        "zh": "部分款項捐給慈善機構。"
+       }
+      ]
+     },
+     {
+      "term": "resting place",
+      "inSentence": "final resting place",
+      "kind": "phrase",
+      "pos": "n.",
+      "zh": "安息之地；墓地",
+      "ipa": "/ˈrɛstɪŋ pleɪs/",
+      "collocations": [
+       "final resting place"
+      ],
+      "examples": [
+       {
+        "en": "This hill is his final resting place.",
+        "zh": "這座山丘是他最後的安息之地。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "that ... might (purpose)",
+      "quote": "that that nation might live",
+      "explanation": "that + 主詞 + might 是較正式的目的子句，等於 so that the nation might live。第一個 that 是連接詞，第二個是指示詞「那個」。",
+      "examples": [
+       {
+        "en": "They worked hard that their children might have a better life.",
+        "zh": "他們努力工作，好讓孩子能過更好的生活。"
+       }
+      ],
+      "pitfall": "聽到 that that 不要以為是口誤，兩個 that 功能不同。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "We have come to dedicate a portion of that field,",
+      "role": "main",
+      "zh": "我們來此獻出這片戰場的一部分"
+     },
+     {
+      "text": "as a final resting place",
+      "role": "modifier",
+      "zh": "作為最後的安息之地"
+     },
+     {
+      "text": "for those who here gave their lives",
+      "role": "subordinate",
+      "zh": "給在此獻出生命的人"
+     },
+     {
+      "text": "that that nation might live.",
+      "role": "subordinate",
+      "zh": "好讓國家得以存續"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "It is altogether fitting and proper that we should do this.",
+   "zh": "我們這樣做，是完全合宜且正當的。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "medium",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "fitting",
+      "inSentence": "fitting",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "合適的；恰當的",
+      "ipa": "/ˈfɪtɪŋ/",
+      "collocations": [
+       "a fitting end",
+       "fitting tribute"
+      ],
+      "examples": [
+       {
+        "en": "It was a fitting end to a great day.",
+        "zh": "那是美好一天的完美結尾。"
+       }
+      ]
+     },
+     {
+      "term": "altogether",
+      "inSentence": "altogether",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "完全地；全然",
+      "ipa": "/ˌɔltəˈɡɛðər/",
+      "collocations": [
+       "altogether different"
+      ],
+      "examples": [
+       {
+        "en": "That is an altogether different problem.",
+        "zh": "那是完全不同的問題。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "it is + adj. + that ... should",
+      "quote": "fitting and proper that we should do this",
+      "explanation": "表示「恰當、必要」的形容詞後面的 that 子句常用 should + 原形動詞。",
+      "examples": [
+       {
+        "en": "It is important that everyone should vote.",
+        "zh": "每個人都去投票是很重要的。"
+       }
+      ],
+      "pitfall": "should 後面要接原形動詞，不要寫 should does。"
+     }
+    ],
+    "chunks": [],
+    "connected": []
+   }
+  },
+  {
+   "en": "But, in a larger sense, we can not dedicate—we can not consecrate—we can not hallow—this ground.",
+   "zh": "但從更廣的意義來說，我們無法奉獻、無法祝聖、也無法使這片土地神聖。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "consecrate",
+      "inSentence": "consecrate",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "使神聖；祝聖",
+      "ipa": "/ˈkɑnsəˌkreɪt/",
+      "collocations": [
+       "consecrate a church"
+      ],
+      "examples": [
+       {
+        "en": "The bishop consecrated the new church.",
+        "zh": "主教為新教堂祝聖。"
+       }
+      ]
+     },
+     {
+      "term": "hallow",
+      "inSentence": "hallow",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "使神聖；尊崇",
+      "ipa": "/ˈhæloʊ/",
+      "collocations": [
+       "hallowed ground"
+      ],
+      "examples": [
+       {
+        "en": "This is hallowed ground for many families.",
+        "zh": "對許多家庭來說，這是神聖之地。"
+       }
+      ]
+     },
+     {
+      "term": "in a larger sense",
+      "inSentence": "in a larger sense",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "從更廣的意義上說",
+      "ipa": "/ɪn ə ˈlɑrdʒər sɛns/",
+      "collocations": [
+       "in a sense",
+       "in a broader sense"
+      ],
+      "examples": [
+       {
+        "en": "In a larger sense, this is everyone's problem.",
+        "zh": "從更廣的意義來看，這是每個人的問題。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "repetition for emphasis",
+      "quote": "we can not dedicate—we can not consecrate—we can not hallow",
+      "explanation": "演說中用三個意思越來越強的動詞重複排列，加強情感與節奏，這叫做排比。",
+      "examples": [
+       {
+        "en": "We will not stop, we will not rest, we will not give up.",
+        "zh": "我們不會停下、不會休息、不會放棄。"
+       }
+      ],
+      "pitfall": "寫一般文章時不要過度使用，排比適合演說和需要強調的段落。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "But, in a larger sense,",
+      "role": "connector",
+      "zh": "但從更廣的意義來說"
+     },
+     {
+      "text": "we can not dedicate",
+      "role": "main",
+      "zh": "我們無法奉獻"
+     },
+     {
+      "text": "we can not consecrate",
+      "role": "main",
+      "zh": "我們無法祝聖"
+     },
+     {
+      "text": "we can not hallow",
+      "role": "main",
+      "zh": "我們無法使之神聖"
+     },
+     {
+      "text": "this ground.",
+      "role": "main",
+      "zh": "這片土地"
+     }
+    ],
+    "connected": [
+     {
+      "text": "can not",
+      "soundsLike": "kæn-nɑt",
+      "note": "演說中刻意分開念 can not，加重否定語氣。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "The brave men, living and dead, who struggled here, have consecrated it, far above our poor power to add or detract.",
+   "zh": "在此奮戰過的勇士們，無論生者或死者，早已使這片土地神聖，遠非我們微薄的力量所能增減。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "detract",
+      "inSentence": "detract",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "減損；貶低",
+      "ipa": "/dɪˈtrækt/",
+      "collocations": [
+       "detract from"
+      ],
+      "examples": [
+       {
+        "en": "The noise detracted from the music.",
+        "zh": "噪音讓音樂打了折扣。"
+       }
+      ]
+     },
+     {
+      "term": "struggle",
+      "inSentence": "struggled",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "奮鬥；搏鬥",
+      "ipa": "/ˈstrʌɡəl/",
+      "collocations": [
+       "struggle for",
+       "struggle with"
+      ],
+      "examples": [
+       {
+        "en": "They struggled to keep the shop open.",
+        "zh": "他們努力讓店撐下去。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "far above",
+      "quote": "far above our poor power to add or detract",
+      "explanation": "far above 表示「遠超過」；poor 在這裡是「微薄的」，不是「貧窮」。",
+      "examples": [
+       {
+        "en": "His skill is far above mine.",
+        "zh": "他的技術遠遠超過我。"
+       }
+      ],
+      "pitfall": "不要把 poor power 翻成「窮的力量」，這是謙虛的說法。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "The brave men, living and dead,",
+      "role": "main",
+      "zh": "勇士們，無論生者或死者"
+     },
+     {
+      "text": "who struggled here,",
+      "role": "subordinate",
+      "zh": "曾在此奮戰"
+     },
+     {
+      "text": "have consecrated it,",
+      "role": "main",
+      "zh": "已使它神聖"
+     },
+     {
+      "text": "far above our poor power to add or detract.",
+      "role": "modifier",
+      "zh": "遠非我們微薄的力量所能增減"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "The world will little note, nor long remember what we say here, but it can never forget what they did here.",
+   "zh": "世人不會太在意，也不會長久記得我們在這裡說了什麼，但永遠不會忘記他們在這裡做了什麼。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "note",
+      "inSentence": "note",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "注意；留意",
+      "ipa": "/noʊt/",
+      "collocations": [
+       "note that",
+       "take note"
+      ],
+      "examples": [
+       {
+        "en": "Please note that the shop closes early today.",
+        "zh": "請注意，商店今天提早打烊。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "little as a negative adverb",
+      "quote": "will little note, nor long remember",
+      "explanation": "little 放在動詞前當副詞，意思是「幾乎不」；nor 延續否定：「也不會」。",
+      "examples": [
+       {
+        "en": "He little knew what was coming.",
+        "zh": "他幾乎不知道接下來會發生什麼。"
+       }
+      ],
+      "pitfall": "這是正式的書面語氣；日常口語多說 will not notice much。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "The world will little note,",
+      "role": "main",
+      "zh": "世人不會太在意"
+     },
+     {
+      "text": "nor long remember what we say here,",
+      "role": "main",
+      "zh": "也不會長久記得我們在此說的話"
+     },
+     {
+      "text": "but it can never forget what they did here.",
+      "role": "main",
+      "zh": "但永遠不會忘記他們在此所做的事"
+     }
+    ],
+    "connected": [
+     {
+      "text": "what we say here",
+      "soundsLike": "wət-wee-say-hear",
+      "note": "what 弱讀成 wət，四個字一口氣念完。"
+     }
+    ]
+   }
+  },
+  {
+   "en": "It is for us the living, rather, to be dedicated here to the unfinished work which they who fought here have thus far so nobly advanced.",
+   "zh": "反倒是我們這些活著的人，應該在此投身於他們未竟的事業；那些在此奮戰的人，已經如此高貴地將它推進到今天。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "unfinished",
+      "inSentence": "unfinished",
+      "kind": "word",
+      "pos": "adj.",
+      "zh": "未完成的",
+      "ipa": "/ʌnˈfɪnɪʃt/",
+      "collocations": [
+       "unfinished business",
+       "unfinished work"
+      ],
+      "examples": [
+       {
+        "en": "He left the painting unfinished.",
+        "zh": "他留下了一幅未完成的畫。"
+       }
+      ]
+     },
+     {
+      "term": "thus far",
+      "inSentence": "thus far",
+      "kind": "phrase",
+      "pos": "phr.",
+      "zh": "到目前為止",
+      "ipa": "/ðʌs fɑr/",
+      "collocations": [
+       "thus far"
+      ],
+      "examples": [
+       {
+        "en": "Thus far, the plan is working.",
+        "zh": "到目前為止，計畫進行得很順利。"
+       }
+      ]
+     },
+     {
+      "term": "nobly",
+      "inSentence": "nobly",
+      "kind": "word",
+      "pos": "adv.",
+      "zh": "高貴地；崇高地",
+      "ipa": "/ˈnoʊbli/",
+      "collocations": [
+       "act nobly"
+      ],
+      "examples": [
+       {
+        "en": "She nobly gave her prize to charity.",
+        "zh": "她高尚地把獎金捐給慈善機構。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "it is for us to V",
+      "quote": "It is for us the living, rather, to be dedicated",
+      "explanation": "It is for + 人 + to V 表示「這是某人該做的事」；rather 表示「反而是」。",
+      "examples": [
+       {
+        "en": "It is for you to decide.",
+        "zh": "這該由你來決定。"
+       }
+      ],
+      "pitfall": "the living 是「the + 形容詞」表示一群人：活著的人。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "It is for us the living, rather,",
+      "role": "main",
+      "zh": "反倒是我們這些活著的人"
+     },
+     {
+      "text": "to be dedicated here to the unfinished work",
+      "role": "main",
+      "zh": "應在此投身於未竟的事業"
+     },
+     {
+      "text": "which they who fought here",
+      "role": "subordinate",
+      "zh": "那些在此奮戰的人"
+     },
+     {
+      "text": "have thus far so nobly advanced.",
+      "role": "subordinate",
+      "zh": "至今已如此高貴地推進"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "It is rather for us to be here dedicated to the great task remaining before us—that from these honored dead we take increased devotion to that cause for which they gave the last full measure of devotion—",
+   "zh": "我們更應該在此投身於眼前尚待完成的偉大任務：從這些光榮的逝者身上，汲取更多的熱忱，獻給他們付出最後全部心力的那份志業；",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "devotion",
+      "inSentence": "increased devotion",
+      "kind": "word",
+      "pos": "n.",
+      "zh": "奉獻；熱忱",
+      "ipa": "/dɪˈvoʊʃən/",
+      "collocations": [
+       "devotion to",
+       "deep devotion"
+      ],
+      "examples": [
+       {
+        "en": "Her devotion to her students is amazing.",
+        "zh": "她對學生的付出令人敬佩。"
+       }
+      ]
+     },
+     {
+      "term": "the last full measure of devotion",
+      "inSentence": "the last full measure of devotion",
+      "kind": "idiom",
+      "pos": "idiom",
+      "zh": "最後全部的奉獻（指犧牲生命）",
+      "ipa": "/ðə læst fʊl ˈmɛʒər əv dɪˈvoʊʃən/",
+      "collocations": [
+       "give the last full measure"
+      ],
+      "examples": [
+       {
+        "en": "The memorial honors those who gave the last full measure of devotion.",
+        "zh": "這座紀念碑紀念那些獻出生命的人。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "for which",
+      "quote": "that cause for which they gave",
+      "explanation": "介系詞 + which 引導關係子句：they gave ... for that cause，把 for 移到 which 前面。",
+      "examples": [
+       {
+        "en": "This is the team for which I played.",
+        "zh": "這是我效力過的球隊。"
+       }
+      ],
+      "pitfall": "for which 後面要接完整句子，不要再重複 for。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "It is rather for us to be here dedicated",
+      "role": "main",
+      "zh": "我們更應該在此投身於"
+     },
+     {
+      "text": "to the great task remaining before us",
+      "role": "modifier",
+      "zh": "眼前尚待完成的偉大任務"
+     },
+     {
+      "text": "that from these honored dead we take increased devotion",
+      "role": "subordinate",
+      "zh": "從這些光榮的逝者身上汲取更多熱忱"
+     },
+     {
+      "text": "to that cause",
+      "role": "modifier",
+      "zh": "獻給那份志業"
+     },
+     {
+      "text": "for which they gave the last full measure of devotion",
+      "role": "subordinate",
+      "zh": "他們為之獻出了最後的全部心力"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "that we here highly resolve that these dead shall not have died in vain—that this nation, under God, shall have a new birth of freedom—",
+   "zh": "我們在此鄭重下定決心，絕不讓這些逝者白白犧牲；要讓這個國家在上帝的庇佑下，獲得自由的新生；",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "resolve",
+      "inSentence": "resolve",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "下定決心",
+      "ipa": "/rɪˈzɑlv/",
+      "collocations": [
+       "resolve to",
+       "firmly resolve"
+      ],
+      "examples": [
+       {
+        "en": "She resolved to study harder.",
+        "zh": "她下定決心要更用功。"
+       }
+      ]
+     },
+     {
+      "term": "in vain",
+      "inSentence": "in vain",
+      "kind": "idiom",
+      "pos": "phr.",
+      "zh": "徒勞；白白地",
+      "ipa": "/ɪn veɪn/",
+      "collocations": [
+       "try in vain",
+       "not in vain"
+      ],
+      "examples": [
+       {
+        "en": "We searched for the key in vain.",
+        "zh": "我們找鑰匙，卻白找了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "shall not have died",
+      "quote": "shall not have died in vain",
+      "explanation": "shall + have + p.p. 是未來完成式，表示「到將來回頭看時，這些犧牲將不是白費」。shall 在這裡帶有強烈決心。",
+      "examples": [
+       {
+        "en": "By then, we shall have finished the work.",
+        "zh": "到那時，我們將已完成這項工作。"
+       }
+      ],
+      "pitfall": "不要寫成 shall not died，shall 後面要接原形 have。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "that we here highly resolve",
+      "role": "main",
+      "zh": "我們在此鄭重下定決心"
+     },
+     {
+      "text": "that these dead shall not have died in vain",
+      "role": "subordinate",
+      "zh": "這些逝者不會白白犧牲"
+     },
+     {
+      "text": "that this nation, under God,",
+      "role": "subordinate",
+      "zh": "這個國家在上帝的庇佑下"
+     },
+     {
+      "text": "shall have a new birth of freedom",
+      "role": "subordinate",
+      "zh": "將獲得自由的新生"
+     }
+    ],
+    "connected": []
+   }
+  },
+  {
+   "en": "and that government of the people, by the people, for the people, shall not perish from the earth.",
+   "zh": "也要讓這個民有、民治、民享的政府，永遠不會從世上消失。",
+   "speaker": null,
+   "notes": {
+    "v": 2,
+    "difficulty": "hard",
+    "highlights": [],
+    "vocab": [
+     {
+      "term": "perish",
+      "inSentence": "perish",
+      "kind": "word",
+      "pos": "v.",
+      "zh": "消亡；滅亡",
+      "ipa": "/ˈpɛrɪʃ/",
+      "collocations": [
+       "perish from",
+       "perish in"
+      ],
+      "examples": [
+       {
+        "en": "Many old traditions have perished.",
+        "zh": "許多古老的傳統已經消失了。"
+       }
+      ]
+     }
+    ],
+    "grammar": [
+     {
+      "point": "parallel prepositions",
+      "quote": "of the people, by the people, for the people",
+      "explanation": "三個介系詞片語 of、by、for 平行排列，分別表示「屬於人民、由人民治理、為人民服務」。",
+      "examples": [
+       {
+        "en": "This school was built by the town, for the town.",
+        "zh": "這所學校由小鎮建造，為小鎮服務。"
+       }
+      ],
+      "pitfall": "朗讀時三個 the people 都要清楚念出，重音落在 of、by、for。"
+     }
+    ],
+    "chunks": [
+     {
+      "text": "and that government",
+      "role": "subordinate",
+      "zh": "也要讓這個政府"
+     },
+     {
+      "text": "of the people, by the people, for the people,",
+      "role": "modifier",
+      "zh": "民有、民治、民享的"
+     },
+     {
+      "text": "shall not perish from the earth.",
+      "role": "subordinate",
+      "zh": "永遠不會從世上消失"
+     }
+    ],
+    "connected": [
+     {
+      "text": "of the people",
+      "soundsLike": "əv-thə-pee-pəl",
+      "note": "of 弱讀成 əv，the 弱讀。"
+     }
+    ]
+   }
+  }
+ ]
+}

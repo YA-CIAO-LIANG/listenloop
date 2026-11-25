@@ -1,0 +1,106 @@
+{
+  "id": "diary-small-win-today",
+  "type": "diary",
+  "level": "beginner",
+  "title": {
+    "en": "A Small Win Today",
+    "zh": "今天的小勝利"
+  },
+  "subtitle": "記錄今天一件讓你有成就感的小事",
+  "task": "Write a diary entry about a small win you had today. What did you do, was it difficult, and how did you feel afterwards?",
+  "taskZh": "寫一篇日記，記錄今天一件讓你有成就感的小事：你做了什麼？過程困難嗎？完成後有什麼感覺？",
+  "words": {
+    "min": 80,
+    "max": 150
+  },
+  "minutes": 15,
+  "focus": [
+    "用過去式寫出事情經過",
+    "寫出「之前」與「之後」的心情對比",
+    "結尾說明這件小事的意義"
+  ],
+  "model": {
+    "en": [
+      "Today I finally asked a question in English class. For weeks, I had wanted to speak, but I was always too shy. My heart was beating fast when I raised my hand.",
+      "I asked my teacher about the difference between two words. My voice was a little quiet, but she understood me. She smiled and said it was a great question. Two classmates told me later that they had the same question.",
+      "It was only one question, but I felt very proud of myself. Tomorrow I want to try again. Small steps like this will help me become more confident."
+    ],
+    "zh": [
+      "今天我終於在英文課上提問了。好幾個星期以來，我一直想發言，但總是太害羞。舉手的時候，我的心跳得好快。",
+      "我問老師兩個單字有什麼不同。我的聲音有點小，但她聽懂了。她笑著說這是個好問題。後來有兩位同學告訴我，他們也有同樣的疑問。",
+      "雖然只是一個問題，但我覺得很以自己為傲。明天我想再試一次。像這樣的小小一步，會幫助我變得更有自信。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "For weeks, I had wanted to …, but …",
+      "zh": "過去完成式：一直想做某事，卻……",
+      "example": "For weeks, I had wanted to speak, but I was always too shy.",
+      "keys": [
+        "had wanted to",
+        "but"
+      ]
+    },
+    {
+      "pattern": "… was beating fast when I …",
+      "zh": "過去進行式＋when：描寫當下的緊張",
+      "example": "My heart was beating fast when I raised my hand.",
+      "keys": [
+        "was beating",
+        "when"
+      ]
+    },
+    {
+      "pattern": "It was only …, but I felt …",
+      "zh": "雖然只是……，但我覺得……",
+      "example": "It was only one question, but I felt very proud of myself.",
+      "keys": [
+        "only",
+        "but",
+        "felt"
+      ]
+    },
+    {
+      "pattern": "… will help me become …",
+      "zh": "說明這件事帶來的幫助",
+      "example": "Small steps like this will help me become more confident.",
+      "keys": [
+        "help me",
+        "become"
+      ]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "She smiled.",
+        "She said it was a great question."
+      ],
+      "answer": "She smiled and said it was a great question."
+    },
+    {
+      "parts": [
+        "My voice was a little quiet.",
+        "She understood me."
+      ],
+      "answer": "My voice was a little quiet, but she understood me."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I felt very proud of myself.",
+      "answers": [
+        "I was really proud of what I did.",
+        "I felt great about myself."
+      ]
+    },
+    {
+      "sentence": "I was always too shy.",
+      "answers": [
+        "I was always too nervous to speak.",
+        "My shyness always stopped me."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}
