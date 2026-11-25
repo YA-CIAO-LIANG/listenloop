@@ -26,7 +26,13 @@ export const QUEUE = {
 } as const;
 
 /** Priority levels by plan (D162): free 0, Plus and students 1, Pro and admins 2. */
-export const QUEUE_PRIORITY = { free: 0, paid: 1, pro: 2, admin: 2 } as const;
+export const QUEUE_PRIORITY = {
+  free: 0,
+  paid: 1,
+  student: 1,
+  pro: 2,
+  admin: 2,
+} as const;
 
 /**
  * Where a job stands in line (D162), the same rule as queue_position in

@@ -2,19 +2,20 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useId, useState } from "react";
 import {
   changeUser as changeUserAction,
   type UserChangeResult,
 } from "@/app/admin/users/actions";
 import type { AccountStatus, Role } from "@/lib/accounts";
-import type { AccountPlan } from "@/lib/plans";
+import { ACCOUNT_PLANS, type AccountPlan } from "@/lib/plans";
 import { Button } from "./Button";
 
 /**
- * Role and status for one account on the admin dashboard (D50, D56):
- * "Make admin" / "Make regular user", and "Disable" (asks once more) /
- * "Restore". Your own account can't be changed here.
+ * Role, plan, and status for one account on the admin dashboard (D50,
+ * D56, D207): "Make admin" / "Make regular user", the plan (free, Plus,
+ * Student, Pro), and "Disable" (asks once more) / "Restore". Your own
+ * account can't be changed here.
  */
 export function UserControls({
   user,
@@ -31,6 +32,7 @@ export function UserControls({
   const [pending, setPending] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [result, setResult] = useState<UserChangeResult | null>(null);
+  const planId = useId();
 
   async function run(change: Parameters<typeof changeUserAction>[1]) {
     setPending(true);
@@ -66,16 +68,30 @@ export function UserControls({
           >
             {user.role === "admin" ? t("makeUser") : t("makeAdmin")}
           </Button>
-          <Button
-            variant="secondary"
-            size="sm"
-            disabled={pending}
-            onClick={() =>
-              run({ plan: user.plan === "paid" ? "free" : "paid" })
-            }
-          >
-            {user.plan === "paid" ? t("makeFree") : t("makePaid")}
-          </Button>
+          {/* Any of the four plans (D207: the student plan has its own). */}
+          <span className="flex items-center gap-2 text-supporting">
+            <label htmlFor={planId} className="text-ink-muted">
+              {t("planLabel")}
+            </label>
+            <select
+              id={planId}
+              value={user.plan}
+              disabled={pending}
+              onChange={(event) => {
+                const plan = ACCOUNT_PLANS.find(
+                  (p) => p === event.target.value,
+                );
+                if (plan && plan !== user.plan) void run({ plan });
+              }}
+              className="h-8 rounded-base border border-line bg-surface px-2 text-supporting focus-visible:border-accent pointer-coarse:min-h-11"
+            >
+              {ACCOUNT_PLANS.map((plan) => (
+                <option key={plan} value={plan}>
+                  {t(`plans.${plan}`)}
+                </option>
+              ))}
+            </select>
+          </span>
           {user.status === "disabled" ? (
             <Button
               variant="secondary"

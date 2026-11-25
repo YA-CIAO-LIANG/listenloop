@@ -10,19 +10,26 @@ import type { Role } from "./accounts";
  *   (D143: two of a minute or one of two);
  * - paid: 30 practices a month of up to 2,000 characters (set by an
  *   admin until payments exist; the price shows "coming soon");
+ * - student: Plus at a student price (D144) with its own, smaller AI
+ *   writing allowances (D207): what the student price's floor allows;
  * - admin: no limits.
  *
  * null means unlimited. Technical ceilings that protect the service
  * (PRACTICE_LIMITS in lib/custom-practice/draft.ts) still apply on top.
  */
-export const PLAN_IDS = ["free", "paid", "pro", "admin"] as const;
+export const PLAN_IDS = ["free", "paid", "student", "pro", "admin"] as const;
 export type PlanId = (typeof PLAN_IDS)[number];
 
 /**
  * The plans an admin can put an account on (profiles.plan). "paid" is
- * Plus (its id predates Pro, D102), "pro" is Pro.
+ * Plus (its id predates Pro, D102), "student" is the student plan (D207),
+ * "pro" is Pro.
  */
-export const ACCOUNT_PLANS = ["free", "paid", "pro"] as const;
+export const ACCOUNT_PLANS = ["free", "paid", "student", "pro"] as const;
+
+/** Every plan someone pays for (D207): Plus's features and more. */
+export const isPayingPlan = (plan: PlanId | AccountPlan | undefined) =>
+  plan === "paid" || plan === "student" || plan === "pro";
 export type AccountPlan = (typeof ACCOUNT_PLANS)[number];
 
 export const isAccountPlan = (value: unknown): value is AccountPlan =>
@@ -109,6 +116,34 @@ export type PlanLimits = {
   backChecksPerWeek: number | null;
 };
 
+/** Plus (D102): 40 minutes a month. */
+const PLUS: PlanLimits = {
+  createPractices: true,
+  sharedPractices: true,
+  activePractices: null,
+  practicesTotal: null,
+  practicesPerMonth: null,
+  minutesPerMonth: 40,
+  minutesPerWeek: null,
+  charsPerPractice: 2_000,
+  customRules: true,
+  maxPracticeSeconds: 300,
+  youtubePractices: true,
+  uploadAudio: true,
+  uploadMegabytes: 100,
+  storageMegabytes: 200,
+  revisesPerDay: 30,
+  playbackSpeed: true,
+  fullStats: true,
+  priority: false,
+  batchPdf: false,
+  // Clearly more than free (D207); Pro still has more of each.
+  writingReviewsPerWeek: 5,
+  writingWords: 600,
+  chatMinutesPerWeek: 15,
+  backChecksPerWeek: 10,
+};
+
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
   // Free (D143): 2 minutes a week, up to 2 minutes each.
   free: {
@@ -136,31 +171,17 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     chatMinutesPerWeek: 5,
     backChecksPerWeek: 7,
   },
-  // Plus (D102): 40 minutes a month.
-  paid: {
-    createPractices: true,
-    sharedPractices: true,
-    activePractices: null,
-    practicesTotal: null,
-    practicesPerMonth: null,
-    minutesPerMonth: 40,
-    minutesPerWeek: null,
-    charsPerPractice: 2_000,
-    customRules: true,
-    maxPracticeSeconds: 300,
-    youtubePractices: true,
-    uploadAudio: true,
-    uploadMegabytes: 100,
-    storageMegabytes: 200,
-    revisesPerDay: 30,
-    playbackSpeed: true,
-    fullStats: true,
-    priority: false,
-    batchPdf: false,
+  paid: PLUS,
+  /**
+   * The student plan (D144, D207): Plus at a student price, so its AI
+   * writing allowances are what that price's floor leaves room for
+   * (D185): a little more than free, less than Plus.
+   */
+  student: {
+    ...PLUS,
     writingReviewsPerWeek: 3,
-    writingWords: 600,
     chatMinutesPerWeek: 5,
-    backChecksPerWeek: 7,
+    backChecksPerWeek: 9,
   },
   // Pro (D102): 120 minutes a month, up to 10 minutes each, and Plus.
   pro: {
@@ -221,7 +242,7 @@ export function planFor(
   user: { role: Role; plan?: AccountPlan } | null,
 ): PlanId {
   if (user?.role === "admin") return "admin";
-  return user?.plan === "paid" || user?.plan === "pro" ? user.plan : "free";
+  return isPayingPlan(user?.plan) ? (user?.plan as PlanId) : "free";
 }
 
 /** What's being checked, with the counts it depends on. */

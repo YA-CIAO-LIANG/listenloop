@@ -1,3 +1,4 @@
+import type { PlanId } from "./plans";
 /**
  * Daily limits on the paid APIs (docs/decisions.md D7, D38), per user and
  * per day in Taiwan time. All the numbers live here.
@@ -58,7 +59,7 @@ export const MONTHLY_WARNING_SHARE = 0.8;
 /** A day's cost limit for an account on `plan` doing `bucket` work. */
 export function dailyCostLimit(
   settings: UsageSettings,
-  plan: "free" | "paid" | "pro" | "admin",
+  plan: PlanId,
   bucket: UsageBucket,
 ): number {
   if (plan === "admin") {
@@ -69,7 +70,10 @@ export function dailyCostLimit(
   // Pro makes three times Plus's minutes (D102), so three times its daily
   // AI allowance.
   if (plan === "pro") return settings.paidMicros * 3;
-  return plan === "paid" ? settings.paidMicros : settings.freeMicros;
+  // The student plan is Plus at a student price (D207).
+  return plan === "paid" || plan === "student"
+    ? settings.paidMicros
+    : settings.freeMicros;
 }
 
 /** Which allowance stopped a call, and when it comes back (D77). */

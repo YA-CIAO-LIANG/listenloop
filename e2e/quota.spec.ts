@@ -3,6 +3,7 @@ import {
   signInAsAdmin,
   signInAsAuthor,
   signInAsLearner,
+  signInWithEmail,
   test,
 } from "./fixtures";
 
@@ -60,4 +61,47 @@ test("an admin sees the abuse flags page (D162)", async ({ page }) => {
   await page.goto("/admin/abuse");
   await expect(page.getByRole("heading", { name: "濫用標記" })).toBeVisible();
   await expect(page.getByText("沒有標記。")).toBeVisible();
+});
+
+test("the student plan: its own AI writing allowances, set by an admin (D207)", async ({
+  page,
+}) => {
+  await signInWithEmail(page, "e2e-student-plan", "student-plan@example.com");
+  await page.goto("/account/usage");
+  await expect(page.getByText(/學生方案/).first()).toBeVisible();
+  // A little more than free (2), less than Plus (5).
+  await expect(
+    page.getByRole("listitem").filter({ hasText: "本週的 AI 寫作批改" }),
+  ).toContainText(/\/\s?3/);
+
+  await signInAsAdmin(page);
+  await page.goto("/admin/users/1");
+  const plan = page.getByRole("combobox", { name: "方案", exact: true });
+  await expect(plan).toBeVisible();
+  await expect(plan.locator("option")).toHaveText([
+    "免費",
+    "Plus",
+    "學生",
+    "Pro",
+  ]);
+});
+
+test("the pricing page shows each plan's AI writing allowances (D207)", async ({
+  page,
+}) => {
+  await page.goto("/pricing");
+  const row = page.getByRole("row", { name: /^AI 寫作批改/ });
+  // Free, Plus, Pro, Student.
+  await expect(row.getByRole("cell")).toHaveText([
+    "每週 2 次",
+    "每週 5 次",
+    "每週 6 次",
+    "每週 3 次",
+  ]);
+  await expect(
+    page.getByText(/寫作的 AI 額度比免費版稍多：每週 3 次批改/),
+  ).toBeVisible();
+  await expect(
+    page.getByText(/寫作的 AI 額度比免費版多：每週 5 次批改、15 分鐘聊天練習/),
+  ).toBeVisible();
 });

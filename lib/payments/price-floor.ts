@@ -33,7 +33,7 @@ export const PRICE_FLOOR = {
 export const PLAN_MINUTES: Readonly<Record<PaidPlan, number>> = {
   plus: PLANS.paid.minutesPerMonth ?? 0,
   // The student plan is Plus at a student price (D144).
-  student: PLANS.paid.minutesPerMonth ?? 0,
+  student: PLANS.student.minutesPerMonth ?? 0,
   pro: PLANS.pro.minutesPerMonth ?? 0,
 };
 
@@ -84,7 +84,7 @@ export const WEEKS_PER_MONTH = 52 / 12;
 /** Essay reviews a week each paid plan may use (lib/plans.ts). */
 export const PLAN_WRITING_REVIEWS: Readonly<Record<PaidPlan, number>> = {
   plus: PLANS.paid.writingReviewsPerWeek ?? 0,
-  student: PLANS.paid.writingReviewsPerWeek ?? 0,
+  student: PLANS.student.writingReviewsPerWeek ?? 0,
   pro: PLANS.pro.writingReviewsPerWeek ?? 0,
 };
 
@@ -123,7 +123,8 @@ export const PLAN_CHAT_EXTRA: Readonly<Record<PaidPlan, number>> = {
   plus:
     (PLANS.paid.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
   student:
-    (PLANS.paid.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
+    (PLANS.student.chatMinutesPerWeek ?? 0) -
+    (PLANS.free.chatMinutesPerWeek ?? 0),
   pro:
     (PLANS.pro.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
 };
@@ -163,7 +164,8 @@ export const PLAN_BACK_CHECK_EXTRA: Readonly<Record<PaidPlan, number>> = {
   plus:
     (PLANS.paid.backChecksPerWeek ?? 0) - (PLANS.free.backChecksPerWeek ?? 0),
   student:
-    (PLANS.paid.backChecksPerWeek ?? 0) - (PLANS.free.backChecksPerWeek ?? 0),
+    (PLANS.student.backChecksPerWeek ?? 0) -
+    (PLANS.free.backChecksPerWeek ?? 0),
   pro: (PLANS.pro.backChecksPerWeek ?? 0) - (PLANS.free.backChecksPerWeek ?? 0),
 };
 
