@@ -8,14 +8,21 @@ import {
   type UserChangeResult,
 } from "@/app/admin/users/actions";
 import type { AccountStatus, Role } from "@/lib/accounts";
-import { ACCOUNT_PLANS, type AccountPlan } from "@/lib/plans";
+import { planLabel, type PlanNameTranslator } from "@/lib/plan-names";
+import {
+  ACCOUNT_PLANS,
+  accountPlanFor,
+  PLAN_LINES,
+  PLAN_TIERS,
+  type AccountPlan,
+} from "@/lib/plans";
 import { Button } from "./Button";
 
 /**
  * Role, plan, and status for one account on the admin dashboard (D50,
- * D56, D207): "Make admin" / "Make regular user", the plan (free, Plus,
- * Student, Pro), and "Disable" (asks once more) / "Restore". Your own
- * account can't be changed here.
+ * D56, D207, D210): "Make admin" / "Make regular user", the plan (free,
+ * or any line and tier, grouped by line), and "Disable" (asks once more)
+ * / "Restore". Your own account can't be changed here.
  */
 export function UserControls({
   user,
@@ -28,6 +35,7 @@ export function UserControls({
   changeUser?: typeof changeUserAction;
 }) {
   const t = useTranslations("admin.users");
+  const tn = useTranslations("planNames") as unknown as PlanNameTranslator;
   const router = useRouter();
   const [pending, setPending] = useState(false);
   const [confirming, setConfirming] = useState(false);
@@ -52,7 +60,7 @@ export function UserControls({
         <span className={user.status === "disabled" ? "text-error" : ""}>
           {t(`statuses.${user.status}`)}
         </span>{" "}
-        · {t("planIs", { plan: t(`plans.${user.plan}`) })}
+        · {t("planIs", { plan: planLabel(user.plan, tn) })}
       </p>
       {self ? (
         <p className="text-supporting text-ink-muted">{t("selfNote")}</p>
@@ -85,10 +93,18 @@ export function UserControls({
               }}
               className="h-8 rounded-base border border-line bg-surface px-2 text-supporting focus-visible:border-accent pointer-coarse:min-h-11"
             >
-              {ACCOUNT_PLANS.map((plan) => (
-                <option key={plan} value={plan}>
-                  {t(`plans.${plan}`)}
-                </option>
+              <option value="free">{planLabel("free", tn)}</option>
+              {PLAN_LINES.map((line) => (
+                <optgroup key={line} label={tn(`lines.${line}`)}>
+                  {PLAN_TIERS.map((tier) => {
+                    const plan = accountPlanFor(line, tier);
+                    return (
+                      <option key={plan} value={plan}>
+                        {planLabel(plan, tn)}
+                      </option>
+                    );
+                  })}
+                </optgroup>
               ))}
             </select>
           </span>

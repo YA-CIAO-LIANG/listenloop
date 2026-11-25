@@ -13,6 +13,7 @@ import {
   verdict,
   type PriceExperiment,
   type VariantStats,
+  PRICE_EXPERIMENTS_PAUSED,
 } from "@/lib/price-experiments";
 import {
   cleanPriceAnswers,
@@ -32,6 +33,10 @@ const experiment: PriceExperiment = {
   status: "running",
   winner: null,
 };
+
+it("are paused since the plans became three lines (D210)", () => {
+  expect(PRICE_EXPERIMENTS_PAUSED).toBe(true);
+});
 
 describe("price experiments (D174)", () => {
   it("take 2–4 distinct whole prices, the first the control", () => {
@@ -60,11 +65,13 @@ describe("price experiments (D174)", () => {
   it("show a visitor their group's price, yearly at 10 × monthly", () => {
     const view = priceView(PLAN_PRICES, [experiment], "u:someone");
     expect(view.experiment?.plan).toBe("plus");
-    const monthly = view.prices.plus.month.amount;
+    // Experiments act on the all-in-one line's tier (D210).
+    const monthly = view.prices.all.plus.month.amount;
     expect([149, 199, 249]).toContain(monthly);
-    expect(view.prices.plus.year.amount).toBe(monthly * 10);
+    expect(view.prices.all.plus.year.amount).toBe(monthly * 10);
     // Other plans keep their prices; no subject or none running: nothing.
-    expect(view.prices.pro).toEqual(PLAN_PRICES.pro);
+    expect(view.prices.all.pro).toEqual(PLAN_PRICES.all.pro);
+    expect(view.prices.listening).toEqual(PLAN_PRICES.listening);
     expect(priceView(PLAN_PRICES, [experiment], null).experiment).toBeNull();
     expect(
       priceView(PLAN_PRICES, [{ ...experiment, status: "ended" }], "u:x")
@@ -77,9 +84,10 @@ describe("price experiments (D174)", () => {
       { plan: "plus", monthly: 199 },
       { plan: "nonsense", monthly: 1 },
     ]);
-    expect(prices.plus.month.amount).toBe(199);
-    expect(prices.plus.year.amount).toBe(1990);
-    expect(prices.pro).toEqual(PLAN_PRICES.pro);
+    expect(prices.all.plus.month.amount).toBe(199);
+    expect(prices.all.plus.year.amount).toBe(1990);
+    expect(prices.all.pro).toEqual(PLAN_PRICES.all.pro);
+    expect(prices.writing).toEqual(PLAN_PRICES.writing);
   });
 
   it("read stored rows safely", () => {

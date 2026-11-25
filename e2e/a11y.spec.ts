@@ -34,6 +34,9 @@ async function scan(page: import("@playwright/test").Page) {
 
 for (const scheme of ["light", "dark"] as const) {
   test(`main pages have no axe violations (${scheme})`, async ({ page }) => {
+    // Sixteen pages scanned one after another; the pricing page's tables
+    // (D210) made the sweep slower than 30 s under a full parallel run.
+    test.setTimeout(60_000);
     await page.emulateMedia({ colorScheme: scheme });
     const found: string[] = [];
     for (const path of PAGES) {

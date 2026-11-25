@@ -1,3 +1,4 @@
+import { lineHasListening, planParts, PLANS, type PlanId } from "./plans";
 /**
  * The line for work a free-tier service can only do so fast (D133):
  * Azure Speech F0 voices about 20 sentences a minute and writes down one
@@ -25,14 +26,16 @@ export const QUEUE = {
   headStartSeconds: 180,
 } as const;
 
-/** Priority levels by plan (D162): free 0, Plus and students 1, Pro and admins 2. */
-export const QUEUE_PRIORITY = {
-  free: 0,
-  paid: 1,
-  student: 1,
-  pro: 2,
-  admin: 2,
-} as const;
+/**
+ * Priority by plan (D162, D210): free 0; a paid plan with listening 1;
+ * Pro's listening (its "priority") and admins 2. The queue is for making
+ * practices, so the writing line waits like the free plan.
+ */
+export function queuePriority(plan: PlanId): 0 | 1 | 2 {
+  if (plan === "admin" || PLANS[plan].priority) return 2;
+  const parts = planParts(plan);
+  return parts && lineHasListening(parts.line) ? 1 : 0;
+}
 
 /**
  * Where a job stands in line (D162), the same rule as queue_position in

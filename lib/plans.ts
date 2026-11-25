@@ -2,39 +2,92 @@ import type { Role } from "./accounts";
 import { secondsToWords, wordsToSeconds } from "./units";
 
 /**
- * Plan limits (roadmap f, D54, D72): what each plan may do, in one place.
- * The code asks `can(plan, action)` and never checks a role or a number
- * itself, so changing what a plan includes means editing PLANS only.
+ * Plan limits (roadmap f, D54, D72, D210): what each plan may do, in one
+ * place. The code asks `can(plan, action)` and never checks a role or a
+ * number itself, so changing what a plan includes means editing the
+ * tables below only.
  *
- * - free: every official material and feature, a preview of shared
- *   materials (D106), and 300 words of their own practices a week
- *   (D143: two minutes; D209: counted in words);
- * - paid: Plus (set by an admin until payments exist; the price shows
- *   "coming soon");
- * - student: Plus at a student price (D144) with its own, smaller AI
- *   writing allowances (D207): what the student price's floor allows;
- * - admin: no limits.
+ * Paid plans come in three lines (D210, Joe 2026-11-24), each in three
+ * tiers (student, Plus, Pro):
+ * - listening: words of one's own practices a month and the listening
+ *   features (uploads, YouTube, speed, custom pass rules…); writing as
+ *   on the free plan;
+ * - writing: AI essay reviews, extra practice's AI checks, and chat
+ *   messages a week; listening as on the free plan;
+ * - all ("聽寫全方位"): both, at full allowances (no discount).
+ * Free: every official material and feature, a preview of shared
+ * materials (D106), 300 words of one's own practices a week (D143,
+ * D209), and a writing trial. Admin: no limits.
  *
  * null means unlimited. Technical ceilings that protect the service
  * (PRACTICE_LIMITS in lib/custom-practice/draft.ts) still apply on top.
  */
-export const PLAN_IDS = ["free", "paid", "student", "pro", "admin"] as const;
-export type PlanId = (typeof PLAN_IDS)[number];
+export const PLAN_LINES = ["listening", "writing", "all"] as const;
+export type PlanLine = (typeof PLAN_LINES)[number];
+
+export const PLAN_TIERS = ["student", "plus", "pro"] as const;
+export type PlanTier = (typeof PLAN_TIERS)[number];
+
+export const isPlanLine = (value: unknown): value is PlanLine =>
+  (PLAN_LINES as readonly unknown[]).includes(value);
+export const isPlanTier = (value: unknown): value is PlanTier =>
+  (PLAN_TIERS as readonly unknown[]).includes(value);
+
+/** Whether a line includes listening, writing. */
+export const lineHasListening = (line: PlanLine) => line !== "writing";
+export const lineHasWriting = (line: PlanLine) => line !== "listening";
 
 /**
- * The plans an admin can put an account on (profiles.plan). "paid" is
- * Plus (its id predates Pro, D102), "student" is the student plan (D207),
- * "pro" is Pro.
+ * The plans an account can be on (profiles.plan). The "all" line keeps
+ * the ids it had before lines existed, so every account on a paid plan
+ * moved to "all" without changing its row (D210): "paid" is Plus (its id
+ * predates Pro, D102), "student" the student plan (D207), "pro" Pro.
  */
-export const ACCOUNT_PLANS = ["free", "paid", "student", "pro"] as const;
-
-/** Every plan someone pays for (D207): Plus's features and more. */
-export const isPayingPlan = (plan: PlanId | AccountPlan | undefined) =>
-  plan === "paid" || plan === "student" || plan === "pro";
+export const ACCOUNT_PLANS = [
+  "free",
+  "student",
+  "paid",
+  "pro",
+  "listening-student",
+  "listening-plus",
+  "listening-pro",
+  "writing-student",
+  "writing-plus",
+  "writing-pro",
+] as const;
 export type AccountPlan = (typeof ACCOUNT_PLANS)[number];
+export type PaidAccountPlan = Exclude<AccountPlan, "free">;
+
+export const PLAN_IDS = [...ACCOUNT_PLANS, "admin"] as const;
+export type PlanId = (typeof PLAN_IDS)[number];
 
 export const isAccountPlan = (value: unknown): value is AccountPlan =>
   (ACCOUNT_PLANS as readonly unknown[]).includes(value);
+
+/** The account plan for a line and tier. */
+export function accountPlanFor(
+  line: PlanLine,
+  tier: PlanTier,
+): PaidAccountPlan {
+  if (line === "all") return tier === "plus" ? "paid" : tier;
+  return `${line}-${tier}`;
+}
+
+/** A paid account plan's line and tier; null for free and admin. */
+export function planParts(
+  plan: PlanId | AccountPlan | undefined,
+): { line: PlanLine; tier: PlanTier } | null {
+  if (plan === "paid") return { line: "all", tier: "plus" };
+  if (plan === "student" || plan === "pro") return { line: "all", tier: plan };
+  const [line, tier] = (plan ?? "").split("-");
+  return isPlanLine(line) && line !== "all" && isPlanTier(tier)
+    ? { line, tier }
+    : null;
+}
+
+/** Every plan someone pays for (D207, D210). */
+export const isPayingPlan = (plan: PlanId | AccountPlan | undefined) =>
+  planParts(plan) !== null;
 
 export type PlanLimits = {
   /** May create practices with the paid voice and AI APIs. */
@@ -117,14 +170,60 @@ export type PlanLimits = {
   backChecksPerWeek: number | null;
 };
 
-/** Plus (D102): 6,000 words (40 minutes) a month. */
-const PLUS: PlanLimits = {
+/** The limits that belong to listening (D210); the rest are writing's. */
+type ListeningLimits = Omit<
+  PlanLimits,
+  | "writingReviewsPerWeek"
+  | "writingWords"
+  | "chatMessagesPerWeek"
+  | "backChecksPerWeek"
+  | "fullStats"
+>;
+type WritingLimits = Pick<
+  PlanLimits,
+  | "writingReviewsPerWeek"
+  | "writingWords"
+  | "chatMessagesPerWeek"
+  | "backChecksPerWeek"
+>;
+
+/** Free (D143, D209): 300 words (2 minutes) a week, up to 2 minutes each. */
+const FREE_LISTENING: ListeningLimits = {
+  createPractices: true,
+  sharedPractices: false,
+  activePractices: null,
+  practicesTotal: null,
+  practicesPerMonth: null,
+  wordsPerMonth: null,
+  wordsPerWeek: 300,
+  charsPerPractice: 2_000,
+  customRules: false,
+  maxPracticeSeconds: 120,
+  youtubePractices: false,
+  uploadAudio: false,
+  uploadMegabytes: null,
+  storageMegabytes: 0,
+  revisesPerDay: 5,
+  playbackSpeed: false,
+  priority: false,
+  batchPdf: false,
+};
+
+/** Free writing (D187, D197, D200): a trial of each AI step. */
+const FREE_WRITING: WritingLimits = {
+  writingReviewsPerWeek: 2,
+  writingWords: 400,
+  chatMessagesPerWeek: 10,
+  backChecksPerWeek: 7,
+};
+
+/** Plus's listening features (D102), shared by the student tier (D144). */
+const PLUS_LISTENING: Omit<ListeningLimits, "wordsPerMonth"> = {
   createPractices: true,
   sharedPractices: true,
   activePractices: null,
   practicesTotal: null,
   practicesPerMonth: null,
-  wordsPerMonth: 6_000,
   wordsPerWeek: null,
   charsPerPractice: 2_000,
   customRules: true,
@@ -135,82 +234,79 @@ const PLUS: PlanLimits = {
   storageMegabytes: 200,
   revisesPerDay: 30,
   playbackSpeed: true,
-  fullStats: true,
   priority: false,
   batchPdf: false,
-  // Clearly more than free (D207); Pro still has more of each.
-  writingReviewsPerWeek: 5,
-  writingWords: 600,
-  chatMessagesPerWeek: 30,
-  backChecksPerWeek: 10,
 };
 
-export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
-  // Free (D143, D209): 300 words (2 minutes) a week, up to 2 minutes each.
-  free: {
-    createPractices: true,
-    sharedPractices: false,
-    activePractices: null,
-    practicesTotal: null,
-    practicesPerMonth: null,
-    wordsPerMonth: null,
-    wordsPerWeek: 300,
-    charsPerPractice: 2_000,
-    customRules: false,
-    maxPracticeSeconds: 120,
-    youtubePractices: false,
-    uploadAudio: false,
-    uploadMegabytes: null,
-    storageMegabytes: 0,
-    revisesPerDay: 5,
-    playbackSpeed: false,
-    fullStats: false,
-    priority: false,
-    batchPdf: false,
-    writingReviewsPerWeek: 2,
-    writingWords: 400,
-    chatMessagesPerWeek: 10,
-    backChecksPerWeek: 7,
-  },
-  paid: PLUS,
-  /**
-   * The student plan (D144, D207): Plus at a student price, so its AI
-   * writing allowances are what that price's floor leaves room for
-   * (D185): a little more than free, less than Plus.
-   */
-  student: {
-    ...PLUS,
-    writingReviewsPerWeek: 3,
-    chatMessagesPerWeek: 10,
-    backChecksPerWeek: 9,
-  },
-  // Pro (D102): 18,000 words (120 minutes) a month, up to 10 minutes each.
+/**
+ * Listening by tier (D210): words of one's own practices a month, Joe's
+ * numbers; Pro keeps Pro's longer practices, priority, and batch PDFs.
+ */
+export const LISTENING_TIERS: Readonly<Record<PlanTier, ListeningLimits>> = {
+  student: { ...PLUS_LISTENING, wordsPerMonth: 2_400 },
+  plus: { ...PLUS_LISTENING, wordsPerMonth: 3_000 },
   pro: {
-    createPractices: true,
-    sharedPractices: true,
-    activePractices: null,
-    practicesTotal: null,
-    practicesPerMonth: null,
-    wordsPerMonth: 18_000,
-    wordsPerWeek: null,
+    ...PLUS_LISTENING,
+    wordsPerMonth: 9_000,
     charsPerPractice: 10_000,
-    customRules: true,
     maxPracticeSeconds: 600,
-    youtubePractices: true,
-    uploadAudio: true,
     uploadMegabytes: 200,
     storageMegabytes: 500,
     revisesPerDay: 100,
-    playbackSpeed: true,
-    fullStats: true,
     priority: true,
     batchPdf: true,
-    writingReviewsPerWeek: 6,
-    writingWords: 1_000,
-    chatMessagesPerWeek: 40,
-    // 14 until the corrected sentences' meanings (D206) took the room.
-    backChecksPerWeek: 11,
   },
+};
+
+/**
+ * Writing by tier, a week (D210): Joe's numbers, except Pro's, raised a
+ * little (18 → 19 reviews, 54 → 56 sets, 350 → 360 messages) so that
+ * Pro's price per unit is the lowest on the "all" line too
+ * (tests/plan-lines.test.ts); still well inside Pro's cost cap.
+ */
+export const WRITING_TIERS: Readonly<Record<PlanTier, WritingLimits>> = {
+  student: {
+    writingReviewsPerWeek: 7,
+    writingWords: 600,
+    chatMessagesPerWeek: 135,
+    backChecksPerWeek: 21,
+  },
+  plus: {
+    writingReviewsPerWeek: 7,
+    writingWords: 600,
+    chatMessagesPerWeek: 135,
+    backChecksPerWeek: 21,
+  },
+  pro: {
+    writingReviewsPerWeek: 19,
+    writingWords: 1_000,
+    chatMessagesPerWeek: 360,
+    backChecksPerWeek: 56,
+  },
+};
+
+/** A paid plan's limits: its line's parts at its tier, free elsewhere. */
+export function paidPlanLimits(line: PlanLine, tier: PlanTier): PlanLimits {
+  return {
+    ...(lineHasListening(line) ? LISTENING_TIERS[tier] : FREE_LISTENING),
+    ...(lineHasWriting(line) ? WRITING_TIERS[tier] : FREE_WRITING),
+    // The stats cover both; every paid plan has them (D102, D210).
+    fullStats: true,
+  };
+}
+
+const paidPlans = Object.fromEntries(
+  PLAN_LINES.flatMap((line) =>
+    PLAN_TIERS.map((tier) => [
+      accountPlanFor(line, tier),
+      paidPlanLimits(line, tier),
+    ]),
+  ),
+) as Record<PaidAccountPlan, PlanLimits>;
+
+export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
+  free: { ...FREE_LISTENING, ...FREE_WRITING, fullStats: false },
+  ...paidPlans,
   admin: {
     createPractices: true,
     sharedPractices: true,

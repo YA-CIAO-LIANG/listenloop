@@ -73,18 +73,18 @@ describe("plans (D54, D72)", () => {
     });
   });
 
-  it("paid (Plus) accounts make 6,000 words (40 minutes) a month, whatever they made before (D102, D209)", () => {
+  it("paid (Plus all-in-one) accounts make 3,000 words (20 minutes) a month, whatever they made before (D102, D210)", () => {
     expect(
       can("paid", {
         kind: "create-practice",
         createdTotal: 100,
         createdThisMonth: 29,
-        secondsThisMonth: 30 * 60,
+        secondsThisMonth: 19 * 60,
       }),
     ).toEqual({ ok: true });
     expect(
-      can("paid", { kind: "create-practice", secondsThisMonth: 40 * 60 }),
-    ).toEqual({ ok: false, limit: "wordsPerMonth", max: 6000 });
+      can("paid", { kind: "create-practice", secondsThisMonth: 20 * 60 }),
+    ).toEqual({ ok: false, limit: "wordsPerMonth", max: 3000 });
     expect(needsCount("paid", "create-practice")).toBe(true);
     expect(PLANS.paid.charsPerPractice).toBe(2000); // a technical cap now
   });

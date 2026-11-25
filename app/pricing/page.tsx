@@ -7,7 +7,7 @@ import { PriceSurvey } from "@/components/PriceSurvey";
 import { PricingPlans } from "@/components/PricingPlans";
 import { isIntentSource } from "@/lib/intent";
 import { isBillingPeriod, isPaidPlan } from "@/lib/payments/pricing";
-import { planFor } from "@/lib/plans";
+import { isPlanLine, planFor, planParts } from "@/lib/plans";
 import { studentStatus } from "@/lib/student";
 import { publicPageMetadata } from "@/i18n/metadata";
 
@@ -32,10 +32,16 @@ export default async function PricingPage({
     getPriceView(),
   ]);
   const plan = user ? planFor(user) : null;
+  const parts = plan ? planParts(plan) : null;
   const source = isIntentSource(params.from) ? params.from : "direct";
+  // Back from signing in: the line (D210; "all" before lines), tier, period.
   const open =
     isPaidPlan(params.plan) && isBillingPeriod(params.period)
-      ? { plan: params.plan, period: params.period }
+      ? {
+          line: isPlanLine(params.line) ? params.line : ("all" as const),
+          tier: params.plan,
+          period: params.period,
+        }
       : null;
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-12 split:px-6">
@@ -44,16 +50,11 @@ export default async function PricingPage({
       <div className="mt-8">
         <PricingPlans
           signedIn={user !== null}
-          current={
-            plan === null || plan === "admin"
-              ? null
-              : plan === "paid"
-                ? "plus"
-                : plan
-          }
+          current={plan === null || plan === "admin" ? null : (parts ?? "free")}
           joined={joined}
           source={source}
           open={open}
+          initialLine={isPlanLine(params.line) ? params.line : undefined}
           student={user ? studentStatus(user.studentVerifiedAt) : null}
           prices={view.prices}
         />

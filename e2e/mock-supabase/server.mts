@@ -122,10 +122,13 @@ const conflictKeys: Record<string, string[]> = {
   feedback: ["id"],
 };
 // e2e-paid is on the paid plan from the start (paid features, D97);
-// e2e-student-plan on the student plan (D207).
+// e2e-student-plan on the student plan (D207); e2e-listening-plan and
+// e2e-writing-plan on Plus listening and Plus writing (D210).
 const plans = new Map<string, string>([
   ["e2e-paid", "paid"],
   ["e2e-student-plan", "student"],
+  ["e2e-listening-plan", "listening-plus"],
+  ["e2e-writing-plan", "writing-plus"],
 ]);
 
 /** The `column=eq.value` filters of a PostgREST request. */
@@ -591,7 +594,13 @@ function mayPractice(row: Row, sub: string | null): boolean {
   if (row.official || (sub && row.user_id === sub)) return true;
   if (sub === "e2e-admin") return true;
   const plan = sub ? plans.get(sub) : undefined;
-  return plan === "paid" || plan === "student" || plan === "pro";
+  // Shared materials are a listening feature (D210).
+  return (
+    plan === "paid" ||
+    plan === "student" ||
+    plan === "pro" ||
+    (plan?.startsWith("listening-") ?? false)
+  );
 }
 
 /** A request's body as text. */
@@ -787,6 +796,7 @@ createServer(async (request, response) => {
           sub === "e2e-student" ? new Date().toISOString() : null,
         // A teacher on the standard class plan (D173, D179).
         classroom_seats: isClassTeacher(sub) ? 40 : null,
+        classroom_line: "all",
       },
     ]);
     return;

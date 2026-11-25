@@ -25,7 +25,7 @@ for (const viewport of [
       .first()
       .click();
     await expect(
-      page.getByRole("heading", { name: "Plus 方案" }),
+      page.getByRole("heading", { name: "Plus・聽力" }),
     ).toBeVisible();
   });
 }

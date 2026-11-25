@@ -11,13 +11,12 @@ import {
   parseExperiment,
   parseVariants,
 } from "@/lib/price-experiments";
+import { planAllowance } from "@/lib/payments/costs";
+import { minimumMonthly } from "@/lib/payments/price-floor";
 import {
-  minimumMonthly,
-  PLAN_MINUTES,
-  PLAN_WRITING_REVIEWS,
-  PLAN_BACK_CHECK_EXTRA,
-  PLAN_CHAT_EXTRA,
-} from "@/lib/payments/price-floor";
+  EXPERIMENT_LINE,
+  PRICE_EXPERIMENTS_PAUSED,
+} from "@/lib/price-experiments";
 
 /**
  * Starting and ending price experiments (D174). Prices change what people
@@ -27,7 +26,8 @@ export type ExperimentResult =
   | { ok: true }
   | {
       ok: false;
-      reason: "unavailable" | "invalid" | "running" | "failed" | "reauth";
+      reason:
+        "unavailable" | "invalid" | "running" | "failed" | "reauth" | "paused";
     }
   /** A price under the floor (D185): `min` is the lowest allowed. */
   | { ok: false; reason: "belowFloor"; min: number };
@@ -41,16 +41,13 @@ export async function startPriceExperiment(
   if (!user || !admin) return { ok: false, reason: "unavailable" };
   const raw = (input ?? {}) as Record<string, unknown>;
   const variants = Array.isArray(raw.prices) ? parseVariants(raw.prices) : null;
+  // Paused until Joe decides to begin again (D210).
+  if (PRICE_EXPERIMENTS_PAUSED) return { ok: false, reason: "paused" };
   if (!isPaidPlanId(raw.plan) || !variants) {
     return { ok: false, reason: "invalid" };
   }
-  // Even if everyone uses every minute, no price may lose money (D185).
-  const min = minimumMonthly(
-    PLAN_MINUTES[raw.plan],
-    PLAN_WRITING_REVIEWS[raw.plan],
-    PLAN_CHAT_EXTRA[raw.plan],
-    PLAN_BACK_CHECK_EXTRA[raw.plan],
-  );
+  // Even if everyone uses every allowance, no price may lose money (D185).
+  const min = minimumMonthly(planAllowance(EXPERIMENT_LINE, raw.plan));
   if (variants.some((v) => v.monthly < min)) {
     return { ok: false, reason: "belowFloor", min };
   }

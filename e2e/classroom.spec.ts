@@ -41,30 +41,41 @@ test("class plans: three tiers by class size, yearly by default, a fake door (D1
       .getByRole("listitem")
       .filter({ has: page.getByRole("heading", { level: 2, name }) });
   // A month's price is the big number; the yearly total under it (D128).
-  await expect(tier("小班").getByText("NT$291", { exact: true })).toHaveClass(
+  // All-in-one and yearly first (D210).
+  await expect(tier("小班").getByText("NT$499", { exact: true })).toHaveClass(
     /text-h2/,
   );
   await expect(
-    tier("小班").getByText("年繳 NT$3,490，一次付清，省 2 個月"),
+    tier("小班").getByText("年繳 NT$5,990，一次付清，省 2 個月"),
   ).toBeVisible();
   await expect(tier("小班")).toContainText("每班最多 15 位學生");
-  await expect(tier("小班")).toContainText("老師每月自建 45 分鐘");
-  await expect(tier("標準班").getByText(/年繳 NT\$5,490/)).toBeVisible();
-  await expect(tier("標準班")).toContainText("老師每月自建 70 分鐘");
-  await expect(tier("大班").getByText(/年繳 NT\$8,000/)).toBeVisible();
+  await expect(tier("小班")).toContainText("老師每月自建 6,750 字");
+  await expect(tier("小班")).toContainText(
+    "每位學生每週作文 AI 批改 2 篇、額外練習 AI 批改 7 組、聊天 15 則",
+  );
+  await expect(tier("標準班").getByText(/年繳 NT\$8,990/)).toBeVisible();
+  await expect(tier("標準班")).toContainText("老師每月自建 10,500 字");
+  await expect(tier("大班").getByText(/年繳 NT\$13,900/)).toBeVisible();
   await expect(tier("大班")).toContainText("每班最多 100 位學生");
   await expect(page.locator("main")).not.toContainText("優先名單");
   await expect(page.locator("main")).not.toContainText("%");
   await page.getByText("月繳", { exact: true }).click();
+  await expect(tier("小班").getByText("NT$599", { exact: true })).toBeVisible();
+  // Listening only: the teacher's words, no students' writing.
+  await page
+    .getByRole("group", { name: "方案", exact: true })
+    .getByText("聽力", { exact: true })
+    .click();
   await expect(tier("小班").getByText("NT$349", { exact: true })).toBeVisible();
   await expect(
     tier("標準班").getByText("NT$549", { exact: true }),
   ).toBeVisible();
   await expect(tier("大班").getByText("NT$800", { exact: true })).toBeVisible();
+  await expect(tier("小班")).not.toContainText("每位學生每週");
   await tier("標準班").getByRole("button", { name: "訂閱標準班" }).click();
   await expect(
     page
-      .getByRole("dialog", { name: "標準班 · 月繳" })
+      .getByRole("dialog", { name: "標準班・聽力 · 月繳" })
       .getByText(/現在不會收費/),
   ).toBeVisible();
 });

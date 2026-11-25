@@ -20,6 +20,7 @@ import { ButtonLink } from "../../ButtonLink";
 import { Card } from "../../Card";
 import { useChats, useWritingData } from "../WritingProvider";
 import { Avatar, ChatRoom, type ChatSetup } from "./ChatRoom";
+import { UpsellToAll } from "@/components/UpsellToAll";
 
 type Stage =
   | { kind: "setup" }
@@ -244,6 +245,9 @@ export function ChatPractice({ signedIn }: { signedIn: boolean }) {
                   })
                 : t(`errors.${refusal.reason}`)}
             </p>
+          )}
+          {refusal && !refusal.ok && refusal.reason === "plan" && (
+            <UpsellToAll need="writing" feature="chat" />
           )}
           <div>
             <Button type="submit" variant="primary" disabled={busy}>

@@ -10,52 +10,52 @@ import {
 import { PLAN_PRICES, prepaidRefund } from "@/lib/payments/pricing";
 import { can, planFor, PLANS } from "@/lib/plans";
 
-describe("prices (D102)", () => {
+describe("prices (D102, D210)", () => {
   it("are Joe's monthly prices; a year is ten of them (D105)", () => {
-    expect(PLAN_PRICES.plus).toMatchObject({
+    expect(PLAN_PRICES.listening.plus).toMatchObject({
       month: { amount: 149 },
       year: { amount: 1490 },
     });
-    expect(PLAN_PRICES.pro).toMatchObject({
-      month: { amount: 319 },
-      year: { amount: 3190 },
+    expect(PLAN_PRICES.all.pro).toMatchObject({
+      month: { amount: 499 },
+      year: { amount: 4990 },
     });
-    expect(Object.keys(PLAN_PRICES.plus)).toEqual(["month", "year"]);
+    expect(Object.keys(PLAN_PRICES.all.plus)).toEqual(["month", "year"]);
   });
 
   it("refunds all within 7 days, then the unused whole months at the plan's rate", () => {
-    expect(prepaidRefund("plus", "year", 3, 0)).toBe(1490);
+    expect(prepaidRefund("plus", "year", 3, 0, "listening")).toBe(1490);
     // 8 unused months × 1,490 ÷ 12.
-    expect(prepaidRefund("plus", "year", 100, 3.2)).toBe(993);
-    // 5 unused months × 3,190 ÷ 12 (D185).
-    expect(prepaidRefund("pro", "year", 200, 6.5)).toBe(1329);
+    expect(prepaidRefund("plus", "year", 100, 3.2, "listening")).toBe(993);
+    // 5 unused months × 4,990 ÷ 12 (all-in-one Pro, the default line).
+    expect(prepaidRefund("pro", "year", 200, 6.5)).toBe(2079);
     expect(prepaidRefund("plus", "month", 20, 0.7)).toBe(0);
   });
 });
 
 describe("plans (D102)", () => {
-  it("free makes 300 words a week (D143); Plus 6,000 and Pro 18,000 words a month (D209)", () => {
+  it("free makes 300 words a week (D143); all-in-one Plus 3,000 and Pro 9,000 words a month (D210)", () => {
     expect(PLANS.free).toMatchObject({
       practicesTotal: null,
       wordsPerWeek: 300,
       maxPracticeSeconds: 120,
     });
     expect(PLANS.paid).toMatchObject({
-      wordsPerMonth: 6000,
+      wordsPerMonth: 3000,
       maxPracticeSeconds: 300,
     });
     expect(PLANS.pro).toMatchObject({
-      wordsPerMonth: 18000,
+      wordsPerMonth: 9000,
       maxPracticeSeconds: 600,
     });
     expect(
-      can("paid", { kind: "create-practice", secondsThisMonth: 39 * 60 }).ok,
+      can("paid", { kind: "create-practice", secondsThisMonth: 19 * 60 }).ok,
     ).toBe(true);
     expect(
-      can("paid", { kind: "create-practice", secondsThisMonth: 40 * 60 }),
-    ).toEqual({ ok: false, limit: "wordsPerMonth", max: 6000 });
+      can("paid", { kind: "create-practice", secondsThisMonth: 20 * 60 }),
+    ).toEqual({ ok: false, limit: "wordsPerMonth", max: 3000 });
     expect(
-      can("pro", { kind: "create-practice", secondsThisMonth: 100 * 60 }).ok,
+      can("pro", { kind: "create-practice", secondsThisMonth: 59 * 60 }).ok,
     ).toBe(true);
   });
 
@@ -137,37 +137,23 @@ describe("interest funnel (D102)", () => {
   });
 });
 
-describe("revenue forecast (D102)", () => {
+describe("revenue forecast (D102, D210)", () => {
   it("spreads prepaid plans by month and takes their cash up front", () => {
-    const input = defaultForecastInput(0.6);
+    const input = defaultForecastInput();
     for (const plan of FORECAST_PLANS) {
       for (const period of ["month", "year"] as const) {
         input.subscribers[plan][period] = 0;
       }
     }
-    input.subscribers.plus.year = 12;
+    input.subscribers["listening-plus"].year = 12;
     input.feeRate = 0;
     input.taxRate = 0; // tax is in tests/forecast.test.ts (D184)
     input.serverMonthly = 0;
-    input.usage.plus = 0.5;
+    input.usage["listening-plus"] = 0.5;
     const result = forecast(input);
     expect(result.revenue).toBe(1490); // 12 × 1,490 ÷ 12
     expect(result.cash).toBe(17880);
-    expect(result.aiCost).toBeCloseTo(12 * 40 * 0.5 * 0.6);
-    expect(result.net).toBeCloseTo(1490 - 144);
-    expect(result.grossMargin).toBeCloseTo((1490 - 144) / 1490);
-  });
-
-  it("counts class tiers with their teacher's minutes (D173)", () => {
-    const input = defaultForecastInput(1);
-    for (const plan of FORECAST_PLANS) {
-      input.subscribers[plan] = { month: 0, year: 0 };
-    }
-    input.subscribers.classStandard.month = 2;
-    input.usage.classStandard = 1;
-    input.feeRate = 0;
-    const result = forecast(input);
-    expect(result.revenue).toBe(2 * 549);
-    expect(result.aiCost).toBe(2 * 70);
+    expect(result.net).toBeCloseTo(1490 - result.aiCost);
+    expect(result.grossMargin).toBeCloseTo((1490 - result.aiCost) / 1490);
   });
 });

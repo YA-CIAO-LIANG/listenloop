@@ -1,4 +1,4 @@
-import type { PlanId } from "./plans";
+import { planParts, type PlanId } from "./plans";
 /**
  * Daily limits on the paid APIs (docs/decisions.md D7, D38), per user and
  * per day in Taiwan time. All the numbers live here.
@@ -67,13 +67,11 @@ export function dailyCostLimit(
       ? settings.adminBatchMicros
       : settings.adminManualMicros;
   }
-  // Pro makes three times Plus's minutes (D102), so three times its daily
-  // AI allowance.
-  if (plan === "pro") return settings.paidMicros * 3;
-  // The student plan is Plus at a student price (D207).
-  return plan === "paid" || plan === "student"
-    ? settings.paidMicros
-    : settings.freeMicros;
+  // Pro has about three times Plus's allowances (D102, D210), so three
+  // times its daily AI allowance; every other paid plan has Plus's.
+  const parts = planParts(plan);
+  if (parts?.tier === "pro") return settings.paidMicros * 3;
+  return parts ? settings.paidMicros : settings.freeMicros;
 }
 
 /** Which allowance stopped a call, and when it comes back (D77). */

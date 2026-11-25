@@ -8,6 +8,8 @@ export const INTENT_STEPS = [
   "subscribe_click",
   "waitlist_join",
   "unlock_click",
+  // "Upgrade to all-in-one" shown to someone on the other line (D210).
+  "upsell_view",
 ] as const;
 export type IntentStep = (typeof INTENT_STEPS)[number];
 
@@ -29,6 +31,8 @@ export const INTENT_SOURCES = [
   "pricing",
   "shared-preview",
   "background-unlock",
+  // The "upgrade to all-in-one" prompt (D210).
+  "upsell-all",
 ] as const;
 export type IntentSource = (typeof INTENT_SOURCES)[number];
 

@@ -8,41 +8,43 @@ import {
 } from "./fixtures";
 
 /**
- * The student plan (D144, D173, D185): Plus at NT$119 a month or NT$1,190 a year, for a
- * school Google account. Subscribing is a fake door like Plus's.
+ * The student tier (D144, D173, D210): all-in-one at NT$189 a month or
+ * NT$1,890 a year, for a school Google account. Subscribing is a fake
+ * door like Plus's.
  */
 const studentCard = (page: import("@playwright/test").Page) =>
-  page.getByRole("listitem").filter({ hasText: "訂閱 學生方案" });
+  page.getByRole("listitem").filter({ hasText: "訂閱 學生・聽寫全方位" });
 
 test("visitors see the student price and how to be verified", async ({
   page,
 }) => {
   await page.goto("/pricing");
   const card = studentCard(page);
-  // Yearly first: NT$1,190 a year, NT$99 a month, two months saved (D185).
-  await expect(card).toContainText("NT$99／月");
-  await expect(card).toContainText("年繳 NT$1,190，一次付清，省 2 個月");
+  // Yearly first: NT$1,890 a year, NT$158 a month, two months saved.
+  await expect(card).toContainText("NT$158／月");
+  await expect(card).toContainText("年繳 NT$1,890，一次付清，省 2 個月");
+  await expect(card).toContainText("比 Plus 便宜 30%");
   // How to be verified, said before anyone tries (D173).
   await expect(card).toContainText("不用上傳學生證");
   // Said once: no status line on top of it when signed out (D179).
   await expect(card.getByTestId("student-status")).toHaveCount(0);
   await expect(card.getByText(/學校信箱/)).toHaveCount(1);
   await page.getByText("月繳", { exact: true }).click();
-  await expect(card.getByText("NT$119", { exact: true })).toBeVisible();
-  // The comparison table has a student column, the same as Plus.
+  await expect(card.getByText("NT$189", { exact: true })).toBeVisible();
+  // The comparison table has a student column.
   await expect(
-    page.getByRole("table", { name: "方案比較" }).getByRole("columnheader", {
-      name: "學生方案",
-    }),
+    page
+      .getByRole("table", { name: "方案比較：聽寫全方位" })
+      .getByRole("columnheader", { name: "學生・聽寫全方位" }),
   ).toBeVisible();
 
   // Not verified: subscribing asks for a school sign-in.
-  await card.getByRole("button", { name: "訂閱 學生方案" }).click();
-  const dialog = page.getByRole("dialog", { name: "學生方案 · 月繳" });
+  await card.getByRole("button", { name: "訂閱 學生・聽寫全方位" }).click();
+  const dialog = page.getByRole("dialog", { name: "學生・聽寫全方位 · 月繳" });
   await expect(dialog).toContainText("請先用學校信箱的 Google 帳號登入");
   await expect(
     dialog.getByRole("link", { name: "用學校帳號登入" }),
-  ).toHaveAttribute("href", /plan%3Dstudent%26period%3Dmonth/);
+  ).toHaveAttribute("href", /line%3Dall%26plan%3Dstudent%26period%3Dmonth/);
 
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
@@ -83,9 +85,9 @@ test("a school account is verified for a year and can join the list", async ({
   await expect(card.getByText("適合你", { exact: true })).toBeVisible();
   await expect(
     page.getByRole("listitem").filter({ hasText: /訂閱 / }).first(),
-  ).toContainText("學生方案");
-  await card.getByRole("button", { name: "訂閱 學生方案" }).click();
-  const dialog = page.getByRole("dialog", { name: "學生方案 · 年繳" });
+  ).toContainText("學生・聽寫全方位");
+  await card.getByRole("button", { name: "訂閱 學生・聽寫全方位" }).click();
+  const dialog = page.getByRole("dialog", { name: "學生・聽寫全方位 · 年繳" });
   await expect(dialog.getByText(/付費方案即將推出/)).toBeVisible();
   await dialog.getByRole("button", { name: "加入名單" }).click();
   await expect(dialog.getByRole("status")).toContainText("已加入名單");

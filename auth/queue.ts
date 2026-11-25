@@ -1,7 +1,7 @@
 import type { PlanId } from "@/lib/plans";
 import {
   QUEUE,
-  QUEUE_PRIORITY,
+  queuePriority,
   queueTicket,
   type QueueResource,
 } from "@/lib/queue";
@@ -27,7 +27,7 @@ export async function takeTurn(
       target_ticket: queueTicket(resource, id),
       target_user: user.id,
       // Fair priority by plan (D162).
-      target_priority: QUEUE_PRIORITY[plan],
+      target_priority: queuePriority(plan),
       stale_seconds: QUEUE.staleSeconds,
     });
   } catch (error) {

@@ -46,6 +46,7 @@ import { ProgressBar } from "./ProgressBar";
 import { prepareForPractice, type Stage } from "./practice-generation";
 import { StageProgress } from "./StageProgress";
 import { decodeToMono, encodeMp3, mediaSeconds } from "./upload/browser-audio";
+import { UpsellToAll } from "@/components/UpsellToAll";
 
 const fieldClassName =
   "block w-full rounded-base border border-line bg-surface px-4 py-3 focus-visible:border-accent";
@@ -178,6 +179,7 @@ export function UploadCreate({
     return (
       <div className="space-y-3 rounded-base border border-line surface-card p-4">
         <p>{t("paidOnly")}</p>
+        <UpsellToAll need="listening" feature="upload" />
         <ButtonLink href="/pricing?from=upload" variant="secondary" arrow>
           {t("seePlans")}
         </ButtonLink>

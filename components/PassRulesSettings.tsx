@@ -17,6 +17,7 @@ import type { Progress } from "@/lib/progress";
 import type { ProgressStore } from "@/lib/storage/progress-store";
 import { usePlan } from "./PlanProvider";
 import { useVideoProgress } from "./useVideoProgress";
+import { UpsellToAll } from "@/components/UpsellToAll";
 
 // Full width of its column, so a long option never pushes past the screen.
 const selectClassName =
@@ -150,6 +151,7 @@ export function PassRulesSettings({
         </label>
       </div>
 
+      {!allowed && <UpsellToAll need="listening" feature="custom-rules" />}
       <p role="status" className="text-supporting text-ink-muted">
         {!allowed ? (
           <>

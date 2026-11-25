@@ -95,7 +95,8 @@ const subscriptionEvent = (extra: Partial<PaymentEvent> = {}): PaymentEvent =>
 describe("prices (one place)", () => {
   it("bills a year as ten months", () => {
     expect(PRICES.year.amount).toBe(PRICES.month.amount * 10);
-    expect(averagePerMonth(PRICES.year.amount)).toBe(124);
+    // Plus all-in-one, the account plan "paid" (D210).
+    expect(averagePerMonth(PRICES.year.amount)).toBe(224);
   });
 });
 
@@ -261,7 +262,7 @@ describe("the fake provider, end to end", () => {
       test: true,
     });
     const [payment] = [...m.payments.values()];
-    expect(payment).toMatchObject({ amount: 1490, currency: "TWD" });
+    expect(payment).toMatchObject({ amount: 2690, currency: "TWD" });
 
     const ref = {
       subscriptionId: sub.subscriptionId,

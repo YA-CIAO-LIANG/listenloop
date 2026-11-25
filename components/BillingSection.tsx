@@ -3,7 +3,8 @@ import { getFormatter, getTranslations } from "next-intl/server";
 import { setCancelAtPeriodEnd } from "@/app/billing/actions";
 import type { Payment, Subscription } from "@/auth/billing";
 import { formatPrice, PLAN_PRICES, PRICES } from "@/lib/payments/pricing";
-import { isPayingPlan, type AccountPlan } from "@/lib/plans";
+import { planLabel, type PlanNameTranslator } from "@/lib/plan-names";
+import { isPayingPlan, planParts, type AccountPlan } from "@/lib/plans";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
 import { PlanPrice } from "./PlanPrice";
@@ -30,10 +31,13 @@ export async function BillingSection({
   /** A payment provider is set up, so cancelling reaches it. */
   canManage: boolean;
 }) {
-  const [t, format] = await Promise.all([
+  const [t, tPlans, format] = await Promise.all([
     getTranslations("billing"),
+    getTranslations("planNames"),
     getFormatter(),
   ]);
+  const tn = tPlans as unknown as PlanNameTranslator;
+  const parts = planParts(plan);
   const date = (iso: string) =>
     format.dateTime(new Date(iso), {
       year: "numeric",
@@ -60,9 +64,9 @@ export async function BillingSection({
       </h2>
       <p className="mt-4 text-supporting text-ink-muted">{t("plan")}</p>
       <p className="mt-1 flex flex-wrap items-center gap-2">
-        {(plan === "paid" || plan === "student") && !live
-          ? t("byAdmin", { plan: t(`plans.${plan}`) })
-          : t(`plans.${plan}`)}
+        {isPayingPlan(plan) && !live
+          ? t("byAdmin", { plan: planLabel(plan, tn) })
+          : planLabel(plan, tn)}
         {live && <span>· {t(`interval.${subscription.interval}`)}</span>}
         {subscription?.test && <Tag>{t("test")}</Tag>}
       </p>
@@ -71,9 +75,9 @@ export async function BillingSection({
         <p className="mt-1 text-supporting">
           <PlanPrice
             total={
-              PLAN_PRICES[
-                plan === "pro" ? "pro" : plan === "student" ? "student" : "plus"
-              ][subscription.interval].amount
+              PLAN_PRICES[parts?.line ?? "all"][parts?.tier ?? "plus"][
+                subscription.interval
+              ].amount
             }
             period={subscription.interval}
             size="inline"

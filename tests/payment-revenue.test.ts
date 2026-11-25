@@ -62,7 +62,8 @@ describe("revenueSummary (D85)", () => {
     expect(summary).toEqual({
       subscribers: 3,
       cancelling: 1,
-      monthlyRecurring: 149 + Math.round(1490 / 12),
+      monthlyRecurring:
+        PRICES.month.amount + Math.round(PRICES.year.amount / 12),
       netThisMonth: 149 + 1490 - 1490 - 149,
       refundsThisMonth: 2,
       test: true,

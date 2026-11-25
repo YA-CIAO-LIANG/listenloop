@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { ABUSE, detectAbuse, parseAbuseSignals } from "@/lib/ops/abuse";
-import { QUEUE, QUEUE_PRIORITY, queueKey } from "@/lib/queue";
+import { QUEUE, queueKey, queuePriority } from "@/lib/queue";
 
 /** Abuse detection and fair queueing (D162). */
 const limit = (userId: string) => (userId === "admin" ? null : 200_000);
@@ -127,13 +127,18 @@ describe("fair queue order", () => {
   const minute = 60_000;
   it("lets paying plans go first, but not for ever", () => {
     const t = Date.parse("2026-11-13T12:00:00Z");
-    const freeEarly = queueKey(t, QUEUE_PRIORITY.free);
-    const proLater = queueKey(t + 5 * minute, QUEUE_PRIORITY.pro);
-    const proMuchLater = queueKey(t + 7 * minute, QUEUE_PRIORITY.pro);
+    const freeEarly = queueKey(t, queuePriority("free"));
+    const proLater = queueKey(t + 5 * minute, queuePriority("pro"));
+    const proMuchLater = queueKey(t + 7 * minute, queuePriority("pro"));
     // Pro 5 minutes later still goes first; 7 minutes later doesn't.
     expect(proLater).toBeLessThan(freeEarly);
     expect(proMuchLater).toBeGreaterThan(freeEarly);
-    expect(QUEUE_PRIORITY.paid).toBe(1);
+    expect(queuePriority("paid")).toBe(1);
+    // By line (D210): Pro's listening 2, other listening 1, writing 0.
+    expect(queuePriority("listening-pro")).toBe(2);
+    expect(queuePriority("listening-student")).toBe(1);
+    expect(queuePriority("writing-pro")).toBe(0);
+    expect(queuePriority("admin")).toBe(2);
   });
 
   it("uses the same head start as the database", () => {

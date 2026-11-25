@@ -6,6 +6,7 @@ import { can } from "@/lib/plans";
 import { SPEED_WEIGHTS, SPEEDS, type Speed } from "@/lib/speed";
 import { usePlan } from "./PlanProvider";
 import { SegmentedControl } from "./SegmentedControl";
+import { UpsellToAll } from "@/components/UpsellToAll";
 
 /**
  * Playback speed for audio practices (D73): 0.75×, 1×, 1.25×, same pitch.
@@ -27,15 +28,18 @@ export function SpeedControl({
   // Plus and Pro (D102); the free plan sees what it is (a fake door).
   if (!can(usePlan(), { kind: "feature", feature: "playbackSpeed" }).ok) {
     return (
-      <p className="text-supporting text-ink-muted">
-        {t("locked")}{" "}
-        <Link
-          href="/pricing?from=speed"
-          className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
-        >
-          {t("seePlans")}
-        </Link>
-      </p>
+      <>
+        <p className="text-supporting text-ink-muted">
+          {t("locked")}{" "}
+          <Link
+            href="/pricing?from=speed"
+            className="text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+          >
+            {t("seePlans")}
+          </Link>
+        </p>
+        <UpsellToAll need="listening" feature="speed" />
+      </>
     );
   }
   const percent = (n: number) =>

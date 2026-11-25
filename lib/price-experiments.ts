@@ -1,3 +1,4 @@
+import type { PlanLine } from "./plans";
 import {
   PAID_PLANS,
   yearlyFromMonthly,
@@ -11,7 +12,16 @@ import {
  * paid plan; each visitor sees one of them, always the same one. Still a
  * fake door: nothing is charged, the price only changes what the pricing
  * page and upgrade prompts show and what the waiting list remembers.
+ *
+ * Paused since the plans became three lines (D210, Joe 2026-11-24): the
+ * data is kept, nobody sees a variant or an applied price, and none can
+ * be started until Joe decides to begin again. Experiments are by tier
+ * and act on the "all" line, whose ids the old plans kept.
  */
+export const PRICE_EXPERIMENTS_PAUSED = true;
+
+/** The line an experiment's tier price applies to (D210). */
+export const EXPERIMENT_LINE: PlanLine = "all";
 
 /** A variant's key: "a", "b", "c"… "a" is the control, compared against. */
 export type Variant = { key: string; monthly: number };
@@ -97,9 +107,11 @@ export const pricesFromMonthly = (
   year: { amount: yearlyFromMonthly(monthly), currency: "TWD" },
 });
 
-export type PlanPrices = Readonly<
+export type LinePrices = Readonly<
   Record<PaidPlan, Readonly<Record<BillingPeriod, Price>>>
 >;
+/** Prices by line and tier (D210). */
+export type PlanPrices = Readonly<Record<PlanLine, LinePrices>>;
 
 /** An admin's applied monthly price for a plan (price_overrides). */
 export type PriceOverride = { plan: string; monthly: number };
@@ -109,13 +121,15 @@ export function effectivePrices(
   base: PlanPrices,
   overrides: readonly PriceOverride[],
 ): PlanPrices {
-  const out = { ...base };
+  const line: Record<PaidPlan, Record<BillingPeriod, Price>> = {
+    ...base[EXPERIMENT_LINE],
+  };
   for (const { plan, monthly } of overrides) {
     if (isPaidPlanId(plan) && Number.isInteger(monthly) && monthly > 0) {
-      out[plan] = pricesFromMonthly(monthly);
+      line[plan] = pricesFromMonthly(monthly);
     }
   }
-  return out;
+  return { ...base, [EXPERIMENT_LINE]: line };
 }
 
 /** A stored experiment row, checked; null when it's malformed. */
@@ -163,7 +177,13 @@ export function priceView(
   if (!running || !subject) return { prices: base, experiment: null };
   const variant = assignVariant(running, subject);
   return {
-    prices: { ...base, [running.plan]: pricesFromMonthly(variant.monthly) },
+    prices: {
+      ...base,
+      [EXPERIMENT_LINE]: {
+        ...base[EXPERIMENT_LINE],
+        [running.plan]: pricesFromMonthly(variant.monthly),
+      },
+    },
     experiment: { id: running.id, plan: running.plan, variant: variant.key },
   };
 }

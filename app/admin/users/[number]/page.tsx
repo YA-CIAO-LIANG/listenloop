@@ -7,7 +7,7 @@ import { getAdminUser } from "@/auth/creator";
 import { EventTable } from "@/components/EventTable";
 import { UserControls } from "@/components/UserControls";
 import { isAccountStatus, isRole, userNumberLabel } from "@/lib/accounts";
-import { isAccountPlan } from "@/lib/plans";
+import { isAccountPlan, isPlanLine } from "@/lib/plans";
 import { ClassroomSeatsControl } from "@/components/ClassroomSeatsControl";
 import { QuotaControls } from "@/components/QuotaControls";
 import { isOverridableLimit } from "@/lib/quota";
@@ -40,7 +40,7 @@ export default async function AdminUserPage({
   const { data: profile } = await admin
     .from("profiles")
     .select(
-      "user_id, number, role, status, plan, classroom_seats, created_at, last_seen_at, ai_suspended_at, ai_suspended_reason",
+      "user_id, number, role, status, plan, classroom_seats, classroom_line, created_at, last_seen_at, ai_suspended_at, ai_suspended_reason",
     )
     .eq("number", number)
     .maybeSingle();
@@ -98,6 +98,9 @@ export default async function AdminUserPage({
         <ClassroomSeatsControl
           userId={profile.user_id}
           seats={profile.classroom_seats}
+          line={
+            isPlanLine(profile.classroom_line) ? profile.classroom_line : "all"
+          }
         />
       </section>
       <section aria-labelledby="user-quota" className="mt-12 max-w-reading">

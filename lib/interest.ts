@@ -13,6 +13,8 @@ export type IntentRow = {
   plan: string | null;
   billing_interval: string | null;
   source: string | null;
+  /** What a step was about (an unlock's item, an upsell's feature). */
+  item?: string | null;
 };
 
 /** The funnel's steps, in order (unlock clicks are their own door). */
@@ -93,7 +95,7 @@ export function weeklyTrend(
 export function shares(
   rows: readonly IntentRow[],
   step: IntentStep,
-  field: "plan" | "billing_interval" | "source",
+  field: "plan" | "billing_interval" | "source" | "item",
 ): { value: string; people: number; share: number }[] {
   const people = new Map<string, Set<string>>();
   for (const row of rows) {

@@ -4,6 +4,7 @@ import { getSignedInUser } from "@/auth/session";
 import { VISITOR_COOKIE } from "@/lib/intent";
 import { PLAN_PRICES } from "@/lib/payments/pricing";
 import {
+  PRICE_EXPERIMENTS_PAUSED,
   effectivePrices,
   parseExperiment,
   priceView,
@@ -63,10 +64,16 @@ export async function priceSubject(): Promise<string | null> {
   return visitor && /^[a-f0-9-]{8,64}$/.test(visitor) ? `v:${visitor}` : null;
 }
 
-/** The prices this visitor sees, and the experiment behind them. */
+/**
+ * The prices this visitor sees, and the experiment behind them; the
+ * code's prices while experiments are paused (D210).
+ */
 export async function getPriceView(
   subject?: string | null,
 ): Promise<PriceView> {
+  if (PRICE_EXPERIMENTS_PAUSED) {
+    return { prices: PLAN_PRICES, experiment: null };
+  }
   const [state, who] = await Promise.all([
     readState(),
     subject === undefined ? priceSubject() : Promise.resolve(subject),

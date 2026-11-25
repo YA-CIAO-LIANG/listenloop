@@ -987,7 +987,11 @@
       "accountBody": "為了保護服務，你的帳號的 AI 功能暫時停用，既有的教材可以照常練習。如果你認為這是誤判，請透過意見回饋告訴我們。",
       "accountContact": "聯絡我們"
     },
-    "listSeparator": "、"
+    "listSeparator": "、",
+    "allowanceUse": {
+      "week": "這份教材會用掉約 {words, number} 字的額度；本週還剩 {left, number} 字。",
+      "month": "這份教材會用掉約 {words, number} 字的額度；本月還剩 {left, number} 字。"
+    }
   },
   "editPractice": {
     "titlesLegend": "標題",
@@ -1511,7 +1515,6 @@
     "weekUsed": "免費方案每週可以建立 {total, number} 字的教材，本週的已經用完，{reset} 重設。",
     "seePractices": "查看學習進度",
     "paid": {
-      "title": "Plus 方案",
       "perMonth": "每月自建 {max, number} 字的教材",
       "everything": "所有官方教材與功能",
       "free": "你目前是免費方案：所有官方教材與功能，加上每週 {words, number} 字的自建教材。",
@@ -1660,18 +1663,13 @@
         "reauth": "為了安全，這個操作需要在 30 分鐘內登入過。請從右上角「帳號」登出，再登入一次後重試。"
       },
       "planIs": "方案：{plan}",
-      "plans": {
-        "free": "免費",
-        "paid": "Plus",
-        "student": "學生",
-        "pro": "Pro"
-      },
       "planLabel": "方案",
       "classroom": "班級方案（測試用）",
       "classroomNone": "無",
       "classroomSeats": "{seats} 人",
       "classroomFailed": "沒有存成功。",
-      "quotaTitle": "額度調整"
+      "quotaTitle": "額度調整",
+      "classroomLine": "方案線"
     },
     "events": {
       "title": "操作紀錄",
@@ -1855,7 +1853,8 @@
         "interval_switch": "切換週期",
         "subscribe_click": "按下訂閱",
         "waitlist_join": "加入名單",
-        "unlock_click": "按下顏色解鎖"
+        "unlock_click": "按下顏色解鎖",
+        "upsell_view": "看到升級全方位提示"
       },
       "base": "基準",
       "rate": "轉換率 {rate}",
@@ -1865,12 +1864,11 @@
       "periodsTitle": "按下訂閱：繳費週期",
       "sourcesTitle": "來源頁面",
       "unlocksTitle": "顏色解鎖：來源",
-      "empty": "還沒有資料。"
+      "empty": "還沒有資料。",
+      "upsellsTitle": "「升級為聽寫全方位」提示（依觸發的功能）"
     },
     "forecast": {
       "title": "收益試算",
-      "introMeasured": "所有數字都可以改，結果即時重算，不會儲存。AI 成本預設每分鐘 NT${perMinute}：語言模型 NT${language}（本月實際花費 ÷ 本月建立的教材分鐘數，不含 eval），加上聲音 NT${voice}（超過免費額度後的付費價格）；匯率 {rate}。",
-      "introFallback": "所有數字都可以改，結果即時重算，不會儲存。AI 成本預設每分鐘 NT${perMinute}：本月還沒有足夠的資料，語言模型用 11 月 8 日官方教材批次的實際花費 NT${language}，加上聲音 NT${voice}（超過免費額度後的付費價格）；匯率 {rate}。",
       "revenue": "月營收（含稅）",
       "cash": "預收現金",
       "cashNote": "這些人付款當下收到的金額",
@@ -1884,14 +1882,6 @@
         "month": "月繳",
         "year": "年繳"
       },
-      "names": {
-        "plus": "Plus",
-        "pro": "Pro",
-        "student": "學生方案",
-        "classSmall": "小班",
-        "classStandard": "標準班",
-        "classLarge": "大班"
-      },
       "rows": {
         "subscribers": "{plan} 人數",
         "prices": "{plan} 價格（NT$）"
@@ -1899,14 +1889,28 @@
       "assumptions": "假設",
       "usage": "{plan} 額度使用率（%）",
       "fields": {
-        "aiPerMinute": "AI 成本（NT$／每分鐘教材）",
         "feeRate": "金流手續費（%）",
         "feeFixed": "每筆固定手續費（NT$）",
         "serverMonthly": "伺服器成本（NT$／月）",
-        "taxRate": "營業稅（%，含在價格內）"
+        "taxRate": "營業稅（%，含在價格內）",
+        "costScale": "成本係數（1 = 校正後的單位成本）"
       },
       "notes": "預設假設：價格含 5% 營業稅（賣給台灣消費者要標含稅價），先扣掉再算毛利；金流用綠界，信用卡手續費約 2.75%，加上手續費本身 5% 的稅，約 2.9%、沒有每筆固定費（實際費率依和綠界簽的合約而定，可以在這裡改）；額度使用率 40%（大多數人用不完）；聲音目前用 Azure F0 免費額度，但訂閱人數一多就會超過，所以 AI 成本一律含付費聲音的價格；伺服器 NT$1,500／月（Vercel Pro US$20 加 Supabase Pro US$25，商業使用時需要升級）。",
-      "perMonthTax": "含營業稅 {tax}；長期方案按月攤提"
+      "perMonthTax": "含營業稅 {tax}；長期方案按月攤提",
+      "intro": "所有數字都可以改，結果即時重算，不會儲存。成本用校正後的單位成本（D210，`lib/payments/costs.ts`）：自建聽力每 150 字（約 1 分鐘）NT${perMinute}（AI 文字＋付費語音）、作文批改每篇 NT${essay}、額外練習 AI 批改每組 NT${check}、聊天每則 NT${message}；匯率 {rate}。",
+      "classFormat": "{size}・{line}",
+      "sizes": {
+        "small": "小班（15 人）",
+        "standard": "標準班（40 人）",
+        "large": "大班（100 人）"
+      },
+      "costTitle": "各方案的 AI 與語音成本（每人每月）",
+      "costBase": "年繳的每月平均價格",
+      "costFull": "用滿額度",
+      "costTypical30": "一般使用（30%）",
+      "costTypical50": "一般使用（50%）",
+      "costCap": "成本上限",
+      "costNote": "括號內是成本占「年繳的每月平均價格」（月繳 × 10 ÷ 12）的比例，不含金流手續費。上限：Plus 與班級方案 30%、學生方案 40%、Pro 45%（D210），超過時以紅字標示；自動測試會擋下超過上限的設定。語音以付費價格計算，Azure F0 每月 50 萬字元的免費額度是全站共用的額外節省。"
     },
     "docs": {
       "title": "系統文件",
@@ -2304,7 +2308,8 @@
         "running": "已經有進行中的實驗，請先結束它。",
         "failed": "沒有成功，請再試一次。",
         "reauth": "這個操作需要最近 30 分鐘內登入過，請重新登入。",
-        "belowFloor": "有價格低於保本價 NT${min}：就算每位訂閱者都把額度用完，每人每月扣掉營業稅、手續費與 AI 成本後也要至少賺 NT$15（D185）。"
+        "belowFloor": "有價格低於保本價 NT${min}：就算每位訂閱者都把額度用完，每人每月扣掉營業稅、手續費與 AI 成本後也要至少賺 NT$15（D185）。",
+        "paused": "價格實驗暫停中，不能開始新的實驗。"
       },
       "surveyTitle": "價格敏感度問卷（Van Westendorp）",
       "surveyIntro": "完成第 7 天或在定價頁停留 30 秒後，邀請使用者回答 4 個問題（以 Plus 為例的每月價格），每台裝置只問一次、可以略過。",
@@ -2321,7 +2326,8 @@
           "tooExpensive": "太貴不考慮"
         },
         "howToRead": "怎麼看：「便宜到懷疑」和「划算」隨價格升高而下降；「有點貴」和「太貴」隨價格升高而上升。區間的下限是「便宜到懷疑」碰到「不划算」的價格，上限是「太貴」碰到「不算貴」的價格；最適價格點是覺得太便宜和太貴的人一樣多的地方。建議價格放在區間內，再用價格實驗確認。"
-      }
+      },
+      "paused": "價格實驗已暫停（D210）：方案改成「聽力｜寫作｜聽寫全方位」三條線後，已有的實驗與數據都保留，但不會套用到任何人，也不能開始新的實驗。要不要重新開始由 Joe 決定（改 `lib/price-experiments.ts` 的 `PRICE_EXPERIMENTS_PAUSED`）。"
     }
   },
   "events": {
@@ -2909,12 +2915,6 @@
   "billing": {
     "title": "方案與付款",
     "plan": "目前方案",
-    "plans": {
-      "free": "免費",
-      "paid": "Plus",
-      "student": "學生",
-      "pro": "Pro"
-    },
     "byAdmin": "{plan}（由管理員設定）",
     "interval": {
       "month": "月繳",
@@ -3185,7 +3185,7 @@
       "month": "月繳",
       "year": "年繳"
     },
-    "monthlyReset": "年繳的額度一樣每月重設，不會累積。",
+    "monthlyReset": "年繳的額度一樣每月（寫作每週）重設，不會累積。",
     "names": {
       "free": "免費",
       "plus": "Plus",
@@ -3195,10 +3195,7 @@
     "current": "目前方案",
     "perMonthSuffix": "／月",
     "summaries": {
-      "free": "所有官方教材與功能、基本學習分析，每週可以建立 300 字的自建教材（約 2 分鐘）。寫作每週 {reviews} 次 AI 批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。",
-      "plus": "完整練習所有人分享的公開教材、每月自建 6,000 字、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。寫作的 AI 額度比免費版多：每週 {reviews} 次批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。",
-      "pro": "每月自建 18,000 字、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。寫作的 AI 額度最多：每週 {reviews} 次批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。",
-      "student": "聽力和其他付費功能與 Plus 相同，學生價。寫作的 AI 額度比免費版稍多：每週 {reviews} 次批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。"
+      "free": "所有官方教材與功能、基本學習分析，每週可以建立 {words, number} 字的自建教材（約 2 分鐘）。寫作每週 {reviews} 篇 AI 批改試用、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。"
     },
     "student": {
       "verified": "已認證學生身分，有效到 {until}。",
@@ -3210,7 +3207,7 @@
       "forYou": "適合你"
     },
     "subscribe": "訂閱 {plan}",
-    "compareTitle": "方案比較",
+    "compareTitle": "方案比較：{line}",
     "feature": "功能",
     "features": {
       "official": "官方教材與 7 天循環",
@@ -3225,10 +3222,10 @@
       "priority": "優先產生",
       "batchPdf": "批次 PDF",
       "writing": "寫作練習（7 天循環、錯誤本）",
-      "writingReviews": "AI 寫作批改",
+      "writingReviews": "作文 AI 批改",
       "writingWords": "每篇寫作的字數",
-      "chatMinutes": "聊天練習（AI 對話＋即時糾正，以訊息則數計）",
-      "backChecks": "額外練習的 AI 批改（每組一次）"
+      "backChecks": "額外練習的 AI 批改（每組一次）",
+      "chatMessages": "聊天練習（AI 對話＋即時糾正，以訊息則數計）"
     },
     "yes": "✓",
     "no": "—",
@@ -3258,10 +3255,43 @@
     "priceRow": "價格",
     "uploadSize": "✓（每檔 {mb} MB）",
     "popular": "最受歡迎",
-    "timesPerWeek": "每週 {n} 次",
     "setsPerWeek": "每週 {n} 組",
     "words": "{n} 字",
-    "messagesPerWeek": "每週 {n} 則"
+    "messagesPerWeek": "每週 {n} 則",
+    "lineLegend": "方案",
+    "lineIntro": {
+      "listening": "聽力方案：每月自建聽力教材的字數，加上上傳音檔、語速、自訂通關等聽力功能；寫作是免費版的試用額度。",
+      "writing": "寫作方案：每週的作文 AI 批改、額外練習 AI 批改與聊天訊息；聽力是免費版的功能。",
+      "all": "聽寫全方位：同等級的聽力加上寫作，兩邊的額度都完整保留，比分開買便宜。"
+    },
+    "unlimitedPractice": "練習官方教材和已經建立的教材都不限時間、不扣額度；額度只算「建立新教材」和「AI 批改、聊天」。",
+    "allowance": {
+      "words": "每月自建 {words, number} 字，約 {texts} 篇 150 字的短文（約 {minutes} 分鐘的音檔）",
+      "listeningPlus": "上傳自己的音檔、語速、完整練習所有人分享的公開教材、自訂通關、單份最長 5 分鐘",
+      "listeningPro": "上傳自己的音檔、語速、完整練習所有人分享的公開教材、自訂通關，單份最長 10 分鐘、優先產生、批次 PDF",
+      "listeningFree": "聽力：免費版的功能（每週自建 {words, number} 字）",
+      "essays": "每週作文 AI 批改 {n} 篇（平均每天約 {perDay} 篇）",
+      "sets": "每週額外練習 AI 批改 {n} 組（平均每天約 {perDay} 組）",
+      "messages": "每週聊天 {n} 則訊息（約 {chats} 次 10 分鐘的聊天）",
+      "writingFree": "寫作：免費試用（每週 {n} 篇 AI 批改）"
+    },
+    "savings": {
+      "bundle": "比分開買每月省 NT${amount}",
+      "student": "比 Plus 便宜 {percent}",
+      "pro": "最划算，比 Plus 省 {percent}（以每單位額度計算）"
+    },
+    "overviewTitle": "三條方案線的額度一覽",
+    "overview": {
+      "plan": "方案",
+      "price": "價格",
+      "words": "自建聽力教材",
+      "essays": "作文 AI 批改",
+      "sets": "額外練習 AI 批改",
+      "messages": "聊天訊息",
+      "freeListening": "免費版（每週 {words, number} 字）",
+      "freeWriting": "免費試用（每週 {n} 篇）"
+    },
+    "essaysPerWeek": "每週 {n} 篇"
   },
   "classroom": {
     "title": "我的班級",
@@ -3360,9 +3390,8 @@
   },
   "classPricing": {
     "title": "班級方案",
-    "intro": "給老師：建立班級、指派教材、查看每位學生的進度與進步、匯出 CSV。依班級人數分成三種，老師本人也有每月的自建教材分鐘數。",
+    "intro": "給老師：建立班級、指派教材、查看每位學生的進度與進步、匯出 CSV。依班級人數分成三種，每種都可以選聽力、寫作或聽寫全方位。",
     "seats": "每班最多 {seats} 位學生",
-    "minutes": "老師每月自建 {minutes} 分鐘",
     "subscribe": "訂閱{tier}",
     "note": "班級方案開放前，可以請管理員開通試用。",
     "offerTitle": "{tier} · {period}",
@@ -3373,7 +3402,12 @@
       "small": "小班",
       "standard": "標準班",
       "large": "大班"
-    }
+    },
+    "name": "{tier}・{line}",
+    "words": "老師每月自建 {words, number} 字，約 {texts} 篇 150 字的短文",
+    "writing": "每位學生每週作文 AI 批改 {essays} 篇、額外練習 AI 批改 {sets} 組",
+    "writingWithChat": "每位學生每週作文 AI 批改 {essays} 篇、額外練習 AI 批改 {sets} 組、聊天 {messages} 則",
+    "lines": "聽力：老師的自建教材字數。寫作：每位學生的寫作 AI 額度（老師出題不另外計算，批改計入學生的額度；學生自己的方案額度比較多時，用比較多的那個）。聽寫全方位：兩者都有，額度完整保留。"
   },
   "sharedPreview": {
     "label": "公開教材預覽",
@@ -3877,13 +3911,6 @@
     "title": "我的額度",
     "back": "帳號",
     "intro": "你目前是{plan}。以下是各項額度的使用情形與重設時間。額度一律在台灣時間的午夜重設，這裡換算成你裝置的時區顯示。",
-    "plans": {
-      "free": "免費方案",
-      "paid": "Plus 方案",
-      "student": "學生方案",
-      "pro": "Pro 方案",
-      "admin": "管理員（不限）"
-    },
     "suspended": "你的帳號的 AI 功能暫時停用，既有的教材可以照常練習。如果你認為這是誤判，請透過意見回饋告訴我們。",
     "rows": {
       "wordsPerWeek": "本週建立教材的字數",
@@ -3891,7 +3918,7 @@
       "revisesPerDay": "今天用指令修改的次數",
       "storageMegabytes": "錄音的儲存空間",
       "dailyAi": "今天的 AI 用量",
-      "writingReviewsPerWeek": "本週的 AI 寫作批改",
+      "writingReviewsPerWeek": "本週的作文 AI 批改",
       "chatMessagesPerWeek": "本週的聊天訊息",
       "backChecksPerWeek": "本週的額外練習 AI 批改"
     },
@@ -3901,7 +3928,8 @@
       "percent": "{n}%",
       "words": "{n} 字",
       "messages": "{n} 則",
-      "sets": "{n} 組"
+      "sets": "{n} 組",
+      "essays": "{n} 篇"
     },
     "usedOf": "已用 {used} / {max}",
     "unlimitedUsed": "已用 {used}（不限）",
@@ -3946,7 +3974,16 @@
       "rules": "同一台裝置，或一天內大量註冊的帳號不列入計算；自己的連結不能自己用。同學在同一個學校網路註冊沒關係。邀請連結不會增加註冊名額。"
     },
     "words": "{n} 字",
-    "wordsAbout": "{n} 字（約 {minutes} 分鐘）"
+    "wordsAbout": "{n} 字（約 {minutes} 分鐘）",
+    "groups": {
+      "listening": "聽力",
+      "writing": "寫作",
+      "other": "其他"
+    },
+    "groupsFree": {
+      "listening": "你的方案不含聽力，這裡是免費版的額度。",
+      "writing": "你的方案不含寫作，這裡是免費版的試用額度。"
+    }
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
@@ -4068,7 +4105,7 @@
   },
   "priceSurvey": {
     "title": "Plus 值多少錢？4 個問題",
-    "intro": "想像 Plus 方案（完整練習公開教材、每月自建 40 分鐘、上傳音檔、語速、完整學習分析）。依你的感覺填每個月的價格，沒有標準答案。只問這一次，也可以略過。",
+    "intro": "想像「Plus・聽寫全方位」方案（完整練習公開教材、每月自建 3,000 字、上傳音檔、語速、每週作文 AI 批改 7 篇、聊天 135 則、完整學習分析）。依你的感覺填每個月的價格，沒有標準答案。只問這一次，也可以略過。",
     "perMonth": "／月",
     "questions": {
       "tooExpensive": "多少錢會讓你覺得太貴，根本不考慮？",
@@ -4923,5 +4960,25 @@
     "dayAccuracy": "當天平均正確率 {percent}%",
     "reviewLine": "睡前回顧",
     "sentences": "聽寫回譯寫了 {count} 句"
+  },
+  "planNames": {
+    "free": "免費方案",
+    "admin": "管理員（不限）",
+    "format": "{tier}・{line}",
+    "tiers": {
+      "student": "學生",
+      "plus": "Plus",
+      "pro": "Pro"
+    },
+    "lines": {
+      "listening": "聽力",
+      "writing": "寫作",
+      "all": "聽寫全方位"
+    }
+  },
+  "upsellAll": {
+    "listening": "你目前是寫作方案，聽力只有免費版的功能。升級為「聽寫全方位」，就有同等級的聽力額度與功能，比分開買便宜。",
+    "writing": "你目前是聽力方案，寫作只有免費版的試用額度。升級為「聽寫全方位」，就有同等級的寫作 AI 額度，比分開買便宜。",
+    "link": "升級為聽寫全方位"
   }
 }

@@ -1,10 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
-  CLASS_COST,
-  classCostPerMinute,
-  classMinutes,
-  classMinutesCost,
   classPrice,
+  classStudentWriting,
+  classWords,
   CLASS_TIERS,
   classTierFor,
   classReport,
@@ -14,33 +12,32 @@ import {
 } from "@/lib/classroom";
 import { createProgress, withDay, type Progress } from "@/lib/progress";
 
-describe("class plans (D103, D173)", () => {
-  it("are three tiers by class size: NT$349, NT$549, NT$800 a month", () => {
+describe("class plans (D103, D173, D210)", () => {
+  it("are three sizes, each as listening, writing, or all-in-one", () => {
     expect(
       CLASS_TIERS.map(({ id, seats, monthly }) => [id, seats, monthly]),
     ).toEqual([
-      ["small", 15, 349],
-      ["standard", 40, 549],
-      ["large", 100, 800],
+      ["small", 15, { listening: 349, writing: 299, all: 599 }],
+      ["standard", 40, { listening: 549, writing: 449, all: 899 }],
+      ["large", 100, { listening: 800, writing: 690, all: 1_390 }],
     ]);
     expect(CLASS_TIERS.map((tier) => classPrice(tier, "year"))).toEqual([
-      3490, 5490, 8000,
+      5990, 8990, 13900,
     ]);
+    expect(
+      CLASS_TIERS.map((tier) => classPrice(tier, "month", "listening")),
+    ).toEqual([349, 549, 800]);
   });
 
-  it("give the teacher minutes whose full use costs at most 25% of the price", () => {
-    // US$0.0218 language + 1,209 characters at US$30/M voice, × NT$32.
-    expect(classCostPerMinute()).toBeCloseTo(1.858, 3);
-    for (const tier of CLASS_TIERS) {
-      expect(classMinutesCost(tier)).toBeLessThanOrEqual(
-        tier.monthly * CLASS_COST.maxShare,
-      );
-      // ...and not far below it: the next 5 minutes would go over.
-      expect((tier.minutes + 5) * classCostPerMinute()).toBeGreaterThan(
-        tier.monthly * CLASS_COST.maxShare,
-      );
-    }
-    expect(CLASS_TIERS.map((tier) => tier.minutes)).toEqual([45, 70, 105]);
+  it("give Joe's allowances: the teacher's words, each student's writing", () => {
+    expect(CLASS_TIERS.map((tier) => tier.words)).toEqual([
+      6_750, 10_500, 15_750,
+    ]);
+    expect(CLASS_TIERS.map((tier) => tier.perStudent)).toEqual([
+      { essaysPerWeek: 2, backChecksPerWeek: 7, chatMessagesPerWeek: 15 },
+      { essaysPerWeek: 2, backChecksPerWeek: 5, chatMessagesPerWeek: 0 },
+      { essaysPerWeek: 2, backChecksPerWeek: 3, chatMessagesPerWeek: 0 },
+    ]);
   });
 
   it("put every seat count in the smallest tier that holds it", () => {
@@ -50,10 +47,14 @@ describe("class plans (D103, D173)", () => {
     expect(classTierFor(40).id).toBe("standard");
     expect(classTierFor(80).id).toBe("large");
     expect(classTierFor(100).id).toBe("large");
-    expect(classMinutes(15)).toBe(45);
-    // An earlier grant keeps working, with its tier's minutes.
-    expect(classMinutes(20)).toBe(70);
-    expect(classMinutes(null)).toBeNull();
+    expect(classWords(15)).toBe(6_750);
+    // An earlier grant keeps working, with its tier's words.
+    expect(classWords(20)).toBe(10_500);
+    expect(classWords(null)).toBeNull();
+    // A writing class gives the teacher no words, its students writing.
+    expect(classWords(40, "writing")).toBeNull();
+    expect(classStudentWriting(40, "listening")).toBeNull();
+    expect(classStudentWriting(40, "all")).toEqual(CLASS_TIERS[1].perStudent);
   });
 
   it("makes readable invite codes", () => {

@@ -61,6 +61,7 @@ import {
   useWritingSettings,
 } from "./WritingProvider";
 import { WritingWorkspace } from "./WritingWorkspace";
+import { UpsellToAll } from "@/components/UpsellToAll";
 
 /** The listening video for the listen-then-write drill. */
 const DEFAULT_LISTEN_VIDEO = "sintel";
@@ -508,6 +509,9 @@ function RunResult({
                   }`
                 : t(`back.aiStopped.${check.reason}`, { max: check.max ?? 0 })}
           </p>
+        )}
+        {check?.state === "off" && check.reason === "plan" && (
+          <UpsellToAll need="writing" feature="back-check" />
         )}
         {previous && (
           <p className="text-supporting tabular-nums">

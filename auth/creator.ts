@@ -270,7 +270,12 @@ export async function creatorMeter(
   return supabaseUsageMeter(admin, user.id, () => new Date(), {
     limits: {
       speech: DAILY_LIMITS.speech,
-      cost: dailyCostLimit(settings, plan, bucket),
+      // A class plan is paid (D210): its teacher gets a paid plan's day.
+      cost: dailyCostLimit(
+        settings,
+        plan === "free" && user.classroomSeats !== null ? "paid" : plan,
+        bucket,
+      ),
     },
     bucket,
     monthlyMicros: plan === "admin" ? null : settings.siteMonthlyMicros,

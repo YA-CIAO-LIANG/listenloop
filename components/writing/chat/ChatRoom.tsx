@@ -28,6 +28,7 @@ import { Button } from "../../Button";
 import { Card } from "../../Card";
 import { Dialog } from "../../Dialog";
 import { useFitToViewport } from "../WritingWorkspace";
+import { UpsellToAll } from "@/components/UpsellToAll";
 
 export type ChatSetup = {
   scenario: ChatScenario;
@@ -384,6 +385,9 @@ export function ChatRoom({
           {error && !error.ok && (
             <div role="alert" className="flex flex-col gap-1 text-supporting">
               <p className="text-error">{t(`errors.${error.reason}`)}</p>
+              {error.reason === "plan" && (
+                <UpsellToAll need="writing" feature="chat" />
+              )}
               {/* Blocked by the provider's filter: it may have been about
                   self-harm, so help is offered too (D197). */}
               {error.reason === "filtered" && (
