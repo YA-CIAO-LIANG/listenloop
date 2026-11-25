@@ -56,7 +56,7 @@ test("on the free plan, speed is a paid feature (D102)", async ({ page }) => {
   await setToday(page, "2026-11-01");
   await page.goto(`/videos/p-${practice.id}/day/1`);
   await expect(
-    page.getByText(/播放速度.*是 Plus 以上方案的功能/),
+    page.getByText(/播放速度.*是聽力與聽寫全方位方案的功能/),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "看方案" })).toHaveAttribute(
     "href",

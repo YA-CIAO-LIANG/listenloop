@@ -2,7 +2,7 @@
 
 > 寄信服務（SMTP，例如 Resend）設定好之後才能寄（見 `docs/roadmap.md`「需要 Joe 操作的事」）。
 > 等候名單可在後台「付費意願」下載 CSV（`/admin/waitlist/export`）。
-> 價格以 `lib/payments/pricing.ts` 為準（目前 Plus NT$149／月、Pro NT$319／月）；早鳥優惠的數字是**建議**，開放前由 Joe 決定。
+> 價格以 `lib/payments/pricing.ts` 為準（D210 起三條線：聽寫全方位學生 NT$189、Plus NT$269、Pro NT$499／月；只買聽力 NT$90／149／299、只買寫作 NT$119／149／249）；早鳥優惠的數字是**建議**，開放前由 Joe 決定。
 > 介面有中英文，信件也準備中英文；依帳號的介面語言寄送。
 
 ---
