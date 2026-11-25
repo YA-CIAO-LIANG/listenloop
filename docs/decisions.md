@@ -4131,3 +4131,13 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **介面文字**：原本寫「Plus 以上方案的功能」的地方（語速、上傳音檔、自訂通關、YouTube、公開教材），改成「聽力與聽寫全方位方案的功能」；完整學習分析改成「付費方案的功能」；FAQ 的免費方案與自建教材改成字數；價格問卷改成以「Plus・聽寫全方位」為例。
 - **手冊**：使用手冊（方案說明、自建教材、寫作額度、聊天以則計算）、管理員手冊（方案選單、班級方案的線、付費意願的 `upsell_view`、收益試算的成本表）、系統文件（權限表、額度計算、價格與成本）、`docs/payments.md` 的價格表、行銷信件的價格說明。
 - 要改時看哪裡：`messages/*.json` 的 `terms`、`refund`、`faq`、`plans.limits`；`docs/system/*/user.md`、`admin.md`、`system.md`；`docs/payments.md`。
+
+## D212 50 人 Beta 上線準備：檢查清單、測試者須知頁、回報入口、邀請碼與 AI 上限（2026-11-25，Joe 指定 P0）
+
+- **檢查清單**：`docs/beta-launch-checklist.md`，每項寫結果與確認方式。Google 登入發布狀態、Clarity 只能由 Joe 處理，列在 roadmap 的 Beta 上線報告最上方。
+- **測試者須知**：公開頁面 `/beta` 加上「Beta 測試者須知」（怎麼註冊、每天做什麼、花多少時間、怎麼回報、隱私），內容在翻譯檔 `beta.guide`，元件 `components/BetaGuide.tsx`；`/beta` 原本的名額已滿說明與等候名單不變。頁尾加「Beta 須知」連結。
+- **回報入口**：頁尾第一個連結改成「意見回饋」（加粗，最容易看到）；登入後「帳號」選單加「回報問題」，連到 `/feedback?from=<目前頁面>`，回報會帶上頁面。不加浮動按鈕：會蓋到練習頁的底部操作列與 YouTube 播放器（YouTube 條款不可覆蓋）。
+- **後台 `/admin/beta-test`**：測試者表格新增「最後使用」（`profiles.last_seen_at`）與「回報的問題」（意見回饋、單句回報、教材檢舉的數量）。原本已有註冊時間、進度（第幾週第幾天）、最後練習、需要追蹤（超過 2 天沒練習）。
+- **邀請碼**：用秘密金鑰直接在正式資料庫新增 5 組（每組 10 次、14 天到期，備註「Beta 第 N 批」），和後台「建立邀請」的格式相同。邀請進來的人計入 50 人名額，但不被上限擋（D132）。
+- **AI 全站每月上限**：US$8 → **US$15**（`usage_settings.site_monthly_micros`，後台 `/admin/usage` 可改回）。理由：50 位免費使用者用滿額度時，AI 費用約 US$11.7/月（自建聽力 US$6.4、寫作 US$5.3），會撞到 US$8；Azure 學生額度還有 US$99.5。方案額度與價格都沒有改。
+- **要改時**：`components/BetaGuide.tsx`、`messages/*.json` 的 `beta.guide`、`components/SiteFooter.tsx`、`components/AccountMenu.tsx`、`app/admin/beta-test/page.tsx`。

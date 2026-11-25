@@ -643,7 +643,8 @@
     "accountSettings": "Account settings",
     "signInDisabled": "This account has been disabled and can’t sign in. If you think this is a mistake, contact us through “Feedback” at the bottom of the page.",
     "signInNoEmail": "LINE didn’t share an email, so you can’t sign in with it. Use Google or email instead (or allow LINE to share your email).",
-    "quota": "My quota"
+    "quota": "My quota",
+    "reportProblem": "Report a problem"
   },
   "accountPage": {
     "title": "Account",
@@ -689,7 +690,8 @@
     "learn": "Practice by topic",
     "blog": "Articles",
     "status": "Service status",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "beta": "Beta guide"
   },
   "privacy": {
     "title": "Privacy policy",
@@ -2238,6 +2240,8 @@
         "progress": "Progress",
         "finished": "Finished 7 days",
         "lastPractice": "Last practice",
+        "lastSeen": "Last visit",
+        "reported": "Problems reported",
         "followUp": "Follow-up",
         "interview": "Interview"
       },
@@ -3759,6 +3763,56 @@
         "failed": "That didn't work. Please try again later.",
         "bot": "The bot check didn't pass. Wait for the check on the page to finish, or reload and try again."
       }
+    },
+    "guide": {
+      "title": "For Beta testers",
+      "intro": "Thanks for helping test ListenLoop! Feel free to share this page with other testers.",
+      "sections": [
+        {
+          "title": "Signing up",
+          "items": [
+            "Open the invite link we sent you (like listenloop-three.vercel.app/invite/XXXXXXXX). It works for 14 days.",
+            "Sign in with Google, LINE, or email, and you're in.",
+            "A phone with Chrome works best (Safari on iPhone is fine); shadowing needs the microphone. You can add it to your home screen like an app."
+          ]
+        },
+        {
+          "title": "What to do each day",
+          "items": [
+            "Day 1: take the 3-minute level test, pick a recommended material, write down every sentence you hear, then read the notes and handout.",
+            "Days 2 to 6: shadow the same material each day.",
+            "Day 7: take the dictation again and see how far you've come since Day 1.",
+            "If you have time: pick a prompt under Writing and try its 7-day cycle (a first draft on Day 1, with AI feedback).",
+            "Each day unlocks on a new calendar day, so the 7 days can't be done at once."
+          ]
+        },
+        {
+          "title": "How long it takes",
+          "items": [
+            "Listening takes about 10 to 15 minutes a day; writing about 15 (optional).",
+            "The test runs for 2 weeks; we may invite you to one or two 20-minute online interviews."
+          ]
+        },
+        {
+          "title": "Reporting a problem",
+          "items": [
+            "Use Feedback at the bottom of every page, or Report a problem in the Account menu at the top right when signed in. Say what you did and what you saw; the page is attached for you.",
+            "A sentence's subtitle, translation, or sound is wrong: press Report a problem on that sentence.",
+            "Something is completely broken or urgent: message us directly.",
+            "\"I didn't get this\" and \"I had to think here\" are valuable feedback too."
+          ]
+        },
+        {
+          "title": "Privacy",
+          "items": [
+            "We use practice records only to learn what works and where people get stuck. We never give your data to anyone or use it for ads.",
+            "Admin pages show an account number, not your email.",
+            "You're on the free plan during the test and are never charged.",
+            "You can delete your account on the Account page at any time, and all your data goes with it."
+          ]
+        }
+      ],
+      "privacyLink": "Full privacy policy"
     }
   },
   "listen": {

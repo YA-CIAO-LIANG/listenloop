@@ -53,7 +53,14 @@ export default async function AdminBetaTestPage({
   const rows = testers.map((row) => ({ row, s: summarizeTester(row, now) }));
   const cohort = summarizeCohort(rows.map((r) => r.s));
   const ids = testers.map((r) => r.userId);
-  const [surveys, { data: feedback }] = await Promise.all([
+  const [
+    surveys,
+    { data: feedback },
+    { data: seen },
+    { data: allFeedback },
+    { data: sentenceReports },
+    { data: practiceReports },
+  ] = await Promise.all([
     getSurveys({ userIds: ids }),
     admin && ids.length
       ? admin
@@ -63,7 +70,38 @@ export default async function AdminBetaTestPage({
           .order("created_at", { ascending: false })
           .limit(30)
       : Promise.resolve({ data: null }),
+    // Last time each tester opened the site, and how many problems each
+    // reported (feedback, sentence and material reports), D212.
+    admin && ids.length
+      ? admin
+          .from("profiles")
+          .select("user_id, last_seen_at")
+          .in("user_id", ids)
+      : Promise.resolve({ data: null }),
+    admin && ids.length
+      ? admin.from("feedback").select("user_id").in("user_id", ids)
+      : Promise.resolve({ data: null }),
+    admin && ids.length
+      ? admin.from("sentence_reports").select("user_id").in("user_id", ids)
+      : Promise.resolve({ data: null }),
+    admin && ids.length
+      ? admin
+          .from("practice_reports")
+          .select("reporter_id")
+          .in("reporter_id", ids)
+      : Promise.resolve({ data: null }),
   ]);
+  const lastSeen = new Map(
+    (seen ?? []).map((row) => [row.user_id, row.last_seen_at]),
+  );
+  const reported = new Map<string, number>();
+  for (const id of [
+    ...(allFeedback ?? []).map((row) => row.user_id),
+    ...(sentenceReports ?? []).map((row) => row.user_id),
+    ...(practiceReports ?? []).map((row) => row.reporter_id),
+  ]) {
+    if (id) reported.set(id, (reported.get(id) ?? 0) + 1);
+  }
   const numbers = new Map(
     testers.map((r) => [r.userId, userNumberLabel(r.number)]),
   );
@@ -181,6 +219,8 @@ export default async function AdminBetaTestPage({
                       "progress",
                       "finished",
                       "lastPractice",
+                      "lastSeen",
+                      "reported",
                       "followUp",
                       "interview",
                     ] as const
@@ -221,6 +261,12 @@ export default async function AdminBetaTestPage({
                       {s.finishedWeek ? t("yes") : t("no")}
                     </td>
                     <td className="py-2 pr-4">{date(s.lastPractice)}</td>
+                    <td className="py-2 pr-4">
+                      {date(lastSeen.get(row.userId) ?? null)}
+                    </td>
+                    <td className="py-2 pr-4">
+                      {reported.get(row.userId) ?? 0}
+                    </td>
                     <td className="py-2 pr-4">
                       {s.followUp ? t(`followUpShort.${s.followUp}`) : "—"}
                     </td>
