@@ -11,9 +11,9 @@
  *
  * A material that already exists (same owner, same English title) is
  * skipped, so a stopped run can simply be started again. Stops before
- * F0_STOP characters this month (Joe, 2026-11-25: at most 120,000 for
- * the night, and 150,000 kept for Beta learners); a material that can't
- * be voiced in full stays a draft.
+ * SPEECH_BUDGET characters (Joe, 2026-11-25: at most 120,000 for the
+ * night, and 150,000 kept for Beta learners); a material that can't be
+ * voiced in full stays a draft.
  */
 import { readdirSync, readFileSync } from "node:fs";
 import { createClient } from "@supabase/supabase-js";
@@ -34,7 +34,12 @@ import {
 import type { Database } from "@/lib/supabase/database.types";
 import { batchMeterOptions } from "./cost-guard";
 
-const F0_STOP = Number(process.env.F0_STOP) || 267_000;
+/**
+ * Speech characters this run may use: Joe's 120,000 for the night less
+ * what earlier runs used. Counted here from what's sent, not from
+ * api_calls (a select returns at most 1,000 rows, which undercounts).
+ */
+const BUDGET_CHARS = Number(process.env.SPEECH_BUDGET) || 0;
 const DIR = "data/official";
 const env = (name: string) => process.env[name] ?? "";
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -73,19 +78,6 @@ it(
         return parsed!;
       });
 
-    const monthChars = async () => {
-      const start = new Date();
-      start.setUTCDate(1);
-      start.setUTCHours(0, 0, 0, 0);
-      const { data } = await admin
-        .from("api_calls")
-        .select("chars")
-        .eq("operation", "speech")
-        .like("provider", "azure-%")
-        .gte("created_at", start.toISOString());
-      return (data ?? []).reduce((sum, row) => sum + (row.chars ?? 0), 0);
-    };
-
     // ONLY_KNOWN=1: only categories the live site already knows (the new
     // ones wait for their deploy).
     const fresh = (m: WrittenOfficial) =>
@@ -111,9 +103,8 @@ it(
       (sum, m) => sum + m.sentences.reduce((n, s) => n + s.en.length, 0),
       0,
     );
-    const used = await monthChars();
     console.log(
-      `${materials.length} materials, ${todo.length} to make, at most ${chars} speech characters (fewer with the shared cache); F0 this month ${used}, stop at ${F0_STOP}.`,
+      `${materials.length} materials, ${todo.length} to make, at most ${chars} speech characters (fewer with the shared cache); budget ${BUDGET_CHARS}.`,
     );
     if (env("OFFICIAL_WRITTEN_YES") !== "1") {
       console.log("Dry run. Set OFFICIAL_WRITTEN_YES=1 to make them.");
@@ -131,12 +122,14 @@ it(
       store: supabaseAudioStore(admin),
     };
     const report: string[] = [];
+    let spent = 0;
     for (const m of todo) {
       const need = m.sentences.reduce((n, s) => n + s.en.length, 0);
-      if ((await monthChars()) + need > F0_STOP) {
-        report.push(`${m.slug}: not made (F0 margin)`);
+      if (spent + need > BUDGET_CHARS) {
+        report.push(`${m.slug}: not made (over the night's speech budget)`);
         continue;
       }
+      spent += need;
       const dialogue = m.format === "dialogue";
       const voice = `${m.accent}-female`;
       const voiceB = dialogue ? `${m.accent}-male` : null;
@@ -249,7 +242,7 @@ it(
       console.log(report.at(-1));
     }
     console.log(
-      `\n${report.join("\n")}\nF0 this month now ${await monthChars()}`,
+      `\n${report.join("\n")}\nspeech characters sent at most ${spent}`,
     );
   },
 );
