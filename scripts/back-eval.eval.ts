@@ -27,6 +27,7 @@ import {
   readBackBaseline,
   writeBackFile,
 } from "./back-eval-files";
+import { loadExceptions } from "./eval-files";
 
 const check = process.env.EVAL_MODE === "check";
 
@@ -53,7 +54,12 @@ it(
     ).toEqual([]);
     const current = backBaseline(results);
     const main = mainBackBaseline();
-    const passes = !main || current.total >= main.total;
+    // A version whose rules changed may be accepted lower, with why
+    // (evals/exceptions.json, D205), like the other evals.
+    const exception = loadExceptions().find(
+      (e) => e.version === current.version,
+    );
+    const passes = !main || current.total >= main.total || !!exception;
     if (check) {
       expect(
         readBackBaseline(),
@@ -66,7 +72,7 @@ it(
       );
       writeBackFile(
         BACK_EVAL_PATHS.report,
-        backReport({ cases: BACK_GOLDEN, results, current, main }),
+        backReport({ cases: BACK_GOLDEN, results, current, main, exception }),
       );
     }
     console.log(

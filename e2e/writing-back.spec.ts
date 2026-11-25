@@ -234,7 +234,13 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       await expect(
         page.getByText("AI 已批改 1 句。", { exact: false }),
       ).toBeVisible();
-      await expect(page.getByText("AI 說明：").first()).toBeVisible();
+      // The verdicts come from the AI's fields, each with its note (D205).
+      await expect(page.getByTestId("ai-meaning").first()).toContainText(
+        /^意思：(正確|和原句不同)。/,
+      );
+      await expect(page.getByTestId("ai-grammar").first()).toContainText(
+        /^文法：(正確|有錯誤)。/,
+      );
 
       // A failed check: the rules' results stand, the practice goes on.
       await page.getByRole("button", { name: "再練一組" }).click();

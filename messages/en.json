@@ -4517,6 +4517,14 @@
         "unavailable": "The AI check isn't available: this set is checked by the rules.",
         "failed": "The AI check didn't work: this set is checked by the rules."
       },
+      "aiMeaning": {
+        "right": "Meaning: right.",
+        "wrong": "Meaning: not the same as the sentence."
+      },
+      "aiGrammar": {
+        "right": "Grammar: correct.",
+        "wrong": "Grammar: has a mistake."
+      },
       "aiWhy": "The AI says:",
       "aiBetter": "More natural:",
       "acceptedTitle": "Written another way, right by the AI ({count})",

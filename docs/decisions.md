@@ -3944,3 +3944,26 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - 每輪都量 Lighthouse 手機分數（第 1 輪漏掉，第 2 輪起補上）。寫作的主要頁面效能 91～92，無障礙和最佳實務都是 100。
 - 停止條件：第 3 輪沒有嚴重度 2 以上的問題，模擬 SUS 87。沒有修改被要求改回。
 - 要改時看哪裡：`usability/tasks.spec.ts`（T27～T33）、`docs/personas.md`、`components/writing/DrillDay.tsx` 的 `RunResult`、`lib/writing/log.ts`、`components/writing/WritingSettingsForm.tsx`。
+
+## D205 額外練習 AI 批改第 2 版：意思與文法各自的欄位與說明（2026-11-24，Joe 的決定第 5 項）
+
+- **問題**：第 1 版只有一段 `why`。「She don't like spicy food」的說明寫「句子的意思正確，但文法錯誤」，`meaning` 欄位卻是 false，學習者看到的文字和結果互相矛盾。
+- **做法**（業界做法：讓模型輸出結構化判斷，介面文字由欄位產生，自由文字只當補充說明）：
+  - 提示詞第 2 版（`BACK_CHECK_PROMPT_VERSION = 2`），每一句分開判斷兩件事，各有自己的一句中文說明：`meaning` + `meaningWhy`（意思改了什麼，或為什麼換個說法也對），`grammar` + `grammarWhy`（文法錯在哪、正確形式）。
+  - 提示詞寫明「文法錯誤不會讓意思變錯」。用的例子是 "My brother go to work by bus"，刻意不用 eval 裡的句子。
+  - 說明一律用繁體中文。第一次錄製有 2 句說明是英文，加了這條規則後重錄。
+  - **介面**：「意思：正確。／意思：和原句不同。」「文法：正確。／文法：有錯誤。」這兩行由欄位產生，文字放在翻譯檔，模型的說明接在後面。所以畫面上的判斷永遠和結果一致。第 1 版存下的舊判斷（只有 `why`）照舊顯示「AI 說明：」。
+  - **一致性檢查**（`lib/writing/back-check/clean.ts` 的 `noteContradicts`）：說明裡寫「意思正確／相同」而欄位是 false，或寫「文法錯誤」而欄位是 true 等情況，算矛盾。**一律以欄位為準**：丟掉那句說明，只顯示欄位產生的判斷。
+  - 判斷是錯的卻沒有說明，記為「缺少說明」。不是中文、少於 4 個中文字（被截斷）、或夾雜日文假名的說明，視為沒有說明。
+  - **記錄**：矛盾的次數寫進 `api_calls` 的結果欄，例如「back-check · inconsistent 1」，管理員在 `/admin/usage` 可以看到。
+- **eval**（`lib/writing/back-check/eval.ts`）：原本的「說明用中文」改成兩條規則。
+  - 「判斷錯誤時有中文說明」。
+  - 「說明與判斷一致」（模型的說明和欄位矛盾就算沒通過，即使介面已經修正）。
+- **錄製**：24 次呼叫錄了兩次（加「說明一律用中文」之前和之後），US$0.0079 + US$0.0087 = **US$0.0166**。
+- **分數**：第 2 版 98.66，main（第 1 版）99.17。
+  - 第 2 版多了上面兩條規則，main 沒有，兩個分數不能直接比較。只用 main 的規則計算，第 2 版是 **100**：意思 21／21、文法 20／20，原本錯的 `gram-dont` 也對了。所以在 `evals/exceptions.json` 記錄例外，額外練習的 eval 也開始讀這份例外清單，和其他 eval 一樣。
+  - 新規則沒過的兩項：
+    - `mean-opposite`：模型的說明只輸出了「把」就斷掉，判斷本身是對的。
+    - `batch-three` 第 4 句：把文法正確的句子判成文法錯，說明卻寫「文法正確」。介面依欄位顯示「文法：有錯誤」，並且記錄。這是欄位本身判斷錯，留給之後的提示詞改進。
+- **費用**：說明從一段改成兩段，輸出平均約 101 tokens／句，仍在 `BACK_CHECK_COST`（900 in／500 out）的估算內，不用改額度。
+- 要改時看哪裡：`lib/writing/back-check/prompts.ts`、`clean.ts`、`eval.ts`、`types.ts`（`BackJudgement`、`BackInconsistency`），`components/writing/DrillDay.tsx` 的 `AiNote`，`app/writing/back-check-actions.ts`。

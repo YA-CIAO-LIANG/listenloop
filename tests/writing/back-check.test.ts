@@ -9,10 +9,16 @@ import {
   pendingChecks,
   type BackItem,
 } from "@/lib/writing/back-translation";
-import { cleanBackCheck } from "@/lib/writing/back-check/clean";
+import {
+  cleanBackCheck,
+  noteContradicts,
+} from "@/lib/writing/back-check/clean";
 import { fakeBackCheck } from "@/lib/writing/back-check/fake";
 import { BACK_GOLDEN } from "@/lib/writing/back-check/golden";
-import { judgedRight } from "@/lib/writing/back-check/types";
+import {
+  judgedRight,
+  type BackInconsistency,
+} from "@/lib/writing/back-check/types";
 import { parseWritingSettings } from "@/lib/writing/settings";
 
 /** Extra practice's AI check (D200). */
@@ -66,12 +72,17 @@ describe("one check for the set", () => {
     const judged = applyChecks(run, [
       {
         i: 0,
-        judgement: { meaning: true, grammar: true, better: "", why: "同義。" },
+        judgement: {
+          meaning: true,
+          grammar: true,
+          better: "",
+          meaningWhy: "同義。",
+        },
       },
     ]);
     expect(judged.answers[0]).toMatchObject({ right: true });
     expect(judged.answers[0]?.pending).toBeUndefined();
-    expect(judged.answers[0]?.ai?.why).toBe("同義。");
+    expect(judged.answers[0]?.ai?.meaningWhy).toBe("同義。");
     const none = applyChecks(run, []);
     expect(none.answers[0]?.pending).toBeUndefined();
     expect(none.answers[0]?.right).toBe(run.answers[0]?.right);
@@ -99,25 +110,27 @@ describe("cleaning the AI's answer", () => {
     ],
   };
 
-  it("keeps one judgement per asked item, reason in Chinese", () => {
+  it("keeps one judgement per asked item, the verdicts from the fields", () => {
     const out = cleanBackCheck(
       {
         items: [
           {
             i: 2,
             meaning: true,
+            meaningWhy: "",
             grammar: false,
+            grammarWhy: "動詞錯了。",
             better: "A b c.",
-            why: "動詞錯了。",
           },
-          { i: 2, meaning: false, grammar: false, better: "", why: "重複。" },
-          { i: 9, meaning: true, grammar: true, better: "", why: "沒問的。" },
+          { i: 2, meaning: false, grammar: false, better: "" },
+          { i: 9, meaning: true, grammar: true, better: "" },
           {
             i: 5,
             meaning: false,
+            meaningWhy: "意思不同：少了丙。",
             grammar: false,
+            grammarWhy: "",
             better: "x y",
-            why: "意思不同。",
           },
         ],
       },
@@ -127,35 +140,99 @@ describe("cleaning the AI's answer", () => {
     expect(out.get(2)).toEqual({
       meaning: true,
       grammar: false,
+      meaningWhy: "",
+      grammarWhy: "動詞錯了。",
       better: "A b c.",
-      why: "動詞錯了。",
     });
     // A Chinese answer: grammar doesn't apply, no English better way.
-    expect(out.get(5)).toMatchObject({ grammar: true, better: "" });
+    expect(out.get(5)).toMatchObject({
+      grammar: true,
+      grammarWhy: "",
+      better: "",
+      meaningWhy: "意思不同：少了丙。",
+    });
   });
 
-  it("drops a reason not in Chinese, and nonsense", () => {
-    expect(
-      cleanBackCheck(
-        {
-          items: [
-            { i: 2, meaning: true, grammar: true, better: "", why: "fine" },
-          ],
-        },
-        input,
-      ).size,
-    ).toBe(0);
+  it("drops a note that says the opposite of its field, and reports it (D205)", () => {
+    const found: BackInconsistency[] = [];
+    const out = cleanBackCheck(
+      {
+        items: [
+          {
+            // The case Joe found: "the meaning is right" under a wrong meaning.
+            i: 2,
+            meaning: false,
+            meaningWhy: "句子的意思正確，但文法錯誤：要用 doesn't。",
+            grammar: false,
+            grammarWhy: "主詞 she 要用 doesn't。",
+            better: "A b c.",
+          },
+        ],
+      },
+      input,
+      (f) => found.push(f),
+    );
+    expect(out.get(2)).toMatchObject({
+      meaning: false,
+      meaningWhy: "",
+      grammarWhy: "主詞 she 要用 doesn't。",
+    });
+    expect(found).toEqual([{ i: 2, field: "meaning", kind: "contradicts" }]);
+  });
+
+  it("reports a wrong verdict without a note, and drops a note not in Chinese", () => {
+    const found: BackInconsistency[] = [];
+    const out = cleanBackCheck(
+      {
+        items: [
+          {
+            i: 2,
+            meaning: true,
+            meaningWhy: "fine",
+            grammar: false,
+            grammarWhy: "",
+            better: "",
+          },
+        ],
+      },
+      input,
+      (f) => found.push(f),
+    );
+    expect(out.get(2)).toMatchObject({ meaningWhy: "", grammarWhy: "" });
+    expect(found).toEqual([{ i: 2, field: "grammar", kind: "missing" }]);
     expect(cleanBackCheck(null, input).size).toBe(0);
     expect(cleanBackCheck({ items: "x" }, input).size).toBe(0);
   });
 
-  it("right needs the meaning and the grammar", () => {
+  it("tells a note that agrees from one that contradicts", () => {
+    const right = { meaning: true, grammar: true };
+    const wrongMeaning = { meaning: false, grammar: true };
+    expect(noteContradicts("dull 和 boring 同義，意思相同。", right)).toBe(
+      false,
+    );
+    expect(noteContradicts("意思不同：少了「不」。", right)).toBe(true);
+    expect(noteContradicts("意思不同：少了「不」。", wrongMeaning)).toBe(false);
+    expect(noteContradicts("意思正確。", wrongMeaning)).toBe(true);
+    expect(noteContradicts("意思不正確。", wrongMeaning)).toBe(false);
+    expect(noteContradicts("意思沒有改變。", right)).toBe(false);
     expect(
-      judgedRight({ meaning: true, grammar: true, better: "", why: "" }),
+      noteContradicts("文法正確。", { meaning: true, grammar: false }),
     ).toBe(true);
     expect(
-      judgedRight({ meaning: true, grammar: false, better: "", why: "" }),
+      noteContradicts("文法錯誤：要用過去式。", {
+        meaning: true,
+        grammar: false,
+      }),
     ).toBe(false);
+  });
+
+  it("right needs the meaning and the grammar", () => {
+    expect(judgedRight({ meaning: true, grammar: true, better: "" })).toBe(
+      true,
+    );
+    expect(judgedRight({ meaning: true, grammar: false, better: "" })).toBe(
+      false,
+    );
   });
 
   it("the fake checker gives every case a usable answer", () => {

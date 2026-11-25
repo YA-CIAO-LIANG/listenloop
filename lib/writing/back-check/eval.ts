@@ -1,10 +1,10 @@
 import { azureOpenAiLanguage } from "@/lib/ai/azure-openai";
 import { EVAL_MODEL } from "@/lib/evals/config";
-import { requestHash } from "@/lib/evals/run";
+import { requestHash, type EvalException } from "@/lib/evals/run";
 import { cleanBackCheck } from "./clean";
 import type { BackEvalCase } from "./golden";
 import { BACK_CHECK_PROMPT_VERSION } from "./prompts";
-import type { BackJudgement } from "./types";
+import type { BackInconsistency, BackJudgement } from "./types";
 
 /**
  * The back-translation check's eval (D200): each golden case through the
@@ -13,7 +13,8 @@ import type { BackJudgement } from "./types";
  * answer:
  * - valid: a judgement came back;
  * - meaning, grammar: as expected (where the case says);
- * - chinese: the reason is in Chinese;
+ * - explained: each wrong verdict comes with its note in Chinese (D205);
+ * - consistent: no note says the opposite of its verdict (D205);
  * - better: a grammar mistake comes with a corrected version.
  */
 export type BackTransport = (
@@ -54,11 +55,17 @@ export function replayBack(
  */
 const FILTERED = "filtered" as const;
 
+/** The cleaned judgements, and where a note disagreed with its verdict. */
+export type Judged = {
+  judged: Map<number, BackJudgement>;
+  inconsistent: BackInconsistency[];
+};
+
 async function ask(
   c: BackEvalCase,
   transport: BackTransport,
   deployment: string,
-): Promise<Map<number, BackJudgement> | typeof FILTERED> {
+): Promise<Judged | typeof FILTERED> {
   let transportError: unknown = null;
   const provider = azureOpenAiLanguage(
     {
@@ -82,32 +89,33 @@ async function ask(
     }) as typeof fetch,
   );
   const input = { items: c.items };
+  const inconsistent: BackInconsistency[] = [];
   try {
     const { value } = await provider.checkBack!(input);
-    return cleanBackCheck(value, input);
+    const judged = cleanBackCheck(value, input, (f) => inconsistent.push(f));
+    return { judged, inconsistent };
   } catch (error) {
     if (transportError) throw transportError;
     if (error instanceof Error && error.name !== "ProviderError") throw error;
     if ((error as { code?: string }).code === "filtered") return FILTERED;
-    return new Map();
+    return { judged: new Map(), inconsistent };
   }
 }
 
 export type RuleResult = { rule: string; ok: boolean; detail?: string };
 
-const hasHan = (text: string) => /\p{Script=Han}/u.test(text);
-
 export function checkCase(
   c: BackEvalCase,
-  judged: Map<number, BackJudgement> | typeof FILTERED,
+  result: Judged | typeof FILTERED,
 ): RuleResult[] {
-  if (judged === FILTERED) {
+  if (result === FILTERED) {
     return c.items.map((item) => ({
       rule: "meaning",
       ok: c.expect[item.i]?.meaning === false,
       detail: `${item.i}: filtered by the provider; the rules' result stands`,
     }));
   }
+  const { judged, inconsistent } = result;
   return c.items.flatMap((item) => {
     const j = judged.get(item.i);
     const expect = c.expect[item.i] ?? {};
@@ -119,17 +127,34 @@ export function checkCase(
       rules.push({
         rule: "meaning",
         ok: j.meaning === expect.meaning,
-        detail: `${item.i}: ${j.meaning}, expected ${expect.meaning}; ${j.why}`,
+        detail: `${item.i}: ${j.meaning}, expected ${expect.meaning}; ${j.meaningWhy}`,
       });
     }
     if (expect.grammar !== undefined) {
       rules.push({
         rule: "grammar",
         ok: j.grammar === expect.grammar,
-        detail: `${item.i}: ${j.grammar}, expected ${expect.grammar}; ${j.why}`,
+        detail: `${item.i}: ${j.grammar}, expected ${expect.grammar}; ${j.grammarWhy || j.meaningWhy}`,
       });
     }
-    rules.push({ rule: "chinese", ok: hasHan(j.why), detail: j.why });
+    const found = inconsistent.filter((f) => f.i === item.i);
+    const notes = `${j.meaningWhy ?? ""} ${j.grammarWhy ?? ""}`.trim();
+    const missing = found.filter((f) => f.kind === "missing");
+    rules.push({
+      rule: "explained",
+      ok: missing.length === 0,
+      detail: missing.length
+        ? `${item.i}: no note for ${missing.map((f) => f.field).join(", ")}`
+        : notes,
+    });
+    const contradicts = found.filter((f) => f.kind === "contradicts");
+    rules.push({
+      rule: "consistent",
+      ok: contradicts.length === 0,
+      detail: contradicts.length
+        ? `${item.i}: the ${contradicts.map((f) => f.field).join(", ")} note said the opposite of its verdict (dropped)`
+        : undefined,
+    });
     if (expect.grammar === false && item.mode !== "listen-zh") {
       rules.push({
         rule: "better",
@@ -204,7 +229,8 @@ const RULE_NAMES: Record<string, string> = {
   valid: "有回傳判斷",
   meaning: "意思判斷正確",
   grammar: "文法判斷正確",
-  chinese: "說明用中文",
+  explained: "判斷錯誤時有中文說明",
+  consistent: "說明與判斷一致",
   better: "文法錯誤時提供修正",
 };
 
@@ -214,11 +240,14 @@ export function backReport({
   results,
   current,
   main,
+  exception,
 }: {
   cases: readonly BackEvalCase[];
   results: readonly BackCaseResult[];
   current: BackBaseline;
   main: BackBaseline | null;
+  /** An accepted lower total (evals/exceptions.json). */
+  exception?: EvalException;
 }): string {
   const lines = [
     "# 額外練習 AI 批改 eval 報告",
@@ -228,7 +257,7 @@ export function backReport({
     `- 版本：\`${current.version}\``,
     `- 案例數：${cases.length}（答案 ${cases.reduce((n, c) => n + c.items.length, 0)} 句）`,
     "- 每筆 100 分：依通過的規則比例計算。",
-    `- 合併判定：${!main ? "main 還沒有基準，這次成為基準" : current.total >= main.total ? `通過。總分 ${current.total} ≥ main 的 ${main.total}` : `沒通過。總分 ${current.total} < main 的 ${main.total}`}`,
+    `- 合併判定：${!main ? "main 還沒有基準，這次成為基準" : current.total >= main.total ? `通過。總分 ${current.total} ≥ main 的 ${main.total}` : exception ? `通過（例外，${exception.decision}）。總分 ${current.total} < main 的 ${main.total}：${exception.reason}` : `沒通過。總分 ${current.total} < main 的 ${main.total}`}`,
     "",
     "## 總分",
     "",
