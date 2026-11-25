@@ -1608,12 +1608,18 @@ for (const [zone, label] of [
         ).toBeVisible();
       });
       await signInWithEmail(page, id, `${id}@example.com`);
+      // A new account sees the first-visit guide (D61); only the terms
+      // notice is closed, so the screenshot shows what a tester sees.
       await step(page, t, "2-home-after-sign-up", async () => {
         await page.goto("/");
-        await dismissNotices(page);
+        const ok = page.getByRole("button", { name: "知道了" });
+        if (await ok.count()) await ok.first().click();
+        await expect(
+          page.getByRole("heading", { name: "第一次來？這樣練" }),
+        ).toBeVisible();
       });
       await step(page, t, "3-level-test", async () => {
-        await page.goto("/level-test");
+        await page.getByRole("link", { name: "先做 2 分鐘程度測驗" }).click();
         await page.getByRole("button", { name: "開始測驗" }).click();
         const field = page.getByLabel("你聽到的句子");
         await field.fill("can I see your passport");
