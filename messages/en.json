@@ -3261,6 +3261,7 @@
     "uploadSize": "✓ ({mb} MB a file)",
     "popular": "Most popular",
     "timesPerWeek": "{n} a week",
+    "setsPerWeek": "{n} sets a week",
     "words": "{n} words",
     "minutesPerWeek": "{n} minutes a week"
   },

@@ -3259,6 +3259,7 @@
     "uploadSize": "✓（每檔 {mb} MB）",
     "popular": "最受歡迎",
     "timesPerWeek": "每週 {n} 次",
+    "setsPerWeek": "每週 {n} 組",
     "words": "{n} 字",
     "minutesPerWeek": "每週 {n} 分鐘"
   },

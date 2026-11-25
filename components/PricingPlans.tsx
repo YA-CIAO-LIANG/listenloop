@@ -220,7 +220,7 @@ export function PricingPlans({
       case "backChecks":
         return limits.backChecksPerWeek === null
           ? t("noLimit")
-          : t("timesPerWeek", { n: limits.backChecksPerWeek });
+          : t("setsPerWeek", { n: limits.backChecksPerWeek });
       case "writingWords":
         return limits.writingWords === null
           ? t("noLimit")

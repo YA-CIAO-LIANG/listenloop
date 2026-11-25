@@ -4048,3 +4048,14 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 既有的保本價與 25% 測試涵蓋每個方案。
   - E2E `e2e/quota.spec.ts`：學生方案的帳號在「我的額度」看到學生方案和每週 3 次批改；管理員的方案選單有四個方案；定價頁比較表的「AI 寫作批改」是 2／5／6／3 次，方案卡寫出差異。
 - 要改時看哪裡：`lib/plans.ts`（`PLUS`、`PLANS.student`、`isPayingPlan`）、`lib/payments/price-floor.ts`、`components/PricingPlans.tsx`、`components/UserControls.tsx`、`supabase/migrations/20261201000000_student_plan.sql`、`docs/quotas.md`。
+
+## D208 Joe 決定之後的寫作複測、睡前回顧推播與兩項建議的待辦（2026-11-24，Joe 的決定第 2、3 項與複測）
+
+- **睡前回顧的推播（第 2 項）**：先不做，維持打開 App 時提醒（D203）。列在 `docs/roadmap.md` 的待辦。要做時沿用練習提醒的推播（D111），加一個伺服器排程。
+- **實作意圖、同儕互評（第 3 項）**：維持建議，不實作。理由見 `docs/writingloop/learning-science.md` 第 16 節，也列在待辦。
+- **複測**：
+  - 寫作 AI 模擬使用者測試第 4 輪（T18、T21～T33，42 次），結果見 `docs/usability-ai-test.md`。
+  - qa-sweep 第 68 輪，結果見 `docs/qa-log.md`。
+- **F7（嚴重度 2）**：定價頁比較表和 `docs/quotas.md` 的額外練習 AI 批改寫「每週 n 次」，方案卡和額度頁寫「組」。統一成「每週 n 組」（`plansPage.setsPerWeek`、`lib/quota-table.ts`），E2E 檢查比較表那一列。
+- **寫作日曆的日期按鈕**：在 360／375px 是 40～42×50px，和練習日曆是同一個設計，比照 D88 接受。
+- 要改時看哪裡：`components/PricingPlans.tsx`、`lib/quota-table.ts`、`docs/usability-ai-test.md`、`docs/qa-log.md`。
