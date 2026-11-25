@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { getBetaStatus } from "@/auth/beta";
+import { BetaGuide } from "@/components/BetaGuide";
 import { BetaNote } from "@/components/BetaNote";
 import { BetaWaitlistForm } from "@/components/BetaWaitlistForm";
 
@@ -14,8 +15,8 @@ const REASONS = ["full", "closed", "invite"] as const;
 
 /**
  * The Beta (D132): why someone couldn't sign up (the places are taken,
- * sign-ups are closed, or an invite link that doesn't work) and the
- * waiting list. Anyone can open it.
+ * sign-ups are closed, or an invite link that doesn't work), the testers'
+ * guide (D212), and the waiting list. Anyone can open it.
  */
 export default async function BetaPage({
   searchParams,
@@ -52,6 +53,7 @@ export default async function BetaPage({
         </p>
       )}
       <BetaNote className="mt-6" />
+      <BetaGuide />
       <section aria-labelledby="beta-waitlist" className="mt-10 max-w-reading">
         <h2 id="beta-waitlist" className="font-display text-h2">
           {t("waitlist.title")}

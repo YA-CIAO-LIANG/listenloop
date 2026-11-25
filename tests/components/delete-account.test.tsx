@@ -95,6 +95,9 @@ describe("SiteFooter", () => {
     expect(
       [...nav.querySelectorAll("a")].map((a) => a.getAttribute("href")),
     ).toEqual([
+      // Feedback first, then the Beta guide (D212).
+      "/feedback",
+      "/beta",
       "/learn",
       "/blog",
       "/faq",
@@ -103,7 +106,6 @@ describe("SiteFooter", () => {
       "/refund",
       "/privacy",
       "/credits",
-      "/feedback",
       "/status",
     ]);
   });

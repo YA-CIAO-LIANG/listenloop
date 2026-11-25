@@ -23,6 +23,15 @@ export function SiteFooter({
         aria-label={t("label")}
         className="mx-auto flex max-w-content flex-wrap gap-x-6 gap-y-2 px-4 py-6 text-supporting text-ink-muted split:px-6"
       >
+        <Link
+          href="/feedback"
+          className={`${linkClassName} font-medium text-ink`}
+        >
+          {t("feedback")}
+        </Link>
+        <Link href="/beta" className={linkClassName}>
+          {t("beta")}
+        </Link>
         <Link href="/learn" className={linkClassName}>
           {t("learn")}
         </Link>
@@ -46,9 +55,6 @@ export function SiteFooter({
         </Link>
         <Link href="/credits" className={linkClassName}>
           {t("credits")}
-        </Link>
-        <Link href="/feedback" className={linkClassName}>
-          {t("feedback")}
         </Link>
         <Link href="/status" className={linkClassName}>
           {t("status")}

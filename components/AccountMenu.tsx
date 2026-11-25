@@ -105,6 +105,7 @@ export function SignInButton({
 
 function AccountPanel({ email }: { email: string }) {
   const t = useTranslations("account");
+  const here = useCurrentPath();
   const router = useRouter();
   const panelId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -214,6 +215,14 @@ function AccountPanel({ email }: { email: string }) {
               className="text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
             >
               {t("quota")}
+            </Link>
+            {/* Beta (D212): a problem report from any page, with the page. */}
+            <Link
+              href={`/feedback?from=${encodeURIComponent(here)}`}
+              onClick={() => setOpen(false)}
+              className="text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+            >
+              {t("reportProblem")}
             </Link>
           </div>
           {failed && (
