@@ -113,7 +113,7 @@ describe("savePracticeEdit", () => {
         { en: "Go home.", zh: "回家。", audio_path: hash("a"), notes },
         {
           en: "Brand new.",
-          zh: "[zh-Hant] Brand new.",
+          zh: "[zh-Hant] 譯 Brand new.",
           audio_path: null,
           notes: null,
         },

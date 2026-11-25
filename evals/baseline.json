@@ -1,11 +1,11 @@
 {
-  "version": "1ff1f11f3e4a",
+  "version": "00650429a4ad",
   "judgeVersion": 1,
   "model": "gpt-5-mini",
-  "total": 96.31,
+  "total": 96.37,
   "byOperation": {
     "segment": 100,
-    "translate": 97.5,
+    "translate": 97.69,
     "annotate": 94.17,
     "compose": 92.99,
     "describe": 100,
@@ -86,6 +86,11 @@
       "id": "translate-seat",
       "score": 100,
       "requestHash": "c01dd109e6621df8:c69d20bf999e0aa1"
+    },
+    {
+      "id": "translate-learner-fixes",
+      "score": 100,
+      "requestHash": "f0e4c827b59a6441:88b5de32052924cf"
     },
     {
       "id": "translate-money",

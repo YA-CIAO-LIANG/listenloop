@@ -186,7 +186,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     writingReviewsPerWeek: 6,
     writingWords: 1_000,
     chatMinutesPerWeek: 20,
-    backChecksPerWeek: 14,
+    // 14 until the corrected sentences' meanings (D206) took the room.
+    backChecksPerWeek: 11,
   },
   admin: {
     createPractices: true,
