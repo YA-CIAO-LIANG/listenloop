@@ -4155,3 +4155,4 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **版權**：來源與查證結果見 `docs/content-sources.md`。學測、分科測驗、會考試題依著作權法第 9 條第 1 項第 5 款不受著作權保護，但試題引用的文章仍受原著作權人保護、通常無法逐題確認，所以**這次不使用任何真實試題**，學測風格的教材與題目全部原創。
 - **要改時**：教材內容改 `data/official/*.json` 後，到後台「官方教材」改正式站的那一份（腳本只新增、不覆蓋）；規則在 `lib/official-written.ts`；新類別在 `lib/categories.ts` 與翻譯檔的 `categories`、`learn.intros`。
 - **AI 不會把使用者的教材歸到新系列**：經典名篇、國高中程度是 ListenLoop 自己整理的官方系列（`OFFICIAL_SERIES`），不列在 AI 猜類別的清單（`GUESSABLE_CATEGORIES`）。這樣寫作提示詞不變，錄好的 eval 仍然有效，不需要重新錄製（真的 API）。
+- **Migration（2026-11-25 補）**：`practices.exam` 有資料庫檢查，只允許 toefl、ielts、toeic、gept，學測的 3 份第一次存檔失敗。`20261204000000_exam_gsat.sql` 只放寬檢查（加上 `gsat`），既有資料都不受影響，已套用到正式資料庫，3 份重跑後都發布了。這種「新增考試」要同時改 `lib/categories.ts` 和這個檢查。
