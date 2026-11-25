@@ -368,3 +368,9 @@ Supabase 改為用到時才載入、翻譯依區域送出、練習頁與首頁�
   - `/beta`、`/feedback` 的 4 種訊息來自 Cloudflare Turnstile 自己的 iframe：Turnstile 在自己的頁面試著連 `data:,`，被它自己的 CSP 擋下。錯誤訊息裡的 CSP 是 Cloudflare 的（`*.challenges.cloudflare.com`），不是我們的，驗證元件照常運作。接受。
   - `/no-such-page` 的 404 是預期的。
 - `smallTarget`（寫作日曆，D88）與 `truncated`（第 1 天題目一行摘要，D193）同本機第 70 輪，接受。
+
+### 第 71 輪（2026-11-25 03:00，合併 #280～#284 之後的 main）
+
+- 101 項全部通過，10.2 分鐘。
+- 和第 70 輪相同的已知項目：寫作日曆日期按鈕（D88）、第 1 天題目一行摘要（D193）、假伺服器沒有的教材連結（正式站都回 200）。
+- 新的發現：0。

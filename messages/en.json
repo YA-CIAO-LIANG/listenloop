@@ -3799,7 +3799,7 @@
           "title": "Signing up",
           "items": [
             "Open the invite link we sent you (like listenloop-three.vercel.app/invite/XXXXXXXX). It works for 14 days.",
-            "Sign in with Google or LINE, and you're in (the quickest way). Email works too, but its confirmation message can take a while.",
+            "Sign in with Google, and you're in (the quickest way). Email works too, but its confirmation message can take a while.",
             "A phone with Chrome works best (Safari on iPhone is fine); shadowing needs the microphone. You can add it to your home screen like an app."
           ]
         },
