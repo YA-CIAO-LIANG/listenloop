@@ -233,6 +233,9 @@ export function ChatPractice({ signedIn }: { signedIn: boolean }) {
             {t("setup.teen")}
           </label>
           <p className="text-supporting text-ink-muted">{t("setup.rules")}</p>
+          <p className="text-supporting text-ink-muted">
+            {t("setup.countNote")}
+          </p>
           {refusal && !refusal.ok && (
             <p role="alert" className="text-error">
               {refusal.reason === "plan" && refusal.block

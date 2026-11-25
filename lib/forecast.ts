@@ -13,6 +13,7 @@ import {
   type ClassTierId,
 } from "./classroom";
 import { PLANS } from "./plans";
+import { WORDS_PER_MINUTE } from "./units";
 
 /**
  * The plans the forecast counts (D173): the personal ones, and each class
@@ -77,10 +78,10 @@ export type ForecastResult = {
 };
 
 const MINUTES: Readonly<Record<ForecastPlan, number>> = {
-  plus: PLANS.paid.minutesPerMonth ?? 0,
-  pro: PLANS.pro.minutesPerMonth ?? 0,
+  plus: (PLANS.paid.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
+  pro: (PLANS.pro.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
   // Plus at a student price (D144).
-  student: PLANS.paid.minutesPerMonth ?? 0,
+  student: (PLANS.paid.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
   // A class plan's teacher (D173).
   classSmall: tierOf("classSmall")?.minutes ?? 0,
   classStandard: tierOf("classStandard")?.minutes ?? 0,

@@ -18,8 +18,9 @@ import { getAdminSupabase } from "./admin";
 import { creationAllowance } from "./creation-quota";
 import { revisesToday, storedUploadBytes } from "./quota";
 import { backChecksThisWeek, writingReviewsThisWeek } from "./writing";
-import { chatMinutesThisWeek } from "./chat";
+import { chatMessagesThisWeek } from "./chat";
 import { usageWeek } from "@/lib/usage-report";
+import { secondsToWords } from "@/lib/units";
 import { referralSummary } from "./referral";
 import type { SignedInUser } from "./session";
 import { getUsageSettings } from "./usage-settings";
@@ -30,18 +31,18 @@ import { getUsageSettings } from "./usage-settings";
  */
 export type QuotaRow = {
   id:
-    | "minutesPerWeek"
-    | "minutesPerMonth"
+    | "wordsPerWeek"
+    | "wordsPerMonth"
     | "revisesPerDay"
     | "storageMegabytes"
     | "dailyAi"
     | "writingReviewsPerWeek"
-    | "chatMinutesPerWeek"
+    | "chatMessagesPerWeek"
     | "backChecksPerWeek";
   used: number;
   /** null: unlimited. */
   max: number | null;
-  unit: "minutes" | "times" | "megabytes" | "percent";
+  unit: "words" | "messages" | "times" | "sets" | "megabytes" | "percent";
   /** ISO time it resets; null for storage (it frees up when deleted). */
   resetsAt: string | null;
 };
@@ -80,7 +81,7 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     overrideRows,
     referral,
     writingReviews,
-    chatMinutes,
+    chatMessages,
     backChecks,
   ] = await Promise.all([
     creationAllowance({ user }),
@@ -105,28 +106,28 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
       : Promise.resolve({ data: null }),
     referralSummary(user.id),
     writingReviewsThisWeek(user.id),
-    chatMinutesThisWeek(user.id),
+    chatMessagesThisWeek(user.id),
     backChecksThisWeek(user.id),
   ]);
   const limits = allowance.plans[plan];
   const tomorrow = nextUsageDay(now).toISOString();
   const nextMonth = usageMonth(now).next.toISOString();
   const rows: QuotaRow[] = [];
-  if (limits.minutesPerWeek !== null) {
+  if (limits.wordsPerWeek !== null) {
     rows.push({
-      id: "minutesPerWeek",
-      used: Math.round(allowance.made.weekSeconds / 60),
-      max: limits.minutesPerWeek,
-      unit: "minutes",
+      id: "wordsPerWeek",
+      used: secondsToWords(allowance.made.weekSeconds),
+      max: limits.wordsPerWeek,
+      unit: "words",
       resetsAt: allowance.week?.resetsAt ?? null,
     });
   }
-  if (limits.minutesPerMonth !== null || limits.minutesPerWeek === null) {
+  if (limits.wordsPerMonth !== null || limits.wordsPerWeek === null) {
     rows.push({
-      id: "minutesPerMonth",
-      used: Math.round(allowance.made.seconds / 60),
-      max: limits.minutesPerMonth,
-      unit: "minutes",
+      id: "wordsPerMonth",
+      used: secondsToWords(allowance.made.seconds),
+      max: limits.wordsPerMonth,
+      unit: "words",
       resetsAt: nextMonth,
     });
   }
@@ -154,12 +155,12 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     unit: "times",
     resetsAt: usageWeek(now).end,
   });
-  // Chat practice minutes (D197).
+  // Chat practice messages (D197, D209).
   rows.push({
-    id: "chatMinutesPerWeek",
-    used: chatMinutes,
-    max: limits.chatMinutesPerWeek,
-    unit: "minutes",
+    id: "chatMessagesPerWeek",
+    used: chatMessages,
+    max: limits.chatMessagesPerWeek,
+    unit: "messages",
     resetsAt: usageWeek(now).end,
   });
   // AI checks of extra practice, shown apart (D200).
@@ -167,7 +168,7 @@ export async function quotaReport(user: SignedInUser): Promise<QuotaReport> {
     id: "backChecksPerWeek",
     used: backChecks,
     max: limits.backChecksPerWeek,
-    unit: "times",
+    unit: "sets",
     resetsAt: usageWeek(now).end,
   });
   if (settings) {

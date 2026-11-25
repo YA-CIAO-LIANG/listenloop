@@ -25,6 +25,7 @@ import {
 } from "@/lib/upload-audio";
 import type { UsageBlock } from "@/lib/usage";
 import { excerptSeconds, type TimedSentence } from "@/lib/youtube";
+import { wordsToSeconds } from "@/lib/units";
 
 /**
  * Practices from the learner's own recording (D130), in three steps:
@@ -232,8 +233,8 @@ export async function transcribeAudio(
   // One recording at a time through the free speech to text (D133).
   const turn = await takeTurn("transcribe", path, creator.user, plan);
   if (!turn.turn) return { ok: false, reason: "queued", ahead: turn.ahead };
-  const minutes = PLANS[plan].minutesPerMonth;
-  const userMaxSeconds = minutes === null ? null : minutes * 60;
+  const words = PLANS[plan].wordsPerMonth;
+  const userMaxSeconds = words === null ? null : wordsToSeconds(words);
   const heard: HeardSegment[] = [];
   for (const [i, piece] of pieces.entries()) {
     const { start, end } = (piece ?? {}) as Record<string, unknown>;

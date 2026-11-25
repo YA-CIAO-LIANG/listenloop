@@ -17,26 +17,26 @@ describe("per-account quota changes", () => {
     const limits = withOverrides(
       PLANS.free,
       [
-        { limit: "minutesPerWeek", extra: 5, expiresAt: later },
-        { limit: "minutesPerWeek", extra: 3, expiresAt: earlier },
+        { limit: "wordsPerWeek", extra: 5, expiresAt: later },
+        { limit: "wordsPerWeek", extra: 3, expiresAt: earlier },
         { limit: "revisesPerDay", extra: -10, expiresAt: later },
-        { limit: "minutesPerMonth", extra: 99, expiresAt: later },
+        { limit: "wordsPerMonth", extra: 99, expiresAt: later },
       ],
       now,
     );
-    expect(limits.minutesPerWeek).toBe(7);
+    expect(limits.wordsPerWeek).toBe(305);
     // Never below zero.
     expect(limits.revisesPerDay).toBe(0);
     // null (no monthly cap on the free plan) stays null.
-    expect(limits.minutesPerMonth).toBeNull();
+    expect(limits.wordsPerMonth).toBeNull();
   });
 
   it("drops expired changes and odd rows", () => {
     expect(
       activeOverrides(
         [
-          { limit: "minutesPerWeek", extra: 1, expiresAt: earlier },
-          { limit: "minutesPerWeek", extra: 1, expiresAt: later },
+          { limit: "wordsPerWeek", extra: 1, expiresAt: earlier },
+          { limit: "wordsPerWeek", extra: 1, expiresAt: later },
         ],
         now,
       ),
@@ -51,6 +51,23 @@ describe("per-account quota changes", () => {
         expires_at: later,
       }),
     ).toEqual({ limit: "revisesPerDay", extra: 2, expiresAt: later });
+  });
+
+  it("reads changes written in minutes as words (D209)", () => {
+    expect(
+      parseOverride({
+        limit_name: "minutesPerMonth",
+        extra: 10,
+        expires_at: later,
+      }),
+    ).toEqual({ limit: "wordsPerMonth", extra: 1500, expiresAt: later });
+    expect(
+      parseOverride({
+        limit_name: "minutesPerWeek",
+        extra: -2,
+        expires_at: later,
+      }),
+    ).toEqual({ limit: "wordsPerWeek", extra: -300, expiresAt: later });
   });
 
   it("reports the share used for the 80% warning", () => {

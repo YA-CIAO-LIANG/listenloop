@@ -49,7 +49,7 @@ test("a free learner: this week's minutes, the free plan marked, their own lists
   await expect(page.getByText("還沒有自己的教材。")).toBeVisible();
   await page.goto("/materials/new");
   await expect(page.getByTestId("week-allowance")).toContainText(
-    "本週還剩 2 分鐘",
+    "本週還剩 300 字",
   );
   // Uploading a recording is a paid feature (D130).
   await expect(page.getByText("上傳音檔")).toBeVisible();

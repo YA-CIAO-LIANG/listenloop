@@ -1,4 +1,5 @@
 import type { PlanLimits } from "./plans";
+import { WORDS_PER_MINUTE } from "./units";
 
 /**
  * Per-account quota changes (D161): an admin gives one account more of a
@@ -8,8 +9,8 @@ import type { PlanLimits } from "./plans";
  * that account gets. An unlimited limit (null) stays unlimited.
  */
 export const OVERRIDABLE_LIMITS = [
-  "minutesPerWeek",
-  "minutesPerMonth",
+  "wordsPerWeek",
+  "wordsPerMonth",
   "storageMegabytes",
   "revisesPerDay",
 ] as const;
@@ -52,17 +53,32 @@ export function withOverrides(
   return result;
 }
 
+/**
+ * Rows written before quotas were counted in words (D209) name a minute
+ * limit; their amount is minutes, converted at WORDS_PER_MINUTE.
+ */
+const MINUTE_LIMITS: Readonly<Record<string, OverridableLimit>> = {
+  minutesPerWeek: "wordsPerWeek",
+  minutesPerMonth: "wordsPerMonth",
+};
+
 /** A row from quota_overrides, or null if it doesn't look like one. */
 export function parseOverride(row: unknown): QuotaOverride | null {
   if (!row || typeof row !== "object") return null;
   const r = row as Record<string, unknown>;
-  if (
-    !isOverridableLimit(r.limit_name) ||
-    typeof r.extra !== "number" ||
-    typeof r.expires_at !== "string"
-  ) {
+  if (typeof r.extra !== "number" || typeof r.expires_at !== "string") {
     return null;
   }
+  const minutes =
+    typeof r.limit_name === "string" ? MINUTE_LIMITS[r.limit_name] : undefined;
+  if (minutes) {
+    return {
+      limit: minutes,
+      extra: r.extra * WORDS_PER_MINUTE,
+      expiresAt: r.expires_at,
+    };
+  }
+  if (!isOverridableLimit(r.limit_name)) return null;
   return { limit: r.limit_name, extra: r.extra, expiresAt: r.expires_at };
 }
 

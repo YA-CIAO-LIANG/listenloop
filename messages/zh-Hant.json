@@ -755,7 +755,7 @@
         "paragraphs": [
           "寫作練習（WritingLoop）的文章、草稿、AI 回饋、錯誤本和自訂題目，沒有登入時只存在這個瀏覽器；登入時也存在你的帳號裡，只有你自己看得到（資料庫的存取規則只允許本人讀寫）。管理員後台只看得到使用次數等統計，看不到文章內容。",
           "要取得 AI 回饋時，你的文章會傳給 AI 服務（Azure OpenAI）評分，伺服器不另外保存文章。我們不會拿你的文章訓練 AI 模型；依 Azure OpenAI 的條款，送出的內容也不會被用來訓練模型。",
-          "聊天練習：每則訊息會連同最近的對話一起傳給 AI 服務（Azure OpenAI）產生回覆和建議，伺服器不保存對話內容；對話只存在這個瀏覽器和你的帳號裡，只有你看得到，可以在「過去的對話」刪除。伺服器只記錄每次聊天的開始時間、長度和訊息數，用來計算每週的聊天分鐘數。檢舉一則回覆時，只會把那則 AI 回覆和情境送給管理員，不包含你寫的訊息。",
+          "聊天練習：每則訊息會連同最近的對話一起傳給 AI 服務（Azure OpenAI）產生回覆和建議，伺服器不保存對話內容；對話只存在這個瀏覽器和你的帳號裡，只有你看得到，可以在「過去的對話」刪除。伺服器只記錄每次聊天的開始時間、長度和訊息數，用來計算每週的聊天訊息數。檢舉一則回覆時，只會把那則 AI 回覆和情境送給管理員，不包含你寫的訊息。",
           "額外練習的 AI 批改：和原句不一樣的答案，會在一組結束時連同原句一起傳給 AI 服務（Azure OpenAI）判斷意思和文法，伺服器不保存答案；結果只存在這個瀏覽器和你的帳號裡。可以在寫作設定關閉。",
           "聽寫回譯的語音：範文句子和你自己被修正後的句子，會用語音服務（Azure Speech）產生音檔，存在共用的語音快取裡，檔名是句子內容的雜湊值，不含帳號資料；只有知道整句內容的人才找得到。自己的句子只有登入後才會產生，算在你每天的聲音額度裡。",
           "保存期限：文章和回饋保存到你刪除為止。刪除帳號時會一起刪除；沒有登入時，清除瀏覽器資料就會刪除。"
@@ -1432,7 +1432,7 @@
       "failed": "生成的內容無法使用，請再試一次。",
       "config": "AI 服務的設定或額度有問題（例如金鑰錯誤，或免費額度、預付額度用完）。詳細原因在伺服器紀錄。",
       "tooLong": "這個長度超過你的方案上限（每份最長 {max, number} 秒）。",
-      "weekLeft": "本週只剩 {max, number} 秒可以建立，請選短一點的長度，或等每週重設。"
+      "weekLeft": "本週只剩 {max, number} 字可以建立，請選短一點的長度，或等每週重設。"
     },
     "categoryLabel": "類別",
     "scenarioLabel": "情境",
@@ -1490,9 +1490,8 @@
       "customRules": "自訂通關條件是付費方案的功能。",
       "maxPracticeSeconds": "你的方案每份教材最長 {max, number} 秒。",
       "youtubePractices": "用 YouTube 影片建立練習是付費方案的功能。",
-      "minutesPerMonth": "這個月已經建立 {max} 分鐘的教材，達到方案上限，下個月 1 日重設。",
-      "minutesPerWeek": "免費方案每週可以建立 {max} 分鐘的教材，本週已經用完。",
-      "weekSecondsLeft": "本週只剩 {max, number} 秒可以建立，這份教材比較長。請刪掉一些句子、選短一點的長度，或等每週重設後再建立。",
+      "wordsPerMonth": "這個月已經建立 {max, number} 字的教材，達到方案上限，下個月 1 日重設。",
+      "wordsPerWeek": "免費方案每週可以建立 {max, number} 字的教材，本週已經用完。",
       "playbackSpeed": "調整播放速度是 Plus 以上方案的功能。",
       "fullStats": "完整的學習分析是 Plus 以上方案的功能。",
       "priority": "優先產生是 Pro 方案的功能。",
@@ -1503,22 +1502,23 @@
       "storageMegabytes": "你的錄音已經用掉方案的 {max, number} MB 儲存空間。刪除不需要的錄音教材，或升級方案。",
       "revisesPerDay": "今天已經用指令修改 {max} 次，達到方案上限，明天（台灣時間 0 點）重設。",
       "writingReviewsPerWeek": "本週的 {max} 次 AI 寫作批改已經用完，每週一 00:00（台灣時間）重設。",
-      "chatMinutesPerWeek": "這週的 {max} 分鐘聊天練習不夠這次的長度。可以選短一點，或等每週一 00:00（台灣時間）重設。",
+      "chatMessagesPerWeek": "本週的 {max} 則聊天訊息已經用完，每週一 00:00（台灣時間）重設。",
       "writingWords": "文章超過方案上限，每篇最多 {max, number} 個字。",
-      "backChecksPerWeek": "本週的 {max} 組額外練習 AI 批改已經用完，每週一 00:00（台灣時間）重設。"
+      "backChecksPerWeek": "本週的 {max} 組額外練習 AI 批改已經用完，每週一 00:00（台灣時間）重設。",
+      "weekWordsLeft": "本週只剩 {max, number} 字可以建立，這份教材比較長。請刪掉一些句子、選短一點的長度，或等每週重設後再建立。"
     },
-    "week": "免費方案每週可以建立 {total} 分鐘的教材（單份最長 {total} 分鐘）。本週還剩 {minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}，{reset} 重設。",
-    "weekUsed": "免費方案每週可以建立 {total} 分鐘的教材，本週的已經用完，{reset} 重設。",
+    "week": "免費方案每週可以建立 {total, number} 字的教材（約 {minutes} 分鐘的音檔）。本週還剩 {left, number} 字，{reset} 重設。",
+    "weekUsed": "免費方案每週可以建立 {total, number} 字的教材，本週的已經用完，{reset} 重設。",
     "seePractices": "查看學習進度",
     "paid": {
       "title": "Plus 方案",
-      "perMonth": "每月自建 {max} 分鐘的教材",
+      "perMonth": "每月自建 {max, number} 字的教材",
       "everything": "所有官方教材與功能",
-      "free": "你目前是免費方案：所有官方教材與功能，加上每週 2 分鐘的自建教材。",
+      "free": "你目前是免費方案：所有官方教材與功能，加上每週 {words, number} 字的自建教材。",
       "join": "加入等候名單",
       "joined": "已加入等候名單，付費方案開放時會通知你。",
       "failed": "加入失敗，請稍後再試。",
-      "longest": "每份最長 {max} 分鐘，可以上傳自己的音檔建立"
+      "longest": "每份最多約 {words, number} 字，可以上傳自己的音檔建立"
     }
   },
   "admin": {
@@ -2146,8 +2146,8 @@
       "ended": "已結束",
       "end": "結束",
       "limits": {
-        "minutesPerWeek": "每週分鐘數",
-        "minutesPerMonth": "每月分鐘數",
+        "wordsPerWeek": "每週字數（自建教材）",
+        "wordsPerMonth": "每月字數（自建教材）",
         "storageMegabytes": "儲存空間（MB）",
         "revisesPerDay": "每天用指令修改次數"
       },
@@ -3177,7 +3177,7 @@
     },
     "consent": "繼續登入或建立帳號，即表示你同意<terms>服務條款</terms>與<privacy>隱私權政策</privacy>。未滿 18 歲請先取得家長或法定代理人同意；未滿 13 歲請勿自行建立帳號。",
     "reauth": "為了安全，這個操作需要在 30 分鐘內登入過。請再登入一次，完成後會回到剛才的頁面。",
-    "referred": "朋友邀請你一起練英文聽力！註冊並完成第 1 天，你們各得 {minutes} 分鐘的自建教材額度。"
+    "referred": "朋友邀請你一起練英文聽力！註冊並完成第 1 天，你們各得 {words, number} 字的自建教材額度。"
   },
   "plansPage": {
     "periodLegend": "繳費週期",
@@ -3195,10 +3195,10 @@
     "current": "目前方案",
     "perMonthSuffix": "／月",
     "summaries": {
-      "free": "所有官方教材與功能、基本學習分析，每週可以建立 2 分鐘的自建教材（2 份 1 分鐘，或 1 份 2 分鐘）。寫作每週 {reviews} 次 AI 批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。",
-      "plus": "完整練習所有人分享的公開教材、每月自建 40 分鐘、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。寫作的 AI 額度比免費版多：每週 {reviews} 次批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。",
-      "pro": "每月自建 120 分鐘、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。寫作的 AI 額度最多：每週 {reviews} 次批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。",
-      "student": "聽力和其他付費功能與 Plus 相同，學生價。寫作的 AI 額度比免費版稍多：每週 {reviews} 次批改、{chat} 分鐘聊天練習、{checks} 組額外練習 AI 批改。"
+      "free": "所有官方教材與功能、基本學習分析，每週可以建立 300 字的自建教材（約 2 分鐘）。寫作每週 {reviews} 次 AI 批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。",
+      "plus": "完整練習所有人分享的公開教材、每月自建 6,000 字、上傳自己的音檔建立教材、語速、完整學習分析、自訂通關。寫作的 AI 額度比免費版多：每週 {reviews} 次批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。",
+      "pro": "每月自建 18,000 字、單份最長 10 分鐘、優先產生、批次 PDF，以及 Plus 的全部功能。寫作的 AI 額度最多：每週 {reviews} 次批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。",
+      "student": "聽力和其他付費功能與 Plus 相同，學生價。寫作的 AI 額度比免費版稍多：每週 {reviews} 次批改、{chat} 則聊天訊息、{checks} 組額外練習 AI 批改。"
     },
     "student": {
       "verified": "已認證學生身分，有效到 {until}。",
@@ -3227,15 +3227,15 @@
       "writing": "寫作練習（7 天循環、錯誤本）",
       "writingReviews": "AI 寫作批改",
       "writingWords": "每篇寫作的字數",
-      "chatMinutes": "聊天練習（AI 對話＋即時糾正）",
+      "chatMinutes": "聊天練習（AI 對話＋即時糾正，以訊息則數計）",
       "backChecks": "額外練習的 AI 批改（每組一次）"
     },
     "yes": "✓",
     "no": "—",
     "noLimit": "不限",
     "trial": "試做 {n} 份",
-    "perMonth": "每月 {n} 分鐘",
-    "perWeek": "每週 {n} 分鐘",
+    "perMonth": "每月 {n, number} 字",
+    "perWeek": "每週 {n, number} 字",
     "seconds": "{n} 秒",
     "minutes": "{n} 分鐘",
     "statsBasic": "基本",
@@ -3261,7 +3261,7 @@
     "timesPerWeek": "每週 {n} 次",
     "setsPerWeek": "每週 {n} 組",
     "words": "{n} 字",
-    "minutesPerWeek": "每週 {n} 分鐘"
+    "messagesPerWeek": "每週 {n} 則"
   },
   "classroom": {
     "title": "我的班級",
@@ -3886,20 +3886,22 @@
     },
     "suspended": "你的帳號的 AI 功能暫時停用，既有的教材可以照常練習。如果你認為這是誤判，請透過意見回饋告訴我們。",
     "rows": {
-      "minutesPerWeek": "本週建立教材的分鐘數",
-      "minutesPerMonth": "本月建立教材的分鐘數",
+      "wordsPerWeek": "本週建立教材的字數",
+      "wordsPerMonth": "本月建立教材的字數",
       "revisesPerDay": "今天用指令修改的次數",
       "storageMegabytes": "錄音的儲存空間",
       "dailyAi": "今天的 AI 用量",
       "writingReviewsPerWeek": "本週的 AI 寫作批改",
-      "chatMinutesPerWeek": "本週的聊天練習",
+      "chatMessagesPerWeek": "本週的聊天訊息",
       "backChecksPerWeek": "本週的額外練習 AI 批改"
     },
     "units": {
-      "minutes": "{n} 分鐘",
       "times": "{n} 次",
       "megabytes": "{n} MB",
-      "percent": "{n}%"
+      "percent": "{n}%",
+      "words": "{n} 字",
+      "messages": "{n} 則",
+      "sets": "{n} 組"
     },
     "usedOf": "已用 {used} / {max}",
     "unlimitedUsed": "已用 {used}（不限）",
@@ -3931,19 +3933,20 @@
     "upgrade": "需要更多？看付費方案",
     "referral": {
       "title": "邀請朋友",
-      "intro": "把你的連結傳給朋友。朋友用這個連結註冊、完成第 1 天的聽寫後，你們各得 {minutes} 分鐘的自建教材額度，{days} 天內可以使用，用在本週或本月方案額度之外。",
+      "intro": "把你的連結傳給朋友。朋友用這個連結註冊、完成第 1 天的聽寫後，你們各得 {words, number} 字的自建教材額度，{days} 天內可以使用，用在本週或本月方案額度之外。",
       "copy": "複製連結",
       "copied": "已複製",
       "people": "{n} 人",
       "stats": {
         "invited": "用連結註冊",
         "qualified": "完成第 1 天",
-        "earned": "獲得的分鐘數",
-        "left": "還能用的分鐘數"
+        "earned": "獲得的字數",
+        "left": "還能用的字數"
       },
       "rules": "同一台裝置，或一天內大量註冊的帳號不列入計算；自己的連結不能自己用。同學在同一個學校網路註冊沒關係。邀請連結不會增加註冊名額。"
     },
-    "words": "{n} 字"
+    "words": "{n} 字",
+    "wordsAbout": "{n} 字（約 {minutes} 分鐘）"
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
@@ -4764,7 +4767,8 @@
       "teen": "我未滿 18 歲（套用適齡規則）",
       "rules": "AI 不會進行戀愛、性、暴力或違法的角色扮演。對話只存在你的裝置和帳號裡，只有你看得到，可以隨時刪除。",
       "start": "開始聊天",
-      "starting": "準備中…"
+      "starting": "準備中…",
+      "countNote": "時間只是這次聊天的長度；每週的額度扣的是你實際送出的訊息數（在「我的額度」查看）。"
     },
     "levels": {
       "beginner": "初級：簡單的字、短句",
@@ -4861,7 +4865,7 @@
       "invalid": "這個設定無法開始，請重新選擇。",
       "paused": "AI 功能暫停中，請稍後再試。",
       "suspended": "你的帳號暫時不能使用 AI 功能。",
-      "plan": "這週的聊天分鐘數已經用完。",
+      "plan": "本週的聊天訊息已經用完，每週一 00:00（台灣時間）重設。",
       "busy": "現在使用的人比較多，請稍等再送一次。",
       "unavailable": "聊天練習現在無法使用。",
       "ended": "時間到了，這次聊天已經結束。",

@@ -755,7 +755,7 @@
         "paragraphs": [
           "In Writing (WritingLoop), your essays, drafts, AI feedback, notebook, and own prompts stay in this browser when you're signed out; signed in, they're also kept in your account where only you can see them (the database lets only you read or write them). Admin pages show usage counts only, never what you wrote.",
           "For AI feedback, your essay is sent to an AI service (Azure OpenAI) to be scored; our server doesn't keep a copy. We never use your writing to train AI models, and under Azure OpenAI's terms what is sent isn't used for training either.",
-          "Chat practice: each message is sent with the recent conversation to an AI service (Azure OpenAI) for the reply and tips; our server doesn't keep the conversation. It stays in this browser and your account, only for you, and you can delete it under Past chats. The server records only each chat's start time, length, and number of messages, for the weekly chat minutes. Reporting a reply sends only that AI reply and the situation to the admins, never your messages.",
+          "Chat practice: each message is sent with the recent conversation to an AI service (Azure OpenAI) for the reply and tips; our server doesn't keep the conversation. It stays in this browser and your account, only for you, and you can delete it under Past chats. The server records only each chat's start time, length, and number of messages, for the weekly chat messages. Reporting a reply sends only that AI reply and the situation to the admins, never your messages.",
           "Extra practice's AI check: answers that differ from the sentence are sent with the sentence to an AI service (Azure OpenAI) at the end of a set, to judge their meaning and grammar; the server doesn't keep them, and the results stay in this browser and your account. You can turn it off in your writing settings.",
           "Back-translation audio: model sentences and your own corrected sentences are voiced by a speech service (Azure Speech) and kept in the shared speech cache, named by a hash of the sentence, with nothing about your account; only someone who knows the whole sentence can find it. Your own sentences are voiced only when you're signed in, counted against your daily speech allowance.",
           "How long: essays and feedback are kept until you delete them. Deleting your account deletes them; signed out, clearing the browser's data does."
@@ -1432,7 +1432,7 @@
       "failed": "The written text couldn't be used. Please try again.",
       "config": "There's a problem with the AI service's setup or allowance (for example a wrong key, or a used-up free tier or prepaid credit). The server log has details.",
       "tooLong": "That’s longer than your plan allows ({max, number} seconds per practice).",
-      "weekLeft": "Only {max, number} seconds are left this week: pick a shorter length, or wait for the weekly reset."
+      "weekLeft": "Only {max, number} words are left this week. Pick a shorter length, or wait for the weekly reset."
     },
     "categoryLabel": "Category",
     "scenarioLabel": "Scenario",
@@ -1490,9 +1490,8 @@
       "customRules": "Custom pass rules are part of the paid plans.",
       "maxPracticeSeconds": "Your plan allows practices up to {max, number} seconds long.",
       "youtubePractices": "Making practices from YouTube videos is part of the paid plans.",
-      "minutesPerMonth": "You’ve made {max} minutes of practices this month, your plan’s limit. It resets on the 1st.",
-      "minutesPerWeek": "The free plan makes {max} minutes of materials a week, and this week's are used up.",
-      "weekSecondsLeft": "Only {max, number} seconds are left this week, and this material is longer. Delete some sentences, pick a shorter length, or wait for the weekly reset.",
+      "wordsPerMonth": "You’ve made {max, number} words of practices this month, your plan’s limit. It resets on the 1st.",
+      "wordsPerWeek": "The free plan makes {max, number} words of materials a week, and this week's are used up.",
       "playbackSpeed": "Playback speed is part of Plus and Pro.",
       "fullStats": "The full stats are part of Plus and Pro.",
       "priority": "Priority generation is part of Pro.",
@@ -1503,22 +1502,23 @@
       "storageMegabytes": "Your recordings use all of your plan's {max, number} MB of storage. Delete recordings you don't need, or upgrade.",
       "revisesPerDay": "You've revised with an instruction {max} times today, your plan's limit; it resets at midnight (Taiwan time).",
       "writingReviewsPerWeek": "You’ve used this week’s {max} AI writing reviews. They reset on Monday at 00:00 Taiwan time.",
-      "chatMinutesPerWeek": "This week’s {max} chat minutes aren’t enough for that length. Choose a shorter chat, or wait for Monday at 00:00 Taiwan time.",
+      "chatMessagesPerWeek": "You’ve used this week’s {max} chat messages. They reset on Monday at 00:00 Taiwan time.",
       "writingWords": "The essay is over your plan’s limit of {max, number} words.",
-      "backChecksPerWeek": "This week's {max} AI checks of extra practice are used up. They reset on Monday at 00:00 Taiwan time."
+      "backChecksPerWeek": "This week's {max} AI checks of extra practice are used up. They reset on Monday at 00:00 Taiwan time.",
+      "weekWordsLeft": "Only {max, number} words are left this week, and this material is longer. Delete some sentences, pick a shorter length, or wait for the weekly reset."
     },
-    "week": "The free plan makes {total} minutes of materials a week (up to {total} minutes each). Left this week: {minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}; resets {reset}.",
-    "weekUsed": "The free plan makes {total} minutes of materials a week. This week's are used up; they reset {reset}.",
+    "week": "The free plan makes {total, number} words of materials a week (about {minutes} minutes of audio). Left this week: {left, number} words; resets {reset}.",
+    "weekUsed": "The free plan makes {total, number} words of materials a week. This week's are used up; they reset {reset}.",
     "seePractices": "See your progress",
     "paid": {
       "title": "Plus",
-      "perMonth": "{max} minutes of your own practices a month",
+      "perMonth": "{max, number} words of your own practices a month",
       "everything": "Every official material and feature",
-      "free": "You're on the free plan: every official material and feature, plus 2 minutes of your own materials a week.",
+      "free": "You're on the free plan: every official material and feature, plus {words, number} words of your own materials a week.",
       "join": "Join the waitlist",
       "joined": "You're on the waitlist. We'll let you know when the paid plan opens.",
       "failed": "Couldn't join. Try again later.",
-      "longest": "Up to {max} minutes each, and practices from your own recordings"
+      "longest": "Up to about {words, number} words each, and practices from your own recordings"
     }
   },
   "admin": {
@@ -2146,8 +2146,8 @@
       "ended": "ended",
       "end": "End",
       "limits": {
-        "minutesPerWeek": "Minutes a week",
-        "minutesPerMonth": "Minutes a month",
+        "wordsPerWeek": "Words a week (own materials)",
+        "wordsPerMonth": "Words a month (own materials)",
         "storageMegabytes": "Storage (MB)",
         "revisesPerDay": "Revisions a day"
       },
@@ -3179,7 +3179,7 @@
     },
     "consent": "By signing in or making an account, you agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>. Under 18, please get a parent's or guardian's consent first; under 13, please don't make an account yourself.",
     "reauth": "For safety, this needs a recent sign-in (within 30 minutes). Sign in again and you'll be taken back.",
-    "referred": "A friend invited you to practice English listening together! Sign up and finish Day 1, and you each get {minutes} extra minutes for making your own materials."
+    "referred": "A friend invited you to practice English listening together! Sign up and finish Day 1, and you each get {words, number} extra words for making your own materials."
   },
   "plansPage": {
     "periodLegend": "Billing",
@@ -3197,10 +3197,10 @@
     "current": "Your plan",
     "perMonthSuffix": " / month",
     "summaries": {
-      "free": "Every official lesson and feature, basic stats, and 2 minutes of your own materials a week (two of a minute, or one of two). For writing, each week: {reviews} AI reviews, {chat} minutes of chat, and {checks} AI checks of extra practice.",
-      "plus": "Every shared material in full, 40 minutes of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules. More AI for writing than Free, each week: {reviews} reviews, {chat} minutes of chat, and {checks} AI checks of extra practice.",
-      "pro": "120 minutes a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus. The most AI for writing, each week: {reviews} reviews, {chat} minutes of chat, and {checks} AI checks of extra practice.",
-      "student": "Listening and the other paid features as in Plus, at a student price. A little more AI for writing than Free, each week: {reviews} reviews, {chat} minutes of chat, and {checks} AI checks of extra practice."
+      "free": "Every official lesson and feature, basic stats, and 300 words of your own materials a week (about 2 minutes). For writing, each week: {reviews} AI reviews, {chat} chat messages, and {checks} AI checks of extra practice.",
+      "plus": "Every shared material in full, 6,000 words of your own practices a month, practices from your own recordings, playback speed, full stats, and custom pass rules. More AI for writing than Free, each week: {reviews} reviews, {chat} chat messages, and {checks} AI checks of extra practice.",
+      "pro": "18,000 words a month, up to 10 minutes each, priority generation, batch PDFs, and everything in Plus. The most AI for writing, each week: {reviews} reviews, {chat} chat messages, and {checks} AI checks of extra practice.",
+      "student": "Listening and the other paid features as in Plus, at a student price. A little more AI for writing than Free, each week: {reviews} reviews, {chat} chat messages, and {checks} AI checks of extra practice."
     },
     "student": {
       "verified": "Verified as a student until {until}.",
@@ -3229,15 +3229,15 @@
       "writing": "Writing practice (7-day loop, notebook)",
       "writingReviews": "AI writing reviews",
       "writingWords": "Words per essay",
-      "chatMinutes": "Chat practice (AI conversation, quiet corrections)",
+      "chatMinutes": "Chat practice (AI conversation, quiet corrections; counted in messages)",
       "backChecks": "AI check of extra practice (one per set)"
     },
     "yes": "✓",
     "no": "—",
     "noLimit": "No limit",
     "trial": "{n} to try",
-    "perMonth": "{n} min a month",
-    "perWeek": "{n} min a week",
+    "perMonth": "{n, number} words a month",
+    "perWeek": "{n, number} words a week",
     "seconds": "{n} s",
     "minutes": "{n} min",
     "statsBasic": "Basic",
@@ -3263,7 +3263,7 @@
     "timesPerWeek": "{n} a week",
     "setsPerWeek": "{n} sets a week",
     "words": "{n} words",
-    "minutesPerWeek": "{n} minutes a week"
+    "messagesPerWeek": "{n} messages a week"
   },
   "classroom": {
     "title": "My classes",
@@ -3888,20 +3888,22 @@
     },
     "suspended": "AI features are paused for your account for now; your materials can still be practised. If you think this is a mistake, tell us through Feedback.",
     "rows": {
-      "minutesPerWeek": "Minutes of materials this week",
-      "minutesPerMonth": "Minutes of materials this month",
+      "wordsPerWeek": "Words of materials made this week",
+      "wordsPerMonth": "Words of materials made this month",
       "revisesPerDay": "Revisions with an instruction today",
       "storageMegabytes": "Storage for recordings",
       "dailyAi": "AI use today",
       "writingReviewsPerWeek": "AI writing reviews this week",
-      "chatMinutesPerWeek": "Chat practice this week",
+      "chatMessagesPerWeek": "Chat messages this week",
       "backChecksPerWeek": "AI checks of extra practice this week"
     },
     "units": {
-      "minutes": "{n} min",
       "times": "{n}",
       "megabytes": "{n} MB",
-      "percent": "{n}%"
+      "percent": "{n}%",
+      "words": "{n} words",
+      "messages": "{n} messages",
+      "sets": "{n} sets"
     },
     "usedOf": "{used} of {max} used",
     "unlimitedUsed": "{used} used (unlimited)",
@@ -3933,19 +3935,20 @@
     "upgrade": "Need more? See the paid plans",
     "referral": {
       "title": "Invite friends",
-      "intro": "Send your link to friends. When a friend signs up through it and finishes Day 1's dictation, you each get {minutes} extra minutes for making your own materials, usable for {days} days on top of your plan's weekly or monthly minutes.",
+      "intro": "Send your link to friends. When a friend signs up through it and finishes Day 1's dictation, you each get {words, number} extra words for making your own materials, usable for {days} days on top of your plan's weekly or monthly words.",
       "copy": "Copy link",
       "copied": "Copied",
       "people": "{n, plural, one {# person} other {# people}}",
       "stats": {
         "invited": "Signed up",
         "qualified": "Finished Day 1",
-        "earned": "Minutes earned",
-        "left": "Minutes left"
+        "earned": "Words earned",
+        "left": "Words left"
       },
       "rules": "Accounts from the same device, or many sign-ups in one day, don't count, and your own link doesn't work for you. Classmates on the same school network are fine. Invite links don't add sign-up places."
     },
-    "words": "{n} words"
+    "words": "{n} words",
+    "wordsAbout": "{n} words (about {minutes} min)"
   },
   "seo": {
     "ogLine": "Dictation, shadowing, dictation again: one recording, seven days."
@@ -4766,7 +4769,8 @@
       "teen": "I'm under 18 (age-appropriate rules)",
       "rules": "The AI won't role-play romance, sex, violence, or anything illegal. The conversation stays on your device and in your account, only for you, and you can delete it any time.",
       "start": "Start chatting",
-      "starting": "Getting ready…"
+      "starting": "Getting ready…",
+      "countNote": "The length only bounds this chat; your weekly allowance counts the messages you actually send (see My quota)."
     },
     "levels": {
       "beginner": "Beginner: simple words, short sentences",
@@ -4863,7 +4867,7 @@
       "invalid": "This chat can't start; please choose again.",
       "paused": "AI features are paused; please try later.",
       "suspended": "Your account can't use AI features for now.",
-      "plan": "This week's chat minutes are used up.",
+      "plan": "This week's chat messages are used up. They reset on Monday at 00:00 Taiwan time.",
       "busy": "It's busy right now; wait a moment and send again.",
       "unavailable": "Chat practice isn't available right now.",
       "ended": "Time's up: this chat has ended.",

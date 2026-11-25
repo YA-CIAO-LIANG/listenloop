@@ -29,15 +29,15 @@ const limited: Record<PlanId, PlanLimits> = {
     uploadMegabytes: null,
     storageMegabytes: 0,
     revisesPerDay: 5,
-    minutesPerMonth: null,
-    minutesPerWeek: null,
+    wordsPerMonth: null,
+    wordsPerWeek: null,
     playbackSpeed: false,
     fullStats: false,
     priority: false,
     batchPdf: false,
     writingReviewsPerWeek: 2,
     writingWords: 400,
-    chatMinutesPerWeek: 5,
+    chatMessagesPerWeek: 5,
     backChecksPerWeek: 7,
   },
 };
@@ -50,7 +50,7 @@ describe("plans (D54, D72)", () => {
     expect(PLANS.admin.sharedPractices).toBe(true);
   });
 
-  it("free accounts make 2 minutes a week, up to 2,000 characters each (D143)", () => {
+  it("free accounts make 300 words (2 minutes) a week, up to 2,000 characters each (D143, D209)", () => {
     // However many they made before: the old one-practice trial is gone.
     expect(
       can("free", {
@@ -61,7 +61,7 @@ describe("plans (D54, D72)", () => {
     ).toEqual({ ok: true });
     expect(
       can("free", { kind: "create-practice", secondsThisWeek: 120 }),
-    ).toEqual({ ok: false, limit: "minutesPerWeek", max: 2 });
+    ).toEqual({ ok: false, limit: "wordsPerWeek", max: 300 });
     expect(needsCount("free", "create-practice")).toBe(true);
     expect(can("free", { kind: "practice-chars", chars: 2000 })).toEqual({
       ok: true,
@@ -73,7 +73,7 @@ describe("plans (D54, D72)", () => {
     });
   });
 
-  it("paid (Plus) accounts make 40 minutes a month, whatever they made before (D102)", () => {
+  it("paid (Plus) accounts make 6,000 words (40 minutes) a month, whatever they made before (D102, D209)", () => {
     expect(
       can("paid", {
         kind: "create-practice",
@@ -84,7 +84,7 @@ describe("plans (D54, D72)", () => {
     ).toEqual({ ok: true });
     expect(
       can("paid", { kind: "create-practice", secondsThisMonth: 40 * 60 }),
-    ).toEqual({ ok: false, limit: "minutesPerMonth", max: 40 });
+    ).toEqual({ ok: false, limit: "wordsPerMonth", max: 6000 });
     expect(needsCount("paid", "create-practice")).toBe(true);
     expect(PLANS.paid.charsPerPractice).toBe(2000); // a technical cap now
   });
@@ -155,7 +155,7 @@ describe("practice length by plan (D94)", () => {
         seconds: 61,
         secondsThisWeek: 60,
       }),
-    ).toEqual({ ok: false, limit: "weekSecondsLeft", max: 60 });
+    ).toEqual({ ok: false, limit: "weekWordsLeft", max: 150 });
     expect(weekSecondsLeft(PLANS.free, 150)).toBe(0);
     expect(weekSecondsLeft(PLANS.paid, 150)).toBeNull();
     // Paid plans count by the month, not the week.

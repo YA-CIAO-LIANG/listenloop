@@ -7,6 +7,7 @@ import {
   type WaitlistResult,
 } from "@/app/plans/actions";
 import { PLANS, type PlanBlock } from "@/lib/plans";
+import { secondsToWords } from "@/lib/units";
 import { Button } from "./Button";
 import { PLAN_PRICES } from "@/lib/payments/pricing";
 import type { PlanPrices } from "@/lib/price-experiments";
@@ -67,12 +68,12 @@ export function PaidPlanCard({
         {t("paid.title")}
       </h2>
       <ul className="space-y-1">
-        {paid.minutesPerMonth !== null && (
+        {paid.wordsPerMonth !== null && (
           <li>
             <span aria-hidden="true" className="text-success">
               ✓{" "}
             </span>
-            {t("paid.perMonth", { max: paid.minutesPerMonth })}
+            {t("paid.perMonth", { max: paid.wordsPerMonth })}
           </li>
         )}
         {paid.maxPracticeSeconds !== null && (
@@ -80,7 +81,9 @@ export function PaidPlanCard({
             <span aria-hidden="true" className="text-success">
               ✓{" "}
             </span>
-            {t("paid.longest", { max: paid.maxPracticeSeconds / 60 })}
+            {t("paid.longest", {
+              words: secondsToWords(paid.maxPracticeSeconds),
+            })}
           </li>
         )}
         <li>
@@ -109,7 +112,9 @@ export function PaidPlanCard({
           </p>
         )}
       </div>
-      <p className="text-supporting text-ink-muted">{t("paid.free")}</p>
+      <p className="text-supporting text-ink-muted">
+        {t("paid.free", { words: PLANS.free.wordsPerWeek ?? 0 })}
+      </p>
     </section>
   );
 }

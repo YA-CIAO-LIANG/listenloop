@@ -16,7 +16,7 @@ test("a learner sees each allowance and when it resets", async ({ page }) => {
     page.getByRole("heading", { name: "我的額度", level: 1 }),
   ).toBeVisible();
   await expect(
-    page.getByRole("heading", { name: "本週建立教材的分鐘數" }),
+    page.getByRole("heading", { name: "本週建立教材的字數" }),
   ).toBeVisible();
   await expect(
     page.getByRole("heading", { name: "今天用指令修改的次數" }),
@@ -28,12 +28,12 @@ test("a learner sees each allowance and when it resets", async ({ page }) => {
 test("used up: when it resets in the learner's own clock, and a way on (D170)", async ({
   page,
 }) => {
-  // The author's two free minutes this week are used.
+  // The author's 300 free words this week are used.
   await signInAsAuthor(page);
   await page.goto("/account/usage");
   const week = page
     .getByRole("listitem")
-    .filter({ hasText: "本週建立教材的分鐘數" });
+    .filter({ hasText: "本週建立教材的字數" });
   await expect(week).toContainText("已經用完了。");
   await expect(week).toContainText(/\d+\/\d+（週一）\s?00:00 重設/);
   await expect(
@@ -106,6 +106,6 @@ test("the pricing page shows each plan's AI writing allowances (D207)", async ({
     page.getByText(/寫作的 AI 額度比免費版稍多：每週 3 次批改/),
   ).toBeVisible();
   await expect(
-    page.getByText(/寫作的 AI 額度比免費版多：每週 5 次批改、15 分鐘聊天練習/),
+    page.getByText(/寫作的 AI 額度比免費版多：每週 5 次批改、30 則聊天訊息/),
   ).toBeVisible();
 });

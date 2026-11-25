@@ -49,7 +49,7 @@ const LIMITS = {
  */
 const writingAllowances = (limits: (typeof PLANS)[keyof typeof PLANS]) => ({
   reviews: limits.writingReviewsPerWeek ?? 0,
-  chat: limits.chatMinutesPerWeek ?? 0,
+  chat: limits.chatMessagesPerWeek ?? 0,
   checks: limits.backChecksPerWeek ?? 0,
 });
 
@@ -189,11 +189,11 @@ export function PricingPlans({
       case "shared":
         return limits.sharedPractices ? yes : t("previewOnly");
       case "create":
-        return limits.minutesPerWeek !== null
-          ? t("perWeek", { n: limits.minutesPerWeek })
+        return limits.wordsPerWeek !== null
+          ? t("perWeek", { n: limits.wordsPerWeek })
           : limits.practicesTotal !== null
             ? t("trial", { n: limits.practicesTotal })
-            : t("perMonth", { n: limits.minutesPerMonth ?? 0 });
+            : t("perMonth", { n: limits.wordsPerMonth ?? 0 });
       case "longest": {
         const seconds = limits.maxPracticeSeconds;
         if (seconds === null) return t("noLimit");
@@ -214,9 +214,9 @@ export function PricingPlans({
           ? t("noLimit")
           : t("timesPerWeek", { n: limits.writingReviewsPerWeek });
       case "chatMinutes":
-        return limits.chatMinutesPerWeek === null
+        return limits.chatMessagesPerWeek === null
           ? t("noLimit")
-          : t("minutesPerWeek", { n: limits.chatMinutesPerWeek });
+          : t("messagesPerWeek", { n: limits.chatMessagesPerWeek });
       case "backChecks":
         return limits.backChecksPerWeek === null
           ? t("noLimit")

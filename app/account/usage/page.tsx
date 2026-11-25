@@ -14,6 +14,7 @@ import {
   referralUrl,
 } from "@/lib/referral";
 import { SITE_URL } from "@/lib/site";
+import { secondsToWords, WORDS_PER_MINUTE } from "@/lib/units";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("quota");
@@ -165,7 +166,7 @@ export default async function QuotaPage() {
           </h2>
           <p className="mt-4 max-w-reading text-ink-muted">
             {t("referral.intro", {
-              minutes: REFERRAL_BONUS_MINUTES,
+              words: REFERRAL_BONUS_MINUTES * WORDS_PER_MINUTE,
               days: REFERRAL_VALID_DAYS,
             })}
           </p>
@@ -183,14 +184,20 @@ export default async function QuotaPage() {
                 ],
                 [
                   "earned",
-                  t("minutes", {
-                    n: format.number(report.referral.earnedMinutes),
+                  t("words", {
+                    n: format.number(
+                      report.referral.earnedMinutes * WORDS_PER_MINUTE,
+                    ),
                   }),
                 ],
                 [
                   "left",
-                  t("minutes", {
-                    n: format.number(report.referral.leftMinutes),
+                  t("words", {
+                    n: format.number(
+                      Math.round(
+                        report.referral.leftMinutes * WORDS_PER_MINUTE,
+                      ),
+                    ),
                   }),
                 ],
               ] as const
@@ -228,8 +235,13 @@ export default async function QuotaPage() {
                 "maxPracticeSeconds",
                 report.fixed.maxPracticeSeconds === null
                   ? t("unlimited")
-                  : t("minutes", {
-                      n: format.number(report.fixed.maxPracticeSeconds / 60),
+                  : t("wordsAbout", {
+                      n: format.number(
+                        secondsToWords(report.fixed.maxPracticeSeconds),
+                      ),
+                      minutes: format.number(
+                        report.fixed.maxPracticeSeconds / 60,
+                      ),
                     }),
               ],
               [

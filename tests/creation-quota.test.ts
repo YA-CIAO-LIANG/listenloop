@@ -76,7 +76,7 @@ describe("creationAllowance (D143)", () => {
     expect(week).toEqual({
       usedSeconds: 45,
       leftSeconds: 75,
-      minutes: 2,
+      words: 300,
       resetsAt: "2026-11-15T16:00:00.000Z",
     });
   });
@@ -87,7 +87,7 @@ describe("creationAllowance (D143)", () => {
       { seconds: 60, created_at: "2026-11-11T17:00:00+00:00" },
     ];
     const { check, week } = await creationAllowance(user() as never);
-    expect(check).toEqual({ ok: false, limit: "minutesPerWeek", max: 2 });
+    expect(check).toEqual({ ok: false, limit: "wordsPerWeek", max: 300 });
     expect(week?.leftSeconds).toBe(0);
   });
 
@@ -111,7 +111,8 @@ describe("referral bonus minutes (D177)", () => {
       user() as never,
     );
     expect(check).toEqual({ ok: true });
-    expect(week).toMatchObject({ minutes: 4, leftSeconds: 120 });
+    // Two bonus minutes are 300 words (D209).
+    expect(week).toMatchObject({ words: 600, leftSeconds: 120 });
     expect(bonusLeftSeconds).toBe(120);
   });
 
@@ -120,14 +121,14 @@ describe("referral bonus minutes (D177)", () => {
     const { plans, bonusLeftSeconds } = await creationAllowance(
       user("paid") as never,
     );
-    expect(plans.paid.minutesPerMonth).toBe(42);
+    expect(plans.paid.wordsPerMonth).toBe(6300);
     expect(bonusLeftSeconds).toBe(120);
   });
 
   it("ignores expired grants", async () => {
     referral.grants = [{ ...grant, expiresAt: "2026-11-11T00:00:00Z" }];
     const { week, bonusLeftSeconds } = await creationAllowance(user() as never);
-    expect(week?.minutes).toBe(2);
+    expect(week?.words).toBe(300);
     expect(bonusLeftSeconds).toBeNull();
   });
 });

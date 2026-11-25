@@ -7,6 +7,7 @@ import {
 import { ECPAY_FEE_RATE, TW_BUSINESS_TAX } from "../forecast";
 import { PLANS } from "../plans";
 import { MESSAGES_PER_MINUTE } from "../writing/chat/limits";
+import { WORDS_PER_MINUTE } from "../units";
 import {
   BILLING_PERIODS,
   PERIOD_MONTHS,
@@ -31,10 +32,10 @@ export const PRICE_FLOOR = {
 
 /** Minutes of practice a month each paid plan may make (lib/plans.ts). */
 export const PLAN_MINUTES: Readonly<Record<PaidPlan, number>> = {
-  plus: PLANS.paid.minutesPerMonth ?? 0,
+  plus: (PLANS.paid.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
   // The student plan is Plus at a student price (D144).
-  student: PLANS.student.minutesPerMonth ?? 0,
-  pro: PLANS.pro.minutesPerMonth ?? 0,
+  student: (PLANS.student.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
+  pro: (PLANS.pro.wordsPerMonth ?? 0) / WORDS_PER_MINUTE,
 };
 
 /**
@@ -121,17 +122,19 @@ export function chatMinuteCost(): number {
  */
 export const PLAN_CHAT_EXTRA: Readonly<Record<PaidPlan, number>> = {
   plus:
-    (PLANS.paid.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
+    (PLANS.paid.chatMessagesPerWeek ?? 0) -
+    (PLANS.free.chatMessagesPerWeek ?? 0),
   student:
-    (PLANS.student.chatMinutesPerWeek ?? 0) -
-    (PLANS.free.chatMinutesPerWeek ?? 0),
+    (PLANS.student.chatMessagesPerWeek ?? 0) -
+    (PLANS.free.chatMessagesPerWeek ?? 0),
   pro:
-    (PLANS.pro.chatMinutesPerWeek ?? 0) - (PLANS.free.chatMinutesPerWeek ?? 0),
+    (PLANS.pro.chatMessagesPerWeek ?? 0) -
+    (PLANS.free.chatMessagesPerWeek ?? 0),
 };
 
 /** NT$ a month of `perWeek` chat minutes, all used (the worst case). */
 export const chatMonthCost = (perWeek: number) =>
-  perWeek * WEEKS_PER_MONTH * chatMinuteCost();
+  ((perWeek * WEEKS_PER_MONTH) / MESSAGES_PER_MINUTE) * chatMinuteCost();
 
 /**
  * One AI check of extra practice (D200): a set's answers that the rules

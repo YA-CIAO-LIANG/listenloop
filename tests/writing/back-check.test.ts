@@ -294,7 +294,7 @@ describe("weekly checks and cost (D200)", () => {
       const l = limits[plan];
       const cost =
         writingMonthCost(l.writingReviewsPerWeek!) +
-        chatMonthCost(l.chatMinutesPerWeek!) +
+        chatMonthCost(l.chatMessagesPerWeek!) +
         backCheckMonthCost(l.backChecksPerWeek!);
       for (const period of ["month", "year"] as const) {
         const monthly =

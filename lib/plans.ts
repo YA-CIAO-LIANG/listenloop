@@ -1,4 +1,5 @@
 import type { Role } from "./accounts";
+import { secondsToWords, wordsToSeconds } from "./units";
 
 /**
  * Plan limits (roadmap f, D54, D72): what each plan may do, in one place.
@@ -6,10 +7,10 @@ import type { Role } from "./accounts";
  * itself, so changing what a plan includes means editing PLANS only.
  *
  * - free: every official material and feature, a preview of shared
- *   materials (D106), and 2 minutes of their own practices a week
- *   (D143: two of a minute or one of two);
- * - paid: 30 practices a month of up to 2,000 characters (set by an
- *   admin until payments exist; the price shows "coming soon");
+ *   materials (D106), and 300 words of their own practices a week
+ *   (D143: two minutes; D209: counted in words);
+ * - paid: Plus (set by an admin until payments exist; the price shows
+ *   "coming soon");
  * - student: Plus at a student price (D144) with its own, smaller AI
  *   writing allowances (D207): what the student price's floor allows;
  * - admin: no limits.
@@ -50,15 +51,16 @@ export type PlanLimits = {
   /** New practices created per calendar month (Taiwan time). */
   practicesPerMonth: number | null;
   /**
-   * Minutes of practices made per calendar month (D102), by their
-   * estimated length; resets each month, even on a yearly plan.
+   * English words of practices made per calendar month (D102, D209), by
+   * their estimated length (WORDS_PER_MINUTE a minute); resets each
+   * month, even on a yearly plan.
    */
-  minutesPerMonth: number | null;
+  wordsPerMonth: number | null;
   /**
-   * Minutes of practices made per week (D143), from Monday 00:00 Taiwan
-   * time; a new practice must fit in what's left.
+   * English words of practices made per week (D143, D209), from Monday
+   * 00:00 Taiwan time; a new practice must fit in what's left.
    */
-  minutesPerWeek: number | null;
+  wordsPerWeek: number | null;
   /** Characters of text per created practice. */
   charsPerPractice: number | null;
   /** May set each practice's own pass rules (D92); otherwise the defaults. */
@@ -100,12 +102,11 @@ export type PlanLimits = {
   /** The longest essay sent for feedback, in words (D187). */
   writingWords: number | null;
   /**
-   * Chat practice minutes a week, from Monday 00:00 Taiwan time (D197),
-   * counted when a chat starts (the chosen length) and given back when
-   * it ends early. Sized by each message's measured cost: within a
-   * quarter of the monthly price and the price floor (D185, D197).
+   * Chat practice messages a week, from Monday 00:00 Taiwan time (D197,
+   * D209): each message the learner sends counts; the length chosen
+   * before a chat (5, 10, 20 minutes) only bounds that chat.
    */
-  chatMinutesPerWeek: number | null;
+  chatMessagesPerWeek: number | null;
   /**
    * AI checks of extra practice's back-translation a week, from Monday
    * 00:00 Taiwan time (D200): one check judges a whole set's answers in
@@ -116,15 +117,15 @@ export type PlanLimits = {
   backChecksPerWeek: number | null;
 };
 
-/** Plus (D102): 40 minutes a month. */
+/** Plus (D102): 6,000 words (40 minutes) a month. */
 const PLUS: PlanLimits = {
   createPractices: true,
   sharedPractices: true,
   activePractices: null,
   practicesTotal: null,
   practicesPerMonth: null,
-  minutesPerMonth: 40,
-  minutesPerWeek: null,
+  wordsPerMonth: 6_000,
+  wordsPerWeek: null,
   charsPerPractice: 2_000,
   customRules: true,
   maxPracticeSeconds: 300,
@@ -140,20 +141,20 @@ const PLUS: PlanLimits = {
   // Clearly more than free (D207); Pro still has more of each.
   writingReviewsPerWeek: 5,
   writingWords: 600,
-  chatMinutesPerWeek: 15,
+  chatMessagesPerWeek: 30,
   backChecksPerWeek: 10,
 };
 
 export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
-  // Free (D143): 2 minutes a week, up to 2 minutes each.
+  // Free (D143, D209): 300 words (2 minutes) a week, up to 2 minutes each.
   free: {
     createPractices: true,
     sharedPractices: false,
     activePractices: null,
     practicesTotal: null,
     practicesPerMonth: null,
-    minutesPerMonth: null,
-    minutesPerWeek: 2,
+    wordsPerMonth: null,
+    wordsPerWeek: 300,
     charsPerPractice: 2_000,
     customRules: false,
     maxPracticeSeconds: 120,
@@ -168,7 +169,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     batchPdf: false,
     writingReviewsPerWeek: 2,
     writingWords: 400,
-    chatMinutesPerWeek: 5,
+    chatMessagesPerWeek: 10,
     backChecksPerWeek: 7,
   },
   paid: PLUS,
@@ -180,18 +181,18 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
   student: {
     ...PLUS,
     writingReviewsPerWeek: 3,
-    chatMinutesPerWeek: 5,
+    chatMessagesPerWeek: 10,
     backChecksPerWeek: 9,
   },
-  // Pro (D102): 120 minutes a month, up to 10 minutes each, and Plus.
+  // Pro (D102): 18,000 words (120 minutes) a month, up to 10 minutes each.
   pro: {
     createPractices: true,
     sharedPractices: true,
     activePractices: null,
     practicesTotal: null,
     practicesPerMonth: null,
-    minutesPerMonth: 120,
-    minutesPerWeek: null,
+    wordsPerMonth: 18_000,
+    wordsPerWeek: null,
     charsPerPractice: 10_000,
     customRules: true,
     maxPracticeSeconds: 600,
@@ -206,7 +207,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     batchPdf: true,
     writingReviewsPerWeek: 6,
     writingWords: 1_000,
-    chatMinutesPerWeek: 20,
+    chatMessagesPerWeek: 40,
     // 14 until the corrected sentences' meanings (D206) took the room.
     backChecksPerWeek: 11,
   },
@@ -216,8 +217,8 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     activePractices: null,
     practicesTotal: null,
     practicesPerMonth: null,
-    minutesPerMonth: null,
-    minutesPerWeek: null,
+    wordsPerMonth: null,
+    wordsPerWeek: null,
     charsPerPractice: null,
     customRules: true,
     maxPracticeSeconds: null,
@@ -232,7 +233,7 @@ export const PLANS: Readonly<Record<PlanId, PlanLimits>> = {
     batchPdf: true,
     writingReviewsPerWeek: null,
     writingWords: null,
-    chatMinutesPerWeek: null,
+    chatMessagesPerWeek: null,
     backChecksPerWeek: null,
   },
 };
@@ -268,8 +269,8 @@ export type PlanAction =
   | { kind: "writing-review"; thisWeek: number }
   /** An essay of `words` words sent for feedback (D187). */
   | { kind: "writing-words"; words: number }
-  /** Starting a chat of `minutes` with `thisWeek` minutes used (D197). */
-  | { kind: "chat-minutes"; thisWeek: number; minutes: number }
+  /** Another chat message, after `thisWeek` of them (D197, D209). */
+  | { kind: "chat-message"; thisWeek: number }
   /** Another AI check of extra practice, after `thisWeek` (D200). */
   | { kind: "back-check"; thisWeek: number }
   /** Another revise today, after `today` of them (D161). */
@@ -283,21 +284,26 @@ export type PlanAction =
 
 /**
  * Seconds of the weekly allowance left (D143), never negative; null when
- * the plan has none.
+ * the plan has none. Usage is kept in seconds; the allowance is in words
+ * (D209), converted at WORDS_PER_MINUTE.
  */
 export function weekSecondsLeft(
   limits: PlanLimits,
   secondsThisWeek: number,
 ): number | null {
-  return limits.minutesPerWeek === null
+  return limits.wordsPerWeek === null
     ? null
-    : Math.max(0, limits.minutesPerWeek * 60 - Math.round(secondsThisWeek));
+    : Math.max(
+        0,
+        Math.round(wordsToSeconds(limits.wordsPerWeek)) -
+          Math.round(secondsThisWeek),
+      );
 }
 
 /** Why an action isn't allowed: a translation key under plans.limits. */
 export type PlanBlock = {
-  /** A limit, or "weekSecondsLeft": too long for what's left this week. */
-  limit: keyof PlanLimits | "weekSecondsLeft";
+  /** A limit, or "weekWordsLeft": too long for what's left this week. */
+  limit: keyof PlanLimits | "weekWordsLeft";
   /** The number reached, for the message; absent for yes/no limits. */
   max?: number;
 };
@@ -335,23 +341,23 @@ export function can(
         };
       }
       if (
-        limits.minutesPerWeek !== null &&
-        (action.secondsThisWeek ?? 0) >= limits.minutesPerWeek * 60
+        limits.wordsPerWeek !== null &&
+        (action.secondsThisWeek ?? 0) >= wordsToSeconds(limits.wordsPerWeek)
       ) {
         return {
           ok: false,
-          limit: "minutesPerWeek",
-          max: limits.minutesPerWeek,
+          limit: "wordsPerWeek",
+          max: limits.wordsPerWeek,
         };
       }
       if (
-        limits.minutesPerMonth !== null &&
-        (action.secondsThisMonth ?? 0) >= limits.minutesPerMonth * 60
+        limits.wordsPerMonth !== null &&
+        (action.secondsThisMonth ?? 0) >= wordsToSeconds(limits.wordsPerMonth)
       ) {
         return {
           ok: false,
-          limit: "minutesPerMonth",
-          max: limits.minutesPerMonth,
+          limit: "wordsPerMonth",
+          max: limits.wordsPerMonth,
         };
       }
       return over(
@@ -374,15 +380,12 @@ export function can(
         limits.writingReviewsPerWeek,
         action.thisWeek,
       );
-    case "chat-minutes":
-      return limits.chatMinutesPerWeek !== null &&
-        action.thisWeek + action.minutes > limits.chatMinutesPerWeek
-        ? {
-            ok: false,
-            limit: "chatMinutesPerWeek",
-            max: limits.chatMinutesPerWeek,
-          }
-        : { ok: true };
+    case "chat-message":
+      return over(
+        "chatMessagesPerWeek",
+        limits.chatMessagesPerWeek,
+        action.thisWeek,
+      );
     case "back-check":
       return over(
         "backChecksPerWeek",
@@ -410,11 +413,15 @@ export function can(
           max: limits.maxPracticeSeconds,
         };
       }
-      // It must fit in what's left of the week (D143); max: seconds left.
-      if (limits.minutesPerWeek !== null) {
+      // It must fit in what's left of the week (D143); max: words left.
+      if (limits.wordsPerWeek !== null) {
         const left = weekSecondsLeft(limits, action.secondsThisWeek ?? 0)!;
         if (action.seconds > left) {
-          return { ok: false, limit: "weekSecondsLeft", max: left };
+          return {
+            ok: false,
+            limit: "weekWordsLeft",
+            max: secondsToWords(left),
+          };
         }
       }
       return { ok: true };
@@ -461,7 +468,7 @@ export function needsCount(
   const limits = plans[plan];
   return kind === "create-practice"
     ? limits.practicesPerMonth !== null ||
-        limits.minutesPerMonth !== null ||
-        limits.minutesPerWeek !== null
+        limits.wordsPerMonth !== null ||
+        limits.wordsPerWeek !== null
     : limits.activePractices !== null;
 }

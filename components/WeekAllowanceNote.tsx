@@ -1,9 +1,10 @@
 import { getFormatter, getTranslations } from "next-intl/server";
 import type { WeekAllowance } from "@/auth/creation-quota";
+import { secondsToWords, WORDS_PER_MINUTE } from "@/lib/units";
 
 /**
- * The free plan's week (D143): what's left of its minutes and when they
- * come back, in the learner's own time zone (D139).
+ * The free plan's week (D143): what's left of its words (D209) and when
+ * they come back, in the learner's own time zone (D139).
  */
 export async function WeekAllowanceNote({ week }: { week: WeekAllowance }) {
   const [t, format] = await Promise.all([
@@ -24,11 +25,11 @@ export async function WeekAllowanceNote({ week }: { week: WeekAllowance }) {
       className="rounded-base border border-line surface-card p-4 text-supporting"
     >
       {week.leftSeconds === 0
-        ? t("weekUsed", { total: week.minutes, reset })
+        ? t("weekUsed", { total: week.words, reset })
         : t("week", {
-            minutes: Math.floor(week.leftSeconds / 60),
-            seconds: week.leftSeconds % 60,
-            total: week.minutes,
+            left: Math.min(week.words, secondsToWords(week.leftSeconds)),
+            minutes: Math.round((week.words / WORDS_PER_MINUTE) * 10) / 10,
+            total: week.words,
             reset,
           })}
     </p>
