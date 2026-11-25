@@ -65,10 +65,11 @@ for (let offset = 0; ; offset += 1000) {
   calls.push(...(data as Call[]));
   if (data.length < 1000) break;
 }
-const { data: allAzure } = await admin
-  .from("api_calls")
-  .select("cost_micros")
-  .like("provider", "azure-%");
+// Summed in the database (a plain select stops at 1,000 rows, 2026-11-25).
+const { data: totals } = await admin.rpc("api_usage_totals", {
+  day_start: monthStart.toISOString(),
+  month_start: monthStart.toISOString(),
+});
 
 const usd = (micros: number) => `US$${(micros / 1e6).toFixed(4)}`;
 const sum = (list: Call[], f: (c: Call) => number) =>
@@ -94,7 +95,7 @@ console.log(
 );
 
 const month = calls.filter((c) => new Date(c.created_at) >= monthStart);
-const azureSpent = (allAzure ?? []).reduce((t, c) => t + c.cost_micros, 0);
+const azureSpent = Number(totals?.[0]?.azure_micros ?? 0);
 const speechChars = sum(
   month.filter(
     (c) => c.operation === "speech" && c.provider.startsWith("azure-"),
