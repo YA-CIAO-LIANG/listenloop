@@ -110,7 +110,9 @@ export default async function ExamGuidePage({
           return (
             <div key={track.id} className="mt-6 space-y-4">
               {byTrack && (
-                <h3 className="font-display text-h3">{tTracks(track.id as ExamTrackId)}</h3>
+                <h3 className="font-display text-h3">
+                  {tTracks(track.id as ExamTrackId)}
+                </h3>
               )}
               {track.listening && (
                 <div className="space-y-3">
