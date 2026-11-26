@@ -1,0 +1,102 @@
+{
+  "id": "toefl-integrated-four-day-school-week",
+  "type": "toefl-integrated",
+  "level": "intermediate",
+  "title": {
+    "en": "A Four-Day School Week",
+    "zh": "每週上課四天"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課反駁每週上課四天的三個好處",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: Some school districts have moved to a four-day school week, with longer school days from Monday to Thursday. The reading argues that this change has three main benefits. First, districts save money, because buses, heating and cafeteria services are not needed on Fridays. Second, student attendance improves, since families can schedule doctor visits and other appointments on the free day instead of taking children out of class. Third, the schedule helps schools hire teachers, because many teachers are attracted by a three-day weekend.\n\nLecture: The professor argues that the benefits are much smaller than they appear. First, the savings are usually only one or two percent of a district's budget, because teacher salaries, the largest cost, do not change. Second, attendance does not really improve, because the longer school days leave many students exhausted, and some parents still keep their children home. Third, the hiring advantage is temporary: once neighboring districts adopt the same schedule, a three-day weekend no longer makes any one district special.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要主張每週上課四天有三個好處（節省經費、提高出席率、有助招募教師），講課摘要則逐點反駁。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading claims that a four-day school week saves money, improves attendance and helps schools hire teachers. The lecturer, however, argues that each of these benefits is much smaller than the reading suggests.",
+      "First, the lecturer challenges the idea that districts save a lot of money. Although buses and heating are not needed on Fridays, teacher salaries are the largest cost, and they do not change. As a result, the savings are usually only one or two percent of the budget.",
+      "Second, the lecturer doubts that attendance really improves. The reading says families can make appointments on the free day, but the lecturer points out that the longer school days leave many students exhausted. In addition, some parents still keep their children home, so overall attendance stays about the same.",
+      "Finally, the lecturer argues that the advantage in hiring teachers does not last. A three-day weekend attracts teachers only while few districts offer it. Once neighboring districts adopt the same schedule, this benefit disappears."
+    ],
+    "zh": [
+      "閱讀文章主張每週上課四天能節省經費、提高出席率，並幫助學校招募教師。然而，講者認為這些好處都比閱讀文章所說的小得多。",
+      "首先，講者質疑學區能省下大筆經費的說法。雖然星期五不需要校車和暖氣，但教師薪資才是最大的支出，而且並不會改變。因此，省下的錢通常只占預算的百分之一到二。",
+      "其次，講者懷疑出席率是否真的提高。閱讀文章說家長可以把看診等事情安排在休假日，但講者指出，較長的上課日讓很多學生精疲力竭。此外，有些家長仍然會讓孩子請假在家，所以整體出席率大致不變。",
+      "最後，講者認為招募教師的優勢並不持久。只有在少數學區提供三天週末時，這個制度才能吸引教師。一旦鄰近學區也採用相同的時間表，這個好處就會消失。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The reading claims that …",
+      "zh": "開頭先簡述閱讀文章的主張",
+      "example": "The reading claims that a four-day school week saves money, improves attendance and helps schools hire teachers.",
+      "keys": ["the reading claims that"]
+    },
+    {
+      "pattern": "The lecturer, however, argues that …",
+      "zh": "點出講者和閱讀文章的對立",
+      "example": "The lecturer, however, argues that each of these benefits is much smaller than the reading suggests.",
+      "keys": ["the lecturer", "however", "argues that"]
+    },
+    {
+      "pattern": "First, the lecturer challenges the idea that …",
+      "zh": "逐點說明講者反駁哪一個論點",
+      "example": "First, the lecturer challenges the idea that districts save a lot of money.",
+      "keys": ["first", "challenges the idea that"]
+    },
+    {
+      "pattern": "The reading says …, but the lecturer points out that …",
+      "zh": "在同一句裡對照閱讀與講課",
+      "example": "The reading says families can make appointments on the free day, but the lecturer points out that the longer school days leave many students exhausted.",
+      "keys": ["the reading says", "but the lecturer points out that"]
+    },
+    {
+      "pattern": "Once …, this benefit disappears.",
+      "zh": "說明好處在什麼條件下消失",
+      "example": "Once neighboring districts adopt the same schedule, this benefit disappears.",
+      "keys": ["once", "disappears"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Buses and heating are not needed on Fridays.",
+        "Teacher salaries do not change."
+      ],
+      "answer": "Although buses and heating are not needed on Fridays, teacher salaries do not change."
+    },
+    {
+      "parts": [
+        "The longer school days leave many students exhausted.",
+        "Overall attendance stays about the same."
+      ],
+      "answer": "Because the longer school days leave many students exhausted, overall attendance stays about the same."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The savings are usually only one or two percent of the budget.",
+      "answers": [
+        "Districts usually save just one or two percent of their budget.",
+        "The money saved is normally a very small part of the budget."
+      ]
+    },
+    {
+      "sentence": "The advantage in hiring teachers does not last.",
+      "answers": [
+        "The hiring benefit is only temporary.",
+        "Schools lose their advantage in attracting teachers over time."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

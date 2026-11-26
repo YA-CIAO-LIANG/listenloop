@@ -1,0 +1,110 @@
+{
+  "id": "chart-favorite-sports",
+  "type": "chart",
+  "level": "beginner",
+  "title": {
+    "en": "Students' Favorite Sports",
+    "zh": "學生最喜歡的運動"
+  },
+  "subtitle": "描述 200 位國中生最喜歡的運動",
+  "task": "The table shows the results of a survey of 200 junior high school students (fictional data) about their favorite sport. Describe the information in the table.",
+  "taskZh": "表格是 200 位國中生最喜歡哪種運動的調查結果（虛構資料）。請描述表格中的資訊。",
+  "chart": {
+    "title": "Favorite sports of 200 junior high school students",
+    "columns": ["Sport", "Students"],
+    "rows": [
+      ["Basketball", 70],
+      ["Badminton", 50],
+      ["Volleyball", 40],
+      ["Swimming", 25],
+      ["Baseball", 15]
+    ]
+  },
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "數字正確，和表格一致",
+    "用最高級與比較級描述排名",
+    "最後做一句整體總結"
+  ],
+  "model": {
+    "en": [
+      "The table shows the favorite sports of 200 junior high school students. It compares five different sports.",
+      "Basketball is the most popular sport, with 70 students choosing it. Badminton comes second with 50 students, and volleyball is third with 40. Fewer students like swimming, at 25. Baseball is the least popular sport, with only 15 students.",
+      "Overall, basketball is almost five times as popular as baseball, and ball games are much more popular than swimming. Together, basketball and badminton are chosen by 120 students, more than half of the total."
+    ],
+    "zh": [
+      "這個表格顯示 200 位國中生最喜歡的運動。表格比較了五種不同的運動。",
+      "籃球是最受歡迎的運動，有 70 位學生選擇。羽球排名第二，有 50 位學生，排球第三，有 40 位。喜歡游泳的學生較少，為 25 位。棒球是最不受歡迎的運動，只有 15 位學生。",
+      "整體而言，喜歡籃球的人數將近是棒球的五倍，球類運動也比游泳受歡迎得多。籃球和羽球加起來有 120 位學生選擇，超過總人數的一半。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The table shows …",
+      "zh": "圖表題開頭：說明表格的內容",
+      "example": "The table shows the favorite sports of 200 junior high school students.",
+      "keys": ["the table shows"]
+    },
+    {
+      "pattern": "… is the most popular …, with …",
+      "zh": "……最受歡迎，有……",
+      "example": "Basketball is the most popular sport, with 70 students choosing it.",
+      "keys": ["the most popular", "with"]
+    },
+    {
+      "pattern": "… comes second with …",
+      "zh": "……排名第二，有……",
+      "example": "Badminton comes second with 50 students, and volleyball is third with 40.",
+      "keys": ["comes second"]
+    },
+    {
+      "pattern": "… is the least popular …",
+      "zh": "……最不受歡迎",
+      "example": "Baseball is the least popular sport, with only 15 students.",
+      "keys": ["the least popular"]
+    },
+    {
+      "pattern": "… is almost five times as … as …",
+      "zh": "倍數比較",
+      "example": "Overall, basketball is almost five times as popular as baseball, and ball games are much more popular than swimming.",
+      "keys": ["times as", "as"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Badminton comes second with 50 students.",
+        "Volleyball is third with 40."
+      ],
+      "answer": "Badminton comes second with 50 students, and volleyball is third with 40."
+    },
+    {
+      "parts": [
+        "Baseball is the least popular sport.",
+        "Only 15 students chose it."
+      ],
+      "answer": "Baseball is the least popular sport, with only 15 students."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Basketball is the most popular sport.",
+      "answers": [
+        "More students like basketball than any other sport.",
+        "Basketball is the students' favorite sport."
+      ]
+    },
+    {
+      "sentence": "Fewer students like swimming.",
+      "answers": [
+        "Swimming is less popular.",
+        "Not as many students like swimming."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "campus-housing-deposit-dispute",
+  "type": "campus-housing",
+  "level": "advanced",
+  "title": {
+    "en": "Disputing a Deposit Deduction",
+    "zh": "押金被扣的申訴信"
+  },
+  "subtitle": "退租後押金被不合理扣款，寫信向房東爭取",
+  "task": "You moved out of an off-campus apartment last month. Your landlord, Mr. Patel, has kept NT$8,000 of your NT$20,000 deposit for cleaning and wall damage, but you believe most of these charges are unfair. Write an email to him. Explain why you disagree, give evidence, and propose a fair solution.",
+  "taskZh": "你上個月搬離校外租屋處。房東 Patel 先生以「清潔和牆面損壞」為由，從新台幣 20,000 元押金中扣了 8,000 元，但你認為大部分扣款不合理。寫一封 email 給他：說明你不同意的理由、提供證據，並提出公平的解決方案。",
+  "words": {
+    "min": 180,
+    "max": 260
+  },
+  "minutes": 30,
+  "focus": [
+    "立場堅定但語氣有禮",
+    "用證據逐點反駁（照片、檢查表）",
+    "承認合理的部分，提出具體的解決方案",
+    "正式用語與複雜句型（propose that … be …）"
+  ],
+  "model": {
+    "en": [
+      "Dear Mr. Patel,",
+      "Thank you for returning part of my security deposit for the apartment at 12 Lane 45, Xinsheng Road. However, I was surprised to see that NT$8,000 had been deducted for cleaning and wall damage, and I would like to ask you to reconsider these charges.",
+      "First, regarding cleaning, I left the apartment in the same condition as when I moved in. I spent a full day cleaning the kitchen, bathroom, and floors before I returned the keys, and I took photos of every room that afternoon, which I have attached. As you can see, the apartment was clearly clean and ready for the next tenant.",
+      "Second, the marks on the bedroom wall were already there when I moved in two years ago. They are listed on the move-in checklist that we both signed on September 1, 2024, a copy of which is also attached. I do accept that the small hole I made when hanging a shelf is my responsibility, and I am willing to pay a reasonable amount to repair it.",
+      "I would therefore like to propose that NT$1,000 be kept for the shelf repair and that the remaining NT$7,000 be returned to me. If you disagree, I would appreciate a copy of the receipts for the cleaning and repair work so that I can understand how the amount was calculated.",
+      "I hope we can resolve this matter in a friendly way. I look forward to hearing from you within the next two weeks.",
+      "Sincerely,",
+      "Wang Hsin-Yi"
+    ],
+    "zh": [
+      "Patel 先生您好：",
+      "謝謝您退還新生路 45 巷 12 號公寓的部分押金。不過，我很驚訝看到押金被扣了新台幣 8,000 元的清潔費和牆面損壞費，想請您重新考慮這些費用。",
+      "首先，關於清潔，我退租時公寓的狀況和我搬進來時一樣。歸還鑰匙前，我花了一整天清理廚房、浴室和地板，當天下午也拍下了每個房間的照片，照片已附在信中。從照片可以看出，公寓明顯很乾淨，可以直接給下一位房客入住。",
+      "第二，臥室牆上的痕跡在我兩年前搬進來時就已經存在。這些痕跡都列在我們 2024 年 9 月 1 日共同簽署的入住檢查表上，影本也一併附上。我承認掛架子時打的小洞是我的責任，我願意支付合理的修補費用。",
+      "因此，我想提議保留新台幣 1,000 元作為架子的修補費，其餘的 7,000 元退還給我。如果您不同意，希望您能提供清潔和修繕的收據影本，讓我了解金額是怎麼計算的。",
+      "希望我們能友善地解決這件事。期待在兩週內收到您的回覆。",
+      "敬上",
+      "王欣怡"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I would like to ask you to reconsider …",
+      "zh": "有禮貌地請對方重新考慮",
+      "example": "However, I was surprised to see that NT$8,000 had been deducted for cleaning and wall damage, and I would like to ask you to reconsider these charges.",
+      "keys": ["ask you to reconsider"]
+    },
+    {
+      "pattern": "First, regarding …, …",
+      "zh": "逐點回應：關於……",
+      "example": "First, regarding cleaning, I left the apartment in the same condition as when I moved in.",
+      "keys": ["regarding"]
+    },
+    {
+      "pattern": "I do accept that …, and I am willing to …",
+      "zh": "承認合理的部分，展現誠意",
+      "example": "I do accept that the small hole I made when hanging a shelf is my responsibility, and I am willing to pay a reasonable amount to repair it.",
+      "keys": ["i do accept that", "willing to"]
+    },
+    {
+      "pattern": "I would therefore like to propose that … be …",
+      "zh": "正式提出解決方案（假設語氣）",
+      "example": "I would therefore like to propose that NT$1,000 be kept for the shelf repair and that the remaining NT$7,000 be returned to me.",
+      "keys": ["would therefore like to propose that"]
+    },
+    {
+      "pattern": "I hope we can resolve this matter …",
+      "zh": "結尾表達希望和平解決",
+      "example": "I hope we can resolve this matter in a friendly way.",
+      "keys": ["resolve this matter"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The marks were already on the wall.",
+        "I moved in two years ago."
+      ],
+      "answer": "The marks were already on the wall when I moved in two years ago."
+    },
+    {
+      "parts": ["I took photos of every room.", "I have attached them."],
+      "answer": "I took photos of every room, which I have attached."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The small hole is my responsibility.",
+      "answers": [
+        "I am responsible for the small hole.",
+        "The small hole was my fault."
+      ]
+    },
+    {
+      "sentence": "I would like to ask you to reconsider these charges.",
+      "answers": [
+        "Could you please review these charges again?",
+        "I hope you will think again about these deductions."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

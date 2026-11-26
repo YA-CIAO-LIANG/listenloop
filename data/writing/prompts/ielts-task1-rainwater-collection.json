@@ -1,0 +1,123 @@
+{
+  "id": "ielts-task1-rainwater-collection",
+  "type": "ielts-task1",
+  "level": "intermediate",
+  "title": {
+    "en": "Collecting Rainwater at Home",
+    "zh": "家中的雨水回收系統"
+  },
+  "subtitle": "原創模擬題：用被動語態與順序連接詞描述雨水回收流程",
+  "task": "The diagram below shows how rainwater is collected, stored and used in a house. Summarise the information by selecting and reporting the main features. Write at least 150 words.",
+  "taskZh": "下圖（以表格呈現）說明一棟住宅如何收集、儲存和使用雨水。請挑出主要特徵加以摘要，至少寫 150 字。系統為虛構示意。",
+  "chart": {
+    "title": "How rainwater is collected and used in a house",
+    "columns": ["Stage", "Step", "Details"],
+    "rows": [
+      [1, "Collection", "Rain falls on the roof and runs into gutters"],
+      [2, "Filtering", "A mesh filter removes leaves and dirt"],
+      [3, "Storage", "Water flows down a pipe into an underground tank"],
+      [
+        4,
+        "Overflow",
+        "When the tank is full, extra water drains into a soakaway in the garden"
+      ],
+      [5, "Pumping", "An electric pump lifts water to the house when needed"],
+      [
+        6,
+        "Treatment",
+        "Water for drinking and cooking passes through a carbon filter and a UV lamp"
+      ],
+      [7, "Use", "Untreated water is used for toilets and the garden"]
+    ]
+  },
+  "words": {
+    "min": 150,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：寫出總覽（共幾個階段、起點與終點），並涵蓋每個步驟",
+    "Coherence and Cohesion：用 first、then、after that、when 串起順序",
+    "Grammatical Range and Accuracy：被動語態與關係子句正確",
+    "Lexical Resource：不照抄表格，用自己的話換句話說"
+  ],
+  "model": {
+    "en": [
+      "The diagram illustrates how rainwater is collected, stored and used in a typical house.",
+      "Overall, the system involves seven stages, beginning with rain falling on the roof and ending with the water being used inside and outside the home. Some of the water is treated for drinking, while the rest is used without treatment.",
+      "First, rain falls on the roof and runs into the gutters along its edges. It then passes through a mesh filter, which removes leaves and dirt. After that, the water flows down a pipe into an underground tank, where it is stored until it is needed. If the tank becomes full, the extra water drains into a soakaway in the garden.",
+      "When water is required, an electric pump lifts it from the tank to the house. Water that will be used for drinking and cooking passes through a carbon filter and a UV lamp to make it safe. The untreated water, by contrast, is used for flushing toilets and watering the garden."
+    ],
+    "zh": [
+      "這張圖說明一般住宅如何收集、儲存和使用雨水。",
+      "整體而言，這個系統包含七個階段，從雨水落在屋頂開始，到水在屋內外被使用為止。部分的水經過處理後供飲用，其餘則不經處理直接使用。",
+      "首先，雨水落在屋頂上，流進屋簷邊的排水槽。接著，水通過一層網狀濾網，把落葉和泥沙濾掉。之後，水沿著水管流進地下水箱，儲存在那裡直到需要使用。如果水箱滿了，多餘的水會排進花園裡的滲水坑。",
+      "需要用水時，電動抽水機把水從水箱抽到屋內。要用來飲用和烹飪的水會經過活性碳濾芯和紫外線燈，確保安全。相較之下，未經處理的水則用來沖馬桶和澆花。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The diagram illustrates how …",
+      "zh": "開頭改寫題目，說明圖表的主題",
+      "example": "The diagram illustrates how rainwater is collected, stored and used in a typical house.",
+      "keys": ["the diagram illustrates how"]
+    },
+    {
+      "pattern": "It then passes through …, which removes …",
+      "zh": "寫出下一步，並用 which 說明這一步的作用",
+      "example": "It then passes through a mesh filter, which removes leaves and dirt.",
+      "keys": ["then passes through", "which removes"]
+    },
+    {
+      "pattern": "After that, …, where it is stored until …",
+      "zh": "用 where 補充地點，until 說明持續到何時",
+      "example": "After that, the water flows down a pipe into an underground tank, where it is stored until it is needed.",
+      "keys": ["after that", "where it is stored"]
+    },
+    {
+      "pattern": "If …, … drains into …",
+      "zh": "用 if 描述流程中的分支情況",
+      "example": "If the tank becomes full, the extra water drains into a soakaway in the garden.",
+      "keys": ["if", "drains into"]
+    },
+    {
+      "pattern": "…, by contrast, …",
+      "zh": "插入 by contrast，對比兩種不同的用途",
+      "example": "The untreated water, by contrast, is used for flushing toilets and watering the garden.",
+      "keys": ["by contrast", "is used for"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The water passes through a mesh filter.",
+        "The filter removes leaves and dirt."
+      ],
+      "answer": "The water passes through a mesh filter, which removes leaves and dirt."
+    },
+    {
+      "parts": [
+        "The water flows into an underground tank.",
+        "It is stored there until it is needed."
+      ],
+      "answer": "The water flows into an underground tank, where it is stored until it is needed."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "An electric pump lifts the water to the house.",
+      "answers": [
+        "The water is raised to the house by an electric pump.",
+        "The water is pumped up to the house electrically."
+      ]
+    },
+    {
+      "sentence": "The untreated water is used for flushing toilets.",
+      "answers": [
+        "Water that has not been treated is used to flush toilets.",
+        "Toilets are flushed with untreated water."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

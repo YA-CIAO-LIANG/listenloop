@@ -1,0 +1,113 @@
+{
+  "id": "ielts-task1-weekend-activities",
+  "type": "ielts-task1",
+  "level": "intermediate",
+  "title": {
+    "en": "How Teenagers and Adults Spend Weekends",
+    "zh": "青少年與成人的週末活動"
+  },
+  "subtitle": "原創模擬題：比較兩個年齡層參與五種週末活動的比例（長條圖）",
+  "task": "The bar chart below shows the percentage of teenagers (aged 13–19) and adults (aged 20 and over) in the town of Westbrook who took part in five weekend activities in 2025. Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+  "taskZh": "下面的長條圖（以表格呈現資料）是 2025 年 Westbrook 鎮青少年（13–19 歲）與成人（20 歲以上）參與五種週末活動的百分比。請挑出主要特徵加以摘要，並在適當處比較。至少寫 150 字。城鎮與資料皆為虛構。",
+  "chart": {
+    "title": "Weekend activities in Westbrook, 2025 (% of each age group)",
+    "columns": ["Activity", "Teenagers", "Adults"],
+    "rows": [
+      ["Gaming", 62, 21],
+      ["Sports", 45, 30],
+      ["Shopping", 38, 47],
+      ["Watching TV", 34, 55],
+      ["Gardening", 4, 26]
+    ]
+  },
+  "words": {
+    "min": 150,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：先寫 Overview，點出兩個年齡層各自最熱門的活動",
+    "Coherence and Cohesion：依年齡層分段比較，不要一項一項流水帳",
+    "Lexical Resource：百分比、倍數與比例的說法要有變化",
+    "Grammatical Range and Accuracy：比較句與 whereas、compared with 正確"
+  ],
+  "model": {
+    "en": [
+      "The bar chart compares the proportions of teenagers and adults in Westbrook who took part in five different weekend activities in 2025.",
+      "Overall, teenagers were much more likely to play games and do sports, whereas adults preferred quieter activities such as watching TV and gardening. Gaming was the most popular activity for young people, while watching TV was the top choice for adults.",
+      "Among teenagers, gaming was by far the most common pastime, with 62% taking part. This was nearly three times the figure for adults, which stood at 21%. Sports came second for teenagers at 45%, compared with 30% of adults. In contrast, only 4% of teenagers did any gardening.",
+      "Adults, on the other hand, spent their weekends in more relaxing ways. More than half of them (55%) watched TV, compared with about a third of teenagers (34%). Shopping was also slightly more popular among adults, at 47% against 38%. Finally, around a quarter of adults (26%) enjoyed gardening, making it the activity with the largest gap in favour of the older group."
+    ],
+    "zh": [
+      "這張長條圖比較 2025 年 Westbrook 的青少年與成人參與五種週末活動的比例。",
+      "整體而言，青少年玩遊戲和運動的比例高出許多，而成人則偏好看電視、園藝等較安靜的活動。遊戲是年輕人最熱門的活動，看電視則是成人的首選。",
+      "在青少年當中，遊戲是最普遍的休閒活動，有 62% 的人參與。這個數字將近是成人（21%）的三倍。運動在青少年中排名第二，占 45%，成人則是 30%。相較之下，只有 4% 的青少年從事園藝。",
+      "另一方面，成人的週末過得比較悠閒。超過一半的成人（55%）看電視，青少年則約三分之一（34%）。購物在成人中也稍微熱門一些，比例是 47% 對 38%。最後，約四分之一的成人（26%）喜歡園藝，使它成為成人領先幅度最大的活動。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… compares the proportions of … who …",
+      "zh": "開頭改寫題目：說明圖表比較的是哪些族群的比例",
+      "example": "The bar chart compares the proportions of teenagers and adults in Westbrook who took part in five different weekend activities in 2025.",
+      "keys": ["compares the proportions of", "who"]
+    },
+    {
+      "pattern": "…, whereas …",
+      "zh": "用 whereas 對比兩個族群的不同",
+      "example": "Overall, teenagers were much more likely to play games and do sports, whereas adults preferred quieter activities such as watching TV and gardening.",
+      "keys": ["overall", "whereas"]
+    },
+    {
+      "pattern": "This was nearly three times the figure for …",
+      "zh": "用倍數比較兩個數字",
+      "example": "This was nearly three times the figure for adults, which stood at 21%.",
+      "keys": ["three times the figure for"]
+    },
+    {
+      "pattern": "…, compared with …",
+      "zh": "在句尾補上另一組的數字作比較",
+      "example": "Sports came second for teenagers at 45%, compared with 30% of adults.",
+      "keys": ["compared with"]
+    },
+    {
+      "pattern": "…, making it the … with …",
+      "zh": "用分詞構句帶出結論",
+      "example": "Finally, around a quarter of adults (26%) enjoyed gardening, making it the activity with the largest gap in favour of the older group.",
+      "keys": ["making it the"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Gaming was the most popular activity for teenagers.",
+        "Watching TV was the top choice for adults."
+      ],
+      "answer": "Gaming was the most popular activity for teenagers, while watching TV was the top choice for adults."
+    },
+    {
+      "parts": [
+        "About a quarter of adults enjoyed gardening.",
+        "This made it the activity with the largest gap in favour of adults."
+      ],
+      "answer": "About a quarter of adults enjoyed gardening, making it the activity with the largest gap in favour of adults."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Teenagers were much more likely to play games.",
+      "answers": [
+        "Playing games was far more common among teenagers.",
+        "A much higher proportion of teenagers played games."
+      ]
+    },
+    {
+      "sentence": "More than half of adults watched TV.",
+      "answers": [
+        "Over 50% of adults watched TV.",
+        "The majority of adults spent time watching TV."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

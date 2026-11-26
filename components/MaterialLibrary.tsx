@@ -26,6 +26,12 @@ import { MaterialCard } from "./MaterialCard";
 import { toggled, useLibraryFilter } from "./useLibraryFilter";
 import { dailyMinutes } from "@/lib/library-time";
 import type { CategoryId } from "@/lib/categories";
+import {
+  EXAM_TRACKS,
+  inListeningTrack,
+  type ExamTrackId,
+} from "@/lib/exam-tracks";
+import Link from "next/link";
 import { LibraryDefaultControls, useLibraryDefault } from "./LibraryDefault";
 
 type ViewProps = {
@@ -176,9 +182,50 @@ export function LibraryFilters({ items, filter, onChange }: ViewProps) {
     );
   };
 
+  // "Exam English" first (D215): only exams the library has.
+  const exams = EXAM_TRACKS.filter((track) =>
+    items.some((item) => inListeningTrack(item, track)),
+  );
+
   return (
     <div className="space-y-6">
-      {/* "How many minutes do I have today" comes first (D127). */}
+      {exams.length > 0 && (
+        <div className="space-y-2">
+          <FilterGroup label={t("exams")}>
+            {exams.map((track) => {
+              const on = filter.exams.includes(track.id);
+              return (
+                <FilterChip
+                  key={track.id}
+                  on={on}
+                  onToggle={() =>
+                    onChange({
+                      ...filter,
+                      exams: toggled(
+                        filter.exams,
+                        track.id as ExamTrackId,
+                        EXAM_TRACKS.map((x) => x.id),
+                      ),
+                    })
+                  }
+                >
+                  {t("option", {
+                    label: tAll(`examTracks.${track.id}`),
+                    count: count((i) => inListeningTrack(i, track)),
+                  })}
+                </FilterChip>
+              );
+            })}
+          </FilterGroup>
+          <Link
+            href="/exams"
+            className="tap inline-block text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+          >
+            {t("examGuides")}
+          </Link>
+        </div>
+      )}
+      {/* "How many minutes do I have today" comes next (D127). */}
       <SingleChoice
         label={t("minutes")}
         anyLabel={t("anyMinutes")}

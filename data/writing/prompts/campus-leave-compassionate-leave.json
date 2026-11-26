@@ -1,0 +1,110 @@
+{
+  "id": "campus-leave-compassionate-leave",
+  "type": "campus-leave",
+  "level": "advanced",
+  "title": {
+    "en": "Compassionate Leave Before a Final Presentation",
+    "zh": "期末報告前的喪假申請"
+  },
+  "subtitle": "家人過世要回台灣，寫信請教授安排期末報告",
+  "task": "You are studying abroad, and your grandmother in Taiwan has just passed away. The funeral is during the week of your final group presentation in Professor Adler's Marketing course. Write an email to the professor. Explain the situation, propose how you can still contribute to the presentation or be assessed fairly, and ask about the university's procedure for compassionate leave.",
+  "taskZh": "你在國外讀書，台灣的奶奶剛過世，喪禮正好在 Adler 教授「行銷學」期末小組報告那一週。寫一封 email 給教授：說明情況、提出你仍能參與報告或公平評分的方法，並詢問學校喪假的申請程序。",
+  "words": {
+    "min": 180,
+    "max": 260
+  },
+  "minutes": 30,
+  "focus": [
+    "說明情況與日期，語氣正式而得體",
+    "提出具體、可行的替代方案（不只要求通融）",
+    "詢問相關的行政程序",
+    "禮貌用語與委婉句型（would appreciate、alternatively）"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Adler,",
+      "I am writing with some difficult news. My grandmother in Taiwan passed away yesterday, and her funeral will be held on December 14. I am flying home on December 11 and will return to campus on December 18, which means I will miss our final group presentation on December 15.",
+      "I am very sorry for the inconvenience this may cause my group and you. I have already spoken to my teammates, and we have agreed on a plan that I hope you will find acceptable. I will finish my section of the slides before I leave and record my part of the presentation as a video, which the group can play during the session. If you prefer, I could also join the question-and-answer part by video call, although the time difference would make it early in the morning in Taiwan.",
+      "Alternatively, if a recorded presentation is not appropriate, I would be grateful for the chance to present my section to you individually after I return.",
+      "I would also appreciate it if you could let me know whether I need to submit any documents to the Student Services Office to apply for compassionate leave. I can provide a copy of the funeral notice if necessary.",
+      "Thank you very much for your understanding during this difficult time.",
+      "Kind regards,",
+      "Lin Pei-Shan"
+    ],
+    "zh": [
+      "Adler 教授您好：",
+      "我要告訴您一個不好的消息。我在台灣的奶奶昨天過世了，喪禮將在 12 月 14 日舉行。我會在 12 月 11 日飛回台灣，12 月 18 日回到學校，這表示我會錯過 12 月 15 日的期末小組報告。",
+      "對於這可能給組員和您帶來的不便，我深感抱歉。我已經和組員談過，我們商量出一個方案，希望您能接受。我會在出發前完成我負責的投影片，並把我的報告部分錄成影片，讓組員在報告時播放。如果您希望，我也可以透過視訊參加問答時間，雖然因為時差，台灣那時會是清晨。",
+      "或者，如果錄影報告不合適，我很希望能在回來後單獨向您報告我的部分。",
+      "另外，也想請您告訴我，申請喪假是否需要向學生事務處繳交任何文件。如有需要，我可以提供訃聞影本。",
+      "非常感謝您在這段艱難的時期體諒我。",
+      "敬上",
+      "林佩珊"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing with some difficult news.",
+      "zh": "委婉帶出壞消息的開頭",
+      "example": "I am writing with some difficult news.",
+      "keys": ["writing with", "news"]
+    },
+    {
+      "pattern": "…, which means I will miss …",
+      "zh": "說明造成的結果",
+      "example": "I am flying home on December 11 and will return to campus on December 18, which means I will miss our final group presentation on December 15.",
+      "keys": ["which means"]
+    },
+    {
+      "pattern": "I am very sorry for the inconvenience this may cause …",
+      "zh": "為造成的不便致歉",
+      "example": "I am very sorry for the inconvenience this may cause my group and you.",
+      "keys": ["sorry for the inconvenience"]
+    },
+    {
+      "pattern": "Alternatively, if …, I would be grateful for the chance to …",
+      "zh": "提出第二個替代方案",
+      "example": "Alternatively, if a recorded presentation is not appropriate, I would be grateful for the chance to present my section to you individually after I return.",
+      "keys": ["alternatively", "grateful for the chance to"]
+    },
+    {
+      "pattern": "I would also appreciate it if you could let me know whether …",
+      "zh": "禮貌地詢問程序",
+      "example": "I would also appreciate it if you could let me know whether I need to submit any documents to the Student Services Office to apply for compassionate leave.",
+      "keys": ["appreciate it if you could", "whether"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I will finish my section of the slides before I leave.",
+        "I will record my part as a video."
+      ],
+      "answer": "I will finish my section of the slides before I leave and record my part as a video."
+    },
+    {
+      "parts": [
+        "I can provide a copy of the funeral notice.",
+        "It may be necessary."
+      ],
+      "answer": "I can provide a copy of the funeral notice if necessary."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I would be grateful for the chance to present my section to you individually.",
+      "answers": [
+        "I would appreciate being allowed to present my part to you on my own.",
+        "I hope I can present my section to you one-on-one."
+      ]
+    },
+    {
+      "sentence": "I am very sorry for the inconvenience.",
+      "answers": [
+        "I apologize for any trouble this causes.",
+        "I regret any inconvenience this may cause."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

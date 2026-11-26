@@ -1,4 +1,10 @@
 import {
+  EXAM_TRACK_IDS,
+  findExamTrack,
+  inWritingTrack,
+  type ExamTrackId,
+} from "../exam-tracks";
+import {
   WRITING_GROUPS,
   WRITING_LEVELS,
   WRITING_TYPE_CONFIG,
@@ -13,6 +19,8 @@ import {
  * minutes do I have today", and a default that can be saved.
  */
 export type WritingFilter = {
+  /** "Exam English" (D215): exams (GEPT by level), any of them. */
+  exams: ExamTrackId[];
   groups: WritingGroup[];
   levels: WritingLevel[];
   /** Only prompts whose suggested time fits; null: any. */
@@ -21,6 +29,7 @@ export type WritingFilter = {
 
 export const WRITING_MINUTES = [10, 15, 20, 30, 40] as const;
 export const NO_WRITING_FILTER: WritingFilter = {
+  exams: [],
   groups: [],
   levels: [],
   minutes: null,
@@ -37,6 +46,7 @@ const pick = <T extends string>(raw: string | null, allowed: readonly T[]) =>
 export function parseWritingFilter(params: URLSearchParams): WritingFilter {
   const minutes = Number(params.get("m"));
   return {
+    exams: pick(params.get("x"), EXAM_TRACK_IDS),
     groups: pick(params.get("g"), WRITING_GROUPS),
     levels: pick(params.get("l"), WRITING_LEVELS),
     minutes: (WRITING_MINUTES as readonly number[]).includes(minutes)
@@ -47,6 +57,7 @@ export function parseWritingFilter(params: URLSearchParams): WritingFilter {
 
 export function writingFilterQuery(filter: WritingFilter): string {
   const params = new URLSearchParams();
+  if (filter.exams.length) params.set("x", filter.exams.join(","));
   if (filter.groups.length) params.set("g", filter.groups.join(","));
   if (filter.levels.length) params.set("l", filter.levels.join(","));
   if (filter.minutes !== null) params.set("m", String(filter.minutes));
@@ -54,6 +65,7 @@ export function writingFilterQuery(filter: WritingFilter): string {
 }
 
 export const hasWritingFilter = (filter: WritingFilter) =>
+  filter.exams.length > 0 ||
   filter.groups.length > 0 ||
   filter.levels.length > 0 ||
   filter.minutes !== null;
@@ -64,6 +76,8 @@ export function filterPrompts<
 >(prompts: readonly P[], filter: WritingFilter): P[] {
   return prompts.filter(
     (p) =>
+      (!filter.exams.length ||
+        filter.exams.some((id) => inWritingTrack(p, findExamTrack(id)!))) &&
       (!filter.groups.length ||
         filter.groups.includes(WRITING_TYPE_CONFIG[p.type].group)) &&
       (!filter.levels.length || filter.levels.includes(p.level)) &&

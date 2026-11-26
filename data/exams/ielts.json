@@ -1,0 +1,139 @@
+{
+  "id": "ielts",
+  "name": { "zh": "雅思 IELTS", "en": "IELTS" },
+  "summary": {
+    "zh": "英國文化協會、IDP 與劍橋大學出版與評估共同擁有的英語測驗，分為學術組（Academic）與一般訓練組（General Training）。聽力與口說兩組相同，閱讀與寫作不同。",
+    "en": "An English test jointly owned by the British Council, IDP IELTS, and Cambridge University Press & Assessment, offered as IELTS Academic and IELTS General Training. Listening and Speaking are the same for both; Reading and Writing differ."
+  },
+  "sections": [
+    {
+      "id": "about",
+      "heading": { "zh": "考試簡介", "en": "About the test" },
+      "paragraphs": {
+        "zh": [
+          "IELTS 考聽力、閱讀、寫作、口說四項，全程約 2 小時 45 分鐘，可以在考場考，也可以線上遠距考，題型在哪裡考都一樣。",
+          "要到國外念大學或研究所，或申請醫師、護理師等專業資格，通常選學術組；一般訓練組適合移民到英語系國家，或在學位以下的程度受訓、就學。實際該考哪一組，請以學校或機構的要求為準。",
+          "成績單會列出四項的分數和總分（Overall Band），都是 0–9 分、以 0.5 分為單位。總分是四項平均後取最接近的 0.5 分。官方建議成績在考後兩年內視為有效，但各機構可以自訂。"
+        ],
+        "en": [
+          "IELTS tests Listening, Reading, Writing, and Speaking and takes 2 hours and 45 minutes. You can take it at a test centre or online, and the format is the same either way.",
+          "IELTS Academic is the usual choice for undergraduate or postgraduate study or professional registration (for example doctors and nurses); General Training is for migrating to an English-speaking country or for training or study below degree level. Always check which one your institution requires.",
+          "Your Test Report Form shows a band score for each section and an Overall Band, all on a 0–9 scale in half bands. The overall band is the average of the four sections rounded to the nearest half band. IELTS recommends treating results as valid for two years, though organisations can set their own period."
+        ]
+      }
+    },
+    {
+      "id": "format",
+      "heading": { "zh": "題型", "en": "Format" },
+      "paragraphs": {
+        "zh": [
+          "聽力約 30 分鐘，分 4 個部分、每部分 10 題，共 40 題。第 1 部分是日常情境的兩人對話，第 2 部分是日常情境的獨白（例如介紹地方設施），第 3 部分是教育或訓練情境的對話（例如學生和導師討論），第 4 部分是學術主題的獨白。錄音只播一次，口音包括英國、澳洲、紐西蘭與北美。",
+          "聽力題型包括選擇題、配對、平面圖／地圖／圖表標示、表格／筆記／流程圖填空、句子填空和簡答。填空題有字數限制（例如「NO MORE THAN TWO WORDS AND/OR A NUMBER」），超過字數就不給分；題目順序和錄音內容的順序相同。",
+          "寫作 60 分鐘，兩個任務都要完成。學術組 Task 1 描述圖表、表格或流程圖，至少 150 字、建議約 20 分鐘；一般訓練組 Task 1 是依情境寫一封信，同樣至少 150 字。兩組的 Task 2 都是針對一個觀點、論點或問題寫文章，至少 250 字、建議約 40 分鐘。閱讀 60 分鐘，口說 11–14 分鐘。"
+        ],
+        "en": [
+          "Listening takes about 30 minutes: 4 parts with 10 questions each, 40 in total. Part 1 is a two-person conversation in an everyday setting; Part 2 is an everyday monologue (for example about local facilities); Part 3 is a conversation in an educational or training setting (for example students with a tutor); Part 4 is a monologue on an academic subject. You hear each recording once, with British, Australian, New Zealand, and North American accents.",
+          "Listening question types include multiple choice, matching, plan/map/diagram labelling, form/note/table/flow-chart completion, sentence completion, and short answers. Completion tasks have a word limit (for example 'NO MORE THAN TWO WORDS AND/OR A NUMBER'), and going over it loses the mark. Questions follow the order of the recording.",
+          "Writing takes 60 minutes and both tasks must be completed. Academic Task 1 asks you to describe a graph, table, chart, or diagram in at least 150 words (about 20 minutes); General Training Task 1 is a letter responding to a situation, also at least 150 words. Task 2 in both versions is an essay on a point of view, argument, or problem, at least 250 words (about 40 minutes). Reading takes 60 minutes and Speaking 11–14 minutes."
+        ]
+      }
+    },
+    {
+      "id": "listening-scoring",
+      "heading": { "zh": "聽力的評分方式", "en": "How listening is scored" },
+      "paragraphs": {
+        "zh": [
+          "聽力 40 題，每答對 1 題得 1 分，再把 40 分制的原始分數換算成 0–9 分的 Band，以整數或 0.5 分呈現。",
+          "官方公布的平均對照：Band 5 約答對 16 題、Band 6 約 23 題、Band 7 約 30 題、Band 8 約 35 題。每份試卷所需的題數會略有不同，這只是平均值。",
+          "因為填空題要自己寫出聽到的字，而且要遵守字數限制，能不能把字聽清楚、寫正確會直接影響得分，這是 IELTS 聽力和純選擇題測驗很不一樣的地方。"
+        ],
+        "en": [
+          "Listening has 40 questions, 1 mark each. The score out of 40 is converted to the 0–9 band scale and reported in whole or half bands.",
+          "IELTS publishes average raw scores: about 16 correct for Band 5, 23 for Band 6, 30 for Band 7, and 35 for Band 8. The exact number varies slightly between test versions.",
+          "Because completion tasks ask you to write the words you hear and respect the word limit, getting the words exactly right matters, which sets IELTS Listening apart from all-multiple-choice tests."
+        ]
+      }
+    },
+    {
+      "id": "writing-scoring",
+      "heading": { "zh": "寫作的評分方式", "en": "How writing is scored" },
+      "paragraphs": {
+        "zh": [
+          "寫作由合格的 IELTS 考官評分，依四項標準：Task Achievement（Task 1）／Task Response（Task 2）、Coherence and Cohesion（連貫與銜接）、Lexical Resource（字彙）、Grammatical Range and Accuracy（文法的多樣與正確）。",
+          "兩個任務分開評分，四項標準權重相同；Task 2 占寫作分數的比重是 Task 1 的兩倍。",
+          "字數不足可能讓考官找不到給高分的證據；離題、用條列或筆記形式作答會被扣分，抄襲會被嚴重扣分。"
+        ],
+        "en": [
+          "Writing is assessed by certificated IELTS examiners against four criteria: Task Achievement (Task 1) or Task Response (Task 2), Coherence and Cohesion, Lexical Resource, and Grammatical Range and Accuracy.",
+          "Each task is assessed separately and the four criteria are weighted equally; Task 2 counts twice as much as Task 1 toward the Writing score.",
+          "An answer that is too short may not give enough evidence for higher bands. Off-topic answers and notes or bullet points are penalised, and plagiarism is severely penalised."
+        ]
+      }
+    },
+    {
+      "id": "practice",
+      "heading": { "zh": "建議練習方式", "en": "How to practise" },
+      "paragraphs": {
+        "zh": [
+          "IELTS 聽力的填空題要你寫出聽到的字，和 ListenLoop 第 1 天的逐句聽寫很接近：你會發現自己常漏掉的字、拼錯的字，以及數字、日期、名稱等細節。第 2～6 天跟讀讓聲音和拼字連起來，第 7 天再聽寫一次，確認進步。",
+          "考試會出現多種口音，可以在教材庫用口音篩選，輪流練英國、澳洲與美國口音的教材。",
+          "寫作可以用 WritingLoop：第 1 天寫一篇 Task 2 文章並取得回饋，第 2～6 天針對弱點做短練習，第 7 天不看舊稿重寫同一題，比較兩次的差異。考前也要用官方範例題練習計時與字數控制。"
+        ],
+        "en": [
+          "IELTS Listening completion tasks ask you to write the words you hear, which is close to ListenLoop's Day 1 sentence-by-sentence dictation: you will see which words you miss or misspell, along with numbers, dates, and names. Days 2–6 of shadowing link sounds to spelling, and Day 7 repeats the dictation to check progress.",
+          "The test uses several accents, so use the library's accent filter to rotate between British, Australian, and American material.",
+          "For writing, use WritingLoop: write a Task 2 essay on Day 1 and get feedback, do short exercises on your weak points on Days 2–6, and rewrite the same prompt on Day 7 without looking at your first draft. Also practise timing and word count with the official sample questions."
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "title": {
+        "zh": "學術組官方範例題（含聽力錄音與答案）",
+        "en": "IELTS Academic official sample questions (with listening audio and answers)"
+      },
+      "publisher": "IELTS (British Council, IDP IELTS, Cambridge University Press & Assessment)",
+      "url": "https://ielts.org/take-a-test/preparation-resources/sample-test-questions/academic-test",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "一般訓練組官方範例題",
+        "en": "IELTS General Training official sample questions"
+      },
+      "publisher": "IELTS (British Council, IDP IELTS, Cambridge University Press & Assessment)",
+      "url": "https://ielts.org/take-a-test/preparation-resources/sample-test-questions/general-training-test",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": { "zh": "聽力題型說明", "en": "Listening test format" },
+      "publisher": "IELTS (British Council, IDP IELTS, Cambridge University Press & Assessment)",
+      "url": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-listening",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "學術組寫作題型說明",
+        "en": "Academic Writing test format"
+      },
+      "publisher": "IELTS (British Council, IDP IELTS, Cambridge University Press & Assessment)",
+      "url": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-writing",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "成績計算方式（Band 說明）",
+        "en": "IELTS scoring in detail"
+      },
+      "publisher": "IELTS (British Council, IDP IELTS, Cambridge University Press & Assessment)",
+      "url": "https://ielts.org/take-a-test/your-results/ielts-scoring-in-detail",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    }
+  ]
+}

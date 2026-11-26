@@ -1,0 +1,90 @@
+{
+  "id": "gept-pic-lost-wallet",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "A Lost Wallet",
+    "zh": "撿到錢包"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段撿到錢包送警局的短文",
+  "task": "Look at the three pictures. Picture 1: A girl finds a brown wallet on the sidewalk near a convenience store. Picture 2: She takes the wallet to the police station. Picture 3: A high school boy comes to the police station and thanks her. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：女孩在便利商店附近的人行道上撿到一個咖啡色錢包。圖二：她把錢包送到警察局。圖三：一位高中男生來到警察局向她道謝。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（撿到錢包、送警局、失主道謝）都要寫到",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "Last Saturday, Tina found a brown wallet on the sidewalk near a convenience store. There was some money and a student card in it. She did not keep the money. Instead, she took the wallet to the police station. A police officer called the owner, and a high school boy came an hour later. He thanked Tina again and again. Tina was glad that she did the right thing."
+    ],
+    "zh": [
+      "上週六，Tina 在一家便利商店附近的人行道上撿到一個咖啡色錢包。裡面有一些錢和一張學生證。她沒有把錢留下來。她反而把錢包送到警察局。一位警察打電話給失主，一個小時後，一位高中男生來了。他一再向 Tina 道謝。Tina 很高興自己做了對的事。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "There was … in it.",
+      "zh": "描述東西裡面有什麼",
+      "example": "There was some money and a student card in it.",
+      "keys": ["there was", "in it"]
+    },
+    {
+      "pattern": "Instead, …",
+      "zh": "表示「反而、改為」做了另一件事",
+      "example": "Instead, she took the wallet to the police station.",
+      "keys": ["instead"]
+    },
+    {
+      "pattern": "… again and again",
+      "zh": "表示一再、反覆",
+      "example": "He thanked Tina again and again.",
+      "keys": ["again and again"]
+    },
+    {
+      "pattern": "be glad that …",
+      "zh": "說明對某件事感到高興",
+      "example": "Tina was glad that she did the right thing.",
+      "keys": ["was glad that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "A police officer called the owner.",
+        "A high school boy came an hour later."
+      ],
+      "answer": "A police officer called the owner, and a high school boy came an hour later."
+    },
+    {
+      "parts": [
+        "She did not keep the money.",
+        "She took the wallet to the police station."
+      ],
+      "answer": "She did not keep the money. Instead, she took the wallet to the police station."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Tina found a brown wallet.",
+      "answers": [
+        "Tina picked up a brown wallet.",
+        "Tina saw a brown wallet and picked it up."
+      ]
+    },
+    {
+      "sentence": "He thanked Tina again and again.",
+      "answers": [
+        "He said thank you to Tina many times.",
+        "He thanked Tina many times."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

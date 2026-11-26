@@ -1,0 +1,99 @@
+{
+  "id": "gept-hi-essay-four-day-week",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "A Four-Day Work Week",
+    "zh": "一週工作四天好不好？"
+  },
+  "subtitle": "全民英檢中高級：討論一週工作四天的利弊與看法",
+  "task": "Some companies have tried letting employees work four days a week instead of five, without cutting their pay. Write an essay of 150–180 words. In your essay, (1) explain how a four-day week might benefit workers and companies, (2) describe one difficulty it could cause, and (3) give your opinion on whether Taiwan should encourage it.",
+  "taskZh": "有些公司試行讓員工一週工作四天而不是五天，而且不減薪。請寫一篇 150–180 字的英文文章：(1) 說明一週工作四天可能對員工和公司帶來什麼好處，(2) 描述它可能造成的一個困難，(3) 說明你認為台灣是否應該鼓勵這種做法。",
+  "words": { "min": 150, "max": 180 },
+  "minutes": 35,
+  "focus": [
+    "內容：好處、困難、自己的看法三個要求都要寫到，並舉例支持",
+    "組織：主題句清楚，論點依序展開，結論呼應開頭",
+    "文法：比較句、假設語氣與被動式運用正確，句型有變化",
+    "用字：職場相關字彙精確，連接詞使用恰當"
+  ],
+  "model": {
+    "en": [
+      "In recent years, several companies around the world have tested a four-day work week. The idea may sound too good to be true, but early results suggest that it deserves serious attention.",
+      "For workers, the most obvious benefit is an extra day to rest, spend time with family, or develop personal interests. Well-rested employees tend to be more focused, so they often finish the same amount of work in less time. Companies can also benefit, since a shorter week makes it easier to attract talented people and keep them.",
+      "Nevertheless, the plan would not work equally well in every industry. Hospitals, restaurants, and factories need staff every day, so giving everyone a three-day weekend could leave them short of workers.",
+      "In my opinion, Taiwan should encourage a four-day week, but in a flexible way. The government could offer support to companies willing to try it, rather than forcing every business to follow the same rule. In this way, both employers and employees could find out what really works for them."
+    ],
+    "zh": [
+      "近年來，世界各地有幾家公司試行一週工作四天。這個點子聽起來也許好得令人難以置信，但初步的結果顯示它值得認真看待。",
+      "對員工來說，最明顯的好處是多了一天可以休息、陪伴家人或培養個人興趣。休息充足的員工往往比較專注，所以常常能用更少的時間完成同樣的工作量。公司也能受益，因為工時較短的一週讓公司更容易吸引並留住人才。",
+      "儘管如此，這個做法並不是在每個產業都一樣行得通。醫院、餐廳和工廠每天都需要人手，所以讓每個人都放三天週末可能會導致人力不足。",
+      "我認為台灣應該鼓勵一週工作四天，但要用彈性的方式。政府可以支持願意嘗試的公司，而不是強迫每個企業都遵守同一套規定。如此一來，雇主和員工都能找出真正適合自己的做法。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… may sound …, but … suggest that …",
+      "zh": "先讓步再提出看法",
+      "example": "The idea may sound too good to be true, but early results suggest that it deserves serious attention.",
+      "keys": ["may sound", "suggest that"]
+    },
+    {
+      "pattern": "For …, the most obvious benefit is …",
+      "zh": "從某一方的角度點出最明顯的好處",
+      "example": "For workers, the most obvious benefit is an extra day to rest, spend time with family, or develop personal interests.",
+      "keys": ["for workers", "the most obvious benefit is"]
+    },
+    {
+      "pattern": "… tend to be …, so they …",
+      "zh": "說明一般趨勢與它帶來的結果",
+      "example": "Well-rested employees tend to be more focused, so they often finish the same amount of work in less time.",
+      "keys": ["tend to be", "so they"]
+    },
+    {
+      "pattern": "Nevertheless, … would not work equally well in …",
+      "zh": "轉折：指出做法的限制",
+      "example": "Nevertheless, the plan would not work equally well in every industry.",
+      "keys": ["nevertheless", "equally well"]
+    },
+    {
+      "pattern": "…, rather than forcing …",
+      "zh": "提出較好的做法，對比不理想的做法",
+      "example": "The government could offer support to companies willing to try it, rather than forcing every business to follow the same rule.",
+      "keys": ["rather than forcing"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Hospitals need staff every day.",
+        "A three-day weekend for everyone could leave them short of workers."
+      ],
+      "answer": "Hospitals need staff every day, so a three-day weekend for everyone could leave them short of workers."
+    },
+    {
+      "parts": [
+        "The government could support companies.",
+        "These companies are willing to try it."
+      ],
+      "answer": "The government could support companies willing to try it."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It deserves serious attention.",
+      "answers": [
+        "It is worth considering seriously.",
+        "It should be taken seriously."
+      ]
+    },
+    {
+      "sentence": "A shorter week makes it easier to attract talented people.",
+      "answers": [
+        "Talented people are more likely to join a company with a shorter week.",
+        "A shorter week helps companies attract skilled workers."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "email-formal-exchange-application",
+  "type": "email-formal",
+  "level": "advanced",
+  "title": {
+    "en": "Applying for an Exchange Program",
+    "zh": "申請交換學生計畫"
+  },
+  "subtitle": "寫一封正式信件給國際處，說明自己為何適合交換計畫",
+  "task": "Your university is selecting students for a one-semester exchange program at a partner university in Japan. Write a formal email to the exchange program coordinator. Introduce yourself, explain why you are a strong candidate, describe what you hope to gain from the program, and ask about the next steps in the selection process.",
+  "taskZh": "你的大學正在甄選學生，到日本的姊妹校交換一學期。寫一封正式 email 給交換計畫承辦人：介紹自己、說明你為什麼是合適的人選、描述你希望從計畫中獲得什麼，並詢問甄選的後續步驟。",
+  "words": {
+    "min": 180,
+    "max": 250
+  },
+  "minutes": 30,
+  "focus": [
+    "正式語氣與完整的 email 格式",
+    "以具體成績與經驗支持自己是合適人選",
+    "段落分工清楚：自我介紹、條件、目標、請求",
+    "進階句型（分詞構句、倒裝）正確且自然"
+  ],
+  "model": {
+    "en": [
+      "Dear Exchange Program Coordinator,",
+      "I am a third-year economics student, and I am writing to express my strong interest in the spring exchange program with our partner university in Osaka. Having read the program guidelines carefully, I believe my academic background and experience make me a suitable candidate.",
+      "Over the past two years, I have maintained a GPA of 3.8 and completed four courses taught entirely in English. In addition, I have studied Japanese for three years and passed the JLPT N3 last July. As a volunteer guide for international students on our campus, I have also learned how to adapt to different cultural expectations, which I expect will help me settle in quickly abroad.",
+      "Through this program, I hope to take courses on regional development that are not offered at our university. I would also like to compare how small towns in Japan and Taiwan deal with aging populations, a topic I plan to explore in my graduation project. Not only would this experience broaden my perspective, but it would also give my research a solid international basis.",
+      "Could you kindly let me know what documents are required and when the interviews will take place? I have attached my transcript and language certificate for your reference.",
+      "Thank you for considering my application. I look forward to hearing from you.",
+      "Sincerely,",
+      "Grace Lin"
+    ],
+    "zh": [
+      "交換計畫承辦人您好：",
+      "我是經濟系三年級學生，寫信是想表達我對與大阪姊妹校合作的春季交換計畫有高度興趣。仔細閱讀計畫說明後，我相信自己的學業背景與經驗使我成為合適的人選。",
+      "過去兩年，我的 GPA 維持在 3.8，並修完四門全英語授課的課程。此外，我學了三年日文，並在去年 7 月通過日檢 N3。身為本校國際學生的志工導覽員，我也學會如何因應不同的文化期待，我想這能幫助我在國外很快適應。",
+      "透過這項計畫，我希望修習本校沒有開設的區域發展課程。我也想比較日本和台灣的小鎮如何因應人口老化，這是我打算在畢業專題中探討的主題。這段經驗不僅能拓展我的視野，也能為我的研究奠定扎實的國際基礎。",
+      "能否請您告訴我需要準備哪些文件，以及面試將在何時舉行？我已附上成績單與語言檢定證書供您參考。",
+      "感謝您考慮我的申請。期待您的回覆。",
+      "敬上",
+      "林恩惠"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to express my strong interest in …",
+      "zh": "寫信表達對……的高度興趣（申請信開頭）",
+      "example": "I am a third-year economics student, and I am writing to express my strong interest in the spring exchange program with our partner university in Osaka.",
+      "keys": ["writing to express", "interest in"]
+    },
+    {
+      "pattern": "Having + p.p., I …",
+      "zh": "完成式分詞構句：在……之後，我……",
+      "example": "Having read the program guidelines carefully, I believe my academic background and experience make me a suitable candidate.",
+      "keys": ["having read"]
+    },
+    {
+      "pattern": "…, which I expect will …",
+      "zh": "關係子句插入 I expect，說明預期的好處",
+      "example": "As a volunteer guide for international students on our campus, I have also learned how to adapt to different cultural expectations, which I expect will help me settle in quickly abroad.",
+      "keys": ["which i expect will"]
+    },
+    {
+      "pattern": "Not only would …, but it would also …",
+      "zh": "倒裝句：不僅……，也……",
+      "example": "Not only would this experience broaden my perspective, but it would also give my research a solid international basis.",
+      "keys": ["not only would", "but it would also"]
+    },
+    {
+      "pattern": "Could you kindly let me know …?",
+      "zh": "能否請您告訴我……？（正式請求）",
+      "example": "Could you kindly let me know what documents are required and when the interviews will take place?",
+      "keys": ["could you kindly let me know"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I have studied Japanese for three years.",
+        "I passed the JLPT N3 last July."
+      ],
+      "answer": "I have studied Japanese for three years and passed the JLPT N3 last July."
+    },
+    {
+      "parts": [
+        "I would like to compare small towns in Japan and Taiwan.",
+        "I plan to explore this topic in my graduation project."
+      ],
+      "answer": "I would like to compare small towns in Japan and Taiwan, a topic I plan to explore in my graduation project."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "This experience would broaden my perspective.",
+      "answers": [
+        "This experience would widen my point of view.",
+        "This experience would help me see things in new ways."
+      ]
+    },
+    {
+      "sentence": "I have attached my transcript for your reference.",
+      "answers": [
+        "Please find my transcript attached.",
+        "My transcript is attached for you to review."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,91 @@
+{
+  "id": "gept-hi-essay-gap-year",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "Should Students Take a Gap Year?",
+    "zh": "高中畢業後該不該先休息一年？"
+  },
+  "subtitle": "全民英檢中高級：討論高中畢業後空檔年的利弊",
+  "task": "In some countries, many students take a \"gap year\" to work, travel, or volunteer before starting university. Write an essay of 150–180 words. In your essay, (1) discuss one advantage and one possible problem of taking a gap year, and (2) state whether you would recommend it to students in Taiwan, giving your reasons.",
+  "taskZh": "在一些國家，很多學生在上大學前會先休息一年（空檔年），去工作、旅行或當志工。請寫一篇 150–180 字的英文文章：(1) 討論空檔年的一個優點和一個可能的問題，(2) 說明你是否會推薦台灣的學生這麼做，並提出理由。",
+  "words": { "min": 150, "max": 180 },
+  "minutes": 35,
+  "focus": [
+    "內容：優點、問題、自己的立場與理由都要寫到，論點具體切題",
+    "組織：引言、正反討論、結論層次分明，段落間轉折自然",
+    "文法：句型多樣（讓步子句、分詞構句、假設語氣）且正確",
+    "用字：字彙豐富精確，避免重複，拼字與標點正確"
+  ],
+  "model": {
+    "en": [
+      "For most students in Taiwan, going straight from high school to university is simply what is expected. However, a growing number of young people are considering a gap year instead.",
+      "The main advantage of a gap year is that it gives students time to discover what they truly want. Having spent months working in a café or volunteering abroad, a student is more likely to choose a major based on real experience rather than on test scores alone. On the other hand, a gap year can easily become a wasted year. Without clear goals, some students simply stay at home and lose the habit of studying, which makes returning to school even harder.",
+      "Overall, I would recommend a gap year, but only to students who plan it carefully. If students set specific goals, such as saving money, improving a language, or trying out a possible career, the year can be one of the most valuable of their lives. Otherwise, it is wiser to start university right away."
+    ],
+    "zh": [
+      "對台灣大多數學生來說，高中畢業直接上大學是理所當然的事。然而，越來越多年輕人開始考慮先休息一年。",
+      "空檔年的主要優點是讓學生有時間發掘自己真正想要的是什麼。在咖啡店工作或到國外當志工幾個月之後，學生比較可能根據真實經驗而不只是考試分數來選擇科系。另一方面，空檔年也很容易變成白白浪費的一年。沒有明確目標的話，有些學生只是待在家裡，失去讀書的習慣，回到學校反而更困難。",
+      "整體來說，我會推薦空檔年，但只推薦給仔細規劃的學生。如果學生設定具體的目標，例如存錢、加強一種語言，或試試看某個可能的職業，這一年就可能成為他們人生中最有價值的時光之一。否則，還是直接上大學比較明智。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The main advantage of … is that …",
+      "zh": "點出主要優點",
+      "example": "The main advantage of a gap year is that it gives students time to discover what they truly want.",
+      "keys": ["the main advantage of", "is that"]
+    },
+    {
+      "pattern": "Having + p.p. …, S + V …",
+      "zh": "完成式分詞構句：表示先發生的事",
+      "example": "Having spent months working in a café or volunteering abroad, a student is more likely to choose a major based on real experience rather than on test scores alone.",
+      "keys": ["having spent", "more likely to", "rather than"]
+    },
+    {
+      "pattern": "On the other hand, … can easily become …",
+      "zh": "轉向討論缺點或風險",
+      "example": "On the other hand, a gap year can easily become a wasted year.",
+      "keys": ["on the other hand", "can easily become"]
+    },
+    {
+      "pattern": "Overall, I would recommend …, but only to …",
+      "zh": "結論：有條件地表達立場",
+      "example": "Overall, I would recommend a gap year, but only to students who plan it carefully.",
+      "keys": ["overall", "i would recommend", "but only to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Some students lose the habit of studying.",
+        "This makes returning to school even harder."
+      ],
+      "answer": "Some students lose the habit of studying, which makes returning to school even harder."
+    },
+    {
+      "parts": [
+        "A student has spent months volunteering abroad.",
+        "The student is more likely to choose a suitable major."
+      ],
+      "answer": "Having spent months volunteering abroad, a student is more likely to choose a suitable major."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Going straight to university is simply what is expected.",
+      "answers": [
+        "Most people assume students will go directly to university.",
+        "Starting university right after high school is seen as normal."
+      ]
+    },
+    {
+      "sentence": "It is wiser to start university right away.",
+      "answers": [
+        "Starting university immediately is a better choice.",
+        "It makes more sense to go straight to university."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,104 @@
+{
+  "id": "toeic-opinion-small-or-large-company",
+  "type": "toeic",
+  "level": "advanced",
+  "title": {
+    "en": "A Small Company or a Large One?",
+    "zh": "到小公司還是大公司工作？"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：意見論述題，比較大小公司的工作",
+  "task": "Directions: Read the question below. You have 30 minutes to plan, write and revise your essay. Typically, an effective response will contain a minimum of 300 words.\n\nSome people prefer to work for a large, well-known company, while others prefer to work for a small company. Which would you prefer? Give reasons or examples to support your opinion.",
+  "taskZh": "有些人喜歡在知名的大公司工作，有些人則偏好在小公司工作。你比較喜歡哪一種？請提出理由或例子支持你的看法。建議約 300 字，30 分鐘內完成構思、寫作與修改。",
+  "words": {
+    "min": 280,
+    "max": 350
+  },
+  "minutes": 30,
+  "focus": [
+    "立場：開頭就明確選邊，全文一致",
+    "論點：每段一個理由，搭配具體的職場例子",
+    "組織：First、Second、Admittedly、Therefore 讓段落分工清楚",
+    "文法與用字：比較句、條件句正確，商業字彙使用恰當"
+  ],
+  "model": {
+    "en": [
+      "When choosing a job, people often have to decide between a large, well-known company and a small one. Although large companies offer stability and a famous name, I would prefer to work for a small company, especially at the beginning of my career.",
+      "The main reason is that a small company offers more opportunities to learn. Because there are fewer employees, each person usually handles a wider range of tasks. For example, a marketing assistant at a small firm might write advertisements, manage social media accounts and even meet clients, while someone in the same position at a large corporation may focus on only one of these duties. This variety would help me discover my strengths and build practical skills quickly.",
+      "Another advantage is that my contribution would be more visible. In a small team, managers can see clearly who is producing good results, so hard work is more likely to be recognized and rewarded. Employees also have closer contact with senior staff, which makes it easier to share suggestions and see them put into practice.",
+      "Admittedly, large companies usually provide higher salaries, better benefits and more formal training programs. Their well-known names can also make a resume more impressive. However, these benefits matter less to me at this stage than gaining broad experience. If I later decide to join a large organization, the skills I develop at a small company will make me a stronger candidate.",
+      "In conclusion, while both options have their merits, I believe a small company is the better choice for someone who wants to grow quickly and make a real difference. The responsibilities and visibility it offers outweigh the security of a big name."
+    ],
+    "zh": [
+      "找工作時，人們常常要在知名大公司和小公司之間做選擇。雖然大公司提供穩定與響亮的名號，我還是比較想到小公司工作，尤其是在職涯剛起步的時候。",
+      "主要的原因是小公司提供更多學習機會。因為員工人數較少，每個人通常要負責更多樣的工作。例如，小公司的行銷助理可能要寫廣告、經營社群媒體帳號，甚至與客戶見面，而在大企業擔任同樣職位的人可能只專注在其中一項工作。這樣的多樣性能幫助我發現自己的長處，並快速培養實用的技能。",
+      "另一個好處是我的貢獻會比較容易被看見。在小團隊裡，主管能清楚看出誰做出好成績，所以努力比較有可能得到肯定與獎勵。員工和高層的接觸也比較密切，提出建議並看到它們被採用也比較容易。",
+      "不可否認，大公司通常提供較高的薪水、較好的福利，以及較完整的培訓課程。它們響亮的名號也能讓履歷更亮眼。不過，在現階段，這些好處對我來說沒有累積廣泛的經驗來得重要。如果我之後決定進入大型企業，在小公司培養的技能也會讓我成為更有競爭力的人選。",
+      "總而言之，雖然兩種選擇各有優點，我認為對想要快速成長、真正有所貢獻的人來說，小公司是比較好的選擇。小公司提供的責任與能見度，勝過大公司名號帶來的安全感。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Although …, I would prefer to …",
+      "zh": "讓步後表明自己的選擇",
+      "example": "Although large companies offer stability and a famous name, I would prefer to work for a small company, especially at the beginning of my career.",
+      "keys": ["although", "i would prefer to"]
+    },
+    {
+      "pattern": "The main reason is that …",
+      "zh": "段落主題句：帶出最主要的理由",
+      "example": "The main reason is that a small company offers more opportunities to learn.",
+      "keys": ["the main reason is that"]
+    },
+    {
+      "pattern": "…, while someone in the same position at … may …",
+      "zh": "用 while 對比兩種情況",
+      "example": "For example, a marketing assistant at a small firm might write advertisements, manage social media accounts and even meet clients, while someone in the same position at a large corporation may focus on only one of these duties.",
+      "keys": ["for example", "while", "in the same position"]
+    },
+    {
+      "pattern": "…, so … is more likely to be …",
+      "zh": "說明結果發生的可能性較高",
+      "example": "In a small team, managers can see clearly who is producing good results, so hard work is more likely to be recognized and rewarded.",
+      "keys": ["so", "more likely to be"]
+    },
+    {
+      "pattern": "If I later decide to …, … will make me …",
+      "zh": "設想未來的情況，說明現在選擇的好處",
+      "example": "If I later decide to join a large organization, the skills I develop at a small company will make me a stronger candidate.",
+      "keys": ["if i later decide to", "will make me"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "There are fewer employees.",
+        "Each person handles a wider range of tasks."
+      ],
+      "answer": "Because there are fewer employees, each person handles a wider range of tasks."
+    },
+    {
+      "parts": [
+        "Both options have their merits.",
+        "A small company is the better choice for me."
+      ],
+      "answer": "While both options have their merits, a small company is the better choice for me."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "My contribution would be more visible.",
+      "answers": [
+        "Others would notice my work more easily.",
+        "My efforts would be easier to see."
+      ]
+    },
+    {
+      "sentence": "These benefits matter less to me at this stage.",
+      "answers": [
+        "At this point in my life, these advantages are less important to me.",
+        "For now, I care less about these benefits."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

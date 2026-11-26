@@ -1,0 +1,130 @@
+{
+  "id": "gsat",
+  "name": { "zh": "學測英文", "en": "GSAT English" },
+  "summary": {
+    "zh": "大考中心辦理的學科能力測驗英文考科，考閱讀與寫作，作文占 20 分。學測英文本身沒有聽力；英聽成績來自另外的「高中英語聽力測驗」，由大學校系決定要不要使用。",
+    "en": "The English subject of the General Scholastic Ability Test, run by the College Entrance Examination Center (CEEC). It tests reading and writing, with an essay worth 20 points. It has no listening section; listening grades come from the separate High School English Listening Comprehension Test, which university departments may choose to use."
+  },
+  "sections": [
+    {
+      "id": "about",
+      "heading": { "zh": "考試簡介", "en": "About the test" },
+      "paragraphs": {
+        "zh": [
+          "學測英文由大學入學考試中心（大考中心）辦理，依 108 課綱普通型高中部定必修英文命題，評量詞彙與語法運用、閱讀理解、篇章結構、翻譯與寫作。詞彙以高中常用 4,500 字詞為主，可參考大考中心高中英文參考詞彙表第一至第五級。",
+          "大考中心公告了「115 學年度起適用」的英文考科考試說明：主要調整是「篇章結構」改為一篇選文、四個空格搭配五個選項。",
+          "學測英文不考聽力。英聽是另一場考試「高中英語聽力測驗」，每年辦兩次，成績為 A、B、C、F 四個等級。大學校系可以自行決定是否把英聽列為繁星推薦、申請入學或分發入學的檢定項目，使用方式以各招生簡章為準。"
+        ],
+        "en": [
+          "GSAT English is run by CEEC and is based on the required senior high school English courses of the 2019 curriculum. It tests vocabulary and grammar, reading comprehension, text structure, translation, and writing. Vocabulary is mainly the 4,500 common words in CEEC's reference word list, levels 1–5.",
+          "CEEC has published test specifications that apply from academic year 115 (the January 2026 exam). The main change is that the text-structure section now uses one passage with four blanks and five options.",
+          "GSAT English has no listening section. Listening is a separate exam, the High School English Listening Comprehension Test, held twice a year and graded A, B, C, or F. University departments decide whether to use the listening grade as a screening requirement in the Star Plan, personal application, or exam-based admission channels; check each admissions guide."
+        ]
+      }
+    },
+    {
+      "id": "format",
+      "heading": { "zh": "題型", "en": "Format" },
+      "paragraphs": {
+        "zh": [
+          "以 115 學年度學測英文試卷為例：考試時間 100 分鐘，滿分 100 分。第壹部分選擇題 62 分：詞彙 10 分、綜合測驗 10 分、文意選填 10 分、篇章結構 8 分、閱讀測驗 24 分。",
+          "第貳部分混合題 10 分：一個題組，包含填充、多選、簡答等不同作答方式，評量閱讀與寫作的綜合應用。",
+          "第參部分非選擇題 28 分：中譯英 8 分（兩個中文句子譯成英文）、英文作文 20 分。考試說明提到作文可能是看圖寫作、信函寫作或主題寫作；115 學年度的題目是依圖片與提示寫至少 120 個單詞、分兩段的作文。"
+        ],
+        "en": [
+          "Taking the academic year 115 paper as an example: 100 minutes, 100 points. Part 1, multiple choice, is 62 points: vocabulary 10, cloze 10, word-bank cloze 10, text structure 8, reading comprehension 24.",
+          "Part 2, mixed questions, is 10 points: one set combining answer types such as fill-in, multiple selection, and short answer, testing reading and writing together.",
+          "Part 3, written answers, is 28 points: translation 8 (two Chinese sentences into English) and an essay 20. The specifications say the essay may be picture-based, a letter, or a topic essay; the year 115 prompt asked for at least 120 words in two paragraphs based on pictures and prompts."
+        ]
+      }
+    },
+    {
+      "id": "listening-scoring",
+      "heading": { "zh": "聽力的評分方式", "en": "How listening is scored" },
+      "paragraphs": {
+        "zh": [
+          "學測英文沒有聽力題，聽力成績來自「高中英語聽力測驗」。英聽共 40 題選擇題，成績經過「測驗等化」後分成 A、B、C、F 四級，讓不同場次、不同試卷的成績可以公平比較；它沒有「通過」標準。",
+          "英聽成績由大學校系自訂是否設為繁星推薦、申請入學、分發入學的檢定項目，例如要求英聽達到某個等級才能報名。各校規定常有變動，請查甄選入學委員會、考試入學分發委員會與各校公布的招生規定。詳細題型請看本站的「高中英語聽力測驗」指南。"
+        ],
+        "en": [
+          "GSAT English has no listening questions; listening grades come from the High School English Listening Comprehension Test. It has 40 multiple-choice items, and results are equated and reported as A, B, C, or F so grades are comparable across sessions and papers. There is no pass mark.",
+          "Each university department decides whether to set a listening grade as a screening requirement for the Star Plan, personal application, or exam-based admission — for example, requiring a certain grade to apply. Rules change often, so check the admissions committees' and each university's published requirements. See our High School Listening Test guide for the format."
+        ]
+      }
+    },
+    {
+      "id": "writing-scoring",
+      "heading": { "zh": "寫作的評分方式", "en": "How writing is scored" },
+      "paragraphs": {
+        "zh": [
+          "中譯英（115 學年度）：兩題各 4 分、共 8 分。原則上每個錯誤扣 0.5 分，各部分獨立計算、扣完為止；相同的拼字或文法錯誤只扣一次；句首未大寫或標點不妥各扣 0.5 分、只扣一次。",
+          "英文作文：閱卷委員依內容、組織、文法句構、字彙拼字四項表現，給一個整體分數（holistic score）。內容要切題並有具體細節；組織要有開頭、發展、結尾，前後連貫、轉承語使用得當。字數明顯不足扣總分 1 分，題目要求分段卻未分段也扣 1 分。",
+          "大考中心每年公布非選擇題的參考答案與評分原則，以及作文佳作，是了解評分標準最直接的資料。"
+        ],
+        "en": [
+          "Translation (year 115): two items worth 4 points each, 8 in total. In principle each error loses 0.5 points, with each part marked separately down to zero; the same spelling or grammar error is only penalised once; a missing capital at the start or poor punctuation loses 0.5 points, once.",
+          "Essay: raters give one holistic score based on content, organisation, grammar and sentence structure, and vocabulary and spelling. Content should be on topic with specific details; organisation should have a clear opening, development, and ending, with good transitions. An essay clearly below the word count loses 1 point, and one without the required paragraphs loses 1 point.",
+          "Each year CEEC publishes reference answers and scoring principles for the written questions, plus sample high-scoring essays — the most direct way to see how marking works."
+        ]
+      }
+    },
+    {
+      "id": "practice",
+      "heading": { "zh": "建議練習方式", "en": "How to practise" },
+      "paragraphs": {
+        "zh": [
+          "作文 20 分是學測英文最大的單一題目。WritingLoop 的 7 天循環適合練作文：第 1 天依題目寫一篇並取得回饋，第 2～6 天針對你的弱點做短練習，第 7 天不看第 1 天的文章重寫同一題，比較兩次的差異。可以從看圖寫作、信函、主題寫作輪流選題。",
+          "中譯英每個錯誤都會扣分，平常寫完句子要檢查時態、冠詞、拼字與大小寫。WritingLoop 第 2～6 天的「聽寫回譯」會優先使用你自己第 1 天被修正過的句子，正好針對這類細節。",
+          "若目標校系要求英聽等級，可以用 ListenLoop 練聽力：第 1 天逐句聽寫、第 2～6 天跟讀、第 7 天再聽寫比較進步。英聽的準備方式請看「高中英語聽力測驗」指南。"
+        ],
+        "en": [
+          "The 20-point essay is the largest single item on GSAT English. WritingLoop's 7-day cycle fits essay practice: write one essay on Day 1 and get feedback, do short exercises on your weak points on Days 2–6, and rewrite the same prompt on Day 7 without looking at Day 1, then compare. Rotate between picture-based, letter, and topic prompts.",
+          "Every translation error costs points, so after writing a sentence check tense, articles, spelling, and capitals. WritingLoop's dictation-and-translate exercises on Days 2–6 draw first on your own corrected sentences from Day 1, which targets exactly these details.",
+          "If your target departments require a listening grade, practise with ListenLoop: dictation on Day 1, shadowing on Days 2–6, and dictation again on Day 7 to see progress. See the High School Listening Test guide for listening preparation."
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "title": {
+        "zh": "115 學年度起適用：英文考科考試說明與參考試卷",
+        "en": "From year 115: English test specifications and reference paper"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/xmdoc/cont?xsmsid=0J018586101460336585&sid=0O211573150658099894",
+      "kind": "practice",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "學測歷年試題及答題卷（一般試題）",
+        "en": "GSAT past papers and answer sheets"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/xmfile?xsmsid=0J052424829869345634",
+      "kind": "past-papers",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "115 學年度英文考科非選擇題參考答案與評分原則（PDF）",
+        "en": "Year 115 English written questions: reference answers and scoring principles (PDF)"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/files/file_pool/1/0q054335046832331817/115%e5%ad%b8%e6%b8%ac%e8%8b%b1%e6%96%87%e8%80%83%e7%a7%91%e9%9d%9e%e9%81%b8%e6%93%87%e9%a1%8c%e5%8f%83%e8%80%83%e7%ad%94%e6%a1%88%e8%88%87%e8%a9%95%e5%88%86%e5%8e%9f%e5%89%87.pdf",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "115 學年度學測英文作文佳作",
+        "en": "Year 115 GSAT sample high-scoring English essays"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/xmdoc/cont?xsmsid=0J071624926253508127&sid=0Q077622448864496628",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    }
+  ]
+}

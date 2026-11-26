@@ -1,0 +1,74 @@
+{
+  "id": "cap-my-favorite-season",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "My Favorite Season",
+    "zh": "我最喜歡的季節"
+  },
+  "subtitle": "國中程度引導式短文：回答三個問題，介紹你最喜歡的季節",
+  "task": "Write a short passage of 60–100 words about your favorite season. Your passage should answer these questions: (1) Which season do you like best? (2) What do you usually do in that season? (3) Why do you like it?",
+  "taskZh": "寫一篇 60–100 字的英文短文，介紹你最喜歡的季節。短文要回答三個問題：(1) 你最喜歡哪個季節？(2) 你在那個季節通常會做什麼？(3) 你為什麼喜歡它？",
+  "words": {
+    "min": 60,
+    "max": 100
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三個問題都要回答到",
+    "文法：習慣做的事用現在簡單式，第三人稱單數動詞加 s",
+    "連接詞：用 but、while、because 讓句子連貫",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "My favorite season is winter. In Taiwan, winter is not very cold, but it is cool and comfortable. On weekends, my family often eats hot pot together at home. We talk about school and work while the soup is boiling. Winter also brings Lunar New Year, my favorite holiday of the year. I can visit my grandparents and get red envelopes. I like winter best because it is a warm season for my family, even when the weather is cold."
+    ],
+    "zh": [
+      "我最喜歡的季節是冬天。在台灣，冬天不會很冷，而是涼爽又舒服。週末時，我們家常常一起在家吃火鍋。湯在滾的時候，我們會聊學校和工作的事。冬天也會帶來農曆新年，那是我一年中最喜歡的節日。我可以去看爺爺奶奶，還能拿到紅包。我最喜歡冬天，因為就算天氣很冷，對我們家來說它仍是溫暖的季節。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "My favorite … is …",
+      "zh": "我最喜歡的……是……（點出主題）",
+      "example": "My favorite season is winter.",
+      "keys": ["my favorite"]
+    },
+    {
+      "pattern": "not very …, but …",
+      "zh": "不太……，而是……",
+      "example": "In Taiwan, winter is not very cold, but it is cool and comfortable.",
+      "keys": ["not very", "but"]
+    },
+    {
+      "pattern": "… while …",
+      "zh": "在……的同時",
+      "example": "We talk about school and work while the soup is boiling.",
+      "keys": ["while"]
+    },
+    {
+      "pattern": "I like … best because …",
+      "zh": "我最喜歡……，因為……（說明理由）",
+      "example": "I like winter best because it is a warm season for my family, even when the weather is cold.",
+      "keys": ["like winter best", "because"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I can visit my grandparents.", "I can get red envelopes."],
+      "answer": "I can visit my grandparents and get red envelopes."
+    },
+    {
+      "parts": ["Winter is not very cold.", "It is cool and comfortable."],
+      "answer": "Winter is not very cold, but it is cool and comfortable."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "My favorite season is winter.",
+      "answers": ["I like winter best.", "Winter is the season I like most."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

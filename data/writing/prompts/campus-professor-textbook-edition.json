@@ -1,0 +1,98 @@
+{
+  "id": "campus-professor-textbook-edition",
+  "type": "campus-professor",
+  "level": "beginner",
+  "title": {
+    "en": "Asking About the Textbook",
+    "zh": "詢問課本版本"
+  },
+  "subtitle": "寫信問教授能不能用舊版課本",
+  "task": "You have just signed up for Professor Kim's Introduction to Psychology course. Write a short email to ask which textbook you need and whether an older edition is OK.",
+  "taskZh": "你剛選了 Kim 教授的「心理學導論」。寫一封簡短的 email，詢問需要哪一本課本，以及能不能用舊版。",
+  "words": {
+    "min": 60,
+    "max": 110
+  },
+  "minutes": 10,
+  "focus": ["先自我介紹（姓名、課名）", "問題清楚具體", "語氣禮貌，格式正確"],
+  "model": {
+    "en": [
+      "Dear Professor Kim,",
+      "My name is Jenny Huang, and I am in your Introduction to Psychology class this spring. I have a question about the textbook. The course page says we need the 5th edition, but my friend can give me her 4th edition for free.",
+      "Is it OK to use the older edition? If not, I will buy the new one this week. I just want to make sure before I start the first reading.",
+      "Thank you for your help.",
+      "Best regards,",
+      "Jenny Huang"
+    ],
+    "zh": [
+      "Kim 教授您好：",
+      "我是黃珍妮，這學期修您的「心理學導論」。我想請問關於課本的問題。課程網頁上說要用第 5 版，但我朋友可以免費把她的第 4 版給我。",
+      "請問用舊版可以嗎？如果不行，我這週就會買新版。我只是想在開始讀第一份指定閱讀前先確認一下。",
+      "謝謝您的幫忙。",
+      "敬祝 安好",
+      "黃珍妮"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I have a question about …",
+      "zh": "帶出來信要問的事",
+      "example": "I have a question about the textbook.",
+      "keys": ["i have a question about"]
+    },
+    {
+      "pattern": "… says …, but …",
+      "zh": "說明情況與矛盾之處",
+      "example": "The course page says we need the 5th edition, but my friend can give me her 4th edition for free.",
+      "keys": ["says", "but"]
+    },
+    {
+      "pattern": "Is it OK to …?",
+      "zh": "詢問是否可以",
+      "example": "Is it OK to use the older edition?",
+      "keys": ["is it ok to"]
+    },
+    {
+      "pattern": "If not, I will …",
+      "zh": "說明不行時的做法",
+      "example": "If not, I will buy the new one this week.",
+      "keys": ["if not", "will"]
+    },
+    {
+      "pattern": "I just want to make sure before …",
+      "zh": "說明詢問的原因",
+      "example": "I just want to make sure before I start the first reading.",
+      "keys": ["make sure before"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The course page says we need the 5th edition.",
+        "My friend can give me her 4th edition."
+      ],
+      "answer": "The course page says we need the 5th edition, but my friend can give me her 4th edition."
+    },
+    {
+      "parts": [
+        "My name is Jenny Huang.",
+        "I am in your Introduction to Psychology class."
+      ],
+      "answer": "My name is Jenny Huang, and I am in your Introduction to Psychology class."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Is it OK to use the older edition?",
+      "answers": [
+        "Can I use the older edition?",
+        "Would the older edition be all right?"
+      ]
+    },
+    {
+      "sentence": "Thank you for your help.",
+      "answers": ["Thanks for your help.", "I appreciate your help."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

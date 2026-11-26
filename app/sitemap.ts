@@ -3,6 +3,7 @@ import type { MetadataRoute } from "next";
 import { getOfficialPractices } from "@/auth/library";
 import { BLOG_POSTS, blogPath } from "@/lib/blog";
 import { defaultLocale } from "@/lib/i18n/config";
+import { EXAM_GUIDES } from "@/lib/exam-tracks";
 import { LEARN_CATEGORIES, learnPath } from "@/lib/learn";
 import { languageAlternates, localizedUrl, PUBLIC_PAGES } from "@/lib/seo";
 import { getAllVideos } from "@/lib/video-library";
@@ -56,6 +57,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...LEARN_CATEGORIES.map((category) =>
       entry(learnPath(category), "weekly", 0.8),
     ),
+    // Exam English (D215): the index and each exam's guide.
+    entry("/exams", "weekly", 0.8),
+    ...EXAM_GUIDES.map((id) => entry(`/exams/${id}`, "weekly", 0.8)),
     // Articles (D122): written in Traditional Chinese only.
     ...BLOG_POSTS.map((post) =>
       entry(blogPath(post.slug), "monthly", 0.7, {

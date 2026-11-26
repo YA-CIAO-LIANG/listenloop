@@ -1,0 +1,101 @@
+{
+  "id": "gept-hi-letter-safer-sidewalks",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "A Letter Asking for Safer Sidewalks",
+    "zh": "寫信請市府改善人行道"
+  },
+  "subtitle": "全民英檢中高級：寫信向市政府反映人行道問題",
+  "task": "On the street near your home, the sidewalks are often blocked by parked scooters and goods from shops, so people have to walk in the road. Write a letter of 150–180 words to the city government. In your letter, (1) describe the problem, (2) explain why it is dangerous, and (3) suggest two practical solutions.",
+  "taskZh": "你家附近那條街的人行道常被停放的機車和店家的貨物擋住，行人只好走在馬路上。請寫一封 150–180 字的信給市政府：(1) 描述問題，(2) 說明為什麼危險，(3) 提出兩個可行的解決辦法。",
+  "words": { "min": 150, "max": 180 },
+  "minutes": 35,
+  "focus": [
+    "內容：問題、危險性、兩個解決辦法都要寫到，描述具體",
+    "組織：開頭說明來意、中間說明與舉例、結尾提出建議與期待",
+    "文法：句型多樣且正確，善用被動式與因果句",
+    "用字與語氣：正式、有禮但明確，書信格式完整"
+  ],
+  "model": {
+    "en": [
+      "Dear Sir or Madam,",
+      "I am writing to draw your attention to a safety problem on Minsheng Street, where I have lived for ten years. The sidewalks there are almost always blocked by parked scooters, and several shops also use them to display their goods.",
+      "As a result, pedestrians are forced to walk in the road alongside cars and buses. This is especially dangerous for elderly people, parents with strollers, and children walking to the elementary school at the end of the street. Just last month, a boy on his way to school was nearly hit by a delivery truck.",
+      "I would like to suggest two solutions. First, the city could create scooter parking spaces on a nearby side street and fine riders who park on the sidewalk. Second, police officers could visit the shops regularly to remind owners that sidewalks are for walking, not for business. I sincerely hope that you will take action before someone is seriously injured.",
+      "Yours faithfully, Grace Chen"
+    ],
+    "zh": [
+      "敬啟者：",
+      "我寫這封信是想請您注意民生街的一個安全問題，我在那裡已經住了十年。那裡的人行道幾乎總是被停放的機車擋住，也有好幾家商店拿人行道來擺放商品。",
+      "因此，行人被迫走在馬路上，和汽車、公車擠在一起。這對長者、推嬰兒車的父母，以及走路去街尾那所國小的孩子來說特別危險。就在上個月，一個男孩在上學途中差點被一輛貨車撞到。",
+      "我想提出兩個解決辦法。第一，市政府可以在附近的巷子規劃機車停車格，並開罰把車停在人行道上的騎士。第二，警察可以定期拜訪這些商店，提醒店家人行道是給人走的，不是用來做生意的。我誠懇地希望您能在有人嚴重受傷之前採取行動。",
+      "陳葛瑞絲 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to draw your attention to …",
+      "zh": "正式書信開頭：請對方注意某個問題",
+      "example": "I am writing to draw your attention to a safety problem on Minsheng Street, where I have lived for ten years.",
+      "keys": ["i am writing to", "draw your attention to"]
+    },
+    {
+      "pattern": "As a result, … are forced to …",
+      "zh": "說明問題造成的結果",
+      "example": "As a result, pedestrians are forced to walk in the road alongside cars and buses.",
+      "keys": ["as a result", "are forced to"]
+    },
+    {
+      "pattern": "This is especially dangerous for …",
+      "zh": "點出受影響最大的人",
+      "example": "This is especially dangerous for elderly people, parents with strollers, and children walking to the elementary school at the end of the street.",
+      "keys": ["this is especially dangerous for"]
+    },
+    {
+      "pattern": "… are for …, not for …",
+      "zh": "用對比強調某物的正確用途",
+      "example": "Second, police officers could visit the shops regularly to remind owners that sidewalks are for walking, not for business.",
+      "keys": ["are for walking", "not for"]
+    },
+    {
+      "pattern": "I sincerely hope that you will … before …",
+      "zh": "結尾：有禮但堅定地請求對方行動",
+      "example": "I sincerely hope that you will take action before someone is seriously injured.",
+      "keys": ["i sincerely hope that", "take action before"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "A boy was on his way to school.",
+        "He was nearly hit by a delivery truck."
+      ],
+      "answer": "A boy on his way to school was nearly hit by a delivery truck."
+    },
+    {
+      "parts": [
+        "The city could create scooter parking spaces.",
+        "It could fine riders who park on the sidewalk."
+      ],
+      "answer": "The city could create scooter parking spaces and fine riders who park on the sidewalk."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The sidewalks are almost always blocked.",
+      "answers": [
+        "People can hardly ever use the sidewalks.",
+        "Something is nearly always in the way on the sidewalks."
+      ]
+    },
+    {
+      "sentence": "I hope you will take action.",
+      "answers": [
+        "I hope you will do something about this.",
+        "I hope this problem will be dealt with."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,104 @@
+{
+  "id": "ielts-task2-four-day-work-week",
+  "type": "ielts-task2",
+  "level": "intermediate",
+  "title": {
+    "en": "Should Everyone Work Four Days a Week?",
+    "zh": "每個人都該一週上班四天嗎？"
+  },
+  "subtitle": "原創模擬題：同意或不同意型議論文",
+  "task": "Some companies have introduced a four-day working week, in which employees work fewer days for the same pay. Some people believe this should become the standard for all workers. To what extent do you agree or disagree? Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "有些公司已實施「一週工作四天」，員工上班天數減少但薪水不變。有些人認為這應該成為所有上班族的標準。你同意或不同意到什麼程度？請說明理由並舉例。至少寫 250 字。",
+  "words": {
+    "min": 250,
+    "max": 320
+  },
+  "minutes": 40,
+  "focus": [
+    "Task Response：開頭清楚表明同意的程度，結論前後一致",
+    "Coherence and Cohesion：一段一個重點，讓步段與主要論點分明",
+    "Lexical Resource：工作、福利、生產力相關用字精確，不重複題目原句",
+    "Grammatical Range and Accuracy：複合句、關係子句與條件句正確"
+  ],
+  "model": {
+    "en": [
+      "In recent years, a number of companies have experimented with a four-day working week, allowing staff to work fewer days without losing any pay. Some people argue that this arrangement should be adopted by all employers. I largely agree with this view, although I accept that it may not suit every type of job.",
+      "The main advantage of a shorter week is that it can improve workers' health and happiness. With an extra day off, employees have more time to rest, exercise and spend with their families. As a result, they are likely to return to work feeling refreshed and motivated. Several trials have reported that staff took fewer sick days and felt less stressed after switching to four days.",
+      "A four-day week can also benefit employers. When people know they have less time, they tend to focus on important tasks and waste less time in unnecessary meetings. In addition, companies offering this schedule may find it easier to attract and keep talented staff, which saves money on hiring and training.",
+      "Nevertheless, this model would be difficult to apply in some sectors. Hospitals, schools and shops need to be open on fixed days, so they would have to hire extra workers to cover the missing day. For these organisations, a gradual approach, such as rotating days off, would be more realistic.",
+      "In conclusion, I believe a four-day working week brings clear benefits to both workers and businesses, and it should become the norm wherever possible. However, governments should allow flexibility for industries that cannot easily reduce their opening hours."
+    ],
+    "zh": [
+      "近年來，有些公司開始試行一週工作四天，讓員工減少上班天數卻不減薪。有些人主張所有雇主都應該採用這種制度。我大致同意這個看法，但也承認它不一定適合每一種工作。",
+      "縮短工作週的主要好處是能讓員工更健康、更快樂。多放一天假，員工就有更多時間休息、運動和陪伴家人。因此，他們回到工作崗位時很可能精神飽滿、更有幹勁。好幾項試行計畫都發現，改成四天工作後，員工請病假的天數減少，壓力也變小了。",
+      "一週四天也能讓雇主受益。當人們知道時間比較少時，往往會專注在重要的工作上，少花時間開不必要的會議。此外，提供這種制度的公司也可能比較容易吸引並留住優秀人才，省下招募和訓練的費用。",
+      "然而，這種模式在某些行業很難實行。醫院、學校和商店必須在固定的日子營業，所以得多聘人手來補少掉的那一天。對這些機構來說，循序漸進的做法，例如輪流休假，會比較實際。",
+      "總而言之，我認為一週工作四天對員工和企業都有明顯的好處，應該盡可能成為常態。不過，政府應該給無法輕易縮短營業時間的行業保留彈性。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I largely agree with this view, although …",
+      "zh": "表明大致同意的立場，同時保留讓步",
+      "example": "I largely agree with this view, although I accept that it may not suit every type of job.",
+      "keys": ["i largely agree", "although"]
+    },
+    {
+      "pattern": "The main advantage of … is that …",
+      "zh": "段落主題句：點出最主要的好處",
+      "example": "The main advantage of a shorter week is that it can improve workers' health and happiness.",
+      "keys": ["the main advantage of", "is that"]
+    },
+    {
+      "pattern": "As a result, … are likely to …",
+      "zh": "說明前一句帶來的結果",
+      "example": "As a result, they are likely to return to work feeling refreshed and motivated.",
+      "keys": ["as a result", "are likely to"]
+    },
+    {
+      "pattern": "When …, they tend to …",
+      "zh": "描述一般情況下人們的傾向",
+      "example": "When people know they have less time, they tend to focus on important tasks and waste less time in unnecessary meetings.",
+      "keys": ["when", "tend to"]
+    },
+    {
+      "pattern": "Nevertheless, … would be difficult to …",
+      "zh": "轉折：承認這個做法的限制",
+      "example": "Nevertheless, this model would be difficult to apply in some sectors.",
+      "keys": ["nevertheless", "difficult to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Employees have an extra day off.",
+        "They have more time to rest."
+      ],
+      "answer": "With an extra day off, employees have more time to rest."
+    },
+    {
+      "parts": [
+        "Companies may find it easier to keep talented staff.",
+        "This saves money on hiring and training."
+      ],
+      "answer": "Companies may find it easier to keep talented staff, which saves money on hiring and training."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It may not suit every type of job.",
+      "answers": [
+        "It might not be suitable for all jobs.",
+        "Not every job may be able to follow it."
+      ]
+    },
+    {
+      "sentence": "Staff took fewer sick days.",
+      "answers": [
+        "Employees were absent through illness less often.",
+        "Workers called in sick less frequently."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

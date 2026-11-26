@@ -21,6 +21,7 @@ export const WRITING_TYPES = [
   "ielts-task1",
   "ielts-task2",
   "toefl",
+  "toefl-integrated",
   "gept",
   "gsat",
   "toeic",
@@ -69,6 +70,8 @@ export const WRITING_TYPE_CONFIG: Readonly<
   "ielts-task1": { group: "exam", rubric: "ielts-task1" },
   "ielts-task2": { group: "exam", rubric: "ielts" },
   toefl: { group: "exam", rubric: "toefl" },
+  // Reading + lecture summarized in the task (D215); scored like TOEFL.
+  "toefl-integrated": { group: "exam", rubric: "toefl" },
   gept: { group: "exam", rubric: "gept" },
   gsat: { group: "exam", rubric: "gsat" },
   // Scored by the general rubric: a new rubric would change the review

@@ -1,0 +1,95 @@
+{
+  "id": "gsat-picture-wallet-on-the-mrt",
+  "type": "gsat",
+  "level": "intermediate",
+  "title": {
+    "en": "The Wallet on the MRT",
+    "zh": "捷運上的錢包"
+  },
+  "subtitle": "原創模擬題（學測風格）：看圖寫作，寫出撿到錢包之後的發展",
+  "task": "Read the descriptions of the three pictures below. Picture 1: On a crowded MRT train in the morning, a man in a suit jumps up from his seat and hurries toward the doors. His wallet falls out of his pocket onto the floor. Picture 2: A high school boy picks up the wallet and calls out to the man, but the doors are already closing. Picture 3: The boy gets off at the next station and talks to a staff member at the service counter, holding the wallet in his hand. Write an English composition of at least 120 words in two paragraphs. In the first paragraph, describe what happens in the three pictures. In the second paragraph, describe what you think happens next and what the boy learns from the experience.",
+  "taskZh": "依照三張圖的文字描述寫一篇至少 120 字、兩段的英文作文。圖一：早上擁擠的捷運車廂裡，一位穿西裝的男士從座位上跳起來衝向車門，錢包從口袋掉到地上。圖二：一位高中男生撿起錢包、出聲叫那位男士，但車門已經在關了。圖三：男生在下一站下車，手拿錢包，和服務台的站務人員說話。第一段描述三張圖的內容；第二段寫出你認為接下來發生的事，以及男生從這次經驗學到什麼。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 30,
+  "focus": [
+    "內容：涵蓋三張圖的情節，第二段結局合理、有感受",
+    "組織：兩段分工清楚，時間順序連貫",
+    "文法句構：過去式一致，句型有變化",
+    "字彙拼字：用字生動、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "On a Monday morning, the MRT train was packed with students and office workers. Jason, a high school student, was standing near the door and reviewing his English notes. When the train reached Taipei Main Station, a man in a suit jumped up from his seat and rushed out. In his hurry, he did not notice that his wallet had slipped out of his pocket. Jason picked it up and shouted, but the doors had already closed behind the man.",
+      "Without a second thought, Jason got off at the next station and handed the wallet to a staff member at the service counter. Inside the wallet, they found an ID card and a business card with a phone number. The staff member called the owner, who was so relieved that he thanked Jason again and again over the phone. Although Jason arrived at school ten minutes late, his teacher praised him after hearing the story. That day, Jason realized that doing the right thing is worth a little trouble."
+    ],
+    "zh": [
+      "一個星期一早上，捷運車廂擠滿了學生和上班族。高中生 Jason 站在車門旁，正在複習英文筆記。列車抵達台北車站時，一位穿西裝的男士從座位上跳起來，匆匆衝出車廂。匆忙之中，他沒注意到錢包從口袋滑了出來。Jason 撿起錢包大聲叫他，但車門已經在男士身後關上了。",
+      "Jason 毫不猶豫地在下一站下車，把錢包交給服務台的站務人員。他們在錢包裡找到一張身分證和一張印有電話號碼的名片。站務人員打電話給失主，失主鬆了一大口氣，在電話裡向 Jason 再三道謝。雖然 Jason 到學校時遲到了 10 分鐘，但老師聽完事情經過後稱讚了他。那天，Jason 體會到，做對的事就算有點麻煩也值得。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "did not notice that … had …",
+      "zh": "沒注意到……已經……（過去完成式）",
+      "example": "In his hurry, he did not notice that his wallet had slipped out of his pocket.",
+      "keys": ["did not notice that", "had slipped"]
+    },
+    {
+      "pattern": "Without a second thought, …",
+      "zh": "毫不猶豫地（描寫果斷的行動）",
+      "example": "Without a second thought, Jason got off at the next station and handed the wallet to a staff member at the service counter.",
+      "keys": ["without a second thought"]
+    },
+    {
+      "pattern": "…, who was so … that …",
+      "zh": "關係子句加 so … that，說明人物反應",
+      "example": "The staff member called the owner, who was so relieved that he thanked Jason again and again over the phone.",
+      "keys": ["who was so", "that"]
+    },
+    {
+      "pattern": "Although …, …",
+      "zh": "雖然……，但……（讓步）",
+      "example": "Although Jason arrived at school ten minutes late, his teacher praised him after hearing the story.",
+      "keys": ["although"]
+    },
+    {
+      "pattern": "realized that … is worth …",
+      "zh": "體會到……是值得的（寫出啟示）",
+      "example": "That day, Jason realized that doing the right thing is worth a little trouble.",
+      "keys": ["realized that", "worth"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Jason picked up the wallet.", "He shouted to the man."],
+      "answer": "Jason picked up the wallet and shouted to the man."
+    },
+    {
+      "parts": [
+        "Jason arrived at school ten minutes late.",
+        "His teacher praised him."
+      ],
+      "answer": "Although Jason arrived at school ten minutes late, his teacher praised him."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The MRT train was packed with students and office workers.",
+      "answers": [
+        "The MRT train was crowded with students and office workers.",
+        "The MRT train was full of students and office workers."
+      ]
+    },
+    {
+      "sentence": "The owner was very relieved.",
+      "answers": [
+        "The owner felt greatly relieved.",
+        "The owner felt much better."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

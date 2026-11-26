@@ -12,7 +12,7 @@ test("admins manage official materials from the header", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "官方教材", level: 1 }),
   ).toBeVisible();
-  const published = page.getByRole("region", { name: /已發布（1）/ });
+  const published = page.getByRole("region", { name: /已發布（2）/ });
   await expect(published).toContainText("E2E official practice");
   await expect(published).toContainText("在機場報到的簡短對話。");
   // Its notes aren't on the current version: offered for regenerating.

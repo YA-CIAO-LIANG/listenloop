@@ -37,6 +37,6 @@
 - [Confirming the Delivery Date](/videos/p-e05dd867-fe5a-4ebd-b334-76652d2e0a65)：確認交貨日期，印度英語口音
 - [First Day at the Office](/videos/p-92f7178b-7258-4f7c-a8e9-dc1ddd68cdf1)：上班第一天，初級
 
-更多：[職場商務](/learn/business)與[考試聽力](/learn/exam)主題。
+更多：[職場商務](/learn/business)與[考試英文](/exams)主題。
 
 > 說明：ListenLoop 的考試風格教材是模仿題型與難度的原創內容，不是真實考題，與 ETS 等考試主辦單位無關。

@@ -1,0 +1,104 @@
+{
+  "id": "gept-hi-letter-volunteer-application",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "Applying to Volunteer at a Sports Event",
+    "zh": "申請擔任國際運動賽事志工"
+  },
+  "subtitle": "全民英檢中高級：寫信申請擔任國際賽事志工",
+  "task": "An international marathon will be held in your city next spring, and the organizers are looking for volunteers who can speak English. Write a letter of 150–180 words to the organizing committee. In your letter, (1) explain why you want to volunteer, (2) describe the skills or experience that make you suitable, and (3) mention which job you would like to do and when you are available.",
+  "taskZh": "明年春天你的城市將舉辦國際馬拉松，主辦單位正在招募會說英文的志工。請寫一封 150–180 字的信給籌備委員會：(1) 說明你想當志工的原因，(2) 描述讓你適合這份工作的能力或經驗，(3) 說明你想做的工作與可以服務的時間。",
+  "words": {
+    "min": 150,
+    "max": 180
+  },
+  "minutes": 35,
+  "focus": [
+    "內容：動機、能力與經驗、想做的工作與時間三個要求都要寫到",
+    "組織：開頭說明來意、中間舉例說明、結尾提出請求，分段清楚",
+    "文法：句型多樣且正確，善用關係子句與現在完成式",
+    "用字與語氣：正式書信用語恰當，稱呼與結尾完整"
+  ],
+  "model": {
+    "en": [
+      "Dear Organizing Committee,",
+      "I am writing to apply for a volunteer position at the International City Marathon next April. As a university student who runs every weekend, I would love to be part of an event that brings runners from all over the world to my hometown.",
+      "I believe I am well suited to this role for two reasons. First, I am majoring in foreign languages, so I can communicate comfortably in English and have a basic knowledge of Japanese. Second, I have experience working with the public. Last summer, I served as a guide at a local museum, where I answered visitors' questions and helped them find their way around.",
+      "I would be especially interested in working at the information desk or helping international runners pick up their race packs. I am available on the day of the race as well as on the two days before it. Please let me know if you need any further information. Thank you for considering my application.",
+      "Yours faithfully, Jason Wu"
+    ],
+    "zh": [
+      "籌備委員會您好：",
+      "我寫這封信是想申請擔任明年四月國際城市馬拉松的志工。身為一個每個週末都會跑步的大學生，我很希望能參與一場把世界各地跑者帶到我家鄉的活動。",
+      "我認為自己很適合這個工作，原因有兩個。第一，我主修外文，所以能自在地用英文溝通，也有基本的日文能力。第二，我有服務大眾的經驗。去年夏天，我在本地一間博物館擔任導覽員，負責回答遊客的問題，並幫他們找路。",
+      "我特別有興趣在服務台工作，或協助國際跑者領取參賽物資。比賽當天和賽前兩天我都可以服務。如果需要任何進一步的資料，請告訴我。謝謝您考慮我的申請。",
+      "吳傑森 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to apply for …",
+      "zh": "正式書信開頭：說明申請的目的",
+      "example": "I am writing to apply for a volunteer position at the International City Marathon next April.",
+      "keys": ["i am writing to apply for"]
+    },
+    {
+      "pattern": "As a … who …, I would love to …",
+      "zh": "用身分介紹帶出動機",
+      "example": "As a university student who runs every weekend, I would love to be part of an event that brings runners from all over the world to my hometown.",
+      "keys": ["as a", "i would love to"]
+    },
+    {
+      "pattern": "I believe I am well suited to … for two reasons.",
+      "zh": "說明自己適合的理由，並預告兩點",
+      "example": "I believe I am well suited to this role for two reasons.",
+      "keys": ["well suited to", "for two reasons"]
+    },
+    {
+      "pattern": "…, where I …",
+      "zh": "用 where 子句補充在某地的經驗",
+      "example": "Last summer, I served as a guide at a local museum, where I answered visitors' questions and helped them find their way around.",
+      "keys": ["served as", "where i"]
+    },
+    {
+      "pattern": "I am available on … as well as on …",
+      "zh": "說明可以服務的時間",
+      "example": "I am available on the day of the race as well as on the two days before it.",
+      "keys": ["i am available on", "as well as"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I served as a guide at a local museum.",
+        "I answered visitors' questions there."
+      ],
+      "answer": "I served as a guide at a local museum, where I answered visitors' questions."
+    },
+    {
+      "parts": [
+        "I am majoring in foreign languages.",
+        "I can communicate comfortably in English."
+      ],
+      "answer": "I am majoring in foreign languages, so I can communicate comfortably in English."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I am well suited to this role.",
+      "answers": [
+        "I am a good fit for this position.",
+        "I have the right qualities for this job."
+      ]
+    },
+    {
+      "sentence": "Please let me know if you need any further information.",
+      "answers": [
+        "Please contact me if you need more details.",
+        "Feel free to ask if you would like more information."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,113 @@
+{
+  "id": "ielts-task1-car-sales-by-fuel",
+  "type": "ielts-task1",
+  "level": "advanced",
+  "title": {
+    "en": "Petrol, Hybrid and Electric Car Sales",
+    "zh": "汽油車、油電車與電動車的銷量"
+  },
+  "subtitle": "原創模擬題：描述三種車款八年間銷量的消長（折線圖）",
+  "task": "The line graph below shows the number of new petrol, hybrid and electric cars sold in Norland between 2016 and 2024 (in thousands). Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+  "taskZh": "下面的折線圖（以表格呈現資料）是 2016 到 2024 年 Norland 國新車中汽油車、油電混合車和電動車的銷售量（單位：千輛）。請挑出主要特徵加以摘要，並在適當處比較。至少寫 150 字。國家與資料皆為虛構。",
+  "chart": {
+    "title": "New car sales in Norland by type, 2016–2024 (thousands)",
+    "columns": ["Year", "Petrol", "Hybrid", "Electric"],
+    "rows": [
+      ["2016", 240, 30, 5],
+      ["2018", 225, 55, 15],
+      ["2020", 170, 70, 40],
+      ["2022", 130, 95, 90],
+      ["2024", 80, 105, 150]
+    ]
+  },
+  "words": {
+    "min": 150,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：Overview 點出汽油車衰退、電動車反超的整體趨勢",
+    "Coherence and Cohesion：依車款分段，用時間與轉折詞串起變化",
+    "Lexical Resource：趨勢動詞與倍數、分數的說法要精準多變",
+    "Grammatical Range and Accuracy：過去式、分詞構句與完成式正確"
+  ],
+  "model": {
+    "en": [
+      "The line graph illustrates the number of new petrol, hybrid and electric cars sold in Norland every two years between 2016 and 2024, measured in thousands.",
+      "Overall, the market shifted dramatically away from petrol cars towards cleaner vehicles over the period. While petrol models dominated sales at the start, electric cars had overtaken both of the other types by 2024.",
+      "In 2016, petrol cars were by far the best-selling type, with 240,000 sold, compared with just 30,000 hybrids and a mere 5,000 electric cars. Petrol sales then fell continuously, dipping only slightly to 225,000 in 2018 before dropping much more steeply to 80,000 by 2024. This represents a decline of two thirds over the eight years.",
+      "Hybrid sales, by contrast, more than tripled, rising steadily to 105,000 and overtaking petrol sales by 2024. The most striking growth, however, was seen in electric cars. Having sold only 5,000 in 2016, they climbed gradually to 40,000 in 2020 and then surged to 150,000 in 2024, a thirtyfold increase. As a result, they ended the period as the most popular choice, ahead of hybrids by 45,000."
+    ],
+    "zh": [
+      "這張折線圖呈現 2016 到 2024 年間，Norland 每兩年售出的新汽油車、油電混合車和電動車數量，單位為千輛。",
+      "整體而言，這段期間市場大幅從汽油車轉向較環保的車款。期初汽油車在銷量上占絕對優勢，但到了 2024 年，電動車已超越另外兩種車款。",
+      "2016 年，汽油車是遙遙領先的暢銷車種，售出 24 萬輛，油電車只有 3 萬輛，電動車更僅有 5 千輛。之後汽油車銷量持續下滑，2018 年只小幅降到 22.5 萬輛，接著跌勢加劇，到 2024 年只剩 8 萬輛。這代表八年間減少了三分之二。",
+      "相較之下，油電車銷量成長超過三倍，穩定上升到 10.5 萬輛，到了 2024 年已超越汽油車。然而，最驚人的成長出現在電動車。2016 年只賣出 5 千輛的電動車，2020 年逐步升到 4 萬輛，接著在 2024 年暴增到 15 萬輛，成長了三十倍。因此，電動車在期末成為最受歡迎的選擇，比油電車多出 4.5 萬輛。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Overall, … shifted … away from … towards …",
+      "zh": "Overview：用 shift away from … towards 概括整體轉變",
+      "example": "Overall, the market shifted dramatically away from petrol cars towards cleaner vehicles over the period.",
+      "keys": ["shifted", "away from", "towards"]
+    },
+    {
+      "pattern": "…, compared with just … and a mere …",
+      "zh": "用 just、a mere 強調數字很小",
+      "example": "In 2016, petrol cars were by far the best-selling type, with 240,000 sold, compared with just 30,000 hybrids and a mere 5,000 electric cars.",
+      "keys": ["compared with just", "a mere"]
+    },
+    {
+      "pattern": "… fell continuously, dipping only slightly to … before dropping … to …",
+      "zh": "用兩個分詞構句描述先緩後急的下降",
+      "example": "Petrol sales then fell continuously, dipping only slightly to 225,000 in 2018 before dropping much more steeply to 80,000 by 2024.",
+      "keys": ["dipping only slightly", "before dropping"]
+    },
+    {
+      "pattern": "Having sold only …, they climbed … and then surged to …",
+      "zh": "用 Having + 過去分詞交代起點，再寫出後續變化",
+      "example": "Having sold only 5,000 in 2016, they climbed gradually to 40,000 in 2020 and then surged to 150,000 in 2024, a thirtyfold increase.",
+      "keys": ["having sold only", "surged to"]
+    },
+    {
+      "pattern": "As a result, they ended the period as …",
+      "zh": "說明最終結果與排名",
+      "example": "As a result, they ended the period as the most popular choice, ahead of hybrids by 45,000.",
+      "keys": ["as a result", "ended the period as"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Hybrid sales more than tripled.",
+        "They overtook petrol sales by 2024."
+      ],
+      "answer": "Hybrid sales more than tripled, overtaking petrol sales by 2024."
+    },
+    {
+      "parts": [
+        "Electric cars sold only 5,000 in 2016.",
+        "They surged to 150,000 in 2024."
+      ],
+      "answer": "Having sold only 5,000 in 2016, electric cars surged to 150,000 in 2024."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Petrol sales fell continuously.",
+      "answers": [
+        "Sales of petrol cars declined throughout the period.",
+        "There was a steady fall in petrol car sales."
+      ]
+    },
+    {
+      "sentence": "Electric cars ended the period as the most popular choice.",
+      "answers": [
+        "By the end of the period, electric cars were the best-selling type.",
+        "Electric models had become the top sellers by 2024."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

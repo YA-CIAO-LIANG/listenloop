@@ -1,0 +1,133 @@
+{
+  "id": "hs-listening",
+  "name": {
+    "zh": "高中英語聽力測驗（英聽）",
+    "en": "High School English Listening Comprehension Test"
+  },
+  "summary": {
+    "zh": "大考中心辦理的高中英聽，一年考兩次，40 題選擇題、成績分 A、B、C、F 四級。大學校系可以自訂是否把英聽等級列為入學檢定。",
+    "en": "CEEC's high school listening test, held twice a year: 40 multiple-choice items graded A, B, C, or F. University departments may use the grade as an admissions screening requirement."
+  },
+  "sections": [
+    {
+      "id": "about",
+      "heading": { "zh": "考試簡介", "en": "About the test" },
+      "paragraphs": {
+        "zh": [
+          "高中英語聽力測驗由大學入學考試中心（大考中心）辦理，111 學年度起依 108 課綱命題，範圍是高一、高二部定必修英文。除了日常生活的應用與溝通，也重視課堂學習相關的英語能力。",
+          "考試時間共 60 分鐘：預備時間 10 分鐘，考試說明與正式作答 50 分鐘。各試場以 MP3 播放器分散播音，用 2B 鉛筆在答題卷上劃記。",
+          "英聽一年辦兩次，第一次考試依考區人數可能分上、下午場，使用不同試卷。大考中心不在考後公布試題，但自 104 年起每年公布一卷由正式試題組成的「試題示例」與參考答案。"
+        ],
+        "en": [
+          "The test is run by the College Entrance Examination Center (CEEC). Since academic year 111 it follows the 2019 curriculum, covering the required English courses of grades 10 and 11. Besides everyday communication, it also targets English used in classroom learning.",
+          "The session lasts 60 minutes: 10 minutes of preparation and 50 minutes of instructions and testing. Audio is played in each room on MP3 players, and answers are marked on an answer sheet with a 2B pencil.",
+          "It is held twice a year; the first sitting may have morning and afternoon sessions with different papers. CEEC does not release the papers after the test, but since 2015 it has published one sample paper each year made of real test items, with answers."
+        ]
+      }
+    },
+    {
+      "id": "format",
+      "heading": { "zh": "題型", "en": "Format" },
+      "paragraphs": {
+        "zh": [
+          "全卷 40 題選擇題，分五大題：圖片聽解、對答、簡短對話、短文聽解、長篇聽解。除了圖片聽解有部分多選題（選出兩個符合圖意的答案），其餘都是單選題。各大題題數以當年度簡章為準；在大考中心的參考試卷中，五大題各 8 題，每題（組）只播放一次。",
+          "長篇聽解是 111 學年度起新增的題型：每個題組 4 題，語音可能是一篇演講或 2～3 人的對話，試題本附有大綱或圖表，讓你邊聽邊記重點（筆記不計分）。",
+          "詞彙以高中英文常用 4,500 字詞為主，可參考大考中心參考詞彙表第一至第四級，偶爾會出現第五級以上的詞彙。情境包括家庭、校園、公共場所、社交場合等。"
+        ],
+        "en": [
+          "The paper has 40 multiple-choice items in five parts: picture listening, responses, short conversations, short talks, and extended listening. Picture listening includes some items where you choose two answers; all others have one answer. Item counts per part follow each year's exam guide; in CEEC's reference paper each part has 8 items, and each item or set is played once.",
+          "Extended listening was added from academic year 111: each set has 4 questions, the audio may be a speech or a conversation among 2–3 people, and the test booklet provides an outline or chart for note-taking while you listen (notes are not scored).",
+          "Vocabulary is mainly the 4,500 common words in CEEC's reference list, levels 1–4, with occasional level 5+ words. Settings include home, school, public places, and social situations."
+        ]
+      }
+    },
+    {
+      "id": "listening-scoring",
+      "heading": { "zh": "聽力的評分方式", "en": "How listening is scored" },
+      "paragraphs": {
+        "zh": [
+          "成績採等級制，由高到低為 A、B、C、F。因為不同場次的試卷難易度可能不同，大考中心先把答對題數轉換成能力值，經「測驗等化」放到共同量尺上，再依切截標準分級。所以上午場和下午場答對同樣題數，等級不一定相同。",
+          "五種題型配分相同，成績通知單會列出你在各題型的表現，可以據此決定加強哪一種題型。英聽是標準參照測驗，沒有「通過」標準。",
+          "等級分布供參考：116 學年度第一次考試（115 年 10 月公布），到考 87,644 人中 A 級 21.47%、B 級 37.15%、C 級 36.12%、F 級 5.26%。"
+        ],
+        "en": [
+          "Results are graded A, B, C, and F, from highest to lowest. Because papers in different sessions may differ in difficulty, CEEC converts the number correct into an ability estimate, equates it onto a common scale, and then applies cut scores. So two students with the same number correct in the morning and afternoon sessions may get different grades.",
+          "All five task types carry equal weight, and the score report shows your performance on each type so you can see what to work on. The test is criterion-referenced and has no pass mark.",
+          "For reference, in the first sitting for academic year 116 (results published October 2026), of 87,644 test takers 21.47% received A, 37.15% B, 36.12% C, and 5.26% F."
+        ]
+      }
+    },
+    {
+      "id": "writing-scoring",
+      "heading": { "zh": "寫作的評分方式", "en": "How writing is scored" },
+      "paragraphs": {
+        "zh": [
+          "英聽只考聽力，沒有寫作題。高中階段的英文寫作（中譯英與英文作文）在學測英文的非選擇題中考，評分方式請看本站的「學測英文」指南。",
+          "不過長篇聽解要邊聽邊在大綱或圖表上記重點，能快速把聽到的字寫下來，對作答很有幫助。"
+        ],
+        "en": [
+          "The listening test has no writing tasks. High school English writing (translation and an essay) is tested in the written section of GSAT English; see our GSAT English guide for how it is scored.",
+          "That said, extended listening asks you to note key points on an outline or chart while listening, so being able to write down what you hear quickly helps."
+        ]
+      }
+    },
+    {
+      "id": "practice",
+      "heading": { "zh": "建議練習方式", "en": "How to practise" },
+      "paragraphs": {
+        "zh": [
+          "大考中心建議持續練習，善用課本附的音檔、廣播、電視節目或網路資源，並用參考試卷了解自己的強弱項。ListenLoop 可以讓這種練習更有結構：第 1 天逐句聽寫，找出你漏聽的字；第 2～6 天跟讀，練到聽到就懂；第 7 天再聽寫一次，和第 1 天比較。",
+          "長篇聽解需要聽較長的內容並記筆記，可以選 3～5 分鐘、有明確主題的教材（例如演講或校園情境），練習抓重點與細節。",
+          "對答題要在聽到一句話後選出最適當的回應，建議先熟悉常見問句與回應方式；考前請用大考中心的參考試卷與歷年試題示例，依考試時間完整練習一次。"
+        ],
+        "en": [
+          "CEEC suggests steady practice with textbook audio, radio, TV, or online resources, and using the reference paper to find your strengths and weaknesses. ListenLoop adds structure: Day 1 sentence-by-sentence dictation shows which words you miss, Days 2–6 of shadowing build instant understanding, and Day 7 repeats the dictation to compare with Day 1.",
+          "Extended listening needs longer audio and note-taking, so choose 3–5 minute material with a clear topic (such as a speech or a campus situation) to practise catching main ideas and details.",
+          "Response items ask you to choose the best reply to one line, so get familiar with common questions and replies. Before the test, do CEEC's reference paper and the yearly sample papers under timed conditions."
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "title": {
+        "zh": "111 學年度起適用：英聽參考試卷（含錄音檔、答案、解析）",
+        "en": "From year 111: reference paper (with audio, answers, and explanations)"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/xmdoc/cont?xsmsid=0J018576253614017417&sid=0K213573223911544799",
+      "kind": "practice",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "歷年試題示例（適用 108 課綱，含錄音檔與參考答案）",
+        "en": "Yearly sample papers (2019 curriculum, with audio and answers)"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/xmdoc/cont?xsmsid=0J018576253614017417&sid=0M200595497962808262",
+      "kind": "past-papers",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "英聽簡介（測驗時間、範圍、題型）",
+        "en": "About the test (time, scope, format)"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/xmdoc/cont?xsmsid=0J018575771613542490",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "英聽常見問題（PDF：題型準備建議、成績等級與等化）",
+        "en": "FAQ (PDF: preparation by task type, grades, and equating)"
+      },
+      "publisher": "大學入學考試中心 CEEC",
+      "url": "https://www.ceec.edu.tw/files/file_pool/1/0N241391214032222778/%E9%AB%98%E4%B8%AD%E8%8B%B1%E8%AA%9E%E8%81%BD%E5%8A%9B%E6%B8%AC%E9%A9%97%E5%B8%B8%E8%A6%8B%E5%95%8F%E9%A1%8C.pdf",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    }
+  ]
+}

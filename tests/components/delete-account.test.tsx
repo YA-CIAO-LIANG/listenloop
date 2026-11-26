@@ -98,6 +98,7 @@ describe("SiteFooter", () => {
       // Feedback first, then the Beta guide (D212).
       "/feedback",
       "/beta",
+      "/exams",
       "/learn",
       "/blog",
       "/faq",

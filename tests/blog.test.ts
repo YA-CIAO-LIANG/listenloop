@@ -40,6 +40,8 @@ describe("articles (D122)", () => {
         const learn = /^\/learn\/([a-z-]+)$/.exec(link);
         const ok =
           link === "/level-test" ||
+          // Exam English (D215).
+          link === "/exams" ||
           new RegExp(`^/videos/p-${UUID}$`).test(link) ||
           (blog !== null && BLOG_POSTS.some((p) => p.slug === blog[1])) ||
           (learn !== null && isLearnCategory(learn[1]));

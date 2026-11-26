@@ -1,0 +1,80 @@
+{
+  "id": "cap-learning-a-new-hobby",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "Learning a New Hobby",
+    "zh": "學一項新嗜好"
+  },
+  "subtitle": "國中程度引導式短文：回答三個問題，寫你開始學的新嗜好",
+  "task": "Write a short passage of 60–100 words about a new hobby you started. Your passage should answer these questions: (1) What new hobby did you start? (2) How did you learn it? (3) Was it easy, and how do you feel about it now?",
+  "taskZh": "寫一篇 60–100 字的英文短文，寫一項你開始學的新嗜好。短文要回答三個問題：(1) 你開始學什麼新嗜好？(2) 你是怎麼學的？(3) 學起來容易嗎？你現在對它有什麼感覺？",
+  "words": {
+    "min": 60,
+    "max": 100
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三個問題都要回答到",
+    "文法：過去發生的事用過去式，動詞變化正確",
+    "連接詞：用 and、but、so、because 讓句子連貫",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "This year, I started learning to play the ukulele. My cousin gave me her old one because she did not use it anymore. At first, I watched videos online and practiced for twenty minutes every night. It was not easy for me. My fingers hurt, and the sounds were terrible. However, I did not give up. After two months, I could play my first song for my family. Now playing the ukulele is the best way for me to relax after school."
+    ],
+    "zh": [
+      "今年，我開始學彈烏克麗麗。我表姊把她的舊烏克麗麗送給我，因為她已經不彈了。一開始，我在網路上看影片，每天晚上練習 20 分鐘。這對我來說並不容易。我的手指很痛，彈出來的聲音也很難聽。不過，我沒有放棄。兩個月後，我已經能為家人彈奏我的第一首歌。現在，彈烏克麗麗是我放學後最好的放鬆方式。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "started + V-ing",
+      "zh": "開始做某事",
+      "example": "This year, I started learning to play the ukulele.",
+      "keys": ["started learning"]
+    },
+    {
+      "pattern": "At first, …",
+      "zh": "一開始……（交代過程）",
+      "example": "At first, I watched videos online and practiced for twenty minutes every night.",
+      "keys": ["at first"]
+    },
+    {
+      "pattern": "However, I did not give up.",
+      "zh": "不過，我沒有放棄（轉折）",
+      "example": "However, I did not give up.",
+      "keys": ["however", "did not give up"]
+    },
+    {
+      "pattern": "the best way for me to …",
+      "zh": "對我來說……最好的方式",
+      "example": "Now playing the ukulele is the best way for me to relax after school.",
+      "keys": ["the best way", "to relax"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I watched videos online.",
+        "I practiced for twenty minutes every night."
+      ],
+      "answer": "I watched videos online and practiced for twenty minutes every night."
+    },
+    {
+      "parts": [
+        "My cousin gave me her old ukulele.",
+        "She did not use it anymore."
+      ],
+      "answer": "My cousin gave me her old ukulele because she did not use it anymore."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It was not easy for me.",
+      "answers": ["It was hard for me.", "It was difficult for me."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

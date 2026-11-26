@@ -1,0 +1,84 @@
+{
+  "id": "gept-pic-typhoon-day-at-home",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "A Typhoon Day at Home",
+    "zh": "颱風天在家"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段颱風假在家的短文",
+  "task": "Look at the three pictures. Picture 1: It is windy and rainy outside, and a girl stays at home on a typhoon day. Picture 2: The power goes out, and her father lights some candles. Picture 3: The family plays card games and eats hot noodles together. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：外面風雨很大，女孩在颱風天待在家。圖二：停電了，爸爸點了幾根蠟燭。圖三：全家一起玩撲克牌、吃熱騰騰的麵。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（颱風天在家、停電點蠟燭、全家玩牌吃麵）都要寫到",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "Last Tuesday, a strong typhoon hit Taiwan, so there was no school. It was windy and rainy outside, and Mandy stayed at home with her family. In the afternoon, the power went out. Her father lit some candles, and they played card games together. Her mother made hot noodles for everyone. Mandy thought the typhoon day was a little scary but also fun."
+    ],
+    "zh": [
+      "上週二，一個強烈颱風侵襲台灣，所以學校停課。外面風雨很大，Mandy 和家人待在家裡。下午停電了。爸爸點了幾根蠟燭，全家一起玩撲克牌。媽媽煮了熱騰騰的麵給大家吃。Mandy 覺得這個颱風天有點可怕，但也很好玩。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "…, so there was no school.",
+      "zh": "說明颱風造成的結果",
+      "example": "Last Tuesday, a strong typhoon hit Taiwan, so there was no school.",
+      "keys": ["so", "no school"]
+    },
+    {
+      "pattern": "It was … outside.",
+      "zh": "描述外面的天氣",
+      "example": "It was windy and rainy outside, and Mandy stayed at home with her family.",
+      "keys": ["it was", "outside"]
+    },
+    {
+      "pattern": "make … for …",
+      "zh": "為某人做（煮）某物",
+      "example": "Her mother made hot noodles for everyone.",
+      "keys": ["made", "for everyone"]
+    },
+    {
+      "pattern": "a little … but also …",
+      "zh": "同時說出兩種感受",
+      "example": "Mandy thought the typhoon day was a little scary but also fun.",
+      "keys": ["a little", "but also"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["The power went out.", "Her father lit some candles."],
+      "answer": "The power went out, so her father lit some candles."
+    },
+    {
+      "parts": [
+        "Her father lit some candles.",
+        "They played card games together."
+      ],
+      "answer": "Her father lit some candles, and they played card games together."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "There was no school.",
+      "answers": [
+        "School was closed.",
+        "The students did not have to go to school."
+      ]
+    },
+    {
+      "sentence": "The power went out.",
+      "answers": ["There was no electricity.", "The electricity went off."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

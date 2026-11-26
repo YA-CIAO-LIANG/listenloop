@@ -30,6 +30,6 @@
 - [First Order at the Coffee Shop](/videos/p-94439aa3-7ec3-48ed-89ad-9a70ce985226)：咖啡店點餐，初級
 - [Hiking or Night Market](/videos/p-e2ede85c-c7a2-4614-af18-0e58c9edc4ea)：週末計畫的日常對話
 
-更多：[考試聽力](/learn/exam)與[校園學術](/learn/campus)主題。不確定程度的話，先做[程度測驗](/level-test)。
+更多：[考試英文](/exams)與[校園學術](/learn/campus)主題。不確定程度的話，先做[程度測驗](/level-test)。
 
 > 說明：ListenLoop 的教材是原創內容，不是真實考題，與大學入學考試中心無關。

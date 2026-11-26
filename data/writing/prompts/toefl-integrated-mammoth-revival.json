@@ -1,0 +1,105 @@
+{
+  "id": "toefl-integrated-mammoth-revival",
+  "type": "toefl-integrated",
+  "level": "advanced",
+  "title": {
+    "en": "Bringing Back the Mammoth",
+    "zh": "該讓長毛象復活嗎？"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課反駁復育長毛象的三個理由",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: Some scientists hope to use genetic engineering to bring back an animal similar to the woolly mammoth, which died out thousands of years ago. The reading argues that the project is worthwhile for three reasons. First, mammoths could restore the Arctic grasslands they once maintained, and by trampling snow they would help keep the frozen ground from melting. Second, the research would advance genetic technologies that could protect endangered animals today. Third, the project excites the public and could increase support for science and conservation.\n\nLecture: The professor finds these reasons unconvincing. First, changing the Arctic landscape would require tens of thousands of animals, while producing even one healthy calf would take many years, so any climate benefit is decades away at best. Second, the same money would save more species if it were spent directly on protecting the habitats of animals that still exist. Third, public excitement could backfire: if people believe extinct animals can simply be brought back, they may feel less urgency to protect endangered species now.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要主張用基因工程復育類似長毛象的動物是值得的（恢復北極草原、推動保育技術、引起大眾關注），講課摘要則逐點反駁。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading maintains that reviving a mammoth-like animal through genetic engineering would be worthwhile. The lecturer, however, finds each of the reading's three reasons unconvincing.",
+      "First, the reading argues that mammoths could restore the Arctic grasslands and help keep the frozen ground from melting. In response, the lecturer points out that such a change would require tens of thousands of animals, whereas producing even one healthy calf would take many years. Consequently, any benefit to the climate would be decades away at best.",
+      "Second, while the reading claims that the research would advance technologies for protecting endangered species, the lecturer questions whether this is the best use of resources. In her opinion, the same money would save more species if it were spent directly on protecting the habitats of animals that still exist.",
+      "Finally, the lecturer challenges the idea that public excitement would increase support for conservation. She warns that this enthusiasm could backfire. If people believe that extinct animals can simply be brought back, they may feel less urgency to protect the endangered species that are alive today."
+    ],
+    "zh": [
+      "閱讀文章主張，透過基因工程復育類似長毛象的動物是值得的。然而，講者認為閱讀文章的三個理由都缺乏說服力。",
+      "首先，閱讀文章認為長毛象能恢復北極的草原，並有助於防止凍土融化。對此，講者指出，這樣的改變需要數萬頭動物，而光是培育出一頭健康的小象就要花上好幾年。因此，對氣候的任何好處，最快也要幾十年後才會出現。",
+      "其次，雖然閱讀文章聲稱這項研究能推動保護瀕危物種的技術，講者卻質疑這是否是資源的最佳用途。她認為，同樣的經費如果直接用來保護現存動物的棲地，能拯救更多物種。",
+      "最後，講者反駁大眾的熱情能提高對保育的支持這個說法。她提醒，這種熱情可能會適得其反。如果人們相信滅絕的動物可以輕易被復活，他們可能就不會那麼急著保護現在仍活著的瀕危物種。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The reading maintains that …",
+      "zh": "開頭簡述閱讀文章的主張",
+      "example": "The reading maintains that reviving a mammoth-like animal through genetic engineering would be worthwhile.",
+      "keys": ["the reading maintains that"]
+    },
+    {
+      "pattern": "In response, the lecturer points out that …, whereas …",
+      "zh": "轉述講者的回應，並用 whereas 對比兩個事實",
+      "example": "In response, the lecturer points out that such a change would require tens of thousands of animals, whereas producing even one healthy calf would take many years.",
+      "keys": ["in response", "the lecturer points out that", "whereas"]
+    },
+    {
+      "pattern": "Consequently, … would be … at best.",
+      "zh": "說明推論出的結果",
+      "example": "Consequently, any benefit to the climate would be decades away at best.",
+      "keys": ["consequently", "at best"]
+    },
+    {
+      "pattern": "…, while the reading claims that …, the lecturer questions whether …",
+      "zh": "在同一句裡對照閱讀主張與講者質疑",
+      "example": "Second, while the reading claims that the research would advance technologies for protecting endangered species, the lecturer questions whether this is the best use of resources.",
+      "keys": [
+        "while the reading claims that",
+        "the lecturer questions whether"
+      ]
+    },
+    {
+      "pattern": "She warns that … could backfire.",
+      "zh": "轉述講者提醒的反效果",
+      "example": "She warns that this enthusiasm could backfire.",
+      "keys": ["she warns that", "backfire"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Such a change would require tens of thousands of animals.",
+        "Producing even one healthy calf would take many years."
+      ],
+      "answer": "Such a change would require tens of thousands of animals, whereas producing even one healthy calf would take many years."
+    },
+    {
+      "parts": [
+        "People may believe extinct animals can be brought back.",
+        "They may feel less urgency to protect endangered species."
+      ],
+      "answer": "If people believe extinct animals can be brought back, they may feel less urgency to protect endangered species."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Any benefit to the climate would be decades away at best.",
+      "answers": [
+        "The climate would not benefit for at least several decades.",
+        "Even in the best case, the climate benefits would take decades to appear."
+      ]
+    },
+    {
+      "sentence": "This enthusiasm could backfire.",
+      "answers": [
+        "This excitement could have the opposite effect.",
+        "Public interest might end up causing harm."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

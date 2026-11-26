@@ -1,0 +1,88 @@
+{
+  "id": "campus-housing-noisy-neighbor",
+  "type": "campus-housing",
+  "level": "beginner",
+  "title": {
+    "en": "A Noisy Neighbor",
+    "zh": "隔壁太吵"
+  },
+  "subtitle": "隔壁同學半夜放音樂，寫信請宿舍樓長幫忙",
+  "task": "The student in the room next to yours plays loud music late at night. Write a short email to your dorm's resident assistant, Sam. Describe the problem and ask for help.",
+  "taskZh": "你隔壁房間的同學常在深夜大聲放音樂。寫一封簡短的 email 給宿舍樓長 Sam：描述問題並請他幫忙。",
+  "words": {
+    "min": 60,
+    "max": 110
+  },
+  "minutes": 10,
+  "focus": [
+    "清楚描述問題（時間、頻率、影響）",
+    "說明自己已經試過的做法",
+    "禮貌地提出請求"
+  ],
+  "model": {
+    "en": [
+      "Hi Sam,",
+      "I live in Room 305, and I am writing about a noise problem. The student in Room 307 often plays loud music after midnight. Last week, it happened four nights in a row, and I could not sleep well before my exams.",
+      "I knocked on his door once, but no one answered. Could you please talk to him about the quiet hours? I don't want to cause any trouble, but I really need to rest.",
+      "Thanks,",
+      "Ming Chou"
+    ],
+    "zh": [
+      "Sam 你好：",
+      "我住在 305 號房，想反映一個噪音問題。307 號房的同學常常在半夜十二點後大聲放音樂。上週連續四個晚上都這樣，害我考試前睡不好。",
+      "我去敲過一次他的門，但沒有人應門。可以請你跟他提醒一下宿舍的安靜時段嗎？我不想惹麻煩，但我真的需要休息。",
+      "謝謝",
+      "周明"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing about …",
+      "zh": "說明來信要反映的事",
+      "example": "I live in Room 305, and I am writing about a noise problem.",
+      "keys": ["writing about"]
+    },
+    {
+      "pattern": "… in a row",
+      "zh": "連續……",
+      "example": "Last week, it happened four nights in a row, and I could not sleep well before my exams.",
+      "keys": ["in a row"]
+    },
+    {
+      "pattern": "Could you please …?",
+      "zh": "禮貌的請求",
+      "example": "Could you please talk to him about the quiet hours?",
+      "keys": ["could you please"]
+    },
+    {
+      "pattern": "I don't want to …, but …",
+      "zh": "先表明善意，再說出需要",
+      "example": "I don't want to cause any trouble, but I really need to rest.",
+      "keys": ["don't want to", "but"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I knocked on his door once.", "No one answered."],
+      "answer": "I knocked on his door once, but no one answered."
+    },
+    {
+      "parts": ["I live in Room 305.", "I am writing about a noise problem."],
+      "answer": "I live in Room 305, and I am writing about a noise problem."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I could not sleep well.",
+      "answers": ["I had trouble sleeping.", "I didn't get enough sleep."]
+    },
+    {
+      "sentence": "I don't want to cause any trouble.",
+      "answers": [
+        "I don't want to make things difficult.",
+        "I'm not trying to start a problem."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

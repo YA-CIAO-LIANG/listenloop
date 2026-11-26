@@ -1,0 +1,104 @@
+{
+  "id": "ielts-task2-living-alone",
+  "type": "ielts-task2",
+  "level": "advanced",
+  "title": {
+    "en": "Why Do More People Live Alone?",
+    "zh": "為什麼越來越多人獨居？"
+  },
+  "subtitle": "原創模擬題：雙問題型議論文（原因與正負評價）",
+  "task": "In many countries, an increasing number of people are choosing to live alone. Why is this happening? Is this a positive or negative development? Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "在許多國家，選擇獨居的人越來越多。為什麼會這樣？這是正面還是負面的發展？兩個問題都要回答，請說明理由並舉例。至少寫 250 字。",
+  "words": {
+    "min": 250,
+    "max": 320
+  },
+  "minutes": 40,
+  "focus": [
+    "Task Response：兩個問題都要回答，評價要明確並貫穿全文",
+    "Coherence and Cohesion：原因段、優點段、缺點段分工清楚，用 Firstly、Secondly、Admittedly 串連",
+    "Lexical Resource：社會、人口與生活型態相關字彙精準",
+    "Grammatical Range and Accuracy：關係子句、分詞構句與讓步句正確"
+  ],
+  "model": {
+    "en": [
+      "In many parts of the world, single-person households have become increasingly common. This trend can be explained by economic and social changes, and in my view, it is largely a positive development, provided that people living alone remain connected to others.",
+      "There are several reasons why more people now live by themselves. Firstly, rising incomes and greater financial independence, particularly among women, have made it possible for many adults to afford their own homes without a partner. Secondly, people are marrying later or not at all, which means they spend more years of their adult life single. In addition, populations are ageing, and many elderly people who have lost a spouse prefer to stay in their own homes rather than move in with their children.",
+      "On the positive side, living alone gives people freedom and independence. They can organise their time, space and finances exactly as they wish, which allows them to focus on their careers, hobbies or personal growth. Many people also find that having time to themselves helps them recover from the pressures of work and city life.",
+      "Admittedly, this lifestyle has potential drawbacks. Those who live alone may be at greater risk of loneliness, especially older people with limited mobility. Single-person households also use more housing, energy and resources per person, adding to the pressure on crowded cities. Nevertheless, these problems can be reduced through community centres, shared housing schemes and smaller, more efficient homes.",
+      "In conclusion, the rise in solo living reflects greater wealth, later marriage and longer life expectancy. Although it brings some risks, I believe it is mainly a positive change, as long as societies make sure that living alone does not mean being alone."
+    ],
+    "zh": [
+      "在世界許多地方，單人家戶越來越普遍。這個趨勢可以用經濟與社會的變化來解釋，而我認為這大致是正面的發展，前提是獨居的人仍與他人保持聯繫。",
+      "現在越來越多人獨自生活，原因有好幾個。第一，收入提高、經濟更加獨立，尤其是女性，讓許多成年人不需要伴侶也負擔得起自己的住處。第二，人們越來越晚婚或不婚，也就是說，他們成年後單身的時間更長。此外，人口逐漸老化，許多失去配偶的長者寧願留在自己家裡，也不願搬去和子女同住。",
+      "從正面來看，獨居讓人擁有自由與獨立。他們可以完全依自己的意願安排時間、空間和財務，進而專注在事業、興趣或自我成長上。許多人也發現，擁有屬於自己的時間能幫助他們從工作和都市生活的壓力中恢復。",
+      "不可否認，這種生活方式有一些潛在的缺點。獨居的人可能比較容易感到孤單，尤其是行動不便的長者。單人家戶平均每人使用的住宅、能源和資源也比較多，加重了擁擠城市的負擔。儘管如此，這些問題可以透過社區中心、共居住宅計畫，以及較小、較節能的住宅來減輕。",
+      "總而言之，獨居人口增加反映出財富增加、晚婚以及壽命延長。雖然它帶來一些風險，我認為這主要是正面的改變，只要社會確保「獨自生活」不等於「孤立無援」。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "This trend can be explained by …",
+      "zh": "開頭用一句話概括原因",
+      "example": "This trend can be explained by economic and social changes, and in my view, it is largely a positive development, provided that people living alone remain connected to others.",
+      "keys": ["this trend can be explained by", "provided that"]
+    },
+    {
+      "pattern": "There are several reasons why …",
+      "zh": "段落主題句：帶出接下來要列的原因",
+      "example": "There are several reasons why more people now live by themselves.",
+      "keys": ["there are several reasons why"]
+    },
+    {
+      "pattern": "…, which means …",
+      "zh": "用 which means 說明前述情況的意義",
+      "example": "Secondly, people are marrying later or not at all, which means they spend more years of their adult life single.",
+      "keys": ["secondly", "which means"]
+    },
+    {
+      "pattern": "Admittedly, …",
+      "zh": "讓步：承認這個現象的缺點",
+      "example": "Admittedly, this lifestyle has potential drawbacks.",
+      "keys": ["admittedly"]
+    },
+    {
+      "pattern": "…, as long as … make sure that …",
+      "zh": "在結論中加上條件",
+      "example": "Although it brings some risks, I believe it is mainly a positive change, as long as societies make sure that living alone does not mean being alone.",
+      "keys": ["although", "as long as", "make sure that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "People are marrying later.",
+        "They spend more years of their adult life single."
+      ],
+      "answer": "People are marrying later, which means they spend more years of their adult life single."
+    },
+    {
+      "parts": [
+        "Living alone brings some risks.",
+        "It is mainly a positive change."
+      ],
+      "answer": "Although living alone brings some risks, it is mainly a positive change."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Single-person households have become increasingly common.",
+      "answers": [
+        "More and more people now live on their own.",
+        "The number of people living alone has risen steadily."
+      ]
+    },
+    {
+      "sentence": "Those who live alone may be at greater risk of loneliness.",
+      "answers": [
+        "People who live by themselves are more likely to feel lonely.",
+        "Living alone can increase the chance of loneliness."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

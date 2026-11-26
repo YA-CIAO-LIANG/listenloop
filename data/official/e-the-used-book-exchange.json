@@ -3,15 +3,15 @@
   "series": "exam",
   "title": "The Used Book Exchange",
   "titleZh": "二手書交換活動",
-  "subtitle": "學測風格短講：學生會廣播說明二手參考書交換的時間、規則與用意",
+  "subtitle": "高中英聽風格短講：學生會廣播說明二手參考書交換的時間、規則與用意",
   "format": "monologue",
   "accent": "us",
   "meta": {
     "category": "exam",
-    "scenario": "gsat-short-talk",
+    "scenario": "hs-discourse-talk",
     "level": "intermediate",
-    "exam": "gsat",
-    "examTarget": "gsat-standard"
+    "exam": "hs-listening",
+    "examTarget": "hs-b"
   },
   "source": {
     "kind": "original"

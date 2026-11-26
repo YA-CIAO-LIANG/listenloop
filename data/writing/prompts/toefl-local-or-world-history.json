@@ -1,0 +1,92 @@
+{
+  "id": "toefl-local-or-world-history",
+  "type": "toefl",
+  "level": "advanced",
+  "title": {
+    "en": "Local History or World History?",
+    "zh": "歷史課該多教在地史還是世界史？"
+  },
+  "subtitle": "原創模擬題：學術討論題，談歷史課該側重在地史或世界史",
+  "task": "Your professor is teaching a class on history education. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Alvarez: Time in school history classes is limited. Some educators believe students should spend more of that time learning the history of their own town or region, while others argue that world history is more important in a connected global society. Which should schools emphasize, and why?\n\nHana: Local history makes the past feel real. When students visit an old temple or interview their grandparents, they understand that history happened to people like them.\n\nMarcus: World history should come first. Problems like climate change and trade disputes cross borders, so students need to understand how different societies have influenced one another.\n\nWrite at least 100 words.",
+  "taskZh": "歷史教育課的教授提問：歷史課的時間有限，有人認為應該多教學生自己城鎮或地區的歷史，也有人主張在全球緊密連結的社會中，世界史更重要。學校應該側重哪一種？為什麼？Hana 認為在地史讓過去變得真實；Marcus 認為氣候變遷、貿易爭端等問題跨越國界，世界史應該優先。請寫一則貼文表態、提出理由，並對討論有新的貢獻。至少寫 100 字。",
+  "words": {
+    "min": 100,
+    "max": 160
+  },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應兩位同學的觀點，再提出新的理由或折衷方案",
+    "用具體的例子或理由支持看法，論點前後一致",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "Both Hana and Marcus raise valid points, but I would argue that the most effective approach is to teach world history through local examples rather than treating the two as competitors. Hana is right that the past feels distant until students can connect it to familiar places. Yet Marcus's concern is equally important, since few local stories make sense without a global context.",
+      "Consider the port city where I grew up. Its old tea warehouses only make sense once students learn how global demand for tea shaped trade routes in the nineteenth century. A single field trip there could teach both the town's past and the larger forces of colonialism and commerce. In this way, students would gain the emotional connection Hana values without losing the broad perspective Marcus considers essential."
+    ],
+    "zh": [
+      "Hana 和 Marcus 的觀點都有道理，但我認為最有效的做法是透過在地的例子來教世界史，而不是把兩者當成互相競爭的選項。Hana 說得對，學生要能把過去和熟悉的地方連結起來，歷史才不會顯得遙遠。不過 Marcus 的顧慮同樣重要，因為很少有在地故事能脫離全球背景來理解。",
+      "以我長大的港口城市為例。那裡的老茶行倉庫，要等學生了解十九世紀全球對茶葉的需求如何影響貿易路線之後，才真正說得通。到那裡進行一次校外教學，就能同時認識這座城鎮的過去，以及殖民與貿易等更大的歷史力量。如此一來，學生既能得到 Hana 重視的情感連結，也不會失去 Marcus 認為不可或缺的宏觀視野。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Both … raise valid points, but I would argue that …",
+      "zh": "肯定雙方，再提出整合兩者的第三種立場",
+      "example": "Both Hana and Marcus raise valid points, but I would argue that the most effective approach is to teach world history through local examples rather than treating the two as competitors.",
+      "keys": ["raise valid points", "i would argue that", "rather than"]
+    },
+    {
+      "pattern": "Yet …'s concern is equally important, since …",
+      "zh": "轉折：說明另一方的顧慮同樣重要",
+      "example": "Yet Marcus's concern is equally important, since few local stories make sense without a global context.",
+      "keys": ["yet", "is equally important", "since"]
+    },
+    {
+      "pattern": "… only make sense once …",
+      "zh": "說明理解某事的前提條件",
+      "example": "Its old tea warehouses only make sense once students learn how global demand for tea shaped trade routes in the nineteenth century.",
+      "keys": ["only make sense once"]
+    },
+    {
+      "pattern": "In this way, … without losing …",
+      "zh": "總結：兩種好處兼得",
+      "example": "In this way, students would gain the emotional connection Hana values without losing the broad perspective Marcus considers essential.",
+      "keys": ["in this way", "without losing"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Students visit the old tea warehouses.",
+        "They learn how global demand for tea shaped trade routes."
+      ],
+      "answer": "When students visit the old tea warehouses, they learn how global demand for tea shaped trade routes."
+    },
+    {
+      "parts": [
+        "The past feels distant.",
+        "Students cannot connect it to familiar places yet."
+      ],
+      "answer": "The past feels distant until students can connect it to familiar places."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Few local stories make sense without a global context.",
+      "answers": [
+        "Most local stories can only be understood in a global context.",
+        "Local history is hard to understand without knowing what happened elsewhere."
+      ]
+    },
+    {
+      "sentence": "Marcus's concern is equally important.",
+      "answers": [
+        "Marcus's worry matters just as much.",
+        "We should take Marcus's concern just as seriously."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,112 @@
+{
+  "id": "chart-reading-formats",
+  "type": "chart",
+  "level": "advanced",
+  "title": {
+    "en": "Reading Formats by Age",
+    "zh": "不同年齡層的閱讀方式"
+  },
+  "subtitle": "比較四個年齡層讀紙本、電子書與有聲書的比例",
+  "task": "The table shows the main format in which adults of four age groups read books, based on a survey of 2,000 readers (fictional data). Summarize the information by selecting and reporting the main features, and make comparisons where relevant.",
+  "taskZh": "表格是 2,000 位成年讀者的調查結果（虛構資料），顯示四個年齡層主要用哪種形式讀書。請選出主要特徵加以摘要，並在適當處做比較。",
+  "chart": {
+    "title": "Main reading format of 2,000 adult readers, by age group (%)",
+    "columns": ["Age group", "Printed books", "E-books", "Audiobooks"],
+    "rows": [
+      ["18–29", 40, 35, 25],
+      ["30–44", 50, 30, 20],
+      ["45–59", 65, 25, 10],
+      ["60 and over", 80, 15, 5]
+    ]
+  },
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 30,
+  "focus": [
+    "選出主要趨勢，不逐格列出數字",
+    "數字正確並做出有意義的比較",
+    "描述趨勢的用語多樣（rise steadily、the opposite pattern、respectively）",
+    "有清楚的開頭說明與總結"
+  ],
+  "model": {
+    "en": [
+      "The table illustrates the main way that 2,000 adult readers in four age groups read books: in print, as e-books, or as audiobooks.",
+      "Printed books are the most common format in every age group, but their popularity rises steadily with age. Only 40 percent of readers aged 18 to 29 prefer print, compared with 80 percent of those aged 60 and over. The figures for the two middle groups lie in between, at 50 and 65 percent respectively.",
+      "Digital formats show the opposite pattern. E-books are chosen by 35 percent of the youngest readers, and this share falls gradually to just 15 percent among the oldest group. The decline is even sharper for audiobooks, which account for a quarter of young adults' reading but only 5 percent of readers over 60. In other words, young adults are five times as likely as older readers to listen to books rather than read them.",
+      "Overall, age is closely linked to reading format. While older readers remain loyal to print, younger readers are split more evenly between paper and digital formats, which together make up 60 percent of their choices."
+    ],
+    "zh": [
+      "這個表格說明 2,000 位成年讀者在四個年齡層中主要的閱讀方式：紙本書、電子書或有聲書。",
+      "在每個年齡層中，紙本書都是最常見的形式，但它的受歡迎程度隨年齡穩定上升。18 到 29 歲的讀者只有 40% 偏好紙本，相較之下，60 歲以上的讀者則有 80%。中間兩個年齡層的數字介於兩者之間，分別為 50% 和 65%。",
+      "數位形式則呈現相反的趨勢。最年輕的讀者有 35% 選擇電子書，這個比例逐漸下降，到最年長的族群只剩 15%。有聲書的下降幅度更大，它在年輕成人的閱讀中佔四分之一，但在 60 歲以上的讀者中只佔 5%。換句話說，年輕成人用聽的而不是用讀的比例，是年長讀者的五倍。",
+      "整體而言，年齡和閱讀形式密切相關。年長讀者仍然偏愛紙本，而年輕讀者在紙本和數位形式之間的分布則較平均，數位形式合計佔他們選擇的 60%。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The table illustrates …",
+      "zh": "圖表題開頭：說明表格呈現的內容",
+      "example": "The table illustrates the main way that 2,000 adult readers in four age groups read books: in print, as e-books, or as audiobooks.",
+      "keys": ["the table illustrates"]
+    },
+    {
+      "pattern": "…, compared with …",
+      "zh": "對照兩組數字",
+      "example": "Only 40 percent of readers aged 18 to 29 prefer print, compared with 80 percent of those aged 60 and over.",
+      "keys": ["compared with"]
+    },
+    {
+      "pattern": "… at … and … respectively",
+      "zh": "依序列出數字：分別為……",
+      "example": "The figures for the two middle groups lie in between, at 50 and 65 percent respectively.",
+      "keys": ["respectively"]
+    },
+    {
+      "pattern": "… show the opposite pattern.",
+      "zh": "帶出相反的趨勢",
+      "example": "Digital formats show the opposite pattern.",
+      "keys": ["the opposite pattern"]
+    },
+    {
+      "pattern": "… are five times as likely as … to …",
+      "zh": "倍數比較可能性",
+      "example": "In other words, young adults are five times as likely as older readers to listen to books rather than read them.",
+      "keys": ["times as likely as"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Printed books are the most common format in every age group.",
+        "Their popularity rises steadily with age."
+      ],
+      "answer": "Printed books are the most common format in every age group, but their popularity rises steadily with age."
+    },
+    {
+      "parts": [
+        "Audiobooks account for a quarter of young adults' reading.",
+        "They account for only 5 percent of readers over 60."
+      ],
+      "answer": "Audiobooks account for a quarter of young adults' reading but only 5 percent of readers over 60."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Age is closely linked to reading format.",
+      "answers": [
+        "How people read depends strongly on their age.",
+        "There is a strong connection between age and reading format."
+      ]
+    },
+    {
+      "sentence": "This share falls gradually to just 15 percent.",
+      "answers": [
+        "This figure slowly decreases to only 15 percent.",
+        "The percentage drops steadily, reaching just 15 percent."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

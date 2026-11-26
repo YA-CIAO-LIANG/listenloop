@@ -1,0 +1,104 @@
+{
+  "id": "ielts-task2-tourist-overcrowding",
+  "type": "ielts-task2",
+  "level": "advanced",
+  "title": {
+    "en": "Too Many Tourists",
+    "zh": "觀光客太多了"
+  },
+  "subtitle": "原創模擬題：問題與解決方法型議論文",
+  "task": "Many popular tourist destinations are becoming overcrowded, which causes difficulties for local residents and the environment. What problems does this situation cause? What measures could be taken to solve them? Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "許多熱門觀光地越來越擁擠，對當地居民和環境造成困擾。這種情況會造成哪些問題？可以採取哪些措施解決？請說明理由並舉例。至少寫 250 字。",
+  "words": {
+    "min": 250,
+    "max": 320
+  },
+  "minutes": 40,
+  "focus": [
+    "Task Response：問題與解決方法兩部分都要完整回答，方法要對應問題",
+    "Coherence and Cohesion：問題段與方法段分開，用 First、Second、Finally 列出措施",
+    "Lexical Resource：觀光、住宅與環境相關字彙精準、有變化",
+    "Grammatical Range and Accuracy：關係子句、被動語態與 so … that 句型正確"
+  ],
+  "model": {
+    "en": [
+      "Cheaper flights and the influence of social media have made famous destinations more crowded than ever before. While tourism brings income, an excessive number of visitors can damage both the daily lives of local people and the natural environment. This essay will examine these problems and suggest some practical solutions.",
+      "The most immediate problem is the pressure placed on local communities. In popular old towns, homes are increasingly converted into short-term rentals, which pushes up rents and forces long-term residents to move away. Streets, buses and restaurants become so packed that everyday activities, such as shopping or travelling to work, turn into a struggle. Over time, this can create resentment towards visitors and erode the character that attracted them in the first place.",
+      "Overcrowding also harms the environment. Beaches, mountain trails and coral reefs suffer from litter, erosion and pollution when they receive far more visitors than they can sustain. Once such places are damaged, they may take decades to recover, if they recover at all.",
+      "Several measures could ease these problems. First, authorities could limit the number of visitors to the most fragile sites through advance booking systems, as some national parks already do. Second, tourist taxes could be introduced, with the revenue used to maintain public services and repair environmental damage. Finally, governments could restrict short-term rentals in residential areas so that housing remains available to local people. Encouraging tourists to visit lesser-known regions or travel outside peak seasons would also spread the economic benefits more evenly.",
+      "In conclusion, overcrowded destinations face serious social and environmental problems, but these are not unavoidable. With careful planning and firm regulation, tourism can continue to benefit host communities without destroying the places that make them special."
+    ],
+    "zh": [
+      "便宜的機票和社群媒體的影響，讓知名景點比以往任何時候都擁擠。觀光雖然帶來收入，但過多的遊客會同時破壞當地居民的日常生活和自然環境。本文將探討這些問題，並提出一些可行的解決方法。",
+      "最直接的問題是當地社區承受的壓力。在熱門的老城區，越來越多住宅被改成短租房，推高了房租，迫使長期居民搬離。街道、公車和餐廳擠得水洩不通，連購物或通勤這類日常活動都變得很辛苦。久而久之，這會讓居民對遊客產生反感，也會侵蝕當初吸引遊客前來的在地特色。",
+      "過度擁擠也會傷害環境。海灘、登山步道和珊瑚礁在遊客遠超過負荷時，會飽受垃圾、侵蝕和污染之苦。這些地方一旦遭到破壞，可能要數十年才能復原，甚至永遠無法復原。",
+      "有幾項措施可以緩解這些問題。第一，政府可以用預約制度限制最脆弱景點的遊客人數，有些國家公園已經這麼做了。第二，可以開徵觀光稅，把稅收用來維持公共服務和修復環境破壞。最後，政府可以限制住宅區的短租房，讓當地居民仍租得到房子。鼓勵遊客造訪較少人知道的地區，或避開旺季出遊，也能讓經濟利益分配得更平均。",
+      "總而言之，過度擁擠的觀光地面臨嚴重的社會與環境問題，但這些問題並非無法避免。只要妥善規劃並嚴格管理，觀光就能持續造福當地社區，而不會毀掉讓這些地方與眾不同的特色。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The most immediate problem is …",
+      "zh": "段落主題句：點出最直接的問題",
+      "example": "The most immediate problem is the pressure placed on local communities.",
+      "keys": ["the most immediate problem is"]
+    },
+    {
+      "pattern": "… become so packed that …",
+      "zh": "so … that：描述程度及其結果",
+      "example": "Streets, buses and restaurants become so packed that everyday activities, such as shopping or travelling to work, turn into a struggle.",
+      "keys": ["so packed that"]
+    },
+    {
+      "pattern": "Once …, they may take … to recover, if they recover at all.",
+      "zh": "Once 表示一旦發生；if … at all 強調可能根本不會",
+      "example": "Once such places are damaged, they may take decades to recover, if they recover at all.",
+      "keys": ["once", "if they recover at all"]
+    },
+    {
+      "pattern": "…, with the revenue used to …",
+      "zh": "用 with 獨立結構補充收入的用途",
+      "example": "Second, tourist taxes could be introduced, with the revenue used to maintain public services and repair environmental damage.",
+      "keys": ["second", "with the revenue used to"]
+    },
+    {
+      "pattern": "… so that … remains …",
+      "zh": "用 so that 說明措施的目的",
+      "example": "Finally, governments could restrict short-term rentals in residential areas so that housing remains available to local people.",
+      "keys": ["finally", "so that", "remains"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Homes are converted into short-term rentals.",
+        "This pushes up rents."
+      ],
+      "answer": "Homes are converted into short-term rentals, which pushes up rents."
+    },
+    {
+      "parts": [
+        "Tourist taxes could be introduced.",
+        "The revenue could be used to maintain public services."
+      ],
+      "answer": "Tourist taxes could be introduced, with the revenue used to maintain public services."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Overcrowding also harms the environment.",
+      "answers": [
+        "Too many visitors also damage the natural environment.",
+        "The environment suffers as well when places become too crowded."
+      ]
+    },
+    {
+      "sentence": "These problems are not unavoidable.",
+      "answers": [
+        "These problems can be prevented.",
+        "It is possible to avoid these problems."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

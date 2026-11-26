@@ -1,0 +1,97 @@
+{
+  "id": "gept-hi-essay-tourists-small-towns",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "Too Many Tourists in Small Towns",
+    "zh": "小鎮觀光客太多怎麼辦？"
+  },
+  "subtitle": "全民英檢中高級：討論熱門小鎮觀光過度的影響與對策",
+  "task": "Some small towns in Taiwan have become so popular with tourists that local residents complain about crowds, noise, and rising prices. Write an essay of 150–180 words. In your essay, (1) describe how tourism has changed such towns, both positively and negatively, and (2) suggest what local governments or tourists can do to make tourism more sustainable.",
+  "taskZh": "台灣有些小鎮太受觀光客歡迎，當地居民抱怨人潮、噪音和物價上漲。請寫一篇 150–180 字的英文文章：(1) 描述觀光為這些小鎮帶來的正面與負面改變，(2) 建議地方政府或遊客可以怎麼做，讓觀光更能永續發展。",
+  "words": { "min": 150, "max": 180 },
+  "minutes": 35,
+  "focus": [
+    "內容：正面影響、負面影響、具體對策都要寫到",
+    "組織：先描述現象再提出對策，段落之間轉折清楚",
+    "文法：現在完成式、被動式與讓步句型運用正確",
+    "用字：字彙豐富精確（如 residents、sustainable），拼字正確"
+  ],
+  "model": {
+    "en": [
+      "Not long ago, many small towns in Taiwan were quiet places that few visitors had heard of. Thanks to social media, some of them have suddenly become famous, and tourism has changed them in both good and bad ways.",
+      "On the positive side, tourists bring money and jobs. Young people who once had to leave for big cities can now open cafés or guesthouses in their hometowns. Old streets and buildings have also been repaired because they attract visitors. On the negative side, however, weekend crowds fill the narrow streets, and rents have risen so sharply that some long-time residents can no longer afford to live there.",
+      "To make tourism more sustainable, local governments could limit the number of tour buses and encourage visitors to come on weekdays. Tourists, for their part, should respect local life by keeping noise down and taking their trash with them. Only when both sides cooperate can these towns stay attractive without losing their character."
+    ],
+    "zh": [
+      "不久之前，台灣很多小鎮還是很少人聽過的安靜地方。拜社群媒體所賜，其中一些小鎮突然爆紅，觀光也為它們帶來好壞兩方面的改變。",
+      "從正面來看，觀光客帶來了收入和工作機會。以前必須離鄉到大城市的年輕人，現在可以在家鄉開咖啡店或民宿。老街和老建築也因為吸引遊客而得到修繕。然而從負面來看，週末的人潮塞滿了狹窄的街道，房租也漲得太兇，有些住了很久的居民已經住不起了。",
+      "為了讓觀光更能永續發展，地方政府可以限制遊覽車的數量，並鼓勵遊客平日前來。至於遊客，則應該尊重當地的生活，降低音量，並把垃圾帶走。唯有雙方合作，這些小鎮才能保持吸引力，又不失去原本的特色。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Thanks to …, … have suddenly become …",
+      "zh": "說明某個原因造成的改變",
+      "example": "Thanks to social media, some of them have suddenly become famous, and tourism has changed them in both good and bad ways.",
+      "keys": ["thanks to", "have suddenly become"]
+    },
+    {
+      "pattern": "On the positive side, … / On the negative side, however, …",
+      "zh": "分別從正反兩面討論",
+      "example": "On the positive side, tourists bring money and jobs.",
+      "keys": ["on the positive side"]
+    },
+    {
+      "pattern": "… so sharply that … can no longer afford to …",
+      "zh": "如此……以至於……再也負擔不起",
+      "example": "On the negative side, however, weekend crowds fill the narrow streets, and rents have risen so sharply that some long-time residents can no longer afford to live there.",
+      "keys": ["so sharply that", "can no longer afford to"]
+    },
+    {
+      "pattern": "…, for their part, should …",
+      "zh": "說明另一方應負的責任",
+      "example": "Tourists, for their part, should respect local life by keeping noise down and taking their trash with them.",
+      "keys": ["for their part", "should"]
+    },
+    {
+      "pattern": "Only when … can …",
+      "zh": "倒裝句：唯有……才能……",
+      "example": "Only when both sides cooperate can these towns stay attractive without losing their character.",
+      "keys": ["only when", "can these towns"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Young people once had to leave for big cities.",
+        "They can now open cafés in their hometowns."
+      ],
+      "answer": "Young people who once had to leave for big cities can now open cafés in their hometowns."
+    },
+    {
+      "parts": [
+        "Both sides must cooperate.",
+        "Then these towns can stay attractive."
+      ],
+      "answer": "Only when both sides cooperate can these towns stay attractive."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Some residents can no longer afford to live there.",
+      "answers": [
+        "Living there has become too expensive for some residents.",
+        "Some residents have been priced out of their own town."
+      ]
+    },
+    {
+      "sentence": "Tourists should respect local life.",
+      "answers": [
+        "Visitors should be considerate of the people who live there.",
+        "Tourists need to show respect for the local way of life."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,102 @@
+{
+  "id": "toefl-integrated-online-courses",
+  "type": "toefl-integrated",
+  "level": "advanced",
+  "title": {
+    "en": "Will Online Courses Transform Universities?",
+    "zh": "線上課程會改變大學嗎？"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課質疑大規模線上課程的三個優點",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: Massive open online courses, or MOOCs, offer university-level classes on the internet, often for free. The reading argues that they will soon transform higher education. First, they make education accessible to anyone with an internet connection, including people in poor or remote areas. Second, they are far cheaper than traditional degrees, so students can learn without taking on debt. Third, because learners can study at their own pace, the courses fit the busy schedules of working adults.\n\nLecture: The professor doubts that these courses will transform higher education. First, research shows that most participants already hold a university degree and live in wealthy countries, so the courses mainly serve people who already have access to education. Second, while the courses themselves are often free, the certificates that employers recognize usually cost money, and many employers still value traditional degrees much more highly. Third, the flexibility has a downside: without deadlines or classmates, most learners lose motivation, and completion rates are often below ten percent.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要預測大規模開放式線上課程（MOOC）很快會改變高等教育（人人都能學、比傳統學位便宜、時間有彈性），講課摘要則逐點質疑。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading predicts that massive open online courses will soon transform higher education. The lecturer disagrees, arguing that each of the reading's three advantages is weaker than it first appears.",
+      "First, the reading claims that online courses make education accessible to anyone, including people in poor or remote areas. The lecturer refutes this point by citing research showing that most participants already hold a university degree and live in wealthy countries. In other words, the courses mainly serve people who already have access to education.",
+      "Second, the reading emphasizes that online courses are far cheaper than traditional degrees. According to the lecturer, although the courses themselves are often free, the certificates that employers recognize usually cost money. Furthermore, many employers still value a traditional degree much more highly.",
+      "Finally, the lecturer argues that the flexibility praised in the reading actually has a serious drawback. Without deadlines or classmates, most learners gradually lose motivation. This explains why completion rates for these courses are often below ten percent, which undermines the claim that they suit busy adults."
+    ],
+    "zh": [
+      "閱讀文章預測大規模開放式線上課程很快就會改變高等教育。講者不同意，主張閱讀文章提出的三個優點都比乍看之下薄弱。",
+      "首先，閱讀文章聲稱線上課程讓任何人都能受教育，包括貧窮或偏遠地區的人。講者引用研究反駁這一點，研究顯示大多數參與者已經擁有大學學位，而且住在富裕國家。換句話說，這些課程服務的主要是原本就有機會受教育的人。",
+      "其次，閱讀文章強調線上課程比傳統學位便宜得多。根據講者的說法，雖然課程本身通常免費，但雇主認可的證書往往要付費。此外，很多雇主仍然更看重傳統學位。",
+      "最後，講者認為閱讀文章所稱讚的彈性其實有嚴重的缺點。沒有截止期限和同學，大多數學習者會逐漸失去動力。這說明了為什麼這類課程的完成率常常低於百分之十，也削弱了它們適合忙碌成人的說法。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The reading predicts that …",
+      "zh": "開頭簡述閱讀文章的預測",
+      "example": "The reading predicts that massive open online courses will soon transform higher education.",
+      "keys": ["the reading predicts that"]
+    },
+    {
+      "pattern": "The lecturer disagrees, arguing that …",
+      "zh": "點出講者的整體立場",
+      "example": "The lecturer disagrees, arguing that each of the reading's three advantages is weaker than it first appears.",
+      "keys": ["the lecturer disagrees", "arguing that"]
+    },
+    {
+      "pattern": "The lecturer refutes this point by citing research showing that …",
+      "zh": "轉述講者用研究證據反駁",
+      "example": "The lecturer refutes this point by citing research showing that most participants already hold a university degree and live in wealthy countries.",
+      "keys": ["refutes this point by citing research showing that"]
+    },
+    {
+      "pattern": "In other words, …",
+      "zh": "換句話說，點出證據的意義",
+      "example": "In other words, the courses mainly serve people who already have access to education.",
+      "keys": ["in other words"]
+    },
+    {
+      "pattern": "This explains why …, which undermines the claim that …",
+      "zh": "說明證據如何削弱閱讀文章的論點",
+      "example": "This explains why completion rates for these courses are often below ten percent, which undermines the claim that they suit busy adults.",
+      "keys": ["this explains why", "which undermines the claim that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The courses themselves are often free.",
+        "The certificates that employers recognize usually cost money."
+      ],
+      "answer": "Although the courses themselves are often free, the certificates that employers recognize usually cost money."
+    },
+    {
+      "parts": [
+        "Learners have no deadlines or classmates.",
+        "Most of them gradually lose motivation."
+      ],
+      "answer": "Without deadlines or classmates, most learners gradually lose motivation."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Many employers still value a traditional degree much more highly.",
+      "answers": [
+        "Many employers still prefer a traditional degree.",
+        "A traditional degree still matters more to many employers."
+      ]
+    },
+    {
+      "sentence": "Completion rates are often below ten percent.",
+      "answers": [
+        "Often fewer than one in ten learners finish these courses.",
+        "Most learners do not complete the courses."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

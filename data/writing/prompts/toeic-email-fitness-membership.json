@@ -1,0 +1,96 @@
+{
+  "id": "toeic-email-fitness-membership",
+  "type": "toeic",
+  "level": "intermediate",
+  "title": {
+    "en": "Replying to a Fitness Center",
+    "zh": "回覆健身中心的入會信"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：回覆電子郵件，提出兩個請求和一個問題",
+  "task": "Directions: Read the e-mail below. Respond to the e-mail as if you are a new member of the fitness center. In your e-mail, make TWO requests and ask ONE question.\n\nFrom: Peak Fitness Center, Membership Office\nTo: Jason Huang\nSubject: Welcome to Peak Fitness Center\n\nDear Mr. Huang,\n\nThank you for joining Peak Fitness Center. Your membership begins on May 1. If you have any requests or questions before your first visit, please reply to this e-mail.\n\nSincerely,\nMembership Office",
+  "taskZh": "你剛加入 Peak Fitness Center 健身中心，會籍從 5 月 1 日開始。會員服務處來信歡迎你，並說第一次到場前有任何請求或問題都可以回信。請以新會員 Jason Huang 的身分回信，提出兩個請求和一個問題。",
+  "words": {
+    "min": 90,
+    "max": 140
+  },
+  "minutes": 10,
+  "focus": [
+    "任務完成：兩個請求、一個問題都要明確，並說明理由",
+    "組織：用 First、Second 列出請求，問題另起一段",
+    "語氣：有禮貌，請求用 could you、I would like to 等委婉說法",
+    "文法與用字：問句語序、時態與日期的寫法正確"
+  ],
+  "model": {
+    "en": [
+      "Dear Membership Office,",
+      "Thank you for your welcome e-mail. I am looking forward to starting my membership on May 1, and I have two requests. First, could you send me the class schedule for May? I would like to plan which yoga classes to join. Second, I would like to book a free session with a personal trainer during my first week, if possible.",
+      "I also have one question. Since I usually work out after work, how late is the center open on weekdays? Thank you, and I hope to hear from you soon.",
+      "Sincerely, Jason Huang"
+    ],
+    "zh": [
+      "會員服務處您好：",
+      "謝謝您寄來的歡迎信。我很期待 5 月 1 日開始使用會籍，另外有兩個請求。第一，能否請您寄給我 5 月的課程表？我想先規劃要參加哪些瑜伽課。第二，如果可以的話，我想在第一週預約一次免費的私人教練課程。",
+      "另外，我有一個問題。因為我通常下班後才去運動，請問平日健身中心開到幾點？謝謝您，期待很快收到您的回覆。",
+      "黃哲森 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am looking forward to …ing …",
+      "zh": "表達期待（to 後面接動名詞）",
+      "example": "I am looking forward to starting my membership on May 1, and I have two requests.",
+      "keys": ["looking forward to starting"]
+    },
+    {
+      "pattern": "Could you send me …?",
+      "zh": "禮貌地請對方提供資料",
+      "example": "First, could you send me the class schedule for May?",
+      "keys": ["first", "could you send me"]
+    },
+    {
+      "pattern": "I would like to book …, if possible.",
+      "zh": "委婉地提出預約的請求",
+      "example": "Second, I would like to book a free session with a personal trainer during my first week, if possible.",
+      "keys": ["i would like to book", "if possible"]
+    },
+    {
+      "pattern": "Since …, how late …?",
+      "zh": "先說明原因，再提出問題",
+      "example": "Since I usually work out after work, how late is the center open on weekdays?",
+      "keys": ["since", "how late"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I usually work out after work.",
+        "How late is the center open on weekdays?"
+      ],
+      "answer": "Since I usually work out after work, how late is the center open on weekdays?"
+    },
+    {
+      "parts": [
+        "I am looking forward to starting my membership.",
+        "I have two requests."
+      ],
+      "answer": "I am looking forward to starting my membership, and I have two requests."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "How late is the center open on weekdays?",
+      "answers": [
+        "What time does the center close on weekdays?",
+        "Until what time is the center open from Monday to Friday?"
+      ]
+    },
+    {
+      "sentence": "Could you send me the class schedule?",
+      "answers": [
+        "Would you please send me the class timetable?",
+        "I would appreciate it if you could send me the class schedule."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

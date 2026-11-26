@@ -1,0 +1,80 @@
+{
+  "id": "cap-a-visit-to-grandparents",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "A Visit to My Grandparents",
+    "zh": "去看爺爺奶奶"
+  },
+  "subtitle": "國中程度引導式短文：回答三個問題，寫一次拜訪祖父母的經驗",
+  "task": "Write a short passage of 60–100 words about a visit to your grandparents. Your passage should answer these questions: (1) Where do your grandparents live? (2) What did you do with them? (3) What did you learn or feel?",
+  "taskZh": "寫一篇 60–100 字的英文短文，寫一次去拜訪祖父母的經驗。短文要回答三個問題：(1) 你的祖父母住在哪裡？(2) 你和他們一起做了什麼？(3) 你學到什麼，或有什麼感受？",
+  "words": {
+    "min": 60,
+    "max": 100
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三個問題都要回答到",
+    "文法：過去發生的事用過去式，動詞變化正確",
+    "連接詞：用 and、but、so、because 讓句子連貫",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "Last weekend, my family visited my grandparents in Chiayi. They live in a small house near rice fields. In the morning, I helped my grandpa water the vegetables in his garden. He showed me how to pick ripe tomatoes. In the afternoon, my grandma taught me to make sweet rice balls. My rice balls were not perfectly round, but they tasted good. Before we left, Grandma gave me a big bag of fruit. I learned that simple days can be the happiest days."
+    ],
+    "zh": [
+      "上週末，我們全家去嘉義看爺爺奶奶。他們住在稻田旁的一間小房子裡。早上，我幫爺爺替菜園裡的蔬菜澆水。他教我怎麼摘成熟的番茄。下午，奶奶教我搓湯圓。我搓的湯圓不太圓，但很好吃。我們離開前，奶奶給了我一大袋水果。我學到，簡單的日子也可以是最快樂的日子。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "helped + 人 + V",
+      "zh": "幫某人做某事",
+      "example": "In the morning, I helped my grandpa water the vegetables in his garden.",
+      "keys": ["helped my grandpa"]
+    },
+    {
+      "pattern": "showed me how to …",
+      "zh": "教我怎麼做……",
+      "example": "He showed me how to pick ripe tomatoes.",
+      "keys": ["showed me how to"]
+    },
+    {
+      "pattern": "taught me to …",
+      "zh": "教我做……",
+      "example": "In the afternoon, my grandma taught me to make sweet rice balls.",
+      "keys": ["taught me to"]
+    },
+    {
+      "pattern": "I learned that …",
+      "zh": "我學到……（寫出收穫）",
+      "example": "I learned that simple days can be the happiest days.",
+      "keys": ["i learned that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "They live in a small house.",
+        "The house is near rice fields."
+      ],
+      "answer": "They live in a small house near rice fields."
+    },
+    {
+      "parts": ["My rice balls were not perfectly round.", "They tasted good."],
+      "answer": "My rice balls were not perfectly round, but they tasted good."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Simple days can be the happiest days.",
+      "answers": [
+        "The happiest days can be simple ones.",
+        "Even simple days can make us very happy."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

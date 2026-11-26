@@ -1,0 +1,102 @@
+{
+  "id": "ielts-task2-early-foreign-languages",
+  "type": "ielts-task2",
+  "level": "intermediate",
+  "title": {
+    "en": "When Should Children Start a Foreign Language?",
+    "zh": "孩子該從幾歲開始學外語？"
+  },
+  "subtitle": "原創模擬題：雙方觀點討論型議論文",
+  "task": "Some people believe that children should start learning a foreign language at primary school. Others think it is better to wait until secondary school. Discuss both these views and give your own opinion. Give reasons for your answer and include any relevant examples from your own knowledge or experience. Write at least 250 words.",
+  "taskZh": "有些人認為孩子應該從小學就開始學外語，也有人認為等到中學再學比較好。請討論這兩種看法，並提出你自己的意見。請說明理由並舉例。至少寫 250 字。",
+  "words": {
+    "min": 250,
+    "max": 320
+  },
+  "minutes": 40,
+  "focus": [
+    "Task Response：兩種觀點都要討論，並清楚寫出自己的意見",
+    "Coherence and Cohesion：一段寫一方觀點，用 however、in addition 串連",
+    "Lexical Resource：教育與學習相關字彙精確，避免一直重複 learn",
+    "Grammatical Range and Accuracy：比較句、條件與因果句正確"
+  ],
+  "model": {
+    "en": [
+      "Learning a foreign language has become an important part of education in many countries. While some people think children should begin at primary school, others feel it is better to start at secondary school. In my opinion, an early start is more beneficial, as long as lessons are suitable for young learners.",
+      "Those who prefer to wait until secondary school have some valid points. Young children are still developing their first language, and studying two languages at once might confuse them. Moreover, primary schools may not have enough qualified teachers, so lessons could be of poor quality. Older students, on the other hand, can understand grammar rules and study more independently.",
+      "However, I believe the advantages of starting early are greater. Young children are usually less afraid of making mistakes, so they are more willing to speak and copy new sounds. This often helps them develop better pronunciation than learners who start later. For instance, young learners who hear English songs and stories every day often copy the rhythm of the language naturally. In addition, an early start gives children more years of practice, which is important because learning a language takes a long time. Children who start early may also see the language as a normal part of daily life rather than a difficult school subject.",
+      "In conclusion, although starting at secondary school has some benefits, I think primary school is the better time to introduce a foreign language. To make this work, schools should train teachers well and use games, songs and stories rather than tests. Lessons should also be short and frequent, because young children cannot concentrate for long periods."
+    ],
+    "zh": [
+      "在許多國家，學外語已成為教育中重要的一環。有些人認為孩子應該從小學開始學，也有人覺得從中學開始比較好。我認為及早開始比較有益，前提是課程要適合年幼的學習者。",
+      "主張等到中學再學的人有一些合理的論點。年幼的孩子還在發展母語，同時學兩種語言可能讓他們混淆。此外，小學可能沒有足夠的合格師資，課程品質可能不佳。另一方面，年紀較大的學生能理解文法規則，也比較能自主學習。",
+      "然而，我認為及早開始的好處更大。年幼的孩子通常比較不怕犯錯，所以更願意開口說、模仿新的發音。這往往讓他們的發音比晚學的人更好。例如，每天聽英文歌曲和故事的小學習者，常常能自然地模仿這個語言的節奏。此外，及早開始能讓孩子多練習好幾年，這很重要，因為學好一種語言需要很長的時間。及早開始的孩子也可能把外語視為日常生活的一部分，而不是一門困難的學科。",
+      "總而言之，雖然從中學開始有一些好處，我仍認為小學是開始學外語較好的時機。為了做到這一點，學校應該好好培訓老師，並用遊戲、歌曲和故事取代考試。課程也應該短而頻繁，因為年幼的孩子無法長時間專心。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "While some people think …, others feel …",
+      "zh": "開頭同時帶出兩種對立的看法",
+      "example": "While some people think children should begin at primary school, others feel it is better to start at secondary school.",
+      "keys": ["while some people think", "others feel"]
+    },
+    {
+      "pattern": "Those who … have some valid points.",
+      "zh": "段落主題句：先承認另一方的論點",
+      "example": "Those who prefer to wait until secondary school have some valid points.",
+      "keys": ["those who", "have some valid points"]
+    },
+    {
+      "pattern": "Moreover, … may not …, so …",
+      "zh": "補充論點並說明其後果",
+      "example": "Moreover, primary schools may not have enough qualified teachers, so lessons could be of poor quality.",
+      "keys": ["moreover", "may not", "so"]
+    },
+    {
+      "pattern": "…, so they are more willing to …",
+      "zh": "用 so 說明原因帶來的行為傾向",
+      "example": "Young children are usually less afraid of making mistakes, so they are more willing to speak and copy new sounds.",
+      "keys": ["less afraid of", "more willing to"]
+    },
+    {
+      "pattern": "…, which is important because …",
+      "zh": "用關係子句補充這一點為什麼重要",
+      "example": "In addition, an early start gives children more years of practice, which is important because learning a language takes a long time.",
+      "keys": ["in addition", "which is important because"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Young children are less afraid of making mistakes.",
+        "They are more willing to speak."
+      ],
+      "answer": "Because young children are less afraid of making mistakes, they are more willing to speak."
+    },
+    {
+      "parts": [
+        "Starting at secondary school has some benefits.",
+        "Primary school is the better time to begin."
+      ],
+      "answer": "Although starting at secondary school has some benefits, primary school is the better time to begin."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Studying two languages at once might confuse them.",
+      "answers": [
+        "Learning two languages at the same time could be confusing for them.",
+        "They might get confused if they study two languages together."
+      ]
+    },
+    {
+      "sentence": "Learning a language takes a long time.",
+      "answers": [
+        "It takes many years to learn a language.",
+        "Mastering a language is a slow process."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

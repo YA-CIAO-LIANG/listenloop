@@ -1,0 +1,98 @@
+{
+  "id": "toefl-zoos-and-conservation",
+  "type": "toefl",
+  "level": "intermediate",
+  "title": {
+    "en": "Can Zoos Save Wildlife?",
+    "zh": "動物園能拯救野生動物嗎？"
+  },
+  "subtitle": "原創模擬題：學術討論題，談動物園在物種保育中的角色",
+  "task": "Your professor is teaching a class on biology. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Patel: Modern zoos often say that their main purpose is to protect endangered animals. Some people believe zoos play an important role in saving species, while others think the money would do more good if it were spent protecting animals in the wild. What is your opinion, and why?\n\nLena: I think zoos are important. Some animals, like certain frogs and birds, survived only because zoos bred them and later returned them to nature.\n\nOmar: I'm not convinced. Most animals in zoos are not endangered, and keeping elephants or polar bears in small spaces seems unkind. Protecting forests and oceans would help far more animals.\n\nWrite at least 100 words.",
+  "taskZh": "生物學課的教授提問：現代動物園常說主要目的是保護瀕危動物。有人認為動物園在拯救物種上很重要，也有人認為這筆錢用來保護野外的動物效果更好。你的看法是什麼？為什麼？Lena 認為動物園曾繁殖並野放一些瀕危的青蛙和鳥類；Omar 則認為動物園裡多半不是瀕危動物，把大象、北極熊關在小空間也不人道。請寫一則貼文表態、提出理由，並對討論有新的貢獻。至少寫 100 字。",
+  "words": {
+    "min": 100,
+    "max": 160
+  },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應兩位同學的觀點，再提出新的理由或折衷方案",
+    "用具體的例子或理由支持看法，論點前後一致",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "In my opinion, zoos and wild habitat protection should work together, but zoos still have an important role to play. Lena is right that breeding programs have saved some species from disappearing completely. I would add that zoos also help through education, because many children decide to care about nature only after seeing a real animal up close.",
+      "Omar raises a fair concern about large animals living in small spaces. However, the solution is to change what zoos keep rather than to close them. For example, zoos could focus on smaller endangered species, such as frogs, turtles and insects, which can live comfortably in a limited area. They could also send part of their ticket income to protect wild habitats."
+    ],
+    "zh": [
+      "我認為動物園和野外棲地保育應該相輔相成，但動物園仍然扮演重要的角色。Lena 說得對，繁殖計畫確實讓一些物種免於完全消失。我還想補充，動物園也能透過教育發揮作用，因為很多孩子是在近距離看到真正的動物之後，才開始關心大自然。",
+      "Omar 擔心大型動物住在狹小的空間裡，這個顧慮很合理。不過，解決方法應該是改變動物園飼養的動物，而不是關掉動物園。例如，動物園可以專注在較小型的瀕危物種，像是青蛙、烏龜和昆蟲，牠們在有限的空間裡也能住得舒適。動物園也可以把部分門票收入用來保護野外棲地。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "In my opinion, … should …, but … still …",
+      "zh": "表態並加上但書，讓立場更有層次",
+      "example": "In my opinion, zoos and wild habitat protection should work together, but zoos still have an important role to play.",
+      "keys": ["in my opinion", "but", "still"]
+    },
+    {
+      "pattern": "… is right that …",
+      "zh": "肯定同學的觀點",
+      "example": "Lena is right that breeding programs have saved some species from disappearing completely.",
+      "keys": ["is right that"]
+    },
+    {
+      "pattern": "I would add that …, because …",
+      "zh": "在同學的觀點上補充新的理由",
+      "example": "I would add that zoos also help through education, because many children decide to care about nature only after seeing a real animal up close.",
+      "keys": ["i would add that", "because"]
+    },
+    {
+      "pattern": "… raises a fair concern about …",
+      "zh": "承認另一位同學的疑慮有道理",
+      "example": "Omar raises a fair concern about large animals living in small spaces.",
+      "keys": ["raises a fair concern about"]
+    },
+    {
+      "pattern": "However, the solution is to … rather than to …",
+      "zh": "提出解決辦法，並和另一種做法對比",
+      "example": "However, the solution is to change what zoos keep rather than to close them.",
+      "keys": ["however", "the solution is to", "rather than to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Breeding programs have saved some species.",
+        "These species were close to disappearing."
+      ],
+      "answer": "Breeding programs have saved some species that were close to disappearing."
+    },
+    {
+      "parts": [
+        "Zoos could focus on smaller endangered species.",
+        "Frogs and turtles can live comfortably in a limited area."
+      ],
+      "answer": "Zoos could focus on smaller endangered species, such as frogs and turtles, which can live comfortably in a limited area."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Zoos still have an important role to play.",
+      "answers": [
+        "Zoos are still important.",
+        "Zoos can still make a valuable contribution."
+      ]
+    },
+    {
+      "sentence": "Omar raises a fair concern.",
+      "answers": [
+        "Omar's worry is reasonable.",
+        "Omar has a good reason to be concerned."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

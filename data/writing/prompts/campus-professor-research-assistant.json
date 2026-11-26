@@ -1,0 +1,111 @@
+{
+  "id": "campus-professor-research-assistant",
+  "type": "campus-professor",
+  "level": "advanced",
+  "title": {
+    "en": "Applying to Be a Research Assistant",
+    "zh": "申請當教授的研究助理"
+  },
+  "subtitle": "寫信向教授自我推薦，申請加入研究室",
+  "task": "You have read about Professor Reed's research on urban heat islands and would like to join her lab as an undergraduate research assistant next semester. Write an email to the professor. Introduce yourself, explain your interest and relevant experience, and ask whether there are any openings and what the next steps would be.",
+  "taskZh": "你讀過 Reed 教授關於都市熱島效應的研究，希望下學期以大學部研究助理的身分加入她的實驗室。寫一封 email 給教授：自我介紹、說明你的興趣與相關經驗，並詢問是否有名額及接下來的步驟。",
+  "words": {
+    "min": 200,
+    "max": 280
+  },
+  "minutes": 35,
+  "focus": [
+    "清楚說明來信目的",
+    "用具體經驗說明自己適合（不只說「我很有興趣」）",
+    "語氣正式且自信",
+    "提出明確的下一步"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Reed,",
+      "My name is Lee Chia-Hao, and I am a third-year environmental science student. I recently read your article on how street trees reduce summer temperatures in Taipei, and I am writing to ask whether you might have a place for an undergraduate research assistant in your lab next semester.",
+      "Your work interests me because I grew up in a neighborhood with very few trees, where walking to school in July felt almost dangerous. Last year, I explored this problem in my geography course by measuring surface temperatures at ten locations around campus with a borrowed infrared thermometer. The project was small, but it taught me how to plan fieldwork, clean messy data, and present the results in R.",
+      "I also bring some practical skills that may be useful to your team. I am comfortable with GIS software, having used QGIS in two courses, and I have experience working in a team from my part-time job at the university's sustainability office. I would be happy to start with any tasks you need, such as collecting data in the field or entering records.",
+      "I have attached my CV and my transcript for your reference. If there is an opening, I would welcome the chance to meet during your office hours to learn more about your current projects and what you expect from assistants. If there are no positions at the moment, I would be grateful for any advice on how I could prepare to apply in the future.",
+      "Thank you for considering my request.",
+      "Sincerely,",
+      "Lee Chia-Hao"
+    ],
+    "zh": [
+      "Reed 教授您好：",
+      "我是李家豪，環境科學系三年級學生。我最近讀了您關於行道樹如何降低台北夏季氣溫的文章，想請問您的實驗室下學期是否有大學部研究助理的名額。",
+      "我對您的研究感興趣，是因為我在一個幾乎沒有樹的社區長大，七月走路上學簡直讓人覺得危險。去年，我在地理課上探討了這個問題，借了一支紅外線溫度計，在校園十個地點測量地表溫度。這個專題規模不大，但讓我學會如何規劃田野調查、整理雜亂的資料，並用 R 呈現結果。",
+      "我也具備一些可能對您的團隊有幫助的實用技能。我在兩門課中用過 QGIS，能熟練操作 GIS 軟體，並且在學校永續辦公室打工時累積了團隊合作的經驗。我很樂意從您需要的任何工作開始，例如到現場收集資料或輸入紀錄。",
+      "我已附上我的履歷和成績單供您參考。如果有名額，我很希望能在您的辦公室時間拜訪，進一步了解您目前的研究計畫，以及您對助理的期待。如果目前沒有職缺，也很感謝您給我一些建議，讓我知道日後該如何準備申請。",
+      "謝謝您考慮我的請求。",
+      "敬上",
+      "李家豪"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to ask whether you might …",
+      "zh": "委婉說明來信目的",
+      "example": "I recently read your article on how street trees reduce summer temperatures in Taipei, and I am writing to ask whether you might have a place for an undergraduate research assistant in your lab next semester.",
+      "keys": ["writing to ask whether"]
+    },
+    {
+      "pattern": "Your work interests me because …",
+      "zh": "說明對研究感興趣的原因",
+      "example": "Your work interests me because I grew up in a neighborhood with very few trees, where walking to school in July felt almost dangerous.",
+      "keys": ["interests me because"]
+    },
+    {
+      "pattern": "…, but it taught me how to …",
+      "zh": "說明經驗帶來的收穫",
+      "example": "The project was small, but it taught me how to plan fieldwork, clean messy data, and present the results in R.",
+      "keys": ["taught me how to"]
+    },
+    {
+      "pattern": "…, having used …",
+      "zh": "用分詞片語補充經驗",
+      "example": "I am comfortable with GIS software, having used QGIS in two courses, and I have experience working in a team from my part-time job at the university's sustainability office.",
+      "keys": ["having used"]
+    },
+    {
+      "pattern": "I would welcome the chance to …",
+      "zh": "正式地表達希望有機會",
+      "example": "If there is an opening, I would welcome the chance to meet during your office hours to learn more about your current projects and what you expect from assistants.",
+      "keys": ["welcome the chance to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I have attached my CV.",
+        "I have attached my transcript.",
+        "They are for your reference."
+      ],
+      "answer": "I have attached my CV and my transcript for your reference."
+    },
+    {
+      "parts": [
+        "The project was small.",
+        "It taught me how to plan fieldwork."
+      ],
+      "answer": "The project was small, but it taught me how to plan fieldwork."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I would be grateful for any advice.",
+      "answers": [
+        "I would appreciate any advice you could give.",
+        "Any advice would be very helpful."
+      ]
+    },
+    {
+      "sentence": "Your work interests me.",
+      "answers": [
+        "I am very interested in your research.",
+        "Your research really appeals to me."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,101 @@
+{
+  "id": "opinion-weekend-homework",
+  "type": "opinion",
+  "level": "beginner",
+  "title": {
+    "en": "Homework on Weekends",
+    "zh": "週末該不該有作業"
+  },
+  "subtitle": "老師該不該在週末出作業？表達你的看法",
+  "task": "Some people think teachers should not give students homework on weekends. Do you agree or disagree? Give reasons and examples to support your opinion.",
+  "taskZh": "有人認為老師不應該在週末出作業給學生。你同意還是不同意？請提出理由和例子支持你的看法。",
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "開頭清楚表明立場",
+    "每個理由都有說明或例子",
+    "用 First／Second／In conclusion 組織文章"
+  ],
+  "model": {
+    "en": [
+      "I agree that teachers should not give students homework on weekends. I have two reasons.",
+      "First, students need time to rest. We study at school for eight hours a day from Monday to Friday, so we are often tired by the weekend. If we can relax, we will learn better the next week.",
+      "Second, weekends are a good time to do other things. For example, I like to play basketball and visit my grandparents on Sundays. These activities are also important for us.",
+      "In conclusion, I believe weekends should be homework-free. Students will be happier and healthier."
+    ],
+    "zh": [
+      "我同意老師不應該在週末出作業給學生。我有兩個理由。",
+      "第一，學生需要時間休息。我們週一到週五每天在學校讀書八小時，所以到了週末常常很累。如果能好好放鬆，下週會學得更好。",
+      "第二，週末很適合做其他事。例如，我喜歡在星期天打籃球、去看爺爺奶奶。這些活動對我們來說也很重要。",
+      "總之，我認為週末應該沒有作業。學生會更快樂、更健康。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I agree that …",
+      "zh": "開頭表明立場",
+      "example": "I agree that teachers should not give students homework on weekends.",
+      "keys": ["i agree that"]
+    },
+    {
+      "pattern": "First, …",
+      "zh": "列出第一個理由",
+      "example": "First, students need time to rest.",
+      "keys": ["first"]
+    },
+    {
+      "pattern": "If we can …, we will …",
+      "zh": "說明條件與結果",
+      "example": "If we can relax, we will learn better the next week.",
+      "keys": ["if", "will"]
+    },
+    {
+      "pattern": "For example, …",
+      "zh": "舉例支持理由",
+      "example": "For example, I like to play basketball and visit my grandparents on Sundays.",
+      "keys": ["for example"]
+    },
+    {
+      "pattern": "In conclusion, I believe …",
+      "zh": "結論再次表明立場",
+      "example": "In conclusion, I believe weekends should be homework-free.",
+      "keys": ["in conclusion", "i believe"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I like to play basketball on Sundays.",
+        "I like to visit my grandparents on Sundays."
+      ],
+      "answer": "I like to play basketball and visit my grandparents on Sundays."
+    },
+    {
+      "parts": [
+        "We study for eight hours a day.",
+        "We are often tired by the weekend."
+      ],
+      "answer": "We study for eight hours a day, so we are often tired by the weekend."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Students need time to rest.",
+      "answers": [
+        "Students need a break.",
+        "Students should have time to relax."
+      ]
+    },
+    {
+      "sentence": "Weekends should be homework-free.",
+      "answers": [
+        "There should be no homework on weekends.",
+        "Teachers should not give homework on weekends."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

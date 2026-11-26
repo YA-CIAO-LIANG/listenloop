@@ -1,0 +1,93 @@
+{
+  "id": "toefl-integrated-bike-sharing",
+  "type": "toefl-integrated",
+  "level": "intermediate",
+  "title": {
+    "en": "Is Bike Sharing a Success?",
+    "zh": "共享單車真的成功嗎？"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課質疑共享單車的三項成效",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: Many cities now offer bike-sharing systems, in which people rent bicycles from stations around town for short trips. The reading argues that these systems are a clear success. First, they reduce car traffic, because people ride bikes instead of driving for short trips. Second, they improve public health, since riders get regular exercise as part of their daily routine. Third, they are financially sustainable, because rental fees and advertising on the bikes cover the cost of running the system.\n\nLecture: The professor disagrees with all three claims. First, surveys show that most bike-share trips replace walking or bus rides, not car trips, so traffic barely changes. Second, the health benefits are limited by safety problems: many riders do not wear helmets, and cities without proper bike lanes have seen more accidents. Third, many bike-sharing companies have lost money, and in several cities the government had to use public funds to keep the systems running after the companies left.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要認為共享單車很成功（減少汽車交通、增進健康、財務可永續），講課摘要則逐點質疑。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading and the lecture both discuss bike-sharing systems in cities. While the reading presents these systems as a clear success, the lecturer casts doubt on all three of its main arguments.",
+      "To begin with, the reading states that bike sharing reduces car traffic. The lecturer disagrees, explaining that surveys show most bike-share trips replace walking or bus rides rather than car trips. Therefore, the number of cars on the road barely changes.",
+      "Next, the lecturer questions the claim that bike sharing improves public health. Although riders do get exercise, many of them do not wear helmets. Moreover, cities without proper bike lanes have seen an increase in accidents, which reduces the health benefits.",
+      "Lastly, the reading argues that rental fees and advertising make the systems financially sustainable. According to the lecturer, however, many bike-sharing companies have actually lost money. In several cities, governments even had to use public funds to keep the systems running after the companies left."
+    ],
+    "zh": [
+      "閱讀文章和講課都在討論城市的共享單車系統。閱讀文章認為這些系統非常成功，講者卻對它的三個主要論點都提出質疑。",
+      "首先，閱讀文章指出共享單車能減少汽車交通量。講者不同意，並解釋調查顯示，大多數共享單車的行程取代的是步行或搭公車，而不是開車。因此，路上的汽車數量幾乎沒有改變。",
+      "接著，講者質疑共享單車能增進大眾健康的說法。雖然騎車的人確實有運動到，但很多人並沒有戴安全帽。此外，沒有完善自行車道的城市，事故數量也增加了，這降低了對健康的好處。",
+      "最後，閱讀文章主張租金和廣告收入能讓這些系統在財務上永續經營。然而，根據講者的說法，很多共享單車公司其實是虧損的。在好幾個城市，業者退出後，政府甚至得動用公帑來維持系統運作。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "While the reading presents … as …, the lecturer casts doubt on …",
+      "zh": "開頭對照兩者的立場",
+      "example": "While the reading presents these systems as a clear success, the lecturer casts doubt on all three of its main arguments.",
+      "keys": ["while the reading presents", "the lecturer casts doubt on"]
+    },
+    {
+      "pattern": "The lecturer disagrees, explaining that …",
+      "zh": "說明講者不同意並給出理由",
+      "example": "The lecturer disagrees, explaining that surveys show most bike-share trips replace walking or bus rides rather than car trips.",
+      "keys": ["the lecturer disagrees", "explaining that"]
+    },
+    {
+      "pattern": "…, the lecturer questions the claim that …",
+      "zh": "點出講者質疑的論點",
+      "example": "Next, the lecturer questions the claim that bike sharing improves public health.",
+      "keys": ["questions the claim that"]
+    },
+    {
+      "pattern": "According to the lecturer, however, …",
+      "zh": "轉述講者的反駁",
+      "example": "According to the lecturer, however, many bike-sharing companies have actually lost money.",
+      "keys": ["according to the lecturer", "however"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Riders do get exercise.", "Many of them do not wear helmets."],
+      "answer": "Although riders do get exercise, many of them do not wear helmets."
+    },
+    {
+      "parts": [
+        "Most bike-share trips replace walking or bus rides.",
+        "The number of cars on the road barely changes."
+      ],
+      "answer": "Most bike-share trips replace walking or bus rides, so the number of cars on the road barely changes."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Many bike-sharing companies have actually lost money.",
+      "answers": [
+        "Many bike-sharing businesses have not made a profit.",
+        "Quite a few bike-sharing companies have been losing money."
+      ]
+    },
+    {
+      "sentence": "The number of cars on the road barely changes.",
+      "answers": [
+        "Traffic stays almost the same.",
+        "There are hardly any fewer cars on the road."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

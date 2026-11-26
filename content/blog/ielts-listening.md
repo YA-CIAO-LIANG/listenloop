@@ -35,6 +35,6 @@
 - [Booking a Beginner Swimming Course](/videos/p-6402cf6e-6f59-46fd-a6d5-984572ac2923)：雅思風格 Part 1 日常對話，英式口音（原創，非真實考題）
 - [Opening a Student Account](/videos/p-0ef050f7-30bd-4e49-9789-ddfdd02fb6c8)：開銀行帳戶，澳洲口音，數字多
 
-更多：[考試聽力](/learn/exam)與[留學生活](/learn/study-abroad)主題。也可以看[留學前必練的生活英文](/blog/study-abroad-english)。
+更多：[考試英文](/exams)與[留學生活](/learn/study-abroad)主題。也可以看[留學前必練的生活英文](/blog/study-abroad-english)。
 
 > 說明：ListenLoop 的考試風格教材是模仿題型與難度的原創內容，不是真實考題，與雅思主辦單位無關。

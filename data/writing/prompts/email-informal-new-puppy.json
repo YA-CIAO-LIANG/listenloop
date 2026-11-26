@@ -1,0 +1,98 @@
+{
+  "id": "email-informal-new-puppy",
+  "type": "email-informal",
+  "level": "beginner",
+  "title": {
+    "en": "Our New Puppy",
+    "zh": "我們家的新小狗"
+  },
+  "subtitle": "家裡養了新寵物，寫信告訴朋友並邀她來玩",
+  "task": "Your family has just got a new pet. Write an email to your friend Emma. Tell her about the pet, what you do with it every day, and invite her to come and meet it.",
+  "taskZh": "你家剛養了一隻新寵物。寫一封 email 給朋友 Emma：介紹這隻寵物、你每天和牠做些什麼，並邀請她來看看牠。",
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "語氣親切自然，像寫給朋友",
+    "內容具體：描述外觀與日常互動",
+    "結尾提出邀請或期待回信"
+  ],
+  "model": {
+    "en": [
+      "Hi Emma,",
+      "Guess what? My family got a puppy last weekend! Her name is Mochi, and she is a small white dog with brown ears. She is only three months old, so she sleeps a lot.",
+      "Every morning, I take her for a short walk before school. When I come home, she runs to the door and jumps on me. She also likes to chew my socks, which is not so cute!",
+      "Would you like to meet her? You can come to my house this Saturday afternoon if you are free.",
+      "Write back soon!",
+      "Love,",
+      "Amy"
+    ],
+    "zh": [
+      "Emma 你好：",
+      "猜猜看發生什麼事？我們家上週末養了一隻小狗！她叫麻糬，是一隻有著棕色耳朵的白色小狗。她才三個月大，所以很常睡覺。",
+      "每天早上上學前，我都會帶她短暫散個步。我回到家時，她會跑到門口撲到我身上。她也喜歡咬我的襪子，這就沒那麼可愛了！",
+      "你想來看看她嗎？如果你有空，這週六下午可以來我家。",
+      "快點回信喔！",
+      "愛你的",
+      "Amy"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Guess what? …",
+      "zh": "寫給朋友時用來帶出好消息的開頭",
+      "example": "Guess what?",
+      "keys": ["guess what"]
+    },
+    {
+      "pattern": "…, so …",
+      "zh": "說明結果：……，所以……",
+      "example": "She is only three months old, so she sleeps a lot.",
+      "keys": ["so"]
+    },
+    {
+      "pattern": "When I …, she …",
+      "zh": "描述某個時候固定會發生的事",
+      "example": "When I come home, she runs to the door and jumps on me.",
+      "keys": ["when"]
+    },
+    {
+      "pattern": "…, which is …",
+      "zh": "補充說明前面整件事",
+      "example": "She also likes to chew my socks, which is not so cute!",
+      "keys": ["which is"]
+    },
+    {
+      "pattern": "Would you like to …?",
+      "zh": "邀請對方做某事",
+      "example": "Would you like to meet her?",
+      "keys": ["would you like to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["She is a small white dog.", "She has brown ears."],
+      "answer": "She is a small white dog with brown ears."
+    },
+    {
+      "parts": ["She runs to the door.", "She jumps on me."],
+      "answer": "She runs to the door and jumps on me."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "She sleeps a lot.",
+      "answers": ["She spends a lot of time sleeping.", "She takes many naps."]
+    },
+    {
+      "sentence": "You can come to my house this Saturday if you are free.",
+      "answers": [
+        "If you have time, come over this Saturday.",
+        "Feel free to visit me this Saturday if you can."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

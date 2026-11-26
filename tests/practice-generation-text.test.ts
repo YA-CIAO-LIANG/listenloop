@@ -93,7 +93,9 @@ describe("categories (D57)", () => {
       "ielts",
       "toeic",
       "gept",
-      "gsat",
+      // The senior high listening test and junior high's CAP (D215).
+      "hs-listening",
+      "cap",
     ]);
   });
 

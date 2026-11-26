@@ -1,0 +1,127 @@
+{
+  "id": "toefl",
+  "name": { "zh": "托福 TOEFL iBT", "en": "TOEFL iBT" },
+  "summary": {
+    "zh": "ETS 的學術英語測驗，常用於申請國外大學與研究所。2026 年 1 月 21 日起改為新版：題目更短、閱讀與聽力會依表現調整難度，成績改用 1–6 分制。",
+    "en": "ETS's academic English test, widely used for university and graduate applications abroad. Since 21 January 2026 it uses an updated format: shorter tasks, adaptive Reading and Listening, and a 1–6 score scale."
+  },
+  "sections": [
+    {
+      "id": "about",
+      "heading": { "zh": "考試簡介", "en": "About the test" },
+      "paragraphs": {
+        "zh": [
+          "TOEFL iBT 由 ETS 主辦，考閱讀、聽力、寫作、口說四項，全程用電腦作答。可以到考場考，也可以選 Home Edition 在家考，由真人監考。",
+          "2026 年 1 月 21 日起全球改用新版（之前考的仍是舊版）。新版的閱讀與聽力是「兩階段適性測驗」：先作答一組題目，系統再依表現給你較易或較難的下一組；寫作與口說則所有人題目相同。",
+          "ETS 不設及格分數，每所學校自訂要求。官方建議預留約 2 小時，實際題數與時間會隨適性測驗略有不同。"
+        ],
+        "en": [
+          "TOEFL iBT is run by ETS and tests Reading, Listening, Writing, and Speaking, all on a computer. You can take it at a test centre or at home with the Home Edition, monitored by a live proctor.",
+          "An updated version launched worldwide on 21 January 2026 (earlier tests used the previous version). Reading and Listening are now two-stage adaptive: after a first set of questions, you get an easier or harder second set based on your performance. Writing and Speaking are the same for everyone on a given form.",
+          "ETS sets no passing score; each institution sets its own requirement. ETS suggests allowing about two hours, and the number of items and time can vary as the test adapts."
+        ]
+      }
+    },
+    {
+      "id": "format",
+      "heading": { "zh": "題型", "en": "Format" },
+      "paragraphs": {
+        "zh": [
+          "依 ETS 官網（2026 年版）：閱讀 50 題、約 30 分鐘（Complete the Words、Read in Daily Life、Read an Academic Passage）；聽力 47 題、約 29 分鐘；寫作 12 題、約 23 分鐘；口說 11 題、約 8 分鐘（Listen and Repeat、Take an Interview）。時間不含作答說明。",
+          "聽力有四種題型：Listen and Choose a Response（聽一句話選最適合的回應）、Listen to a Conversation（多為校園生活的對話）、Listen to an Announcement（課堂或校園公告）、Listen to an Academic Talk（教授或專家的簡短學術講解）。錄音只播一次，可以做筆記，會聽到北美、英國、紐西蘭或澳洲口音。",
+          "寫作有三種題型：Build a Sentence（把字詞排成正確的句子，10 題）、Write an Email（依情境寫一封電子郵件，1 題）、Write for an Academic Discussion（在線上課堂討論中提出並支持自己的看法，1 題）。全部用鍵盤打字。"
+        ],
+        "en": [
+          "According to ETS (2026 format): Reading has 50 items in about 30 minutes (Complete the Words, Read in Daily Life, Read an Academic Passage); Listening 47 items in about 29 minutes; Writing 12 items in about 23 minutes; Speaking 11 items in about 8 minutes (Listen and Repeat, Take an Interview). Times exclude directions.",
+          "Listening has four task types: Listen and Choose a Response (hear one line, pick the best reply), Listen to a Conversation (mostly campus life), Listen to an Announcement (class or campus announcements), and Listen to an Academic Talk (a short talk by a professor or expert). Recordings play once, you may take notes, and you may hear North American, British, New Zealand, or Australian accents.",
+          "Writing has three task types: Build a Sentence (arrange words into a correct sentence, 10 items), Write an Email (respond to a situation, 1 item), and Write for an Academic Discussion (state and support your opinion in an online class discussion, 1 item). All answers are typed."
+        ]
+      }
+    },
+    {
+      "id": "listening-scoring",
+      "heading": { "zh": "聽力的評分方式", "en": "How listening is scored" },
+      "paragraphs": {
+        "zh": [
+          "聽力全部是選擇題，由電腦評分，每個計分題 1 分。依 ETS 規格文件，閱讀與聽力的題數包含部分不計分的題目，用來蒐集未來出題的資料。",
+          "自 2026 年 1 月 21 日起，四個單項與總分都用 1–6 分表示，以 0.5 分為單位，並對應歐洲語言共同參考架構（CEFR）。總分是四項平均，四捨五入到最接近的 0.5 分。2026 年 1 月起的兩年過渡期內，成績單也會附上對照的 0–120 總分。",
+          "考完當下會看到非正式的閱讀與聽力成績，正式成績約在考試 3 天後公布在 ETS 帳戶。閱讀與聽力成績不能申請複查。"
+        ],
+        "en": [
+          "Listening is all multiple choice and machine scored, 1 point per scored item. Per ETS's specifications, the Reading and Listening item counts include some unscored items used to gather data for future tests.",
+          "Since 21 January 2026, each section and the overall score are reported on a 1–6 scale in half-point steps, aligned with the CEFR. The overall score is the average of the four sections, rounded to the nearest half band. For a two-year transition from January 2026, score reports also show a comparable 0–120 total.",
+          "You see unofficial Reading and Listening scores at the end of the test; official scores appear in your ETS account about 3 days later. Reading and Listening scores cannot be reviewed."
+        ]
+      }
+    },
+    {
+      "id": "writing-scoring",
+      "heading": { "zh": "寫作的評分方式", "en": "How writing is scored" },
+      "paragraphs": {
+        "zh": [
+          "依 ETS 2026 年版測驗規格：Build a Sentence 每題 1 分，由電腦評分；Write an Email 與 Write for an Academic Discussion 每題最高 5 分，由 AI 評分，透過自然語言處理評估流暢度、連貫性、文法等特徵。（規格文件註明內容仍可能小幅調整。）",
+          "ETS 說明評分重點是能不能清楚、有效地傳達想法，而不是第一稿就完美無缺。寫作成績同樣以 1–6 分呈現；對寫作成績有疑問，可在考後 30 天內付費申請複查（已送分給學校後就不能申請）。"
+        ],
+        "en": [
+          "Per ETS's 2026 test specifications: each Build a Sentence item is worth 1 point and machine scored; Write an Email and Write for an Academic Discussion are worth up to 5 points each and AI scored, using natural language processing to assess features such as fluency, coherence, and grammar. (The document notes the specifications may still see minor revisions.)",
+          "ETS says scoring focuses on how clearly and effectively you communicate, not on a perfect first draft. Writing is also reported on the 1–6 scale; you can request a paid Writing score review within 30 days of the test, unless you have already sent scores to an institution."
+        ]
+      }
+    },
+    {
+      "id": "practice",
+      "heading": { "zh": "建議練習方式", "en": "How to practise" },
+      "paragraphs": {
+        "zh": [
+          "新版聽力的題目短、只播一次，一個字沒聽到就可能選錯。ListenLoop 第 1 天逐句聽寫，會讓你清楚看到自己漏掉哪些字（常是冠詞、介系詞、連音）；第 2～6 天跟讀，練到聽到聲音就能對上意思；第 7 天再聽寫一次，和第 1 天比較。",
+          "口說的 Listen and Repeat 要求聽完一句後準確複述，和跟讀的練習方式很接近；建議選校園或學術內容的教材，接近考試情境。",
+          "寫作可以用 WritingLoop：第 1 天寫一封電子郵件或一段學術討論回應並取得回饋，第 2～6 天針對弱點做短練習，第 7 天不看舊稿重寫同一題，比較兩次的差異。正式考前，務必用 ETS 官方的免費模擬測驗熟悉介面與時間。"
+        ],
+        "en": [
+          "The new Listening tasks are short and play once, so one missed word can cost an answer. ListenLoop's Day 1 sentence-by-sentence dictation shows exactly which words you miss (often articles, prepositions, and linked sounds); Days 2–6 of shadowing train you to map sound to meaning quickly; Day 7 repeats the dictation so you can compare with Day 1.",
+          "Speaking's Listen and Repeat task asks you to repeat a sentence accurately, which is close to how shadowing works; choose campus or academic material to match the test setting.",
+          "For writing, use WritingLoop: on Day 1 write an email or an academic discussion reply and get feedback, on Days 2–6 do short exercises on your weak points, and on Day 7 rewrite the same prompt without looking at your first draft. Before test day, take ETS's free official practice test to get used to the interface and timing."
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "title": {
+        "zh": "官方免費完整模擬測驗（2026 年新版，需填簡短表單）",
+        "en": "Free full-length official practice test (2026 format, short form required)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/toefl/test-takers/ibt/prepare/sample-test-jan-2026-1.html",
+      "kind": "practice",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": { "zh": "測驗內容與架構", "en": "Test content and structure" },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/toefl/test-takers/ibt/about/content.html",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "2026 年版測驗藍圖與規格（PDF）",
+        "en": "2026 test blueprint and specifications (PDF)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/content/dam/ets-org/pdfs/toefl/toefl-ibt-test-specifications-2026.pdf",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "成績說明（1–6 分制）",
+        "en": "Understanding your scores (1–6 scale)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/toefl/test-takers/ibt/scores/understand-scores.html",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    }
+  ]
+}

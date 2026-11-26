@@ -400,7 +400,9 @@
       "moreCategories": "More categories ({count})",
       "fewerCategories": "Fewer categories",
       "collapse": "Hide filters",
-      "expand": "Show filters"
+      "expand": "Show filters",
+      "exams": "Exam English",
+      "examGuides": "Exam guides and free official practice →"
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} s} other {{seconds, plural, =0 {{minutes} min} other {{minutes} min {seconds} s}}}}",
@@ -692,7 +694,8 @@
     "blog": "Articles",
     "status": "Service status",
     "faq": "FAQ",
-    "beta": "Beta guide"
+    "beta": "Beta guide",
+    "exams": "Exam English"
   },
   "privacy": {
     "title": "Privacy policy",
@@ -2373,7 +2376,7 @@
       "culture": "Culture and festivals",
       "classics": "Classics",
       "school": "Junior & senior high",
-      "exam": "Exam listening",
+      "exam": "Exam English",
       "other": "Other"
     },
     "scenarios": {
@@ -2449,20 +2452,20 @@
       "personal-growth": "A story of personal growth",
       "inspirational": "Inspirational speech",
       "product-launch": "Product launch",
-      "toefl-campus": "Campus conversation",
-      "toefl-lecture-biology": "Lecture: biology",
-      "toefl-lecture-geology": "Lecture: geology",
-      "toefl-lecture-history": "Lecture: history",
-      "toefl-lecture-art-history": "Lecture: art history",
-      "toefl-lecture-psychology": "Lecture: psychology",
-      "ielts-part1": "Part 1 conversation",
-      "ielts-part2": "Part 2 monologue",
-      "ielts-part3": "Part 3 academic discussion",
-      "ielts-part4": "Part 4 academic lecture",
-      "toeic-responses": "Question and response",
-      "toeic-conversation": "Short work conversation",
-      "toeic-announcement": "Announcements and broadcasts",
-      "toeic-voicemail": "Voicemail",
+      "toefl-campus": "Conversation: campus",
+      "toefl-lecture-biology": "Academic Talk: biology",
+      "toefl-lecture-geology": "Academic Talk: geology",
+      "toefl-lecture-history": "Academic Talk: history",
+      "toefl-lecture-art-history": "Academic Talk: art history",
+      "toefl-lecture-psychology": "Academic Talk: psychology",
+      "ielts-part1": "Part 1 (Section 1): everyday conversation",
+      "ielts-part2": "Part 2 (Section 2): monologue",
+      "ielts-part3": "Part 3 (Section 3): academic discussion",
+      "ielts-part4": "Part 4 (Section 4): academic lecture",
+      "toeic-responses": "Part 2: Question–response",
+      "toeic-conversation": "Part 3: Conversations",
+      "toeic-announcement": "Part 4: Announcements",
+      "toeic-voicemail": "Part 4: Voicemail",
       "gept-conversation": "Short conversation",
       "gept-short-talk": "Short talk or announcement",
       "train-station": "Train tickets and platforms",
@@ -2554,22 +2557,28 @@
       "junior-passage": "Junior high: passages",
       "senior-dialogue": "Senior high: dialogues",
       "senior-passage": "Senior high: passages",
-      "gsat-dialogue": "Short conversations",
-      "gsat-short-talk": "Short talks and reports",
       "myth": "Myths",
       "classic-poem": "Classic poems",
       "historic-letter": "Historic letters",
       "junior-story": "Junior high: stories",
       "junior-notice": "Junior high: announcements",
       "senior-story": "Senior high: stories",
-      "senior-speech": "Senior high: student speeches"
+      "senior-speech": "Senior high: student speeches",
+      "hs-response": "Responses",
+      "hs-discourse-dialogue": "Discourse: conversations",
+      "hs-discourse-talk": "Discourse: talks and reports",
+      "cap-response": "Questions and answers",
+      "cap-discourse-dialogue": "Discourse: conversations",
+      "cap-discourse-talk": "Discourse: talks and announcements"
     },
     "exams": {
       "toefl": "TOEFL iBT-style",
       "ielts": "IELTS-style",
       "toeic": "TOEIC-style",
       "gept": "GEPT-style",
-      "gsat": "GSAT-style (Taiwan)"
+      "gsat": "GSAT-style (Taiwan)",
+      "hs-listening": "Senior high English listening test style (Taiwan)",
+      "cap": "CAP listening style (Taiwan junior high)"
     },
     "targets": {
       "toefl-80": "About 80",
@@ -2584,9 +2593,11 @@
       "gept-intermediate": "Intermediate",
       "gept-high-intermediate": "High-Intermediate",
       "gept-advanced": "Advanced",
-      "gsat-basic": "Basic",
-      "gsat-standard": "Above average",
-      "gsat-top": "Top"
+      "hs-c": "Grade C",
+      "hs-b": "Grade B",
+      "hs-a": "Grade A",
+      "cap-basic": "Basic",
+      "cap-proficient": "Proficient"
     },
     "levels": {
       "beginner": "Beginner",
@@ -3588,7 +3599,7 @@
       "culture": "Festivals, traditions, and cultures around the world: learn about the English-speaking world while you practice.",
       "classics": "Aesop's fables, Grimm's fairy tales, Alice in Wonderland, Sherlock Holmes, speeches by Lincoln and Kennedy, and articles from NASA and the National Park Service: public-domain classics only, retold for learners where needed, with the source shown.",
       "school": "Original passages and conversations on topics from Taiwan's junior and senior high school curriculum: school life, family, the environment, technology, and culture.",
-      "exam": "Original practice in the style of the TOEFL, IELTS, TOEIC, GEPT, and GSAT (not real test questions). Seven days with one material to hear every word of each task type."
+      "exam": "Original practice in the style of the TOEFL, IELTS, TOEIC, GEPT, Taiwan's senior high listening test, and the CAP (not real test questions, apart from marked official CAP items). Seven days with one material to hear every word of each task type."
     },
     "howTitle": "How it works: a 7-day loop",
     "steps": {
@@ -4129,7 +4140,7 @@
       },
       "exams": {
         "question": "Are there TOEIC, TOEFL, IELTS, or GEPT listening materials?",
-        "answer": "Yes, under the Exam listening topic: original practice in the style of the TOEIC, TOEFL, IELTS, and GEPT, imitating their situations and difficulty. They aren't real test items, and ListenLoop has no connection with any of these tests' organizers."
+        "answer": "Yes, under Exam English: original listening practice in the style of the TOEFL, IELTS, TOEIC, GEPT (Elementary, Intermediate, High-Intermediate), Taiwan's senior high listening test, and the CAP, plus writing prompts for these exams and the GSAT, imitating their tasks and difficulty. Each exam has a guide with links to its free official practice. Apart from the marked official CAP items, they aren't real test items, and ListenLoop has no connection with any of these tests' organizers."
       },
       "create": {
         "question": "Can I make materials from my own text?",
@@ -4233,7 +4244,9 @@
       "isDefault": "your default filter",
       "empty": "No prompts match. Try fewer filters.",
       "words": "{min}–{max} words",
-      "time": "about {minutes} min"
+      "time": "about {minutes} min",
+      "exams": "Exam English",
+      "examGuides": "Exam guides →"
     },
     "groups": {
       "daily": "Everyday",
@@ -4242,7 +4255,7 @@
       "chart": "Charts",
       "story": "Stories",
       "campus": "Studying abroad",
-      "exam": "Exams"
+      "exam": "Exam English"
     },
     "levels": {
       "beginner": "Beginner",
@@ -4262,7 +4275,8 @@
       "campus-housing": "Housing",
       "ielts-task1": "IELTS Task 1",
       "ielts-task2": "IELTS Task 2",
-      "toefl": "TOEFL",
+      "toefl": "TOEFL Academic Discussion",
+      "toefl-integrated": "TOEFL Integrated (former task)",
       "gept": "GEPT",
       "gsat": "GSAT composition",
       "toeic": "TOEIC writing",
@@ -5066,5 +5080,30 @@
     "listening": "You're on a writing plan, so listening is as on Free. Upgrade to All-in-One for the same tier's listening allowance and features, for less than buying both.",
     "writing": "You're on a listening plan, so writing is the free trial. Upgrade to All-in-One for the same tier's writing AI, for less than buying both.",
     "link": "Upgrade to All-in-One"
+  },
+  "examTracks": {
+    "toefl": "TOEFL",
+    "ielts": "IELTS",
+    "toeic": "TOEIC",
+    "gept-elementary": "GEPT Elementary",
+    "gept-intermediate": "GEPT Intermediate",
+    "gept-high-intermediate": "GEPT High-Intermediate",
+    "gsat": "GSAT",
+    "hs-listening": "Senior high listening test",
+    "cap": "CAP (junior high)"
+  },
+  "exams": {
+    "indexTitle": "Exam English: guides and practice",
+    "indexIntro": "TOEFL, IELTS, TOEIC, GEPT, the GSAT, the senior high listening test, and the CAP: each exam’s parts, how listening and writing are scored, how to practise, and this site’s matching listening materials, writing prompts, and the exam owner’s free official practice.",
+    "pageTitle": "{name}: format, scoring, and practice",
+    "back": "All exams",
+    "materials": "Practice here",
+    "listening": "Listening materials ({count})",
+    "writing": "Writing prompts ({count})",
+    "noListening": "Listening materials for this exam are on the way.",
+    "noWriting": "Writing prompts for this exam are on the way.",
+    "resources": "Free official practice",
+    "resourcesNote": "These link to the exam owner’s own site, which has the final word. ListenLoop’s materials and prompts are original, in each part’s style, never real test items.",
+    "resourceMeta": "{publisher} · checked working on {date}"
   }
 }

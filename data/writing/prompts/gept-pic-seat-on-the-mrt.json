@@ -1,0 +1,81 @@
+{
+  "id": "gept-pic-seat-on-the-mrt",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "Giving Up a Seat on the MRT",
+    "zh": "在捷運上讓座"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段捷運讓座的短文",
+  "task": "Look at the three pictures. Picture 1: A girl gets on a crowded MRT train and finds a seat. Picture 2: At the next station, an old man with a cane gets on. Picture 3: The girl stands up and gives him her seat, and he smiles. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：女孩搭上擁擠的捷運，找到一個座位。圖二：下一站，一位拄拐杖的老先生上車。圖三：女孩站起來讓座，老先生微笑。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（搭車、老先生上車、讓座）都要寫到",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "Last Sunday, Amy took the MRT to visit her aunt. The train was very crowded, but she found an empty seat. At the next station, an old man with a cane got on the train. He looked tired and could not find a seat. Amy stood up right away and gave her seat to him. The old man smiled and thanked her. Amy felt happy all day."
+    ],
+    "zh": [
+      "上週日，Amy 搭捷運去看她的阿姨。車廂非常擁擠，但她找到一個空位。到了下一站，一位拄著拐杖的老先生上了車。他看起來很累，也找不到座位。Amy 馬上站起來，把座位讓給他。老先生微笑著向她道謝。Amy 一整天都很開心。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "…, but …",
+      "zh": "用 but 連接兩件相反的事",
+      "example": "The train was very crowded, but she found an empty seat.",
+      "keys": ["but"]
+    },
+    {
+      "pattern": "look + 形容詞",
+      "zh": "描述人看起來的樣子",
+      "example": "He looked tired and could not find a seat.",
+      "keys": ["looked tired"]
+    },
+    {
+      "pattern": "… right away",
+      "zh": "表示「馬上」做某事",
+      "example": "Amy stood up right away and gave her seat to him.",
+      "keys": ["right away"]
+    },
+    {
+      "pattern": "feel + 形容詞 + all day",
+      "zh": "結尾說出自己的感受",
+      "example": "Amy felt happy all day.",
+      "keys": ["felt happy", "all day"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["The old man smiled.", "The old man thanked her."],
+      "answer": "The old man smiled and thanked her."
+    },
+    {
+      "parts": ["The train was very crowded.", "She found an empty seat."],
+      "answer": "The train was very crowded, but she found an empty seat."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Amy gave her seat to him.",
+      "answers": ["Amy let him have her seat.", "Amy gave him her seat."]
+    },
+    {
+      "sentence": "The train was very crowded.",
+      "answers": [
+        "There were a lot of people on the train.",
+        "The train was full of people."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

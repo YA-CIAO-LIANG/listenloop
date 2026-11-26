@@ -1,0 +1,99 @@
+{
+  "id": "gept-hi-essay-news-on-social-media",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "Getting the News from Social Media",
+    "zh": "從社群媒體看新聞"
+  },
+  "subtitle": "全民英檢中高級：討論從社群媒體獲得新聞的問題",
+  "task": "More and more young people get their news mainly from social media instead of newspapers or TV. Write an essay of 150–180 words. In your essay, (1) explain why social media has become such a popular source of news, (2) discuss one risk of relying on it, and (3) suggest how young people can become more careful news readers.",
+  "taskZh": "越來越多年輕人主要從社群媒體而不是報紙或電視獲得新聞。請寫一篇 150–180 字的英文文章：(1) 說明社群媒體為什麼成為這麼受歡迎的新聞來源，(2) 討論依賴它的一個風險，(3) 建議年輕人如何成為更謹慎的新聞讀者。",
+  "words": { "min": 150, "max": 180 },
+  "minutes": 35,
+  "focus": [
+    "內容：原因、風險、建議三個要求都要寫到，並有具體例子",
+    "組織：每段有主題句，段落之間邏輯連貫",
+    "文法：複句與名詞子句運用正確，句型有變化",
+    "用字：媒體相關字彙精確，避免重複用字"
+  ],
+  "model": {
+    "en": [
+      "These days, many of my classmates have never bought a newspaper. Instead, they learn about the world by scrolling through social media on their phones.",
+      "It is not hard to understand why. Social media is free, fast, and always in our pockets. Moreover, news there is often presented in short videos or eye-catching pictures, which are far easier to follow than long articles.",
+      "However, relying on social media for news carries a serious risk. Since anyone can post anything, false stories spread just as quickly as true ones. What is worse, the apps tend to show us posts we already agree with, so we may end up seeing only one side of an issue.",
+      "To become more careful readers, young people should develop a few simple habits. Before sharing a surprising story, they can check whether a trusted news organization has reported it as well. They should also follow sources with different points of view. In this way, social media can remain convenient without making us less informed."
+    ],
+    "zh": [
+      "現在，我很多同學從來沒買過報紙。他們反而是在手機上滑社群媒體來了解世界。",
+      "原因並不難理解。社群媒體免費、快速，而且隨時就在我們的口袋裡。此外，那裡的新聞常以短影片或吸睛的圖片呈現，比長篇文章容易理解得多。",
+      "然而，依賴社群媒體獲得新聞有一個嚴重的風險。因為任何人都能發布任何內容，假消息傳播得和真消息一樣快。更糟的是，這些 App 往往會推送我們本來就同意的貼文，所以我們最後可能只看到議題的一面。",
+      "要成為更謹慎的讀者，年輕人應該養成幾個簡單的習慣。分享一則令人驚訝的消息之前，可以先查查可信的新聞機構是否也報導過。他們也應該追蹤觀點不同的來源。如此一來，社群媒體可以保持便利，又不會讓我們變得更不了解真相。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "It is not hard to understand why.",
+      "zh": "承上啟下，引出原因的說明",
+      "example": "It is not hard to understand why.",
+      "keys": ["not hard to understand why"]
+    },
+    {
+      "pattern": "…, which are far easier to … than …",
+      "zh": "用非限定關係子句加比較級補充說明",
+      "example": "Moreover, news there is often presented in short videos or eye-catching pictures, which are far easier to follow than long articles.",
+      "keys": ["moreover", "far easier to", "than"]
+    },
+    {
+      "pattern": "… just as quickly as …",
+      "zh": "用 as … as 比較程度相同",
+      "example": "Since anyone can post anything, false stories spread just as quickly as true ones.",
+      "keys": ["since", "just as quickly as"]
+    },
+    {
+      "pattern": "What is worse, … may end up …ing …",
+      "zh": "更糟的是……；最後落得……",
+      "example": "What is worse, the apps tend to show us posts we already agree with, so we may end up seeing only one side of an issue.",
+      "keys": ["what is worse", "end up seeing"]
+    },
+    {
+      "pattern": "… can remain … without making …",
+      "zh": "結論：保留好處，同時避免壞處",
+      "example": "In this way, social media can remain convenient without making us less informed.",
+      "keys": ["in this way", "without making"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Anyone can post anything.",
+        "False stories spread just as quickly as true ones."
+      ],
+      "answer": "Since anyone can post anything, false stories spread just as quickly as true ones."
+    },
+    {
+      "parts": [
+        "News is often presented in short videos.",
+        "Short videos are far easier to follow than long articles."
+      ],
+      "answer": "News is often presented in short videos, which are far easier to follow than long articles."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Relying on social media for news carries a serious risk.",
+      "answers": [
+        "Depending on social media for news can be quite dangerous.",
+        "Getting all our news from social media is risky."
+      ]
+    },
+    {
+      "sentence": "We may end up seeing only one side of an issue.",
+      "answers": [
+        "We might only see one point of view on an issue.",
+        "We may never hear the other side of the story."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

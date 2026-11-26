@@ -1,0 +1,114 @@
+{
+  "id": "ielts-task1-household-water-use",
+  "type": "ielts-task1",
+  "level": "advanced",
+  "title": {
+    "en": "Daily Water Use in Three Cities",
+    "zh": "三座城市的每日用水量"
+  },
+  "subtitle": "原創模擬題：比較三座城市每人每日各項用水量（表格）",
+  "task": "The table below shows the average amount of water used per person per day for five purposes in three cities, Linfield, Marston and Pelham, in 2025 (in litres). Summarise the information by selecting and reporting the main features, and make comparisons where relevant. Write at least 150 words.",
+  "taskZh": "下表是 2025 年三座城市（Linfield、Marston、Pelham）每人每日在五種用途上的平均用水量（單位：公升）。請挑出主要特徵加以摘要，並在適當處比較。至少寫 150 字。城市與資料皆為虛構。",
+  "chart": {
+    "title": "Average daily water use per person, 2025 (litres)",
+    "columns": ["Purpose", "Linfield", "Marston", "Pelham"],
+    "rows": [
+      ["Showers and baths", 70, 45, 30],
+      ["Toilets", 40, 30, 20],
+      ["Washing clothes", 25, 20, 15],
+      ["Cooking and drinking", 10, 10, 10],
+      ["Garden", 55, 5, 0],
+      ["Total", 200, 110, 75]
+    ]
+  },
+  "words": {
+    "min": 150,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "Task Achievement：Overview 點出用量最高與最低的城市，以及最大宗的用途",
+    "Coherence and Cohesion：先比總量、再看造成差距的項目，不要逐格念表",
+    "Lexical Resource：倍數、比例與 account for、consume 等用字有變化",
+    "Grammatical Range and Accuracy：比較級、倍數句型與關係子句正確"
+  ],
+  "model": {
+    "en": [
+      "The table compares how much water a person used each day, on average, for five different purposes in three cities in 2025.",
+      "Overall, residents of Linfield consumed considerably more water than people in the other two cities, while those in Pelham used the least. Showers and baths accounted for the largest share of use in all three places.",
+      "A typical resident of Linfield used 200 litres per day, almost twice as much as someone in Marston (110 litres) and more than two and a half times as much as someone in Pelham (75 litres). Much of this gap can be explained by garden watering, which used 55 litres per person in Linfield, compared with only 5 litres in Marston and none at all in Pelham. Linfield also had the highest consumption for showers and baths, at 70 litres, more than double the amount in Pelham.",
+      "The figures for the remaining purposes followed the same pattern, with toilets and washing clothes using the most water in Linfield and the least in Pelham. The only exception was cooking and drinking, for which people in all three cities used an identical 10 litres a day."
+    ],
+    "zh": [
+      "這張表比較 2025 年三座城市中，每人每天平均在五種用途上使用多少水。",
+      "整體而言，Linfield 居民的用水量明顯高於另外兩座城市，Pelham 居民則用得最少。在三個地方，淋浴與泡澡都是用水量最大的項目。",
+      "Linfield 的居民平均每天用水 200 公升，幾乎是 Marston（110 公升）的兩倍，也是 Pelham（75 公升）的兩倍半以上。這個差距大多可以用澆花來解釋：Linfield 每人每天澆花用掉 55 公升，Marston 只有 5 公升，Pelham 則完全沒有。Linfield 在淋浴與泡澡上的用水量也最高，達 70 公升，是 Pelham 的兩倍以上。",
+      "其餘用途的數據也呈現相同模式，馬桶和洗衣用水都是 Linfield 最多、Pelham 最少。唯一的例外是烹飪與飲用，三座城市的居民每天都用同樣的 10 公升。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… accounted for the largest share of …",
+      "zh": "說明哪一項占比最大",
+      "example": "Showers and baths accounted for the largest share of use in all three places.",
+      "keys": ["accounted for the largest share"]
+    },
+    {
+      "pattern": "…, almost twice as much as … and more than two and a half times as much as …",
+      "zh": "用倍數句型同時比較三個數字",
+      "example": "A typical resident of Linfield used 200 litres per day, almost twice as much as someone in Marston (110 litres) and more than two and a half times as much as someone in Pelham (75 litres).",
+      "keys": ["twice as much as", "times as much as"]
+    },
+    {
+      "pattern": "Much of this gap can be explained by …, which …",
+      "zh": "解釋差距的主要原因，再用 which 補上數據",
+      "example": "Much of this gap can be explained by garden watering, which used 55 litres per person in Linfield, compared with only 5 litres in Marston and none at all in Pelham.",
+      "keys": ["can be explained by", "which"]
+    },
+    {
+      "pattern": "…, more than double the amount in …",
+      "zh": "在句尾用同位語補充倍數比較",
+      "example": "Linfield also had the highest consumption for showers and baths, at 70 litres, more than double the amount in Pelham.",
+      "keys": ["more than double the amount"]
+    },
+    {
+      "pattern": "The only exception was …, for which …",
+      "zh": "點出唯一不符合趨勢的項目",
+      "example": "The only exception was cooking and drinking, for which people in all three cities used an identical 10 litres a day.",
+      "keys": ["the only exception was", "for which"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Garden watering used 55 litres per person in Linfield.",
+        "It used none at all in Pelham."
+      ],
+      "answer": "Garden watering used 55 litres per person in Linfield, compared with none at all in Pelham."
+    },
+    {
+      "parts": [
+        "Residents of Linfield consumed the most water.",
+        "Those in Pelham used the least."
+      ],
+      "answer": "Residents of Linfield consumed the most water, while those in Pelham used the least."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "People in all three cities used an identical 10 litres a day.",
+      "answers": [
+        "Residents of each city used exactly the same amount, 10 litres a day.",
+        "The daily figure was 10 litres in every city."
+      ]
+    },
+    {
+      "sentence": "Showers and baths accounted for the largest share of use.",
+      "answers": [
+        "Most water was used for showers and baths.",
+        "Showers and baths made up the biggest proportion of water use."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

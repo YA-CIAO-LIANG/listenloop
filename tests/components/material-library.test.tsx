@@ -78,10 +78,14 @@ function show(filter: Partial<LibraryFilter> = {}) {
   return onChange;
 }
 
-const titles = () =>
+/** The material cards (the filters also link to the exam guides, D215). */
+const cards = () =>
   screen
     .getAllByRole("link")
-    .map((link) => link.querySelector(".font-display")?.textContent);
+    .filter((link) => link.getAttribute("href") !== "/exams");
+
+const titles = () =>
+  cards().map((link) => link.querySelector(".font-display")?.textContent);
 
 describe("MaterialLibraryView", () => {
   it("lists every material, the admins' order first", () => {
@@ -96,15 +100,13 @@ describe("MaterialLibraryView", () => {
 
   it("shows type, category, level as words, the exam target, and time", () => {
     show();
-    const card = screen.getAllByRole("link")[0];
+    const card = cards()[0];
     expect(card.textContent).toContain("音檔");
-    expect(card.textContent).toContain("考試聽力");
+    expect(card.textContent).toContain("考試英文");
     expect(card.textContent).toContain("中級");
     expect(card.textContent).toContain("多益 TOEIC 風格 · 目標 750 分");
     expect(card.textContent).toContain("2 分 5 秒 · 澳洲英語 · 每天約 8 分鐘");
-    expect(screen.getAllByRole("link")[2].textContent).toContain(
-      "少女尋找小龍",
-    );
+    expect(cards()[2].textContent).toContain("少女尋找小龍");
   });
 
   it("filters by what's in the URL", () => {
@@ -164,14 +166,19 @@ describe("MaterialLibraryView", () => {
     ).toBeNull();
   });
 
-  it("puts the minutes I have first, then level, then category (D127)", () => {
+  it("puts exams first (D215), then the minutes I have, level, and category (D127)", () => {
     show();
     const sidebar = screen.getByRole("complementary", { name: "篩選" });
     const names = within(sidebar)
       .getAllByRole("group")
       .map((group) => group.getAttribute("aria-labelledby"))
       .map((id) => document.getElementById(id!)?.textContent);
-    expect(names.slice(0, 3)).toEqual(["我今天有幾分鐘", "程度", "分類"]);
+    expect(names.slice(0, 4)).toEqual([
+      "考試英文",
+      "我今天有幾分鐘",
+      "程度",
+      "分類",
+    ]);
   });
 
   it("chooses the minutes a day may take, one at a time (D127)", () => {
