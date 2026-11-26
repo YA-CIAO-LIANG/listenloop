@@ -64,14 +64,17 @@ test("signed in, stats show time, streak, and a data table", async ({
   await expect(
     page.getByRole("heading", { name: "學習分析", level: 1 }),
   ).toBeVisible();
-  await expect(page.getByText("近 7 天共練習 15 分鐘")).toBeVisible();
+  await expect(page.getByText("近 7 天共練習聽力 15 分鐘")).toBeVisible();
   await expect(page.getByText("2 天").first()).toBeVisible();
 
-  const time = page.getByRole("figure", { name: "每日練習時間" });
+  const time = page.getByRole("figure", { name: "每日聽力練習時間" });
   await time.getByText("查看資料表").click();
   await expect(time.getByRole("table")).toContainText("10");
-  await page.getByRole("group", { name: "期間" }).getByText("月").click();
-  await expect(page.getByText("近 30 天共練習 15 分鐘")).toBeVisible();
+  await page
+    .getByRole("group", { name: "期間", exact: true })
+    .getByText("月")
+    .click();
+  await expect(page.getByText("近 30 天共練習聽力 15 分鐘")).toBeVisible();
 
   for (const scheme of ["light", "dark"] as const) {
     await page.emulateMedia({ colorScheme: scheme });

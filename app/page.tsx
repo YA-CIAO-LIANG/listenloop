@@ -36,7 +36,6 @@ export function generateMetadata() {
  */
 export default function Home() {
   const t = useTranslations();
-  const locale = useLocale();
   return (
     <main className="mx-auto w-full max-w-content flex-1 px-4 py-16 split:px-6">
       <h1 className="font-display text-hero">{t("common.appName")}</h1>
@@ -62,7 +61,7 @@ export default function Home() {
         <OnboardingStart />
         <ProgressGate place="home" signedOut={<ProductIntro />}>
           <FixedReportsNotice />
-          <HomeProgress writingTitles={writingTitlesFor(locale)} />
+          <HomeProgress />
           {/* Today's writing next to listening (WritingLoop, D187). */}
           <HomeWritingTasks />
         </ProgressGate>

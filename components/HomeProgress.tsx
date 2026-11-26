@@ -16,19 +16,15 @@ const WeeklyReport = dynamic(() =>
 );
 
 /**
- * The home page's weekly report (Mondays, D176), calendar, and today's
- * tasks.
+ * The home page's weekly report (Mondays, D176), listening calendar, and
+ * today's listening tasks. Writing's calendar and streak are on /writing
+ * (D214); its today's tasks follow these on the home page.
  */
-export function HomeProgress({
-  writingTitles,
-}: {
-  /** Official writing prompts' titles, for the calendar (D201). */
-  writingTitles?: Record<string, string>;
-}) {
+export function HomeProgress() {
   return (
     <>
       <WeeklyReport />
-      <PracticeCalendar writingTitles={writingTitles} />
+      <PracticeCalendar />
       <TodayTasks />
     </>
   );

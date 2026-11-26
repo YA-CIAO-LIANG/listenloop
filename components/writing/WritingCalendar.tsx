@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import type { Activity } from "@/lib/activity";
 import { toLocalDate, type LocalDate } from "@/lib/dates";
 import { heatLevel } from "@/lib/practice-calendar";
 import {
@@ -11,10 +12,12 @@ import {
   ringLevel,
 } from "@/lib/practice-rings";
 import { practiceMinutes } from "@/lib/practice-time";
+import { streakStatus } from "@/lib/streak";
 import {
   isEssayDay,
   isWritingTimeId,
   writingCalendar,
+  writingPracticeDays,
   type WritingCalendarDay,
   type WritingLogEntry,
 } from "@/lib/writing/log";
@@ -60,32 +63,64 @@ const EMPTY: WritingCalendarDay = {
   accuracy: null,
 };
 
-/** Writing practice minutes per day (D201): the "w-" materials only. */
-export function useWritingMinutes(): Map<LocalDate, number> {
+/**
+ * The activity log (practice time lives there, D74), or an empty one
+ * until it loads or when it can't be read.
+ */
+export function useActivityLog(): Activity {
   const { rewards } = useStores();
-  const [minutes, setMinutes] = useState<Map<LocalDate, number>>(new Map());
+  const [activity, setActivity] = useState<Activity>({ days: {} });
   useEffect(() => {
     let cancelled = false;
     rewards
       .getActivity()
-      .then((activity) =>
-        Object.entries(activity.days).map(
-          ([date, day]) =>
-            [date, practiceMinutes(day, isWritingTimeId)] as [
-              LocalDate,
-              number,
-            ],
-        ),
-      )
-      .catch(() => [])
-      .then((list) => {
-        if (!cancelled) setMinutes(new Map(list));
+      .catch((): Activity => ({ days: {} }))
+      .then((log) => {
+        if (!cancelled) setActivity(log);
       });
     return () => {
       cancelled = true;
     };
   }, [rewards]);
-  return minutes;
+  return activity;
+}
+
+/**
+ * Writing's own streak (D214): writing days only, with the same weekly
+ * freeze as listening's (lib/streak.ts), counted apart from it.
+ */
+function WritingStreak({
+  days,
+  activity,
+  today,
+}: {
+  days: Map<LocalDate, WritingCalendarDay>;
+  activity: Activity;
+  today: LocalDate;
+}) {
+  const t = useTranslations("writingCalendar.streak");
+  const tStreak = useTranslations("streak");
+  const streak = streakStatus(writingPracticeDays(days, activity), today);
+  return (
+    <div data-testid="writing-streak" className="space-y-1 text-supporting">
+      {streak.longest > 0 ? (
+        <p>
+          {streak.current > 0 && (
+            <span className="font-medium">
+              {t("line", { n: streak.current })} ·{" "}
+            </span>
+          )}
+          <span className="text-ink-muted">
+            {t("longest", { n: streak.longest })} ·{" "}
+            {tStreak("freezesLeft", { n: streak.freezesLeft })}
+          </span>
+        </p>
+      ) : (
+        <p className="text-ink-muted">{t("none")}</p>
+      )}
+      <p className="text-ink-muted">{t("help")}</p>
+    </div>
+  );
 }
 
 /**
@@ -142,7 +177,15 @@ function CalendarMonth({
   const t = useTranslations("writingCalendar");
   const tc = useTranslations("calendar");
   const format = useFormatter();
-  const minutes = useWritingMinutes();
+  // Writing's time only ("w-" materials, D201); listening's stays on the
+  // home page's calendar (D214).
+  const activity = useActivityLog();
+  const minutes = new Map(
+    Object.entries(activity.days).map(([date, day]) => [
+      date,
+      practiceMinutes(day, isWritingTimeId),
+    ]),
+  );
   const titles = { ...official, ...useCustomTitles() };
   const [shown, setShown] = useState({
     year: Number(today.slice(0, 4)),
@@ -231,6 +274,8 @@ function CalendarMonth({
           </Button>
         </div>
       </div>
+
+      <WritingStreak days={days} activity={activity} today={today} />
 
       <table className="w-full table-fixed text-center text-supporting tabular-nums">
         <caption className="sr-only">{t("caption")}</caption>

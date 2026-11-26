@@ -1,13 +1,22 @@
 "use client";
 
-import { useAllWritingProgress } from "./writing/WritingProvider";
-import { writingWeek } from "@/lib/writing/analytics";
+import {
+  useAllWritingProgress,
+  useChats,
+  useWritingLog,
+} from "./writing/WritingProvider";
+import {
+  writingWeeklyReport,
+  type WritingWeeklyReport,
+} from "@/lib/writing/analytics";
+import { writingCalendar } from "@/lib/writing/log";
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import type { Activity } from "@/lib/activity";
 import type { LocalDate } from "@/lib/dates";
 import type { Progress } from "@/lib/progress";
 import {
+  reportWeek,
   WEEKLY_REPORT_DISMISSED_KEY,
   weeklyReport,
   type WeeklyReport as Report,
@@ -30,8 +39,9 @@ function readDismissed(): string | null {
 /**
  * Last week's learning report on the signed-in home page (D176): from
  * Monday for a few days (lib/weekly-report.ts) until "got it", which this
- * device remembers for the week. Drawn in the browser only: "this week"
- * is the viewer's.
+ * device remembers for the week. Listening and writing each have their
+ * own part with their own numbers, never added together (D214). Drawn in
+ * the browser only: "this week" is the viewer's.
  */
 export function WeeklyReport() {
   const today = useToday();
@@ -55,27 +65,55 @@ export function WeeklyReport() {
       cancelled = true;
     };
   }, [progress, rewards]);
+  const writingProgress = useAllWritingProgress();
+  const writingLog = useWritingLog();
+  const chats = useChats();
 
-  if (!today || !data) return null;
-  const report = weeklyReport(data.progresses, data.activity, today);
-  if (!report || data.dismissed === report.week) return null;
+  if (!today || !data || !writingProgress || !writingLog || !chats) {
+    return null;
+  }
+  const span = reportWeek(today);
+  if (!span || data.dismissed === span.week) return null;
+  const listening = weeklyReport(data.progresses, data.activity, today);
+  const writing = writingWeeklyReport({
+    progresses: writingProgress,
+    days: writingCalendar(writingLog, writingProgress, chats),
+    activity: data.activity,
+    today,
+  });
+  if (!listening && !writing) return null;
 
   const dismiss = () => {
     try {
-      localStorage.setItem(WEEKLY_REPORT_DISMISSED_KEY, report.week);
+      localStorage.setItem(WEEKLY_REPORT_DISMISSED_KEY, span.week);
     } catch {
       // Private mode: it just shows again next visit.
     }
-    setData({ ...data, dismissed: report.week });
+    setData({ ...data, dismissed: span.week });
   };
-  return <ReportCard report={report} onDismiss={dismiss} />;
+  return (
+    <ReportCard
+      from={span.from}
+      to={span.to}
+      report={listening}
+      writing={writing}
+      onDismiss={dismiss}
+    />
+  );
 }
 
 function ReportCard({
+  from,
+  to,
   report,
+  writing,
   onDismiss,
 }: {
-  report: Report;
+  from: LocalDate;
+  to: LocalDate;
+  /** Listening's week, or null when there was none (D214). */
+  report: Report | null;
+  writing: WritingWeeklyReport | null;
   onDismiss: () => void;
 }) {
   const t = useTranslations("weeklyReport");
@@ -91,7 +129,8 @@ function ReportCard({
   const percent = (n: number) =>
     format.number(n, { style: "percent", maximumFractionDigits: 0 });
 
-  const { accuracy, previousAccuracy } = report;
+  const accuracy = report?.accuracy ?? null;
+  const previousAccuracy = report?.previousAccuracy ?? null;
   let change: string | null = null;
   if (accuracy !== null) {
     if (previousAccuracy === null) change = t("changeNone");
@@ -117,9 +156,52 @@ function ReportCard({
           {t("title")}
         </h2>
         <p className="text-supporting text-ink-muted tabular-nums">
-          {t("range", { from: day(report.from), to: day(report.to) })}
+          {t("range", { from: day(from), to: day(to) })}
         </p>
       </div>
+      <div data-testid="weekly-report-listening" className="space-y-4">
+        <h3 className="font-medium">{t("listening")}</h3>
+        {report ? (
+          <ListeningWeek
+            report={report}
+            accuracy={accuracy}
+            change={change}
+            percent={percent}
+          />
+        ) : (
+          <p className="text-ink-muted">{t("listeningNone")}</p>
+        )}
+      </div>
+      <WritingWeek report={writing} />
+      <div className="flex flex-wrap gap-2">
+        {report?.suggestion === "review" && (
+          <ButtonLink href="/review" variant="primary" size="sm" arrow>
+            {tToday("reviewStart")}
+          </ButtonLink>
+        )}
+        <Button variant="secondary" size="sm" onClick={onDismiss}>
+          {t("dismiss")}
+        </Button>
+      </div>
+    </Card>
+  );
+}
+
+/** Listening's part of the report: its own time, days, and tasks. */
+function ListeningWeek({
+  report,
+  accuracy,
+  change,
+  percent,
+}: {
+  report: Report;
+  accuracy: number | null;
+  change: string | null;
+  percent: (n: number) => string;
+}) {
+  const t = useTranslations("weeklyReport");
+  return (
+    <>
       <dl className="grid grid-cols-2 gap-4 wide:grid-cols-4">
         <StatTile
           label={t("minutes")}
@@ -139,10 +221,9 @@ function ReportCard({
           note={change ?? undefined}
         />
       </dl>
-      <WritingWeekLine from={report.from} to={report.to} />
       {report.words.length > 0 && (
         <div className="space-y-2">
-          <h3 className="text-supporting font-medium">{t("words")}</h3>
+          <h4 className="text-supporting font-medium">{t("words")}</h4>
           <ul className="flex flex-wrap gap-2" lang="en">
             {report.words.map((word) => (
               <li
@@ -156,43 +237,55 @@ function ReportCard({
         </div>
       )}
       <div className="space-y-2">
-        <h3 className="text-supporting font-medium">{t("suggestionTitle")}</h3>
+        <h4 className="text-supporting font-medium">{t("suggestionTitle")}</h4>
         <p>{t(`suggestions.${report.suggestion}`)}</p>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {report.suggestion === "review" && (
-          <ButtonLink href="/review" variant="primary" size="sm" arrow>
-            {tToday("reviewStart")}
-          </ButtonLink>
-        )}
-        <Button variant="secondary" size="sm" onClick={onDismiss}>
-          {t("dismiss")}
-        </Button>
-      </div>
-    </Card>
+    </>
   );
 }
 
-/** Last week's writing (WritingLoop, D190), when there was any. */
-function WritingWeekLine({ from, to }: { from: LocalDate; to: LocalDate }) {
+/**
+ * Writing's part of the report (WritingLoop, D190): its own time, days,
+ * and tasks (D214), then the essays and back-translation days.
+ */
+function WritingWeek({ report }: { report: WritingWeeklyReport | null }) {
   const t = useTranslations("writingReport");
-  const progresses = useAllWritingProgress();
-  if (!progresses) return null;
-  const week = writingWeek(progresses, from, to);
-  if (week.essays === 0 && week.drills === 0) return null;
+  const tr = useTranslations("weeklyReport");
   return (
-    <div className="space-y-1">
-      <h3 className="text-supporting font-medium">{t("heading")}</h3>
-      <p>{t("line", { essays: week.essays, drills: week.drills })}</p>
-      {week.improvement !== null && (
-        <p className="text-supporting text-ink-muted">
-          {t("improvement", {
-            n:
-              week.improvement > 0
-                ? `+${week.improvement}`
-                : String(week.improvement),
-          })}
-        </p>
+    <div data-testid="weekly-report-writing" className="space-y-4">
+      <h3 className="font-medium">{t("heading")}</h3>
+      {report ? (
+        <>
+          <dl className="grid grid-cols-2 gap-4 wide:grid-cols-4">
+            <StatTile
+              label={tr("minutes")}
+              value={tr("minutesValue", { n: report.minutes })}
+            />
+            <StatTile
+              label={tr("days")}
+              value={tr("daysValue", { n: report.days })}
+            />
+            <StatTile
+              label={tr("tasks")}
+              value={tr("tasksValue", { n: report.tasks })}
+            />
+          </dl>
+          {(report.essays > 0 || report.drills > 0) && (
+            <p>{t("line", { essays: report.essays, drills: report.drills })}</p>
+          )}
+          {report.improvement !== null && (
+            <p className="text-supporting text-ink-muted">
+              {t("improvement", {
+                n:
+                  report.improvement > 0
+                    ? `+${report.improvement}`
+                    : String(report.improvement),
+              })}
+            </p>
+          )}
+        </>
+      ) : (
+        <p className="text-ink-muted">{t("none")}</p>
       )}
     </div>
   );

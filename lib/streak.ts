@@ -1,7 +1,7 @@
 import type { Activity } from "./activity";
 import { addDays, type LocalDate } from "./dates";
 import { tasksByDate } from "./practice-calendar";
-import { daySeconds } from "./practice-time";
+import { daySeconds, isListeningTimeId } from "./practice-time";
 import type { Progress } from "./progress";
 
 /**
@@ -60,8 +60,10 @@ export function weekStart(date: LocalDate): LocalDate {
 }
 
 /**
- * Days with practice: an official task finished (the activity log or the
- * dates in progress) or practice time counted (D74).
+ * Days with listening practice: an official task finished (the activity
+ * log or the dates in progress) or listening time counted (D74). Writing's
+ * time ("w-" materials) doesn't count: writing has its own streak (D214,
+ * writingPracticeDays in lib/writing/log.ts).
  */
 export function practiceDays(
   activity: Activity,
@@ -69,7 +71,9 @@ export function practiceDays(
 ): Set<LocalDate> {
   const days = new Set<LocalDate>(tasksByDate(activity, progresses).keys());
   for (const [date, day] of Object.entries(activity.days)) {
-    if (day?.official || daySeconds(day) > 0) days.add(date);
+    if (day?.official || daySeconds(day, isListeningTimeId) > 0) {
+      days.add(date);
+    }
   }
   return days;
 }

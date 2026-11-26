@@ -1434,13 +1434,10 @@ test.describe("US Pacific", () => {
         .getByRole("button", { name: /^11月16日/ })
         .click(),
     );
-    await step(page, "t29-calendar", "3-home-writing", async () => {
-      await page.goto("/");
-      await page
-        .getByRole("group", { name: "日曆顯示" })
-        .getByRole("button", { name: "寫作" })
-        .click();
-    });
+    // Writing's own streak (D214); the home page's calendar is listening's.
+    await step(page, "t29-calendar", "3-writing-streak", () =>
+      page.getByTestId("writing-streak").scrollIntoViewIfNeeded(),
+    );
   });
 });
 

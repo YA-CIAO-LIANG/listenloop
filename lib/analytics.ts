@@ -5,7 +5,11 @@ import { missedPieces, missedWords } from "./custom-practice/marks";
 import { officialScore } from "./cycle";
 import type { LocalDate } from "./dates";
 import { tasksByDate } from "./practice-calendar";
-import { daySeconds, practiceMinutes } from "./practice-time";
+import {
+  daySeconds,
+  isListeningTimeId,
+  practiceMinutes,
+} from "./practice-time";
 import { practiceDays, streakStatus, type StreakStatus } from "./streak";
 import type { Progress } from "./progress";
 
@@ -34,7 +38,10 @@ export function lastDays(today: LocalDate, count: number): LocalDate[] {
   });
 }
 
-/** Practice minutes per day for the last `count` days (bars). */
+/**
+ * Listening practice minutes per day for the last `count` days (bars).
+ * Writing's time is left out (D214): it has its own section.
+ */
 export function dailyMinutes(
   activity: Activity,
   today: LocalDate,
@@ -43,7 +50,7 @@ export function dailyMinutes(
   return lastDays(today, count).map((date) => ({
     date,
     // The same minutes the calendar's rings show (D181).
-    minutes: practiceMinutes(activity.days[date]),
+    minutes: practiceMinutes(activity.days[date], isListeningTimeId),
   }));
 }
 
@@ -175,7 +182,8 @@ export function distribution(
 }
 
 /**
- * Days in a row with practice (an official task or counted time), ending
+ * Days in a row with listening practice (an official task or listening
+ * time; writing has its own streak, D214), ending
  * today, or yesterday when today has none yet; the longest run; and the
  * weekly streak freeze (D176, lib/streak.ts).
  */
