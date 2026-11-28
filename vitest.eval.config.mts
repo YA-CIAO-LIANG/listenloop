@@ -14,6 +14,7 @@ export default defineConfig({
       "scripts/writing-eval.eval.ts",
       "scripts/chat-eval.eval.ts",
       "scripts/back-eval.eval.ts",
+      "scripts/rewrite-eval.eval.ts",
     ],
     environment: "node",
     setupFiles: ["tests/setup-network.ts"],

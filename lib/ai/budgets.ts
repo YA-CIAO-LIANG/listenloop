@@ -25,7 +25,8 @@ export type LanguageOperation =
   | "audit"
   | "writing"
   | "chat"
-  | "back-check";
+  | "back-check"
+  | "rewrite";
 
 export type LanguageBudget = {
   operation: LanguageOperation;
@@ -170,6 +171,28 @@ export function backCheckBudget(input: {
       0,
     ),
     maxOutputTokens: 400 + 200 * input.items.length,
+  };
+}
+
+/**
+ * Day 1's essay rewritten (D218): the sentences (and, for "easier" or
+ * "harder", the version shown) in; per sentence about 40 tokens of
+ * English, 50 of Chinese meaning, and 40 of reason out, plus the
+ * reasoning (a short essay's "easier" once ran past 2,000); capped at
+ * 8,000.
+ */
+export function rewriteBudget(input: {
+  task: string;
+  sentences: { en: string }[];
+  original?: { en: string }[];
+}): LanguageBudget {
+  return {
+    operation: "rewrite",
+    inputChars:
+      input.task.length +
+      input.sentences.reduce((sum, s) => sum + s.en.length, 0) +
+      (input.original ?? []).reduce((sum, s) => sum + s.en.length, 0),
+    maxOutputTokens: Math.min(8_000, 2_000 + 200 * input.sentences.length),
   };
 }
 

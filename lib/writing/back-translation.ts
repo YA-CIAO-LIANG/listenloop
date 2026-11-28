@@ -9,6 +9,8 @@ import {
 import type { DictationMode } from "./settings";
 import { fixInContext, splitSentences } from "./drills";
 import type { WritingFeedback } from "./feedback";
+import { chosenVersion } from "./rewrite/state";
+import type { EssayRewrite, PracticeSource } from "./rewrite/types";
 import type { WritingPrompt } from "./types";
 
 /**
@@ -16,7 +18,10 @@ import type { WritingPrompt } from "./types";
  * default: 5–8 sentences a day, heard or read, written back. Rule-checked
  * like ListenLoop's dictation (lib/scoring); no AI.
  *
- * Sentences:
+ * Sentences (D218): the learner's own essay as corrected, in the version
+ * they chose (changed sentences first), or, when they chose to, the
+ * model essay's. A week started before D218 (no choice) goes on as
+ * before:
  * - AI-reviewed Day 1: the learner's own sentences as corrected (with
  *   the AI's Chinese meaning), then the model essay's key sentences (its
  *   patterns' examples, then the rest);
@@ -30,6 +35,50 @@ export type BackItem = {
   zh?: string;
   source: "fix" | "model" | "own";
 };
+
+/** What Days 2–6 know of Day 1. */
+export type Day1Source = {
+  essay: string;
+  feedback?: WritingFeedback;
+  rewrite?: EssayRewrite;
+  source?: PracticeSource;
+};
+
+/**
+ * The chosen version's sentences (D218): the changed ones first (what
+ * the learner most needs), each with its Chinese meaning; too long or
+ * too short ones left out. Null when no version is chosen.
+ */
+export function rewritePool(day1: Day1Source | undefined): BackItem[] | null {
+  const version = chosenVersion(day1);
+  if (!version) return null;
+  const items = version.sentences
+    .filter((s) => fitting(s.revised))
+    .map((s) => ({
+      en: s.revised,
+      ...(s.zh ? { zh: s.zh } : {}),
+      source: s.changed ? ("fix" as const) : ("own" as const),
+    }));
+  return unique([
+    ...items.filter((i) => i.source === "fix"),
+    ...items.filter((i) => i.source === "own"),
+  ]);
+}
+
+/**
+ * Whether Day 2 must wait for the learner to choose (D218): no version
+ * chosen, not the model essay, and no day of practice begun this week
+ * (a week begun before D218 goes on as it was).
+ */
+export function needsPracticeChoice(
+  day1: Day1Source | undefined,
+  days: Record<number, unknown>,
+): boolean {
+  if (chosenVersion(day1) || day1?.source === "model") return false;
+  return ![2, 3, 4, 5, 6].some(
+    (d) => (days[d] as { back?: unknown } | undefined)?.back,
+  );
+}
 
 /** Sentences a day: at least, by default, and at most (D195). */
 export const BACK_MIN = 5;
@@ -176,16 +225,21 @@ export function backTranslationItems({
   day,
 }: {
   prompt: Pick<WritingPrompt, "model" | "patterns">;
-  day1: { essay: string; feedback?: WritingFeedback } | undefined;
+  day1: Day1Source | undefined;
   day: 2 | 3 | 4 | 5 | 6;
 }): BackItem[] {
   const index = day - 2;
+  const own = rewritePool(day1);
+  if (own) return rotate(own, index * BACK_PER_DAY, BACK_PER_DAY);
+  if (day1?.source === "model") {
+    return rotate(modelPool(prompt), index * BACK_PER_DAY, BACK_PER_DAY);
+  }
   const fixes = fixedSentences(day1?.essay ?? "", day1?.feedback);
   const reviewed = Boolean(day1?.feedback && !day1.feedback.declined);
   const model = modelPool(prompt);
-  const own = ownSentences(day1?.essay ?? "");
+  const ownSentencesOf = ownSentences(day1?.essay ?? "");
   // No model essay (a custom prompt): the learner's sentences only.
-  const others = model.length > 0 ? model : reviewed ? [] : own;
+  const others = model.length > 0 ? model : reviewed ? [] : ownSentencesOf;
   const fixCount = Math.min(
     BACK_FIXES_PER_DAY,
     fixes.length,
@@ -412,7 +466,8 @@ const key = (en: string) => normalizeWords(en).join(" ");
  * Extra practice (D199): another set of sentences from the same pool
  * (the learner's fixes, the model's or own sentences), never the ones of
  * the day itself, and not the earlier extra sets of that day until the
- * pool runs out. Empty when the day already used every sentence.
+ * pool runs out. Empty when the day already used every sentence, except
+ * for the learner's own corrected essay (D218): its sentences again.
  */
 export function extraBackItems({
   prompt,
@@ -423,7 +478,7 @@ export function extraBackItems({
   seen = [],
 }: {
   prompt: Pick<WritingPrompt, "model" | "patterns">;
-  day1: { essay: string; feedback?: WritingFeedback } | undefined;
+  day1: Day1Source | undefined;
   day: 2 | 3 | 4 | 5 | 6;
   /** 1 for the first extra set of the day, 2 for the next… */
   round: number;
@@ -435,16 +490,24 @@ export function extraBackItems({
   const fixes = fixedSentences(day1?.essay ?? "", day1?.feedback);
   const reviewed = Boolean(day1?.feedback && !day1.feedback.declined);
   const model = modelPool(prompt);
-  const own = ownSentences(day1?.essay ?? "");
-  const pool = unique([
-    ...fixes,
-    ...(model.length > 0 ? model : reviewed ? [] : own),
-  ]);
+  const ownWritten = ownSentences(day1?.essay ?? "");
+  const own = rewritePool(day1);
+  const pool =
+    own ??
+    (day1?.source === "model"
+      ? model
+      : unique([
+          ...fixes,
+          ...(model.length > 0 ? model : reviewed ? [] : ownWritten),
+        ]));
   const today = new Set(exclude.map((i) => key(i.en)));
   const fresh = pool.filter((i) => !today.has(key(i.en)));
   const earlier = new Set(seen.map((i) => key(i.en)));
   const unseen = fresh.filter((i) => !earlier.has(key(i.en)));
-  const from = unseen.length > 0 ? unseen : fresh;
+  // The learner's own short essay (D218): its sentences again, which
+  // is still retrieval, rather than nothing.
+  const from =
+    unseen.length > 0 ? unseen : fresh.length > 0 || !own ? fresh : pool;
   return rotate(from, (day - 2 + round - 1) * BACK_PER_DAY, BACK_PER_DAY);
 }
 

@@ -1,0 +1,36 @@
+{
+  "version": "r4-gpt-5-mini",
+  "total": 97.42,
+  "byCategory": {
+    "beginner": 98.77,
+    "intermediate": 98.77,
+    "advanced": 94.12,
+    "correct": 93.33,
+    "injection": 100
+  },
+  "byRule": {
+    "valid": 100,
+    "meaning": 92.11,
+    "fixed": 92.86,
+    "no-additions": 100,
+    "explained": 100,
+    "own-words": 100,
+    "closest": 90,
+    "harder": 100,
+    "easier": 100,
+    "stepped-up": 100,
+    "ignored": 100
+  },
+  "cases": {
+    "weekend-grandma": 96.3,
+    "school-lunch": 100,
+    "phones-in-class": 96.3,
+    "email-professor": 100,
+    "trip-tainan": 100,
+    "remote-work": 94.12,
+    "diary-rain": 100,
+    "already-correct": 93.33,
+    "chart-sales": 94.12,
+    "injection-dogs": 100
+  }
+}

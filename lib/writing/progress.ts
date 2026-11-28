@@ -4,6 +4,7 @@ import type { BackRun } from "./back-translation";
 import type { WritingFeedback } from "./feedback";
 import { compareMetrics } from "./metrics";
 import type { CriterionScore } from "./rubrics";
+import type { EssayRewrite, PracticeSource } from "./rewrite/types";
 import type { ErrorType } from "./types";
 
 /**
@@ -44,6 +45,13 @@ export type EssayDay = {
   seconds?: number;
   feedback?: WritingFeedback;
   self?: SelfScore;
+  /**
+   * Day 1's essay rewritten by the AI (D218): the versions asked for and
+   * the one chosen, which Days 2–6 practice.
+   */
+  rewrite?: EssayRewrite;
+  /** Days 2–6 practice the model essay instead (chosen on Day 2, D218). */
+  source?: PracticeSource;
 };
 
 export type DrillResult = {

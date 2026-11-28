@@ -980,6 +980,14 @@ CardLink，內容由上到下：
   - 輸入框是 `textarea lang="en"`，填滿作答欄；手機上標籤只給螢幕閱讀器（placeholder 已說明）。
   - 字數、計時和送出按鈕在輸入框下方的列（上方 1px line）。
   - 字數在目標範圍內時顯示 `text-success`，其他時候顯示 `text-ink-muted`。字數同時以文字寫出，不只靠顏色。
+- **AI 修改後的你的文章**（`RewritePanel`，D218）：第 1 天的結果頁（回饋之後）和第 2 天開始前（`PracticeChoice`）。
+  - 標題 h3，下方 text-supporting ink-muted 說明。
+  - 難度是一排 `Button size="sm"`（只改錯、自然、進階）：目前顯示的那個是 primary、`aria-pressed`；沒產生過的按下去才請 AI（螢幕閱讀器會聽到「計入 AI 額度」）。下方 text-metadata 寫出這個難度的意思。
+  - 產生兩個以上版本時，用一排 ghost 小按鈕列出版本（目前顯示的加 accent 14% 底色、`aria-pressed`；練習中的加「練習中」）。
+  - 版本卡片（`Card`）：標題 font-medium，右邊 text-metadata「改了 N / M 句 · 可讀性 X 年級」。每句一個 `dl`：「原本」的字用 ink-muted，被改掉的字加刪除線；「修改後」被換上的字用 `ins`，accent 14% 底色、accent-ink、font-medium、2px accent 底線；「原因」text-supporting。沒改的句子只顯示句子和「這句沒有修改」。刪除線、底線和文字標籤同時表示改了什麼，不只靠顏色（在寫作區所以是藍綠色）。
+  - 卡片下方：「太難了」「可以再難一點」（secondary sm），再下方 text-metadata 寫還能產生幾個版本；最後是 primary「選這個版本來練習」，選了之後換成 accent-ink font-medium 的「✓ 已選定這個版本」（`role="status"`）。
+- **第 2 天前的選擇**（`PracticeChoice`，D218）：`Card` 說明為什麼要先請 AI 修改，secondary「改用範文練習」（自訂題目沒有範文就不顯示），接著是 `RewritePanel`。訪客多一行登入連結。
+- **範文只在點選時顯示**（D218）：第 1、7 天的結果頁和第 2～6 天，範文都收在「看範文」（`details`，surface、1px line、44px 高的摘要）裡。
 - **回饋**（`FeedbackView`）：
   - 用 `Mark kind="miss"` 把最重要的 3 個問題標在原文上，旁邊加 `sup` 編號，對應下方的編號清單。
   - 「更多建議」放在收合的 `details`。

@@ -4215,3 +4215,63 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - `tests/components/practice-calendar.test.tsx`：日期名稱多了光暈等級。
   - E2E `e2e/separate-calendars.spec.ts`：滑過聽力日期的提示（時間、光暈等級、任務）；`/writing` 頁首的「寫作」分頁是藍綠色；首頁有寫作日曆、連續天數、藍綠色 token、滑過提示，以及「光暈第 1 級」的讀法。
 - **要改時看哪裡**：`app/globals.css`（`[data-area="writing"]`）、`components/RingLevel.tsx`、`components/PracticeCalendar.tsx`、`components/writing/WritingCalendar.tsx`、`components/writing/HomeWriting.tsx`、`components/writing/AreaTabs.tsx`、`docs/design-system.md`（色彩 tokens 一節）。
+
+## D218 第 2～6 天練習「自己文章的正確版本」：AI 改寫整篇（三種難度、太難了／再難一點）、前後對照、選定版本、範文改成點選才顯示（2026-11-27，Joe 指定第二項）
+
+- **決定**：
+  - **流程**：
+    1. 第 1 天 AI 批改成功後，馬上用寫作設定的預設難度（預設「自然」）請 AI 把整篇改成正確版本。
+    2. 結果頁的「AI 修改後的你的文章」逐句顯示原本／修改後／原因。
+    3. 使用者可以切換難度、按「太難了」「可以再難一點」，比較後選一個版本。
+    4. 第 2～6 天的句子就是這個版本的句子（改過的句子排前面），中文意思由改寫一起產生。
+    5. 語音沿用聽寫回譯的句子語音：第一次練到時才產生，所以「選定後才產生語音與每日練習」。
+  - **沒有批改的人**（只儲存或訪客）：第 2 天先顯示 `PracticeChoice`。
+    - 登入者按「請 AI 修改我的文章」（計入 AI 額度），或選「改用範文練習」（不用 AI）；
+    - 訪客只能用範文，或登入。
+    - 自訂題目沒有範文，只能請 AI 修改。
+  - **已經開始的週**：D218 之前已經做過第 2～6 天任何一天的週，照舊（`needsPracticeChoice`）。
+  - **三種難度**（集中在 `lib/writing/rewrite/types.ts`、提示詞在 `lib/writing/rewrite/prompts.ts`）：
+    - 只改錯：保留用字與句型，只修正錯誤，正確的句子原樣保留；
+    - 自然：母語者的自然說法，用字只比題目程度略高（初級 ≈ A2、中級 ≈ B1、高級 ≈ B2）；
+    - 進階：約 C1 的用字與多樣句型。
+    - 預設難度存在寫作設定（`rewriteLevel`，跟著帳號同步，D194 的 `writing-settings`）。
+  - **太難了／可以再難一點**：把「目前顯示的版本」當作要改寫的句子送出，學習者原句另外附上，只用來保留意思。第一版直接叫模型「依原文改得更簡單」時，模型幾乎原樣回傳（eval 抓到 0/4），改成這樣並在提示詞寫出可量測的目標（每句 10 字以內、常用字的例子）後是 4/4。
+  - **額度**：每個版本是一次 AI 呼叫，走 `meteredLanguage`，計入每日與每月 AI 費用上限，也檢查方案的作文字數。不新增方案項目，價格與方案額度不變（Joe 指定不調整）。每篇文章最多 6 個版本（`MAX_REWRITE_VERSIONS`）。伺服器不存文章：版本存在第 1 天的進度（本機與帳號），和文章一起。
+  - **清理**（`lib/writing/rewrite/clean.ts`）：
+    - 每句依 `i` 對回原句；缺的句子保留原文；
+    - 字數超過原句 2.5 倍＋12 的視為加了內容，丟掉；
+    - 原因與中文意思必須是中文；
+    - 沒改的句子不顯示原因。
+  - **額外練習**：自己的文章很短、當天句子都練過時，額外練習改成再練一次自己的句子（仍是提取練習），不再顯示「沒有句子」。
+  - **範文**：第 1、7 天結果頁和第 2～6 天都收進「看範文」，點了才展開（Joe：範文只在使用者主動點選時顯示）。
+- **為什麼是業界做法**：
+  - 改寫結果有自己的自動化 eval，是合併門檻，和其他 AI 功能一樣。
+  - 前後對照用刪除線與底線，不只靠顏色。
+  - 先讓使用者選版本才產生語音，避免浪費語音額度。
+- **Eval**（`lib/writing/rewrite/eval.ts`、`golden.ts`，`npm run eval` 產生 `evals/rewrite-baseline.json`、`evals/rewrite-report.md`）：
+  - 10 篇虛構文章（初級、中級、高級、已經正確、夾帶指令），每篇三種難度，其中 4 篇另外測「太難了」「可以再難一點」，共 38 次呼叫。
+  - 規則：
+    - 每句都有回傳；
+    - 意思不變（關鍵字都在，允許同義字）；
+    - 已知錯誤改掉了；
+    - 只改錯保留用字（每句 ≥ 60%、平均 ≥ 80% 的原字，正確的句子不動）；
+    - 三種難度的用字差異（只改錯 ≥ 自然 > 進階）；
+    - 進階比較難（Flesch–Kincaid 年級，`lib/writing/readability.ts`）；
+    - 「太難了」至少低 0.3 年級、「再難一點」至少高 0.3 年級；
+    - 沒有加內容；
+    - 每個修改都有中文原因、每句有中文意思；
+    - 不照文章裡的指令做。
+  - 結果：第 4 版提示詞 97.42 分。
+    - 「太難了」「再難一點」各 4/4；三種難度的差異 9/10；只改錯保留用字 10/10。
+    - 沒過的是：進階版把 "give up"、"popular" 換成別的說法；一篇的只改錯沒有改 "save the time of"。
+  - 錄製 4 次（第 1～4 版提示詞）共 152 次呼叫，實際 US$0.150（Joe 預先核准的 US$0.30 內）。
+- **為什麼不合併進批改的呼叫**：批改的 JSON 已經很長，再加整篇改寫會超過輸出上限；分開也讓「只儲存」的人可以只改寫、不批改，且不用重錄寫作批改的 eval。
+- **測試**：
+  - 單元 `tests/writing-rewrite.test.ts`：斷句、可讀性、清理、版本狀態、從選定版本取句、選擇關卡、eval 規則。
+  - E2E `e2e/writing-rewrite.spec.ts`：
+    - 批改後的版本、前後對照、切換難度、太難了、選定，第 2 天練自己的句子，範文點選才顯示，axe；
+    - 只儲存 → 第 2 天要先請 AI；
+    - 訪客 → 用範文；
+    - 預設難度被記住。
+  - 其他寫作 E2E 透過 `e2e/fixtures.ts` 的 `passPracticeChoice`，像使用者一樣通過第 2 天的選擇。
+- **要改時看哪裡**：`lib/writing/rewrite/`、`lib/writing/readability.ts`、`app/writing/rewrite-actions.ts`、`components/writing/RewritePanel.tsx`、`components/writing/PracticeChoice.tsx`、`lib/writing/back-translation.ts`（`rewritePool`、`needsPracticeChoice`）、`lib/ai/budgets.ts`（`rewriteBudget`）。

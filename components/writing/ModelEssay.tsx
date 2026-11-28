@@ -11,10 +11,36 @@ import { findQuotes } from "./FeedbackView";
  * generation effect): its useful patterns highlighted and numbered, each
  * paragraph's translation folded, then the patterns explained.
  */
-export function ModelEssay({ prompt }: { prompt: WritingPrompt }) {
+export function ModelEssay({
+  prompt,
+  folded = false,
+}: {
+  prompt: WritingPrompt;
+  /**
+   * Folded under "Show the model essay" (D218): Days 2–6 practice the
+   * learner's own essay; the model essay only when asked for.
+   */
+  folded?: boolean;
+}) {
   const t = useTranslations("writing.model");
+  const tRewrite = useTranslations("writing.rewrite");
   // A custom prompt has no model essay (D196).
   if (prompt.model.en.length === 0) return null;
+  if (folded) {
+    return (
+      <details
+        className="rounded-base border border-line bg-surface"
+        data-testid="model-essay-folded"
+      >
+        <summary className="tap flex min-h-11 cursor-pointer items-center px-3 py-2 text-supporting">
+          {tRewrite("modelToggle")}
+        </summary>
+        <div className="border-t border-line p-3">
+          <ModelEssay prompt={prompt} />
+        </div>
+      </details>
+    );
+  }
   const examples = prompt.patterns.map((p) => p.example);
   const mark = (paragraph: string) => {
     const parts: ReactNode[] = [];

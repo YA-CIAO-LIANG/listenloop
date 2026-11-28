@@ -32,6 +32,7 @@ import { Card } from "../Card";
 import { usePracticeTimer } from "../usePracticeTimer";
 import { FeedbackView, SelfScoreView } from "./FeedbackView";
 import { ModelEssay } from "./ModelEssay";
+import { RewritePanel } from "./RewritePanel";
 import { SelfScoreForm } from "./SelfScoreForm";
 import { PromptTask } from "./PromptTask";
 import { LongResult } from "./LongResult";
@@ -91,6 +92,8 @@ export function EssayDay({
     ? { custom: { kind: prompt.custom, task: prompt.task } }
     : {};
   const lastSaved = useRef("");
+  // Reviewed on this visit: Day 1's rewrite starts at once (D218).
+  const [justReviewed, setJustReviewed] = useState(false);
 
   // Practice time counts toward the calendar like listening (D187).
   usePracticeTimer(writingTimeId(prompt.id), false, {
@@ -250,6 +253,7 @@ export function EssayDay({
           : resettleWritingWeek(withDay(progress, reviewed)),
       );
       toNotebook(reviewed, false);
+      setJustReviewed(true);
     } catch {
       setError({ ok: false, reason: "failed" });
     } finally {
@@ -291,6 +295,7 @@ export function EssayDay({
         return;
       }
       finish(dayRecord);
+      setJustReviewed(true);
     } catch {
       setError({ ok: false, reason: "failed" });
     } finally {
@@ -381,7 +386,16 @@ export function EssayDay({
           <WeekResult prompt={prompt} progress={progress} title={title} />
         )}
         {day === 30 && progress && <LongResult progress={progress} />}
-        <ModelEssay prompt={prompt} />
+        {day === 1 && progress && (
+          <RewritePanel
+            prompt={prompt}
+            progress={progress}
+            signedIn={signedIn}
+            autoStart={justReviewed}
+          />
+        )}
+        {/* The model essay only when asked for (D218). */}
+        <ModelEssay prompt={prompt} folded />
         {day === 1 && (
           <Card className="flex flex-wrap items-center justify-between gap-3">
             <p>{t("essay.nextDays")}</p>

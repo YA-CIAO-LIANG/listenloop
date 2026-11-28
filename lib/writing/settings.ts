@@ -15,6 +15,12 @@ export const DICTATION_MODES = [
 ] as const;
 export type DictationMode = (typeof DICTATION_MODES)[number];
 
+import {
+  DEFAULT_REWRITE_LEVEL,
+  isRewriteLevel,
+  type RewriteLevel,
+} from "./rewrite/types";
+
 export type WritingSettings = {
   /** What "submit" does when signed in: AI review, or save only. */
   review: ReviewMode;
@@ -32,6 +38,8 @@ export type WritingSettings = {
   bedtimeAt: string;
   /** Day 30's rewrite of a finished cycle's prompt (D203). */
   day30: boolean;
+  /** The level Day 1's essay is first rewritten at (D218). */
+  rewriteLevel: RewriteLevel;
   /** ISO time of the last change. */
   at: string;
 };
@@ -48,6 +56,7 @@ export const DEFAULT_WRITING_SETTINGS: WritingSettings = {
   bedtime: true,
   bedtimeAt: "21:30",
   day30: true,
+  rewriteLevel: DEFAULT_REWRITE_LEVEL,
   at: new Date(0).toISOString(),
 };
 
@@ -70,6 +79,9 @@ export function parseWritingSettings(value: unknown): WritingSettings {
         ? v.bedtimeAt
         : DEFAULT_WRITING_SETTINGS.bedtimeAt,
     day30: v.day30 !== false,
+    rewriteLevel: isRewriteLevel(v.rewriteLevel)
+      ? v.rewriteLevel
+      : DEFAULT_REWRITE_LEVEL,
     at:
       typeof v.at === "string" && !Number.isNaN(Date.parse(v.at))
         ? v.at

@@ -79,5 +79,5 @@ export function WritingDay({
       <EssayDay prompt={prompt} day={day} signedIn={signedIn} title={title} />
     );
   }
-  return <DrillDay prompt={prompt} day={day} />;
+  return <DrillDay prompt={prompt} day={day} signedIn={signedIn} />;
 }

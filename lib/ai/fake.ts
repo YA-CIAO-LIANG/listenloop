@@ -3,6 +3,7 @@ import { countChars } from "@/lib/usage";
 import { fakeWritingReview } from "@/lib/writing/fake-review";
 import { fakeChatTurn } from "@/lib/writing/chat/fake-chat";
 import { fakeBackCheck } from "@/lib/writing/back-check/fake";
+import { fakeRewrite } from "@/lib/writing/rewrite/fake";
 import {
   ProviderError,
   type Billed,
@@ -81,6 +82,19 @@ export const fakeLanguage: LanguageProvider = {
     return free(
       fakeBackCheck(input),
       input.items.flatMap((i) => [i.reference, i.answer]),
+    );
+  },
+  // A rule-based essay rewrite (D218); an essay with "broken" fails
+  // like a provider error.
+  async rewriteEssay(input) {
+    if (input.sentences.some((s) => /broken/i.test(s.en))) {
+      throw new ProviderError("failed", "fake: server error", undefined, {
+        status: 500,
+      });
+    }
+    return free(
+      fakeRewrite(input),
+      input.sentences.map((s) => s.en),
     );
   },
   // Every translation passes (D115).
