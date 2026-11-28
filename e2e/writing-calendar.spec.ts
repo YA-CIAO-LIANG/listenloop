@@ -11,7 +11,8 @@ import {
 /**
  * The writing calendar (D201): on /writing, each day's finished cycle
  * day, essay, chat, and extra practice marks, and the chosen day's
- * content with links; the home calendar's All | Listening | Writing.
+ * content with links; the writing streak; and the home page's calendar,
+ * listening's only (D214: the All | Listening | Writing switch is gone).
  * Chinese and English, light and dark, a desktop and an emulated phone.
  */
 const PROMPT = "daily-perfect-weekend";
@@ -58,9 +59,7 @@ for (const device of ["desktop", "Pixel 7"] as const) {
       test.use(rest);
     }
 
-    test("the writing calendar and the home calendar's filter", async ({
-      page,
-    }) => {
+    test("the writing calendar, apart from listening's", async ({ page }) => {
       test.setTimeout(120_000);
       const tag = device === "desktop" ? "desk" : "pixel";
       await signInWithEmail(page, `e2e-wcal-${tag}`, `wcal-${tag}@example.com`);
@@ -99,20 +98,22 @@ for (const device of ["desktop", "Pixel 7"] as const) {
         .analyze();
       expect(axe.violations.map((v) => v.id)).toEqual([]);
 
-      // The home calendar: both, or one of them.
+      // Writing's own streak (D214): 11/11 and 11/12.
+      await expect(page.getByTestId("writing-streak")).toContainText(
+        "寫作連續練習 2 天",
+      );
+
+      // The home page's calendar is listening's: none of the writing.
       await page.goto("/");
-      const home = page.getByRole("group", { name: "日曆顯示" });
-      await expect(home.getByRole("button", { name: "全部" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
+      await expect(page.getByRole("group", { name: "日曆顯示" })).toHaveCount(
+        0,
       );
       const lines = page.getByTestId("calendar-day-time").locator("..");
-      await expect(lines.getByText(/寫作：.*第 2 天/)).toBeVisible();
-      await home.getByRole("button", { name: "聽力" }).click();
-      await expect(lines.getByText(/寫作：/)).toHaveCount(0);
       await expect(lines.getByText("這天沒有完成任務")).toBeVisible();
-      await home.getByRole("button", { name: "寫作" }).click();
-      await expect(lines.getByText(/寫作：.*第 2 天/)).toBeVisible();
+      await expect(lines.getByText(/寫作/)).toHaveCount(0);
+      await expect(page.getByTestId("calendar-day-time")).toHaveText(
+        "沒有練習時間",
+      );
     });
   });
 }
@@ -140,8 +141,14 @@ test("in English and dark: readable, nothing for axe", async ({ page }) => {
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .analyze();
   expect(axe.violations.map((v) => v.id)).toEqual([]);
+  await expect(page.getByTestId("writing-streak")).toContainText(
+    "Writing: 2 days in a row",
+  );
   await page.goto("/");
   await expect(
-    page.getByRole("group", { name: "Calendar shows" }),
+    page.getByRole("heading", { name: /Listening calendar/ }),
   ).toBeVisible();
+  await expect(page.getByRole("group", { name: "Calendar shows" })).toHaveCount(
+    0,
+  );
 });

@@ -118,11 +118,11 @@
     "nextOpen": "第 {day} 天已開放"
   },
   "calendar": {
-    "loading": "日曆載入中…",
-    "title": "練習日曆",
+    "loading": "聽力日曆載入中…",
+    "title": "聽力日曆",
     "previousMonth": "上個月",
     "nextMonth": "下個月",
-    "caption": "練習日曆：顏色越深，那天完成的任務越多；日期周圍的黃色光暈代表當天的練習時間，越亮練越久；選一天可以看當天的任務與練習時間",
+    "caption": "聽力日曆：顏色越深，那天完成的聽力任務越多；日期周圍的黃色光暈代表當天的聽力練習時間，越亮練越久；選一天可以看當天的任務與練習時間。寫作有自己的日曆",
     "taskLine": "<video>{title}</video> · 第 {day} 天 {task}",
     "none": "這天沒有完成任務",
     "dayLabel": "{date}，{time}，{count, plural, =0 {沒有完成任務} other {完成 # 個任務}}{today, select, yes {（今天）} other {}}",
@@ -139,15 +139,7 @@
     "minutes": "{n} 分",
     "ringLegend": "練習時間",
     "atLeastMinutes": "{n} 分鐘以上",
-    "atLeastHours": "{n} 小時以上",
-    "filter": {
-      "label": "日曆顯示",
-      "all": "全部",
-      "listening": "聽力",
-      "writing": "寫作"
-    },
-    "writingLine": "寫作：{title}・第 {day} 天",
-    "writingPrompt": "寫作題目"
+    "atLeastHours": "{n} 小時以上"
   },
   "today": {
     "title": "今日任務",
@@ -2814,19 +2806,19 @@
   },
   "stats": {
     "title": "學習分析",
-    "intro": "你的練習時間、正確率和進步，都從這台裝置與帳號同步的紀錄計算。",
+    "intro": "聽力和寫作分開計算：各自的練習時間、連續天數、正確率和進步，都從這台裝置與帳號同步的紀錄計算。",
     "loading": "載入中…",
     "unknownMaterial": "（已移除的教材）",
-    "streak": "連續練習",
+    "streak": "聽力連續練習",
     "days": "{n} 天",
     "longest": "最長 {n} 天",
-    "weekMinutes": "近 7 天練習",
-    "monthMinutes": "近 30 天練習",
+    "weekMinutes": "近 7 天聽力練習",
+    "monthMinutes": "近 30 天聽力練習",
     "minutes": "{n} 分鐘",
     "started": "開始過的教材",
     "passed": "通過的教材",
-    "timeTitle": "每日練習時間",
-    "timeSummary": "近 {days} 天共練習 {total} 分鐘，其中 {active} 天有練習。只計算畫面在前景、2 分鐘內有操作的時間。",
+    "timeTitle": "每日聽力練習時間",
+    "timeSummary": "近 {days} 天共練習聽力 {total} 分鐘，其中 {active} 天有練習。只計算畫面在前景、2 分鐘內有操作的時間；寫作的時間在下面的寫作區。",
     "range": "期間",
     "ranges": {
       "week": "週",
@@ -2872,7 +2864,8 @@
     "quizTrendTitle": "單字測驗正確率",
     "quizTrendSummary": "{count} 次測驗，從 {first} 到 {last}。",
     "quizAccuracy": "正確率",
-    "quizTarget": "80%"
+    "quizTarget": "80%",
+    "listeningHeading": "聽力"
   },
   "usageLimit": {
     "daily": "你今天的 AI 用量已達每日上限，{when}（台灣時間）重設。已輸入的內容還在頁面上。",
@@ -4152,10 +4145,10 @@
     }
   },
   "streak": {
-    "line": "連續練習 {n} 天",
+    "line": "聽力連續練習 {n} 天",
     "freezesLeft": "補救卡：本週剩 {n} 張",
     "saved": "補救卡保住了你的連續天數（{date} 沒練習）",
-    "help": "補救卡每週一張，漏掉一天時自動使用；連續漏掉兩天，連續天數就會重新計算。"
+    "help": "只算聽力；寫作有自己的連續天數（在寫作頁）。補救卡每週一張，漏掉一天時自動使用；連續漏掉兩天，連續天數就會重新計算。"
   },
   "weeklyReport": {
     "title": "上週學習報告",
@@ -4182,7 +4175,9 @@
       "levelUp": "正確率很高，這週可以挑戰程度高一點的教材。",
       "keepGoing": "節奏很穩定，這週照這個步調繼續。"
     },
-    "dismiss": "知道了"
+    "dismiss": "知道了",
+    "listening": "聽力",
+    "listeningNone": "上週沒有練習聽力。"
   },
   "priceSurvey": {
     "title": "Plus・聽寫全方位值多少錢？4 個問題",
@@ -4771,12 +4766,19 @@
       "organization": "段落組織",
       "task": "回答題目",
       "tone": "語氣與正式程度"
-    }
+    },
+    "streak": "寫作連續練習",
+    "weekMinutes": "近 7 天寫作練習",
+    "monthMinutes": "近 30 天寫作練習",
+    "timeTitle": "每日寫作練習時間",
+    "timeSummary": "近 {days} 天共練習寫作 {total} 分鐘，其中 {active} 天有練習。",
+    "range": "寫作時間的期間"
   },
   "writingReport": {
     "heading": "寫作",
     "line": "寫了 {essays} 篇、完成 {drills} 天的聽寫回譯",
-    "improvement": "這週完成的題目平均進步 {n} 分"
+    "improvement": "這週完成的題目平均進步 {n} 分",
+    "none": "上週沒有練習寫作。"
   },
   "writingSettings": {
     "settingsTitle": "寫作設定",
@@ -5043,7 +5045,13 @@
     "chatLine": "聊天練習 {count} 次",
     "dayAccuracy": "當天平均正確率 {percent}%",
     "reviewLine": "睡前回顧",
-    "sentences": "聽寫回譯寫了 {count} 句"
+    "sentences": "聽寫回譯寫了 {count} 句",
+    "streak": {
+      "line": "寫作連續練習 {n} 天",
+      "none": "還沒有寫作的連續天數，今天寫一點就開始",
+      "longest": "最長 {n} 天",
+      "help": "只算寫作：完成寫作任務、額外練習、聊天、睡前回顧或有寫作練習時間的日子。補救卡的規則和聽力一樣，但分開計算；聽力的連續天數在首頁。"
+    }
   },
   "planNames": {
     "free": "免費方案",

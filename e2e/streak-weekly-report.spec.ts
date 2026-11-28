@@ -106,7 +106,7 @@ test("a freeze keeps the streak, and finishing today says what's tomorrow", asyn
   await page.goto("/");
 
   const streak = page.getByTestId("streak");
-  await expect(streak).toContainText("連續練習 2 天");
+  await expect(streak).toContainText("聽力連續練習 2 天");
   await expect(streak).toContainText("補救卡：本週剩 0 張");
   await expect(streak).toContainText(
     "補救卡保住了你的連續天數（11/17 沒練習）",

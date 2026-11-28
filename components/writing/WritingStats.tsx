@@ -1,20 +1,119 @@
 "use client";
 
 import { useFormatter, useTranslations } from "next-intl";
+import { useState } from "react";
+import { toLocalDate } from "@/lib/dates";
+import { streakStatus } from "@/lib/streak";
 import {
   commonErrors,
   criterionAverages,
+  writingDailyMinutes,
   writingScoreTrend,
   writingSummary,
 } from "@/lib/writing/analytics";
+import { writingCalendar, writingPracticeDays } from "@/lib/writing/log";
 import { BarList } from "../charts/BarList";
 import { ChartFrame } from "../charts/ChartFrame";
+import { ColumnChart } from "../charts/ColumnChart";
+import { SegmentedControl } from "../SegmentedControl";
 import { StatTile } from "../StatTile";
 import { useCustomTitles } from "./CustomPrompts";
-import { useAllWritingProgress, useNotebook } from "./WritingProvider";
+import { useActivityLog } from "./WritingCalendar";
+import {
+  useAllWritingProgress,
+  useChats,
+  useNotebook,
+  useWritingLog,
+} from "./WritingProvider";
+
+type Range = "week" | "month";
+const RANGE_DAYS: Record<Range, number> = { week: 7, month: 30 };
 
 /**
- * Writing on the learning stats page (D189): weeks finished, the average
+ * Writing's own streak and practice time (D214), counted apart from
+ * listening's (StatsView): the "w-" materials' time and the days with
+ * writing practice.
+ */
+function WritingPractice() {
+  const t = useTranslations("writingStats");
+  const ts = useTranslations("stats");
+  const tStreak = useTranslations("streak");
+  const format = useFormatter();
+  const activity = useActivityLog();
+  const progresses = useAllWritingProgress();
+  const log = useWritingLog();
+  const chats = useChats();
+  const [range, setRange] = useState<Range>("week");
+  if (!progresses || !log || !chats) return null;
+  const today = toLocalDate(new Date());
+  const streak = streakStatus(
+    writingPracticeDays(writingCalendar(log, progresses, chats), activity),
+    today,
+  );
+  const minutes = writingDailyMinutes(activity, today, RANGE_DAYS[range]);
+  const total = minutes.reduce((sum, d) => sum + d.minutes, 0);
+  const minuteLabel = (n: number) => ts("minutes", { n });
+  const day = (date: string) =>
+    format.dateTime(new Date(`${date}T12:00:00Z`), {
+      month: "numeric",
+      day: "numeric",
+      timeZone: "UTC",
+    });
+  return (
+    <>
+      <dl className="grid grid-cols-2 gap-4 split:grid-cols-4">
+        <StatTile
+          label={t("streak")}
+          value={ts("days", { n: streak.current })}
+          note={`${ts("longest", { n: streak.longest })} · ${tStreak("freezesLeft", { n: streak.freezesLeft })}`}
+        />
+        <StatTile
+          label={t(range === "week" ? "weekMinutes" : "monthMinutes")}
+          value={minuteLabel(total)}
+        />
+      </dl>
+      <ChartFrame
+        title={t("timeTitle")}
+        summary={t("timeSummary", {
+          days: RANGE_DAYS[range],
+          total,
+          active: minutes.filter((d) => d.minutes > 0).length,
+        })}
+        controls={
+          <SegmentedControl
+            legend={t("range")}
+            value={range}
+            options={(["week", "month"] as const).map((value) => ({
+              value,
+              label: ts(`ranges.${value}`),
+            }))}
+            onChange={setRange}
+            optionWidthClassName="min-w-16"
+          />
+        }
+        columns={[
+          { label: ts("date") },
+          { label: ts("minutesColumn"), numeric: true },
+        ]}
+        rows={minutes.map((d) => [day(d.date), d.minutes])}
+      >
+        <ColumnChart
+          data={minutes.map((d) => ({
+            label: day(d.date),
+            value: d.minutes,
+            tooltip: `${day(d.date)} · ${minuteLabel(d.minutes)}`,
+          }))}
+          format={(n) => String(Math.round(n))}
+          tickEvery={range === "week" ? 1 : 5}
+        />
+      </ChartFrame>
+    </>
+  );
+}
+
+/**
+ * Writing on the learning stats page (D189), its own section apart from
+ * listening's (D214): writing's streak and time, weeks finished, the average
  * Day 1 → Day 7 change, patterns mastered, the score over time, each
  * criterion's average, and the most common kinds of mistakes. Every
  * chart has its data table (ChartFrame).
@@ -47,6 +146,7 @@ export function WritingStats({
       <h2 id="writing-stats" className="font-display text-h2">
         {t("title")}
       </h2>
+      <WritingPractice />
       {progresses.length === 0 ? (
         <p className="text-ink-muted">{t("empty")}</p>
       ) : (

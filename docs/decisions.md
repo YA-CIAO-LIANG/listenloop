@@ -4167,3 +4167,22 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   已發布的教材用 `SYNC=1 npm run official:written` 同步到正式站：只更新內容不同的句子，英文改過的 7 句重新產生語音（547 字元）。`tests/official-written.test.ts` 新增一條規則：講解引用的字（單字、文法、重點、意群、連音）一定要出現在句子裡，避免英文改了、講解沒跟著改。
 
 - **用量加總（2026-11-25 補）**：一般的 select 最多回傳 1,000 筆，`scripts/cost-report.mts` 的 Azure 學生額度剩餘（顯示 US$99.64，實際約 US$97.56）和 `scripts/writing-audio.record.ts` 的 F0 本月用量（顯示 7 萬，實際 22 萬）都少算了。兩者改用資料庫函式 `api_usage_totals` 加總（後台 `/admin/usage` 本來就用它）。`official:written` 不讀月用量，只計算這次執行送出的字元。
+
+## D214 聽力與寫作的日曆、連續天數、練習時間、學習分析、週報完全分開（2026-11-25，Joe 指定）
+
+- **決定**：聽力和寫作各自計算、各自顯示，任何數字都不會加在一起。取代 D201 的首頁「全部｜聽力｜寫作」切換。
+  - **日曆**：首頁的日曆改名「聽力日曆」（`components/PracticeCalendar.tsx`），只算聽力的任務與聽力練習時間（`w-` 開頭以外的教材，含錯字複習），不再讀寫作日誌、沒有切換。`/writing` 的寫作日曆（`components/writing/WritingCalendar.tsx`）只算寫作，原本就是如此。學習進度頁的日曆同樣是聽力日曆。
+  - **連續天數**：聽力的連續天數（首頁今日任務、學習分析）只算完成聽力任務或有聽力練習時間的日子（`lib/streak.ts` 的 `practiceDays` 改用 `isListeningTimeId`）。新增寫作的連續天數（`lib/writing/log.ts` 的 `writingPracticeDays`：完成寫作任務、額外練習、聊天、睡前回顧、有作答的聽寫回譯或寫作練習時間），顯示在寫作日曆上方（`data-testid="writing-streak"`）和學習分析的寫作區。兩邊沿用同一套補救卡規則（`STREAK_FREEZE`），但各自計算、各有每週一張。
+  - **練習時間**：`lib/practice-time.ts` 新增 `isWritingTimeId`（從 `lib/writing/log.ts` 移過來，原處重新匯出）與 `isListeningTimeId`。聽力的日曆光暈、學習分析的每日時間（`dailyMinutes`）、週報只算聽力；寫作用 `writingDailyMinutes`。
+  - **今日任務**：原本就分開（聽力 `TodayTasks`、寫作 `WritingTasks`）；聽力的連續天數現在只算聽力。
+  - **學習分析**（`/stats`）：分成「聽力」（`StatsView`，h2）與「寫作」（`WritingStats`，h2）兩區。寫作區新增寫作連續天數、近 7／30 天寫作時間與每日寫作時間圖（有資料表）。
+  - **週報**（`components/WeeklyReport.tsx`）：一張卡片分成「聽力」與「寫作」兩部分，各自有練習時間、練習天數、完成任務。聽力另有正確率、聽錯的字與建議（`lib/weekly-report.ts`，只算聽力）；寫作另有篇數、聽寫回譯天數與進步（`writingWeeklyReport`，`lib/writing/analytics.ts`）。只要有一邊上週或前一週有練習就顯示，另一邊顯示「上週沒有練習」。兩者共用 `reportWeek`（週一到週三顯示、「知道了」以本週一記住）。
+- **理由**：
+  - Joe 指定：聽力和寫作是兩種不同的課程節奏，合併的數字（例如寫作的時間讓聽力連續天數不中斷）會讓「看得見的進步」失真。
+  - 切換按鈕讓使用者以為兩者是同一個日曆的兩種濾鏡；分開後，每個區域只顯示自己的東西，認知負擔較低（業界的多課程學習 App 也是各課程各自有連續天數）。
+  - 不改儲存格式、不需要 migration：寫作時間本來就記在 `w-` 開頭的教材下，寫作日誌本來就獨立（D201），所以只在計算與顯示時分開，舊資料直接適用。
+- **刪除的翻譯**：`calendar.filter.*`、`calendar.writingLine`、`calendar.writingPrompt`。
+- **測試**：
+  - 單元測試 `tests/separate-calendars.test.ts`：時間 id 的分類、混合日不相加、只練寫作時聽力的連續天數與週報是空的、只練聽力時寫作的連續天數與週報是空的、寫作週報的數字、`reportWeek`。
+  - E2E `e2e/separate-calendars.spec.ts`：只練聽力 → `/writing` 的寫作日曆今天沒有任務、沒有寫作時間，寫作連續天數是空的；只練寫作 → 首頁的聽力日曆今天沒有任務、沒有練習時間，沒有聽力連續天數。`e2e/writing-calendar.spec.ts` 改成確認首頁沒有切換、不顯示寫作，以及寫作連續天數；其他 E2E 與可用性測試（T29 第 3 步）跟著新文字更新。
+- **要改時看哪裡**：`lib/practice-time.ts`（`isListeningTimeId`、`isWritingTimeId`）、`lib/streak.ts`、`lib/analytics.ts`、`lib/weekly-report.ts`（`reportWeek`）、`lib/writing/log.ts`（`writingPracticeDays`）、`lib/writing/analytics.ts`（`writingWeeklyReport`、`writingDailyMinutes`）、`components/PracticeCalendar.tsx`、`components/writing/WritingCalendar.tsx`（`WritingStreak`、`useActivityLog`）、`components/WeeklyReport.tsx`、`components/StatsView.tsx`、`components/writing/WritingStats.tsx`、`docs/design-system.md`。

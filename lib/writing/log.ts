@@ -1,4 +1,6 @@
+import type { Activity } from "@/lib/activity";
 import { isLocalDate, toLocalDate, type LocalDate } from "@/lib/dates";
+import { daySeconds, isWritingTimeId } from "@/lib/practice-time";
 import { runSummary, type BackRun } from "./back-translation";
 import type { ChatRecord } from "./chat/history";
 import {
@@ -293,5 +295,33 @@ export function writingCalendar(
 /** Chat practice's practice-time material (D201): "w-chat". */
 export const CHAT_TIME_ID = "chat";
 
-/** The practice-time ids of writing (D187): "w-<promptId>", "w-chat". */
-export const isWritingTimeId = (id: string) => id.startsWith("w-");
+/** The practice-time ids of writing (D187), kept with the timer's code. */
+export { isWritingTimeId } from "@/lib/practice-time";
+
+/**
+ * Days with writing practice (D214), for writing's own streak: a cycle
+ * day done, extra practice, a chat, the evening review, back-translation
+ * answered, or writing time counted. Listening never counts here, and
+ * writing never counts in listening's streak (lib/streak.ts).
+ */
+export function writingPracticeDays(
+  days: ReadonlyMap<LocalDate, WritingCalendarDay>,
+  activity: Activity,
+): Set<LocalDate> {
+  const out = new Set<LocalDate>();
+  for (const [date, day] of days) {
+    if (
+      day.tasks.length > 0 ||
+      day.extras.length > 0 ||
+      day.chats > 0 ||
+      day.review ||
+      day.sentences > 0
+    ) {
+      out.add(date);
+    }
+  }
+  for (const [date, day] of Object.entries(activity.days)) {
+    if (daySeconds(day, isWritingTimeId) > 0) out.add(date);
+  }
+  return out;
+}
