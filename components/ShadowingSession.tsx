@@ -1,5 +1,6 @@
 "use client";
 
+import { usePlayback } from "./usePlayback";
 import { oneLineTitle } from "@/lib/titles";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
@@ -61,7 +62,7 @@ import { HandsFreeStatus } from "./HandsFreeStatus";
 import { useHandsFree } from "./useHandsFree";
 import { HANDS_FREE_NEXT_MS, HANDS_FREE_RETRY_MS } from "@/lib/hands-free";
 import { SpeedControl } from "./SpeedControl";
-import { DEFAULT_SPEED, type Speed } from "@/lib/speed";
+import type { Speed } from "@/lib/speed";
 import { useStores } from "./StoresProvider";
 import { logClientEvent } from "./useEventLog";
 
@@ -116,7 +117,10 @@ export function ShadowingSession({
   const tListen = useTranslations("listen");
   const format = useFormatter();
   // Audio practices can slow down or speed up (D73); videos stay at 1×.
-  const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
+  // Kept everywhere once set (D220).
+  const [kept, changePlayback] = usePlayback();
+  const speed = kept.speed;
+  const setSpeed = (next: Speed) => changePlayback({ speed: next });
   const player = useSentencePlayer(video, speed);
   usePracticeTimer(video.id, player.isPlaying);
   const speech = useSpeechRecognition();

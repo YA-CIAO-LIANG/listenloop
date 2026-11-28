@@ -89,10 +89,16 @@ const extraId = (promptId: string, week: number, day: number, round: number) =>
   `x:${promptId}:${week}:${day}:${round}`;
 
 /** A day's score: an essay's percent, or the back-translation's accuracy. */
-function dayPercent(day: number, record: EssayDay | DrillDay): number | null {
+export function dayPercent(
+  day: number,
+  record: EssayDay | DrillDay,
+): number | null {
   if (isEssayDay(day)) return essayPercent(record as EssayDay);
   const back = (record as DrillDay).back;
-  return back ? runSummary(back).percent : null;
+  if (!back) return null;
+  // Only listened and read (D219): nothing to score.
+  const summary = runSummary(back);
+  return summary.answered ? summary.percent : null;
 }
 
 /** Every done day of a prompt's current week, as log entries. */

@@ -21,10 +21,10 @@ import { Button } from "../Button";
 import { ProgressBar } from "../ProgressBar";
 import { useWordSound } from "../useWordSound";
 import { WordDiffView } from "../WordDiffView";
+import { usePlayback } from "../usePlayback";
+import { PlaybackControls } from "../PlaybackControls";
+import type { DayFormat } from "@/lib/writing/day-formats";
 import { WritingWorkspace } from "./WritingWorkspace";
-
-/** The pause between plays when looping a sentence. */
-const LOOP_GAP_MS = 1_500;
 /** "Where it went wrong" is asked at most this often a set (D202). */
 export const SELF_EXPLAIN_PER_SET = 2;
 
@@ -52,6 +52,7 @@ export function BackTranslation({
   aside,
   coach = {},
   onExplain,
+  format,
 }: {
   promptId: string;
   run: BackRun;
@@ -77,8 +78,16 @@ export function BackTranslation({
   };
   /** The learner's "where it went wrong" (or "" when skipped). */
   onExplain?: (index: number, text: string) => void;
+  /**
+   * The day's way (D219), for the three that write a sentence or more:
+   * "hints" (first letters and the meaning, no sound by itself),
+   * "zh-en" (the meaning only), "paragraph" (a paragraph heard, written
+   * whole). Absent: `mode`, as before.
+   */
+  format?: Extract<DayFormat, "hints" | "zh-en" | "paragraph" | "dictation">;
 }) {
   const t = useTranslations("writing.back");
+  const tFormats = useTranslations("writing.formats");
   const total = run.items.length;
   const current = nextIndex(run);
   // A sentence opened again from the list, and the one just checked
@@ -86,7 +95,10 @@ export function BackTranslation({
   const [opened, setOpened] = useState<number | null>(null);
   const [checked, setChecked] = useState<number | null>(null);
   const [answer, setAnswer] = useState("");
-  const [loop, setLoop] = useState(false);
+  // Loop, repeats, the pause, speed, autoplay, and voice are kept (D220).
+  const [playback, changePlayback] = usePlayback();
+  const loop = playback.loop;
+  const setLoop = (on: boolean) => changePlayback({ loop: on });
   const [needSure, setNeedSure] = useState(false);
   // A wrong answer waiting for "where I think it went wrong" (D202).
   const [explaining, setExplaining] = useState<number | null>(null);
@@ -94,24 +106,41 @@ export function BackTranslation({
   const index = Math.min(opened ?? checked ?? current, total - 1);
   const item = run.items[index];
   const result = run.answers[index] ?? null;
-  const asked = item ? itemMode(item, mode) : mode;
+  // The day's way sets how it's asked (D219): the meaning for "zh-en"
+  // and "hints" (dictation when a sentence has no meaning), the sound
+  // for "paragraph".
+  const formatMode: DictationMode =
+    format === "zh-en" || format === "hints"
+      ? "read-zh"
+      : format === "paragraph"
+        ? "listen-write"
+        : mode;
+  const asked = item ? itemMode(item, formatMode) : formatMode;
   const listening = asked !== "read-zh";
   const sound = useWordSound(promptId, item?.en ?? null, {
     loop,
-    gapMs: LOOP_GAP_MS,
+    gapMs: playback.gap * 1000,
     audioUrl: writingSentenceAudioUrl,
     // Reading the Chinese: the English is a hint, played only on request.
     // An answered sentence opened again doesn't play by itself.
-    autoplay: listening && !result,
+    autoplay: listening && !result && playback.autoplay,
+    repeats: playback.repeats,
+    rate: playback.speed,
+    voice: playback.voice,
   });
 
   if (!item) return null;
   const allDone = current >= total;
-  // Fading hints (D202): never for the meaning in Chinese.
+  // Fading hints (D202): never for the meaning in Chinese. "hints" (D219)
+  // always shows every word's first letter; a paragraph has none.
   const hint =
-    coach.hint && asked !== "listen-zh"
-      ? sentenceHint(item.en, coach.hint(index))
-      : null;
+    format === "hints"
+      ? sentenceHint(item.en, 2)
+      : format === "paragraph"
+        ? null
+        : coach.hint && asked !== "listen-zh"
+          ? sentenceHint(item.en, coach.hint(index))
+          : null;
 
   // At most two "where it went wrong" a set: a minute, not more (D202).
   const explained = run.answers.filter((a) => a?.explain !== undefined).length;
@@ -123,7 +152,7 @@ export function BackTranslation({
     }
     setLoop(false);
     const checkedAnswer: BackAnswer = {
-      ...checkBack(item, mode, answer),
+      ...checkBack(item, formatMode, answer),
       answer,
       date: toLocalDate(new Date()),
       ...(coach.confidence && sure ? { confidence: sure } : {}),
@@ -280,6 +309,7 @@ export function BackTranslation({
             {loop ? t("loopOn") : t("loopOff")}
           </Button>
         )}
+        <PlaybackControls compact />
         {extra && (
           <Button
             size="sm"
@@ -360,7 +390,7 @@ export function BackTranslation({
 
   return (
     <WritingWorkspace
-      summary={`${position} · ${t(`modes.${asked}.name`)}`}
+      summary={`${position} · ${format && format !== "dictation" ? tFormats(`${format}.name`) : t(`modes.${asked}.name`)}`}
       label={t(`modes.${asked}.label`)}
       audio={controls}
       actions={action}
@@ -368,8 +398,12 @@ export function BackTranslation({
         <div className="flex flex-col gap-3">
           {extra && <p className="font-medium">{t("extraTitle")}</p>}
           {list}
-          <p>{t(`modes.${asked}.intro`)}</p>
-          {asked !== mode && (
+          <p>
+            {format && format !== "dictation"
+              ? tFormats(`${format}.intro`)
+              : t(`modes.${asked}.intro`)}
+          </p>
+          {asked !== formatMode && (
             <p className="text-supporting text-ink-muted">{t("noMeaning")}</p>
           )}
           {intro && <p className="text-supporting text-ink-muted">{intro}</p>}
@@ -394,7 +428,7 @@ export function BackTranslation({
           id="back-answer"
           key={index}
           lang={asked === "listen-zh" ? "zh-Hant" : "en"}
-          rows={3}
+          rows={format === "paragraph" ? 6 : 3}
           value={result ? result.answer : answer}
           onChange={(e) => setAnswer(e.target.value)}
           onKeyDown={keys}

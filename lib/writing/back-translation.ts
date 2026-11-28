@@ -11,6 +11,7 @@ import { fixInContext, splitSentences } from "./drills";
 import type { WritingFeedback } from "./feedback";
 import { chosenVersion } from "./rewrite/state";
 import type { EssayRewrite, PracticeSource } from "./rewrite/types";
+import type { DayFormat } from "./day-formats";
 import type { WritingPrompt } from "./types";
 
 /**
@@ -34,6 +35,10 @@ export type BackItem = {
   /** The meaning in Chinese, when known (needed for two of the modes). */
   zh?: string;
   source: "fix" | "model" | "own";
+  /** The learner's own sentence before the AI changed it (D219). */
+  original?: string;
+  /** A paragraph's sentences, when the item is a paragraph (D219). */
+  parts?: string[];
 };
 
 /** What Days 2–6 know of Day 1. */
@@ -330,6 +335,8 @@ export type BackAnswer = BackResult & {
   pending?: boolean;
   /** The AI's judgement, once checked; `right` then follows it. */
   ai?: BackJudgement;
+  /** "Listen and read" (D219): heard and looked at, nothing written. */
+  viewed?: true;
 };
 
 /**
@@ -393,6 +400,12 @@ export function applyChecks(
  * them), and one answer slot each, filled in order.
  */
 export type BackRun = {
+  /**
+   * The day's way of practising (D219), fixed when the set starts;
+   * absent: the back-translation in the settings' mode (before D219, and
+   * extra practice).
+   */
+  format?: DayFormat;
   items: BackItem[];
   answers: (BackAnswer | null)[];
   /** Ended: every sentence answered, or extra practice ended early. */
@@ -446,7 +459,8 @@ export function runSummary(run: BackRun): {
   total: number;
   percent: number;
 } {
-  const answered = run.answers.filter((a): a is BackAnswer => !!a);
+  // "Listen and read" answers aren't attempts: no accuracy (D219).
+  const answered = run.answers.filter((a): a is BackAnswer => !!a && !a.viewed);
   return {
     right: answered.filter((a) => a.right).length,
     answered: answered.length,
@@ -506,8 +520,17 @@ export function extraBackItems({
   const unseen = fresh.filter((i) => !earlier.has(key(i.en)));
   // The learner's own short essay (D218): its sentences again, which
   // is still retrieval, rather than nothing.
-  const from =
-    unseen.length > 0 ? unseen : fresh.length > 0 || !own ? fresh : pool;
+  // and with D219's longer days, the model essay too: a full set,
+  // topped up with the essay's sentences again.
+  const repeatable = Boolean(own) || day1?.source === "model";
+  const from = repeatable
+    ? unique([...unseen, ...fresh, ...pool]).slice(
+        0,
+        Math.max(BACK_PER_DAY, unseen.length),
+      )
+    : unseen.length > 0
+      ? unseen
+      : fresh;
   return rotate(from, (day - 2 + round - 1) * BACK_PER_DAY, BACK_PER_DAY);
 }
 

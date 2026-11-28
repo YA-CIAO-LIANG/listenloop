@@ -6,6 +6,7 @@ import { MATERIALS_VIEW_KEY } from "./material-folders";
 import { LIBRARY_DEFAULT_STORAGE_KEY } from "./library-config";
 import { LISTEN_STORAGE_KEY } from "./listen";
 import { LOOP_STORAGE_KEY } from "./player/loop";
+import { PLAYBACK_KEY } from "./playback";
 import { THEME_STORAGE_KEY } from "./theme";
 
 /**
@@ -25,6 +26,8 @@ export const PERSONAL_SETTING_KEYS = [
   LOOP_STORAGE_KEY,
   // My materials' grid or list (D147).
   MATERIALS_VIEW_KEY,
+  // How sentences play, everywhere (D220).
+  PLAYBACK_KEY,
 ] as const;
 
 /** When this device's settings last changed (ms), to merge with the account's. */

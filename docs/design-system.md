@@ -987,6 +987,11 @@ CardLink，內容由上到下：
   - 版本卡片（`Card`）：標題 font-medium，右邊 text-metadata「改了 N / M 句 · 可讀性 X 年級」。每句一個 `dl`：「原本」的字用 ink-muted，被改掉的字加刪除線；「修改後」被換上的字用 `ins`，accent 14% 底色、accent-ink、font-medium、2px accent 底線；「原因」text-supporting。沒改的句子只顯示句子和「這句沒有修改」。刪除線、底線和文字標籤同時表示改了什麼，不只靠顏色（在寫作區所以是藍綠色）。
   - 卡片下方：「太難了」「可以再難一點」（secondary sm），再下方 text-metadata 寫還能產生幾個版本；最後是 primary「選這個版本來練習」，選了之後換成 accent-ink font-medium 的「✓ 已選定這個版本」（`role="status"`）。
 - **第 2 天前的選擇**（`PracticeChoice`，D218）：`Card` 說明為什麼要先請 AI 修改，secondary「改用範文練習」（自訂題目沒有範文就不顯示），接著是 `RewritePanel`。訪客多一行登入連結。
+- **第 2～6 天的五種方式**（D219，`components/writing/FormatRuns.tsx` 與 `BackTranslation`）：都在 `WritingWorkspace` 裡，聲音控制列（進度條、重播、循環、播放設定）在作答區上方。
+  - 聽與看：`dl`「你原本寫的」（ink-muted，被改掉的字刪除線）與「正確版本」（換上的字 `ins`，accent 14% 底色、accent-ink、2px 底線），下方 text-supporting 中文；沒改的句子顯示 text-success「這句你寫對了」。主按鈕「下一句」／「看完了」。
+  - 填空：句子 text-sentence、行高 loose，空格是內嵌 `input`（surface、1px line，寬度依字長，觸控 44px 高），檢查後邊框 success／error，下方逐格列出 ✓／✗ 與答案（文字說明，不只靠顏色）。
+  - 默寫段落：作答框 6 行。
+- **播放設定**（D220，`PlaybackControls`）：練習頁在播放鍵旁的折疊「播放設定 ▾」（44px 觸控），展開是 surface-card 小面板（寬 288px），每列標籤＋`select`，最後 text-metadata「設定一次就會一直沿用」。`/writing/settings` 是同樣的列，不折疊。
 - **範文只在點選時顯示**（D218）：第 1、7 天的結果頁和第 2～6 天，範文都收在「看範文」（`details`，surface、1px line、44px 高的摘要）裡。
 - **回饋**（`FeedbackView`）：
   - 用 `Mark kind="miss"` 把最重要的 3 個問題標在原文上，旁邊加 `sup` 編號，對應下方的編號清單。

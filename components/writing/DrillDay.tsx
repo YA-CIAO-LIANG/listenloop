@@ -48,6 +48,8 @@ import { WordDiffView } from "../WordDiffView";
 import { BackTranslation } from "./BackTranslation";
 import { ModelEssay } from "./ModelEssay";
 import { PracticeChoice } from "./PracticeChoice";
+import { ClozeRun, ListenReadRun } from "./FormatRuns";
+import { formatItems } from "@/lib/writing/day-formats";
 import { chosenVersion } from "@/lib/writing/rewrite/state";
 import {
   CombineDrill,
@@ -126,8 +128,20 @@ export function DrillDay({
   }
   const reviewed = Boolean(day1?.feedback && !day1.feedback.declined);
   const version = chosenVersion(day1);
+  // The day's way (D219), for a version chosen or the model essay; a week
+  // begun before D218 goes on with the back-translation as it was.
+  const format =
+    version || day1?.source === "model" ? settings.formats[day] : undefined;
   const run =
-    record?.back ?? newRun(backTranslationItems({ prompt, day1, day }));
+    record?.back ??
+    (format
+      ? {
+          ...newRun(
+            formatItems({ prompt, day1, day, format, days: progress.days }),
+          ),
+          format,
+        }
+      : newRun(backTranslationItems({ prompt, day1, day })));
   const today = () => toLocalDate(new Date());
 
   const saveDay = (next: DrillDayRecord) =>
@@ -140,7 +154,10 @@ export function DrillDay({
   const previousResult = (() => {
     for (let d = day - 1; d >= 2; d--) {
       const back = progress.days[d as DrillDayNumber]?.back;
-      if (back?.done) return { day: d, percent: runSummary(back).percent };
+      // A "listen and read" day has no accuracy (D219).
+      if (back?.done && runSummary(back).answered > 0) {
+        return { day: d, percent: runSummary(back).percent };
+      }
     }
     return undefined;
   })();
@@ -443,12 +460,34 @@ export function DrillDay({
     );
   }
 
+  const finishDay = () => {
+    setLive(false);
+    setView("summary");
+  };
+  if (run.format === "listen-read" || run.format === "cloze") {
+    const Run = run.format === "cloze" ? ClozeRun : ListenReadRun;
+    return (
+      <div className="flex flex-col gap-10">
+        <Run
+          key={day}
+          promptId={prompt.id}
+          run={run}
+          onAnswer={answerDay}
+          onFinish={finishDay}
+        />
+        <ModelEssay prompt={prompt} folded />
+        {more}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-10">
       <BackTranslation
         key={day}
         promptId={prompt.id}
         run={run}
+        format={run.format}
         mode={settings.dictation}
         intro={
           version
@@ -520,11 +559,16 @@ function RunResult({
           {extra ? t("back.extraDoneTitle") : t("drills.dayDone")}
         </h2>
         <p className="tabular-nums">
-          {t("back.runResult", {
-            right: summary.right,
-            answered: summary.answered,
-            percent: summary.percent,
-          })}
+          {summary.answered === 0 && run.format === "listen-read"
+            ? t("formats.viewed", {
+                n: run.answers.filter(Boolean).length,
+                total: run.items.length,
+              })
+            : t("back.runResult", {
+                right: summary.right,
+                answered: summary.answered,
+                percent: summary.percent,
+              })}
         </p>
         {check && (
           <p className="text-supporting" aria-live="polite">
@@ -542,7 +586,7 @@ function RunResult({
         {check?.state === "off" && check.reason === "plan" && (
           <UpsellToAll need="writing" feature="back-check" />
         )}
-        {previous && (
+        {previous && summary.answered > 0 && (
           <p className="text-supporting tabular-nums">
             {t("back.compare", {
               day: previous.day,

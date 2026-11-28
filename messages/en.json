@@ -4285,11 +4285,11 @@
       "dayN": "Day {day}",
       "dayName": {
         "1": "Write first",
-        "2": "Back-translation",
-        "3": "Back-translation",
-        "4": "Back-translation",
-        "5": "Back-translation",
-        "6": "Back-translation",
+        "2": "Memory practice",
+        "3": "Memory practice",
+        "4": "Memory practice",
+        "5": "Memory practice",
+        "6": "Memory practice",
         "7": "Rewrite",
         "30": "Write it again"
       },
@@ -4782,6 +4782,52 @@
       "practicing": "Today: the correct version of your own essay ({level}).",
       "practicingModel": "Today: sentences from the model essay.",
       "changeVersion": "Choose another version"
+    },
+    "formats": {
+      "listen-read": {
+        "name": "Listen and read",
+        "label": "Listen and read",
+        "intro": "Each sentence of your essay's correct version plays, next to what you first wrote, with the changes marked. Press “Next sentence” when you're done."
+      },
+      "cloze": {
+        "name": "Fill the gaps",
+        "label": "Fill in the missing words",
+        "intro": "Each sentence hides 1–3 words (the changed ones first). Listen, then fill them in."
+      },
+      "hints": {
+        "name": "Fading hints",
+        "label": "Write the whole sentence",
+        "intro": "Only each word's first letter and the meaning in Chinese: write the whole sentence. Press “Play the English” for a hint."
+      },
+      "zh-en": {
+        "name": "Chinese to English",
+        "label": "This sentence in English",
+        "intro": "No English: write the whole sentence from its meaning in Chinese."
+      },
+      "paragraph": {
+        "name": "Write the paragraph",
+        "label": "Write the whole paragraph",
+        "intro": "Listen to a whole paragraph, then write it. Long paragraphs come in smaller pieces."
+      },
+      "yours": "What you wrote",
+      "correct": "Correct version",
+      "noChange": "You wrote this one right: no change.",
+      "next": "Next sentence",
+      "finish": "Done",
+      "blank": "Gap {n}",
+      "check": "Check",
+      "blankRight": "✓ {word}",
+      "blankWrong": "✗ You wrote “{answer}”; it's “{word}”",
+      "viewed": "{n} of {total} sentences seen",
+      "settingsTitle": "How days 2–6 practise",
+      "settingsIntro": "From easiest to hardest, following memory research (learning-science.md §17). Change any day to the way you like; sentences you got wrong come first the next day.",
+      "day": "Day {n}",
+      "legacyNote": "This week began before the new ways of practising, so it goes on with back-translation.",
+      "dictation": {
+        "name": "Back-translation (the original way)",
+        "label": "Back-translation",
+        "intro": "Back-translation in the way chosen in the writing settings."
+      }
     }
   },
   "writingTasks": {
@@ -4879,7 +4925,7 @@
         "hint": "Uses no allowance. Score it yourself against the rubric, and ask the AI later if you like."
       }
     },
-    "dictation": "Back-translation on days 2–6:",
+    "dictation": "How back-translation asks (extra practice, and any day set to back-translation):",
     "dictationModes": {
       "listen-write": {
         "label": "Hear English → write English (default)",
@@ -5199,5 +5245,22 @@
     "resources": "Free official practice",
     "resourcesNote": "These link to the exam owner’s own site, which has the final word. ListenLoop’s materials and prompts are original, in each part’s style, never real test items.",
     "resourceMeta": "{publisher} · checked working on {date}"
+  },
+  "playback": {
+    "title": "Playback",
+    "repeats": "Plays per sentence",
+    "times": "{n, plural, one {# time} other {# times}}",
+    "gap": "Pause between plays",
+    "seconds": "{n} s",
+    "speed": "Speed",
+    "rate": "{n}×",
+    "voice": "Voice",
+    "voices": {
+      "female": "Female",
+      "male": "Male"
+    },
+    "autoplay": "Play each sentence by itself",
+    "kept": "Set once and kept: in your account when signed in, in this browser otherwise.",
+    "now": "Now: {repeats} per sentence, {speed}×, {gap} s apart"
   }
 }

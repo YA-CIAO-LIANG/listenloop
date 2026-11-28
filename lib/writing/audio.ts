@@ -31,12 +31,15 @@ export async function sentenceAudio(
     maker: MeteredDeps | null;
   },
   text: string,
+  /** D220: the learner's choice; official sentences are made ahead in the female voice. */
+  gender: Voice["gender"] = WRITING_VOICE.gender,
 ): Promise<SentenceAudioResult> {
-  const hash = await speechCacheKey(speech.id, WRITING_VOICE, text);
+  const voice: Voice = { ...WRITING_VOICE, gender };
+  const hash = await speechCacheKey(speech.id, voice, text);
   const found = await store.find(hash);
   if (found) return { ok: true, path: found };
   if (!maker) return { ok: false, reason: "missing" };
-  const made = await meteredSpeech(maker, text, WRITING_VOICE);
+  const made = await meteredSpeech(maker, text, voice);
   if (!made.ok) return { ok: false, reason: made.reason };
   return { ok: true, path: await store.save(hash, made.value) };
 }
