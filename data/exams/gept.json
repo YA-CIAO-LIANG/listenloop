@@ -1,0 +1,143 @@
+{
+  "id": "gept",
+  "name": {
+    "zh": "全民英檢 GEPT",
+    "en": "GEPT (General English Proficiency Test)"
+  },
+  "summary": {
+    "zh": "語言訓練測驗中心（LTTC）為台灣英語學習者設計的分級檢定。這裡介紹最多人考的初級、中級、中高級：先考聽讀，通過後才能考說寫。",
+    "en": "A level-based English test designed for learners in Taiwan by the Language Training & Testing Center (LTTC). This guide covers the most-taken levels — Elementary, Intermediate, and High-Intermediate — where you pass Listening and Reading before taking Speaking and Writing."
+  },
+  "sections": [
+    {
+      "id": "about",
+      "heading": { "zh": "考試簡介", "en": "About the test" },
+      "paragraphs": {
+        "zh": [
+          "全民英檢由語言訓練測驗中心（LTTC）辦理，分為初級、中級、中高級、高級、優級五個級數，是「標準參照」的分級測驗：每個級數都有自己的通過標準，不是和其他考生比排名。",
+          "每個級數分兩階段：先考「聽讀測驗」（聽力＋閱讀），通過後才能報考同級數的「說寫測驗」（口說＋寫作）。初、中、中高級的聽讀都是選擇題。",
+          "2021 年起，初、中、中高級調整題型：閱讀新增多文本閱讀與段落填空的文意理解；中級與中高級聽力新增「整合評量聽讀」的題目，中級聽力也新增了「簡短談話」。以下題數與時間依 LTTC 官網的各級測驗說明。"
+        ],
+        "en": [
+          "GEPT is administered by LTTC and has five levels: Elementary, Intermediate, High-Intermediate, Advanced, and Superior. It is criterion-referenced: each level has its own passing standard rather than ranking you against other test takers.",
+          "Each level has two stages. You first take Listening and Reading; only after passing can you take Speaking and Writing at the same level. Listening and Reading at the first three levels are multiple choice.",
+          "From 2021, the Elementary, Intermediate, and High-Intermediate formats were revised: Reading added multi-text reading and more context-based cloze, Intermediate and High-Intermediate Listening added items that integrate listening and reading, and Intermediate Listening added Short Talks. The counts and times below follow LTTC's official level pages."
+        ]
+      }
+    },
+    {
+      "id": "format",
+      "heading": { "zh": "題型（依級數）", "en": "Format by level" },
+      "paragraphs": {
+        "zh": [
+          "初級：聽力 30 題、約 20 分鐘（看圖辨義 5 題、問答 10 題、簡短對話 10 題、短文聽解 5 題，每題三個選項、只播一遍）；閱讀 30 題、35 分鐘；寫作 16 題、40 分鐘（單句寫作：句子改寫、句子合併、重組各 5 題，加上 1 篇約 50 字的看圖段落寫作）；口說 18 題、約 10 分鐘（複誦、朗讀句子與短文、回答問題）。",
+          "中級：聽力 35 題、約 30 分鐘（看圖辨義 5 題、問答 10 題、簡短對話 10 題、簡短談話 10 題，每題四個選項、只播一遍）；閱讀 35 題、45 分鐘；寫作 2 題、40 分鐘（中譯英，以及約 120 字、8～12 句的英文作文）；口說 13 題、約 15 分鐘（朗讀短文、回答問題、看圖敘述）。",
+          "中高級：聽力 40 題、約 35 分鐘（問答、對話、談話，每段只播一遍；對話後有 1～2 題、談話後有 2～3 題）；閱讀 40 題、50 分鐘；寫作 2 題、50 分鐘（中譯英，以及 150～180 字的引導寫作）；口說 10 題、約 15 分鐘（回答問題、看圖敘述、申述）。"
+        ],
+        "en": [
+          "Elementary: Listening has 30 items in about 20 minutes (5 picture description, 10 question-response, 10 short conversations, 5 short talks; three options each, played once). Reading has 30 items in 35 minutes. Writing has 16 items in 40 minutes (sentence writing — 5 sentence transformation, 5 sentence combination, 5 sentence construction — plus one picture-based paragraph of about 50 words). Speaking has 18 items in about 10 minutes (repetition, reading aloud, answering questions).",
+          "Intermediate: Listening has 35 items in about 30 minutes (5 picture description, 10 question-response, 10 short conversations, 10 short talks; four options each, played once). Reading has 35 items in 45 minutes. Writing has 2 tasks in 40 minutes (Chinese-to-English translation and an essay of about 120 words, 8–12 sentences). Speaking has 13 items in about 15 minutes (reading aloud, answering questions, picture description).",
+          "High-Intermediate: Listening has 40 items in about 35 minutes (question-response, conversations, and talks, each played once; 1–2 questions per conversation and 2–3 per talk). Reading has 40 items in 50 minutes. Writing has 2 tasks in 50 minutes (Chinese-to-English translation and a guided essay of 150–180 words). Speaking has 10 items in about 15 minutes (answering questions, picture description, discussion)."
+        ]
+      }
+    },
+    {
+      "id": "listening-scoring",
+      "heading": { "zh": "聽力的評分方式", "en": "How listening is scored" },
+      "paragraphs": {
+        "zh": [
+          "聽力與閱讀用電腦閱卷，答對題數透過統計程序轉換成量尺分數，各為滿分 120 分，讓不同場次的成績可以比較。",
+          "初、中、中高級的聽讀通過標準相同：聽力加閱讀總分達 160 分，而且任一項不低於 72 分。例如聽力 94 分、閱讀 70 分，總分雖有 164 分，但閱讀低於 72 分，仍不算通過，也不能報考該級的說寫測驗。"
+        ],
+        "en": [
+          "Listening and Reading are machine scored. The number of correct answers is converted through a statistical procedure to a scaled score out of 120 for each, so results are comparable across administrations.",
+          "The pass standard is the same for Elementary, Intermediate, and High-Intermediate: Listening plus Reading must total at least 160, with neither below 72. For example, Listening 94 and Reading 70 totals 164 but does not pass because Reading is below 72, so you cannot take Speaking and Writing at that level."
+        ]
+      }
+    },
+    {
+      "id": "writing-scoring",
+      "heading": { "zh": "寫作的評分方式", "en": "How writing is scored" },
+      "paragraphs": {
+        "zh": [
+          "寫作採人工閱卷，由受過訓練的合格評分老師經初審、複審評閱，依各級的分數說明給 0～5 級分，再轉換成百分制（滿分 100）。通過標準：初級 70 分，中級與中高級 80 分（LTTC 年度成績報告以級分表示為初級 3.5 級分、中級與中高級 4 級分）。",
+          "初級：單句寫作與段落寫作各占 50%。單句寫作看內容、文法、用字、標點及大小寫；段落寫作整體評分，看重點表達是否完整，以及文法、用字、拼字、大小寫與標點。",
+          "中級與中高級：中譯英占 40%、作文占 60%。中譯英看是否充分表達原文意思、文段連貫與句型結構，以及用字、文法、拼字、標點；中高級的譯文過短（少於 25 字）會視同未答。"
+        ],
+        "en": [
+          "Writing is marked by trained, qualified raters with a first and second review. Each task gets 0–5 against the level's descriptors, then the result is converted to a score out of 100. Pass marks are 70 for Elementary and 80 for Intermediate and High-Intermediate (LTTC's annual report expresses these as band 3.5 and band 4).",
+          "Elementary: sentence writing and paragraph writing are 50% each. Sentence writing is judged on content, grammar, word choice, punctuation, and capitalisation; the paragraph is scored holistically on how completely it covers the key points and on grammar, word choice, spelling, capitalisation, and punctuation.",
+          "Intermediate and High-Intermediate: translation is 40% and the essay 60%. Translation is judged on how fully it conveys the meaning, coherence and sentence structure, and word choice, grammar, spelling, and punctuation; at High-Intermediate, a translation that is too short (under 25 words) is treated as unanswered."
+        ]
+      }
+    },
+    {
+      "id": "practice",
+      "heading": { "zh": "建議練習方式", "en": "How to practise" },
+      "paragraphs": {
+        "zh": [
+          "全民英檢聽力每題只播一遍，題目又跟日常生活很接近，關鍵常在價格、時間、地點等細節。ListenLoop 第 1 天逐句聽寫，能找出你漏聽的字；第 2～6 天跟讀，練到不用回放也聽得懂；第 7 天再聽寫一次，看正確率有沒有提升。初級、中級建議從較短、較慢的教材開始。",
+          "初級口說有「複誦」，聽完一句後跟著唸，和跟讀的練習方式很接近。",
+          "寫作可以用 WritingLoop：第 1 天依題目寫一段文章並取得回饋，第 2～6 天針對弱點做短練習（例如句子合併、改寫），第 7 天不看舊稿重寫同一題。考前請用 LTTC 官網的線上練習題熟悉題型。"
+        ],
+        "en": [
+          "GEPT Listening plays each item once, and the topics are close to everyday life, so the key is often a detail such as a price, time, or place. ListenLoop's Day 1 sentence-by-sentence dictation finds the words you miss; Days 2–6 of shadowing help you understand without replaying; Day 7 repeats the dictation so you can see your accuracy improve. For Elementary and Intermediate, start with shorter, slower material.",
+          "Elementary Speaking includes a repetition task — listen to a sentence and say it back — which is close to how shadowing works.",
+          "For writing, use WritingLoop: write a response to a prompt on Day 1 and get feedback, do short exercises on your weak points on Days 2–6 (such as combining or rewriting sentences), and rewrite the same prompt on Day 7 without looking at your first draft. Before the test, try LTTC's online practice questions to learn the formats."
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "title": {
+        "zh": "初級線上練習題（含聽力音檔）",
+        "en": "Elementary online practice questions (with audio)"
+      },
+      "publisher": "語言訓練測驗中心 LTTC",
+      "url": "https://www.gept.org.tw/2022/geptpracticee.htm",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "中級線上練習題（含聽力音檔）",
+        "en": "Intermediate online practice questions (with audio)"
+      },
+      "publisher": "語言訓練測驗中心 LTTC",
+      "url": "https://www.gept.org.tw/2022/geptpractice.htm",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "中高級線上練習題（含聽力音檔）",
+        "en": "High-Intermediate online practice questions (with audio)"
+      },
+      "publisher": "語言訓練測驗中心 LTTC",
+      "url": "https://www.gept.org.tw/2022/geptpracticehi.htm",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "初級測驗說明（題型、成績計算、評分說明）",
+        "en": "Elementary test details (format, scoring, rating descriptors)"
+      },
+      "publisher": "語言訓練測驗中心 LTTC",
+      "url": "https://www.gept.org.tw/Exam_Intro/t01_introduction.asp",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "中級測驗說明（題型、成績計算、評分說明）",
+        "en": "Intermediate test details (format, scoring, rating descriptors)"
+      },
+      "publisher": "語言訓練測驗中心 LTTC",
+      "url": "https://www.gept.org.tw/Exam_Intro/t02_introduction.asp",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    }
+  ]
+}

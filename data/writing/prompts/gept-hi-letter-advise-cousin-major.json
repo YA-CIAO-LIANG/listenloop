@@ -1,0 +1,104 @@
+{
+  "id": "gept-hi-letter-advise-cousin-major",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "Advice to a Cousin Choosing a Major",
+    "zh": "寫信給表弟談選科系"
+  },
+  "subtitle": "全民英檢中高級：寫信給表弟，給選科系的建議",
+  "task": "Your younger cousin Daniel is a high school senior. He loves drawing, but his parents want him to study medicine because doctors earn a good income. He has written to ask for your advice. Write a letter of 150–180 words to Daniel. In your letter, (1) show that you understand his situation, (2) give him your advice and explain your reasons, and (3) suggest how he could talk to his parents about it.",
+  "taskZh": "你的表弟丹尼爾是高三生。他熱愛畫畫，但他的父母因為醫生收入好，希望他念醫科。他寫信來問你的意見。請寫一封 150–180 字的信給丹尼爾：(1) 表達你理解他的處境，(2) 給他建議並說明理由，(3) 建議他可以怎麼和父母談這件事。",
+  "words": {
+    "min": 150,
+    "max": 180
+  },
+  "minutes": 35,
+  "focus": [
+    "內容：同理、建議與理由、與父母溝通的方法三個要求都要寫到",
+    "組織：開頭回應來信、中間給建議、結尾鼓勵，分段清楚",
+    "文法：假設語氣、建議句型（suggest、it might be）正確",
+    "用字與語氣：用字精確，語氣親切又有說服力，書信格式完整"
+  ],
+  "model": {
+    "en": [
+      "Dear Daniel,",
+      "Thank you for your letter. I can imagine how confused you must feel right now. You love drawing, but you also do not want to disappoint your parents, who only want the best for you.",
+      "If I were you, I would not give up on art too quickly. Studying medicine takes at least six years of hard work, and it would be very difficult to stay motivated in a field you are not interested in. Besides, there are many well-paid careers related to drawing today, such as game design, animation, and product design.",
+      "When you talk to your parents, try to stay calm and show them that you have thought carefully about your future. It might help to prepare some information about design departments and the jobs their graduates find. You could also invite them to look at your portfolio with you. Whatever you decide, I am always here if you need someone to talk to.",
+      "Love, Amy"
+    ],
+    "zh": [
+      "親愛的丹尼爾：",
+      "謝謝你的來信。我可以想像你現在一定很困惑。你熱愛畫畫，但你也不想讓爸媽失望，畢竟他們只是希望你過得好。",
+      "如果我是你，我不會太快放棄藝術。念醫科至少要辛苦六年，要在自己沒興趣的領域裡一直保持動力是非常困難的。而且，現在有很多和畫畫相關、待遇不錯的職業，例如遊戲設計、動畫和產品設計。",
+      "和爸媽談的時候，試著保持冷靜，讓他們看到你已經仔細思考過自己的未來。準備一些關於設計科系和畢業生出路的資料可能會有幫助。你也可以邀請他們和你一起看你的作品集。不管你最後怎麼決定，如果你需要找人聊聊，我隨時都在。",
+      "愛你的 艾咪"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I can imagine how … you must feel …",
+      "zh": "表達同理，推測對方的感受",
+      "example": "I can imagine how confused you must feel right now.",
+      "keys": ["i can imagine how", "you must feel"]
+    },
+    {
+      "pattern": "If I were you, I would …",
+      "zh": "用假設語氣給建議",
+      "example": "If I were you, I would not give up on art too quickly.",
+      "keys": ["if i were you", "i would"]
+    },
+    {
+      "pattern": "it would be very difficult to … in …",
+      "zh": "說明某種情況下會遇到的困難",
+      "example": "Studying medicine takes at least six years of hard work, and it would be very difficult to stay motivated in a field you are not interested in.",
+      "keys": ["it would be very difficult to", "stay motivated"]
+    },
+    {
+      "pattern": "It might help to …",
+      "zh": "委婉地提出建議",
+      "example": "It might help to prepare some information about design departments and the jobs their graduates find.",
+      "keys": ["it might help to"]
+    },
+    {
+      "pattern": "Whatever you decide, …",
+      "zh": "結尾：無論結果如何都表示支持",
+      "example": "Whatever you decide, I am always here if you need someone to talk to.",
+      "keys": ["whatever you decide", "i am always here"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "You do not want to disappoint your parents.",
+        "They only want the best for you."
+      ],
+      "answer": "You do not want to disappoint your parents, who only want the best for you."
+    },
+    {
+      "parts": [
+        "Try to stay calm.",
+        "Show them that you have thought carefully about your future."
+      ],
+      "answer": "Try to stay calm and show them that you have thought carefully about your future."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I would not give up on art too quickly.",
+      "answers": [
+        "I would not abandon art so soon.",
+        "I would think twice before giving up art."
+      ]
+    },
+    {
+      "sentence": "Your parents only want the best for you.",
+      "answers": [
+        "Your parents just want you to have a good life.",
+        "Your parents care deeply about your future."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

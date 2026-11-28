@@ -1,0 +1,99 @@
+{
+  "id": "story-night-market-blackout",
+  "type": "story",
+  "level": "intermediate",
+  "title": {
+    "en": "Lights Out at the Night Market",
+    "zh": "夜市停電"
+  },
+  "subtitle": "寫一個平凡夜晚突然發生意外的故事",
+  "task": "Write a story about a time when something unexpected happened during an ordinary evening. Describe what happened, how people reacted, and what you learned or felt.",
+  "taskZh": "寫一個故事，描述某個平凡的夜晚發生了意想不到的事：發生了什麼、大家怎麼反應，以及你學到或感受到什麼。",
+  "words": {
+    "min": 130,
+    "max": 200
+  },
+  "minutes": 25,
+  "focus": [
+    "情節有轉折與高潮，順序清楚",
+    "用過去式與過去完成式交代先後",
+    "細節描寫（聲音、氣味、動作）讓場景生動",
+    "結尾說出感受或體會"
+  ],
+  "model": {
+    "en": [
+      "Last summer, my cousin and I went to the night market near our apartment, as we did almost every Friday. The air smelled of fried chicken and grilled corn, and the narrow lanes were packed with people.",
+      "We had just bought two cups of mango shaved ice when, suddenly, all the lights went out. For a moment, everything was silent. Then a child started crying, and people began to push in different directions. I grabbed my cousin's hand so that we would not lose each other.",
+      "What happened next surprised me. Instead of panicking, the stall owners switched on their phone flashlights and held them up high. One old man selling sausages calmly shouted that the power would be back soon and told everyone to stay where they were. Little by little, the crowd calmed down.",
+      "About ten minutes later, the lights came back on, and people cheered. Our shaved ice had melted, but neither of us cared. That night I realized how much a few calm people can help everyone else in a difficult moment."
+    ],
+    "zh": [
+      "去年夏天，我和表妹跟幾乎每個星期五一樣，去了我們公寓附近的夜市。空氣中飄著炸雞和烤玉米的香味，狹窄的走道擠滿了人。",
+      "我們才剛買了兩杯芒果冰，突然間，所有的燈都熄了。有那麼一瞬間，四周一片安靜。接著有個小孩哭了起來，人群開始往不同方向推擠。我抓住表妹的手，免得我們走散。",
+      "接下來發生的事讓我很驚訝。攤販們沒有驚慌，而是打開手機的手電筒，高高舉起。一位賣香腸的老伯冷靜地大喊，說電很快就會恢復，要大家待在原地別動。人群漸漸平靜了下來。",
+      "大約十分鐘後，燈又亮了，大家歡呼起來。我們的芒果冰已經融化了，但我們兩個都不在意。那天晚上我體會到，在困難的時刻，幾個冷靜的人能幫上其他人多大的忙。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "We had just … when, suddenly, …",
+      "zh": "才剛……，突然就……（製造轉折）",
+      "example": "We had just bought two cups of mango shaved ice when, suddenly, all the lights went out.",
+      "keys": ["had just", "when", "suddenly"]
+    },
+    {
+      "pattern": "… so that we would not …",
+      "zh": "說明目的：以免……",
+      "example": "I grabbed my cousin's hand so that we would not lose each other.",
+      "keys": ["so that"]
+    },
+    {
+      "pattern": "Instead of …ing, …",
+      "zh": "沒有……，反而……",
+      "example": "Instead of panicking, the stall owners switched on their phone flashlights and held them up high.",
+      "keys": ["instead of"]
+    },
+    {
+      "pattern": "Little by little, …",
+      "zh": "描述逐漸的變化",
+      "example": "Little by little, the crowd calmed down.",
+      "keys": ["little by little"]
+    },
+    {
+      "pattern": "That night I realized how much …",
+      "zh": "結尾說出體會",
+      "example": "That night I realized how much a few calm people can help everyone else in a difficult moment.",
+      "keys": ["realized how much"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Our shaved ice had melted.", "Neither of us cared."],
+      "answer": "Our shaved ice had melted, but neither of us cared."
+    },
+    {
+      "parts": [
+        "The stall owners switched on their phone flashlights.",
+        "They held them up high."
+      ],
+      "answer": "The stall owners switched on their phone flashlights and held them up high."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The narrow lanes were packed with people.",
+      "answers": [
+        "The narrow lanes were very crowded.",
+        "The narrow lanes were full of people."
+      ]
+    },
+    {
+      "sentence": "Little by little, the crowd calmed down.",
+      "answers": [
+        "Gradually, the crowd became calm.",
+        "Slowly, people stopped panicking."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

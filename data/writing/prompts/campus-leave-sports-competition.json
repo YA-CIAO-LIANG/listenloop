@@ -1,0 +1,107 @@
+{
+  "id": "campus-leave-sports-competition",
+  "type": "campus-leave",
+  "level": "intermediate",
+  "title": {
+    "en": "Missing Class for a Competition",
+    "zh": "代表學校比賽的請假信"
+  },
+  "subtitle": "代表學校出賽會錯過小考，寫信請教授安排補考",
+  "task": "You have been chosen to represent your university at a national badminton competition, which means you will miss two classes and a quiz in your Introduction to Economics course. Write an email to Professor Hughes. Explain the situation, ask whether you can take the quiz at another time, and offer to make up the work.",
+  "taskZh": "你獲選代表學校參加全國羽球比賽，會錯過「經濟學概論」的兩堂課和一次小考。寫一封 email 給 Hughes 教授：說明情況、詢問能否改期小考，並提出補上進度的方法。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 20,
+  "focus": [
+    "說明缺席的日期、原因並附上證明",
+    "提出具體的補考或補救方案",
+    "語氣正式有禮，適合寫給教授"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Hughes,",
+      "My name is Chen Yu-Han, and I am a student in your Introduction to Economics class on Tuesdays and Thursdays. I am writing to let you know that I will miss two classes next week, on December 8 and 10.",
+      "I have been selected to represent the university at the National Intercollegiate Badminton Championships in Taichung, which take place from December 7 to 11. I have attached the official letter from the Physical Education Office. Unfortunately, the competition falls on the same day as our quiz on Chapter 6.",
+      "Would it be possible for me to take the quiz before I leave, or on the Monday after I return? I will also get the notes from a classmate and review the lecture slides on the course website so that I don't fall behind.",
+      "Thank you for considering my request. I look forward to hearing from you.",
+      "Sincerely,",
+      "Chen Yu-Han"
+    ],
+    "zh": [
+      "Hughes 教授您好：",
+      "我是陳宥涵，修您週二、週四的「經濟學概論」。我寫信是想告知您，我下週 12 月 8 日和 10 日的兩堂課將無法出席。",
+      "我獲選代表學校參加 12 月 7 日到 11 日在台中舉行的全國大專羽球錦標賽。我已附上體育室的正式公文。很遺憾，比賽剛好和我們第 6 章的小考同一天。",
+      "請問我能否在出發前，或回來後的星期一補考呢？我也會向同學借筆記，並複習課程網站上的投影片，以免進度落後。",
+      "謝謝您考慮我的請求。期待您的回覆。",
+      "敬上",
+      "陳宥涵"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to let you know that …",
+      "zh": "正式告知的開頭",
+      "example": "I am writing to let you know that I will miss two classes next week, on December 8 and 10.",
+      "keys": ["writing to let you know"]
+    },
+    {
+      "pattern": "I have been selected to …",
+      "zh": "說明獲選做某事",
+      "example": "I have been selected to represent the university at the National Intercollegiate Badminton Championships in Taichung, which take place from December 7 to 11.",
+      "keys": ["have been selected to"]
+    },
+    {
+      "pattern": "… falls on the same day as …",
+      "zh": "……剛好和……同一天",
+      "example": "Unfortunately, the competition falls on the same day as our quiz on Chapter 6.",
+      "keys": ["falls on the same day as"]
+    },
+    {
+      "pattern": "Would it be possible for me to …?",
+      "zh": "非常禮貌的請求",
+      "example": "Would it be possible for me to take the quiz before I leave, or on the Monday after I return?",
+      "keys": ["would it be possible for me to"]
+    },
+    {
+      "pattern": "… so that I don't fall behind",
+      "zh": "說明目的：以免進度落後",
+      "example": "I will also get the notes from a classmate and review the lecture slides on the course website so that I don't fall behind.",
+      "keys": ["so that", "fall behind"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I will get the notes from a classmate.",
+        "I will review the lecture slides."
+      ],
+      "answer": "I will get the notes from a classmate and review the lecture slides."
+    },
+    {
+      "parts": [
+        "I have been selected to represent the university.",
+        "The competition is in Taichung."
+      ],
+      "answer": "I have been selected to represent the university at a competition in Taichung."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Would it be possible for me to take the quiz before I leave?",
+      "answers": [
+        "Could I take the quiz before I leave?",
+        "May I take the quiz before the competition?"
+      ]
+    },
+    {
+      "sentence": "Thank you for considering my request.",
+      "answers": [
+        "Thank you for taking the time to consider this.",
+        "I appreciate you considering my request."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,102 @@
+{
+  "id": "toeic-email-office-move",
+  "type": "toeic",
+  "level": "intermediate",
+  "title": {
+    "en": "Replying About an Office Move",
+    "zh": "回覆辦公室搬遷通知"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：回覆電子郵件，提供一項資訊並提出兩個問題",
+  "task": "Directions: Read the e-mail below. Respond to the e-mail as if you are an employee in the marketing department. In your e-mail, give ONE piece of information and ask TWO questions.\n\nFrom: Daniel Ross, Facilities Manager\nTo: Marketing Department staff\nSubject: Office move on June 20\n\nDear colleagues,\n\nAs you know, the marketing department will move to the eighth floor on June 20. Movers will pack and transport all furniture and office equipment. Please let me know if any of your equipment needs special handling, and feel free to send me any questions about the move.\n\nDaniel Ross",
+  "taskZh": "總務經理 Daniel Ross 寄信通知行銷部：部門將在 6 月 20 日搬到 8 樓，搬家公司會負責打包與搬運家具和設備，如有設備需要特別處理或對搬遷有疑問請回信。請以行銷部員工的身分回信，提供一項資訊，並提出兩個問題。",
+  "words": {
+    "min": 90,
+    "max": 140
+  },
+  "minutes": 10,
+  "focus": [
+    "任務完成：一項資訊、兩個問題都要寫到，而且容易辨認",
+    "組織：開頭回應來信，資訊和問題分段，最後道謝",
+    "語氣：同事間的正式書信，禮貌而簡潔",
+    "文法與用字：問句語序正確、用字精確"
+  ],
+  "model": {
+    "en": [
+      "Dear Mr. Ross,",
+      "Thank you for the information about our move to the eighth floor. I would like to let you know that I have a large color printer at my desk that is quite fragile. It should be moved carefully, so please make sure the movers know about it.",
+      "I also have two questions. First, will our computers be ready to use on the first morning after the move, or should we expect any delays? Second, where can we get boxes for packing our personal items? Thank you for your help.",
+      "Best regards, Amy Lin, Marketing Department"
+    ],
+    "zh": [
+      "Ross 先生您好：",
+      "謝謝您通知我們搬到 8 樓的相關事宜。我想告訴您，我的座位上有一台相當容易損壞的大型彩色印表機。搬運時需要特別小心，所以請務必讓搬家公司知道這件事。",
+      "另外，我有兩個問題。第一，搬完後的第一個早上，我們的電腦能馬上使用，還是可能會有延誤？第二，我們可以去哪裡拿箱子來打包個人物品？謝謝您的協助。",
+      "行銷部 林怡安 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Thank you for the information about …",
+      "zh": "回信開頭：感謝對方的通知並點出主題",
+      "example": "Thank you for the information about our move to the eighth floor.",
+      "keys": ["thank you for the information about"]
+    },
+    {
+      "pattern": "I would like to let you know that …",
+      "zh": "正式地提供一項資訊",
+      "example": "I would like to let you know that I have a large color printer at my desk that is quite fragile.",
+      "keys": ["i would like to let you know that"]
+    },
+    {
+      "pattern": "…, so please make sure …",
+      "zh": "說明原因後提出提醒",
+      "example": "It should be moved carefully, so please make sure the movers know about it.",
+      "keys": ["so please make sure"]
+    },
+    {
+      "pattern": "First, will …, or should we …?",
+      "zh": "用選擇疑問句問清楚可能的情況",
+      "example": "First, will our computers be ready to use on the first morning after the move, or should we expect any delays?",
+      "keys": ["first", "will", "or should we"]
+    },
+    {
+      "pattern": "Where can we get … for …ing …?",
+      "zh": "詢問到哪裡取得需要的東西",
+      "example": "Second, where can we get boxes for packing our personal items?",
+      "keys": ["second", "where can we get"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I have a large color printer at my desk.",
+        "It is quite fragile."
+      ],
+      "answer": "I have a large color printer at my desk that is quite fragile."
+    },
+    {
+      "parts": [
+        "It should be moved carefully.",
+        "Please make sure the movers know about it."
+      ],
+      "answer": "It should be moved carefully, so please make sure the movers know about it."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Where can we get boxes?",
+      "answers": [
+        "Could you tell me where to find boxes?",
+        "Where are boxes available?"
+      ]
+    },
+    {
+      "sentence": "It should be moved carefully.",
+      "answers": [
+        "It needs careful handling.",
+        "The movers should handle it with care."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,107 @@
+{
+  "id": "campus-professor-grade-feedback",
+  "type": "campus-professor",
+  "level": "intermediate",
+  "title": {
+    "en": "Asking About a Grade",
+    "zh": "詢問成績與回饋"
+  },
+  "subtitle": "期中報告分數不如預期，寫信請教授給更多回饋",
+  "task": "You received a lower grade than you expected on your midterm essay for Professor Morgan's American Literature course, and the comments did not fully explain why. Write an email to the professor. Politely ask for more feedback and ask how you can improve before the final paper.",
+  "taskZh": "你在 Morgan 教授「美國文學」課的期中報告拿到比預期低的分數，評語也沒有完全說明原因。寫一封 email 給教授：禮貌地請教授給更多回饋，並詢問在期末報告前可以怎麼改進。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 20,
+  "focus": [
+    "語氣禮貌，不質疑評分",
+    "具體指出想釐清的問題",
+    "提出下一步（約時間、事先寄大綱）"
+  ],
+  "model": {
+    "en": [
+      "Dear Professor Morgan,",
+      "I am Kevin Tsai from your American Literature class on Wednesday afternoons. Thank you for returning our midterm essays last week.",
+      "I received a B- on my essay about The Great Gatsby, and I would like to understand how I can do better. Your comment says that my argument was not clear enough, but I am not sure which parts of the essay caused the problem. Was it my thesis statement, or the way I used quotations to support it?",
+      "I am not asking for a grade change. I would simply like to avoid making the same mistakes in the final paper. If you have time, could I come to your office hours on Thursday to go over the essay with you? I could also send you an outline of my final paper in advance.",
+      "Thank you for your time and guidance.",
+      "Best regards,",
+      "Kevin Tsai"
+    ],
+    "zh": [
+      "Morgan 教授您好：",
+      "我是週三下午「美國文學」課的蔡凱文。謝謝您上週發回期中報告。",
+      "我的《大亨小傳》報告拿到 B-，我想了解自己可以怎麼進步。您的評語說我的論點不夠清楚，但我不太確定是報告的哪些部分造成這個問題。是我的論點陳述，還是我引用原文來支持論點的方式呢？",
+      "我並不是要求更改成績。我只是希望在期末報告中避免再犯同樣的錯誤。如果您有空，我可以在星期四的辦公室時間去找您，一起看這份報告嗎？我也可以事先把期末報告的大綱寄給您。",
+      "謝謝您撥冗指導。",
+      "敬祝 安好",
+      "蔡凱文"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I would like to understand how I can …",
+      "zh": "委婉表達想進步",
+      "example": "I received a B- on my essay about The Great Gatsby, and I would like to understand how I can do better.",
+      "keys": ["would like to understand how"]
+    },
+    {
+      "pattern": "I am not sure which …",
+      "zh": "具體說出不清楚的地方",
+      "example": "Your comment says that my argument was not clear enough, but I am not sure which parts of the essay caused the problem.",
+      "keys": ["not sure which"]
+    },
+    {
+      "pattern": "I am not asking for …",
+      "zh": "先說明自己不是要求改分",
+      "example": "I am not asking for a grade change.",
+      "keys": ["not asking for"]
+    },
+    {
+      "pattern": "If you have time, could I …?",
+      "zh": "禮貌地約時間",
+      "example": "If you have time, could I come to your office hours on Thursday to go over the essay with you?",
+      "keys": ["if you have time", "could i"]
+    },
+    {
+      "pattern": "… in advance",
+      "zh": "事先……",
+      "example": "I could also send you an outline of my final paper in advance.",
+      "keys": ["in advance"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Your comment says my argument was not clear enough.",
+        "I am not sure which parts caused the problem."
+      ],
+      "answer": "Your comment says my argument was not clear enough, but I am not sure which parts caused the problem."
+    },
+    {
+      "parts": [
+        "I could come to your office hours on Thursday.",
+        "We could go over the essay together."
+      ],
+      "answer": "I could come to your office hours on Thursday to go over the essay together."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I am not asking for a grade change.",
+      "answers": [
+        "I am not trying to change my grade.",
+        "I don't want you to change my grade."
+      ]
+    },
+    {
+      "sentence": "I would like to understand how I can do better.",
+      "answers": [
+        "I want to know how I can improve.",
+        "I hope to learn how to do better."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,0 +1,102 @@
+{
+  "id": "toefl-integrated-maya-drought",
+  "type": "toefl-integrated",
+  "level": "advanced",
+  "title": {
+    "en": "Why Were Maya Cities Abandoned?",
+    "zh": "馬雅城市為何遭到廢棄？"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課質疑乾旱是馬雅城市衰落的主因",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: Between about AD 800 and 900, many large Maya cities in the southern lowlands of Central America were abandoned. The reading argues that a long period of severe drought was the main cause. First, lake sediments from the region show that rainfall dropped sharply during these centuries. Second, Maya cities depended on stored rainwater and farming, so a lasting drought would inevitably have caused food shortages. Third, the timing fits: the cities were abandoned during the same period in which the climate became drier.\n\nLecture: The professor contends that drought alone cannot account for the collapse. First, she does not deny that the climate became drier, but several cities in the northern Yucatán, the driest part of the region, survived the longest, which suggests the Maya could cope with low rainfall. Second, the Maya had built reservoirs and water-management systems that had already carried them through earlier dry periods. Third, the timing does not fit: in several cities, warfare between rival kingdoms and the decline of royal power began decades before the driest years, so drought may have only worsened a crisis already under way.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要主張長期乾旱是馬雅南部城市遭到廢棄的主因（湖泊沉積物證據、糧食短缺、時間吻合），講課摘要則逐點質疑。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading attributes the abandonment of the southern Maya cities to a prolonged drought. The lecturer, on the other hand, contends that drought alone cannot account for the collapse, and she challenges each piece of the reading's evidence.",
+      "To begin with, the reading points to lake sediments showing that rainfall dropped sharply. The lecturer does not deny that the climate became drier, but she notes that several cities in the northern Yucatán, the driest part of the region, survived the longest. This suggests that the Maya were capable of coping with low rainfall.",
+      "Furthermore, the reading reasons that a lasting drought would inevitably have caused food shortages. The lecturer counters this argument by explaining that the Maya had built reservoirs and water-management systems. These systems had already allowed them to survive earlier dry periods without abandoning their cities.",
+      "Finally, the lecturer disputes the reading's claim that the timing of the collapse matches the drought. In several cities, warfare between rival kingdoms and the decline of royal power began decades before the driest years. Therefore, drought may have only worsened a crisis that was already under way, rather than causing it."
+    ],
+    "zh": [
+      "閱讀文章把南部馬雅城市遭到廢棄的原因歸於長期乾旱。相對地，講者主張光是乾旱無法解釋這場崩潰，並逐一質疑閱讀文章提出的證據。",
+      "首先，閱讀文章引用湖泊沉積物，指出降雨量大幅減少。講者並不否認氣候變得較乾燥，但她指出，北部猶加敦半島是這個地區最乾燥的地方，那裡有好幾座城市卻存續得最久。這顯示馬雅人有能力應付雨量不足。",
+      "此外，閱讀文章推論，長期乾旱必然會造成糧食短缺。講者反駁這個論點，解釋馬雅人早已建造蓄水池和水資源管理系統。這些系統曾幫助他們度過更早的乾旱時期，而不必放棄城市。",
+      "最後，講者反駁閱讀文章所說崩潰時間和乾旱吻合的說法。在好幾座城市，敵對王國之間的戰爭和王權的衰落，早在最乾燥的年份之前幾十年就開始了。因此，乾旱可能只是讓早已發生的危機更加惡化，而不是造成危機的原因。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The reading attributes … to …",
+      "zh": "簡述閱讀文章把結果歸因於什麼",
+      "example": "The reading attributes the abandonment of the southern Maya cities to a prolonged drought.",
+      "keys": ["the reading attributes", "to"]
+    },
+    {
+      "pattern": "…, on the other hand, contends that … alone cannot account for …",
+      "zh": "點出講者認為單一原因不足以解釋",
+      "example": "The lecturer, on the other hand, contends that drought alone cannot account for the collapse, and she challenges each piece of the reading's evidence.",
+      "keys": ["on the other hand", "contends that", "cannot account for"]
+    },
+    {
+      "pattern": "The lecturer does not deny that …, but she notes that …",
+      "zh": "先寫講者承認的部分，再寫她的反證",
+      "example": "The lecturer does not deny that the climate became drier, but she notes that several cities in the northern Yucatán, the driest part of the region, survived the longest.",
+      "keys": ["does not deny that", "but she notes that"]
+    },
+    {
+      "pattern": "The lecturer counters this argument by explaining that …",
+      "zh": "轉述講者如何反駁推論",
+      "example": "The lecturer counters this argument by explaining that the Maya had built reservoirs and water-management systems.",
+      "keys": ["counters this argument by explaining that"]
+    },
+    {
+      "pattern": "Therefore, … may have only worsened …, rather than …",
+      "zh": "提出另一種因果解釋",
+      "example": "Therefore, drought may have only worsened a crisis that was already under way, rather than causing it.",
+      "keys": ["therefore", "rather than"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Several cities in the northern Yucatán survived the longest.",
+        "The northern Yucatán was the driest part of the region."
+      ],
+      "answer": "Several cities in the northern Yucatán, the driest part of the region, survived the longest."
+    },
+    {
+      "parts": [
+        "The Maya had built reservoirs.",
+        "The reservoirs allowed them to survive earlier dry periods."
+      ],
+      "answer": "The Maya had built reservoirs that allowed them to survive earlier dry periods."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Drought alone cannot account for the collapse.",
+      "answers": [
+        "The collapse cannot be explained by drought alone.",
+        "Drought was not the only cause of the collapse."
+      ]
+    },
+    {
+      "sentence": "The crisis was already under way.",
+      "answers": [
+        "The crisis had already begun.",
+        "The problems had started earlier."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

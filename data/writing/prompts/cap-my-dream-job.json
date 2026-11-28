@@ -1,0 +1,80 @@
+{
+  "id": "cap-my-dream-job",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "My Dream Job",
+    "zh": "我的夢想職業"
+  },
+  "subtitle": "國中程度引導式短文：回答三個問題，介紹你將來想做的工作",
+  "task": "Write a short passage of 60–100 words about your dream job. Your passage should answer these questions: (1) What do you want to be in the future? (2) Why do you want to do this job? (3) What can you do now to get ready for it?",
+  "taskZh": "寫一篇 60–100 字的英文短文，介紹你將來想做的工作。短文要回答三個問題：(1) 你將來想做什麼工作？(2) 你為什麼想做這份工作？(3) 你現在可以做些什麼來準備？",
+  "words": {
+    "min": 60,
+    "max": 100
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三個問題都要回答到",
+    "文法：現在式、過去式、未來的說法用得正確",
+    "連接詞：用 and、since、to 讓句子連貫",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "In the future, I want to be an animal doctor. I have loved animals since I was a little child. Two years ago, my dog Lucky got very sick. The doctor took good care of him, and he got better in a week. From then on, I wanted to help animals, too. To get ready for this job, I study science hard at school. I also help at an animal shelter on Saturdays. I hope my dream will come true one day."
+    ],
+    "zh": [
+      "將來，我想當一名獸醫。我從小就很喜歡動物。兩年前，我的狗 Lucky 生了重病。獸醫細心地照顧牠，一個星期後牠就好轉了。從那時起，我也想幫助動物。為了準備這份工作，我在學校認真讀自然科學。我每個星期六也會到動物收容所幫忙。我希望有一天能實現我的夢想。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "have + p.p. since …",
+      "zh": "從……起就一直……（現在完成式）",
+      "example": "I have loved animals since I was a little child.",
+      "keys": ["have loved", "since"]
+    },
+    {
+      "pattern": "From then on, …",
+      "zh": "從那時起……",
+      "example": "From then on, I wanted to help animals, too.",
+      "keys": ["from then on"]
+    },
+    {
+      "pattern": "To get ready for …, I …",
+      "zh": "為了準備……，我……（說明目的）",
+      "example": "To get ready for this job, I study science hard at school.",
+      "keys": ["to get ready for"]
+    },
+    {
+      "pattern": "I hope … will come true",
+      "zh": "我希望……能實現",
+      "example": "I hope my dream will come true one day.",
+      "keys": ["i hope", "come true"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "The doctor took good care of him.",
+        "He got better in a week."
+      ],
+      "answer": "The doctor took good care of him, and he got better in a week."
+    },
+    {
+      "parts": ["I study science hard.", "I want to get ready for this job."],
+      "answer": "To get ready for this job, I study science hard."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I want to be an animal doctor.",
+      "answers": [
+        "I want to become a vet.",
+        "My dream is to be an animal doctor."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

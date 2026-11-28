@@ -1,0 +1,98 @@
+{
+  "id": "toefl-ai-tools-for-coursework",
+  "type": "toefl",
+  "level": "advanced",
+  "title": {
+    "en": "AI Tools in University Coursework",
+    "zh": "大學作業可以用 AI 工具嗎？"
+  },
+  "subtitle": "原創模擬題：學術討論題，談大學該如何規範 AI 寫作工具",
+  "task": "Your professor is teaching a class on educational technology. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Brennan: AI writing assistants can now summarize articles, suggest ideas and correct grammar in seconds. Some professors ban these tools in their courses, while others encourage students to use them. What policy do you think universities should adopt toward AI tools in coursework, and why?\n\nTomás: Universities should ban them in most courses. If a program writes our papers, we never develop our own thinking, and grades no longer show what we can actually do.\n\nGrace: Banning them is unrealistic. We will use AI tools in our future jobs, so university is the right place to learn how to use them responsibly.\n\nWrite at least 100 words.",
+  "taskZh": "教育科技課的教授提問：AI 寫作助理能在幾秒內摘要文章、提供點子、修正文法。有些教授在課堂上禁止使用，有些則鼓勵學生使用。你認為大學對課業中的 AI 工具應該採取什麼政策？為什麼？Tomás 認為大多數課程應該禁止，否則學生無法培養自己的思考，成績也失去意義；Grace 認為禁止不切實際，大學正是學習負責任使用 AI 的地方。請寫一則貼文表態、提出理由，並對討論有新的貢獻。至少寫 100 字。",
+  "words": {
+    "min": 100,
+    "max": 160
+  },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應兩位同學的觀點，再提出新的理由或折衷方案",
+    "用具體的例子或理由支持看法，論點前後一致",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "I agree with Grace that a complete ban is unrealistic, but Tomás has identified a genuine risk, so I believe universities should allow AI tools only for clearly defined stages of an assignment. Students might use them to check grammar or find sources, for instance, while the argument itself would have to be their own. This distinction matters because the purpose of most writing assignments is to train reasoning, not to produce a polished document.",
+      "To make such a policy work, professors could ask students to submit a short note explaining how they used AI. Some of my teachers already require this, and in my experience it encourages honesty rather than suspicion. It would also give professors valuable information about which uses actually support learning and which ones replace it."
+    ],
+    "zh": [
+      "我同意 Grace 的看法，全面禁止並不實際，但 Tomás 也點出了真正的風險，所以我認為大學應該只允許學生在作業中明確規定的階段使用 AI 工具。例如，學生可以用它來檢查文法或尋找資料來源，但論點本身必須是自己的。這個區分很重要，因為大多數寫作作業的目的是訓練推理能力，而不是產出一份精美的文件。",
+      "為了讓這種政策可行，教授可以要求學生附上一段簡短說明，交代自己如何使用 AI。我有幾位老師已經這樣要求，就我的經驗，這能鼓勵學生誠實，而不是引起猜疑。這也能讓教授得到寶貴的資訊，知道哪些用法真正有助於學習，哪些則是取代了學習。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I agree with … that …, but … has identified a genuine risk",
+      "zh": "同意一方，同時承認另一方的顧慮，再提出自己的政策",
+      "example": "I agree with Grace that a complete ban is unrealistic, but Tomás has identified a genuine risk, so I believe universities should allow AI tools only for clearly defined stages of an assignment.",
+      "keys": ["i agree with", "but", "has identified a genuine risk"]
+    },
+    {
+      "pattern": "…, for instance, while …",
+      "zh": "舉例並對比可以與不可以的部分",
+      "example": "Students might use them to check grammar or find sources, for instance, while the argument itself would have to be their own.",
+      "keys": ["for instance", "while"]
+    },
+    {
+      "pattern": "This distinction matters because …, not …",
+      "zh": "說明區分的理由",
+      "example": "This distinction matters because the purpose of most writing assignments is to train reasoning, not to produce a polished document.",
+      "keys": ["this distinction matters because", "not to"]
+    },
+    {
+      "pattern": "To make such a policy work, …",
+      "zh": "提出讓政策可行的具體做法",
+      "example": "To make such a policy work, professors could ask students to submit a short note explaining how they used AI.",
+      "keys": ["to make such a policy work"]
+    },
+    {
+      "pattern": "…, and in my experience … rather than …",
+      "zh": "用親身經驗支持論點",
+      "example": "Some of my teachers already require this, and in my experience it encourages honesty rather than suspicion.",
+      "keys": ["in my experience", "rather than"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Students might use AI to check grammar.",
+        "The argument itself would have to be their own."
+      ],
+      "answer": "Students might use AI to check grammar, while the argument itself would have to be their own."
+    },
+    {
+      "parts": [
+        "Professors could ask for a short note.",
+        "The note would explain how students used AI."
+      ],
+      "answer": "Professors could ask for a short note explaining how students used AI."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "A complete ban is unrealistic.",
+      "answers": [
+        "Banning AI completely would not work in practice.",
+        "It is not realistic to forbid AI tools entirely."
+      ]
+    },
+    {
+      "sentence": "It encourages honesty rather than suspicion.",
+      "answers": [
+        "It makes students more honest instead of making teachers suspicious.",
+        "It builds trust instead of doubt."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

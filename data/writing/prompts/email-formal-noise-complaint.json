@@ -1,0 +1,107 @@
+{
+  "id": "email-formal-noise-complaint",
+  "type": "email-formal",
+  "level": "intermediate",
+  "title": {
+    "en": "Reporting a Noise Problem",
+    "zh": "反映噪音問題"
+  },
+  "subtitle": "樓下店家深夜太吵，寫一封正式信件給大樓管理室",
+  "task": "For the past two weeks, loud music from a shop on the first floor of your apartment building has kept you awake at night. Write an email to the building management office. Describe the problem, explain how it affects you, and suggest a solution.",
+  "taskZh": "過去兩週，你住的公寓大樓一樓店家深夜傳出很大聲的音樂，讓你睡不著。寫一封 email 給大樓管理室：描述問題、說明它對你的影響，並提出解決方法。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "正式語氣與 email 格式（稱呼、結尾）",
+    "清楚描述問題與影響，不帶情緒性字眼",
+    "具體可行的建議與禮貌的請求句型"
+  ],
+  "model": {
+    "en": [
+      "Dear Building Management Office,",
+      "I am a resident of Unit 7F-2, and I am writing to report a noise problem that has continued for the past two weeks. Every night from about 10 p.m. to midnight, loud music comes from the karaoke shop on the first floor. The sound is especially clear in my bedroom, which is right above the shop's back door.",
+      "Because of the noise, I have had trouble falling asleep, and I often feel exhausted at work the next day. I have spoken to the shop staff once, but nothing has changed since then.",
+      "Would it be possible for the office to remind the shop of the building's quiet hours? It would also help if the shop could keep its back door closed at night. I believe these simple steps would solve the problem for everyone living upstairs.",
+      "Thank you for your attention to this matter. I look forward to your reply.",
+      "Sincerely,",
+      "Kevin Wu"
+    ],
+    "zh": [
+      "大樓管理室您好：",
+      "我是 7F-2 的住戶，寫信是想反映一個已經持續兩週的噪音問題。每天晚上大約 10 點到午夜，一樓的 KTV 都會傳出很大聲的音樂。我的臥室就在店家後門的正上方，所以聲音特別清楚。",
+      "因為噪音，我一直很難入睡，隔天上班時也常常覺得筋疲力盡。我曾經跟店員反映過一次，但從那之後情況都沒有改變。",
+      "能否請管理室提醒店家遵守大樓的安靜時段？如果店家晚上能關上後門，也會很有幫助。我相信這些簡單的做法能為所有住在樓上的人解決這個問題。",
+      "感謝您關注這件事。期待您的回覆。",
+      "敬上",
+      "吳凱文"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to report …",
+      "zh": "寫信反映……（說明目的）",
+      "example": "I am a resident of Unit 7F-2, and I am writing to report a noise problem that has continued for the past two weeks.",
+      "keys": ["i am writing to report"]
+    },
+    {
+      "pattern": "…, which is …",
+      "zh": "非限定關係子句，補充說明",
+      "example": "The sound is especially clear in my bedroom, which is right above the shop's back door.",
+      "keys": ["which is"]
+    },
+    {
+      "pattern": "have had trouble + V-ing",
+      "zh": "一直很難做到……",
+      "example": "Because of the noise, I have had trouble falling asleep, and I often feel exhausted at work the next day.",
+      "keys": ["have had trouble falling"]
+    },
+    {
+      "pattern": "Would it be possible for … to …?",
+      "zh": "能否請……？（委婉請求）",
+      "example": "Would it be possible for the office to remind the shop of the building's quiet hours?",
+      "keys": ["would it be possible for"]
+    },
+    {
+      "pattern": "It would also help if … could …",
+      "zh": "如果……能……，也會有幫助（提出建議）",
+      "example": "It would also help if the shop could keep its back door closed at night.",
+      "keys": ["it would also help if", "could"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I have spoken to the shop staff once.",
+        "Nothing has changed since then."
+      ],
+      "answer": "I have spoken to the shop staff once, but nothing has changed since then."
+    },
+    {
+      "parts": [
+        "The sound is especially clear in my bedroom.",
+        "My bedroom is right above the shop's back door."
+      ],
+      "answer": "The sound is especially clear in my bedroom, which is right above the shop's back door."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I have had trouble falling asleep.",
+      "answers": [
+        "It has been hard for me to fall asleep.",
+        "I have found it difficult to fall asleep."
+      ]
+    },
+    {
+      "sentence": "Nothing has changed since then.",
+      "answers": [
+        "The situation is still the same.",
+        "The problem has not improved since then."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

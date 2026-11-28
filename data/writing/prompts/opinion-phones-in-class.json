@@ -1,0 +1,103 @@
+{
+  "id": "opinion-phones-in-class",
+  "type": "opinion",
+  "level": "intermediate",
+  "title": {
+    "en": "Phones in the Classroom",
+    "zh": "課堂上該不該用手機"
+  },
+  "subtitle": "學校該禁止還是開放學生在課堂上用手機？",
+  "task": "Some schools ban mobile phones in the classroom, while others let students use them for learning. Which policy do you think is better? Explain your opinion with reasons and examples.",
+  "taskZh": "有些學校禁止學生在教室使用手機，有些則讓學生用手機學習。你認為哪一種做法比較好？請用理由和例子說明你的看法。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 25,
+  "focus": [
+    "立場清楚，並承認反方觀點再回應",
+    "理由有具體例子支持",
+    "段落之間用 Moreover、However 等連接詞銜接"
+  ],
+  "model": {
+    "en": [
+      "Many schools are now deciding whether students should be allowed to use phones in class. In my opinion, phones should be banned during lessons, except when a teacher asks students to use them for a specific task.",
+      "The main reason is that phones are a constant distraction. Even when students plan to look something up, a single notification can pull them into social media or games. I have seen classmates miss important explanations because they were checking messages under their desks.",
+      "Moreover, a ban helps students build better relationships. Without phones, they are more likely to talk to each other during group work and pay attention to the teacher.",
+      "Of course, phones can be useful learning tools, for example for quick quizzes or online dictionaries. However, teachers can still allow them for these activities and collect them afterwards.",
+      "Overall, I believe a clear rule with a few exceptions is the best way to keep classes focused."
+    ],
+    "zh": [
+      "現在許多學校都在考慮是否該讓學生在課堂上使用手機。我認為上課時應該禁止使用手機，除非老師要求學生用手機完成特定的任務。",
+      "主要原因是手機會不斷讓人分心。即使學生原本只是想查個資料，一則通知就可能把他們拉進社群媒體或遊戲裡。我就看過同學因為在桌子底下看訊息，而錯過重要的講解。",
+      "此外，禁用手機有助於學生建立更好的人際關係。沒有手機，他們在分組活動時更可能彼此交談，也更專心聽老師講課。",
+      "當然，手機也可以是很好用的學習工具，例如用來做小測驗或查線上字典。不過，老師仍然可以在這些活動時開放使用，結束後再收回來。",
+      "整體而言，我認為訂一條清楚的規定、再保留少數例外，是讓課堂保持專注的最好方法。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "In my opinion, …, except when …",
+      "zh": "表明立場並說明例外",
+      "example": "In my opinion, phones should be banned during lessons, except when a teacher asks students to use them for a specific task.",
+      "keys": ["in my opinion", "except when"]
+    },
+    {
+      "pattern": "The main reason is that …",
+      "zh": "提出主要理由",
+      "example": "The main reason is that phones are a constant distraction.",
+      "keys": ["the main reason is that"]
+    },
+    {
+      "pattern": "… are more likely to …",
+      "zh": "比較可能……",
+      "example": "Without phones, they are more likely to talk to each other during group work and pay attention to the teacher.",
+      "keys": ["more likely to"]
+    },
+    {
+      "pattern": "Of course, … However, …",
+      "zh": "先承認反方觀點，再回應",
+      "example": "Of course, phones can be useful learning tools, for example for quick quizzes or online dictionaries.",
+      "keys": ["of course"]
+    },
+    {
+      "pattern": "Overall, I believe … is the best way to …",
+      "zh": "總結自己的看法",
+      "example": "Overall, I believe a clear rule with a few exceptions is the best way to keep classes focused.",
+      "keys": ["overall", "the best way to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Classmates miss important explanations.",
+        "They are checking messages under their desks."
+      ],
+      "answer": "Classmates miss important explanations because they are checking messages under their desks."
+    },
+    {
+      "parts": [
+        "Teachers can allow phones for these activities.",
+        "Teachers can collect them afterwards."
+      ],
+      "answer": "Teachers can allow phones for these activities and collect them afterwards."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Phones are a constant distraction.",
+      "answers": [
+        "Phones keep distracting students.",
+        "Phones make it hard for students to focus."
+      ]
+    },
+    {
+      "sentence": "A single notification can pull them into social media.",
+      "answers": [
+        "One notification is enough to send them to social media.",
+        "Just one alert can make them open social media."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

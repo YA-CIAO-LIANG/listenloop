@@ -1,0 +1,96 @@
+{
+  "id": "story-borrowed-camera",
+  "type": "story",
+  "level": "advanced",
+  "title": {
+    "en": "The Borrowed Camera",
+    "zh": "借來的相機"
+  },
+  "subtitle": "說實話還是隱瞞錯誤？寫一個抉擇的故事",
+  "task": "Write a story about a time when you had to choose between telling the truth and hiding a mistake. Describe the situation, your decision, and its consequences.",
+  "taskZh": "寫一個故事，描述你必須在說實話和隱瞞錯誤之間做選擇的經驗：當時的情況、你的決定，以及後來的結果。",
+  "words": {
+    "min": 200,
+    "max": 280
+  },
+  "minutes": 35,
+  "focus": [
+    "情節完整：情境、內心掙扎、決定、結果",
+    "時態正確，善用過去完成式交代先後",
+    "描寫內心感受，而不只是列出事件",
+    "用字與句型多樣"
+  ],
+  "model": {
+    "en": [
+      "The camera belonged to my older brother, and he had made me promise to treat it as if it were made of glass. It was a secondhand film camera he had saved for months to buy, and I had begged him to lend it to me for my class trip to Hualien.",
+      "On the second day, I was taking photos of the waves at Qixingtan when a classmate bumped into me. The camera slipped out of my hands and landed on the stones. When I picked it up, the lens cap was cracked and the winding lever would no longer move. My heart sank.",
+      "For the rest of the trip, I could hardly enjoy anything. I kept rehearsing different stories in my head. I could say it had been broken when he gave it to me, or that someone had stolen it from my bag. Either lie would have been easier than the truth, at least for a while.",
+      "When I got home, my brother was waiting at the door, asking how the photos had turned out. I took a deep breath, handed him the camera, and told him exactly what had happened. He was silent for a long time, and I could see how upset he was.",
+      "In the end, we took it to a repair shop together, and I paid for the repair with the money I had been saving for new shoes. It cost me two months of savings, but what surprised me most was what my brother said afterwards: he trusted me more now than before the trip, because I had not lied to him."
+    ],
+    "zh": [
+      "那台相機是我哥哥的，他要我保證會把它當成玻璃做的一樣小心對待。那是一台他存了好幾個月的錢才買到的二手底片相機，而我求了他好久，他才答應借我帶去花蓮校外教學。",
+      "第二天，我正在七星潭拍海浪時，一位同學撞到了我。相機從我手中滑落，摔在石頭上。我把它撿起來時，鏡頭蓋裂了，過片桿也動不了了。我的心一沉。",
+      "接下來的旅程，我幾乎什麼都無法享受。我在腦中不停演練各種說法。我可以說相機借給我時就已經壞了，或說有人從我包包裡偷走了它。不管哪一個謊，都比說實話容易，至少暫時是這樣。",
+      "我一回到家，哥哥就在門口等我，問我照片拍得怎麼樣。我深吸一口氣，把相機交給他，把發生的事一五一十告訴他。他沉默了很久，我看得出來他有多難過。",
+      "最後，我們一起把相機拿去修理店，我用原本存來買新鞋的錢付了修理費。這花掉了我兩個月的存款，但最讓我驚訝的是哥哥事後說的話：因為我沒有對他說謊，他現在比旅行前更信任我。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… as if it were …",
+      "zh": "彷彿……（假設語氣）",
+      "example": "The camera belonged to my older brother, and he had made me promise to treat it as if it were made of glass.",
+      "keys": ["as if", "were"]
+    },
+    {
+      "pattern": "I was …ing when …",
+      "zh": "正在……時，突然……",
+      "example": "On the second day, I was taking photos of the waves at Qixingtan when a classmate bumped into me.",
+      "keys": ["was", "when"]
+    },
+    {
+      "pattern": "could hardly …",
+      "zh": "幾乎無法……",
+      "example": "For the rest of the trip, I could hardly enjoy anything.",
+      "keys": ["could hardly"]
+    },
+    {
+      "pattern": "… would have been easier than …",
+      "zh": "（對過去的假設）本來會比……容易",
+      "example": "Either lie would have been easier than the truth, at least for a while.",
+      "keys": ["would have been", "easier than"]
+    },
+    {
+      "pattern": "what surprised me most was …",
+      "zh": "最讓我驚訝的是……",
+      "example": "It cost me two months of savings, but what surprised me most was what my brother said afterwards: he trusted me more now than before the trip, because I had not lied to him.",
+      "keys": ["what surprised me most was"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I took a deep breath.",
+        "I handed him the camera.",
+        "I told him exactly what had happened."
+      ],
+      "answer": "I took a deep breath, handed him the camera, and told him exactly what had happened."
+    },
+    {
+      "parts": ["He was silent for a long time.", "I could see he was upset."],
+      "answer": "He was silent for a long time, and I could see how upset he was."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "My heart sank.",
+      "answers": ["I felt terrible.", "I suddenly felt sick with worry."]
+    },
+    {
+      "sentence": "I could hardly enjoy anything.",
+      "answers": ["I barely enjoyed anything.", "Almost nothing made me happy."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

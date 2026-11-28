@@ -13,7 +13,7 @@ test("the library lists videos and official practices, filtered by the URL", asy
 }) => {
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
-  await expect(cards(page)).toHaveCount(2);
+  await expect(cards(page)).toHaveCount(3);
   const official = cards(page).filter({ hasText: "E2E official practice" });
   await expect(official).toContainText("音檔");
   await expect(official).toContainText("旅遊");
@@ -72,7 +72,7 @@ test("on a phone, the filters are open in the page, minutes first, and fold away
     .getByRole("group", { name: "程度" })
     .getByRole("button", { name: /初級/ })
     .press("Enter");
-  await expect(cards(page)).toHaveCount(2);
+  await expect(cards(page)).toHaveCount(3);
   await expect(page).not.toHaveURL(/level=/);
 
   const fold = page.getByRole("button", { name: "收合篩選" });
@@ -119,7 +119,7 @@ test("signed in, the home page goes calendar, today's tasks, then library (D79)"
   expect(at("聽力日曆")).toBeGreaterThanOrEqual(0);
   expect(at("聽力日曆")).toBeLessThan(at("今日任務"));
   expect(at("今日任務")).toBeLessThan(at("官方教材庫"));
-  await expect(cards(page)).toHaveCount(2);
+  await expect(cards(page)).toHaveCount(3);
 });
 
 test("signed out, the library and its filters are open to everyone", async ({

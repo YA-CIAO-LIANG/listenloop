@@ -1,0 +1,104 @@
+{
+  "id": "email-informal-missed-birthday",
+  "type": "email-informal",
+  "level": "advanced",
+  "title": {
+    "en": "Apologizing for a Missed Birthday",
+    "zh": "錯過朋友生日的道歉信"
+  },
+  "subtitle": "錯過好友的生日聚餐，寫信道歉並提議補請",
+  "task": "You missed your close friend Lily's birthday dinner last week without telling her in advance. Write an email to her. Apologize sincerely, explain what happened, and suggest a way to make it up to her.",
+  "taskZh": "你上週錯過了好友 Lily 的生日晚餐，事前也沒告訴她。寫一封 email 給她：真誠道歉、說明發生了什麼事，並提議一個彌補的方法。",
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 30,
+  "focus": [
+    "真誠道歉，說明原因但不推卸責任",
+    "語氣溫暖，適合寫給好友",
+    "提出具體的彌補方式",
+    "時態正確（過去完成式、should have）"
+  ],
+  "model": {
+    "en": [
+      "Dear Lily,",
+      "I owe you a big apology. I completely missed your birthday dinner last Friday, and I have felt terrible about it ever since. I know you had booked a table for all of us weeks ago, so I can only imagine how disappointed you must have been when I didn't show up.",
+      "I don't want to make excuses, but I would like to explain what happened. That afternoon, my manager asked me to stay late to fix a problem with a client's order. By the time I finished, it was almost ten o'clock, and my phone had died, so I couldn't even call you. It was careless of me not to tell you earlier that I might be late.",
+      "You have been one of my closest friends since high school, and the last thing I want is for you to think that our friendship isn't important to me. It is, and I should have shown it.",
+      "To make it up to you, I'd love to take you out for a belated birthday meal at that Thai restaurant you've been wanting to try. Are you free next Saturday evening? If not, just tell me a day that works for you, and I'll arrange everything.",
+      "Once again, I'm truly sorry. I hope you can forgive me.",
+      "Love,",
+      "Grace"
+    ],
+    "zh": [
+      "親愛的 Lily：",
+      "我欠你一個大大的道歉。上週五我完全錯過了你的生日晚餐，從那之後我一直覺得很過意不去。我知道你幾週前就幫大家訂好了位子，所以我完全能想像我沒出現時你有多失望。",
+      "我不想找藉口，但想跟你說明一下發生了什麼事。那天下午，主管要我留下來加班，處理一位客戶訂單的問題。等我忙完已經快十點了，手機又沒電，所以連打電話給你都沒辦法。沒有早點告訴你我可能會遲到，是我太粗心了。",
+      "你從高中起就是我最親近的朋友之一，我最不希望的就是讓你覺得我不重視我們的友誼。我很重視，而且我早該用行動表現出來。",
+      "為了彌補你，我想請你去那家你一直想去的泰式餐廳，補過一頓生日大餐。你下週六晚上有空嗎？如果沒空，就告訴我哪天方便，其他都交給我安排。",
+      "再說一次，我真的很抱歉。希望你能原諒我。",
+      "愛你的",
+      "Grace"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I owe you a big apology.",
+      "zh": "開門見山地道歉",
+      "example": "I owe you a big apology.",
+      "keys": ["owe you", "apology"]
+    },
+    {
+      "pattern": "I can only imagine how … must have been",
+      "zh": "體會對方的感受（對過去的推測）",
+      "example": "I know you had booked a table for all of us weeks ago, so I can only imagine how disappointed you must have been when I didn't show up.",
+      "keys": ["can only imagine how", "must have been"]
+    },
+    {
+      "pattern": "I don't want to make excuses, but …",
+      "zh": "說明原因前先表明不是找藉口",
+      "example": "I don't want to make excuses, but I would like to explain what happened.",
+      "keys": ["make excuses", "but"]
+    },
+    {
+      "pattern": "the last thing I want is for … to …",
+      "zh": "我最不希望的就是……",
+      "example": "You have been one of my closest friends since high school, and the last thing I want is for you to think that our friendship isn't important to me.",
+      "keys": ["the last thing i want is"]
+    },
+    {
+      "pattern": "To make it up to you, …",
+      "zh": "提出彌補的方式",
+      "example": "To make it up to you, I'd love to take you out for a belated birthday meal at that Thai restaurant you've been wanting to try.",
+      "keys": ["to make it up to you"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["My phone had died.", "I couldn't call you."],
+      "answer": "My phone had died, so I couldn't call you."
+    },
+    {
+      "parts": ["I should have told you earlier.", "I might be late."],
+      "answer": "I should have told you earlier that I might be late."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It was careless of me not to tell you earlier.",
+      "answers": [
+        "I was careless not to let you know sooner.",
+        "I should have told you earlier."
+      ]
+    },
+    {
+      "sentence": "I should have shown it.",
+      "answers": [
+        "I should have made that clear.",
+        "I should have proved it with my actions."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

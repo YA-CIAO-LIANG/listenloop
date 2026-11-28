@@ -64,6 +64,84 @@ import toeflCoursesOutsideMajor from "./prompts/toefl-courses-outside-major.json
 import toeicEmailCateringOrder from "./prompts/toeic-email-catering-order.json";
 import toeicEmailSoftwareTraining from "./prompts/toeic-email-software-training.json";
 import toeicOpinionPromoteFromWithin from "./prompts/toeic-opinion-promote-from-within.json";
+import campusHousingDepositDispute from "./prompts/campus-housing-deposit-dispute.json";
+import campusHousingNoisyNeighbor from "./prompts/campus-housing-noisy-neighbor.json";
+import campusHousingRoomTransfer from "./prompts/campus-housing-room-transfer.json";
+import campusLeaveCompassionateLeave from "./prompts/campus-leave-compassionate-leave.json";
+import campusLeaveFamilyWedding from "./prompts/campus-leave-family-wedding.json";
+import campusLeaveSportsCompetition from "./prompts/campus-leave-sports-competition.json";
+import campusProfessorGradeFeedback from "./prompts/campus-professor-grade-feedback.json";
+import campusProfessorResearchAssistant from "./prompts/campus-professor-research-assistant.json";
+import campusProfessorTextbookEdition from "./prompts/campus-professor-textbook-edition.json";
+import capAVisitToGrandparents from "./prompts/cap-a-visit-to-grandparents.json";
+import capLearningANewHobby from "./prompts/cap-learning-a-new-hobby.json";
+import capMyDreamJob from "./prompts/cap-my-dream-job.json";
+import capMyFavoriteSeason from "./prompts/cap-my-favorite-season.json";
+import capSchoolSportsDay from "./prompts/cap-school-sports-day.json";
+import chartBreakfastChoices from "./prompts/chart-breakfast-choices.json";
+import chartFavoriteSports from "./prompts/chart-favorite-sports.json";
+import chartReadingFormats from "./prompts/chart-reading-formats.json";
+import diaryFirstPartTimeShift from "./prompts/diary-first-part-time-shift.json";
+import emailFormalExchangeApplication from "./prompts/email-formal-exchange-application.json";
+import emailFormalJoinSchoolClub from "./prompts/email-formal-join-school-club.json";
+import emailFormalNoiseComplaint from "./prompts/email-formal-noise-complaint.json";
+import emailInformalMissedBirthday from "./prompts/email-informal-missed-birthday.json";
+import emailInformalNewPuppy from "./prompts/email-informal-new-puppy.json";
+import emailInformalTaiwanVisitPlans from "./prompts/email-informal-taiwan-visit-plans.json";
+import geptEssayLessPlasticAtHome from "./prompts/gept-essay-less-plastic-at-home.json";
+import geptEssayMemorableClassTrip from "./prompts/gept-essay-memorable-class-trip.json";
+import geptEssayMistakeILearnedFrom from "./prompts/gept-essay-mistake-i-learned-from.json";
+import geptHiEssayAiHomeworkRules from "./prompts/gept-hi-essay-ai-homework-rules.json";
+import geptHiEssayFourDayWeek from "./prompts/gept-hi-essay-four-day-week.json";
+import geptHiEssayGapYear from "./prompts/gept-hi-essay-gap-year.json";
+import geptHiEssayNewsOnSocialMedia from "./prompts/gept-hi-essay-news-on-social-media.json";
+import geptHiEssayTouristsSmallTowns from "./prompts/gept-hi-essay-tourists-small-towns.json";
+import geptHiLetterAdviseCousinMajor from "./prompts/gept-hi-letter-advise-cousin-major.json";
+import geptHiLetterSaferSidewalks from "./prompts/gept-hi-letter-safer-sidewalks.json";
+import geptHiLetterVolunteerApplication from "./prompts/gept-hi-letter-volunteer-application.json";
+import geptLetterInviteLanternFestival from "./prompts/gept-letter-invite-lantern-festival.json";
+import geptPicBeachCleanup from "./prompts/gept-pic-beach-cleanup.json";
+import geptPicLostWallet from "./prompts/gept-pic-lost-wallet.json";
+import geptPicMoonFestivalBarbecue from "./prompts/gept-pic-moon-festival-barbecue.json";
+import geptPicNightMarketDinner from "./prompts/gept-pic-night-market-dinner.json";
+import geptPicSeatOnTheMrt from "./prompts/gept-pic-seat-on-the-mrt.json";
+import geptPicSharingAnUmbrella from "./prompts/gept-pic-sharing-an-umbrella.json";
+import geptPicSportsDayRelay from "./prompts/gept-pic-sports-day-relay.json";
+import geptPicTyphoonDayAtHome from "./prompts/gept-pic-typhoon-day-at-home.json";
+import gsatEssayConvenienceStores from "./prompts/gsat-essay-convenience-stores.json";
+import gsatEssayLearningFromFailure from "./prompts/gsat-essay-learning-from-failure.json";
+import gsatPictureWalletOnTheMrt from "./prompts/gsat-picture-wallet-on-the-mrt.json";
+import ieltsTask1CarSalesByFuel from "./prompts/ielts-task1-car-sales-by-fuel.json";
+import ieltsTask1HouseholdWaterUse from "./prompts/ielts-task1-household-water-use.json";
+import ieltsTask1RainwaterCollection from "./prompts/ielts-task1-rainwater-collection.json";
+import ieltsTask1WeekendActivities from "./prompts/ielts-task1-weekend-activities.json";
+import ieltsTask2EarlyForeignLanguages from "./prompts/ielts-task2-early-foreign-languages.json";
+import ieltsTask2FourDayWorkWeek from "./prompts/ielts-task2-four-day-work-week.json";
+import ieltsTask2LivingAlone from "./prompts/ielts-task2-living-alone.json";
+import ieltsTask2TouristOvercrowding from "./prompts/ielts-task2-tourist-overcrowding.json";
+import opinionGapYear from "./prompts/opinion-gap-year.json";
+import opinionPhonesInClass from "./prompts/opinion-phones-in-class.json";
+import opinionWeekendHomework from "./prompts/opinion-weekend-homework.json";
+import storyBorrowedCamera from "./prompts/story-borrowed-camera.json";
+import storyMissingCat from "./prompts/story-missing-cat.json";
+import storyNightMarketBlackout from "./prompts/story-night-market-blackout.json";
+import toeflAiToolsForCoursework from "./prompts/toefl-ai-tools-for-coursework.json";
+import toeflFourDayWorkWeek from "./prompts/toefl-four-day-work-week.json";
+import toeflIntegratedBikeSharing from "./prompts/toefl-integrated-bike-sharing.json";
+import toeflIntegratedFourDaySchoolWeek from "./prompts/toefl-integrated-four-day-school-week.json";
+import toeflIntegratedMammothRevival from "./prompts/toefl-integrated-mammoth-revival.json";
+import toeflIntegratedMayaDrought from "./prompts/toefl-integrated-maya-drought.json";
+import toeflIntegratedOnlineCourses from "./prompts/toefl-integrated-online-courses.json";
+import toeflIntegratedOpenPlanOffices from "./prompts/toefl-integrated-open-plan-offices.json";
+import toeflIntegratedRooftopBeehives from "./prompts/toefl-integrated-rooftop-beehives.json";
+import toeflIntegratedTreePlantingOffsets from "./prompts/toefl-integrated-tree-planting-offsets.json";
+import toeflLocalOrWorldHistory from "./prompts/toefl-local-or-world-history.json";
+import toeflZoosAndConservation from "./prompts/toefl-zoos-and-conservation.json";
+import toeicEmailConferenceSpeaker from "./prompts/toeic-email-conference-speaker.json";
+import toeicEmailFitnessMembership from "./prompts/toeic-email-fitness-membership.json";
+import toeicEmailOfficeMove from "./prompts/toeic-email-office-move.json";
+import toeicOpinionOfficeDressCode from "./prompts/toeic-opinion-office-dress-code.json";
+import toeicOpinionSmallOrLargeCompany from "./prompts/toeic-opinion-small-or-large-company.json";
 
 /**
  * Every official writing prompt (D187), in library order. Imported
@@ -85,57 +163,135 @@ const all = [
   diaryFirstWeekNewPlace,
   diaryRainyDayAtHome,
   diarySmallWinToday,
+  diaryFirstPartTimeShift,
   emailFormalLostLibraryBook,
   emailFormalRefundRequest,
   emailFormalInternshipInquiry,
+  emailFormalExchangeApplication,
+  emailFormalJoinSchoolClub,
+  emailFormalNoiseComplaint,
   emailInformalInviteFriend,
   emailInformalThankHostFamily,
   emailInformalAdviceNewStudent,
+  emailInformalMissedBirthday,
+  emailInformalNewPuppy,
+  emailInformalTaiwanVisitPlans,
   opinionSchoolUniforms,
   opinionPartTimeJobs,
   opinionOnlineClasses,
+  opinionGapYear,
+  opinionPhonesInClass,
+  opinionWeekendHomework,
   chartCommuteMethods,
   chartScreenTime,
   chartRecyclingRates,
+  chartBreakfastChoices,
+  chartFavoriteSports,
+  chartReadingFormats,
   storyWrongTrain,
   storyFirstThanksgiving,
   storySnowstormNight,
+  storyBorrowedCamera,
+  storyMissingCat,
+  storyNightMarketBlackout,
   campusLeaveSickDay,
   campusLeaveMissedLab,
   campusLeaveExtension,
+  campusLeaveCompassionateLeave,
+  campusLeaveFamilyWedding,
+  campusLeaveSportsCompetition,
   campusProfessorOfficeHours,
   campusProfessorAssignmentQuestion,
   campusProfessorRecommendation,
+  campusProfessorGradeFeedback,
+  campusProfessorResearchAssistant,
+  campusProfessorTextbookEdition,
   campusHousingRoomViewing,
   campusHousingHeatingRepair,
   campusHousingRoommateAgreement,
+  campusHousingDepositDispute,
+  campusHousingNoisyNeighbor,
+  campusHousingRoomTransfer,
   ieltsTask1BottledTeaProcess,
   ieltsTask1CommuteModes,
   ieltsTask1LibraryServices,
   ieltsTask1MuseumVisitors,
+  ieltsTask1CarSalesByFuel,
+  ieltsTask1HouseholdWaterUse,
+  ieltsTask1RainwaterCollection,
+  ieltsTask1WeekendActivities,
   ieltsTask2QuietPublicSpaces,
   ieltsTask2RepairOrReplace,
   ieltsTask2StreetFoodMarkets,
   ieltsTask2OnlineShoppingHighStreets,
+  ieltsTask2EarlyForeignLanguages,
+  ieltsTask2FourDayWorkWeek,
+  ieltsTask2LivingAlone,
+  ieltsTask2TouristOvercrowding,
   toeflGroupOrSoloProjects,
   toeflDiningHallFoodWaste,
   toeflGreenRoofsOrStreetTrees,
   toeflCoursesOutsideMajor,
+  toeflAiToolsForCoursework,
+  toeflFourDayWorkWeek,
+  toeflLocalOrWorldHistory,
+  toeflZoosAndConservation,
+  toeflIntegratedBikeSharing,
+  toeflIntegratedFourDaySchoolWeek,
+  toeflIntegratedMammothRevival,
+  toeflIntegratedMayaDrought,
+  toeflIntegratedOnlineCourses,
+  toeflIntegratedOpenPlanOffices,
+  toeflIntegratedRooftopBeehives,
+  toeflIntegratedTreePlantingOffsets,
   geptEssaySkillFromFamily,
   geptLetterBrokenElevator,
   geptLetterThankHostFamily,
   geptEssayUsefulApp,
+  geptEssayLessPlasticAtHome,
+  geptEssayMemorableClassTrip,
+  geptEssayMistakeILearnedFrom,
+  geptHiEssayAiHomeworkRules,
+  geptHiEssayFourDayWeek,
+  geptHiEssayGapYear,
+  geptHiEssayNewsOnSocialMedia,
+  geptHiEssayTouristsSmallTowns,
+  geptHiLetterAdviseCousinMajor,
+  geptHiLetterSaferSidewalks,
+  geptHiLetterVolunteerApplication,
+  geptLetterInviteLanternFestival,
+  geptPicBeachCleanup,
+  geptPicLostWallet,
+  geptPicMoonFestivalBarbecue,
+  geptPicNightMarketDinner,
+  geptPicSeatOnTheMrt,
+  geptPicSharingAnUmbrella,
+  geptPicSportsDayRelay,
+  geptPicTyphoonDayAtHome,
   gsatEssayDayWithoutPhone,
   gsatPictureRainyBusStop,
   gsatEssayGraduationTrip,
   gsatEssayNewSchoolSubject,
   gsatPictureTurtleOnTheBeach,
+  gsatEssayConvenienceStores,
+  gsatEssayLearningFromFailure,
+  gsatPictureWalletOnTheMrt,
   toeicEmailCateringOrder,
   toeicEmailSoftwareTraining,
   toeicOpinionPromoteFromWithin,
+  toeicEmailConferenceSpeaker,
+  toeicEmailFitnessMembership,
+  toeicEmailOfficeMove,
+  toeicOpinionOfficeDressCode,
+  toeicOpinionSmallOrLargeCompany,
   capAHelpfulClassmate,
   capCookingForMyFamily,
   capSummerVacationPlan,
+  capAVisitToGrandparents,
+  capLearningANewHobby,
+  capMyDreamJob,
+  capMyFavoriteSeason,
+  capSchoolSportsDay,
 ] as unknown as WritingPrompt[];
 
 for (const prompt of all) {

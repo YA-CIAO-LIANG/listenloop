@@ -1,0 +1,101 @@
+{
+  "id": "campus-housing-room-transfer",
+  "type": "campus-housing",
+  "level": "intermediate",
+  "title": {
+    "en": "Requesting a Room Transfer",
+    "zh": "申請換宿舍房間"
+  },
+  "subtitle": "房間發霉影響健康，寫信向住宿組申請換房",
+  "task": "You live in a university dormitory, but your room has a mold problem that is making your asthma worse. Write an email to the Housing Office. Describe the problem, explain how it affects you, and request a transfer to another room.",
+  "taskZh": "你住在學校宿舍，但房間的發霉問題讓你的氣喘變嚴重。寫一封 email 給住宿服務組：描述問題、說明對你的影響，並申請換到別的房間。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 20,
+  "focus": [
+    "具體描述問題與已採取的處理",
+    "說明對健康的影響並附上證明",
+    "提出明確的請求與可配合的時間"
+  ],
+  "model": {
+    "en": [
+      "Dear Housing Office,",
+      "My name is Tina Hsu, and I live in Room 112 of Maple Hall. I am writing to request a transfer to another room because of a mold problem that is affecting my health.",
+      "Since the rainy season started in October, dark spots of mold have appeared on the wall behind my bed and around the window. Even though I clean them every week with the spray the maintenance staff gave me, they come back within a few days. I have asthma, and I have needed my inhaler much more often this month. My doctor believes the damp air in my room is the main cause.",
+      "I have attached photos of the wall and a note from my doctor. I would be happy to move to any room on a higher floor, and I can move this weekend if a space is available.",
+      "Thank you for your help. I look forward to your reply.",
+      "Sincerely,",
+      "Tina Hsu"
+    ],
+    "zh": [
+      "住宿服務組您好：",
+      "我是徐婷娜，住在楓林宿舍 112 號房。由於房間的發霉問題影響到我的健康，我寫信想申請換房。",
+      "自從十月雨季開始，我床後方的牆壁和窗戶周圍就出現了黑色的霉斑。雖然我每週都用維修人員給的噴劑清理，但霉斑幾天內又會長回來。我有氣喘，這個月需要使用吸入器的次數多了很多。醫生認為我房間潮濕的空氣是主要原因。",
+      "我已附上牆壁的照片和醫生證明。我很樂意搬到任何較高樓層的房間，如果有空房，我這個週末就可以搬。",
+      "謝謝您的協助。期待您的回覆。",
+      "敬上",
+      "徐婷娜"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to request … because of …",
+      "zh": "正式提出申請並說明原因",
+      "example": "I am writing to request a transfer to another room because of a mold problem that is affecting my health.",
+      "keys": ["writing to request", "because of"]
+    },
+    {
+      "pattern": "Since …, … have appeared …",
+      "zh": "說明問題從何時開始（現在完成式）",
+      "example": "Since the rainy season started in October, dark spots of mold have appeared on the wall behind my bed and around the window.",
+      "keys": ["since", "have appeared"]
+    },
+    {
+      "pattern": "Even though …, …",
+      "zh": "雖然……，還是……",
+      "example": "Even though I clean them every week with the spray the maintenance staff gave me, they come back within a few days.",
+      "keys": ["even though"]
+    },
+    {
+      "pattern": "I would be happy to …",
+      "zh": "表示願意配合",
+      "example": "I would be happy to move to any room on a higher floor, and I can move this weekend if a space is available.",
+      "keys": ["would be happy to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I clean the mold every week.",
+        "It comes back within a few days."
+      ],
+      "answer": "Even though I clean the mold every week, it comes back within a few days."
+    },
+    {
+      "parts": [
+        "I have attached photos of the wall.",
+        "I have attached a note from my doctor."
+      ],
+      "answer": "I have attached photos of the wall and a note from my doctor."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The damp air in my room is the main cause.",
+      "answers": [
+        "My room's damp air is mainly to blame.",
+        "The humidity in my room is causing the problem."
+      ]
+    },
+    {
+      "sentence": "I can move this weekend if a space is available.",
+      "answers": [
+        "If there is a free room, I can move this weekend.",
+        "I'm able to move this weekend if there's an empty room."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

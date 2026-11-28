@@ -1,0 +1,104 @@
+{
+  "id": "toeic-opinion-office-dress-code",
+  "type": "toeic",
+  "level": "advanced",
+  "title": {
+    "en": "Formal or Casual at Work?",
+    "zh": "上班該穿正式還是休閒服裝？"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：意見論述題，談公司的服裝規定",
+  "task": "Directions: Read the question below. You have 30 minutes to plan, write and revise your essay. Typically, an effective response will contain a minimum of 300 words.\n\nSome companies require their employees to wear formal business clothing, while others allow employees to dress casually. Which policy do you think is better for a company? Give reasons or examples to support your opinion.",
+  "taskZh": "有些公司要求員工穿正式的商務服裝，有些則允許員工穿著休閒。你認為哪一種規定對公司比較好？請提出理由或例子支持你的看法。建議約 300 字，30 分鐘內完成構思、寫作與修改。",
+  "words": {
+    "min": 280,
+    "max": 350
+  },
+  "minutes": 30,
+  "focus": [
+    "立場：開頭就明確選邊，全文一致",
+    "論點：每段一個理由，搭配具體的職場例子",
+    "組織：First、Second、Admittedly、Therefore 讓段落分工清楚",
+    "文法與用字：比較句、條件句正確，商業字彙使用恰當"
+  ],
+  "model": {
+    "en": [
+      "Many companies are reconsidering their dress codes as working styles change. Some still require suits and formal clothing, while others let employees decide what to wear. In my opinion, a flexible policy that allows casual clothing on most days is better for both employees and the company.",
+      "First, comfortable clothing helps employees work more effectively. People who are not worried about uncomfortable shoes or tight jackets can concentrate fully on their tasks, especially during long days at the office. In addition, employees save time and money because they do not need to buy and maintain an expensive formal wardrobe. When I worked as an intern at a design firm, the relaxed dress code made the office feel friendly, and colleagues seemed more willing to share ideas.",
+      "Second, a casual dress code can help a company attract talented workers. Many young job seekers see flexibility as an important benefit, and a strict clothing policy may make a company seem old-fashioned. By allowing staff to express their personality, an employer shows that it trusts them and values results more than appearance.",
+      "Admittedly, formal clothing is still important in some situations. Employees who meet clients, appear at trade shows or work in banks may need to look professional to earn customers' trust. However, this problem can be solved by asking staff to dress formally only on those occasions or by keeping a jacket at the office.",
+      "Therefore, I believe companies should adopt a casual dress code as the general rule and require formal clothing only when the situation calls for it. This approach keeps employees comfortable and motivated while still protecting the company's professional image."
+    ],
+    "zh": [
+      "隨著工作型態改變，許多公司正在重新思考服裝規定。有些公司仍要求穿西裝等正式服裝，有些則讓員工自己決定穿什麼。我認為，平日大多允許穿休閒服裝的彈性規定，對員工和公司都比較好。",
+      "第一，舒適的服裝能讓員工工作更有效率。不必擔心鞋子不舒服或外套太緊的人，能全心專注在工作上，在辦公室待上一整天時尤其如此。此外，員工不需要購買和保養昂貴的正式服裝，能省下時間和金錢。我在一家設計公司實習時，輕鬆的服裝規定讓辦公室氣氛很友善，同事們似乎也更樂於分享想法。",
+      "第二，休閒的服裝規定能幫助公司吸引優秀人才。許多年輕求職者把彈性視為重要的福利，嚴格的服裝規定可能讓公司顯得老派。雇主允許員工展現個人風格，就是表示信任他們，重視成果勝過外表。",
+      "不可否認，正式服裝在某些場合仍然重要。需要見客戶、參加商展或在銀行工作的員工，可能必須看起來專業，才能贏得顧客的信任。不過，只要請員工在這些場合穿著正式，或在辦公室放一件西裝外套，就能解決這個問題。",
+      "因此，我認為公司應該以休閒服裝為原則，只在必要的場合要求穿著正式。這種做法能讓員工保持舒適與幹勁，同時維護公司的專業形象。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "In my opinion, a … that … is better for …",
+      "zh": "開頭明確表態，說明哪一種做法比較好",
+      "example": "In my opinion, a flexible policy that allows casual clothing on most days is better for both employees and the company.",
+      "keys": ["in my opinion", "is better for"]
+    },
+    {
+      "pattern": "People who … can concentrate fully on …",
+      "zh": "用關係子句描述對象，再說明結果",
+      "example": "People who are not worried about uncomfortable shoes or tight jackets can concentrate fully on their tasks, especially during long days at the office.",
+      "keys": ["people who", "concentrate fully on"]
+    },
+    {
+      "pattern": "When I worked as …, …",
+      "zh": "用自己的經驗當例子",
+      "example": "When I worked as an intern at a design firm, the relaxed dress code made the office feel friendly, and colleagues seemed more willing to share ideas.",
+      "keys": ["when i worked as"]
+    },
+    {
+      "pattern": "By allowing …, an employer shows that …",
+      "zh": "By + V-ing：說明做法傳達的訊息",
+      "example": "By allowing staff to express their personality, an employer shows that it trusts them and values results more than appearance.",
+      "keys": ["by allowing", "shows that"]
+    },
+    {
+      "pattern": "Admittedly, … is still important in some situations.",
+      "zh": "讓步：承認另一方的優點",
+      "example": "Admittedly, formal clothing is still important in some situations.",
+      "keys": ["admittedly", "still important"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Employees save time and money.",
+        "They do not need to buy an expensive formal wardrobe."
+      ],
+      "answer": "Employees save time and money because they do not need to buy an expensive formal wardrobe."
+    },
+    {
+      "parts": [
+        "Companies should adopt a casual dress code as the general rule.",
+        "They should require formal clothing only when necessary."
+      ],
+      "answer": "Companies should adopt a casual dress code as the general rule and require formal clothing only when necessary."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "A strict clothing policy may make a company seem old-fashioned.",
+      "answers": [
+        "A company with strict clothing rules may appear out of date.",
+        "Strict dress rules can give a company an old-fashioned image."
+      ]
+    },
+    {
+      "sentence": "Comfortable clothing helps employees work more effectively.",
+      "answers": [
+        "Employees work better when they wear comfortable clothes.",
+        "Wearing comfortable clothing makes staff more productive."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

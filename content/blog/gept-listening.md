@@ -32,6 +32,6 @@
 - [First Order at the Coffee Shop](/videos/p-94439aa3-7ec3-48ed-89ad-9a70ce985226)：咖啡店點餐，初級
 - [Checking In for a Flight Home](/videos/p-ff87bb4a-6294-4c89-8de1-9602df9e08cb)：機場報到，初級
 
-更多：[考試聽力](/learn/exam)與[生活情境](/learn/daily-life)主題。不確定程度的話，先做[程度測驗](/level-test)。
+更多：[考試英文](/exams)與[生活情境](/learn/daily-life)主題。不確定程度的話，先做[程度測驗](/level-test)。
 
 > 說明：ListenLoop 的考試風格教材是模仿題型與難度的原創內容，不是真實考題，與語言訓練測驗中心無關。

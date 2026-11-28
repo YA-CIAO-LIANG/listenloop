@@ -1,0 +1,98 @@
+{
+  "id": "gsat-essay-convenience-stores",
+  "type": "gsat",
+  "level": "intermediate",
+  "title": {
+    "en": "Convenience Stores in Our Lives",
+    "zh": "生活中的便利商店"
+  },
+  "subtitle": "原創模擬題（學測風格）：說明好處並提出問題與建議的兩段式作文",
+  "task": "Convenience stores can be found on almost every street corner in Taiwan. Write an English composition of at least 120 words in two paragraphs. In the first paragraph, describe how convenience stores make daily life easier for people. In the second paragraph, describe one problem that convenience stores may cause and suggest what stores or customers could do about it.",
+  "taskZh": "在台灣，幾乎每個街角都找得到便利商店。請寫一篇至少 120 字、兩段的英文作文。第一段說明便利商店如何讓人們的日常生活更方便；第二段描述便利商店可能造成的一個問題，並建議商店或顧客可以怎麼做。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 30,
+  "focus": [
+    "內容：第一段舉出具體的便利之處，第二段指出問題並提出可行建議",
+    "組織：兩段分工清楚，轉折自然",
+    "文法句構：被動語態、關係子句正確，句型有變化",
+    "字彙拼字：用字精確、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "In Taiwan, convenience stores are much more than places to buy snacks. They are open twenty-four hours a day, so people can get a hot meal even late at night. Besides food and drinks, they also let us pay bills, pick up online orders, and print documents. For busy students like me, the store near my school is like a second home. I often grab breakfast there and study at its tables while waiting for cram school to start.",
+      "However, convenience stores also produce a large amount of waste. Every day, countless plastic bags, coffee cups, and lunch boxes are thrown away after being used only once. To solve this problem, stores could offer discounts to customers who bring their own cups or bags. At the same time, we customers should think twice before taking extra straws or utensils. If both sides do their part, convenience stores can remain convenient without harming the environment."
+    ],
+    "zh": [
+      "在台灣，便利商店不只是買零食的地方。它們 24 小時營業，所以就算是深夜，人們也買得到熱騰騰的一餐。除了食物和飲料，我們還可以在那裡繳費、取網購包裹、列印文件。對像我這樣忙碌的學生來說，學校附近的便利商店就像第二個家。我常在那裡買早餐，等補習班上課前也會坐在店裡的桌子讀書。",
+      "然而，便利商店也製造了大量垃圾。每天都有數不清的塑膠袋、咖啡杯和便當盒只用一次就被丟掉。為了解決這個問題，商店可以給自備杯子或袋子的顧客折扣。同時，我們顧客在多拿吸管或餐具之前也應該三思。只要雙方都盡一份心力，便利商店就能保持便利，又不會傷害環境。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "much more than …",
+      "zh": "遠不只是……（點出主題）",
+      "example": "In Taiwan, convenience stores are much more than places to buy snacks.",
+      "keys": ["much more than"]
+    },
+    {
+      "pattern": "Besides …, they also …",
+      "zh": "除了……之外，還……（補充例子）",
+      "example": "Besides food and drinks, they also let us pay bills, pick up online orders, and print documents.",
+      "keys": ["besides", "also"]
+    },
+    {
+      "pattern": "… after being + p.p.",
+      "zh": "在被……之後（被動的動名詞）",
+      "example": "Every day, countless plastic bags, coffee cups, and lunch boxes are thrown away after being used only once.",
+      "keys": ["after being"]
+    },
+    {
+      "pattern": "think twice before + V-ing",
+      "zh": "做……之前先三思",
+      "example": "At the same time, we customers should think twice before taking extra straws or utensils.",
+      "keys": ["think twice before"]
+    },
+    {
+      "pattern": "If both sides do their part, …",
+      "zh": "只要雙方都盡一份心力，就……（收尾）",
+      "example": "If both sides do their part, convenience stores can remain convenient without harming the environment.",
+      "keys": ["do their part", "without"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "They are open twenty-four hours a day.",
+        "People can get a hot meal late at night."
+      ],
+      "answer": "They are open twenty-four hours a day, so people can get a hot meal late at night."
+    },
+    {
+      "parts": [
+        "Stores could offer discounts to customers.",
+        "These customers bring their own cups."
+      ],
+      "answer": "Stores could offer discounts to customers who bring their own cups."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Convenience stores produce a large amount of waste.",
+      "answers": [
+        "Convenience stores create a lot of trash.",
+        "A lot of waste comes from convenience stores."
+      ]
+    },
+    {
+      "sentence": "We should think twice before taking extra straws.",
+      "answers": [
+        "We should think carefully before taking extra straws.",
+        "We should not take extra straws without thinking."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

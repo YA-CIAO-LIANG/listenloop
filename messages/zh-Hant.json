@@ -392,7 +392,9 @@
       "moreCategories": "更多類別（{count}）",
       "fewerCategories": "收起類別",
       "collapse": "收合篩選",
-      "expand": "展開篩選"
+      "expand": "展開篩選",
+      "exams": "考試英文",
+      "examGuides": "看各考試的介紹與官方練習資源 →"
     },
     "card": {
       "length": "{minutes, plural, =0 {{seconds} 秒} other {{seconds, plural, =0 {{minutes} 分鐘} other {{minutes} 分 {seconds} 秒}}}}",
@@ -684,7 +686,8 @@
     "blog": "學習文章",
     "status": "服務狀態",
     "faq": "常見問題",
-    "beta": "Beta 須知"
+    "beta": "Beta 須知",
+    "exams": "考試英文"
   },
   "privacy": {
     "title": "隱私權政策",
@@ -2365,7 +2368,7 @@
       "culture": "文化與節慶",
       "classics": "經典名篇",
       "school": "國高中程度",
-      "exam": "考試聽力",
+      "exam": "考試英文",
       "other": "其他"
     },
     "scenarios": {
@@ -2441,20 +2444,20 @@
       "personal-growth": "個人成長故事",
       "inspirational": "勵志演說",
       "product-launch": "產品發表會",
-      "toefl-campus": "校園對話",
-      "toefl-lecture-biology": "學術講座：生物",
-      "toefl-lecture-geology": "學術講座：地質",
-      "toefl-lecture-history": "學術講座：歷史",
-      "toefl-lecture-art-history": "學術講座：藝術史",
-      "toefl-lecture-psychology": "學術講座：心理學",
-      "ielts-part1": "Part 1 日常對話",
-      "ielts-part2": "Part 2 獨白",
-      "ielts-part3": "Part 3 學術討論",
-      "ielts-part4": "Part 4 學術講座",
-      "toeic-responses": "應答問題",
-      "toeic-conversation": "職場簡短對話",
-      "toeic-announcement": "公告與廣播",
-      "toeic-voicemail": "語音留言",
+      "toefl-campus": "Conversation 校園對話",
+      "toefl-lecture-biology": "Academic Talk 學術講解：生物",
+      "toefl-lecture-geology": "Academic Talk 學術講解：地質",
+      "toefl-lecture-history": "Academic Talk 學術講解：歷史",
+      "toefl-lecture-art-history": "Academic Talk 學術講解：藝術史",
+      "toefl-lecture-psychology": "Academic Talk 學術講解：心理學",
+      "ielts-part1": "Part 1（Section 1）日常對話",
+      "ielts-part2": "Part 2（Section 2）獨白",
+      "ielts-part3": "Part 3（Section 3）學術討論",
+      "ielts-part4": "Part 4（Section 4）學術講座",
+      "toeic-responses": "Part 2 應答問題",
+      "toeic-conversation": "Part 3 簡短對話",
+      "toeic-announcement": "Part 4 公告與廣播",
+      "toeic-voicemail": "Part 4 語音留言",
       "gept-conversation": "簡短對話",
       "gept-short-talk": "短文與公告",
       "train-station": "火車站買票與問月台",
@@ -2546,22 +2549,28 @@
       "junior-passage": "國中：短文",
       "senior-dialogue": "高中：對話",
       "senior-passage": "高中：短文",
-      "gsat-dialogue": "簡短對話",
-      "gsat-short-talk": "短文與廣播",
       "myth": "神話",
       "classic-poem": "經典詩歌",
       "historic-letter": "歷史名信",
       "junior-story": "國中：短篇故事",
       "junior-notice": "國中：校園廣播與公告",
       "senior-story": "高中：短篇故事",
-      "senior-speech": "高中：學生演講"
+      "senior-speech": "高中：學生演講",
+      "hs-response": "對答",
+      "hs-discourse-dialogue": "言談理解：對話",
+      "hs-discourse-talk": "言談理解：短文與廣播",
+      "cap-response": "基本問答",
+      "cap-discourse-dialogue": "言談理解：對話",
+      "cap-discourse-talk": "言談理解：短文與廣播"
     },
     "exams": {
       "toefl": "托福 TOEFL iBT 風格",
       "ielts": "雅思 IELTS 風格",
       "toeic": "多益 TOEIC 風格",
       "gept": "全民英檢 GEPT 風格",
-      "gsat": "學測 GSAT 風格"
+      "gsat": "學測 GSAT 風格",
+      "hs-listening": "高中英聽（學測英聽）風格",
+      "cap": "國中會考英聽風格"
     },
     "targets": {
       "toefl-80": "約 80 分",
@@ -2576,9 +2585,11 @@
       "gept-intermediate": "中級",
       "gept-high-intermediate": "中高級",
       "gept-advanced": "高級",
-      "gsat-basic": "基礎",
-      "gsat-standard": "前標",
-      "gsat-top": "頂標"
+      "hs-c": "C 級",
+      "hs-b": "B 級",
+      "hs-a": "A 級",
+      "cap-basic": "基礎",
+      "cap-proficient": "精熟"
     },
     "levels": {
       "beginner": "初級",
@@ -3579,7 +3590,7 @@
       "culture": "節慶、傳統與各地文化：認識英語世界與多元文化的同時練習聽力。",
       "classics": "伊索寓言、格林童話、愛麗絲夢遊仙境、福爾摩斯，以及林肯、甘迺迪的演說與 NASA、國家公園的文章：只選公有領域的經典，必要時改寫成適合學習者的版本，並標示出處。",
       "school": "依國中與高中課綱常見主題原創的短文與對話：校園生活、家庭、環保、科技與文化。適合國高中生和準備會考、學測的同學。",
-      "exam": "托福、雅思、多益、全民英檢、學測風格的原創聽力練習（不是真實考題）。用同一份教材練 7 天，把題型裡的每個字聽清楚。"
+      "exam": "托福、雅思、多益、全民英檢、高中英聽、國中會考風格的原創聽力練習（除了標示出處的國中會考官方試題，都不是真實考題）。用同一份教材練 7 天，把題型裡的每個字聽清楚。"
     },
     "howTitle": "怎麼練：七天一個循環",
     "steps": {
@@ -4120,7 +4131,7 @@
       },
       "exams": {
         "question": "有多益、托福、雅思、全民英檢的聽力教材嗎？",
-        "answer": "有「考試聽力」主題，提供多益、托福、雅思、全民英檢風格的原創練習，模仿題型的情境與難度。它們不是真實考題，ListenLoop 和這些考試的主辦單位沒有任何關係。"
+        "answer": "有「考試英文」分類，提供托福、雅思、多益、全民英檢（初級、中級、中高級）、高中英聽與國中會考的原創聽力練習，以及這些考試和學測的寫作題目，模仿題型的情境與難度；每個考試也有介紹頁與官方免費練習資源的連結。除了標示出處的國中會考官方試題，它們都不是真實考題，ListenLoop 和這些考試的主辦單位沒有任何關係。"
       },
       "create": {
         "question": "可以用自己的文章建立教材嗎？",
@@ -4226,7 +4237,9 @@
       "isDefault": "這是你的預設篩選",
       "empty": "沒有符合的題目，試著減少篩選條件。",
       "words": "{min}–{max} 字",
-      "time": "建議 {minutes} 分鐘"
+      "time": "建議 {minutes} 分鐘",
+      "exams": "考試英文",
+      "examGuides": "考試介紹 →"
     },
     "groups": {
       "daily": "日常短文",
@@ -4235,7 +4248,7 @@
       "chart": "圖表描述",
       "story": "故事",
       "campus": "留學生活",
-      "exam": "考試"
+      "exam": "考試英文"
     },
     "levels": {
       "beginner": "初級",
@@ -4255,7 +4268,8 @@
       "campus-housing": "租屋",
       "ielts-task1": "IELTS Task 1",
       "ielts-task2": "IELTS Task 2",
-      "toefl": "TOEFL",
+      "toefl": "TOEFL Academic Discussion",
+      "toefl-integrated": "TOEFL Integrated（舊制題型）",
       "gept": "全民英檢",
       "gsat": "學測英文作文",
       "toeic": "多益寫作",
@@ -5072,5 +5086,30 @@
     "listening": "你目前是寫作方案，聽力只有免費版的功能。升級為「聽寫全方位」，就有同等級的聽力額度與功能，比分開買便宜。",
     "writing": "你目前是聽力方案，寫作只有免費版的試用額度。升級為「聽寫全方位」，就有同等級的寫作 AI 額度，比分開買便宜。",
     "link": "升級為聽寫全方位"
+  },
+  "examTracks": {
+    "toefl": "托福 TOEFL",
+    "ielts": "雅思 IELTS",
+    "toeic": "多益 TOEIC",
+    "gept-elementary": "全民英檢初級",
+    "gept-intermediate": "全民英檢中級",
+    "gept-high-intermediate": "全民英檢中高級",
+    "gsat": "學測",
+    "hs-listening": "高中英聽",
+    "cap": "國中會考"
+  },
+  "exams": {
+    "indexTitle": "考試英文：考試介紹與練習",
+    "indexIntro": "托福、雅思、多益、全民英檢、學測、高中英聽、國中會考：每個考試的題型、聽力與寫作怎麼評分、怎麼練，以及這裡對應的聽力教材、寫作題目和官方的免費練習資源。",
+    "pageTitle": "{name}：題型、評分與練習",
+    "back": "所有考試",
+    "materials": "這裡的練習",
+    "listening": "聽力教材（{count} 份）",
+    "writing": "寫作題目（{count} 份）",
+    "noListening": "這個考試的聽力教材還在準備中。",
+    "noWriting": "這個考試的寫作題目還在準備中。",
+    "resources": "官方的免費練習資源",
+    "resourcesNote": "以下連到考試主辦單位的網站，內容以官方為準。ListenLoop 的教材與題目都是依題型原創，不是真實考題。",
+    "resourceMeta": "{publisher}・{date} 查證可開啟"
   }
 }

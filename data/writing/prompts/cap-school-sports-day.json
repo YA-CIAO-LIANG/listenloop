@@ -1,0 +1,74 @@
+{
+  "id": "cap-school-sports-day",
+  "type": "cap",
+  "level": "beginner",
+  "title": {
+    "en": "Our School Sports Day",
+    "zh": "我們學校的運動會"
+  },
+  "subtitle": "國中程度引導式短文：回答三個問題，寫一次運動會的經驗",
+  "task": "Write a short passage of 60–100 words about your school sports day. Your passage should answer these questions: (1) What did you or your class do to get ready for sports day? (2) What happened on that day? (3) How did you feel?",
+  "taskZh": "寫一篇 60–100 字的英文短文，寫一次學校運動會的經驗。短文要回答三個問題：(1) 你或你的班級怎麼準備運動會？(2) 運動會那天發生了什麼事？(3) 你有什麼感受？",
+  "words": {
+    "min": 60,
+    "max": 100
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三個問題都要回答到",
+    "文法：過去發生的事用過去式，動詞變化正確",
+    "連接詞：用 and、but、so、because 讓句子連貫",
+    "拼字與標點：句首大寫、句尾加句點"
+  ],
+  "model": {
+    "en": [
+      "Last month, our school had its sports day. Before that day, our class practiced the relay race after school every day. On sports day, the weather was sunny and hot. I was the third runner on our team. When I got the baton, I ran as fast as I could. Our class did not win first place, but we came in second. Everyone cheered and gave each other high fives. I was tired but very happy, because we worked hard together."
+    ],
+    "zh": [
+      "上個月，我們學校舉辦了運動會。運動會之前，我們班每天放學後都練習大隊接力。運動會那天，天氣晴朗又炎熱。我是我們隊的第三棒。拿到接力棒時，我用最快的速度往前跑。我們班沒有得到第一名，但拿到了第二名。大家歡呼著互相擊掌。我雖然很累，但非常開心，因為我們一起努力過。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Before that day, …",
+      "zh": "在那天之前（交代準備過程）",
+      "example": "Before that day, our class practiced the relay race after school every day.",
+      "keys": ["before that day"]
+    },
+    {
+      "pattern": "as fast as I could",
+      "zh": "盡我所能地快",
+      "example": "When I got the baton, I ran as fast as I could.",
+      "keys": ["when i", "as fast as i could"]
+    },
+    {
+      "pattern": "did not …, but …",
+      "zh": "沒有……，但是……（轉折）",
+      "example": "Our class did not win first place, but we came in second.",
+      "keys": ["did not", "but"]
+    },
+    {
+      "pattern": "I was … but …, because …",
+      "zh": "說出感受，再用 because 說明原因",
+      "example": "I was tired but very happy, because we worked hard together.",
+      "keys": ["tired but", "because"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Our class did not win first place.", "We came in second."],
+      "answer": "Our class did not win first place, but we came in second."
+    },
+    {
+      "parts": ["Everyone cheered.", "Everyone gave each other high fives."],
+      "answer": "Everyone cheered and gave each other high fives."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "We came in second.",
+      "answers": ["We got second place.", "We finished second."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

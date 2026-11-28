@@ -1,0 +1,84 @@
+{
+  "id": "gept-pic-sharing-an-umbrella",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "Sharing an Umbrella",
+    "zh": "下雨天共撐一把傘"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段下雨天同學借傘的短文",
+  "task": "Look at the three pictures. Picture 1: It starts to rain after school, and a boy without an umbrella waits at the school gate. Picture 2: A girl from his class shares her umbrella with him, and they walk to the bus stop. Picture 3: The next day, the boy gives the girl a cup of bubble tea. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：放學時開始下雨，沒帶傘的男孩在校門口等。圖二：同班女生和他共撐一把傘，一起走到公車站。圖三：隔天男孩送女生一杯珍珠奶茶。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（下雨沒傘、共撐一把傘、隔天道謝）都要寫到",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "Yesterday afternoon, it started to rain after school. Ken did not bring his umbrella, so he waited at the school gate. His classmate Lily saw him and shared her umbrella with him. They walked to the bus stop together and talked about their homework. The next day, Ken bought Lily a cup of bubble tea to say thank you. Lily was very surprised."
+    ],
+    "zh": [
+      "昨天下午放學後開始下雨。Ken 沒有帶傘，所以他在校門口等。他的同學 Lily 看到他，就和他共撐一把傘。他們一起走到公車站，邊走邊聊功課。隔天，Ken 買了一杯珍珠奶茶給 Lily 表示感謝。Lily 非常驚喜。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "It started to …",
+      "zh": "描述天氣或事情開始發生",
+      "example": "Yesterday afternoon, it started to rain after school.",
+      "keys": ["started to"]
+    },
+    {
+      "pattern": "…, so …",
+      "zh": "用 so 說明結果",
+      "example": "Ken did not bring his umbrella, so he waited at the school gate.",
+      "keys": ["so"]
+    },
+    {
+      "pattern": "share … with …",
+      "zh": "和某人分享某物",
+      "example": "His classmate Lily saw him and shared her umbrella with him.",
+      "keys": ["shared", "with"]
+    },
+    {
+      "pattern": "… to say thank you",
+      "zh": "說明做某事的目的是道謝",
+      "example": "The next day, Ken bought Lily a cup of bubble tea to say thank you.",
+      "keys": ["to say thank you"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Ken did not bring his umbrella.",
+        "He waited at the school gate."
+      ],
+      "answer": "Ken did not bring his umbrella, so he waited at the school gate."
+    },
+    {
+      "parts": [
+        "They walked to the bus stop together.",
+        "They talked about their homework."
+      ],
+      "answer": "They walked to the bus stop together and talked about their homework."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Ken did not bring his umbrella.",
+      "answers": ["Ken forgot his umbrella.", "Ken left his umbrella at home."]
+    },
+    {
+      "sentence": "Lily was very surprised.",
+      "answers": ["Lily did not expect it.", "The gift surprised Lily."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

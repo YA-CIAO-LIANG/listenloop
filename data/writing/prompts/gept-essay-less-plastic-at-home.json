@@ -1,0 +1,85 @@
+{
+  "id": "gept-essay-less-plastic-at-home",
+  "type": "gept",
+  "level": "intermediate",
+  "title": {
+    "en": "Using Less Plastic at Home",
+    "zh": "在家減少使用塑膠"
+  },
+  "subtitle": "全民英檢中級：說明家裡減塑的做法與困難",
+  "task": "Plastic waste has become a serious problem around the world. Write an essay of 120–160 words about how your family tries to use less plastic. In your essay, (1) describe two things your family does, (2) explain one difficulty you have met, and (3) suggest one thing that other families could easily do.",
+  "taskZh": "塑膠垃圾已經成為全世界嚴重的問題。請寫一篇 120–160 字的英文短文，說明你家怎麼減少使用塑膠：(1) 描述你家做的兩件事，(2) 說明遇到的一個困難，(3) 建議一件其他家庭也能輕鬆做到的事。",
+  "words": { "min": 120, "max": 160 },
+  "minutes": 25,
+  "focus": [
+    "內容：兩個做法、一個困難、一個建議都要寫到",
+    "組織：主題句清楚，用 First、Also、However 等轉折詞串起各段",
+    "文法：現在簡單式與現在完成式正確，主詞動詞一致",
+    "用字與拼字：生活用字具體恰當，拼字與標點正確"
+  ],
+  "model": {
+    "en": [
+      "My family has been trying to use less plastic for about a year. First, we always bring our own bags when we go shopping. Also, my parents and I carry our own bottles and cups, so we no longer buy bottled water or drinks in plastic cups.",
+      "However, it is not always easy. The biggest difficulty is that many foods are sold in plastic boxes or bags. When we buy lunch from a store or order food online, we almost always get plastic spoons and boxes that we do not need.",
+      "I think one easy thing other families could do is to keep a set of reusable chopsticks and spoons in their bags. It costs very little, and it takes only a few seconds to refuse a plastic spoon. If every family did this, a huge amount of plastic could be saved each year."
+    ],
+    "zh": [
+      "我家大約從一年前開始努力減少使用塑膠。首先，我們去買東西時一定自己帶袋子。另外，爸媽和我都帶自己的水壺和杯子，所以我們不再買瓶裝水，也不買塑膠杯裝的飲料。",
+      "不過，這並不總是容易。最大的困難是很多食物都用塑膠盒或塑膠袋裝著賣。我們在店裡買午餐或上網訂餐時，幾乎每次都會拿到不需要的塑膠湯匙和餐盒。",
+      "我認為其他家庭可以輕鬆做到的一件事，就是在包包裡放一套環保筷和湯匙。這幾乎不花錢，而拒絕一支塑膠湯匙也只要幾秒鐘。如果每個家庭都這麼做，每年就能省下大量的塑膠。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… has been trying to … for …",
+      "zh": "用現在完成進行式說明持續一段時間的努力",
+      "example": "My family has been trying to use less plastic for about a year.",
+      "keys": ["has been trying to", "for about"]
+    },
+    {
+      "pattern": "The biggest difficulty is that …",
+      "zh": "點出最大的困難",
+      "example": "The biggest difficulty is that many foods are sold in plastic boxes or bags.",
+      "keys": ["the biggest difficulty is that"]
+    },
+    {
+      "pattern": "It costs very little, and it takes only … to …",
+      "zh": "強調一件事既便宜又省時",
+      "example": "It costs very little, and it takes only a few seconds to refuse a plastic spoon.",
+      "keys": ["it costs very little", "it takes only"]
+    },
+    {
+      "pattern": "If every …, … could …",
+      "zh": "用假設語氣說明大家都做會帶來的結果",
+      "example": "If every family did this, a huge amount of plastic could be saved each year.",
+      "keys": ["if every", "could be saved"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["We carry our own bottles.", "We no longer buy bottled water."],
+      "answer": "We carry our own bottles, so we no longer buy bottled water."
+    },
+    {
+      "parts": ["We get plastic spoons and boxes.", "We do not need them."],
+      "answer": "We get plastic spoons and boxes that we do not need."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It is not always easy.",
+      "answers": [
+        "It can be difficult sometimes.",
+        "It is sometimes hard to do."
+      ]
+    },
+    {
+      "sentence": "A huge amount of plastic could be saved.",
+      "answers": [
+        "We could use much less plastic.",
+        "A lot of plastic waste could be avoided."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

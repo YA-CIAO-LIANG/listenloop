@@ -32,6 +32,9 @@ export function SiteFooter({
         <Link href="/beta" className={linkClassName}>
           {t("beta")}
         </Link>
+        <Link href="/exams" className={linkClassName}>
+          {t("exams")}
+        </Link>
         <Link href="/learn" className={linkClassName}>
           {t("learn")}
         </Link>

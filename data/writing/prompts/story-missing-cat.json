@@ -1,0 +1,95 @@
+{
+  "id": "story-missing-cat",
+  "type": "story",
+  "level": "beginner",
+  "title": {
+    "en": "The Missing Cat",
+    "zh": "不見的貓"
+  },
+  "subtitle": "以指定句子開頭，寫一個找貓的小故事",
+  "task": "Write a short story that begins with this sentence: \"When I got home from school, our cat was not on the sofa.\"",
+  "taskZh": "寫一篇短篇故事，以這句話開頭：「我放學回到家時，我們家的貓不在沙發上。」",
+  "words": {
+    "min": 80,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "用過去式一致地敘述",
+    "故事有開頭、經過、結尾",
+    "用 Finally、That night 等時間詞串連"
+  ],
+  "model": {
+    "en": [
+      "When I got home from school, our cat was not on the sofa. Lucky always sleeps there in the afternoon, so I knew something was wrong. I looked under the beds and in the kitchen, but she was not there.",
+      "I ran outside and called her name. My neighbor, Mrs. Chen, said she saw a gray cat in the park. I went to the park and searched everywhere for an hour.",
+      "Finally, I heard a small sound from a tree. Lucky was sitting on a high branch, too scared to come down. I climbed up slowly and carried her home.",
+      "That night, I closed every window. I was so happy to have her back!"
+    ],
+    "zh": [
+      "我放學回到家時，我們家的貓不在沙發上。Lucky 下午總是睡在那裡，所以我知道一定出事了。我找了床底下和廚房，但她都不在。",
+      "我跑到外面叫她的名字。鄰居陳太太說她在公園看到一隻灰貓。我跑到公園，到處找了一個小時。",
+      "最後，我聽到樹上傳來一個細小的聲音。Lucky 坐在很高的樹枝上，害怕得不敢下來。我慢慢爬上去，把她抱回家。",
+      "那天晚上，我把每扇窗戶都關好。能把她找回來，我真的好開心！"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "…, so I knew …",
+      "zh": "說明推論：……，所以我知道……",
+      "example": "Lucky always sleeps there in the afternoon, so I knew something was wrong.",
+      "keys": ["so i knew"]
+    },
+    {
+      "pattern": "I looked …, but …",
+      "zh": "找了……，但是……",
+      "example": "I looked under the beds and in the kitchen, but she was not there.",
+      "keys": ["looked", "but"]
+    },
+    {
+      "pattern": "Finally, …",
+      "zh": "帶出故事的轉折或結果",
+      "example": "Finally, I heard a small sound from a tree.",
+      "keys": ["finally"]
+    },
+    {
+      "pattern": "too … to …",
+      "zh": "太……而不能……",
+      "example": "Lucky was sitting on a high branch, too scared to come down.",
+      "keys": ["too", "to"]
+    },
+    {
+      "pattern": "I was so happy to …",
+      "zh": "表達心情",
+      "example": "I was so happy to have her back!",
+      "keys": ["so happy to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I climbed up slowly.", "I carried her home."],
+      "answer": "I climbed up slowly and carried her home."
+    },
+    {
+      "parts": ["I went to the park.", "I searched everywhere for an hour."],
+      "answer": "I went to the park and searched everywhere for an hour."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "She was too scared to come down.",
+      "answers": [
+        "She was so scared that she couldn't come down.",
+        "She was afraid to climb down."
+      ]
+    },
+    {
+      "sentence": "I was so happy to have her back!",
+      "answers": [
+        "I was really glad she came home!",
+        "I felt so happy that I found her!"
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

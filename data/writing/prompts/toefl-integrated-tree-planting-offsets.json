@@ -1,0 +1,102 @@
+{
+  "id": "toefl-integrated-tree-planting-offsets",
+  "type": "toefl-integrated",
+  "level": "advanced",
+  "title": {
+    "en": "Can Planting Trees Offset Carbon?",
+    "zh": "種樹能抵銷碳排嗎？"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課質疑企業種樹抵銷碳排的成效",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: Many companies now pay for tree-planting projects to offset the carbon dioxide they release. The reading argues that these programs are an effective way to fight climate change. First, trees absorb carbon dioxide from the air as they grow and store it in their wood for decades. Second, planting trees is inexpensive compared with other ways of reducing emissions, so companies can offset large amounts of carbon at low cost. Third, the projects bring extra benefits to local communities, such as jobs and protection against soil erosion.\n\nLecture: The professor argues that tree-planting offsets are far less effective than they seem. First, young trees absorb very little carbon, so a new forest may need thirty years or more to remove what a company has already released, and many seedlings die from drought or poor care. Second, the low price is misleading, because forests can burn or be cut down, releasing the stored carbon and erasing the offset. Third, many projects plant a single fast-growing species, and these plantations sometimes replace natural grasslands, harming local wildlife and drying up the water supplies that communities depend on.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要主張企業出資種樹抵銷碳排是對抗氣候變遷的有效方法（吸收並儲存碳、成本低、造福社區），講課摘要則逐點質疑。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading presents tree-planting offsets as an effective tool against climate change, but the lecturer argues that they are far less effective than they seem. She addresses each of the reading's points in turn.",
+      "First, the reading stresses that growing trees absorb carbon dioxide and store it for decades. The lecturer explains, however, that young trees absorb very little carbon, so a new forest may need thirty years or more to remove what a company has already released. Moreover, many seedlings die from drought or poor care before they ever reach that point.",
+      "Second, the lecturer rejects the claim that offsets are an inexpensive way to reduce emissions. Because forests can burn or be cut down, the stored carbon may be released back into the air. In that case, the offset is erased, so the apparently low price is misleading.",
+      "Third, the reading mentions benefits for local communities, such as jobs and protection against erosion. The lecturer counters that many projects plant a single fast-growing species, and these plantations sometimes replace natural grasslands. As a result, they can harm local wildlife and even dry up the water supplies that communities depend on."
+    ],
+    "zh": [
+      "閱讀文章認為種樹抵銷碳排是對抗氣候變遷的有效工具，但講者主張這種做法遠不如表面上有效。她逐一回應閱讀文章的論點。",
+      "首先，閱讀文章強調成長中的樹木會吸收二氧化碳，並儲存數十年。然而，講者解釋，幼樹吸收的碳非常少，因此新的森林可能需要三十年以上，才能移除公司已經排放的量。此外，許多樹苗在長到那個階段之前，就因乾旱或照顧不周而死亡。",
+      "其次，講者反駁碳抵銷是減少排放的便宜方法這個說法。由於森林可能燒毀或遭到砍伐，儲存的碳可能重新釋放到空氣中。這樣一來，抵銷的效果就會被抹除，所以看似低廉的價格其實會誤導人。",
+      "第三，閱讀文章提到這些計畫能為當地社區帶來好處，例如工作機會和防止土壤流失。講者反駁說，許多計畫只種植單一的速生樹種，而這些人工林有時會取代天然草原。結果，它們可能傷害當地野生動物，甚至讓社區賴以為生的水源乾涸。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The reading presents … as …, but the lecturer argues that …",
+      "zh": "開頭對照兩者的立場",
+      "example": "The reading presents tree-planting offsets as an effective tool against climate change, but the lecturer argues that they are far less effective than they seem.",
+      "keys": ["the reading presents", "but the lecturer argues that"]
+    },
+    {
+      "pattern": "She addresses each of … in turn.",
+      "zh": "預告接下來逐點說明",
+      "example": "She addresses each of the reading's points in turn.",
+      "keys": ["addresses", "in turn"]
+    },
+    {
+      "pattern": "The lecturer explains, however, that …",
+      "zh": "轉述講者的反駁",
+      "example": "The lecturer explains, however, that young trees absorb very little carbon, so a new forest may need thirty years or more to remove what a company has already released.",
+      "keys": ["the lecturer explains", "however"]
+    },
+    {
+      "pattern": "… rejects the claim that …",
+      "zh": "說明講者否定哪一個論點",
+      "example": "Second, the lecturer rejects the claim that offsets are an inexpensive way to reduce emissions.",
+      "keys": ["rejects the claim that"]
+    },
+    {
+      "pattern": "The lecturer counters that …",
+      "zh": "轉述講者提出的反面事實",
+      "example": "The lecturer counters that many projects plant a single fast-growing species, and these plantations sometimes replace natural grasslands.",
+      "keys": ["the lecturer counters that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Forests can burn or be cut down.",
+        "The stored carbon may be released back into the air."
+      ],
+      "answer": "Because forests can burn or be cut down, the stored carbon may be released back into the air."
+    },
+    {
+      "parts": [
+        "Many projects plant a single fast-growing species.",
+        "These plantations sometimes replace natural grasslands."
+      ],
+      "answer": "Many projects plant a single fast-growing species, and these plantations sometimes replace natural grasslands."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The apparently low price is misleading.",
+      "answers": [
+        "The low cost is not as real as it looks.",
+        "The price only seems low."
+      ]
+    },
+    {
+      "sentence": "Young trees absorb very little carbon.",
+      "answers": [
+        "Trees take in only a small amount of carbon when they are young.",
+        "Newly planted trees remove little carbon from the air."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

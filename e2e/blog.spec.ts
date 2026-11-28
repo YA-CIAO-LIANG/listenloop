@@ -29,7 +29,7 @@ test("anyone reads an article and finds lessons to practice", async ({
     page.getByRole("heading", { name: "用這些教材練習" }),
   ).toBeVisible();
   await expect(
-    page.getByRole("link", { name: "更多「考試聽力」教材" }),
+    page.getByRole("link", { name: "更多「考試英文」教材" }),
   ).toHaveAttribute("href", "/learn/exam");
   // Search engines see the article's own title and summary.
   await expect(page).toHaveTitle(/多益聽力怎麼練/);

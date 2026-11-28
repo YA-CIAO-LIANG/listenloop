@@ -1,0 +1,81 @@
+{
+  "id": "gept-pic-sports-day-relay",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "The Relay Race on Sports Day",
+    "zh": "運動會大隊接力"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段運動會接力賽跌倒的短文",
+  "task": "Look at the three pictures. Picture 1: A boy runs in the relay race on his school's Sports Day. Picture 2: He falls down and hurts his knee, but he gets up and keeps running. Picture 3: His classmates cheer, and they tell him he is brave. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：男孩在學校運動會上跑大隊接力。圖二：他跌倒傷到膝蓋，但爬起來繼續跑。圖三：同學們為他加油，說他很勇敢。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（接力賽、跌倒後繼續跑、同學鼓勵）都要寫到",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "Last Friday was Sports Day at Peter's school. Peter ran in the relay race for his class. During the race, he fell down and hurt his knee. He was sad, but he got up and kept running. His classmates cheered for him loudly. In the end, his class finished third. Everyone told Peter that he was very brave, and he felt proud of himself."
+    ],
+    "zh": [
+      "上週五是 Peter 學校的運動會。Peter 代表班上跑大隊接力。比賽中，他跌倒了，還傷到膝蓋。他很難過，但他爬起來繼續跑。同學們大聲為他加油。最後，他們班得到第三名。大家都說 Peter 很勇敢，他也為自己感到驕傲。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "During …, …",
+      "zh": "說明事情在某段期間發生",
+      "example": "During the race, he fell down and hurt his knee.",
+      "keys": ["during"]
+    },
+    {
+      "pattern": "keep + V-ing",
+      "zh": "表示繼續做某事",
+      "example": "He was sad, but he got up and kept running.",
+      "keys": ["kept running"]
+    },
+    {
+      "pattern": "In the end, …",
+      "zh": "說明最後的結果",
+      "example": "In the end, his class finished third.",
+      "keys": ["in the end"]
+    },
+    {
+      "pattern": "be proud of …",
+      "zh": "表示以……為榮",
+      "example": "Everyone told Peter that he was very brave, and he felt proud of himself.",
+      "keys": ["proud of"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["He fell down.", "He hurt his knee."],
+      "answer": "He fell down and hurt his knee."
+    },
+    {
+      "parts": ["He was sad.", "He got up and kept running."],
+      "answer": "He was sad, but he got up and kept running."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "His classmates cheered for him loudly.",
+      "answers": [
+        "His classmates shouted to encourage him.",
+        "His classmates cheered him on loudly."
+      ]
+    },
+    {
+      "sentence": "His class finished third.",
+      "answers": ["His class got third place.", "His class came in third."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

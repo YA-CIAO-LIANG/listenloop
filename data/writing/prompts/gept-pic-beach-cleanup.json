@@ -1,0 +1,87 @@
+{
+  "id": "gept-pic-beach-cleanup",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "Cleaning Up the Beach",
+    "zh": "淨灘活動"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段和同學去淨灘的短文",
+  "task": "Look at the three pictures. Picture 1: A group of students arrives at a beach with big bags. Picture 2: They pick up plastic bottles, bags, and straws from the sand. Picture 3: They are tired but happy, standing next to ten full bags of trash. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：一群學生帶著大袋子來到海邊。圖二：他們撿起沙灘上的寶特瓶、塑膠袋和吸管。圖三：他們站在十大袋垃圾旁，雖然累但很開心。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（到海邊、撿垃圾、累但開心）都要寫到，最好加上自己的想法",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "Last weekend, Eric and his classmates went to a beach in Keelung. They did not go there to swim. They went there to pick up trash. There were many plastic bottles, bags, and straws on the sand. They worked for two hours and filled ten big bags. After that, they were tired but happy. Eric decided to use fewer plastic things in his daily life."
+    ],
+    "zh": [
+      "上週末，Eric 和同學們去基隆的一個海灘。他們不是去那裡游泳的。他們是去那裡撿垃圾的。沙灘上有很多寶特瓶、塑膠袋和吸管。他們做了兩個小時，裝滿了十個大袋子。結束後，他們雖然很累但很開心。Eric 決定在日常生活中少用塑膠製品。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "go there to …",
+      "zh": "說明去某地的目的",
+      "example": "They went there to pick up trash.",
+      "keys": ["went there to"]
+    },
+    {
+      "pattern": "There were many … on …",
+      "zh": "描述某處有很多東西",
+      "example": "There were many plastic bottles, bags, and straws on the sand.",
+      "keys": ["there were many"]
+    },
+    {
+      "pattern": "tired but happy",
+      "zh": "用 but 連接兩種感受",
+      "example": "After that, they were tired but happy.",
+      "keys": ["tired but happy"]
+    },
+    {
+      "pattern": "decide to …",
+      "zh": "說明決定要做某事",
+      "example": "Eric decided to use fewer plastic things in his daily life.",
+      "keys": ["decided to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["They worked for two hours.", "They filled ten big bags."],
+      "answer": "They worked for two hours and filled ten big bags."
+    },
+    {
+      "parts": [
+        "They did not go there to swim.",
+        "They went there to pick up trash."
+      ],
+      "answer": "They went there to pick up trash, not to swim."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "They were tired but happy.",
+      "answers": [
+        "They felt tired, but they were happy.",
+        "Although they were tired, they were happy."
+      ]
+    },
+    {
+      "sentence": "Eric decided to use fewer plastic things.",
+      "answers": [
+        "Eric made up his mind to use less plastic.",
+        "Eric decided not to use so many plastic things."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

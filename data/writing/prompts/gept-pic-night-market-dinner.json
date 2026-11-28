@@ -1,0 +1,87 @@
+{
+  "id": "gept-pic-night-market-dinner",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "Dinner at the Night Market",
+    "zh": "逛夜市"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段全家逛夜市的短文",
+  "task": "Look at the three pictures. Picture 1: A boy and his parents walk into a busy night market. Picture 2: The boy eats fried chicken, and his mother buys sweet potato balls. Picture 3: The boy wins a toy bear at a game stand and later gives it to his little brother. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：男孩和爸媽走進熱鬧的夜市。圖二：男孩吃炸雞，媽媽買了地瓜球。圖三：男孩在遊戲攤贏到一隻小熊玩偶，後來送給弟弟。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（到夜市、吃東西、玩遊戲送玩偶）都要寫到",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "On Saturday night, Leo and his parents went to a night market near their home. The night market was very crowded and noisy. Leo ate fried chicken and stinky tofu, and his mother bought some sweet potato balls. Then Leo played a game and won a small toy bear. He gave the bear to his little brother at home. It was a fun night for Leo."
+    ],
+    "zh": [
+      "週六晚上，Leo 和爸媽去家附近的夜市。夜市非常擁擠又吵雜。Leo 吃了炸雞和臭豆腐，媽媽買了一些地瓜球。接著 Leo 玩了一個遊戲，贏得一隻小熊玩偶。他把小熊送給在家的弟弟。對 Leo 來說，那是一個好玩的夜晚。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… near …",
+      "zh": "說明地點「在……附近」",
+      "example": "On Saturday night, Leo and his parents went to a night market near their home.",
+      "keys": ["near their home"]
+    },
+    {
+      "pattern": "very … and …",
+      "zh": "用兩個形容詞描述地方",
+      "example": "The night market was very crowded and noisy.",
+      "keys": ["very crowded and noisy"]
+    },
+    {
+      "pattern": "Then …",
+      "zh": "用 Then 帶出下一個動作",
+      "example": "Then Leo played a game and won a small toy bear.",
+      "keys": ["then"]
+    },
+    {
+      "pattern": "give … to …",
+      "zh": "把某物送給某人",
+      "example": "He gave the bear to his little brother at home.",
+      "keys": ["gave", "to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Leo played a game.", "Leo won a small toy bear."],
+      "answer": "Leo played a game and won a small toy bear."
+    },
+    {
+      "parts": [
+        "Leo ate fried chicken and stinky tofu.",
+        "His mother bought some sweet potato balls."
+      ],
+      "answer": "Leo ate fried chicken and stinky tofu, and his mother bought some sweet potato balls."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "He gave the bear to his little brother.",
+      "answers": [
+        "He gave his little brother the bear.",
+        "His little brother got the bear from him."
+      ]
+    },
+    {
+      "sentence": "The night market was very crowded.",
+      "answers": [
+        "There were a lot of people at the night market.",
+        "The night market was full of people."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

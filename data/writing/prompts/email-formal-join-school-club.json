@@ -1,0 +1,87 @@
+{
+  "id": "email-formal-join-school-club",
+  "type": "email-formal",
+  "level": "beginner",
+  "title": {
+    "en": "Asking to Join a School Club",
+    "zh": "詢問能否加入社團"
+  },
+  "subtitle": "錯過社團報名，寫一封簡短有禮的信給指導老師",
+  "task": "You want to join the photography club at your school, but you missed the sign-up day. Write a short email to Ms Lin, the teacher in charge of the club. Introduce yourself, explain why you missed the sign-up day and why you want to join, and ask if you can still sign up.",
+  "taskZh": "你想加入學校的攝影社，但錯過了報名日。寫一封簡短的 email 給負責社團的林老師：介紹自己、說明為什麼錯過報名以及為什麼想加入，並詢問現在還能不能報名。",
+  "words": {
+    "min": 60,
+    "max": 120
+  },
+  "minutes": 15,
+  "focus": [
+    "email 格式：稱呼、自我介紹、結尾署名",
+    "清楚說明寫信目的與請求",
+    "禮貌的請求句型"
+  ],
+  "model": {
+    "en": [
+      "Dear Ms Lin,",
+      "My name is Amy Chen, and I am a first-year student in Class 102. I am writing to ask if I can still join the photography club. I was sick on the sign-up day, so I missed it. I have loved taking photos since I was ten, and I want to learn how to use a real camera. Could you please tell me if there is still a place for me?",
+      "Thank you for your time.",
+      "Best regards,",
+      "Amy Chen"
+    ],
+    "zh": [
+      "林老師您好：",
+      "我叫陳艾咪，是 102 班的一年級學生。我寫信是想詢問我是否還能加入攝影社。社團報名那天我生病了，所以錯過了報名。我從 10 歲起就很喜歡拍照，也想學習怎麼使用真正的相機。可以請您告訴我，社團是否還有名額？",
+      "謝謝您撥空閱讀。",
+      "敬祝 安好",
+      "陳艾咪"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to ask if …",
+      "zh": "寫信詢問是否……（說明目的）",
+      "example": "I am writing to ask if I can still join the photography club.",
+      "keys": ["i am writing to ask if"]
+    },
+    {
+      "pattern": "…, so I …",
+      "zh": "……，所以……（說明結果）",
+      "example": "I was sick on the sign-up day, so I missed it.",
+      "keys": ["so i missed"]
+    },
+    {
+      "pattern": "have loved … since …",
+      "zh": "從……起就一直喜歡……",
+      "example": "I have loved taking photos since I was ten, and I want to learn how to use a real camera.",
+      "keys": ["have loved", "since"]
+    },
+    {
+      "pattern": "Could you please tell me if …?",
+      "zh": "可以請您告訴我是否……？（禮貌請求）",
+      "example": "Could you please tell me if there is still a place for me?",
+      "keys": ["could you please tell me if"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I was sick on the sign-up day.", "I missed it."],
+      "answer": "I was sick on the sign-up day, so I missed it."
+    },
+    {
+      "parts": [
+        "I have loved taking photos since I was ten.",
+        "I want to learn how to use a real camera."
+      ],
+      "answer": "I have loved taking photos since I was ten, and I want to learn how to use a real camera."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Could you please tell me if there is still a place for me?",
+      "answers": [
+        "Could you let me know if I can still join?",
+        "Is there still a place for me in the club?"
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

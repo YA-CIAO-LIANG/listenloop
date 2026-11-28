@@ -1,0 +1,82 @@
+{
+  "id": "gept-essay-mistake-i-learned-from",
+  "type": "gept",
+  "level": "intermediate",
+  "title": {
+    "en": "A Mistake I Learned From",
+    "zh": "一次讓我學到教訓的錯誤"
+  },
+  "subtitle": "全民英檢中級：寫一次犯錯的經驗與學到的事",
+  "task": "Everyone makes mistakes, and some of them teach us important lessons. Write an essay of 120–160 words about a mistake you once made. In your essay, (1) describe what happened, (2) explain how you felt and what you did afterward, and (3) tell what you learned from it.",
+  "taskZh": "每個人都會犯錯，有些錯誤會讓我們學到重要的事。請寫一篇 120–160 字的英文短文，描述你曾犯過的一個錯：(1) 說明發生了什麼事，(2) 說明你當時的感受與後來怎麼做，(3) 說明你從中學到什麼。",
+  "words": { "min": 120, "max": 160 },
+  "minutes": 25,
+  "focus": [
+    "內容：經過、感受與做法、學到的事三個要求都要寫到",
+    "組織：依時間順序敘述，段落之間用轉折詞連接",
+    "文法：過去式與過去完成式正確，句型有變化",
+    "用字與拼字：用字恰當具體，拼字與標點正確"
+  ],
+  "model": {
+    "en": [
+      "Last spring, I made a mistake that I still remember clearly. My best friend Kevin had lent me his notes before our final exam, and I promised to return them in two days. However, I left the notebook on the bus and never found it again.",
+      "At first, I was too embarrassed to tell him the truth. I kept making excuses for almost a week, and Kevin began to look worried. Finally, I told him what had happened and said sorry. Then I borrowed notes from other classmates and copied them into a new notebook for him.",
+      "From this experience, I learned that hiding a problem only makes it worse. Kevin was upset about the notebook, but he was more upset that I had not been honest. Now, whenever I do something wrong, I admit it right away and try my best to fix it."
+    ],
+    "zh": [
+      "去年春天，我犯了一個到現在還記得很清楚的錯。我最好的朋友凱文在期末考前借我他的筆記，我答應兩天後還他。然而，我把筆記本忘在公車上，再也沒找回來。",
+      "一開始，我太難為情了，不敢告訴他實話。我找了將近一個星期的藉口，凱文開始顯得很擔心。最後，我告訴他發生了什麼事，並向他道歉。接著，我向其他同學借筆記，幫他抄進一本新的筆記本。",
+      "從這次經驗中，我學到隱瞞問題只會讓事情更糟。凱文對筆記本的事很難過，但讓他更難過的是我沒有誠實。現在，每當我做錯事，我都會立刻承認，並盡力彌補。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I made a mistake that I still remember …",
+      "zh": "開頭點出主題，用關係子句補充",
+      "example": "Last spring, I made a mistake that I still remember clearly.",
+      "keys": ["made a mistake", "still remember"]
+    },
+    {
+      "pattern": "I was too … to …",
+      "zh": "太……而不敢（不能）……",
+      "example": "At first, I was too embarrassed to tell him the truth.",
+      "keys": ["too", "to tell"]
+    },
+    {
+      "pattern": "From this experience, I learned that …",
+      "zh": "說明從經驗中學到的事",
+      "example": "From this experience, I learned that hiding a problem only makes it worse.",
+      "keys": ["from this experience", "i learned that"]
+    },
+    {
+      "pattern": "Whenever …, I …",
+      "zh": "每當……，我就……（說明現在的習慣）",
+      "example": "Now, whenever I do something wrong, I admit it right away and try my best to fix it.",
+      "keys": ["whenever", "try my best"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I left the notebook on the bus.", "I never found it again."],
+      "answer": "I left the notebook on the bus and never found it again."
+    },
+    {
+      "parts": ["I was very embarrassed.", "I could not tell him the truth."],
+      "answer": "I was too embarrassed to tell him the truth."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Hiding a problem only makes it worse.",
+      "answers": [
+        "If you hide a problem, it only gets worse.",
+        "Keeping a problem secret only makes things worse."
+      ]
+    },
+    {
+      "sentence": "I admit it right away.",
+      "answers": ["I admit it at once.", "I admit it immediately."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

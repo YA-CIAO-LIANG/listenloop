@@ -1,0 +1,111 @@
+{
+  "id": "chart-breakfast-choices",
+  "type": "chart",
+  "level": "intermediate",
+  "title": {
+    "en": "Where Students Get Breakfast",
+    "zh": "學生的早餐從哪裡來"
+  },
+  "subtitle": "比較高中生 2015 年與 2025 年的早餐選擇",
+  "task": "The table shows where 500 high school students in one city got their breakfast on school days in 2015 and 2025 (fictional data). Summarize the information and make comparisons where relevant.",
+  "taskZh": "表格是某城市 500 位高中生在 2015 年與 2025 年上學日早餐從哪裡來的調查結果（虛構資料）。請摘要資訊，並在適當處做比較。",
+  "chart": {
+    "title": "Where 500 high school students got breakfast on school days (%)",
+    "columns": ["Breakfast source", "2015", "2025"],
+    "rows": [
+      ["Traditional Taiwanese breakfast", 40, 25],
+      ["Western-style breakfast shop", 30, 35],
+      ["Convenience store", 15, 30],
+      ["Skipped breakfast", 15, 10]
+    ]
+  },
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "數字正確，和表格一致",
+    "比較兩個年份的變化，而不只是逐行列數字",
+    "變化動詞與比例用語（double、rise、fall、share）"
+  ],
+  "model": {
+    "en": [
+      "The table compares where 500 high school students got their breakfast on school days in 2015 and 2025.",
+      "In 2015, traditional Taiwanese breakfast was the most common choice, at 40 percent. Western-style breakfast shops came second at 30 percent, while convenience stores and skipping breakfast each accounted for 15 percent.",
+      "By 2025, the picture had changed considerably. The share of students buying breakfast at convenience stores doubled to 30 percent, and Western-style shops rose slightly to 35 percent, becoming the most popular option. In contrast, traditional breakfast fell from 40 percent to 25 percent. The proportion of students who skipped breakfast also dropped, from 15 percent to 10 percent.",
+      "Overall, convenience stores gained the most ground over the decade, mainly at the expense of traditional breakfast, and fewer students went without a morning meal."
+    ],
+    "zh": [
+      "這個表格比較 500 位高中生在 2015 年與 2025 年上學日的早餐從哪裡來。",
+      "2015 年，傳統台式早餐是最常見的選擇，佔 40%。西式早餐店排名第二，佔 30%，而便利商店和不吃早餐則各佔 15%。",
+      "到了 2025 年，情況有了相當大的改變。在便利商店買早餐的學生比例加倍為 30%，西式早餐店則小幅上升到 35%，成為最受歡迎的選項。相較之下，傳統早餐從 40% 降到 25%。不吃早餐的學生比例也下降了，從 15% 降到 10%。",
+      "整體而言，十年間便利商店的成長最多，主要是取代了傳統早餐，而不吃早餐的學生也變少了。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The table compares where …",
+      "zh": "圖表題開頭：說明表格在比較什麼",
+      "example": "The table compares where 500 high school students got their breakfast on school days in 2015 and 2025.",
+      "keys": ["the table compares"]
+    },
+    {
+      "pattern": "… each accounted for …",
+      "zh": "……各佔……",
+      "example": "Western-style breakfast shops came second at 30 percent, while convenience stores and skipping breakfast each accounted for 15 percent.",
+      "keys": ["each accounted for"]
+    },
+    {
+      "pattern": "By …, the picture had changed …",
+      "zh": "帶出第二個時間點的變化",
+      "example": "By 2025, the picture had changed considerably.",
+      "keys": ["by", "had changed"]
+    },
+    {
+      "pattern": "… doubled to …, becoming …",
+      "zh": "……加倍為……，成為……",
+      "example": "The share of students buying breakfast at convenience stores doubled to 30 percent, and Western-style shops rose slightly to 35 percent, becoming the most popular option.",
+      "keys": ["doubled to", "becoming"]
+    },
+    {
+      "pattern": "… at the expense of …",
+      "zh": "以……為代價（取代了……）",
+      "example": "Overall, convenience stores gained the most ground over the decade, mainly at the expense of traditional breakfast, and fewer students went without a morning meal.",
+      "keys": ["at the expense of"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Western-style shops rose slightly to 35 percent.",
+        "They became the most popular option."
+      ],
+      "answer": "Western-style shops rose slightly to 35 percent, becoming the most popular option."
+    },
+    {
+      "parts": [
+        "Traditional breakfast fell.",
+        "It went from 40 percent to 25 percent."
+      ],
+      "answer": "Traditional breakfast fell from 40 percent to 25 percent."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "The share of students buying breakfast at convenience stores doubled.",
+      "answers": [
+        "Twice as many students bought breakfast at convenience stores.",
+        "The percentage of students using convenience stores for breakfast went up twofold."
+      ]
+    },
+    {
+      "sentence": "Fewer students went without a morning meal.",
+      "answers": [
+        "Fewer students skipped breakfast.",
+        "More students ate something in the morning."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

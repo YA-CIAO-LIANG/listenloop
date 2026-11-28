@@ -1,0 +1,103 @@
+{
+  "id": "email-informal-taiwan-visit-plans",
+  "type": "email-informal",
+  "level": "intermediate",
+  "title": {
+    "en": "Plans for a Friend's Visit to Taiwan",
+    "zh": "朋友來台灣的行程建議"
+  },
+  "subtitle": "朋友要來台北玩，寫信建議行程",
+  "task": "Your friend Jake is visiting Taipei for five days in December and has asked what he should do. Write an email to him. Suggest two or three things to do or see, explain why, and give him any practical advice he needs.",
+  "taskZh": "你的朋友 Jake 12 月要來台北玩五天，問你該做些什麼。寫一封 email 給他：建議兩、三件可以做或去看的事並說明原因，再給他一些實用的提醒。",
+  "words": {
+    "min": 120,
+    "max": 200
+  },
+  "minutes": 20,
+  "focus": [
+    "回應朋友的問題，建議具體並說明原因",
+    "用 First／Second／Finally 讓建議有條理",
+    "語氣熱情友善，結尾提出下一步"
+  ],
+  "model": {
+    "en": [
+      "Hi Jake,",
+      "I was so excited to read that you are finally coming to Taiwan in December! You asked me what you should do during your five days in Taipei, so here are a few ideas.",
+      "First, you have to try the night markets. Shilin is the most famous one, but I prefer Raohe because it is smaller and less crowded. Make sure you try the pepper buns there, as they are my favorite snack.",
+      "Second, if the weather is good, we could take a day trip to Jiufen. It is an old mountain town with narrow streets and tea houses, and the view of the sea is amazing at sunset. It takes about an hour by bus.",
+      "Finally, please bring a light jacket and an umbrella. December in Taipei is not very cold, but it often rains.",
+      "I can't wait to show you around. Let me know your flight time, and I will meet you at the airport!",
+      "Cheers,",
+      "Wei-Ting"
+    ],
+    "zh": [
+      "Jake 你好：",
+      "看到你 12 月終於要來台灣，我好興奮！你問我在台北的五天該做些什麼，以下是我的幾個建議。",
+      "首先，你一定要去逛夜市。士林夜市最有名，但我比較喜歡饒河夜市，因為它比較小，人也比較少。一定要吃那裡的胡椒餅，那是我最愛的小吃。",
+      "第二，如果天氣好，我們可以去九份一日遊。那是一個山城老街，有狹窄的巷弄和茶館，夕陽下的海景美極了。搭公車大約一小時就到。",
+      "最後，請帶一件薄外套和一把傘。台北的 12 月不太冷，但常常下雨。",
+      "我等不及要帶你到處逛了。告訴我你的班機時間，我會去機場接你！",
+      "祝好",
+      "偉婷"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I was so excited to read that …",
+      "zh": "回應朋友來信的熱情開頭",
+      "example": "I was so excited to read that you are finally coming to Taiwan in December!",
+      "keys": ["so excited", "that"]
+    },
+    {
+      "pattern": "…, but I prefer … because …",
+      "zh": "提出自己的偏好並說明原因",
+      "example": "Shilin is the most famous one, but I prefer Raohe because it is smaller and less crowded.",
+      "keys": ["but i prefer", "because"]
+    },
+    {
+      "pattern": "Make sure you …",
+      "zh": "提醒對方一定要做某事",
+      "example": "Make sure you try the pepper buns there, as they are my favorite snack.",
+      "keys": ["make sure you"]
+    },
+    {
+      "pattern": "It takes about … by …",
+      "zh": "說明交通要花多少時間",
+      "example": "It takes about an hour by bus.",
+      "keys": ["it takes about", "by"]
+    },
+    {
+      "pattern": "I can't wait to …",
+      "zh": "表達期待",
+      "example": "I can't wait to show you around.",
+      "keys": ["can't wait to"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Raohe is smaller.", "Raohe is less crowded."],
+      "answer": "Raohe is smaller and less crowded."
+    },
+    {
+      "parts": ["December in Taipei is not very cold.", "It often rains."],
+      "answer": "December in Taipei is not very cold, but it often rains."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I can't wait to show you around.",
+      "answers": [
+        "I'm really looking forward to showing you around.",
+        "I'm so excited to take you around the city."
+      ]
+    },
+    {
+      "sentence": "It takes about an hour by bus.",
+      "answers": [
+        "The bus ride is about an hour.",
+        "You can get there in about an hour by bus."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

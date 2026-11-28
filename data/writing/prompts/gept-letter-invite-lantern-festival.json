@@ -1,0 +1,99 @@
+{
+  "id": "gept-letter-invite-lantern-festival",
+  "type": "gept",
+  "level": "intermediate",
+  "title": {
+    "en": "Inviting a Friend to the Lantern Festival",
+    "zh": "邀請外國朋友來看元宵燈會"
+  },
+  "subtitle": "全民英檢中級：寫信邀請外國朋友來台灣看燈會",
+  "task": "Your pen pal Emma from Canada has never been to Taiwan. Write a letter of 120–160 words to invite her to visit during the Lantern Festival. In your letter, (1) explain what the festival is, (2) describe what you will do together, and (3) give her some advice for the trip.",
+  "taskZh": "你的加拿大筆友艾瑪從沒來過台灣。請寫一封 120–160 字的信，邀請她在元宵節期間來玩：(1) 說明這個節日是什麼，(2) 描述你們會一起做的事，(3) 給她一些行前建議。",
+  "words": {
+    "min": 120,
+    "max": 160
+  },
+  "minutes": 25,
+  "focus": [
+    "內容：節日介紹、活動安排、行前建議三個要求都要寫到",
+    "組織：開頭說明來意、中間介紹與安排、結尾提出建議與期待，分段清楚",
+    "文法：未來式與祈使句正確，句子完整",
+    "用字與書信格式：用字恰當，有稱呼與結尾，語氣親切"
+  ],
+  "model": {
+    "en": [
+      "Dear Emma,",
+      "I am writing to invite you to Taiwan for the Lantern Festival next February. It is held on the fifteenth day of the Lunar New Year, and it marks the end of the New Year celebrations. On that night, people light colorful lanterns and eat sweet rice balls with their families.",
+      "If you come, we will visit the lantern show in my city together. There are huge lanterns in the shapes of animals, and some of them even move and play music. We can also go to Pingxi, a small town where people write their wishes on sky lanterns and let them fly into the night sky.",
+      "Before you come, remember to bring a light jacket because the evenings can be cool. You should also book your flight early, since many people travel at that time. I really hope you can come.",
+      "Best wishes, Lily"
+    ],
+    "zh": [
+      "親愛的艾瑪：",
+      "我寫這封信是想邀請你明年二月來台灣過元宵節。元宵節在農曆新年的第十五天，代表新年慶祝活動的結束。那天晚上，大家會點亮五顏六色的燈籠，和家人一起吃甜湯圓。",
+      "如果你來，我們會一起去看我們城市的燈會。那裡有動物造型的巨大花燈，有些甚至會動、會播放音樂。我們也可以去平溪，那是一個小鎮，人們會在天燈上寫下願望，讓天燈飛上夜空。",
+      "來之前，記得帶一件薄外套，因為晚上可能會有點涼。你也應該早點訂機票，因為那段時間很多人旅行。我真的很希望你能來。",
+      "祝好，莉莉"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to invite you to …",
+      "zh": "書信開頭：說明寫信的目的是邀請",
+      "example": "I am writing to invite you to Taiwan for the Lantern Festival next February.",
+      "keys": ["i am writing to", "invite you"]
+    },
+    {
+      "pattern": "If you come, we will …",
+      "zh": "用條件句描述對方來了之後的安排",
+      "example": "If you come, we will visit the lantern show in my city together.",
+      "keys": ["if you come", "we will"]
+    },
+    {
+      "pattern": "…, a small town where …",
+      "zh": "用同位語和 where 子句介紹地點",
+      "example": "We can also go to Pingxi, a small town where people write their wishes on sky lanterns and let them fly into the night sky.",
+      "keys": ["a small town where"]
+    },
+    {
+      "pattern": "Remember to … because …",
+      "zh": "提醒對方並說明原因",
+      "example": "Before you come, remember to bring a light jacket because the evenings can be cool.",
+      "keys": ["remember to", "because"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "We can go to Pingxi.",
+        "Pingxi is a small town.",
+        "People fly sky lanterns there."
+      ],
+      "answer": "We can go to Pingxi, a small town where people fly sky lanterns."
+    },
+    {
+      "parts": [
+        "You should book your flight early.",
+        "Many people travel at that time."
+      ],
+      "answer": "You should book your flight early, since many people travel at that time."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It marks the end of the New Year celebrations.",
+      "answers": [
+        "It is the last day of the New Year celebrations.",
+        "It shows that the New Year celebrations are over."
+      ]
+    },
+    {
+      "sentence": "I really hope you can come.",
+      "answers": [
+        "I am looking forward to seeing you.",
+        "I hope you will be able to visit."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

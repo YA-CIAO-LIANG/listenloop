@@ -3,15 +3,15 @@
   "series": "exam",
   "title": "Signing Up for the Relay",
   "titleZh": "報名接力賽",
-  "subtitle": "學測風格對話：運動會要選接力選手，扭傷過腳踝的同學該不該報名？",
+  "subtitle": "高中英聽風格對話：運動會要選接力選手，扭傷過腳踝的同學該不該報名？",
   "format": "dialogue",
   "accent": "us",
   "meta": {
     "category": "exam",
-    "scenario": "gsat-dialogue",
+    "scenario": "hs-discourse-dialogue",
     "level": "beginner",
-    "exam": "gsat",
-    "examTarget": "gsat-basic"
+    "exam": "hs-listening",
+    "examTarget": "hs-c"
   },
   "source": {
     "kind": "original"

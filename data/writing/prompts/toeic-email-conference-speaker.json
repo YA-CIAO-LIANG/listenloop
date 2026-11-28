@@ -1,0 +1,102 @@
+{
+  "id": "toeic-email-conference-speaker",
+  "type": "toeic",
+  "level": "advanced",
+  "title": {
+    "en": "Details for a Conference Talk",
+    "zh": "回覆研討會的演講細節"
+  },
+  "subtitle": "原創模擬題（多益寫作風格）：回覆電子郵件，提供兩項資訊並提出一個請求",
+  "task": "Directions: Read the e-mail below. Respond to the e-mail as if you are Henry Tsai. In your e-mail, give TWO pieces of information about your presentation and make ONE request.\n\nFrom: Rachel Moore, Program Coordinator, Asia Retail Forum\nTo: Henry Tsai\nSubject: Your presentation at the Asia Retail Forum\n\nDear Mr. Tsai,\n\nWe are delighted that you have agreed to speak at the Asia Retail Forum in Singapore on September 9. To help us prepare the program and the room, please send us some details about your presentation.\n\nBest regards,\nRachel Moore",
+  "taskZh": "你（Henry Tsai）答應在 9 月 9 日新加坡的 Asia Retail Forum 演講，主辦單位的 Rachel Moore 來信請你提供演講的細節，方便安排議程和場地。請回信提供兩項關於演講的資訊，並提出一個請求。",
+  "words": {
+    "min": 100,
+    "max": 150
+  },
+  "minutes": 10,
+  "focus": [
+    "任務完成：兩項資訊與一個請求都要明確，時間、設備等細節具體",
+    "組織：用 First、Second 列出資訊，請求另起一段並說明理由",
+    "語氣：專業而有禮，請求用 would it be possible 等委婉說法",
+    "文法與用字：分詞片語、未來式與商業用語正確"
+  ],
+  "model": {
+    "en": [
+      "Dear Ms. Moore,",
+      "Thank you for inviting me to speak at the Asia Retail Forum. I am honored to take part and happy to share the details of my presentation. First, my talk is titled \"How Small Shops Can Compete Online,\" and it will last about 40 minutes, followed by a 10-minute question-and-answer session. Second, I will be showing several short videos, so the room will need a projector with speakers.",
+      "I would also like to make one request. Because some of the audience may be new to online selling, would it be possible to share my slides with participants a few days before the forum? I can send the file to you by August 30 if this is acceptable. Please let me know whether this would work for your team.",
+      "Best regards, Henry Tsai, Marketing Director, Lantern Home Goods"
+    ],
+    "zh": [
+      "Moore 小姐您好：",
+      "謝謝您邀請我在 Asia Retail Forum 演講。能夠參與我深感榮幸，也很樂意提供演講的細節。第一，我的講題是「小商店如何在網路上競爭」，演講約 40 分鐘，之後有 10 分鐘的問答時間。第二，我會播放幾段短片，所以會場需要一台附喇叭的投影機。",
+      "另外，我想提出一個請求。由於有些聽眾可能剛接觸網路銷售，請問能否在論壇前幾天先把我的投影片分享給與會者？如果可以的話，我能在 8 月 30 日前把檔案寄給您。請告訴我這樣是否方便貴團隊作業。",
+      "Lantern Home Goods 行銷總監 蔡亨利 敬上"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am honored to … and happy to …",
+      "zh": "正式地表達榮幸與意願",
+      "example": "I am honored to take part and happy to share the details of my presentation.",
+      "keys": ["i am honored to", "happy to"]
+    },
+    {
+      "pattern": "…, followed by …",
+      "zh": "說明接在後面的安排",
+      "example": "First, my talk is titled \"How Small Shops Can Compete Online,\" and it will last about 40 minutes, followed by a 10-minute question-and-answer session.",
+      "keys": ["is titled", "followed by"]
+    },
+    {
+      "pattern": "…, so the room will need …",
+      "zh": "說明安排，並帶出需要的設備",
+      "example": "Second, I will be showing several short videos, so the room will need a projector with speakers.",
+      "keys": ["i will be showing", "will need"]
+    },
+    {
+      "pattern": "Because …, would it be possible to … before …?",
+      "zh": "先說明理由，再委婉地提出請求",
+      "example": "Because some of the audience may be new to online selling, would it be possible to share my slides with participants a few days before the forum?",
+      "keys": ["because", "would it be possible to"]
+    },
+    {
+      "pattern": "Please let me know whether …",
+      "zh": "請對方回覆是否可行",
+      "example": "Please let me know whether this would work for your team.",
+      "keys": ["please let me know whether"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My talk will last about 40 minutes.",
+        "A 10-minute question-and-answer session will follow it."
+      ],
+      "answer": "My talk will last about 40 minutes, followed by a 10-minute question-and-answer session."
+    },
+    {
+      "parts": [
+        "I will be showing several short videos.",
+        "The room will need a projector with speakers."
+      ],
+      "answer": "I will be showing several short videos, so the room will need a projector with speakers."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I am honored to take part.",
+      "answers": [
+        "It is an honor for me to participate.",
+        "I am very pleased to be involved."
+      ]
+    },
+    {
+      "sentence": "I can send the file to you by August 30.",
+      "answers": [
+        "You will receive the file from me no later than August 30.",
+        "I will be able to send you the file by August 30."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

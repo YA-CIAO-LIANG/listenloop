@@ -1106,7 +1106,7 @@ test("T21 paid: IELTS Task 2 — find it, write Day 1, AI feedback, the model, D
     await dismissNotices(page);
     await page
       .getByRole("group", { name: "題目類型" })
-      .getByRole("button", { name: "考試" })
+      .getByRole("button", { name: "考試英文" })
       .click();
   });
   await step(page, "t21-ielts", "2-prompt", () =>
@@ -1164,7 +1164,7 @@ test("T23 guest: a GSAT composition on a phone — self-score, the week, minutes
     await dismissNotices(page);
     await page
       .getByRole("group", { name: "題目類型" })
-      .getByRole("button", { name: "考試" })
+      .getByRole("button", { name: "考試英文" })
       .click();
     await page
       .getByRole("group", { name: "我今天有幾分鐘" })
@@ -1636,7 +1636,7 @@ for (const [zone, label] of [
         await dismissNotices(page);
         await page
           .getByRole("group", { name: "題目類型" })
-          .getByRole("button", { name: "考試" })
+          .getByRole("button", { name: "考試英文" })
           .click();
         await page
           .getByRole("link", { name: /TOEIC|多益/ })

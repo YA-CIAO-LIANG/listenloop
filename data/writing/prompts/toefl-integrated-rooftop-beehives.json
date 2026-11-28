@@ -1,0 +1,102 @@
+{
+  "id": "toefl-integrated-rooftop-beehives",
+  "type": "toefl-integrated",
+  "level": "intermediate",
+  "title": {
+    "en": "Beehives on City Rooftops",
+    "zh": "城市屋頂養蜂"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課指出城市養蜂可能弊大於利",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: In recent years, many companies and city residents have placed honeybee hives on rooftops. The reading argues that urban beekeeping helps the environment in three ways. First, it helps solve the problem of declining bee populations by adding millions of new bees. Second, it improves the pollination of city parks and gardens, so more flowers, fruit and vegetables grow in urban areas. Third, it raises public awareness, because people who see hives up close learn why bees matter.\n\nLecture: The professor argues that rooftop hives may do more harm than good. First, she explains that the bees in decline are mostly wild species, such as bumblebees, and adding honeybees, which are not endangered, does not help them. Second, cities often lack enough flowers, so large numbers of honeybees compete with wild bees for the same food, which can reduce the pollination wild bees provide. Third, while education is valuable, crowded hives can spread diseases to wild bees, so this awareness comes at a real cost.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要主張在城市屋頂養蜜蜂對環境有三個好處（增加蜂群、改善授粉、提高大眾認識），講課摘要則指出可能弊大於利。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading claims that keeping honeybees on city rooftops benefits the environment. The lecturer, by contrast, argues that urban beekeeping may actually do more harm than good, and she challenges each of the reading's points.",
+      "First, the reading says that rooftop hives help reverse the decline in bee populations. However, the lecturer explains that the bees in decline are mainly wild species, such as bumblebees. Adding honeybees, which are not endangered, does nothing to help these wild bees.",
+      "Second, the lecturer does not accept that more hives mean better pollination. Because cities often have a limited number of flowers, honeybees compete with wild bees for the same food. This competition can reduce the pollination that wild bees normally provide.",
+      "Finally, the reading suggests that rooftop hives raise public awareness about bees. The lecturer admits that education is valuable, but she points out that crowded hives can spread diseases to wild bees. In her view, this awareness comes at a serious cost."
+    ],
+    "zh": [
+      "閱讀文章主張在城市屋頂養蜜蜂對環境有益。相反地，講者認為城市養蜂其實可能弊大於利，並逐一反駁閱讀文章的論點。",
+      "首先，閱讀文章說屋頂蜂箱有助於扭轉蜜蜂數量減少的趨勢。然而，講者解釋，數量減少的主要是野生蜂種，例如熊蜂。增加並未瀕危的蜜蜂，對這些野生蜂毫無幫助。",
+      "其次，講者不認為蜂箱越多，授粉效果就越好。由於城市裡的花通常有限，蜜蜂會和野生蜂爭奪同樣的食物。這種競爭可能減少野生蜂原本提供的授粉。",
+      "最後，閱讀文章認為屋頂蜂箱能提高大眾對蜜蜂的認識。講者承認教育很有價值，但她指出，擁擠的蜂箱可能把疾病傳染給野生蜂。在她看來，這樣的認識代價很大。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The lecturer, by contrast, argues that …",
+      "zh": "點出講者和閱讀文章的對立",
+      "example": "The lecturer, by contrast, argues that urban beekeeping may actually do more harm than good, and she challenges each of the reading's points.",
+      "keys": ["by contrast", "argues that"]
+    },
+    {
+      "pattern": "However, the lecturer explains that …",
+      "zh": "轉述講者的解釋",
+      "example": "However, the lecturer explains that the bees in decline are mainly wild species, such as bumblebees.",
+      "keys": ["however", "the lecturer explains that"]
+    },
+    {
+      "pattern": "… does not accept that …",
+      "zh": "表示講者不接受某個說法",
+      "example": "Second, the lecturer does not accept that more hives mean better pollination.",
+      "keys": ["does not accept that"]
+    },
+    {
+      "pattern": "The lecturer admits that …, but she points out that …",
+      "zh": "先寫講者讓步的部分，再寫她的反駁",
+      "example": "The lecturer admits that education is valuable, but she points out that crowded hives can spread diseases to wild bees.",
+      "keys": ["admits that", "but she points out that"]
+    },
+    {
+      "pattern": "In her view, …",
+      "zh": "轉述講者的結論",
+      "example": "In her view, this awareness comes at a serious cost.",
+      "keys": ["in her view"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Cities often have a limited number of flowers.",
+        "Honeybees compete with wild bees for the same food."
+      ],
+      "answer": "Because cities often have a limited number of flowers, honeybees compete with wild bees for the same food."
+    },
+    {
+      "parts": [
+        "Honeybees are not endangered.",
+        "Adding honeybees does nothing to help wild bees."
+      ],
+      "answer": "Adding honeybees, which are not endangered, does nothing to help wild bees."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Urban beekeeping may do more harm than good.",
+      "answers": [
+        "Keeping bees in cities may cause more problems than it solves.",
+        "The disadvantages of urban beekeeping may outweigh its benefits."
+      ]
+    },
+    {
+      "sentence": "This awareness comes at a serious cost.",
+      "answers": [
+        "Raising awareness this way has a high price.",
+        "The benefit of awareness is not free."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

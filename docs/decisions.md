@@ -4186,3 +4186,15 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
   - 單元測試 `tests/separate-calendars.test.ts`：時間 id 的分類、混合日不相加、只練寫作時聽力的連續天數與週報是空的、只練聽力時寫作的連續天數與週報是空的、寫作週報的數字、`reportWeek`。
   - E2E `e2e/separate-calendars.spec.ts`：只練聽力 → `/writing` 的寫作日曆今天沒有任務、沒有寫作時間，寫作連續天數是空的；只練寫作 → 首頁的聽力日曆今天沒有任務、沒有練習時間，沒有聽力連續天數。`e2e/writing-calendar.spec.ts` 改成確認首頁沒有切換、不顯示寫作，以及寫作連續天數；其他 E2E 與可用性測試（T29 第 3 步）跟著新文字更新。
 - **要改時看哪裡**：`lib/practice-time.ts`（`isListeningTimeId`、`isWritingTimeId`）、`lib/streak.ts`、`lib/analytics.ts`、`lib/weekly-report.ts`（`reportWeek`）、`lib/writing/log.ts`（`writingPracticeDays`）、`lib/writing/analytics.ts`（`writingWeeklyReport`、`writingDailyMinutes`）、`components/PracticeCalendar.tsx`、`components/writing/WritingCalendar.tsx`（`WritingStreak`、`useActivityLog`）、`components/WeeklyReport.tsx`、`components/StatsView.tsx`、`components/writing/WritingStats.tsx`、`docs/design-system.md`。
+
+## D215 「考試英文」分類：教材庫與寫作題目庫的第一排、9 個子分類、7 個考試介紹頁與官方練習資源（2026-11-25，Joe 指定第二項）
+
+- **子分類**（`lib/exam-tracks.ts`，聽力、寫作、介紹頁共用一份設定）：托福、雅思、多益、全民英檢初級／中級／中高級（全民英檢依程度分成 3 個）、學測、高中英聽、國中會考。每個子分類設定它包含哪些聽力教材（考試，必要時加上目標程度）和哪些寫作題型（必要時加上程度：全民英檢寫作的初級＝beginner、中級＝intermediate、中高級＝advanced）。
+- **學測與高中英聽分開**：學測英文沒有聽力；學測英聽其實是大考中心另外舉辦的「高中英語聽力測驗」。所以聽力考試新增 `hs-listening`（高中英聽，題型：對答、言談理解對話、言談理解短文；目標 C／B／A 級），原本 3 份「學測風格聽力」移到這裡。「學測」子分類只有寫作（英文作文），介紹頁說明英聽成績怎麼用、並連到高中英聽。
+- **國中會考**：聽力新增 `cap`（題型：基本問答、言談理解對話、言談理解短文；目標基礎、精熟）。會考英語沒有寫作測驗，寫作的 `cap` 題目是「國中程度短文」，不宣稱是會考題。
+- **題型標示**：教材的情境名稱改成考試的正式題型，例如「Part 3 簡短對話」（多益）、「Part 2（Section 2）獨白」（雅思）、「Lecture 學術講座」（托福）。
+- **教材庫**：篩選的第一排是「考試英文」，只列有教材的子分類，可複選；網址參數 `exam=`；旁邊連到考試介紹。類別「考試聽力」改名「考試英文」。
+- **寫作題目庫**：第一排也是「考試英文」，網址參數 `x=`；題型群組「考試」改名「考試英文」。新增寫作題型 `toefl-integrated`（托福 Integrated：閱讀與講課摘要寫在題目裡，評分標準沿用托福，不改批改提示詞，所以不用重錄寫作 eval）；原本的 `toefl` 顯示成「TOEFL Academic Discussion」。
+- **考試介紹頁**：`/exams`（列表）與 `/exams/<id>`，內容在 `data/exams/<id>.json`（中英文），包括考試簡介、題型、聽力與寫作的評分方式、建議練習方式、這裡的聽力教材與寫作題目（全民英檢依程度分組），以及官方的免費練習資源。資源只放連結（`rel="noopener noreferrer"`，新分頁），每個都實際打開確認可以使用並標示查證日期，不複製內容。頁尾與 sitemap 都有連結。
+- **Migration**：`20261205000000_exam_tracks.sql` 放寬 `practices.exam` 的檢查（加上 `hs-listening`、`cap`），保留 `gsat` 讓舊資料仍然有效。
+- **要改時**：子分類在 `lib/exam-tracks.ts`；介紹內容在 `data/exams/`；題型名稱在翻譯檔的 `categories.scenarios`；篩選在 `components/MaterialLibrary.tsx`、`components/writing/WritingLibrary.tsx`。

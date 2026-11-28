@@ -1,0 +1,137 @@
+{
+  "id": "cap",
+  "name": {
+    "zh": "國中教育會考英語科",
+    "en": "CAP English (Comprehensive Assessment Program for Junior High School Students)"
+  },
+  "summary": {
+    "zh": "臺師大心測中心辦理的國中會考英語科，包含閱讀與聽力兩個題本，成績以精熟、基礎、待加強呈現。英語科沒有寫作測驗。",
+    "en": "The English subject of Taiwan's junior high school exit exam, run by NTNU's Research Center for Psychological and Educational Testing. It has a reading booklet and a listening booklet, reported as Proficient, Basic, or Needs Improvement. There is no English writing test."
+  },
+  "sections": [
+    {
+      "id": "about",
+      "heading": { "zh": "考試簡介", "en": "About the test" },
+      "paragraphs": {
+        "zh": [
+          "國中教育會考由國立臺灣師範大學心理與教育測驗研究發展中心（心測中心）辦理，考國文、英語、數學、社會、自然和寫作測驗，依十二年國教課綱第四學習階段命題。",
+          "英語科分兩階段考：閱讀與聽力。語言成分參見課綱附錄的「基本 1,200 字」與國中基礎文法句構參考表；題材以趣味化、實用化、多元化及生活化為原則。",
+          "會考成績可以作為學力檢定，也可能被各區免試入學用於超額比序；實際用法請依各入學管道的招生簡章。"
+        ],
+        "en": [
+          "The CAP is run by NTNU's Research Center for Psychological and Educational Testing and covers Chinese, English, mathematics, social studies, science, and a writing test, based on the stage-4 (junior high) learning goals of the 12-year curriculum.",
+          "English is tested in two parts: reading and listening. Language content follows the curriculum's basic 1,200-word list and junior high grammar reference table, and topics aim to be interesting, practical, varied, and close to daily life.",
+          "Results serve as an achievement check and may be used in tie-breaking for exam-free high school admission in each district; follow each admission channel's guidelines."
+        ]
+      }
+    },
+    {
+      "id": "format",
+      "heading": { "zh": "題型", "en": "Format" },
+      "paragraphs": {
+        "zh": [
+          "閱讀：40～45 題四選一選擇題，60 分鐘。單題評量字彙、語意與語法（12～25 題），題組評量篇章理解，包括克漏字與整段閱讀（20～30 題）。",
+          "聽力：20～30 題三選一選擇題，25 分鐘，分三部分：辨識句意（聽一句話選出符合的圖片，3～10 題）、基本問答（選出最適合的回應，7～10 題）、言談理解（短文與對話，評量細節、推論、猜字、主旨，10～15 題）。",
+          "聽力每題播放兩次，兩次之間停頓幾秒；每部分開始前會先播作答說明。錄音以標準美式發音、接近真實的正常速度錄製，速度與發音方式和國中聽力教材一致。"
+        ],
+        "en": [
+          "Reading: 40–45 four-option multiple-choice items in 60 minutes. Single items test vocabulary, meaning, and grammar (12–25 items); sets test passage comprehension, including cloze and full passages (20–30 items).",
+          "Listening: 20–30 three-option multiple-choice items in 25 minutes, in three parts: sentence recognition (choose the matching picture, 3–10 items), basic responses (choose the best reply, 7–10 items), and discourse comprehension (short talks and conversations testing details, inference, word meaning, and main idea, 10–15 items).",
+          "Each listening item is played twice with a pause of a few seconds between, and instructions are played before each part. Recordings use standard American pronunciation at a near-natural normal speed, consistent with junior high listening materials."
+        ]
+      }
+    },
+    {
+      "id": "listening-scoring",
+      "heading": { "zh": "聽力的評分方式", "en": "How listening is scored" },
+      "paragraphs": {
+        "zh": [
+          "會考採標準參照：英語（閱讀）分精熟、基礎、待加強三級；英語（聽力）以基礎簡易的題目為主，只分「基礎」與「待加強」兩級。",
+          "為了給出單一的英語整體等級，心測中心依閱讀與聽力的答對題數計算英語加權分數，原則是聽力占 20%、閱讀占 80%，再依加權分數判定整體等級。每年寄成績單前，會考網站會公告「閱讀與聽力答對題數對應整體等級加標示對照表」。",
+          "整體等級的精熟與基礎會再加註標示：A++ 為精熟等級前 25%、A+ 為前 26%～50%；B++ 為基礎等級前 25%、B+ 為前 26%～50%。標示只加在英語整體等級，閱讀與聽力各自的等級不另加標示。"
+        ],
+        "en": [
+          "The CAP is criterion-referenced. English Reading is graded Proficient, Basic, or Needs Improvement; English Listening uses basic, simple items and is graded only Basic or Needs Improvement.",
+          "To give one overall English grade, a weighted score is calculated from the number correct in reading and listening, weighted 80% reading and 20% listening, and the overall grade is set from that score. Before score reports are sent each year, the CAP website publishes a table mapping reading and listening correct answers to the overall grade and tag.",
+          "Proficient and Basic overall grades get tags: A++ for the top 25% of Proficient and A+ for the next 26–50%; B++ for the top 25% of Basic and B+ for the next 26–50%. Tags apply only to the overall English grade, not to the separate reading and listening grades."
+        ]
+      }
+    },
+    {
+      "id": "writing-scoring",
+      "heading": { "zh": "寫作的評分方式", "en": "How writing is scored" },
+      "paragraphs": {
+        "zh": [
+          "會考英語科沒有寫作測驗。會考的「寫作測驗」是國語文（中文）的引導寫作，50 分鐘、1 題，以一到六級分評分，和英語科無關。",
+          "雖然不考英文寫作，練習寫國中程度的英文短文仍然有幫助：自己寫句子時，會更注意字彙、時態與句型，這些正是閱讀單題（字彙與語法）評量的內容；寫完再檢查，也能幫你在聽力中更快抓到句子結構。"
+        ],
+        "en": [
+          "CAP English has no writing test. The CAP's writing test is Chinese-language guided writing — one prompt in 50 minutes, scored on a 1–6 scale — and is not part of English.",
+          "Even so, writing short English texts at junior high level helps: producing your own sentences makes you notice vocabulary, tense, and sentence patterns, which are exactly what the single reading items (vocabulary and grammar) test, and it helps you recognise sentence structure faster when listening."
+        ]
+      }
+    },
+    {
+      "id": "practice",
+      "heading": { "zh": "建議練習方式", "en": "How to practise" },
+      "paragraphs": {
+        "zh": [
+          "會考聽力每題播兩次、以基礎題為主，重點是把常用字和日常句子聽清楚。ListenLoop 第 1 天逐句聽寫，會讓你看到自己哪些字還聽不出來；第 2～6 天跟讀，讓聲音和字對得起來；第 7 天再聽寫一次，和第 1 天比較。建議從較短、較慢、日常生活主題的教材開始。",
+          "會考錄音以美式發音為準，可以在教材庫用口音篩選美式教材。",
+          "如果想同時練寫作，可以用 WritingLoop 寫國中程度的短文：第 1 天寫一段並取得回饋，第 2～6 天做短練習，第 7 天不看舊稿重寫同一題。考前請用會考網站的歷屆試題，依正式時間完整練習。"
+        ],
+        "en": [
+          "CAP listening plays each item twice and uses basic items, so the goal is to hear common words and everyday sentences clearly. ListenLoop's Day 1 sentence-by-sentence dictation shows which words you can't yet catch; Days 2–6 of shadowing link sounds to words; Day 7 repeats the dictation to compare with Day 1. Start with shorter, slower material on everyday topics.",
+          "CAP recordings use American pronunciation, so use the library's accent filter to choose American material.",
+          "To practise writing too, use WritingLoop for junior-high-level short texts: write a paragraph on Day 1 and get feedback, do short exercises on Days 2–6, and rewrite the same prompt on Day 7 without looking at your first draft. Before the exam, do past papers from the CAP website under real timing."
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "title": {
+        "zh": "英語科考試內容（題本架構與聽力作答說明）",
+        "en": "English test content (booklet structure and listening instructions)"
+      },
+      "publisher": "臺師大心理與教育測驗研究發展中心",
+      "url": "https://cap.rcpet.edu.tw/test4-3.html",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "歷屆試題（含英語閱讀、聽力與參考答案）",
+        "en": "Past papers (English reading, listening, and answers)"
+      },
+      "publisher": "臺師大心理與教育測驗研究發展中心",
+      "url": "https://cap.rcpet.edu.tw/examination.html",
+      "kind": "past-papers",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": { "zh": "英語科等級示例", "en": "English level examples" },
+      "publisher": "臺師大心理與教育測驗研究發展中心",
+      "url": "https://cap.rcpet.edu.tw/exam3-3.html",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": { "zh": "成績計算及應用", "en": "Score calculation and use" },
+      "publisher": "臺師大心理與教育測驗研究發展中心",
+      "url": "https://cap.rcpet.edu.tw/score3.html",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "英語科計分方式說明（PDF）",
+        "en": "How English is scored (PDF)"
+      },
+      "publisher": "臺師大心理與教育測驗研究發展中心",
+      "url": "https://cap.rcpet.edu.tw/documents/%E5%9C%8B%E4%B8%AD%E6%95%99%E8%82%B2%E6%9C%83%E8%80%83%E8%8B%B1%E8%AA%9E%E7%A7%91%E8%A8%88%E5%88%86%E6%96%B9%E5%BC%8F%E8%AA%AA%E6%98%8E.pdf",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    }
+  ]
+}

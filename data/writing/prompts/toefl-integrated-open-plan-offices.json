@@ -1,0 +1,102 @@
+{
+  "id": "toefl-integrated-open-plan-offices",
+  "type": "toefl-integrated",
+  "level": "intermediate",
+  "title": {
+    "en": "Do Open-Plan Offices Work?",
+    "zh": "開放式辦公室真的有效嗎？"
+  },
+  "subtitle": "舊制題型・原創模擬題：整合寫作，講課反駁開放式辦公室的三個優點",
+  "task": "Read the summary of a reading passage and a lecture on the same topic. Then write your response.\n\nReading: Many companies have replaced private offices with open-plan workspaces, where employees sit together in one large room without walls. The reading argues that this design has three advantages. First, it improves communication, because employees can easily talk to one another. Second, it saves money, since a company can fit more workers into less space. Third, it encourages creativity, as people from different teams share ideas when they see each other every day and overhear one another's conversations.\n\nLecture: The professor argues that open offices often fail to deliver these benefits. First, she cites a study in which face-to-face conversations dropped sharply after companies removed their walls, while emails and online messages increased, because employees wanted privacy. Second, the savings on space are not real savings: illnesses spread more easily in a shared room, so workers take more sick days. Third, constant noise and interruptions make it hard to concentrate, which reduces the deep thinking that creative work requires.\n\nSummarize the points made in the lecture, and explain how they challenge the specific points made in the reading. Write 150 to 225 words.",
+  "taskZh": "整合寫作：閱讀摘要主張開放式辦公室有三個優點（改善溝通、節省成本、激發創意），講課摘要則逐點反駁。請摘要講課的重點，並說明它們如何反駁閱讀文章的論點。建議寫 150–225 字，限時 20 分鐘。",
+  "words": {
+    "min": 150,
+    "max": 225
+  },
+  "minutes": 20,
+  "focus": [
+    "準確寫出講課的每個重點，不加入自己的意見",
+    "說明每個講課重點對應閱讀的哪個論點、如何反駁",
+    "組織清楚：開頭點出兩者的對立，再逐點分段說明",
+    "用字精確、文法正確，用自己的話改寫而不照抄"
+  ],
+  "model": {
+    "en": [
+      "The reading argues that open-plan offices improve communication, save money and encourage creativity. However, the lecturer claims that these offices often fail to deliver the benefits the reading describes.",
+      "First, the lecturer contradicts the idea that open offices improve communication. She cites a study in which face-to-face conversations dropped sharply after companies removed their walls. Instead of talking, employees sent more emails and online messages because they wanted some privacy.",
+      "Second, the lecturer argues that the savings on space are not real savings. Since illnesses spread more easily in a shared room, workers in open offices take more sick days. These lost workdays cancel out the money a company saves on space.",
+      "Finally, the reading's claim about creativity is also challenged. According to the lecturer, constant noise and interruptions make it difficult for employees to concentrate. Without this kind of concentration, people simply cannot do the deep thinking that creative work requires."
+    ],
+    "zh": [
+      "閱讀文章主張開放式辦公室能改善溝通、節省成本並激發創意。然而，講者認為這類辦公室往往無法帶來閱讀文章所描述的好處。",
+      "首先，講者反駁開放式辦公室能改善溝通的說法。她引用一項研究，發現公司拆掉隔間後，面對面的交談大幅減少。員工沒有多交談，反而因為想保有一些隱私而發更多電子郵件和線上訊息。",
+      "其次，講者認為空間上省下的錢並不是真正的節省。由於疾病在共用空間裡更容易傳播，開放式辦公室的員工請病假的天數比較多。這些損失的工作天抵銷了公司在空間上省下的錢。",
+      "最後，閱讀文章關於創意的說法也受到質疑。根據講者的說法，持續的噪音和干擾讓員工難以專心。少了專注，人們就無法進行創意工作所需要的深度思考。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The reading argues that …",
+      "zh": "開頭先簡述閱讀文章的三個論點",
+      "example": "The reading argues that open-plan offices improve communication, save money and encourage creativity.",
+      "keys": ["the reading argues that"]
+    },
+    {
+      "pattern": "However, the lecturer claims that …",
+      "zh": "點出講者的整體立場",
+      "example": "However, the lecturer claims that these offices often fail to deliver the benefits the reading describes.",
+      "keys": ["however", "the lecturer claims that"]
+    },
+    {
+      "pattern": "… contradicts the idea that …",
+      "zh": "說明講者反駁哪一個論點",
+      "example": "First, the lecturer contradicts the idea that open offices improve communication.",
+      "keys": ["contradicts the idea that"]
+    },
+    {
+      "pattern": "She cites a study in which …",
+      "zh": "轉述講者引用的研究證據",
+      "example": "She cites a study in which face-to-face conversations dropped sharply after companies removed their walls.",
+      "keys": ["she cites a study in which"]
+    },
+    {
+      "pattern": "… cancel out …",
+      "zh": "說明某個損失抵銷了好處",
+      "example": "These lost workdays cancel out the money a company saves on space.",
+      "keys": ["cancel out"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Illnesses spread more easily in a shared room.",
+        "Workers in open offices take more sick days."
+      ],
+      "answer": "Since illnesses spread more easily in a shared room, workers in open offices take more sick days."
+    },
+    {
+      "parts": [
+        "Employees did not talk more.",
+        "They sent more emails and online messages."
+      ],
+      "answer": "Instead of talking more, employees sent more emails and online messages."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Constant noise makes it difficult for employees to concentrate.",
+      "answers": [
+        "Employees find it hard to focus when there is always noise.",
+        "Continuous noise prevents workers from concentrating."
+      ]
+    },
+    {
+      "sentence": "These lost workdays cancel out the money a company saves.",
+      "answers": [
+        "The sick days use up the money the company saves.",
+        "Any savings disappear because of the lost workdays."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -1,3 +1,9 @@
+import {
+  EXAM_TRACK_IDS,
+  findExamTrack,
+  inListeningTrack,
+  type ExamTrackId,
+} from "./exam-tracks";
 import { WORDS_PER_MINUTE } from "@/lib/custom-practice/generation";
 import { VOICE_ACCENTS, type VoiceAccent } from "@/lib/ai/types";
 import {
@@ -79,6 +85,8 @@ export const VIDEO_CATEGORY_IN_LIBRARY: Readonly<
 
 export type LibraryFilter = {
   query: string;
+  /** "Exam English" (D215): exams (GEPT by level), any of them. */
+  exams: readonly ExamTrackId[];
   kinds: readonly MaterialKind[];
   categories: readonly CategoryId[];
   /** Scenarios within the chosen categories (D79). */
@@ -94,6 +102,7 @@ export type LibraryFilter = {
 
 export const NO_LIBRARY_FILTER: LibraryFilter = {
   query: "",
+  exams: [],
   kinds: [],
   categories: [],
   scenarios: [],
@@ -107,6 +116,7 @@ export const NO_LIBRARY_FILTER: LibraryFilter = {
 /** URL parameter names, short since they're shared in links. */
 export const LIBRARY_PARAMS = {
   query: "q",
+  exams: "exam",
   kinds: "type",
   categories: "cat",
   scenarios: "sc",
@@ -135,6 +145,7 @@ export function parseLibraryParams(params: {
   const length = params.get(LIBRARY_PARAMS.length);
   return {
     query: (params.get(LIBRARY_PARAMS.query) ?? "").slice(0, 100),
+    exams: pick(EXAM_TRACK_IDS, params.get(LIBRARY_PARAMS.exams)),
     kinds: pick(MATERIAL_KINDS, params.get(LIBRARY_PARAMS.kinds)),
     // At most MAX_CATEGORIES (D104).
     categories: pick(CATEGORY_IDS, params.get(LIBRARY_PARAMS.categories)).slice(
@@ -167,6 +178,7 @@ export function writeLibraryParams(
   const set = (name: string, value: string) =>
     value ? next.set(name, value) : next.delete(name);
   set(LIBRARY_PARAMS.query, filter.query.trim());
+  set(LIBRARY_PARAMS.exams, filter.exams.join(","));
   set(LIBRARY_PARAMS.kinds, filter.kinds.join(","));
   set(LIBRARY_PARAMS.categories, filter.categories.join(","));
   set(LIBRARY_PARAMS.scenarios, filter.scenarios.join(","));
@@ -184,6 +196,7 @@ export function writeLibraryParams(
 /** How many filters in the panel are on, for "篩選（3）". */
 export function activeFilterCount(filter: LibraryFilter): number {
   return (
+    filter.exams.length +
     filter.kinds.length +
     filter.categories.length +
     filter.scenarios.length +
@@ -234,6 +247,8 @@ export function matchesLibraryFilter(
   const within = <T>(chosen: readonly T[], value: T | null) =>
     chosen.length === 0 || (value !== null && chosen.includes(value));
   return (
+    (filter.exams.length === 0 ||
+      filter.exams.some((id) => inListeningTrack(item, findExamTrack(id)!))) &&
     within(filter.kinds, item.kind) &&
     inCategories(item.category, filter.categories) &&
     within(filter.scenarios, item.scenario) &&

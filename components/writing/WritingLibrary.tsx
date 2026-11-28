@@ -8,6 +8,13 @@ import { CardLink } from "../CardLink";
 import { FilterChip } from "../FilterChip";
 import { Tag } from "../Tag";
 import { toggled } from "../useLibraryFilter";
+import Link from "next/link";
+import {
+  EXAM_TRACKS,
+  EXAM_TRACK_IDS,
+  inWritingTrack,
+  type ExamTrackId,
+} from "@/lib/exam-tracks";
 import {
   filterPrompts,
   hasWritingFilter,
@@ -53,6 +60,7 @@ const changed = () => listeners.forEach((listener) => listener());
  */
 export function WritingLibrary({ prompts }: { prompts: LibraryPrompt[] }) {
   const t = useTranslations("writing");
+  const tAll = useTranslations();
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -112,6 +120,35 @@ export function WritingLibrary({ prompts }: { prompts: LibraryPrompt[] }) {
         {t("library.heading")}
       </h2>
       <div className="flex flex-col gap-4">
+        {/* "Exam English" first (D215): only exams with prompts. */}
+        <ChipRow label={t("library.exams")}>
+          {EXAM_TRACKS.filter((track) =>
+            prompts.some((p) => inWritingTrack(p, track)),
+          ).map((track) => (
+            <FilterChip
+              key={track.id}
+              on={filter.exams.includes(track.id)}
+              onToggle={() =>
+                setFilter({
+                  ...latest.current,
+                  exams: toggled(
+                    latest.current.exams,
+                    track.id as ExamTrackId,
+                    EXAM_TRACK_IDS,
+                  ),
+                })
+              }
+            >
+              {tAll(`examTracks.${track.id}`)}
+            </FilterChip>
+          ))}
+          <Link
+            href="/exams"
+            className="tap self-center text-supporting text-accent-ink underline decoration-1 underline-offset-4 hover:text-ink"
+          >
+            {t("library.examGuides")}
+          </Link>
+        </ChipRow>
         <ChipRow label={t("library.minutes")}>
           {WRITING_MINUTES.map((minutes) => (
             <FilterChip
@@ -174,7 +211,7 @@ export function WritingLibrary({ prompts }: { prompts: LibraryPrompt[] }) {
               size="sm"
               variant="ghost"
               onClick={() =>
-                setFilter({ groups: [], levels: [], minutes: null })
+                setFilter({ exams: [], groups: [], levels: [], minutes: null })
               }
             >
               {t("library.reset")}

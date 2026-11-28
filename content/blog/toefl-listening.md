@@ -31,6 +31,6 @@
 - [Improving My Midterm Essay](/videos/p-2aa761f9-4342-4088-b55a-cd185cd879a9)：和教授在 office hours 討論作業
 - [The Small-Step Way to Beat Procrastination](/videos/p-d8f90c9f-c6f0-4265-977d-e910ddbff79b)：心理學科普，高級
 
-更多：[考試聽力](/learn/exam)與[校園學術](/learn/campus)主題。
+更多：[考試英文](/exams)與[校園學術](/learn/campus)主題。
 
 > 說明：ListenLoop 的考試風格教材是模仿題型與難度的原創內容，不是真實考題，與 ETS 無關。

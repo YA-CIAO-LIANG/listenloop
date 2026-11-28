@@ -1,0 +1,91 @@
+{
+  "id": "gept-essay-memorable-class-trip",
+  "type": "gept",
+  "level": "intermediate",
+  "title": {
+    "en": "A Class Trip I Will Never Forget",
+    "zh": "一次難忘的校外教學"
+  },
+  "subtitle": "全民英檢中級：描述一次難忘的校外教學",
+  "task": "Class trips often give students experiences they cannot get in the classroom. Write an essay of 120–160 words about a class trip you remember well. In your essay, (1) tell where you went and what you did, (2) describe the most interesting moment, and (3) explain why the trip was meaningful to you.",
+  "taskZh": "校外教學常讓學生得到在教室裡得不到的經驗。請寫一篇 120–160 字的英文短文，描述一次你印象深刻的校外教學：(1) 說明去了哪裡、做了什麼，(2) 描述最有趣的時刻，(3) 說明這次活動為什麼對你有意義。",
+  "words": { "min": 120, "max": 160 },
+  "minutes": 25,
+  "focus": [
+    "內容：地點與活動、最有趣的時刻、意義三個要求都要寫到",
+    "組織：依時間順序敘述，開頭、中間、結尾清楚",
+    "文法：過去式正確，善用連接詞與分詞片語",
+    "用字與拼字：描述具體生動，拼字與標點正確"
+  ],
+  "model": {
+    "en": [
+      "In my second year of junior high school, my class took a trip to a tea farm in Pinglin. A farmer showed us how tea leaves are picked, dried, and rolled by hand. After that, we tried picking leaves ourselves under the hot sun.",
+      "The most interesting moment came in the afternoon. Each of us made a small bag of tea from the leaves we had picked. Mine smelled a little burnt, but when I tasted it, I was surprised by how sweet it was. Everyone laughed when our teacher said my tea was the best one.",
+      "This trip was meaningful to me because it changed the way I see everyday things. Before the trip, I never thought about where my drinks came from. Now, every time I drink a cup of tea, I remember how much hard work the farmers put into it."
+    ],
+    "zh": [
+      "國二的時候，我們班去坪林的一座茶園校外教學。一位茶農示範茶葉怎麼用手採摘、乾燥和揉捻。之後，我們在大太陽下親自試著採茶。",
+      "最有趣的時刻是在下午。我們每個人都用自己採的茶葉做了一小包茶。我做的聞起來有點焦，但我嚐了一口之後，很驚訝它竟然這麼甘甜。老師說我的茶是最好喝的，大家都笑了。",
+      "這次校外教學對我很有意義，因為它改變了我看待日常事物的方式。去之前，我從沒想過自己喝的飲料是從哪裡來的。現在，每當我喝一杯茶，就會想起茶農付出了多少辛勞。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "… showed us how … are …",
+      "zh": "用 how 子句說明做法（搭配被動式）",
+      "example": "A farmer showed us how tea leaves are picked, dried, and rolled by hand.",
+      "keys": ["showed us how"]
+    },
+    {
+      "pattern": "I was surprised by how … it was.",
+      "zh": "表達驚訝的程度",
+      "example": "Mine smelled a little burnt, but when I tasted it, I was surprised by how sweet it was.",
+      "keys": ["i was surprised by how"]
+    },
+    {
+      "pattern": "… was meaningful to me because …",
+      "zh": "說明一件事對自己的意義",
+      "example": "This trip was meaningful to me because it changed the way I see everyday things.",
+      "keys": ["meaningful to me because"]
+    },
+    {
+      "pattern": "Every time …, I remember …",
+      "zh": "每當……，就會想起……",
+      "example": "Now, every time I drink a cup of tea, I remember how much hard work the farmers put into it.",
+      "keys": ["every time", "i remember"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Each of us made a small bag of tea.",
+        "We used the leaves we had picked."
+      ],
+      "answer": "Each of us made a small bag of tea from the leaves we had picked."
+    },
+    {
+      "parts": [
+        "Our teacher said my tea was the best one.",
+        "Everyone laughed."
+      ],
+      "answer": "Everyone laughed when our teacher said my tea was the best one."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "It changed the way I see everyday things.",
+      "answers": [
+        "It changed how I look at everyday things.",
+        "It gave me a new view of everyday things."
+      ]
+    },
+    {
+      "sentence": "I never thought about where my drinks came from.",
+      "answers": [
+        "I never wondered where my drinks came from.",
+        "I did not think about how my drinks were made."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

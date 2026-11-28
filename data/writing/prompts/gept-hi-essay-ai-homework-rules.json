@@ -1,0 +1,98 @@
+{
+  "id": "gept-hi-essay-ai-homework-rules",
+  "type": "gept",
+  "level": "advanced",
+  "title": {
+    "en": "Should Students Use AI for Homework?",
+    "zh": "學生該不該用 AI 寫作業？"
+  },
+  "subtitle": "全民英檢中高級：討論學校該如何規範 AI 寫作業",
+  "task": "Many students now use AI chatbots to help with their homework. Some teachers want to ban these tools, while others think students should learn to use them well. Write an essay of 150–180 words. In your essay, (1) discuss one benefit and one danger of using AI for homework, and (2) explain what rules you think schools should set, giving your reasons.",
+  "taskZh": "現在很多學生用 AI 聊天機器人幫忙寫作業。有些老師想禁止這類工具，也有老師認為學生應該學會好好使用。請寫一篇 150–180 字的英文文章：(1) 討論用 AI 寫作業的一個好處和一個危險，(2) 說明你認為學校應該訂定什麼規則，並提出理由。",
+  "words": { "min": 150, "max": 180 },
+  "minutes": 35,
+  "focus": [
+    "內容：好處、危險、建議的規則與理由都要寫到，論點清楚",
+    "組織：引言、正反討論、立場與規則層次分明",
+    "文法：讓步句、條件句與名詞子句運用正確，句型多樣",
+    "用字：字彙精確，用 while、whereas 等連接詞表達對比"
+  ],
+  "model": {
+    "en": [
+      "In just a few years, AI chatbots have become a common part of student life. While some teachers see them as a threat, I believe the real question is not whether students use AI, but how they use it.",
+      "Used wisely, AI can be an excellent study partner. A student who does not understand a math problem at midnight can ask a chatbot to explain it step by step, instead of waiting until the next class. The danger, however, is that AI makes it too easy to skip the thinking process. If students simply copy the answers it produces, they may get good grades without actually learning anything.",
+      "Therefore, I think schools should allow AI but set clear rules. Students should be required to note when and how they used it, just as they list the sources in a report. In addition, some tests and essays should be done in class without any devices. These rules would let students enjoy the benefits of AI while making sure they still learn to think for themselves."
+    ],
+    "zh": [
+      "短短幾年內，AI 聊天機器人已經成為學生生活中常見的一部分。雖然有些老師把它們視為威脅，但我認為真正的問題不在於學生用不用 AI，而在於怎麼用。",
+      "如果使用得當，AI 可以是很棒的讀書夥伴。半夜看不懂數學題的學生，可以請聊天機器人一步一步解釋，而不必等到下一堂課。然而，危險在於 AI 讓人太容易跳過思考的過程。如果學生只是照抄它產生的答案，他們也許能拿到好成績，卻什麼也沒有真正學到。",
+      "因此，我認為學校應該允許使用 AI，但要訂定清楚的規則。學生應該被要求註明何時、如何使用了 AI，就像在報告中列出參考資料一樣。此外，有些考試和作文應該在課堂上、不使用任何裝置完成。這些規則能讓學生享有 AI 的好處，同時確保他們仍然學會獨立思考。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "The real question is not whether …, but how …",
+      "zh": "重新界定問題的重點",
+      "example": "While some teachers see them as a threat, I believe the real question is not whether students use AI, but how they use it.",
+      "keys": ["while", "not whether", "but how"]
+    },
+    {
+      "pattern": "Used wisely, … can be …",
+      "zh": "過去分詞構句：表示條件",
+      "example": "Used wisely, AI can be an excellent study partner.",
+      "keys": ["used wisely", "can be"]
+    },
+    {
+      "pattern": "The danger, however, is that …",
+      "zh": "轉折：點出危險",
+      "example": "The danger, however, is that AI makes it too easy to skip the thinking process.",
+      "keys": ["the danger", "however", "is that"]
+    },
+    {
+      "pattern": "… should be required to …, just as …",
+      "zh": "提出規則，並用類比說明",
+      "example": "Students should be required to note when and how they used it, just as they list the sources in a report.",
+      "keys": ["should be required to", "just as"]
+    },
+    {
+      "pattern": "… while making sure …",
+      "zh": "兼顧兩件事：享有好處，同時確保……",
+      "example": "These rules would let students enjoy the benefits of AI while making sure they still learn to think for themselves.",
+      "keys": ["while making sure", "think for themselves"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Students may simply copy the answers.",
+        "They may get good grades.",
+        "They will not actually learn anything."
+      ],
+      "answer": "If students simply copy the answers, they may get good grades without actually learning anything."
+    },
+    {
+      "parts": [
+        "A student does not understand a math problem.",
+        "The student can ask a chatbot to explain it."
+      ],
+      "answer": "A student who does not understand a math problem can ask a chatbot to explain it."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "AI makes it too easy to skip the thinking process.",
+      "answers": [
+        "With AI, students can easily avoid thinking for themselves.",
+        "AI tempts students to get answers without thinking."
+      ]
+    },
+    {
+      "sentence": "Schools should allow AI but set clear rules.",
+      "answers": [
+        "Schools should permit AI with clear limits.",
+        "AI should be allowed in schools, but only under clear rules."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

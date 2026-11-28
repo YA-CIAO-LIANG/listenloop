@@ -1,0 +1,104 @@
+{
+  "id": "opinion-gap-year",
+  "type": "opinion",
+  "level": "advanced",
+  "title": {
+    "en": "Taking a Gap Year",
+    "zh": "上大學前的空檔年"
+  },
+  "subtitle": "上大學前先休息一年，利大於弊嗎？",
+  "task": "Some young people take a gap year to work, travel, or volunteer before starting university. Do the advantages of taking a gap year outweigh the disadvantages? Give reasons and relevant examples from your own knowledge or experience.",
+  "taskZh": "有些年輕人在上大學前會先花一年工作、旅行或當志工。空檔年的好處是否大於壞處？請根據你的知識或經驗，提出理由與相關例子。",
+  "words": {
+    "min": 180,
+    "max": 280
+  },
+  "minutes": 40,
+  "focus": [
+    "明確回答「好處是否大於壞處」",
+    "論點有具體例子與發展，並回應反方",
+    "句型多樣、用字精準",
+    "段落結構清楚，結論呼應立場"
+  ],
+  "model": {
+    "en": [
+      "In many Western countries, it is common for school leavers to take a year off before university, and the idea is slowly becoming popular in Taiwan as well. Although a gap year has some risks, I believe its advantages clearly outweigh its disadvantages.",
+      "The greatest benefit is that it gives young people time to discover what they really want to study. Many students in Taiwan choose a major based on their exam scores rather than their interests, and some end up switching departments or feeling lost for years. A year spent working in a real job or volunteering in a community can show them which fields excite them, so they enter university with a clear purpose.",
+      "A gap year also builds independence. Students who travel on a tight budget or live away from home for the first time have to manage money, solve problems, and deal with people from different backgrounds. These are skills that classrooms rarely teach but that employers value highly.",
+      "Critics argue that a year away from studying makes it harder to return to academic life, and that it can be expensive. These concerns are fair, but they can be managed. A gap year does not have to involve costly travel; working part-time at home and saving money is also a valuable experience.",
+      "In conclusion, as long as it is carefully planned, a gap year is an investment rather than a waste of time."
+    ],
+    "zh": [
+      "在許多西方國家，高中畢業生在上大學前先休息一年很常見，這個觀念在台灣也慢慢流行起來。雖然空檔年有一些風險，但我認為它的好處明顯多於壞處。",
+      "最大的好處是，它讓年輕人有時間找出自己真正想讀什麼。台灣有許多學生依考試分數而不是興趣選科系，有些人最後轉系，或迷惘了好幾年。花一年在真實的職場工作或在社區當志工，可以讓他們知道哪些領域真正讓自己感興趣，帶著明確的目標進入大學。",
+      "空檔年也能培養獨立能力。用有限預算旅行，或第一次離家生活的學生，必須自己管理金錢、解決問題，並和來自不同背景的人相處。這些是課堂上很少教、但雇主非常重視的能力。",
+      "批評者認為，離開課業一年會讓人更難回到學術生活，而且可能花費很高。這些疑慮有道理，但是可以處理的。空檔年不一定要花大錢旅行；在家打工存錢也是很寶貴的經驗。",
+      "總之，只要經過仔細規劃，空檔年是一種投資，而不是浪費時間。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "Although …, I believe … clearly outweigh …",
+      "zh": "讓步後表明立場：好處大於壞處",
+      "example": "Although a gap year has some risks, I believe its advantages clearly outweigh its disadvantages.",
+      "keys": ["although", "outweigh"]
+    },
+    {
+      "pattern": "The greatest benefit is that …",
+      "zh": "提出最重要的好處",
+      "example": "The greatest benefit is that it gives young people time to discover what they really want to study.",
+      "keys": ["the greatest benefit is that"]
+    },
+    {
+      "pattern": "… based on … rather than …",
+      "zh": "依據……而不是……",
+      "example": "Many students in Taiwan choose a major based on their exam scores rather than their interests, and some end up switching departments or feeling lost for years.",
+      "keys": ["based on", "rather than"]
+    },
+    {
+      "pattern": "These concerns are fair, but …",
+      "zh": "承認反方有道理，再反駁",
+      "example": "These concerns are fair, but they can be managed.",
+      "keys": ["concerns are fair", "but"]
+    },
+    {
+      "pattern": "as long as …, … is … rather than …",
+      "zh": "只要……，……就是……而不是……",
+      "example": "In conclusion, as long as it is carefully planned, a gap year is an investment rather than a waste of time.",
+      "keys": ["as long as", "rather than"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "Some students travel on a tight budget.",
+        "They have to manage money."
+      ],
+      "answer": "Students who travel on a tight budget have to manage money."
+    },
+    {
+      "parts": [
+        "Classrooms rarely teach these skills.",
+        "Employers value them highly."
+      ],
+      "answer": "These are skills that classrooms rarely teach but that employers value highly."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Its advantages clearly outweigh its disadvantages.",
+      "answers": [
+        "The benefits are much greater than the drawbacks.",
+        "It does far more good than harm."
+      ]
+    },
+    {
+      "sentence": "A gap year does not have to involve costly travel.",
+      "answers": [
+        "A gap year doesn't need to include expensive trips.",
+        "You can take a gap year without spending a lot on travel."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

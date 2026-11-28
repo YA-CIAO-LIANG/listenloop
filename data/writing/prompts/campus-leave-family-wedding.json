@@ -1,0 +1,96 @@
+{
+  "id": "campus-leave-family-wedding",
+  "type": "campus-leave",
+  "level": "beginner",
+  "title": {
+    "en": "Absent for a Family Wedding",
+    "zh": "參加家人婚禮請假"
+  },
+  "subtitle": "要參加姊姊的婚禮，寫信向老師請假",
+  "task": "You will miss your math class on Friday because you are going to your sister's wedding in another city. Write a short email to your teacher, Mr. Brown. Tell him why you will be absent and ask about the homework.",
+  "taskZh": "你這週五要去外縣市參加姊姊的婚禮，會缺席數學課。寫一封簡短的 email 給 Brown 老師：說明缺席原因，並詢問作業。",
+  "words": {
+    "min": 60,
+    "max": 100
+  },
+  "minutes": 10,
+  "focus": [
+    "清楚說明缺席的日期與原因",
+    "禮貌詢問作業",
+    "email 格式正確（稱呼、結尾）"
+  ],
+  "model": {
+    "en": [
+      "Dear Mr. Brown,",
+      "I am writing to tell you that I will be absent from math class this Friday. My sister is getting married in Kaohsiung, and my family will leave on Thursday night.",
+      "Could you tell me what homework I need to do? I will hand it in on Monday. I will also ask a classmate for the notes.",
+      "Thank you very much.",
+      "Best regards,",
+      "Daniel Wu"
+    ],
+    "zh": [
+      "Brown 老師您好：",
+      "我寫信是要告訴您，這週五我將無法來上數學課。我姊姊要在高雄結婚，我們全家週四晚上就會出發。",
+      "可以請您告訴我需要做哪些作業嗎？我會在星期一交。我也會向同學借筆記。",
+      "非常謝謝您。",
+      "敬祝 安好",
+      "吳丹尼爾"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I am writing to tell you that I will be absent from …",
+      "zh": "請假信開頭：說明來信目的",
+      "example": "I am writing to tell you that I will be absent from math class this Friday.",
+      "keys": ["writing to tell you", "absent from"]
+    },
+    {
+      "pattern": "Could you tell me what …?",
+      "zh": "禮貌地詢問",
+      "example": "Could you tell me what homework I need to do?",
+      "keys": ["could you tell me what"]
+    },
+    {
+      "pattern": "I will hand it in on …",
+      "zh": "說明繳交時間",
+      "example": "I will hand it in on Monday.",
+      "keys": ["hand it in"]
+    },
+    {
+      "pattern": "ask … for …",
+      "zh": "向某人要某物",
+      "example": "I will also ask a classmate for the notes.",
+      "keys": ["ask", "for"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "My sister is getting married in Kaohsiung.",
+        "My family will leave on Thursday night."
+      ],
+      "answer": "My sister is getting married in Kaohsiung, and my family will leave on Thursday night."
+    },
+    {
+      "parts": ["I will do the homework.", "I will hand it in on Monday."],
+      "answer": "I will do the homework and hand it in on Monday."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "I will be absent from math class this Friday.",
+      "answers": [
+        "I will miss math class this Friday.",
+        "I can't come to math class on Friday."
+      ]
+    },
+    {
+      "sentence": "I will hand it in on Monday.",
+      "answers": [
+        "I will turn it in on Monday.",
+        "I will give it to you on Monday."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

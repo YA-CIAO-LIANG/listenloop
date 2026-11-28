@@ -1,0 +1,96 @@
+{
+  "id": "diary-first-part-time-shift",
+  "type": "diary",
+  "level": "intermediate",
+  "title": {
+    "en": "My First Part-Time Shift",
+    "zh": "第一次打工"
+  },
+  "subtitle": "記錄第一天打工的經過、最難的時刻與收穫",
+  "task": "Write a diary entry about your first day at a part-time job. Describe what you did, one moment that was harder than you expected, and what you learned from the day.",
+  "taskZh": "寫一篇日記，記錄你第一天打工的經過：你做了哪些事？有哪個時刻比你預期的更困難？你從這一天學到了什麼？",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 20,
+  "focus": [
+    "用過去式寫出事情經過，時態一致",
+    "具體描寫最困難的一刻與當時的心情",
+    "結尾寫出反思與下次的做法"
+  ],
+  "model": {
+    "en": [
+      "Today was my first shift at the bubble tea shop near my university. I arrived fifteen minutes early, but I was still nervous when the manager handed me an apron. She showed me how to seal the cups and take orders on the screen. It looked simple when she did it.",
+      "Around six o'clock, things got much harder than I had expected. A long line formed, and customers kept asking for less sugar, no ice, or extra pearls. I mixed up two orders, and one customer had to wait an extra ten minutes. I apologized again and again, and my face turned red. Luckily, a coworker stepped in and helped me sort everything out.",
+      "The biggest lesson today was that staying calm matters more than being fast. Next time, I will read each order out loud before I start making it. I am tired now, but I am also proud that I did not quit halfway."
+    ],
+    "zh": [
+      "今天是我在大學附近手搖飲店的第一次上班。我提早 15 分鐘到，但店長遞給我圍裙時，我還是很緊張。她教我怎麼封杯，還有怎麼在螢幕上點單。她做起來看起來很簡單。",
+      "大約 6 點時，情況變得比我預期的困難許多。店門口排起長長的隊伍，客人不停要求少糖、去冰或加珍珠。我把兩杯飲料的單弄混了，害一位客人多等了 10 分鐘。我一再道歉，臉都紅了。幸好，一位同事過來幫忙，幫我把一切處理好。",
+      "今天最大的收穫是：保持冷靜比動作快更重要。下次，我會在開始做飲料之前，先把每張單大聲唸出來。我現在很累，但也很驕傲自己沒有半途而廢。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "much harder than I had expected",
+      "zh": "比我預期的難得多（過去完成式比較）",
+      "example": "Around six o'clock, things got much harder than I had expected.",
+      "keys": ["harder than", "had expected"]
+    },
+    {
+      "pattern": "kept + V-ing",
+      "zh": "不停地做某事",
+      "example": "A long line formed, and customers kept asking for less sugar, no ice, or extra pearls.",
+      "keys": ["kept asking"]
+    },
+    {
+      "pattern": "stepped in and helped me …",
+      "zh": "出手幫忙",
+      "example": "Luckily, a coworker stepped in and helped me sort everything out.",
+      "keys": ["stepped in", "helped me"]
+    },
+    {
+      "pattern": "… matters more than …",
+      "zh": "……比……更重要",
+      "example": "The biggest lesson today was that staying calm matters more than being fast.",
+      "keys": ["matters more than"]
+    },
+    {
+      "pattern": "I am … , but I am also proud that …",
+      "zh": "雖然……，但也為……感到驕傲",
+      "example": "I am tired now, but I am also proud that I did not quit halfway.",
+      "keys": ["proud that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["I arrived fifteen minutes early.", "I was still nervous."],
+      "answer": "I arrived fifteen minutes early, but I was still nervous."
+    },
+    {
+      "parts": [
+        "I mixed up two orders.",
+        "One customer had to wait an extra ten minutes."
+      ],
+      "answer": "I mixed up two orders, so one customer had to wait an extra ten minutes."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "A coworker stepped in and helped me sort everything out.",
+      "answers": [
+        "A coworker came over and helped me fix everything.",
+        "A coworker helped me solve the problem."
+      ]
+    },
+    {
+      "sentence": "I did not quit halfway.",
+      "answers": [
+        "I did not give up in the middle.",
+        "I kept going until the end."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

@@ -185,10 +185,10 @@ test("the library filters by kind, level, and minutes, and keeps a default", asy
 }) => {
   await page.goto("/writing");
   const kinds = page.getByRole("group", { name: "題目類型" });
-  await kinds.getByRole("button", { name: "考試" }).click();
+  await kinds.getByRole("button", { name: "考試英文" }).click();
   await expect(page).toHaveURL(/g=exam/);
   // Exams only (IELTS, TOEFL, GEPT, GSAT, TOEIC, junior high), no everyday prompts (D189, D213).
-  await expect(page.getByText("27 個題目")).toBeVisible();
+  await expect(page.getByText("80 個題目")).toBeVisible();
   await expect(
     page.getByRole("link", { name: /My Perfect Weekend/ }),
   ).toHaveCount(0);
@@ -197,9 +197,9 @@ test("the library filters by kind, level, and minutes, and keeps a default", asy
     .getByRole("group", { name: "我今天有幾分鐘" })
     .getByRole("button", { name: "10 分鐘內" })
     .click();
-  await expect(page.getByText("6 個題目")).toBeVisible();
+  await expect(page.getByText("13 個題目")).toBeVisible();
   await page.getByRole("button", { name: "清除篩選" }).click();
-  await expect(page.getByText("64 個題目")).toBeVisible();
+  await expect(page.getByText("142 個題目")).toBeVisible();
   await page
     .getByRole("group", { name: "我今天有幾分鐘" })
     .getByRole("button", { name: "15 分鐘內" })

@@ -1,0 +1,92 @@
+{
+  "id": "gsat-essay-learning-from-failure",
+  "type": "gsat",
+  "level": "advanced",
+  "title": {
+    "en": "What a Failure Taught Me",
+    "zh": "一次失敗教會我的事"
+  },
+  "subtitle": "原創模擬題（學測風格）：敘述經驗並反思的兩段式作文",
+  "task": "Everyone fails at something at some point. Write an English composition of at least 120 words in two paragraphs. In the first paragraph, describe a time when you failed at something that was important to you and how you felt then. In the second paragraph, explain what you learned from this experience and how it has changed the way you face challenges.",
+  "taskZh": "每個人都曾經失敗過。請寫一篇至少 120 字、兩段的英文作文。第一段描述一次你在重要的事情上失敗的經驗，以及當時的感受；第二段說明你從這次經驗學到什麼，以及它如何改變你面對挑戰的方式。",
+  "words": {
+    "min": 120,
+    "max": 180
+  },
+  "minutes": 30,
+  "focus": [
+    "內容：第一段經驗具體、有感受，第二段反思深入、有改變",
+    "組織：兩段各自完成任務，段落內有主題句",
+    "文法句構：時態正確，強調句、分詞構句等句型有變化",
+    "字彙拼字：用字精確、拼字正確"
+  ],
+  "model": {
+    "en": [
+      "In my second year of junior high school, I tried out for the school basketball team and failed. I had practiced shooting every evening for a whole summer, so I was confident that my name would be on the list. When the coach announced the team, however, my name was nowhere to be found. I remember walking home in silence, feeling as if all my effort had been wasted. For several days, I could not even look at a basketball.",
+      "Looking back, I realize that this failure taught me more than success ever could. When I finally asked the coach for advice, he pointed out that I was good at shooting but weak at passing and defense. It was not until then that I understood I had only practiced what I already enjoyed. The next year, I worked on my weak points and made the team. Now, whenever I face a challenge, I no longer see failure as the end. Instead, I treat it as honest feedback that shows me where to improve."
+    ],
+    "zh": [
+      "國二那年，我參加校隊籃球甄選，結果落選了。我整個暑假每天傍晚都練投籃，所以很有把握名單上會有我的名字。然而，教練公布名單時，上面卻完全找不到我的名字。我記得自己一路沉默地走回家，覺得所有的努力好像都白費了。有好幾天，我甚至連看都不想看籃球一眼。",
+      "回頭看，我發現這次失敗教會我的，比成功所能教的還多。當我終於去請教教練時，他指出我投籃很好，但傳球和防守很弱。直到那時我才明白，我一直只練自己本來就喜歡的部分。隔年，我針對弱點加強，終於進了校隊。現在，每當我面對挑戰，我不再把失敗看成終點。相反地，我把它當成誠實的回饋，告訴我該在哪裡進步。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "…, feeling as if …",
+      "zh": "分詞構句加 as if，描寫當下的感受",
+      "example": "I remember walking home in silence, feeling as if all my effort had been wasted.",
+      "keys": ["feeling as if"]
+    },
+    {
+      "pattern": "Looking back, I realize that …",
+      "zh": "回頭看，我發現……（開始反思）",
+      "example": "Looking back, I realize that this failure taught me more than success ever could.",
+      "keys": ["looking back", "realize that"]
+    },
+    {
+      "pattern": "It was not until … that …",
+      "zh": "直到……才……（強調句）",
+      "example": "It was not until then that I understood I had only practiced what I already enjoyed.",
+      "keys": ["it was not until", "that"]
+    },
+    {
+      "pattern": "whenever …, I no longer …",
+      "zh": "每當……，我不再……（說明改變）",
+      "example": "Now, whenever I face a challenge, I no longer see failure as the end.",
+      "keys": ["whenever", "no longer"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "I had practiced shooting every evening.",
+        "I was confident that I would make the team."
+      ],
+      "answer": "I had practiced shooting every evening, so I was confident that I would make the team."
+    },
+    {
+      "parts": [
+        "I worked on my weak points.",
+        "I made the team the next year."
+      ],
+      "answer": "I worked on my weak points and made the team the next year."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "My name was nowhere to be found.",
+      "answers": [
+        "My name was not on the list at all.",
+        "I could not find my name anywhere."
+      ]
+    },
+    {
+      "sentence": "I no longer see failure as the end.",
+      "answers": [
+        "I do not think of failure as the end anymore.",
+        "To me, failure is not the end now."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

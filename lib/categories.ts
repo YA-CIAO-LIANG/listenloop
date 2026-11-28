@@ -1013,36 +1013,75 @@ export const EXAMS = [
     ],
   },
   {
-    id: "gsat",
+    id: "hs-listening",
     style:
-      "in the style of the listening section of Taiwan's General Scholastic Ability Test (GSAT) English exam (format and difficulty only; the content is original, never a real test item)",
+      "in the style of Taiwan's senior high school English Listening Comprehension Test (高中英語聽力測驗, used with the GSAT for university admission) (format and difficulty only; the content is original unless the material says it's an official item)",
     parts: [
       s(
-        "gsat-dialogue",
+        "hs-response",
         "dialogue",
-        "a short conversation between two speakers about school or daily life",
+        "a set of short exchanges: one speaker says something, the other gives a natural response (對答)",
       ),
       s(
-        "gsat-short-talk",
+        "hs-discourse-dialogue",
+        "dialogue",
+        "a short conversation about school, family, or daily life, as in the discourse comprehension part (言談理解)",
+      ),
+      s(
+        "hs-discourse-talk",
         "monologue",
-        "a short talk, announcement, or radio report",
+        "a short talk, announcement, or radio report, as in the discourse comprehension part (言談理解)",
       ),
     ],
     targets: [
       target(
-        "gsat-basic",
+        "hs-c",
         "beginner",
-        "for a senior high school learner at a basic level (CEFR A2 to B1)",
+        "for a senior high school learner aiming at grade C (CEFR A2)",
       ),
       target(
-        "gsat-standard",
+        "hs-b",
         "intermediate",
-        "for a senior high school learner aiming at a high GSAT English score (CEFR B1)",
+        "for a senior high school learner aiming at grade B (CEFR A2 to B1)",
       ),
       target(
-        "gsat-top",
+        "hs-a",
         "advanced",
-        "for a senior high school learner aiming at the top GSAT English level (CEFR B1 to B2)",
+        "for a senior high school learner aiming at grade A (CEFR B1)",
+      ),
+    ],
+  },
+  {
+    id: "cap",
+    style:
+      "in the style of the English listening section of Taiwan's Comprehensive Assessment Program for Junior High School Students (國中教育會考) (format and difficulty only; the content is original unless the material says it's an official item)",
+    parts: [
+      s(
+        "cap-response",
+        "dialogue",
+        "a set of short questions and answers about everyday life (基本問答)",
+      ),
+      s(
+        "cap-discourse-dialogue",
+        "dialogue",
+        "a short conversation between two junior high school students or a student and an adult (言談理解)",
+      ),
+      s(
+        "cap-discourse-talk",
+        "monologue",
+        "a short announcement, message, or talk for junior high school students (言談理解)",
+      ),
+    ],
+    targets: [
+      target(
+        "cap-basic",
+        "beginner",
+        "for a junior high school learner aiming at the basic level (基礎, CEFR A1 to A2)",
+      ),
+      target(
+        "cap-proficient",
+        "intermediate",
+        "for a junior high school learner aiming at the proficient level (精熟, CEFR A2)",
       ),
     ],
   },

@@ -208,5 +208,43 @@
         "notes": null
       }
     ]
+  },
+  "examToeic": {
+    "id": "5c4d3e2f-1a2b-4c3d-8e9f-a0b1c2d3e4f5",
+    "user_id": "e2e-admin",
+    "title": "E2E TOEIC practice",
+    "subtitle": "多益 Part 3 對話：會議改期。",
+    "source_language": "en",
+    "voice": "us-female",
+    "visibility": "public",
+    "published": true,
+    "official": true,
+    "category": "exam",
+    "duration_sec": 240,
+    "level": "intermediate",
+    "exam": "toeic",
+    "exam_target": "toeic-750",
+    "sort_order": null,
+    "created_at": "2026-11-25T00:00:00Z",
+    "vocab": [],
+    "grammar": [],
+    "notes_generated_at": "2026-11-07T00:00:00Z",
+    "practice_sentences": [
+      {
+        "i": 0,
+        "en": "Can we move the meeting to Friday?",
+        "zh": "我們可以把會議改到星期五嗎？",
+        "audio_path": "2222222222222222222222222222222222222222222222222222222222222222.wav"
+      },
+      {
+        "i": 1,
+        "en": "Sure, Friday morning works for me.",
+        "zh": "好啊，星期五早上我可以。",
+        "audio_path": "3333333333333333333333333333333333333333333333333333333333333333.wav"
+      }
+    ],
+    "scenario": "toeic-conversation",
+    "title_en": "E2E TOEIC practice",
+    "title_zh": "多益測試練習"
   }
 }

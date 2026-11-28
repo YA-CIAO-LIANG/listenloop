@@ -1,0 +1,84 @@
+{
+  "id": "gept-pic-moon-festival-barbecue",
+  "type": "gept",
+  "level": "beginner",
+  "title": {
+    "en": "A Moon Festival Barbecue",
+    "zh": "中秋節烤肉"
+  },
+  "subtitle": "全民英檢初級：看圖寫一段中秋節全家烤肉的短文",
+  "task": "Look at the three pictures. Picture 1: A family has a barbecue in front of their house; the father cooks meat and corn. Picture 2: Two children wear pomelo peels on their heads, and everyone laughs and takes pictures. Picture 3: After dinner, the family sits outside and looks at the full moon. Write a paragraph of about 50 words describing what happened. Make sure your paragraph covers all three pictures.",
+  "taskZh": "請看三張圖（以文字描述）。圖一：一家人在家門前烤肉，爸爸烤肉和玉米。圖二：兩個孩子頭戴柚子皮帽，大家笑著拍照。圖三：晚餐後全家坐在外面賞月。請寫一段約 50 字的英文短文，描述發生了什麼事，三張圖的內容都要寫到。",
+  "words": {
+    "min": 50,
+    "max": 80
+  },
+  "minutes": 15,
+  "focus": [
+    "內容：三張圖的重點（烤肉、柚子帽與拍照、賞月）都要寫到",
+    "文法：句子完整，時態正確（敘述已發生的事用過去式）",
+    "用字與拼字：用簡單、正確的字詞，拼字無誤",
+    "大小寫與標點：句首、人名、地名大寫，句尾標點正確"
+  ],
+  "model": {
+    "en": [
+      "On the night of the Moon Festival, Jason's family had a barbecue in front of their house. His father cooked meat and corn, and his mother cut some pomelos. Jason and his little sister put pomelo hats on their heads. Everyone laughed and took pictures. After dinner, they sat outside and looked at the bright full moon. It was a happy and warm evening for the whole family."
+    ],
+    "zh": [
+      "中秋節那天，Jason 一家人在家門前烤肉。爸爸烤肉和玉米，媽媽切了一些柚子。Jason 和妹妹把柚子皮帽戴在頭上。大家都笑了，還拍了照片。晚餐後，他們坐在外面欣賞明亮的滿月。對全家人來說，那是一個快樂又溫馨的夜晚。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "have a barbecue",
+      "zh": "描述烤肉活動",
+      "example": "On the night of the Moon Festival, Jason's family had a barbecue in front of their house.",
+      "keys": ["had a barbecue"]
+    },
+    {
+      "pattern": "in front of …",
+      "zh": "說明地點「在……前面」",
+      "example": "On the night of the Moon Festival, Jason's family had a barbecue in front of their house.",
+      "keys": ["in front of"]
+    },
+    {
+      "pattern": "After dinner, …",
+      "zh": "用時間詞帶出下一件事",
+      "example": "After dinner, they sat outside and looked at the bright full moon.",
+      "keys": ["after dinner"]
+    },
+    {
+      "pattern": "It was a … evening for …",
+      "zh": "結尾總結這天的感受",
+      "example": "It was a happy and warm evening for the whole family.",
+      "keys": ["it was a", "evening for"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": ["Everyone laughed.", "Everyone took pictures."],
+      "answer": "Everyone laughed and took pictures."
+    },
+    {
+      "parts": [
+        "His father cooked meat and corn.",
+        "His mother cut some pomelos."
+      ],
+      "answer": "His father cooked meat and corn, and his mother cut some pomelos."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "They looked at the bright full moon.",
+      "answers": [
+        "They enjoyed the bright full moon.",
+        "They watched the bright full moon."
+      ]
+    },
+    {
+      "sentence": "Everyone laughed.",
+      "answers": ["Everyone had a good laugh.", "All of them laughed."]
+    }
+  ],
+  "listenVideo": "sintel"
+}

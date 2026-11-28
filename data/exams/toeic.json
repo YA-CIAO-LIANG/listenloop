@@ -1,0 +1,138 @@
+{
+  "id": "toeic",
+  "name": { "zh": "多益 TOEIC", "en": "TOEIC" },
+  "summary": {
+    "zh": "ETS 的職場英語測驗，分成「聽力與閱讀」和「口說與寫作」兩種考試。聽力與閱讀各 5–495 分，總分最高 990 分。",
+    "en": "ETS's workplace English tests, offered as Listening and Reading and as Speaking and Writing. Listening and Reading are each scored 5–495, for a total of up to 990."
+  },
+  "sections": [
+    {
+      "id": "about",
+      "heading": { "zh": "考試簡介", "en": "About the test" },
+      "paragraphs": {
+        "zh": [
+          "TOEIC 由 ETS 主辦，內容以職場與日常生活情境為主。TOEIC Listening and Reading（聽力與閱讀）是全選擇題的考試；TOEIC Speaking and Writing（口說與寫作）是另外報名的電腦考試，兩者合起來可以完整評量聽說讀寫。",
+          "聽力與閱讀共 200 題，作答時間約 2 小時；ETS 官網說明整場約 2.5 小時，另外約 30 分鐘用來填寫個人背景問卷。",
+          "TOEIC 沒有「及格」分數，各公司或學校自訂標準。在台灣報名與考試相關事宜，請以 ETS 在當地的授權代表公告為準。"
+        ],
+        "en": [
+          "TOEIC is run by ETS and focuses on workplace and everyday situations. TOEIC Listening and Reading is all multiple choice; TOEIC Speaking and Writing is a separate computer-delivered test. Together they cover all four skills.",
+          "Listening and Reading has 200 questions and about two hours of testing; ETS says the whole session takes about 2.5 hours, including about 30 minutes for background questions.",
+          "There is no passing score; companies and schools set their own standards. For registration in your country, follow the local ETS representative's information."
+        ]
+      }
+    },
+    {
+      "id": "format",
+      "heading": { "zh": "題型", "en": "Format" },
+      "paragraphs": {
+        "zh": [
+          "聽力 100 題、約 45 分鐘，分四大題：Part 1 照片描述 6 題、Part 2 應答問題 25 題、Part 3 簡短對話 39 題（13 段對話，每段 3 題）、Part 4 簡短獨白 30 題（10 段獨白，每段 3 題）。",
+          "閱讀 100 題、75 分鐘，按自己的速度作答：Part 5 句子填空 30 題、Part 6 段落填空 16 題、Part 7 單篇閱讀 29 題與多篇閱讀 25 題。",
+          "寫作測驗有 8 題、約 1 小時：第 1～5 題看圖寫句子、第 6～7 題回覆書面要求（例如電子郵件）、第 8 題寫一篇意見文章。口說測驗有 11 題、約 20 分鐘：朗讀短文、描述照片、回答問題、依提供的資訊回答問題、表達意見。"
+        ],
+        "en": [
+          "Listening has 100 questions in about 45 minutes, in four parts: Part 1 Photographs (6), Part 2 Question-Response (25), Part 3 Conversations (39: 13 conversations with 3 questions each), and Part 4 Talks (30: 10 talks with 3 questions each).",
+          "Reading has 100 questions in 75 minutes, at your own pace: Part 5 Incomplete Sentences (30), Part 6 Text Completion (16), and Part 7 Single Passages (29) and Multiple Passages (25).",
+          "The Writing test has 8 questions in about one hour: questions 1–5 write a sentence based on a picture, 6–7 respond to a written request, and 8 write an opinion essay. The Speaking test has 11 questions in about 20 minutes: read a text aloud, describe a picture, respond to questions, respond using information provided, and express an opinion."
+        ]
+      }
+    },
+    {
+      "id": "listening-scoring",
+      "heading": { "zh": "聽力的評分方式", "en": "How listening is scored" },
+      "paragraphs": {
+        "zh": [
+          "成績依答對題數計算，答錯不倒扣，所以每題都要作答。答對題數會換算成量尺分數：聽力與閱讀各為 5–495 分，總分是兩者相加。",
+          "每份試卷都有自己的換算表，以統計方式「等化」，讓不同場次的分數可以比較。因為試卷會重複使用，ETS 不公開試題，也不公開換算表。"
+        ],
+        "en": [
+          "Scores are based on the number of correct answers, with no penalty for guessing, so answer every question. The raw score is converted to a scaled score of 5–495 for Listening and for Reading; the total is the sum of the two.",
+          "Each test form has its own conversion table, built through statistical equating so scores are comparable across administrations. Because forms are reused, ETS does not release the forms or their conversion tables."
+        ]
+      }
+    },
+    {
+      "id": "writing-scoring",
+      "heading": { "zh": "寫作的評分方式", "en": "How writing is scored" },
+      "paragraphs": {
+        "zh": [
+          "寫作答案送到 ETS 的線上評分系統，由經過認證的 ETS 評分員評分。第 1～5 題每題 0–3 分（看文法、句子和圖片的相關性），第 6～7 題每題 0–4 分（看句子的品質與變化、字彙、組織），第 8 題 0–5 分（看意見是否有理由或例子支持，以及文法、字彙、組織）。",
+          "各題分數加總後換算成 0–200 分，以 10 分為單位。口說與寫作的分數分開呈現，沒有合併總分，也不應互相比較。依各地規定，成績通常約在考後 14 個工作天寄出。"
+        ],
+        "en": [
+          "Writing responses are sent to ETS's online scoring network and scored by certified ETS raters. Questions 1–5 are rated 0–3 (grammar and relevance to the picture), questions 6–7 are rated 0–4 (quality and variety of sentences, vocabulary, organisation), and question 8 is rated 0–5 (whether the opinion is supported with reasons or examples, plus grammar, vocabulary, and organisation).",
+          "The ratings are summed and converted to a 0–200 scale in steps of 10. Speaking and Writing are reported separately with no combined score and should not be compared. Depending on local policy, scores usually arrive about 14 business days after the test."
+        ]
+      }
+    },
+    {
+      "id": "practice",
+      "heading": { "zh": "建議練習方式", "en": "How to practise" },
+      "paragraphs": {
+        "zh": [
+          "多益聽力每段只播一次，Part 2 的問句很短，常因為一個字（例如 when 和 where）聽錯就選錯。ListenLoop 第 1 天逐句聽寫，可以找出你漏聽或混淆的字；第 2～6 天跟讀，練到聽到就懂；第 7 天再聽寫一次，和第 1 天比較。",
+          "Part 3、Part 4 是對話與獨白，建議選日常與職場情境的教材，接近考試內容。",
+          "若要考口說與寫作，可以用 WritingLoop：第 1 天寫一篇意見文章或回覆電子郵件並取得回饋，第 2～6 天針對弱點做短練習，第 7 天不看舊稿重寫同一題。考前請用 ETS 官方範例試題熟悉題型與時間。"
+        ],
+        "en": [
+          "TOEIC Listening plays each item once, and Part 2 questions are short, so mishearing one word (when vs where) can cost the answer. ListenLoop's Day 1 sentence-by-sentence dictation shows which words you miss or confuse; Days 2–6 of shadowing build instant recognition; Day 7 repeats the dictation to compare with Day 1.",
+          "Parts 3 and 4 are conversations and talks, so choose everyday and workplace material close to the test content.",
+          "If you are taking Speaking and Writing, use WritingLoop: write an opinion essay or an email reply on Day 1 and get feedback, do short exercises on your weak points on Days 2–6, and rewrite the same prompt on Day 7 without looking at your first draft. Before test day, work through ETS's official sample tests to learn the formats and timing."
+        ]
+      }
+    }
+  ],
+  "resources": [
+    {
+      "title": {
+        "zh": "官方準備資源（手冊與範例試題）",
+        "en": "Official preparation materials (handbooks and sample tests)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/toeic/test-takers/prepare.html",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "聽力與閱讀範例試題（PDF）",
+        "en": "Listening and Reading sample test (PDF)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/content/dam/ets-org/pdfs/toeic/toeic-listening-reading-sample-test.pdf",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "口說與寫作範例試題（PDF）",
+        "en": "Speaking and Writing sample tests (PDF)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/content/dam/ets-org/pdfs/toeic/toeic-speaking-writing-sample-tests.pdf",
+      "kind": "sample",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "聽力與閱讀考生手冊（PDF）",
+        "en": "Listening and Reading examinee handbook (PDF)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/content/dam/ets-org/pdfs/toeic/toeic-listening-reading-test-examinee-handbook.pdf",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    },
+    {
+      "title": {
+        "zh": "口說與寫作考生手冊（PDF）",
+        "en": "Speaking and Writing examinee handbook (PDF)"
+      },
+      "publisher": "ETS",
+      "url": "https://www.ets.org/content/dam/ets-org/pdfs/toeic/toeic-speaking-writing-examinee-handbook.pdf",
+      "kind": "format",
+      "checkedAt": "2026-11-25"
+    }
+  ]
+}

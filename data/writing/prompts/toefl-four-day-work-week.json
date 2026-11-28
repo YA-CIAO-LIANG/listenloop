@@ -1,0 +1,98 @@
+{
+  "id": "toefl-four-day-work-week",
+  "type": "toefl",
+  "level": "intermediate",
+  "title": {
+    "en": "Should Companies Adopt a Four-Day Week?",
+    "zh": "公司該實施每週工作四天嗎？"
+  },
+  "subtitle": "原創模擬題：學術討論題，談每週工作四天的利弊",
+  "task": "Your professor is teaching a class on business management. Write a post responding to the professor's question. In your response, express and support your opinion, and make a contribution to the discussion.\n\nDr. Lin: Several companies around the world have tested a four-day work week, in which employees work fewer days but receive the same salary. Do you think more companies should adopt this schedule? Why or why not?\n\nAiden: Yes. When people have three days to rest, they come back to work with more energy and make fewer mistakes. Happier workers are also less likely to quit.\n\nPriya: I doubt it works for every business. Hospitals, restaurants and shops need staff every day, so a shorter week would just create scheduling problems for them.\n\nWrite at least 100 words.",
+  "taskZh": "企業管理課的教授提問：世界各地有些公司試行每週工作四天、薪水不變的制度。你認為應該有更多公司採用嗎？為什麼？Aiden 支持，認為員工休息充足、精力較好、失誤較少，也比較不會離職；Priya 懷疑它適合所有行業，因為醫院、餐廳和商店每天都需要人手。請寫一則貼文表態、提出理由，並對討論有新的貢獻。至少寫 100 字。",
+  "words": {
+    "min": 100,
+    "max": 160
+  },
+  "minutes": 10,
+  "focus": [
+    "直接回答教授的問題並清楚表態",
+    "回應兩位同學的觀點，再提出新的理由或折衷方案",
+    "用具體的例子或理由支持看法，論點前後一致",
+    "用字精確、句型多樣、文法正確"
+  ],
+  "model": {
+    "en": [
+      "I think more companies should try a four-day work week, but they should introduce it carefully. Aiden makes a strong point about energy and mistakes, and I believe the schedule could also help companies attract talented young workers. Many people my age care about free time as much as salary, so a shorter week would be a powerful advantage when hiring.",
+      "At the same time, Priya is correct that not every business can close one day a week. However, a four-day week does not have to mean that everyone takes the same day off. A restaurant, for example, could divide its staff into two teams with different days off, so it stays open seven days a week. Companies could test the idea for a few months before deciding whether to keep it."
+    ],
+    "zh": [
+      "我認為應該有更多公司嘗試每週工作四天，但要謹慎推行。Aiden 提到精力和失誤，這點很有說服力；我認為這種制度還能幫公司吸引有才華的年輕員工。很多和我同年紀的人重視休閒時間的程度不亞於薪水，所以縮短工作週在招募人才時會是很大的優勢。",
+      "同時，Priya 說得沒錯，並不是每種行業都能每週休息一天。不過，每週工作四天不代表所有人都要在同一天休假。例如，餐廳可以把員工分成休假日不同的兩組，這樣就能一週七天照常營業。公司可以先試行幾個月，再決定是否繼續。"
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "I think … should …, but they should …",
+      "zh": "表態並加上執行的條件",
+      "example": "I think more companies should try a four-day work week, but they should introduce it carefully.",
+      "keys": ["i think", "but"]
+    },
+    {
+      "pattern": "… makes a strong point about …, and I believe …",
+      "zh": "肯定同學的觀點，再補充自己的想法",
+      "example": "Aiden makes a strong point about energy and mistakes, and I believe the schedule could also help companies attract talented young workers.",
+      "keys": ["makes a strong point about", "and i believe"]
+    },
+    {
+      "pattern": "…, so … would be a powerful advantage when …",
+      "zh": "說明結果帶來的好處",
+      "example": "Many people my age care about free time as much as salary, so a shorter week would be a powerful advantage when hiring.",
+      "keys": ["so", "advantage"]
+    },
+    {
+      "pattern": "At the same time, … is correct that …",
+      "zh": "轉折：承認另一位同學也有道理",
+      "example": "At the same time, Priya is correct that not every business can close one day a week.",
+      "keys": ["at the same time", "is correct that"]
+    },
+    {
+      "pattern": "… does not have to mean that …",
+      "zh": "澄清誤解，提出不同的做法",
+      "example": "However, a four-day week does not have to mean that everyone takes the same day off.",
+      "keys": ["does not have to mean that"]
+    }
+  ],
+  "combine": [
+    {
+      "parts": [
+        "A restaurant could divide its staff into two teams.",
+        "It could stay open seven days a week."
+      ],
+      "answer": "A restaurant could divide its staff into two teams, so it could stay open seven days a week."
+    },
+    {
+      "parts": [
+        "Companies could test the idea for a few months.",
+        "Then they could decide whether to keep it."
+      ],
+      "answer": "Companies could test the idea for a few months before deciding whether to keep it."
+    }
+  ],
+  "paraphrase": [
+    {
+      "sentence": "Not every business can close one day a week.",
+      "answers": [
+        "Some businesses cannot take a day off every week.",
+        "Closing one day a week is impossible for some companies."
+      ]
+    },
+    {
+      "sentence": "Many people care about free time as much as salary.",
+      "answers": [
+        "For many people, free time matters as much as pay.",
+        "Many workers value their free time as highly as their salary."
+      ]
+    }
+  ],
+  "listenVideo": "sintel"
+}

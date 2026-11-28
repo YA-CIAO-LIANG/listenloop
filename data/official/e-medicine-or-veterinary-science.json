@@ -3,15 +3,15 @@
   "series": "exam",
   "title": "Medicine or Veterinary Science?",
   "titleZh": "醫學系還是獸醫系？",
-  "subtitle": "學測風格對話：模擬考成績夠上醫學系，但她真正想念的是獸醫，該怎麼跟爸媽說？",
+  "subtitle": "高中英聽風格對話：模擬考成績夠上醫學系，但她真正想念的是獸醫，該怎麼跟爸媽說？",
   "format": "dialogue",
   "accent": "us",
   "meta": {
     "category": "exam",
-    "scenario": "gsat-dialogue",
+    "scenario": "hs-discourse-dialogue",
     "level": "advanced",
-    "exam": "gsat",
-    "examTarget": "gsat-top"
+    "exam": "hs-listening",
+    "examTarget": "hs-a"
   },
   "source": {
     "kind": "original"
