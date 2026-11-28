@@ -117,17 +117,24 @@ test.describe("the calendar's glow", () => {
     expect(await ringOf(7)).toBe("5");
     // Screen readers hear the time; hovering shows it.
     const fifth = calendar.getByRole("button", {
-      name: "11月5日，練習 1 小時 12 分，沒有完成任務",
+      name: "11月5日，練習 1 小時 12 分，光暈第 3 級：1 小時以上，沒有完成任務",
     });
     await fifth.hover();
     await expect(page.getByRole("tooltip")).toContainText("練習 1 小時 12 分");
+    // …and its glow level in words (D217).
+    await expect(page.getByRole("tooltip")).toContainText(
+      "光暈第 3 級：1 小時以上",
+    );
     // Clicking lists it under the calendar (how phones see it).
     await fifth.click();
     await expect(page.getByTestId("calendar-day-time")).toHaveText(
       "練習 1 小時 12 分",
     );
     await expect(
-      page.getByRole("list", { name: "練習時間" }).getByRole("listitem"),
+      page
+        .getByTestId("practice-calendar")
+        .getByRole("list", { name: "練習時間" })
+        .getByRole("listitem"),
     ).toHaveText([
       "15 分鐘以上",
       "30 分鐘以上",

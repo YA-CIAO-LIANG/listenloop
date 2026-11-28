@@ -142,7 +142,11 @@ export function WritingStats({
     });
 
   return (
-    <section aria-labelledby="writing-stats" className="space-y-6">
+    <section
+      aria-labelledby="writing-stats"
+      data-area="writing"
+      className="space-y-6"
+    >
       <h2 id="writing-stats" className="font-display text-h2">
         {t("title")}
       </h2>

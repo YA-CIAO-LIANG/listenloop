@@ -4,7 +4,8 @@ import { expect, setToday, signInWithEmail, test } from "./fixtures";
 /**
  * Listening and writing are counted apart (D214): practicing one leaves
  * the other's calendar, practice time, and streak empty. Listening's
- * calendar and streak are on the home page; writing's on /writing.
+ * calendar and streak are on the home page; writing's on /writing and,
+ * apart and in teal, on the home page too (D217).
  */
 const PROMPT = "daily-perfect-weekend";
 
@@ -69,6 +70,12 @@ test("listening only: writing's calendar and streak stay empty", async ({
   await expect(page.getByRole("group", { name: "日曆顯示" })).toHaveCount(0);
   await expect(page.getByTestId("calendar-day-time")).toHaveText("練習 5 分");
   await expect(page.getByTestId("streak")).toContainText("聽力連續練習 2 天");
+  // Hovering a day: its time, its glow level, and its tasks (D217).
+  await page.getByRole("button", { name: /^11月18日，練習 5 分，/ }).hover();
+  const tip = page.getByRole("tooltip");
+  await expect(tip).toContainText("練習 5 分");
+  await expect(tip).toContainText("練習未滿 15 分鐘，沒有光暈");
+  await expect(tip).toContainText(/第 2 天/);
 
   // /writing: nothing from listening.
   await page.goto("/writing");
@@ -128,6 +135,12 @@ test("writing only: listening's calendar and streak stay empty", async ({
   await expect(page.getByTestId("writing-streak")).toContainText(
     "寫作連續練習 2 天",
   );
+  // The writing area wears teal (D217): the header's current tab too.
+  const writingTab = page
+    .getByRole("navigation", { name: "練習類型" })
+    .getByRole("link", { name: "寫作" });
+  await expect(writingTab).toHaveAttribute("aria-current", "page");
+  await expect(writingTab).toHaveCSS("color", "rgb(10, 102, 93)");
 
   // Home: listening's calendar has none of it, and no listening streak.
   await page.goto("/");
@@ -139,7 +152,29 @@ test("writing only: listening's calendar and streak stay empty", async ({
   await expect(lines.getByText("這天沒有完成任務")).toBeVisible();
   await expect(lines.getByText(/寫作/)).toHaveCount(0);
   await expect(
-    page.getByRole("button", { name: /11月18日，沒有練習時間，沒有完成任務/ }),
+    page.getByRole("button", {
+      name: /11月18日，沒有練習時間，練習未滿 15 分鐘，沒有光暈，沒有完成任務/,
+    }),
   ).toBeVisible();
   await expect(page.getByTestId("streak")).toHaveCount(0);
+
+  // Home also shows writing's own calendar, apart and in teal (D217).
+  const homeWriting = page.getByTestId("writing-calendar");
+  await expect(homeWriting.getByTestId("writing-streak")).toContainText(
+    "寫作連續練習 2 天",
+  );
+  expect(
+    await homeWriting.evaluate((el) =>
+      getComputedStyle(el).getPropertyValue("--ll-accent").trim(),
+    ),
+  ).toBe("#0d9488");
+  await homeWriting.getByRole("button", { name: /^11月18日 · 今天：/ }).hover();
+  const tip = page.getByTestId("writing-calendar-tip");
+  await expect(tip).toContainText("寫作練習 10 分");
+  await expect(tip).toContainText("練習未滿 15 分鐘，沒有光暈");
+  await expect(tip).toContainText(/第 2 天 聽寫回譯/);
+  // Glow level 1 on the day before (15 min), said in words.
+  await expect(
+    homeWriting.getByRole("button", { name: /^11月17日：/ }),
+  ).toHaveAttribute("aria-label", /光暈第 1 級：15 分鐘以上/);
 });

@@ -27,6 +27,7 @@ import { Button } from "./Button";
 import { Card } from "./Card";
 import { HEAT_BACKGROUND, HEAT_LEVELS, HEAT_TEXT } from "./heat-colors";
 import { glowStyle } from "./practice-rings";
+import { RingLevel, useRingText } from "./RingLevel";
 import { Skeleton } from "./Skeleton";
 import { useStores } from "./StoresProvider";
 import { useToday } from "./useToday";
@@ -202,6 +203,7 @@ function CalendarMonth({
     ];
     return t("practiceTime", { duration: parts.join(" ") });
   };
+  const ringText = useRingText();
   const customTitles = useCustomPracticeTitles(
     tasks && [...tasks.values()].flat().map((task) => task.videoId),
   );
@@ -239,7 +241,7 @@ function CalendarMonth({
   };
 
   return (
-    <Card className="space-y-4 max-split:p-4">
+    <Card className="space-y-4 max-split:p-4" data-testid="practice-calendar">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-display text-h3">
           {t("title")}
@@ -311,7 +313,10 @@ function CalendarMonth({
                       aria-pressed={selected === date}
                       aria-label={t("dayLabel", {
                         date: dayName(date),
-                        time: timeText(date),
+                        time: t("timeAndRing", {
+                          time: timeText(date),
+                          ring: ringText(minutesOn(date)),
+                        }),
                         count,
                         today: isToday ? "yes" : "no",
                       })}
@@ -359,6 +364,9 @@ function CalendarMonth({
                           {dayName(date)} · {t("tipCount", { count })}
                         </p>
                         <p className="mb-1">{timeText(date)}</p>
+                        <div className="mb-1">
+                          <RingLevel minutes={minutesOn(date)} />
+                        </div>
                         <TaskList
                           tasks={tasksOn(date)}
                           customTitles={customTitles}
@@ -434,6 +442,7 @@ function CalendarMonth({
           {selected === today ? ` · ${t("today")}` : ""}
         </h3>
         <p data-testid="calendar-day-time">{timeText(selected)}</p>
+        <RingLevel minutes={minutesOn(selected)} />
         <TaskList tasks={tasksOn(selected)} customTitles={customTitles} />
       </section>
     </Card>

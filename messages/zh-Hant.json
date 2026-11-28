@@ -139,7 +139,10 @@
     "minutes": "{n} 分",
     "ringLegend": "練習時間",
     "atLeastMinutes": "{n} 分鐘以上",
-    "atLeastHours": "{n} 小時以上"
+    "atLeastHours": "{n} 小時以上",
+    "ringNone": "練習未滿 {n} 分鐘，沒有光暈",
+    "ringLevel": "光暈第 {level} 級：{threshold}",
+    "timeAndRing": "{time}，{ring}"
   },
   "today": {
     "title": "今日任務",
@@ -5032,7 +5035,7 @@
   "writingCalendar": {
     "title": "寫作日曆",
     "loading": "正在讀取寫作日曆…",
-    "caption": "寫作日曆：每一天完成的寫作任務、練習時間，以及寫文章、聊天練習、額外練習的標記。選一天可以看當天的內容。",
+    "caption": "寫作日曆：顏色越深，那天完成的寫作任務越多；日期周圍的藍綠色光暈代表當天的寫作練習時間，越亮練越久（門檻和聽力相同）；日期下方的小圖示代表寫文章、聊天練習、額外練習。選一天可以看當天的內容。",
     "today": "今天",
     "noTime": "沒有寫作練習時間",
     "time": "寫作練習 {duration}",

@@ -139,7 +139,10 @@
     "minutes": "{n} min",
     "ringLegend": "Practice time",
     "atLeastMinutes": "{n, plural, one {# minute} other {# minutes}} or more",
-    "atLeastHours": "{n, plural, one {# hour} other {# hours}} or more"
+    "atLeastHours": "{n, plural, one {# hour} other {# hours}} or more",
+    "ringNone": "Under {n} min, no glow",
+    "ringLevel": "Glow level {level}: {threshold}",
+    "timeAndRing": "{time}, {ring}"
   },
   "today": {
     "title": "Today’s tasks",
@@ -5034,7 +5037,7 @@
   "writingCalendar": {
     "title": "Writing calendar",
     "loading": "Loading the writing calendar…",
-    "caption": "Writing calendar: the writing tasks finished each day, the time practiced, and marks for an essay, chat practice, and extra practice. Choose a day to see what was done.",
+    "caption": "Writing calendar: the darker a day, the more writing tasks finished; the teal glow around a date shows that day's writing time, brighter for longer (the same steps as listening); the small icons under a date mark an essay, chat practice, and extra practice. Choose a day to see what was done.",
     "today": "today",
     "noTime": "No writing practice time",
     "time": "Writing practice {duration}",

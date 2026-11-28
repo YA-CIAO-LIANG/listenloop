@@ -65,7 +65,11 @@ export function WritingTasks({
   }
 
   return (
-    <section aria-labelledby="writing-tasks" className="flex flex-col gap-3">
+    <section
+      aria-labelledby="writing-tasks"
+      data-area="writing"
+      className="flex flex-col gap-3"
+    >
       <h2 id="writing-tasks" className="font-display text-h3">
         {t("heading")}
       </h2>

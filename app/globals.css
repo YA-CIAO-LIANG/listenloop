@@ -159,6 +159,58 @@
 }
 
 /*
+ * The writing area's own color (D217): teal, so a learner knows at a
+ * glance they're in WritingLoop and not ListenLoop (orange). Set on any
+ * element with data-area="writing" (the /writing pages' wrapper, the home
+ * page's writing section, the header's "Writing" tab), it wins over the
+ * site's accent and the theme's: buttons, progress bars, links, focus
+ * rings, the calendar's heat steps and its practice-time glow all turn
+ * teal there. The accent is the teal a learner may choose (D93), so it
+ * passes AA on every theme (tests/theme-contrast.test.ts); the heat steps
+ * and glow are checked in tests/writing-theme.test.ts, with the
+ * color-vision simulations that keep orange and teal apart.
+ */
+[data-area="writing"] {
+  --ll-accent: #0d9488;
+  --ll-accent-ink: #0a665d;
+  --ll-focus: #0d9488;
+  --ll-heat-1: #c4e6e1;
+  --ll-heat-2: #8dcdc5;
+  --ll-heat-3: #4db0a6;
+  --ll-heat-4: #0d9488;
+  --ll-heat-ink-strong: #141414;
+  --ll-glow: #14b8a6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-area="writing"] {
+    --ll-accent: #2dd4bf;
+    --ll-accent-ink: #5eead4;
+    --ll-focus: #2dd4bf;
+    --ll-heat-1: #173b37;
+    --ll-heat-2: #1d635b;
+    --ll-heat-3: #24998b;
+    --ll-heat-4: #2dd4bf;
+    --ll-heat-ink-strong: #121212;
+    --ll-glow: #2dd4bf;
+  }
+}
+[data-theme="dark"] [data-area="writing"] {
+  --ll-accent: #2dd4bf;
+  --ll-accent-ink: #5eead4;
+  --ll-focus: #2dd4bf;
+  --ll-heat-1: #173b37;
+  --ll-heat-2: #1d635b;
+  --ll-heat-3: #24998b;
+  --ll-heat-4: #2dd4bf;
+  --ll-heat-ink-strong: #121212;
+  --ll-glow: #2dd4bf;
+}
+/* The writing pages' titles wear the color too. */
+[data-area="writing"] h1 {
+  color: var(--ll-accent-ink);
+}
+
+/*
  * Tailwind theme. Default palettes, font families, and type sizes are reset
  * so only design-system utilities exist (e.g. `bg-red-500` will not compile).
  * Spacing keeps Tailwind's 4px base; use only the design scale:
