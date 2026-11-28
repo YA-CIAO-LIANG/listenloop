@@ -78,7 +78,7 @@
     "@types/youtube": "^0.3.0",
     "@vitejs/plugin-react": "^6.2.1",
     "docx": "9.15.0",
-    "eslint": "^9",
+    "eslint": "^10",
     "eslint-config-next": "16.4.5",
     "eslint-config-prettier": "^10.1.8",
     "fflate": "0.8.3",
