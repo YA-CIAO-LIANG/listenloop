@@ -13,7 +13,7 @@ import { QuickStart } from "@/components/QuickStart";
 import { ProgressGate } from "@/components/ProgressGate";
 import { LibrarySkeleton } from "@/components/Skeleton";
 import { HomeProgress } from "@/components/HomeProgress";
-import { WritingTasks } from "@/components/writing/WritingTasks";
+import { HomeWriting } from "@/components/writing/HomeWriting";
 import { writingPrompts } from "@/data/writing";
 import { useLocale, useTranslations } from "next-intl";
 import type { LibraryItem } from "@/lib/library";
@@ -62,8 +62,8 @@ export default function Home() {
         <ProgressGate place="home" signedOut={<ProductIntro />}>
           <FixedReportsNotice />
           <HomeProgress />
-          {/* Today's writing next to listening (WritingLoop, D187). */}
-          <HomeWritingTasks />
+          {/* Writing's own tasks and calendar, in its color (D187, D217). */}
+          <HomeWritingSection />
         </ProgressGate>
       </div>
 
@@ -99,8 +99,8 @@ function writingTitlesFor(locale: string): Record<string, string> {
   );
 }
 
-/** Prompts in progress with today's day, by their title here. */
-function HomeWritingTasks() {
+/** Today's writing and the writing calendar, by the prompts' titles here. */
+function HomeWritingSection() {
   const locale = useLocale();
-  return <WritingTasks titles={writingTitlesFor(locale)} />;
+  return <HomeWriting titles={writingTitlesFor(locale)} />;
 }

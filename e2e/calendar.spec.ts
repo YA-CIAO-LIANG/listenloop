@@ -62,6 +62,8 @@ test("the signed-in home page hydrates when the server's date differs", async ({
   await setToday(page, "2026-12-24");
   await signInAsAuthor(page);
   await page.goto("/");
-  await expect(page.getByText(/12月24日 · 今天/)).toBeVisible();
+  await expect(
+    page.getByTestId("practice-calendar").getByText(/12月24日 · 今天/),
+  ).toBeVisible();
   expect(errors).toEqual([]);
 });

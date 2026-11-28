@@ -4198,3 +4198,20 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
 - **考試介紹頁**：`/exams`（列表）與 `/exams/<id>`，內容在 `data/exams/<id>.json`（中英文），包括考試簡介、題型、聽力與寫作的評分方式、建議練習方式、這裡的聽力教材與寫作題目（全民英檢依程度分組），以及官方的免費練習資源。資源只放連結（`rel="noopener noreferrer"`，新分頁），每個都實際打開確認可以使用並標示查證日期，不複製內容。頁尾與 sitemap 都有連結。
 - **Migration**：`20261205000000_exam_tracks.sql` 放寬 `practices.exam` 的檢查（加上 `hs-listening`、`cap`），保留 `gsat` 讓舊資料仍然有效。
 - **要改時**：子分類在 `lib/exam-tracks.ts`；介紹內容在 `data/exams/`；題型名稱在翻譯檔的 `categories.scenarios`；篩選在 `components/MaterialLibrary.tsx`、`components/writing/WritingLibrary.tsx`。
+
+## D217 寫作區的主題色（藍綠色）、首頁並列兩個日曆、日期提示加上光暈等級（2026-11-27，Joe 指定第一項）
+
+- **決定**：
+  - **主題色**：寫作區一律用藍綠色（teal），聽力維持網站的主題色（預設橘色）。做法是 CSS 範圍：`[data-area="writing"]` 把 `--ll-accent`、`--ll-accent-ink`、`--ll-focus`、熱度色階、`--ll-heat-ink-strong`、光暈 `--ll-glow` 換成藍綠色（`app/globals.css`）。按鈕、進度條、連結、焦點框、日曆的熱度與光暈都用 token，所以不用改元件就跟著變。
+  - **套用範圍**：`app/writing/layout.tsx` 的外框（所有寫作頁）、頁首「寫作」分頁、首頁寫作區、學習分析的寫作區，以及 `WritingCalendar`、`WritingTasks` 元件本身（放到哪裡都是藍綠色）。寫作頁的 h1 用 accent-ink。
+  - **頁首「聽力｜寫作」**：目前的分頁用該區的顏色（accent 14% 底色、accent-ink 文字、2px 底線），取代原本兩區共用的黑底白字。顏色和底色同時表示「在哪一區」，不只靠顏色。
+  - **首頁並列兩個日曆**：Joe 的規格是「首頁如果同時呈現，顯示兩個分開的日曆」。首頁本來就有聽力與寫作的今日任務，所以首頁依序顯示「聽力日曆＋聽力今日任務」，接著「今日寫作＋寫作日曆」（`components/writing/HomeWriting.tsx`，動態載入，只給登入者，同 D120）。兩個日曆各算各的（D214 不變）。上一個對話做到一半的「聽力日曆｜寫作日曆」分頁版本沒有採用，因為規格要的是兩個分開的日曆，不是切換（備份在對話的 scratchpad，未提交）。
+  - **日期提示**：兩個日曆滑過（或用鍵盤移到）日期時，提示顯示日期、完成任務數、練習時間、光暈等級（縮小的光暈圓點＋「光暈第 2 級：30 分鐘以上」）和完成的任務；手機點選日期時，日曆下方的內容也有同一行。螢幕閱讀器的日期名稱也加上光暈等級。寫作日曆原本沒有滑過提示，這次補上（`data-testid="writing-calendar-tip"`）。共用元件 `components/RingLevel.tsx`。
+  - **光暈規則**：寫作日曆的門檻、粗細和聽力完全相同（`lib/practice-rings.ts`、`components/practice-rings.ts`），只有顏色是藍綠色。
+- **選色理由**：藍綠色是使用者原本就能選的主題色（D93），已通過每個背景主題的 AA 測試；和橘色在色相上接近互補。色弱模擬（Machado 2009，完全二色視）下，橘色與藍綠色的色差 ΔE：紅色盲 ≥ 41、綠色盲 ≥ 55、藍色盲 ≥ 70（20 以上就明顯不同）。全色盲（只看亮度）時兩色接近，所以顏色不是唯一的線索：頁首分頁、標題、日曆名稱都寫著「聽力」「寫作」。
+- **使用者自選的主題色**：寫作區永遠是藍綠色。使用者若把網站主題色選成藍綠，聽力也會是藍綠色，這是使用者自己的選擇，不另外處理。
+- **測試**：
+  - 單元 `tests/writing-theme.test.ts`：寫作 accent 等於「藍綠」主題色；系統深色與手動深色的值相同；每個背景主題淺色、深色下，熱度格上的日期數字 ≥ 4.5:1；光暈逐級更明顯、最亮 ≥ 1.6:1；熱度色階逐級加深；三種色弱模擬下兩區的 accent、文字色、最深熱度、光暈 ΔE > 30。色弱模擬在 `lib/color-vision.ts`。
+  - `tests/components/practice-calendar.test.tsx`：日期名稱多了光暈等級。
+  - E2E `e2e/separate-calendars.spec.ts`：滑過聽力日期的提示（時間、光暈等級、任務）；`/writing` 頁首的「寫作」分頁是藍綠色；首頁有寫作日曆、連續天數、藍綠色 token、滑過提示，以及「光暈第 1 級」的讀法。
+- **要改時看哪裡**：`app/globals.css`（`[data-area="writing"]`）、`components/RingLevel.tsx`、`components/PracticeCalendar.tsx`、`components/writing/WritingCalendar.tsx`、`components/writing/HomeWriting.tsx`、`components/writing/AreaTabs.tsx`、`docs/design-system.md`（色彩 tokens 一節）。

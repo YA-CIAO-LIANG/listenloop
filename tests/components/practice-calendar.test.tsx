@@ -83,12 +83,12 @@ describe("PracticeCalendar", () => {
     expect(headers).toHaveLength(7);
     expect(headers[0]).toBe("日");
     const todayButton = screen.getByRole("button", {
-      name: `${dayName(today)}，沒有練習時間，完成 2 個任務（今天）`,
+      name: `${dayName(today)}，沒有練習時間，練習未滿 15 分鐘，沒有光暈，完成 2 個任務（今天）`,
     });
     expect(todayButton.dataset.level).toBe("2");
     expect(
       screen.getByRole("button", {
-        name: `${dayName(otherDay)}，沒有練習時間，沒有完成任務`,
+        name: `${dayName(otherDay)}，沒有練習時間，練習未滿 15 分鐘，沒有光暈，沒有完成任務`,
       }).dataset.level,
     ).toBe("0");
   });
@@ -106,14 +106,14 @@ describe("PracticeCalendar", () => {
     );
     await act(async () => {});
     const todayButton = screen.getByRole("button", {
-      name: `${dayName(today)}，練習 1 小時 12 分，沒有完成任務（今天）`,
+      name: `${dayName(today)}，練習 1 小時 12 分，光暈第 3 級：1 小時以上，沒有完成任務（今天）`,
     });
     expect(todayButton.dataset.ring).toBe("3");
     const dot = todayButton.querySelector("span")!;
     expect(dot.style.boxShadow).toContain("var(--ll-glow) 65%");
     // Under 15 minutes: no glow, but the time is still said.
     const other = screen.getByRole("button", {
-      name: `${dayName(otherDay)}，練習 14 分，沒有完成任務`,
+      name: `${dayName(otherDay)}，練習 14 分，練習未滿 15 分鐘，沒有光暈，沒有完成任務`,
     });
     expect(other.dataset.ring).toBe("0");
     expect(other.querySelector("span")!.style.boxShadow).toBe("");

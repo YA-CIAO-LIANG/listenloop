@@ -68,7 +68,7 @@ export default async function WritingPage() {
         </div>
       </header>
       <WritingTasks titles={titles} />
-      {/* Its own calendar (D201): the home page's shows both. */}
+      {/* Its own calendar (D201); the home page shows it too (D217). */}
       <WritingCalendar titles={titles} />
       <CustomPromptList />
       <Suspense fallback={null}>

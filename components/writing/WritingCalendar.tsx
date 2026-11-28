@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FocusEvent, type PointerEvent } from "react";
 import type { Activity } from "@/lib/activity";
 import { toLocalDate, type LocalDate } from "@/lib/dates";
 import { heatLevel } from "@/lib/practice-calendar";
@@ -26,6 +26,7 @@ import { Card } from "../Card";
 import { HEAT_BACKGROUND, HEAT_TEXT } from "../heat-colors";
 import { ChatIcon, PenIcon, RepeatIcon } from "../icons";
 import { glowStyle } from "../practice-rings";
+import { RingLevel, useRingText } from "../RingLevel";
 import { Skeleton } from "../Skeleton";
 import { useStores } from "../StoresProvider";
 import { useToday } from "../useToday";
@@ -147,7 +148,7 @@ export function WritingCalendar({
   const chats = useChats();
   if (!today || !log || !progresses || !chats) {
     return (
-      <Card className="space-y-4 max-split:p-4">
+      <Card className="space-y-4 max-split:p-4" data-area="writing">
         <h2 className="font-display text-h3">{t("title")}</h2>
         <p role="status" className="sr-only">
           {t("loading")}
@@ -192,6 +193,8 @@ function CalendarMonth({
     month: Number(today.slice(5, 7)) - 1,
   });
   const [selected, setSelected] = useState<LocalDate>(today);
+  const [hovered, setHovered] = useState<LocalDate | null>(null);
+  const ringText = useRingText();
 
   const dayOf = (date: LocalDate) => days.get(date) ?? EMPTY;
   const minutesOn = (date: LocalDate) => minutes.get(date) ?? 0;
@@ -220,6 +223,7 @@ function CalendarMonth({
           })
         : t("sr.noTask"),
       timeText(date),
+      ringText(minutesOn(date)),
       ...(d.essay ? [t("sr.essay")] : []),
       ...(d.chats ? [t("sr.chats", { count: d.chats })] : []),
       ...(d.extras.length ? [t("sr.extras", { count: d.extras.length })] : []),
@@ -245,9 +249,25 @@ function CalendarMonth({
       return { year: date.getFullYear(), month: date.getMonth() };
     });
   const chosen = dayOf(selected);
+  // Mouse hover shows the tooltip; touch uses the details below instead.
+  const onPointerEnter = (date: LocalDate) => (event: PointerEvent) => {
+    if (event.pointerType === "mouse") setHovered(date);
+  };
+  // Keyboard focus shows it too (not the focus a tap leaves behind).
+  const onFocus = (date: LocalDate) => (event: FocusEvent<HTMLElement>) => {
+    try {
+      if (event.currentTarget.matches(":focus-visible")) setHovered(date);
+    } catch {
+      setHovered(date);
+    }
+  };
 
   return (
-    <Card className="space-y-4 max-split:p-4" data-testid="writing-calendar">
+    <Card
+      className="space-y-4 max-split:p-4"
+      data-testid="writing-calendar"
+      data-area="writing"
+    >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h2 className="font-display text-h3">
           {t("title")}
@@ -302,15 +322,21 @@ function CalendarMonth({
                 const level = heatLevel(count);
                 const ring = ringLevel(minutesOn(date));
                 const isToday = date === today;
+                const tipId = `writing-tip-${date}`;
                 return (
-                  <td key={i} className="p-px align-top split:p-0.5">
+                  <td key={i} className="relative p-px align-top split:p-0.5">
                     <button
                       type="button"
                       aria-pressed={selected === date}
                       aria-label={summary(date)}
+                      aria-describedby={hovered === date ? tipId : undefined}
                       data-level={level}
                       data-ring={ring}
                       onClick={() => setSelected(date)}
+                      onPointerEnter={onPointerEnter(date)}
+                      onPointerLeave={() => setHovered(null)}
+                      onFocus={onFocus(date)}
+                      onBlur={() => setHovered(null)}
                       className={`mx-auto flex w-full max-w-12 flex-col items-center gap-0.5 rounded-base py-1 pointer-coarse:min-h-11 ${
                         selected === date ? "bg-ink/8" : "hover:bg-ink/5"
                       }`}
@@ -347,6 +373,24 @@ function CalendarMonth({
                         )}
                       </span>
                     </button>
+                    {hovered === date && (
+                      <div
+                        id={tipId}
+                        role="tooltip"
+                        data-testid="writing-calendar-tip"
+                        className="absolute bottom-full left-1/2 z-10 mb-1 w-max max-w-64 -translate-x-1/2 rounded-base border border-line surface-card p-3 text-left text-supporting"
+                      >
+                        <p className="mb-1 text-metadata text-ink-muted">
+                          {dayName(date)} ·{" "}
+                          {tc("tipCount", { count: d.tasks.length })}
+                        </p>
+                        <p className="mb-1">{timeText(date)}</p>
+                        <div className="mb-1">
+                          <RingLevel minutes={minutesOn(date)} />
+                        </div>
+                        <DayItems day={d} titleOf={titleOf} />
+                      </div>
+                    )}
                   </td>
                 );
               })}
@@ -402,6 +446,7 @@ function CalendarMonth({
           {selected === today ? ` · ${t("today")}` : ""}
         </h3>
         <p>{timeText(selected)}</p>
+        <RingLevel minutes={minutesOn(selected)} />
         {chosen.tasks.length === 0 &&
         chosen.extras.length === 0 &&
         chosen.chats === 0 &&
@@ -489,5 +534,47 @@ function TaskLine({ entry, title }: { entry: WritingLogEntry; title: string }) {
         </span>
       )}
     </li>
+  );
+}
+
+/** A day's writing in short, for the tooltip (no links: it closes). */
+function DayItems({
+  day,
+  titleOf,
+}: {
+  day: WritingCalendarDay;
+  titleOf: (id?: string) => string;
+}) {
+  const t = useTranslations("writingCalendar");
+  const lines = [
+    ...day.tasks.map((task) =>
+      t("taskLine", {
+        title: titleOf(task.promptId),
+        day: task.day ?? 0,
+        kind: task.day === 1 ? "essay" : task.day === 7 ? "rewrite" : "back",
+      }),
+    ),
+    ...day.extras.map((extra) =>
+      t("extraLine", {
+        title: titleOf(extra.promptId),
+        percent: extra.percent ?? 0,
+      }),
+    ),
+    ...(day.sentences ? [t("sentences", { count: day.sentences })] : []),
+    ...(day.review ? [t("reviewLine")] : []),
+    ...(day.chats ? [t("chatLine", { count: day.chats })] : []),
+  ];
+  if (lines.length === 0) return <p className="text-ink-muted">{t("none")}</p>;
+  return (
+    <ul className="space-y-1">
+      {lines.map((line, i) => (
+        <li key={i}>
+          <span aria-hidden="true" className="text-success">
+            ✓{" "}
+          </span>
+          {line}
+        </li>
+      ))}
+    </ul>
   );
 }
