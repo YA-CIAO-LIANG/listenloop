@@ -118,11 +118,11 @@
     "nextOpen": "Day {day} is open"
   },
   "calendar": {
-    "loading": "Loading the calendar…",
-    "title": "Practice calendar",
+    "loading": "Loading the listening calendar…",
+    "title": "Listening calendar",
     "previousMonth": "Previous",
     "nextMonth": "Next",
-    "caption": "Practice calendar: the darker the day, the more tasks finished; a yellow glow around the date shows the time practiced, brighter for longer; pick a day to see its tasks and time",
+    "caption": "Listening calendar: the darker the day, the more listening tasks finished; a yellow glow around the date shows the listening time practiced, brighter for longer; pick a day to see its tasks and time. Writing has its own calendar",
     "taskLine": "<video>{title}</video> · Day {day} {task}",
     "none": "No tasks finished this day",
     "dayLabel": "{date}, {time}, {count, plural, =0 {no tasks finished} one {# task finished} other {# tasks finished}}{today, select, yes { (today)} other {}}",
@@ -139,15 +139,7 @@
     "minutes": "{n} min",
     "ringLegend": "Practice time",
     "atLeastMinutes": "{n, plural, one {# minute} other {# minutes}} or more",
-    "atLeastHours": "{n, plural, one {# hour} other {# hours}} or more",
-    "filter": {
-      "label": "Calendar shows",
-      "all": "All",
-      "listening": "Listening",
-      "writing": "Writing"
-    },
-    "writingLine": "Writing: {title}, day {day}",
-    "writingPrompt": "Writing prompt"
+    "atLeastHours": "{n, plural, one {# hour} other {# hours}} or more"
   },
   "today": {
     "title": "Today’s tasks",
@@ -2827,19 +2819,19 @@
   },
   "stats": {
     "title": "Stats",
-    "intro": "Your practice time, accuracy, and progress, from the records synced between this device and your account.",
+    "intro": "Listening and writing are counted apart: each has its own practice time, streak, accuracy, and progress, from the records synced between this device and your account.",
     "loading": "Loading…",
     "unknownMaterial": "(Removed material)",
-    "streak": "Streak",
+    "streak": "Listening streak",
     "days": "{n, plural, one {# day} other {# days}}",
     "longest": "Longest {n, plural, one {# day} other {# days}}",
-    "weekMinutes": "Last 7 days",
-    "monthMinutes": "Last 30 days",
+    "weekMinutes": "Listening, last 7 days",
+    "monthMinutes": "Listening, last 30 days",
     "minutes": "{n} min",
     "started": "Materials started",
     "passed": "Materials passed",
-    "timeTitle": "Practice time a day",
-    "timeSummary": "{total} minutes over the last {days} days, practiced on {active} of them. Only time with the page in front and activity in the last 2 minutes counts.",
+    "timeTitle": "Listening time a day",
+    "timeSummary": "{total} minutes of listening over the last {days} days, practiced on {active} of them. Only time with the page in front and activity in the last 2 minutes counts; writing’s time is in the Writing section below.",
     "range": "Period",
     "ranges": {
       "week": "Week",
@@ -2885,7 +2877,8 @@
     "quizTrendTitle": "Vocabulary quiz accuracy",
     "quizTrendSummary": "{count, plural, one {# quiz} other {# quizzes}}, from {first} to {last}.",
     "quizAccuracy": "Accuracy",
-    "quizTarget": "80%"
+    "quizTarget": "80%",
+    "listeningHeading": "Listening"
   },
   "usageLimit": {
     "daily": "You've reached today's AI limit. It resets {when} (Taiwan time). What you've entered is still on the page.",
@@ -4165,10 +4158,10 @@
     }
   },
   "streak": {
-    "line": "{n, plural, one {# day} other {# days}} in a row",
+    "line": "Listening: {n, plural, one {# day} other {# days}} in a row",
     "freezesLeft": "Streak freezes: {n} left this week",
     "saved": "A streak freeze kept your streak going (you missed {date})",
-    "help": "You get one streak freeze a week. It’s used automatically when you miss a day; miss two days in a row and the streak starts over."
+    "help": "Listening only; writing has its own streak (on the Writing page). You get one streak freeze a week. It’s used automatically when you miss a day; miss two days in a row and the streak starts over."
   },
   "weeklyReport": {
     "title": "Last week’s report",
@@ -4195,7 +4188,9 @@
       "levelUp": "Your accuracy is high. Try a harder material this week.",
       "keepGoing": "Your rhythm is steady. Keep the same pace this week."
     },
-    "dismiss": "Got it"
+    "dismiss": "Got it",
+    "listening": "Listening",
+    "listeningNone": "No listening practice last week."
   },
   "priceSurvey": {
     "title": "What is Plus All-in-One worth? 4 questions",
@@ -4787,12 +4782,19 @@
       "organization": "Organization",
       "task": "Answering the task",
       "tone": "Tone and register"
-    }
+    },
+    "streak": "Writing streak",
+    "weekMinutes": "Writing, last 7 days",
+    "monthMinutes": "Writing, last 30 days",
+    "timeTitle": "Writing time a day",
+    "timeSummary": "{total} minutes of writing over the last {days} days, practiced on {active} of them.",
+    "range": "Writing time period"
   },
   "writingReport": {
     "heading": "Writing",
     "line": "{essays, plural, one {# essay} other {# essays}}, {drills, plural, one {# day} other {# days}} of back-translation",
-    "improvement": "Prompts finished this week improved by {n} points on average"
+    "improvement": "Prompts finished this week improved by {n} points on average",
+    "none": "No writing practice last week."
   },
   "writingSettings": {
     "settingsTitle": "Writing settings",
@@ -5059,7 +5061,13 @@
     "chatLine": "Chat practice, {count, plural, one {# time} other {# times}}",
     "dayAccuracy": "Average accuracy that day: {percent}%",
     "reviewLine": "Evening review",
-    "sentences": "{count, plural, one {# sentence} other {# sentences}} written back"
+    "sentences": "{count, plural, one {# sentence} other {# sentences}} written back",
+    "streak": {
+      "line": "Writing: {n, plural, one {# day} other {# days}} in a row",
+      "none": "No writing streak yet: write a little today to start one",
+      "longest": "Longest: {n, plural, one {# day} other {# days}}",
+      "help": "Writing only: days with a writing task, extra practice, a chat, the evening review, or writing time. Streak freezes work as in listening but are counted apart; listening’s streak is on the home page."
+    }
   },
   "planNames": {
     "free": "Free",

@@ -1,4 +1,13 @@
-import type { LocalDate } from "@/lib/dates";
+import type { Activity } from "@/lib/activity";
+import { lastDays } from "@/lib/analytics";
+import { addDays, type LocalDate } from "@/lib/dates";
+import {
+  daySeconds,
+  isWritingTimeId,
+  practiceMinutes,
+} from "@/lib/practice-time";
+import { reportWeek } from "@/lib/weekly-report";
+import { writingPracticeDays, type WritingCalendarDay } from "./log";
 import { masteredPatterns, type Notebook } from "./notebook";
 import { essayPercent, type EssayDay, type WritingProgress } from "./progress";
 import { RUBRICS, type CriterionId } from "./rubrics";
@@ -168,4 +177,78 @@ export function writingWeek(
       ? Math.round(changes.reduce((a, b) => a + b, 0) / changes.length)
       : null,
   };
+}
+
+/** Last week's writing on its own (D214): never added to listening's. */
+export type WritingWeeklyReport = {
+  from: LocalDate;
+  to: LocalDate;
+  /** This week's Monday: what a dismissal is remembered by. */
+  week: LocalDate;
+  /** Writing time counted ("w-" materials), in whole minutes. */
+  minutes: number;
+  /** Days with writing practice (writingPracticeDays), 0–7. */
+  days: number;
+  /** Cycle days finished. */
+  tasks: number;
+  essays: number;
+  drills: number;
+  improvement: number | null;
+};
+
+/**
+ * Last week's writing report, or null when it isn't time (reportWeek) or
+ * there was no writing last week or the week before. `days` is the
+ * writing calendar (writingCalendar).
+ */
+export function writingWeeklyReport({
+  progresses,
+  days,
+  activity,
+  today,
+}: {
+  progresses: readonly WritingProgress[];
+  days: ReadonlyMap<LocalDate, WritingCalendarDay>;
+  activity: Activity;
+  today: LocalDate;
+}): WritingWeeklyReport | null {
+  const span = reportWeek(today);
+  if (!span) return null;
+  const { week, from, to } = span;
+  const within = (date: LocalDate, a: LocalDate, b: LocalDate) =>
+    date >= a && date <= b;
+  const practiced = [...writingPracticeDays(days, activity)];
+  const count = practiced.filter((d) => within(d, from, to)).length;
+  const before = practiced.filter((d) =>
+    within(d, addDays(week, -14), addDays(week, -8)),
+  ).length;
+  if (count === 0 && before === 0) return null;
+  let seconds = 0;
+  let tasks = 0;
+  for (let i = 0; i < 7; i++) {
+    const date = addDays(from, i);
+    seconds += daySeconds(activity.days[date], isWritingTimeId);
+    tasks += days.get(date)?.tasks.length ?? 0;
+  }
+  return {
+    from,
+    to,
+    week,
+    minutes: Math.round(seconds / 60),
+    days: count,
+    tasks,
+    ...writingWeek(progresses, from, to),
+  };
+}
+
+/** Writing minutes per day for the last `count` days (D214). */
+export function writingDailyMinutes(
+  activity: Activity,
+  today: LocalDate,
+  count: number,
+): { date: LocalDate; minutes: number }[] {
+  return lastDays(today, count).map((date) => ({
+    date,
+    minutes: practiceMinutes(activity.days[date], isWritingTimeId),
+  }));
 }

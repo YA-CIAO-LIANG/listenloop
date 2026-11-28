@@ -32,8 +32,9 @@ type Range = "week" | "month";
 const RANGE_DAYS: Record<Range, number> = { week: 7, month: 30 };
 
 /**
- * The learner's stats (D75), from this device's saved progress and
- * activity (synced with the account): streaks, practice minutes a day,
+ * The learner's listening stats (D75; writing's are WritingStats, apart,
+ * D214), from this device's saved progress and activity (synced with the
+ * account): the listening streak, practice minutes a day,
  * accuracy over time (weighted and raw), Day 1 against Day 7 for each
  * material, the most misheard words, and what they practice by category
  * and level. Each chart has a data table.
@@ -104,7 +105,11 @@ export function StatsView({
   const minuteLabel = (n: number) => t("minutes", { n });
 
   return (
-    <div className="mt-8 space-y-8">
+    <section aria-labelledby="listening-stats" className="mt-8 space-y-8">
+      {/* Listening's own section (D214): writing's follows on the page. */}
+      <h2 id="listening-stats" className="font-display text-h2">
+        {t("listeningHeading")}
+      </h2>
       <dl className="grid grid-cols-2 gap-4 wide:grid-cols-4">
         <StatTile
           label={t("streak")}
@@ -345,6 +350,6 @@ export function StatsView({
           titleOf={titleOf}
         />
       </div>
-    </div>
+    </section>
   );
 }

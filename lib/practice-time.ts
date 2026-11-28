@@ -82,6 +82,16 @@ export function mergeDayTime(a: DayTime, b: DayTime): DayTime {
  */
 export const REVIEW_TIME_KEY = "review";
 
+/** The practice-time ids of writing (D187): "w-<promptId>", "w-chat". */
+export const isWritingTimeId = (id: string) => id.startsWith("w-");
+
+/**
+ * Listening's practice time (D214): every material that isn't writing's,
+ * the misheard-words review included. Listening and writing never add
+ * their time together: each has its own calendar, streak, and stats.
+ */
+export const isListeningTimeId = (id: string) => !isWritingTimeId(id);
+
 /**
  * A day's practice time in seconds, every device and material added; or
  * only the materials `which` keeps (listening or writing, D201).

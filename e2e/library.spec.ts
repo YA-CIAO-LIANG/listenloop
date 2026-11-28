@@ -116,8 +116,8 @@ test("signed in, the home page goes calendar, today's tasks, then library (D79)"
     .getByRole("heading", { level: 2 })
     .allTextContents();
   const at = (name: string) => headings.findIndex((h) => h.startsWith(name));
-  expect(at("練習日曆")).toBeGreaterThanOrEqual(0);
-  expect(at("練習日曆")).toBeLessThan(at("今日任務"));
+  expect(at("聽力日曆")).toBeGreaterThanOrEqual(0);
+  expect(at("聽力日曆")).toBeLessThan(at("今日任務"));
   expect(at("今日任務")).toBeLessThan(at("官方教材庫"));
   await expect(cards(page)).toHaveCount(3);
 });

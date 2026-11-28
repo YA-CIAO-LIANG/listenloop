@@ -43,7 +43,7 @@
     - 2 小時以上：82%，10px、3px；
     - 3 小時以上：100%，12px、4px。
   - 門檻在 `lib/practice-rings.ts`，各階的數值在 `components/practice-rings.ts`（`GLOW`）。
-- **日曆的顯示切換**（D201）：首頁的練習日曆在月份按鈕下方有一排 sm 按鈕「全部｜聽力｜寫作」（`role="group"`、`aria-pressed`），選中的用 secondary，其他用 ghost。切換時，熱度色、光暈和當天清單只計算那一類（寫作的練習時間是 `w-` 開頭的教材）。
+- **聽力與寫作的日曆分開**（D214，取代 D201 的「全部｜聽力｜寫作」切換）：首頁是「聽力日曆」，只算聽力的任務與時間（`w-` 開頭以外的教材）；`/writing` 是寫作日曆，只算寫作。寫作日曆在標題列下方顯示寫作的連續天數（`data-testid="writing-streak"`，text-supporting，次要文字用 ink-muted），樣式和首頁今日任務的聽力連續天數相同。上週學習報告分成「聽力」「寫作」兩部分，各自用 StatTile 顯示，小標題用 font-medium。學習分析頁分成「聽力」「寫作」兩個 h2 區塊。
 - **寫作日曆**（`/writing`，D201）：
   - 格子和練習日曆一樣：28px 圓點、熱度色、光暈、今天加底線；按鈕最大 48px 寬，觸控最小 44px 高。
   - 圓點下方有一排 12px 的線條圖示（accent-ink），分別是寫文章（`PenIcon`）、聊天練習（`ChatIcon`）、額外練習（`RepeatIcon`），沒有就留空。

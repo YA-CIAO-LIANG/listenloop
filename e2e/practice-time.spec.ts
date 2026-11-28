@@ -149,8 +149,11 @@ test.describe("the calendar's glow", () => {
 
     // The stats page counts the same minutes for the same days.
     await page.goto("/stats");
-    await page.getByRole("group", { name: "期間" }).getByText("月").click();
-    const time = page.getByRole("figure", { name: "每日練習時間" });
+    await page
+      .getByRole("group", { name: "期間", exact: true })
+      .getByText("月")
+      .click();
+    const time = page.getByRole("figure", { name: "每日聽力練習時間" });
     await time.getByText("查看資料表").click();
     const table = time.getByRole("table");
     for (const [date, m] of Object.entries(minutes)) {

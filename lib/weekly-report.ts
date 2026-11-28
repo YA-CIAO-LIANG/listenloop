@@ -2,7 +2,7 @@ import type { Activity } from "./activity";
 import { accuracyTrend } from "./analytics";
 import { addDays, type LocalDate } from "./dates";
 import { tasksByDate } from "./practice-calendar";
-import { daySeconds } from "./practice-time";
+import { daySeconds, isListeningTimeId } from "./practice-time";
 import type { Progress } from "./progress";
 import { REVIEW_INTERVALS } from "./review";
 import { practiceDays, weekStart } from "./streak";
@@ -10,7 +10,8 @@ import { practiceDays, weekStart } from "./streak";
 /**
  * The weekly learning report (D176): on Monday the signed-in home page
  * sums up last week (Monday to Sunday) and suggests one thing for this
- * week. Every number and rule is here; the page only shows the result.
+ * week. Listening only: writing's week is summed up on its own
+ * (writingWeeklyReport in lib/writing/analytics.ts, D214), never added in. Every number and rule is here; the page only shows the result.
  */
 export const WEEKLY_REPORT = {
   /** Shown from Monday for this many days (Mon, Tue, Wed), until dismissed. */
@@ -35,9 +36,9 @@ export type WeeklyReport = {
   to: LocalDate;
   /** This week's Monday: what a dismissal is remembered by. */
   week: LocalDate;
-  /** Practice time counted (D74), in whole minutes. */
+  /** Listening time counted (D74, not writing's: D214), in whole minutes. */
   minutes: number;
-  /** Days with practice (an official task or counted time), 0–7. */
+  /** Days with listening practice (a task or listening time), 0–7. */
   days: number;
   /** Official tasks finished. */
   tasks: number;
@@ -114,7 +115,22 @@ function suggest(report: Omit<WeeklyReport, "suggestion">): WeeklySuggestion {
 }
 
 /**
- * Last week's report, or null when it isn't time to show one (only from
+ * The week a report sums up: last Monday to Sunday, with this week's
+ * Monday (what a dismissal is remembered by); null when it isn't time to
+ * show a report (only from Monday for WEEKLY_REPORT.showDays days).
+ * Listening's report and writing's (D214) share it.
+ */
+export function reportWeek(
+  today: LocalDate,
+): { week: LocalDate; from: LocalDate; to: LocalDate } | null {
+  const week = weekStart(today);
+  if (today >= addDays(week, WEEKLY_REPORT.showDays)) return null;
+  return { week, from: addDays(week, -7), to: addDays(week, -1) };
+}
+
+/**
+ * Last week's listening report (writing has its own, D214), or null when
+ * it isn't time to show one (only from
  * Monday for WEEKLY_REPORT.showDays days) or there's nothing to report
  * (no practice last week or the week before).
  */
@@ -123,10 +139,9 @@ export function weeklyReport(
   activity: Activity,
   today: LocalDate,
 ): WeeklyReport | null {
-  const week = weekStart(today);
-  if (today >= addDays(week, WEEKLY_REPORT.showDays)) return null;
-  const from = addDays(week, -7);
-  const to = addDays(week, -1);
+  const span = reportWeek(today);
+  if (!span) return null;
+  const { week, from, to } = span;
   const previousFrom = addDays(week, -14);
   const previousTo = addDays(week, -8);
 
@@ -139,7 +154,7 @@ export function weeklyReport(
 
   let seconds = 0;
   for (let i = 0; i < 7; i++) {
-    seconds += daySeconds(activity.days[addDays(from, i)]);
+    seconds += daySeconds(activity.days[addDays(from, i)], isListeningTimeId);
   }
   let tasks = 0;
   for (const [date, list] of tasksByDate(activity, progresses)) {
