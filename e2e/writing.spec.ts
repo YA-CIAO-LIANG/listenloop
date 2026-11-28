@@ -124,6 +124,8 @@ async function wholeWeek(page: Page, role: Role, device: string) {
   // Day 1: the model stays hidden until the essay is in.
   await expect(page.getByRole("heading", { name: "範例文章" })).toHaveCount(0);
   await writeEssay(page, DAY1, role, false);
+  // The model essay only when asked for (D218).
+  await page.getByText("看範文").click();
   await expect(page.getByRole("heading", { name: "範例文章" })).toBeVisible();
   await expect(page.getByText("Not only is …, but it is also …")).toBeVisible();
 
@@ -295,6 +297,8 @@ test("save without a review, then ask the AI later (D194)", async ({
   await expect(
     page.getByText("這篇文章已儲存，沒有批改，也沒有自評。"),
   ).toBeVisible();
+  // The model essay only when asked for (D218).
+  await page.getByText("看範文").click();
   await expect(page.getByRole("heading", { name: "範例文章" })).toBeVisible();
   // Later: the AI's review, counted then.
   await page.getByRole("button", { name: "請 AI 批改" }).click();
@@ -356,6 +360,8 @@ async function toDay2(page: Page) {
     .first()
     .click();
   await page.getByRole("button", { name: "略過自評，直接儲存" }).click();
+  // The model essay only when asked for (D218).
+  await page.getByText("看範文").click();
   await expect(page.getByRole("heading", { name: "範例文章" })).toBeVisible();
   await setToday(page, day(2));
   await page.goto(`/writing/${PROMPT}/day/2`);
@@ -374,7 +380,8 @@ test("back-translation in each mode, and more practice (D195)", async ({
   await expect(
     page
       .getByRole("region", { name: "聽到的英文句子" })
-      .getByText("第 1／6 句"),
+      // As many as the learner's own corrected sentences (D218).
+      .getByText(/^第 1／\d 句$/),
   ).toBeVisible();
   const box = page.getByRole("textbox", { name: "聽到的英文句子" });
   await box.fill("I would not do anything at all");
@@ -417,14 +424,19 @@ test("read the Chinese: your corrected sentences have their meaning (D206)", asy
   await page.goto(`/writing/${PROMPT}/day/1`);
   await page.getByRole("textbox", { name: "你的文章" }).fill(DAY1);
   await page.getByRole("button", { name: "送出，取得 AI 回饋" }).click();
+  // The model essay only when asked for (D218).
+  await page.getByText("看範文").click();
   await expect(page.getByRole("heading", { name: "範例文章" })).toBeVisible();
   await page.goto("/writing/settings");
   await page.getByRole("radio", { name: /看中文 → 寫出英文/ }).check();
   await setToday(page, day(2));
   await page.goto(`/writing/${PROMPT}/day/2`);
-  // The first sentences are your own, corrected; each shows its meaning
-  // (the fake translation) instead of turning into dictation.
-  await expect(page.getByText(/^\[zh-Hant\] 譯 /).first()).toBeVisible();
+  // The sentences are your own, corrected (the version chosen, D218);
+  // each shows its meaning from the rewrite (the fake provider's)
+  // instead of turning into dictation.
+  await expect(
+    page.getByText(/^（測試）第 \d+ 句的中文意思。$/).first(),
+  ).toBeVisible();
   await expect(page.getByRole("textbox", { name: "這句的英文" })).toBeVisible();
   await expect(
     page.getByRole("textbox", { name: "聽到的英文句子" }),

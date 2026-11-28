@@ -6,12 +6,14 @@ import {
   DICTATION_MODES,
   REVIEW_MODES,
 } from "@/lib/writing/settings";
+import { REWRITE_LEVELS } from "@/lib/writing/rewrite/types";
 import { useWritingData, useWritingSettings } from "./WritingProvider";
 
 /**
  * Writing settings: what submitting an essay does by default when signed
  * in, AI review or save only (D194), the daily back-translation's mode
- * (D195), and whether extra practice uses the AI check (D200). Saved at once, in this browser and the account.
+ * (D195), the level Day 1's essay is rewritten at (D218), and whether
+ * extra practice uses the AI check (D200). Saved at once, in this browser and the account.
  */
 export function WritingSettingsForm() {
   const t = useTranslations("writingSettings");
@@ -46,6 +48,30 @@ export function WritingSettingsForm() {
               {t(`reviewModes.${mode}.label`)}
               <span className="block text-supporting text-ink-muted">
                 {t(`reviewModes.${mode}.hint`)}
+              </span>
+            </span>
+          </label>
+        ))}
+      </fieldset>
+      <fieldset className="flex flex-col gap-2">
+        <legend className="font-medium">{t("rewriteLevel")}</legend>
+        <p className="text-supporting text-ink-muted">
+          {t("rewriteLevelIntro")}
+        </p>
+        {REWRITE_LEVELS.map((level) => (
+          <label key={level} className={row}>
+            <input
+              type="radio"
+              name="writing-rewrite-level"
+              value={level}
+              checked={settings.rewriteLevel === level}
+              onChange={() => saveSettings({ ...current, rewriteLevel: level })}
+              className={radio}
+            />
+            <span>
+              {t(`rewriteLevels.${level}.label`)}
+              <span className="block text-supporting text-ink-muted">
+                {t(`rewriteLevels.${level}.hint`)}
               </span>
             </span>
           </label>

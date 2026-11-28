@@ -23,7 +23,7 @@ async function dayOne(page: Page) {
   await page
     .getByRole("textbox", { name: "你的文章" })
     .fill(
-      "My perfect weekend would start slowly. On Saturday I go to the park. We eat lunch and talk about school. My family would cook dinner together.",
+      "My perfect weekend would start slowly. On Saturday I go to the park. We eat lunch and talk about school. My family would cook dinner together. In the evening we watch a movie. On Sunday I read a good book.",
     );
   const self = page.getByRole("button", { name: "送出並自己評分" });
   const ai = page.getByRole("button", { name: "送出，取得 AI 回饋" });

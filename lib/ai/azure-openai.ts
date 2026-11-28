@@ -12,6 +12,7 @@ import {
   writingBudget,
   backCheckBudget,
   chatBudget,
+  rewriteBudget,
 } from "./budgets";
 import { WRITING_SCHEMA, writingInstructions } from "@/lib/writing/prompts";
 import { CHAT_SCHEMA, chatInstructions } from "@/lib/writing/chat/prompts";
@@ -19,6 +20,10 @@ import {
   BACK_CHECK_INSTRUCTIONS,
   BACK_CHECK_SCHEMA,
 } from "@/lib/writing/back-check/prompts";
+import {
+  REWRITE_INSTRUCTIONS,
+  REWRITE_SCHEMA,
+} from "@/lib/writing/rewrite/prompts";
 import { GUESSABLE_CATEGORIES } from "@/lib/categories";
 import { postToProvider, probeProvider } from "./http";
 import { RICH_NOTES_SCHEMA } from "./notes-schema";
@@ -106,6 +111,7 @@ export const AZURE_SCHEMAS = {
   writing: WRITING_SCHEMA,
   chat: CHAT_SCHEMA,
   "back-check": BACK_CHECK_SCHEMA,
+  rewrite: REWRITE_SCHEMA,
   translations: object({ translations: { type: "array", items: STRING } }),
   notes: RICH_NOTES_SCHEMA,
   segments: object({
@@ -337,6 +343,14 @@ export function azureOpenAiLanguage(
         BACK_CHECK_INSTRUCTIONS,
         input,
         backCheckBudget(input),
+      );
+    },
+    async rewriteEssay(input) {
+      return generate(
+        "rewrite",
+        REWRITE_INSTRUCTIONS,
+        input,
+        rewriteBudget(input),
       );
     },
     async revise(input) {

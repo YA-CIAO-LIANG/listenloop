@@ -4715,6 +4715,73 @@
       "change": "Day 30's score against Day 1: {change}.",
       "noScore": "Some days have no score: look at the words, sentence length, and word variety instead.",
       "note": "What you can still write a month later is what you've really learned. Some of the progress on the same prompt may come from remembering it, and AI scores vary, so a few points either way don't always mean real change."
+    },
+    "rewrite": {
+      "heading": "Your essay, corrected by the AI",
+      "intro": "Days 2–6 practice the correct version of your own essay. Your sentence is on one side and the corrected one on the other, with the changed words in teal and the reason for each change. Compare the levels and choose a version to practice.",
+      "signIn": "Sign in to have the AI correct your essay.",
+      "signInLink": "Sign in",
+      "levelLabel": "Rewrite level",
+      "levels": {
+        "fix": "Fix errors only",
+        "natural": "Natural",
+        "advanced": "Advanced"
+      },
+      "levelHelp": {
+        "fix": "Fix errors only: your own words and sentence patterns, with only grammar, spelling, and usage mistakes corrected.",
+        "natural": "Natural: how a native speaker would say it, with words just a little above your level.",
+        "advanced": "Advanced: richer words and structures, for a challenge."
+      },
+      "costsOne": "(asks the AI once; counts toward your AI allowance)",
+      "working": "The AI is rewriting…",
+      "start": "Have the AI correct my essay ({level})",
+      "costNote": "Each version uses the AI once and counts toward your AI allowance.",
+      "versions": "Versions so far: tap one to compare",
+      "adjusted": {
+        "easier": "{level} · easier",
+        "harder": "{level} · harder"
+      },
+      "chosenTag": "practicing",
+      "changedCount": "{changed} of {total} sentences changed",
+      "grade": "Reading level: grade {grade}",
+      "easier": "Too hard",
+      "harder": "Make it a bit harder",
+      "adjustNote": "The AI rewrites the same essay again (counts toward your AI allowance); {left} more versions possible.",
+      "noMore": "This essay has all the versions it can have: choose one of them.",
+      "chosen": "✓ You're practicing this version on days 2–6.",
+      "choose": "Practice this version",
+      "chooseNote": "The audio and daily practice are made once you choose; you can switch later.",
+      "unchanged": "No change",
+      "before": "Before",
+      "after": "After",
+      "why": "Why",
+      "errors": {
+        "signIn": "Please sign in first.",
+        "invalid": "This essay can't be rewritten: check that Day 1 has an English essay.",
+        "paused": "AI features are paused; please try again later.",
+        "suspended": "Your account can't use AI features for now.",
+        "plan": "This is over your plan's limit.",
+        "limit": "Today's AI allowance is used up; it resets tomorrow.",
+        "busy": "The AI is busy; please try again in a minute.",
+        "unavailable": "AI rewriting isn't available right now.",
+        "declined": "This doesn't look like your own English essay: write your own version first, then ask the AI.",
+        "failed": "The rewrite didn't work; please try again."
+      },
+      "gate": {
+        "heading": "First, get your practice sentences",
+        "intro": "Days 2–6 practice the correct version of the essay you wrote on Day 1. You didn't ask for an AI review on Day 1, so ask the AI to correct your essay before you start (counts toward your AI allowance).",
+        "introChoose": "The AI has corrected your essay: choose a version to practice.",
+        "useModel": "Practice the model essay instead",
+        "useModelNote": "No AI: practice this prompt's model essay sentences.",
+        "usingModel": "You chose to practice the model essay.",
+        "backToOwn": "Practice my own essay instead",
+        "guest": "Not signed in: sign in to have the AI correct your essay, or practice the model essay for now."
+      },
+      "modelToggle": "Show the model essay",
+      "modelHide": "Hide the model essay",
+      "practicing": "Today: the correct version of your own essay ({level}).",
+      "practicingModel": "Today: sentences from the model essay.",
+      "changeVersion": "Choose another version"
     }
   },
   "writingTasks": {
@@ -4855,7 +4922,23 @@
         "at": "Remind me at"
       }
     },
-    "pageIntro": "Your writing practice settings. Signed out, they stay in this browser; signed in, they go to your account too, on every device."
+    "pageIntro": "Your writing practice settings. Signed out, they stay in this browser; signed in, they go to your account too, on every device.",
+    "rewriteLevel": "Default level for the AI's rewrite of your essay",
+    "rewriteLevelIntro": "After Day 1, the AI rewrites your essay in correct English and Days 2–6 practice it. This is the level of the first rewrite; you can switch on each essay, or press “Too hard” or “Make it a bit harder”.",
+    "rewriteLevels": {
+      "fix": {
+        "label": "Fix errors only",
+        "hint": "Your own words and sentence patterns; only grammar, spelling, and usage mistakes corrected."
+      },
+      "natural": {
+        "label": "Natural (default)",
+        "hint": "How a native speaker would naturally say it, with words a little above your level."
+      },
+      "advanced": {
+        "label": "Advanced",
+        "hint": "Shows more advanced words and structures."
+      }
+    }
   },
   "writingCustom": {
     "heading": "My prompts",

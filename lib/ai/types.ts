@@ -2,6 +2,7 @@ import type { BackCheckInput } from "@/lib/writing/back-check/types";
 import type { ChatTurnInput } from "@/lib/writing/chat/types";
 import type { CompositionPrompt } from "@/lib/custom-practice/generation";
 import type { WritingReviewInput } from "@/lib/writing/prompts";
+import type { RewriteInput } from "@/lib/writing/rewrite/types";
 import type { TokenPrice } from "./pricing";
 
 /**
@@ -141,6 +142,13 @@ export interface LanguageProvider {
    * better, why }] }`. Unchecked: lib/writing/back-check/clean.ts.
    */
   checkBack?(input: BackCheckInput): Promise<Billed<unknown>>;
+  /**
+   * Day 1's essay rewritten in correct English at a level, or a step
+   * easier or harder (WritingLoop, D218): `{ declined, items: [{ i,
+   * revised, why, zh }] }`. Unchecked: lib/writing/rewrite/clean.ts
+   * checks it. Optional like reviewWriting.
+   */
+  rewriteEssay?(input: RewriteInput): Promise<Billed<unknown>>;
 }
 
 /** Sentence pairs to check (D115). */

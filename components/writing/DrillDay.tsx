@@ -18,6 +18,7 @@ import {
   pendingChecks,
   backNotebookItems,
   backTranslationItems,
+  needsPracticeChoice,
   extraBackItems,
   newRun,
   nextIndex,
@@ -45,6 +46,9 @@ import { Card } from "../Card";
 import { usePracticeTimer } from "../usePracticeTimer";
 import { WordDiffView } from "../WordDiffView";
 import { BackTranslation } from "./BackTranslation";
+import { ModelEssay } from "./ModelEssay";
+import { PracticeChoice } from "./PracticeChoice";
+import { chosenVersion } from "@/lib/writing/rewrite/state";
 import {
   CombineDrill,
   FixDrill,
@@ -82,9 +86,11 @@ type View = "day" | "summary" | "extra" | "extraDone" | ExerciseKind;
 export function DrillDay({
   prompt,
   day,
+  signedIn = false,
 }: {
   prompt: WritingPrompt;
   day: DrillDayNumber;
+  signedIn?: boolean;
 }) {
   const t = useTranslations("writing");
   const progress = useWritingProgress(prompt.id);
@@ -100,15 +106,26 @@ export function DrillDay({
   // Another view (extra practice, a drill, the result) starts at the top,
   // not where the last one was scrolled to; before the workspace fits
   // itself to the screen (its effect runs after this layout effect).
+  // Choosing the version to practice (D218) opens the day at the top too.
+  const choosing =
+    !record?.done &&
+    Boolean(progress && needsPracticeChoice(progress.days[1], progress.days));
   useLayoutEffect(() => {
     window.scrollTo({ top: 0 });
-  }, [view]);
+  }, [view, choosing]);
   usePracticeTimer(writingTimeId(prompt.id), false, {
     active: Boolean(progress) && (!record?.done || view === "extra"),
   });
   if (!progress || !settings || !notebook) return null;
   const day1 = progress.days[1];
+  // Days 2–6 practice a chosen version of the learner's essay (D218).
+  if (!record?.done && needsPracticeChoice(day1, progress.days)) {
+    return (
+      <PracticeChoice prompt={prompt} progress={progress} signedIn={signedIn} />
+    );
+  }
   const reviewed = Boolean(day1?.feedback && !day1.feedback.declined);
+  const version = chosenVersion(day1);
   const run =
     record?.back ?? newRun(backTranslationItems({ prompt, day1, day }));
   const today = () => toLocalDate(new Date());
@@ -433,7 +450,17 @@ export function DrillDay({
         promptId={prompt.id}
         run={run}
         mode={settings.dictation}
-        intro={reviewed ? t("back.fromReview") : t("back.fromModel")}
+        intro={
+          version
+            ? t("rewrite.practicing", {
+                level: t(`rewrite.levels.${version.level}`),
+              })
+            : day1?.source === "model"
+              ? t("rewrite.practicingModel")
+              : reviewed
+                ? t("back.fromReview")
+                : t("back.fromModel")
+        }
         coach={coachFor(run)}
         onExplain={explainDay}
         onAnswer={answerDay}
@@ -442,6 +469,8 @@ export function DrillDay({
           setView("summary");
         }}
       />
+      {/* The model essay only when asked for (D218). */}
+      <ModelEssay prompt={prompt} folded />
       {more}
     </div>
   );

@@ -5,8 +5,44 @@ import { test as base, type Page } from "@playwright/test";
  * `provide` is Playwright's fixture callback, usually called `use`; renamed
  * so the React hooks lint rule doesn't mistake it for React's use().
  */
-export const test = base.extend({
-  page: async ({ page, context }, provide) => {
+export const test = base.extend<{ passPracticeChoice: boolean }>({
+  /**
+   * WritingLoop's Day 2 asks which version of the essay to practice
+   * (D218). Unless a test turns this off to check that step itself, it's
+   * passed the way a learner would: signed in, have the AI correct the
+   * essay (the fake provider) and practice that; otherwise the model
+   * essay (or, a custom prompt without one, nothing to choose).
+   */
+  passPracticeChoice: [true, { option: true }],
+  page: async ({ page, context, passPracticeChoice }, provide) => {
+    if (passPracticeChoice) {
+      await page.addLocatorHandler(
+        page.getByTestId("practice-choice"),
+        async (choice) => {
+          const start = choice.getByRole("button", {
+            name: /^(請 AI 修改我的文章|Have the AI correct my essay)/,
+          });
+          const choose = choice.getByRole("button", {
+            name: /^(選這個版本來練習|Practice this version)$/,
+          });
+          const model = choice.getByRole("button", {
+            name: /^(改用範文練習|Practice the model essay instead)$/,
+          });
+          if (await start.isVisible()) await start.click();
+          if (
+            await choose
+              .waitFor({ timeout: 3_000 })
+              .then(() => true)
+              .catch(() => false)
+          ) {
+            await choose.click();
+          } else if (await model.isVisible()) {
+            await model.click();
+          }
+          await choice.waitFor({ state: "detached" });
+        },
+      );
+    }
     await context.addCookies([
       {
         name: "ll-locale",
