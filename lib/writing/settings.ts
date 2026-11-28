@@ -16,6 +16,12 @@ export const DICTATION_MODES = [
 export type DictationMode = (typeof DICTATION_MODES)[number];
 
 import {
+  DEFAULT_DAY_FORMATS,
+  parseDayFormats,
+  type DayFormat,
+  type FormatDay,
+} from "./day-formats";
+import {
   DEFAULT_REWRITE_LEVEL,
   isRewriteLevel,
   type RewriteLevel,
@@ -40,6 +46,8 @@ export type WritingSettings = {
   day30: boolean;
   /** The level Day 1's essay is first rewritten at (D218). */
   rewriteLevel: RewriteLevel;
+  /** Each of days 2–6's way of practising (D219). */
+  formats: Record<FormatDay, DayFormat>;
   /** ISO time of the last change. */
   at: string;
 };
@@ -57,6 +65,7 @@ export const DEFAULT_WRITING_SETTINGS: WritingSettings = {
   bedtimeAt: "21:30",
   day30: true,
   rewriteLevel: DEFAULT_REWRITE_LEVEL,
+  formats: { ...DEFAULT_DAY_FORMATS },
   at: new Date(0).toISOString(),
 };
 
@@ -82,6 +91,7 @@ export function parseWritingSettings(value: unknown): WritingSettings {
     rewriteLevel: isRewriteLevel(v.rewriteLevel)
       ? v.rewriteLevel
       : DEFAULT_REWRITE_LEVEL,
+    formats: parseDayFormats(v.formats),
     at:
       typeof v.at === "string" && !Number.isNaN(Date.parse(v.at))
         ? v.at

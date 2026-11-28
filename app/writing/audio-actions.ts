@@ -26,6 +26,8 @@ export type SentenceAudioUrlResult =
 export async function writingSentenceAudioUrl(
   promptId: unknown,
   text: unknown,
+  /** The learner's voice (D220); official sentences are made ahead in the female voice. */
+  voice?: unknown,
 ): Promise<SentenceAudioUrlResult> {
   if (typeof promptId !== "string" || typeof text !== "string") {
     return { ok: false, reason: "unavailable" };
@@ -49,6 +51,7 @@ export async function writingSentenceAudioUrl(
   const result = await sentenceAudio(
     { store: supabaseAudioStore(admin), speech: providers.speech, maker },
     sentence,
+    voice === "male" ? "male" : "female",
   ).catch(() => ({ ok: false as const, reason: "failed" as const }));
   if (!result.ok) {
     return {

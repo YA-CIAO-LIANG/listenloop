@@ -4275,3 +4275,35 @@ Joe 對 AI 虛擬使用者測試留下的待決定事項（D179 的 F11、F16）
     - 預設難度被記住。
   - 其他寫作 E2E 透過 `e2e/fixtures.ts` 的 `passPracticeChoice`，像使用者一樣通過第 2 天的選擇。
 - **要改時看哪裡**：`lib/writing/rewrite/`、`lib/writing/readability.ts`、`app/writing/rewrite-actions.ts`、`components/writing/RewritePanel.tsx`、`components/writing/PracticeChoice.tsx`、`lib/writing/back-translation.ts`（`rewritePool`、`needsPracticeChoice`）、`lib/ai/budgets.ts`（`rewriteBudget`）。
+
+## D219 第 2～6 天每天一種提取方式：聽與看、填空、提示逐漸減少、看中文寫英文、默寫段落（2026-11-27，Joe 指定第三項）
+
+- **決定**：第 2～6 天的預設方式依記憶科學由易到難（理由寫在 `docs/writingloop/learning-science.md` 第 17 節），集中在 `lib/writing/day-formats.ts`：
+  - 第 2 天「聽與看」：逐句播放正確版本，對照自己原本的句子，改過的字標示出來，按「下一句」；不作答，所以不算正確率（日曆與學習分析的正確率只算有作答的天）。
+  - 第 3 天「填空」：每句藏 1～3 個字（8 字以下 1 個、15 字以下 2 個、其他 3 個）。先藏 AI 改過的字，再藏最長的實詞，不藏 a、the、is 這類小字。每格比對時不分大小寫與標點。
+  - 第 4 天「提示逐漸減少」：每個字的首字母＋中文意思，寫出整句，英文聲音只在按下時播放。
+  - 第 5 天「看中文寫英文」：只有中文意思。
+  - 第 6 天「默寫段落」：一段聽完寫整段，超過 4 句的段落切成小段，一天最多 3 段。
+- **可以調整**：寫作設定的「第 2～6 天的練習方式」每天各選一種，另外保留原本的「聽寫回譯」可選（D195 的方式，依「聽寫回譯的方式」設定）。設定跟著帳號同步（`writing-settings`）。
+- **答錯的句子隔天優先**：前一個有作答的那天答錯的句子（或段落裡的句子），隔天排在最前面（`wrongBefore`）。其餘依序：AI 改過的句子、沒改的句子，每天往後輪替，一週練到全部。
+- **每天的句數**：句子形式最多 8 句（`FORMAT_SENTENCES` = `BACK_MAX`）；文章比較短時就是全部的句子。
+- **一天開始後固定**：每天的方式在開始時記在那天的練習裡（`BackRun.format`），中途改設定不影響已開始的那天。D218 之前開始的週照舊用聽寫回譯。
+- **頁面標題**：第 2～6 天的標題改成「記憶練習」，練習區的摘要與說明寫出當天的方式（伺服器不知道使用者的設定）。
+- **E2E**：大部分寫作測試是在測聽寫回譯的機制，`e2e/fixtures.ts` 的 `classicWritingDays` 預設把每天設成「聽寫回譯」（使用者也能這樣選），只在瀏覽器還沒有寫作設定時設定；`e2e/writing-formats.spec.ts` 關掉它，測五天的預設方式。
+- **測試**：單元 `tests/writing-day-formats.test.ts`；E2E `e2e/writing-formats.spec.ts`（電腦、Pixel 7）。
+- **要改時看哪裡**：`lib/writing/day-formats.ts`、`components/writing/FormatRuns.tsx`（聽與看、填空）、`components/writing/BackTranslation.tsx`（`format`）、`components/writing/DrillDay.tsx`、`components/writing/WritingSettingsForm.tsx`。
+
+## D220 播放設定設定一次就一直沿用：聽力與寫作共用（2026-11-27，Joe 指定第三項）
+
+- **決定**：每句播放次數（1～3 次）、重播間隔（1、1.5、2、3、5 秒）、播放速度（0.75／1／1.25×）、自動播放、聲音（寫作句子的女聲／男聲）、寫作的循環播放，存在 `ll-playback:v1`（`lib/playback.ts`），列入個人設定 `PERSONAL_SETTING_KEYS`。登入時跟著帳號（user_documents `settings`），未登入存在瀏覽器（D138 的機制）。
+- **套用的地方**：
+  - 寫作第 2～6 天與額外練習（`useWordSound`：次數、間隔、速度、自動播放、聲音、循環）；
+  - 聽力聽寫：每句次數與間隔（`useLoopingPlayback`）、速度；
+  - 跟讀與聆聽模式的速度。
+  - 速度只對音檔教材有效，YouTube 維持 1×（D73）。
+  - 字幕顯示方式（聆聽模式 `ll-listen:v1`）、聽寫的循環開關（`ll-loop:v1`）原本就是個人設定，維持原樣。
+  - 改寫難度與每天的練習方式在寫作設定（D218、D219）。
+- **介面**：`components/PlaybackControls.tsx`。練習頁是播放鍵旁的「播放設定」折疊（聽寫只顯示次數與間隔，速度有自己的按鈕）；`/writing/settings` 是完整表單。每處都寫「設定一次就會一直沿用」。
+- **聲音**：官方範文句子預先用女聲產生（D195）；選男聲時，登入者第一次練到才產生並計入聲音額度（Azure F0 免費字數），訪客沒有快取時用瀏覽器語音。
+- **測試**：`tests/writing-day-formats.test.ts`（解析、列入個人設定）；E2E `e2e/writing-formats.spec.ts`：在寫作設定改了之後重新整理仍在，聽力聽寫頁看到同樣的值。
+- **要改時看哪裡**：`lib/playback.ts`、`components/usePlayback.ts`、`components/PlaybackControls.tsx`、`components/useWordSound.ts`、`components/useLoopingPlayback.ts`、`lib/writing/audio.ts`（聲音）。

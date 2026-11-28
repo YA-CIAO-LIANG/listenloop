@@ -1,5 +1,6 @@
 "use client";
 
+import { usePlayback } from "./usePlayback";
 import { settingsChanged } from "@/lib/personal-settings";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
@@ -15,7 +16,7 @@ import {
   type ListenSettings,
 } from "@/lib/listen";
 import type { PracticeMaterial } from "@/lib/practice-material";
-import { DEFAULT_SPEED, type Speed } from "@/lib/speed";
+import type { Speed } from "@/lib/speed";
 import { oneLineTitle } from "@/lib/titles";
 import { Button } from "./Button";
 import { ButtonLink } from "./ButtonLink";
@@ -111,7 +112,10 @@ function Listening({
   const t = useTranslations("listen");
   const reduceMotion = usePrefersReducedMotion();
   const [settings, setSettings] = useState<ListenSettings>(readSettings);
-  const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
+  // Kept everywhere once set (D220).
+  const [kept, changePlayback] = usePlayback();
+  const speed = kept.speed;
+  const setSpeed = (next: Speed) => changePlayback({ speed: next });
   const title = oneLineTitle({ en: video.title, zh: video.titleZh ?? null });
   const listen = useListenPlayer(video, {
     rate: speed,

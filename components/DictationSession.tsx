@@ -1,5 +1,7 @@
 "use client";
 
+import { usePlayback } from "./usePlayback";
+import { PlaybackControls } from "./PlaybackControls";
 import { oneLineTitle } from "@/lib/titles";
 import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
@@ -137,7 +139,10 @@ export function DictationSession({
   const tHands = useTranslations("handsFree");
   const format = useFormatter();
   // Audio practices only (D73); YouTube videos always play at 1×.
-  const [speed, setSpeed] = useState<Speed>(DEFAULT_SPEED);
+  // Kept everywhere once set (D220).
+  const [kept, changePlayback] = usePlayback();
+  const speed = kept.speed;
+  const setSpeed = (next: Speed) => changePlayback({ speed: next });
   const player = useSentencePlayer(video, speed);
   const heardAt = player.kind === "audio" ? speed : DEFAULT_SPEED;
   usePracticeTimer(video.id, player.isPlaying);
@@ -651,6 +656,8 @@ export function DictationSession({
           {player.kind === "audio" && (
             <SpeedControl value={speed} onChange={setSpeed} />
           )}
+          {/* Plays per sentence and the pause, kept everywhere (D220). */}
+          <PlaybackControls compact only={["repeats", "gap"]} />
 
           {handsFree && (
             <HandsFreeStatus

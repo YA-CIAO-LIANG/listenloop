@@ -7,6 +7,8 @@ import {
   REVIEW_MODES,
 } from "@/lib/writing/settings";
 import { REWRITE_LEVELS } from "@/lib/writing/rewrite/types";
+import { DAY_FORMATS, FORMAT_DAYS } from "@/lib/writing/day-formats";
+import { PlaybackControls } from "../PlaybackControls";
 import { useWritingData, useWritingSettings } from "./WritingProvider";
 
 /**
@@ -17,6 +19,8 @@ import { useWritingData, useWritingSettings } from "./WritingProvider";
  */
 export function WritingSettingsForm() {
   const t = useTranslations("writingSettings");
+  const tFormats = useTranslations("writing.formats");
+  const tPlayback = useTranslations("playback");
   const stored = useWritingSettings();
   const { saveSettings } = useWritingData();
   // Before the browser reads them: the defaults, disabled, so the page
@@ -76,6 +80,43 @@ export function WritingSettingsForm() {
             </span>
           </label>
         ))}
+      </fieldset>
+      <fieldset className="flex flex-col gap-3" data-testid="day-formats">
+        <legend className="font-medium">{tFormats("settingsTitle")}</legend>
+        <p className="text-supporting text-ink-muted">
+          {tFormats("settingsIntro")}
+        </p>
+        {FORMAT_DAYS.map((day) => (
+          <label
+            key={day}
+            className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1"
+          >
+            <span>{tFormats("day", { n: day })}</span>
+            <select
+              value={settings.formats[day]}
+              onChange={(e) =>
+                saveSettings({
+                  ...current,
+                  formats: {
+                    ...settings.formats,
+                    [day]: e.target.value as (typeof DAY_FORMATS)[number],
+                  },
+                })
+              }
+              className="min-h-8 rounded-base border border-line bg-surface px-2 pointer-coarse:min-h-11"
+            >
+              {DAY_FORMATS.map((format) => (
+                <option key={format} value={format}>
+                  {tFormats(`${format}.name`)}
+                </option>
+              ))}
+            </select>
+          </label>
+        ))}
+      </fieldset>
+      <fieldset className="flex flex-col gap-2">
+        <legend className="font-medium">{tPlayback("title")}</legend>
+        <PlaybackControls />
       </fieldset>
       <fieldset className="flex flex-col gap-2">
         <legend className="font-medium">{t("dictation")}</legend>

@@ -5,7 +5,19 @@ import { test as base, type Page } from "@playwright/test";
  * `provide` is Playwright's fixture callback, usually called `use`; renamed
  * so the React hooks lint rule doesn't mistake it for React's use().
  */
-export const test = base.extend<{ passPracticeChoice: boolean }>({
+export const test = base.extend<{
+  passPracticeChoice: boolean;
+  classicWritingDays: boolean;
+}>({
+  /**
+   * Days 2–6 each have their own way since D219 (listen and read, cloze,
+   * hints, Chinese → English, paragraph). Most writing specs test the
+   * back-translation's mechanics, so they start with every day set to
+   * "back-translation" (a choice learners have too), unless a test turns
+   * this off to use the defaults. Set only when the browser has no
+   * writing settings yet, so a test's own changes stay.
+   */
+  classicWritingDays: [true, { option: true }],
   /**
    * WritingLoop's Day 2 asks which version of the essay to practice
    * (D218). Unless a test turns this off to check that step itself, it's
@@ -14,7 +26,29 @@ export const test = base.extend<{ passPracticeChoice: boolean }>({
    * essay (or, a custom prompt without one, nothing to choose).
    */
   passPracticeChoice: [true, { option: true }],
-  page: async ({ page, context, passPracticeChoice }, provide) => {
+  page: async (
+    { page, context, passPracticeChoice, classicWritingDays },
+    provide,
+  ) => {
+    if (classicWritingDays) {
+      await page.addInitScript(() => {
+        const key = "ll-writing-settings:v1";
+        if (localStorage.getItem(key) !== null) return;
+        localStorage.setItem(
+          key,
+          JSON.stringify({
+            formats: {
+              2: "dictation",
+              3: "dictation",
+              4: "dictation",
+              5: "dictation",
+              6: "dictation",
+            },
+            at: "2020-01-01T00:00:00.000Z",
+          }),
+        );
+      });
+    }
     if (passPracticeChoice) {
       await page.addLocatorHandler(
         page.getByTestId("practice-choice"),
